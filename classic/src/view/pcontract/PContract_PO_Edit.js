@@ -10,51 +10,53 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
     items: [
         {
             region: 'center',
+            layout: 'border',
             border: true,
             margin: 1,
             items:[
                 {
+                    region: 'north',
+                    height: 30,
+                    // xtype: 'treepicker',
+                    xtype: 'combobox',
+                    fieldLabel: 'Sản phẩm/Bộ:',
+                    margin: 1,
+                },
+                {
+                    region: 'center',
                     layout: 'border',
                     items:[
                         {
-                            region: 'north',
-                            height: 50,
-                            // xtype: 'treepicker',
-                            xtype: 'combobox',
-                            fieldLabel: 'Sản phẩm/Bộ:',
-                            flex: 1
+                            region: 'west',
+                            width: 225,
+                            xtype: 'PContract_PO_Edit_Info',
+                            border: true,
+                            margin: 1,
                         },
                         {
                             region: 'center',
-                            layout: 'border',
-                            items:[
-                                {
-                                    region: 'west',
-                                    width: '50%',
-                                    xtype: 'PContract_PO_Edit_Info'
-                                },
-                                {
-                                    region: 'center',
-                                    xtype: 'PContract_PO_Edit_Factories'
-                                }
-                            ]
-                        },
-                        {
-                            region: 'south',
-                            height: 200,
-                            xtype: 'PContract_PO_Edit_Price'
+                            xtype: 'PContract_PO_Edit_Factories',
+                            border: true,
+                            margin: 1,
                         }
                     ]
+                },
+                {
+                    region: 'south',
+                    height: 150,
+                    xtype: 'PContract_PO_Edit_Price',
+                    border: true,
+                    margin: 1,
                 }
             ]
         }, 
         {
-            region: 'west',
-            width: '70%',
-            xtype: 'panel',
+            region: 'east',
+            width: '60%',
+            xtype: 'PContract_porder_gantt',
             border: true,
             margin: 1,
-            hidden: true
+            // hidden: true
         },
     ],
     dockedItems:[{

@@ -13,14 +13,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onAddPOTap: function(){
         var form = Ext.create('Ext.window.Window', {
-            height: 230,
             closable: true,
             resizable: false,
             modal: true,
             border: false,
             title: 'Kế hoạch giao hàng',
             closeAction: 'destroy',
-            width: 600,
+            height: 650,
+            width: 1200,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window

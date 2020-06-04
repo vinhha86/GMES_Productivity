@@ -35,13 +35,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
         dataIndex:'name',
         flex: 1
     },{
-        text:'Năng suất đáp ứng',
+        text:'Tổ SX',
         dataIndex:'productivity',
         width: 80
     },{
-        text:'CMPT tháng',
-        dataIndex:'cmpt',
-        width: 80,
+        text:'SL',
+        dataIndex:'productivity',
+        width: 40
     }]
 });
 
