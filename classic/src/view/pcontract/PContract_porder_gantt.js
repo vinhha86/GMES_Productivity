@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     rightLabelField :  {
         dataIndex : 'mahang',
         renderer  : function(value) {
-            return value == null ? "" : "Mã hàng:" + value ;
+            return value == null ? "" : "Mã hàng: " + value ;
         }
     },
     highlightWeekends : true,
