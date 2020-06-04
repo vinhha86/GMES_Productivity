@@ -7,7 +7,7 @@
         "expanded"    : true,
         "children"    : [
             {
-                "Id"          : 1,
+                "Id"          : 11,
 				"expanded"    : true,
                 "Name"        : "Tổ 1",
                 "StartDate"   : "2020-05-05",
@@ -15,7 +15,7 @@
                 "Rollup"      : true,
 				"totalpackage" : 3000,
 				"children" : [{
-					"Id"          : 11,
+					"Id"          : 111,
 					"leaf"      : true,
 					"Name"        : "Lệnh SX 01",
 					"StartDate"   : "2020-05-05",
@@ -23,7 +23,7 @@
 					"Rollup"      : true,
 					"totalpackage" : 1000
 				},{
-					"Id"          : 12,
+					"Id"          : 112,
 					"leaf"      : true,
 					"Name"        : "Lệnh SX 02",
 					"StartDate"   : "2020-05-08",
@@ -33,7 +33,7 @@
 				}]
             },
             {
-                "Id"          : 4,
+                "Id"          : 12,
 				"expanded"    : true,
                 "Name"        : "Tổ 2",
                 "StartDate"   : "2020-05-30",
@@ -41,7 +41,7 @@
                 "Rollup"      : true,
 				"totalpackage" : 2000,
 				"children" : [{
-					"Id"          : 411,
+					"Id"          : 121,
 					"leaf"      : true,
 					"Name"        : "Lệnh SX 03",
 					"StartDate"   : "2020-05-30",
@@ -49,7 +49,7 @@
 					"Rollup"      : true,
 					"totalpackage" : 1000
 				},{
-					"Id"          : 412,
+					"Id"          : 122,
 					"leaf"      : true,
 					"Name"        : "Lệnh SX 04",
 					"StartDate"   : "2020-06-03",
@@ -59,7 +59,7 @@
 				}]
             },
             {
-                "Id"        : 5,
+                "Id"        : 13,
                 "expanded"    : true,
                 "Name"      : "Tổ 3",
                 "StartDate" : "2020-07-01",
@@ -67,7 +67,7 @@
                 "Rollup"    : true,
 				"totalpackage" : 5000,
 				"children" : [{
-					"Id"          : 511,
+					"Id"          : 131,
 					"leaf"      : true,
 					"Name"        : "Lệnh SX 05",
 					"StartDate"   : "2020-07-01",
@@ -75,7 +75,7 @@
 					"Rollup"      : true,
 					"totalpackage" : 1000
 				},{
-					"Id"          : 512,
+					"Id"          : 132,
 					"leaf"      : true,
 					"Name"        : "Lệnh SX 06",
 					"StartDate"   : "2020-07-10",
@@ -87,38 +87,89 @@
         ]
     },
 	{
-        "Id"          : 1001,
+        "Id"          : 2000,
         "StartDate"   : "2020-05-05",
         "Name"        : "Nhà máy 2",
         "EndDate"    : "2020-07-20",
         "expanded"    : true,
         "children"    : [
             {
-                "Id"          : 11,
-				"leaf"      : true,
+                "Id"          : 21,
+				"expanded"      : true,
                 "Name"        : "Tổ 1",
                 "StartDate"   : "2020-05-05",
                 "EndDate"    : "2020-05-15",
                 "Rollup"      : true,
-				"totalpackage" : 3000
+				"totalpackage" : 3000,
+				"children" : [{
+					"Id"          : 211,
+					"leaf"      : true,
+					"Name"        : "Lệnh SX 07",
+					"StartDate"   : "2020-05-05",
+					"EndDate"    : "2020-05-09",
+					"Rollup"      : true,
+					"totalpackage" : 1000
+				},{
+					"Id"          : 212,
+					"leaf"      : true,
+					"Name"        : "Lệnh SX 08",
+					"StartDate"   : "2020-05-10",
+					"EndDate"    : "2020-05-15",
+					"Rollup"      : true,
+					"totalpackage" : 2000
+				}]
             },
             {
-                "Id"          : 41,
-				"leaf"      : true,
+                "Id"          : 22,
+				"expanded"      : true,
                 "Name"        : "Tổ 2",
                 "StartDate"   : "2020-05-30",
                 "EndDate"    : "2020-06-15",
                 "Rollup"      : true,
-				"totalpackage" : 1000
+				"totalpackage" : 1000,
+				"children" : [{
+					"Id"          : 211,
+					"leaf"      : true,
+					"Name"        : "Lệnh SX 09",
+					"StartDate"   : "2020-05-30",
+					"EndDate"    : "2020-06-02",
+					"Rollup"      : true,
+					"totalpackage" : 500
+				},{
+					"Id"          : 212,
+					"leaf"      : true,
+					"Name"        : "Lệnh SX 10",
+					"StartDate"   : "2020-06-10",
+					"EndDate"    : "2020-06-15",
+					"Rollup"      : true,
+					"totalpackage" : 500
+				}]
             },
             {
-                "Id"        : 51,
-                "leaf"      : true,
+                "Id"        : 23,
+                "expanded"      : true,
                 "Name"      : "Tổ 3",
                 "StartDate" : "2020-07-10",
                 "EndDate"  : "2020-07-20",
                 "Rollup"    : true,
-				"totalpackage" : 1000
+				"totalpackage" : 1000,
+				"children" : [{
+					"Id"          : 231,
+					"leaf"      : true,
+					"Name"        : "Lệnh SX 11",
+					"StartDate"   : "2020-07-10",
+					"EndDate"    : "2020-07-13",
+					"Rollup"      : true,
+					"totalpackage" : 500
+				},{
+					"Id"          : 232,
+					"leaf"      : true,
+					"Name"        : "Lệnh SX 12",
+					"StartDate"   : "2020-07-15",
+					"EndDate"    : "2020-07-20",
+					"Rollup"      : true,
+					"totalpackage" : 500
+				}]
             }
         ]
     }
