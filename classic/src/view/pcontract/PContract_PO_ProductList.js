@@ -27,6 +27,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     },
     reference: 'PContract_DeliveryPlan_ProductList',
     columns:[{
+        text:'Tên SP',
+        xtype: 'treecolumn',
+        dataIndex:'text',
+        flex: 1
+    },{
+        text:'Mã SP',
+        dataIndex:'code',
+        width: 60
+    },{
         text:'Ảnh',
         dataIndex:'imgproduct',
         width: 50,
@@ -34,15 +43,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         renderer: function(value, meta, record){
             return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
         }
-    },{
-        text:'Mã SP',
-        dataIndex:'code',
-        width: 60
-    },{
-        text:'Tên SP',
-        xtype: 'treecolumn',
-        dataIndex:'text',
-        flex: 1
     }]    
 });
 

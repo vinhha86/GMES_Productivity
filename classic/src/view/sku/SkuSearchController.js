@@ -486,4 +486,36 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             SkuStore.loadByProduct(record.get('id'));
         }
     },
+    onCreateProduct: function(){
+        var form = Ext.create('Ext.window.Window', {
+            height: 500,
+            closable: true,
+            title: 'Thêm mới sản phẩm',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 1200,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'ProductDetailView',
+                viewModel: {
+                    data: {
+                        btnQuayLai: true
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ProductDetailView').on('CreateProduct', function () {
+            
+            form.close();
+        })
+    }
 });

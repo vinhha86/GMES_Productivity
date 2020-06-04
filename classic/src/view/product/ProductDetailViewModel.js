@@ -37,6 +37,8 @@ Ext.define('GSmartApp.view.product.ProductDetailViewModel', {
             img3:'',
             img4:'',
             img5:''
-        }
+        },
+        isWindow: false,
+        btnQuayLai: false
     }
 })

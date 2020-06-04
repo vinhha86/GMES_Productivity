@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
         minWidth: 80,
         text: 'Tạo mới',
         iconCls: 'x-fa fa-magic',
-        handler: 'onCreateSKU'
+        handler: 'onCreateProduct'
     }],    
     listeners: {
         itemclick: 'onProductItemSelected'

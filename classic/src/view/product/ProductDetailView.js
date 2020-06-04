@@ -37,7 +37,10 @@ Ext.define('GSmartApp.view.product.ProductDetailView', {
             text: 'Quay lại',
             margin: 3,
             itemId:'btnQuayLai',
-            iconCls: 'x-fa fa-backward'
+            iconCls: 'x-fa fa-backward',
+            bind: {
+                hidden: '{btnQuayLai}'
+            }
         },{
             xtype:'button',
             text: 'Định mức NPL',

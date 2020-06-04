@@ -16,12 +16,12 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
         var IdProduct = this.getViewModel().get('IdProduct');
         if (IdProduct == 0) {
             Ext.Msg.show({
-                title: 'Thông báo',
+                title: "Thông báo",
                 msg: 'Bạn phải chọn sản phẩm trước khi upload tài liệu',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             return;
         }
@@ -69,23 +69,23 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Thông báo',
+                            title: "Thông báo",
                             msg: 'Có lỗi trong quá trình tải tài liệu',
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
                     }
                 }
                 else {
                     Ext.Msg.show({
-                        title: 'Thông báo',
+                        title: "Thông báo",
                         msg: 'Có lỗi trong quá trình tải tài liệu',
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
             })

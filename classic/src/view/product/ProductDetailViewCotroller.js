@@ -25,9 +25,6 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
         }
     },
     onLuu: function () {
-        var viewInfo = Ext.getCmp('ProductInfoView');
-        var viewAttribute = Ext.getCmp('ProductAttributeView');
-        var imgView = Ext.getCmp('ProductImageView');
         var m = this;
 
         var me = this.getView();
@@ -63,23 +60,15 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
                                 yes: 'Đóng',
                             },
                             fn: function(){
-                                console.log(response.id);
-                                m.redirectTo("lsproduct/" + response.id + "/edit");
+                                if(!viewModel.get('isWindow'))
+                                    m.redirectTo("lsproduct/" + response.id + "/edit");
+                                else
+                                {
+                                    //Tạo event để form gọi lên hứng khi thêm sản phẩm thành công
+                                    m.fireEvent("CreateProduct");
+                                }
                             }
                         });
-                        
-                        // if (data.id == 0) {
-                        //     var storeAtt = viewModel.getStore('ProductAttributeValueStore');
-                        //     storeAtt.loadStore(response.id);
-                        //     var storeSKU = viewModel.getStore('SKUStore');
-                        //     storeSKU.loadStore(response.id);
-                        // }
-                        // viewmodel.set('PContract.id', response.id);
-                        // m.IdProduct = response.id;
-                        // viewInfo.IdProduct = response.id;
-                        // viewAttribute.IdProduct = response.id;
-                        // imgView.IdProduct = response.id;
-
                     }
                     else {
                         Ext.Msg.show({

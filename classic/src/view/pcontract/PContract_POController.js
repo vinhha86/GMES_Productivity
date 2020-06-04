@@ -43,6 +43,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }]
         });
         form.show();
+    },
+    onFactoriesTap: function(){
+        var form = Ext.create('Ext.window.Window', {
+            height: 600,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch các nhà máy',
+            closeAction: 'destroy',
+            width: 1000,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_porder_gantt'
+            }]
+        });
+        form.show();
     }
 });
 
