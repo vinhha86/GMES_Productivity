@@ -1,0 +1,176 @@
+Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.PContractMainViewController',
+    isActivate: false,
+    init: function () {
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractStore');
+        store.loadStore_ByPage(25, 1, "", "", 0, 0, 0);
+
+        this.onActivate();
+    },
+    control: {
+        '#PContractMainView': {
+            activate: 'onActivate',
+            itemdblclick: 'ondblClick'
+        },
+        '#btnThemMoi': {
+            click: 'onThemMoi'
+        },
+        '#orgcustomerid_link': {
+            select: 'onloadPage'
+        },
+        '#branchid_link': {
+            select: 'onloadPage'
+        }, 
+        '#seasonid_link': {
+            select: 'onloadPage'
+        },
+        '#btnTimKiem': {
+            click: 'onloadPage'
+        },
+        '#cust_contractcode': {
+            specialkey: 'onSpecialkey'
+        },
+        '#contractcode': {
+            specialkey: 'onSpecialkey'
+        },
+        '#limitpage': {
+            specialkey: 'onSpecialkey'
+        },
+    },
+    onActivate: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var KHStore = viewmodel.getStore('CustomerStore');
+        KHStore.loadStore(10, true);
+
+        var BranchStore = viewmodel.getStore('BranchStore');
+        var SeasonStore = viewmodel.getStore('SeasonStore');
+        BranchStore.loadStore(true);
+        SeasonStore.loadStore(true);
+
+        if (me.isActivate) {
+            me.onloadPage();
+        }
+        me.isActivate = true;
+
+
+    },
+    onSpecialkey: function (field, e) {
+        var me = this;
+        if (field.itemId == "limitpage") {
+            var viewmodel = this.getViewModel();
+            var store = viewmodel.getStore('PContractStore');
+            store.currentPage = 1;
+        }
+        if (e.getKey() == e.ENTER) {
+            me.onloadPage();
+        }
+    },
+    onloadPage: function () {
+        var me = this.getView();
+        var t = this;
+
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractStore');
+
+        var limit = me.down('#limitpage').getValue();
+        var cust_contractcode = me.down('#cust_contractcode').getValue();
+        var contractcode = me.down('#contractcode').getValue();
+        var orgcustomerid_link = me.down('#orgcustomerid_link').getValue();
+        var branchid_link = me.down('#branchid_link').getValue();
+        var seasonid_link = me.down('#seasonid_link').getValue();
+        var page = store.currentPage;
+
+        if (limit == null) {
+            limit = 25;
+        }
+
+        if (page == null) {
+            page = 1;
+        }
+
+        if (cust_contractcode == null) {
+            cust_contractcode = "";
+        }
+
+        if (contractcode == null) {
+            contractcode = "";
+        }
+
+        if (orgcustomerid_link == null) {
+            orgcustomerid_link = 0;
+        }
+
+        if (branchid_link == null) {
+            branchid_link = 0;
+        }
+
+        if (seasonid_link == null) {
+            seasonid_link = 0;
+        }
+
+        store.loadStore_ByPage(limit, page, cust_contractcode, contractcode, orgcustomerid_link,
+            branchid_link, seasonid_link);
+    },
+    onThemMoi: function () {
+        var me = this.getView();
+        var idpcontract = 0;
+
+        this.redirectTo("lspcontract/" + idpcontract + "/edit");
+    },
+    onEdit: function(grid, rowIndex, colIndex){
+        var rec = grid.getStore().getAt(rowIndex);
+        var id = rec.get('id');
+        this.redirectTo("lspcontract/" + id + "/edit");
+    },
+    ondblClick: function (m, record, item, index, e, eOpts) {
+        var id = record.data.id;
+        this.redirectTo("lspcontract/" + id + "/edit");
+    },
+    onXoa: function (grid, rowIndex, colIndex) {
+        var rec = grid.getStore().getAt(rowIndex);
+        var id = rec.get('id');
+
+        var params = new Object();
+        params.id = id;
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa đơn hàng "' + rec.data.name + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    GSmartApp.Ajax.post('/api/v1/pcontract/delete', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        if (success) {
+                            var response = Ext.decode(response.responseText);
+                            var store = grid.getStore();
+                            if (response.respcode != 200) {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: 'Xóa thất bại',
+                                    buttons: [{
+                                        itemId: 'cancel',
+                                        text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
+                                    }]
+                                });
+                            }
+                            else {
+                                store.removeAt(rowIndex);
+                            }
+                        }
+                    })
+                }
+            }
+        });
+
+       
+    }
+})
