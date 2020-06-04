@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
+Ext.define('GSmartApp.view.unit.UnitDetailViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.PortDetailViewCotroller',
+    alias: 'controller.UnitDetailViewController',
     Id: 0,
     init: function () {
         var me = this.getView();
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
         }
     },
     onLuu: function () {
-        var viewMain = Ext.getCmp('PortView');
+        var viewMain = Ext.getCmp('UnitView');
 
         var me = this.getView();
         me.setLoading("Đang lưu dữ liệu");
@@ -34,10 +34,10 @@ Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
         data.id = this.Id;
 
         params.data = data;
-        params.msgtype = "PORT_CREATE";
-        params.message = "Tạo cảng";
+        params.msgtype = "UNIT_CREATE";
+        params.message = "Tạo unit";
 
-        GSmartApp.Ajax.post('/api/v1/categoty/createPort', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/unit/createUnit', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
@@ -97,11 +97,11 @@ Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
     onQuayLai: function () {
         var me = this.getView();
         //me.getForm().reset();
-        this.redirectTo('port');
+        this.redirectTo('unit');
     },
     onLoadData: function (id, type) {
         var me = this;
-        var viewMain = Ext.getCmp('PortView');
+        var viewMain = Ext.getCmp('UnitView');
         var viewmodel = me.getViewModel();
         viewmodel.set('id', id);
         if (id == 0) {
@@ -124,7 +124,7 @@ Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
     loadInfo: function(id, viewmodel ){
         var params = new Object();
         params.id = id;
-        GSmartApp.Ajax.post('/api/v1/categoty/getPortById', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/unit/getUnitById', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
