@@ -1,5 +1,5 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
-    extend: 'Ext.grid.Panel',
+    extend: 'Ext.tree.Panel',
     xtype: 'PContract_PO_ProductList',
     id:'PContract_PO_ProductList',
     // controller: 'PContractSKU_ListProductViewCotroller',
@@ -13,16 +13,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         //selType: 'checkboxmodel',
         mode: 'SINGLE'
     },
-    plugins: {
-        cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            } 
-        }
-    },
+    rootVisible: false,
+    // plugins: {
+    //     cellediting: {
+    //         clicksToEdit: 1,
+    //         listeners: {
+    //             edit: 'onEdit'
+    //         } 
+    //     }
+    // },
     bind:{
-        store:'{PContractProductStore}'
+        store:'{PContractProductTreeStore}'
     },
     reference: 'PContract_DeliveryPlan_ProductList',
     columns:[{
@@ -32,51 +33,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         textAlign: 'center',
         renderer: function(value, meta, record){
             return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
-        },
-        listeners:{
-            click: 'viewImg'
         }
     },{
         text:'Mã SP',
-        dataIndex:'productCode',
+        dataIndex:'code',
         width: 60
     },{
         text:'Tên SP',
-        dataIndex:'productName',
+        xtype: 'treecolumn',
+        dataIndex:'text',
         flex: 1
-    }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
-        padding: '0 0 10 5',
-        height: 35,
-        items:[
-            {
-                xtype      : 'fieldcontainer',
-                defaultType: 'radiofield',
-                cls: 'boldlabel',
-                defaults: {
-                    flex: 1
-                },
-                layout: 'hbox',
-                items: [
-                    {
-                        boxLabel  : 'Sản phẩm (Style)',
-                        name: 'productlist',
-                        id        : 'chkStyleSelect',
-                        inputValue: '0',
-                        checked: true
-                    }, {
-                        boxLabel  : 'Bộ sản phẩm (Set)',
-                        name: 'productlist',
-                        id        : 'chkSetSelect',
-                        inputValue: '1',
-                        margin: '0 0 0 5',
-                    }
-                ],
-                listeners: {change:'onCheckStatusChange'}          
-            }
-		]
     }]    
 });
 
