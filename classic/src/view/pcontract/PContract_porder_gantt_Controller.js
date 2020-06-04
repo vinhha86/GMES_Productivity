@@ -366,5 +366,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                         });
                     }
                 })
-    }
+    },
+    onShowPO: function(){
+        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
+        var panel_po = this.getView().up().items.get('panel_po');
+        if (null != panel_po){
+            if (panel_po.getHidden())
+            panel_po.setHidden(false);
+            else
+            panel_po.setHidden(true);
+        }
+    },   
 })

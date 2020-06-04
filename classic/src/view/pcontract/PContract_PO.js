@@ -97,14 +97,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
 			tooltip: 'Thêm kế hoạch giao hàng',
             iconCls: 'x-fa fa-plus',
             handler: 'onAddPOTap',
-        },{
-            xtype:'button',
-            itemId:'btnShowFactory',
-            ui: 'header',
-			tooltip: 'Xem năng suất nhà máy',
-            iconCls: 'x-fa fa-industry',
-            handler: 'onFactoriesTap',
-        }]
+        },
+        // {
+        //     xtype:'button',
+        //     itemId:'btnShowFactory',
+        //     ui: 'header',
+		// 	tooltip: 'Xem năng suất nhà máy',
+        //     iconCls: 'x-fa fa-industry',
+        //     handler: 'onFactoriesTap',
+        // }
+        ]
     }]
 });
 

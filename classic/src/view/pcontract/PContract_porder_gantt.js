@@ -122,5 +122,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         me.endDate  = Sch.util.Date.add(startdate, Sch.util.Date.WEEK, 12);
         
         this.callParent(arguments);
-    }
+    },
+    dockedItems: [{
+        xtype: 'toolbar',
+        dock: 'top',
+        items: [
+            {
+                xtype: 'button',
+                tooltip: 'Kế hoạch giao hàng',
+                iconCls: 'x-fa fa-sliders',
+                weight: 30,
+                handler: 'onShowPO',
+            },
+            '->'
+            ,
+            {
+                xtype: 'button',
+                tooltip: 'Phóng to',
+                // text: 'Zoom in',
+                iconCls: 'x-fa fa-search-plus',
+                weight: 30,
+                handler: 'onZoomIn',
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Thu nhỏ',
+                // text: 'Zoom out',
+                iconCls: 'x-fa fa-search-minus',
+                weight: 30,
+                handler: 'onZoomOut',
+            }
+        ]
+    }],    
 });

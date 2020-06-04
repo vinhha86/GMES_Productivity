@@ -46,44 +46,21 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             format: 'd/m/Y',
         }, 
         {
+            xtype: 'datefield',
+            fieldLabel: 'Ngày VC:',
+            labelAlign: 'left',
+            labelWidth: 90,
+            width: 220,
+            margin: 1,
+            format: 'd/m/Y',
+        }, 
+        {
             xtype: 'numberfield',
-            fieldLabel: 'Giá CMPT:',
+            fieldLabel: 'Số ngày SX:',
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
             margin: 1
         }, 
-        {
-            xtype: 'numberfield',
-            fieldLabel: 'Giá FOB:',
-            labelAlign: 'left',
-            labelWidth: 90,
-            width: 220,
-            margin: 1
-        }, 
-        {
-            xtype: 'numberfield',
-            fieldLabel: 'Tổng giá chào:',
-            labelAlign: 'left',
-            labelWidth: 90,
-            width: 220,
-            margin: 1
-        }, 
-        {
-            xtype: 'numberfield',
-            fieldLabel: 'Sewing Target:',
-            labelAlign: 'left',
-            labelWidth: 90,
-            width: 220,
-            margin: 1
-        },
-        {
-            xtype: 'numberfield',
-            fieldLabel: 'Sewing Fact:',
-            labelAlign: 'left',
-            labelWidth: 90,
-            width: 220,
-            margin: 1
-        },
     ]
 })
