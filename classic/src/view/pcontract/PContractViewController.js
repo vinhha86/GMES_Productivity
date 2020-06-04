@@ -37,6 +37,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         }
         else {
             viewmodel.set('ishiddenActionColumn', false);
+            if(newCard.xtype == 'PContract_PO_Main'){
+                var storeproduct = viewmodel.getStore('PContractProductTreeStore');
+                storeproduct.loadStore(viewmodel.get('PContract.id'));
+            }
         }
     },
     onLoadData: function (id, type) {

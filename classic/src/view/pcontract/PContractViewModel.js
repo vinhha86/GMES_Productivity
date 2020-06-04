@@ -16,7 +16,8 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
             'GSmartApp.store.unit.UnitStore',
             'GSmartApp.store.pcontract.PContractProductPairStore',
             'GSmartApp.store.pcontract.PContractBomColorStore',
-            'GSmartApp.store.org.ListOrgStore',],
+            'GSmartApp.store.org.ListOrgStore',
+            'GSmartApp.store.pcontract.PContractProductTreeStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -80,6 +81,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         },
         porders: {
             type: 'porderfilter'
+        },
+        PContractProductTreeStore: {
+            type: 'PContractProductTreeStore'
         }
     },
     data:{
