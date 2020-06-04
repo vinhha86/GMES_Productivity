@@ -19,6 +19,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
             return value == null ? "" : "SL:" + value ;
         }
     },
+    rightLabelField :  {
+        dataIndex : 'mahang',
+        renderer  : function(value) {
+            return value == null ? "" : "Mã hàng:" + value ;
+        }
+    },
     highlightWeekends : true,
     skipWeekendsDuringDragDrop: false,
     allowParentTaskMove : false,
@@ -80,12 +86,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     '<li><strong>Đến ngày: </strong>{[values._record.getDisplayEndDate("d-m-Y")]}</li>' +
     '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
     '</ul>',
-    taskBodyTemplate : '<ul class="tasktemp" 111>'+'</ul>' ,
+    taskBodyTemplate : '<div style="width:100px" unselectable="on">{values}</div>',
     columns    : [
         {
             xtype: 'namecolumn',
             text: 'Kế hoạch sản xuất',
-            width: 300
+            width: 200
         }
     ],
     eventRenderer : function (taskRecord) {
@@ -103,10 +109,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     listeners : {
         // Setup a time header tooltip after rendering
         render : 'render',
-        rowcontextmenu: 'onContextMenu',
-        itemdblclick: 'onitemdblclick',
-        aftertaskresize: 'onaftertaskresize',
-        aftertaskdrop: 'onaftertaskdrop'
+        // rowcontextmenu: 'onContextMenu',
+        // itemdblclick: 'onitemdblclick',
+        // aftertaskresize: 'onaftertaskresize',
+        // aftertaskdrop: 'onaftertaskdrop'
     },
     initComponent: function() {
         var me = this;
