@@ -7,7 +7,9 @@
         "expanded"    : true,
         "children"    : [
             {
-                "Id"          : 11,
+				"Id"          : 11,
+				"parentOrgId"    : 1,
+				"parentName"  : "Nhà máy 1",
 				"expanded"    : false,
                 "Name"        : "Tổ 1",
                 "StartDate"   : "2020-05-05",
@@ -107,7 +109,9 @@
 				}]
             },
             {
-                "Id"          : 12,
+				"Id"          : 12,
+				"parentOrgId"    : 1,
+				"parentName"  : "Nhà máy 1",				
 				"expanded"    : false,
                 "Name"        : "Tổ 2",
                 "StartDate"   : "2020-05-30",
@@ -135,7 +139,9 @@
 				}]
             },
             {
-                "Id"        : 13,
+				"Id"        : 13,
+				"parentOrgId"    : 1,
+				"parentName"  : "Nhà máy 1",						
                 "expanded"    : false,
                 "Name"      : "Tổ 3",
                 "StartDate" : "2020-07-01",
@@ -173,7 +179,9 @@
         "expanded"    : true,
         "children"    : [
             {
-                "Id"          : 21,
+				"Id"          : 21,
+				"parentOrgId"    : 2,
+				"parentName"  : "Nhà máy 2",						
 				"expanded"      : false,
                 "Name"        : "Tổ 1",
                 "StartDate"   : "2020-05-05",
@@ -201,7 +209,9 @@
 				}]
             },
             {
-                "Id"          : 22,
+				"Id"          : 22,
+				"parentOrgId"    : 2,
+				"parentName"  : "Nhà máy 2",		
 				"expanded"      : false,
                 "Name"        : "Tổ 2",
                 "StartDate"   : "2020-05-30",
@@ -229,7 +239,9 @@
 				}]
             },
             {
-                "Id"        : 23,
+				"Id"        : 23,
+				"parentOrgId"    : 2,
+				"parentName"  : "Nhà máy 2",		
                 "expanded"      : false,
                 "Name"      : "Tổ 3",
                 "StartDate" : "2020-07-10",

@@ -4,9 +4,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
     layout: 'border',
     controller: 'PContract_PO_Edit_Controller',
     // requires: ['Ext.ux.TreePicker'],
-    // viewModel: {
-    //     type: 'PlanEdit_ViewModel'
-    // },
+    viewModel: {
+        type: 'PContract_PO_Edit_ViewModel'
+    },
     items: [
         {
             region: 'west',

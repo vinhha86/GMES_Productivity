@@ -3,9 +3,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
     alias: 'viewmodel.PContract_PO_Edit_ViewModel',
     requires: ['GSmartApp.store.unit.UnitStore'],
     stores:{
-        // UnitStore: {
-        //     type: 'UnitStore'
-        // },
+        OrgGrantedStore: {
+            type: 'POrderGrant'
+        },
         // SKUStore: {
         //     type: ''
         // }

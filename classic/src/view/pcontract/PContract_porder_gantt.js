@@ -30,14 +30,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     allowParentTaskMove : false,
     loadMask          : true,
     rowHeight         : 35,
-    isDroppable        : false,
-    draggable: false,
+    enableTaskReordering : false,
+    // isDroppable        : false,
+    // draggable: false,
     resizeConfig             : {
         showDuration : true
     },
-    viewConfig  : {
-        trackOver : false
-    },
+    viewConfig: {
+        trackOver : false,
+        plugins: {
+            ptype: 'treeviewdragdrop',
+            enableDrag: true,
+            dragText: '{0} Phân lệnh xuống nhà máy',
+            dragGroup: 'secondGridDDGroup',
+            dropGroup: 'firstGridDDGroup'
+        },
+        listeners: {
+            //drop: 'onDrop',
+            //beforedrop: 'onBeforeDrop'
+        }        
+     },      
     border                   : true,
     enableProgressBarResize  : true,
     enableTaskDragDrop  : true,
@@ -153,5 +165,5 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                 handler: 'onZoomOut',
             }
         ]
-    }],    
+    }]    
 });

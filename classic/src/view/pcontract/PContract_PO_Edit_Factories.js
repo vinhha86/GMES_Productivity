@@ -8,7 +8,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
         stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        plugins: {
+            ptype: 'gridviewdragdrop',
+            enableDrag: false,
+            //dragText: '{0} Mã sản xuất được tính lương',
+            dragGroup: 'firstGridDDGroup',
+            dropGroup: 'secondGridDDGroup'
+        },
+        listeners: {
+            drop: 'onDropOrg',
+            beforedrop: 'onBeforeDropOrg'
+        }          
     },
     plugins: {
         cellediting: {
@@ -28,20 +39,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
         mode: 'SINGLE'
     },
     bind:{
-        store:'{PContractSKUStore}'
+        store:'{OrgGrantedStore}'
     },
     columns:[{
         text:'Phân xưởng',
-        dataIndex:'name',
+        dataIndex:'granttoorg_name',
         flex: 1
     },{
         text:'Tổ SX',
-        dataIndex:'productivity',
+        dataIndex:'granttoline_name',
         width: 80
     },{
         text:'SL',
-        dataIndex:'productivity',
-        width: 40
+        dataIndex:'grantamount',
+        width: 40,
+        summaryType: 'sum', 
+        // summaryRenderer: 'renderSum'
     }]
 });
 

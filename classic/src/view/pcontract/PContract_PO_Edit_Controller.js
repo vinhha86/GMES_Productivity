@@ -115,5 +115,40 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
             });
         }
         
-    }
+    },
+    onDropOrg: function(node, data, dropRec, dropPosition){
+        // console.log(data.records[0].get('Id'));
+        // console.log(data.records[0].get('Name'));
+        // console.log(data.records[0].get('parentOrgId'));
+        // console.log(data.records[0].get('parentName'));
+        // var OrgGrantedStore = this.getViewModel().getStore('OrgGrantedStore');
+        // OrgGrantedStore.add(
+        //     {
+        //         granttoorgid_link: data.records[0].get('parentOrgId'),
+        //         granttoorg_name: data.records[0].get('parentName'),
+        //         granttolineid_link: data.records[0].get('Id'),
+        //         granttoline_name: data.records[0].get('Name'),
+        //     }
+        // );
+        data.records[0].set('granttoorg_name',data.records[0].get('parentName'));
+        data.records[0].set('granttoline_name',data.records[0].get('Name'));
+        data.records[0].set('grantamount',0);
+    },    
+    onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
+        dropHandlers.wait = true;
+        var OrgGrantedStore = this.getViewModel().getStore('OrgGrantedStore');
+        console.log(data.records[0].get('Id'));
+        var orgRec = OrgGrantedStore.findRecord('granttolineid_link', data.records[0].get('Id'));
+
+        if (null == orgRec) {
+            dropHandlers.processDrop();
+        } else {
+            Ext.Msg.show({ 
+                title: 'Phân chuyền',
+                msg: 'Tổ chuyền đã được chọn'
+                });            
+            dropHandlers.cancelDrop();
+        }
+        
+    }    
 })
