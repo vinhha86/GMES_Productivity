@@ -18,12 +18,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         }
     },
     bind: {
-        store: '{PContractProductBomStore}',
+        store: '{PriceStore}',
         title: '{title}'
     },
     columns: [{
-        text: 'Công đoạn',
-        dataIndex: 'Name',
+        text: 'Tên giá',
+        dataIndex: 'fobprice_name',
         flex:1
     },{
         text: 'Giá chào',
@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         width: 70
     },{
         text: 'FOB',
+        xtype: 'checkcolumn',
         dataIndex: 'isfob',
         width: 45
     },{
@@ -66,7 +67,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
 		,
 		{
             xtype:'button',
-            itemId:'btnThemMoi',
+            itemId:'btnThemMoiGia',
             ui: 'header',
             margin: '10 5 0 0',
 			tooltip: 'Thêm chi tiết giá',
