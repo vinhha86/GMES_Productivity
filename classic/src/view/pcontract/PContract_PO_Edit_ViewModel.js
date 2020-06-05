@@ -1,7 +1,9 @@
 Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContract_PO_Edit_ViewModel',
-    requires: ['GSmartApp.store.unit.UnitStore', 'GSmartApp.store.pcontract.PContract_PO_Price_Store'],
+    requires: ['GSmartApp.store.unit.UnitStore', 
+    'GSmartApp.store.pcontract.PContract_PO_Price_Store',
+    'GSmartApp.store.product.ProductStore'],
     stores:{
         OrgGrantedStore: {
             type: 'POrderGrant'
@@ -11,6 +13,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         },
         PriceStore: {
             type: 'PContract_PO_Price_Store'
+        },
+        ProductStore: {
+            type: 'ProductStore'
         }
     },
     data: {
@@ -33,6 +38,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
             timecreate: '',
             productiondays: 0
         },
-        parentId : 0
+        parentId : 0,
+        productpairid_link: 0,
+        pcontractid_link: 0
     }
 })

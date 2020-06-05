@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         ,
         {
             xtype: 'combobox',
-            width: 120,
+            width: 150,
             cls: 'inputBoxNarror',
             editable: false,
             fieldLabel: 'Loại tiền:',
@@ -86,7 +86,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             xtype: 'textfield',
             width: 120,
             cls: 'inputBoxNarror',
-            editable: false,
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
         },             

@@ -103,6 +103,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         isReadOnlycmbSanPham: false, // binding thuộc tính được chọn combo sản phẩm hay ko
         ishiddenActionColumn: false,
         ordercode: '',
-        orderdate: new Date()
+        orderdate: new Date(),
+        productpairid_link: 0
     }
 })
