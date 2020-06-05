@@ -5,5 +5,15 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         
     },
     control:{
+        'PContract_POList': {
+            itemclick: 'onSelectPO'
+        }
+    },
+    onSelectPO: function(m, rec){
+        var viewModel = this.getViewModel();
+        var productid_link = rec.data.productid_link;
+
+        var productStore = viewModel.getStore('PContractProductStore');
+        productStore.loadStore_bypairid(productid_link);
     }
 })

@@ -14,7 +14,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     labelAlign: 'left',
                     labelWidth: 75,
                     width: 155,
-                    margin: 1
+                    margin: 1,
+                    bind: {
+                        value: '{plan.cmpt_price}'
+                    }
                 }, 
                 {
                     xtype: 'numberfield',
@@ -38,7 +41,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     labelAlign: 'left',
                     labelWidth: 70,
                     width: 155,
-                    margin: 1
+                    margin: 1,
+                    bind: {
+                        value: '{plan.fob_price}'
+                    }
                 }, 
                 {
                     xtype: 'numberfield',
@@ -62,7 +68,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     labelAlign: 'left',
                     labelWidth: 70,
                     width: 155,
-                    margin: 1
+                    margin: 1,
+                    bind: {
+                        value: '{plan.total_price}'
+                    }
                 }, 
                 {
                     xtype: 'numberfield',

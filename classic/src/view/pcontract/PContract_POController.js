@@ -4,6 +4,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     control: {
         'PContract_PO_ProductList': {
             itemclick: 'onSelectProduct'
+        },
+        'PContract_POList': {
+            itemclick: 'onSelectPO'
         }
     },
     onFactoriesTap: function(){
@@ -69,6 +72,49 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
 
         var storePO = viewModel.getStore('PContractProductPOStore');
         storePO.loadStore(viewModel.get('PContract.id'), viewModel.get('productpairid_link'));
+    },
+    onSelectPO: function(m, rec){
+        var viewModel = this.getViewModel();
+        console.log(rec.data);
+        var productid_link = rec.data.productid_link;
+
+        var productStore = viewModel.getStore('PContractProductStore');
+        productStore.loadStore_bypairid(productid_link);
+    },
+    onEdit: function(grid, rowIndex, colIndex){
+        var rec = grid.getStore().getAt(rowIndex);
+        var viewModel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch giao hàng',
+            closeAction: 'destroy',
+            height: 650,
+            width: 1200,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_PO_Edit',
+                viewModel: {
+                    data: {
+                        productpairid_link: viewModel.get('productpairid_link'),
+                        pcontractid_link: viewModel.get('PContract.id'),
+                        plan: {
+                            id: rec.data.id,
+                            pcontractid_link: viewModel.get('PContract.id'),
+                            productid_link: viewModel.get('productpairid_link')
+                        }
+                    }
+                }
+            }]
+        });
+        form.show();
     }
 });
 

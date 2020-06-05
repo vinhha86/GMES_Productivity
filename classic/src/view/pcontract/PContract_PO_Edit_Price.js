@@ -11,10 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            } 
+            clicksToEdit: 1 
         }
     },
     bind: {
@@ -28,11 +25,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },{
         text: 'Giá chào',
         dataIndex: 'price',
-        width: 70
+        width: 70,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                allowBlank: false,
+                blankText: 'Không được để trống'
+            }
+        }
     },{
         text: 'Giá vốn',
         dataIndex: 'cost',
-        width: 70
+        width: 70,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                allowBlank: false,
+                blankText: 'Không được để trống'
+            }
+        }
     },{
         text: 'FOB',
         xtype: 'checkcolumn',
@@ -73,7 +86,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             fieldLabel: 'Loại tiền:',
             labelWidth : 60,
             bind:{
-                store:'{CurrencyStore}'
+                store:'{CurrencyStore}',
+                value: '{plan.currencyid_link}'
             },
             displayField: 'name',
             valueField: 'id',
@@ -88,6 +102,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             cls: 'inputBoxNarror',
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
+            bind: {
+                value: '{plan.exchangerate}'
+            }
         },             
 		{
             xtype:'button',
