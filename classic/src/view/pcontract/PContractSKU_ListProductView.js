@@ -38,11 +38,11 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
         }
     },{
         text:'Mã SP',
-        dataIndex:'productCode',
+        dataIndex:'code',
         width: 60
     },{
         text:'Tên SP',
-        dataIndex:'productName',
+        dataIndex:'name',
         flex: 1
     },{
         text:'SL',

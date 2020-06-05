@@ -6,6 +6,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
         var productStore = viewmodel.getStore('ProductStore');
         var productid_link = viewmodel.get('productpairid_link');
         productStore.loadStore_bypairid(productid_link);
+
+        if(viewmodel.get('plan.id') > 0){
+            this.getInfo(viewmodel.get('plan.id'));
+        }
     },
     control: {
         '#btnThoat': {
@@ -19,23 +23,23 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
         }
     },
     getInfo: function(id){
-        if(id != 0){
-            var viewmodel = this.getViewModel();
+        var viewmodel = this.getViewModel();
 
             var params = new Object();
             params.id = id;
-            GSmartApp.Ajax.post('/api/v1/plan/getinfo', Ext.JSON.encode(params),
+            GSmartApp.Ajax.post('/api/v1/pcontract_po/getone', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                    
                     if(response.respcode == 200){
-                        console.log(response.data);
                         viewmodel.set('plan', response.data);
+                        var store = viewmodel.getStore('PriceStore');
+                        store.removeAll();
+                        store.insert(0 , response.data.listprice);
                     }
                 }
             })
-        }
     },
     onThoat: function(){
         this.getView().up('window').close();
@@ -70,7 +74,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
                                 msg: 'Lưu thành công',
                                 buttons: Ext.MessageBox.YES,
                                 buttonText: {
-                                    yes: 'Đóng',
+                                    yes: 'Đóng'
+                                },
+                                fn: function(){
+                                    me.getInfo(response.id);
                                 }
                             });
                         }
@@ -164,8 +171,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
                 if(rec == null) {
                     var newRec = new Object({
                         fobprice_name : data.name,
+                        fobpriceid_link: data.id,
                         price : 0,
-                        cost: 0
+                        cost: 0,
+                        productid_link: viewmodel.get('productpairid_link')
                     })
                     storePrice.insert(0 , newRec);
                 }
@@ -176,9 +185,20 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
     getListPrice: function(){
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
-        console.log(priceStore);
-        var list = [];
 
+        var list = [];
+        for(var i =0; i<priceStore.data.length; i++){
+            var data = priceStore.data.items[i].data;
+            var price = new Object();
+            price.productid_link = data.productid_link;
+            price.price = data.price;
+            price.cost = data.cost;
+            price.isfob = data.isfob == null ? false : data.isfob;
+            price.status = 0;
+            price.fobpriceid_link = data.fobpriceid_link;
+
+            list.push(price);
+        }
         return list;
     }
 })

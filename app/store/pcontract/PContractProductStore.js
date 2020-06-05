@@ -19,6 +19,40 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
         direction: 'ASC',
         property: 'productid_link'
 	}],
+	loadStore_bypairid:function(id){
+		var me=this;
+		var params = new Object();
+		params.product_pairid_link = id;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/product/get_by_pairid',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
 	loadStore: function(pcontractid_link){
 		var me=this;
 		var params = new Object();
