@@ -1,14 +1,14 @@
 Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContract_PO_Edit_ViewModel',
-    requires: ['GSmartApp.store.unit.UnitStore'],
+    requires: ['GSmartApp.store.unit.UnitStore', 'GSmartApp.store.pcontract.PContract_PO_Price_Store'],
     stores:{
         OrgGrantedStore: {
             type: 'POrderGrant'
         },
-        // SKUStore: {
-        //     type: ''
-        // }
+        PriceStore : {
+            type: 'PContract_PO_Price_Store'
+        }
     },
     data: {
         plan: {
@@ -21,14 +21,17 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
             productid_link: null,
             po_quantity: 0,
             unitid_link: null,
-            shipdate : null,
-            matdate: null,
+            shipdate : null, //Ngày giao
+            matdate: null, //Ngày NPL về
             etm_avr: 0,
-            productiondate: null,
+            productiondate: null, //Ngày VC
             packingnotice: '',
             usercreatedid_link: 0,
-            timecreate: ''
+            timecreate: '',
+            production_day: 0
         },
-        parentId : 0
+        parentId : 0,
+        pcontractid_link: 0,
+        productid_link: 0
     }
 })
