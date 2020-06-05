@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 padding: 5
             },
             items: [{
-                xtype: 'PContract_PO_Edit'
+                xtype: 'PContract_PO_Edit',
                 viewModel: {
                     data: {
                         plan: {

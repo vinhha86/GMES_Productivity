@@ -55,6 +55,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
         width: 40,
         summaryType: 'sum', 
         // summaryRenderer: 'renderSum'
+        editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false}
     }]
 });
 
