@@ -43,14 +43,16 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         summaryRenderer: function (value, summaryData, dataIndex) {
             return '<div style="color:red; font-weight: bold; align: right">'+ 'Tổng';
         }
-    },{
-        text:'Mã vạch',
-        dataIndex:'skuBarCode',
-        flex: 1
-    },{
+    },
+    // {
+    //     text:'Mã vạch',
+    //     dataIndex:'skuBarCode',
+    //     flex: 1
+    // },
+    {
         text:'Màu',
         dataIndex:'mauSanPham',
-        width: 120
+        width: 100
     },{
         text:'Cỡ',
         dataIndex:'coSanPham',

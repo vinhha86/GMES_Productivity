@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
     },{
         text:'SL',
         dataIndex:'grantamount',
-        width: 40,
+        width: 50,
         summaryType: 'sum', 
         // summaryRenderer: 'renderSum'
         editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false}

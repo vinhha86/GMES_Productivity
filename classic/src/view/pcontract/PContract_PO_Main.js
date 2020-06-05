@@ -3,6 +3,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
     xtype: 'PContract_PO_Main',
     id: 'PContract_PO_Main',
     controller: 'PContract_POController',    
+    viewModel: {
+        type: 'PContract_POViewModel'
+    },    
     IdProduct: 0,
     pcontractid_link: 0,
     layout: 'border',

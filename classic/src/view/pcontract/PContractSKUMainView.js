@@ -13,9 +13,23 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainView', {
         margin: 1
     }, {
         region: 'west',
-        xtype: 'PContractSKU_ListProductView',
-        border: true,
-        margin: 1,
-        width: '30%'
+        width: '50%',
+        layout: 'border',
+        items:[
+            {
+                region: 'west',
+                width: '50%',
+                xtype: 'PContract_POList',
+                border: true,
+                margin: 1,
+            },
+            {
+                region: 'west',
+                width: '50%',
+                xtype: 'PContractSKU_ListProductView',
+                border: true,
+                margin: 1,
+            }            
+        ]
     }]
 })
