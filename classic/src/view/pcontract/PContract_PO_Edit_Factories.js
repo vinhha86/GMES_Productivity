@@ -24,9 +24,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
     plugins: {
         cellediting: {
             clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            } 
+            // listeners: {
+            //     edit: 'onEdit'
+            // } 
         }
     },
     features: [{
