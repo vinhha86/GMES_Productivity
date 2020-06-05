@@ -83,7 +83,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             width: 220,
             margin: 1,
             bind: {
-                value: '{plan.productiondate}'
+                value: '{plan.productiondays}'
             }
         }, 
     ]

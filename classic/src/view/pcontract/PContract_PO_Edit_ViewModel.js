@@ -30,7 +30,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
             productiondate: null,
             packingnotice: '',
             usercreatedid_link: 0,
-            timecreate: ''
+            timecreate: '',
+            productiondays: 0
         },
         parentId : 0
     }
