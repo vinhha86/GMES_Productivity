@@ -1,6 +1,11 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POController',
+    control: {
+        '#PContract_PO_ProductList': {
+            select: 'onSelectProduct'
+        }
+    },
     onFactoriesTap: function(){
         var panel_factories = this.getView().items.get('panel_factories');
         console.log(panel_factories);
@@ -31,6 +36,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }]
         });
         form.show();
-    }
+    },
+    onSelectProduct: function (t, record, index, eOpts) {
+        var viewmodel = this.getViewModel();
+        var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
+
+        var me = this.getView().up().up();
+        var PContractId = me.IdPContract;
+        var productid = t.getStore().getAt(index).get('id');
+
+        PContractProductPOStore.loadStore(PContractId, productid);
+    },    
 });
 

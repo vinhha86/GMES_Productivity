@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         }
     },
     bind:{
-        store:'{PContractDocumentStore}'
+        store:'{PContractProductPOStore}'
     },
     columns:[{
         text:'PO Buyer',
@@ -35,17 +35,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
     },{
         text:'Ngày giao',
         dataIndex:'shipdate',
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         width: 80
     },{
         text:'SL giao',
-        dataIndex:'description',
-        width: 80,
-        editor:{
-            xtype:'po_quantity',
-            selectOnFocus: true
-        }
+        dataIndex:'po_quantity',
+        width: 60
     },{
         text:'Ngày đồng bộ NPL',
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         dataIndex:'matdate',
         width: 80
     },{
@@ -54,7 +52,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         width: 80
     },{
         text:'Số ngày SX',
-        dataIndex:'productiondate',
+        dataIndex:'productiondays',
         width: 70
     },{
         text:'Phân xưởng SX',
@@ -62,7 +60,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         flex: 1
     },{
         xtype: 'actioncolumn',
-        width: 30,
+        width: 50,
         menuDisabled: true,
         sortable: false,
         items: [{
@@ -72,7 +70,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         },{
             iconCls: 'x-fa fas fa-list',
             tooltip: 'Chi tiết',
-            handler: 'onXoa'
+            handler: 'onEdit'
         }]
     }],
     dockedItems:[{
