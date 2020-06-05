@@ -2,7 +2,7 @@
     {
         "Id"          : 1,
         "StartDate"   : "2020-05-05",
-        "Name"        : "Nhà máy 1",
+        "Name"        : "Nhà máy 1 (CMP: 150.000)",
         "EndDate"    : "2020-07-20",
         "expanded"    : true,
         "children"    : [
@@ -11,7 +11,7 @@
 				"parentOrgId"    : 1,
 				"parentName"  : "Nhà máy 1",
 				"expanded"    : false,
-                "Name"        : "Tổ 1",
+                "Name"        : "Tổ 1 (CMP: 50.000)",
                 "StartDate"   : "2020-05-05",
                 "EndDate"    : "2020-07-20",
                 "Rollup"      : true,
@@ -113,7 +113,7 @@
 				"parentOrgId"    : 1,
 				"parentName"  : "Nhà máy 1",				
 				"expanded"    : false,
-                "Name"        : "Tổ 2",
+                "Name"        : "Tổ 2  (CMP: 20.000)",
                 "StartDate"   : "2020-05-30",
                 "EndDate"    : "2020-06-05",
                 "Rollup"      : true,
@@ -143,7 +143,7 @@
 				"parentOrgId"    : 1,
 				"parentName"  : "Nhà máy 1",						
                 "expanded"    : false,
-                "Name"      : "Tổ 3",
+                "Name"      : "Tổ 3  (CMP: 80.000)",
                 "StartDate" : "2020-07-01",
                 "EndDate"  : "2020-07-20",
                 "Rollup"    : true,
@@ -174,7 +174,7 @@
 	{
         "Id"          : 2,
         "StartDate"   : "2020-05-05",
-        "Name"        : "Nhà máy 2",
+        "Name"        : "Nhà máy 2  (CMP: 250.000)",
         "EndDate"    : "2020-07-20",
         "expanded"    : true,
         "children"    : [
