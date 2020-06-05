@@ -6,9 +6,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         OrgGrantedStore: {
             type: 'POrderGrant'
         },
-        // SKUStore: {
-        //     type: ''
-        // }
+        CurrencyStore: {
+            type: 'CurrencyStore'
+        }
     },
     data: {
         plan: {

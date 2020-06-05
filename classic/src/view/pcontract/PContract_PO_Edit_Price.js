@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         dock:'top',
         xtype:'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 40,
         items:[{
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
@@ -63,7 +63,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             value: 'Chi tiết giá'
         },
 		'->'
-		,
+        ,
+        {
+            xtype: 'combobox',
+            width: 120,
+            cls: 'inputBoxNarror',
+            editable: false,
+            fieldLabel: 'Loại tiền:',
+            labelWidth : 60,
+            bind:{
+                store:'{CurrencyStore}'
+            },
+            displayField: 'name',
+            valueField: 'id',
+            reference:'currencycombo',
+            // listeners: {
+            //     select: 'onOrgItemSelected'
+            // }
+        },       
+        {
+            xtype: 'textfield',
+            width: 120,
+            cls: 'inputBoxNarror',
+            editable: false,
+            fieldLabel: 'Tỷ giá:',
+            labelWidth : 50,
+        },             
 		{
             xtype:'button',
             itemId:'btnThemMoi',
