@@ -66,6 +66,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     onSelectProduct: function(m, rec){
         var viewModel = this.getViewModel();
         viewModel.set('productpairid_link', rec.data.id);
+
+        var storePO = viewModel.getStore('PContractProductPOStore');
+        storePO.loadStore(viewModel.get('PContract.id'), viewModel.get('productpairid_link'));
     }
 });
 
