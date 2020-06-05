@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         var viewModel = this.getViewModel();
         var productid_link = rec.data.productid_link;
 
-        var productStore = viewModel.getStore('PContractProductStore');
-        productStore.loadStore_bypairid(productid_link);
+        var productStore = viewModel.getStore('PContractProduct_PO_Store');
+        productStore.loadStore_bypairid(productid_link, true);
     }
 })

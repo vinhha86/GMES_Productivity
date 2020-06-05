@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
         }
     },
     bind:{
-        store:'{PContractProductStore}'
+        store:'{PContractProduct_PO_Store}'
     },
     reference: 'PContractSKU_ListProductView',
     columns:[{

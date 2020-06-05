@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
             click: 'onThemMoi'
         },
         '#PContractListProductView': {
-            select: 'onSelectProduct'
+            itemclick: 'onSelectProduct'
         }
     },
     onThemMoi: function () {
@@ -75,10 +75,10 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
 
         var me = this.getView();
         var PContractId = me.IdPContract;
-        var productid = t.getStore().getAt(index).get('productid_link');
-        var productName = t.getStore().getAt(index).get('productName');
-        var productSkuView = Ext.getCmp('PContractSKU_ListProductView');
-        productSkuView.getSelectionModel().select(record);
+        var productid = record.data.productid_link;
+        var productName = record.data.productName;
+        // var productSkuView = Ext.getCmp('PContractSKU_ListProductView');
+        // productSkuView.getSelectionModel().select(record);
 
         storeAttValue.loadStore(PContractId, productid);
         storeDoc.loadStore(PContractId, productid);

@@ -19,10 +19,13 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
         direction: 'ASC',
         property: 'productid_link'
 	}],
-	loadStore_bypairid:function(id){
+	loadStore_bypairid:function(id, ishidden){
 		var me=this;
+		ishidden = ishidden == null ? false : ishidden;
+
 		var params = new Object();
 		params.product_pairid_link = id;
+		params.ishidden_pair = ishidden;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

@@ -43,6 +43,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         PContractProductStore:{
             type :'PContractProductStore'
         },
+        PContractProduct_PO_Store:{
+            type :'PContractProductStore'
+        },
         PContractAttValueStore:{
             type :'PContractAttributeValueStore'
         },
