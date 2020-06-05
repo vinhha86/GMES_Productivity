@@ -21,10 +21,16 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                 {
                     region: 'north',
                     height: 30,
-                    // xtype: 'treepicker',
                     xtype: 'combobox',
                     fieldLabel: 'Sản phẩm/Bộ:',
                     margin: 1,
+                    bind: {
+                        store: '{ProductStore}',
+                        value: '{productpairid_link}'
+                    },
+                    displayField: 'name',
+                    valueField: 'id',
+                    queryMode : 'local'
                 },
                 {
                     region: 'center',
