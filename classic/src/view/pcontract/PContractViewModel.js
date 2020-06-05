@@ -87,7 +87,10 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         },
         PContractPOList: {
             type: 'PContractPOStore'
-        }                
+        },
+        PContractProductPOStore: {
+            type: 'PContractPOStore'
+        }                  
     },
     data:{
         titleAttvalue: 'Thuộc tính ',

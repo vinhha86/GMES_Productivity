@@ -27,20 +27,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     columns:[{
         text:'PO Buyer',
         dataIndex:'po_buyer',
-        width: 75
+        flex: 1
     },{
         text:'PO Vendor',
         dataIndex:'po_vendor',
-        width: 75
+        flex: 1
     },{
         text:'Ngày giao',
         dataIndex:'shipdate',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-        width: 75
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        width: 70
     },{
         text:'SL',
         dataIndex:'po_quantity',
-        flex: 1
+        width: 60
     }]
 });
 
