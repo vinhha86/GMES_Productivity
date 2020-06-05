@@ -28,39 +28,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             },
             items: [{
                 xtype: 'PContract_PO_Edit'
-                // viewModel: {
-                //     data: {
-                //         plan: {
-                //             plan_type: type,
-                //             porderid_link: data.porderid_link,
-                //             id: id,
-                //             plan_date_start: time,
-                //             plan_date_end: new Date(time.getFullYear(), time.getMonth(), time.getDate() + 1)
-                //         },
-                //         parentId: data.id
-                //     }
-                // }
-            }]
-        });
-        form.show();
-    },
-    onFactoriesTap: function(){
-        var form = Ext.create('Ext.window.Window', {
-            height: 600,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Kế hoạch các nhà máy',
-            closeAction: 'destroy',
-            width: 1000,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'PContract_porder_gantt'
+                viewModel: {
+                    data: {
+                        plan: {
+                            plan_type: type,
+                            porderid_link: data.porderid_link,
+                            id: id,
+                            plan_date_start: time,
+                            plan_date_end: new Date(time.getFullYear(), time.getMonth(), time.getDate() + 1)
+                        },
+                        parentId: data.id
+                    }
+                }
             }]
         });
         form.show();

@@ -9,7 +9,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
-            margin: 1
+            margin: 1,
+            bind: {
+                value: '{plan.po_buyer}'
+            }
         }, 
         {
             xtype: 'textfield',
@@ -17,7 +20,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
-            margin: 1
+            margin: 1,
+            bind: {
+                value: '{plan.po_vendor}'
+            }
         }, 
         {
             xtype: 'numberfield',
@@ -25,7 +31,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
-            margin: 1
+            margin: 1,
+            bind: {
+                value: '{plan.po_quantity}'
+            }
         }, 
         {
             xtype: 'datefield',
@@ -35,6 +44,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             width: 220,
             margin: 1,
             format: 'd/m/Y',
+            altFormats: "Y-m-d\\TH:i:s.uO",
+            bind: {
+                value: '{plan.shipdate}'
+            }
         }, 
         {
             xtype: 'datefield',
@@ -44,6 +57,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             width: 220,
             margin: 1,
             format: 'd/m/Y',
+            altFormats: "Y-m-d\\TH:i:s.uO",
+            bind: {
+                value: '{plan.matdate}'
+            }
         }, 
         {
             xtype: 'datefield',
@@ -53,6 +70,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             width: 220,
             margin: 1,
             format: 'd/m/Y',
+            altFormats: "Y-m-d\\TH:i:s.uO",
+            bind: {
+                value: '{plan.productiondate}'
+            }
         }, 
         {
             xtype: 'numberfield',
@@ -60,7 +81,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
-            margin: 1
+            margin: 1,
+            bind: {
+                value: '{plan.productiondate}'
+            }
         }, 
     ]
 })

@@ -14,6 +14,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
         },
         '#btnLuu' : {
             click: 'onSave'
+        },
+        '#btnThemMoiGia': {
+            click: 'onThemMoiGia'
         }
     },
     getInfo: function(id){
@@ -150,5 +153,45 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
             dropHandlers.cancelDrop();
         }
         
-    }    
+    },
+    onThemMoiGia : function(){
+        var viewmodel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách giá',
+            closeAction: 'destroy',
+            height: 400,
+            width: 600,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_FOB_Price'
+            }]
+        });
+        form.show();
+
+        form.down('#PContract_FOB_Price').getController().on('SelectPrice', function (select) {
+            var storePrice = viewmodel.getStore('PriceStore');
+            for(var i=0;i<select.length;i++){
+                var data = select[i].data;
+                var rec = storePrice.findRecord('fobprice_name', data.name);
+                if(rec == null) {
+                    var newRec = new Object({
+                        fobprice_name : data.name,
+                        price : 0,
+                        cost: 0
+                    })
+                    storePrice.insert(0 , newRec);
+                }
+            }
+            form.close();
+        })
+    }
 })
