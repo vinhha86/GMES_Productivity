@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
             click: 'onThemMoi'
         },
         '#PContractListProductView': {
-            itemclick: 'onSelectProduct'
+            select: 'onSelectProduct'
         }
     },
     onThemMoi: function () {
@@ -30,27 +30,6 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
             return;
         }
 
-        // var form = Ext.create('Ext.window.Window', {
-        //     height: 600,
-        //     closable: true,
-        //     resizable: false,
-        //     modal: true,
-        //     border: false,
-        //     title: 'Danh sách sản phẩm',
-        //     closeAction: 'destroy',
-        //     width: 1100,
-        //     bodyStyle: 'background-color: transparent',
-        //     layout: {
-        //         type: 'fit', // fit screen for window
-        //         padding: 5
-        //     },
-        //     items: [{
-        //         xtype: 'PContractSelectProductView',
-        //         IdPcontract: me.IdPContract
-        //     }]
-        // });
-        // form.show();
-
         var form =Ext.create({
             xtype: 'skusearchwindow',
             reference:'skusearchwindow',
@@ -61,8 +40,6 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                     pcontractid_link: viewmodel.get('PContract.id'),
                     orgcustomerid_link: viewmodel.get('PContract.orgcustomerid_link'),
                     type: 10
-                    // cust_contractcode: viewmodel.get('PContract.cust_contractcode'),
-                    // contractcode: viewmodel.get('PContract.contractcode')
                 }
             }
         });
@@ -77,8 +54,6 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         var PContractId = me.IdPContract;
         var productid = record.data.productid_link;
         var productName = record.data.productName;
-        // var productSkuView = Ext.getCmp('PContractSKU_ListProductView');
-        // productSkuView.getSelectionModel().select(record);
 
         storeAttValue.loadStore(PContractId, productid);
         storeDoc.loadStore(PContractId, productid);
