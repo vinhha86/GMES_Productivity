@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomMainViewController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var storeBOM = viewmodel.getStore('PContractProductBomStore');
-        var pcontractid_link = viewmodel.get('PContract').id;
+        var pcontractid_link = viewmodel.get('PContract.id');
         var productid_link = viewmodel.get('IdProduct');
 
         var data = combo.findRecord('productid_link', newValue);
@@ -32,9 +32,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomMainViewController', {
 
         var productview = Ext.getCmp('PContractListProductView');
         productview.getSelectionModel().select(data);
-
-        var productskuview = Ext.getCmp('PContractSKU_ListProductView');
-        productskuview.getSelectionModel().select(data);
     },
     onThoat: function () {
         var me = this.getView();
