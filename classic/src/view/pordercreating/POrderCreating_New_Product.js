@@ -24,12 +24,12 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_Product', {
     },
     columns: [
 //        {text: 'STT', width: 45, xtype: 'rownumberer', align: 'center'},
-        {xtype: 'checkcolumn', header: 'Chọn', dataIndex: 'isselected', width: 60,
+        {xtype: 'checkcolumn', header: 'Chọn', dataIndex: 'isselected', width: 50,
             editor: {xtype: 'checkbox',cls: 'x-grid-checkheader-editor'}
         },            
-        { header: 'Mã vạch', dataIndex: 'skuCode', flex: 1},
-        {text:'Màu', dataIndex:'mauSanPham', width: 70},
-        {text:'Cỡ', dataIndex:'coSanPham', width: 70},
+        // { header: 'Mã vạch', dataIndex: 'skuCode', flex: 1},
+        {text:'Màu', dataIndex:'mauSanPham', flex: 1},
+        {text:'Cỡ', dataIndex:'coSanPham', width: 50},
         // {text:'SL SX', dataIndex:'pquantity_porder', width: 70,
         //     // editor:{
         //     // xtype:'textfield',
@@ -52,14 +52,14 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_Product', {
         //     //     return '<div style="color:red; font-weight: bold; align: right">'+ value ;
         //     // }
         // },
-        {text:'SL đơn', dataIndex:'pquantity_total', width: 70,
+        {text:'SL đơn', dataIndex:'pquantity_total', width: 60,
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">'+ value ;
             }
         },
-        {text:'SL Lệnh', dataIndex:'pquantity_granted', width: 70},
-        {text:'Còn lại', dataIndex:'pquantity_free', width: 70}
+        {text:'SL Lệnh', dataIndex:'pquantity_granted', width: 60},
+        {text:'Còn lại', dataIndex:'pquantity_free', width: 60}
     ],
     dockedItems: [
         {

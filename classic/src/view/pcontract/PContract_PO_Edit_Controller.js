@@ -200,5 +200,25 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
             list.push(price);
         }
         return list;
-    }
+    },
+    onShipDateChange: function(newValue, oldValue, eOpts ){
+        // var viewmodel = this.getViewModel();
+        // var po_data = viewmodel.get('plan');
+        // console.log(po_data.shipdate);
+        // console.log(po_data.productiondate);
+        // var days = Ext.Date.diff(new Date(po_data.shipdate), new Date(po_data.productiondate), 'd');
+        // console.log(days);
+        // viewmodel.set('plan.productiondays',days);
+    },
+    onMatDateChange: function(newValue, oldValue, eOpts ){
+        var viewmodel = this.getViewModel();
+        var po_data = viewmodel.get('plan');
+        var dt = Ext.Date.subtract(new Date(po_data.matdate), Ext.Date.DAY, -7);
+        viewmodel.set('plan.productiondate',dt);
+        console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
+
+        var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
+        console.log(days);
+        viewmodel.set('plan.productiondays',days);
+    },      
 })

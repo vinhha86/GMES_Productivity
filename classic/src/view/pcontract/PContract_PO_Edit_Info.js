@@ -39,6 +39,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
         {
             xtype: 'datefield',
             fieldLabel: 'Ngày giao:',
+            reference: 'poinfo_shipdate',
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
@@ -47,11 +48,15 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             altFormats: "Y-m-d\\TH:i:s.uO",
             bind: {
                 value: '{plan.shipdate}'
+            },
+            listeners: {
+                select: 'onShipDateChange'
             }
         }, 
         {
             xtype: 'datefield',
             fieldLabel: 'Ngày NPL về:',
+            reference: 'poinfo_matdate',
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
@@ -60,11 +65,15 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
             altFormats: "Y-m-d\\TH:i:s.uO",
             bind: {
                 value: '{plan.matdate}'
-            }
+            },
+            listeners: {
+                select: 'onMatDateChange'
+            }            
         }, 
         {
             xtype: 'datefield',
             fieldLabel: 'Ngày VC:',
+            reference: 'poinfo_productiondate',
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
@@ -78,6 +87,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
         {
             xtype: 'numberfield',
             fieldLabel: 'Số ngày SX:',
+            reference: 'poinfo_productiondays',
             labelAlign: 'left',
             labelWidth: 90,
             width: 220,
