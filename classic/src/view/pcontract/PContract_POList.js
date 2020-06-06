@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_POList',
-    id:'PContract_POList',
+    // id:'PContract_POList',
 
     viewConfig: {
         stripeRows: true,

@@ -21,6 +21,12 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_View', {
         //     margin: 1
         // },
         {
+            border: true,
+            xtype: 'PContract_POList',
+            padding: 5,
+            width: '30%',                   
+        },
+        {
             // region: 'west',
             border: true,
             // width: '50%',
@@ -28,7 +34,7 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_View', {
             title: 'Sản phẩm theo đơn hàng',
             xtype: 'POrderCreating_New_Product',
             padding: 5,
-            flex: 1            
+            width: '33%',       
         },
         {
             xtype: 'panel',

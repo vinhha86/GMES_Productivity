@@ -19,10 +19,10 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_POrder', {
         store: '{porders}'
     },
     columns: [
-        {text:'Mã lệnh', dataIndex:'ordercode', width: 100},
+        {text:'Mã lệnh', dataIndex:'ordercode', width: 80},
         {text:'Xưởng SX', dataIndex:'granttoorgname', flex: 1},
-        {text:'Ngày giao SX', dataIndex:'orderdate', width: 100, renderer: Ext.util.Format.dateRenderer('d/m/Y')},
-        {text:'Số lượng', dataIndex:'totalorder', width: 80},
+        {text:'Ngày giao SX', dataIndex:'orderdate', width: 70, renderer: Ext.util.Format.dateRenderer('d/m/y')},
+        {text:'Số lượng', dataIndex:'totalorder', width: 70},
         {
             xtype: 'actioncolumn',
             width: 25,
