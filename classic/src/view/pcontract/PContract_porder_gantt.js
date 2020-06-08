@@ -98,7 +98,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     '<li><strong>Đến ngày: </strong>{[values._record.getDisplayEndDate("d-m-Y")]}</li>' +
     '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
     '</ul>',
-    taskBodyTemplate : '<div style="width:100px" unselectable="on">{values}</div>',
     columns    : [
         {
             xtype: 'namecolumn',
@@ -107,9 +106,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         }
     ],
     eventRenderer : function (taskRecord) {
-        return {
-            ctcls : "Id-" + taskRecord.get('Id') // Add a CSS class to the task container element
-        };
+        if(taskRecord.data.depth == 3){
+            if(taskRecord.data.Id % 2 == 1)
+            return {
+                cls: 'red' // Add a CSS class to the task container element
+            }
+            else
+            return {
+                cls: 'green'
+            }
+        }
+        
     },
     taskStore: {
         type  : 'PContract_porder_gantt_store',

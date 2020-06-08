@@ -79,7 +79,9 @@ Ext.define('GSmartApp.view.planporder.PlanPoderView', {
     '<li><strong>Đến ngày: </strong>{[values._record.getDisplayEndDate("d-m-Y")]}</li>' +
     '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
     '</ul>',
-    taskBodyTemplate : '<ul class="tasktemp" 111>'+'</ul>' ,
+    taskBodyTemplate : '<div class="sch-gantt-progress-bar" style="width:{progressBarWidth}px;{progressBarStyle}" unselectable="on">' +
+    '<span class="sch-gantt-progress-bar-label">{[Gnt.column.PercentDone.prototype.defaultRenderer(values.pcontract_number)]}</span>' +
+    '</div>',
     columns    : [
         {
             xtype: 'namecolumn',
@@ -113,6 +115,24 @@ Ext.define('GSmartApp.view.planporder.PlanPoderView', {
         var me = this;
         var taskStore = me.getViewModel().getStore('TaskStore');
         taskStore.loadStore();
+
+        var calendar = new Gnt.data.Calendar({
+            weekendFirstDay : 6,
+            weekendSecondDay : 0,
+            weekendsAreWorkdays : true,
+            data: [{
+                Date: new Date(2020,05,08),
+                Cls: 'gnt-holiday'
+            },{
+                Date: new Date(2020,05,09)
+            },{
+                Date: new Date(2020,05,11)
+            }]
+        })
+        console.log(calendar);
+        
+        taskStore.setCalendar(calendar);
+
         this.taskStore = taskStore;
         this.callParent(arguments);
     }
