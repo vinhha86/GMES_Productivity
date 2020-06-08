@@ -79,8 +79,8 @@ Ext.define('GSmartApp.view.planporder.PlanPoderView', {
     '<li><strong>Đến ngày: </strong>{[values._record.getDisplayEndDate("d-m-Y")]}</li>' +
     '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
     '</ul>',
-    taskBodyTemplate : '<div class="sch-gantt-progress-bar" style="width:{progressBarWidth}px;{progressBarStyle}" unselectable="on">' +
-    '<span class="sch-gantt-progress-bar-label">{[Gnt.column.PercentDone.prototype.defaultRenderer(values.pcontract_number)]}</span>' +
+    taskBodyTemplate : '<div>' +
+    '<span>{[Gnt.column.Name.toString()]}%</span>' +
     '</div>',
     columns    : [
         {
