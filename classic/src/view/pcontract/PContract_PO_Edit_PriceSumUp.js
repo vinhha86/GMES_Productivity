@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Sew Fact:',
+                    fieldLabel: 'Sew Cost:',
                     labelAlign: 'left',
                     labelWidth: 70,
                     width: 155,
