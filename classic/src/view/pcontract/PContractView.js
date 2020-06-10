@@ -77,9 +77,12 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             title: 'Nguyên phụ liệu',
             xtype: 'PContractProductBomView'
         }, {
-            title: 'Định mức 1',
+            title: 'Định mức hải quan',
             xtype: 'PContractProduct_Bom_TabColorView'
         }, {
+            title: 'Định mức cân đối',
+            // xtype: 'PContractProduct_Bom_TabColorView'
+        },{
             title: 'Lệnh sản xuất',
             xtype: 'POrderCreating_New_View'
         }]

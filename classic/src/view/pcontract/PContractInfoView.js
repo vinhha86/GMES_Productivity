@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     bind:{
                         value : '{PContract.contractcode}'
                     },
-                    labelWidth: 80,
+                    labelWidth: 100,
                     width: 300
                 },{
                     xtype:'datefield',
@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     margin: 2,
                     fieldLabel: "Ngày chốt:",
                     bind:{
-                        value : '{PContract.contractdate}'
+                        value : '{PContract.confirmdate}'
                     },
                     format: 'd/m/Y',
                     altFormats: "Y-m-d\\TH:i:s.uO",
@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                         store : '{CustomerStore}'
                     },
                     itemId:'orgbuyerid_link',
-                    labelWidth: 80,
+                    labelWidth: 100,
                     width: 300
                 },{
                     xtype:'combo',
@@ -104,27 +104,31 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                 layout:'hbox',
                 border:false,
                 items:[{
-                    xtype:'textfield',
+                    xtype:'combo',
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'name',
                     margin: 2,
-                    fieldLabel: "HĐ Buyer",
+                    fieldLabel: "Bên thanh toán:",
                     bind:{
-                        value : '{PContract.cust_contractcode}'
+                        value : '{PContract.orgpayerid_link}',
+                        store : '{Vender}'
                     },
-                    itemId:'buyer_contractcode',
-                    allowBlank: false,
-                    blankText: 'Không được để trống',
-                    labelWidth: 80,
+                    itemId:'orgbuyerid_link',
+                    labelWidth: 100,
                     width: 300
                 },{
-                    xtype:'textfield',
+                    xtype:'combo',
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'name',
                     margin: 2,
-                    fieldLabel: "HĐ Vendor",
+                    fieldLabel: "Bên hiển thị:",
                     bind:{
-                        value : '{PContract.cust_contractcode}'
+                        value : '{PContract.orgshowid_link}',
+                        store : '{Vender}'
                     },
-                    itemId:'vendor_contractcode',
-                    allowBlank: false,
-                    blankText: 'Không được để trống',
+                    itemId:'orgshowid_link',
                     labelWidth: 80,
                     width: 300
                 },
