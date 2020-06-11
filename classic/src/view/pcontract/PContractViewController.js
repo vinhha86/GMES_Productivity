@@ -91,12 +91,14 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         var EndBuyerStore = viewmodel.getStore('EndBuyer');
         var BranchStore = viewmodel.getStore('BranchStore');
         var SeasonStore = viewmodel.getStore('SeasonStore');
+        var UnitStore = viewmodel.getStore('UnitStore');
 
         KHStore.loadStore(10, false);
         VenderStore.loadStore(11, false);
         EndBuyerStore.loadStore(12, false);
         BranchStore.loadStore(false);
         SeasonStore.loadStore(false);
+        UnitStore.loadStore();
     },
     onLuu: function () {
         var me = this.getView();

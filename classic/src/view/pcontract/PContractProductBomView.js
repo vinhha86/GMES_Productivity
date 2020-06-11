@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
     }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
-        width: 250
+        flex: 1
     },{
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
@@ -71,6 +71,11 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
         renderer: function (value, metaData, record) {
             return value+" %";
         }
+    }, {
+        xtype: 'checkcolumn',
+        text: 'Ký gửi',
+        dataIndex: 'forothercontract',
+        width: 60
     }, {
         xtype: 'actioncolumn',
         width: 30,
@@ -114,11 +119,33 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
             valueField: 'productid_link',
             displayField: 'productName'
         },{
-            xtype: 'button',
-            text: 'Thêm NPL gửi',
+            xtype: 'combo',
+            width:200,
             margin: 3,
-            itemId: 'btnNPL_Other',
-            iconCls: 'x-fa fa-plus'
+            bind: {
+                store: '{UnitStore}',
+                value: '{id}'
+            },
+            fieldLabel: 'Đo độ dài:',
+            labelWidth: 80,
+            queryMode: 'local',
+            editable: false,
+            valueField: 'lengthunitid_link',
+            displayField: 'name'
+        },{
+            xtype: 'combo',
+            width:200,
+            margin: 3,
+            bind: {
+                store: '{UnitStore}',
+                value: '{id}'
+            },
+            fieldLabel: 'Đo trọng lượng:',
+            labelWidth: 100,
+            queryMode: 'local',
+            editable: false,
+            valueField: 'weightunitid_link',
+            displayField: 'name'
         }]
     }]
 });
