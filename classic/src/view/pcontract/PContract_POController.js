@@ -39,8 +39,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 border: false,
                 title: 'Kế hoạch giao hàng',
                 closeAction: 'destroy',
-                height: 650,
-                width: 1200,
+                height: Ext.getBody().getViewSize().height*.95,
+                width: Ext.getBody().getViewSize().width*.95,
                 bodyStyle: 'background-color: transparent',
                 layout: {
                     type: 'fit', // fit screen for window
@@ -92,8 +92,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Kế hoạch giao hàng',
             closeAction: 'destroy',
-            height: 650,
-            width: 1200,
+            height: Ext.getBody().getViewSize().height*.95,
+            width: Ext.getBody().getViewSize().width*.95,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window

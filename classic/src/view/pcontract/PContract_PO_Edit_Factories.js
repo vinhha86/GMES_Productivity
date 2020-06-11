@@ -45,11 +45,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
         text:'Phân xưởng',
         dataIndex:'granttoorg_name',
         flex: 1
-    },{
-        text:'Tổ SX',
-        dataIndex:'granttoline_name',
-        width: 80
-    },{
+    },
+    // {
+    //     text:'Tổ SX',
+    //     dataIndex:'granttoline_name',
+    //     width: 80
+    // },
+    {
         text:'SL',
         dataIndex:'grantamount',
         width: 50,

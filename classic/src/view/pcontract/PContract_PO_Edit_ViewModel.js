@@ -16,7 +16,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         },
         ProductStore: {
             type: 'ProductStore'
-        }
+        },
+        SizeSetStore: {
+            type: 'SizeSetStore'
+        }        
     },
     data: {
         plan: {

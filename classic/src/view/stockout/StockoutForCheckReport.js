@@ -39,7 +39,11 @@ Ext.define('GSmartApp.view.stockout.StockoutForCheckReport', {
                     buffer: 500
                 }
             },
-            summaryType: 'count', summaryRenderer: 'renderSummary'                   
+            summaryType: 'count', summaryRenderer: 'renderSummary',
+            // renderer: function (value, metaData, record, rowIndex) {
+            //     metaData.tdCls = 'process-editablecolumn';
+            //     return value;
+            // }                                 
         },
         { header: 'Loại vải', dataIndex: 'skutype', width: 120},
         { header: 'Mầu vải', dataIndex: 'color_name', flex: 1},

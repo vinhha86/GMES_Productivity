@@ -13,9 +13,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
             id: 'panel_po',
             // title: 'Giao hàng - Chào giá',
             layout: 'border',
-            width: '40%',
-            border: true,
-            margin: 1,
+            width: '50%',
+            // border: true,
+            // margin: 1,
             // collapsible: true,
             items:[
                 {
@@ -38,7 +38,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                     items:[
                         {
                             region: 'west',
-                            width: 225,
+                            width: '70%',
                             xtype: 'PContract_PO_Edit_Info',
                             border: true,
                             margin: 1,
@@ -54,21 +54,37 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                 {
                     region: 'south',
                     layout: 'border',
-                    height: 280,
+                    height: 320,
                     items:[
                         {
-                            region: 'north',
-                            height: 70,
-                            xtype: 'PContract_PO_Edit_PriceSumUp',
+                            region: 'west',
+                            width: 100,
+                            xtype: 'PContract_PO_Edit_Sizeset',
+                            border: true,
+                            margin: 1,                            
                         },
                         {
                             region: 'center',
-                            border: true,
-                            xtype: 'PContract_PO_Edit_Price',
+                            layout: 'border',
+                            // border: true,
+                            items:[
+                                {
+                                    region: 'north',
+                                    border: true,
+                                    margin: 1, 
+                                    height: 70,
+                                    xtype: 'PContract_PO_Edit_PriceSumUp',
+                                },
+                                {
+                                    region: 'center',
+                                    border: true,
+                                    margin: 1,
+                                    xtype: 'PContract_PO_Edit_Price',
+                                }
+                            ]
                         }
-                    ],
-                    border: true,
-                    margin: 1,
+
+                    ]
                 }
             ]
         }, 
