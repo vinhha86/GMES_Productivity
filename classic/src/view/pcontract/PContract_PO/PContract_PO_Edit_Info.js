@@ -15,7 +15,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
                     labelAlign: 'left',
                     fieldLabel:'Đóng gói:',
                     flex: 1,
-                    height: 40
+                    height: 40,
+                    bind: {
+                        value: '{plan.packingnotice}'
+                    }
                 }
             ]
 

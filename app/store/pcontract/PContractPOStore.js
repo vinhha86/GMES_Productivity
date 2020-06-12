@@ -27,6 +27,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		{name: 'currencyid_link',   type: 'int'},
 		{name: 'exchangerate',    type: 'number'},	
 		{name: 'productiondate',   type: 'date', dateFormat: 'c'},
+		{name: 'productiondays',   type: 'int'},	
 		{name: 'packingnotice',   type: 'string'},	
 		{name: 'qcorgid_link',   type: 'int'},
 		{name: 'etm_from',   type: 'int'},

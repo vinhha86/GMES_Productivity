@@ -44,7 +44,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
             exchangerate: 0,
             fob_price: 0,
             cmpt_price: 0,
-            total_price: 0
+            total_price: 0,
+            packingnotice: ''
         },
         parentId : 0,
         productpairid_link: 0,
