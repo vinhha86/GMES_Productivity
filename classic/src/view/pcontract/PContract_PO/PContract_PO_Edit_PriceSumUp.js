@@ -10,10 +10,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Giá CMPT:',
+                    fieldLabel: 'Giá CMP:',
                     labelAlign: 'left',
-                    labelWidth: 75,
-                    width: 155,
+                    labelWidth: 90,
+                    width: 170,
                     margin: 1,
                     bind: {
                         value: '{plan.cmpt_price}'
@@ -22,10 +22,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Sew Target:',
+                    fieldLabel: 'Sewing Target:',
                     labelAlign: 'left',
-                    labelWidth: 75,
-                    width: 155,
+                    labelWidth: 90,
+                    width: 170,
                     margin: 1
                 }                
             ]
@@ -39,8 +39,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     hideTrigger:true,
                     fieldLabel: 'Giá FOB:',
                     labelAlign: 'left',
-                    labelWidth: 70,
-                    width: 155,
+                    labelWidth: 90,
+                    width: 170,
                     margin: 1,
                     bind: {
                         value: '{plan.fob_price}'
@@ -49,10 +49,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Sew Cost:',
+                    fieldLabel: 'Sewing Cost:',
                     labelAlign: 'left',
-                    labelWidth: 70,
-                    width: 155,
+                    labelWidth: 90,
+                    width: 170,
                     margin: 1
                 }                
             ]
@@ -66,8 +66,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     hideTrigger:true,
                     fieldLabel: 'Tổng chào:',
                     labelAlign: 'left',
-                    labelWidth: 70,
-                    width: 155,
+                    labelWidth: 90,
+                    width: 170,
                     margin: 1,
                     bind: {
                         value: '{plan.total_price}'
@@ -76,10 +76,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Salary:',
+                    fieldLabel: 'Salary Fund:',
                     labelAlign: 'left',
-                    labelWidth: 70,
-                    width: 155,
+                    labelWidth: 90,
+                    width: 170,
                     margin: 1
                 }                
             ]

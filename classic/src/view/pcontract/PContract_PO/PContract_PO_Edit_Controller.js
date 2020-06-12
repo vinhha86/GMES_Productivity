@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_Controller',
     init: function(){
@@ -10,6 +10,9 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Controller', {
         if(viewmodel.get('plan.id') > 0){
             this.getInfo(viewmodel.get('plan.id'));
         }
+
+        var sizesetStore = viewmodel.getStore('SizeSetStore');
+        sizesetStore.loadStore();
     },
     control: {
         '#btnThoat': {

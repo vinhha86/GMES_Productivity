@@ -30,6 +30,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		{name: 'productiondays',   type: 'int'},	
 		{name: 'packingnotice',   type: 'string'},	
 		{name: 'qcorgid_link',   type: 'int'},
+		{name: 'qcorgname',   type: 'string'},
 		{name: 'etm_from',   type: 'int'},
 		{name: 'etm_to',   type: 'int'},
 		{name: 'etm_avr',  type: 'int'},

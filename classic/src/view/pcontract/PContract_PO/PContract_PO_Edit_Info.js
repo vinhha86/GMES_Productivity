@@ -1,7 +1,8 @@
-Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_PO_Edit_Info',
     layout: 'border',
+    controller: 'PContract_PO_Edit_InfoController',
     items: [
         {
             region: 'south',
@@ -41,11 +42,16 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
                             margin: 1,
                             bind: {
                                 value: '{plan.po_buyer}'
-                            }
+                            },
+                            listeners: {
+                                focusleave: 'onPOBuyerChange'
+                            }                               
                         }, 
                         {
                             xtype: 'numberfield',
                             fieldLabel: 'Số lượng:',
+                            hideTrigger:true,
+                            fieldStyle: 'text-align: right',
                             labelAlign: 'left',
                             labelWidth: 90,
                             width: '100%',
@@ -73,7 +79,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
                         },      
                         {
                             xtype: 'numberfield',
+                            readOnly: true,
                             fieldLabel: 'Số ngày SX:',
+                            hideTrigger:true,
+                            fieldStyle: 'text-align: right',                            
                             reference: 'poinfo_productiondays',
                             labelAlign: 'left',
                             labelWidth: 90,
@@ -120,6 +129,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
                         {
                             xtype: 'datefield',
                             fieldLabel: 'Ngày VC:',
+                            readOnly: true,
                             reference: 'poinfo_productiondate',
                             labelAlign: 'left',
                             labelWidth: 90,
@@ -132,15 +142,15 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_Info', {
                             }
                         },     
                         {
-                            xtype: 'combobox',
+                            xtype: 'textfield',
                             fieldLabel: 'Đơn vị QC:',
-                            reference: 'poinfo_qcorgid_link',
+                            reference: 'poinfo_qcorgname',
                             labelAlign: 'left',
                             labelWidth: 90,
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{plan.qcorgid_link}'
+                                value: '{plan.qcorgname}'
                             }
                         },                                           
                     ]

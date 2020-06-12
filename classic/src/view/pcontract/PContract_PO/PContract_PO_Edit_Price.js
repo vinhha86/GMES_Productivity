@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },{
         text: 'Giá chào',
         dataIndex: 'price',
-        width: 70,
+        width: 80,
         editor: {
             completeOnEnter: true,
             field: {
@@ -34,19 +34,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
                 blankText: 'Không được để trống'
             }
         }
-    },{
-        text: 'Giá vốn',
-        dataIndex: 'cost',
-        width: 70,
-        editor: {
-            completeOnEnter: true,
-            field: {
-                xtype: 'textfield',
-                allowBlank: false,
-                blankText: 'Không được để trống'
-            }
-        }
-    },{
+    },
+    // {
+    //     text: 'Giá vốn',
+    //     dataIndex: 'cost',
+    //     width: 70,
+    //     editor: {
+    //         completeOnEnter: true,
+    //         field: {
+    //             xtype: 'textfield',
+    //             allowBlank: false,
+    //             blankText: 'Không được để trống'
+    //         }
+    //     }
+    // },
+    {
         text: 'FOB',
         xtype: 'checkcolumn',
         dataIndex: 'isfob',
