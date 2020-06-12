@@ -8,9 +8,20 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
+        '#btnExcel': {
+            click: 'onExcel'
+        },
         '#PContractListProductView': {
             select: 'onSelectProduct'
         }
+    },
+    onExcel: function(){
+        var grid = this.getView();
+        grid.saveDocumentAs({
+            type: 'pdf',
+            title: 'My export',
+            fileName: 'myExport.pdf'
+        });
     },
     onThemMoi: function () {
         var me = this.getView();
