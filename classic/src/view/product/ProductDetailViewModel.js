@@ -29,7 +29,11 @@ Ext.define('GSmartApp.view.product.ProductDetailViewModel', {
             code: '',
             name: '',
             designerid_link: 0,
-            samplemakername :''
+            samplemakername :'',
+            vendorname: '',
+            buyercode: '',
+            vendorcode: '',
+            buyername: ''
         },
         img:{            
             img1:'',

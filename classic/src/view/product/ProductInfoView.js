@@ -55,9 +55,9 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 bind:{
                     value : '{product.buyercode}'
                 },
-                tooltip:'Nhập mã sản phẩm',
-                itemId:'code',
-                name:'code',
+                tooltip:'Nhập mã Buyer',
+                itemId:'buyercode',
+                name:'buyercode',
                 height: 32,
                 allowBlank: false,
                 blankText: 'Không được để trống',
@@ -67,14 +67,14 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 margin: 1,
                 height: 32,
                 width: 400,
-                tooltip:'Nhập tên sản phẩm',
+                tooltip:'Nhập tên Buyer',
                 fieldLabel: "Tên Buyer",
                 allowBlank: false,
                 blankText: 'Không được để trống',
                 bind:{
                     value : '{product.buyername}'
                 },
-                name:'name',
+                name:'buyername',
                 labelWidth: 110
             }]
         },
@@ -88,9 +88,9 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 bind:{
                     value : '{product.vendorcode}'
                 },
-                tooltip:'Nhập mã sản phẩm',
-                itemId:'code',
-                name:'code',
+                tooltip:'Nhập mã Vendor',
+                itemId:'vendorcode',
+                name:'vendorcode',
                 height: 32,
                 allowBlank: false,
                 blankText: 'Không được để trống',
@@ -100,14 +100,14 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 margin: 1,
                 height: 32,
                 width: 400,
-                tooltip:'Nhập tên sản phẩm',
+                tooltip:'Nhập tên Vendor',
                 fieldLabel: "Tên Vendor",
                 allowBlank: false,
                 blankText: 'Không được để trống',
                 bind:{
                     value : '{product.vendorname}'
                 },
-                name:'name',
+                name:'vendorname',
                 labelWidth: 110
             }]
         },        
