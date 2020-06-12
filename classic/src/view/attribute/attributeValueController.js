@@ -17,43 +17,43 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             focus: 'onfocus',
             focusleave: 'onfocusleave'
         },
-        '#txtThemMoi' : {
-            keydown : 'onKeyUp'
+        '#txtThemMoi': {
+            keydown: 'onKeyUp'
         }
     },
-    onKeyUp: function(m, e, eOpts){
+    onKeyUp: function (m, e, eOpts) {
         console.log(e);
     },
-    load_AttributeValue: function(id){
+    load_AttributeValue: function (id) {
         this.idAttribute = id;
         var store = this.getViewModel().getStore('AttributeValueStore');
         store.loadStore(id);
     },
-    ThemMoi_CapNhat: function(params){
+    ThemMoi_CapNhat: function (params) {
         var me = this.getView();
+        var viewmodel = this.getViewModel();
         GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_create', Ext.JSON.encode(params),
-        function (success, response, options) {
-            if (success) {
-                var response = Ext.decode(response.responseText);
-                if(params.data.id == 0){
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
                     var store = me.getViewModel().getStore('AttributeValueStore');
+                    if (params.data.id == 0) {
+                        me.down('#txtThemMoi').reset();
+                        me.down('#txtThemMoi').focus();
+                    }
                     store.loadStore(params.data.attributeid_link);
-                    me.down('#txtThemMoi').reset();
-                    me.down('#txtThemMoi').focus();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lưu thất bại',
+                        msg: null,
+                        buttons: [{
+                            itemId: 'cancel',
+                            text: App.Locales.btn_dong[App.Locales.currentLocale],
+                        }]
+                    });
                 }
-                
-            } else {
-                Ext.Msg.show({
-                    title: 'Lưu thất bại',
-                    msg: null,
-                    buttons: [{
-                        itemId: 'cancel',
-                        text: App.Locales.btn_dong[App.Locales.currentLocale],
-                    }]
-                });
-            }
-            me.setLoading(false);
-        })
+                me.setLoading(false);
+            })
     },
     onThemMoi: function () {
         var me = this.getView();
@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
         }
         else {
             var check = this.checkValidate(me.down('#txtThemMoi').getValue());
-            if(!check) return;
+            if (!check) return;
 
             var data = new Object();
             data.id = 0;
@@ -86,6 +86,65 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             me.setLoading("Đang lưu dữ liệu");
             this.ThemMoi_CapNhat(params);
         }
+    },
+    onXoaAtt: function (grid, rowIndex, colIndex) {
+        var me = this.getView();
+        var rec = grid.getStore().getAt(rowIndex);
+
+        if (rec.get('isdefault')) {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được xóa giá trị mặc định',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else{
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn có chắc chắn xóa giá trị thuộc tính ' + rec.data.value + '?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        me.setLoading("Đang xóa dữ liệu");
+                        var params = new Object();
+                        params.id = rec.data.id;
+    
+                        GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_delete', Ext.JSON.encode(params),
+                            function (success, response, options) {
+                                if (success) {
+                                    var store = me.getViewModel().getStore('AttributeValueStore');
+                                    store.remove(rec);
+                                    if (rec.removedFrom == store.data.length) {
+                                        me.getSelectionModel().select(store.data.length - 1);
+                                    } else {
+                                        me.getSelectionModel().select(rec.removedFrom);
+                                    }
+                                } else {
+                                    Ext.Msg.show({
+                                        title: 'Thông báo',
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                                me.setLoading(false);
+                            })
+                    }
+                }
+            });
+        }
+
+        
     },
     onXoa: function () {
         var me = this.getView();
@@ -121,19 +180,19 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
                                 if (success) {
                                     var store = me.getViewModel().getStore('AttributeValueStore');
                                     store.remove(select);
-                                    if(select[0].removedFrom == store.data.length){
+                                    if (select[0].removedFrom == store.data.length) {
                                         me.getSelectionModel().select(store.data.length - 1);
-                                    }else{
+                                    } else {
                                         me.getSelectionModel().select(select[0].removedFrom);
                                     }
                                 } else {
                                     Ext.Msg.show({
-                                        title: 'Xóa thất bại',
-                                        msg: null,
-                                        buttons: [{
-                                            itemId: 'cancel',
-                                            text: GSmartApp.Locales.btn_dong[App.Locales.currentLocale],
-                                        }]
+                                        title: 'Thông báo',
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
                                     });
                                 }
                                 me.setLoading(false);
@@ -154,15 +213,17 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
+                },
+                fn: function () {
+                    m.setValue(this.oldValue);
                 }
             });
-            m.setValue(this.oldValue);
         }
         else {
-            if(m.getValue() == this.oldValue) return;
+            if (m.getValue() == this.oldValue) return;
 
             var check = this.checkValidate(m.getValue());
-            if(!check){
+            if (!check) {
                 m.setValue(this.oldValue);
                 return;
             }
@@ -188,14 +249,14 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             this.ThemMoi_CapNhat(params);
         }
     },
-    checkValidate: function(name){
+    checkValidate: function (name) {
         var store = this.getViewModel().getStore('AttributeValueStore');
-        for(var i=0; i< store.data.length;i++){
+        for (var i = 0; i < store.data.length; i++) {
             var data = store.data.items[i].data;
-            if(data.name == name){
+            if (data.name == name) {
                 Ext.MessageBox.show({
                     title: "Thông báo",
-                    msg: "Dữ liệu đã tồn tại ở dòng "+ (i+1),
+                    msg: "Dữ liệu đã tồn tại ở dòng " + (i + 1),
                     buttons: Ext.MessageBox.YES,
                     buttonText: {
                         yes: 'Đóng',
