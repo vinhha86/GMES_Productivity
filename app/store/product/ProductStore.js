@@ -20,6 +20,10 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 		{name: 'thanhPhanVai',   type: 'string'},
 		{name: 'coKho',   type: 'string'},
 		{name: 'urlimage'},
+		'vendorname',
+		'buyercode',
+		'vendorcode	',
+		'buyername'
 	],
 	groupField: 'product_typeName',
 	sorters: [{
