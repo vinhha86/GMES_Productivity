@@ -53,12 +53,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     border                   : true,
     enableProgressBarResize  : true,
     enableTaskDragDrop  : true,
-    showRollupTasks         : true,
-    // startDate                : new Date(2020, 4, 1),
-    // endDate                  : Sch.util.Date.add(new Date(2020, 4, 1), Sch.util.Date.WEEK, 6),
-    // viewPreset               : {
-    //     name                : 'weekAndDayLetter'
-    // },
+    showRollupTasks         : true,    
+    rollupLabelField : 'mahang',
     viewPreset: {
         name: 'weekAndDayLetter',
         headerConfig       : {
