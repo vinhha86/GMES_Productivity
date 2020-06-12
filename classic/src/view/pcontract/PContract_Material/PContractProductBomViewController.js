@@ -67,28 +67,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
             }
         });
         form.show();
-        // var form = Ext.create('Ext.window.Window', {
-        //     height: 600,
-        //     closable: true,
-        //     title: 'Thêm mới nguyên phụ liệu',
-        //     resizable: false,
-        //     modal: true,
-        //     border: false,
-        //     closeAction: 'destroy',
-        //     width: 1000,
-        //     bodyStyle: 'background-color: transparent',
-        //     layout: {
-        //         type: 'fit', // fit screen for window
-        //         padding: 5
-        //     },
-        //     items: [{
-        //         border: false,
-        //         xtype: 'PContractProductMaterialView',
-        //         productid_link: productid_link,
-        //         pcontractid_link: pcontractid_link
-        //     }]
-        // });
-        // form.show();
     },
     onXoa: function(grid, rowIndex, colIndex){
         var me = this.getView();

@@ -4,7 +4,8 @@ Ext.define('GSmartApp.store.attribute.attributeValueStore', {
 	fields: [
 		{name: 'id', type: 'int'},
 		{name: 'attributeid_link',  type: 'int'},
-		{name: 'value',   type: 'string'}
+		{name: 'value',   type: 'string'},
+		'isdefault'
 	],
 	sorters: {
         direction: 'ASC',

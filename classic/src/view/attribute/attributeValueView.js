@@ -43,6 +43,16 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
                 itemId: 'txtValue'
             }
         }
+    },{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoaAtt'
+        }]
     }],
     dockedItems: [{
         dock: 'bottom',
@@ -59,7 +69,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             margin: 5,
             text: 'Xóa',
             width: 50,
-            itemId: 'btnXoa'
+            itemId: 'btnXoa',
+            hidden: true
         }, {
             xtype: 'textfield',
             itemId: 'txtThemMoi',
