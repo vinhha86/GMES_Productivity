@@ -40,7 +40,11 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
                 xtype: 'textfield',
                 allowBlank: false,
                 blankText:'Không được để trống tên giá',
-                itemId:'txtName'
+                itemId:'txtName',
+                listeners:{
+                    change:'onChange',
+                    focusleave:'onFocusLeave'
+                }
             }
         }
     },{
@@ -72,6 +76,9 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
             allowBlank: false,
             blankText: 'Nhập tên giá để thêm mới'
         }]
-    }]
+    }],
+    listeners:{
+        rowclick: 'onRowClick'
+    }
 });
 

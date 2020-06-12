@@ -83,5 +83,100 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
             }
         }
         return true;
+    },
+    onXoa: function(grid, rowIndex, colIndex){
+        var me = this;
+        var rec = grid.getStore().getAt(rowIndex);
+        var id = rec.get('id');
+        var name = rec.get('name');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa giá "' + name + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    me.Xoa(id, rec);
+                }
+            }
+        });
+    },
+    Xoa: function (id, rec) {
+        var me = this.getView();
+        me.setLoading("Đang xóa dữ liệu");
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/fobprice/delete', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Xóa thành công",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+
+                    var store = me.getStore();
+                    store.remove(rec);
+                } else {
+                    Ext.Msg.show({
+                        title: 'Xóa thất bại',
+                        msg: null,
+                        buttons: [{
+                            itemId: 'cancel',
+                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
+                        }]
+                    });
+                }
+                me.setLoading(false);
+            })
+    },
+    onChange:function(textField, newValue, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        viewModel.set('newValue',newValue);
+    },
+    onFocusLeave:function(textField, event, eOpts){
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var newName = viewModel.get('newValue');
+        var oldName = viewModel.get('oldValue');
+
+        if(newName==oldName){
+            return;
+        }
+
+        var check = this.checkValidate(newName);
+        if(!check || newName=='') {
+            textField.setValue(oldName);
+            textField.focus();
+            return;
+        }
+
+        var data = new Object();
+        data = viewModel.get('currentRec');
+        data.name=newName;
+
+        var params = new Object();
+        params.data = data;
+
+        me.setLoading("Đang lưu dữ liệu");
+        this.ThemMoi_CapNhat(params);
+
+        // console.log(viewModel.get('currentName'));
+        // console.log(viewModel.get('currentRec').id);
+    },
+    onRowClick:function(row, record, element, rowIndex, e, eOpts){
+        // console.log(record); 
+        var viewModel = this.getViewModel();
+        viewModel.set('currentRec',record.data);
+        viewModel.set('oldValue',record.data.name);
+        // console.log(viewModel.get('currentRec').id);
     }
 })
