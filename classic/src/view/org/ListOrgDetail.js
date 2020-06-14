@@ -1,14 +1,12 @@
 Ext.define('GSmartApp.view.org.ListOrgDetail', {
     extend: 'Ext.form.Panel',
-    xtype: 'ListOrgDetail', // same with database, 'PortDetailView' shows error
+    xtype: 'ListOrgDetail',
     id:'ListOrgDetail',
     controller: 'ListOrgDetailController',
-    // viewModel:{
-    //     type:'UnitViewModel'
-    // },
     layout: 'vbox',
     bind:{
-        title: '{title}'
+        title: '{title}',
+        hidden : '{!fieldState}'
     },
     // orgtypeid_link, parentid_link, linecost, colorid_link
     items: [{
@@ -105,7 +103,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         labelWidth: 105,
         xtype: 'combobox',
-        fieldLabel: 'Loại đơn vị ',
+        fieldLabel: 'Loại đơn vị ('+ '<span style="color:red">*</span>' + ')',
         bind:{
             store:'{OrgTypeStore}',
             value:'{currentRec.orgtypeid_link}'
@@ -113,7 +111,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
-        editable: false
+        editable: false,
+        allowBlank: false
     },{
         width:400,
         margin: 5,
@@ -128,6 +127,18 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         valueField: 'id',
         queryMode: 'local',
         editable: false
+    },{
+        width:400,
+        margin: 5,
+        labelWidth: 105,
+        xtype: 'checkbox',
+        fieldLabel: 'Trạng thái ',
+        inputValue:1,
+        uncheckedValue:-1,
+        // checked:true,
+        bind: {
+            value:'{currentRec.status}'
+        }
     }],
     dockedItems:[{
         layout:'hbox',
@@ -135,30 +146,13 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         dock:'bottom',
         items:[{
             xtype:'button',
-            text: 'Thêm đơn vị mới',
-            margin: 3,
-            itemId:'btnThemDonViMoi',
-            iconCls: 'x-fa fa-plus',
-            formBind: false
-        },{
-            xtype:'button',
             text: 'Thêm đơn vị trực thuộc',
             margin: 3,
             itemId:'btnThemDonViTrucThuoc',
             iconCls: 'x-fa fa-plus',
             formBind: false,
             bind:{
-                disabled:'{btnXoaState}'
-            }
-        },{
-            xtype:'button',
-            text: 'Xoá',
-            margin: 3,
-            itemId:'btnXoa',
-            iconCls: 'x-fa fa-trash',
-            formBind: false,
-            bind:{
-                disabled:'{btnXoaState}'
+                disabled:'{btnThemState}'
             }
         },{
             flex:1,

@@ -1,0 +1,114 @@
+Ext.define('GSmartApp.view.vendor.VendorDetailView', {
+    extend: 'Ext.form.Panel',
+    xtype: 'VendorDetailView', // same with database, 'PortDetailView' shows error
+    id:'VendorDetailView',
+    controller: 'VendorDetailViewController',
+    viewModel:{
+        type:'VendorViewModel'
+    },
+    layout: 'vbox',
+    bind:{
+        title: '{title}'
+    },
+    items: [{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
+        allowBlank: false,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.code}'
+        },
+        width: 400,
+        itemId: 'code',
+        labelWidth: 105
+    },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Tên vendor ('+ '<span style="color:red">*</span>' + ')',
+        allowBlank: false,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.name}'
+        },
+        width: 400,
+        labelWidth: 105
+    },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Thành phố',
+        allowBlank: true,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.city}'
+        },
+        width: 400,
+        labelWidth: 105
+    },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Địa chỉ',
+        allowBlank: true,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.address}'
+        },
+        width: 400,
+        labelWidth: 105
+    },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Người đại diện',
+        allowBlank: true,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.contactperson}'
+        },
+        width: 400,
+        labelWidth: 105
+    },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Email',
+        allowBlank: true,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.email}'
+        },
+        width: 400,
+        labelWidth: 105
+    },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Phone',
+        allowBlank: true,
+        blankText : 'Không được để trống',
+        bind:{
+            value :'{currentRec.phone}'
+        },
+        width: 400,
+        labelWidth: 105
+    }],
+    dockedItems:[{
+        layout:'hbox',
+        border: false,
+        dock:'bottom',
+        items:[{
+            xtype:'button',
+            text: 'Quay lại',
+            margin: 3,
+            itemId:'btnQuayLai',
+            iconCls: 'x-fa fa-backward'
+        },{
+            flex:1,
+            border: false
+        },{
+            xtype:'button',
+            text: 'Lưu',
+            margin: 3,
+            itemId:'btnLuu',
+            iconCls: 'x-fa fa-save',
+            formBind: true
+        }]
+    }]
+})
