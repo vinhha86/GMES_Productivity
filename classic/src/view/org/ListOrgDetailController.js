@@ -38,14 +38,17 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         var data = new Object();
         data = viewModel.get('currentRec');
         data.id = viewModel.get('id');
-
-        if(viewModel.get('parentId')!=null){
-            data.parentid_link=viewModel.get('parentId');
+        data.parentid_link=viewModel.get('parentId');
+        
+        if(data.status==true){
+            data.status=1;
         }else{
-            data.parentid_link=-1;
+            data.status=-1;
         }
 
         params.data = data;
+        console.log('data here');
+        console.log(params.data);
         params.msgtype = "ORG_CREATE";
         params.message = "Tạo org";
 
