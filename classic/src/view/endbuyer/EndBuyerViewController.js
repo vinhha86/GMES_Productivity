@@ -1,8 +1,7 @@
-Ext.define('GSmartApp.view.provider.ProviderViewController', {
+Ext.define('GSmartApp.view.endbuyer.EndBuyerViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.ProviderViewController',
+    alias: 'controller.EndBuyerViewController',
     init: function () {
-        var me = this.getView();
         this.onloadPage();
     },
     control: {
@@ -15,7 +14,7 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
         '#edit': {
             click: 'onCapNhat'
         },
-        '#ProviderView': {
+        '#EndBuyerView': {
             activate: 'onActivate',
             itemdblclick: 'onCapNhatdbl'
         }
@@ -26,21 +25,25 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
             this.onloadPage();
         }
         me.isActivate = true;
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.getStore('PortStore');
+        // store.loadStore();
     },
     onThemMoi: function (m, record) {
         var me = this.getView();
         var Id = 0;
 
-        this.redirectTo("lsprovider/" + Id + "/edit");
+        this.redirectTo("lsendbuyer/create");
     },
     onCapNhatdbl: function (m, record, item, index, e, eOpts) {
         var id = record.data.id;
-        this.redirectTo("lsprovider/" + id + "/edit");
+        this.redirectTo("lsendbuyer/" + id + "/edit");
+        console.log("dbclk here");
     },
     onCapNhat: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        this.redirectTo("lsprovider/" + id + "/edit");
+        this.redirectTo("lsendbuyer/" + id + "/edit");
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this;
@@ -49,7 +52,7 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
         var name = rec.get('name');
         Ext.Msg.show({
             title: 'Thông báo',
-            msg: 'Bạn có chắc chắn xóa nhà cung cấp "' + name + '" ?',
+            msg: 'Bạn có chắc chắn xóa end buyer "' + name + '" ?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,
             buttonText: {
@@ -69,7 +72,7 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
         var params = new Object();
         params.id = id;
 
-        GSmartApp.Ajax.post('/api/v1/org/delete', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/orgmenu/deleteOrg', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     Ext.MessageBox.show({
@@ -102,6 +105,6 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
 
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('OrgStore');
-        store.GetOrgByTypeId(5);
+        store.GetOrgByTypeId(12);
     }
 })
