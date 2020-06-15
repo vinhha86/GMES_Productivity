@@ -17,12 +17,13 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
         id: 0,
         parentId: null,
         name: '',
-        currentRec:null
+        currentRec:null,
+        fieldState: false
     },
     formulas: {
         title: function (get) {
             if (get('id') == 0 && get('parentId') == null) {
-                return 'Thêm mới đơn vị';
+                return 'Chi tiết đơn vị';
             }else if(get('id') == 0 && get('parentId') != null){
                 return 'Thêm mới đơn vị trực thuộc \'' + this.get('name') + '\'';
             }
@@ -30,7 +31,7 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
                 return this.get('name');
             }
         },
-        btnXoaState: function(get){
+        btnThemState: function(get){
             if (get('id')==0){
                 return 1;
             }else{

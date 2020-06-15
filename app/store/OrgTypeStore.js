@@ -6,17 +6,17 @@ Ext.define('GSmartApp.store.OrgTypeStore', {
 		{name: 'name',   type: 'string'},
 		{name: 'name_en',   type: 'string'}
 	],
-	// data:[
-	// 	{id:'1',name:'Trụ sở chính',name_en:'Head quater'},
-	// 	{id:'2',name:'Chi nhánh',name_en:'Branch'},
-	// 	{id:'3',name:'Kho nguyên liệu',name_en:'Material Store'},
-	// 	{id:'4',name:'Cửa hàng',name_en:'Shop'},
-	// 	{id:'5',name:'Nhà cung cấp',name_en:'Provider'},
-	// 	{id:'6',name:'Chủ hàng (đặt gia công)',name_en:'Boss'},
-	// 	{id:'7',name:'Đơn vị gia công',name_en:'Outsource'},
-	// 	{id:'8',name:'Kho thành phẩm',name_en:'Product Store'},
-	// 	{id:'9',name:'Phòng hoàn thiện SP',name_en:'Product QC'},
-	// ],
+	data:[
+		{id:'1',name:'Trụ sở chính',name_en:'Head quater'},
+		{id:'2',name:'Chi nhánh',name_en:'Branch'},
+		{id:'3',name:'Kho nguyên liệu',name_en:'Material Store'},
+		{id:'4',name:'Cửa hàng',name_en:'Shop'},
+		{id:'5',name:'Nhà cung cấp',name_en:'Provider'},
+		{id:'6',name:'Chủ hàng (đặt gia công)',name_en:'Boss'},
+		{id:'7',name:'Đơn vị gia công',name_en:'Outsource'},
+		{id:'8',name:'Kho thành phẩm',name_en:'Product Store'},
+		{id:'9',name:'Phòng hoàn thiện SP',name_en:'Product QC'},
+	],
 	loadStore:function(type){
 		var me=this;
 		var params = new Object();

@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
     id:'ListOrgMenu',
     controller: 'ListOrgMenuController',
     reference: 'ListOrgMenu',
+    useArrows:true,
     // viewConfig: {
     //     stripeRows: true,
     //     enableTextSelection: true,
