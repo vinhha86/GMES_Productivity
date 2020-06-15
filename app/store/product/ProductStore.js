@@ -148,6 +148,32 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			}
 		});
 	},
+	loadStore_bypairid_Async:function(id){
+		var me=this;
+		var params = new Object();
+		params.product_pairid_link = id;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/product/get_by_pairid',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},	
 	loadStore_ByPage:function(type, limit, page, name, code){
 		var me=this;
 		var params = new Object();

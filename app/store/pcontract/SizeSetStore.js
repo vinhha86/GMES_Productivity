@@ -9,6 +9,10 @@ Ext.define('GSmartApp.store.SizeSetStore', {
 		{name: 'usercreatedid_link', type: 'int'},
 		{name: 'timecreate', type: 'date', dateFormat: 'c'},
 	],
+    sorters: [{
+        property: 'id',
+        direction: 'ASC'
+    }],	
 	loadStore:function(){
 		var me=this;
 		this.setProxy({

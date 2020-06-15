@@ -23,6 +23,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                     height: 30,
                     xtype: 'combobox',
                     fieldLabel: 'Sản phẩm/Bộ:',
+                    editable: false,
+                    itemId: 'cboProduct',
                     margin: 1,
                     bind: {
                         store: '{ProductStore}',
@@ -60,6 +62,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                             region: 'west',
                             width: 100,
                             xtype: 'PContract_PO_Edit_Sizeset',
+                            itemId: 'lstSizeSet',
                             border: true,
                             margin: 1,                            
                         },

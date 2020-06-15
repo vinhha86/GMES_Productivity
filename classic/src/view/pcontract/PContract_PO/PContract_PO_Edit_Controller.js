@@ -5,7 +5,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewmodel = this.getViewModel();
         var productStore = viewmodel.getStore('ProductStore');
         var productid_link = viewmodel.get('productpairid_link');
-        productStore.loadStore_bypairid(productid_link);
+        productStore.loadStore_bypairid_Async(productid_link);
+
+		productStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+                    var productStore = viewmodel.getStore('ProductStore');
+                    this.enablePrice(productStore.getAt(0));
+                }
+			}
+		});        
+      
 
         if(viewmodel.get('plan.id') > 0){
             this.getInfo(viewmodel.get('plan.id'));
@@ -23,6 +36,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         },
         '#btnThemMoiGia': {
             click: 'onThemMoiGia'
+        },
+        '#cboProduct': {
+            select: 'onProductSelect'
+        },
+        '#lstSizeSet':{
+            select: 'onSizeSetSelect'
         }
     },
     getInfo: function(id){
@@ -39,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                         viewmodel.set('plan', response.data);
                         var store = viewmodel.getStore('PriceStore');
                         store.removeAll();
-                        store.insert(0 , response.data.listprice);
+                        store.insert(0 , response.data.listprice);               
                     }
                 }
             })
@@ -204,24 +223,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
         return list;
     },
-    onShipDateChange: function(newValue, oldValue, eOpts ){
-        // var viewmodel = this.getViewModel();
-        // var po_data = viewmodel.get('plan');
-        // console.log(po_data.shipdate);
-        // console.log(po_data.productiondate);
-        // var days = Ext.Date.diff(new Date(po_data.shipdate), new Date(po_data.productiondate), 'd');
-        // console.log(days);
-        // viewmodel.set('plan.productiondays',days);
+    onProductSelect: function(sender, record){
+         this.enablePrice(record);
     },
-    onMatDateChange: function(newValue, oldValue, eOpts ){
-        var viewmodel = this.getViewModel();
-        var po_data = viewmodel.get('plan');
-        var dt = Ext.Date.subtract(new Date(po_data.matdate), Ext.Date.DAY, -7);
-        viewmodel.set('plan.productiondate',dt);
-        console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
-
-        var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
-        console.log(days);
-        viewmodel.set('plan.productiondays',days);
-    },      
+    onSizeSetSelect: function(sender, record){
+        console.log(record.data.id);
+        console.log(record.data.name);
+    },
+    enablePrice: function(record){
+        var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
+        var viewPriceSumUp = Ext.getCmp('PContract_PO_Edit_PriceSumUp');
+        
+        if (record.get('producttypeid_link') == 5){
+            viewPrice.setDisabled(true);
+            viewPriceSumUp.setDisabled(true);
+        }
+        else {
+            viewPrice.setDisabled(false);   
+            viewPriceSumUp.setDisabled(false);
+        }   
+    }
 })
