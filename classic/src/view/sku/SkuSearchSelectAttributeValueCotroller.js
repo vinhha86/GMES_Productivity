@@ -37,10 +37,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchSelectAttributeValueCotroller', {
                 selectedIds = selectedIds + ';' + data.id;
             }
         }
-        me.AttrRecord.beginedit;
-        me.AttrRecord.set('description',selectedValue);
-        me.AttrRecord.set('selectedids',selectedIds);
-        me.AttrRecord.endedit;
-        this.onThoat();
+        
+        me.fireEvent("SelectValue", selectedIds, selectedValue);
     }
 })

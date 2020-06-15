@@ -3,13 +3,17 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
     alias: 'controller.ProductDetailViewCotroller',
     IdProduct: 0,
     init: function () {
-        var me = this.getView();
+        var me = this;
+        var viewmodel = this.getViewModel();
+        //neu la mo len tu form tin kiem
+        if(viewmodel.get('isWindow')){
+            me.onLoadData(viewmodel.get('product.id'), null);
+        }
     },
     listen: {
         controller: {
             '*': {
-                loaddata: 'onLoadData',
-                urlBack: 'onUrlBack'
+                loaddata: 'onLoadData'
             }
         }
     },
@@ -23,6 +27,28 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
         '#btnLuu': {
             click: 'onLuu'
         }
+    },
+    CheckValidate: function(){
+        var viewmodel = this.getViewModel();
+        var mes = '';
+
+        if(viewmodel.get('product.code') == '' || viewmodel.get('product.code') == null){
+            mes ="Bạn chưa nhập mã sản phẩm";
+            return mes;
+        }
+        else if(viewmodel.get('product.name') == '' || viewmodel.get('product.name') == null){
+            mes ="Bạn chưa nhập tên sản phẩm";
+            return mes;
+        }
+        else if(viewmodel.get('product.buyercode') == '' || viewmodel.get('product.buyercode') == null){
+            mes ="Bạn chưa nhập mã Buyer";
+            return mes;
+        }
+        else if(viewmodel.get('product.buyername') == '' || viewmodel.get('product.buyername') == null){
+            mes ="Bạn chưa nhập tên Buyer";
+            return mes;
+        }
+        return mes;
     },
     onLuu: function () {
         var m = this;
@@ -57,39 +83,41 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
                             msg: 'Lưu thành công',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
-                                yes: 'Đóng',
+                                yes: 'Đóng'
                             },
                             fn: function(){
+                                console.log(viewModel.get('isWindow'));
+                                
                                 if(!viewModel.get('isWindow'))
                                     m.redirectTo("lsproduct/" + response.id + "/edit");
                                 else
                                 {
                                     //Tạo event để form gọi lên hứng khi thêm sản phẩm thành công với trường hợp tạo sản phẩm trong đơn hàng
-                                    m.fireEvent("CreateProduct");
+                                    m.getView().fireEvent("CreateProduct", response.product);
                                 }
                             }
                         });
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: response.message,
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
                         });
                         me.down('#code').focus();
                     }
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
                     });
                 }
                 me.setLoading(false);
@@ -148,8 +176,5 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
             }]
         });
         form.show();
-    },
-    onUrlBack: function (type) {
-
     }
 })

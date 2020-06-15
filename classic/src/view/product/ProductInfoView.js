@@ -92,8 +92,6 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 itemId:'vendorcode',
                 name:'vendorcode',
                 height: 32,
-                allowBlank: false,
-                blankText: 'Không được để trống',
                 labelWidth: 110
             },{
                 xtype:'textfield',
@@ -102,8 +100,6 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 width: 400,
                 tooltip:'Nhập tên Vendor',
                 fieldLabel: "Tên Vendor",
-                allowBlank: false,
-                blankText: 'Không được để trống',
                 bind:{
                     value : '{product.vendorname}'
                 },

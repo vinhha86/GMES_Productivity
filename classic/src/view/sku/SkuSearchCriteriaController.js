@@ -73,6 +73,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteriaController', {
         });
     },
     onAddValue: function(grid, row, col){
+        var me = this;
         var record = grid.getStore().getAt(row);
         
         var form = Ext.create('Ext.window.Window', {
@@ -98,9 +99,15 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteriaController', {
         });
         form.show();
 
+        form.down('#SkuSearchSelectAttributeValue').on('SelectValue', function(ids, values){
+            record.set('description',values);
+            record.set('selectedids', ids);
+            me.onSearchButton();
+            form.close();
+        })
     },
     onitemdblclick : function(m, record, item, index, e, eOpts){
-        var me = this.getView();
+        var me = this;
         
         var form = Ext.create('Ext.window.Window', {
             height: 400,
@@ -125,6 +132,12 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteriaController', {
         });
         form.show();
 
+        form.down('#SkuSearchSelectAttributeValue').on('SelectValue', function(ids, values){
+            record.set('description',values);
+            record.set('selectedids', ids);
+            me.onSearchButton();
+            form.close();
+        })
     },
     onThemMoiAtt: function(grid, row, col){
         var me = this.getView();

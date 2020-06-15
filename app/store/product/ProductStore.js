@@ -30,8 +30,8 @@ Ext.define('GSmartApp.store.product.ProductStore', {
         direction: 'ASC',
         property: 'product_type'
 	},{
-        direction: 'ASC',
-        property: 'name'
+        direction: 'DESC',
+        property: 'id'
 	}],
 	pageSize: 1,
 	loadFilter:function(
