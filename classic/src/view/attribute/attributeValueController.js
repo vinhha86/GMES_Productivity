@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
     onXoaAtt: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var rec = grid.getStore().getAt(rowIndex);
-
+        
         if (rec.get('isdefault')) {
             Ext.Msg.show({
                 title: 'Thông báo',
