@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_PO_Edit',
+    id: 'PContract_PO_Edit',
     layout: 'border',
     controller: 'PContract_PO_Edit_Controller',
     // requires: ['Ext.ux.TreePicker'],
@@ -56,7 +57,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                 {
                     region: 'south',
                     layout: 'border',
-                    height: 320,
+                    height: 310,
                     items:[
                         {
                             region: 'west',

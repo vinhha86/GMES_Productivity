@@ -22,35 +22,13 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         }        
     },
     data: {
-        plan: {
-            id: null,
-            orgrootid_link: null,
-            pcontractid_link: null,
-            code: '',
-            po_buyer: '',
-            po_vendor: '',
-            productid_link: null,
-            po_quantity: 0,
-            unitid_link: null,
-            shipdate : null,
-            matdate: null,
-            etm_avr: 0,
-            productiondate: null,
-            packingnotice: '',
-            usercreatedid_link: 0,
-            timecreate: '',
-            productiondays: 0,
-            currencyid_link: 0,
-            exchangerate: 0,
-            fob_price: 0,
-            cmpt_price: 0,
-            total_price: 0,
-            packingnotice: '',
-            qcorgname: '',
-            status: 0
-        },
         parentId : 0,
+        po: null,
+        productid_link: null,
         productpairid_link: 0,
-        pcontractid_link: 0
+        pcontractid_link: 0,
+        plan: {
+            id: null        
+        }
     }
 })

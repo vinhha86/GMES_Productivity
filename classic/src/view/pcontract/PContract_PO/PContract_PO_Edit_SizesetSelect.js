@@ -2,13 +2,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelect', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_PO_Edit_SizesetSelect',
     id: 'PContract_PO_Edit_SizesetSelect',
-    controller: 'PContract_PO_Edit_SizesetController',
-    IdAttribute: 0,
-    IdProduct : 0,
-    IdPContract: 0,
-    viewModel: {
-        type : 'ProductDetailViewModel'
-    },
+    controller: 'PContract_PO_Edit_SizesetSelectController',
+    viewModel: 'PContract_PO_Edit_ViewModel',
+    pcontract_po: null,
+    productid_link: null,
     selModel: {
         selType: 'checkboxmodel',
         mode: 'MULTI'
@@ -24,8 +21,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelect', {
         store: '{SizeSetStore}'
     },
     columns: [{
-        text: 'Giá trị',
-        dataIndex: 'value',
+        text: 'Dải cỡ',
+        dataIndex: 'name',
         flex: 1
     }],
     dockedItems:[{

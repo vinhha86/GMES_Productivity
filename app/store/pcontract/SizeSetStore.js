@@ -8,6 +8,7 @@ Ext.define('GSmartApp.store.SizeSetStore', {
 		{name: 'comment',   type: 'string'},
 		{name: 'usercreatedid_link', type: 'int'},
 		{name: 'timecreate', type: 'date', dateFormat: 'c'},
+		{name: 'isselected', type: 'int'}
 	],
     sorters: [{
         property: 'id',
@@ -36,13 +37,13 @@ Ext.define('GSmartApp.store.SizeSetStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.load({
-			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 this.fireEvent('logout');
-				}
-			}
-		});
+		// this.load({
+		// 	scope: this,
+		// 	callback: function(records, operation, success) {
+		// 		if(!success){
+		// 			 this.fireEvent('logout');
+		// 		}
+		// 	}
+		// });
 	}
 });

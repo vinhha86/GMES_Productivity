@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     flex: 1,
                     height: 40,
                     bind: {
-                        value: '{plan.packingnotice}'
+                        value: '{po.packingnotice}'
                     }
                 }
             ]
@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{plan.po_buyer}'
+                                value: '{po.po_buyer}'
                             },
                             listeners: {
                                 focusleave: 'onPOBuyerChange'
@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{plan.po_quantity}'
+                                value: '{po.po_quantity}'
                             }
                         },    
                         {
@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             format: 'd/m/Y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
-                                value: '{plan.matdate}'
+                                value: '{po.matdate}'
                             },
                             listeners: {
                                 select: 'onMatDateChange'
@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{plan.productiondays}'
+                                value: '{po.productiondays}'
                             }
                         },                                                  
                     ]
@@ -106,7 +106,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{plan.po_vendor}'
+                                value: '{po.po_vendor}'
                             }
                         },
                         {
@@ -120,7 +120,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             format: 'd/m/Y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
-                                value: '{plan.shipdate}'
+                                value: '{po.shipdate}'
                             },
                             listeners: {
                                 select: 'onShipDateChange'
@@ -138,7 +138,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             format: 'd/m/Y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
-                                value: '{plan.productiondate}'
+                                value: '{po.productiondate}'
                             }
                         },     
                         {
@@ -150,7 +150,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{plan.qcorgname}'
+                                value: '{po.qcorgname}'
                             }
                         },                                           
                     ]

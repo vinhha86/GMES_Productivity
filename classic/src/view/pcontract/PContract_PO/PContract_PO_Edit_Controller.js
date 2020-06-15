@@ -24,8 +24,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             this.getInfo(viewmodel.get('plan.id'));
         }
 
-        var sizesetStore = viewmodel.getStore('SizeSetStore');
-        sizesetStore.loadStore();
     },
     control: {
         '#btnThoat': {
@@ -55,10 +53,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                     var response = Ext.decode(response.responseText);
                    
                     if(response.respcode == 200){
-                        viewmodel.set('plan', response.data);
-                        var store = viewmodel.getStore('PriceStore');
-                        store.removeAll();
-                        store.insert(0 , response.data.listprice);               
+                        viewmodel.set('po', response.data);
+                        // var store = viewmodel.getStore('PriceStore');
+                        // store.removeAll();
+                        // store.insert(0 , response.data.listprice);               
                     }
                 }
             })
@@ -81,8 +79,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var mes = me.CheckValidate();
         if(mes == ""){
             var params = new Object();
-            params.data = viewmodel.get('plan');
-            params.list_price = me.getListPrice();
+            params.data = viewmodel.get('po');
+            // params.list_price = me.getListPrice();
             params.pcontractid_link = viewmodel.get('pcontractid_link');
     
             GSmartApp.Ajax.post('/api/v1/pcontract_po/create', Ext.JSON.encode(params),
@@ -233,7 +231,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     enablePrice: function(record){
         var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
         var viewPriceSumUp = Ext.getCmp('PContract_PO_Edit_PriceSumUp');
-        
+
+        var viewmodel = this.getViewModel();
+        viewmodel.set('productid_link', record.get('id'));
+
         if (record.get('producttypeid_link') == 5){
             viewPrice.setDisabled(true);
             viewPriceSumUp.setDisabled(true);
