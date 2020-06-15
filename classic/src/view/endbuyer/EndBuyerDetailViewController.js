@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.provider.ProviderDetailViewCotroller', {
+Ext.define('GSmartApp.view.endbuyer.EndBuyerDetailViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.ProviderDetailViewCotroller',
+    alias: 'controller.EndBuyerDetailViewController',
     Id: 0,
     init: function () {
         var me = this.getView();
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.provider.ProviderDetailViewCotroller', {
         }
     },
     onLuu: function () {
-        var viewMain = Ext.getCmp('ProviderView');
+        var viewMain = Ext.getCmp('EndBuyerView');
 
         var me = this.getView();
         me.setLoading("Đang lưu dữ liệu");
@@ -32,15 +32,14 @@ Ext.define('GSmartApp.view.provider.ProviderDetailViewCotroller', {
         var data = new Object();
         data = viewModel.get('currentRec');
         data.id = this.Id;
-        data.orgtypeid_link = 5;
-        data.orgrootid_link = 0;
+        data.orgtypeid_link = 12;
         data.status = 1;
 
         params.data = data;
-        params.msgtype = "PROVIDER_CREATE";
-        params.message = "Tạo nhà cung cấp";
+        params.msgtype = "END_BUYER_CREATE";
+        params.message = "Tạo end buyer";
 
-        GSmartApp.Ajax.post('/api/v1/org/create', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/orgmenu/createOrg', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
@@ -100,11 +99,11 @@ Ext.define('GSmartApp.view.provider.ProviderDetailViewCotroller', {
     onQuayLai: function () {
         var me = this.getView();
         //me.getForm().reset();
-        this.redirectTo('lsprovider');
+        this.redirectTo('lsendbuyer');
     },
     onLoadData: function (id, type) {
         var me = this;
-        var viewMain = Ext.getCmp('ProviderView');
+        var viewMain = Ext.getCmp('EndBuyerView');
         var viewmodel = me.getViewModel();
         viewmodel.set('id', id);
         if (id == 0) {

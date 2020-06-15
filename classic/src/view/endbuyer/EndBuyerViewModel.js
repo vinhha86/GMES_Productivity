@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.Provider.ProviderViewModel', {
+Ext.define('GSmartApp.view.endbuyer.EndBuyerViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.ProviderViewModel',
-    requires: ['GSmartApp.store.org.ListOrgStore'],
+    alias: 'viewmodel.EndBuyerViewModel',
+    requires: ['GSmartApp.store.OrgStore'],
     stores: {
         OrgStore: {
             type: 'orgstore'
@@ -15,10 +15,10 @@ Ext.define('GSmartApp.view.Provider.ProviderViewModel', {
     formulas: {
         title: function (get) {
             if (get('id') == 0) {
-                return 'Thêm mới nhà cung cấp'
+                return 'Thêm mới end buyer'
             }
             else {
-                return 'Thông tin nhà cung cấp ' + this.get('name');
+                return 'Thông tin end buyer ' + this.get('name');
             }
         }
     }
