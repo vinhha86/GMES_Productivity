@@ -27,7 +27,6 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
         width: 80,
         editor:{
             xtype:'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {

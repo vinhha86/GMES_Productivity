@@ -395,8 +395,12 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         var storebom = Ext.getCmp('PContractProductBomView').getStore();
                         storebom.loadStore(pcontractid_link, productid_link);
 
-                        var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
-                        storebomcolor.load();
+                        var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+                        if(tab.items.length > 0){
+                            var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
+                            storebomcolor.load();
+                        }
+                        
 
                         var mywin = Ext.WindowManager.getActive();
                         if (mywin) {

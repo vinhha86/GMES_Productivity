@@ -42,10 +42,23 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
         GSmartApp.Ajax.post('/api/v1/pcontractproductpairing/create', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    var main = Ext.getCmp('PContractPairProductView');
-                    var store = main.getStore();
-                    store.load();
-                    me.up('window').close();
+                    var response = Ext.decode(response.responseText);
+                    if(response.mesErr != ""){
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.mesErr,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                    else{
+                        var main = Ext.getCmp('PContractPairProductView');
+                        var store = main.getStore();
+                        store.load();
+                        me.up('window').close();
+                    }                    
                 } else {
                     Ext.Msg.show({
                         title: 'Thông báo',

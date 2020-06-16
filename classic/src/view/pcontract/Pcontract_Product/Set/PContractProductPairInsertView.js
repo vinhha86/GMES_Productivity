@@ -28,9 +28,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
         textAlign: 'center',
         renderer: function(value, meta, record){
             return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
-        },
-        listeners:{
-            click: 'viewImg'
         }
     },{
         text:'Mã SP',

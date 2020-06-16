@@ -21,63 +21,70 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         var listtitle = [];
         var listid = [];
 
-        //Test sinh cot
-        // while (listid.length < 90){
-        //     var i = 1;
-        //     listid.push(i.toString());
-        //     listtitle.push(i.toString());
-        //     i++;
-        // }
+        var productid_link = viewmodel.get('IdProduct');
+        var pcontractid_link = viewmodel.get('PContract.id');
 
-         for (var i = 0; i < storeSKU.data.length; i++) {
-            var data = storeSKU.data.items[i].data;
-            if (!listid.includes(data.sizeid_link) && data.color_id == grid.colorid_link) {
-                listid.push(data.sizeid_link);
-                listtitle.push(data.coSanPham);
-            }
-        }
+        //kiem tra mau co trong sku khong thi moi sinh tab 
+        var params = new Object();
+        params.pcontractid_link = pcontractid_link;
+        params.productid_link = productid_link;
 
-        for (var i = 0; i < listtitle.length; i++) {
+        GSmartApp.Ajax.post('/api/v1/pcontractsku/getbypcontract_product', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
 
-            var column = Ext.create('Ext.grid.column.Number', {
-                text: listtitle[i],
-                xtype: 'numbercolumn',
-                dataIndex: listid[i].toString(),
-                width: 65,
-                format: '0.0000',
-                editor: {
-                    xtype: 'textfield',
-                    selectOnFocus: true,
-                    maskRe: /[0-9.]/,
-                    listeners: {
-                        change: 'onChange'
+                    for (var i = 0; i < response.data.length; i++) {
+                        var data = response.data[i];
+                        if (!listid.includes(data.sizeid_link) && data.color_id == grid.colorid_link) {
+                            listid.push(data.sizeid_link);
+                            listtitle.push(data.coSanPham);
+                        }
                     }
-                },
-                renderer: function (value, metaData, record) {
-                    if (value == 0) return "";
-                    return Ext.util.Format.number(value, '0.0000')
+            
+                    for (var i = 0; i < listtitle.length; i++) {
+            
+                        var column = Ext.create('Ext.grid.column.Number', {
+                            text: listtitle[i],
+                            xtype: 'numbercolumn',
+                            dataIndex: listid[i].toString(),
+                            width: 65,
+                            format: '0.0000',
+                            editor: {
+                                xtype: 'textfield',
+                                selectOnFocus: true,
+                                maskRe: /[0-9.]/,
+                                listeners: {
+                                    change: 'onChange'
+                                }
+                            },
+                            renderer: function (value, metaData, record) {
+                                if (value == 0) return "";
+                                return Ext.util.Format.number(value, '0.0000')
+                            }
+                        });
+                        grid.headerCt.insert(length + 1, column);
+                        length++;
+                        // grid.getView().refresh();
+                    }
+            
+                    var storeBOM = viewmodel.getStore('PContractBomColorStore');
+                    var model = storeBOM.getModel();
+                    var fields = model.getFields();
+                    for (var i = 0; i < fields.length; i++) {
+                        if (i > 19) {
+                            model.removeFields(fields[i].name);
+                        }
+                    }
+            
+                    var fieldnew = [];
+                    for (var i = 0; i < listid.length; i++) {
+                        fieldnew.push({ name: listid[i], type: 'number' });
+                    }
+            
+                    model.addFields(fieldnew);
                 }
-            });
-            grid.headerCt.insert(length + 1, column);
-            length++;
-            // grid.getView().refresh();
-        }
-
-        var storeBOM = viewmodel.getStore('PContractBomColorStore');
-        var model = storeBOM.getModel();
-        var fields = model.getFields();
-        for (var i = 0; i < fields.length; i++) {
-            if (i > 19) {
-                model.removeFields(fields[i].name);
-            }
-        }
-
-        var fieldnew = [];
-        for (var i = 0; i < listid.length; i++) {
-            fieldnew.push({ name: listid[i], type: 'number' });
-        }
-
-        model.addFields(fieldnew);
+            })
     },
     onChange: function (grid, newValue, oldValue, eOpts) {
         this.ischange = true;

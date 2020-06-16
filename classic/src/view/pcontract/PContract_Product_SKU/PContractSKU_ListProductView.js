@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
     reference: 'PContractSKU_ListProductView',
     columns:[{
         text:'Ảnh',
-        dataIndex:'imgproduct',
+        dataIndex:'urlimage',
         width: 50,
         textAlign: 'center',
         renderer: function(value, meta, record){
