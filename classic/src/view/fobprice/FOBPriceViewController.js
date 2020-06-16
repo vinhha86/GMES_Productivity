@@ -57,6 +57,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
             data.id = null;
             data.orgrootid_link = 0;
             data.name = me.down('#txtThemMoi').getValue();
+            data.issystemfix = false;
 
             var params = new Object();
             params.data = data;
@@ -89,6 +90,20 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
         var name = rec.get('name');
+
+        var issystemfix = rec.get('issystemfix');
+        if(issystemfix){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Không thể xoá giá FOB này (system fixed)",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
         Ext.Msg.show({
             title: 'Thông báo',
             msg: 'Bạn có chắc chắn xóa giá "' + name + '" ?',
@@ -110,6 +125,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         me.setLoading("Đang xóa dữ liệu");
         var params = new Object();
         params.id = id;
+
 
         GSmartApp.Ajax.post('/api/v1/fobprice/delete', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -147,8 +163,23 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         var viewModel = this.getViewModel();
         var newName = viewModel.get('newValue');
         var oldName = viewModel.get('oldValue');
+        var issystemfix = viewModel.get('currentRec').issystemfix;
 
         if(newName==oldName){
+            return;
+        }
+
+        if(issystemfix){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Không thể thay đổi giá FOB này (system fixed).",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            textField.setValue(oldName);
+            textField.focus();
             return;
         }
 
@@ -177,6 +208,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         var viewModel = this.getViewModel();
         viewModel.set('currentRec',record.data);
         viewModel.set('oldValue',record.data.name);
+
         // console.log(viewModel.get('currentRec').id);
     }
 })

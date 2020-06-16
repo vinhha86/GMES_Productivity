@@ -4,7 +4,8 @@ Ext.define('GSmartApp.store.fobprice.fobpricestore', {
 	storeId: 'fobpricestore',
 	fields: [
 		{name: 'id'},
-        {name: 'name',   type: 'string'}
+		{name: 'name', type: 'string'},
+		{name: 'issystemfix', type:'boolean'}
 	],
 	sorters: {
         direction: 'ASC',
