@@ -50,6 +50,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                             dataIndex: listid[i].toString(),
                             width: 65,
                             format: '0.0000',
+                            align: 'right',
                             editor: {
                                 xtype: 'textfield',
                                 selectOnFocus: true,
@@ -65,7 +66,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                         });
                         grid.headerCt.insert(length + 1, column);
                         length++;
-                        // grid.getView().refresh();
                     }
             
                     var storeBOM = viewmodel.getStore('PContractBomColorStore');
