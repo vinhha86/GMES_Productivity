@@ -3,14 +3,14 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
     alias: 'controller.PContractPairProductViewCotroller',
     init: function () {
         var me = this.getView();
-        
+
     },
-    control:{
-        '#btnThemMoi':{
+    control: {
+        '#btnThemMoi': {
             click: 'onThemMoi'
         }
     },
-    onThemMoi: function(){
+    onThemMoi: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var pcontractid_link = viewmodel.get('PContract').id;
@@ -45,13 +45,13 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
             },
             items: [{
                 xtype: 'PContractProductPairInsertView',
-                pcontractid_link: pcontractid_link,                
-                productpairid_link : 0
+                pcontractid_link: pcontractid_link,
+                productpairid_link: 0
             }]
         });
         form.show();
     },
-    onEdit: function(grid, rowIndex, colIndex){
+    onEdit: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var pcontractid_link = viewmodel.get('PContract').id;
@@ -74,12 +74,12 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
             items: [{
                 xtype: 'PContractProductPairInsertView',
                 pcontractid_link: pcontractid_link,
-                productpairid_link : productpairid_link
+                productpairid_link: productpairid_link
             }]
         });
         form.show();
     },
-    onXoa: function(grid, rowIndex, colIndex) {
+    onXoa: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
@@ -97,10 +97,10 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
                 if (btn === 'no') {
                     return;
                 }
-                else{
+                else {
                     var params = new Object();
                     params.id = rec.data.id;
-            
+
                     GSmartApp.Ajax.post('/api/v1/pcontractproductpairing/deleteproductpair', Ext.JSON.encode(params),
                         function (success, response, options) {
                             if (success) {
@@ -124,34 +124,52 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
             }
         });
     },
-    onUpdate: function(editor, context, e){
-        var viewmodel  = this.getViewModel();
-         var data = context.record.data;
-         var params = new Object();
-         params.id = data.productpairid_link;
-         params.name = data.productpairName;
-         params.code = data.productpairCode;
+    onUpdate: function (editor, context, e) {
+        var viewmodel = this.getViewModel();
+        var data = context.record.data;
+        var mes = "";
+        if (data.productpairCode == "" || data.productpairCode == null) {
+            mes = "Bạn chưa nhập mã của bộ sản phẩm";
+        }
 
-         GSmartApp.Ajax.post('/api/v1/product/update_productpair', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    var store = viewmodel.getStore('PContractProductPairStore');
-                    if (response.respcode != 200) {
-                        Ext.Msg.show({
-                            title: "Thông báo",
-                            msg: response.message,
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
-                        });
-                        store.rejectChanges();
+        if (mes == "") {
+            var params = new Object();
+            params.id = data.productpairid_link;
+            params.name = data.productpairName;
+            params.code = data.productpairCode;
+
+            GSmartApp.Ajax.post('/api/v1/product/update_productpair', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        var store = viewmodel.getStore('PContractProductPairStore');
+                        if (response.respcode != 200) {
+                            Ext.Msg.show({
+                                title: "Thông báo",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            store.rejectChanges();
+                        }
+                        else {
+                            store.commitChanges();
+                        }
                     }
-                    else {
-                        store.commitChanges();
-                    }
+                })
+        }
+        else {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: mes,
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
-            })
+            });
+        }
+
     }
 })

@@ -2,10 +2,10 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractProductBomViewController',
     init: function () {
-        
+
     },
-    control:{
-        '#actXoa':{
+    control: {
+        '#actXoa': {
             click: 'onXoa'
         },
         '#btnNPL': {
@@ -21,8 +21,8 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
         var storeBOM = viewmodel.getStore('PContractProductBomStore');
         var pcontractid_link = viewmodel.get('PContract').id;
         var productid_link = viewmodel.get('IdProduct');
-        
-        storeBOM.loadStore(pcontractid_link,productid_link );
+
+        storeBOM.loadStore(pcontractid_link, productid_link);
 
         var data = combo.findRecord('productid_link', newValue);
 
@@ -51,9 +51,9 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
             return;
         }
 
-        var form =Ext.create({
+        var form = Ext.create({
             xtype: 'skusearchwindow',
-            reference:'skusearchwindow',
+            reference: 'skusearchwindow',
             viewModel: {
                 data: {
                     sourceview: 'PContractProductBomView',
@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
         });
         form.show();
     },
-    onXoa: function(grid, rowIndex, colIndex){
+    onXoa: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
@@ -86,12 +86,12 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
                 if (btn === 'no') {
                     return;
                 }
-                else{
+                else {
                     var params = new Object();
                     params.pcontractid_link = viewmodel.get('PContract').id;
                     params.productid_link = viewmodel.get('IdProduct');
                     params.materialid_link = rec.data.materialid_link;
-            
+
                     GSmartApp.Ajax.post('/api/v1/pcontractproductbom/deletematerial', Ext.JSON.encode(params),
                         function (success, response, options) {
                             if (success) {
@@ -117,15 +117,15 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
             }
         });
     },
-    onEdit: function(editor, context, e){
-         var viewmodel  = this.getViewModel();
-         var data = context.record.data;
-         var params = new Object();
-         params.data = data;
-         params.isUpdateBOM = false;
+    onEdit: function (editor, context, e) {
+        var viewmodel = this.getViewModel();
+        var data = context.record.data;
+        var params = new Object();
+        params.data = data;
+        params.isUpdateBOM = false;
 
-         viewmodel.set('isReadOnlycmbSanPham', true);
-         GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
+        viewmodel.set('isReadOnlycmbSanPham', true);
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
@@ -141,13 +141,18 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
                     }
                     else {
                         var storebom = viewmodel.getStore('PContractProductBomStore');
-                        var storebomcolor = viewmodel.getStore('PContractBomColorStore');
-                        storebomcolor.load();
                         storebom.commitChanges();
+
+                        var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+                        if (tab.items.length > 0) {
+                            var storebomcolor = viewmodel.getStore('PContractBomColorStore');
+                            storebomcolor.load();
+                        }
+
                     }
                 }
-                
-            viewmodel.set('isReadOnlycmbSanPham', false);
+
+                viewmodel.set('isReadOnlycmbSanPham', false);
             })
     }
 })

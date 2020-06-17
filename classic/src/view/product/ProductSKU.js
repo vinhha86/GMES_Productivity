@@ -29,7 +29,17 @@ Ext.define('GSmartApp.view.product.ProductSKU', {
     },{
         text:'SKU',
         dataIndex:'code',
-        width: 90
+        width: 90,
+        getEditor: function (record) {
+            return Ext.create('Ext.grid.CellEditor', {
+                field: {
+                    xtype: 'textfield',
+                    allowBlank: false,
+                    blankText: 'Không được để trống',
+                    itemId:'txtsku'
+                }
+            })
+        }    
     },{
         text:'Mã vendor',
         dataIndex:'partnercode',

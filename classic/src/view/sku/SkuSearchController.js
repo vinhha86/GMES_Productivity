@@ -1,6 +1,14 @@
 Ext.define('GSmartApp.view.sku.SkuSearchController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.skusearch',
+    init: function(){
+        var viewModel = this.getViewModel();
+        if (viewModel.get('sourceview') == 'PContractListProductView'){
+            var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');        
+            SkuAtributesStore.loadDefaultAttr(10);
+            this.onSearchButton();
+        }
+    },
     onActivate: function () {
         var viewModel = this.getViewModel();
         var producttypeStore = viewModel.getStore('ProductTypeStore');
@@ -34,15 +42,13 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
 
             this.onSearchButton();
         }
-        else if (viewModel.get('sourceview') == 'PContractListProductView'){
-            var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');        
-            SkuAtributesStore.loadDefaultAttr(10);
-            this.onSearchButton();
-        }
     },
     control: {
         '#btnChonSanPham': {
             click: 'createPContractProduct'
+        },
+        'ProductList': {
+            itemdblclick: 'onEditProduct'
         }
     },
     onCreateSKU: function(){
@@ -130,6 +136,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     },
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
+
         if (viewModel.get('sourceview') == 'stockoutforcheck') {
             this.createStockoutForCheck();
         }
@@ -202,9 +209,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     createPContractProduct_WithSKU: function () {
         var me = this.getView().down('#grid_skusearch');
         var viewModel = this.getViewModel();
-        var params = new Object();
-        params.pcontractid_link = viewModel.get('pcontractid_link');
-        params.productid_link = viewModel.get('productid_link_notsearch');
         var select = me.getSelectionModel().getSelection();
 
         if (select.length == 0) {
@@ -213,11 +217,14 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 msg: 'Bạn chưa chọn SKU',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
-                    yes: 'Đóng',
+                    yes: 'Đóng'
                 }
             });
         }
         else {
+            var params = new Object();
+            params.pcontractid_link = viewModel.get('pcontractid_link');
+            params.productid_link = viewModel.get('productid_link_notsearch');
             var listskuid_link = [];
             for (var i = 0; i < select.length; i++) {
                 var data = select[i].data;
@@ -388,8 +395,12 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         var storebom = Ext.getCmp('PContractProductBomView').getStore();
                         storebom.loadStore(pcontractid_link, productid_link);
 
-                        var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
-                        storebomcolor.load();
+                        var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+                        if(tab.items.length > 0){
+                            var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
+                            storebomcolor.load();
+                        }
+                        
 
                         var mywin = Ext.WindowManager.getActive();
                         if (mywin) {
@@ -487,6 +498,14 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
     onCreateProduct: function(){
+        var viewmodel = this.getViewModel();
+        var me = this;
+        var xtype = '';
+        if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
+        {
+            xtype = 'ProductDetailView'
+        }
+
         var form = Ext.create('Ext.window.Window', {
             height: 500,
             closable: true,
@@ -503,18 +522,66 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             },
             items: [{
                 border: false,
-                xtype: 'ProductDetailView',
+                xtype: xtype,
                 viewModel: {
                     data: {
-                        btnQuayLai: true
+                        btnQuayLai: true,
+                        isWindow: true
                     }
                 }
             }]
         });
         form.show();
 
-        form.down('#ProductDetailView').on('CreateProduct', function () {
-            
+        form.down('#ProductDetailView').on('CreateProduct', function (product) {
+            // console.log(product);
+            // me.getView().down('#ProductList').getSelectionModel().select(product);
+            form.close();
+        })
+    },
+    onEditProduct: function(grid, rec){
+        console.log(rec);
+        var viewmodel = this.getViewModel();
+        var me = this;
+        var xtype = '';
+        if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
+        {
+            xtype = 'ProductDetailView'
+        }
+
+        var form = Ext.create('Ext.window.Window', {
+            height: 500,
+            closable: true,
+            title: 'Cập nhật sản phẩm',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 1200,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: xtype,
+                viewModel: {
+                    data: {
+                        btnQuayLai: true,
+                        isWindow: true,
+                        product: {
+                            id : rec.data.id
+                        }
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ProductDetailView').on('CreateProduct', function (product) {
+            // console.log(product);
+            // me.getView().down('#ProductList').getSelectionModel().select(product);
             form.close();
         })
     }

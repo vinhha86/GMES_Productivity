@@ -11,7 +11,7 @@ Ext.define('GSmartApp.store.OrgTypeStore', {
 		{id:'2',name:'Chi nhánh',name_en:'Branch'},
 		{id:'3',name:'Kho nguyên liệu',name_en:'Material Store'},
 		{id:'4',name:'Cửa hàng',name_en:'Shop'},
-		{id:'5',name:'Nhà cung cấp',name_en:'Provider'},
+		// {id:'5',name:'Nhà cung cấp',name_en:'Provider'},
 		{id:'6',name:'Chủ hàng (đặt gia công)',name_en:'Boss'},
 		{id:'7',name:'Đơn vị gia công',name_en:'Outsource'},
 		{id:'8',name:'Kho thành phẩm',name_en:'Product Store'},

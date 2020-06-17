@@ -9,12 +9,17 @@ Ext.define('GSmartApp.view.product.ProductSKUViewCotroller', {
         '#txtcode': {
             focus: 'onfocus',
             focusleave: 'onfocusleave'
+        },
+        '#txtsku': {
+            focus: 'onfocus',
+            focusleave: 'onfocusleave'
         }
     },
     onfocus: function (m) {
         this.oldValue = m.getValue();
     },
     onfocusleave: function (m, event, eOpts) {
+        console.log(m);
         var me = this.getView();
         if (m.getValue() == this.oldValue) return;
 
@@ -25,7 +30,10 @@ Ext.define('GSmartApp.view.product.ProductSKUViewCotroller', {
         }
 
         var select = this.getView().getSelectionModel().getSelection();
-        select[0].data.barcode = m.getValue();
+        if(m.itemId == "txtcode")
+            select[0].data.barcode = m.getValue();
+        else if (m.itemId == "txtsku")
+        select[0].data.code = m.getValue();
 
         var params = new Object();
         params.msgtype = "SKU_CREATE";
@@ -38,16 +46,27 @@ Ext.define('GSmartApp.view.product.ProductSKUViewCotroller', {
         GSmartApp.Ajax.post('/api/v1/sku/createcode', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if(response.mesErr != ""){
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.mesErr,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
                     var store = me.getStore();
-                    store.load();
+                        store.load();
                 } else {
                     Ext.Msg.show({
-                        title: 'Thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
                 me.setLoading(false);
