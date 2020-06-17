@@ -57,13 +57,12 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                 {
                     region: 'south',
                     layout: 'border',
-                    height: 310,
+                    height: 315,
                     items:[
                         {
                             region: 'west',
                             width: 100,
                             xtype: 'PContract_PO_Edit_Sizeset',
-                            itemId: 'lstSizeSet',
                             border: true,
                             margin: 1,                            
                         },

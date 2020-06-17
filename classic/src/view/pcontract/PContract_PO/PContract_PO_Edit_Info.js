@@ -6,17 +6,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
     items: [
         {
             region: 'south',
-            height: 40,
+            height: 50,
             layout: 'hbox',
-            align: 'stretch',
             items:[
                 {
+                    region: 'center',
                     xtype: 'textarea',
                     labelWidth: 90,
                     labelAlign: 'left',
                     fieldLabel:'Đóng gói:',
-                    flex: 1,
-                    height: 40,
+                    width: '100%',
+                    margin: 1,
                     bind: {
                         value: '{po.packingnotice}'
                     }

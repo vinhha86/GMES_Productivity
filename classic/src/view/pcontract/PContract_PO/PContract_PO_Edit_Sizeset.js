@@ -2,6 +2,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_PO_Edit_Sizeset',
     id:'PContract_PO_Edit_Sizeset',
+    reference: 'PContract_PO_Edit_Sizeset',
+    itemId:'PContract_PO_Edit_Sizeset',
     controller: 'PContract_PO_Edit_SizesetController',
     viewConfig: {
         stripeRows: false,
@@ -12,7 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
         mode: 'SINGLE'
     },
     bind:{
-        store:'{po.pcontract_price}'
+        store:'{PriceStore}'
     },
     columns:[{
         // text:'Dải cỡ',

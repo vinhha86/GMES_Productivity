@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     width: 170,
                     margin: 1,
                     bind: {
-                        value: '{plan.cmpt_price}'
+                        value: '{po_price.price_cmp}'
                     }
                 }, 
                 {
@@ -28,7 +28,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     labelAlign: 'left',
                     labelWidth: 90,
                     width: 170,
-                    margin: 1
+                    margin: 1,
+                    bind: {
+                        value: '{po_price.price_sewingtarget}'
+                    }                    
                 }                
             ]
         },
@@ -46,7 +49,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     width: 170,
                     margin: 1,
                     bind: {
-                        value: '{plan.fob_price}'
+                        value: '{po_price.price_fob}'
                     }
                 }, 
                 {
@@ -56,7 +59,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     labelAlign: 'left',
                     labelWidth: 90,
                     width: 170,
-                    margin: 1
+                    margin: 1,
+                    bind: {
+                        value: '{po_price.price_sewingcost}'
+                    }                    
                 }                
             ]
         },
@@ -74,7 +80,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     width: 170,
                     margin: 1,
                     bind: {
-                        value: '{plan.total_price}'
+                        value: '{po_price.totalprice}'
                     }
                 }, 
                 {
@@ -85,7 +91,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     labelAlign: 'left',
                     labelWidth: 90,
                     width: 170,
-                    margin: 1
+                    margin: 1,
+                    bind: {
+                        value: '{po_price.salaryfund}'
+                    }                    
                 }                
             ]
         }

@@ -14,10 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             clicksToEdit: 1 
         }
     },
-    bind: {
-        store: '{PriceStore}',
-        title: '{title}'
-    },
+    bind: '{PContract_PO_Edit_Sizeset.selection.pcontract_price_d}',
     columns: [{
         text: 'Tên giá',
         dataIndex: 'fobprice_name',
@@ -89,7 +86,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             labelWidth : 60,
             bind:{
                 store:'{CurrencyStore}',
-                value: '{plan.currencyid_link}'
+                value: '{po.currencyid_link}'
             },
             displayField: 'name',
             valueField: 'id',
@@ -105,7 +102,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
             bind: {
-                value: '{plan.exchangerate}'
+                value: '{po.exchangerate}'
             }
         },             
 		{

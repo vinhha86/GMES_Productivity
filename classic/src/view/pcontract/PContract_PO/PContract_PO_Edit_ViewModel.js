@@ -14,17 +14,22 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         PriceStore: {
             type: 'PContract_PO_Price_Store'
         },
+        Price_DStore: {
+            type: 'PContract_PO_Price_D_Store'
+        },        
         ProductStore: {
             type: 'ProductStore'
         },
         SizeSetStore: {
             type: 'SizeSetStore'
-        }        
+        }  
     },
     data: {
         parentId : 0,
         po: null,
+        po_price: null,
         productid_link: null,
+        producttypeid_link: null,
         productpairid_link: 0,
         pcontractid_link: 0,
         plan: {

@@ -15,15 +15,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
 					 this.fireEvent('logout');
 				} else {
                     //remove sizeset that have been selected to PO
-                    var po_pricelist = p_viewmodel.get('po.pcontract_price');
-                    console.log(po_pricelist);
-                    for(var i in po_pricelist){
-                        var fSizeset = sizesetStore.findRecord('id', po_pricelist[i].sizesetid_link);
+                    var priceStore = p_viewmodel.getStore('PriceStore');
+                    for(var k =0; k < priceStore.data.length; k++){
+                        var p_data = priceStore.data.items[k].data;
+                        var fSizeset = sizesetStore.findRecord('id', p_data.sizesetid_link);
                         if (null != fSizeset){
                             sizesetStore.remove(fSizeset);
                         }
                     } 
-            
                 }
 			}
 		});  
@@ -42,6 +41,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
     onLuu: function () {
         var parent = Ext.getCmp('PContract_PO_Edit');
         var p_viewmodel = parent.getViewModel();
+        var productStore = p_viewmodel.getStore('ProductStore');
+        var priceStore = p_viewmodel.getStore('PriceStore');
+        console.log(priceStore);
+
 
         var me = this.getView();
         var po = p_viewmodel.get('po');
@@ -62,16 +65,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
         } else {
             for (var i = 0; i < select.length; i++) {
                 var data = select[i].data;
-                var newSizeset = new Object();
-                newSizeset.pcontractid_link = po.pcontractid_link;
-                newSizeset.pcontract_poid_link = po.id;
-                newSizeset.productid_link = p_viewmodel.get('productid_link');
-                newSizeset.sizesetid_link = data.id;
-                newSizeset.sizesetname = data.name;
-                po_pricelist.push(newSizeset);
+
+                //Them Sizeset cho tat ca cac san pham trong bo
+                for(var k =0; k < productStore.data.length; k++){
+                    var p_data = productStore.data.items[k].data;
+                    var newSizeset = new Object();
+                    newSizeset.pcontractid_link = po.pcontractid_link;
+                    newSizeset.pcontract_poid_link = po.id;
+                    newSizeset.productid_link =p_data.id;
+                    newSizeset.sizesetid_link = data.id;
+                    newSizeset.sizesetname = data.name;
+                    newSizeset.price_cmp = null;
+                    newSizeset.price_fob = null;
+                    newSizeset.price_sewingcost = null;
+                    newSizeset.price_sewingtarget = null;
+                    newSizeset.salaryfund = null;
+                    newSizeset.totalprice = null;
+                    priceStore.insert(0,newSizeset);
+                }
             }  
-            console.log(po);
-            p_viewmodel.set('po', po);
+
             this.onThoat();
         }
     

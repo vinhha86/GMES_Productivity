@@ -22,6 +22,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
         if(viewmodel.get('plan.id') > 0){
             this.getInfo(viewmodel.get('plan.id'));
+        } else {
+            this.getInfo(null);
         }
 
     },
@@ -37,14 +39,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         },
         '#cboProduct': {
             select: 'onProductSelect'
-        },
-        '#lstSizeSet':{
-            select: 'onSizeSetSelect'
         }
     },
     getInfo: function(id){
         var viewmodel = this.getViewModel();
-
+        if (null != id){
             var params = new Object();
             params.id = id;
             GSmartApp.Ajax.post('/api/v1/pcontract_po/getone', Ext.JSON.encode(params),
@@ -54,12 +53,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                    
                     if(response.respcode == 200){
                         viewmodel.set('po', response.data);
-                        // var store = viewmodel.getStore('PriceStore');
-                        // store.removeAll();
-                        // store.insert(0 , response.data.listprice);               
+                        var store = viewmodel.getStore('PriceStore');
+                        store.removeAll();
+                        store.insert(0 , response.data.pcontract_price);               
                     }
                 }
             })
+        } else {
+            var new_po = new GSmartApp.model.pcontract.PContractPO();
+            viewmodel.set('po', new_po);
+        }
     },
     onThoat: function(){
         this.getView().up('window').close();
@@ -76,12 +79,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     onSave: function(){
         var me = this;
         var viewmodel = this.getViewModel();
+        var priceStore = viewmodel.getStore('PriceStore');
+
+        //Xoa filter trc khi day len server
+        priceStore.clearFilter();
+
+        //Chuyen thanh dang array de dua vào po object
+        var arrPrice = [];   
+        priceStore.each(function (record) {
+            record.data.id = null;
+            arrPrice.push(record.data);
+        });  
+        viewmodel.set('po.pcontract_price',arrPrice);
+        console.log(viewmodel.get('po.pcontract_price'));
+
+        //Call API
         var mes = me.CheckValidate();
         if(mes == ""){
             var params = new Object();
             params.data = viewmodel.get('po');
             // params.list_price = me.getListPrice();
             params.pcontractid_link = viewmodel.get('pcontractid_link');
+            console.log(params);
+            // return;
     
             GSmartApp.Ajax.post('/api/v1/pcontract_po/create', Ext.JSON.encode(params),
                 function (success, response, options) {
@@ -171,7 +191,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             title: 'Danh sách giá',
             closeAction: 'destroy',
             height: 400,
-            width: 600,
+            width: 400,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -184,10 +204,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         form.show();
 
         form.down('#PContract_FOB_Price').getController().on('SelectPrice', function (select) {
-            var storePrice = viewmodel.getStore('PriceStore');
+            var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
+            // var storeDPrice = viewmodel.getStore('Price_DStore');
+            var pcontract_price_d = viewSizeset.selection.data.pcontract_price_d;
+            var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
+            var storeDPrice = viewPrice.getView().getStore();
             for(var i=0;i<select.length;i++){
                 var data = select[i].data;
-                var rec = storePrice.findRecord('fobprice_name', data.name);
+                var rec = null;//storeDPrice.findRecord('fobprice_name', data.name);
                 if(rec == null) {
                     var newRec = new Object({
                         fobprice_name : data.name,
@@ -196,9 +220,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                         cost: 0,
                         productid_link: viewmodel.get('productpairid_link')
                     })
-                    storePrice.insert(0 , newRec);
+                    pcontract_price_d.push(newRec);
+                    // storeDPrice.insert(0 , newRec);
                 }
             }
+            var priceStore = viewmodel.getStore('PriceStore');
+            console.log(priceStore);
+            console.log(pcontract_price_d);
             form.close();
         })
     },
@@ -224,24 +252,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     onProductSelect: function(sender, record){
          this.enablePrice(record);
     },
-    onSizeSetSelect: function(sender, record){
-        console.log(record.data.id);
-        console.log(record.data.name);
-    },
+
     enablePrice: function(record){
         var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
         var viewPriceSumUp = Ext.getCmp('PContract_PO_Edit_PriceSumUp');
+        var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
+        
 
         var viewmodel = this.getViewModel();
         viewmodel.set('productid_link', record.get('id'));
+        viewmodel.set('producttypeid_link', record.get('producttypeid_link'));
 
         if (record.get('producttypeid_link') == 5){
             viewPrice.setDisabled(true);
-            viewPriceSumUp.setDisabled(true);
         }
         else {
             viewPrice.setDisabled(false);   
-            viewPriceSumUp.setDisabled(false);
         }   
+
+        var priceStore = viewmodel.getStore('PriceStore');
+        priceStore.clearFilter(); 
+        priceStore.filter('productid_link',record.get('id'));
+        // priceStore.filters.remove('granttoorgid_link');
+        viewSizeset.getView().select(0);
     }
+
 })

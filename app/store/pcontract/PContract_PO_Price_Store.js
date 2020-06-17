@@ -3,25 +3,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO_Price_Store', {
 	alias: 'store.PContract_PO_Price_Store',
 	storeId: 'PContract_PO_Price_Store',
 	idProperty: 'idx',
-	fields: [
-		'idx',
-		{name: 'orgrootid_link',   type: 'int'},
-		{name: 'id',   type: 'int'},
-		{name: 'pcontractid_link',   type: 'int'},
-		{name: 'pcontract_poid_link',   type: 'int'},
-		{name: 'productid_link',   type: 'int'},
-		{name: 'price',   type: 'number'},
-		{name: 'cost',   type: 'number'},
-		{name: 'isfob'},
-		{name: 'currencyid_link',   type: 'int'},
-		'exchangerate',
-		'status',
-		'usercreatedid_link',
-		'datecreated',
-		'usercreatedName',
-		'fobpriceid_link',
-		'fobprice_name'
-    ],
+	model: 'GSmartApp.model.pcontract.PContractPO_Price',
 	sorters: [{
         direction: 'ASC',
         property: 'id'
