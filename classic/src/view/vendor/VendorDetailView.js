@@ -72,6 +72,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Email',
         allowBlank: true,
         blankText : 'Không được để trống',
+        vtype: 'email',
+        vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ name@example.com',
         bind:{
             value :'{currentRec.email}'
         },
@@ -83,6 +85,7 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Phone',
         allowBlank: true,
         blankText : 'Không được để trống',
+        maskRe: /[0-9+-]/,
         bind:{
             value :'{currentRec.phone}'
         },

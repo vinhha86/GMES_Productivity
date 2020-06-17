@@ -70,6 +70,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         fieldLabel: 'Email ',
         allowBlank: true,
+        vtype: 'email',
+        vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ name@example.com',
         // blankText : 'Không được để trống',
         bind:{
             value :'{currentRec.email}'
@@ -81,6 +83,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         fieldLabel: 'Điện thoại ',
         allowBlank: true,
+        maskRe: /[0-9+-]/,
         // blankText : 'Không được để trống',
         bind:{
             value :'{currentRec.phone}'
@@ -92,6 +95,11 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         fieldLabel: 'Line Cost ',
         allowBlank: true,
+        hideTrigger:true,
+        maskRe: /[0-9]/,
+        fieldStyle:{
+            'text-align':'right'
+        },
         // blankText : 'Không được để trống',
         bind:{
             value :'{currentRec.linecost}'
@@ -132,7 +140,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         labelWidth: 105,
         xtype: 'checkbox',
-        fieldLabel: 'Trạng thái ',
+        fieldLabel: 'Hoạt động ',
         inputValue:1,
         uncheckedValue:-1,
         // checked:true,

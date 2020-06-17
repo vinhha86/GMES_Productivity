@@ -55,5 +55,10 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         // storeOrgType.loadAllOrgType();
         var storeColor = viewmodel.getStore('ColorStore');
         storeColor.loadStore();
+
+        // disable checkbox
+        var viewMain = Ext.getCmp('ListOrgMenu');
+        console.log('under here');
+        console.log(viewMain);
     }
 })
