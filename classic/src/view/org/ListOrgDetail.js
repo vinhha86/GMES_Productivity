@@ -96,9 +96,10 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Line Cost ',
         allowBlank: true,
         hideTrigger:true,
-        maskRe: /[0-9]/,
+        minValue: 0,
         fieldStyle:{
-            'text-align':'right'
+            'text-align':'right',
+            'color': 'blue'
         },
         // blankText : 'Không được để trống',
         bind:{
