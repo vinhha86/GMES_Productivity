@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_PO_Edit_Price',
     id: 'PContract_PO_Edit_Price',
-    // controller: 'PContractProductBomViewController',
+    controller: 'PContract_PO_Edit_PriceController',
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true,
@@ -11,10 +11,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1 
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onPriceDItemEdit'
+            }             
         }
     },
-    bind: '{PContract_PO_Edit_Sizeset.selection.pcontract_price_d}',
+
+    // bind: '{PContract_PO_Edit_Sizeset.selection.pcontract_price_d}',
+    bind:{
+        store:'{Price_DStore}'
+    },
     columns: [{
         text: 'Tên giá',
         dataIndex: 'fobprice_name',
@@ -91,19 +98,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             displayField: 'name',
             valueField: 'id',
             reference:'currencycombo',
-            // listeners: {
-            //     select: 'onOrgItemSelected'
-            // }
+            listeners: {
+                select: 'onCurrencyItemSelected'
+            }
         },       
         {
-            xtype: 'textfield',
+            xtype: 'numberfield',
+            hideTrigger:true,
             width: 120,
             cls: 'inputBoxNarror',
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
             bind: {
                 value: '{po.exchangerate}'
-            }
+            },
+            listeners: {
+                focusleave: 'onExchangeRateChange'
+            }            
         },             
 		{
             xtype:'button',

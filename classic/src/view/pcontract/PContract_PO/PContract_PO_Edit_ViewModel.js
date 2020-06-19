@@ -25,15 +25,14 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         }  
     },
     data: {
+        id: null,
         parentId : 0,
         po: null,
         po_price: null,
-        productid_link: null,
-        producttypeid_link: null,
+        product_selected_id_link: null,
+        product_selected_typeid_link: null,
+        isproductpair: 0,
         productpairid_link: 0,
-        pcontractid_link: 0,
-        plan: {
-            id: null        
-        }
+        pcontractid_link: 0
     }
 })

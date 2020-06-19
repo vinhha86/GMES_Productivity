@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
     },    
     onSizesetSelect: function(){
         var viewmodel = this.getViewModel();
-        if (null != viewmodel.get('producttypeid_link') && 5 != viewmodel.get('producttypeid_link')){
+        if (null != viewmodel.get('product_selected_typeid_link') && 5 != viewmodel.get('product_selected_typeid_link')){
             var form = Ext.create('Ext.window.Window', {
                 height: 400,
                 closable: true,
@@ -34,7 +34,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
             });
             form.show();
         } else {
-            
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: 'Không được thêm mới Dải cỡ cho bộ?',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                },
+            });
         }
     },
     onXoa: function(grid, rowIndex, colIndex){
@@ -63,7 +70,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var viewModel = this.getViewModel();
         viewModel.set('po_price', rec.data);
 
-        // var priceDStore = viewModel.getStore('Price_DStore');
-        // priceDStore.setData(rec.data.pcontract_price_d);
+        var Price_DStore = viewModel.getStore('Price_DStore');
+        Price_DStore.loadData(rec.data.pcontract_price_d);
     },
 })

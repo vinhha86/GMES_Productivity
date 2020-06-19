@@ -6,6 +6,6 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO_Price_D_Store', {
 	model: 'GSmartApp.model.pcontract.PContractPO_Price_D',
 	sorters: [{
         direction: 'ASC',
-        property: 'id'
+        property: 'fobpriceid_link'
 	}]
 });

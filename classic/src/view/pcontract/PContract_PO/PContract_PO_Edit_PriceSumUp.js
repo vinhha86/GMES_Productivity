@@ -7,6 +7,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
         {
             xtype: 'container',
             layout: 'vbox',
+            margin: 1,
+            flex:1,
             items:[
                 {
                     xtype: 'numberfield',
@@ -14,8 +16,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     readOnly: true,
                     fieldLabel: 'Giá CMP:',
                     labelAlign: 'left',
-                    labelWidth: 90,
-                    width: 170,
+                    labelWidth: 75,
+                    width:'100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.price_cmp}'
@@ -24,10 +26,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Sewing Target:',
+                    fieldLabel: 'Sew Target:',
                     labelAlign: 'left',
-                    labelWidth: 90,
-                    width: 170,
+                    labelWidth: 75,
+                    width:'100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.price_sewingtarget}'
@@ -38,6 +40,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
         {
             xtype: 'container',
             layout: 'vbox',
+            margin: 1,
+            flex:1,
             items:[
                 {
                     xtype: 'numberfield',
@@ -45,8 +49,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     readOnly: true,
                     fieldLabel: 'Giá FOB:',
                     labelAlign: 'left',
-                    labelWidth: 90,
-                    width: 170,
+                    labelWidth: 75,
+                    width:'100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.price_fob}'
@@ -55,10 +59,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                 {
                     xtype: 'numberfield',
                     hideTrigger:true,
-                    fieldLabel: 'Sewing Cost:',
+                    fieldLabel: 'Sew Cost:',
                     labelAlign: 'left',
-                    labelWidth: 90,
-                    width: 170,
+                    labelWidth: 75,
+                    width:'100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.price_sewingcost}'
@@ -69,6 +73,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
         {
             xtype: 'container',
             layout: 'vbox',
+            margin: 1,
+            flex:1,
             items:[
                 {
                     xtype: 'numberfield',
@@ -76,8 +82,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     readOnly: true,
                     fieldLabel: 'Tổng chào:',
                     labelAlign: 'left',
-                    labelWidth: 90,
-                    width: 170,
+                    labelWidth: 75,
+                    width:'100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.totalprice}'
@@ -89,8 +95,8 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
                     readOnly: true,
                     fieldLabel: 'Salary Fund:',
                     labelAlign: 'left',
-                    labelWidth: 90,
-                    width: 170,
+                    labelWidth: 75,
+                    width:'100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.salaryfund}'

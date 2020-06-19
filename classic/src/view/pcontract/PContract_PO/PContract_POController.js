@@ -50,13 +50,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     xtype: 'PContract_PO_Edit',
                     viewModel: {
                         data: {
+                            id: null,
                             productpairid_link: viewModel.get('productpairid_link'),
-                            pcontractid_link: viewModel.get('PContract.id'),
-                            plan: {
-                                id: null,
-                                pcontractid_link: viewModel.get('PContract.id'),
-                                productid_link: viewModel.get('productpairid_link')
-                            }
+                            isproductpair: viewModel.get('isproductpair'),
+                            pcontractid_link: viewModel.get('PContract.id')
                         }
                     }
                 }]
@@ -69,6 +66,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     onSelectProduct: function(m, rec){
         var viewModel = this.getViewModel();
         viewModel.set('productpairid_link', rec.data.productid_link);
+        if (rec.data.children.length > 0)
+            viewModel.set('isproductpair', 1);
+        else
+            viewModel.set('isproductpair', 0);
 
         var storePO = viewModel.getStore('PContractProductPOStore');
         storePO.loadStore(viewModel.get('PContract.id'), viewModel.get('productpairid_link'));
@@ -103,13 +104,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 xtype: 'PContract_PO_Edit',
                 viewModel: {
                     data: {
+                        id: rec.data.id,
                         productpairid_link: viewModel.get('productpairid_link'),
-                        pcontractid_link: viewModel.get('PContract.id'),
-                        plan: {
-                            id: rec.data.id,
-                            pcontractid_link: viewModel.get('PContract.id'),
-                            productid_link: viewModel.get('productpairid_link')
-                        }
+                        isproductpair: viewModel.get('isproductpair'),
+                        pcontractid_link: viewModel.get('PContract.id')
                     }
                 }
             }]

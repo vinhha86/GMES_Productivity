@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                     margin: 1,
                     bind: {
                         store: '{ProductStore}',
-                        value: '{productpairid_link}'
+                        value: '{product_selected_id_link}'
                     },
                     displayField: 'name',
                     valueField: 'id',
@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                                     region: 'north',
                                     border: true,
                                     margin: 1, 
-                                    height: 70,
+                                    height: 72,
                                     xtype: 'PContract_PO_Edit_PriceSumUp',
                                 },
                                 {

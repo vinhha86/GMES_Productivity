@@ -2,8 +2,9 @@ Ext.define('GSmartApp.model.pcontract.PContractPO_Price_D', {
     extend: 'Ext.data.Model',
 	fields: [
 		'idx',
+		'id',
 		{name: 'orgrootid_link',   type: 'int'},
-		{name: 'id',   type: 'int'},
+		// {name: 'id',   type: 'int'},
 		{name: 'pcontractid_link',   type: 'int'},
 		{name: 'pcontract_poid_link',   type: 'int'},
 		{name: 'productid_link',   type: 'int'},

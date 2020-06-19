@@ -107,6 +107,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         ishiddenActionColumn: false,
         ordercode: '',
         orderdate: new Date(),
-        productpairid_link: 0
+        productpairid_link: 0,
+        isproductpair: 0
     }
 })

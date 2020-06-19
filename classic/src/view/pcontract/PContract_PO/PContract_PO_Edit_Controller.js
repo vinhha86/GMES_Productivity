@@ -4,8 +4,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     init: function(){
         var viewmodel = this.getViewModel();
         var productStore = viewmodel.getStore('ProductStore');
-        var productid_link = viewmodel.get('productpairid_link');
-        productStore.loadStore_bypairid_Async(productid_link);
+        var productpairid_link = viewmodel.get('productpairid_link');
+        console.log(productpairid_link);
+        productStore.loadStore_bypairid_Async(productpairid_link);
 
 		productStore.load({
 			scope: this,
@@ -20,8 +21,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 		});        
       
 
-        if(viewmodel.get('plan.id') > 0){
-            this.getInfo(viewmodel.get('plan.id'));
+        if(viewmodel.get('id') > 0){
+            this.getInfo(viewmodel.get('id'));
         } else {
             this.getInfo(null);
         }
@@ -33,9 +34,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         },
         '#btnLuu' : {
             click: 'onSave'
-        },
-        '#btnThemMoiGia': {
-            click: 'onThemMoiGia'
         },
         '#cboProduct': {
             select: 'onProductSelect'
@@ -61,7 +59,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             })
         } else {
             var new_po = new GSmartApp.model.pcontract.PContractPO();
-            viewmodel.set('po', new_po);
+            new_po.data.id = null;
+            new_po.data.pcontractid_link = viewmodel.get('pcontractid_link');
+            new_po.data.productid_link = viewmodel.get('productpairid_link');
+            viewmodel.set('po', new_po.data);
         }
     },
     onThoat: function(){
@@ -88,10 +89,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var arrPrice = [];   
         priceStore.each(function (record) {
             record.data.id = null;
+            for(i=0;i<record.data.pcontract_price_d.length;i++){
+                record.data.pcontract_price_d[i].id = null;
+            }
             arrPrice.push(record.data);
         });  
         viewmodel.set('po.pcontract_price',arrPrice);
-        console.log(viewmodel.get('po.pcontract_price'));
+
+        //Khoi phu filter
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
 
         //Call API
         var mes = me.CheckValidate();
@@ -101,6 +107,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             // params.list_price = me.getListPrice();
             params.pcontractid_link = viewmodel.get('pcontractid_link');
             console.log(params);
+            console.log(Ext.JSON.encode(params));
             // return;
     
             GSmartApp.Ajax.post('/api/v1/pcontract_po/create', Ext.JSON.encode(params),
@@ -180,75 +187,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
         
     },
-    onThemMoiGia : function(){
-        var viewmodel = this.getViewModel();
 
-        var form = Ext.create('Ext.window.Window', {
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Danh sách giá',
-            closeAction: 'destroy',
-            height: 400,
-            width: 400,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'PContract_FOB_Price'
-            }]
-        });
-        form.show();
-
-        form.down('#PContract_FOB_Price').getController().on('SelectPrice', function (select) {
-            var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
-            // var storeDPrice = viewmodel.getStore('Price_DStore');
-            var pcontract_price_d = viewSizeset.selection.data.pcontract_price_d;
-            var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
-            var storeDPrice = viewPrice.getView().getStore();
-            for(var i=0;i<select.length;i++){
-                var data = select[i].data;
-                var rec = null;//storeDPrice.findRecord('fobprice_name', data.name);
-                if(rec == null) {
-                    var newRec = new Object({
-                        fobprice_name : data.name,
-                        fobpriceid_link: data.id,
-                        price : 0,
-                        cost: 0,
-                        productid_link: viewmodel.get('productpairid_link')
-                    })
-                    pcontract_price_d.push(newRec);
-                    // storeDPrice.insert(0 , newRec);
-                }
-            }
-            var priceStore = viewmodel.getStore('PriceStore');
-            console.log(priceStore);
-            console.log(pcontract_price_d);
-            form.close();
-        })
-    },
-    getListPrice: function(){
-        var viewmodel = this.getViewModel();
-        var priceStore = viewmodel.getStore('PriceStore');
-
-        var list = [];
-        for(var i =0; i<priceStore.data.length; i++){
-            var data = priceStore.data.items[i].data;
-            var price = new Object();
-            price.productid_link = data.productid_link;
-            price.price = data.price;
-            price.cost = data.cost;
-            price.isfob = data.isfob == null ? false : data.isfob;
-            price.status = 0;
-            price.fobpriceid_link = data.fobpriceid_link;
-
-            list.push(price);
-        }
-        return list;
-    },
     onProductSelect: function(sender, record){
          this.enablePrice(record);
     },
@@ -260,10 +199,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         
 
         var viewmodel = this.getViewModel();
-        viewmodel.set('productid_link', record.get('id'));
-        viewmodel.set('producttypeid_link', record.get('producttypeid_link'));
+        viewmodel.set('product_selected_id_link', record.get('id'));
+        viewmodel.set('product_selected_typeid_link', record.get('product_type'));
+        console.log(viewmodel.get('productpairid_link'));
 
-        if (record.get('producttypeid_link') == 5){
+        if (record.get('product_type') == 5){
             viewPrice.setDisabled(true);
         }
         else {
@@ -272,7 +212,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
         var priceStore = viewmodel.getStore('PriceStore');
         priceStore.clearFilter(); 
-        priceStore.filter('productid_link',record.get('id'));
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
         // priceStore.filters.remove('granttoorgid_link');
         viewSizeset.getView().select(0);
     }
