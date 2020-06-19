@@ -11,13 +11,15 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
             'GSmartApp.store.pcontract.PContractDocumentStore',
             'GSmartApp.store.pcontract.PContractSKUStore',
             'GSmartApp.store.pcontract.PContractProductBomStore', 
+            'GSmartApp.store.pcontract.PContractProductBom2Store',
             'GSmartApp.store.product.ProductStore',
             'GSmartApp.store.product.ProductTypeStore',
             'GSmartApp.store.unit.UnitStore',
             'GSmartApp.store.pcontract.PContractProductPairStore',
             'GSmartApp.store.pcontract.PContractBomColorStore',
             'GSmartApp.store.org.ListOrgStore',
-            'GSmartApp.store.pcontract.PContractProductTreeStore'],
+            'GSmartApp.store.pcontract.PContractProductTreeStore',
+            'GSmartApp.store.pcontract.PContractBom2ColorStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -64,6 +66,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         PContractProductBomStore: {
             type: 'PContractProductBomStore'
         },
+        PContractProductBom2Store: {
+            type: 'PContractProductBom2Store'
+        },
         productStore: {
             type: 'ProductStore'
         },
@@ -93,6 +98,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         },
         PContractProductPOStore: {
             type: 'PContractPOStore'
+        },
+        PContractBom2ColorStore: {
+            type: 'PContractBom2ColorStore'
         }                  
     },
     data:{

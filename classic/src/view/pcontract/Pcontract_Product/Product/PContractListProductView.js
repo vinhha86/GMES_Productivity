@@ -135,6 +135,13 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             margin: '10 5 0 0',
 			tooltip: 'Thêm sản phẩm',
             iconCls: 'x-fa fa-plus'
+        },{
+            xtype:'button',
+            itemId:'btnExcel',
+            ui: 'header',
+            margin: '10 5 0 0',
+			tooltip: 'Export Excel',
+            iconCls: 'x-fa fa-file-excel'
         }]
     }]
 });

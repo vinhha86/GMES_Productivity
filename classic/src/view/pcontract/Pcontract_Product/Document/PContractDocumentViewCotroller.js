@@ -112,6 +112,9 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
         // form.submit();
     },
     saveByteArray: function (reportName, byte) {
+        var me = this;
+        byte = this.base64ToArrayBuffer(byte);
+        
         var blob = new Blob([byte], {type: "application/zip"});
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
@@ -119,6 +122,16 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
         link.download = fileName;
         link.click();
     },
+    base64ToArrayBuffer: function (base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+           var ascii = binaryString.charCodeAt(i);
+           bytes[i] = ascii;
+        }
+        return bytes;
+     },
     onXoa: function (grid, rowIndex, colIndex) {
         var params = new Object();
         var viewmodel = this.getViewModel();
