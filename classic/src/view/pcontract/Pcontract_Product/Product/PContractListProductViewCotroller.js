@@ -15,13 +15,14 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
             select: 'onSelectProduct'
         }
     },
-    onExcel: function(){
-        var grid = this.getView();
-        grid.saveDocumentAs({
-            type: 'pdf',
-            title: 'My export',
-            fileName: 'myExport.pdf'
-        });
+    onExcel: function () {
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.pcontractid_link = viewmodel.get('PContract.id');
+
+        GSmartApp.Ajax.post('/api/v1/report/test', Ext.JSON.encode(params),
+            function (success, response, options) {
+            })
     },
     onThemMoi: function () {
         var me = this.getView();
@@ -41,9 +42,9 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
             return;
         }
 
-        var form =Ext.create({
+        var form = Ext.create({
             xtype: 'skusearchwindow',
-            reference:'skusearchwindow',
+            reference: 'skusearchwindow',
             viewModel: {
                 data: {
                     sourceview: 'PContractListProductView',

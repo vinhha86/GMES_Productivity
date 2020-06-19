@@ -399,8 +399,16 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         if(tab.items.length > 0){
                             var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
                             storebomcolor.load();
+
+                            var storebomcolor2 = Ext.getCmp('PContractView').getViewModel().getStore('PContractBom2ColorStore');
+                            storebomcolor2.load();
                         }
-                        
+
+                        var tab2 = Ext.getCmp('PContractProduct_Bom2_TabColorView');
+                        if(tab2.items.length > 0){
+                            var storebomcolor2 = Ext.getCmp('PContractView').getViewModel().getStore('PContractBom2ColorStore');
+                            storebomcolor2.load();
+                        }
 
                         var mywin = Ext.WindowManager.getActive();
                         if (mywin) {
