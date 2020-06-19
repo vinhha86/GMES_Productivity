@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
+Ext.define('GSmartApp.view.pcontracttype.PContractTypeView', {
     extend: 'Ext.grid.Panel',
-    xtype: 'FOBPriceView',
-    id: 'FOBPriceView',
+    xtype: 'PContractTypeView',
+    id: 'PContractTypeView',
     viewModel: {
-        type: 'FOBPriceViewViewModel'
+        type: 'PContractTypeViewModel'
     },
-    controller: 'FOBPriceViewController',
+    controller: 'PContractTypeViewController',
     selModel: {
         selType: 'checkboxmodel',
         mode: 'SINGLE'
@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
             clicksToEdit: 2
         }
     },
-    reference: 'FOBPriceView',
+    reference: 'PContractTypeView',
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true,
@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
         rowLines: true
     },    
     bind:{
-        store:'{PriceStore}'
+        store:'{ContractTypeStore}'
     },
     columns:[{
         text: 'STT',
@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
         xtype: 'rownumberer',
         align: 'center'
     },{
-        text:'Tên giá',
+        text:'Tên loại hình đơn hàng',
         dataIndex:'name',
         flex: 1,
         editor: {
@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
             field: {
                 xtype: 'textfield',
                 allowBlank: false,
-                blankText:'Không được để trống tên giá',
+                blankText:'Không được để trống tên loại hình đơn hàng',
                 itemId:'txtName',
                 listeners:{
                     change:'onChange',
@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
             margin: 5,
             flex: 1,
             allowBlank: false,
-            blankText: 'Nhập tên giá để thêm mới'
+            blankText: 'Nhập tên loại hình đơn hàng để thêm mới'
         }]
     }],
     listeners:{

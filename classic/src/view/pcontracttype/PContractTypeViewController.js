@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
+Ext.define('GSmartApp.view.pcontracttype.PContractTypeViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.FOBPriceViewController',
+    alias: 'controller.PContractTypeViewController',
     init: function(){
         var viewmodel = this.getViewModel();
-        var store  =  viewmodel.getStore('PriceStore');
+        var store  =  viewmodel.getStore('ContractTypeStore');
         store.loadStore();
     },
     control: {
@@ -13,10 +13,10 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
     },
     ThemMoi_CapNhat: function (params) {
         var me = this.getView();
-        GSmartApp.Ajax.post('/api/v1/fobprice/create', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontracttype/create', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    var store = me.getViewModel().getStore('PriceStore');
+                    var store = me.getViewModel().getStore('ContractTypeStore');
                     if (params.data.id == 0 || params.data.id == null) {                        
                         me.down('#txtThemMoi').reset();
                     }
@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         if (me.down('#txtThemMoi').getValue() == "") {
             Ext.MessageBox.show({
                 title: "Thông báo",
-                msg: "Bạn chưa nhập tên giá",
+                msg: "Bạn chưa nhập tên loại hình đơn hàng",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         }
     },
     checkValidate: function(name){
-        var store = this.getViewModel().getStore('PriceStore');
+        var store = this.getViewModel().getStore('ContractTypeStore');
         for(var i=0; i< store.data.length;i++){
             var data = store.data.items[i].data;
             if(data.name == name){
@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         if(issystemfix){
             Ext.MessageBox.show({
                 title: "Thông báo",
-                msg: "Không thể xoá giá FOB này (system fixed)",
+                msg: "Không thể xoá loại hình đơn hàng này (system fixed)",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
@@ -106,7 +106,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
 
         Ext.Msg.show({
             title: 'Thông báo',
-            msg: 'Bạn có chắc chắn xóa giá "' + name + '" ?',
+            msg: 'Bạn có chắc chắn xóa loại hình đơn hàng "' + name + '" ?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,
             buttonText: {
@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         params.id = id;
 
 
-        GSmartApp.Ajax.post('/api/v1/fobprice/delete', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontracttype/delete', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     Ext.MessageBox.show({
@@ -172,7 +172,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         if(issystemfix){
             Ext.MessageBox.show({
                 title: "Thông báo",
-                msg: "Không thể thay đổi giá FOB này (system fixed).",
+                msg: "Không thể thay đổi loại hình đơn hàng này (system fixed).",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',

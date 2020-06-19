@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
             value :'{currentRec.email}'
         },
         vtype: 'email',
-        vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ abc@123',
+        vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ name@example.com',
         width: 400,
         labelWidth: 105
     },{

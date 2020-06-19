@@ -30,7 +30,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         text:'Tên SP',
         xtype: 'treecolumn',
         dataIndex:'text',
-        flex: 1
+        flex: 1,
+        cls: 'x-tree-node-icon'
     },{
         text:'Mã SP',
         dataIndex:'code',
