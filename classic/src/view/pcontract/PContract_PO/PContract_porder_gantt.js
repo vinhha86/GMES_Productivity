@@ -149,6 +149,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                 weight: 30,
                 handler: 'onShowPO',
             },
+            {
+                xtype: 'button',
+                tooltip: 'Tổng hợp CMP',
+                iconCls: 'x-fa fa-dollar',
+                weight: 30,
+                handler: 'onShowPO',
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Tổng hợp Salary Fund',
+                iconCls: 'x-fa fa-money',
+                weight: 30,
+                handler: 'onShowPO',
+            },
             '->'
             ,
             {

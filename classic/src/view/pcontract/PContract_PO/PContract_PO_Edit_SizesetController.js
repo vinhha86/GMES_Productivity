@@ -73,4 +73,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var Price_DStore = viewModel.getStore('Price_DStore');
         Price_DStore.loadData(rec.data.pcontract_price_d);
     },
+    onSizesetItemEdit: function(editor, e){
+        var viewmodel = this.getViewModel();
+        var priceStore = viewmodel.getStore('PriceStore');
+        var price_data = e.record.data;
+
+        priceStore.clearFilter();
+        priceStore.each(function (record) {
+            //Neu la lenh moi (sencha tu sinh id) --> set = null
+            if(record.data.sizesetid_link == price_data.sizesetid_link) record.data.quantity = price_data.quantity;
+        });
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+    },
 })

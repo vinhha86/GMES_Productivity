@@ -97,7 +97,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     //Cong don cho bo san pham
     calRootPairProductPrice: function(sizesetid_link){
         var viewmodel = this.getViewModel();
-        console.log(viewmodel.get('productpairid_link'));
         if (viewmodel.get('isproductpair') == 1){
             var priceStore = viewmodel.getStore('PriceStore');
             filters = priceStore.getFilters();
@@ -124,11 +123,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             var sum_price_sewingtarget = priceStore.sum('price_sewingtarget');
             var sum_price_sewingcost = priceStore.sum('price_sewingcost');
             var sum_totalprice = priceStore.sum('totalprice');
-            // console.log(sum_price_cmp);
-            // console.log(sum_price_fob);
-            // console.log(sum_price_sewingtarget);
-            // console.log(sum_price_sewingcost);
-            // console.log(sum_totalprice);
 
             priceStore.clearFilter();
             filters.add({

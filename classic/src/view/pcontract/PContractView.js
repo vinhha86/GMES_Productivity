@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             xtype: 'PContractProduct_Bom2_TabColorView'
         },{
             title: 'Lệnh sản xuất',
-            xtype: 'POrderCreating_New_View'
+            xtype: 'PContract_POrder_Main'
         }]
     }],
     dockedItems: [{
