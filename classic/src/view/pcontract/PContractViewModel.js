@@ -19,7 +19,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
             'GSmartApp.store.pcontract.PContractBomColorStore',
             'GSmartApp.store.org.ListOrgStore',
             'GSmartApp.store.pcontract.PContractProductTreeStore',
-            'GSmartApp.store.pcontract.PContractBom2ColorStore'],
+            'GSmartApp.store.pcontract.PContractBom2ColorStore',
+            'GSmartApp.store.market.MarketStore',
+            'GSmartApp.store.PayerStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -101,7 +103,13 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         },
         PContractBom2ColorStore: {
             type: 'PContractBom2ColorStore'
-        }                  
+        },
+        MarketStore: {
+            type: 'MarketStore'
+        },
+        PayerStore: {
+            type: 'PayerStore'
+        }               
     },
     data:{
         titleAttvalue: 'Thuộc tính ',

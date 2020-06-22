@@ -3,201 +3,162 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
     xtype: 'PContractInfoView',
     id: 'PContractInfoView',
     controller: 'PContractInfoViewCotroller',
-	bodyPadding: 5,
+    bodyPadding: 5,
     border: false,
     IdPContract: 0,
-    items:[{
-        layout:'hbox',
+    items: [{
+        layout: 'hbox',
         border: false,
-        items:[{
-            layout:'vbox',
+        items: [{
+            layout: 'vbox',
             border: false,
-            items:[{
-                layout:'hbox',
-                border:false,
-                items:[{
-                    xtype:'textfield',
+            items: [{
+                layout: 'hbox',
+                border: false,
+                items: [{
+                    xtype: 'textfield',
                     margin: 2,
                     fieldLabel: "Mã nội bộ",
                     allowBlank: false,
                     itemId: 'contractcode',
                     blankText: 'Không được để trống',
-                    bind:{
-                        value : '{PContract.contractcode}'
+                    bind: {
+                        value: '{PContract.contractcode}'
                     },
                     labelWidth: 100,
                     width: 300
-                },{
-                    xtype:'datefield',
+                }, {
+                    xtype: 'datefield',
                     margin: 2,
                     fieldLabel: "Ngày lập:",
-                    bind:{
-                        value : '{PContract.contractdate}'
+                    bind: {
+                        value: '{PContract.contractdate}'
                     },
                     format: 'd/m/Y',
                     altFormats: "Y-m-d\\TH:i:s.uO",
                     value: new Date(),
-                    itemId:'contractdate',
+                    itemId: 'contractdate',
                     labelWidth: 80,
                     width: 300
-                },{
-                    xtype:'datefield',
+                }, {
+                    xtype: 'datefield',
                     margin: 2,
                     fieldLabel: "Ngày chốt:",
-                    bind:{
-                        value : '{PContract.confirmdate}'
+                    bind: {
+                        value: '{PContract.confirmdate}'
                     },
                     format: 'd/m/Y',
                     altFormats: "Y-m-d\\TH:i:s.uO",
                     value: new Date(),
-                    itemId:'confirmdate',
+                    itemId: 'confirmdate',
                     labelWidth: 90,
                     width: 300
                 }]
-            },{
-                layout:'hbox',
-                border:false,
-                items:[{
-                    xtype:'combo',
+            }, {
+                layout: 'hbox',
+                border: false,
+                items: [{
+                    xtype: 'combo',
                     queryMode: 'local',
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
                     fieldLabel: "Buyer:",
-                    bind:{
-                        value : '{PContract.orgcustomerid_link}',
-                        store : '{CustomerStore}'
+                    bind: {
+                        value: '{PContract.orgbuyerid_link}',
+                        store: '{CustomerStore}'
                     },
-                    itemId:'orgbuyerid_link',
+                    itemId: 'orgbuyerid_link',
                     labelWidth: 100,
                     width: 300
-                },{
-                    xtype:'combo',
+                }, {
+                    xtype: 'combo',
                     queryMode: 'local',
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
                     fieldLabel: "Vendor:",
-                    bind:{
-                        value : '{PContract.orgvenderid_link}',
-                        store : '{Vender}'
+                    bind: {
+                        value: '{PContract.orgvendorid_link}',
+                        store: '{Vender}'
                     },
-                    itemId:'orgvenderid_link',
+                    itemId: 'orgvenderid_link',
                     labelWidth: 80,
                     width: 300
-                },{
-                    xtype:'combo',
+                }, {
+                    xtype: 'combo',
                     queryMode: 'local',
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
                     fieldLabel: "Loại hình:",
-                    bind:{
-                        value : '{PContract.contracttypeid_link}',
-                        store : '{ContractTypes}'
+                    bind: {
+                        value: '{PContract.contracttypeid_link}',
+                        store: '{ContractTypes}'
                     },
-                    itemId:'contracttypeid_link',
+                    itemId: 'contracttypeid_link',
                     labelWidth: 90,
                     width: 300
                 }]
-            },{
-                layout:'hbox',
-                border:false,
-                items:[{
-                    xtype:'combo',
+            }, {
+                layout: 'hbox',
+                border: false,
+                items: [{
+                    xtype: 'combo',
                     queryMode: 'local',
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
                     fieldLabel: "Bên thanh toán:",
-                    bind:{
-                        value : '{PContract.orgpayerid_link}',
-                        store : '{Vender}'
+                    bind: {
+                        value: '{PContract.payer}',
+                        store: '{PayerStore}'
                     },
-                    itemId:'orgbuyerid_link',
+                    itemId: 'orgbuyerid_link',
                     labelWidth: 100,
                     width: 300
-                },{
-                    xtype:'combo',
+                }, {
+                    xtype: 'combo',
                     queryMode: 'local',
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
                     fieldLabel: "Bên hiển thị:",
-                    bind:{
-                        value : '{PContract.orgshowid_link}',
-                        store : '{Vender}'
+                    bind: {
+                        value: '{PContract.orgshowid_link}',
+                        store: '{PayerStore}'
                     },
-                    itemId:'orgshowid_link',
+                    itemId: 'orgshowid_link',
                     labelWidth: 80,
                     width: 300
                 },
-                // {
-                //     xtype:'combo',
-                //     queryMode: 'local',
-                //     valueField: 'id',
-                //     displayField: 'name',
-                //     margin: 2,
-                //     fieldLabel: "Brand:",
-                //     bind:{
-                //         value : '{PContract.branchid_link}',
-                //         store : '{BranchStore}'
-                //     },
-                //     itemId:'branchid_link',
-                //     labelWidth: 80,
-                //     width: 300
-                // },{
-                //     xtype:'combo',
-                //     queryMode: 'local',
-                //     valueField: 'id',
-                //     displayField: 'name',
-                //     margin: 2,
-                //     fieldLabel: "Season",
-                //     bind:{
-                //         value : '{PContract.seasonid_link}',
-                //         store : '{SeasonStore}'
-                //     },
-                //     itemId:'seasonid_link',
-                //     labelWidth: 80,
-                //     width: 300
-                // },
                 {
-                    xtype:'textfield',
+                    xtype: 'combo',
                     margin: 2,
-                    fieldLabel: "Merchandiser:",
+                    fieldLabel: "Thị trường:",
                     allowBlank: false,
-                    itemId: 'merchandiser',
+                    itemId: 'market',
                     blankText: 'Không được để trống',
-                    bind:{
-                        value : '{PContract.merchandiser_name}'
+                    bind: {
+                        store: '{MarketStore}',
+                        value: '{PContract.marketypeid_link}'
                     },
+                    displayField: 'name',
+                    valueField: 'id',
                     labelWidth: 90,
                     width: 300
-                }                
-                // {
-                //     xtype:'datefield',
-                //     margin: 2,
-                //     fieldLabel: "Ngày giao hàng",
-                //     bind:{
-                //         value : '{PContract.deliverydate}'
-                //     },
-                //     format: 'd/m/Y',
-                //     altFormats: "Y-m-d\\TH:i:s.uO",
-                //     itemId:'deliverydate',
-                //     labelWidth: 100,
-                //     width: 250
-                // }
+                }
                 ]
             }]
-        },{
-            xtype:'textarea',
+        }, {
+            xtype: 'textarea',
             labelAlign: 'top',
             margin: 2,
-            fieldLabel:'Ghi chú',
-            bind:{
-                value : '{PContract.description}'
+            fieldLabel: 'Ghi chú',
+            bind: {
+                value: '{PContract.description}'
             },
-            flex : 1
+            flex: 1
         }]
     }]
 })
