@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.currency.CurrencyFormView', {
         allowBlank: false,
         blankText : 'Không được để trống',
         maxLength: 5,
+        maxLengthText: 'Tối đa 5 ký tự',
         bind:{
             value :'{currentRec.code}'
         },
@@ -26,6 +27,7 @@ Ext.define('GSmartApp.view.currency.CurrencyFormView', {
         allowBlank: false,
         blankText : 'Không được để trống',
         maxLength: 50,
+        maxLengthText: 'Tối đa 50 ký tự',
         bind:{
             value :'{currentRec.name}'
         },

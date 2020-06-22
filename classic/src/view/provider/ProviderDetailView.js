@@ -16,6 +16,8 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.code}'
         },
@@ -28,6 +30,8 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
         fieldLabel: 'Nhà cung cấp ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 200,
+        maxLengthText: 'Tối đa 200 ký tự',
         bind:{
             value :'{currentRec.name}'
         },
@@ -37,6 +41,8 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
         xtype:'textfield',
         margin: 5,
         fieldLabel: 'Điện thoại',
+        maxLength: 20,
+        maxLengthText: 'Tối đa 20 ký tự',
         bind:{
             value :'{currentRec.phone}'
         },
@@ -47,6 +53,8 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
         xtype:'textfield',
         margin: 5,
         fieldLabel: 'Email',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.email}'
         },
@@ -58,6 +66,8 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
         xtype:'textfield',
         margin: 5,
         fieldLabel: 'Thành phố',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.city}'
         },
@@ -67,6 +77,8 @@ Ext.define('GSmartApp.view.provider.ProviderDetailView', {
         xtype:'textareafield',
         margin: 5,
         fieldLabel: 'Địa chỉ',
+        maxLength: 200,
+        maxLengthText: 'Tối đa 200 ký tự',
         bind:{
             value :'{currentRec.address}'
         },

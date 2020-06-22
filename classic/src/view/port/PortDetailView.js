@@ -16,6 +16,8 @@ Ext.define('GSmartApp.view.Port.PortDetailView', {
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 50,
+        maxLengthText: 'Tối đa 50 ký tự',
         bind:{
             value :'{currentRec.code}'
         },
@@ -28,6 +30,8 @@ Ext.define('GSmartApp.view.Port.PortDetailView', {
         fieldLabel: 'Tên cảng ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.name}'
         },
@@ -39,6 +43,8 @@ Ext.define('GSmartApp.view.Port.PortDetailView', {
         fieldLabel: 'Tên cảng tiếng Anh('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.name_en}'
         },

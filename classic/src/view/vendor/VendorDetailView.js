@@ -16,6 +16,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.code}'
         },
@@ -28,6 +30,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Tên vendor ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 200,
+        maxLengthText: 'Tối đa 200 ký tự',
         bind:{
             value :'{currentRec.name}'
         },
@@ -39,6 +43,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Thành phố',
         allowBlank: true,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.city}'
         },
@@ -50,6 +56,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Địa chỉ',
         allowBlank: true,
         blankText : 'Không được để trống',
+        maxLength: 200,
+        maxLengthText: 'Tối đa 200 ký tự',
         bind:{
             value :'{currentRec.address}'
         },
@@ -61,6 +69,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         fieldLabel: 'Người đại diện',
         allowBlank: true,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.contactperson}'
         },
@@ -74,6 +84,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         blankText : 'Không được để trống',
         vtype: 'email',
         vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ name@example.com',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.email}'
         },
@@ -86,6 +98,8 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         allowBlank: true,
         blankText : 'Không được để trống',
         maskRe: /[0-9+-]/,
+        maxLength: 20,
+        maxLengthText: 'Tối đa 20 ký tự',
         bind:{
             value :'{currentRec.phone}'
         },

@@ -10,26 +10,20 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         }
     },
     onloadDetail: function( grid, record, item, index, e, eOpts){
-        var viewmodel = this.getViewModel();
-        viewmodel.set('currentRec', record.data);
-        viewmodel.set('id', record.data.id);
-        viewmodel.set('name', record.data.name);
-        viewmodel.set('fieldState', true);
+        var viewModel = this.getViewModel();
+        viewModel.set('currentRec', record.data);
+        viewModel.set('id', record.data.id);
+        viewModel.set('name', record.data.name);
+        viewModel.set('parentid_link',record.data.parentid_link);
+        viewModel.set('fieldState', true);
         // console.log(record.data);
     },
     onloadPage: function () {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var storeMenu = viewmodel.getStore('MenuStore');
+        var viewModel = this.getViewModel();
+        var storeMenu = viewModel.getStore('MenuStore');
         storeMenu.loadStore();
-        // var storeOrgType = viewmodel.getStore('OrgTypeStore');
-        // storeOrgType.loadAllOrgType();
-        var storeColor = viewmodel.getStore('ColorStore');
+        var storeColor = viewModel.getStore('ColorStore');
         storeColor.loadStore();
-
-        // disable checkbox
-        var viewMain = Ext.getCmp('ListOrgMenu');
-        console.log('under here');
-        console.log(viewMain);
     }
 })

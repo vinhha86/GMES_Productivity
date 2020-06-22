@@ -15,11 +15,12 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.code}'
         },
         width: 400,
-        // itemId: 'code',
         labelWidth: 105
     },{
         xtype:'textfield',
@@ -27,6 +28,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Tên đơn vị ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 200,
+        maxLengthText: 'Tối đa 200 ký tự',
         bind:{
             value :'{currentRec.name}'
         },
@@ -37,7 +40,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         fieldLabel: 'Thành phố ',
         allowBlank: true,
-        // blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.city}'
         },
@@ -48,7 +52,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         fieldLabel: 'Địa chỉ ',
         allowBlank: true,
-        // blankText : 'Không được để trống',
+        maxLength: 200,
+        maxLengthText: 'Tối đa 200 ký tự',
         bind:{
             value :'{currentRec.address}'
         },
@@ -59,7 +64,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         fieldLabel: 'Người đại diện ',
         allowBlank: true,
-        // blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.contactperson}'
         },
@@ -72,7 +78,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         allowBlank: true,
         vtype: 'email',
         vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ name@example.com',
-        // blankText : 'Không được để trống',
+        maxLength: 100,
+        maxLengthText: 'Tối đa 100 ký tự',
         bind:{
             value :'{currentRec.email}'
         },
@@ -84,7 +91,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Điện thoại ',
         allowBlank: true,
         maskRe: /[0-9+-]/,
-        // blankText : 'Không được để trống',
+        maxLength: 20,
+        maxLengthText: 'Tối đa 20 ký tự',
         bind:{
             value :'{currentRec.phone}'
         },
@@ -101,7 +109,6 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
             'text-align':'right',
             'color': 'blue'
         },
-        // blankText : 'Không được để trống',
         bind:{
             value :'{currentRec.linecost}'
         },
