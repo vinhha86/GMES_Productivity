@@ -15,16 +15,16 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
     },
     data: {
         id: 0,
-        parentId: null,
+        parentid_link: null,
         name: '',
         currentRec:null,
         fieldState: false
     },
     formulas: {
         title: function (get) {
-            if (get('id') == 0 && get('parentId') == null) {
+            if (get('id') == 0 && get('parentid_link') == null) {
                 return 'Chi tiết đơn vị';
-            }else if(get('id') == 0 && get('parentId') != null){
+            }else if(get('id') == 0 && get('parentid_link') != null){
                 return 'Thêm mới đơn vị trực thuộc \'' + this.get('name') + '\'';
             }
             else {

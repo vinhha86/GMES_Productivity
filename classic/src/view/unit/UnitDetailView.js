@@ -16,6 +16,8 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 50,
+        maxLengthText: 'Tối đa 50 ký tự',
         bind:{
             value :'{currentRec.code}'
         },
@@ -28,6 +30,8 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
         fieldLabel: 'Tên đơn vị ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
+        maxLength: 50,
+        maxLengthText: 'Tối đa 50 ký tự',
         bind:{
             value :'{currentRec.name}'
         },
@@ -39,6 +43,8 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
         fieldLabel: 'Tên đơn vị tiếng Anh ',
         allowBlank: true,
         // blankText : 'Không được để trống',
+        maxLength: 50,
+        maxLengthText: 'Tối đa 50 ký tự',
         bind:{
             value :'{currentRec.name_en}'
         },

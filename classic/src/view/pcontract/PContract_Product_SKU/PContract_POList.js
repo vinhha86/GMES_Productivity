@@ -41,6 +41,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         text:'SL',
         dataIndex:'po_quantity',
         width: 60
+    }],
+    dockedItems:[{
+        dock:'top',
+        border: 'hbox',
+        items:[{
+            xtype:'combo',
+            width:'95%',
+            margin: 5,
+            fieldLabel: 'Sản phẩm',
+            itemId: 'productFilter',
+            bind: {
+                store: '{PContractProductStore}',
+                value: '{IdProduct}'
+            },
+            valueField: 'productid_link',
+            displayField: 'productName',
+            queryMode: 'local'
+        }]
     }]
 });
 
