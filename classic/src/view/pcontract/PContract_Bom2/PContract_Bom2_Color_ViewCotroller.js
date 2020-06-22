@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
+Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.PContract_Bom_Color_ViewCotroller',
+    alias: 'controller.PContract_Bom2_Color_ViewCotroller',
     length: 8,
     ischange: false,
     init: function () {
@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                 i--;
             }
         }      
-
+        
         var listtitle = [];
         var listid = [];
 
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                         length++;
                     }
             
-                    var storeBOM = viewmodel.getStore('PContractBomColorStore');
+                    var storeBOM = viewmodel.getStore('PContractBom2ColorStore');
                     var model = storeBOM.getModel();
                     var fields = model.getFields();
                     for (var i = 0; i < fields.length; i++) {
@@ -92,7 +92,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         var me = this;
         var viewmodel = this.getViewModel();
         if (!me.ischange) {
-            var store = viewmodel.getStore('PContractBomColorStore');
+            var store = viewmodel.getStore('PContractBom2ColorStore');
             store.rejectChanges();
             return;
         }
@@ -125,12 +125,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         params.data = record.data;
         params.isUpdateBOM = true;
         console.log(params);
-        GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/update_pcontract_productbom', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     me.ischange = false;
                     var response = Ext.decode(response.responseText);
-                    var store = viewmodel.getStore('PContractBomColorStore');
+                    var store = viewmodel.getStore('PContractBom2ColorStore');
                     if (response.respcode != 200) {
                         Ext.Msg.show({
                             title: "Thông báo",
@@ -158,12 +158,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         params.data = record.data;
         params.colorid_link = grid.colorid_link;
 
-        GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbomcolor', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/update_pcontract_productbomcolor', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     me.ischange = false;
                     var response = Ext.decode(response.responseText);
-                    var store = viewmodel.getStore('PContractBomColorStore');
+                    var store = viewmodel.getStore('PContractBom2ColorStore');
                     if (response.respcode != 200) {
                         Ext.Msg.show({
                             title: "Thông báo",
@@ -193,12 +193,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         params.sizeid_link = record.field;
         params.value = record.value;
 
-        GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbomsku', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/update_pcontract_productbomsku', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     me.ischange = false;
                     var response = Ext.decode(response.responseText);
-                    var store = viewmodel.getStore('PContractBomColorStore');
+                    var store = viewmodel.getStore('PContractBom2ColorStore');
                     if (response.respcode != 200) {
                         Ext.Msg.show({
                             title: "Thông báo",
