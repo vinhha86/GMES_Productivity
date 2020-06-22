@@ -74,6 +74,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         productStore: {
             type: 'ProductStore'
         },
+        ProductFilterStore: {
+            type: 'ProductStore'
+        },
         ProductTypeStore: {
             type: 'ProductTypeStore'
         },

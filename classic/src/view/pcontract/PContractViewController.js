@@ -42,6 +42,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 storeproduct.loadStore(viewmodel.get('PContract.id'));
             } else {
                 if (newCard.xtype == 'PContractSKUMainView') {
+                    var productfilterStore = viewmodel.getStore('ProductFilterStore');
                     if (viewmodel.get('IdProduct') > 0) {
                         var PContractPOList = viewmodel.getStore('PContractPOList');
                         PContractPOList.loadStore(viewmodel.get('PContract.id'), viewmodel.get('IdProduct'));
