@@ -8,7 +8,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
     viewConfig: {
         stripeRows: false,
         columnLines: true,
-        rowLines: true    },
+        rowLines: true    
+    },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            // listeners: {
+            //      edit: 'onEdit'
+                    // beforeedit: function(e, editor){
+                    //     if (e.rowIdx == 0)
+                    //         return false;
+                    // }
+            // } 
+        }
+    },    
+    features: [{
+        ftype:'summary',
+        dock: 'bottom'
+    }],    
     selModel: {
         //selType: 'checkboxmodel',
         mode: 'SINGLE'
@@ -17,12 +34,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
         store:'{PriceStore}'
     },
     columns:[{
-        // text:'Dải cỡ',
+        header:'Dải cỡ',
         dataIndex:'sizesetname',
         flex: 1
     },{
+        header:'SL',
+        width: 65,
+        dataIndex:'quantity',
+        summaryType: 'sum', 
+        // summaryRenderer: 'renderSum'
+        editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
+
+    },{
         xtype: 'actioncolumn',
-        width: 25,
+        width: 20,
         menuDisabled: true,
         sortable: false,
         items: [{

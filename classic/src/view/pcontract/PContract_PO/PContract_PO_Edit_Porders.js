@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porders', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContract_PO_Edit_Factories',
-    id:'PContract_PO_Edit_Factories',
-    // controller: 'PContractSKUViewCotroller',
+    xtype: 'PContract_PO_Edit_Porders',
+    id:'PContract_PO_Edit_Porders',
+    controller: 'PContract_PO_Edit_PordersController',
     IdPcontract: 0,
     viewConfig: {
         stripeRows: false,
@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
             dropGroup: 'secondGridDDGroup'
         },
         listeners: {
-            drop: 'onDropOrg',
+            // drop: 'onDropOrg',
             beforedrop: 'onBeforeDropOrg'
         }          
     },
@@ -39,25 +39,35 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Factories', {
         mode: 'SINGLE'
     },
     bind:{
-        store:'{OrgGrantedStore}'
+        store:'{POrderStore}'
     },
     columns:[{
-        text:'Phân xưởng',
-        dataIndex:'granttoorg_name',
+        header:'Phân xưởng',
+        dataIndex:'granttoorgcode',
+        width: 80
+    },
+    {
+        header:'Dải cỡ',
+        dataIndex:'sizesetname',
         flex: 1
     },
-    // {
-    //     text:'Tổ SX',
-    //     dataIndex:'granttoline_name',
-    //     width: 80
-    // },
     {
-        text:'SL',
-        dataIndex:'grantamount',
-        width: 50,
+        header:'SL',
+        dataIndex:'totalorder',
+        width: 70,
         summaryType: 'sum', 
         // summaryRenderer: 'renderSum'
-        editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false}
+        editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
+    },{
+        xtype: 'actioncolumn',
+        width: 20,
+        menuDisabled: true,
+        sortable: false,
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: 'Xóa',
+            handler: 'onXoa'
+        }]
     }]
 });
 

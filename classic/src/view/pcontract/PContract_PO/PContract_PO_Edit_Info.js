@@ -11,8 +11,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
             items:[
                 {
                     region: 'center',
+                    labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                    fieldStyle: 'font-size:11px;',
                     xtype: 'textarea',
-                    labelWidth: 90,
+                    labelWidth: 75,
                     labelAlign: 'left',
                     fieldLabel:'Đóng gói:',
                     width: '100%',
@@ -35,9 +37,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     items:[
                         {
                             xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;',
                             fieldLabel: 'PO Buyer:',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -49,11 +53,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         }, 
                         {
                             xtype: 'numberfield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;text-align:right',
                             fieldLabel: 'Số lượng:',
                             hideTrigger:true,
-                            fieldStyle: 'text-align: right',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -62,10 +67,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },    
                         {
                             xtype: 'datefield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;',
                             fieldLabel: 'Ngày NPL về:',
                             reference: 'poinfo_matdate',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             format: 'd/m/Y',
@@ -79,13 +86,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },      
                         {
                             xtype: 'numberfield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;text-align:right',
                             readOnly: true,
                             fieldLabel: 'Số ngày SX:',
                             hideTrigger:true,
-                            fieldStyle: 'text-align: right',                            
                             reference: 'poinfo_productiondays',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -100,9 +108,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     items:[
                         {
                             xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;',
                             fieldLabel: 'PO Vendor:',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -111,10 +121,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },
                         {
                             xtype: 'datefield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;',
                             fieldLabel: 'Ngày giao:',
                             reference: 'poinfo_shipdate',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             format: 'd/m/Y',
@@ -128,11 +140,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },   
                         {
                             xtype: 'datefield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;',
                             fieldLabel: 'Ngày VC:',
                             readOnly: true,
                             reference: 'poinfo_productiondate',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             format: 'd/m/Y',
@@ -143,10 +157,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },     
                         {
                             xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+                            fieldStyle: 'font-size:11px;',
                             fieldLabel: 'Đơn vị QC:',
                             reference: 'poinfo_qcorgname',
                             labelAlign: 'left',
-                            labelWidth: 90,
+                            labelWidth: 75,
                             width: '100%',
                             margin: 1,
                             bind: {

@@ -86,6 +86,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         ,
         {
             xtype: 'combobox',
+            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            fieldStyle: 'font-size:11px;text-align:right',
             width: 150,
             cls: 'inputBoxNarror',
             editable: false,
@@ -104,6 +106,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },       
         {
             xtype: 'numberfield',
+            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            fieldStyle: 'font-size:11px;text-align:right',
             hideTrigger:true,
             width: 120,
             cls: 'inputBoxNarror',

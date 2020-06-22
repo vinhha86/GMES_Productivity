@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.porders.POrderFilterModel', {
     alias: 'viewmodel.porderfilter',
     stores:{
         POrderFilterStore: {
-            type: 'porderfilter'
+            type: 'POrderFilter'
         },   
         OrgStore: {
             type: 'ListOrgStore'

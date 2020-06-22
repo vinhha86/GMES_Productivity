@@ -83,7 +83,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
             type: 'ListOrgStore'
         },
         porders: {
-            type: 'porderfilter'
+            type: 'POrderFilter'
         },
         PContractProductTreeStore: {
             type: 'PContractProductTreeStore'

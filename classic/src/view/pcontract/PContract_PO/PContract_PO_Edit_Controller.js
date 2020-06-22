@@ -53,7 +53,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                         viewmodel.set('po', response.data);
                         var store = viewmodel.getStore('PriceStore');
                         store.removeAll();
-                        store.insert(0 , response.data.pcontract_price);               
+                        store.insert(0 , response.data.pcontract_price); 
+                        
+                        //Lay danh sach POrders
+                        var porderStore = viewmodel.getStore('POrderStore');
+                        porderStore.loadByPO(viewmodel.get('pcontractid_link'),viewmodel.get('po.id'));
                     }
                 }
             })
@@ -81,6 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var me = this;
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
+        var porderStore = viewmodel.getStore('POrderStore');
 
         //Xoa filter trc khi day len server
         priceStore.clearFilter();
@@ -104,6 +109,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         if(mes == ""){
             var params = new Object();
             params.data = viewmodel.get('po');
+
+            var arrPOrders = [];
+            porderStore.each(function (record) {
+                //Neu la lenh moi (sencha tu sinh id) --> set = null
+                if(!Ext.isNumber(record.data.id)) record.data.id = null;
+                arrPOrders.push(record.data);
+            });
+            params.po_orders = arrPOrders;
+
             // params.list_price = me.getListPrice();
             params.pcontractid_link = viewmodel.get('pcontractid_link');
             console.log(params);
@@ -152,42 +166,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
         
     },
-    onDropOrg: function(node, data, dropRec, dropPosition){
-        // console.log(data.records[0].get('Id'));
-        // console.log(data.records[0].get('Name'));
-        // console.log(data.records[0].get('parentOrgId'));
-        // console.log(data.records[0].get('parentName'));
-        // var OrgGrantedStore = this.getViewModel().getStore('OrgGrantedStore');
-        // OrgGrantedStore.add(
-        //     {
-        //         granttoorgid_link: data.records[0].get('parentOrgId'),
-        //         granttoorg_name: data.records[0].get('parentName'),
-        //         granttolineid_link: data.records[0].get('Id'),
-        //         granttoline_name: data.records[0].get('Name'),
-        //     }
-        // );
-        data.records[0].set('granttoorg_name',data.records[0].get('parentName'));
-        data.records[0].set('granttoline_name',data.records[0].get('Name'));
-        data.records[0].set('grantamount',0);
-    },    
-    onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
-        dropHandlers.wait = true;
-        var OrgGrantedStore = this.getViewModel().getStore('OrgGrantedStore');
-        console.log(data.records[0].get('Id'));
-        var orgRec = OrgGrantedStore.findRecord('granttolineid_link', data.records[0].get('Id'));
-
-        if (null == orgRec) {
-            dropHandlers.processDrop();
-        } else {
-            Ext.Msg.show({ 
-                title: 'Phân chuyền',
-                msg: 'Tổ chuyền đã được chọn'
-                });            
-            dropHandlers.cancelDrop();
-        }
-        
-    },
-
     onProductSelect: function(sender, record){
          this.enablePrice(record);
     },
@@ -201,13 +179,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewmodel = this.getViewModel();
         viewmodel.set('product_selected_id_link', record.get('id'));
         viewmodel.set('product_selected_typeid_link', record.get('product_type'));
-        console.log(viewmodel.get('productpairid_link'));
+        // console.log(viewmodel.get('productpairid_link'));
 
         if (record.get('product_type') == 5){
             viewPrice.setDisabled(true);
+            viewmodel.set('isSewPriceReadonly', true);
         }
         else {
             viewPrice.setDisabled(false);   
+            viewmodel.set('isSewPriceReadonly', false);
         }   
 
         var priceStore = viewmodel.getStore('PriceStore');
@@ -215,6 +195,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
         // priceStore.filters.remove('granttoorgid_link');
         viewSizeset.getView().select(0);
-    }
+    },
+    onSewCostChange: function (sender, newValue, oldValue, eOpts) {
+        var viewmodel = this.getViewModel();
+        var po_data = viewmodel.get('po');
+        var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
+        if (null != viewSizeset.getView().selection){
+            var price_data = viewSizeset.getView().selection.data;
+            //Tinh Salary Fund
+            price_data.salaryfund = price_data.price_sewingcost*price_data.quantity;
+            viewmodel.set('po_price',price_data);
 
+            //Tinh SewCost cho san pham bo
+        }
+    },
 })

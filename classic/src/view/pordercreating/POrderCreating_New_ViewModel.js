@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_ViewModel', {
             type: 'porderSKUStore'
         },
         porders: {
-            type: 'porderfilter'
+            type: 'POrderFilter'
         }
     },
     data:{

@@ -1,8 +1,9 @@
 [
     {
-        "Id"          : 1,
-        "StartDate"   : "2020-05-05",
-        "Name"        : "Nhà máy 1 (CMP: 150.000)",
+        "Id"          : 2,
+		"StartDate"   : "2020-05-05",
+		"Code"        : "DHA",
+        "Name"        : "Phân xưởng DHA",
         "EndDate"    : "2020-07-20",
         "expanded"    : true,
         "children"    : [
@@ -172,9 +173,10 @@
         ]
     },
 	{
-        "Id"          : 2,
-        "StartDate"   : "2020-05-05",
-        "Name"        : "Nhà máy 2  (CMP: 250.000)",
+        "Id"          : 7,
+		"StartDate"   : "2020-05-05",
+		"Code"        : "NV",
+        "Name"        : "Phân xưởng NV",
         "EndDate"    : "2020-07-20",
         "expanded"    : true,
         "children"    : [

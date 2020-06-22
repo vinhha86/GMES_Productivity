@@ -15,6 +15,7 @@ Ext.define('GSmartApp.model.pcontract.PContractPO_Price', {
 		{name: 'price_sewingcost',   type: 'number'},
 		{name: 'totalprice',   type: 'number'},
 		{name: 'salaryfund',   type: 'number'},	
+		{name: 'quantity',   type: 'number'},	
 		'sizesetname'
 	],
 	hasMany : {model: 'PContractPO_Price_D', name: 'pcontract_price_d'}

@@ -40,15 +40,16 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                     layout: 'border',
                     items:[
                         {
-                            region: 'west',
-                            width: '70%',
+                            region: 'center',
+                            // width: '60%',
                             xtype: 'PContract_PO_Edit_Info',
                             border: true,
                             margin: 1,
                         },
                         {
-                            region: 'center',
-                            xtype: 'PContract_PO_Edit_Factories',
+                            region: 'east',
+                            width: 250,
+                            xtype: 'PContract_PO_Edit_Porders',
                             border: true,
                             margin: 1,
                         }
@@ -61,7 +62,7 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
                     items:[
                         {
                             region: 'west',
-                            width: 100,
+                            width: 160,
                             xtype: 'PContract_PO_Edit_Sizeset',
                             border: true,
                             margin: 1,                            

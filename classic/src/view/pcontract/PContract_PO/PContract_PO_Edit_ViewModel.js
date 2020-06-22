@@ -3,10 +3,11 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
     alias: 'viewmodel.PContract_PO_Edit_ViewModel',
     requires: ['GSmartApp.store.unit.UnitStore', 
     'GSmartApp.store.pcontract.PContract_PO_Price_Store',
-    'GSmartApp.store.product.ProductStore'],
+    'GSmartApp.store.product.ProductStore',
+    'GSmartApp.store.POrderFilter'],
     stores:{
-        OrgGrantedStore: {
-            type: 'POrderGrant'
+        POrderStore: {
+            type: 'POrderFilter'
         },
         CurrencyStore: {
             type: 'CurrencyStore'
@@ -33,6 +34,10 @@ Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_ViewModel', {
         product_selected_typeid_link: null,
         isproductpair: 0,
         productpairid_link: 0,
-        pcontractid_link: 0
+        pcontractid_link: 0,
+        org_droppedid: null,
+        org_droppedname: null,
+        org_droppedcode: null,
+        isSewPriceReadonly: true
     }
 })
