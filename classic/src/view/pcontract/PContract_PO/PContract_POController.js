@@ -113,6 +113,53 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }]
         });
         form.show();
+    },
+    onAccept: function(grid, rowIndex, colIndex){
+        var rec = grid.getStore().getAt(rowIndex);
+        var viewModel = this.getViewModel();
+        
+        if(rec.get('status') == 1) {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'PO đã được xác nhận',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else {
+            var form = Ext.create('Ext.window.Window', {
+                height: 350,
+                closable: true,
+                title: 'Chốt PO',
+                resizable: false,
+                modal: true,
+                border: false,
+                closeAction: 'destroy',
+                width: 400,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: 'PContract_PO_FormAccept',
+                    viewModel: {
+                        data: {
+                            po: {
+                                po_quantity: rec.get('po_quantity'),
+                                po_buyer: rec.get('po_buyer'),
+                                po_vendor: rec.get('po_vendor'),
+                                shipdate: rec.get('shipdate')
+                            }
+                        }
+                    }
+                }]
+            });
+            form.show();
+        }
     }
 });
 

@@ -61,6 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         text:'SL SX',
         dataIndex:'pquantity_porder',
         width: 70,
+        align: 'right',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -74,6 +75,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         text:'SL mẫu',
         dataIndex:'pquantity_sample',
         width: 70,
+        align: 'right',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -87,6 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         text:'SL Tổng',
         dataIndex:'pquantity_total',
         width: 70,
+        align: 'right',
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
             return '<div style="color:red; font-weight: bold; align: right">'+ value ;

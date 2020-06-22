@@ -7,7 +7,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         stripeRows: true,
         enableTextSelection: true,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        getRowClass: function (record, index) {
+            if (record.data.status == 1) {
+                return "accept";
+            }
+        }
     },
     selModel: {
         //selType: 'checkboxmodel',
@@ -60,7 +65,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         flex: 1
     },{
         xtype: 'actioncolumn',
-        width: 50,
+        width: 65,
         menuDisabled: true,
         sortable: false,
         items: [{
@@ -71,6 +76,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
             iconCls: 'x-fa fas fa-list',
             tooltip: 'Chi tiết',
             handler: 'onEdit'
+        },{
+            iconCls: 'x-fa fas fa-check',
+            tooltip: 'Chốt đơn',
+            handler: 'onAccept'
         }]
     }],
     dockedItems:[{

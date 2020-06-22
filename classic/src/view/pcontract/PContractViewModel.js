@@ -19,7 +19,9 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
             'GSmartApp.store.pcontract.PContractBomColorStore',
             'GSmartApp.store.org.ListOrgStore',
             'GSmartApp.store.pcontract.PContractProductTreeStore',
-            'GSmartApp.store.pcontract.PContractBom2ColorStore'],
+            'GSmartApp.store.pcontract.PContractBom2ColorStore',
+            'GSmartApp.store.market.MarketStore',
+            'GSmartApp.store.PayerStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -110,7 +112,13 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         },
         porderSKUStore: {
             type: 'porderSKUStore'
-        },              
+        },    
+        MarketStore: {
+            type: 'MarketStore'
+        },
+        PayerStore: {
+            type: 'PayerStore'
+        }          
     },
     data:{
         titleAttvalue: 'Thuộc tính ',
@@ -120,6 +128,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         IdProduct: 0 ,
         PContract: {
         },
+        pcontract_poid_link: 0,
         isReadOnlycmbSanPham: false, // binding thuộc tính được chọn combo sản phẩm hay ko
         ishiddenActionColumn: false,
         ordercode: '',

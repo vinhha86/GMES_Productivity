@@ -42,8 +42,11 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 storeproduct.loadStore(viewmodel.get('PContract.id'));
             } else {
                 if(newCard.xtype == 'PContractSKUMainView'){
+                    var productFilterStore = viewmodel.getStore('ProductFilterStore');
+                    productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
                     var PContractPOList = viewmodel.getStore('PContractPOList');
-                    PContractPOList.loadStoreByContract(viewmodel.get('PContract.id'));
+                    PContractPOList.loadStore(viewmodel.get('PContract.id'), viewmodel.get('IdProduct'));
+                    
                 } else {
                     if(newCard.xtype == 'PContract_POrder_Main'){
                         var PContractPOList = viewmodel.getStore('PContractPOList');
@@ -92,6 +95,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         var BranchStore = viewmodel.getStore('BranchStore');
         var SeasonStore = viewmodel.getStore('SeasonStore');
         var UnitStore = viewmodel.getStore('UnitStore');
+        var MarketStore = viewmodel.getStore('MarketStore');
+        var PContractTypeStore = viewmodel.getStore('ContractTypes');
 
         KHStore.loadStore(10, false);
         VenderStore.loadStore(11, false);
@@ -99,6 +104,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         BranchStore.loadStore(false);
         SeasonStore.loadStore(false);
         UnitStore.loadStore();
+        MarketStore.loadStore(1);
+        PContractTypeStore.loadStore();
     },
     onLuu: function () {
         var me = this.getView();
@@ -116,6 +123,11 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         data.status = 1;
         data.usercreatedid_link = 0;
         data.datecreated = '';
+
+        if(data.payer == 1)
+            data.orgpayerid_link = data.orgvendorid_link;
+        else
+        data.orgpayerid_link = data.orgendbuyerid_link;
 
         params.data = data;
         params.msgtype = "PContract_CREATE";

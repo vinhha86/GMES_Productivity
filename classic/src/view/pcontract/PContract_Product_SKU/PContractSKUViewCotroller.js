@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         var data = context.record.data;
         var params = new Object();
         params.data = data;
+        params.data.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
 
         delete params.data.listSKUvalue;
 
