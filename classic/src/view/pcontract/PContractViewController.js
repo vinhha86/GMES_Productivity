@@ -3,10 +3,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
     alias: 'controller.PContractViewController',
     init: function () {
         this.onActivate();
-        if (this.getView().IdPContract > 0) {
-            this.onLoadData(this.getView().IdPContract, null);
-            dockBottomBar = this.lookupReference('dockBottomBar');
-            dockBottomBar.setHidden(true);
+        if (this.getView().IdPContract > 0){
+           this.onLoadData(this.getView().IdPContract,null);
+           dockBottomBar = this.lookupReference('dockBottomBar');
+           dockBottomBar.setHidden(true);
         }
     },
     listen: {
@@ -37,18 +37,15 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         }
         else {
             viewmodel.set('ishiddenActionColumn', false);
-            if (newCard.xtype == 'PContract_PO_Main') {
+            if(newCard.xtype == 'PContract_PO_Main'){
                 var storeproduct = viewmodel.getStore('PContractProductTreeStore');
                 storeproduct.loadStore(viewmodel.get('PContract.id'));
             } else {
-                if (newCard.xtype == 'PContractSKUMainView') {
-                    var productfilterStore = viewmodel.getStore('ProductFilterStore');
-                    if (viewmodel.get('IdProduct') > 0) {
-                        var PContractPOList = viewmodel.getStore('PContractPOList');
-                        PContractPOList.loadStore(viewmodel.get('PContract.id'), viewmodel.get('IdProduct'));
-                    }
+                if(newCard.xtype == 'PContractSKUMainView'){
+                    var PContractPOList = viewmodel.getStore('PContractPOList');
+                    PContractPOList.loadStoreByContract(viewmodel.get('PContract.id'));
                 } else {
-                    if (newCard.xtype == 'POrderCreating_New_View') {
+                    if(newCard.xtype == 'PContract_POrder_Main'){
                         var PContractPOList = viewmodel.getStore('PContractPOList');
                         PContractPOList.loadStoreByContract(viewmodel.get('PContract.id'));
                     }
@@ -95,8 +92,6 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         var BranchStore = viewmodel.getStore('BranchStore');
         var SeasonStore = viewmodel.getStore('SeasonStore');
         var UnitStore = viewmodel.getStore('UnitStore');
-        var MarketStore = viewmodel.getStore('MarketStore');
-        var PContractTypeStore = viewmodel.getStore('ContractTypes');
 
         KHStore.loadStore(10, false);
         VenderStore.loadStore(11, false);
@@ -104,8 +99,6 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         BranchStore.loadStore(false);
         SeasonStore.loadStore(false);
         UnitStore.loadStore();
-        MarketStore.loadStore(1);
-        PContractTypeStore.loadStore();
     },
     onLuu: function () {
         var me = this.getView();
@@ -123,11 +116,6 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         data.status = 1;
         data.usercreatedid_link = 0;
         data.datecreated = '';
-
-        if (data.payer == 1)
-            data.orgpayerid_link = data.orgvendorid_link;
-        else
-            data.orgpayerid_link = data.orgbuyerid_link;
 
         params.data = data;
         params.msgtype = "PContract_CREATE";
@@ -176,5 +164,5 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 }
                 me.setLoading(false);
             })
-    }
+    }     
 })

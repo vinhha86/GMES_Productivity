@@ -19,9 +19,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
             'GSmartApp.store.pcontract.PContractBomColorStore',
             'GSmartApp.store.org.ListOrgStore',
             'GSmartApp.store.pcontract.PContractProductTreeStore',
-            'GSmartApp.store.pcontract.PContractBom2ColorStore',
-            'GSmartApp.store.market.MarketStore',
-            'GSmartApp.store.PayerStore'],
+            'GSmartApp.store.pcontract.PContractBom2ColorStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -107,12 +105,12 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         PContractBom2ColorStore: {
             type: 'PContractBom2ColorStore'
         },
-        MarketStore: {
-            type: 'MarketStore'
+        porderStore: {
+            type: 'POrderFilter'
         },
-        PayerStore: {
-            type: 'PayerStore'
-        }               
+        porderSKUStore: {
+            type: 'porderSKUStore'
+        },              
     },
     data:{
         titleAttvalue: 'Thuộc tính ',
@@ -127,6 +125,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         ordercode: '',
         orderdate: new Date(),
         productpairid_link: 0,
-        isproductpair: 0
+        isproductpair: 0,
+        po_selected: null
     }
 })

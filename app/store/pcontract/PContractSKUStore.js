@@ -72,5 +72,34 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 				}
 			}
 		});
+	},
+	loadStoreByPO: function(pcontractid_link, pcontract_poid_link){
+		var me=this;
+		var params = new Object();
+		params.pcontractid_link = pcontractid_link;
+		params.pcontract_poid_link = pcontract_poid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/pcontractsku/getbypcontract_po',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
 	}
 });

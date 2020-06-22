@@ -13,13 +13,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
     plugins: {
         cellediting: {
             clicksToEdit: 1,
-            // listeners: {
-            //      edit: 'onEdit'
-                    // beforeedit: function(e, editor){
-                    //     if (e.rowIdx == 0)
-                    //         return false;
-                    // }
-            // } 
+            listeners: {
+                edit: 'onSizesetItemEdit'
+            } 
         }
     },    
     features: [{

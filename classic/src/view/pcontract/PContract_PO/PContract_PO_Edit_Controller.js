@@ -206,7 +206,68 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             price_data.salaryfund = price_data.price_sewingcost*price_data.quantity;
             viewmodel.set('po_price',price_data);
 
-            //Tinh SewCost cho san pham bo
+            this.calRootPairProductPrice(price_data.sizesetid_link);    
         }
     },
+    //Cong don cho bo san pham
+    calRootPairProductPrice: function(sizesetid_link){
+        var viewmodel = this.getViewModel();
+        if (viewmodel.get('isproductpair') == 1){
+            var priceStore = viewmodel.getStore('PriceStore');
+            filters = priceStore.getFilters();
+
+            filters.add({
+                // id: 'porderFilter',
+                property: 'productid_link',
+                operator: '!=',
+                value: viewmodel.get('productpairid_link'),
+                anyMatch: true,
+                caseSensitive: false
+            });
+            filters.add({
+                // id: 'porderFilter',
+                property: 'sizesetid_link',
+                operator: '=',
+                value: sizesetid_link,
+                anyMatch: true,
+                caseSensitive: false
+            });
+
+            var sum_price_cmp = priceStore.sum('price_cmp');
+            var sum_price_fob = priceStore.sum('price_fob');
+            var sum_price_sewingtarget = priceStore.sum('price_sewingtarget');
+            var sum_price_sewingcost = priceStore.sum('price_sewingcost');
+            var sum_totalprice = priceStore.sum('totalprice');
+            var sum_salaryfund = priceStore.sum('salaryfund');
+
+            priceStore.clearFilter();
+            filters.add({
+                // id: 'porderFilter',
+                property: 'productid_link',
+                operator: '=',
+                value: viewmodel.get('productpairid_link'),
+                anyMatch: true,
+                caseSensitive: false
+            });
+            filters.add({
+                // id: 'porderFilter',
+                property: 'sizesetid_link',
+                operator: '=',
+                value: sizesetid_link,
+                anyMatch: true,
+                caseSensitive: false
+            });
+            for(var k =0; k<priceStore.data.length; k++){
+                var price_root = priceStore.data.items[k].data;
+                price_root.price_cmp = sum_price_cmp;
+                price_root.price_fob = sum_price_fob;
+                price_root.price_sewingtarget = sum_price_sewingtarget;
+                price_root.price_sewingcost = sum_price_sewingcost;
+                price_root.totalprice = sum_totalprice;
+                price_root.salaryfund = sum_salaryfund;
+            };  
+            priceStore.clearFilter();
+            priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+        }
+    },    
 })
