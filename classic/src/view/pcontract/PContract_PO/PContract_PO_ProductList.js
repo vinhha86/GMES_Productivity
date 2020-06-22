@@ -14,14 +14,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         mode: 'SINGLE'
     },
     rootVisible: false,
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onEdit'
-    //         } 
-    //     }
-    // },
     bind:{
         store:'{PContractProductTreeStore}'
     },

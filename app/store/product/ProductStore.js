@@ -80,6 +80,9 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			}
 		});
 	},	
+	loadStore_pair_andnotpair: function(pcontractid_link){
+
+	},
 	loadStore:function(type){
 		var me=this;
 		var params = new Object();
