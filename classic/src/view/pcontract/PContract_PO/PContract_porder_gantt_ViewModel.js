@@ -6,5 +6,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_ViewModel', {
         TaskStore: {
             type: 'PContract_porder_gantt_store'
         }     
+    },
+    data: {
+        gantt: {
+            startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
+            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
+            listid: '13,14'
+        }
     }
 })

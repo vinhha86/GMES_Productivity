@@ -129,7 +129,6 @@ Ext.define('GSmartApp.view.planporder.PlanPoderView', {
                 Date: new Date(2020,05,11)
             }]
         })
-        console.log(calendar);
         
         taskStore.setCalendar(calendar);
 

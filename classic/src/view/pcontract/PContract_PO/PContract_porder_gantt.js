@@ -114,13 +114,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         }
         
     },
-    taskStore: {
-        type  : 'PContract_porder_gantt_store',
-        proxy : {
-            type : 'ajax',
-            url  : 'data/task.json'
-        }
-    },
     listeners : {
         // Setup a time header tooltip after rendering
         render : 'render',
@@ -131,11 +124,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     },
     initComponent: function() {
         var me = this;
+        var viewmodel = me.getViewModel();
+
         var current = new Date();
         var startdate = new Date(current.getFullYear(), current.getMonth()-1, 1);
         me.startDate  = startdate;
         me.endDate  = Sch.util.Date.add(startdate, Sch.util.Date.WEEK, 12);
-        
+        var store = Ext.create('GSmartApp.store.pcontract.PContract_porder_gantt_store');
+        var taskStore = viewmodel.getStore('TaskStore');
+        taskStore.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.startDate'), viewmodel.get('gantt.listid'));
+
+        this.taskStore = taskStore;
         this.callParent(arguments);
     },
     dockedItems: [{
@@ -162,6 +161,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                 iconCls: 'x-fa fa-money',
                 weight: 30,
                 handler: 'onShowPO',
+            },
+            {
+                xtype: 'datefield',
+                weight: 30,
+                fieldLabel: 'Bắt đầu',
+                format: 'd/m/Y',
+                altFormats: "Y-m-d\\TH:i:s.uO",
+                labelWidth: 60,
+                width: 190,
+                bind: {
+                    value: '{gantt.startDate}'
+                }
+            },
+            {
+                xtype: 'datefield',
+                weight: 30,
+                fieldLabel: 'Kết thúc',
+                format: 'd/m/Y',
+                altFormats: "Y-m-d\\TH:i:s.uO",
+                labelWidth: 60,
+                width: 190,
+                bind: {
+                    value: '{gantt.endDate}'
+                }
             },
             '->'
             ,

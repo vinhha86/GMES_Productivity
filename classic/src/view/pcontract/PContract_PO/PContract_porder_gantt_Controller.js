@@ -40,7 +40,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         this.UpdateKeHoach(gantt,task);
     },
     onaftertaskdrop: function(gantt, task, eOpts){
-        console.log(task.data);
         this.UpdateKeHoach(gantt,task);
     },  
     onitemdblclick: function (grid, record, item, index, e, eOpts) {
@@ -377,4 +376,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
             panel_po.setHidden(true);
         }
     },   
+    loadStore: function(store){
+        var params = new Object();
+
+        params.textsearch ="";
+        params.status = 1;
+
+		store.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/gantt/getporder_po_gantt',
+			paramsAsJson:true,
+            noCache: false,
+            extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		store.load();
+    }
 })
