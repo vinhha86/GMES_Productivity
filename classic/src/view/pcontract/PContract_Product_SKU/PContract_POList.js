@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             itemId: 'productFilter',
             bind: {
                 store: '{ProductFilterStore}',
-                value: '{IdProduct}'
+                value: '{IdProduct_filterPO}'
             },
             valueField: 'productid_link',
             displayField: 'productName',

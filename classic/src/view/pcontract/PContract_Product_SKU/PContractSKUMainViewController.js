@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
     },
     onFilterProduct: function(combo, record, eOpts ){
         var store = this.getViewModel().getStore('PContractPOList');
-        var productid_link = this.getViewModel().get('IdProduct');
+        var productid_link = record.get('productid_link');
         var pcontractid_link = this.getViewModel().get('PContract.id');
 
         store.loadStore(pcontractid_link , productid_link);

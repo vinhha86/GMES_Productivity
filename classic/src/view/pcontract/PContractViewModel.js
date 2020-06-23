@@ -126,6 +126,7 @@ Ext.define('GSmartApp.view.PContract.PContractViewModel', {
         titleDeliveryPlan: 'Kế hoạch giao hàng ',
         titleSKU : 'Phân loại ',
         IdProduct: 0 ,
+        IdProduct_filterPO: 0,
         PContract: {
         },
         pcontract_poid_link: 0,

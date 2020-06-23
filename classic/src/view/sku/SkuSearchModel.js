@@ -30,6 +30,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchModel', {
         productid_link: 0, //truyền xuống filter
         productid_link_notsearch: 0 , //truyền xuống api
         pcontractid_link: 0,
+        pcontract_poid_link: 0,
         orgcustomerid_link : 0,
         partnercode: '',
         code: '',

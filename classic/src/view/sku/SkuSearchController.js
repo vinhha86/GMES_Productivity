@@ -319,6 +319,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         var params = new Object();
         params.pcontractid_link = viewModel.get('pcontractid_link');
         params.productid_link = viewModel.get('productid_link_notsearch');
+        params.pcontract_poid_link = viewModel.get('pcontract_poid_link');
         var select = me.getSelectionModel().getSelection();
 
         if (select.length == 0) {
@@ -364,6 +365,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
 
                             //load lai ds sku
                             var storeSKU = Ext.getCmp('PContractSKUView').getStore();
+                            storeSKU.removeAll();
                             storeSKU.loadStore(viewModel.get('pcontractid_link'), viewModel.get('productid_link_notsearch'));
 
                             me.up('window').close();
