@@ -25,5 +25,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         storeMenu.loadStore();
         var storeColor = viewModel.getStore('ColorStore');
         storeColor.loadStore();
+        var storeOrgType = viewModel.getStore('OrgTypeStore');
+        storeOrgType.loadAllOrgType();
     }
 })
