@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.planporder.PContract_PO_Edit_PriceSumUp', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_PO_Edit_PriceSumUp',
     layout: 'hbox',

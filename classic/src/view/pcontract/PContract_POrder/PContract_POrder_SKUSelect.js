@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SKUSelect', {
     viewModel: 'PContractViewModel',
     pcontract_poid_link: null,
     pcontractid_link: null,
+    porderid_link: null,
     selModel: {
         selType: 'checkboxmodel',
         mode: 'MULTI'

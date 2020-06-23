@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.PContract.PContract_PO_FormAccept', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_PO_FormAccept',
     id: 'PContract_PO_FormAccept',

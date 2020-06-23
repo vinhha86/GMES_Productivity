@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.planporder.PContractView_Main', {
+Ext.define('GSmartApp.view.pcontract.PContractView_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'PContractView_Main',
     reference: 'shit',

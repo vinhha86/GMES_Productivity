@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.planporder.PContract_PO_Edit', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_PO_Edit',
     id: 'PContract_PO_Edit',

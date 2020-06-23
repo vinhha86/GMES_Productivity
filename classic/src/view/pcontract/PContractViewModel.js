@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.PContract.PContractViewModel', {
+Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContractViewModel',
     requires: ['GSmartApp.store.pcontract.PContractStore', 

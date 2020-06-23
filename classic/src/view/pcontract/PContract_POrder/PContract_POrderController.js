@@ -8,12 +8,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         '#btnSKUSelect':{
             click: 'onSKUSelect'
         },
+        '#productFilter': {
+            select: 'onFilterProduct'
+        },
         'PContract_POList': {
             itemclick: 'onSelectPO'
         },
         'PContract_POrder_Porders': {
             itemclick: 'onSelectPOrder'
         }
+    },
+    onFilterProduct: function(combo, record, eOpts ){
+        var store = this.getViewModel().getStore('PContractPOList');
+        var productid_link = record.get('productid_link');
+        var pcontractid_link = this.getViewModel().get('PContract.id');
+
+        store.loadStore(pcontractid_link , productid_link);
     },
     onSelectPO: function(m, rec){
         var viewmodel = this.getViewModel();
@@ -35,10 +45,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         porderSKUStore.loadByPorderID(porder_id);
 
     },
+    onXoaSKU: function(rid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Lệnh sản xuất', 'Bạn có thực sự muốn xóa SKU? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var porderSKUStore = viewmodel.getStore('porderSKUStore');
+                    var record = porderSKUStore.getAt(rowIndex);
+                    var params=new Object();
+                    params.data = record.data;
+                    GSmartApp.Ajax.post('/api/v1/porder/delete_sku', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            var porderSKUStore = viewmodel.getStore('porderSKUStore');
+                            porderSKUStore.reload();
+                        } else {
+                            Ext.MessageBox.show({
+                                title: "Lệnh sản xuất",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    }); 
+                }
+            } );        
+
+    },
     onSKUSelect: function(){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po_selected');
-        if (null != po_data){
+        var porderView = Ext.getCmp('PContract_POrder_Porders');
+        var porder_data = porderView.getView().selection.data;
+        if (null != porder_data){
             var form = Ext.create('Ext.window.Window', {
                 height: 500,
                 closable: true,
@@ -56,11 +98,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 items: [{
                     border: false,
                     xtype: 'PContract_POrder_SKUSelect',
-                    pcontract_poid_link: po_data.id,
-                    pcontractid_link: po_data.pcontractid_link
+                    pcontract_poid_link: porder_data.pcontract_poid_link,
+                    pcontractid_link: porder_data.pcontractid_link,
+                    porderid_link: porder_data.id
                 }]
             });
             form.show();
+         
         }
     },    
 })

@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_PorderSKU', {
         store:'{porderSKUStore}'
     },
     columns:[
-        { header: 'SKU', dataIndex: 'skuCode', flex: 1},
+        { header: 'SKU', dataIndex: 'skucode', flex: 1},
         { header: 'Màu', dataIndex: 'mauSanPham', width: 70},
         { header: 'Cỡ', dataIndex: 'coSanPham', width: 70},  
         { header: 'Số lượng', dataIndex: 'pquantity_total', width: 80,
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_PorderSKU', {
             items: [{
                 iconCls: 'x-fa fas fa-trash',
                 tooltip: 'Xóa',
-                handler: 'onXoa'
+                handler: 'onXoaSKU'
             }]
         }
     ],

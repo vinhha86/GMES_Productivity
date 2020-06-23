@@ -47,6 +47,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         border: 'hbox',
         items:[{
             xtype:'combo',
+            editable: false,
             width:'95%',
             margin: 5,
             fieldLabel: 'Sản phẩm',
