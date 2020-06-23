@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
         store:'{MenuStore}'
     },
     columns:[{
-        text:'Menu đơn vị',
+        text:'Đơn vị',
         dataIndex:'name',
         xtype: 'treecolumn',
         flex: 1
