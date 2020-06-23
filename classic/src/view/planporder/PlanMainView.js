@@ -16,9 +16,9 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
             region: 'center'
         },
         {
-            xtype: 'POrderFilterOrgList',
-            id: 'panel_tosx',
-            width: 250,
+            xtype: 'POrderUnGranted',
+            id: 'panel_orderungranted',
+            width: 550,
             region: 'east',
             hidden: true  
         }    
