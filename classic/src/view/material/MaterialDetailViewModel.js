@@ -47,5 +47,12 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewModel', {
         },
         isWindow: false,
         btnQuayLai: false
+    },
+    formulas : {
+        isReadonlyType: function(get){
+            if(get('product.producttypeid_link') > 0 && get('isWindow'))
+                return true;
+            return false;
+        }
     }
 })

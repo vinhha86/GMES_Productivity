@@ -553,7 +553,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                     data: {
                         btnQuayLai: true,
                         isWindow: true,
-                        producttypeid_link: viewmodel.get('type')
+                        product: {
+                            producttypeid_link: viewmodel.get('type')
+                        }
                     }
                 }
             }]
@@ -561,9 +563,11 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         form.show();
 
         form.down('#'+xtype).on('CreateProduct', function (product) {
+            me.onSearchButton();
             form.close();
         })
     },
+
     onEditProduct: function(grid, rec){
         var viewmodel = this.getViewModel();
         var me = this;
@@ -588,7 +592,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             xtype = 'PackingTrimDetailView';
             title = 'Cập nhật phụ liệu hoàn thiện';
         }
-        console.log(viewmodel.get('type'));
+
         var form = Ext.create('Ext.window.Window', {
             height: 500,
             closable: true,
@@ -621,6 +625,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         form.show();
 
         form.down('#'+xtype).on('CreateProduct', function (product) {
+            me.onSearchButton();
             form.close();
         })
     }

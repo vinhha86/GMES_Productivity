@@ -41,6 +41,8 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimDetailViewModel', {
             img3:'',
             img4:'',
             img5:''
-        }
+        },
+        isWindow: false,
+        btnQuayLai: false
     }
 })

@@ -41,6 +41,8 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimDetailViewModel', {
             img3:'',
             img4:'',
             img5:''
-        }
+        },
+        isWindow: false,
+        btnQuayLai: false
     }
 })
