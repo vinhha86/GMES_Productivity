@@ -128,10 +128,21 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         data.usercreatedid_link = 0;
         data.datecreated = '';
 
-        if(data.payer == 1)
+        if(data.payer == 1){
             data.orgpayerid_link = data.orgvendorid_link;
-        else
-        data.orgpayerid_link = data.orgendbuyerid_link;
+            data.orgshowid_link = data.orgvendorid_link;
+        }            
+        else{
+            data.orgpayerid_link = data.orgbuyerid_link;
+            data.orgshowid_link = data.orgbuyerid_link;
+        }
+
+        if(data.orgshow == 1){
+            data.orgshowid_link = data.orgvendorid_link;
+        }            
+        else{
+            data.orgshowid_link = data.orgbuyerid_link;
+        }
 
         params.data = data;
         params.msgtype = "PContract_CREATE";

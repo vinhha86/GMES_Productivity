@@ -125,7 +125,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     margin: 2,
                     fieldLabel: "Bên hiển thị:",
                     bind: {
-                        value: '{PContract.orgshowid_link}',
+                        value: '{PContract.orgshow}',
                         store: '{PayerStore}'
                     },
                     itemId: 'orgshowid_link',

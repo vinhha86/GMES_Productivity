@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         }        
      },      
     border                   : true,
-    enableProgressBarResize  : true,
+    enableProgressBarResize  : false,
     enableTaskDragDrop  : true,
     showRollupTasks         : true,    
     rollupLabelField : 'mahang',
@@ -90,28 +90,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
 
     tooltipTpl : '<ul class="taskTip">' +
     '<li><strong></strong>{Name}</li>' +
-    '<li><strong>Từ ngày: </strong>{[values._record.getDisplayStartDate("d-m-Y")]}</li>' +
-    '<li><strong>Đến ngày: </strong>{[values._record.getDisplayEndDate("d-m-Y")]}</li>' +
+    '<li><strong>Từ ngày: </strong>{[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>'+
+    '<li><strong>Từ ngày: </strong>{[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>'+
     '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
     '</ul>',
     columns    : [
         {
             xtype: 'namecolumn',
             text: 'Kế hoạch sản xuất',
-            width: 200
+            width: 200,
+            Cls: ''
         }
     ],
     eventRenderer : function (taskRecord) {
-        if(taskRecord.data.depth == 3){
-            if(taskRecord.data.Id % 2 == 1)
-            return {
-                cls: 'red' // Add a CSS class to the task container element
-            }
-            else
-            return {
-                cls: 'green'
-            }
-        }
         
     },
     listeners : {
