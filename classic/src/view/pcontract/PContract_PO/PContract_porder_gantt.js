@@ -130,9 +130,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         var startdate = new Date(current.getFullYear(), current.getMonth()-1, 1);
         me.startDate  = startdate;
         me.endDate  = Sch.util.Date.add(startdate, Sch.util.Date.WEEK, 12);
-        var store = Ext.create('GSmartApp.store.pcontract.PContract_porder_gantt_store');
+        
         var taskStore = viewmodel.getStore('TaskStore');
-        taskStore.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.startDate'), viewmodel.get('gantt.listid'));
+        taskStore.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
 
         this.taskStore = taskStore;
         this.callParent(arguments);
