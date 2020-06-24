@@ -11,7 +11,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_ViewModel', {
         },
         porderSKUStore: {
             type: 'porderSKUStore'
-        }     
+        } ,
+        grantedSKUStore: {
+            type: 'porderSKUStore'
+        }              
     },
     data:{
         porder: null,

@@ -20,9 +20,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
                     if(response.respcode == 200){
                         viewmodel.set('porder', response.data);
                         
-                        //Lay danh sach PorderSKU
-                        // var porderStore = viewmodel.getStore('POrderStore');
-                        // porderStore.loadByPO(viewmodel.get('pcontractid_link'),viewmodel.get('po.id'));
+                        //Lay danh sach POrders_SKU
+                        var porderSKUStore = viewmodel.getStore('porderSKUStore');
+                        porderSKUStore.loadByPorderID(me.porderid_link);
 
                         //Lay danh sach Grantt SKU
                     }
@@ -44,51 +44,22 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
     onLuu: function () {
         var me = this.getView();
         var porderid_link = me.porderid_link;
-        var viewmodel = this.getViewModel();
+        var granttoorgid_link = me.granttoorgid_link;
 
-        var select = me.getSelectionModel().getSelection();   
+        var newGrant = new Object();
+        newGrant.id = null;
+        newGrant.porderid_link = porderid_link;
+        newGrant.granttoorgid_link = granttoorgid_link;
 
-        if(select.length == 0){
-            Ext.Msg.show({
-                title: 'Thông báo',
-                msg: 'Bạn chưa chọn sản phẩm',
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-            });
+        var params = new Object();
+        params.data = newGrant;
 
-            return;
-        } else {
-            for (var i = 0; i < select.length; i++) {
-                var data = select[i].data;
-                var newSKU = new Object();
-                newSKU.id = null;
-                newSKU.porderid_link = porderid_link;
-                newSKU.productid_link = data.productid_link;
-                newSKU.skuid_link = data.skuid_link;
-                newSKU.pquantity_sample = data.pquantity_sample;
-                newSKU.pquantity_porder = data.pquantity_porder;
-                newSKU.pquantity_total = data.pquantity_total;
-
-                var params = new Object();
-                params.data = newSKU;
-
-                GSmartApp.Ajax.post('/api/v1/porder/create_sku', Ext.JSON.encode(params),
-                function (success, response, options) {
-                    if (success) {
-                        var response = Ext.decode(response.responseText);
-                        if (response.respcode != 200) {
-                            console.log(response.message);
-                        }
-                    }
-                })                
-            }  
-            // var parent = Ext.getCmp('PContract_POrder_PorderSKU');
-            // parent.getView().store.loadByPorderID(porderid_link);
-
-            this.onThoat();
-        }
-    
+        GSmartApp.Ajax.post('/api/v1/porder_grant/create', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                console.log(response);
+            }
+        })        
+        this.onThoat();
     }
 })

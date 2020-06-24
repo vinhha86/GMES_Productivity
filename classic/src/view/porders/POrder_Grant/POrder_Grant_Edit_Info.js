@@ -187,7 +187,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit_Info', {
                     // region: 'west',
                     xtype: 'textfield',
                     labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
-                    fieldStyle: 'font-size:11px;',
+                    fieldStyle: 'font-size:11px; font-weight:bold;',
                     fieldLabel: 'Mã lệnh:',
                     reference: 'poinfo_qcorgname',
                     labelAlign: 'left',
@@ -215,11 +215,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit_Info', {
                 {
                     // region: 'center',
                     labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
-                    fieldStyle: 'font-size:11px;',
-                    xtype: 'textfield',
+                    fieldStyle: 'font-size:11px;text-align:right',
+                    xtype: 'numberfield',
+                    hideTrigger:true,
                     labelWidth: 85,
                     labelAlign: 'left',
-                    fieldLabel:'SL phân chuyền:',
+                    fieldLabel:'Số lượng lệnh:',
                     margin: 1,
                     bind: {
                         value: '{porder.totalorder}'

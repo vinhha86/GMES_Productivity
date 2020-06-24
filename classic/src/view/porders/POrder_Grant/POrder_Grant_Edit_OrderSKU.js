@@ -15,8 +15,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit_OrderSKU', {
         dock: 'bottom'
     }],
     selModel: {
-        //selType: 'checkboxmodel',
-        mode: 'SINGLE'
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
     },
     bind:{
         store:'{porderSKUStore}'

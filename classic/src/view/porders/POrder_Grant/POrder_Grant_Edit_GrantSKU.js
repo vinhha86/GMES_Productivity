@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.POrder_Grant_Edit_GrantSKU', {
+Ext.define('GSmartApp.view.porders.POrder_Grant_Edit_GrantSKU', {
     extend: 'Ext.grid.Panel',
     xtype: 'POrder_Grant_Edit_GrantSKU',
     id:'POrder_Grant_Edit_GrantSKU',
@@ -15,11 +15,11 @@ Ext.define('GSmartApp.view.pcontract.POrder_Grant_Edit_GrantSKU', {
         dock: 'bottom'
     }],
     selModel: {
-        //selType: 'checkboxmodel',
-        mode: 'SINGLE'
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
     },
     bind:{
-        store:'{porderSKUStore}'
+        store:'{grantedSKUStore}'
     },
     columns:[
         { header: 'SKU', dataIndex: 'skucode', flex: 1},

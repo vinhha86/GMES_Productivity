@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    tooltip: 'Thêm vào Lệnh sản xuất',
+                                    tooltip: 'Thêm vào chuyền',
                                     //margin: '0 0 20 0',
                                     iconCls: 'x-fa fa-arrow-right',
                                     weight: 30,
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit', {
                                 },
                                 {
                                     xtype: 'button',
-                                    tooltip: 'Hủy khỏi Lệnh sản xuất',
+                                    tooltip: 'Hủy khỏi chuyền',
                                     margin: '10 0 0 0',
                                     iconCls: 'x-fa fa-arrow-left',
                                     weight: 30,
