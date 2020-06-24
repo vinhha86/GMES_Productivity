@@ -19,12 +19,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
             return value == null ? "" : "SL:" + value ;
         }
     },
-    rightLabelField :  {
-        dataIndex : 'mahang',
-        renderer  : function(value) {
-            return value == null ? "" : "Mã hàng: " + value ;
-        }
-    },
+    // rightLabelField :  {
+    //     dataIndex : 'mahang',
+    //     renderer  : function(value) {
+    //         return value == null ? "" : "Mã hàng: " + value ;
+    //     }
+    // },
     highlightWeekends : true,
     skipWeekendsDuringDragDrop: false,
     allowParentTaskMove : false,
@@ -54,7 +54,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     enableProgressBarResize  : false,
     enableTaskDragDrop  : true,
     showRollupTasks         : true,    
-    rollupLabelField : 'mahang',
+    rollupLabelField : {
+        dataIndex: 'mahang',
+        renderer : function(value){
+            if(value!=null)
+                return "<label class= 'styleRollup'>" +value +"</label>";
+            return "";
+        }
+    },
     viewPreset: {
         name: 'weekAndDayLetter',
         headerConfig       : {
@@ -120,7 +127,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         var current = new Date();
         var startdate = new Date(current.getFullYear(), current.getMonth()-1, 1);
         me.startDate  = startdate;
-        me.endDate  = Sch.util.Date.add(startdate, Sch.util.Date.WEEK, 12);
+        me.endDate  = Sch.util.Date.add(startdate, Sch.util.Date.MONTH, 6);
         
         var taskStore = viewmodel.getStore('TaskStore');
         taskStore.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
@@ -176,6 +183,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                 bind: {
                     value: '{gantt.endDate}'
                 }
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Phóng to',
+                // text: 'Zoom in',
+                iconCls: 'x-fa fa-search',
+                weight: 30,
+                handler: 'onSearch',
             },
             '->'
             ,

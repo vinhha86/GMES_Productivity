@@ -320,11 +320,53 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         form.show();
     },
     onZoomIn: function () {
+        var config = {
+            bottom: {
+                unit      : "DAY",
+                increment : 1,
+                dateFormat: 'd'
+            },
+            middle: {
+                unit      : "WEEK",
+                dateFormat: 'd-m-Y',
+                align     : 'center'
+            }
+        }
+        var viewmodel = this.getViewModel();
+        var present = this.getView().getViewPreset();
+
+        console.log(preset);
+
+        // this.getView().setViewPreset(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
         this.getView().zoomIn();
     },
 
     onZoomOut: function () {
+        var viewmodel = this.getViewModel();
         this.getView().zoomOut();
+        // this.getView().zoomOut(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
+    },
+
+    getlevel_byName: function(name){
+        var level = 0;
+        switch(name){
+            case 'weekAndDayLetter':
+                level = 1;
+                break;
+        }
+    },
+
+    getViewPresentName_bylevel: function(level){
+        var level = this.getView().get
+        
+    },
+
+    onSearch: function() {
+        var viewmodel = this.getViewModel();
+        var store = this.getView().getTaskStore();
+        this.getView().setStartDate(viewmodel.get('gantt.startDate'));
+        this.getView().setEndDate(viewmodel.get('gantt.endDate'));
+        store.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
     },
 
     UpdateKeHoach: function (gantt, task) {
