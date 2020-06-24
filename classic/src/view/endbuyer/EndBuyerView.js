@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerView', {
         flex: 1
     }, {
         text: 'Màu đại diện',
-        dataIndex: 'colorName',
+        dataIndex: 'clsName',
         width: 150,
         flex: 1
     }, {
