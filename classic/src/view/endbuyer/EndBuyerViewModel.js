@@ -1,10 +1,13 @@
 Ext.define('GSmartApp.view.endbuyer.EndBuyerViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.EndBuyerViewModel',
-    requires: ['GSmartApp.store.OrgStore'],
+    requires: ['GSmartApp.store.OrgStore','GSmartApp.store.ColorStore'],
     stores: {
         OrgStore: {
             type: 'orgstore'
+        },
+        ColorStore: {
+            type: 'ColorStore'
         }
     },
     data: {

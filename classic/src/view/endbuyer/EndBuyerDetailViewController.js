@@ -4,6 +4,9 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerDetailViewController', {
     Id: 0,
     init: function () {
         var me = this.getView();
+        var viewmodel = me.getViewModel();
+        var storeColor = viewmodel.getStore('ColorStore');
+        storeColor.loadStore();
     },
     listen: {
         controller: {

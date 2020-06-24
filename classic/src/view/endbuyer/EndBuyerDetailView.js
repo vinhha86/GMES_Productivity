@@ -105,6 +105,20 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerDetailView', {
         },
         width: 400,
         labelWidth: 105
+    },{
+        width:400,
+        margin: 5,
+        labelWidth: 105,
+        xtype: 'combobox',
+        fieldLabel: 'Màu đại diện ',
+        bind:{
+            store:'{ColorStore}',
+            value:'{currentRec.colorid_link}'
+        },
+        displayField: 'name',
+        valueField: 'id',
+        queryMode: 'local',
+        editable: false
     }],
     dockedItems:[{
         layout:'hbox',

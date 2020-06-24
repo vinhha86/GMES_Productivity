@@ -59,6 +59,11 @@ Ext.define('GSmartApp.view.vendor.VendorView', {
         width: 150,
         flex: 1
     }, {
+        text: 'Màu đại diện',
+        dataIndex: 'colorName',
+        width: 150,
+        flex: 1
+    }, {
         xtype: 'actioncolumn',
         width: 50,
         menuDisabled: true,
