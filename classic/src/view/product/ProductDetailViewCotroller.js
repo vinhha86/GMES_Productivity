@@ -86,8 +86,6 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
                                 yes: 'Đóng'
                             },
                             fn: function(){
-                                console.log(viewModel.get('isWindow'));
-                                
                                 if(!viewModel.get('isWindow'))
                                     m.redirectTo("lsproduct/" + response.id + "/edit");
                                 else

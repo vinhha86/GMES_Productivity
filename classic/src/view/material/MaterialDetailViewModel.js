@@ -44,6 +44,8 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewModel', {
             img3:'',
             img4:'',
             img5:''
-        }
+        },
+        isWindow: false,
+        btnQuayLai: false
     }
 })

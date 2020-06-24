@@ -510,16 +510,32 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     onCreateProduct: function(){
         var viewmodel = this.getViewModel();
         var me = this;
-        var xtype = '';
+        var xtype = '', title ='';
         if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
         {
-            xtype = 'ProductDetailView'
+            xtype = 'ProductDetailView';
+            title = 'Thêm mới sản phẩm';
         }
-
+        else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
+        {
+            xtype = 'MaterialDetailView';
+            title = 'Thêm mới nguyên liệu';
+        }
+        else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40)
+        {
+            xtype = 'SewingTrimDetailView';
+            title = 'Thêm mới phụ liệu may';
+        }
+        else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50)
+        {
+            xtype = 'PackingTrimDetailView';
+            title = 'Thêm mới phụ liệu hoàn thiện';
+        }
+    
         var form = Ext.create('Ext.window.Window', {
             height: 500,
             closable: true,
-            title: 'Thêm mới sản phẩm',
+            title: title,
             resizable: false,
             modal: true,
             border: false,
@@ -536,33 +552,47 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 viewModel: {
                     data: {
                         btnQuayLai: true,
-                        isWindow: true
+                        isWindow: true,
+                        producttypeid_link: viewmodel.get('type')
                     }
                 }
             }]
         });
         form.show();
 
-        form.down('#ProductDetailView').on('CreateProduct', function (product) {
-            // console.log(product);
-            // me.getView().down('#ProductList').getSelectionModel().select(product);
+        form.down('#'+xtype).on('CreateProduct', function (product) {
             form.close();
         })
     },
     onEditProduct: function(grid, rec){
-        console.log(rec);
         var viewmodel = this.getViewModel();
         var me = this;
-        var xtype = '';
+        var xtype = '', title ='';
         if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
         {
-            xtype = 'ProductDetailView'
+            xtype = 'ProductDetailView';
+            title = 'Cập nhật sản phẩm';
         }
-
+        else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
+        {
+            xtype = 'MaterialDetailView';
+            title = 'Cập nhật nguyên liệu';
+        }
+        else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40)
+        {
+            xtype = 'SewingTrimDetailView';
+            title = 'Cập nhật phụ liệu may';
+        }
+        else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50)
+        {
+            xtype = 'PackingTrimDetailView';
+            title = 'Cập nhật phụ liệu hoàn thiện';
+        }
+        console.log(viewmodel.get('type'));
         var form = Ext.create('Ext.window.Window', {
             height: 500,
             closable: true,
-            title: 'Cập nhật sản phẩm',
+            title: title,
             resizable: false,
             modal: true,
             border: false,
@@ -581,7 +611,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         btnQuayLai: true,
                         isWindow: true,
                         product: {
-                            id : rec.data.id
+                            id : rec.data.id,
+                            producttypeid_link: viewmodel.get('type')
                         }
                     }
                 }
@@ -589,9 +620,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         });
         form.show();
 
-        form.down('#ProductDetailView').on('CreateProduct', function (product) {
-            // console.log(product);
-            // me.getView().down('#ProductList').getSelectionModel().select(product);
+        form.down('#'+xtype).on('CreateProduct', function (product) {
             form.close();
         })
     }
