@@ -42,12 +42,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
             ptype: 'treeviewdragdrop',
             enableDrag: true,
             dragText: '{0} Phân lệnh xuống nhà máy',
-            dragGroup: 'secondGridDDGroup',
-            dropGroup: 'firstGridDDGroup'
+            dragGroup: 'porderGanttDropGroup',
+            dropGroup: 'porderFreeDropGroup'
         },
         listeners: {
-            //drop: 'onDrop',
-            //beforedrop: 'onBeforeDrop'
+            drop: 'onDrop',
+            beforedrop: 'onBeforeDrop'
         }        
      },      
     border                   : true,
@@ -144,7 +144,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
             {
                 xtype: 'button',
                 tooltip: 'Kế hoạch giao hàng',
-                iconCls: 'x-fa fa-sliders',
+                iconCls: 'x-fa fa-truck',
                 weight: 30,
                 handler: 'onShowPO',
             },

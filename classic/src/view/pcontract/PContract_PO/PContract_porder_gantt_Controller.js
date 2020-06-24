@@ -404,5 +404,70 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
 			}
 		});
 		store.load();
+    },
+    onDrop: function(node, data, overModel, dropPosition, eOpts ){
+        var porder_data = data.records[0].data;
+        var destPos_Data = overModel.data;
+        console.log(porder_data);
+        console.log(destPos_Data);
+        var form = Ext.create('Ext.window.Window', {
+            height: Ext.getBody().getViewSize().height*.95,
+            closable: true,
+            title: 'Phân chuyền',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 750,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'POrder_Grant_Main',
+                pcontract_poid_link: porder_data.pcontract_poid_link,
+                pcontractid_link: porder_data.pcontractid_link,
+                porderid_link: porder_data.id,
+                granttoorgid_link: destPos_Data.id_origin,
+                granttoorg_name: destPos_Data.Name
+            }]
+        });
+        form.show();        
+        //Refresh Data
+    }, 
+    onBeforeDrop:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
+        if (dropPosition == 'append'){
+            var destPos_Data = overModel.data;
+            if (destPos_Data.depth != 2){
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Chỉ được phép phân lệnh cho tổ chuyền',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                dropHandlers.cancelDrop();
+            } else {
+                //Neu khong tha vao to san xuat --> Huy bo
+                if (destPos_Data.id_origin < 1){
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Chỉ được phép phân lệnh cho tổ chuyền',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    dropHandlers.cancelDrop();
+                } else {
+                    dropHandlers.processDrop();
+                }
+            }
+        } else {
+            dropHandlers.cancelDrop();
+        }
     }
 })

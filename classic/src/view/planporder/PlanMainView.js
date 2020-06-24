@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
     },    
     items:[
         {
-            xtype: 'PlanPoderView',
+            // xtype: 'PlanPoderView',
+            xtype: 'PContract_porder_gantt',
             id: 'panel_plan',
             margin: 1,
             region: 'center'
@@ -18,7 +19,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
         {
             xtype: 'POrderUnGranted',
             id: 'panel_orderungranted',
-            width: 550,
+            width: 480,
             region: 'east',
             hidden: true  
         }    

@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porders', {
             enableDrag: false,
             //dragText: '{0} Mã sản xuất được tính lương',
             dragGroup: 'firstGridDDGroup',
-            dropGroup: 'secondGridDDGroup'
+            dropGroup: 'porderGanttDropGroup'
         },
         listeners: {
             // drop: 'onDropOrg',

@@ -2,7 +2,11 @@ Ext.define('GSmartApp.store.pcontract.PContract_porder_gantt_store', {
     extend: 'Gnt.data.TaskStore',
 	alias: 'store.PContract_porder_gantt_store',
 	requires: ['GSmartApp.model.pcontract.PContract_porder_gantt_model'],
-    model: 'GSmartApp.model.pcontract.PContract_porder_gantt_model',
+	model: 'GSmartApp.model.pcontract.PContract_porder_gantt_model',
+	sorters: [{
+        property: 'id_origin',
+        direction: 'ASC'
+    }],
     loadStore: function(porder_from, porder_to, listid){
 		var me=this;
         var params = new Object();

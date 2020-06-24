@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         'Ext.Number',
         'Ext.Date'
     ],
-    title: 'Lệnh chưa sản xuất',    
+    title: 'Lệnh chưa phân chuyền',    
     bind:{
         store:'{POrderUnGranted}'
     },
@@ -28,8 +28,10 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         stripeRows: false,
         plugins: {
             ptype: 'gridviewdragdrop',
+            enableDrag: true,
+            copy: true,
             dragText: '{0} Phân chuyền',
-            dragGroup: 'secondGridDDGroup',
+            dragGroup: 'porderFreeDropGroup',
             dropGroup: 'firstGridDDGroup'
         },
         listeners: {
@@ -75,12 +77,12 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 // }
                 return value;
             },
-            summaryType: 'count', summaryRenderer: 'renderSum'                   
+            // summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
         { header: 'Style', dataIndex: 'buyercode', width: 90},
         { header: 'PO', dataIndex: 'po_vendor', width: 90},
-        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 90},
-        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 90},
+        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 70},
+        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 70},
         { header: 'SL', dataIndex: 'totalorder', flex: 1},
     ],
     dockedItems: [{
