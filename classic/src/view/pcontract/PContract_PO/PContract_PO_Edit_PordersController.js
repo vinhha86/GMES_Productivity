@@ -6,8 +6,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     },    
     onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
         var viewmodel = this.getViewModel();
-        var orgId = data.records[0].get('Id');
-        var orgCode = data.records[0].get('Code');
+        console.log(data.records[0]);
+        var orgId = data.records[0].get('id_origin');
+        var orgCode = data.records[0].get('code');
         var orgName = data.records[0].get('Name');
         var pcontractid_link = viewmodel.get('po.pcontractid_link');
         var pcontract_poid_link = viewmodel.get('po.id');
@@ -35,7 +36,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     sizesetid_link : price_data.sizesetid_link,
                     sizesetname: price_data.sizesetname,
                     granttoorgid_link: orgId,
-                    granttoorgname: orgCode,
+                    granttoorgcode: orgCode,
                     totalorder: price_data.quantity
                 });
                 // console.log(porder_New);
