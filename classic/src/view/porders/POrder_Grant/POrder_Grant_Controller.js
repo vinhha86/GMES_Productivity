@@ -60,6 +60,6 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
                 console.log(response);
             }
         })        
-        this.onThoat();
+        me.fireEvent("GrantSave");
     }
 })

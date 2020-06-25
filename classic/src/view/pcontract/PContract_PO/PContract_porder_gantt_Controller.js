@@ -448,10 +448,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
 		store.load();
     },
     onDrop: function(node, data, overModel, dropPosition, eOpts ){
+        var me = this;
+
         var porder_data = data.records[0].data;
         var destPos_Data = overModel.data;
-        console.log(porder_data);
-        console.log(destPos_Data);
+
         var form = Ext.create('Ext.window.Window', {
             height: Ext.getBody().getViewSize().height*.95,
             closable: true,
@@ -476,8 +477,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                 granttoorg_name: destPos_Data.Name
             }]
         });
-        form.show();        
+        form.show(); 
+
         //Refresh Data
+        form.down('#POrder_Grant_Main').on('GrantSave', function () {
+            me.onSearch();
+            form.close();
+        })
     }, 
     onBeforeDrop:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
         if (dropPosition == 'append'){
