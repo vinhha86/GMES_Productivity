@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.product.ProductView', {
     }, {
         text: 'Mã SP',
         dataIndex: 'code',
-        width: 70
+        width: 150
     }, {
         text: 'Tên sản phẩm',
         dataIndex: 'name',
