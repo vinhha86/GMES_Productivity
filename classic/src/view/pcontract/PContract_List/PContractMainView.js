@@ -24,25 +24,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Mã khách hàng',
-        dataIndex: 'cust_contractcode',
-        width: 125
-    }, {
         text: 'Mã nội bộ',
         dataIndex: 'contractcode',
         width: 120
     }, {
-        text: 'Khách Hàng',
-        dataIndex: 'orgcustomerName',
+        text: 'EndBuyer',
+        dataIndex: 'buyername',
         flex: 1
     },{
-        text: 'Brand',
-        dataIndex: 'branchName',
-        flex: 1
-    },
-    {
-        text: 'Season',
-        dataIndex: 'seasonName',
+        text: 'Vendor',
+        dataIndex: 'vendorname',
         flex: 1
     },
     {
@@ -102,13 +93,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         },{
             xtype:'textfield',
             labelWidth: 0,
-            emptyText: "Mã khách hàng",
-            itemId: 'cust_contractcode',
-            margin: '5 1 5 0',
-            width: 120
-        },{
-            xtype:'textfield',
-            labelWidth: 0,
             margin: '5 1 5 0',
             emptyText: "Mã nội bộ",
             itemId: 'contractcode',
@@ -116,36 +100,25 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         },{
             xtype: 'combo',
             labelWidth: 0,
-            emptyText:'Khách hàng',
+            emptyText:'EndBuyer',
             bind: {
-                store : '{CustomerStore}'
+                store : '{EndBuyer}'
             },
             valueField: 'id',
             displayField: 'name',
-            itemId: 'orgcustomerid_link',
-            margin: '5 1 5 0'
-        },{
-            xtype: 'combo',
-            labelWidth: 0,
-            emptyText:'Brand',
-            bind: {
-                store : '{BranchStore}'
-            },
-            valueField: 'id',
-            displayField: 'name',
-            itemId: 'branchid_link',
+            itemId: 'orgendbuyerid_link',
             margin: '5 1 5 0'
         },
         {
             xtype: 'combo',
             labelWidth: 0,
-            emptyText:'Season',
+            emptyText:'Vendor',
             bind: {
-                store : '{SeasonStore}'
+                store : '{Vendor}'
             },
             valueField: 'id',
             displayField: 'name',
-            itemId: 'seasonid_link',
+            itemId: 'orgvendorid_link',
             margin: '5 1 5 0'
         },
         {

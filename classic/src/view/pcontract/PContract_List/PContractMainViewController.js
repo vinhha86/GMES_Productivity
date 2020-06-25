@@ -21,17 +21,14 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         '#orgcustomerid_link': {
             select: 'onloadPage'
         },
-        '#branchid_link': {
+        '#orgendbuyerid_link': {
             select: 'onloadPage'
         }, 
-        '#seasonid_link': {
+        '#orgvendorid_link': {
             select: 'onloadPage'
         },
         '#btnTimKiem': {
             click: 'onloadPage'
-        },
-        '#cust_contractcode': {
-            specialkey: 'onSpecialkey'
         },
         '#contractcode': {
             specialkey: 'onSpecialkey'
@@ -46,10 +43,10 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var KHStore = viewmodel.getStore('CustomerStore');
         KHStore.loadStore(10, true);
 
-        var BranchStore = viewmodel.getStore('BranchStore');
-        var SeasonStore = viewmodel.getStore('SeasonStore');
-        BranchStore.loadStore(true);
-        SeasonStore.loadStore(true);
+        var EndBuyer = viewmodel.getStore('EndBuyer');
+        var Vendor = viewmodel.getStore('Vendor');
+        EndBuyer.loadStore(12);
+        Vendor.loadStore(11);
 
         if (me.isActivate) {
             me.onloadPage();
@@ -77,11 +74,11 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var store = viewmodel.getStore('PContractStore');
 
         var limit = me.down('#limitpage').getValue();
-        var cust_contractcode = me.down('#cust_contractcode').getValue();
+        var cust_contractcode = "";
         var contractcode = me.down('#contractcode').getValue();
-        var orgcustomerid_link = me.down('#orgcustomerid_link').getValue();
-        var branchid_link = me.down('#branchid_link').getValue();
-        var seasonid_link = me.down('#seasonid_link').getValue();
+        var orgendbuyerid_link = me.down('#orgendbuyerid_link').getValue();
+        var orgvendorid_link = me.down('#orgvendorid_link').getValue();
+
         var page = store.currentPage;
 
         if (limit == null) {
@@ -100,20 +97,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             contractcode = "";
         }
 
-        if (orgcustomerid_link == null) {
-            orgcustomerid_link = 0;
+        if (orgendbuyerid_link == null) {
+            orgendbuyerid_link = 0;
         }
 
-        if (branchid_link == null) {
-            branchid_link = 0;
+        if (orgvendorid_link == null) {
+            orgvendorid_link = 0;
         }
 
-        if (seasonid_link == null) {
-            seasonid_link = 0;
-        }
-
-        store.loadStore_ByPage(limit, page, cust_contractcode, contractcode, orgcustomerid_link,
-            branchid_link, seasonid_link);
+        store.loadStore_ByPage(limit, page, cust_contractcode, contractcode, orgendbuyerid_link,
+            orgvendorid_link);
     },
     onThemMoi: function () {
         var me = this.getView();

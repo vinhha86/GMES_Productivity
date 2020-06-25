@@ -24,6 +24,7 @@ Ext.define('GSmartApp.model.pcontract.PContractModel', {
         'contracttypeid_link',
         'orgpayerid_link',
 		'payer',
-		'orgshow'
+		'orgshow',
+		'buyername','vendorname'
     ]
 });

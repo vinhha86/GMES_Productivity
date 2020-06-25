@@ -10,14 +10,13 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
         property: 'deliverydate'
 	}],
 	loadStore_ByPage:function(limit, page, cust_contractcode, contractcode, orgbuyerid_link,
-		branchid_link, seasonid_link){
+		orgvendorid_link){
 		var me=this;
 		var params = new Object();
 		params.cust_contractcode = cust_contractcode;
 		params.contractcode = contractcode;
 		params.orgbuyerid_link = orgbuyerid_link;
-		params.branchid_link = branchid_link;
-		params.seasonid_link = seasonid_link;
+		params.orgvendorid_link = orgvendorid_link;
 		me.pageSize = limit;
 		this.setProxy({
 			type: 'ajax',

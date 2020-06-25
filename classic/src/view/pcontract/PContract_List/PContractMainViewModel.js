@@ -15,6 +15,12 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewModel', {
         },
         SeasonStore:{
             type :'SeasonStore'
+        },
+        EndBuyer:{
+            type : 'ListOrgStore'
+        },
+        Vendor:{
+            type : 'ListOrgStore'
         }
     }
 })
