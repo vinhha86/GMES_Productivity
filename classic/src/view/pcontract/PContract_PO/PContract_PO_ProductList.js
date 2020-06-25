@@ -27,11 +27,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     },{
         text:'Mã SP',
         dataIndex:'code',
-        width: 60
+        width: 100
     },{
         text:'Ảnh',
         dataIndex:'imgproduct',
-        width: 50,
+        width: 40,
         textAlign: 'center',
         renderer: function(value, meta, record){
             return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';

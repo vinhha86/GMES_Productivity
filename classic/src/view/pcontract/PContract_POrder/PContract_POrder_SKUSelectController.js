@@ -59,14 +59,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SKUSelectController', {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode != 200) {
                             console.log(response.message);
+                        } else {
+                            me.fireEvent("SKUSave");
                         }
                     }
                 })                
             }  
-            // var parent = Ext.getCmp('PContract_POrder_PorderSKU');
-            // parent.getView().store.loadByPorderID(porderid_link);
-
-            this.onThoat();
+            
         }
     
     }

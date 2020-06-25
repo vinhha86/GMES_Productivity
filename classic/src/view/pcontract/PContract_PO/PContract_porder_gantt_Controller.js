@@ -483,8 +483,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
             me.onSearch();
             form.close();
         })
+        form.down('#POrder_Grant_Main').on('GrantClose', function () {
+            me.onSearch();
+            form.close();
+        })
     }, 
     onBeforeDrop:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
+        console.log(overModel)
         if (dropPosition == 'append'){
             var destPos_Data = overModel.data;
             if (destPos_Data.depth != 2){
@@ -510,7 +515,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                     });
                     dropHandlers.cancelDrop();
                 } else {
-                    dropHandlers.processDrop();
+                    var porder_data = data.records[0].data;
+                    if (destPos_Data.parentid_origin != porder_data.granttoorgid_link){
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lệnh sản xuất đang được phân cho phân xưởng khác',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        dropHandlers.cancelDrop();
+                    } else {
+                        dropHandlers.processDrop();
+                    }
                 }
             }
         } else {

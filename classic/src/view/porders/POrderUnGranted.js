@@ -40,13 +40,13 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         }        
      },
     columns: [
-        { header: 'Mã SX', locked: false, dataIndex: 'ordercode', width: 90,
+        { header: 'Mã SX', locked: false, dataIndex: 'ordercode', width: 100,
             editor: {xtype: 'textfield', readOnly: true},
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'porderFilterField_Salary',
-                width: 85,
+                width: 95,
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {

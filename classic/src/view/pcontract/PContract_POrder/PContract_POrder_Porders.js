@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
         {
             header:'Mã lệnh',
             dataIndex:'ordercode',
-            width: 80
+            width: 100
         },
         {
             header:'Phân xưởng',
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
         {
             header:'Dải cỡ',
             dataIndex:'sizesetname',
-            width: 80
+            width: 70
         },
         {
             header:'SL',

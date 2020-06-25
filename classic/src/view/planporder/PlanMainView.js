@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
         {
             xtype: 'POrderUnGranted',
             id: 'panel_orderungranted',
-            width: 480,
+            width: 500,
             region: 'east',
             hidden: true  
         }    

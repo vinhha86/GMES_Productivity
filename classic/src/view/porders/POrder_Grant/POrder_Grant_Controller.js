@@ -28,7 +28,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
                     }
                 }
             })
-        }        
+        }
+
     },
     control: {
         '#btnThoat': {
@@ -39,7 +40,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
         }
     },    
     onThoat: function () {
-        this.getView().up('window').destroy();
+        // this.getView().up('window').destroy();
+        var me = this.getView();
+        me.fireEvent("GrantClose");
     },
     onLuu: function () {
         var me = this.getView();
@@ -61,5 +64,32 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
             }
         })        
         me.fireEvent("GrantSave");
+    },
+    onAddToGrantt: function(){
+        var orderSKUView = Ext.getCmp('POrder_Grant_Edit_OrderSKU');
+        var select_orderSKU = orderSKUView.getView().getSelectionModel().getSelection();   
+
+        if(select_orderSKU.length == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn chưa chọn SKU',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+
+            return;
+        } else {
+            var viewmodel =  this.getViewModel();
+            var grantedSKUStore = viewmodel.getStore('grantedSKUStore');
+            var porderSKUStore = viewmodel.getStore('porderSKUStore');
+
+            for (var i = 0; i < select_orderSKU.length; i++) {
+                var data = select_orderSKU[i].data;
+                grantedSKUStore.insert(0,data);
+            }
+            porderSKUStore.remove(select_orderSKU);
+        }
     }
 })

@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit', {
                                     //margin: '0 0 20 0',
                                     iconCls: 'x-fa fa-arrow-right',
                                     weight: 30,
-                                    handler: 'onTaoLenh'
+                                    handler: 'onAddToGrantt'
                                 },
                                 {
                                     xtype: 'button',
@@ -56,6 +56,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit', {
                                     margin: '10 0 0 0',
                                     iconCls: 'x-fa fa-arrow-left',
                                     weight: 30,
+                                    handler: 'onRemoveFromGrantt'
                                     // handler: 'onRemovePklistFromStockout'
                                 }       
                             ]

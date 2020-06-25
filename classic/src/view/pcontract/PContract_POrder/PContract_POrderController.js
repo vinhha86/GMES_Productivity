@@ -37,13 +37,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
 
     },
     onSelectPOrder: function(m, rec){
+        this.refreshSKUList(rec.data.id);
+    },
+    refreshSKUList:function(orderid){
         var viewmodel = this.getViewModel();
-        var porder_id = rec.data.id;
-
         //Lay danh sach POrders_SKU
         var porderSKUStore = viewmodel.getStore('porderSKUStore');
-        porderSKUStore.loadByPorderID(porder_id);
-
+        porderSKUStore.loadByPorderID(orderid);
     },
     onXoaSKU: function(rid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
@@ -77,6 +77,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     },
     onSKUSelect: function(){
         var viewmodel = this.getViewModel();
+        var me = this;
         var po_data = viewmodel.get('po_selected');
         var porderView = Ext.getCmp('PContract_POrder_Porders');
         var porder_data = porderView.getView().selection.data;
@@ -104,7 +105,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 }]
             });
             form.show();
-         
+            //Refresh Data
+            form.down('#PContract_POrder_SKUSelect').on('SKUSave', function () {
+                me.refreshSKUList(porder_data.id);
+                form.close();
+            })         
         }
     },    
 })
