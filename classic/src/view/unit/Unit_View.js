@@ -27,17 +27,56 @@ Ext.define('GSmartApp.view.unit.Unit_View', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100
+        width: 100,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'unitCodeFilter',
+            width: 96,
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onUnitCodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên đơn vị',
         dataIndex: 'name',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'unitNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onUnitNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên đơn vị tiếng Anh',
         dataIndex: 'name_en',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'unitEnNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onUnitEnNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         xtype: 'actioncolumn',
         width: 50,

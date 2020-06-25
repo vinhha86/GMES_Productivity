@@ -23,7 +23,20 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
     }, {
         text: 'Tên dải size',
         dataIndex: 'name',
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'sizesetNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onSizesetNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Chú thích',
         dataIndex: 'comment',

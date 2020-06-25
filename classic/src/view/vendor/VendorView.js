@@ -27,12 +27,38 @@ Ext.define('GSmartApp.view.vendor.VendorView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100
+        width: 100,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'vendorCodeFilter',
+            width: 96,
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onVendorCodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên vendor',
         dataIndex: 'name',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'vendorNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onVendorNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Thành phố',
         dataIndex: 'city',

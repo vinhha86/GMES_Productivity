@@ -27,12 +27,38 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100
+        width: 100,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'endbuyerCodeFilter',
+            width: 96,
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onEndbuyerCodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên End Buyer',
         dataIndex: 'name',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'endbuyerNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onEndbuyerNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Thành phố',
         dataIndex: 'city',

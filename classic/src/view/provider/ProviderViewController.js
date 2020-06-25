@@ -103,5 +103,45 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('OrgStore');
         store.GetOrgByTypeId(5);
+    },
+    onProviderCodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('providerCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
+    onProviderNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('providerNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
     }
 })

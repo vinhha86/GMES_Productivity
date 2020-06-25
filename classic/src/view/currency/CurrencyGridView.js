@@ -24,12 +24,38 @@ Ext.define('GSmartApp.view.currency.CurrencyGridView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100
+        width: 100,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'currencyCodeFilter',
+            width: 96,
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onCurrencyCodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên',
         dataIndex: 'name',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'currencyNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onCurrencyNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tỉ giá (VND)',
         dataIndex: 'exchangerate',

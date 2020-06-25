@@ -106,5 +106,45 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('OrgStore');
         store.GetOrgByTypeId(12);
+    },
+    onEndbuyerCodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('endbuyerCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
+    onEndbuyerNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('endbuyerNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
     }
 })

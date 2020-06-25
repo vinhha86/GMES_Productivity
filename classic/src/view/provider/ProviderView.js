@@ -27,12 +27,36 @@ Ext.define('GSmartApp.view.provider.ProviderView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100
+        width: 100,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'providerCodeFilter',
+            width: 96,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onProviderCodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên nhà cung cấp',
         dataIndex: 'name',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'providerNameFilter',
+            width: '99%',
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onProviderNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Điện thoại',
         dataIndex: 'phone',

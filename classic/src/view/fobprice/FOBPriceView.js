@@ -34,6 +34,19 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
         text:'Tên giá',
         dataIndex:'name',
         flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'fobPriceNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFobPriceNameFilterKeyup',
+                buffer: 500
+            }
+        },
         editor: {
             completeOnEnter: true,
             field: {

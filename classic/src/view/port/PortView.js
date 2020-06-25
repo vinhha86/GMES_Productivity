@@ -27,17 +27,56 @@ Ext.define('GSmartApp.view.Port.PortView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100
+        width: 100,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'portCodeFilter',
+            width: 96,
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPortCodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên cảng',
         dataIndex: 'name',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'portNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPortNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên cảng tiếng Anh',
         dataIndex: 'name_en',
         width: 150,
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'portEnNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPortEnNameFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         xtype: 'actioncolumn',
         width: 50,

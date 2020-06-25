@@ -34,6 +34,19 @@ Ext.define('GSmartApp.view.pcontracttype.PContractTypeView', {
         text:'Tên loại hình đơn hàng',
         dataIndex:'name',
         flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'pcontracttypeNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPcontracttypeNameFilterKeyup',
+                buffer: 500
+            }
+        },
         editor: {
             completeOnEnter: true,
             field: {

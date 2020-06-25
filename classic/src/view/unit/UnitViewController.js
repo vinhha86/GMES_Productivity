@@ -106,5 +106,65 @@ Ext.define('GSmartApp.view.unit.UnitViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('UnitStore');
         store.loadStore();
+    },
+    onUnitCodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('unitCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
+    onUnitNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('unitNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
+    },
+    onUnitEnNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('unitEnNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.enNameFilter = filters.add({
+                id: 'enNameFilter',
+                property: 'name_en',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.enNameFilter) {
+            filters.remove(this.enNameFilter);
+            this.enNameFilter = null;
+        }
     }
 })

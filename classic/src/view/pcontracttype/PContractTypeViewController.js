@@ -213,5 +213,25 @@ Ext.define('GSmartApp.view.pcontracttype.PContractTypeViewController', {
 
     isButtonDisabled:function (grid, rowIndex, colIndex, items, record) {
         return record.data.issystemfix;
+    },
+    onPcontracttypeNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('pcontracttypeNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
     }
 })
