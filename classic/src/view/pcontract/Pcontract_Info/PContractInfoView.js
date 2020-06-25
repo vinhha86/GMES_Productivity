@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     fieldLabel: "Buyer:",
                     bind: {
                         value: '{PContract.orgbuyerid_link}',
-                        store: '{CustomerStore}'
+                        store: '{EndBuyer}'
                     },
                     itemId: 'orgbuyerid_link',
                     labelWidth: 100,

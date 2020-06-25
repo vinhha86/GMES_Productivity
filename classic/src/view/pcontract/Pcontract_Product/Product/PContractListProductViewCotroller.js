@@ -38,24 +38,27 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                 }
             });
             var viewInfo = Ext.getCmp('PContractInfoView');
-            viewInfo.down('#cust_contractcode').focus();
+            viewInfo.down('#contractcode').focus();
             return;
         }
-
-        var form = Ext.create({
-            xtype: 'skusearchwindow',
-            reference: 'skusearchwindow',
-            viewModel: {
-                data: {
-                    sourceview: 'PContractListProductView',
-                    searchtype: 1,
-                    pcontractid_link: viewmodel.get('PContract.id'),
-                    orgcustomerid_link: viewmodel.get('PContract.orgcustomerid_link'),
-                    type: 10
+        else {
+            var form = Ext.create({
+                xtype: 'skusearchwindow',
+                reference: 'skusearchwindow',
+                viewModel: {
+                    data: {
+                        sourceview: 'PContractListProductView',
+                        searchtype: 1,
+                        pcontractid_link: viewmodel.get('PContract.id'),
+                        orgcustomerid_link: viewmodel.get('PContract.orgcustomerid_link'),
+                        type: 10
+                    }
                 }
-            }
-        });
-        form.show();
+            });
+            form.show();
+        }
+
+        
     },
     onSelectProduct: function (t, record, index, eOpts) {
         var viewmodel = this.getViewModel();

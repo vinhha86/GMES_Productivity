@@ -128,6 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         IdProduct: 0 ,
         IdProduct_filterPO: 0,
         PContract: {
+            id: 0
         },
         pcontract_poid_link: 0,
         isReadOnlycmbSanPham: false, // binding thuộc tính được chọn combo sản phẩm hay ko
