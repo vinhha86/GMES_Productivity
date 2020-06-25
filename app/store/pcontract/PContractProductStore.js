@@ -13,7 +13,9 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 		{name: 'production_date',   type: 'date', format: 'c'},
 		{name: 'delivery_date',   type: 'date', format: 'c'},
 		'unitprice',
-		{name: 'imgproduct'}
+		{name: 'imgproduct'},
+		'productBuyerCode',
+		'productVendorCode'
     ],
 	sorters: [{
         direction: 'ASC',
