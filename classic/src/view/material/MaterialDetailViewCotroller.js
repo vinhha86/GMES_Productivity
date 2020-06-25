@@ -4,12 +4,16 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewCotroller', {
     IdProduct: 0,
     init: function () {
         var me = this.getView();
+        var viewmodel  = this.getViewModel();
+
+        if(viewmodel.get('isWindow')){
+            this.onLoadData(viewmodel.get('product.id'), null);
+        }
     },
     listen: {
         controller: {
             '*': {
-                loaddata: 'onLoadData',
-                urlBack: 'onUrlBack'
+                loaddata: 'onLoadData'
             }
         }
     },
@@ -27,6 +31,7 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewCotroller', {
         var imgView = Ext.getCmp('MaterialImageView');
 
         var me = this.getView();
+        var m = this;
         var viewModel = this.getViewModel();
         // main.setLoading("Đang lưu dữ liệu");
 
@@ -60,19 +65,17 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewCotroller', {
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
+                            },
+                            fn: function(){
+                                if(!viewModel.get('isWindow'))
+                                    m.redirectTo("lsmaterial/" + response.id + "/edit");
+                                else
+                                {
+                                    //Tạo event để form gọi lên hứng khi thêm sản phẩm thành công với trường hợp tạo sản phẩm trong đơn hàng
+                                    m.getView().fireEvent("CreateProduct", response.product);
+                                }
                             }
                         });
-
-                        if (data.id == 0) {
-                            var storeAtt = viewModel.getStore('ProductAttributeValueStore');
-                            storeAtt.loadStore(response.id);
-                            var storeSKU = viewModel.getStore('SKUStore');
-                            storeSKU.loadStore(response.id);
-                        }
-                        viewInfo.IdProduct = response.id;
-                        viewAttribute.IdProduct = response.id;
-                        imgView.IdProduct = response.id;
-                        me.IdProduct = response.id;
                     }
                     else {
                         Ext.Msg.show({
@@ -124,8 +127,5 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewCotroller', {
             storeAtt.removeAll();
             storeSKU.removeAll();
         }
-    },
-    onUrlBack: function (type) {
-
     }
 })

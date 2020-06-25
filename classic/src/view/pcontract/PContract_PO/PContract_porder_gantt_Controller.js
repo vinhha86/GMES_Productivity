@@ -335,8 +335,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         var viewmodel = this.getViewModel();
         var present = this.getView().getViewPreset();
 
-        console.log(preset);
-
+        
         // this.getView().setViewPreset(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
         this.getView().zoomIn();
     },

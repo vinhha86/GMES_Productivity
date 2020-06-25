@@ -35,7 +35,10 @@ Ext.define('GSmartApp.view.material.MaterialDetailView', {
             text: 'Quay lại',
             margin: 3,
             itemId:'btnQuayLai',
-            iconCls: 'x-fa fa-backward'
+            iconCls: 'x-fa fa-backward',
+            bind: {
+                hidden: '{btnQuayLai}'
+            }
         },{
             flex:1,
             border: false

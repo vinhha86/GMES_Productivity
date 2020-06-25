@@ -63,7 +63,8 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                     blankText: 'Không được để trống',
                     bind:{
                         store: '{ProductTypeStore}',
-                        value : '{product.producttypeid_link}'
+                        value : '{product.producttypeid_link}',
+                        readOnly: '{isReadonlyType}'
                     }
                 },                
                 {
