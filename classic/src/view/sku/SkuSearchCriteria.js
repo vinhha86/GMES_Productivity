@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                     valueField: 'id',
                     displayField: 'name',
                     queryMode: 'local',
-                    fieldLabel: "Khách hàng",
+                    fieldLabel: "Endbuyer",
                     labelWidth: 80,
                     bind:{
                         store: '{OrgStore}',
