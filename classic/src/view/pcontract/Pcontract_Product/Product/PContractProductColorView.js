@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductColorView', {
             text: 'Thoát',
             margin: 3,
             itemId:'btnThoat',
-            iconCls: 'x-fa fa-backward'
+            iconCls: 'x-fa fa-window-close'
         }]
     }]
 });

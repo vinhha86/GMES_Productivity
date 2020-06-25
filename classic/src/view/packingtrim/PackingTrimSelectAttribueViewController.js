@@ -49,23 +49,23 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimSelectAttribueViewController',
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: null,
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
                     }
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
             })

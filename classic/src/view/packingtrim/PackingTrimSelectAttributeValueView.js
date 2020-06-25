@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimSelectAttributeValueView', {
             text: 'Thoát',
             margin: 3,
             itemId:'btnThoat',
-            iconCls: 'x-fa fa-backward'
+            iconCls: 'x-fa fa-window-close'
         }]
     }]
 });

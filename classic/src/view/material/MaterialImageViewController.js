@@ -28,10 +28,10 @@ Ext.define('GSmartApp.view.material.MaterialImageViewController', {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo nguyên liệu trước khi chọn thuộc tính',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             var viewInfo = Ext.getCmp('ProductInfoView');
             viewInfo.down('#code').focus();
@@ -117,10 +117,10 @@ Ext.define('GSmartApp.view.material.MaterialImageViewController', {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo sản phẩm trước khi upload ảnh',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             return;
         }

@@ -13,6 +13,9 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
         },
         '#btnLuu': {
             click: 'onLuu'
+        },
+        'MaterialSelectAttributeValueView': {
+            select: 'onSelectValue'
         }
     },
     onThoat: function () {
@@ -50,23 +53,23 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: null,
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
                     }
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
             })
@@ -99,6 +102,19 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
             m.Luu();
         }
     },
+    onSelectValue: function(grid, record, index, eOpts){
+        console.log(grid.getStore());
+        var me = this.getView();
+
+        if(record.data.isdefault){
+            me.getSelectionModel().deselectAll();
+            me.getSelectionModel().select(record, true, true);
+        } else {
+            var rec = grid.getStore().findRecord('isdefault', true);
+            me.getSelectionModel().deselect(rec);
+        }
+
+    },
     loadAttributeValueStore: function () {
         var me = this.getView();
         var params = new Object();
@@ -111,7 +127,7 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
                     if (response.respcode == 200) {
                         for (var i = 0; i < response.data.length; i++) {
                             var data = me.getStore().findRecord('id', response.data[i].id);
-                            me.getSelectionModel().select(data, true);
+                            me.getSelectionModel().select(data, true, true);
                         }
                     }
                 }
