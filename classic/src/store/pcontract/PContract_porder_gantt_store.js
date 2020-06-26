@@ -6,7 +6,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_porder_gantt_store', {
 	sorters: [{
         property: 'id_origin',
         direction: 'ASC'
-    }],
+	}],
     loadStore: function(porder_from, porder_to, listid){
 		var me=this;
         var params = new Object();
@@ -25,7 +25,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_porder_gantt_store', {
 			url: config.getAppBaseUrl()+'/api/v1/gantt/getporder_po_gantt',
 			paramsAsJson:true,
 			noCache: false,
-			extraParams : params,
+			extraParams: params,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -34,7 +34,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_porder_gantt_store', {
 				type: 'json',
 				rootProperty: 'children'
 			}
-		});
+		})
 		this.load();
 	}
 });

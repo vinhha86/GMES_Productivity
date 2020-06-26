@@ -1,138 +1,184 @@
 Ext.define('GSmartApp.view.planporder.PlanPoderView', {
-    extend: 'Gnt.panel.Gantt',
+    extend: 'Ext.panel.Panel',
     xtype: 'PlanPoderView',
-    controller: 'PlanPoderView_Controller',
     viewModel: {
         type: 'PlanPoderView_ViewModel'
     },
+    controller: 'PlanPoderView_Controller',
     requires: [
     	'Gnt.panel.Gantt',
         'Gnt.column.PercentDone',
         'Gnt.column.StartDate',
-        'Gnt.plugin.Export',
         'Gnt.column.EndDate'
     ],
-    width     : '100%',
-    leftLabelField :  {
-        dataIndex : 'totalpackage',
-        renderer  : function(value) {
-            return value == null ? "" : "SL:" + value ;
-        }
-    },
-    highlightWeekends : true,
-    skipWeekendsDuringDragDrop: false,
-    allowParentTaskMove : false,
-    loadMask          : true,
-    rowHeight         : 35,
-    isDroppable        : false,
-    draggable: false,
-    resizeConfig             : {
-        showDuration : true
-    },
-    viewConfig  : {
-        trackOver : false
-    },
-    border                   : true,
-    enableProgressBarResize  : true,
-    enableTaskDragDrop  : true,
-    startDate                : new Date(2020, 4, 1),
-    endDate                  : Sch.util.Date.add(new Date(2020, 4, 1), Sch.util.Date.WEEK, 6),
-    // viewPreset               : {
-    //     name                : 'weekAndDayLetter'
-    // },
-    viewPreset: {
-        name: 'weekAndDayLetter',
-        headerConfig       : {
-            bottom: {
-                unit      : "DAY",
-                increment : 1,
-                dateFormat: 'd'
-            },
-            middle: {
-                unit      : "WEEK",
-                dateFormat: 'd-m-Y',
-                align     : 'center'
-            }
-        }
-    },
-    eventBorderWidth         : 0,
-    plugins: [
-        {
-            ptype       : 'gantt_export',
-            pluginId    : 'export',
-            // You can easily define your own custom HTML header (or footer) to include logo etc
-            headerTpl   : '<div class="sch-export-header" style="width:{width}px">' +
-            '<img src="resources/your-logo.png"/>' +
-                '<dl>' +
-                    '<dt>Date: {[Ext.Date.format(new Date(), "M d Y")]}</dt>' +
-                    '<dd>Page: {pageNo}/{totalPages}</dd>' +
-                '</dl>' +
-            '</div>',
-            // translateURLsToAbsolute : 'http://dev.bryntum.com:8080/resources',
-            printServer : 'http://localhost:8182'
-        }
-    ],
 
-    tooltipTpl : '<ul class="taskTip">' +
-    '<li><strong></strong>{Name}</li>' +
-    '<li><strong>Từ ngày: </strong>{[values._record.getDisplayStartDate("d-m-Y")]}</li>' +
-    '<li><strong>Đến ngày: </strong>{[values._record.getDisplayEndDate("d-m-Y")]}</li>' +
-    '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
-    '</ul>',
-    taskBodyTemplate : '<div>' +
-    '<span>{[Gnt.column.Name.toString()]}%</span>' +
-    '</div>',
-    columns    : [
-        {
-            xtype: 'namecolumn',
-            text: 'Kế hoạch sản xuất',
-            width: 300
-        },
-        {
-            width : 100,
-            text: 'Mã hàng',
-            dataIndex: 'pcontract_number'
-        },
-        {
-            text: 'Số lượng',
-            dataIndex: 'totalpackage'
-        }
-    ],
-    eventRenderer : function (taskRecord) {
-        return {
-            ctcls : "Id-" + taskRecord.get('Id') // Add a CSS class to the task container element
-        };
-    },
-    listeners : {
-        // Setup a time header tooltip after rendering
-        render : 'render',
-        rowcontextmenu: 'onContextMenu',
-        itemdblclick: 'onitemdblclick',
-        aftertaskresize: 'onaftertaskresize',
-        aftertaskdrop: 'onaftertaskdrop'
-    },
     initComponent: function() {
-        var me = this;
-        var taskStore = me.getViewModel().getStore('TaskStore');
-        taskStore.loadStore();
 
-        var calendar = new Gnt.data.Calendar({
-            weekendFirstDay : 6,
-            weekendSecondDay : 0,
-            weekendsAreWorkdays : true,
-            data: [{
-                Date: new Date(2020,05,08),
-                Cls: 'gnt-holiday'
-            },{
-                Date: new Date(2020,05,09)
-            },{
-                Date: new Date(2020,05,11)
-            }]
-        })
-        
-        taskStore.setCalendar(calendar);
+        var viewmodel = this.getViewModel();
 
-        this.taskStore = taskStore;
+
+        // var taskStore = viewmodel.getStore('PContract_porder_gantt_store');
+        // taskStore.loadStore();
+
+        var taskStore = viewmodel.getStore('PContract_porder_gantt_store');
+        taskStore.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
+        var g = Ext.create('Gnt.panel.Gantt', {
+            width     : '100%',
+            height    : 600,
+            highlightWeekends : true,
+            rowHeight         : 30,
+            resizeConfig             : {
+                showDuration : false
+            },
+
+            viewConfig  : {
+                trackOver : false
+            },
+            border                   : true,
+            enableProgressBarResize  : true,
+            enableDependencyDragDrop : true,
+            startDate                : new Date(2020, 6, 1),
+            endDate                  : Sch.util.Date.add(new Date(2020, 6, 1), Sch.util.Date.WEEK, 4),
+            viewPreset               : {
+                name                : 'weekAndDay',
+                // headerConfig        : {
+                //     middle          : {
+                //         // unit       : "HOUR",
+                //         // increment  : 12,
+                //         // renderer   : function(startDate, endDate, headerConfig, cellIdx) {
+                //         //     console.log(startDate);
+                //         //     return "";
+                //         // }
+                //     }
+                // }
+            },
+            eventBorderWidth         : 0,
+            eventRenderer : function (taskRecord) {
+                return {
+                    ctcls : "Id-" + taskRecord.get('Id') // Add a CSS class to the task container element
+                };
+            },
+
+            tooltipTpl : '<ul class="taskTip">' +
+            '<li><strong>Tên công việc:</strong>{Name}</li>' +
+            '<li><strong>Bắt đầu:</strong>{[values._record.getDisplayStartDate("y-m-d")]}</li>' +
+            '<li><strong>Số ngày:</strong> {Duration}d</li>' +
+            '<li><strong>Tiến độ:</strong>{PercentDone}%</li>' +
+            '</ul>',
+
+            // Setup your static columns
+            columns    : [
+                {
+                    xtype     : 'namecolumn',
+                    text: 'Ten',
+                    width     : 200
+                }
+            ],
+            // bind: {
+            //     taskStore: '{TaskStore}'
+            // },
+
+            taskStore       : taskStore,
+
+            listeners : {
+
+                // Setup a time header tooltip after rendering
+                render : 'render',
+                taskclick : 'onTaskClick',
+                scheduleclick: function(){
+                    console.log(12344);
+                },
+                dependencyclick: function(){
+                    console.log(12344);
+                },
+                itemclick: function(){
+                    console.log(12344);
+                },
+                rowcontextmenu: 'onContextMenu'
+            }
+        });
+
+        Ext.apply(this, {
+            items: [g]
+        });
+
         this.callParent(arguments);
+    },
+    dockedItems: [{
+xtype: 'toolbar',
+dock: 'top',
+items: [
+    {
+        xtype: 'button',
+        tooltip: 'Kế hoạch giao hàng',
+        iconCls: 'x-fa fa-truck',
+        weight: 30,
+        handler: 'onShowPO',
+    },
+    {
+        xtype: 'button',
+        tooltip: 'Tổng hợp CMP',
+        iconCls: 'x-fa fa-dollar',
+        weight: 30,
+        handler: 'onShowPO',
+    },
+    {
+        xtype: 'button',
+        tooltip: 'Tổng hợp Salary Fund',
+        iconCls: 'x-fa fa-money',
+        weight: 30,
+        handler: 'onShowPO',
+    },
+    {
+        xtype: 'datefield',
+        weight: 30,
+        fieldLabel: 'Bắt đầu',
+        format: 'd/m/Y',
+        altFormats: "Y-m-d\\TH:i:s.uO",
+        labelWidth: 60,
+        width: 190,
+        bind: {
+            value: '{gantt.startDate}'
+        }
+    },
+    {
+        xtype: 'datefield',
+        weight: 30,
+        fieldLabel: 'Kết thúc',
+        format: 'd/m/Y',
+        altFormats: "Y-m-d\\TH:i:s.uO",
+        labelWidth: 60,
+        width: 190,
+        bind: {
+            value: '{gantt.endDate}'
+        }
+    },
+    {
+        xtype: 'button',
+        tooltip: 'Phóng to',
+        // text: 'Zoom in',
+        iconCls: 'x-fa fa-search',
+        weight: 30,
+        handler: 'onSearch',
+    },
+    '->'
+    ,
+    {
+        xtype: 'button',
+        tooltip: 'Phóng to',
+        // text: 'Zoom in',
+        iconCls: 'x-fa fa-search-plus',
+        weight: 30,
+        handler: 'onZoomIn',
+    },
+    {
+        xtype: 'button',
+        tooltip: 'Thu nhỏ',
+        // text: 'Zoom out',
+        iconCls: 'x-fa fa-search-minus',
+        weight: 30,
+        handler: 'onZoomOut',
     }
+]
+}]  
 });

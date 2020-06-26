@@ -1,138 +1,143 @@
 Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
-    extend: 'Gnt.panel.Gantt',
+    extend: 'Ext.panel.Panel',
     xtype: 'PContract_porder_gantt',
     controller: 'PContract_porder_gantt_Controller',
     viewModel: {
         type: 'PContract_porder_gantt_ViewModel'
     },
     requires: [
-    	'Gnt.panel.Gantt',
+        'Gnt.panel.Gantt',
         'Gnt.column.PercentDone',
         'Gnt.column.StartDate',
         'Gnt.plugin.Export',
         'Gnt.column.EndDate'
     ],
-    width     : '100%',
-    leftLabelField :  {
-        dataIndex : 'totalpackage',
-        renderer  : function(value) {
-            return value == null ? "" : "SL:" + value ;
-        }
-    },
-    // rightLabelField :  {
-    //     dataIndex : 'mahang',
-    //     renderer  : function(value) {
-    //         return value == null ? "" : "Mã hàng: " + value ;
-    //     }
-    // },
-    highlightWeekends : true,
-    skipWeekendsDuringDragDrop: false,
-    allowParentTaskMove : false,
-    loadMask          : true,
-    rowHeight         : 35,
-    enableTaskReordering : false,
-    // isDroppable        : false,
-    // draggable: false,
-    resizeConfig             : {
-        showDuration : true
-    },
-    viewConfig: {
-        trackOver : false,
-        plugins: {
-            ptype: 'treeviewdragdrop',
-            enableDrag: true,
-            dragText: '{0} Phân lệnh xuống nhà máy',
-            dragGroup: 'porderGanttDropGroup',
-            dropGroup: 'porderFreeDropGroup'
-        },
-        listeners: {
-            drop: 'onDrop',
-            beforedrop: 'onBeforeDrop'
-        }        
-     },      
-    border                   : true,
-    enableProgressBarResize  : false,
-    enableTaskDragDrop  : true,
-    showRollupTasks         : true,    
-    rollupLabelField : {
-        dataIndex: 'mahang',
-        renderer : function(value){
-            if(value!=null)
-                return "<label class= 'styleRollup'>" +value +"</label>";
-            return "";
-        }
-    },
-    viewPreset: {
-        name: 'weekAndDayLetter',
-        headerConfig       : {
-            bottom: {
-                unit      : "DAY",
-                increment : 1,
-                dateFormat: 'd'
-            },
-            middle: {
-                unit      : "WEEK",
-                dateFormat: 'd-m-Y',
-                align     : 'center'
-            }
-        }
-    },
-    eventBorderWidth         : 0,
-    plugins: [
-        {
-            ptype       : 'gantt_export',
-            pluginId    : 'export',
-            // You can easily define your own custom HTML header (or footer) to include logo etc
-            headerTpl   : '<div class="sch-export-header" style="width:{width}px">' +
-            '<img src="resources/your-logo.png"/>' +
-                '<dl>' +
-                    '<dt>Date: {[Ext.Date.format(new Date(), "M d Y")]}</dt>' +
-                    '<dd>Page: {pageNo}/{totalPages}</dd>' +
-                '</dl>' +
-            '</div>',
-            // translateURLsToAbsolute : 'http://dev.bryntum.com:8080/resources',
-            printServer : 'http://localhost:8182'
-        }
-    ],
-
-    tooltipTpl : '<ul class="taskTip">' +
-    '<li><strong></strong>{Name}</li>' +
-    '<li><strong>Từ ngày: </strong>{[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>'+
-    '<li><strong>Từ ngày: </strong>{[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>'+
-    '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
-    '</ul>',
-    columns    : [
-        {
-            xtype: 'namecolumn',
-            text: 'Kế hoạch sản xuất',
-            width: 200,
-            Cls: ''
-        }
-    ],
-    eventRenderer : function (taskRecord) {
-        
-    },
-    listeners : {
-        // Setup a time header tooltip after rendering
-        render : 'render',
-        rowcontextmenu: 'onContextMenu',
-        // itemdblclick: 'onitemdblclick',
-        // aftertaskresize: 'onaftertaskresize',
-        // aftertaskdrop: 'onaftertaskdrop'
-    },
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
         var viewmodel = me.getViewModel();
 
         var current = new Date();
-        var startdate = new Date(current.getFullYear(), current.getMonth()-1, 1);
-        me.startDate  = startdate;
-        me.endDate  = Sch.util.Date.add(startdate, Sch.util.Date.MONTH, 6);
-        
+        var startdate = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+
         var taskStore = viewmodel.getStore('TaskStore');
         taskStore.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
 
-        this.taskStore = taskStore;
+        var g = Ext.create('Gnt.panel.Gantt', {
+            id: 'GanttKeHoach',
+            width: '100%',
+            height: 600,
+            autoHeight: true,
+            startDate : startdate,
+            endDate : Sch.util.Date.add(startdate, Sch.util.Date.MONTH, 6),
+            
+            leftLabelField: {
+                dataIndex: 'totalpackage',
+                renderer: function (value) {
+                    return value == null ? "" : "SL:" + value;
+                }
+            },
+            highlightWeekends: true,
+            skipWeekendsDuringDragDrop: false,
+            allowParentTaskMove: false,
+            loadMask: true,
+            rowHeight: 35,
+            enableTaskReordering: false,
+            resizeConfig: {
+                showDuration: true
+            },
+            viewConfig: {
+                trackOver: false,
+                plugins: {
+                    ptype: 'treeviewdragdrop',
+                    enableDrag: true,
+                    dragText: '{0} Phân lệnh xuống nhà máy',
+                    dragGroup: 'porderGanttDropGroup',
+                    dropGroup: 'porderFreeDropGroup'
+                },
+                listeners: {
+                    drop: 'onDrop',
+                    beforedrop: 'onBeforeDrop'
+                }
+            },
+            border: true,
+            enableProgressBarResize: false,
+            enableTaskDragDrop: true,
+            showRollupTasks: true,
+            rollupLabelField: {
+                dataIndex: 'mahang',
+                renderer: function (value) {
+                    if (value != null)
+                        return "<label class= 'styleRollup'>" + value + "</label>";
+                    return "";
+                }
+            },
+            viewPreset: {
+                name: 'weekAndDayLetter',
+                headerConfig: {
+                    bottom: {
+                        unit: "DAY",
+                        increment: 1,
+                        dateFormat: 'd'
+                    },
+                    middle: {
+                        unit: "WEEK",
+                        dateFormat: 'd-m-Y',
+                        align: 'center'
+                    }
+                }
+            },
+            eventBorderWidth: 0,
+            plugins: [
+                {
+                    ptype: 'gantt_export',
+                    pluginId: 'export',
+                    // You can easily define your own custom HTML header (or footer) to include logo etc
+                    headerTpl: '<div class="sch-export-header" style="width:{width}px">' +
+                        // '<img src="resources/your-logo.png"/>' +
+                        '<dl>' +
+                        '<dt>Date: {[Ext.Date.format(new Date(), "M d Y")]}</dt>' +
+                        '<dd>Page: {pageNo}/{totalPages}</dd>' +
+                        '</dl>' +
+                        '</div>',
+                    // translateURLsToAbsolute : 'http://dev.bryntum.com:8080/resources',
+                    printServer: 'http://localhost:8182'
+                }
+            ],
+
+            tooltipTpl: '<ul class="taskTip">' +
+                '<li><strong></strong>{Name}</li>' +
+                '<li><strong>Từ ngày: </strong>{[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>' +
+                '<li><strong>Từ ngày: </strong>{[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>' +
+                '<li><strong>Số lượng: </strong> {totalpackage}</li>' +
+                '</ul>',
+            columns: [
+                {
+                    xtype: 'namecolumn',
+                    text: 'Kế hoạch sản xuất',
+                    width: 250
+                }
+            ],
+            taskStore : taskStore,
+            eventRenderer: function (taskRecord) {
+                return {
+                    ctcls : "Id-" + taskRecord.get('Id') // Add a CSS class to the task container element
+                };
+            },
+            listeners: {
+                // Setup a time header tooltip after rendering
+                render: 'render',
+                rowcontextmenu: 'onContextMenu',
+                // itemdblclick: 'onitemdblclick',
+                // aftertaskresize: 'onaftertaskresize',
+                // aftertaskdrop: 'onaftertaskdrop'
+            },
+        });
+
+        Ext.apply(this, {
+            items: [g]
+        });
+
+
         this.callParent(arguments);
     },
     dockedItems: [{
@@ -195,12 +200,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
             '->'
             ,
             {
+                xtype  : 'button',
+                iconCls: 'fa fa-file-pdf-o',
+                text   : 'Export to PDF',
+                margin : '0 10 0 0',
+                handler: 'onExportGantt'
+            },{
                 xtype: 'button',
                 tooltip: 'Phóng to',
                 // text: 'Zoom in',
                 iconCls: 'x-fa fa-search-plus',
                 weight: 30,
-                handler: 'onZoomIn',
+                handler: 'onZoomInGantt',
             },
             {
                 xtype: 'button',
@@ -208,8 +219,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                 // text: 'Zoom out',
                 iconCls: 'x-fa fa-search-minus',
                 weight: 30,
-                handler: 'onZoomOut',
+                handler: 'onZoomOutGantt',
             }
         ]
-    }]    
+    }]
 });
