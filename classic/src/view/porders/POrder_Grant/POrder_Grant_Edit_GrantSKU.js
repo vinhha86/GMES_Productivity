@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Edit_GrantSKU', {
         { header: 'SKU', dataIndex: 'skucode', flex: 1},
         { header: 'Màu', dataIndex: 'mauSanPham', width: 70},
         { header: 'Cỡ', dataIndex: 'coSanPham', width: 70},  
-        { header: 'Số lượng', dataIndex: 'pquantity_total', width: 80},
+        { header: 'Số lượng', dataIndex: 'grantamount', width: 80},
     ]    
 });
 

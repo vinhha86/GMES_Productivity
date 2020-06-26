@@ -101,16 +101,18 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
         }, {
             flex: 1,
             border: false
-        }, {
+        }, 
+        // {
+        //     xtype: 'button',
+        //     text: 'Chốt đơn',
+        //     margin: 1,
+        //     itemId: 'btnConfirm',
+        //     iconCls: 'x-fa fa-handshake-o',
+        //     // formBind: true
+        // },
+        {
             xtype: 'button',
-            text: 'Chốt đơn',
-            margin: 1,
-            itemId: 'btnConfirm',
-            iconCls: 'x-fa fa-handshake-o',
-            // formBind: true
-        },{
-            xtype: 'button',
-            text: 'Tạo đơn',
+            text: 'Lưu',
             margin: 1,
             itemId: 'btnLuu',
             iconCls: 'x-fa fa-save',

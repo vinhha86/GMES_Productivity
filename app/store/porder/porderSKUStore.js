@@ -12,7 +12,7 @@ Ext.define('GSmartApp.store.porder.porderSKUStore', {
         {name: 'pquantity_total',   type: 'int',
         calculate: function(data) {
             return data.pquantity_porder + data.pquantity_sample;
-        }},
+		}},
         {name: 'skuName',   type: 'string'},
         {name: 'skuCode',   type: 'string'},
         {name: 'mauSanPham',   type: 'string'},
