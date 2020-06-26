@@ -141,8 +141,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                 
                 me.showPOrder(
                     porder_data,
-                    null,
-                    null,
+                    data.parentid_origin,
+                    data.parentname,
                     false
                 );         
             }

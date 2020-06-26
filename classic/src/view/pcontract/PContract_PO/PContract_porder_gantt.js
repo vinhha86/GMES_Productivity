@@ -147,7 +147,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
             {
                 xtype: 'button',
                 tooltip: 'Kế hoạch giao hàng',
-                iconCls: 'x-fa fa-truck',
+                iconCls: 'x-fa fa-shopping-basket',
                 weight: 30,
                 handler: 'onShowPO',
             },
