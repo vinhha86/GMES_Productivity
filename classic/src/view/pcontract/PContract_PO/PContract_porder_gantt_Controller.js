@@ -48,6 +48,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         }
 
     },
+    onExportGantt: function(){
+        var me = this.getView().down('#GanttKeHoach');
+        me.getPlugin('export').setFileFormat('pdf');
+        me.showExportDialog();
+    },
     onContextMenu: function (tree, record, item, index, e, eOpts) {
         var type = record.data.plan_type;
 
@@ -354,52 +359,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         });
         form.show();
     },
-    onZoomIn: function () {
-        var config = {
-            bottom: {
-                unit      : "DAY",
-                increment : 1,
-                dateFormat: 'd'
-            },
-            middle: {
-                unit      : "WEEK",
-                dateFormat: 'd-m-Y',
-                align     : 'center'
-            }
-        }
-        var viewmodel = this.getViewModel();
-        var present = this.getView().getViewPreset();
-
+    onZoomInGantt: function () {
+        console.log(this.getView())
         
         // this.getView().setViewPreset(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
-        this.getView().zoomIn();
+        this.getView().down('#GanttKeHoach').zoomIn();
     },
 
-    onZoomOut: function () {
-        var viewmodel = this.getViewModel();
-        this.getView().zoomOut();
+    onZoomOutGantt: function () {
+        console.log(this.getView())
+        this.getView().down('#GanttKeHoach').zoomOut();
         // this.getView().zoomOut(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
-    },
-
-    getlevel_byName: function(name){
-        var level = 0;
-        switch(name){
-            case 'weekAndDayLetter':
-                level = 1;
-                break;
-        }
-    },
-
-    getViewPresentName_bylevel: function(level){
-        var level = this.getView().get
-        
     },
 
     onSearch: function() {
         var viewmodel = this.getViewModel();
-        var store = this.getView().getTaskStore();
-        this.getView().setStartDate(viewmodel.get('gantt.startDate'));
-        this.getView().setEndDate(viewmodel.get('gantt.endDate'));
+        var store = this.getView().down('#GanttKeHoach').getTaskStore();
+        this.getView().down('#GanttKeHoach').setStartDate(viewmodel.get('gantt.startDate'));
+        this.getView().down('#GanttKeHoach').setEndDate(viewmodel.get('gantt.endDate'));
         store.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
     },
 
