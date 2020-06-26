@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     listeners : {
         // Setup a time header tooltip after rendering
         render : 'render',
-        // rowcontextmenu: 'onContextMenu',
+        rowcontextmenu: 'onContextMenu',
         // itemdblclick: 'onitemdblclick',
         // aftertaskresize: 'onaftertaskresize',
         // aftertaskdrop: 'onaftertaskdrop'
