@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Main', {
     viewModel: {
         type: 'POrder_Grant_ViewModel'
     },
+    callviewid_link: 0,
     porderid_link: null,
     pcontract_poid_link: null,
     pcontractid_link: null,

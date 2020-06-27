@@ -39,13 +39,6 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
             '->'
             ,
             {
-                xtype  : 'button',
-                iconCls: 'fa fa-file-pdf-o',
-                text   : 'Export to PDF',
-                margin : '0 10 0 0',
-                handler: 'onExport'
-            },
-            {
                 xtype: 'button',
                 tooltip: 'Phóng to',
                 // text: 'Zoom in',

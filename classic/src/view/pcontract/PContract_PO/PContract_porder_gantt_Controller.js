@@ -48,6 +48,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         }
 
     },
+    onExportGantt: function(){
+        var me = this.getView().down('#GanttKeHoach');
+        me.getPlugin('export').setFileFormat('pdf');
+        me.showExportDialog();
+    },
     onContextMenu: function (tree, record, item, index, e, eOpts) {
         var type = record.data.plan_type;
 
@@ -78,25 +83,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                 break;
         }
         var menu_grid = new Ext.menu.Menu({
-            items: [{
-                text: 'Thêm kế hoạch',
-                iconCls: 'x-fa fa-plus',
-                hidden: !level3,
-                handler: function () {
-                    me.ThemKeHoach(record.data, type, 0);
-                }
-            }, {
-                text: 'Xóa',
-                iconCls: 'x-fa fa-trash',
-                hidden: !level4,
-                handler: function () {
-                    me.XoaKeHoach(record.data.id_origin, record.data.id);
-                }
-            },
+            items: [
             {
                 text: 'Thông tin đơn hàng',
                 iconCls: 'x-fa fa-handshake-o',
-                hidden: !level2,
+                hidden: !level3,
                 handler: function () {
                     me.showPContract(record.data, type, 0);
                 }
@@ -104,25 +95,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
             {
                 text: 'Thông tin lệnh sản xuất',
                 iconCls: 'x-fa fa-hand-o-right',
-                hidden: !level2,
+                hidden: !level3,
                 handler: function () {
-
+                    me.onMenuShowPOrder(record.data);
                 }
             },
             {
                 text: 'Tiến độ sản xuất',
                 iconCls: 'x-fa fa-line-chart',
-                hidden: !level2,
+                hidden: !level3,
                 handler: function () {
                     me.showProcessingLine(record.data, type, 0);
                 }
             },
             {
-                text: 'Ảnh sản phẩm ',
+                text: 'Ảnh sản phẩm',
                 iconCls: 'x-fa fa-picture-o',
-                hidden: !level2,
+                hidden: !level3,
                 handler: function () {
                     me.ShowImgProduct(record.data);
+                }
+            },
+            {
+                text: 'Tách chuyền',
+                iconCls: 'x-fa fa-mars-double',
+                hidden: !level3,
+                handler: function () {
+                    me.onMenuShowPOrder(record.data);
                 }
             }
             ]
@@ -130,52 +129,83 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         e.stopEvent();
         menu_grid.showAt(e.getXY());
     },
-    ShowImgProduct: function (data) {
+    onMenuShowPOrder: function (data) {
+        var me=this;
+        //Lay thong tin POrder theo id_origin
         var params = new Object();
-        params.id = data.productid_link;
+        params.porderid_link = data.id_origin;
+        GSmartApp.Ajax.post('/api/v1/porder/getone', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var porder_data = Ext.decode(response.responseText).data;
+                
+                me.showPOrder(
+                    porder_data,
+                    data.parentid_origin,
+                    data.parentname,
+                    false
+                );         
+            }
+        })
+    },
+    ShowImgProduct: function (data) {
+        //Lay thong tin POrder theo id_origin
+        var params = new Object();
+        params.porderid_link = data.id_origin;
+        console.log(params);
+        GSmartApp.Ajax.post('/api/v1/porder/getone', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                console.log(response.data);
 
-        GSmartApp.Ajax.post('/api/v1/product/getone', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        var form = Ext.create('Ext.window.Window', {
-                            height: 358,
-                            closable: true,
-                            resizable: false,
-                            modal: true,
-                            border: false,
-                            title: "Ảnh sản phẩm",
-                            closeAction: 'destroy',
-                            width: 380,
-                            bodyStyle: 'background-color: transparent',
-                            layout: {
-                                type: 'fit', // fit screen for window
-                                padding: 5
-                            },
-                            items: [{
-                                xtype: 'Plan_ImgProduct',
-                                id: 'Plan_ImgProduct',
-                                viewModel: {
-                                    data: {
-                                        img: response.img
+                var img_params = new Object();
+                img_params.id = response.data.productid_link;
+                GSmartApp.Ajax.post('/api/v1/product/getone', Ext.JSON.encode(img_params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            var form = Ext.create('Ext.window.Window', {
+                                height: 358,
+                                closable: true,
+                                resizable: false,
+                                modal: true,
+                                border: false,
+                                title: "Ảnh sản phẩm",
+                                closeAction: 'destroy',
+                                width: 380,
+                                bodyStyle: 'background-color: transparent',
+                                layout: {
+                                    type: 'fit', // fit screen for window
+                                    padding: 5
+                                },
+                                items: [{
+                                    xtype: 'Plan_ImgProduct',
+                                    id: 'Plan_ImgProduct',
+                                    viewModel: {
+                                        data: {
+                                            img: response.img
+                                        }
                                     }
-                                }
-                            }]
-                        });
-                        form.show();
-                    }
-                } else {
-                    Ext.Msg.show({
-                        title: 'Lấy thông tin thất bại',
-                        msg: null,
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
+                                }]
+                            });
+                            form.show();
                         }
-                    });
-                }
-            })
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Lấy thông tin thất bại',
+                            msg: null,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                })                
+            }
+        }
+        )
     },
     ThemKeHoach: function (data, type, id) {
         var title = "";
@@ -271,29 +301,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         });
     },
     showPContract: function (data, type, id) {
-        console.log(data.pcontractid_link);
-        var form = Ext.create('Ext.window.Window', {
-            height: 600,
-            width: 1000,
-            closable: true,
-            title: 'Đơn hàng',
-            resizable: false,
-            modal: true,
-            border: false,
-            closeAction: 'destroy',
+        var me=this;
+        //Lay thong tin POrder theo id_origin
+        var params = new Object();
+        params.porderid_link = data.id_origin;
+        GSmartApp.Ajax.post('/api/v1/porder/getone', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var porder_data = Ext.decode(response.responseText).data;
+                var form = Ext.create('Ext.window.Window', {
+                    height: 600,
+                    width: 1000,
+                    closable: true,
+                    title: 'Đơn hàng',
+                    resizable: false,
+                    modal: true,
+                    border: false,
+                    closeAction: 'destroy',
+        
+                    bodyStyle: 'background-color: transparent',
+                    layout: {
+                        type: 'fit', // fit screen for window
+                        padding: 5
+                    },
+                    items: [{
+                        border: false,
+                        xtype: 'PContractView',
+                        IdPContract: porder_data.pcontractid_link
+                    }]
+                });
+                form.show();      
+            }
+        })
 
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                border: false,
-                xtype: 'PContractView',
-                IdPContract: data.pcontractid_link
-            }]
-        });
-        form.show();
     },
     showProcessingLine: function (data, type, id) {
         var form = Ext.create('Ext.window.Window', {
@@ -319,52 +359,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         });
         form.show();
     },
-    onZoomIn: function () {
-        var config = {
-            bottom: {
-                unit      : "DAY",
-                increment : 1,
-                dateFormat: 'd'
-            },
-            middle: {
-                unit      : "WEEK",
-                dateFormat: 'd-m-Y',
-                align     : 'center'
-            }
-        }
-        var viewmodel = this.getViewModel();
-        var present = this.getView().getViewPreset();
-
+    onZoomInGantt: function () {
+        console.log(this.getView())
         
         // this.getView().setViewPreset(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
-        this.getView().zoomIn();
+        this.getView().down('#GanttKeHoach').zoomIn();
     },
 
-    onZoomOut: function () {
-        var viewmodel = this.getViewModel();
-        this.getView().zoomOut();
+    onZoomOutGantt: function () {
+        console.log(this.getView())
+        this.getView().down('#GanttKeHoach').zoomOut();
         // this.getView().zoomOut(1,viewmodel.get('gantt.startDate'),viewmodel.get('gantt.endDate'));
-    },
-
-    getlevel_byName: function(name){
-        var level = 0;
-        switch(name){
-            case 'weekAndDayLetter':
-                level = 1;
-                break;
-        }
-    },
-
-    getViewPresentName_bylevel: function(level){
-        var level = this.getView().get
-        
     },
 
     onSearch: function() {
         var viewmodel = this.getViewModel();
-        var store = this.getView().getTaskStore();
-        this.getView().setStartDate(viewmodel.get('gantt.startDate'));
-        this.getView().setEndDate(viewmodel.get('gantt.endDate'));
+        var store = this.getView().down('#GanttKeHoach').getTaskStore();
+        this.getView().down('#GanttKeHoach').setStartDate(viewmodel.get('gantt.startDate'));
+        this.getView().down('#GanttKeHoach').setEndDate(viewmodel.get('gantt.endDate'));
         store.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
     },
 
@@ -447,46 +459,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
 		store.load();
     },
     onDrop: function(node, data, overModel, dropPosition, eOpts ){
-        var me = this;
 
-        var porder_data = data.records[0].data;
-        var destPos_Data = overModel.data;
-
-        var form = Ext.create('Ext.window.Window', {
-            height: Ext.getBody().getViewSize().height*.95,
-            closable: true,
-            title: 'Phân chuyền',
-            resizable: false,
-            modal: true,
-            border: false,
-            closeAction: 'destroy',
-            width: 750,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                border: false,
-                xtype: 'POrder_Grant_Main',
-                pcontract_poid_link: porder_data.pcontract_poid_link,
-                pcontractid_link: porder_data.pcontractid_link,
-                porderid_link: porder_data.id,
-                granttoorgid_link: destPos_Data.id_origin,
-                granttoorg_name: destPos_Data.Name
-            }]
-        });
-        form.show(); 
-
-        //Refresh Data
-        form.down('#POrder_Grant_Main').on('GrantSave', function () {
-            me.onSearch();
-            form.close();
-        })
-        form.down('#POrder_Grant_Main').on('GrantClose', function () {
-            me.onSearch();
-            form.close();
-        })
     }, 
     onBeforeDrop:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
         console.log(overModel)
@@ -527,12 +500,59 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                         });
                         dropHandlers.cancelDrop();
                     } else {
-                        dropHandlers.processDrop();
+                        this.showPOrder(
+                            data.records[0].data,
+                            destPos_Data.id_origin,
+                            destPos_Data.Name,
+                            true
+                        );
+                        dropHandlers.cancelDrop();
+                        // dropHandlers.processDrop();
                     }
                 }
             }
         } else {
             dropHandlers.cancelDrop();
         }
+    },
+    showPOrder:function(porder_data,granttoorgid_link,granttoorg_name, isrefresh){
+        var me = this;
+
+        var form = Ext.create('Ext.window.Window', {
+            height: Ext.getBody().getViewSize().height*.95,
+            closable: true,
+            title: 'Phân chuyền',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 750,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'POrder_Grant_Main',
+                pcontract_poid_link: porder_data.pcontract_poid_link,
+                pcontractid_link: porder_data.pcontractid_link,
+                porderid_link: porder_data.id,
+                granttoorgid_link: granttoorgid_link,
+                granttoorg_name: granttoorg_name,
+                callviewid_link: 1
+            }]
+        });
+        form.show(); 
+
+        //Refresh Data
+        form.down('#POrder_Grant_Main').on('GrantSave', function () {
+            if (isrefresh) me.onSearch();
+            form.close();
+        })
+        form.down('#POrder_Grant_Main').on('GrantClose', function () {
+            if (isrefresh) me.onSearch();
+            form.close();
+        })
     }
 })

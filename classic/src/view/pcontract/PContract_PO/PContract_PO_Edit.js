@@ -94,7 +94,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
         }, 
         {
             region: 'center',
-            xtype: 'PContract_porder_gantt',
+            // xtype: 'PContract_porder_gantt',
             border: true,
             margin: 1,
             // hidden: true
