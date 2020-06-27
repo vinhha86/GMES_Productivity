@@ -23,6 +23,9 @@ Ext.define('GSmartApp.view.sizeset.SizesetDetailViewController', {
         },
         '#btnLuu': {
             click: 'onLuu'
+        },
+        '#btnLuuVaTaoMoi': {
+            click: 'onLuuVaTaoMoi'
         }
     },
     CheckValidate: function(){
@@ -104,6 +107,79 @@ Ext.define('GSmartApp.view.sizeset.SizesetDetailViewController', {
                 }
                 me.setLoading(false);
             })
+    },
+    onLuuVaTaoMoi:function(){
+        var m = this;
+
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        me.setLoading("Đang lưu dữ liệu");
+
+        var params = new Object();
+        var data = new Object();
+        data = viewModel.get('sizeset');
+        data.id = m.IdSizeset;
+
+        params.data = data;
+        params.msgtype = "SIZESET_CREATE";
+        params.message = "Tạo dải size";
+
+        GSmartApp.Ajax.post('/api/v1/sizeset/createsizeset', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.MessageBox.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                console.log(viewModel.get('isWindow'));
+                                //
+                                m.IdSizeset = 0;
+                                viewInfo = Ext.getCmp('SizesetInfoView');
+                                viewInfo.IdSizeset = 0;
+                                viewInfo.getController().loadInfo(0);
+                                viewAttribute = Ext.getCmp('SizesetAttributeView');
+                                viewAttribute.IdSizeset = 0;
+                                //
+                                if(!viewModel.get('isWindow'))
+                                    m.redirectTo("lssizeset/" + m.IdSizeset + "/edit");
+                                else
+                                {
+                                    //Tạo event để form gọi lên hứng khi thêm sản phẩm thành công với trường hợp tạo sản phẩm trong đơn hàng
+                                    m.getView().fireEvent("CreateSizeset", response.sizeset);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+        me.down('#infoname').focus();
     },
     onQuayLai: function () {
         this.redirectTo('lssizeset');

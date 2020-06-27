@@ -20,12 +20,15 @@ Ext.define('GSmartApp.view.Vendor.VendorDetailViewController', {
             click: 'onQuayLai'
         },
         '#btnLuu': {
-            click: 'onLuu'
+            click: 'Luu'
+        },
+        '#btnLuuVaTaoMoi': {
+            click: 'Luu'
         }
     },
-    onLuu: function () {
+    onLuu: function (thisBtn) {
         var viewMain = Ext.getCmp('VendorView');
-
+        var m = this;
         var me = this.getView();
         me.setLoading("Đang lưu dữ liệu");
 
@@ -50,10 +53,6 @@ Ext.define('GSmartApp.view.Vendor.VendorDetailViewController', {
                         Ext.Msg.show({
                             title: 'Thông báo',
                             msg: 'Lưu thành công',
-                            // buttons: [{
-                            //     itemId: 'cancel',
-                            //     text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            // }]
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
@@ -64,16 +63,16 @@ Ext.define('GSmartApp.view.Vendor.VendorDetailViewController', {
                             if(viewMain)
                             viewMain.getStore().load();
                         }
-                        me.Id = response.id;
+                        if(thisBtn.itemId=='btnLuu')
+                            me.Id = response.id;
+                        if(thisBtn.itemId=='btnLuuVaTaoMoi')
+                            me.Id = 0;
+                        m.redirectTo("lsvendor/" + me.Id + "/edit");
                     }
                     else {
                         Ext.Msg.show({
                             title: 'Lưu thất bại',
                             msg: response.message,
-                            // buttons: [{
-                            //     itemId: 'cancel',
-                            //     text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            // }]
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
@@ -86,10 +85,6 @@ Ext.define('GSmartApp.view.Vendor.VendorDetailViewController', {
                     Ext.Msg.show({
                         title: 'Lưu thất bại',
                         msg: null,
-                        // buttons: [{
-                        //     itemId: 'cancel',
-                        //     text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        // }]
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
@@ -98,6 +93,33 @@ Ext.define('GSmartApp.view.Vendor.VendorDetailViewController', {
                 }
                 me.setLoading(false);
             })
+    },Luu:function(thisBtn){
+        // Thông tin Tên hoặc Tên tắt bị trùng, Có tiếp tục lưu không?
+        var m = this;
+        var me = this.getView();
+        var code = me.down('#code').getValue();
+        var name = me.down('#name').getValue();
+        if(code == name){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Thông tin Tên và Tên tắt bị trùng, Có tiếp tục lưu không?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'no') {
+                        me.down('#code').focus();
+                    }else{
+                        m.onLuu(thisBtn);
+                    }
+                }
+            });
+        }else{
+            m.onLuu(thisBtn);
+        }
     },
     onQuayLai: function () {
         var me = this.getView();

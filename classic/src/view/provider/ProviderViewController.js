@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.provider.ProviderViewController', {
         var me = this.getView();
         var Id = 0;
 
-        this.redirectTo("lsprovider/" + Id + "/edit");
+        this.redirectTo("lsprovider/create");
     },
     onCapNhatdbl: function (m, record, item, index, e, eOpts) {
         var id = record.data.id;

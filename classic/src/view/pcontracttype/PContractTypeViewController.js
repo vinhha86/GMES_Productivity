@@ -65,6 +65,7 @@ Ext.define('GSmartApp.view.pcontracttype.PContractTypeViewController', {
             me.setLoading("Đang lưu dữ liệu");
             this.ThemMoi_CapNhat(params);
         }
+        me.down('#txtThemMoi').focus();
     },
     checkValidate: function(name){
         var store = this.getViewModel().getStore('ContractTypeStore');

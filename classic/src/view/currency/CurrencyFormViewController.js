@@ -50,10 +50,9 @@ Ext.define('GSmartApp.view.currency.CurrencyFormViewController', {
                             }
                         });
 
-                        if (data.id == 0) {
-                            var store = viewModel.getStore('CurrencyStore');
-                            store.loadStore();
-                        }
+                        
+                        var store = viewModel.getStore('CurrencyStore');
+                        store.loadStore();
                     }
                     else {
                         Ext.Msg.show({
@@ -80,10 +79,13 @@ Ext.define('GSmartApp.view.currency.CurrencyFormViewController', {
             })
         viewModel.set('id',0);
         viewModel.set('currentRec',null);
+        me.down('#code').focus();
     },
     onThem:function(){
+        var me = this.getView();
         var viewModel = this.getViewModel();
         viewModel.set('id',0);
         viewModel.set('currentRec',null);
+        me.down('#code').focus();
     }
 })

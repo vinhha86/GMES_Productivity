@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetInfoView', {
             margin: 1,
             fieldLabel: "Tên dải size",
             tooltip:'Nhập tên dải size',
-            itemId:'name',
+            itemId:'infoname',
             name:'name',
             height: 32,
             width: 400,
@@ -26,7 +26,12 @@ Ext.define('GSmartApp.view.sizeset.SizesetInfoView', {
             bind:{
                 value : '{sizeset.name}'
             },
-            labelWidth: 110
+            labelWidth: 110,
+            listeners: {
+                afterrender: function(field) {
+                  field.focus(false, 1000);
+                }
+            }
         },{
             xtype:'textfield',
             margin: 1,

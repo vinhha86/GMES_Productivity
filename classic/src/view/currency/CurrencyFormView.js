@@ -19,7 +19,13 @@ Ext.define('GSmartApp.view.currency.CurrencyFormView', {
             value :'{currentRec.code}'
         },
         width: 400,
-        labelWidth: 105
+        labelWidth: 105,
+        listeners: {
+            afterrender: function(field) {
+              field.focus(false, 1000);
+            }
+        },
+        itemId:'code',
     },{
         xtype:'textfield',
         margin: 5,

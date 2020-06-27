@@ -42,6 +42,13 @@ Ext.define('GSmartApp.view.sizeset.SizesetDetailView', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
+        },{
+            xtype:'button',
+            text: 'Lưu và tạo mới',
+            margin: 3,
+            itemId:'btnLuuVaTaoMoi',
+            iconCls: 'x-fa fa-save',
+            formBind: true
         }]
     }]
 })
