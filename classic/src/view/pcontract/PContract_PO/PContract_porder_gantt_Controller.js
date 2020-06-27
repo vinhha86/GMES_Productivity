@@ -380,6 +380,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
         this.getView().down('#GanttKeHoach').setEndDate(viewmodel.get('gantt.endDate'));
         store.loadStore(viewmodel.get('gantt.startDate'), viewmodel.get('gantt.endDate'), viewmodel.get('gantt.listid'));
     },
+    onPrint: function () {
+        this.getView().down('#GanttKeHoach').print();
+    },
 
     UpdateKeHoach: function (gantt, task) {
         var params = new Object();

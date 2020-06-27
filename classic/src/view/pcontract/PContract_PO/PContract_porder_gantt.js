@@ -11,7 +11,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         'Gnt.column.PercentDone',
         'Gnt.column.StartDate',
         'Gnt.plugin.Export',
-        'Gnt.column.EndDate'
+        'Gnt.column.EndDate',
+        'Gnt.plugin.Printable',
+
     ],
     initComponent: function () {
         var me = this;
@@ -102,6 +104,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                         '</div>',
                     // translateURLsToAbsolute : 'http://dev.bryntum.com:8080/resources',
                     printServer: 'http://localhost:8182'
+                },
+                {
+                    ptype: 'gantt_printable',
+                    exportDialogConfig : {
+                        showDPIField         : true,
+                        showColumnPicker     : true,
+                        showResizePicker     : false,
+                        dateRangeRestriction : false,
+                        stateful             : true,
+                        stateId              : 'gntprint'
+                    }
                 }
             ],
 
@@ -205,7 +218,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
                 iconCls: 'fa fa-file-pdf-o',
                 text   : 'Export to PDF',
                 margin : '0 10 0 0',
-                handler: 'onExportGantt'
+                handler: 'onExportGantt',
+                hidden: true
+            },{
+                xtype  : 'button',
+                iconCls: 'fa fa-file-pdf-o',
+                text   : 'PDF',
+                handler: 'onPrint'
             },{
                 xtype: 'button',
                 tooltip: 'Phóng to',
