@@ -23,7 +23,12 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
         },
         width: 400,
         itemId: 'code',
-        labelWidth: 105
+        labelWidth: 105,
+        listeners: {
+            afterrender: function(field) {
+              field.focus(false, 1000);
+            }
+        }
     },{
         xtype:'textfield',
         margin: 5,
@@ -36,6 +41,7 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
             value :'{currentRec.name}'
         },
         width: 400,
+        itemId: 'name',
         labelWidth: 105
     },{
         xtype:'textfield',
@@ -69,6 +75,13 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuu',
+            iconCls: 'x-fa fa-save',
+            formBind: true
+        },{
+            xtype:'button',
+            text: 'Lưu và tạo mới',
+            margin: 3,
+            itemId:'btnLuuVaTaoMoi',
             iconCls: 'x-fa fa-save',
             formBind: true
         }]
