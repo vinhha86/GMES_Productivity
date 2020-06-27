@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
     viewModel: {
         type: 'PContract_porder_gantt_ViewModel'
     },
+    layout: 'fit',
     requires: [
         'Gnt.panel.Gantt',
         'Gnt.column.PercentDone',
@@ -25,7 +26,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt', {
         var g = Ext.create('Gnt.panel.Gantt', {
             id: 'GanttKeHoach',
             width: '100%',
-            height: 600,
+            // height: '100%',
             autoHeight: true,
             startDate : startdate,
             endDate : Sch.util.Date.add(startdate, Sch.util.Date.MONTH, 6),

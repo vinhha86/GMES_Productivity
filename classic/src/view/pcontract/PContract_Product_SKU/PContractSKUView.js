@@ -56,10 +56,24 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'Cỡ',
         dataIndex:'coSanPham',
-        width: 70
+        width: 50
+    },{
+        text:'SL đơn',
+        dataIndex:'pquantity_porder',
+        width: 70,
+        align: 'right',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        summaryType: 'sum',
+        summaryRenderer: function(value, summaryData, dataIndex) {
+            return '<div style="color:red; font-weight: bold; align: right">'+ value ;
+        }
     },{
         text:'SL SX',
-        dataIndex:'pquantity_porder',
+        dataIndex:'pquantity_production',
         width: 70,
         align: 'right',
         editor:{

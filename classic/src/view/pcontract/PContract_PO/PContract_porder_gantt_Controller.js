@@ -143,7 +143,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                     porder_data,
                     data.parentid_origin,
                     data.parentname,
-                    false
+                    false,
+                    1
                 );         
             }
         })
@@ -504,7 +505,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                             data.records[0].data,
                             destPos_Data.id_origin,
                             destPos_Data.Name,
-                            true
+                            true,
+                            2
                         );
                         dropHandlers.cancelDrop();
                         // dropHandlers.processDrop();
@@ -515,7 +517,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
             dropHandlers.cancelDrop();
         }
     },
-    showPOrder:function(porder_data,granttoorgid_link,granttoorg_name, isrefresh){
+    showPOrder:function(porder_data,granttoorgid_link,granttoorg_name, isrefresh, callviewid_link){
         var me = this;
 
         var form = Ext.create('Ext.window.Window', {
@@ -540,7 +542,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_porder_gantt_Controller', {
                 porderid_link: porder_data.id,
                 granttoorgid_link: granttoorgid_link,
                 granttoorg_name: granttoorg_name,
-                callviewid_link: 1
+                callviewid_link: callviewid_link
             }]
         });
         form.show(); 

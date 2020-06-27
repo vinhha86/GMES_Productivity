@@ -160,6 +160,34 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             });
             form.show();
         }
-    }
+    },
+    onXoa: function(rid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Kế hoạch giao hàng', 'Bạn có thực sự muốn xóa Kế hoạch giao hàng? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
+                    var record = PContractProductPOStore.getAt(rowIndex);
+                    var params=new Object();
+                    params.id = record.data.id;
+                    GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            PContractProductPOStore.reload();
+                        } else {
+                            Ext.MessageBox.show({
+                                title: "Kế hoạch giao hàng",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    }); 
+                }
+            } );        
+    },
 });
 

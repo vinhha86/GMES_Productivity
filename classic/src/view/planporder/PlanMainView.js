@@ -36,24 +36,24 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
                 weight: 30,
                 handler: 'onGrantToOrgTap',
             },
-            '->'
-            ,
-            {
-                xtype: 'button',
-                tooltip: 'Phóng to',
-                // text: 'Zoom in',
-                iconCls: 'x-fa fa-search-plus',
-                weight: 30,
-                handler: 'onZoomIn',
-            },
-            {
-                xtype: 'button',
-                tooltip: 'Thu nhỏ',
-                // text: 'Zoom out',
-                iconCls: 'x-fa fa-search-minus',
-                weight: 30,
-                handler: 'onZoomOut',
-            }
+            // '->'
+            // ,
+            // {
+            //     xtype: 'button',
+            //     tooltip: 'Phóng to',
+            //     // text: 'Zoom in',
+            //     iconCls: 'x-fa fa-search-plus',
+            //     weight: 30,
+            //     handler: 'onZoomIn',
+            // },
+            // {
+            //     xtype: 'button',
+            //     tooltip: 'Thu nhỏ',
+            //     // text: 'Zoom out',
+            //     iconCls: 'x-fa fa-search-minus',
+            //     weight: 30,
+            //     handler: 'onZoomOut',
+            // }
         ]
     }],
     // listeners: {

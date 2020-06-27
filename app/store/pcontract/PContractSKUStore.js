@@ -9,10 +9,11 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 		{name: 'productid_link',   type: 'int'},
 		{name: 'skuid_link',   type: 'int'},
 		{name: 'pquantity_sample',   type: 'int'},
-        {name: 'pquantity_porder',   type: 'int'},
+		{name: 'pquantity_porder',   type: 'int'},
+		{name: 'pquantity_production',   type: 'int'},
         {name: 'pquantity_total',   type: 'int',
         calculate: function(data) {
-            return data.pquantity_porder + data.pquantity_sample;
+            return data.pquantity_production + data.pquantity_sample;
 		}},
 		{name: 'pquantity_granted',   type: 'int'},
         {name: 'pquantity_free',   type: 'int',

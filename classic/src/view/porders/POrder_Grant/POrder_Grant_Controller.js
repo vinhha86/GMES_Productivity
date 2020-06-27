@@ -23,42 +23,42 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Controller', {
                         //Lay danh sach POrders_SKU
                         var porderSKUStore = viewmodel.getStore('porderSKUStore');
                         porderSKUStore.loadByPorderID(me.porderid_link);
-                        console.log('me kiep');
-                        console.log(porderSKUStore);
 
-                        //Lay Grant va Grantt SKU
-                        var grant_params = new Object();
-                        grant_params.porderid_link = me.porderid_link;
-                        grant_params.granttoorgid_link = me.granttoorgid_link;
+                        if (callviewid_link == 1){
+                            //Lay Grant va Grantt SKU
+                            var grant_params = new Object();
+                            grant_params.porderid_link = me.porderid_link;
+                            grant_params.granttoorgid_link = me.granttoorgid_link;
 
-                        GSmartApp.Ajax.post('/api/v1/porder_grant/getone', Ext.JSON.encode(grant_params),
-                        function (success, response, options) {
-                            if (success) {
-                                var grant_response = Ext.decode(response.responseText);
-                                var grant_data = grant_response.data;
-                               
-                                if(grant_response.respcode == 200){
-                                    viewmodel.set('porder_grant', grant_data);
-                                    
-                                    //Lay danh sach Grant_SKU
-                                    if (null != grant_data.porder_grant_sku){
-                                        var grantedSKUStore = viewmodel.getStore('grantedSKUStore');
-                                        for(i=0;i<grant_data.porder_grant_sku.length;i++){
-                                            var grant_sku = grant_data.porder_grant_sku[i];
+                            GSmartApp.Ajax.post('/api/v1/porder_grant/getone', Ext.JSON.encode(grant_params),
+                            function (success, response, options) {
+                                if (success) {
+                                    var grant_response = Ext.decode(response.responseText);
+                                    var grant_data = grant_response.data;
+                                
+                                    if(grant_response.respcode == 200){
+                                        viewmodel.set('porder_grant', grant_data);
+                                        
+                                        //Lay danh sach Grant_SKU
+                                        if (null != grant_data.porder_grant_sku){
+                                            var grantedSKUStore = viewmodel.getStore('grantedSKUStore');
+                                            for(i=0;i<grant_data.porder_grant_sku.length;i++){
+                                                var grant_sku = grant_data.porder_grant_sku[i];
 
-                                            var sku_data =  new Object();
-                                            sku_data.skuid_link = grant_sku.skuid_link;
-                                            sku_data.skucode = grant_sku.skucode;
-                                            sku_data.mauSanPham = grant_sku.mauSanPham;
-                                            sku_data.coSanPham = grant_sku.coSanPham;
-                                            sku_data.grantamount = grant_sku.grantamount;
-                                            grantedSKUStore.insert(0,sku_data);
+                                                var sku_data =  new Object();
+                                                sku_data.skuid_link = grant_sku.skuid_link;
+                                                sku_data.skucode = grant_sku.skucode;
+                                                sku_data.mauSanPham = grant_sku.mauSanPham;
+                                                sku_data.coSanPham = grant_sku.coSanPham;
+                                                sku_data.grantamount = grant_sku.grantamount;
+                                                grantedSKUStore.insert(0,sku_data);
+                                            }
+                                            console.log(grantedSKUStore);
                                         }
-                                        console.log(grantedSKUStore);
                                     }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
                 }
             })
