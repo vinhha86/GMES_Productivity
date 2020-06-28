@@ -2,10 +2,16 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SizesetSelectAttributeViewController',
     init: function () {
+        var m = this;
         var me = this.getView();
         var store = this.getViewModel().getStore('AttributeValueStore');
-        store.loadStore(me.IdAttribute);
-        this.loadAttributeValueStore();
+        // store.loadStore(me.IdAttribute);
+        store.loadStoreForSizeset(me.IdAttribute, me.IdSizeset);
+        // me.setStore(store);
+        setTimeout(function(){
+            m.loadAttributeValueStore();
+        }, 150); 
+        // m.loadAttributeValueStore();
     },
     control: {
         '#btnThoat': {
@@ -40,7 +46,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        mainView = Ext.getCmp('SizesetAttributeView');
+                        mainView = Ext.getCmp('SizesetView');
                         mainView.getStore().load();
 
                         me.up('window').close();
@@ -72,25 +78,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
         var me = this.getView();
         var m = this;
         var viewmodel = this.getViewModel();
-
-        Ext.Msg.show({
-            title: 'Thông báo',
-            msg: 'Thay đổi giá trị thuộc tính ?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            buttonText: {
-                yes: 'Có',
-                no: 'Không'
-            },
-            fn: function (btn) {
-                if (btn === 'no') {
-                    me.up('window').close();
-                }
-                else {
-                    m.Luu();
-                }
-            }
-        });
+        m.Luu();
     },
     loadAttributeValueStore: function () {
         var me = this.getView();
@@ -102,9 +90,24 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
+
+                        var store = me.getStore();
+                        
+                        // store.on('load', function(){
+                        //     for (var i = 0; i < response.data.length; i++) {
+                        //         var data = me.getStore().findRecord('id', response.data[i].id);
+                        //         me.getSelectionModel().select(data, true);
+                        //         console.log(response.data[i].id);
+                        //         // console.log(me.getStore());
+                        //         console.log(data);
+                        //     }
+                        // });
+
                         for (var i = 0; i < response.data.length; i++) {
                             var data = me.getStore().findRecord('id', response.data[i].id);
                             me.getSelectionModel().select(data, true);
+                            console.log(response.data[i].id);
+                            console.log(data);
                         }
                     }
                 }
