@@ -10,7 +10,6 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
     },    
     items:[
         {
-            // xtype: 'PlanPoderView',
             xtype: 'Schedule_porder',
             id: 'panel_plan',
             margin: 1,
@@ -24,8 +23,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
             hidden: true  
         },
         {
-            // xtype: 'PlanPoderView',
-            xtype: 'Porder_gantt_guess',
+            xtype: 'Schedule_porder',
             id: 'panel_guessview',
             margin: 1,
             width: 500,
