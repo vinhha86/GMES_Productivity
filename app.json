@@ -201,7 +201,7 @@
 //                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
 //            }
             {
-                "path": "${toolkit.name}/src/gantt/gnt-all.js"
+                "path": "${toolkit.name}/src/schedule/sch-all.js"
             }
         ],
 		"requires": [
