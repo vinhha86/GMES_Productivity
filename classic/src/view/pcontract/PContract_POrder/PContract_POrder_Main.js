@@ -11,23 +11,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Main', {
             border: true,
             xtype: 'PContract_POList',
             padding: 1,
-            width: '33%',                   
+            width: '30%',                   
         },
         {
             region: 'center',
             border: true,
-            title: 'Lệnh sản xuất',
-            xtype: 'PContract_POrder_Porders',
+            title: 'Yêu cầu sản xuất',
+            xtype: 'PContract_POrder_Req',
             padding: 1,
-            width: '33%',       
+            width: '25%',       
         },
         {
             region: 'east',
             border: true,
-            title: 'Chi tiết màu cỡ',
-            xtype: 'PContract_POrder_PorderSKU',
+            title: 'Lệnh sản xuất',
+            xtype: 'PContract_POrder_Porders',
             padding: 1,
-            width: '33%',       
+            width: '45%',       
         }
     ]
 })

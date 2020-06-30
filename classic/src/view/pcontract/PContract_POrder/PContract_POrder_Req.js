@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
+Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContract_POrder_Porders',
-    id:'PContract_POrder_Porders',
+    xtype: 'PContract_POrder_Req',
+    id:'PContract_POrder_Req',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -29,25 +29,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
         store:'{porderStore}'
     },
     columns:[
-        {
-            header:'Style',
-            dataIndex:'ordercode',
-            width: 100
-        },
-        {
-            header:'Mã lệnh',
-            dataIndex:'ordercode',
-            width: 100
-        },
+        // {
+        //     header:'Style',
+        //     dataIndex:'ordercode',
+        //     width: 100
+        // },
         {
             header:'Phân xưởng',
             dataIndex:'granttoorgcode',
             flex: 1
-        },
-        {
-            header:'Dải cỡ',
-            dataIndex:'sizesetname',
-            width: 70
         },
         {
             header:'SL',
@@ -58,12 +48,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
         },{
             xtype: 'actioncolumn',
-            width: 20,
+            width: 25,
             menuDisabled: true,
             sortable: false,
             items: [{
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: 'Xóa',
+                iconCls: 'x-fa fas fa-magic',
+                tooltip: 'Tạo lệnh',
                 handler: 'onXoa'
             }]
         }

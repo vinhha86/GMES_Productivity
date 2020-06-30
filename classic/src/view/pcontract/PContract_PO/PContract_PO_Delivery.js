@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.PContract_PO', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Delivery', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContract_PO',
-    id:'PContract_PO',
+    xtype: 'PContract_PO_Delivery',
+    id:'PContract_PO_Delivery',
 
     viewConfig: {
         stripeRows: true,
@@ -30,11 +30,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         store:'{PContractProductPOStore}'
     },
     columns:[{
-        text:'PO Buyer',
+        text:'Số Line',
         dataIndex:'po_buyer',
         width: 100
     },{
-        text:'PO Vendor',
+        text:'Style',
         dataIndex:'po_vendor',
         width: 100
     },{
@@ -45,23 +45,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
     },{
         text:'SL giao',
         dataIndex:'po_quantity',
-        width: 60
+        width: 80
     },{
-        text:'Ngày đồng bộ NPL',
+        text:'Cảng (DC)',
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         dataIndex:'matdate',
-        width: 80
+        width: 150
     },{
-        text:'Năng suất y/c ngày',
+        text:'Đóng gói',
         dataIndex:'etm_avr',
-        width: 80
-    },{
-        text:'Số ngày SX',
-        dataIndex:'productiondays',
-        width: 70
-    },{
-        text:'Phân xưởng SX',
-        dataIndex:'factories',
         flex: 1
     },{
         xtype: 'actioncolumn',
@@ -92,7 +84,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
             labelWidth : 0,
             bind:{
-                value: 'Đơn hàng (PO)'
+                value: 'Kế hoạch (Line) giao hàng'
             }
         },
 		'->'

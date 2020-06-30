@@ -25,9 +25,19 @@ Ext.define('GSmartApp.view.planporder.PlanMain_Controller', {
         var panel_orderungranted = this.getView().items.get('panel_orderungranted');
         if (null != panel_orderungranted){
             if (panel_orderungranted.getHidden())
-            panel_orderungranted.setHidden(false);
+                panel_orderungranted.setHidden(false);
             else
-            panel_orderungranted.setHidden(true);
+                panel_orderungranted.setHidden(true);
+        }
+    },   
+    onGuessView: function(){
+        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
+        var panel_guessview = this.getView().items.get('panel_guessview');
+        if (null != panel_guessview){
+            if (panel_guessview.getHidden())
+                panel_guessview.setHidden(false);
+            else
+                panel_guessview.setHidden(true);
         }
     },   
     onExport: function(){

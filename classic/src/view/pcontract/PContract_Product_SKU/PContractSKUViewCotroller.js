@@ -93,5 +93,38 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                 }
             }
         });
-    }
+    },
+    onThemSKU: function(){
+        var viewmodel = this.getViewModel();
+        if(viewmodel.get('IdProduct') == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn chưa chọn sản phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else{
+            var form =Ext.create({
+                xtype: 'skusearchwindow',
+                reference:'skusearchwindow',
+                viewModel: {
+                    data: {
+                        sourceview: 'PContractSKU_ListProductView',
+                        pcontractid_link: viewmodel.get('PContract.id'),
+                        searchtype: 1,
+                        orgcustomerid_link: viewmodel.get('PContract.orgcustomerid_link'),
+                        productid_link : viewmodel.get('IdProduct'),
+                        productid_link_notsearch: viewmodel.get('IdProduct'),
+                        type: 10,
+                        pcontract_poid_link: viewmodel.get('pcontract_poid_link')
+                    }
+                }
+            });
+            form.show();
+        }
+        
+    },    
 })

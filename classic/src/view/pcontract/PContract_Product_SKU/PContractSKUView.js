@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'SL đơn',
         dataIndex:'pquantity_porder',
-        width: 70,
+        width: 80,
         align: 'right',
         editor:{
             xtype:'textfield',
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'SL SX',
         dataIndex:'pquantity_production',
-        width: 70,
+        width: 80,
         align: 'right',
         editor:{
             xtype:'textfield',
@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'SL mẫu',
         dataIndex:'pquantity_sample',
-        width: 70,
+        width: 80,
         align: 'right',
         editor:{
             xtype:'textfield',
@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'SL Tổng',
         dataIndex:'pquantity_total',
-        width: 70,
+        width: 100,
         align: 'right',
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
@@ -118,6 +118,39 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             tooltip: 'Xóa',
             handler: 'onXoa'
         }]
-    }]
+    }],
+    dockedItems:[{
+        dock:'top',
+        xtype:'toolbar',
+        padding: '0 0 10 5',
+        height: 35,
+        items:[{
+            xtype:'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black",
+            labelWidth : 0,
+            bind:{
+                value: 'Chi tiết màu, cỡ'
+            }
+        },
+		'->'
+		,
+	    {
+            xtype:'button',
+            itemId: 'btnThemSKU',
+            ui: 'header',
+			tooltip: 'Thêm SKU',
+            iconCls: 'x-fa fa-plus',
+            handler: 'onThemSKU'
+        },
+        // {
+        //     xtype:'button',
+        //     itemId:'btnShowFactory',
+        //     ui: 'header',
+		// 	tooltip: 'Xem năng suất nhà máy',
+        //     iconCls: 'x-fa fa-industry',
+        //     handler: 'onFactoriesTap',
+        // }
+        ]
+    }]    
 });
 

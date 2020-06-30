@@ -25,21 +25,23 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
         store:'{PContractProduct_PO_Store}'
     },
     reference: 'PContractSKU_ListProductView',
-    columns:[{
-        text:'Ảnh',
-        dataIndex:'urlimage',
-        width: 50,
-        textAlign: 'center',
-        renderer: function(value, meta, record){
-            return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
-        },
-        listeners:{
-            click: 'viewImg'
-        }
-    },{
-        text:'Mã SP',
+    columns:[
+    // {
+    //     text:'Ảnh',
+    //     dataIndex:'urlimage',
+    //     width: 50,
+    //     textAlign: 'center',
+    //     renderer: function(value, meta, record){
+    //         return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
+    //     },
+    //     listeners:{
+    //         click: 'viewImg'
+    //     }
+    // },
+    {
+        text:'Style',
         dataIndex:'code',
-        width: 60
+        width: 100
     },{
         text:'Tên SP',
         dataIndex:'name',
@@ -47,26 +49,26 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
     },{
         text:'SL',
         dataIndex:'pquantity',
-        width: 60,
+        width: 90,
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         }
     }],
-    dockedItems:[{
-        dock: 'bottom',
-        layout: 'hbox',
-        border: false,
-        items:[{
-            flex: 1
-        },{
-            xtype: 'button',
-            margin: 1,
-            text: 'Thêm SKU',
-            iconCls: 'x-fa fa-plus',
-            itemId: 'btnThemSKU'
-        }]
-    }]
+    // dockedItems:[{
+    //     dock: 'bottom',
+    //     layout: 'hbox',
+    //     border: false,
+    //     items:[{
+    //         flex: 1
+    //     },{
+    //         xtype: 'button',
+    //         margin: 1,
+    //         text: 'Thêm SKU',
+    //         iconCls: 'x-fa fa-plus',
+    //         itemId: 'btnThemSKU'
+    //     }]
+    // }]
 });
 

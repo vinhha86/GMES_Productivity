@@ -9,22 +9,23 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
     IdPContract: 0,
     layout: 'border',
     height: 500,
-    items: [{
-        region: 'north',
-        height: 115,
-        border: true,
-        xtype: 'PContractInfoView',
-        margin: 1
-    }, {
+    items: [
+    {
         region: 'center',
         border: true,
         margin: 1,
         xtype: 'tabpanel',
         itemId:'tabmain',
         items: [{
-            title: 'Danh sách sản phẩm',
+            title: 'Thông tin chung',
             layout: 'border',
             items: [{
+                region: 'north',
+                height: 115,
+                border: true,
+                xtype: 'PContractInfoView',
+                margin: 1
+            }, {
                 region: 'center',
                 margin: 1,
                 // border: true,
@@ -68,7 +69,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
                 }]
             }]
         }, {
-            title: 'Giao hàng - Chào giá',
+            title: 'Đơn hàng (PO) - Chào giá',
             xtype: 'PContract_PO_Main'
         },{
             title: 'Chi tiết màu,cỡ',

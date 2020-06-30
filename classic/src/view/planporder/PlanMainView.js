@@ -22,7 +22,16 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
             width: 500,
             region: 'east',
             hidden: true  
-        }    
+        },
+        {
+            // xtype: 'PlanPoderView',
+            xtype: 'Porder_gantt_guess',
+            id: 'panel_guessview',
+            margin: 1,
+            width: 500,
+            region: 'east',
+            hidden: true  
+        },    
     ],
     dockedItems: [{
         xtype: 'toolbar',
@@ -35,6 +44,14 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
                 iconCls: 'x-fa fa-sliders',
                 weight: 30,
                 handler: 'onGrantToOrgTap',
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Khung nhìn khách',
+                text: 'Khung nhìn khách',
+                iconCls: 'x-fa fa-sliders',
+                weight: 30,
+                handler: 'onGuessView',
             },
             // '->'
             // ,
