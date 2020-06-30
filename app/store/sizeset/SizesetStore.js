@@ -5,7 +5,8 @@ Ext.define('GSmartApp.store.sizeset.SizesetStore', {
 	fields: [
 		{name: 'id', type: 'int'},
 		{name: 'name', type: 'string'},
-        {name: 'comment', type: 'string'}
+		{name: 'comment', type: 'string'}
+		
 	],
 	loadStore:function(){
 		var me=this;

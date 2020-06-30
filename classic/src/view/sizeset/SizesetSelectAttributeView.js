@@ -3,10 +3,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeView', {
     xtype: 'SizesetSelectAttributeView',
     id: 'SizesetSelectAttributeView',
     controller: 'SizesetSelectAttributeViewController',
-    IdAttribute: 0,
-    IdSizeset : 0,
     viewModel: {
-        type : 'SizesetDetailViewModel'
+        type : 'SizesetViewModel'
     },
     selModel: {
         selType: 'checkboxmodel',
