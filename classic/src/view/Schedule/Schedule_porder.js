@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.Schedule.Schedule_porder', {
         'GSmartApp.view.Schedule.WeatherInfo'
     ],
 
-    title            : 'Airport departures',
+    title            : 'Test',
     rowHeight        : 40,
     barMargin        : 2,
     useArrows        : true,
