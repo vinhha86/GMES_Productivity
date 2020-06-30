@@ -2,14 +2,14 @@ Ext.define('GSmartApp.view.planporder.PlanMain_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PlanMain_Controller',
     init: function(){
-        var viewmodel = this.getViewModel();
-        var OrgStore = viewmodel.getStore('OrgStore');  
-        OrgStore.loadStore(14, false);
+        // var viewmodel = this.getViewModel();
+        // var OrgStore = viewmodel.getStore('OrgStore');  
+        // OrgStore.loadStore(14, false);
 
-        var POrderUnGranted = viewmodel.getStore('POrderUnGranted'); 
-        var golive_from = new Date('01-jan-2020');
-        var golive_to = new Date('31-dec-2020'); 
-        POrderUnGranted.loadFree_bygolivedate(golive_from,golive_to);
+        // var POrderUnGranted = viewmodel.getStore('POrderUnGranted'); 
+        // var golive_from = new Date('01-jan-2020');
+        // var golive_to = new Date('31-dec-2020'); 
+        // POrderUnGranted.loadFree_bygolivedate(golive_from,golive_to);
     },
     onZoomIn : function () {
         var panel_plan = this.getView().items.get('panel_plan');
