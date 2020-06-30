@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
             click: 'onThoat'
         },
         '#cmbDonVi': {
-            select: 'onSelectOrg'
+            select: 'onSelectOrg' 
         }
     },
     onThoat: function(){
