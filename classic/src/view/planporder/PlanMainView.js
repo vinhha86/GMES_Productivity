@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
     },    
     items:[
         {
-            xtype: 'Schedule_porder',
+            xtype: 'Schedule_plan_View',
             id: 'panel_plan',
             margin: 1,
             region: 'center'

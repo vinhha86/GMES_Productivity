@@ -15,7 +15,7 @@ Ext.define('GSmartApp.util.Ajax', {
 				me.redirectTo('login', {replace: true});
 			} else {
 				Ext.Ajax.request({
-					url: App.Utils.url+url,
+					url: config.getAppBaseUrl()+url,
 					method:'POST',
 					cors: true,
 					headers :{
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.util.Ajax', {
 						update : 'POST',
 						destroy: 'POST'
 					},
-					url: App.Utils.url+url,
+					url: config.getAppBaseUrl()+url,
 					paramsAsJson:true,
 					noCache: false,
 					headers :{
