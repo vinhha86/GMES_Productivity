@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         if(select.length == 0){
             Ext.Msg.show({
                 title: "Thông báo",
-                msg: "Xóa thất bại",
+                msg: "Phải chọn ít nhất một ngày nghỉ",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
