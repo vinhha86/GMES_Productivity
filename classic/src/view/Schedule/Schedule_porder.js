@@ -25,7 +25,13 @@ Ext.define('GSmartApp.view.Schedule.Schedule_porder', {
     columnLines      : false,
     rowLines         : true,
     cls              : 'tree-scheduler',
-
+    tooltipTpl: new Ext.XTemplate(
+        '<dl class="eventTip">',
+        '<dt class="icon-clock">Time</dt><dd>{[Ext.Date.format(values.StartDate, "Y-m-d G:i")]}</dd>',
+        '<dt class="icon-task">Task</dt><dd>{Name}</dd>',
+        '<dt class="icon-earth">Location</dt><dd>{leaf}&nbsp;</dd>',
+        '</dl>'
+    ),
     eventRenderer : function(flight, resource, meta) {
         if (resource.data.leaf) {
             meta.cls = 'leaf';
@@ -104,9 +110,17 @@ Ext.define('GSmartApp.view.Schedule.Schedule_porder', {
                 ]
             });
 
+            var tip = new Sch.tooltip.Tooltip(
+                
+            );
+            var cfg = {
+                tip : tip,
+                showTooltip: true
+            }
+
         Ext.apply(me, {
             crudManager : cm,
-
+            // resizeConfig: cfg,
             plugins : [
                 {
                     ptype : 'scheduler_zones',
