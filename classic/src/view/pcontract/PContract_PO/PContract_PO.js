@@ -2,7 +2,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_PO',
     id:'PContract_PO',
-
+    requires: [
+        'Ext.Number',
+        'Ext.Date',
+        'Ext.grid.plugin.RowWidget'
+    ],
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true,
@@ -29,6 +33,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
     bind:{
         store:'{PContractProductPOStore}'
     },
+    // store: {
+    //     type: 'PContract_PO'
+    // },
     columns:[{
         text:'PO Buyer',
         dataIndex:'po_buyer',
@@ -65,23 +72,87 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO', {
         flex: 1
     },{
         xtype: 'actioncolumn',
-        width: 65,
+        width: 25,
         menuDisabled: true,
         sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xóa',
-            handler: 'onXoa'
-        },{
-            iconCls: 'x-fa fas fa-list',
-            tooltip: 'Chi tiết',
-            handler: 'onEdit'
-        },{
-            iconCls: 'x-fa fas fa-check',
-            tooltip: 'Chốt đơn',
-            handler: 'onAccept'
-        }]
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_PO'
+            },            
+            // {
+            //     iconCls: 'x-fa fas fa-trash',
+            //     tooltip: 'Xóa',
+            //     handler: 'onXoa'
+            // },{
+            //     iconCls: 'x-fa fas fa-list',
+            //     tooltip: 'Chi tiết',
+            //     handler: 'onEdit'
+            // },{
+            //     iconCls: 'x-fa fas fa-check',
+            //     tooltip: 'Chốt đơn',
+            //     handler: 'onAccept'
+            // }
+        ]
     }],
+    plugins: {
+        rowwidget: {
+            widget: 
+            {
+                xtype: 'grid',
+                bind: {
+                    store: '{record.sub_po}',
+                    // title: 'Danh sách hàng xuất'
+				},
+                columns:[{
+                    text:'PO Buyer',
+                    dataIndex:'po_buyer',
+                    width: 100
+                },{
+                    text:'PO Vendor',
+                    dataIndex:'po_vendor',
+                    width: 100
+                },{
+                    text:'Ngày giao',
+                    dataIndex:'shipdate',
+                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+                    width: 80
+                },{
+                    text:'SL giao',
+                    dataIndex:'po_quantity',
+                    width: 60
+                },{
+                    text:'Ngày đồng bộ NPL',
+                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+                    dataIndex:'matdate',
+                    width: 80
+                },{
+                    text:'Năng suất y/c ngày',
+                    dataIndex:'etm_avr',
+                    width: 80
+                },{
+                    text:'Số ngày SX',
+                    dataIndex:'productiondays',
+                    width: 70
+                },{
+                    text:'Phân xưởng SX',
+                    dataIndex:'factories',
+                    flex: 1
+                },{
+                    xtype: 'actioncolumn',
+                    width: 25,
+                    menuDisabled: true,
+                    sortable: false,
+                    items: [
+                        {
+                            iconCls: 'x-fa fas fa-bars violetIcon',
+                            handler: 'onMenu_PO'
+                        },            
+                    ]
+                }],						
+			}
+		}
+	},    
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

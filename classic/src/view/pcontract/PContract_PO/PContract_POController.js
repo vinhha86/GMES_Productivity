@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         else
             viewModel.set('isproductpair', 0);
 
+        // var storePO = Ext.data.StoreManager.lookup('PContract_PO'); 
         var storePO = viewModel.getStore('PContractProductPOStore');
         storePO.loadStore(viewModel.get('PContract.id'), viewModel.get('productpairid_link'));
     },
@@ -82,8 +83,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         var productStore = viewModel.getStore('PContractProductStore');
         productStore.loadStore_bypairid(productid_link);
     },
-    onEdit: function(grid, rowIndex, colIndex){
-        var rec = grid.getStore().getAt(rowIndex);
+    onPOPriceEdit: function(rec){
+        // var rec = grid.getStore().getAt(rowIndex);
         var viewModel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -114,8 +115,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         });
         form.show();
     },
-    onAccept: function(grid, rowIndex, colIndex){
-        var rec = grid.getStore().getAt(rowIndex);
+    onAccept: function(rec){
+        // var rec = grid.getStore().getAt(rowIndex);
         var viewModel = this.getViewModel();
         
         if(rec.get('status') == 1) {
@@ -161,15 +162,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             form.show();
         }
     },
-    onXoa: function(rid, rowIndex, colIndex){
+    onXoa: function(rec){
         var viewmodel = this.getViewModel();
-        Ext.Msg.confirm('Kế hoạch giao hàng', 'Bạn có thực sự muốn xóa Kế hoạch giao hàng? chọn YES để thực hiện',
+        Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
                     var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
-                    var record = PContractProductPOStore.getAt(rowIndex);
                     var params=new Object();
-                    params.id = record.data.id;
+                    params.id = rec.id;
                     GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
                     function (success, response, options) {
                         var response = Ext.decode(response.responseText);
@@ -189,5 +189,143 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 }
             } );        
     },
+    onAdd_SubPO: function(rec){
+        var viewModel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thông tin đơn hàng',
+            closeAction: 'destroy',
+            height: 280,
+            width: 500,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_PO_Edit_Info_Main',
+                viewModel: {
+                    data: {
+                        id: null,
+                        parentpoid_link: rec.data.id,
+                    }
+                }
+            }]
+        });
+        form.show();   
+    },
+    onAdd_Shipping: function(rec){
+        console.log(rec);
+    },
+    onPOInfoEdit: function(rec){
+        var viewModel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thông tin đơn hàng',
+            closeAction: 'destroy',
+            height: 280,
+            width: 500,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_PO_Edit_Info_Main',
+                viewModel: {
+                    data: {
+                        id: rec.data.id,
+                    }
+                }
+            }]
+        });
+        form.show();        
+    },
+    onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Sửa chào giá',
+                // reference: 'PContract_PO_Menu_POPriceEdit',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-dollar brownIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onPOPriceEdit(record);
+                }
+            }, 
+            {
+                text: 'Sửa đơn hàng',
+                // reference: 'PContract_PO_Menu_POinfoEdit',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-pencil greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onPOInfoEdit(record);
+                }
+            }, 
+            {
+                text: 'Xóa đơn hàng',
+                // reference: 'PContract_PO_Menu_PODelete',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onXoa(record);
+                }
+            }, 
+            {
+                text: 'Chốt đơn hàng',
+                // reference: 'PContract_PO_Menu_POAccept',
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-check violetIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onAccept(record);
+                }
+            }, {
+                text: 'Thêm đơn hàng con',
+                // reference: 'PContract_PO_Menu_POSub',
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-child blueIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onAdd_SubPO(record);
+                }
+            }, {
+                text: 'Thêm KH giao hàng',
+                // reference: 'PContract_PO_Menu_POShipping',
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-ship greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onAdd_Shipping(record);
+                }
+            }
+        ]
+        });
+          // HERE IS THE MAIN CHANGE
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.record = record;
+          menu_grid.showAt(position);
+    },    
 });
 

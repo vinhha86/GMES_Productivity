@@ -12,8 +12,8 @@ Ext.define('GSmartApp.config.Runtime',{
             dictionary: 'resources/dictionary.json'
         },
         months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-        // appBaseUrl: 'http://localhost:8990/gsmartcore',
-        appBaseUrl: 'http://gpay.vn:8090/gmes',
+        appBaseUrl: 'http://localhost:8990/gsmartcore',
+        // appBaseUrl: 'http://gpay.vn:8090/gmes',
         back: 'http://gpay.vn:8181/oauth/',
         // back: 'http://localhost:8181/oauth/',
         token: null,
