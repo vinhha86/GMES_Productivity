@@ -1,7 +1,9 @@
 Ext.define('GSmartApp.model.pcontract.PContractPO', {
-    extend: 'Ext.data.Model',
+	extend: 'Ext.data.Model',
+	idProperty: 'idx',
 	fields: [
-		{name: 'id',   type: 'int'},
+        {name: 'id', type: 'int'},
+        {name: 'idx', type: 'int'},
 		{name: 'orgrootid_link',   type: 'int'},
 		{name: 'pcontractid_link',   type: 'int'},
 		{name: 'code',   type: 'string'},
@@ -37,5 +39,6 @@ Ext.define('GSmartApp.model.pcontract.PContractPO', {
 		{name: 'status',   type: 'int'},	
 		{name: 'factories',   type: 'string'},			
 	],
-	hasMany : {model: 'PContractPO_Price', name: 'pcontract_price'}
+	hasMany : {model: 'PContractPO_Price', name: 'pcontract_price'},
+	hasMany : {model: 'PContractPO', name: 'sub_po'}
 });

@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
     xtype: 'PContract_PO_Edit_Info',
     layout: 'border',
     controller: 'PContract_PO_Edit_InfoController',
+    poid: null,
     items: [
         {
             region: 'south',

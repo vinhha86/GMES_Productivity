@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
+Ext.define('GSmartApp.store.pcontract.PContract_PO', {
     extend: 'Ext.data.Store',
-	alias: 'store.PContractPOStore',
-	storeId: 'PContractPOStore',
+	alias: 'store.PContract_PO',
+	storeId: 'PContract_PO',
 	model: 'GSmartApp.model.pcontract.PContractPO',
 	sorters: [{
         direction: 'ASC',
