@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
+Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.Schedule_plan_ViewModel',
+    alias: 'viewmodel.Schedule_plan_GuestViewModel',
     data: {
         schedule: {
             startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),

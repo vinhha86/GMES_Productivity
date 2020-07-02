@@ -10,8 +10,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
     },    
     items:[
         {
-            xtype: 'Schedule_plan_View',
-            id: 'panel_plan',
+            xtype: 'Schedule_plan_Main',
             margin: 1,
             region: 'center'
         },
@@ -30,47 +29,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
             region: 'east',
             hidden: true  
         },    
-    ],
-    dockedItems: [{
-        xtype: 'toolbar',
-        dock: 'top',
-        items: [
-            {
-                xtype: 'button',
-                tooltip: 'Phân lệnh vào tổ chuyền',
-                text: 'Phân chuyền',
-                iconCls: 'x-fa fa-sliders',
-                weight: 30,
-                handler: 'onGrantToOrgTap',
-            },
-            {
-                xtype: 'button',
-                tooltip: 'Khung nhìn khách',
-                text: 'Khung nhìn khách',
-                iconCls: 'x-fa fa-sliders',
-                weight: 30,
-                handler: 'onGuessView',
-            },
-            // '->'
-            // ,
-            // {
-            //     xtype: 'button',
-            //     tooltip: 'Phóng to',
-            //     // text: 'Zoom in',
-            //     iconCls: 'x-fa fa-search-plus',
-            //     weight: 30,
-            //     handler: 'onZoomIn',
-            // },
-            // {
-            //     xtype: 'button',
-            //     tooltip: 'Thu nhỏ',
-            //     // text: 'Zoom out',
-            //     iconCls: 'x-fa fa-search-minus',
-            //     weight: 30,
-            //     handler: 'onZoomOut',
-            // }
-        ]
-    }],
+    ]
     // listeners: {
     //     afterlayout : 'refreshRollup'
     // }       
