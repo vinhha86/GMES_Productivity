@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                             xtype: 'textfield',
                             flex: 1,
                             reference:'skusearch_code',
-                            fieldLabel: 'Mã nội bộ:',
+                            fieldLabel: 'Mã Buyer:',
                             labelWidth: 80,
                             hideLabel: false,
                             bind: '{code}'
@@ -74,6 +74,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                     displayField: 'name',
                     queryMode: 'local',
                     fieldLabel: "Endbuyer",
+                    selectOnFocus: true,
                     labelWidth: 80,
                     bind:{
                         store: '{OrgStore}',

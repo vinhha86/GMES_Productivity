@@ -11,8 +11,15 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorView', {
         height: 45,
         style: "background-color : white",
         items: [{
+            xtype: 'button',
+            text: 'Thêm NPL',
+            margin: 3,
+            itemId: 'btnNPL',
+            iconCls: 'x-fa fa-plus'
+        },{
             xtype: 'combo',
             width:500,
+            margin: 3,
             bind: {
                 store: '{PContractProductStore}',
                 value: '{IdProduct}',

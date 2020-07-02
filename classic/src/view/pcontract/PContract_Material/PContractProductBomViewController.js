@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
     onChangeProduct: function (combo, newValue, oldValue, eOpts) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-        var storeBOM = viewmodel.getStore('PContractProductBomStore');
+        var storeBOM = this.getView().getStore();
         var pcontractid_link = viewmodel.get('PContract').id;
         var productid_link = viewmodel.get('IdProduct');
 
@@ -60,9 +60,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
                     searchtype: 5,
                     pcontractid_link: viewmodel.get('PContract.id'),
                     productid_link_notsearch: productid_link
-                    // customerid_link: viewmodel.get('PContract.orgcustomerid_link'),
-                    // cust_contractcode: viewmodel.get('PContract.cust_contractcode'),
-                    // contractcode: viewmodel.get('PContract.contractcode')
                 }
             }
         });
@@ -125,7 +122,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
         params.isUpdateBOM = false;
 
         viewmodel.set('isReadOnlycmbSanPham', true);
-        GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/update_pcontract_productbom', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
@@ -135,17 +132,17 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomViewController', {
                             msg: 'Lưu thất bại',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
-                                yes: 'Đóng',
+                                yes: 'Đóng'
                             }
                         });
                     }
                     else {
-                        var storebom = viewmodel.getStore('PContractProductBomStore');
+                        var storebom = viewmodel.getStore('PContractProductBom2Store');
                         storebom.commitChanges();
 
-                        var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+                        var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
                         if (tab.items.length > 0) {
-                            var storebomcolor = viewmodel.getStore('PContractBomColorStore');
+                            var storebomcolor = viewmodel.getStore('PContractBom2ColorStore');
                             storebomcolor.load();
                         }
 

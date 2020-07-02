@@ -8,7 +8,10 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
             tabchange: 'onTabChange'
         },
         '#cmbSanPham': {
-            change: 'onChangeProduct'
+            select: 'onChangeProduct'
+        },
+        '#btnNPL': {
+            click: 'onThemNPL'
         }
     },
     onChangeProduct: function (combo, newValue, oldValue, eOpts) {
@@ -20,12 +23,44 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         var productid_link = viewmodel.get('IdProduct');
 
         storeBOM.loadStore(pcontractid_link, productid_link);
-
-        var data = combo.findRecord('productid_link', newValue);
-
-        var productview = Ext.getCmp('PContractListProductView');
-        productview.getSelectionModel().select(data);
         th.createTab();
+    },
+    onThemNPL: function (m) {
+        var me = this.getView();
+        var t = this;
+        var viewmodel = this.getViewModel();
+
+        var productid_link = viewmodel.get('IdProduct');
+
+        if (productid_link == 0) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn sản phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function (btn) {
+                    me.down('#cmbSanPham').expand();
+                }
+            });
+            return;
+        }
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            reference: 'skusearchwindow',
+            viewModel: {
+                data: {
+                    sourceview: 'PContractProduct_Bom_TabColorView',
+                    searchtype: 5,
+                    pcontractid_link: viewmodel.get('PContract.id'),
+                    productid_link_notsearch: productid_link,
+                    orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link')
+                }
+            }
+        });
+        form.show();
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var viewmodel = this.getViewModel();
@@ -37,7 +72,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         storeBOM.removeAll();
         storeBOM.loadStoreColor(pcontractid_link, productid_link, colorid_link);
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
-        gridsize.CreateColumns();
+        // gridsize.CreateColumns();
     },
     createTab: function () {        
         newActiveItem = this.getView();

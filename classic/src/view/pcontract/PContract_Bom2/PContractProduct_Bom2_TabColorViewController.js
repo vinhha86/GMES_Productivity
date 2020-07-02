@@ -8,7 +8,10 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
             tabchange: 'onTabChange'
         },
         '#cmbSanPham': {
-            change: 'onChangeProduct'
+            select: 'onChangeProduct'
+        },
+        '#btnNPL' : {
+            click: 'onThemMoiNPL'
         }
     },
     onChangeProduct: function (combo, newValue, oldValue, eOpts) {
@@ -20,11 +23,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         var productid_link = viewmodel.get('IdProduct');
 
         storeBOM.loadStore(pcontractid_link, productid_link);
-
-        var data = combo.findRecord('productid_link', newValue);
-
-        var productview = Ext.getCmp('PContractListProductView');
-        productview.getSelectionModel().select(data);
+        
         th.createTab();
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
@@ -38,6 +37,43 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         storeBOM.loadStoreColor(pcontractid_link, productid_link, colorid_link);
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
         gridsize.CreateColumns();
+    },
+    onThemMoiNPL: function(){
+        var me = this.getView();
+        var t = this;
+        var viewmodel = this.getViewModel();
+
+        var productid_link = viewmodel.get('IdProduct');
+
+        if (productid_link == 0) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn sản phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function (btn) {
+                    me.down('#cmbSanPham').expand();
+                }
+            });
+            return;
+        }
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            reference: 'skusearchwindow',
+            viewModel: {
+                data: {
+                    sourceview: 'PContractProduct_Bom2_TabColorView',
+                    searchtype: 5,
+                    pcontractid_link: viewmodel.get('PContract.id'),
+                    productid_link_notsearch: productid_link,
+                    orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link')
+                }
+            }
+        });
+        form.show();
     },
     createTab: function () {        
         newActiveItem = this.getView();

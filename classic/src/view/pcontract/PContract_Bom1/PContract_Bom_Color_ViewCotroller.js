@@ -1,7 +1,6 @@
 Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_Bom_Color_ViewCotroller',
-    length: 8,
     ischange: false,
     init: function () {
 
@@ -9,14 +8,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = this.length;
+        var length = 11;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
-            if (i > length) {
+            if (i > length -1 ) {
                 grid.headerCt.remove(i);
                 i--;
             }
         }      
-
         var listtitle = [];
         var listid = [];
 
@@ -63,15 +61,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                                 return Ext.util.Format.number(value, '0.0000')
                             }
                         });
-                        grid.headerCt.insert(length + 1, column);
+                        grid.headerCt.insert(grid.columns.length, column);
                         length++;
                     }
             
-                    var storeBOM = viewmodel.getStore('PContractBomColorStore');
+                    var storeBOM = grid.getStore();
+
                     var model = storeBOM.getModel();
                     var fields = model.getFields();
                     for (var i = 0; i < fields.length; i++) {
-                        if (i > 19) {
+                        if (i > 20) {
                             model.removeFields(fields[i].name);
                         }
                     }
@@ -116,6 +115,55 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                 record.set(column[i].dataIndex, 0);
             }
         }
+    },
+    onXoa: function (grid, rowIndex, colIndex) {
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var rec = grid.getStore().getAt(rowIndex);
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa nguyên phụ liệu "' + rec.data.materialName + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'no') {
+                    return;
+                }
+                else {
+                    var params = new Object();
+                    params.pcontractid_link = viewmodel.get('PContract').id;
+                    params.productid_link = viewmodel.get('IdProduct');
+                    params.materialid_link = rec.data.materialid_link;
+
+                    GSmartApp.Ajax.post('/api/v1/pcontractproductbom/deletematerial', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode != 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                                else {
+                                    grid.getStore().removeAt(rowIndex);
+                                    var storebom = viewmodel.getStore('PContractBomColorStore');
+                                    storebom.load();
+                                }
+                            }
+                        })
+                }
+            }
+        });
     },
     updateBOM: function (record) {
         var grid = this.getView();

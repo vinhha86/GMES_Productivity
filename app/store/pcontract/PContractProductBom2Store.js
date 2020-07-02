@@ -7,6 +7,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductBom2Store', {
 		{name: 'productid_link',  type: 'int'},
         {name: 'materialid_link',   type: 'int'},
 		{name: 'materialName',   type: 'string'},
+		'materialCode',
         {name: 'unitName', type: 'string'},
         {name: 'amount'},
         {name: 'lost_ratio',},

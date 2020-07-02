@@ -153,10 +153,18 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             this.createContractBOM();
         } 
         
-        //Invoice
+        //Invoice 
         if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
             this.InsertSKU_to_invoice();
         } 
+
+        if(viewModel.get('sourceview') == 'PContractProduct_Bom_TabColorView'){
+            this.InsertNPL_DinhMucHaiQuan();
+        }
+
+        if(viewModel.get('sourceview') == 'PContractProduct_Bom2_TabColorView'){
+            this.InsertNPL_DinhMucKhachHang();
+        }
     },
     createPContractProduct: function () {
         var me = this.getView().down('#ProductList');
@@ -423,6 +431,101 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
+                            }
+                        });
+                    }
+                })
+        }
+    },
+    InsertNPL_DinhMucHaiQuan: function(){
+        var viewModel = this.getViewModel();
+        var pcontractid_link = viewModel.get('pcontractid_link');
+        var productid_link = viewModel.get('productid_link_notsearch');
+
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var records = grid_skusearch.getSelection();
+        if (records.length > 0) {
+            var params = new Object();
+            var data = [];
+            for (var i = 0; i < records.length; i++) {
+                data.push(records[i].data.id);
+            }
+            params.productid_link = productid_link;
+            params.pcontractid_link = pcontractid_link;
+            params.listnpl = data;
+
+            GSmartApp.Ajax.post('/api/v1/pcontractproductbom/create_pcontract_productbom', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+                        if(tab.items.length > 0){
+                            var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
+                            storebomcolor.load();
+                        }
+
+                        // var tab2 = Ext.getCmp('PContractProduct_Bom2_TabColorView');
+                        // if(tab2.items.length > 0){
+                        //     var storebomcolor2 = Ext.getCmp('PContractView').getViewModel().getStore('PContractBom2ColorStore');
+                        //     storebomcolor2.load();
+                        // }
+
+                        var mywin = Ext.WindowManager.getActive();
+                        if (mywin) {
+                            mywin.close();
+                        }
+                    } else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Lỗi thêm nguyên phụ liệu, liên hệ kỹ thuật để trợ giúp",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                })
+        }
+    },
+    InsertNPL_DinhMucKhachHang: function(){
+        var viewModel = this.getViewModel();
+        var pcontractid_link = viewModel.get('pcontractid_link');
+        var productid_link = viewModel.get('productid_link_notsearch');
+
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var records = grid_skusearch.getSelection();
+        if (records.length > 0) {
+            var params = new Object();
+            var data = [];
+            for (var i = 0; i < records.length; i++) {
+                data.push(records[i].data.id);
+            }
+            params.productid_link = productid_link;
+            params.pcontractid_link = pcontractid_link;
+            params.listnpl = data;
+
+            GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/create_pcontract_productbom', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var storebom = Ext.getCmp('PContractProductBomView').getStore();
+                        storebom.loadStore(pcontractid_link, productid_link);
+
+                        var tab2 = Ext.getCmp('PContractProduct_Bom2_TabColorView');
+                        if(tab2.items.length > 0){
+                            var storebomcolor2 = Ext.getCmp('PContractView').getViewModel().getStore('PContractBom2ColorStore');
+                            storebomcolor2.load();
+                        }
+
+                        var mywin = Ext.WindowManager.getActive();
+                        if (mywin) {
+                            mywin.close();
+                        }
+                    } else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Lỗi thêm nguyên phụ liệu, liên hệ kỹ thuật để trợ giúp",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
                             }
                         });
                     }

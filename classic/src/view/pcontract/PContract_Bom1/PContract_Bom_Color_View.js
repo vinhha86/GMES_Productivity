@@ -25,7 +25,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
+    },{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
     }, {
+        text: 'Mã NPL',
+        dataIndex: 'materialCode',
+        width: 120
+    },{
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
         width: 150

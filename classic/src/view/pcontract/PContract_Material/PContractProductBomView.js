@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
         }
     },
     bind: {
-        store: '{PContractProductBomStore}',
+        store: '{PContractProductBom2Store}',
         title: '{title}'
     },
     columns: [{
@@ -34,6 +34,10 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
+        text: 'Mã NPL',
+        dataIndex: 'materialCode',
+        width: 150
+    },{
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
         flex: 1
@@ -97,12 +101,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
         height: 45,
         style: "background-color : white",
         items: [{
-            xtype: 'button',
-            text: 'Thêm NPL',
-            margin: 3,
-            itemId: 'btnNPL',
-            iconCls: 'x-fa fa-plus'
-        },{
             xtype: 'combo',
             flex:1,
             margin: 3,
