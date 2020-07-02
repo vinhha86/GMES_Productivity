@@ -104,6 +104,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         PContractProductPOStore: {
             type: 'PContractPOStore'
         },
+        POShippingStore: {
+            type: 'PContract_PO_Shipping_Store'
+        },
         PContractBom2ColorStore: {
             type: 'PContractBom2ColorStore'
         },

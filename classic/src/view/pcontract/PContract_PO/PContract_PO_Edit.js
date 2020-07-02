@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                 {
                     region: 'south',
                     layout: 'border',
-                    height: 315,
+                    height: 290,
                     items:[
                         {
                             region: 'west',
@@ -94,7 +94,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
         }, 
         {
             region: 'center',
-            // xtype: 'PContract_porder_gantt',
+            xtype: 'Schedule_plan_View',
             border: true,
             margin: 1,
             // hidden: true

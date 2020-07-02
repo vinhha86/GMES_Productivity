@@ -17,13 +17,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
                 {
                     region: 'north',
                     height: '50%',
-                    xtype: 'PContract_PO',
+                    xtype: 'PContract_PO_List',
                     border: true,
                     margin: 1
                 },
                 {
                     region: 'center',
-                    xtype: 'PContract_PO_Delivery',
+                    xtype: 'PContract_PO_Shipping_List',
                     border: true,
                     margin: 1
                 }

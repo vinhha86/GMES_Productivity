@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.PContract_PO_Delivery', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContract_PO_Delivery',
-    id:'PContract_PO_Delivery',
+    xtype: 'PContract_PO_Shipping_List',
+    id:'PContract_PO_Shipping_List',
 
     viewConfig: {
         stripeRows: true,
@@ -27,15 +27,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Delivery', {
         }
     },
     bind:{
-        store:'{PContractProductPOStore}'
+        store:'{POShippingStore}'
     },
     columns:[{
         text:'Số Line',
-        dataIndex:'po_buyer',
-        width: 100
-    },{
-        text:'Style',
-        dataIndex:'po_vendor',
+        dataIndex:'code',
         width: 100
     },{
         text:'Ngày giao',
@@ -44,35 +40,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Delivery', {
         width: 80
     },{
         text:'SL giao',
-        dataIndex:'po_quantity',
+        dataIndex:'shipamount',
         width: 80
     },{
-        text:'Cảng (DC)',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-        dataIndex:'matdate',
+        text:'Cảng gửi',
+        dataIndex:'portfromid_link',
+        width: 150
+    },{
+        text:'Cảng nhận',
+        dataIndex:'porttoid_link',
         width: 150
     },{
         text:'Đóng gói',
-        dataIndex:'etm_avr',
+        dataIndex:'packingnotice',
         flex: 1
     },{
         xtype: 'actioncolumn',
-        width: 65,
+        width: 25,
         menuDisabled: true,
         sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xóa',
-            handler: 'onXoa'
-        },{
-            iconCls: 'x-fa fas fa-list',
-            tooltip: 'Chi tiết',
-            handler: 'onEdit'
-        },{
-            iconCls: 'x-fa fas fa-check',
-            tooltip: 'Chốt đơn',
-            handler: 'onAccept'
-        }]
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu'
+            },            
+        ]
     }],
     dockedItems:[{
         dock:'top',

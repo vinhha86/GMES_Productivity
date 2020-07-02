@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.PContract_PO', {
+Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContract_PO',
-    id:'PContract_PO',
+    xtype: 'PContract_PO_List',
+    id:'PContract_PO_List',
     requires: [
         'Ext.Number',
         'Ext.Date',
