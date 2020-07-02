@@ -39,16 +39,16 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeView', {
             flex : 1
         },{
             xtype:'button',
-            text: 'Lưu',
-            margin: 3,
-            itemId:'btnLuu',
-            iconCls: 'x-fa fa-save'
-        },{
-            xtype:'button',
             text: 'Thoát',
             margin: 3,
             itemId:'btnThoat',
             iconCls: 'x-fa fa-backward'
+        },{
+            xtype:'button',
+            text: 'Lưu',
+            margin: 3,
+            itemId:'btnLuu',
+            iconCls: 'x-fa fa-save'
         }]
     }]
 });
