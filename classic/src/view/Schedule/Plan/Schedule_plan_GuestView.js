@@ -1,10 +1,10 @@
-Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
+Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
     extend : 'Sch.panel.SchedulerTree',
-    xtype  : 'Schedule_plan_View',
-    id: 'Schedule_plan_View',
-    controller: 'Schedule_plan_ViewController',
+    xtype  : 'Schedule_plan_GuestView',
+    id: 'Schedule_plan_GuestView',
+    controller: 'Schedule_plan_GuestViewController',
     viewModel : {
-        type: 'Schedule_plan_ViewModel'
+        type: 'Schedule_plan_GuestViewModel'
     },
     requires : [
         'Sch.plugin.Zones',
@@ -39,12 +39,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
     columnLines      : false,
     rowLines         : true,
     cls              : 'tree-scheduler',
-    // partnerTimelinePanel: 'Schedule_plan_GuestView',
     tooltipTpl: new Ext.XTemplate(
         '<dl class="eventTip">',
         '{Name}',
         '</dl>'
     ),
+    // partnerTimelinePanel: 'Schedule_plan_View',
     eventRenderer : function(flight, resource, meta) {
         if (resource.data.leaf) {
             meta.cls = 'leaf';
