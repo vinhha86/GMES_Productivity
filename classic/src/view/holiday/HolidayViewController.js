@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
 
         var viewmodel = this.getViewModel();
         var storeHoliday = viewmodel.getStore('HolidayStore');
-        storeHoliday.loadStore();
+        storeHoliday.loadStoreByYear(new Date().getFullYear());
         storeHoliday.sort('day', 'DESC');
 
         var storeHolidayYears = viewmodel.getStore('HolidayYearStore');

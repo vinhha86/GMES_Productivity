@@ -90,4 +90,10 @@ Ext.define('GSmartApp.view.holiday.HolidayFormViewController', {
             m.Luu(startDate, endDate, comment);
         }
     },
+    onChange: function( datefield, newValue, oldValue, eOpts){
+        let enddatefield = this.lookupReference('enddate');
+        enddatefield.setDisabled(false);
+        enddatefield.setMinValue(newValue);
+        enddatefield.setValue(newValue);
+    }
 })

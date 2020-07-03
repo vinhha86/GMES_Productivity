@@ -12,19 +12,23 @@ Ext.define('GSmartApp.view.holiday.HolidayFormView', {
             margin: 5,
             fieldLabel: 'Từ ngày',
             reference: 'startdate',
-            value: new Date(),
+            format: 'd-M-y',
             allowBlank: false,
             flex:1,
-            labelWidth: 90
+            labelWidth: 90,
+            listeners: {
+                change: 'onChange'
+            }
         },{
             xtype:'datefield',
             margin: 5,
             fieldLabel: 'Đến ngày',
             reference: 'enddate',
-            value: new Date(),
+            format: 'd-M-y',
             allowBlank: false,
             flex:1,
-            labelWidth: 90
+            labelWidth: 90,
+            disabled: true
         }]
     },{
         xtype:'textarea',
