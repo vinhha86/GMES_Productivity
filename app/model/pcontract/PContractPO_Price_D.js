@@ -18,6 +18,9 @@ Ext.define('GSmartApp.model.pcontract.PContractPO_Price_D', {
 		'datecreated',
 		'usercreatedName',
 		'fobpriceid_link',
-		'fobprice_name'
+		'fobprice_name',
+		'quota',
+		'unitprice',
+		'unitid_link'
     ],
 });

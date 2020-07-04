@@ -23,6 +23,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         SizeSetStore: {
             type: 'SizeSetStore'
+        },
+        UnitStore: {
+            type: 'UnitStore'
         }  
     },
     data: {
@@ -38,6 +41,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         org_droppedid: null,
         org_droppedname: null,
         org_droppedcode: null,
-        isSewPriceReadonly: true
+        isSewPriceReadonly: true,
+
+        schedule: {
+            startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
+            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
+            listid: '13,14'
+        },
+        isHidden_PO: false,
+        isHidden_CMP: false,
+        isHidden_Salary: false,
+        isHidden_GrantOrg: true,
+        isHidden_GuessView: true,
+        isHidden_PDF: true
     }
 })

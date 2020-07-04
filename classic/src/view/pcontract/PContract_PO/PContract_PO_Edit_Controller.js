@@ -5,7 +5,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewmodel = this.getViewModel();
         var productStore = viewmodel.getStore('ProductStore');
         var productpairid_link = viewmodel.get('productpairid_link');
-        console.log(productpairid_link);
         productStore.loadStore_bypairid_Async(productpairid_link);
 
 		productStore.load({
@@ -20,7 +19,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 			}
 		});        
       
-
         if(viewmodel.get('id') > 0){
             this.getInfo(viewmodel.get('id'));
         } else {

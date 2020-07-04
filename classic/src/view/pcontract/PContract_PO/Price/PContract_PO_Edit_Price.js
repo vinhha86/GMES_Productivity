@@ -26,32 +26,71 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         text: 'Tên giá',
         dataIndex: 'fobprice_name',
         flex:1
-    },{
+    },
+    {
+        text: 'ĐM',
+        dataIndex: 'quota',
+        align: 'end',
+        width: 60,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'numberfield',
+                hideTrigger:true,
+                allowBlank: false,
+            }
+        }
+    },   
+    {
+        text: 'ĐVT',
+        dataIndex: 'unitid_link',
+        width: 65,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'combo',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnFocus: false,
+                bind: {
+                    store: '{UnitStore}',
+                    // value: '{unitid_link}'
+                },
+                displayField: 'code',
+                valueField: 'id',
+                queryMode : 'local'                
+            }
+        },
+        renderer: 'renderUnit'
+    },    
+    {
+        text: 'Đơn giá',
+        dataIndex: 'unitprice',
+        align: 'end',
+        width: 70,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'numberfield',
+                hideTrigger:true,
+                allowBlank: false,
+            }
+        }
+    },        
+    {
         text: 'Giá chào',
+        align: 'end',
         dataIndex: 'price',
         width: 80,
         editor: {
             completeOnEnter: true,
             field: {
-                xtype: 'textfield',
+                xtype: 'numberfield',
+                hideTrigger:true,
                 allowBlank: false,
-                blankText: 'Không được để trống'
             }
         }
     },
-    // {
-    //     text: 'Giá vốn',
-    //     dataIndex: 'cost',
-    //     width: 70,
-    //     editor: {
-    //         completeOnEnter: true,
-    //         field: {
-    //             xtype: 'textfield',
-    //             allowBlank: false,
-    //             blankText: 'Không được để trống'
-    //         }
-    //     }
-    // },
     {
         text: 'FOB',
         xtype: 'checkcolumn',
@@ -59,17 +98,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         width: 45
     },{
         xtype: 'actioncolumn',
-        width: 30,
+        width: 45,
         menuDisabled: true,
         sortable: false,
         bind:{
             hidden: '{ishiddenActionColumn}'
         },
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
+        items: [
+            {
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+                handler: 'onXoa'
+            },
+            {
+                iconCls: 'x-fa fas fa-dollar',
+                tooltip: 'Gợi ý giá',
+                handler: 'onPriceGuide'
+            }
+        ]
     }],
     dockedItems:[{
         dock:'top',

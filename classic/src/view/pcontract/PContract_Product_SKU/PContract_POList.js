@@ -42,6 +42,38 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         dataIndex:'po_quantity',
         width: 60
     }],
+    // plugins: {
+    //     rowwidget: {
+    //         widget: 
+    //         {
+    //             xtype: 'grid',
+    //             bind: {
+    //                 store: '{record.sub_po}',
+    //                 // title: 'Danh sách hàng xuất'
+	// 			},
+    //             columns:[
+    //                 {
+    //                     text:'PO Buyer',
+    //                     dataIndex:'po_buyer',
+    //                     width: 100
+    //                 },{
+    //                     text:'PO Vendor',
+    //                     dataIndex:'po_vendor',
+    //                     width: 100
+    //                 },{
+    //                     text:'Ngày giao',
+    //                     dataIndex:'shipdate',
+    //                     renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+    //                     width: 80
+    //                 },{
+    //                     text:'SL',
+    //                     dataIndex:'po_quantity',
+    //                     width: 60
+    //                 }			
+    //             ]				
+	// 		}
+	// 	}
+	// },      
     dockedItems:[{
         dock:'top',
         border: 'hbox',

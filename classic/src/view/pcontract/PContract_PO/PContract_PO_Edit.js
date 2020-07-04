@@ -94,10 +94,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
         }, 
         {
             region: 'center',
-            xtype: 'Schedule_plan_View',
-            border: true,
-            margin: 1,
-            // hidden: true
+            layout: 'border',
+            items:[
+                {
+                    xtype: 'FilterBar',
+                    region: 'north',
+                    height: 45,
+                    margin: 1
+                },
+                {
+                    region: 'center',
+                    xtype: 'Schedule_plan_View',
+                    border: true,
+                    margin: 1,
+                    // hidden: true
+                }
+            ]
+
         },
     ],
     dockedItems:[{

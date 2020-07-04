@@ -1,6 +1,11 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_PriceController',
+    init: function(){
+        var viewmodel = this.getViewModel();
+        var UnitStore = viewmodel.getStore('UnitStore');
+        UnitStore.loadStore();
+    },
     control: {      
         '#btnThemMoiGia': {
             click: 'onThemMoiGia'
@@ -167,4 +172,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             viewmodel.set('po_price',price_data);
         }
     },
+    renderUnit: function(val, meta, record, rindex, cindex, store) {
+        var viewmodel = this.getViewModel();
+        var UnitStore = viewmodel.getStore('UnitStore');
+        var idx = UnitStore.find('id', val);
+        return idx != -1 ? UnitStore.getAt(idx).get('code'):'';
+     }
 })

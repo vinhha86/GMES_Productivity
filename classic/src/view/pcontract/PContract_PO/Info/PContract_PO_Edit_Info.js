@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     xtype: 'tagfield',
-                    labelWidth: 80,
+                    labelWidth: 78,
                     labelAlign: 'left',
                     fieldLabel:'Đóng gói:',
                     width: '100%',
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Chưa xác định:',
                             hideTrigger:true,
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldStyle: 'font-size:11px;',
                             fieldLabel: 'PO Buyer:',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Số lượng:',
                             hideTrigger:true,
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -87,10 +87,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Ngày NPL về:',
                             reference: 'poinfo_matdate',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
-                            format: 'd/m/Y',
+                            format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
                                 value: '{po.matdate}'
@@ -108,7 +108,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             hideTrigger:true,
                             reference: 'poinfo_productiondays',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Sew Target %:',
                             hideTrigger:true,
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -141,7 +141,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldStyle: 'font-size:11px;',
                             fieldLabel: 'PO Vendor:',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
@@ -155,10 +155,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Ngày giao:',
                             reference: 'poinfo_shipdate',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
-                            format: 'd/m/Y',
+                            format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
                                 value: '{po.shipdate}'
@@ -175,10 +175,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             readOnly: true,
                             reference: 'poinfo_productiondate',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
-                            format: 'd/m/Y',
+                            format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
                                 value: '{po.productiondate}'
@@ -191,7 +191,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Đơn vị QC:',
                             reference: 'poinfo_qcorgname',
                             labelAlign: 'left',
-                            labelWidth: 80,
+                            labelWidth: 78,
                             width: '100%',
                             margin: 1,
                             bind: {
