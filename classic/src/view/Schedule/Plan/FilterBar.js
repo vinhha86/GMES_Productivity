@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             labelWidth: 60,
-            width: 130,
+            width: 125,
             bind: {
                 value: '{schedule.startDate}'
             }
@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             labelWidth: 60,
-            width: 130,
+            width: 125,
             bind: {
                 value: '{schedule.endDate}'
             }
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             emptyText: 'PO',
             // fieldLabel: 'PO:',
             labelWidth: 30,
-            width: 120,
+            width: 110,
             bind: {
                 value: '{schedule.PO}'
             }
@@ -132,8 +132,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             bind: {
                 value: '{schedule.isAllgrant}'
             }
-        },
-        '->'
+        }
         ,{
             xtype  : 'button',
             iconCls: 'fa fa-file-pdf-o',
