@@ -2,14 +2,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.FilterBar_Controller',
     init: function(){
-        // var viewmodel = this.getViewModel();
-        // var OrgStore = viewmodel.getStore('OrgStore');  
-        // OrgStore.loadStore(14, false);
+        var viewmodel = this.getViewModel();
+        
+        var VenderStore = viewmodel.getStore('Vender');
+        var EndBuyerStore = viewmodel.getStore('EndBuyer');
 
-        // var POrderUnGranted = viewmodel.getStore('POrderUnGranted'); 
-        // var golive_from = new Date('01-jan-2020');
-        // var golive_to = new Date('31-dec-2020'); 
-        // POrderUnGranted.loadFree_bygolivedate(golive_from,golive_to);
+        VenderStore.loadStore(11, false);
+        EndBuyerStore.loadStore(12, false);
+    },
+    control: {
+        '#checkYCSX' : {
+            change: 'onSearch'
+        },
+        '#checkAllGrant' : {
+            change: 'onSearch'
+        }
     },
     onZoomIn : function () {
         var panel_plan = this.getView().items.get('panel_plan');
@@ -61,8 +68,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         params.listid = viewmodel.get('schedule.listid');
         params.startDate = viewmodel.get('schedule.startDate');
         params.endDate = viewmodel.get('schedule.endDate');
+        params.PO_code = viewmodel.get('schedule.PO');
+        params.Buyer = viewmodel.get('schedule.buyer');
+        params.Vendor = viewmodel.get('schedule.vendor');
+        params.isReqPorder = viewmodel.get('schedule.isReqPorder');
+        params.isAllgrant = viewmodel.get('schedule.isAllgrant');
 
-        crud.transport.load.params = params;
+        crud.transport.load.requestConfig.params = params;
         crud.load();
     }
 })

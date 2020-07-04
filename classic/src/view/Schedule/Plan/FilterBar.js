@@ -34,7 +34,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'button',
             tooltip: 'Phân lệnh vào tổ chuyền',
-            text: 'Phân chuyền',
             iconCls: 'x-fa fa-sliders',
             weight: 30,
             handler: 'onGrantToOrgTap',
@@ -42,19 +41,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'button',
             tooltip: 'Khung nhìn khách',
-            text: 'Khung nhìn khách',
-            iconCls: 'x-fa fa-sliders',
+            iconCls: 'x-fa fa-user',
             weight: 30,
             handler: 'onGuessView',
         },
         {
             xtype: 'datefield',
             weight: 30,
-            fieldLabel: 'Bắt đầu',
+            // fieldLabel: 'Bắt đầu',
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             labelWidth: 60,
-            width: 190,
+            width: 125,
             bind: {
                 value: '{schedule.startDate}'
             }
@@ -62,14 +60,52 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'datefield',
             weight: 30,
-            fieldLabel: 'Kết thúc',
+            // fieldLabel: 'Kết thúc',
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             labelWidth: 60,
-            width: 190,
+            width: 125,
             bind: {
                 value: '{schedule.endDate}'
             }
+        },
+        {
+            xtype: 'textfield',
+            emptyText: 'PO',
+            // fieldLabel: 'PO:',
+            labelWidth: 30,
+            width: 110,
+            bind: {
+                value: '{schedule.PO}'
+            }
+        },
+        {
+            xtype: 'combo',
+            queryMode: 'local',
+            valueField: 'id',
+            displayField: 'name',
+            bind: {
+                store: '{EndBuyer}',
+                value: '{schedule.buyer}'
+            },
+            itemId: 'orgbuyerid_link',
+            emptyText: 'Buyer',
+            labelWidth: 40,
+            width: 120
+        },
+        {
+            xtype: 'combo',
+            queryMode: 'local',
+            valueField: 'id',
+            displayField: 'name',
+            bind: {
+                store: '{Vender}',
+                value: '{schedule.vendor}'
+            },
+            emptyText: 'Vendor',
+            // fieldLabel: 'Vendor:',
+            labelWidth: 50,
+            width: 120
         },
         {
             xtype: 'button',
@@ -78,8 +114,25 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-search',
             weight: 30,
             handler: 'onSearch'
-        },
-        '->'
+        },{
+            xtype: 'checkbox',
+            fieldLabel: 'Y/C SX',
+            width: 70,
+            labelWidth: 50,
+            itemId: 'checkYCSX',
+            bind: {
+                value: '{schedule.isReqPorder}'
+            }
+        },{
+            xtype: 'checkbox',
+            fieldLabel: 'Tất cả tổ SX',
+            width: 100,
+            labelWidth: 80,
+            itemId: 'checkAllGrant',
+            bind: {
+                value: '{schedule.isAllgrant}'
+            }
+        }
         ,{
             xtype  : 'button',
             iconCls: 'fa fa-file-pdf-o',

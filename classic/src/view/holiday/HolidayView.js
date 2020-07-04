@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
     }, {
         text: 'Ngày nghỉ',
         dataIndex: 'day',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d-M-y'),
         flex: 1
     }, {
         text: 'Nội dung',
@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
                 },
                 displayField: 'year',
                 valueField: 'year',
-                value: 'Tất cả',
+                value: new Date().getFullYear(),
                 queryMode: 'local',
                 editable: false,
                 allowBlank: false,

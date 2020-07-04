@@ -41,9 +41,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
     cls              : 'tree-scheduler',
     // partnerTimelinePanel: 'Schedule_plan_GuestView',
     tooltipTpl: new Ext.XTemplate(
-        '<dl class="eventTip">',
-        '{Name}',
-        '</dl>'
+        '<ul class="eventTip">',
+        '<li>Buyer: {buyername}</li>',
+        '<li>Vendor: {vendorname}</li>',
+        '<li>Số ngày SX: {duration}</li>',
+        '<li>Năng suất: {productivity}</li>',
+        '</ul>'
     ),
     eventRenderer : function(flight, resource, meta) {
         if (resource.data.leaf) {
@@ -55,9 +58,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         }
     },
 
-    lockedGridConfig : {
-        width : 300
-    },
+    // lockedGridConfig : {
+    //     width : 300
+    // },
 
     viewConfig : {
         getRowClass : function(r) {
@@ -75,9 +78,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         {
             xtype     : 'treecolumn', //this is so we know which column will show the tree
             text      : 'Nhà máy',
-            width     : 200,
-            flex      : 1,
-            sortable  : true,
+            width:      250,
+            sortable  : false,
             dataIndex : 'Name'
         }
     ],
@@ -120,7 +122,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                             params: {
                                 listid: '13,14',
                                 startDate: viewmodel.get('schedule.startDate'),
-                                endDate: viewmodel.get('schedule.endDate')
+                                endDate: viewmodel.get('schedule.endDate'),
+                                PO_code : '',
+                                Buyer: 0,
+                                Vendor: 0,
+                                isReqPorder: false,
+                                isAllgrant: false
                             }
                         }
                         
