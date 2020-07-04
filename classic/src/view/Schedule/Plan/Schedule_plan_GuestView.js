@@ -39,12 +39,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
     columnLines      : false,
     rowLines         : true,
     cls              : 'tree-scheduler',
+    // partnerTimelinePanel: 'Schedule_plan_GuestView',
     tooltipTpl: new Ext.XTemplate(
-        '<dl class="eventTip">',
-        '{Name}',
-        '</dl>'
+        '<ul class="eventTip">',
+        '<li>Buyer: {buyername}</li>',
+        '<li>Vendor: {c}</li>',
+        '<li>Số ngày SX: {duration}</li>',
+        '<li>Năng suất: {productivity}</li>',
+        '</ul>'
     ),
-    // partnerTimelinePanel: 'Schedule_plan_View',
     eventRenderer : function(flight, resource, meta) {
         if (resource.data.leaf) {
             meta.cls = 'leaf';
@@ -55,9 +58,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
         }
     },
 
-    lockedGridConfig : {
-        width : 300
-    },
+    // lockedGridConfig : {
+    //     width : 300
+    // },
 
     viewConfig : {
         getRowClass : function(r) {
@@ -75,9 +78,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
         {
             xtype     : 'treecolumn', //this is so we know which column will show the tree
             text      : 'Nhà máy',
-            width     : 200,
-            flex      : 1,
-            sortable  : true,
+            width:      250,
+            sortable  : false,
             dataIndex : 'Name'
         }
     ],
@@ -117,10 +119,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
                                 'Accept': "application/json", 
                                 'Content-Type':"application/json"
                              },
-                            params: {
+                             params: {
                                 listid: '13,14',
                                 startDate: viewmodel.get('schedule.startDate'),
-                                endDate: viewmodel.get('schedule.endDate')
+                                endDate: viewmodel.get('schedule.endDate'),
+                                PO_code : '',
+                                Buyer: 0,
+                                Vendor: 0,
+                                isReqPorder: false,
+                                isAllgrant: false
                             }
                         }
                         
@@ -139,7 +146,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
             plugins : [
                 {
                     ptype : 'scheduler_zones',
-                    store : HolidayStore
+                    store : HolidayStore,
+                    innerTpl : '<span class="temperature"></span>'
                 }
             ]
         });
