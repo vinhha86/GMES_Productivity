@@ -40,7 +40,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     onGuessView: function(){
         //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
         var panel_main = Ext.getCmp('Schedule_plan_Main');
-        console.log(panel_main);
         var panel_guessview = panel_main.down('Schedule_plan_GuestView');
         if (null != panel_guessview) {
             if (panel_guessview.getHidden())
@@ -50,10 +49,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         }
     },   
     onExport: function(){
-        var me = this.getView().down('#panel_plan');
-        me.getPlugin('export').setFileFormat('pdf');
-        me.showExportDialog();
-    }    ,
+        var me = Ext.getCmp('Schedule_plan_View');
+        me.print();
+    },
     onSearch: function(){
         var sch = Ext.getCmp('Schedule_plan_View');
         var viewmodel = this.getViewModel();

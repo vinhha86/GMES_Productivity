@@ -12,7 +12,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         'Sch.data.CrudManager',
         'GSmartApp.model.Schedule_Holiday_model',
         'GSmartApp.model.Schedule_Porder_model',
-        'GSmartApp.model.Schedule_Plan_model'
+        'GSmartApp.model.Schedule_Plan_model',
+        'Sch.plugin.Printable'
     ],
     rowHeight        : 40,
     barMargin        : 2,
@@ -147,6 +148,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 {
                     ptype : 'scheduler_zones',
                     store : HolidayStore
+                },
+                {
+                    ptype              : 'scheduler_printable',
+                    pluginId           : 'printable',
+                    // Configure what to show in print dialog
+                    exportDialogConfig : {
+                        showDPIField         : true,
+                        showColumnPicker     : true,
+                        dateRangeRestriction : false,
+                        stateful             : true,
+                        modal                : true
+                    }
                 }
             ]
         });

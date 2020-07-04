@@ -120,6 +120,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             width: 70,
             labelWidth: 50,
             itemId: 'checkYCSX',
+            labelAlign: 'right',
             bind: {
                 value: '{schedule.isReqPorder}'
             }
@@ -128,6 +129,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             fieldLabel: 'Tất cả tổ SX',
             width: 100,
             labelWidth: 80,
+            labelAlign: 'right',
             itemId: 'checkAllGrant',
             bind: {
                 value: '{schedule.isAllgrant}'
@@ -136,7 +138,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         ,{
             xtype  : 'button',
             iconCls: 'fa fa-file-pdf-o',
-            text   : 'PDF'
+            text   : 'PDF',
+            handler: 'onExport'
         },{
             xtype: 'button',
             tooltip: 'Phóng to',

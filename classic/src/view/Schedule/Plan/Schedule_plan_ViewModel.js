@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
             PO : '',
             buyer: 0,
             vendor: 0,
-            isReqPorder: false
+            isReqPorder: false,
+            isAllgrant: false
         },
         isHidden_KHGH: true,
         isHidden_CMP: true,
