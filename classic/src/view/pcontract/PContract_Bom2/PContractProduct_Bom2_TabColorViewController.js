@@ -68,8 +68,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
                     sourceview: 'PContractProduct_Bom2_TabColorView',
                     searchtype: 5,
                     pcontractid_link: viewmodel.get('PContract.id'),
-                    productid_link_notsearch: productid_link,
-                    orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link')
+                    productid_link_notsearch: productid_link
                 }
             }
         });
