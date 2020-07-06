@@ -4,10 +4,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     init: function(){
         var viewmodel = this.getViewModel();
         
-        var VenderStore = viewmodel.getStore('Vender');
+        var VendorStore = viewmodel.getStore('Vender');
         var EndBuyerStore = viewmodel.getStore('EndBuyer');
 
-        VenderStore.loadStore(11, false);
+        VendorStore.loadStore(11, false);
         EndBuyerStore.loadStore(12, false);
     },
     control: {
@@ -19,13 +19,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         }
     },
     onZoomIn : function () {
-        var panel_plan = this.getView().items.get('panel_plan');
+        var viewmodel = this.getViewModel();
+        var panel_plan = Ext.getCmp('Schedule_plan_View');
         panel_plan.zoomIn();
+        panel_plan.setStartDate(viewmodel.get('schedule.startDate'));
+        panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
     },
 
     onZoomOut: function () {
-        var panel_plan = this.getView().items.get('panel_plan');
+        var viewmodel = this.getViewModel();
+        var panel_plan = Ext.getCmp('Schedule_plan_View');
         panel_plan.zoomOut();
+        panel_plan.setStartDate(viewmodel.get('schedule.startDate'));
+        panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
     },   
     onGrantToOrgTap: function(){
         //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
@@ -74,5 +80,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
 
         crud.transport.load.requestConfig.params = params;
         crud.load();
+    },
+    onShowKHGH: function(){
+        var panel_po = Ext.getCmp('PContract_PO_Edit');
+        var west = panel_po.down('#panel_po');
+        west.setHidden(!west.getHidden());
     }
 })

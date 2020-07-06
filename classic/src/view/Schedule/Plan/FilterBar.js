@@ -10,8 +10,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-shopping-basket',
             weight: 30,
             bind : {
-                hidden: 'isHidden_KHGH'
-            }
+                hidden: '{isHidden_KHGH}'
+            },
+            handler: 'onShowKHGH'
         },
         {
             xtype: 'button',
@@ -19,7 +20,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-dollar',
             weight: 30,
             bind : {
-                hidden: 'isHidden_CMP'
+                hidden: '{isHidden_CMP}'
             }
         },
         {
@@ -28,7 +29,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-money',
             weight: 30,
             bind : {
-                hidden: 'isHidden_Salary'
+                hidden: '{isHidden_Salary}'
             }
         },
         {
@@ -37,6 +38,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-sliders',
             weight: 30,
             handler: 'onGrantToOrgTap',
+            bind : {
+                hidden: '{isHidden_Phanlenh}'
+            }
         },
         {
             xtype: 'button',
@@ -44,6 +48,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-user',
             weight: 30,
             handler: 'onGuessView',
+            bind : {
+                hidden: '{isHidden_GuestView}'
+            }
         },
         {
             xtype: 'datefield',
@@ -145,14 +152,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             tooltip: 'Phóng to',
             // text: 'Zoom in',
             iconCls: 'x-fa fa-search-plus',
-            weight: 30
+            weight: 30,
+            handler: 'onZoomIn'
         },
         {
             xtype: 'button',
             tooltip: 'Thu nhỏ',
             // text: 'Zoom out',
             iconCls: 'x-fa fa-search-minus',
-            weight: 30
+            weight: 30,
+            handler: 'onZoomOut'
         }
     ]
 })

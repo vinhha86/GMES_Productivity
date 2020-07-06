@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
     requires: ['GSmartApp.store.unit.UnitStore', 
     'GSmartApp.store.pcontract.PContract_PO_Price_Store',
     'GSmartApp.store.product.ProductStore',
-    'GSmartApp.store.POrderFilter'],
+    'GSmartApp.store.POrderFilter', 'GSmartApp.store.org.ListOrgStore'],
     stores:{
         POrderStore: {
             type: 'POrderFilter'
@@ -26,7 +26,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         UnitStore: {
             type: 'UnitStore'
-        }  
+        }  ,
+        EndBuyer : {
+            type: 'ListOrgStore'
+        },
+        Vender:{
+            type : 'ListOrgStore'
+        }
     },
     data: {
         id: null,
@@ -46,13 +52,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         schedule: {
             startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
-            listid: '13,14'
+            listid: '13,14',
+            PO : '',
+            buyer: 0,
+            vendor: 0,
+            isReqPorder: false,
+            isAllgrant: false
         },
         isHidden_PO: false,
         isHidden_CMP: false,
         isHidden_Salary: false,
         isHidden_GrantOrg: true,
         isHidden_GuessView: true,
-        isHidden_PDF: true
+        isHidden_PDF: true,
+        isHidden_KHGH: false,
+        isHidden_Phanlenh: true,
+        isHidden_GuestView : true
     }
 })

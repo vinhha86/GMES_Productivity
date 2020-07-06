@@ -15,7 +15,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
         },
         isHidden_KHGH: true,
         isHidden_CMP: true,
-        isHidden_Salary: true
+        isHidden_Salary: true,
+        isHidden_Phanlenh: false,
+        isHidden_GuestView: false
     },
     stores: {
         EndBuyer : {
