@@ -116,6 +116,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         porderSKUStore: {
             type: 'porderSKUStore'
         },    
+        porderReqStore: {
+            type: 'POrder_Req'
+        },
         MarketStore: {
             type: 'MarketStore'
         },

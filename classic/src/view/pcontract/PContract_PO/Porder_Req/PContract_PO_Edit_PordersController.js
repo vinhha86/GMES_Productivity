@@ -16,13 +16,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var porderStore = viewmodel.getStore('POrderStore');
         var priceStore = viewmodel.getStore('PriceStore');
         var rootproductid_link = viewmodel.get('productpairid_link');
+        var po = viewmodel.get('po');
 
         var lstSizeset = priceStore.queryBy(function(record,id){
             return (record.get('productid_link') == rootproductid_link);
         }).items;
 
-        for(i=0; i<lstSizeset.length; i++){
-            var price_data = lstSizeset[i].data;
+        // for(i=0; i<lstSizeset.length; i++){
+        //     var price_data = lstSizeset[i].data;
             //Check xem co trung thong tin khong
             var lstCheck = porderStore.queryBy(function(record,id){
                 return (record.get('granttoorgid_link') == orgId
@@ -33,16 +34,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 var porder_New = new Object({
                     pcontractid_link : pcontractid_link,
                     pcontract_poid_link: pcontract_poid_link,
-                    sizesetid_link : price_data.sizesetid_link,
-                    sizesetname: price_data.sizesetname,
+                    // sizesetid_link : price_data.sizesetid_link,
+                    // sizesetname: price_data.sizesetname,
                     granttoorgid_link: orgId,
                     granttoorgcode: orgCode,
-                    totalorder: price_data.quantity
+                    totalorder: po.data.totalorder
                 });
                 // console.log(porder_New);
                 porderStore.insert(0,porder_New);
             }
-        }
+        // }
 
         //Huy bo de khong bi mat thogn tin ben Gantt
         dropHandlers.cancelDrop();

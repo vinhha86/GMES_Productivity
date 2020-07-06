@@ -60,7 +60,36 @@ Ext.define('GSmartApp.store.POrderFilter', {
 			}
 		});
 		this.load();
-	},     
+	},   
+	loadByPOrder_Req: function(pcontract_poid_link,porderreqid_link){
+		var me=this;
+		var params = new Object();
+        params.porderreqid_link = porderreqid_link;
+        params.pcontract_poid_link = pcontract_poid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/porder/get_byporder_req',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	}, 	  
 	loadByContract: function(pcontractid_link, productid_link){
 		var me=this;
 		var params = new Object();

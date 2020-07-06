@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
         mode: 'SINGLE'
     },
     bind:{
-        store:'{porderStore}'
+        store:'{porderReqStore}'
     },
     columns:[
         // {

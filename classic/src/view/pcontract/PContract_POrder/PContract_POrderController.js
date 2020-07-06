@@ -31,11 +31,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         var pcontractid_link = rec.data.pcontractid_link;
         viewmodel.set('po_selected', rec.data);
 
-        //Lay danh sach POrders
-        var porderStore = viewmodel.getStore('porderStore');
-        porderStore.loadByPO(pcontractid_link,po_id);
+        //Lay danh sach POrder_Req
+        var porderReqStore = viewmodel.getStore('porderReqStore');
+        porderReqStore.loadByPO(po_id);
 
     },
+    onSelectPOrder_Req: function(m, rec){
+        var viewmodel = this.getViewModel();
+        var porder_req_id = rec.data.id;
+        var po_id = viewmodel.get('po_selected').id;
+
+        //Lay danh sach POrders
+        var porderStore = viewmodel.getStore('porderStore');
+        porderStore.loadByPOrder_Req(po_id,porder_req_id);
+    },
+
     onSelectPOrder: function(m, rec){
         this.refreshSKUList(rec.data.id);
     },

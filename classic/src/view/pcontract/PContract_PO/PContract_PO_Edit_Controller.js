@@ -118,8 +118,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
             // params.list_price = me.getListPrice();
             params.pcontractid_link = viewmodel.get('pcontractid_link');
-            console.log(params);
-            console.log(Ext.JSON.encode(params));
+            // console.log(params);
+            // console.log(Ext.JSON.encode(params));
             // return;
     
             GSmartApp.Ajax.post('/api/v1/pcontract_po/create', Ext.JSON.encode(params),
