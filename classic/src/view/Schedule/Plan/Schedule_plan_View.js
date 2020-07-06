@@ -47,6 +47,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         '<li>Vendor: {vendorname}</li>',
         '<li>Số ngày SX: {duration}</li>',
         '<li>Năng suất: {productivity}</li>',
+        '<li>Lệnh SX: {pordercode}</li>',
         '</ul>'
     ),
     eventRenderer : function(flight, resource, meta) {
