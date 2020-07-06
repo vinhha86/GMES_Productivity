@@ -39,6 +39,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         width: 70
     },{
         text:'SL',
+        align: 'end',
         dataIndex:'po_quantity',
         width: 60
     }],

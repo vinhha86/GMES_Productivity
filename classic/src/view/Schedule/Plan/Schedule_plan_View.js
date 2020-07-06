@@ -73,7 +73,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             // if (r.get('Id') === 9 || r.parentNode.get('Id') === 9) {
             //     return 'some-other-grouping-class';
             // }
-        }
+        },
+        plugins: {
+            ptype: 'treeviewdragdrop',
+            enableDrag: true,
+            dragText: '{0} Yêu cầu SX',
+            dragGroup: 'porderGanttDropGroup',
+            dropGroup: 'porderFreeDropGroup'
+        },
+        listeners: {
+            drop: 'onDrop',
+            beforedrop: 'onBeforeDrop'
+        }        
     },
 
     columns : [

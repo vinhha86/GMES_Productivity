@@ -30,27 +30,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
     },
     columns:[
         {
-            header:'Style',
-            dataIndex:'ordercode',
-            width: 100
-        },
-        {
             header:'Mã lệnh',
             dataIndex:'ordercode',
-            width: 100
-        },
-        {
-            header:'Phân xưởng',
-            dataIndex:'granttoorgcode',
             flex: 1
+        },        
+        {
+            header:'Style',
+            dataIndex:'stylebuyer',
+            width: 120
         },
         {
             header:'Dải cỡ',
             dataIndex:'sizesetname',
             width: 70
         },
+        // {
+        //     header:'Phân xưởng',
+        //     dataIndex:'granttoorgcode',
+        //     flex: 1
+        // },
         {
             header:'SL',
+            align: 'end',
             dataIndex:'totalorder',
             width: 70,
             summaryType: 'sum', 

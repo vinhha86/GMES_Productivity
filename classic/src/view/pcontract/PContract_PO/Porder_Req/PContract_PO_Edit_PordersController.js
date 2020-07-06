@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var pcontractid_link = viewmodel.get('po.pcontractid_link');
         var pcontract_poid_link = viewmodel.get('po.id');
 
-        var porderStore = viewmodel.getStore('POrderStore');
+        // var porderStore = viewmodel.getStore('POrderStore');
+        var porderReqStore = viewmodel.getStore('porderReqStore');
         var priceStore = viewmodel.getStore('PriceStore');
         var rootproductid_link = viewmodel.get('productpairid_link');
         var po = viewmodel.get('po');
@@ -25,10 +26,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         // for(i=0; i<lstSizeset.length; i++){
         //     var price_data = lstSizeset[i].data;
             //Check xem co trung thong tin khong
-            var lstCheck = porderStore.queryBy(function(record,id){
+            var lstCheck = porderReqStore.queryBy(function(record,id){
+                // return (record.get('granttoorgid_link') == orgId
+                //     && record.get('sizesetid_link') == price_data.sizesetid_link
+                // );
                 return (record.get('granttoorgid_link') == orgId
-                    && record.get('sizesetid_link') == price_data.sizesetid_link
-                );
+            );
             }).items;
             if (lstCheck.length == 0){
                 var porder_New = new Object({
@@ -38,10 +41,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     // sizesetname: price_data.sizesetname,
                     granttoorgid_link: orgId,
                     granttoorgcode: orgCode,
-                    totalorder: po.data.totalorder
+                    totalorder: po.po_quantity
                 });
                 // console.log(porder_New);
-                porderStore.insert(0,porder_New);
+                porderReqStore.insert(0,porder_New);
             }
         // }
 

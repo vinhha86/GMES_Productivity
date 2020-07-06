@@ -41,6 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
         },
         {
             header:'SL',
+            align: 'end',
             dataIndex:'totalorder',
             width: 70,
             summaryType: 'sum', 
@@ -54,7 +55,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             items: [{
                 iconCls: 'x-fa fas fa-magic',
                 tooltip: 'Tạo lệnh',
-                handler: 'onXoa'
+                handler: 'onPOrderCreate'
             }]
         }
     ]

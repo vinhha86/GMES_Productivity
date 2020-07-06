@@ -16,7 +16,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         },
         'PContract_POrder_Porders': {
             itemclick: 'onSelectPOrder'
-        }
+        },
+        'PContract_POrder_Req': {
+            itemclick: 'onSelectPOrder_Req'
+        },
+        
     },
     onFilterProduct: function(combo, record, eOpts ){
         var store = this.getViewModel().getStore('PContractPOList');
@@ -122,4 +126,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             })         
         }
     },    
+    onPOrderCreate:function(rid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Lệnh sản xuất', 'Tạo lệnh sản xuất cho phân xưởng? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var porderReqStore = viewmodel.getStore('porderReqStore');
+                    var record = porderReqStore.getAt(rowIndex);
+                    var params=new Object();
+                    params.data = record.data;
+                    GSmartApp.Ajax.post('/api/v1/porder_req/gen_porder', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            var porderStore = viewmodel.getStore('porderStore');
+                            porderStore.reload();
+                        } else {
+                            Ext.MessageBox.show({
+                                title: "Lệnh sản xuất",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    }); 
+                }
+            } );        
+    }
 })

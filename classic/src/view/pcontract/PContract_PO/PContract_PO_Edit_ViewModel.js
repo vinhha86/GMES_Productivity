@@ -9,6 +9,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         POrderStore: {
             type: 'POrderFilter'
         },
+        porderReqStore: {
+            type: 'POrder_Req'
+        },        
         CurrencyStore: {
             type: 'CurrencyStore'
         },

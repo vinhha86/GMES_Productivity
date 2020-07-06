@@ -54,8 +54,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                         store.insert(0 , response.data.pcontract_price); 
                         
                         //Lay danh sach POrders
-                        var porderStore = viewmodel.getStore('POrderStore');
-                        porderStore.loadByPO(viewmodel.get('pcontractid_link'),viewmodel.get('po.id'));
+                        // var porderStore = viewmodel.getStore('POrderStore');
+                        // porderStore.loadByPO(viewmodel.get('pcontractid_link'),viewmodel.get('po.id'));
+
+                        //Lay danh sach POrder_Req
+                        var porderReqStore = viewmodel.getStore('porderReqStore');
+                        porderReqStore.loadByPO(viewmodel.get('po.id'));
                     }
                 }
             })
@@ -84,6 +88,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
         var porderStore = viewmodel.getStore('POrderStore');
+        var porderReqStore = viewmodel.getStore('porderReqStore');
 
         //Xoa filter trc khi day len server
         priceStore.clearFilter();
@@ -109,9 +114,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             params.data = viewmodel.get('po');
 
             var arrPOrders = [];
-            porderStore.each(function (record) {
+            // porderStore.each(function (record) {
+            //     //Neu la lenh moi (sencha tu sinh id) --> set = null
+            //     if(!Ext.isNumber(record.data.id)) record.data.id = null;
+            //     arrPOrders.push(record.data);
+            // });
+            
+            porderReqStore.each(function (record) {
                 //Neu la lenh moi (sencha tu sinh id) --> set = null
                 if(!Ext.isNumber(record.data.id)) record.data.id = null;
+                // var porder = new Object();
+                // porder.granttoorgid_link = record.data.granttoorgid_link;
+                // porder.totalorder = record.data.totalorder;
                 arrPOrders.push(record.data);
             });
             params.po_orders = arrPOrders;
