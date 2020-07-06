@@ -11,6 +11,11 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
         selType: 'checkboxmodel',
         mode: 'MULTI'
     },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1
+        }
+    },
     viewConfig: {
         stripeRows: true,
         columnLines: true,
@@ -27,12 +32,34 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
     }, {
         text: 'Ngày nghỉ',
         dataIndex: 'day',
-        renderer: Ext.util.Format.dateRenderer('d-M-y'),
-        flex: 1
+        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        flex: 1,
+        editor:{
+            completeOnEnter: true,
+            field: {
+                xtype: 'datefield',
+                format: 'd-m-Y',
+                pickerAlign: 'tr-br?',
+                listeners: {
+                    focusenter: 'onDateFocus',
+                    change: 'onDateChange',
+                    focusleave: 'onFocusLeave'
+                }
+            }
+        }
     }, {
         text: 'Nội dung',
         dataIndex: 'comment',
-        flex: 1
+        flex: 1,
+        editor:{
+            field: {
+                xtype: 'textfield',
+                listeners:{
+                    change: 'onCommentChange',
+                    focusleave: 'onFocusLeave'
+                }
+            }
+        }
     }, {
         xtype: 'actioncolumn',
         width: 40,

@@ -2,6 +2,12 @@ Ext.define('GSmartApp.view.holiday.HolidayFormViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.HolidayFormViewController',
     init: function () {
+        let startField = this.lookupReference('startdate');
+        let endField = this.lookupReference('enddate');
+        startField.getPicker().monthYearFormat = 'm-Y';
+        endField.getPicker().monthYearFormat = 'm-Y';
+        // Ext.Date.monthNames = ['01', '02', '03', '04', '05','06', '07', '08', '09', '10','11', '12'];
+        // startField.getPicker().monthNames = ['1', '2', '3', '4', '5','6', '7', '8', '9', '10','11', '12'];
     },
     control: {
         '#btnThoat': {
@@ -15,8 +21,8 @@ Ext.define('GSmartApp.view.holiday.HolidayFormViewController', {
         this.getView().up('window').close();
     },
     Luu: function (startTime, endTime, comment) {
-        var me = this.getView();
-        var params = new Object();
+        let me = this.getView();
+        let params = new Object();
         params.startTime = startTime;
         params.endTime = endTime;
         params.comment = comment;
@@ -27,8 +33,8 @@ Ext.define('GSmartApp.view.holiday.HolidayFormViewController', {
         GSmartApp.Ajax.post('/api/v1/holiday/create', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
+                    let res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
                         Ext.Msg.show({
                             title: 'Thông báo',
                             msg: 'Lưu thành công',
@@ -66,12 +72,12 @@ Ext.define('GSmartApp.view.holiday.HolidayFormViewController', {
             })
     },
     onLuu: function () {
-        var startField = this.lookupReference('startdate');
-        var endField = this.lookupReference('enddate');
-        var commentField = this.lookupReference('comment');
-        var startTime = startField.getValue().getTime();
-        var endTime = endField.getValue().getTime();
-        var comment = commentField.getValue();
+        let startField = this.lookupReference('startdate');
+        let endField = this.lookupReference('enddate');
+        let commentField = this.lookupReference('comment');
+        let startTime = startField.getValue().getTime();
+        let endTime = endField.getValue().getTime();
+        let comment = commentField.getValue();
 
         if(startTime > endTime){
             Ext.MessageBox.show({
@@ -84,9 +90,9 @@ Ext.define('GSmartApp.view.holiday.HolidayFormViewController', {
             });
             return;
         }else{
-            var m = this;
-            var startDate = startField.getValue().getTime();
-            var endDate = endField.getValue().getTime();
+            let m = this;
+            let startDate = startField.getValue().getTime();
+            let endDate = endField.getValue().getTime();
             m.Luu(startDate, endDate, comment);
         }
     },

@@ -11,12 +11,15 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         },
         '#btnXoa': {
             click: 'onXoaNhieu'
+        },
+        '#HolidayView': {
+            itemclick: 'onItemClick'
         }
     },
     onThemMoi: function(){
-        var viewModel = this.getViewModel();
-        var me = this.getView();
-        var form = Ext.create('Ext.window.Window', {
+        let viewModel = this.getViewModel();
+        let me = this.getView();
+        let form = Ext.create('Ext.window.Window', {
             height: 250,
             width: 600,
             closable: true,
@@ -38,21 +41,21 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         form.show();
     },
     onloadPage: function () {
-        var me = this.getView();
-        var t = this;
+        let me = this.getView();
+        let t = this;
 
-        var viewmodel = this.getViewModel();
-        var storeHoliday = viewmodel.getStore('HolidayStore');
+        let viewmodel = this.getViewModel();
+        let storeHoliday = viewmodel.getStore('HolidayStore');
         storeHoliday.loadStoreByYear(new Date().getFullYear());
         storeHoliday.sort('day', 'DESC');
 
-        var storeHolidayYears = viewmodel.getStore('HolidayYearStore');
+        let storeHolidayYears = viewmodel.getStore('HolidayYearStore');
         storeHolidayYears.loadStore();
     },
     onChange: function( cbbox, newValue, oldValue, eOpts ) {
         // console.log(newValue);
-        var viewmodel = this.getViewModel();
-        var storeHoliday = viewmodel.getStore('HolidayStore');
+        let viewmodel = this.getViewModel();
+        let storeHoliday = viewmodel.getStore('HolidayStore');
         if(newValue == 'Tất cả')
             storeHoliday.loadStore();
         else
@@ -60,10 +63,10 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         storeHoliday.sort('day', 'DESC');
     },
     onXoa: function (grid, rowIndex, colIndex) {
-        var me = this;
-        var rec = grid.getStore().getAt(rowIndex);
-        var id = rec.get('id');
-        var data = [];
+        let me = this;
+        let rec = grid.getStore().getAt(rowIndex);
+        let id = rec.get('id');
+        let data = [];
         data.push({'id': id});
         Ext.Msg.show({
             title: 'Thông báo',
@@ -82,9 +85,9 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         });
     },
     Xoa: function (data) {
-        var me = this.getView();
+        let me = this.getView();
         me.setLoading("Đang xóa dữ liệu");
-        var params = new Object();
+        let params = new Object();
         params.data = data;
 
         GSmartApp.Ajax.post('/api/v1/holiday/delete', Ext.JSON.encode(params),
@@ -99,7 +102,7 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
                         }
                     });
 
-                    var store = me.getStore();
+                    let store = me.getStore();
                     store.load();
                     me.getViewModel().getStore('HolidayYearStore').load();
                 } else {
@@ -116,10 +119,10 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
             })
     },
     onXoaNhieu: function(){
-        var m = this.getView();
-        var me = this;
-        var data = [];
-        var select = m.getSelectionModel().getSelection();
+        let m = this.getView();
+        let me = this;
+        let data = [];
+        let select = m.getSelectionModel().getSelection();
         if(select.length == 0){
             Ext.Msg.show({
                 title: "Thông báo",
@@ -131,7 +134,7 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
             });
             return;
         }
-        for (var i = 0; i < select.length; i++) {
+        for (let i = 0; i < select.length; i++) {
             data.push({'id': select[i].data.id});
         }
         Ext.Msg.show({
@@ -149,5 +152,100 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
                 }
             }
         });
+    },
+    onDateFocus: function(dateField, event, eOpts){
+        // show picker
+        let picker = dateField.getPicker();
+        picker.monthYearFormat = 'm-yy';
+        dateField.expand();
+    },
+    onDateChange: function(dateField, newValue, oldValue, eOpts){
+        // set date to data.day
+        let view = this.getView();
+        let viewModel = this.getViewModel();
+        let data = viewModel.get('data');
+        data.day = newValue;
+        viewModel.set('isChanged', true);
+        // console.log(oldValue);
+        // console.log(newValue);
+    },
+    onCommentChange: function(textField, newValue, oldValue, eOpts ){
+        let view = this.getView();
+        let viewModel = this.getViewModel();
+        let data = viewModel.get('data');
+        data.comment = newValue;
+        viewModel.set('isChanged', true);
+        // console.log(oldValue);
+        // console.log(newValue);
+    },
+    onFocusLeave: function(){
+        // save to db
+        let me = this.getView();
+        let viewModel = this.getViewModel();
+
+        if(!viewModel.get('isChanged')) return;
+        else{
+            let params = new Object();
+            let data = viewModel.get('data');
+
+            // console.log(data.day);
+            // console.log(data.day.getTime());
+
+            let time = data.day.getTime();
+            params.data = data;
+            params.time = time;
+            ////////////////////////////////////////////
+
+            params.msgtype = "HOLIDAY_CREATE";
+            params.message = "Lưu ngày nghỉ lễ";
+
+            GSmartApp.Ajax.post('/api/v1/holiday/save', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        let res = Ext.decode(response.responseText);
+                        if (res.respcode == 200) {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Lưu thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            mainView = Ext.getCmp('HolidayView');
+                            mainView.getStore().load();
+                            mainView.getViewModel().getStore('HolidayYearStore').load();
+                        }
+                        else {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Lưu thất bại',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                })
+        }
+    },
+    onItemClick: function(thisItem, record, item, index, e, eOpts){
+        let view = this.getView();
+        let viewModel = this.getViewModel();
+        viewModel.set('data', record.data);
+        viewModel.set('isChanged', false);
+
+        // console.log(record.data);
     }
 })
