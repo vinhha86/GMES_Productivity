@@ -8,6 +8,11 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
     },
     controller: 'SizesetViewController',
     reference: 'SizesetView',
+    plugins: {
+        cellediting: {
+            clicksToEdit: 2
+        }
+    },
     viewConfig: {
         stripeRows: true,
         columnLines: true,
@@ -37,11 +42,39 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
                 keyup: 'onSizesetNameFilterKeyup',
                 buffer: 500
             }
+        },
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                allowBlank: false,
+                blankText:'Không được để trống tên dải size',
+                itemId:'txtName',
+                listeners:{
+                    focusenter: 'onNameFocus',
+                    change: 'onNameChange',
+                    focusleave: 'onNameFocusLeave'
+                }
+            }
         }
     }, {
         text: 'Chú thích',
         dataIndex: 'comment',
-        flex: 1
+        flex: 1,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                allowBlank: false,
+                blankText:'Không được để trống chú thích',
+                itemId:'txtComment',
+                listeners:{
+                    focusenter: 'onCommentFocus',
+                    change: 'onCommentChange',
+                    focusleave: 'onCommentFocusLeave'
+                }
+            }
+        }
     }, {
         text: 'Cỡ',
         dataIndex: 'attrValues',
@@ -57,9 +90,6 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
             handler: 'onXoa'
         }]
     }],
-    listeners:{
-        dblclick: 'onRowClick'
-    },
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
@@ -73,10 +103,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
                 iconCls: 'x-fa fa-plus',
                 itemId: 'btnThemMoi'
             },
-            {
-                flex: 1,
-                border: false
-            },
+            
             {
                 xtype:'textfield',
                 itemId:'txtname',
@@ -98,12 +125,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
                 emptyText: 'Chú thích'
             },
             {
-                xtype: 'button',
-                margin: 5,
-                text: 'Lưu',
-                width: 110,
-                iconCls: 'x-fa fa-plus',
-                itemId: 'btnLuu'
+                flex: 1,
+                border: false
             }
         ]
     }]

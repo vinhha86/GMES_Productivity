@@ -82,7 +82,7 @@ Ext.define('GSmartApp.store.attribute.attributeValueStore', {
 			}
 		});
 	},
-	loadStoreForSizeset:function(id, sizesetid_link){
+	loadStoreForSizeset:function(id, sizesetid_link, _callbackfnc){
 		var me=this;
 		var params = new Object();
 		params.id = id;
@@ -113,6 +113,8 @@ Ext.define('GSmartApp.store.attribute.attributeValueStore', {
 			callback: function(records, operation, success) {
 				if(!success){
 					 this.fireEvent('logout');
+				}else{
+					_callbackfnc();
 				}
 			}
 		});

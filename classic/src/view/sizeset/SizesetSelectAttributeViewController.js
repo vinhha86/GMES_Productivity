@@ -2,15 +2,15 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SizesetSelectAttributeViewController',
     init: function () {
-        var m = this;
-        var me = this.getView();
-        var store = this.getViewModel().getStore('AttributeValueStore');
+        let m = this;
+        let me = this.getView();
+        let store = this.getViewModel().getStore('AttributeValueStore');
         // store.loadStore(me.IdAttribute);
-        store.loadStoreForSizeset(me.IdAttribute, me.IdSizeset);
+        store.loadStoreForSizeset(me.IdAttribute, me.IdSizeset, () => m.loadAttributeValueStore());
         // me.setStore(store);
-        setTimeout(function(){
-            m.loadAttributeValueStore();
-        }, 150); 
+        // setTimeout(function(){
+        //     m.loadAttributeValueStore();
+        // }, 150); 
         // m.loadAttributeValueStore();
     },
     control: {
@@ -25,15 +25,15 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
         this.getView().up('window').close();
     },
     Luu: function () {
-        var me = this.getView();
-        var params = new Object();
+        let me = this.getView();
+        let params = new Object();
         params.sizesetid_link = me.IdSizeset;
         params.attributeid_link = me.IdAttribute;
 
-        var obj = [];
-        var select = me.getSelectionModel().getSelection();
-        for (var i = 0; i < select.length; i++) {
-            var data = select[i].data;
+        let obj = [];
+        let select = me.getSelectionModel().getSelection();
+        for (let i = 0; i < select.length; i++) {
+            let data = select[i].data;
             obj.push(data.id);
         }
 
@@ -44,8 +44,16 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
         GSmartApp.Ajax.post('/api/v1/sizesetattribute/createvalue', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
+                    let res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
                         mainView = Ext.getCmp('SizesetView');
                         mainView.getStore().load();
 
@@ -53,8 +61,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: null,
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
@@ -64,8 +72,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
@@ -75,39 +83,26 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeViewController', {
             })
     },
     onLuu: function () {
-        var me = this.getView();
-        var m = this;
-        var viewmodel = this.getViewModel();
+        let me = this.getView();
+        let m = this;
+        let viewmodel = this.getViewModel();
         m.Luu();
     },
     loadAttributeValueStore: function () {
-        var me = this.getView();
-        var params = new Object();
+        let me = this.getView();
+        let params = new Object();
         params.attributeid_link = me.IdAttribute;
         params.sizesetid_link = me.IdSizeset;
         GSmartApp.Ajax.post('/api/v1/sizesetattribute/getvalue', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-
-                        var store = me.getStore();
-                        
-                        // store.on('load', function(){
-                        //     for (var i = 0; i < response.data.length; i++) {
-                        //         var data = me.getStore().findRecord('id', response.data[i].id);
-                        //         me.getSelectionModel().select(data, true);
-                        //         console.log(response.data[i].id);
-                        //         // console.log(me.getStore());
-                        //         console.log(data);
-                        //     }
-                        // });
-
-                        for (var i = 0; i < response.data.length; i++) {
-                            var data = me.getStore().findRecord('id', response.data[i].id);
+                    let res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
+                        for (let i = 0; i < res.data.length; i++) {
+                            let data = me.getStore().findRecord('id', res.data[i].id);
                             me.getSelectionModel().select(data, true);
-                            console.log(response.data[i].id);
-                            console.log(data);
+                            // console.log(res.data[i].id);
+                            // console.log(data);
                         }
                     }
                 }
