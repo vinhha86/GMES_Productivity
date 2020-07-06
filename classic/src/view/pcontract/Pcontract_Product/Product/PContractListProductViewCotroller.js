@@ -50,8 +50,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                         sourceview: 'PContractListProductView',
                         searchtype: 1,
                         pcontractid_link: viewmodel.get('PContract.id'),
-                        orgcustomerid_link: viewmodel.get('PContract.orgcustomerid_link'),
-                        type: 10
+                        type: 10,                        
+                        orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link')
                     }
                 }
             });
