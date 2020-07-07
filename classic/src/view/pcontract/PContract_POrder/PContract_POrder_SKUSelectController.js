@@ -39,33 +39,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SKUSelectController', {
 
             return;
         } else {
-            for (var i = 0; i < select.length; i++) {
-                var data = select[i].data;
-                var newSKU = new Object();
-                newSKU.id = null;
-                newSKU.porderid_link = porderid_link;
-                newSKU.productid_link = data.productid_link;
-                newSKU.skuid_link = data.skuid_link;
-                newSKU.pquantity_sample = data.pquantity_sample;
-                newSKU.pquantity_porder = data.pquantity_porder;
-                newSKU.pquantity_total = data.pquantity_total;
-
-                var params = new Object();
-                params.data = newSKU;
-
-                GSmartApp.Ajax.post('/api/v1/porder/create_sku', Ext.JSON.encode(params),
-                function (success, response, options) {
-                    if (success) {
-                        var response = Ext.decode(response.responseText);
-                        if (response.respcode != 200) {
-                            console.log(response.message);
-                        } else {
-                            me.fireEvent("SKUSave");
-                        }
-                    }
-                })                
-            }  
-            
+            me.fireEvent("SKUSave",select);
         }
     
     }

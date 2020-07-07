@@ -119,11 +119,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 }]
             });
             form.show();
-            //Refresh Data
-            form.down('#PContract_POrder_SKUSelect').on('SKUSave', function () {
-                me.refreshSKUList(porder_data.id);
-                form.close();
-            })         
+            // //Refresh Data
+            // form.down('#PContract_POrder_SKUSelect').on('SKUSave', function (select) {
+            //     for (var i = 0; i < select.length; i++) {
+            //         var data = select[i].data;
+            //         var newSKU = new Object();
+            //         newSKU.id = null;
+            //         newSKU.porderid_link = porderid_link;
+            //         newSKU.productid_link = data.productid_link;
+            //         newSKU.skuid_link = data.skuid_link;
+            //         newSKU.pquantity_sample = data.pquantity_sample;
+            //         newSKU.pquantity_porder = data.pquantity_porder;
+            //         newSKU.pquantity_total = data.pquantity_total;
+    
+            //         var params = new Object();
+            //         params.data = newSKU;
+    
+            //         GSmartApp.Ajax.post('/api/v1/porder/create_sku', Ext.JSON.encode(params),
+            //         function (success, response, options) {
+            //             if (success) {
+            //                 var response = Ext.decode(response.responseText);
+            //                 if (response.respcode != 200) {
+            //                     console.log(response.message);
+            //                 } else {
+                                
+            //                 }
+            //             }
+            //         })                
+            //     }                  
+            //     me.refreshSKUList(porder_data.id);
+            //     form.close();
+            // })         
         }
     },    
     onPOrderCreate:function(rid, rowIndex, colIndex){

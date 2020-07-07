@@ -5,7 +5,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO_Shipping_Store', {
 	idProperty: 'idx',
 	model: 'GSmartApp.model.pcontract.PContractPO_Shipping',
 	sorters: [{
-        direction: 'DESC',
+        direction: 'ASC',
         property: 'shipdate'
 	}],
 	loadStore_bypo: function(pcontract_poid_link){

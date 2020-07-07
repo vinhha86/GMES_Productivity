@@ -5,6 +5,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
     poid: null,
     items: [
         {
+            xtype: 'textfield',
+            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            fieldStyle: 'font-size:11px;',
+            fieldLabel: 'Số KH (Line):',
+            hideTrigger:true,
+            labelAlign: 'left',
+            labelWidth: 75,
+            width: '100%',
+            margin: 1,
+            bind: {
+                value: '{shipping.code}'
+            }
+        },
+        {
             xtype: 'datefield',
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;',
@@ -24,7 +38,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
             xtype: 'numberfield',
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;text-align:right',
-            fieldLabel: 'Số lượng:',
+            fieldLabel: 'SL giao:',
             hideTrigger:true,
             labelAlign: 'left',
             labelWidth: 75,
@@ -47,7 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
             labelWidth: 75,
             bind: {
                 value: '{shipping.portfromid_link}',
-                store: '{EndBuyer}'
+                store: '{PortStore}'
             },
             itemId: 'portfromid_link',
             width: '100%'
@@ -65,7 +79,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
             labelWidth: 75,
             bind: {
                 value: '{shipping.porttoid_link}',
-                store: '{EndBuyer}'
+                store: '{PortStore}'
             },
             itemId: 'porttoid_link',
             width: '100%'
