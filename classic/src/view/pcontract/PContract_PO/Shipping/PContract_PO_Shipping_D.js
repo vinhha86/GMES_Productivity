@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_D', {
         { header: 'SKU', dataIndex: 'skucode', flex: 1},
         { header: 'Màu', dataIndex: 'mauSanPham', width: 70},
         { header: 'Cỡ', dataIndex: 'coSanPham', width: 70},  
-        { header: 'Số lượng', dataIndex: 'pquantity_total', width: 80,
+        { header: 'Số lượng', dataIndex: 'amount', width: 80,
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false},
         },
         {
@@ -64,11 +64,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_D', {
 		,
 	    {
             xtype:'button',
-            itemId:'btnThemMoi',
+            itemId:'btnThemSKU',
             ui: 'header',
 			tooltip: 'Thêm SKU',
             iconCls: 'x-fa fa-plus',
-            handler: 'onAddPOTap',
+            handler: 'onAddSKUTap',
         },
         ]
     }]

@@ -157,7 +157,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                             handler: 'onMenu_SubPO'
                         },            
                     ]
-                }],						
+                }],	
+                listeners:{
+                    itemclick: 'onSelectPO'
+                }					
 			}
 		}
 	},    
