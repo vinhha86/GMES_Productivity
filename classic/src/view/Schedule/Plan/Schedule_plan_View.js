@@ -39,6 +39,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
     eventBorderWidth : 0,
     columnLines      : false,
     rowLines         : true,
+    highlightWeekends :  true,
     cls              : 'tree-scheduler',
     // partnerTimelinePanel: 'Schedule_plan_GuestView',
     tooltipTpl: new Ext.XTemplate(
