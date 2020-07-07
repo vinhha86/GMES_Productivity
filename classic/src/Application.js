@@ -6,6 +6,7 @@ Ext.define('GSmartApp.Application', {
         'GSmartApp.util.State',
         'GSmartApp.model.Session',
         'GSmartApp.view.*',
+        'Ext.grid.*',
         'Ext.grid.plugin.Exporter'
     ],
     stores: [

@@ -2,9 +2,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Schedule_plan_GuestViewController',
     init: function(){
-        var grid = this.getView();
-        var crud = grid.getCrudManager();
-        crud.load();
+        // var grid = this.getView().down('treeplanguest');
+        // var crud = grid.getCrudManager();
+        // crud.load();
     },
     onZoomIn : function () {
         var panel_plan = this.getView().items.get('panel_plan');

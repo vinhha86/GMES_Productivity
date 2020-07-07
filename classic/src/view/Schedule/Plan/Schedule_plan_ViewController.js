@@ -3,14 +3,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     alias: 'controller.Schedule_plan_ViewController',
     rec: null,
     init: function () {
-        var grid = this.getView();
-        var crud = grid.getCrudManager();
-        crud.load();
+        // var grid = this.getView().down('treeplan');
+        // var crud = grid.getCrudManager();
+        // crud.load();
     },
     control: {
-        'Schedule_plan_View': {
+        'Schedule_plan_View.treeplan': {
             eventcontextmenu: 'onContextMenu',
-            aftereventresize: 'onResizeSchedule'
+            aftereventresize: 'onResizeSchedule',
+            beforeeventdropfinalize: 'onDrop'
         }
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
@@ -47,8 +48,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     onResizeSchedule: function (scheduler, record, eOpts) {
         var me = this;
-        console.log(record);
+        console.log(record.data.EndDate);
         var params = new Object();
+        // record.data.EndDate = new Date(record.data.EndDate.substring(0,10));
+        // record.data.StartDate = new Date(record.data.StartDate.substring(0,10));
         params.data = record.data;
 
         GSmartApp.Ajax.post('/api/v1/schedule/update', Ext.JSON.encode(params),
@@ -58,7 +61,23 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     if (response.respcode == 200) {
                         var data = response.data;
                         record.set('duration', data.duration);
-                        record.set('duration', data.duration);
+                        record.set('productivity', data.productivity);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            },
+                            fn: function () {
+                                if (record.previousValues.StartDate != null)
+                                    record.set("StartDate", record.previousValues.StartDate);
+                                if (record.previousValues.EndDate != null)
+                                    record.set("EndDate", record.previousValues.EndDate);
+                            }
+                        });
                     }
                 } else {
                     Ext.Msg.show({
@@ -77,5 +96,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     });
                 }
             })
+    },
+    onDrop: function(scheduler, dragContext, e, eOpts){
+        console.log(dragContext);
+        var newResource = dragContext.newResource;
     }
 })
