@@ -1,43 +1,81 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Schedule_plan_ViewController',
-    init: function(){
+    rec: null,
+    init: function () {
         var grid = this.getView();
         var crud = grid.getCrudManager();
         crud.load();
     },
-    onZoomIn : function () {
-        var panel_plan = this.getView().items.get('panel_plan');
-        panel_plan.zoomIn();
+    control: {
+        'Schedule_plan_View': {
+            eventcontextmenu: 'onContextMenu',
+            aftereventresize: 'onResizeSchedule'
+        }
     },
+    onContextMenu: function (scheduler, eventRecord, e, eOpts) {
+        var menu_grid = new Ext.menu.Menu({
+            items: [{
+                text: 'Hợp đồng',
+                iconCls: 'x-fa fa-cart-arrow-down',
+                handler: function () {
 
-    onZoomOut: function () {
-        var panel_plan = this.getView().items.get('panel_plan');
-        panel_plan.zoomOut();
-    },   
-    onGrantToOrgTap: function(){
-        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
-        var panel_orderungranted = this.getView().items.get('panel_orderungranted');
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden())
-                panel_orderungranted.setHidden(false);
-            else
-                panel_orderungranted.setHidden(true);
-        }
-    },   
-    onGuessView: function(){
-        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
-        var panel_guessview = this.getView().items.get('panel_guessview');
-        if (null != panel_guessview){
-            if (panel_guessview.getHidden())
-                panel_guessview.setHidden(false);
-            else
-                panel_guessview.setHidden(true);
-        }
-    },   
-    onExport: function(){
-        var me = this.getView().down('#panel_plan');
-        me.getPlugin('export').setFileFormat('pdf');
-        me.showExportDialog();
-    }    
+                }
+            },
+            {
+                text: 'Thông tin đơn hàng',
+                iconCls: 'x-fa fa-handshake-o',
+                handler: function () {
+                }
+            },
+            {
+                text: 'Tiến độ sản xuất',
+                iconCls: 'x-fa fa-line-chart',
+                handler: function () {
+                }
+            },
+            {
+                text: 'Năng suất',
+                iconCls: 'x-fa fa-line-chart',
+                handler: function () {
+                }
+            }
+            ]
+        })
+        e.stopEvent();
+        menu_grid.showAt(e.getXY());
+    },
+    onResizeSchedule: function (scheduler, record, eOpts) {
+        var me = this;
+        console.log(record);
+        var params = new Object();
+        params.data = record.data;
+
+        GSmartApp.Ajax.post('/api/v1/schedule/update', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var data = response.data;
+                        record.set('duration', data.duration);
+                        record.set('duration', data.duration);
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        },
+                        fn: function () {
+                            if (record.previousValues.StartDate != null)
+                                record.set("StartDate", record.previousValues.StartDate);
+                            if (record.previousValues.EndDate != null)
+                                record.set("EndDate", record.previousValues.EndDate);
+                        }
+                    });
+                }
+            })
+    }
 })
