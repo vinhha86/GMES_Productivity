@@ -30,6 +30,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                    
                     if(response.respcode == 200){
                         viewmodel.set('po', response.data);
+
+                        //Lay danh sach POrder_Req
+                        var porderReqStore = viewmodel.getStore('porderReqStore');
+                        porderReqStore.loadByPO(id);                        
                     }
                 }
             })
@@ -58,6 +62,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                         new_po.data.parentpoid_link = parent_po.id;
                         
                         viewmodel.set('po', new_po.data);
+
+                        //Lay danh sach POrder_Req
+                        // console.log(viewmodel.get('parentpoid_link'));
+                        var porderReqStore = viewmodel.getStore('porderReqStore');
+                        porderReqStore.loadByPO(viewmodel.get('parentpoid_link'));
                     }
                 }
             })            
@@ -72,6 +81,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.data = viewmodel.get('po');
+
+        var arrPOrders = [];
+        var porderReqStore = viewmodel.getStore('porderReqStore');
+        porderReqStore.each(function (record) {
+            //Neu la lenh moi (sencha tu sinh id) --> set = null
+            if(!Ext.isNumber(record.data.id)) record.data.id = null;
+
+            //Neu la Sub-PO moi
+            if (null == params.data.id) record.data.id = null;
+            arrPOrders.push(record.data);
+        });
+        params.po_orders = arrPOrders;
 
         GSmartApp.Ajax.post('/api/v1/pcontract_po/update', Ext.JSON.encode(params),
             function (success, response, options) {

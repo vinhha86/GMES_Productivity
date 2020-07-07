@@ -46,13 +46,16 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
 
                     var PContractPOList = viewmodel.getStore('PContractPOList');
-                    PContractPOList.loadStore(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
+                    PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
                     
                 } 
                 else if (newCard.xtype == 'PContract_POrder_Main') {
                     viewmodel.set('po_selected', null);
                     var productFilterStore = viewmodel.getStore('ProductFilterStore');
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
+
+                    var PContractPOList = viewmodel.getStore('PContractPOList');
+                    PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
                 } 
                 else if (newCard.xtype == 'PContractProduct_Bom2_TabColorView') {
                    var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');

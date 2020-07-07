@@ -25,6 +25,6 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         var productid_link = record.get('productid_link');
         var pcontractid_link = this.getViewModel().get('PContract.id');
 
-        store.loadStore(pcontractid_link , productid_link);
+        store.loadLeafOnly(pcontractid_link , productid_link);
     }
 })

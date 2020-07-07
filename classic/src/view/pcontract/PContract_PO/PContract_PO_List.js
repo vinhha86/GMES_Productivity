@@ -154,7 +154,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     items: [
                         {
                             iconCls: 'x-fa fas fa-bars violetIcon',
-                            handler: 'onMenu_PO'
+                            handler: 'onMenu_SubPO'
                         },            
                     ]
                 }],						

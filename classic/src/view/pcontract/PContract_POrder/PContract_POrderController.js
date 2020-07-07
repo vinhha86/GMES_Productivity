@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         var productid_link = record.get('productid_link');
         var pcontractid_link = this.getViewModel().get('PContract.id');
 
-        store.loadStore(pcontractid_link , productid_link);
+        store.loadLeafOnly(pcontractid_link , productid_link);
     },
     onSelectPO: function(m, rec){
         var viewmodel = this.getViewModel();

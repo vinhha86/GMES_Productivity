@@ -143,6 +143,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         orderdate: new Date(),
         productpairid_link: 0,
         isproductpair: 0,
-        po_selected: null
+        po_selected: null,
+
     }
 })

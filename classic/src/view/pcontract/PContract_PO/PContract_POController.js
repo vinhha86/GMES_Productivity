@@ -198,8 +198,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 280,
-            width: 500,
+            height: 305,
+            width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -219,31 +219,41 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onAdd_Shipping: function(rec){
         var viewModel = this.getViewModel();
-
-        var form = Ext.create('Ext.window.Window', {
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Kế hoạch giao hàng',
-            closeAction: 'destroy',
-            height: 400,
-            width: 700,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'PContract_PO_Shipping_Main',
-                viewModel: {
-                    data: {
-                        id: null,
-                        pcontract_poid_link: rec.data.id,
-                    }
+        if (rec.data.sub_po.length > 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Không được thêm kế hoạch giao hàng cho PO cha',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
-            }]
-        });
+            });
+        } else {
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Kế hoạch giao hàng',
+                closeAction: 'destroy',
+                height: 400,
+                width: 700,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'PContract_PO_Shipping_Main',
+                    viewModel: {
+                        data: {
+                            id: null,
+                            pcontract_poid_link: rec.data.id,
+                        }
+                    }
+                }]
+            });
+        }
         form.show(); 
     },
     onPOInfoEdit: function(rec){
@@ -256,8 +266,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 310,
-            width: 500,
+            height: 305,
+            width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -293,13 +303,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     var record = this.parentMenu.record;
                     me.onPOPriceEdit(record);
                 },
-                // hidden: function(){
-                //     var record = this.parentMenu.record;
-                //     if (null != record.data.parentpoid_link)
-                //         return true;
-                //     else
-                //         return false;
-                // }
             }, 
             {
                 text: 'Sửa đơn hàng',
@@ -359,5 +362,54 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
           menu_grid.record = record;
           menu_grid.showAt(position);
     },    
+    onMenu_SubPO: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Sửa đơn hàng',
+                // reference: 'PContract_PO_Menu_POinfoEdit',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-pencil greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onPOInfoEdit(record);
+                }
+            }, 
+            {
+                text: 'Xóa đơn hàng',
+                // reference: 'PContract_PO_Menu_PODelete',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onXoa(record);
+                }
+            }, 
+            {
+                text: 'Thêm KH giao hàng',
+                // reference: 'PContract_PO_Menu_POShipping',
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-ship greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onAdd_Shipping(record);
+                }
+            }
+        ]
+        });
+          // HERE IS THE MAIN CHANGE
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.record = record;
+          menu_grid.showAt(position);
+    },     
 });
 

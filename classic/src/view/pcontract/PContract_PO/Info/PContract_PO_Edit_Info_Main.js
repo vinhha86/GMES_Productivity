@@ -15,6 +15,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
             border: true,
             margin: 1,
         },
+        {
+            region: 'east',
+            width: 250,
+            xtype: 'PContract_PO_Edit_Porder_Req',
+            border: true,
+            margin: 1,
+        }
     ],
     dockedItems:[{
         dock:'bottom',
