@@ -22,8 +22,7 @@ Ext.define('GSmartApp.view.planporder.PlanMainView', {
             hidden: true  
         },
         {
-            xtype: 'Schedule_porder',
-            id: 'panel_guessview',
+            xtype: 'Schedule_plan_GuestView',
             margin: 1,
             width: 500,
             region: 'east',

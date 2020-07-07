@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     },
     onZoomIn : function () {
         var viewmodel = this.getViewModel();
-        var panel_plan = Ext.getCmp('Schedule_plan_View');
+        var panel_plan = Ext.getCmp('treeplan');
         panel_plan.zoomIn();
         panel_plan.setStartDate(viewmodel.get('schedule.startDate'));
         panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
 
     onZoomOut: function () {
         var viewmodel = this.getViewModel();
-        var panel_plan = Ext.getCmp('Schedule_plan_View');
+        var panel_plan = Ext.getCmp('treeplan');
         panel_plan.zoomOut();
         panel_plan.setStartDate(viewmodel.get('schedule.startDate'));
         panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     },   
     onGuessView: function(){
         //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
-        var panel_main = Ext.getCmp('Schedule_plan_Main');
+        var panel_main = Ext.getCmp('treeplan');
         var panel_guessview = panel_main.down('Schedule_plan_GuestView');
         if (null != panel_guessview) {
             if (panel_guessview.getHidden())
@@ -55,11 +55,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         }
     },   
     onExport: function(){
-        var me = Ext.getCmp('Schedule_plan_View');
+        var me = Ext.getCmp('treeplan');
         me.print();
     },
     onSearch: function(){
-        var sch = Ext.getCmp('Schedule_plan_View');
+        var sch = Ext.getCmp('treeplan');
         var viewmodel = this.getViewModel();
         
         sch.setStartDate(viewmodel.get('schedule.startDate'));
