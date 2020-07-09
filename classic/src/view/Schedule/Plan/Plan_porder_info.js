@@ -13,20 +13,22 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
             margin: 5,
             fieldLabel: 'Bắt đầu',
             format: 'd/m/Y',
+            editable: false,
             altFormats: "Y-m-d\\TH:i:s.uO",
             itemId: 'date_start',
             bind: {
-                value: '{startDate}'
+                value: '{sch.StartDate}'
             }
         },{
             xtype: 'datefield',
             margin: 5,
             fieldLabel: 'Kết thúc',
+            editable: false,
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             itemId: 'date_end',
             bind: {
-                value: '{endDate}'
+                value: '{sch.EndDate}'
             }
         }]
     },{
@@ -35,17 +37,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
             xtype: 'textfield',
             margin: 5,
             fieldLabel: 'Số ngày',
+            itemId: 'duration',
             maskRe: /[0-9.]/,
             bind: {
-                value: '{duration}'
+                value: '{sch.duration}'
             }
         },{
             xtype: 'textfield',
             margin: 5,
             fieldLabel: 'Năng suất',
+            itemId: 'productivity',
             maskRe: /[0-9.]/,
             bind: {
-                value: '{productivity}'
+                value: '{sch.productivity}'
             }
         }]
     }],

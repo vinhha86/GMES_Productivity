@@ -81,10 +81,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             id: 'treeplan',
             useArrows: true,
             autoAdjustTimeAxis: false,
-            maxZoomLevel: 8,
-            minZoomLevel: 9,
+            // maxZoomLevel: 8,
+            // minZoomLevel: 9,
             viewPreset: {
                 name: 'weekAndDayLetter',
+                displayDateFormat: 'd/m/Y',
                 headerConfig: {
                     bottom: {
                         unit: 'DAY',
@@ -127,11 +128,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     return '&nbsp;';
                 }
             },
-
-            // lockedGridConfig : {
-            //     width : 300
-            // },
-
             viewConfig: {
                 getRowClass: function (r) {
                     // if (r.get('Id') === 3 || r.parentNode.get('Id') === 3) {
@@ -142,17 +138,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     //     return 'some-other-grouping-class';
                     // }
                 },
-                plugins: {
-                    ptype: 'treeviewdragdrop',
-                    enableDrag: true,
-                    dragText: '{0} Yêu cầu SX',
-                    dragGroup: 'porderGanttDropGroup',
-                    dropGroup: 'porderFreeDropGroup'
-                },
-                listeners: {
-                    drop: 'onDrop',
-                    beforedrop: 'onBeforeDrop'
-                }
+                // plugins: {
+                //     ptype: 'treeviewdragdrop',
+                //     enableDrag: true,
+                //     dragText: '{0} Yêu cầu SX',
+                //     dragGroup: 'porderGanttDropGroup',
+                //     dropGroup: 'porderFreeDropGroup'
+                // },
+                // listeners: {
+                //     drop: 'onDrop',
+                //     beforedrop: 'onBeforeDrop'
+                // }
             },
 
             columns: [
@@ -172,7 +168,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 {
                     ptype: 'scheduler_zones',
                     store: HolidayStore,
-                    clsField: 'comment'
+                    innerTpl           : '<span class="zone-type"></span>'+
+                    '<tpl if="comment">'+ '{comment}'+
+                    '</tpl>'
                 },
                 {
                     ptype: 'scheduler_printable',
