@@ -42,6 +42,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             autoLoad: true,
             resourceStore: resourceStore,
             eventStore: eventStore,
+            resourceZones: HolidayStore,
+            resourceZonesConfig : {
+                innerTpl : '{comment}',
+                clsField: 'comment'
+            },
             transport: {
                 load: {
                     requestConfig: {
@@ -75,6 +80,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             barMargin: 2,
             id: 'treeplan',
             useArrows: true,
+            autoAdjustTimeAxis: false,
+            maxZoomLevel: 8,
+            minZoomLevel: 9,
             viewPreset: {
                 name: 'weekAndDayLetter',
                 headerConfig: {
@@ -84,8 +92,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         dateFormat: 'd'
                     },
                     middle: {
-                        unit: 'WEEK',
-                        dateFormat: 'd-m-Y',
+                        unit: 'MONTH',
+                        dateFormat: 'm-Y',
                         align: 'center'
                     }
                 }
@@ -94,7 +102,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             border: false,
             bodyBorder: false,
             eventBorderWidth: 0,
-            columnLines: false,
+            columnLines: true,
             rowLines: true,
             highlightWeekends: true,
             cls: 'tree-scheduler',
@@ -163,7 +171,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             plugins: [
                 {
                     ptype: 'scheduler_zones',
-                    store: HolidayStore
+                    store: HolidayStore,
+                    clsField: 'comment'
                 },
                 {
                     ptype: 'scheduler_printable',
@@ -177,7 +186,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         modal: true
                     }
                 }
-            ]
+            ],
+            listeners : {
+                eventcontextmenu: 'onContextMenu',
+                aftereventresize: 'onResizeSchedule',
+                eventdrop: 'onDrop',
+                beforeeventdropfinalize: 'beforeDrop'
+            }
         })
 
         Ext.apply(me, {
