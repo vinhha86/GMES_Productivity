@@ -202,7 +202,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         me.callParent();
     },
     onDestroy : function() {
-        this.crudManager.destroy();
-        this.callParent();
+        // console.log(this.down('#treeplan'));
+        // this.down('#treeplan').crudManager.destroy();
+        // this.callParent();
     }
 });

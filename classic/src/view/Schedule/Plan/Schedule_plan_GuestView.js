@@ -186,7 +186,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
         me.callParent();
     },
     onDestroy : function() {
-        this.crudManager.destroy();
-        this.callParent();
+        // this.crudManager.destroy();
+        // this.callParent();
     }
 });
