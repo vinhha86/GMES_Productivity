@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 11;
+        var length = 10
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length -1 ) {
                 grid.headerCt.remove(i);
@@ -26,6 +26,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         params.pcontractid_link = pcontractid_link;
         params.productid_link = productid_link;
 
+        console.log(123);
+
         GSmartApp.Ajax.post('/api/v1/pcontractsku/getbypcontract_product', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -38,6 +40,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                             listtitle.push(data.coSanPham);
                         }
                     }
+
+                    console.log(listtitle);
             
                     for (var i = 0; i < listtitle.length; i++) {
             
