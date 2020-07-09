@@ -81,8 +81,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             id: 'treeplan',
             useArrows: true,
             autoAdjustTimeAxis: false,
-            // maxZoomLevel: 8,
-            // minZoomLevel: 9,
+            // zoomLevels: [
+            //     { width: 50,    increment: 4,   resolution: 3, preset: 'weekAndDayLetter', resolutionUnit: 'MONTH' },
+            //     { width: 60,    increment: 3,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'MONTH' },
+            //     { width: 80,    increment: 2,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
+            //     { width: 100,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'DAY' }
+            // ],
             viewPreset: {
                 name: 'weekAndDayLetter',
                 displayDateFormat: 'd/m/Y',
