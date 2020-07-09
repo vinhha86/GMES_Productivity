@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
     },
     control:{
         'PContract_POList': {
-            itemclick: 'onSelectPO'
+            select: 'onSelectPO'
         },
         '#productFilter': {
             select: 'onFilterProduct'
@@ -19,6 +19,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
 
         var productStore = viewModel.getStore('PContractProduct_PO_Store');
         productStore.loadStore_bypairid(productid_link, true);
+
+        //clear sku list
+        var storeSku = viewModel.getStore('PContractSKUStore');
+        storeSku.removeAll();
     },
     onFilterProduct: function(combo, record, eOpts ){
         var store = this.getViewModel().getStore('PContractPOList');

@@ -12,13 +12,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             select: 'onFilterProduct'
         },
         'PContract_POList': {
-            itemclick: 'onSelectPO'
+            select: 'onSelectPO'
         },
         'PContract_POrder_Porders': {
-            itemclick: 'onSelectPOrder'
+            select: 'onSelectPOrder'
         },
         'PContract_POrder_Req': {
-            itemclick: 'onSelectPOrder_Req'
+            select: 'onSelectPOrder_Req'
         },
         
     },

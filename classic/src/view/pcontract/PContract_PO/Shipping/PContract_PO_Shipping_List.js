@@ -44,11 +44,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
         width: 80
     },{
         text:'Cảng gửi',
-        dataIndex:'portfromid_link',
+        dataIndex:'portfromname',
         width: 150
     },{
         text:'Cảng nhận',
-        dataIndex:'porttoid_link',
+        dataIndex:'porttoname',
         width: 150
     },{
         text:'Đóng gói',
