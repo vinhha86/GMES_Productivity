@@ -155,9 +155,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
            
         } else {
             if(newResource.get('id_origin') != record.id_origin){
-                console.log(me.ShowFormQuestion());
-                if(!me.ShowFormQuestion()){
-                }
+                me.ShowFormQuestion();
+                var window = Ext.WindowManager.getActive();
+                window.el.setZIndex(1100000);
                 return false;
              }
         }
