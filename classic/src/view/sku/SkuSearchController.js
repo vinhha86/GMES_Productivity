@@ -374,8 +374,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                             //load lai ds sku
                             var storeSKU = Ext.getCmp('PContractSKUView').getStore();
                             storeSKU.removeAll();
-                            storeSKU.loadStore(viewModel.get('pcontractid_link'), viewModel.get('productid_link_notsearch'));
-
+                            // storeSKU.loadStore(viewModel.get('pcontractid_link'), viewModel.get('productid_link_notsearch'));
+                            storeSKU.load();
                             me.up('window').close();
                         }
                     }

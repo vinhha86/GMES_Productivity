@@ -74,10 +74,12 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
         },{
             title: 'Chi tiết màu,cỡ',
             xtype: 'PContractSKUMainView'
-        },{
-            title: 'Nguyên phụ liệu',
-            xtype: 'PContractProductBomView'
-        }, {
+        },
+        // {
+        //     title: 'Nguyên phụ liệu',
+        //     xtype: 'PContractProductBomView'
+        // }, 
+        {
             title: 'Định mức hải quan',
             xtype: 'PContractProduct_Bom_TabColorView'
         }, {
