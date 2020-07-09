@@ -149,25 +149,26 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         if(dragContext[0].modified.ResourceId == null){
             
             params.grant_to_orgid_link = 0;
-            me.UpdateLenh(params)
+            me.UpdateLenh(params, dragContext[0])
             
         }
         //truong hop tao lenh tu cac lenh chua phan chuyen
         else if (dragContext[0].get('status') == 0){
             params.grant_to_orgid_link = me.grant_to_orgid_link;
-            me.UpdateLenh(params)
+            me.UpdateLenh(params, dragContext[0])
         }
         else if (dragContext[0].get('status') > 0){
 
         }
     },
-    UpdateLenh: function(params){
+    UpdateLenh: function(params, rec){
         GSmartApp.Ajax.post('/api/v1/schedule/update_porder', Ext.JSON.encode(params),
         function (success, response, options) {
             if (success) {
                 var response = Ext.decode(response.responseText);
                 if (response.respcode == 200) {
-                    
+                    rec.set('duration', response.duration);
+                    rec.set('productivity', response.productivity);
                 }
                 else {
                     Ext.Msg.show({
