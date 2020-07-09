@@ -506,8 +506,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/create_pcontract_productbom', Ext.JSON.encode(params),
                 function (success, response, options) {
                     if (success) {
-                        var storebom = Ext.getCmp('PContractProductBomView').getStore();
-                        storebom.loadStore(pcontractid_link, productid_link);
+                        // var storebom = Ext.getCmp('PContractProductBomView').getStore();
+                        // storebom.loadStore(pcontractid_link, productid_link);
 
                         var tab2 = Ext.getCmp('PContractProduct_Bom2_TabColorView');
                         if(tab2.items.length > 0){
