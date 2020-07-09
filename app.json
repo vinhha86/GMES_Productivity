@@ -201,7 +201,8 @@
 //                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
 //            }
             {
-                "path": "${toolkit.name}/src/schedule/sch-all-debug.js"
+                "path": "${toolkit.name}/src/schedule/sch-all-debug.js",
+                "includeInBundle": true
             }
         ],
 		"requires": [
