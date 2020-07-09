@@ -71,10 +71,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 xtype: 'Plan_porder_info',
                 viewModel: {
                     data: {
-                        startDate: rec.get('StartDate'),
-                        endDate: rec.get('EndDate'),
-                        duration: rec.get('duration'),
-                        productivity: rec.get('productivity')
+                        sch : rec.data
                     }
                 }
             }]
