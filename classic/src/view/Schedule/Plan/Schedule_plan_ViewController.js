@@ -129,16 +129,51 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             })
     },
     grant_to_orgid_link : 0,
+    _dragContext : null,
     beforeDrop:  function( scheduler, dragContext, e, eOpts){
         var me = this;
+        me._dragContext = dragContext;
         var newResource = dragContext.newResource;
-        console.log(newResource);
+        record = dragContext.draggedRecords[0].data;
+
+        //truong hop keo tha tu to nay sang to khac cung 1 nha may
+        if( newResource.get('parentid_origin') != record.parentid_origin){
+            me._dragContext.finalize(false);
+            return false;
+            
+            // Ext.Msg.show({
+            //     title: 'Thông báo',
+            //     msg: 'Bạn không được phép chuyển sang tổ của nhà máy khác',
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     },
+            //     fn: function() {
+                    
+            //     }
+            // });
+           
+        } else {
+            if(newResource.get('id_origin') != record.id_origin){
+                console.log(me.ShowFormQuestion());
+                if(!me.ShowFormQuestion()){
+                }
+                return false;
+             }
+        }
+        
+        
+        // dragContext.finalize(false);
+        // return false;
+
+        var newResource = dragContext.newResource;
+        // console.log(newResource);
         me.grant_to_orgid_link = newResource.get('id_origin');
     },
     onDrop: function(scheduler, dragContext, e, eOpts){
         var me = this;
         var rec = scheduler.getEventSelectionModel().selected.items[0];
-        console.log(dragContext[0]);
+        // console.log(dragContext[0]);
         // var newResource = dragContext.newResource;
         // var record = dragContext.draggedRecords[0].data;
         var params = new Object();
@@ -160,6 +195,33 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         else if (dragContext[0].get('status') > 0){
 
         }
+    },
+    ShowFormQuestion: function(){
+        var me = this;
+        var form = Ext.create('Ext.window.Window', {
+            height: 200,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tách - Chuyển lệnh sản xuất',
+            closeAction: 'destroy',
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'FormQuestion_MoveGrant'
+            }]
+        });
+        form.show();
+
+        form.down('FormQuestion_MoveGrant').getController().on('Thoat',function(){
+            me._dragContext.finalize(false);
+
+        });
     },
     UpdateLenh: function(params, rec){
         GSmartApp.Ajax.post('/api/v1/schedule/update_porder', Ext.JSON.encode(params),
