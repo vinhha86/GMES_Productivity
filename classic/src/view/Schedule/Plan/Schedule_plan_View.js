@@ -142,13 +142,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     //     return 'some-other-grouping-class';
                     // }
                 },
-                // plugins: {
-                //     ptype: 'treeviewdragdrop',
-                //     enableDrag: true,
-                //     dragText: '{0} Yêu cầu SX',
-                //     dragGroup: 'porderGanttDropGroup',
-                //     dropGroup: 'porderFreeDropGroup'
-                // },
+                plugins: {
+                    ptype: 'treeviewdragdrop',
+                    enableDrag: true,
+                    dragText: '{0} Yêu cầu SX',
+                    dragGroup: 'porderGanttDropGroup',
+                    dropGroup: 'porderFreeDropGroup'
+                },
                 // listeners: {
                 //     drop: 'onDrop',
                 //     beforedrop: 'onBeforeDrop'
