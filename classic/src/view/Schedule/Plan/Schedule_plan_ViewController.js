@@ -135,6 +135,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         me._dragContext = dragContext;
         var newResource = dragContext.newResource;
         record = dragContext.draggedRecords[0].data;
+        console.log(record);
+        console.log(newResource);
 
         //truong hop keo tha tu to nay sang to khac cung 1 nha may
         if( newResource.get('parentid_origin') != record.parentid_origin){
@@ -154,7 +156,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             // });
            
         } else {
-            if(newResource.get('id_origin') != record.id_origin){
+            if(newResource.get('Id') != record.resourceId){
                 me.ShowFormQuestion();
                 var window = Ext.WindowManager.getActive();
                 window.el.setZIndex(1100000);
@@ -220,7 +222,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
         form.down('FormQuestion_MoveGrant').getController().on('Thoat',function(){
             me._dragContext.finalize(false);
+            form.close();
+        });
 
+        form.down('FormQuestion_MoveGrant').getController().on('Chon',function(isBreak){
+            me._dragContext.finalize(true);
+            form.close();
         });
     },
     UpdateLenh: function(params, rec){
