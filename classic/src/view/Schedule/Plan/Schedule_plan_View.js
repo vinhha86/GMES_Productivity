@@ -114,13 +114,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             // partnerTimelinePanel: 'Schedule_plan_GuestView',
             tooltipTpl: new Ext.XTemplate(
                 '<ul class="eventTip">',
+                '<li>Lệnh SX: {pordercode}</li>',                
                 '<li>Buyer: {buyername}</li>',
                 '<li>Vendor: {vendorname}</li>',
-                '<li>Bắt đầu: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
-                '<li>Đến: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
+                '<li>Vào chuyền: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
+                '<li>Kết thúc: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
                 '<li>Số ngày SX: {duration}</li>',
                 '<li>Năng suất: {productivity}</li>',
-                '<li>Lệnh SX: {pordercode}</li>',
                 '</ul>'
             ),
             eventRenderer: function (flight, resource, meta) {

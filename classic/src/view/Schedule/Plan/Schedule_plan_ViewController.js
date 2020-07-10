@@ -18,31 +18,31 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var me = this;
         var menu_grid = new Ext.menu.Menu({
             items: [{
-                text: 'Hợp đồng',
+                text: 'Sản phẩm',
                 iconCls: 'x-fa fa-cart-arrow-down',
                 handler: function () {
 
                 }
             },
             {
-                text: 'Thông tin đơn hàng',
+                text: 'Đơn hàng (PO)',
                 iconCls: 'x-fa fa-handshake-o',
                 handler: function () {
                 }
             },
             {
-                text: 'Thông tin Lệnh SX',
+                text: 'Lệnh sản xuất',
                 iconCls: 'x-fa fa-industry'
             },
             {
-                text: 'Tiến độ sản xuất',
+                text: 'Tiến độ',
                 iconCls: 'x-fa fa-line-chart',
                 handler: function () {
                 }
             },
             {
                 text: 'Năng suất',
-                iconCls: 'x-fa fa-line-chart',
+                iconCls: 'x-fa fa-angle-double-right',
                 handler: function () {
                     me.ShowNangSuat(eventRecord);
                 }
