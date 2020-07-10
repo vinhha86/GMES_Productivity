@@ -12,18 +12,22 @@ Ext.define('GSmartApp.view.Schedule.Plan.FormQuestion_MoveGrant', {
             xtype: 'radio',
             boxLabel  : 'Tách chuyền',
             name      : 'grant',
-            inputValue: 0,
             margin: 5,
             labelWidth: 120,
-            width: 250
+            width: 250,
+            bind: {
+                value: '{isBreak}'
+            }
         }, {
             xtype: 'radio',
             boxLabel  : 'Chuyển chuyền',
             name      : 'grant',
-            inputValue: 1,
             margin: 5,
             labelWidth: 120,
-            width: 250
+            width: 250,
+            bind: {
+                value: '{!isBreak}'
+            }
         }]
     }],
     dockedItems:[{
