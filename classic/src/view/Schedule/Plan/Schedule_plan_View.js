@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         });
 
         var sch = Ext.create('Sch.panel.SchedulerTree', {
-            rowHeight: 40,
+            rowHeight: 30,
             barMargin: 2,
             id: 'treeplan',
             useArrows: true,
@@ -125,23 +125,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             ),
             eventRenderer: function (flight, resource, meta) {
                 if (resource.data.leaf) {
-                    meta.cls = 'leaf';
-                    return flight.get('Name');
+                    return flight.get('mahang');
                 } else {
-                    meta.cls = 'group';
                     return '&nbsp;';
                 }
             },
             viewConfig: {
-                getRowClass: function (r) {
-                    // if (r.get('Id') === 3 || r.parentNode.get('Id') === 3) {
-                    //     return 'some-grouping-class';
-                    // }
-
-                    // if (r.get('Id') === 9 || r.parentNode.get('Id') === 9) {
-                    //     return 'some-other-grouping-class';
-                    // }
-                },
                 plugins: {
                     ptype: 'treeviewdragdrop',
                     enableDrag: true,
@@ -149,10 +138,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     dragGroup: 'porderGanttDropGroup',
                     dropGroup: 'porderFreeDropGroup'
                 },
-                // listeners: {
-                //     drop: 'onDrop',
-                //     beforedrop: 'onBeforeDrop'
-                // }
+                listeners: {
+                    drop: 'onDrop',
+                    beforedrop: 'onBeforeDrop'
+                }
             },
 
             columns: [
@@ -181,18 +170,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     pluginId: 'printable',
                     // Configure what to show in print dialog
                     exportDialogConfig: {
-                        showDPIField: true,
-                        showColumnPicker: true,
                         dateRangeRestriction: false,
                         stateful: true,
-                        modal: true
-                    }
+                        modal: true,
+                        format           : "A3",
+                        orientation      : "landscape",
+                        range            : "complete",
+                        showHeader       : false,
+                    },
+                    autoPrintAndClose   : true
                 }
             ],
             listeners : {
                 eventcontextmenu: 'onContextMenu',
                 aftereventresize: 'onResizeSchedule',
-                eventdrop: 'onDrop',
+                eventdrop: 'onEventDrop',
                 beforeeventdropfinalize: 'beforeDrop'
             }
         })

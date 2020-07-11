@@ -46,11 +46,50 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     me.ShowNangSuat(eventRecord);
                 }
+            },
+            {
+                text: 'Tách lệnh',
+                iconCls: 'x-fa fa-cut',
+                handler: function () {
+                    me.ShowBreakPorder(eventRecord);
+                }
             }
             ]
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+    },
+    ShowBreakPorder: function(rec){
+        var form = Ext.create('Ext.window.Window', {
+            height: 150,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tách lệnh sản xuất '+ rec.get('mahang'),
+            closeAction: 'destroy',
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Plan_break',
+                viewModel: {
+                    data : {
+                        plan: {
+                            quantity: rec.get('totalpackage'),
+                            parentid_origin: rec.get('parentid_origin'),
+                            resourceid: rec.get('resourceId'),
+                            porderid_link: rec.get('id_origin'),
+                            producttivity: rec.get('productivity')
+                        }
+                    }
+                }
+            }]
+        });
+        form.show();
     },
     ShowNangSuat: function(rec){
         var form = Ext.create('Ext.window.Window', {
@@ -174,7 +213,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         // console.log(newResource);
         me.grant_to_orgid_link = newResource.get('id_origin');
     },
-    onDrop: function(scheduler, dragContext, e, eOpts){
+    onEventDrop: function(scheduler, dragContext, e, eOpts){
         var me = this;
         var rec = scheduler.getEventSelectionModel().selected.items[0];
         // console.log(dragContext[0]);

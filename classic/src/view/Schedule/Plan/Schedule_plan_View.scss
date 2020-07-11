@@ -1,0 +1,36 @@
+
+.red{
+    background : red;
+    word-wrap: break-word;
+    border-style: groove;
+   }
+.green{
+    background :green;
+    word-wrap: break-word;
+    border-style: groove;
+   }
+.blue{
+    background :blue;
+    word-wrap: break-word;
+    white-space: normal;
+    font-size: 10px;
+    border-style: groove;
+}
+.gray {
+    background: gray;
+    word-wrap: break-word;
+    border-style: groove;
+}
+.styleRollup {
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.styleTask {
+    background: white;
+}
+.holiday {
+    background: lightgray;
+    word-wrap: break-word;
+}
