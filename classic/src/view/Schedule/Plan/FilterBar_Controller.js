@@ -34,11 +34,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
     },   
     onGrantToOrgTap: function(){
-        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
-        var panel_orderungranted = this.getView().items.get('panel_orderungranted');
+        var viewmodel = this.getViewModel();
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
         if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden())
+            if (panel_orderungranted.getHidden()){
+                var store = viewmodel.getStore('POrderUnGranted');
+                var golive_from = viewmodel.get('schedule.startDate');
+                var golive_to = viewmodel.get('schedule.endDate');
+                store.loadFree_bygolivedate(golive_from,golive_to);
                 panel_orderungranted.setHidden(false);
+            }
             else
                 panel_orderungranted.setHidden(true);
         }

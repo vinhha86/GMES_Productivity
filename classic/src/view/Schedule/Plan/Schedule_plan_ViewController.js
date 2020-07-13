@@ -7,13 +7,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         // var crud = grid.getCrudManager();
         // crud.load();
     },
-    // control: {
-    //     '#treeplan': {
-    //         eventcontextmenu: 'onContextMenu',
-    //         aftereventresize: 'onResizeSchedule',
-    //         beforeeventdropfinalize: 'onDrop'
-    //     }
-    // },
+    control: {
+        
+    },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
         var me = this;
         var menu_grid = new Ext.menu.Menu({
@@ -116,6 +112,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             }]
         });
         form.show();
+    },
+    onFiltergrant: function() {
+
     },
     onResizeSchedule: function (scheduler, record, eOpts) {
         var me = this;
@@ -238,6 +237,124 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         else if (dragContext[0].get('status') > 0){
 
         }
+    },
+    onBeforeDrop:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
+        var destPos_Data = overModel.data;
+            if (destPos_Data.type != 1){
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Chỉ được phép phân lệnh cho tổ chuyền',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    },
+                    fn: function(){
+                        dropHandlers.cancelDrop();
+                    }
+                });
+            } else {
+                //Neu khong tha vao to san xuat --> Huy bo
+                if (destPos_Data.id_origin < 1){
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Chỉ được phép phân lệnh cho tổ chuyền',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        },
+                        fn: function(){
+                            dropHandlers.cancelDrop();
+                        }
+                    });
+                } else {
+                    var porder_data = data.records[0].data;
+                    if (destPos_Data.parentid_origin != porder_data.granttoorgid_link){
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lệnh sản xuất đang được phân cho phân xưởng khác',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            },
+                            fn: function(){
+                                dropHandlers.cancelDrop();
+                            }
+                        });
+                    } else {
+                        // this.showPOrder(
+                        //     data.records[0].data,
+                        //     destPos_Data.id_origin,
+                        //     destPos_Data.Name,
+                        //     true,
+                        //     2
+                        // );
+                        // dropHandlers.cancelDrop();
+                    }
+                }
+            }
+    },
+    onDrop: function(node, data, overModel, dropPosition, eOpts){
+        var me = this.getView().down('#treeplan');
+        var porder = data.records[0];
+        var resource = overModel.data;
+
+        var params = new Object();
+        params.porderid_link = porder.get('id');
+        params.resourceid = resource.Id;
+        params.orggrantto = resource.id_origin;
+        params.parentid_origin = resource.parentid_origin;
+
+        GSmartApp.Ajax.post('/api/v1/schedule/create_pordergrant', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                if (response.respcode == 200) {
+                    var event = response.data;
+                    var store = me.getCrudManager().getEventStore();
+                    store.insert(0,event);
+                    var rec = store.getAt(0);
+
+                    me.getSchedulingView().scrollEventIntoView(rec);
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            } else {
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Cập nhật thất bại',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng'
+                    }
+                });
+            }
+        })
+    },
+    doHighlight : function (value) {
+        var me = this.getView();
+        var store = me.eventStore;
+
+        store.each(function(task) {
+            if (task.getName().toLowerCase().indexOf(value) >= 0) {
+                task.set('Cls', 'match');
+            } else {
+                task.set('Cls', '');
+            }
+        });
+
+        me[value.length > 0 ? 'addCls' : 'removeCls']('highlighting');
+    },
+
+    onClearHighlightClick : function (field) {
+        this.doHighlight(field, '');
     },
     ShowFormQuestion: function(){
         var me = this;

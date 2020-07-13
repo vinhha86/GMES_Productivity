@@ -14,9 +14,8 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
     //multiSelect: true,
     selModel: 'rowmodel',
     features: [{
-        id: 'group',
-        ftype: 'groupingsummary',
-        groupHeaderTpl: '<b>Tổ sản xuất: {name}</b>',
+        ftype: 'grouping',
+        groupHeaderTpl: '<b>{name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
     },{
@@ -24,7 +23,6 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         dock: 'bottom'
     }], 
     viewConfig: {
-        //enableTextSelection: true,
         stripeRows: false,
         plugins: {
             ptype: 'gridviewdragdrop',
@@ -35,19 +33,18 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             dropGroup: 'firstGridDDGroup'
         },
         listeners: {
-            //drop: 'onDrop',
-            //beforedrop: 'onBeforeDrop'
+            drop: 'onDrop',
+            beforedrop: 'onBeforeDrop'
         }        
      },
     columns: [
-        { header: 'Mã SX', locked: false, dataIndex: 'ordercode', width: 100,
-            editor: {xtype: 'textfield', readOnly: true},
+        { header: 'Mã SX', locked: false, dataIndex: 'ordercode', flex: 1,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
-                reference: 'porderFilterField_Salary',
-                width: 95,
-                margin: 2,
+                reference: 'porderFilterField',
+                width: '99%',
+                margin: 1,
                 enableKeyEvents: true,
                 listeners: {
                     keyup: 'onPOrderFilterKeyup',
@@ -79,18 +76,18 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             },
             // summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
-        { header: 'Style', dataIndex: 'buyercode', width: 90},
-        { header: 'PO', dataIndex: 'po_vendor', width: 90},
-        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 70},
-        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 70},
-        { header: 'SL', dataIndex: 'totalorder', flex: 1},
+        { header: 'Style', dataIndex: 'buyercode', flex: 1},
+        { header: 'PO', dataIndex: 'po_vendor', flex: 1},
+        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
+        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
+        { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right'},
     ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
         items: [
             {
-                tooltip: 'Tìm kiếm lệnh',
+                tooltip: 'Làm mới danh sách',
                 iconCls: 'x-fa fa-refresh',
                 weight: 30,
                 handler: 'onSearchTap'

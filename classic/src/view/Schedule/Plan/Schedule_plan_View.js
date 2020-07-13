@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                             Buyer: 0,
                             Vendor: 0,
                             isReqPorder: false,
-                            isAllgrant: false
+                            isAllgrant: true
                         }
                     }
 
@@ -104,7 +104,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 }
             },
             multiSelect: true,
-            border: false,
+            border: true,
             bodyBorder: false,
             eventBorderWidth: 0,
             columnLines: true,
