@@ -7,6 +7,7 @@ Ext.define('GSmartApp.view.Schuedule.Plan.TabPorder_notGrant_and_PorderReq', {
         title: 'Lệnh chưa phân chuyền',
         xtype: 'POrderUnGranted'
     },{
-        title: 'Yêu cầu sản xuất'
+        title: 'Yêu cầu sản xuất',
+        xtype: 'Porder_Req'
     }]
 })

@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Schedule_plan_ViewModel',
-    requires: ['GSmartApp.store.org.ListOrgStore', 'GSmartApp.store.POrderFilter'],
+    requires: ['GSmartApp.store.org.ListOrgStore', 'GSmartApp.store.POrderFilter',
+        'GSmartApp.store.POrder_Req'],
     data: {
         schedule: {
             startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
@@ -28,6 +29,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
         },
         POrderUnGranted: {
             type: 'POrderFilter'
+        },
+        Porder_Req_Store: {
+            type: 'POrder_Req'
         }
     }
 })

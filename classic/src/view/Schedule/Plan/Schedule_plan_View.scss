@@ -19,22 +19,18 @@
     word-wrap: break-word;
     width: fit-content;
 }
-.sch-event-inner {
-    width: fit-content;
-}
 .gray {
     background: gray;
     word-wrap: break-word;
     border-style: groove;
 }
-.styleRollup {
-    color: black;
-    font-size: 12px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-.styleTask {
-    background: white;
+.match {
+    opacity: 1;
+    box-shadow: 0 0 8px red;
+    background :blue;
+    font-size: 10px;
+    color: white;
+    border-radius: 2px;
 }
 .holiday {
     background: lightgray;

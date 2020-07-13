@@ -42,6 +42,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
                 var golive_from = viewmodel.get('schedule.startDate');
                 var golive_to = viewmodel.get('schedule.endDate');
                 store.loadFree_bygolivedate(golive_from,golive_to);
+
+                var store_req = viewmodel.getStore('Porder_Req_Store');
+                store_req.load_byOrg();
+
                 panel_orderungranted.setHidden(false);
             }
             else

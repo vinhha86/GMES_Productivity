@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'FilterBar',
+    id: 'FilterBar',
     controller: 'FilterBar_Controller',
     layout: 'hbox',
     items: [

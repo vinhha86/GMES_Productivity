@@ -27,10 +27,11 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         plugins: {
             ptype: 'gridviewdragdrop',
             enableDrag: true,
-            copy: true,
+            copy: false,
+            id:'POrderUnGranted_event',
             dragText: '{0} Phân chuyền',
             dragGroup: 'porderFreeDropGroup',
-            dropGroup: 'firstGridDDGroup'
+            dropGroup: 'porderGanttDropGroup'
         },
         listeners: {
             drop: 'onDrop',
@@ -91,6 +92,12 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 iconCls: 'x-fa fa-refresh',
                 weight: 30,
                 handler: 'onSearchTap'
+            },
+            {
+                tooltip: 'Ẩn danh sách',
+                iconCls: 'x-fa fa-eye',
+                weight: 30,
+                handler: 'onHiddenList'
             }
     ]
     }]
