@@ -180,5 +180,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                     }); 
                 }
             } );        
-    }
+    },
+    renderSum: function(value, summaryData, dataIndex){
+        var viewmodel = this.getViewModel();
+        var po_totalorder = viewmodel.get('po_selected.po_quantity');
+        if (null == po_totalorder) po_totalorder = 0;
+        if (null == value) value = 0;
+        if (po_totalorder != value)
+            return '<div style="font-weight: bold; color:red;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+        else 
+            return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    }    
 })

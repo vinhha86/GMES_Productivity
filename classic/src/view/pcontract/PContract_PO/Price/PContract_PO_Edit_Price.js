@@ -108,7 +108,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             {
                 iconCls: 'x-fa fas fa-trash',
                 tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-                handler: 'onXoa'
+                handler: 'onPriceD_Delete'
             },
             {
                 iconCls: 'x-fa fas fa-dollar',
@@ -134,7 +134,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             xtype: 'combobox',
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;text-align:right',
-            width: 150,
+            width: 180,
             cls: 'inputBoxNarror',
             editable: false,
             fieldLabel: 'Loại tiền:',
@@ -155,7 +155,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;text-align:right',
             hideTrigger:true,
-            width: 120,
+            width: 150,
             cls: 'inputBoxNarror',
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,

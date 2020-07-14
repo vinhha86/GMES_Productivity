@@ -46,24 +46,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
     },
     onXoa: function(grid, rowIndex, colIndex){
         var th=this;
-        
-        Ext.Msg.show({
-            title: "Thông báo",
-            msg: 'bạn có chắc chắn muốn xóa dải cỡ?',
-            buttons: Ext.MessageBox.YESNO,
-            buttonText: {
-                yes: 'Có',
-                no: 'Không'
-            },
-            fn: function(btn){
-                if(btn==='yes'){
-                    var objDel = grid.getStore().getAt (rowIndex);
-                    var colDel = grid.getStore().query('sizesetid_link',objDel.data.sizesetid_link);
-                    console.log(colDel);
-                    grid.getStore().remove(colDel.items);
+        var objDel = grid.getStore().getAt (rowIndex);
+
+        //Chi xoa cac Sizeset != ALL
+        if (objDel.data.sizesetid_link != 1){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: 'bạn có chắc chắn muốn xóa dải cỡ?',
+                buttons: Ext.MessageBox.YESNO,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function(btn){
+                    if(btn==='yes'){
+                        
+                        var colDel = grid.getStore().query('sizesetid_link',objDel.data.sizesetid_link);
+                        console.log(colDel);
+                        grid.getStore().remove(colDel.items);
+                    }
                 }
-            }
-        });
+            });
+        }
     },
     
     onItemSelect: function(m, rec){
@@ -85,4 +89,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         });
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     },
+    onSizesetBeforeEdit: function(editor, context, eOpts){
+        if (context.record.data.sizesetid_link ==1) context.cancel = true;
+    },
+    renderSum: function(value, summaryData, dataIndex){
+        var viewmodel = this.getViewModel();
+        var po_totalorder = viewmodel.get('po.po_quantity');
+        if (null == po_totalorder) po_totalorder = 0;
+        if (null == value) value = 0;
+        if (po_totalorder != value){
+            viewmodel.set('isSizeset_CheckOK', false);
+            return '<div style="font-weight: bold; color:red;">' + Ext.util.Format.number(value, '0,000') + '</div>';   
+        }
+        else {
+            viewmodel.set('isSizeset_CheckOK', true);
+            return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+        }
+    }
 })

@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             dataIndex:'totalorder',
             width: 70,
             summaryType: 'sum', 
-            // summaryRenderer: 'renderSum'
+            summaryRenderer: 'renderSum',
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
         },{
             xtype: 'actioncolumn',

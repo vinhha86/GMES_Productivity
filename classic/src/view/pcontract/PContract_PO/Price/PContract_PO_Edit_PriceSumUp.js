@@ -75,11 +75,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     margin: 1,
                     bind: {
                         value: '{po_price.price_sewingcost}',
-                        readOnly: '{isSewPriceReadonly}'
+                        readOnly: '{isSewCostPriceReadonly}'
                     },
-                    listeners: {
-                        focusleave: 'onSewCostChange'
-                    }   
+                    disalbled: true
+                    // listeners: {
+                    //     focusleave: 'onSewCostChange'
+                    // }   
                 }                
             ]
         },
@@ -95,7 +96,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     fieldStyle: 'font-size:11px;text-align:right',
                     hideTrigger:true,
                     readOnly: true,
-                    fieldLabel: 'Tổng chào:',
+                    fieldLabel: 'Giá chào:',
                     labelAlign: 'left',
                     labelWidth: 70,
                     width:'100%',

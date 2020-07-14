@@ -51,4 +51,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         //Huy bo de khong bi mat thogn tin ben Gantt
         dropHandlers.cancelDrop();
     },
+    renderSum: function(value, summaryData, dataIndex){
+        var viewmodel = this.getViewModel();
+        var po_totalorder = viewmodel.get('po.po_quantity');
+        if (null == po_totalorder) po_totalorder = 0;
+        if (null == value) value = 0;
+        if (po_totalorder != value){
+            viewmodel.set('isPorderReq_CheckOK', false);
+            return '<div style="font-weight: bold; color:red;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+        }
+        else {
+            viewmodel.set('isPorderReq_CheckOK', true);
+            return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+        }
+    }        
 })

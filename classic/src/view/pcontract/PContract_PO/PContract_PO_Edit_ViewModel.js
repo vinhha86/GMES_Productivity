@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         org_droppedname: null,
         org_droppedcode: null,
         isSewPriceReadonly: true,
-
+        isSewCostPriceReadonly: true,
         schedule: {
             startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
@@ -70,6 +70,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         isHidden_PDF: true,
         isHidden_KHGH: false,
         isHidden_Phanlenh: true,
-        isHidden_GuestView : true
+        isHidden_GuestView : true,
+        isPO_BuyerDisable: false,
+        isPO_VendorDisable: false,
+        isSizeset_CheckOK: false,
+        isPorderReq_CheckOK: false
     }
 })

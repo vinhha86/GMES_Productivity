@@ -81,6 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
                             var price_d = price_data.pcontract_price_d[j];
                             var newPriceD = new Object({
                                 id: null,
+                                isfob: price_d.isfob,
                                 fobprice_name : price_d.fobprice_name,
                                 fobpriceid_link: price_d.fobpriceid_link,
                                 price : 0,
@@ -89,6 +90,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
                             })  
                             pcontract_price_d.push(newPriceD);
                         }
+                    } else {
+                        //Neu chua co, mac dinh them price CMP
+                        var newPriceD = new Object({
+                            id: null,
+                            isfob: false,
+                            fobprice_name : 'Giá CMP',
+                            fobpriceid_link: 1,
+                            price : 0,
+                            cost: 0,
+                            productid_link: p_data.id
+                        })  
+                        pcontract_price_d.push(newPriceD);
                     }
                     newSizeset.pcontractid_link = po.pcontractid_link;
                     newSizeset.pcontract_poid_link = po.id;

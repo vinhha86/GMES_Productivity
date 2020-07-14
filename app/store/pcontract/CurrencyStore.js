@@ -8,11 +8,11 @@ Ext.define('GSmartApp.store.CurrencyStore', {
         {name: 'exchangerate', type:'number'},
         {name: 'status', type:'int'}
 	],
-	data:[
-		{id:1,	name:'USD'},
-		{id:2,	name:'EUR'},
-		{id:3,	name:'CHN'}
-	],
+	// data:[
+	// 	{id:1,	name:'USD'},
+	// 	{id:2,	name:'EUR'},
+	// 	{id:3,	name:'CHN'}
+	// ],
 	loadStore:function(){
 		var me=this;
 		var params = new Object();

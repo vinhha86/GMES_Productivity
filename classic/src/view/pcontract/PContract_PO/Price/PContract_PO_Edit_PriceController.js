@@ -79,11 +79,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
         var price_data = viewSizeset.getView().selection.data;
 
+        //Neu la gia CMP --> Tinh Sew tager
         if (priceD_data.fobpriceid_link == 1){
             price_data.price_cmp = priceD_data.price;
 
             //Tinh gia Sweing Target
-            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*price_data.sewfobratio/100;
+            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        } else {
+            //Tinh gia theo dinh muc va gia don vi
+            if (e.colIdx == 1 || e.colIdx == 3)
+                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,2);
         }
         
         //SUM FOB Price
@@ -96,13 +101,96 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         // console.log(totalprice);
         
         viewmodel.set('po_price',price_data);
-        this.calRootPairProductPrice(price_data.sizesetid_link);
+
+        //Neu khong phai la sizesetAll --> Tinh toan cho SizesetAll cua san pham do
+        if (price_data.sizesetid_link != 1){
+            this.calPrice_SizesetAll(viewmodel.get('product_selected_id_link'));
+        }
+
+        //Tinh SisetAll cho san pham cha
+        this.calPrice_PairProduct();
     },
 
-    //Cong don cho bo san pham
-    calRootPairProductPrice: function(sizesetid_link){
+    
+    //Cong don cho sizeset ALL theo binh quan gia quyen
+    calPrice_SizesetAll: function(productid){
+        var viewmodel = this.getViewModel();
+        // if (viewmodel.get('isproductpair') == 1){
+        var priceStore = viewmodel.getStore('PriceStore');
+        filters = priceStore.getFilters();
+
+        filters.add({
+            // id: 'porderFilter',
+            property: 'productid_link',
+            operator: '=',
+            value: productid,
+            anyMatch: true,
+            caseSensitive: false
+        });
+        filters.add({
+            // id: 'porderFilter',
+            property: 'sizesetid_link',
+            operator: '!=',
+            value: 1,
+            anyMatch: true,
+            caseSensitive: false
+        });
+
+        var sum_price_cmp = 0;
+        var sum_price_fob = 0;
+        var sum_price_sewingtarget = 0;
+        var sum_price_sewingcost = 0;
+        var sum_totalprice = 0;
+        var sum_quantity=0;
+        //Tinh binh quan gia quyen gia san pham
+        for(var i =0; i<priceStore.data.length; i++){
+            var price_sizeset = priceStore.data.items[i].data;
+            sum_price_cmp = sum_price_cmp + price_sizeset.price_cmp*price_sizeset.quantity;
+            sum_price_fob = sum_price_fob + price_sizeset.price_fob*price_sizeset.quantity;
+            sum_price_sewingtarget = sum_price_sewingtarget + price_sizeset.price_sewingtarget*price_sizeset.quantity;
+            sum_price_sewingcost = sum_price_sewingcost + price_sizeset.price_sewingcost*price_sizeset.quantity;
+            sum_totalprice = sum_totalprice + price_sizeset.totalprice*price_sizeset.quantity;
+            sum_quantity = sum_quantity + price_sizeset.quantity;
+        }
+
+        priceStore.clearFilter();
+        filters.add({
+            // id: 'porderFilter',
+            property: 'productid_link',
+            operator: '=',
+            value: productid,
+            anyMatch: true,
+            caseSensitive: false
+        });
+        filters.add({
+            // id: 'porderFilter',
+            property: 'sizesetid_link',
+            operator: '=',
+            value: 1,
+            anyMatch: true,
+            caseSensitive: false
+        });
+        if (sum_quantity > 0){
+            for(var k =0; k<priceStore.data.length; k++){
+                var price_SizesetALL = priceStore.data.items[k].data;
+                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp/sum_quantity,2);
+                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob/sum_quantity,2);
+                price_SizesetALL.price_sewingtarget = Ext.Number.roundToPrecision(sum_price_sewingtarget/sum_quantity,0);
+                price_SizesetALL.price_sewingcost = Ext.Number.roundToPrecision(sum_price_sewingcost/sum_quantity,0);
+                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice/sum_quantity,2);
+                // console.log(price_SizesetALL);
+            };  
+        }
+
+        priceStore.clearFilter();
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+       
+        // }
+    },
+    calPrice_PairProduct: function(){
         var viewmodel = this.getViewModel();
         if (viewmodel.get('isproductpair') == 1){
+            //Cong don ca SizesetAll tai cac san pham con
             var priceStore = viewmodel.getStore('PriceStore');
             filters = priceStore.getFilters();
 
@@ -118,7 +206,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 // id: 'porderFilter',
                 property: 'sizesetid_link',
                 operator: '=',
-                value: sizesetid_link,
+                value: 1,
                 anyMatch: true,
                 caseSensitive: false
             });
@@ -128,7 +216,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             var sum_price_sewingtarget = priceStore.sum('price_sewingtarget');
             var sum_price_sewingcost = priceStore.sum('price_sewingcost');
             var sum_totalprice = priceStore.sum('totalprice');
-
+            var sum_salaryfund = priceStore.sum('salaryfund');       
+            
             priceStore.clearFilter();
             filters.add({
                 // id: 'porderFilter',
@@ -142,7 +231,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 // id: 'porderFilter',
                 property: 'sizesetid_link',
                 operator: '=',
-                value: sizesetid_link,
+                value: 1,
                 anyMatch: true,
                 caseSensitive: false
             });
@@ -153,29 +242,108 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 price_root.price_sewingtarget = sum_price_sewingtarget;
                 price_root.price_sewingcost = sum_price_sewingcost;
                 price_root.totalprice = sum_totalprice;
-                console.log(price_root);
+                price_root.salaryfund = sum_salaryfund;
             };  
+
             priceStore.clearFilter();
             priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
         }
     },
     onCurrencyItemSelected: function (sender, record) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('po.exchangerate',record.data.exchangerate);
     },
-    onExchangeRateChange: function (sender, newValue, oldValue, eOpts) {
+    onExchangeRateChange: function () {
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
-        var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
-        if (null != viewSizeset.getView().selection){
-            var price_data = viewSizeset.getView().selection.data;
-            //Tinh gia Sweing Target
-            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*price_data.sewfobratio/100;
-            viewmodel.set('po_price',price_data);
+        var priceStore = viewmodel.getStore('PriceStore');
+        for(var k =0; k<priceStore.data.length; k++){
+            var price_data = priceStore.data.items[k].data;
+            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
         }
+        //Tinh toan lai SizesetAll cho tat ca cac san pham
+        var productStore = viewmodel.getStore('ProductStore');
+        for(var i =0; i<productStore.data.length; i++){
+            var product_data = productStore.data.items[i].data;
+            this.calPrice_SizesetAll(product_data.id);
+        }
+
+        //Tinh SisetAll cho san pham cha
+        this.calPrice_PairProduct();
+
+        //Hien lai thong tin tren SumUp cua Siseset dc chon sau khi tinh toan lai
+        var price_data = viewmodel.get('po_price');
+        price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        viewmodel.set('po_price',price_data);
+        console.log(viewmodel.get('po_price'));
     },
     renderUnit: function(val, meta, record, rindex, cindex, store) {
+        if (null != val){
+            var viewmodel = this.getViewModel();
+            var UnitStore = viewmodel.getStore('UnitStore');
+            if (null!=UnitStore){
+                var objUnit = UnitStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.code;
+            }
+        }
+     },
+     onPriceD_Delete: function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
-        var UnitStore = viewmodel.getStore('UnitStore');
-        var idx = UnitStore.find('id', val);
-        return idx != -1 ? UnitStore.getAt(idx).get('code'):'';
+        var me=this;
+        var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
+        var Price_DStore = viewmodel.getStore('Price_DStore');
+        var price_data = viewSizeset.getView().selection.data;
+
+        Ext.Msg.show({
+            title: "Thông báo",
+            msg: 'bạn có chắc chắn muốn xóa dòng chi tiết giá?',
+            buttons: Ext.MessageBox.YESNO,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function(btn){
+                if(btn==='yes'){
+                    var objDel = grid.getStore().getAt (rowIndex);
+                    grid.getStore().remove(objDel);
+
+                    //Xoa dong gia khoi tat ca cac san pham va sizeset
+                    me.deletePrice_FOB_AllSizeset(me, objDel.data.fobpriceid_link);
+
+                    //SUM FOB Price
+                    Price_DStore.filter('isfob',true);
+                    var fobSum = Price_DStore.sum('price');
+                    Price_DStore.clearFilter();
+                    price_data.price_fob = fobSum;
+                    var totalprice = price_data.price_cmp + price_data.price_fob;
+                    price_data.totalprice = totalprice;
+                    // console.log(totalprice);
+                    
+                    viewmodel.set('po_price',price_data);                    
+                }
+            }
+        });
+     },
+     deletePrice_FOB_AllSizeset: function(me, fobpriceid_link){
+        var viewmodel = this.getViewModel();
+        var priceStore = viewmodel.getStore('PriceStore');
+        priceStore.clearFilter();
+        priceStore.each(function (rec_price) {
+            var arrPrice = []; 
+            var arrPrice_d = rec_price.data.pcontract_price_d;
+            for(i=0; i<arrPrice_d.length; i++){
+                if (arrPrice_d[i].fobpriceid_link != fobpriceid_link)
+                    arrPrice.push(arrPrice_d[i]);
+            }
+            rec_price.data.pcontract_price_d = arrPrice;
+            //Tinh toan lai gia cua bo
+            me.calPrice_SizesetAll(rec_price.data.productid_link);            
+        });  
+
+        //Tinh SisetAll cho san pham cha
+        this.calPrice_PairProduct();
+        
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
      }
 })

@@ -23,8 +23,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         var viewModel = this.getViewModel();
         if(viewModel.get('productpairid_link') == 0){
             Ext.Msg.show({
-                title: 'Bạn chưa chọn sản phẩm',
-                msg: null,
+                title: 'Đơn hàng',
+                msg: 'Bạn chưa chọn sản phẩm',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
@@ -32,38 +32,57 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             });
         }
         else {
-            var form = Ext.create('Ext.window.Window', {
-                closable: true,
-                resizable: false,
-                modal: true,
-                border: false,
-                title: 'Kế hoạch giao hàng',
-                closeAction: 'destroy',
-                height: Ext.getBody().getViewSize().height*.95,
-                width: Ext.getBody().getViewSize().width*.95,
-                bodyStyle: 'background-color: transparent',
-                layout: {
-                    type: 'fit', // fit screen for window
-                    padding: 5
-                },
-                items: [{
-                    xtype: 'PContract_PO_Edit',
-                    viewModel: {
-                        data: {
-                            id: null,
-                            productpairid_link: viewModel.get('productpairid_link'),
-                            isproductpair: viewModel.get('isproductpair'),
-                            pcontractid_link: viewModel.get('PContract.id')
-                        }
+            //Kiem tra xem co phai san pham con ko
+            if (viewModel.get('isproductleaf')){
+                Ext.Msg.show({
+                    title: 'Đơn hàng',
+                    msg: 'Không được thêm đơn hàng cho sản phẩm con',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
                     }
-                }]
-            });
-            form.show();
+                });
+            } else {
+                var form = Ext.create('Ext.window.Window', {
+                    closable: true,
+                    resizable: false,
+                    modal: true,
+                    border: false,
+                    title: 'Đơn hàng (PO)',
+                    closeAction: 'destroy',
+                    height: Ext.getBody().getViewSize().height*.95,
+                    width: Ext.getBody().getViewSize().width*.95,
+                    bodyStyle: 'background-color: transparent',
+                    layout: {
+                        type: 'fit', // fit screen for window
+                        padding: 5
+                    },
+                    items: [{
+                        xtype: 'PContract_PO_Edit',
+                        viewModel: {
+                            data: {
+                                id: null,
+                                productpairid_link: viewModel.get('productpairid_link'),
+                                isproductpair: viewModel.get('isproductpair'),
+                                pcontractid_link: viewModel.get('PContract.id')
+                            }
+                        }
+                    }]
+                });
+                form.show();
+
+                form.down('PContract_PO_Edit').getController().on('Thoat',function(){
+                    var storePO = viewModel.getStore('PContractProductPOStore');
+                    storePO.load();
+                    form.close();
+                });
+            }
         }
 
         
     },
     onSelectProduct: function(m, rec){
+        // console.log(rec);
         var viewModel = this.getViewModel();
         viewModel.set('productpairid_link', rec.data.productid_link);
         if (rec.data.children.length > 0)
@@ -71,6 +90,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         else
             viewModel.set('isproductpair', 0);
 
+        if (rec.data.parent_id > 0)
+            viewModel.set('isproductleaf', true);
+        else
+            viewModel.set('isproductleaf', false);
         // var storePO = Ext.data.StoreManager.lookup('PContract_PO'); 
         var storePO = viewModel.getStore('PContractProductPOStore');
         storePO.loadStore(viewModel.get('PContract.id'), viewModel.get('productpairid_link'));
@@ -113,6 +136,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }]
         });
         form.show();
+
+        form.down('PContract_PO_Edit').getController().on('Thoat',function(){
+            var storePO = viewModel.getStore('PContractProductPOStore');
+            storePO.load();
+            form.close();
+        });
     },
     onAccept: function(rec){
         // var rec = grid.getStore().getAt(rowIndex);
@@ -168,7 +197,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 if (choice === 'yes') {
                     var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
                     var params=new Object();
-                    params.id = rec.id;
+                    params.id = rec.data.id;
                     GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
                     function (success, response, options) {
                         var response = Ext.decode(response.responseText);

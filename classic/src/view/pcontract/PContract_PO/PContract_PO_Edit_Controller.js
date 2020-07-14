@@ -3,6 +3,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     alias: 'controller.PContract_PO_Edit_Controller',
     init: function(){
         var viewmodel = this.getViewModel();
+        var CurrencyStore = viewmodel.getStore('CurrencyStore');
+        CurrencyStore.loadStore();
+
         var productStore = viewmodel.getStore('ProductStore');
         var productpairid_link = viewmodel.get('productpairid_link');
         productStore.loadStore_bypairid_Async(productpairid_link);
@@ -15,15 +18,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 				} else {
                     var productStore = viewmodel.getStore('ProductStore');
                     this.enablePrice(productStore.getAt(0));
+
+                    if(viewmodel.get('id') > 0){
+                        this.getInfo(viewmodel.get('id'));
+                    } else {
+                        this.getInfo(null);
+                    }
                 }
 			}
 		});        
       
-        if(viewmodel.get('id') > 0){
-            this.getInfo(viewmodel.get('id'));
-        } else {
-            this.getInfo(null);
-        }
+
 
     },
     control: {
@@ -69,10 +74,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             new_po.data.pcontractid_link = viewmodel.get('pcontractid_link');
             new_po.data.productid_link = viewmodel.get('productpairid_link');
             viewmodel.set('po', new_po.data);
+
+            //Them sizeset all cho tat ca cac san pham
+            var productStore = viewmodel.getStore('ProductStore');
+            var priceStore = viewmodel.getStore('PriceStore');
+            for(var k =0; k < productStore.data.length; k++){
+                var p_data = productStore.data.items[k].data;
+                var newSizeset = new Object();
+                var pcontract_price_d = [];
+                //Mac dinh them price CMP
+                var newPriceD = new Object({
+                    id: null,
+                    isfob: false,
+                    fobprice_name : 'Giá CMP',
+                    fobpriceid_link: 1,
+                    price : 0,
+                    cost: 0,
+                    productid_link: p_data.id
+                })  
+                pcontract_price_d.push(newPriceD);  
+                
+                var newSizeset = new Object();
+                newSizeset.pcontractid_link = new_po.data.pcontractid_link;
+                newSizeset.pcontract_poid_link = new_po.data.id;
+                newSizeset.productid_link =p_data.id;
+                newSizeset.sizesetid_link = 1;
+                newSizeset.sizesetname = 'ALL';
+                newSizeset.price_cmp = null;
+                newSizeset.price_fob = null;
+                newSizeset.price_sewingcost = null;
+                newSizeset.price_sewingtarget = null;
+                newSizeset.salaryfund = null;
+                newSizeset.totalprice = null;
+                newSizeset.pcontract_price_d = pcontract_price_d;
+                priceStore.insert(0,newSizeset);
+            }            
         }
     },
     onThoat: function(){
-        this.getView().up('window').close();
+        // this.getView().up('window').close();
+        this.fireEvent('Thoat');
     },
     CheckValidate: function(){
         var viewmodel = this.getViewModel();
@@ -87,7 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var me = this;
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
-        var porderStore = viewmodel.getStore('POrderStore');
+        // var porderStore = viewmodel.getStore('POrderStore');
         var porderReqStore = viewmodel.getStore('porderReqStore');
 
         //Xoa filter trc khi day len server
@@ -112,6 +153,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         if(mes == ""){
             var params = new Object();
             params.data = viewmodel.get('po');
+            //Set trang thai cho PO
+            if (viewmodel.get('isSizeset_CheckOK') == false || viewmodel.get('isPorderReq_CheckOK') == false)
+                params.data.status = -2
+            else
+                params.data.status = -1
 
             var arrPOrders = [];
             // porderStore.each(function (record) {
@@ -208,78 +254,78 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         // priceStore.filters.remove('granttoorgid_link');
         viewSizeset.getView().select(0);
     },
-    onSewCostChange: function (sender, newValue, oldValue, eOpts) {
-        var viewmodel = this.getViewModel();
-        var po_data = viewmodel.get('po');
-        var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
-        if (null != viewSizeset.getView().selection){
-            var price_data = viewSizeset.getView().selection.data;
-            //Tinh Salary Fund
-            price_data.salaryfund = price_data.price_sewingcost*price_data.quantity;
-            viewmodel.set('po_price',price_data);
+    // onSewCostChange: function (sender, newValue, oldValue, eOpts) {
+    //     var viewmodel = this.getViewModel();
+    //     var po_data = viewmodel.get('po');
+    //     var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
+    //     if (null != viewSizeset.getView().selection){
+    //         var price_data = viewSizeset.getView().selection.data;
+    //         //Tinh Salary Fund
+    //         price_data.salaryfund = price_data.price_sewingcost*price_data.quantity;
+    //         viewmodel.set('po_price',price_data);
 
-            this.calRootPairProductPrice(price_data.sizesetid_link);    
-        }
-    },
-    //Cong don cho bo san pham
-    calRootPairProductPrice: function(sizesetid_link){
-        var viewmodel = this.getViewModel();
-        if (viewmodel.get('isproductpair') == 1){
-            var priceStore = viewmodel.getStore('PriceStore');
-            filters = priceStore.getFilters();
+    //         this.calRootPairProductPrice(price_data.sizesetid_link);    
+    //     }
+    // },
+    // //Cong don cho bo san pham
+    // calRootPairProductPrice: function(sizesetid_link){
+    //     var viewmodel = this.getViewModel();
+    //     if (viewmodel.get('isproductpair') == 1){
+    //         var priceStore = viewmodel.getStore('PriceStore');
+    //         filters = priceStore.getFilters();
 
-            filters.add({
-                // id: 'porderFilter',
-                property: 'productid_link',
-                operator: '!=',
-                value: viewmodel.get('productpairid_link'),
-                anyMatch: true,
-                caseSensitive: false
-            });
-            filters.add({
-                // id: 'porderFilter',
-                property: 'sizesetid_link',
-                operator: '=',
-                value: sizesetid_link,
-                anyMatch: true,
-                caseSensitive: false
-            });
+    //         filters.add({
+    //             // id: 'porderFilter',
+    //             property: 'productid_link',
+    //             operator: '!=',
+    //             value: viewmodel.get('productpairid_link'),
+    //             anyMatch: true,
+    //             caseSensitive: false
+    //         });
+    //         filters.add({
+    //             // id: 'porderFilter',
+    //             property: 'sizesetid_link',
+    //             operator: '=',
+    //             value: sizesetid_link,
+    //             anyMatch: true,
+    //             caseSensitive: false
+    //         });
 
-            var sum_price_cmp = priceStore.sum('price_cmp');
-            var sum_price_fob = priceStore.sum('price_fob');
-            var sum_price_sewingtarget = priceStore.sum('price_sewingtarget');
-            var sum_price_sewingcost = priceStore.sum('price_sewingcost');
-            var sum_totalprice = priceStore.sum('totalprice');
-            var sum_salaryfund = priceStore.sum('salaryfund');
+    //         var sum_price_cmp = priceStore.sum('price_cmp');
+    //         var sum_price_fob = priceStore.sum('price_fob');
+    //         var sum_price_sewingtarget = priceStore.sum('price_sewingtarget');
+    //         var sum_price_sewingcost = priceStore.sum('price_sewingcost');
+    //         var sum_totalprice = priceStore.sum('totalprice');
+    //         var sum_salaryfund = priceStore.sum('salaryfund');
 
-            priceStore.clearFilter();
-            filters.add({
-                // id: 'porderFilter',
-                property: 'productid_link',
-                operator: '=',
-                value: viewmodel.get('productpairid_link'),
-                anyMatch: true,
-                caseSensitive: false
-            });
-            filters.add({
-                // id: 'porderFilter',
-                property: 'sizesetid_link',
-                operator: '=',
-                value: sizesetid_link,
-                anyMatch: true,
-                caseSensitive: false
-            });
-            for(var k =0; k<priceStore.data.length; k++){
-                var price_root = priceStore.data.items[k].data;
-                price_root.price_cmp = sum_price_cmp;
-                price_root.price_fob = sum_price_fob;
-                price_root.price_sewingtarget = sum_price_sewingtarget;
-                price_root.price_sewingcost = sum_price_sewingcost;
-                price_root.totalprice = sum_totalprice;
-                price_root.salaryfund = sum_salaryfund;
-            };  
-            priceStore.clearFilter();
-            priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
-        }
-    },    
+    //         priceStore.clearFilter();
+    //         filters.add({
+    //             // id: 'porderFilter',
+    //             property: 'productid_link',
+    //             operator: '=',
+    //             value: viewmodel.get('productpairid_link'),
+    //             anyMatch: true,
+    //             caseSensitive: false
+    //         });
+    //         filters.add({
+    //             // id: 'porderFilter',
+    //             property: 'sizesetid_link',
+    //             operator: '=',
+    //             value: sizesetid_link,
+    //             anyMatch: true,
+    //             caseSensitive: false
+    //         });
+    //         for(var k =0; k<priceStore.data.length; k++){
+    //             var price_root = priceStore.data.items[k].data;
+    //             price_root.price_cmp = sum_price_cmp;
+    //             price_root.price_fob = sum_price_fob;
+    //             price_root.price_sewingtarget = sum_price_sewingtarget;
+    //             price_root.price_sewingcost = sum_price_sewingcost;
+    //             price_root.totalprice = sum_totalprice;
+    //             price_root.salaryfund = sum_salaryfund;
+    //         };  
+    //         priceStore.clearFilter();
+    //         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+    //     }
+    // },    
 })

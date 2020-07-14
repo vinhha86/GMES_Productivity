@@ -66,38 +66,38 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
             },            
         ]
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
-        padding: '0 0 10 5',
-        height: 35,
-        items:[{
-            xtype:'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black",
-            labelWidth : 0,
-            bind:{
-                value: 'Kế hoạch (Line) giao hàng'
-            }
-        },
-		'->'
-		,
-	    {
-            xtype:'button',
-            itemId:'btnThemMoi',
-            ui: 'header',
-			tooltip: 'Thêm kế hoạch giao hàng',
-            iconCls: 'x-fa fa-plus',
-            handler: 'onAddPOTap',
-        },
-        // {
-        //     xtype:'button',
-        //     itemId:'btnShowFactory',
-        //     ui: 'header',
-		// 	tooltip: 'Xem năng suất nhà máy',
-        //     iconCls: 'x-fa fa-industry',
-        //     handler: 'onFactoriesTap',
-        // }
-        ]
-    }]
+    // dockedItems:[{
+    //     dock:'top',
+    //     xtype:'toolbar',
+    //     padding: '0 0 10 5',
+    //     height: 35,
+    //     items:[{
+    //         xtype:'displayfield',
+    //         fieldStyle: "font-weight: bold; font-size: 14px; color: black",
+    //         labelWidth : 0,
+    //         bind:{
+    //             value: 'Kế hoạch (Line) giao hàng'
+    //         }
+    //     },
+	// 	'->'
+	// 	,
+	//     {
+    //         xtype:'button',
+    //         itemId:'btnThemMoi',
+    //         ui: 'header',
+	// 		tooltip: 'Thêm kế hoạch giao hàng',
+    //         iconCls: 'x-fa fa-plus',
+    //         handler: 'onAddPOTap',
+    //     },
+    //     // {
+    //     //     xtype:'button',
+    //     //     itemId:'btnShowFactory',
+    //     //     ui: 'header',
+	// 	// 	tooltip: 'Xem năng suất nhà máy',
+    //     //     iconCls: 'x-fa fa-industry',
+    //     //     handler: 'onFactoriesTap',
+    //     // }
+    //     ]
+    // }]
 });
 

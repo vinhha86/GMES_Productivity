@@ -14,14 +14,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
         cellediting: {
             clicksToEdit: 1,
             listeners: {
-                edit: 'onSizesetItemEdit'
+                edit: 'onSizesetItemEdit',
+                beforeedit: 'onSizesetBeforeEdit'
             } 
         }
     },    
-    features: [{
-        ftype:'summary',
-        dock: 'bottom'
-    }],    
+    // features: [{
+    //     ftype:'summary',
+    //     dock: 'bottom'
+    // }],    
     selModel: {
         //selType: 'checkboxmodel',
         mode: 'SINGLE'
@@ -35,23 +36,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
         flex: 1
     },{
         header:'SL',
+        align: 'end',
         width: 65,
         dataIndex:'quantity',
-        summaryType: 'sum', 
-        // summaryRenderer: 'renderSum'
+        // summaryType: 'sum', 
+        // summaryRenderer: 'renderSum',
         editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
 
-    },{
+    },
+    {
         xtype: 'actioncolumn',
+        reference: 'sku_contextmenu',
         width: 20,
         menuDisabled: true,
         sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xóa',
-            handler: 'onXoa'
-        }]
-    }],
+        renderer: function (value, metadata, record) {
+            if (record.get('sizesetid_link') == 1) {
+                this.iconCls = 'x-fa fas fa-trash-o greyIcon';
+            }
+            else {
+                this.iconCls = 'x-fa fas fa-trash-o redIcon';
+                this.tooltip = 'Xóa dải cỡ';  
+            }
+        },            
+        handler: 'onXoa'
+    }      
+    ],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

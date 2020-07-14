@@ -144,6 +144,6 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         productpairid_link: 0,
         isproductpair: 0,
         po_selected: null,
-
+        isproductleaf: false
     }
 })

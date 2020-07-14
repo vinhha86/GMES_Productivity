@@ -48,6 +48,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             margin: 1,
                             bind: {
                                 value: '{po.is_tbd}'
+                            },
+                            listeners: {
+                                change: 'onIs_Tbd_Change'
                             }
                         },                            
                         {
@@ -60,7 +63,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{po.po_buyer}'
+                                value: '{po.po_buyer}',
+                                disabled: '{isPO_BuyerDisable}'
                             },
                             listeners: {
                                 focusleave: 'onPOBuyerChange'
@@ -78,7 +82,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             margin: 1,
                             bind: {
                                 value: '{po.po_quantity}'
-                            }
+                            },
+                            listeners: {
+                                focusleave: 'onPOQuantityChange'
+                            }           
                         },    
                         {
                             xtype: 'datefield',
@@ -131,6 +138,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             labelWidth: 78,
                             width: '100%',
                             margin: 1,
+                            minValue: 0,
+                            maxValue: 100,
                             bind: {
                                 value: '{po.sewtarget_percent}'
                             }
@@ -145,7 +154,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             width: '100%',
                             margin: 1,
                             bind: {
-                                value: '{po.po_vendor}'
+                                value: '{po.po_vendor}',
+                                disabled: '{isPO_VendorDisable}'
                             }
                         },
                         {
