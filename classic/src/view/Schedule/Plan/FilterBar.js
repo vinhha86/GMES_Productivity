@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'FilterBar',
+    id: 'FilterBar',
     controller: 'FilterBar_Controller',
     layout: 'hbox',
     items: [
@@ -137,6 +138,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             width: 100,
             labelWidth: 80,
             labelAlign: 'right',
+            hidden: true,
             itemId: 'checkAllGrant',
             bind: {
                 value: '{schedule.isAllgrant}'
@@ -145,7 +147,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         ,{
             xtype  : 'button',
             iconCls: 'fa fa-file-pdf-o',
-            text   : 'PDF',
+            tooltip: 'Xuất file PDF',
             handler: 'onExport'
         },{
             xtype: 'button',

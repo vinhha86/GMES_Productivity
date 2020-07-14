@@ -4,6 +4,7 @@ Ext.define('GSmartApp.store.POrderFilter', {
     alias: 'store.POrderFilter',
 
 	model: 'GSmartApp.model.POrder',
+    groupField: 'granttoorgname',
 	loadOne: function(porderid_link){
 		var me=this;
 		var params = new Object();
@@ -146,7 +147,23 @@ Ext.define('GSmartApp.store.POrderFilter', {
 				rootProperty: 'data'
 			}
 		});
-		this.load();
+		this.load({
+			callback: function(records, operation, success){
+				if(!success){
+					Ext.Msg.show({
+						title: 'Thông báo',
+						msg: 'Phiên làm việc đã hết thời gian! Bạn hãy đăng nhập lại',
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						},
+						fn: function () {
+							this.fireEvent('logout');
+						}
+					});
+				}
+			}
+		});
 	},     
     loadFilter:function(
         ordercode, 

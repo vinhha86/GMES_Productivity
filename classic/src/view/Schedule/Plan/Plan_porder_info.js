@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
     extend: 'Ext.form.Panel',
     xtype: 'Plan_porder_info',
+    id: 'Plan_porder_info',
     layout: 'vbox',
     controller: 'Plan_porder_info_Controller',
     viewModel: {
@@ -39,6 +40,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
             fieldLabel: 'Số ngày',
             itemId: 'duration',
             maskRe: /[0-9.]/,
+            enableKeyEvents: true,
             bind: {
                 value: '{sch.duration}'
             }
@@ -47,6 +49,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
             margin: 5,
             fieldLabel: 'Năng suất',
             itemId: 'productivity',
+            enableKeyEvents: true,
             maskRe: /[0-9.]/,
             bind: {
                 value: '{sch.productivity}'

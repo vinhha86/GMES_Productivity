@@ -19,10 +19,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_Main', {
             region: 'center'
         },
         {
-            // xtype: 'Schedule_plan_GuestView',
-            // width: '50%',
-            // region: 'east',
-            // hidden: true  
+            xtype: 'TabPorder_notGrant_and_PorderReq',
+            id:'Schedule_plan_POrderUnGranted',
+            width: '50%',
+            region: 'east',
+            hidden: true  
         },
     ]
 })

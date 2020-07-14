@@ -10,9 +10,12 @@ Ext.define('GSmartApp.model.POrder_Req', {
 		'productid_link',
 		'sizesetid_link',
 		'orderdate',
-		'nteger totalorder',
+		'totalorder',
 		'usercreatedid_link',
 		'timecreated',
-		'status'
+		'status',
+		'po_Productiondate',
+		'shipdate',
+		'granttoorgname'
     ]
 });

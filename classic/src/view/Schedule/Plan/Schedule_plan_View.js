@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                             Buyer: 0,
                             Vendor: 0,
                             isReqPorder: false,
-                            isAllgrant: false
+                            isAllgrant: true
                         }
                     }
 
@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         });
 
         var sch = Ext.create('Sch.panel.SchedulerTree', {
-            rowHeight: 40,
+            rowHeight: 30,
             barMargin: 2,
             id: 'treeplan',
             useArrows: true,
@@ -104,7 +104,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 }
             },
             multiSelect: true,
-            border: false,
+            border: true,
             bodyBorder: false,
             eventBorderWidth: 0,
             columnLines: true,
@@ -125,34 +125,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             ),
             eventRenderer: function (flight, resource, meta) {
                 if (resource.data.leaf) {
-                    meta.cls = 'leaf';
-                    return flight.get('Name');
+                    return flight.get('mahang');
                 } else {
-                    meta.cls = 'group';
                     return '&nbsp;';
                 }
             },
             viewConfig: {
-                getRowClass: function (r) {
-                    // if (r.get('Id') === 3 || r.parentNode.get('Id') === 3) {
-                    //     return 'some-grouping-class';
-                    // }
-
-                    // if (r.get('Id') === 9 || r.parentNode.get('Id') === 9) {
-                    //     return 'some-other-grouping-class';
-                    // }
-                },
                 plugins: {
                     ptype: 'treeviewdragdrop',
                     enableDrag: true,
-                    dragText: '{0} Yêu cầu SX',
                     dragGroup: 'porderGanttDropGroup',
                     dropGroup: 'porderFreeDropGroup'
                 },
-                // listeners: {
-                //     drop: 'onDrop',
-                //     beforedrop: 'onBeforeDrop'
-                // }
+                listeners: {
+                    beforedrop: 'onBeforeDrop'
+                }
             },
 
             columns: [
@@ -162,6 +149,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     width: 250,
                     sortable: false,
                     dataIndex: 'Name'
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 30,
+                    menuDisabled: true,
+                    sortable: false,
+                    items: [{
+                        iconCls: 'x-fa fas fa-eye',
+                        tooltip: 'Ẩn tổ',
+                        handler: 'onHidden'
+                    }]
                 }
             ],
             crudManager: cm,
@@ -181,18 +179,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     pluginId: 'printable',
                     // Configure what to show in print dialog
                     exportDialogConfig: {
-                        showDPIField: true,
-                        showColumnPicker: true,
                         dateRangeRestriction: false,
                         stateful: true,
-                        modal: true
-                    }
+                        modal: true,
+                        format           : "A3",
+                        orientation      : "landscape",
+                        range            : "complete",
+                        showHeader       : false,
+                    },
+                    autoPrintAndClose   : true
                 }
             ],
             listeners : {
                 eventcontextmenu: 'onContextMenu',
                 aftereventresize: 'onResizeSchedule',
-                eventdrop: 'onDrop',
+                eventdrop: 'onEventDrop',
                 beforeeventdropfinalize: 'beforeDrop'
             }
         })

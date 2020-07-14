@@ -2,14 +2,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_Main_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Schedule_plan_Main_Controller',
     init: function(){
-        // var viewmodel = this.getViewModel();
-        // var OrgStore = viewmodel.getStore('OrgStore');  
-        // OrgStore.loadStore(14, false);
-
-        // var POrderUnGranted = viewmodel.getStore('POrderUnGranted'); 
-        // var golive_from = new Date('01-jan-2020');
-        // var golive_to = new Date('31-dec-2020'); 
-        // POrderUnGranted.loadFree_bygolivedate(golive_from,golive_to);
+       
+       
     },
     onZoomIn : function () {
         var panel_plan = this.getView().items.get('panel_plan');
@@ -20,16 +14,36 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_Main_Controller', {
         var panel_plan = this.getView().items.get('panel_plan');
         panel_plan.zoomOut();
     },   
-    onGrantToOrgTap: function(){
-        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
-        var panel_orderungranted = this.getView().items.get('panel_orderungranted');
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden())
-                panel_orderungranted.setHidden(false);
-            else
-                panel_orderungranted.setHidden(true);
+    //nut tim kiem lenh chua phan chuyen
+    onSearchTap: function() {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrderUnGranted');
+        var golive_from = viewmodel.get('schedule.startDate');
+        var golive_to = viewmodel.get('schedule.endDate');
+        store.loadFree_bygolivedate(golive_from,golive_to);
+    },
+    onPOrderFilterKeyup: function(){
+        var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrderUnGranted');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('porderFilterField'),
+        filters = store.getFilters();
+
+        if (filterField.value) {
+            this.porderFilter = filters.add({
+                id: 'porderFilter',
+                property: 'ordercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
         }
-    },   
+        else if (this.porderFilter) {
+            filters.remove(this.porderFilter);
+            this.porderFilter = null;
+        }
+    },
     onGuessView: function(){
         //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
         var panel_guessview = this.getView().items.get('panel_guessview');
