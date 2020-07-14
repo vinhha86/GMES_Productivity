@@ -128,8 +128,68 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             form.close();
         })
     },
-    onFiltergrant: function () {
-
+    onHidden: function (grid, rowIndex, colIndex) {
+        var th = this;
+         var me = this.getView().down('#treeplan');
+        var store = me.getCrudManager().getResourceStore();
+        var rec = store.getAt(rowIndex); 
+        
+        //1: to chuyen, 0: phan xuong
+        if(rec.get('type') == 1){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn có muốn ẩn '+rec.get('Name')+'?',
+                buttons: Ext.MessageBox.YESNO,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if(btn==='yes')
+                        th.Hidden_grant(store,rec.get('Id'));
+                }
+            });
+        }
+        else if(rec.get('type') == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn có muốn hiện tất cả các tổ trong '+rec.get('Name')+'?',
+                buttons: Ext.MessageBox.YESNO,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if(btn==='yes')
+                         th.ShowGrant_Hidden(store, rec);
+                }
+            });
+        }
+    },
+    List_Grant_hidden: [],
+    Hidden_grant: function(store, Id){
+        var me = this;
+        filters = store.getFilters();
+        if(Id>0){
+            filters.add({
+                id: Id,
+                operator: '!=',
+                value: Id,
+                property: 'Id'
+            });
+            me.List_Grant_hidden.push(Id);
+        }
+    },
+    ShowGrant_Hidden: function(store, rec){
+        var me = this;
+        for(var i =0; i<rec.get('children').length;i++){
+            var value = rec.get('children')[i];
+            if(me.List_Grant_hidden.includes(value.Id)){
+                store.removeFilter(value.Id);
+                var index = me.List_Grant_hidden.indexOf(value.Id);
+                delete me.List_Grant_hidden[index];
+            }
+        }
     },
     onResizeSchedule: function (scheduler, record, eOpts) {
         var me = this;

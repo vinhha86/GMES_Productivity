@@ -149,6 +149,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     width: 250,
                     sortable: false,
                     dataIndex: 'Name'
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 30,
+                    menuDisabled: true,
+                    sortable: false,
+                    items: [{
+                        iconCls: 'x-fa fas fa-eye',
+                        tooltip: 'Ẩn tổ',
+                        handler: 'onHidden'
+                    }]
                 }
             ],
             crudManager: cm,
