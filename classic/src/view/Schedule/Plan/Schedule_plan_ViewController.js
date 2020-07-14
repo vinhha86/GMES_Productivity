@@ -5,8 +5,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     grant_to_orgid_link: 0,
     _dragContext: null,
     init: function () {
-        var me = this.getView().down('#treeplan');
-        console.log(me);
     },
     control: {
 

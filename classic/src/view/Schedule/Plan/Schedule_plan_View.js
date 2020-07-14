@@ -157,8 +157,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     sortable: false,
                     items: [{
                         iconCls: 'x-fa fas fa-eye',
-                        tooltip: 'Ẩn tổ',
-                        handler: 'onHidden'
+                        handler: 'onHidden',
+                        getTip: function(value, metadata, record, row, col, store) {
+                           if(record.get('type') == 0){
+                               return 'Hiện tổ';
+                           }
+                           else {
+                               return 'Ẩn tổ';
+                           }
+                        }
                     }]
                 }
             ],
