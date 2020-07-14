@@ -81,12 +81,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             id: 'treeplan',
             useArrows: true,
             autoAdjustTimeAxis: false,
-            // zoomLevels: [
-            //     { width: 50,    increment: 4,   resolution: 3, preset: 'weekAndDayLetter', resolutionUnit: 'MONTH' },
-            //     { width: 60,    increment: 3,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'MONTH' },
-            //     { width: 80,    increment: 2,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
-            //     { width: 100,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'DAY' }
-            // ],
+            zoomLevels: [
+                { width: 50,    increment: 1,   resolution: 4, preset: 'year', resolutionUnit: 'MONTH' },
+                { width: 50,    increment: 1,   resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },
+                { width: 50,    increment: 1,   resolution: 1, preset: 'weekAndMonth', resolutionUnit: 'WEEK' },
+                { width: 20,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'MONTH' }
+            ],
             viewPreset: {
                 name: 'weekAndDayLetter',
                 displayDateFormat: 'd/m/Y',
@@ -111,7 +111,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             rowLines: true,
             highlightWeekends: true,
             cls: 'tree-scheduler',
-            // partnerTimelinePanel: 'Schedule_plan_GuestView',
+            snapRelativeToEventStartDate : true,
             tooltipTpl: new Ext.XTemplate(
                 '<ul class="eventTip">',
                 '<li>Lệnh SX: {pordercode}</li>',                
@@ -194,7 +194,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 eventcontextmenu: 'onContextMenu',
                 aftereventresize: 'onResizeSchedule',
                 eventdrop: 'onEventDrop',
-                beforeeventdropfinalize: 'beforeDrop'
+                beforeeventdropfinalize: 'beforeDrop',
+                zoomchange: 'onZoomchange'
             }
         })
 

@@ -5,9 +5,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     grant_to_orgid_link: 0,
     _dragContext: null,
     init: function () {
-        // var grid = this.getView().down('treeplan');
-        // var crud = grid.getCrudManager();
-        // crud.load();
+        var me = this.getView().down('#treeplan');
+        console.log(me);
     },
     control: {
 
@@ -519,5 +518,54 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     });
                 }
             })
+    },
+    onZoomchange: function(timelinePanel, level, eOpts){
+        var preset_name = timelinePanel.getViewPreset();
+        var start = timelinePanel.getStartDate();
+        var end = timelinePanel.getEndDate();
+
+        var preset =  Sch.preset.Manager.getPreset(preset_name);
+        preset.displayDateFormat= 'd/m/Y';
+
+        switch(level){
+            case 1:
+                preset.headerConfig.middle.renderer = function(start, end, headerConfig, index) {
+                    return Ext.Date.format(start, 'm');
+                };
+                preset.headerConfig.middle.unit = Sch.util.Date.MONTH;
+                preset.headerConfig.middle.increment = 1;
+
+                preset.headerConfig.top.dateFormat = 'Y';
+                preset.headerConfig.top.unit = Sch.util.Date.YEAR;
+                preset.headerConfig.top.align = 'center';
+                break;
+            case 2:
+                preset.headerConfig.middle.renderer = function(start, end, headerConfig, index) {
+                    return Ext.Date.format(start, 'd/m') +" - "+ Ext.Date.format(end, 'd/m');
+                };
+                preset.headerConfig.middle.unit = Sch.util.Date.WEEK;
+                preset.headerConfig.middle.increment = 1;
+
+                preset.headerConfig.top.dateFormat = 'm-Y';
+                preset.headerConfig.top.unit = Sch.util.Date.MONTH;
+                preset.headerConfig.top.align = 'center';
+                break;
+            case 3: 
+                preset.headerConfig.bottom.renderer = function(start, end, headerConfig, index) {
+                    return Ext.Date.format(start, 'd');
+                };
+                preset.headerConfig.bottom.unit = 'd';
+                preset.headerConfig.bottom.increment = 1;
+
+                preset.headerConfig.middle.dateFormat = 'm-Y';
+                preset.headerConfig.middle.unit = 'mo';
+                preset.headerConfig.middle.align = 'center';
+
+                
+                break;
+            default: 
+                break;
+        }
+        timelinePanel.setViewPreset(preset, start, end);
     }
 })
