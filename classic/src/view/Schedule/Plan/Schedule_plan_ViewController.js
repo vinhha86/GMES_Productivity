@@ -1,7 +1,9 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Schedule_plan_ViewController',
-    rec: null,
+    rec: null,    
+    grant_to_orgid_link: 0,
+    _dragContext: null,
     init: function () {
         // var grid = this.getView().down('treeplan');
         // var crud = grid.getCrudManager();
@@ -88,6 +90,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         form.show();
     },
     ShowNangSuat: function (rec) {
+        var me = this.getView().down('#treeplan');
         var form = Ext.create('Ext.window.Window', {
             height: 230,
             closable: true,
@@ -106,12 +109,24 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 xtype: 'Plan_porder_info',
                 viewModel: {
                     data: {
-                        sch: rec.data
+                        sch: rec.data,
+                        oldValue: rec.data
                     }
                 }
             }]
         });
         form.show();
+
+        form.down('#Plan_porder_info').getController().on('UpdatePorder', function(data){
+           
+            rec.set('StartDate', data.startDate);
+            rec.set('EndDate', data.endDate);
+            rec.set('duration', data.duration);
+            rec.set('productivity', data.productivity);
+
+            me.getSchedulingView().scrollEventIntoView(rec);
+            form.close();
+        })
     },
     onFiltergrant: function () {
 
@@ -166,8 +181,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
-    grant_to_orgid_link: 0,
-    _dragContext: null,
     beforeDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
         me._dragContext = dragContext;
@@ -246,7 +259,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         if (destPos_Data.type != 1) {
             Ext.Msg.show({
                 title: 'Thông báo',
-                msg: 'Chỉ được phép phân lệnh cho tổ chuyền',
+                msg: 'Bạn chỉ được phân lệnh cho tổ chuyền',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
@@ -260,7 +273,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             if (destPos_Data.id_origin < 1) {
                 Ext.Msg.show({
                     title: 'Thông báo',
-                    msg: 'Chỉ được phép phân lệnh cho tổ chuyền',
+                    msg: 'Bạn chỉ được phân lệnh cho tổ chuyền',
                     buttons: Ext.MessageBox.YES,
                     buttonText: {
                         yes: 'Đóng',
@@ -274,7 +287,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 if (destPos_Data.parentid_origin != porder_data.granttoorgid_link) {
                     Ext.Msg.show({
                         title: 'Thông báo',
-                        msg: 'Lệnh sản xuất đang được phân cho phân xưởng khác',
+                        msg: 'Bạn chọn sai phân xưởng đích!!! lệnh sản xuất được khai báo cho phân xưởng khác với phân xưởng đích',
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',

@@ -8,16 +8,23 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info_Controller', {
         '#btnThoat' : {
             click: 'onThoat'
         },
+        '#btnLuu': {
+            click: 'UpdatePorder'
+        },
         '#date_start' : {
-            focusleave: 'onSelectStartDate'
+            focusleave: 'onSelectStartDate',
+            collapse: 'onSelectStartDate'
         },
         '#date_end' : {
-            focusleave: 'onSelectEndDate'
+            focusleave: 'onSelectEndDate',
+            collapse: 'onSelectEndDate'
         },
         '#duration' : {
+            specialkey: 'onSpecialkey',
             focusleave: 'onDuration'
         },
         '#productivity' : {
+            specialkey: 'onSpecialkey',
             focusleave: 'onProductivity'
         }
     },
@@ -25,26 +32,40 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info_Controller', {
         this.getView().up('window').close();
     },
     onSelectStartDate: function( field, value, eOpts){
-        this.Update('#date_start', 'update_date');
+        this.Calculate('#date_start', 'update_date');
     },
     onSelectEndDate: function(){
-        this.url = 'update_date';
-        this.Update('#date_end', 'update_date');
+        this.Calculate('#date_end', 'update_date');
     },
     onDuration: function() {
-        this.Update('#duration', 'update_duration');
+        this.Calculate('#duration', 'update_duration');
     },
     onProductivity: function(){
-        this.Update('#productivity', 'update_productivity');
+        this.Calculate('#productivity', 'update_productivity');
     },
-    Update: function(itemId, url){
+    onSpecialkey: function(field, e ){
+        var me = this;
+        if(e.getKey() == e.ENTER){
+            if(field.itemId == "duration"){
+                me.Calculate('#duration', 'update_duration');
+            } 
+            else if (field.itemId == "productivity"){
+                me.Calculate('#productivity', 'update_productivity');
+            }
+        }
+    },
+    Calculate: function(itemId, url){
+        var form = this.getView();
+        form.setLoading('Đang tính số liệu!');
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.data = viewmodel.get('sch');
 
-        GSmartApp.Ajax.post('/api/v1/schedule/'+url , Ext.JSON.encode(params),
+        if(params.duration != '' && params.productivity != ''){
+            GSmartApp.Ajax.post('/api/v1/schedule/'+url , Ext.JSON.encode(params),
             function (success, response, options) {
+                form.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -77,5 +98,61 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info_Controller', {
                     });
                 }
             })
+        }
+    },
+    UpdatePorder: function(){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.data = viewmodel.get('sch');
+
+        if(params.duration != '' && params.productivity != ''){
+            GSmartApp.Ajax.post('/api/v1/schedule/update_porder_productivity' , Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.fireEvent('UpdatePorder', response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            },
+                            fn: function(){
+                                viewmodel.set('sch', viewmodel.get('oldValue'));
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        },
+                        fn: function(){
+                            viewmodel.set('sch', viewmodel.get('oldValue'));
+                        }
+                    });
+                }
+            })
+        } else {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được bỏ trống số ngày SX và năng suất!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function(){
+                    viewmodel.set('sch', viewmodel.get('oldValue'));
+                }
+            });
+        }
     }
 })
