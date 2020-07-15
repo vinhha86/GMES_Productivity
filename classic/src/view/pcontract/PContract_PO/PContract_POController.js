@@ -282,8 +282,65 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     }
                 }]
             });
+            form.show(); 
         }
+        
+    },
+    onEdit_Shipping: function(rec){
+        var viewModel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch giao hàng',
+            closeAction: 'destroy',
+            height: 400,
+            width: 700,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_PO_Shipping_Main',
+                viewModel: {
+                    data: {
+                        id: rec.data.id,
+                        pcontract_poid_link: rec.data.pcontract_poid_link,
+                    }
+                }
+            }]
+        });
         form.show(); 
+        
+    },    
+    onDelete_Shipping: function(rec){
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Kế hoạch giao hàng', 'Bạn có thực sự muốn xóa kế hoạch giao hàng? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var POShippingStore = viewmodel.getStore('POShippingStore');
+                    var params=new Object();
+                    params.id = rec.data.id;
+                    GSmartApp.Ajax.post('/api/v1/po_shipping/delete', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            POShippingStore.reload();
+                        } else {
+                            Ext.MessageBox.show({
+                                title: "Kế hoạch giao hàng",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    }); 
+                }
+            } );             
     },
     onPOInfoEdit: function(rec){
         var viewModel = this.getViewModel();
@@ -295,7 +352,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 305,
+            height: 465,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -439,6 +496,45 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
           e.stopEvent();
           menu_grid.record = record;
           menu_grid.showAt(position);
-    },     
+    },  
+    onMenu_Shipping: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Sửa kế hoạch',
+                // reference: 'PContract_PO_Menu_POinfoEdit',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-pencil greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onEdit_Shipping(record);
+                }
+            }, 
+            {
+                text: 'Xóa kế hoạch',
+                // reference: 'PContract_PO_Menu_PODelete',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onDelete_Shipping(record);
+                }
+            }
+        ]
+        });
+          // HERE IS THE MAIN CHANGE
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.record = record;
+          menu_grid.showAt(position);
+    },         
 });
 

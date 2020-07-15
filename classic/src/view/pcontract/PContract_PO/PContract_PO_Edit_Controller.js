@@ -5,6 +5,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewmodel = this.getViewModel();
         var CurrencyStore = viewmodel.getStore('CurrencyStore');
         CurrencyStore.loadStore();
+        var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
+        PackingTypeStore.loadStore();
 
         var productStore = viewmodel.getStore('ProductStore');
         var productpairid_link = viewmodel.get('productpairid_link');
@@ -54,6 +56,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                    
                     if(response.respcode == 200){
                         viewmodel.set('po', response.data);
+
+                        //Chuyen packing notice ve array
+                        var packing_str = response.data.packingnotice;
+                        var packing_arr = packing_str.split(';');
+                        viewmodel.set('po.packingnotice', packing_arr);
+                        
                         var store = viewmodel.getStore('PriceStore');
                         store.removeAll();
                         store.insert(0 , response.data.pcontract_price); 
@@ -128,7 +136,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var me = this;
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
-        // var porderStore = viewmodel.getStore('POrderStore');
         var porderReqStore = viewmodel.getStore('porderReqStore');
 
         //Xoa filter trc khi day len server
@@ -145,13 +152,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         });  
         viewmodel.set('po.pcontract_price',arrPrice);
 
-        //Khoi phu filter
+        //Khoi phuc filter
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
 
         //Call API
         var mes = me.CheckValidate();
         if(mes == ""){
             var params = new Object();
+            var packing_arr = viewmodel.get('po.packingnotice'); 
+            var packingnotice = '';
+            for(i=0;i<packing_arr.length;i++){
+                packingnotice = packingnotice + packing_arr[i];
+                if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
+            } 
+            viewmodel.set('po.packingnotice',packingnotice);          
             params.data = viewmodel.get('po');
             //Set trang thai cho PO
             if (viewmodel.get('isSizeset_CheckOK') == false || viewmodel.get('isPorderReq_CheckOK') == false)

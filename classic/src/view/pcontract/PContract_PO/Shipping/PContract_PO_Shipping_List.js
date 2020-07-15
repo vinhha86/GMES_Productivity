@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_PO_Shipping_List',
-    id:'PContract_PO_Shipping_List',
+    // id:'PContract_PO_Shipping_List',
 
     viewConfig: {
         stripeRows: true,
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
         width: 150
     },{
         text:'Đóng gói',
-        dataIndex:'packingnotice',
+        dataIndex:'packingnoticecode',
         flex: 1
     },{
         xtype: 'actioncolumn',
@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
         items: [
             {
                 iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu'
+                handler: 'onMenu_Shipping'
             },            
         ]
     }],

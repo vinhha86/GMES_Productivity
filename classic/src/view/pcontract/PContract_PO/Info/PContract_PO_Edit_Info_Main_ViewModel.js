@@ -4,7 +4,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_ViewModel', {
     stores:{
         porderReqStore: {
             type: 'POrder_Req'
-        }
+        },
+        PackingTypeStore:{
+            type: 'PackingTypeStore'
+        },
+        POShippingStore: {
+            type: 'PContract_PO_Shipping_Store'
+        },        
     },
     data: {
         id: null,

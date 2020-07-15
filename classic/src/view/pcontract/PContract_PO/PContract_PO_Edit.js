@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                 {
                     region: 'south',
                     layout: 'border',
-                    height: 290,
+                    height: 270,
                     items:[
                         {
                             region: 'west',

@@ -86,16 +86,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
         },      
         {
             region: 'center',
-            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            xtype: 'tagfield',
+            width: '100%',
+            margin: 1,
+            height: 50,
+            labelStyle: "font-size:11px;padding: 10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;',
-            xtype: 'textarea',
+            xtype: 'tagfield',
             labelWidth: 75,
             labelAlign: 'left',
             fieldLabel:'Đóng gói:',
-            width: '100%',
-            margin: 1,
             bind: {
+                store: '{PackingTypeStore}',
                 value: '{shipping.packingnotice}'
+            },
+            displayField: 'code',
+            valueField: 'id',
+            filterPickList: true,
+            queryMode: 'local',          
+            publishes: 'shipping.packingnotice',   
+            style: {
+                background: 'white'
             }
         },
     ]

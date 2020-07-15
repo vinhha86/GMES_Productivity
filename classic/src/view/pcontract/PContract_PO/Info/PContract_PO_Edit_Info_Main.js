@@ -11,16 +11,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
     items: [
         {
             region: 'center',
-            xtype: 'PContract_PO_Edit_Info',
-            border: true,
-            margin: 1,
+            layout: 'border',
+            items:[
+                {
+                    region: 'center',
+                    xtype: 'PContract_PO_Edit_Info',
+                    border: true,
+                    margin: 1,
+                },
+                {
+                    region: 'east',
+                    width: 250,
+                    xtype: 'PContract_PO_Edit_Porder_Req',
+                    border: true,
+                    margin: 1,
+                }
+            ]
         },
         {
-            region: 'east',
-            width: 250,
-            xtype: 'PContract_PO_Edit_Porder_Req',
+            region: 'south',
+            height: 150,
+            xtype: 'PContract_PO_Shipping_List',
             border: true,
-            margin: 1,
+            margin: 1,            
         }
     ],
     dockedItems:[{

@@ -3,8 +3,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
     alias: 'controller.PContract_PO_Edit_Info_Main_Controller',
     init: function(){
         var viewmodel = this.getViewModel();
+        var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
+        PackingTypeStore.loadStore();
+
         if(viewmodel.get('id') > 0){
             this.getInfo(viewmodel.get('id'));
+
         } else {
             this.getInfo(null);
         }
@@ -31,9 +35,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                     if(response.respcode == 200){
                         viewmodel.set('po', response.data);
 
+                        //Chuyen packing notice ve array
+                        var packing_str = response.data.packingnotice;
+                        var packing_arr = packing_str.split(';');
+                        viewmodel.set('po.packingnotice', packing_arr);
+
                         //Lay danh sach POrder_Req
                         var porderReqStore = viewmodel.getStore('porderReqStore');
-                        porderReqStore.loadByPO(id);                        
+                        porderReqStore.loadByPO(id);     
+                        
+                        //Lay danh sach ke hoach giao hang
+                        var POShippingStore = viewmodel.getStore('POShippingStore');
+                        POShippingStore.loadStore_bypo(id);
+                        console.log(POShippingStore);
                     }
                 }
             })
@@ -80,6 +94,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
+
+        var packing_arr = viewmodel.get('po.packingnotice'); 
+        var packingnotice = '';
+        for(i=0;i<packing_arr.length;i++){
+            packingnotice = packingnotice + packing_arr[i];
+            if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
+        } 
+        viewmodel.set('po.packingnotice',packingnotice);  
+
         params.data = viewmodel.get('po');
 
         var arrPOrders = [];

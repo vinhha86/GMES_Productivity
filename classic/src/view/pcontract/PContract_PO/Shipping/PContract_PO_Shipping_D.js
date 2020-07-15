@@ -30,9 +30,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_D', {
     },
     columns:[
         { header: 'SKU', dataIndex: 'skucode', flex: 1},
-        { header: 'Màu', dataIndex: 'mauSanPham', width: 70},
+        { header: 'Màu', dataIndex: 'mauSanPham', width: 90},
         { header: 'Cỡ', dataIndex: 'coSanPham', width: 70},  
         { header: 'Số lượng', dataIndex: 'amount', width: 80,
+            align: 'end',
+            summaryType: 'sum', 
+            summaryRenderer: 'renderSum',
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false},
         },
         {

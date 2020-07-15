@@ -7,25 +7,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
     items: [
         {
             region: 'south',
-            height: 40,
-            layout: 'hbox',
-            items:[
-                {
-                    region: 'center',
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    xtype: 'tagfield',
-                    labelWidth: 78,
-                    labelAlign: 'left',
-                    fieldLabel:'Đóng gói:',
-                    width: '100%',
-                    margin: 1,
-                    bind: {
-                        value: '{po.packingnotice}'
-                    }
-                }
-            ]
-
+            xtype: 'tagfield',
+            // margin: 1,
+            height: 50,
+            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+            fieldStyle: 'font-size:11px;',
+            xtype: 'tagfield',
+            labelWidth: 78,
+            labelAlign: 'left',
+            fieldLabel:'Đóng gói:',
+            bind: {
+                store: '{PackingTypeStore}',
+                value: '{po.packingnotice}'
+            },
+            displayField: 'code',
+            valueField: 'id',
+            filterPickList: true,
+            queryMode: 'local',          
+            publishes: 'po.packingnotice',   
+            style: {
+                background: 'white'
+            }
         },
         {
             region: 'center',

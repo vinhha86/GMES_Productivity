@@ -11,6 +11,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
         
         var PortStore = viewmodel.getStore('PortStore');
         PortStore.loadStore(null,null);
+        var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
+        PackingTypeStore.loadStore();        
     },
     control: {
         '#btnThoat': {
@@ -32,6 +34,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
                    
                     if(response.respcode == 200){
                         viewmodel.set('shipping', response.data);
+
+                        //Chuyen packing notice ve array
+                        var packing_str = response.data.packingnotice;
+                        var packing_arr = packing_str.split(';');
+                        viewmodel.set('shipping.packingnotice', packing_arr);
+
+                        var store = viewmodel.getStore('Shipping_DStore');
+                        store.removeAll();
+                        store.insert(0 , response.data.shipping_d); 
                     }
                 }
             })
@@ -69,6 +80,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
     onSave: function(){
         var me = this;
         var viewmodel = this.getViewModel();
+
+        var packing_arr = viewmodel.get('shipping.packingnotice'); 
+        var packingnotice = '';
+        for(i=0;i<packing_arr.length;i++){
+            packingnotice = packingnotice + packing_arr[i];
+            if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
+        } 
+        viewmodel.set('shipping.packingnotice',packingnotice);    
+
         var params = new Object();
         params.data = viewmodel.get('shipping');
 
@@ -80,7 +100,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
             if(!Ext.isNumber(record.data.id)) record.data.id = null;
             arrShippingD.push(record.data);
         });
-        params.shipping_d = arrShippingD;
+        params.data.shipping_d = arrShippingD;
 
         GSmartApp.Ajax.post('/api/v1/po_shipping/create', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -159,5 +179,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
                 form.close();
             })       
         }        
-    }
+    },
+    onXoaSKU: function(grid, rowIndex, colIndex){
+        var me=this;
+        var objDel = grid.getStore().getAt (rowIndex);
+        Ext.Msg.show({
+            title: "Thông báo",
+            msg: 'bạn có chắc chắn muốn xóa dòng SKU?',
+            buttons: Ext.MessageBox.YESNO,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function(btn){
+                if(btn==='yes'){
+                    var objDel = grid.getStore().getAt (rowIndex);
+                    grid.getStore().remove(objDel);
+                }
+            }
+        });
+    },    
+    renderSum: function(value, summaryData, dataIndex){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('shipping.shipamount',value);
+        return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';      
+    } 
 })

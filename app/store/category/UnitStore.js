@@ -41,9 +41,10 @@ Ext.define('GSmartApp.store.unit.UnitStore', {
 			callback: function(records, operation, success) {
 				if(!success){
 					 this.fireEvent('logout');
-				} else {
-					console.log(records);
-				}
+				} 
+				// else {
+				// 	console.log(records);
+				// }
 			}
 		});
 	}

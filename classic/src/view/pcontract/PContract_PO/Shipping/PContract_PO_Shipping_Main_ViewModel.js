@@ -7,7 +7,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_ViewModel', {
         },
         PortStore: {
             type: 'portstore'
-        }
+        },
+        PackingTypeStore:{
+            type: 'PackingTypeStore'
+        }     
     },
     data: {
         id: null,

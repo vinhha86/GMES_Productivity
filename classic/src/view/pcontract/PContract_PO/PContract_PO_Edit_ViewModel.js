@@ -35,6 +35,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         Vender:{
             type : 'ListOrgStore'
+        },
+        PackingTypeStore:{
+            type: 'PackingTypeStore'
         }
     },
     data: {
@@ -42,6 +45,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         parentId : 0,
         po: null,
         po_price: null,
+        packing_arr: null,
         product_selected_id_link: null,
         product_selected_typeid_link: null,
         isproductpair: 0,
