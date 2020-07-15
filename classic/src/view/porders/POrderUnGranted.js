@@ -79,8 +79,8 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         },
         { header: 'Style', dataIndex: 'buyercode', flex: 1},
         { header: 'PO', dataIndex: 'po_vendor', flex: 1},
-        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
         { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
+        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
         { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right'},
     ],
     dockedItems: [{

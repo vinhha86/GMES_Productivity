@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Schedule_plan_ViewController',
-    requires : [
+    requires: [
         'Robo.Manager'
     ],
     init: function () {
@@ -9,15 +9,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     control: {
 
     },
-    onSchedulerRender: function(){
+    onSchedulerRender: function () {
         var me = this;
         var view = this.getView().down('#treeplan');
         var event = view.getCrudManager().getEventStore();
         var resource = view.getCrudManager().getResourceStore();
         var zones = view.getCrudManager().getStore('zones');
         me.undoManager = new Robo.Manager({
-            transactionBoundary : 'timeout',
-            stores              : [
+            transactionBoundary: 'timeout',
+            stores: [
                 event,
                 resource,
                 zones
@@ -106,17 +106,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         form.show();
 
-        form.down('#Plan_break').getController().on('BreakPorder',function(data){
-            console.log(rec);
+        form.down('#Plan_break').getController().on('BreakPorder', function (data) {
             rec.set('EndDate', data.old_data.EndDate);
             rec.set('duration', data.old_data.duration);
             rec.set('productivity', data.old_data.productivity);
+            rec.set('Name', data.old_data.Name);
+            rec.set('mahang', data.old_data.mahang);
 
             var eventStore = me.getCrudManager().getEventStore();
-            eventStore.insert(0,data.new_data);
+            eventStore.insert(0, data.new_data);
             var reccord = eventStore.getAt(0);
 
-            me.getSchedulingView().scrollEventIntoView(reccord);
+            me.getSchedulingView().scrollEventIntoView(reccord, true, true);
+            me.getEventSelectionModel().select(reccord);
             form.close();
         })
     },
@@ -279,6 +281,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         me.newResource = newResource;
         record = dragContext.draggedRecords[0].data;
 
+
         //Truong hop keo tha vao phan xuong
         if (newResource.get('type') == 0) {
             Ext.Msg.show({
@@ -315,26 +318,29 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     onEventDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
         var record = dragContext[0];
-
         var params = new Object();
-        // //Truong hop drop trong to chuyen
-        if (dragContext[0].modified.ResourceId == null) {
-            params.porderid_link = record.get('id_origin');
-            params.StartDate = record.get('StartDate');
-            params.EndDate = record.get('EndDate');
-            me.UpdateLenh(params, dragContext[0])
-        }
-        //truong hop chuyen tu to nay sang to khac
-        else {
-            params.porderid_link = record.get('id_origin');
-            params.pordergrant_id_link =  record.get('porder_grantid_link');
-            params.orggrant_toid_link = me.newResource.get('id_origin');
-            params.startdate = record.get('StartDate');
-            params.enddate = record.get('EndDate');
-            params.schedule = record.data;
 
-            me.MoveLenh(params, dragContext[0]);
-        }
+        //Kiểm tra nếu cùng sản phẩm, đơn hàng và trùng ngày thì hỏi xem có merger hay không
+        
+        // var sch = this.getView().down('#treeplan');
+        // var store = sch.getCrudManager().getEventStore();
+        // var listEvent = store.getEventsForResource(me.newResource);
+        // for(var i=0; i<listEvent.length;i++){
+        //     var event = listEvent[i];
+        //     if(event.get('productid_link') == rec.get('productid_link') &&
+        //     event.get('pcontract_poid_link') == rec.get('pcontract_poid_link')){
+
+        //     }
+        // }
+
+        params.porderid_link = record.get('id_origin');
+        params.pordergrant_id_link = record.get('porder_grantid_link');
+        params.orggrant_toid_link = me.newResource.get('id_origin');
+        params.startdate = record.get('StartDate');
+        params.enddate = record.get('EndDate');
+        params.schedule = record.data;
+
+        me.MoveLenh(params, dragContext[0]);
     },
     //truoc khi tha tu panel ngoai vao
     onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
@@ -485,49 +491,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
-    Undo: function(){
+    Undo: function () {
         var me = this;
         me.undoManager.undo();
     },
-    UpdateLenh: function (params, rec) {
-        var me = this;
-        GSmartApp.Ajax.post('/api/v1/schedule/update_porder', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        rec.set('duration', response.duration);
-                        rec.set('productivity', response.productivity);
-                    }
-                    else {
-                        Ext.Msg.show({
-                            title: 'Thông báo',
-                            msg: 'Cập nhật thất bại',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng'
-                            },
-                            fn: function(){
-                                me.Undo();
-                            }
-                        });
-                    }
-                } else {
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Cập nhật thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng'
-                        },
-                        fn: function(){
-                            me.Undo();
-                        }
-                    });
-                }
-            })
-    },
-    MoveLenh: function(params , rec){
+    MoveLenh: function (params, rec) {
         var me = this;
         GSmartApp.Ajax.post('/api/v1/schedule/move_porder', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -545,7 +513,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             buttonText: {
                                 yes: 'Đóng'
                             },
-                            fn: function(){
+                            fn: function () {
                                 me.Undo();
                             }
                         });
@@ -558,7 +526,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         buttonText: {
                             yes: 'Đóng'
                         },
-                        fn: function(){
+                        fn: function () {
                             me.Undo();
                         }
                     });
@@ -572,7 +540,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
         var preset = Sch.preset.Manager.getPreset(preset_name);
         preset.displayDateFormat = 'd/m/Y';
-
+        console.log(level);
         switch (level) {
             case 1:
                 preset.headerConfig.middle.renderer = function (start, end, headerConfig, index) {
@@ -603,15 +571,43 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 preset.headerConfig.bottom.unit = 'd';
                 preset.headerConfig.bottom.increment = 1;
 
-                preset.headerConfig.middle.dateFormat = 'm-Y';
-                preset.headerConfig.middle.unit = 'mo';
+                preset.headerConfig.middle.renderer = function (start, end, headerConfig, index) {
+                    return Ext.Date.format(start, 'd/m') + " - " + Ext.Date.format(end, 'd/m');
+                };
+                preset.headerConfig.middle.unit = Sch.util.Date.WEEK;
                 preset.headerConfig.middle.align = 'center';
+                break;
+            case 4:
+                preset.headerConfig.bottom.renderer = function (start, end, headerConfig, index) {
+                    return Ext.Date.format(start, 'd');
+                };
+                preset.headerConfig.bottom.unit = Sch.util.Date.DAY;
+                preset.headerConfig.bottom.increment = 1;
 
-
+                preset.headerConfig.middle.dateFormat = 'm-Y';
+                preset.headerConfig.middle.unit = Sch.util.Date.MONTH;
+                preset.headerConfig.middle.align = 'center';
                 break;
             default:
                 break;
         }
         timelinePanel.setViewPreset(preset, start, end);
-    }
+    },
+    // doHighlight: function (value) {
+    //     var me = this.getView().down('#treeplan');
+    //     var store = me.getCrudManager().getEventStore();
+
+    //     store.each(function (task) {
+    //         console.log(task);
+    //         console.log(value);
+    //         if (task.getName().indexOf(value) >= 0) {
+    //             console.log(task.getName());
+    //             task.set('Cls', 'match');
+    //         } else {
+    //             task.set('Cls', '');
+    //         }
+    //     });
+
+    //     this.getView()[value.length > 0 ? 'addCls' : 'removeCls']('highlighting');
+    // }
 })
