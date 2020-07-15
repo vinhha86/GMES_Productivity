@@ -27,11 +27,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             }),
 
             eventStore = new Sch.data.EventStore({
-                model: 'GSmartApp.model.Schedule_Porder_model'
+                model: 'GSmartApp.model.Schedule_Porder_model',
+                storeId: 'events'
             }),
 
             resourceStore = new Sch.data.ResourceTreeStore({
                 model: 'GSmartApp.model.Schedule_Plan_model',
+                storeId: 'resources',
                 sorters: [{
                     property: 'id_origin',
                     direction: 'ASC'
@@ -109,11 +111,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             eventBorderWidth: 0,
             columnLines: true,
             rowLines: true,
-            highlightWeekends: true,
             cls: 'tree-scheduler',
-            snapRelativeToEventStartDate : true,
+            snapRelativeToEventStartDate : false,
             tooltipTpl: new Ext.XTemplate(
                 '<ul class="eventTip">',
+                '<li>{mahang}</li>',  
                 '<li>Lệnh SX: {pordercode}</li>',                
                 '<li>Buyer: {buyername}</li>',
                 '<li>Vendor: {vendorname}</li>',
@@ -177,8 +179,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 {
                     ptype: 'scheduler_zones',
                     store: HolidayStore,
-                    innerTpl           : '<span class="zone-type"></span>'+
-                    '<tpl if="comment">'+ '{comment}'+
+                    innerTpl           : '<tpl if ="comment">'+
+                    '<div>{comment}</div>'+
                     '</tpl>'
                 },
                 {
@@ -202,7 +204,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 aftereventresize: 'onResizeSchedule',
                 eventdrop: 'onEventDrop',
                 beforeeventdropfinalize: 'beforeDrop',
-                zoomchange: 'onZoomchange'
+                zoomchange: 'onZoomchange',
+                render : 'onSchedulerRender'
             }
         })
 
@@ -213,8 +216,5 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         me.callParent();
     },
     onDestroy : function() {
-        // console.log(this.down('#treeplan'));
-        // this.down('#treeplan').crudManager.destroy();
-        // this.callParent();
     }
 });
