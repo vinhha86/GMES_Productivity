@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Plan_break', {
     extend: 'Ext.form.Panel',
     xtype: 'Plan_break',
+    id: 'Plan_break',
     layout: 'vbox',
     controller: 'Plan_break_Controller',
     viewModel: {

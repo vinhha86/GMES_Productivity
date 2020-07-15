@@ -17,16 +17,30 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
         this.getView().up('window').close();
     },
     onBreak: function(){
+        var me = this;
         var viewmodel = this.getViewModel();
         var params = viewmodel.get('plan');
-        console.log(params);
-        
-        GSmartApp.Ajax.post('/api/v1/schedule/break_porder' , Ext.JSON.encode(params),
+
+        if(viewmodel.get('quantity') < viewmodel.get('plan.quantity')){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Số lượng tách không được lớn hơn số lượng lệnh sản xuất!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                },
+                fn: function(){
+                    viewmodel.set('plan.quantity',viewmodel.get('quantity'));
+                }
+            });
+        }
+        else {
+            GSmartApp.Ajax.post('/api/v1/schedule/break_porder' , Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        console.log(response);
+                        me.fireEvent('BreakPorder', response);
                     }
                     else {
                         Ext.Msg.show({
@@ -49,5 +63,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
                     });
                 }
             })
+        }
+        
     }
 })

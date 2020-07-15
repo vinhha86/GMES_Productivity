@@ -1,13 +1,29 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Schedule_plan_ViewController',
-    rec: null,    
-    grant_to_orgid_link: 0,
-    _dragContext: null,
+    requires : [
+        'Robo.Manager'
+    ],
     init: function () {
     },
     control: {
 
+    },
+    onSchedulerRender: function(){
+        var me = this;
+        var view = this.getView().down('#treeplan');
+        var event = view.getCrudManager().getEventStore();
+        var resource = view.getCrudManager().getResourceStore();
+        var zones = view.getCrudManager().getStore('zones');
+        me.undoManager = new Robo.Manager({
+            transactionBoundary : 'timeout',
+            stores              : [
+                event,
+                resource,
+                zones
+            ]
+        });
+        me.undoManager.start();
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
         var me = this;
@@ -55,6 +71,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         menu_grid.showAt(e.getXY());
     },
     ShowBreakPorder: function (rec) {
+        var me = this.getView().down('#treeplan');
         var form = Ext.create('Ext.window.Window', {
             height: 150,
             closable: true,
@@ -78,13 +95,30 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             parentid_origin: rec.get('parentid_origin'),
                             resourceid: rec.get('resourceId'),
                             porderid_link: rec.get('id_origin'),
-                            producttivity: rec.get('productivity')
-                        }
+                            producttivity: rec.get('productivity'),
+                            pordergrant_id_link: rec.get('porder_grantid_link'),
+                            duration: rec.get('duration')
+                        },
+                        quantity: rec.get('totalpackage')
                     }
                 }
             }]
         });
         form.show();
+
+        form.down('#Plan_break').getController().on('BreakPorder',function(data){
+            console.log(rec);
+            rec.set('EndDate', data.old_data.EndDate);
+            rec.set('duration', data.old_data.duration);
+            rec.set('productivity', data.old_data.productivity);
+
+            var eventStore = me.getCrudManager().getEventStore();
+            eventStore.insert(0,data.new_data);
+            var reccord = eventStore.getAt(0);
+
+            me.getSchedulingView().scrollEventIntoView(reccord);
+            form.close();
+        })
     },
     ShowNangSuat: function (rec) {
         var me = this.getView().down('#treeplan');
@@ -114,8 +148,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         form.show();
 
-        form.down('#Plan_porder_info').getController().on('UpdatePorder', function(data){
-           
+        form.down('#Plan_porder_info').getController().on('UpdatePorder', function (data) {
+
             rec.set('StartDate', data.startDate);
             rec.set('EndDate', data.endDate);
             rec.set('duration', data.duration);
@@ -127,47 +161,47 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     onHidden: function (grid, rowIndex, colIndex) {
         var th = this;
-         var me = this.getView().down('#treeplan');
+        var me = this.getView().down('#treeplan');
         var store = me.getCrudManager().getResourceStore();
-        var rec = store.getAt(rowIndex); 
-        
+        var rec = store.getAt(rowIndex);
+
         //1: to chuyen, 0: phan xuong
-        if(rec.get('type') == 1){
+        if (rec.get('type') == 1) {
             Ext.Msg.show({
                 title: 'Thông báo',
-                msg: 'Bạn có muốn ẩn '+rec.get('Name')+'?',
+                msg: 'Bạn có muốn ẩn ' + rec.get('Name') + '?',
                 buttons: Ext.MessageBox.YESNO,
                 buttonText: {
                     yes: 'Có',
                     no: 'Không'
                 },
                 fn: function (btn) {
-                    if(btn==='yes')
-                        th.Hidden_grant(store,rec.get('Id'));
+                    if (btn === 'yes')
+                        th.Hidden_grant(store, rec.get('Id'));
                 }
             });
         }
-        else if(rec.get('type') == 0){
+        else if (rec.get('type') == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
-                msg: 'Bạn có muốn hiện tất cả các tổ trong '+rec.get('Name')+'?',
+                msg: 'Bạn có muốn hiện tất cả các tổ trong ' + rec.get('Name') + '?',
                 buttons: Ext.MessageBox.YESNO,
                 buttonText: {
                     yes: 'Có',
                     no: 'Không'
                 },
                 fn: function (btn) {
-                    if(btn==='yes')
-                         th.ShowGrant_Hidden(store, rec);
+                    if (btn === 'yes')
+                        th.ShowGrant_Hidden(store, rec);
                 }
             });
         }
     },
     List_Grant_hidden: [],
-    Hidden_grant: function(store, Id){
+    Hidden_grant: function (store, Id) {
         var me = this;
         filters = store.getFilters();
-        if(Id>0){
+        if (Id > 0) {
             filters.add({
                 id: Id,
                 operator: '!=',
@@ -177,11 +211,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             me.List_Grant_hidden.push(Id);
         }
     },
-    ShowGrant_Hidden: function(store, rec){
+    ShowGrant_Hidden: function (store, rec) {
         var me = this;
-        for(var i =0; i<rec.get('children').length;i++){
+        for (var i = 0; i < rec.get('children').length; i++) {
             var value = rec.get('children')[i];
-            if(me.List_Grant_hidden.includes(value.Id)){
+            if (me.List_Grant_hidden.includes(value.Id)) {
                 store.removeFilter(value.Id);
                 var index = me.List_Grant_hidden.indexOf(value.Id);
                 delete me.List_Grant_hidden[index];
@@ -238,76 +272,71 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
+    newResource: null,
     beforeDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
-        me._dragContext = dragContext;
         var newResource = dragContext.newResource;
+        me.newResource = newResource;
         record = dragContext.draggedRecords[0].data;
-        console.log(record);
-        console.log(newResource);
 
-        //truong hop keo tha tu to nay sang to khac cung 1 nha may
+        //Truong hop keo tha vao phan xuong
+        if (newResource.get('type') == 0) {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được phép chuyển lệnh sản xuất sang phân xưởng!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function () {
+                    dragContext.finalize(false);
+                }
+            });
+            return false;
+        }
+        //truong hop keo tha tu to nay sang to khac cua 1 nha may khac
         if (newResource.get('parentid_origin') != record.parentid_origin) {
-            me._dragContext.finalize(false);
+
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được phép chuyển lệnh sản xuất sang tổ của nhà máy khác!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function () {
+                    dragContext.finalize(false);
+                }
+            });
             return false;
 
-            // Ext.Msg.show({
-            //     title: 'Thông báo',
-            //     msg: 'Bạn không được phép chuyển sang tổ của nhà máy khác',
-            //     buttons: Ext.MessageBox.YES,
-            //     buttonText: {
-            //         yes: 'Đóng',
-            //     },
-            //     fn: function() {
-
-            //     }
-            // });
-
-        } else {
-            if (newResource.get('Id') != record.resourceId) {
-                if (record.status != 0) {
-                    me.ShowFormQuestion();
-                    var window = Ext.WindowManager.getActive();
-                    window.el.setZIndex(1100000);
-                    return false;
-                }
-            }
         }
-
-
-        // dragContext.finalize(false);
-        // return false;
-
-        var newResource = dragContext.newResource;
-        // console.log(newResource);
-        me.grant_to_orgid_link = newResource.get('id_origin');
     },
     onEventDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
-        var rec = scheduler.getEventSelectionModel().selected.items[0];
-        // console.log(dragContext[0]);
-        // var newResource = dragContext.newResource;
-        // var record = dragContext.draggedRecords[0].data;
+        var record = dragContext[0];
+
         var params = new Object();
-        params.porderid_link = dragContext[0].get('id_origin');
-        params.StartDate = dragContext[0].get('StartDate');
-        params.EndDate = dragContext[0].get('EndDate');
         // //Truong hop drop trong to chuyen
         if (dragContext[0].modified.ResourceId == null) {
-
-            params.grant_to_orgid_link = 0;
-            me.UpdateLenh(params, dragContext[0])
-
-        }
-        //truong hop tao lenh tu cac lenh chua phan chuyen
-        else if (dragContext[0].get('status') == 0) {
-            params.grant_to_orgid_link = me.grant_to_orgid_link;
+            params.porderid_link = record.get('id_origin');
+            params.StartDate = record.get('StartDate');
+            params.EndDate = record.get('EndDate');
             me.UpdateLenh(params, dragContext[0])
         }
-        else if (dragContext[0].get('status') > 0) {
+        //truong hop chuyen tu to nay sang to khac
+        else {
+            params.porderid_link = record.get('id_origin');
+            params.pordergrant_id_link =  record.get('porder_grantid_link');
+            params.orggrant_toid_link = me.newResource.get('id_origin');
+            params.startdate = record.get('StartDate');
+            params.enddate = record.get('EndDate');
+            params.schedule = record.data;
 
+            me.MoveLenh(params, dragContext[0]);
         }
     },
+    //truoc khi tha tu panel ngoai vao
     onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
         var porder = data.records[0];
         var config = data.view.plugins[0].config;
@@ -363,7 +392,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         params.parentid_origin = destPos_Data.parentid_origin;
                         t.TaoLenhSanXuat(params);
                     }
-                    else if (config.id == "Porder_Req_Event"){
+                    else if (config.id == "Porder_Req_Event") {
                         var params = new Object();
                         params.porder_reqid_link = porder.get('id');
                         params.resourceid = destPos_Data.Id;
@@ -378,7 +407,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         dropHandlers.cancelDrop();
 
     },
-    TaoLenhThu: function(params){
+    //tha tu yeu cau san xuat
+    TaoLenhThu: function (params) {
         var me = this.getView().down('#treeplan');
         GSmartApp.Ajax.post('/api/v1/schedule/create_pordergrant_test', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -416,6 +446,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
+    //tha tu lenh sx chua phan chuyen
     TaoLenhSanXuat: function (params) {
         var me = this.getView().down('#treeplan');
         GSmartApp.Ajax.post('/api/v1/schedule/create_pordergrant', Ext.JSON.encode(params),
@@ -454,39 +485,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
-    ShowFormQuestion: function () {
+    Undo: function(){
         var me = this;
-        var form = Ext.create('Ext.window.Window', {
-            height: 200,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Tách - Chuyển lệnh sản xuất',
-            closeAction: 'destroy',
-            width: 300,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'FormQuestion_MoveGrant'
-            }]
-        });
-        form.show();
-
-        form.down('FormQuestion_MoveGrant').getController().on('Thoat', function () {
-            me._dragContext.finalize(false);
-            form.close();
-        });
-
-        form.down('FormQuestion_MoveGrant').getController().on('Chon', function (isBreak) {
-            me._dragContext.finalize(true);
-            form.close();
-        });
+        me.undoManager.undo();
     },
     UpdateLenh: function (params, rec) {
+        var me = this;
         GSmartApp.Ajax.post('/api/v1/schedule/update_porder', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -501,7 +505,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             msg: 'Cập nhật thất bại',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
-                                yes: 'Đóng',
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                me.Undo();
                             }
                         });
                     }
@@ -511,23 +518,64 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         msg: 'Cập nhật thất bại',
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
-                            yes: 'Đóng',
+                            yes: 'Đóng'
+                        },
+                        fn: function(){
+                            me.Undo();
                         }
                     });
                 }
             })
     },
-    onZoomchange: function(timelinePanel, level, eOpts){
+    MoveLenh: function(params , rec){
+        var me = this;
+        GSmartApp.Ajax.post('/api/v1/schedule/move_porder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        rec.set('duration', response.data.duration);
+                        rec.set('productivity', response.data.productivity);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                me.Undo();
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        },
+                        fn: function(){
+                            me.Undo();
+                        }
+                    });
+                }
+            })
+    },
+    onZoomchange: function (timelinePanel, level, eOpts) {
         var preset_name = timelinePanel.getViewPreset();
         var start = timelinePanel.getStartDate();
         var end = timelinePanel.getEndDate();
 
-        var preset =  Sch.preset.Manager.getPreset(preset_name);
-        preset.displayDateFormat= 'd/m/Y';
+        var preset = Sch.preset.Manager.getPreset(preset_name);
+        preset.displayDateFormat = 'd/m/Y';
 
-        switch(level){
+        switch (level) {
             case 1:
-                preset.headerConfig.middle.renderer = function(start, end, headerConfig, index) {
+                preset.headerConfig.middle.renderer = function (start, end, headerConfig, index) {
                     return Ext.Date.format(start, 'm');
                 };
                 preset.headerConfig.middle.unit = Sch.util.Date.MONTH;
@@ -538,8 +586,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 preset.headerConfig.top.align = 'center';
                 break;
             case 2:
-                preset.headerConfig.middle.renderer = function(start, end, headerConfig, index) {
-                    return Ext.Date.format(start, 'd/m') +" - "+ Ext.Date.format(end, 'd/m');
+                preset.headerConfig.middle.renderer = function (start, end, headerConfig, index) {
+                    return Ext.Date.format(start, 'd/m') + " - " + Ext.Date.format(end, 'd/m');
                 };
                 preset.headerConfig.middle.unit = Sch.util.Date.WEEK;
                 preset.headerConfig.middle.increment = 1;
@@ -548,8 +596,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 preset.headerConfig.top.unit = Sch.util.Date.MONTH;
                 preset.headerConfig.top.align = 'center';
                 break;
-            case 3: 
-                preset.headerConfig.bottom.renderer = function(start, end, headerConfig, index) {
+            case 3:
+                preset.headerConfig.bottom.renderer = function (start, end, headerConfig, index) {
                     return Ext.Date.format(start, 'd');
                 };
                 preset.headerConfig.bottom.unit = 'd';
@@ -559,9 +607,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 preset.headerConfig.middle.unit = 'mo';
                 preset.headerConfig.middle.align = 'center';
 
-                
+
                 break;
-            default: 
+            default:
                 break;
         }
         timelinePanel.setViewPreset(preset, start, end);
