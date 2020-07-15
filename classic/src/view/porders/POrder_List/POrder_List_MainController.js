@@ -4,6 +4,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     isActivate: false,
     init: function () {
         this.onloadPage();
+        let startField = this.lookupReference('startdate');
+        let endField = this.lookupReference('enddate');
+        startField.getPicker().monthYearFormat = 'm-Y';
+        endField.getPicker().monthYearFormat = 'm-Y';
     },
     control: {
         '#porderlistmain': {

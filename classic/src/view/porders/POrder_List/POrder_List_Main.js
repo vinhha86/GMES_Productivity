@@ -135,6 +135,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             {
                 xtype:'datefield',
                 itemId:'txtdatefrom',
+                reference: 'startdate',
+                format: 'd-m-Y',
                 margin: 5,
                 // flex: 1,
                 width: 160,
@@ -143,6 +145,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             {
                 xtype:'datefield',
                 itemId:'txtdateto',
+                reference: 'enddate',
+                format: 'd-m-Y',
                 margin: 5,
                 // flex: 1,
                 width: 160,
