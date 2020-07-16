@@ -36,6 +36,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     onGrantToOrgTap: function(){
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
         if (null != panel_orderungranted){
             if (panel_orderungranted.getHidden()){
                 var store = viewmodel.getStore('POrderUnGranted');
@@ -47,18 +48,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
                 store_req.load_byOrg();
 
                 panel_orderungranted.setHidden(false);
+                panel_guessview.setHidden(true);
             }
-            else
+            else{
                 panel_orderungranted.setHidden(true);
+            }
         }
     },   
     onGuessView: function(){
-        //var panel_orderwaiting = this.getView().up().items.get('panel_orderwaiting');
-        var panel_main = Ext.getCmp('treeplan');
-        var panel_guessview = panel_main.down('Schedule_plan_GuestView');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
         if (null != panel_guessview) {
-            if (panel_guessview.getHidden())
+            if (panel_guessview.getHidden()){
                 panel_guessview.setHidden(false);
+                panel_orderungranted.setHidden(true);
+            }
             else
                 panel_guessview.setHidden(true);
         }

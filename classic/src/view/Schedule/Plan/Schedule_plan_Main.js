@@ -25,5 +25,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_Main', {
             region: 'east',
             hidden: true  
         },
+        {
+            xtype: 'Schedule_plan_GuestView',
+            id:'Schedule_plan_Schedule_plan_GuestView',
+            width: '50%',
+            region: 'east',
+            hidden: true  
+        }
     ]
 })
