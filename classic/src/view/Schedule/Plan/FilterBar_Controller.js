@@ -14,9 +14,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         '#checkYCSX' : {
             change: 'onSearch'
         },
-        '#checkAllGrant' : {
-            change: 'onSearch'
-        }
+        // '#checkAllGrant' : {
+        //     change: 'onSearch'
+        // }
     },
     onZoomIn : function () {
         var viewmodel = this.getViewModel();
@@ -69,14 +69,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     },
     onSearch: function(){
         var sch = Ext.getCmp('treeplan');
+        var crud = sch.getCrudManager();
+        
+        console.log(crud);
+
         var viewmodel = this.getViewModel();
         
         sch.setStartDate(viewmodel.get('schedule.startDate'));
         sch.setEndDate(viewmodel.get('schedule.endDate'));
         
-
-        var crud = sch.getCrudManager();
-
         var params = new Object();
         params.listid = viewmodel.get('schedule.listid');
         params.startDate = viewmodel.get('schedule.startDate');

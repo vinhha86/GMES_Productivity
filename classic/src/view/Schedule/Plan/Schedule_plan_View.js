@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             });
 
         var cm = new Sch.data.CrudManager({
-            autoLoad: true,
+            autoLoad: false,
             resourceStore: resourceStore,
             eventStore: eventStore,
             transport: {
@@ -55,8 +55,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         },
                         params: {
                             listid: '13,14',
-                            startDate: viewmodel.get('schedule.startDate'),
-                            endDate: viewmodel.get('schedule.endDate'),
+                            startDate:  new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
+                            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
                             PO_code: '',
                             Buyer: 0,
                             Vendor: 0,
@@ -64,7 +64,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                             isAllgrant: true
                         }
                     }
-
                 }
             },
             stores: [
