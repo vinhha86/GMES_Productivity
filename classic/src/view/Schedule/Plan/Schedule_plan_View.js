@@ -176,6 +176,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 {
                     ptype: 'scheduler_printable',
                     pluginId: 'printable',
+                    defaultExporter: 'singlepage',
                     // Configure what to show in print dialog
                     exportDialogConfig: {
                         dateRangeRestriction: false,
@@ -183,10 +184,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         modal: true,
                         format           : "A3",
                         orientation      : "landscape",
-                        range            : "complete",
+                        range            : "visible",
+                        rowsRange : 'visible',
                         showHeader       : false,
+                        showDPIField: false
                     },
-                    autoPrintAndClose   : true
+                    // exportConfig: {
+                    //     format: 'A3',
+                    //     orientation: 'lanscape',
+                    //     range: 'complete',
+                    //     rowsRange: 'all',
+                    //     showHeader: false,
+                    //     showFooter: false
+                    // },
+                    autoPrintAndClose   : false
                 }
             ],
             listeners : {
