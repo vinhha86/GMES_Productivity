@@ -20,7 +20,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         Price_DStore: {
             type: 'PContract_PO_Price_D_Store'
-        },        
+        }, 
+        Price_DStore_Copy: {
+            type: 'PContract_PO_Price_D_Store'
+        },               
         ProductStore: {
             type: 'ProductStore'
         },
@@ -45,6 +48,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         parentId : 0,
         po: null,
         po_price: null,
+        po_price_copy: null,
         packing_arr: null,
         product_selected_id_link: null,
         product_selected_typeid_link: null,

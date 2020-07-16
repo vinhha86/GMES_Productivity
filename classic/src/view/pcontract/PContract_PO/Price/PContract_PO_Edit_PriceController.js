@@ -10,6 +10,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         '#btnThemMoiGia': {
             click: 'onThemMoiGia'
         },
+        '#btnPriceCopy': {
+            click: 'onPriceCopy'
+        },
+        '#btnPricePaste': {
+            click: 'onPricePaste'
+        },                
     },    
     onThemMoiGia : function(){
         var viewmodel = this.getViewModel();
@@ -345,5 +351,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         this.calPrice_PairProduct();
         
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+     },
+     onPriceCopy: function(){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('po_price_copy', viewmodel.get('po_price'));
+     },
+     onPricePaste: function(){
+        var viewmodel = this.getViewModel();
+        var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
+        var price_data = viewSizeset.getView().selection.data;
+        console.log(price_data);
+
+        //Tao ban copy voi product va sizeset cua san pham dang chon
+        var po_price = viewmodel.get('po_price');
+        var po_price_copy = viewmodel.get('po_price_copy');
+        po_price.price_cmp = po_price_copy.price_cmp;
+        po_price.price_fob = po_price_copy.price_fob;
+        po_price.price_sewingtarget = po_price_copy.price_sewingtarget;
+        po_price.price_sewingcost = po_price_copy.price_sewingcost;
+        po_price.totalprice = po_price_copy.totalprice;
+        po_price.salaryfund = po_price_copy.salaryfund;
+        po_price.pcontract_price_d = po_price_copy.pcontract_price_d;
+
+        //Copy value vao sizeset cua sp dang chon trong Viewmodel
+        // viewmodel.set('po_price', po_price_copy);
+        console.log(viewmodel.get('po_price'));
+
+        //Copy value vao sizeset cua sp dang chon trong Store
+        var priceStore = viewmodel.getStore('PriceStore');
+        var rec = priceStore.findRecord('id', price_data.id);
+        rec.data = viewmodel.get('po_price');
+
+        //Refresh chi tiet gia
+        var Price_DStore = viewmodel.getStore('Price_DStore');
+        Price_DStore.loadData(viewmodel.get('po_price.pcontract_price_d'));
      }
 })

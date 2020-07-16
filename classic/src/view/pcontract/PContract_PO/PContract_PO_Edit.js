@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                 {
                     region: 'south',
                     layout: 'border',
-                    height: 270,
+                    height: 280,
                     items:[
                         {
                             region: 'west',
@@ -76,7 +76,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                                     region: 'north',
                                     border: true,
                                     margin: 1, 
-                                    height: 72,
+                                    // height: 72,
+                                    height: 40,
                                     xtype: 'PContract_PO_Edit_PriceSumUp',
                                 },
                                 {

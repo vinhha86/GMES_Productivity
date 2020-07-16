@@ -132,13 +132,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         ,
         {
             xtype: 'combobox',
-            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
             fieldStyle: 'font-size:11px;text-align:right',
-            width: 180,
+            width: 160,
             cls: 'inputBoxNarror',
             editable: false,
             fieldLabel: 'Loại tiền:',
-            labelWidth : 60,
+            labelWidth : 50,
             bind:{
                 store:'{CurrencyStore}',
                 value: '{po.currencyid_link}'
@@ -152,10 +152,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },       
         {
             xtype: 'numberfield',
-            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
             fieldStyle: 'font-size:11px;text-align:right',
             hideTrigger:true,
-            width: 150,
+            width: 120,
             cls: 'inputBoxNarror',
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
@@ -168,12 +168,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },             
 		{
             xtype:'button',
+            width: 20,
             itemId:'btnThemMoiGia',
             ui: 'header',
-            margin: '10 5 0 0',
+            margin: '5 5 0 0',
 			tooltip: 'Thêm chi tiết giá',
             iconCls: 'x-fa fa-plus'
-        }]
+        },
+		{
+            xtype:'button',
+            width: 20,
+            itemId:'btnPriceCopy',
+            ui: 'header',
+            margin: '1 5 0 0',
+			tooltip: 'Copy',
+            iconCls: 'x-fa fa-copy'
+        },
+		{
+            xtype:'button',
+            width: 20,
+            itemId:'btnPricePaste',
+            ui: 'header',
+            margin: '1 5 0 0',
+			tooltip: 'Dán',
+            iconCls: 'x-fa fa-paste'
+        }                   
+        ]
     }]
 });
 
