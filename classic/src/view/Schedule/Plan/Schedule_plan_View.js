@@ -44,11 +44,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             autoLoad: true,
             resourceStore: resourceStore,
             eventStore: eventStore,
-            resourceZones: HolidayStore,
-            resourceZonesConfig : {
-                innerTpl : '{comment}',
-                clsField: 'comment'
-            },
             transport: {
                 load: {
                     requestConfig: {
@@ -88,7 +83,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 { width: 50,    increment: 1,   resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },
                 { width: 50,    increment: 1,   resolution: 1, preset: 'weekAndMonth', resolutionUnit: 'WEEK' },
                 { width: 20,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
-                // { width: 20,   increment: 1,   resolution: 1, preset: 'dayAndWeek', resolutionUnit: 'MONTH' }
             ],
             viewPreset: {
                 name: 'weekAndDayLetter',
@@ -100,7 +94,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         dateFormat: 'd'
                     },
                     middle: {
-                        unit: 'MONTH',
+                        unit: 'WEEK',
                         dateFormat: 'm-Y',
                         align: 'center'
                     }
@@ -175,14 +169,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             crudManager: cm,
             startDate: viewmodel.get('schedule.startDate'),
             endDate: viewmodel.get('schedule.endDate'),
-            // resizeConfig: cfg,
             plugins: [
                 {
                     ptype: 'scheduler_zones',
-                    store: HolidayStore,
-                    innerTpl           : '<tpl if ="comment">'+
-                    '<div>{comment}</div>'+
-                    '</tpl>'
+                    store: HolidayStore
                 },
                 {
                     ptype: 'scheduler_printable',

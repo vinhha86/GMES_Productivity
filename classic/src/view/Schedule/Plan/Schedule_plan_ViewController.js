@@ -5,6 +5,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         'Robo.Manager'
     ],
     init: function () {
+    //     var view = this.getView().down('#treeplan');
+    //     var crudManager = view.getCrudManager();
+    //     crudManager.load(
+    //         function (response) { 
+    //             console.log(response);
+    //          },
+    //    // here is errback
+    //     function (response) {
+    //         console.log(response);
+    //      }
+    //         )
     },
     control: {
 
@@ -107,6 +118,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         form.show();
 
         form.down('#Plan_break').getController().on('BreakPorder', function (data) {
+            console.log(data);
             rec.set('EndDate', data.old_data.EndDate);
             rec.set('duration', data.old_data.duration);
             rec.set('productivity', data.old_data.productivity);
@@ -322,25 +334,43 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
         //Kiểm tra nếu cùng sản phẩm, đơn hàng và trùng ngày thì hỏi xem có merger hay không
         
-        // var sch = this.getView().down('#treeplan');
-        // var store = sch.getCrudManager().getEventStore();
-        // var listEvent = store.getEventsForResource(me.newResource);
-        // for(var i=0; i<listEvent.length;i++){
-        //     var event = listEvent[i];
-        //     if(event.get('productid_link') == rec.get('productid_link') &&
-        //     event.get('pcontract_poid_link') == rec.get('pcontract_poid_link')){
+        var sch = this.getView().down('#treeplan');
+        var store = sch.getCrudManager().getEventStore();
+        var listEvent = store.getEventsForResource(me.newResource);
+        var count = 0;
+        var grant_des = null;
+        for(var i=0; i<listEvent.length;i++){
+            var event = listEvent[i];
+            if(event.get('porderid_link') == record.get('porderid_link') && 
+                ((record.get('StartDate') >= event.get('StartDate') && record.get('StartDate') <= event.get('EndDate')) || 
+                (record.get('EndDate') >= event.get('StartDate') && record.get('EndDate') <= event.get('EndDate')))){
+                count++;
+                if(event.get('porder_grantid_link') != record.get('porder_grantid_link'))
+                    grant_des = event;
 
-        //     }
-        // }
+                if(count>1){
+                    break;
+                }
+            }
+        }
 
-        params.porderid_link = record.get('id_origin');
-        params.pordergrant_id_link = record.get('porder_grantid_link');
-        params.orggrant_toid_link = me.newResource.get('id_origin');
-        params.startdate = record.get('StartDate');
-        params.enddate = record.get('EndDate');
-        params.schedule = record.data;
-
-        me.MoveLenh(params, dragContext[0]);
+        if(count>1){
+            params.pordergrantid_link_des = grant_des.get('porder_grantid_link');
+            params.pordergrantid_link_src = record.get('porder_grantid_link');
+            params.sch = record.data;
+            // console.log(params);
+            me.MergerLenh(params, record, grant_des);
+        }
+        else {
+            params.porderid_link = record.get('id_origin');
+            params.pordergrant_id_link = record.get('porder_grantid_link');
+            params.orggrant_toid_link = me.newResource.get('id_origin');
+            params.startdate = record.get('StartDate');
+            params.enddate = record.get('EndDate');
+            params.schedule = record.data;
+    
+            me.MoveLenh(params, dragContext[0]);
+        }
     },
     //truoc khi tha tu panel ngoai vao
     onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
@@ -504,6 +534,53 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     if (response.respcode == 200) {
                         rec.set('duration', response.data.duration);
                         rec.set('productivity', response.data.productivity);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function () {
+                                me.Undo();
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        },
+                        fn: function () {
+                            me.Undo();
+                        }
+                    });
+                }
+            })
+    },
+    MergerLenh: function(params, rec, event){
+        var me = this;
+        GSmartApp.Ajax.post('/api/v1/schedule/merger_porder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        rec.set('duration', response.data.duration);
+                        rec.set('productivity', response.data.productivity);
+                        rec.set('StartDate', response.data.StartDate);
+                        rec.set('EndDate', response.data.EndDate);
+                        rec.set('Name', response.data.Name);
+                        rec.set('mahang', response.data.mahang);
+                        rec.set('totalpackage', response.data.totalpackage);
+
+                        var sch = me.getView().down('#treeplan');
+                        var store = sch.getCrudManager().getEventStore();
+                        store.remove(event);
                     }
                     else {
                         Ext.Msg.show({
