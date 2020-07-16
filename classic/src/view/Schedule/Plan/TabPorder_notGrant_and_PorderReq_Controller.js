@@ -12,6 +12,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         var golive_to = viewmodel.get('schedule.endDate');
         store.loadFree_bygolivedate(golive_from, golive_to);
     },
+    onSearchPorderReq: function () {
+        var viewmodel = this.getViewModel();
+        var store_req = viewmodel.getStore('Porder_Req_Store');
+        store_req.load_byOrg();
+    },
     onPOrderFilterKeyup: function () {
         var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var viewmodel = this.getViewModel();
@@ -34,7 +39,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             this.porderFilter = null;
         }
     },
-    onPOFilterKeyup: function(){
+    onPOFilterKeyup: function () {
         var grid = Ext.getCmp('Porder_Req');
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('Porder_Req_Store');
@@ -56,7 +61,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             this.porderFilter = null;
         }
     },
-    onStyleFilterKeyup: function(){
+    onStyleFilterKeyup: function () {
         var grid = Ext.getCmp('Porder_Req');
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('Porder_Req_Store');
@@ -79,6 +84,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         }
     },
     onHiddenList: function () {
+        var filter = Ext.getCmp('FilterBar').getController();
+        filter.onGrantToOrgTap();
+    },
+    onHiddenListReq: function () {
         var filter = Ext.getCmp('FilterBar').getController();
         filter.onGrantToOrgTap();
     }

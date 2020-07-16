@@ -1,13 +1,19 @@
 
 .red{
     background : red;
-    word-wrap: break-word;
-    border-style: groove;
+    font-size: 10px;
+    color: white;
+    border-left: 2px solid red;
+    border-radius: 2px;
+    opacity: 0.9;
    }
 .green{
     background :green;
-    word-wrap: break-word;
-    border-style: groove;
+    font-size: 10px;
+    color: white;
+    border-left: 2px solid red;
+    border-radius: 2px;
+    opacity: 0.9;
    }
 .blue{
     background :blue;
@@ -16,13 +22,12 @@
     border-left: 2px solid red;
     border-radius: 2px;
     opacity: 0.9;
-    word-wrap: break-word;
-    width: fit-content;
 }
-.gray {
+.test {
     background: gray;
-    word-wrap: break-word;
-    border-style: groove;
+    border-left: 2px solid red;
+    border-radius: 2px;
+    color: yellow;
 }
 .match {
     opacity: 1;
@@ -32,9 +37,27 @@
     color: white;
     border-radius: 2px;
 }
-.holiday {
-    background: rgb(241, 222, 223);
+.sunday {
+    background: rgb(236, 193, 195);
     word-wrap: break-word;
+}
+
+.holiday {
+    background: rgb(236, 214, 238);
+    word-wrap: break-word;
+}
+
+.highlighting .sch-event {
+    opacity : 0.2;
+}
+
+.highlighting .sch-event.match {
+    opacity: 1;
+    background :blue;
+    font-size: 10px;
+    color: white;
+    border-radius: 2px;
+    box-shadow : 0 0 8px red;
 }
 
 // .b-sch-event {
