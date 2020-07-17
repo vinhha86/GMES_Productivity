@@ -15,19 +15,21 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 		'unitprice',
 		{name: 'imgproduct'},
 		'productBuyerCode',
-		'productVendorCode'
+		'productVendorCode',
+		'pairamount'
     ],
 	sorters: [{
         direction: 'ASC',
         property: 'productid_link'
 	}],
-	loadStore_bypairid:function(id, ishidden){
+	loadStore_bypairid:function(id, po_quantity, ishidden){
 		var me=this;
 		ishidden = ishidden == null ? false : ishidden;
 
 		var params = new Object();
 		params.product_pairid_link = id;
 		params.ishidden_pair = ishidden;
+		params.po_quantity = po_quantity;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -54,15 +56,16 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 			callback: function(records, operation, success) {
 				if(!success){
 					 this.fireEvent('logout');
-				}
+				} 
 			}
 		});
 	},
-	loadStore_bypairid_Async:function(id){
+	loadStore_bypairid_Async:function(id, po_quantity, ishidden){
 		var me=this;
 		var params = new Object();
 		params.product_pairid_link = id;
-		params.ishidden_pair = null;
+		params.ishidden_pair = ishidden;
+		params.po_quantity = po_quantity;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

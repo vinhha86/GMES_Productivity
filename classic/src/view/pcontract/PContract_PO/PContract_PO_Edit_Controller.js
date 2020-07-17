@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
         var productStore = viewmodel.getStore('ProductStore');
         var productpairid_link = viewmodel.get('productpairid_link');
-        productStore.loadStore_bypairid_Async(productpairid_link);
+        productStore.loadStore_bypairid_Async(productpairid_link, null, false);
 
 		productStore.load({
 			scope: this,

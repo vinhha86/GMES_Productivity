@@ -46,16 +46,18 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
         text:'Tên SP',
         dataIndex:'name',
         flex: 1
-    },{
+    },
+    {
         text:'SL',
         dataIndex:'pquantity',
-        width: 90,
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9.]/,
-            selectOnFocus: true
-        }
-    }],
+        width: 90
+        // editor:{
+        //     xtype:'textfield',
+        //     maskRe: /[0-9.]/,
+        //     selectOnFocus: true
+        // }
+    }
+    ],
     // dockedItems:[{
     //     dock: 'bottom',
     //     layout: 'hbox',
