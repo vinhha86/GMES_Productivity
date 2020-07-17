@@ -37,9 +37,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
             // })
         } else {
             store.each(function(task) {
-                console.log(task.get('pordercode').indexOf(value));
                 if (task.get('pordercode').indexOf(value) >= 0) {
                     task.set('Cls', task.get('cls')+ ' match');
+                    Ext.getCmp('treeplan').getSchedulingView().scrollEventIntoView(task, true, true);
+                    Ext.getCmp('treeplan').getEventSelectionModel().select(task);
                 } else {
                     task.set('Cls', task.get('cls'));
                 }
