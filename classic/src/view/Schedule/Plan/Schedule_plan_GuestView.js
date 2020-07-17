@@ -27,11 +27,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
             }),
 
             eventStore = new Sch.data.EventStore({
-                model: 'GSmartApp.model.Schedule_Porder_model'
+                model: 'GSmartApp.model.Schedule_Porder_model',
+                storeId: 'events'
             }),
 
             resourceStore = new Sch.data.ResourceTreeStore({
                 model: 'GSmartApp.model.Schedule_Plan_model',
+                storeId: 'resources',
                 sorters: [{
                     property: 'id_origin',
                     direction: 'ASC'
@@ -53,13 +55,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
                         },
                         params: {
                             listid: '13,14',
-                            startDate: viewmodel.get('schedule.startDate'),
-                            endDate: viewmodel.get('schedule.endDate'),
+                            startDate:  new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
+                            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
                             PO_code: '',
                             Buyer: 0,
                             Vendor: 0,
                             isReqPorder: false,
-                            isAllgrant: false
+                            isAllgrant: true
                         }
                     }
 
@@ -71,11 +73,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
         });
 
         var sch = Ext.create('Sch.panel.SchedulerTree', {
-            rowHeight: 40,
+            rowHeight: 30,
             barMargin: 2,
+            id: 'treeplanguest',
             useArrows: true,
+            autoAdjustTimeAxis: false,
+            zoomLevels: [
+                { width: 50,    increment: 1,   resolution: 4, preset: 'year', resolutionUnit: 'MONTH' },
+                { width: 50,    increment: 1,   resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },
+                { width: 50,    increment: 1,   resolution: 1, preset: 'weekAndMonth', resolutionUnit: 'WEEK' },
+                { width: 20,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
+            ],
             viewPreset: {
                 name: 'weekAndDayLetter',
+                displayDateFormat: 'd/m/Y',
                 headerConfig: {
                     bottom: {
                         unit: 'DAY',
@@ -84,64 +95,46 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
                     },
                     middle: {
                         unit: 'WEEK',
-                        dateFormat: 'd-m-Y',
+                        dateFormat: 'm-Y',
                         align: 'center'
                     }
                 }
             },
             multiSelect: true,
-            border: false,
+            border: true,
             bodyBorder: false,
             eventBorderWidth: 0,
-            columnLines: false,
+            columnLines: true,
             rowLines: true,
-            highlightWeekends: true,
             cls: 'tree-scheduler',
-            // partnerTimelinePanel: 'Schedule_plan_GuestView',
+            snapRelativeToEventStartDate : false,
             tooltipTpl: new Ext.XTemplate(
                 '<ul class="eventTip">',
+                '<li>{mahang}</li>',  
+                '<li>Lệnh SX: {pordercode}</li>',                
                 '<li>Buyer: {buyername}</li>',
                 '<li>Vendor: {vendorname}</li>',
-                '<li>Bắt đầu: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
-                '<li>Đến: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
+                '<li>Vào chuyền: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
+                '<li>Kết thúc: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
                 '<li>Số ngày SX: {duration}</li>',
                 '<li>Năng suất: {productivity}</li>',
-                '<li>Lệnh SX: {pordercode}</li>',
                 '</ul>'
             ),
             eventRenderer: function (flight, resource, meta) {
                 if (resource.data.leaf) {
-                    meta.cls = 'leaf';
-                    return flight.get('Name');
+                    return flight.get('mahang');
                 } else {
-                    meta.cls = 'group';
                     return '&nbsp;';
                 }
             },
-
-            // lockedGridConfig : {
-            //     width : 300
-            // },
-
             viewConfig: {
-                getRowClass: function (r) {
-                    // if (r.get('Id') === 3 || r.parentNode.get('Id') === 3) {
-                    //     return 'some-grouping-class';
-                    // }
-
-                    // if (r.get('Id') === 9 || r.parentNode.get('Id') === 9) {
-                    //     return 'some-other-grouping-class';
-                    // }
-                },
                 plugins: {
                     ptype: 'treeviewdragdrop',
                     enableDrag: true,
-                    dragText: '{0} Yêu cầu SX',
                     dragGroup: 'porderGanttDropGroup',
                     dropGroup: 'porderFreeDropGroup'
                 },
                 listeners: {
-                    drop: 'onDrop',
                     beforedrop: 'onBeforeDrop'
                 }
             },
@@ -150,15 +143,32 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
                 {
                     xtype: 'treecolumn', //this is so we know which column will show the tree
                     text: 'Nhà máy',
-                    width: 250,
+                    width: 200,
                     sortable: false,
                     dataIndex: 'Name'
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 30,
+                    menuDisabled: true,
+                    sortable: false,
+                    items: [{
+                        iconCls: 'x-fa fas fa-eye',
+                        handler: 'onHidden',
+                        getTip: function(value, metadata, record, row, col, store) {
+                           if(record.get('type') == 0){
+                               return 'Hiện tổ';
+                           }
+                           else {
+                               return 'Ẩn tổ';
+                           }
+                        }
+                    }]
                 }
             ],
             crudManager: cm,
             startDate: viewmodel.get('schedule.startDate'),
             endDate: viewmodel.get('schedule.endDate'),
-            // resizeConfig: cfg,
             plugins: [
                 {
                     ptype: 'scheduler_zones',
@@ -169,14 +179,25 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
                     pluginId: 'printable',
                     // Configure what to show in print dialog
                     exportDialogConfig: {
-                        showDPIField: true,
-                        showColumnPicker: true,
                         dateRangeRestriction: false,
                         stateful: true,
-                        modal: true
-                    }
+                        modal: true,
+                        format           : "A3",
+                        orientation      : "landscape",
+                        range            : "complete",
+                        showHeader       : false,
+                    },
+                    autoPrintAndClose   : true
                 }
-            ]
+            ],
+            listeners : {
+                eventcontextmenu: 'onContextMenu',
+                aftereventresize: 'onResizeSchedule',
+                eventdrop: 'onEventDrop',
+                beforeeventdropfinalize: 'beforeDrop',
+                zoomchange: 'onZoomchange',
+                render : 'onSchedulerRender'
+            }
         })
 
         Ext.apply(me, {

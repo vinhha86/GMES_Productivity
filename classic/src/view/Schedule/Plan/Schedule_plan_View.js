@@ -41,14 +41,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             });
 
         var cm = new Sch.data.CrudManager({
-            autoLoad: true,
+            autoLoad: false,
             resourceStore: resourceStore,
             eventStore: eventStore,
-            resourceZones: HolidayStore,
-            resourceZonesConfig : {
-                innerTpl : '{comment}',
-                clsField: 'comment'
-            },
             transport: {
                 load: {
                     requestConfig: {
@@ -60,8 +55,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         },
                         params: {
                             listid: '13,14',
-                            startDate: viewmodel.get('schedule.startDate'),
-                            endDate: viewmodel.get('schedule.endDate'),
+                            startDate:  new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
+                            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
                             PO_code: '',
                             Buyer: 0,
                             Vendor: 0,
@@ -69,7 +64,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                             isAllgrant: true
                         }
                     }
-
                 }
             },
             stores: [
@@ -88,7 +82,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 { width: 50,    increment: 1,   resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },
                 { width: 50,    increment: 1,   resolution: 1, preset: 'weekAndMonth', resolutionUnit: 'WEEK' },
                 { width: 20,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
-                // { width: 20,   increment: 1,   resolution: 1, preset: 'dayAndWeek', resolutionUnit: 'MONTH' }
             ],
             viewPreset: {
                 name: 'weekAndDayLetter',
@@ -100,7 +93,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         dateFormat: 'd'
                     },
                     middle: {
-                        unit: 'MONTH',
+                        unit: 'WEEK',
                         dateFormat: 'm-Y',
                         align: 'center'
                     }
@@ -175,18 +168,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             crudManager: cm,
             startDate: viewmodel.get('schedule.startDate'),
             endDate: viewmodel.get('schedule.endDate'),
-            // resizeConfig: cfg,
             plugins: [
                 {
                     ptype: 'scheduler_zones',
-                    store: HolidayStore,
-                    innerTpl           : '<tpl if ="comment">'+
-                    '<div>{comment}</div>'+
-                    '</tpl>'
+                    store: HolidayStore
                 },
                 {
                     ptype: 'scheduler_printable',
                     pluginId: 'printable',
+                    defaultExporter: 'singlepage',
                     // Configure what to show in print dialog
                     exportDialogConfig: {
                         dateRangeRestriction: false,
@@ -194,10 +184,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         modal: true,
                         format           : "A3",
                         orientation      : "landscape",
-                        range            : "complete",
+                        range            : "visible",
+                        rowsRange : 'visible',
                         showHeader       : false,
+                        showDPIField: false
                     },
-                    autoPrintAndClose   : true
+                    // exportConfig: {
+                    //     format: 'A3',
+                    //     orientation: 'lanscape',
+                    //     range: 'complete',
+                    //     rowsRange: 'all',
+                    //     showHeader: false,
+                    //     showFooter: false
+                    // },
+                    autoPrintAndClose   : false
                 }
             ],
             listeners : {
