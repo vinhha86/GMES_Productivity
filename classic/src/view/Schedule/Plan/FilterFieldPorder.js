@@ -32,9 +32,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
 
         if (!value) {
             store.clearFilter();
-            store.each(function(task) {
-                task.set('Cls', task.get('cls'));
-            })
+            // store.each(function(task) {
+            //     task.set('Cls', task.get('cls'));
+            // })
         } else {
             store.each(function(task) {
                 console.log(task.get('pordercode').indexOf(value));
