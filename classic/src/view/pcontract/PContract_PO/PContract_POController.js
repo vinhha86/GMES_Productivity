@@ -153,13 +153,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 msg: 'PO đã được xác nhận',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
-                    yes: 'Đóng',
+                    yes: 'Đóng'
                 }
             });
         }
         else {
             var form = Ext.create('Ext.window.Window', {
-                height: 350,
+                height: 320,
                 closable: true,
                 title: 'Chốt PO',
                 resizable: false,
@@ -181,7 +181,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                                 po_quantity: rec.get('po_quantity'),
                                 po_buyer: rec.get('po_buyer'),
                                 po_vendor: rec.get('po_vendor'),
-                                shipdate: rec.get('shipdate')
+                                shipdate: rec.get('shipdate'),
+                                id: rec.get('id')
                             }
                         }
                     }
