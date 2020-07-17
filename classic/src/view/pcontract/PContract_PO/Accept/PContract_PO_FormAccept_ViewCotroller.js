@@ -20,6 +20,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
     onSelectOrg: function(combo, record, eOpts){
         var viewmodel = this.getViewModel();
         var userStore = viewmodel.getStore('UserStore');
-        userStore.loadUserbyOrg(record.get('id'));
+        userStore.loadUserbyOrg_Buyer(record.get('id'), viewmodel.get('po.orgbuyerid_link'));
     }
 })

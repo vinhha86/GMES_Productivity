@@ -164,6 +164,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-search-minus',
             weight: 30,
             handler: 'onZoomOut'
+        },
+        {
+            xtype: 'FilterFieldPorder',
+            id: 'FilterFieldPorder',
+            emptyText: 'LSX',
+            // fieldLabel: 'PO:',
+            labelWidth: 30,
+            width: 110,
+            property   : 'pordercode'
         }
     ]
 })

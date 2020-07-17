@@ -5,17 +5,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         'Robo.Manager'
     ],
     init: function () {
-    //     var view = this.getView().down('#treeplan');
-    //     var crudManager = view.getCrudManager();
-    //     crudManager.load(
-    //         function (response) { 
-    //             console.log(response);
-    //          },
-    //    // here is errback
-    //     function (response) {
-    //         console.log(response);
-    //      }
-    //         )
+        var view = this.getView().down('#treeplan');
+        var event = view.getCrudManager().getEventStore();
+        var filter = Ext.getCmp('FilterBar');
+        filter.down('#FilterFieldPorder').store = event;
     },
     control: {
 

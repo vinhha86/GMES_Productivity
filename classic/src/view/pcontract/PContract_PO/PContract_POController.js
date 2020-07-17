@@ -145,8 +145,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onAccept: function(rec){
         // var rec = grid.getStore().getAt(rowIndex);
-        var viewModel = this.getViewModel();
-        
+        var viewmodel = this.getViewModel();
+        console.log(viewmodel.get('PContract.orgbuyerid_link'));
         if(rec.get('status') == 1) {
             Ext.Msg.show({
                 title: 'Thông báo',
@@ -182,7 +182,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                                 po_buyer: rec.get('po_buyer'),
                                 po_vendor: rec.get('po_vendor'),
                                 shipdate: rec.get('shipdate'),
-                                id: rec.get('id')
+                                id: rec.get('id'),
+                                orgbuyerid_link: viewmodel.get('PContract.orgbuyerid_link')
                             }
                         }
                     }
