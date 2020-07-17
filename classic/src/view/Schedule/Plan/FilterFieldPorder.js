@@ -15,6 +15,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
             cls     : 'fa-times',
             handler : function () {
                 this.doHighlight('');
+                this.setValue('');
             },
             scope   : 'this'
         }
