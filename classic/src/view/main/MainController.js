@@ -21,7 +21,9 @@ Ext.define('GSmartApp.view.main.MainController', {
     lastView: null,
     init: function (view) {
         var tbname = this.lookup('tbname');
+        var tbavatar = this.lookup('tbavatar');
         tbname.text = config.getFname();
+        tbavatar.src = config.getAvatar();
         if(''==window.location.hash) {
              this.redirectTo('dashboard');
         } else {
@@ -73,7 +75,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             hideMode: 'offsets'
         });
 
-        console.log(newView);
+        //console.log(newView);
         mainLayout.setActiveItem(mainCard.add(newView));
 
         me.fireEvent('urlBack', node);

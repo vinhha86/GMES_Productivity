@@ -99,17 +99,20 @@ Ext.define('GSmartApp.view.main.Main', {
                     xtype: 'tbtext',
                     reference: 'tbname',
                     itemId: 'tbname',
-                    text: 'Goff Smith',
+                    text: 'Unname',
                     cls: 'top-user-name'
                 },
                 {
                     xtype: 'image',
+                    reference: 'tbavatar',
                     itemId: 'tbavatar',
+                    id:'id_avatar',
                     cls: 'header-right-profile-image',
                     height: 35,
                     width: 35,
                     alt:'current user image',
-                    src: 'resources/images/user-profile/2.png'
+                    //src: 'resources/images/user-profile/2.png'
+                    src: config.getAvatar()
                 }
             ]
         },
