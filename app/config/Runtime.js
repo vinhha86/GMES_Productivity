@@ -21,7 +21,7 @@ Ext.define('GSmartApp.config.Runtime',{
         warmUpTime: 300000,
         dictionary: null,
         fname: null,
-        avantar: null,
+        avatar: null,
         pageSize: 25,
         // MQTT config
         deviceid:'devsim-0002',

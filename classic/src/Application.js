@@ -99,11 +99,12 @@ Ext.define('GSmartApp.Application', {
 			GSmartApp.util.State.set('dataFormatList','vi-VN');
 			GSmartApp.util.State.set('dataFormat','d/m/Y');
 			GSmartApp.util.State.set('dataFormatS','DD/MM/YYYY');
-            console.log('Session is valid --> Open main app', session);   
+            //console.log('Session is valid --> Open main app', session);   
             config.setToken('Bearer ' + session.get('token'));
             config.setFname(session.get('fname'));
+            config.setAvatar(session.get('avatar'));
             Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });
-            console.log(config.getEnableSSO());
+            //console.log(config.getEnableSSO());
             if(!config.getEnableSSO()) {
                 storeMenu.loadMenu(function(success,records, operation) {   
                     //console.log(success,records, operation);                
