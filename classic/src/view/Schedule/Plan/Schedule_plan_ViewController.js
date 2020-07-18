@@ -5,17 +5,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         'Robo.Manager'
     ],
     init: function () {
-    //     var view = this.getView().down('#treeplan');
-    //     var crudManager = view.getCrudManager();
-    //     crudManager.load(
-    //         function (response) { 
-    //             console.log(response);
-    //          },
-    //    // here is errback
-    //     function (response) {
-    //         console.log(response);
-    //      }
-    //         )
+        var view = this.getView().down('#treeplan');
+        var event = view.getCrudManager().getEventStore();
+        var filter = Ext.getCmp('FilterBar');
+        filter.down('#FilterFieldPorder').store = event;
     },
     control: {
 
@@ -104,7 +97,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         plan: {
                             quantity: rec.get('totalpackage'),
                             parentid_origin: rec.get('parentid_origin'),
-                            resourceid: rec.get('resourceId'),
+                            resourceid: rec.get('ResourceId'),
                             porderid_link: rec.get('id_origin'),
                             producttivity: rec.get('productivity'),
                             pordergrant_id_link: rec.get('porder_grantid_link'),
@@ -534,6 +527,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     if (response.respcode == 200) {
                         rec.set('duration', response.data.duration);
                         rec.set('productivity', response.data.productivity);
+                        rec.set('porder_grantid_link', response.data.porder_grantid_link);
                     }
                     else {
                         Ext.Msg.show({

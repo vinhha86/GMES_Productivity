@@ -153,6 +153,7 @@ Ext.define('GSmartApp.store.POrderFilter', {
 			}
 		});
 		this.load({
+			scope: this,
 			callback: function(records, operation, success){
 				if(!success){
 					Ext.Msg.show({
@@ -163,7 +164,7 @@ Ext.define('GSmartApp.store.POrderFilter', {
 							yes: 'Đóng',
 						},
 						fn: function () {
-							me.fireEvent('logout');
+							this.fireEvent('logout');
 						}
 					});
 				}

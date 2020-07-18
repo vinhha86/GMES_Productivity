@@ -74,8 +74,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     onSearch: function(){
         var sch = Ext.getCmp('treeplan');
         var crud = sch.getCrudManager();
-        
-        console.log(crud);
 
         var viewmodel = this.getViewModel();
         

@@ -3,11 +3,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
     alias: 'controller.PContract_PO_FormAccept_ViewCotroller',
     init: function(){
         var viewmodel = this.getViewModel();
-        var listidtype = "13,14";
 		var OrgStore = viewmodel.getStore('OrgStore');
-        OrgStore.loadStore_allchildren_byorg(listidtype);
-        
-        
+        OrgStore.loadOrg_Request(viewmodel.get('po.id'));
     },
     control: {
         '#btnThoat': {
@@ -23,6 +20,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
     onSelectOrg: function(combo, record, eOpts){
         var viewmodel = this.getViewModel();
         var userStore = viewmodel.getStore('UserStore');
-        userStore.loadUserbyOrg(record.get('id'));
+        userStore.loadUserbyOrg_Buyer(record.get('id'), viewmodel.get('po.orgbuyerid_link'));
     }
 })

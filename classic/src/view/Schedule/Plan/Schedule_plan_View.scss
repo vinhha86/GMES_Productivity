@@ -17,25 +17,19 @@
    }
 .blue{
     background :blue;
-    font-size: 10px;
     color: white;
+    font-size: 10px;
     border-left: 2px solid red;
     border-radius: 2px;
     opacity: 0.9;
 }
 .test {
     background: gray;
+    color: yellow;
+    font-size: 10px;
     border-left: 2px solid red;
     border-radius: 2px;
-    color: yellow;
-}
-.match {
-    opacity: 1;
-    box-shadow: 0 0 8px red;
-    background :blue;
-    font-size: 10px;
-    color: white;
-    border-radius: 2px;
+    opacity: 0.9;
 }
 .sunday {
     background: rgb(236, 193, 195);
@@ -47,16 +41,15 @@
     word-wrap: break-word;
 }
 
+.sch-event {
+    transition  : opacity 0.4s, box-shadow 0.4s;
+}
 .highlighting .sch-event {
     opacity : 0.2;
 }
 
 .highlighting .sch-event.match {
-    opacity: 1;
-    background :blue;
-    font-size: 10px;
-    color: white;
-    border-radius: 2px;
+    opacity    : 1;
     box-shadow : 0 0 8px red;
 }
 

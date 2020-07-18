@@ -29,10 +29,36 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         text: 'Mã lệnh',
         dataIndex: 'ordercode',
         flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'ordercodeFilter',
+            width: '98%',
+            // flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onOrdercodeFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Style',
         dataIndex: 'stylebuyer',
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'stylebuyerFilter',
+            width: '98%',
+            // flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onStylebuyerFilterKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Tên Buyer',
         dataIndex: 'buyername',
@@ -53,44 +79,35 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         text: 'Ngày giao SX',
         dataIndex: 'orderdate',
         renderer: Ext.util.Format.dateRenderer('d-m-Y'),
-        flex: 1
+        // flex: 1,
+        width: 80,
+    }, {
+        text: 'Ngày vào chuyền',
+        dataIndex: 'productiondate_plan',
+        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        // flex: 1,
+        width: 80,
     }, {
         text: 'Ngày giao hàng',
         dataIndex: 'golivedate',
         renderer: Ext.util.Format.dateRenderer('d-m-Y'),
-        flex: 1
+        // flex: 1,
+        width: 80,
     }, {
         text: 'Số lượng',
         dataIndex: 'totalorder',
+        // flex: 1,
+        width: 60,
+    }, {
+        text: 'Trạng thái',
+        dataIndex: 'status',
         flex: 1
     }],
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',
         border: false,
-        items: [            
-            {
-                xtype:'textfield',
-                itemId:'txtordercode',
-                // fieldLabel: 'Tên dải size',
-                margin: 5,
-                // flex: 1,
-                width: 100,
-                allowBlank: true,
-                blankText: 'Mã lệnh',
-                emptyText: 'Mã lệnh'
-            },
-            {
-                xtype:'textfield',
-                itemId:'txtpo',
-                // fieldLabel: 'Chú thích',
-                margin: 5,
-                // flex: 1,
-                width: 100,
-                allowBlank: true,
-                blankText: 'PO',
-                emptyText: 'PO'
-            },
+        items: [
             {
                 xtype:'textfield',
                 itemId:'txtstyle',
@@ -101,6 +118,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 allowBlank: true,
                 blankText: 'Style',
                 emptyText: 'Style'
+            },
+            {
+                xtype:'textfield',
+                itemId:'txtpo',
+                // fieldLabel: 'Chú thích',
+                margin: 5,
+                // flex: 1,
+                width: 100,
+                allowBlank: true,
+                blankText: 'PO buyer',
+                emptyText: 'PO buyer'
             },
             {
                 xtype:'combobox',
@@ -115,7 +143,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 allowBlank: true,
                 emptyText: 'Tên buyer',
                 margin: 5,
-                flex: 1
+                // flex: 1,
+                width: 130,
             },
             {
                 xtype:'combobox',
@@ -130,7 +159,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 allowBlank: true,
                 emptyText: 'Tên vendor',
                 margin: 5,
-                flex: 1
+                // flex: 1,
+                width: 130,
             },
             {
                 xtype:'datefield',
@@ -139,8 +169,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 format: 'd-m-Y',
                 margin: 5,
                 // flex: 1,
-                width: 160,
-                emptyText: 'Giao SX từ ngày'
+                width: 130,
+                emptyText: 'Giao SX từ'
             },
             {
                 xtype:'datefield',
@@ -149,16 +179,47 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 format: 'd-m-Y',
                 margin: 5,
                 // flex: 1,
-                width: 160,
-                emptyText: 'Giao SX đến ngày'
+                width: 130,
+                emptyText: 'Giao SX đến'
             },
+            {
+                xtype:'combobox',
+                itemId:'txtstatus',
+                bind:{
+                    store:'{POrder_ListStatusStore}'
+                },
+                displayField: 'statusString',
+                valueField: 'statusNum',
+                queryMode: 'local',
+                editable: true,
+                allowBlank: true,
+                multiSelect: true,
+                emptyText: 'Trạng thái',
+                margin: 5,
+                flex: 1
+            },
+            // { 
+            //     xtype: 'tagfield', 
+            //     // fieldLabel: 'Select a Show', 
+            //     bind:{
+            //         store:'{POrder_ListStatusStore}'
+            //     },
+            //     displayField: 'statusString', 
+            //     valueField: 'statusNum', 
+            //     queryMode: 'local', 
+            //     emptyText: 'Trạng thái',
+            //     margin: 5,
+            //     flex: 1,
+            //     filterPickList: true 
+            // },
             {
                 xtype: 'button',
                 margin: 5,
                 text: '',
                 width: 35,
                 iconCls: 'x-fa fa-search',
-                itemId: 'btnTimKiem'
+                itemId: 'btnTimKiem',
+                tooltip: 'Tìm kiếm'
             },
             {
                 xtype: 'button',
@@ -166,7 +227,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 text: '',
                 width: 35,
                 iconCls: 'x-fa fa-refresh',
-                itemId: 'btnRefresh'
+                itemId: 'btnRefresh',
+                tooltip: 'Mặc định'
             }
             // {
             //     flex: 1,

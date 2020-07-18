@@ -36,7 +36,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
 
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStore();
+        store.loadStoreBySearch(null, null, null, null, null, null, [-1, 0, 1, 2, 3]);
+        store.sort('productiondate_plan', 'ASC');
         let store2 = viewmodel.getStore('POrder_ListVendorStore');
         store2.loadStore();
         let store3 = viewmodel.getStore('POrder_ListBuyerStore');
@@ -44,14 +45,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     },
     onTimKiemClick: function () {
         // console.log('click tim kiem');
-        var me = this.getView();
+
+        ///////////////////////////////////
+        let me = this.getView();
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
         
-        let ordercode, po, style, buyername, vendorname, orderdatefrom, orderdateto;
-        if (me.down('#txtordercode').getValue() == "") {
-            ordercode = null;
-        }else ordercode = me.down('#txtordercode').getValue();
+        // console.log(me.down('#txtstatus').getValue());
+        // console.log(typeof(me.down('#txtstatus').getValue()));
+
+        let po, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
         if (me.down('#txtpo').getValue() == "") {
             po = null;
         }else po = me.down('#txtpo').getValue();
@@ -70,21 +73,61 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtdateto').getValue() == "") {
             orderdateto = null;
         }else orderdateto = me.down('#txtdateto').getValue();
+        status = me.down('#txtstatus').getValue();
 
-        // store.loadStore('Sub1',null,'9010',null,null,null,null);
-        store.loadStore(ordercode, po, style, buyerid, vendorid, orderdatefrom, orderdateto);
+        store.loadStoreBySearch(po, style, buyerid, vendorid, orderdatefrom, orderdateto, status);
     },
     onRefreshClick: function(){
         var me = this.getView();
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStore();
-        me.down('#txtordercode').setValue();
+        store.loadStoreBySearch(null, null, null, null, null, null, [-1, 0, 1, 2, 3]);
         me.down('#txtpo').setValue();
         me.down('#txtstyle').setValue();
         me.down('#txtbuyerid').setValue();
         me.down('#txtvendorid').setValue();
         me.down('#txtdatefrom').setValue();
         me.down('#txtdateto').setValue();
+        me.down('#txtstatus').setValue();
+    },
+    onOrdercodeFilterKeyup: function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('ordercodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'ordercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
+    onStylebuyerFilterKeyup: function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('stylebuyerFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'styleFilter',
+                property: 'stylebuyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
     }
 })
