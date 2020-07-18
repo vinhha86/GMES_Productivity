@@ -63,7 +63,6 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_View', {
                         }       
                     ]
                 }
-               
             ]
         },        
         {

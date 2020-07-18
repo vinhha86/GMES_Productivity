@@ -30,25 +30,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
     },
     columns:[
         {
+            header:'Style',
+            dataIndex:'stylebuyer',
+            width: 120
+        },        
+        {
             header:'Mã lệnh',
             dataIndex:'ordercode',
             flex: 1
         },        
         {
-            header:'Style',
-            dataIndex:'stylebuyer',
-            width: 120
-        },
-        {
-            header:'Dải cỡ',
-            dataIndex:'sizesetname',
+            header:'Ngày tạo lệnh',
+            dataIndex:'orderdate',
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
             width: 70
         },
-        // {
-        //     header:'Phân xưởng',
-        //     dataIndex:'granttoorgcode',
-        //     flex: 1
-        // },
+        {
+            header:'Dự kiến VC',
+            dataIndex:'productiondate_plan',
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            width: 70
+        },
         {
             header:'SL',
             align: 'end',
@@ -59,14 +61,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
         },{
             xtype: 'actioncolumn',
-            width: 20,
+            width: 25,
             menuDisabled: true,
             sortable: false,
-            items: [{
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: 'Xóa',
-                handler: 'onXoa'
-            }]
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_POrder'
+                },            
+            ]
         }
     ]
 });

@@ -90,6 +90,11 @@ Ext.define('GSmartApp.store.POrderFilter', {
 			}
 		});
 		this.load();
+		// this.load({
+		// 	callback: function(records, operation, success){
+		// 	console.log(records);
+		// 	}
+		// });		
 	}, 	  
 	loadByContract: function(pcontractid_link, productid_link){
 		var me=this;

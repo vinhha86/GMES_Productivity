@@ -153,33 +153,137 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         }
     },    
     onPOrderCreate:function(rid, rowIndex, colIndex){
+        var me = this;
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Lệnh sản xuất', 'Tạo lệnh sản xuất cho phân xưởng? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
                     var porderReqStore = viewmodel.getStore('porderReqStore');
-                    var record = porderReqStore.getAt(rowIndex);
-                    var params=new Object();
-                    params.data = record.data;
-                    GSmartApp.Ajax.post('/api/v1/porder_req/gen_porder', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        var response = Ext.decode(response.responseText);
-                        if (success) {
-                            var porderStore = viewmodel.getStore('porderStore');
-                            porderStore.reload();
-                        } else {
-                            Ext.MessageBox.show({
-                                title: "Lệnh sản xuất",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
-                    }); 
+                    var record = porderReqStore.getAt(rowIndex);                    
+                    //Kiem tra xem co phai la san pham bo khong? --> nếu là bộ hiện danh sach san pham va so luong chua tao lenh de chon
+                    var po_selected = viewmodel.get('po_selected');
+                    var porderReqStore = viewmodel.getStore('porderReqStore');
+                    //Kiem tra xem yeu cau sx cua PO co > 1 phan xuong ko? Neu nhieu hon 1 phan xuong --> hien option chon sizeset va color
+                    if (null != porderReqStore && porderReqStore.data.items.length > 1) {
+                        console.log('Hien window chon size va mau')
+                    } else {
+                        me.onPOrderCreateByProduct(record.data.id, po_selected.productid_link, '', '');
+                    }
                 }
             } );        
+    },
+    onPOrderCreateByProduct:function(porderreqid_link, productid_link, sizesetlist, colorlist){
+        var viewmodel = this.getViewModel();
+        var productStore = viewmodel.getStore('PContractProduct_PO_Store');
+        productStore.loadStore_bypairid_Async(productid_link, null, true);
+
+        productStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    for(i=0;i<records.length;i++){
+                        //Tao lenh sx cho tung san pham con
+                        var params=new Object();
+                        params.porderreqid_link = porderreqid_link;
+                        params.productid_link = records[i].id;
+                        params.size_list = sizesetlist;
+                        params.color_list = colorlist;
+                        console.log(params);
+                        GSmartApp.Ajax.post('/api/v1/porder_req/gen_porder', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                var porderStore = viewmodel.getStore('porderStore');
+                                porderStore.reload();
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Lệnh sản xuất",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        }); 
+                    }
+                }
+            }
+        });
+    },
+    onMenu_POrder: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Chi tiết lệnh',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-pencil greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onPOder_Edit(record);
+                }
+            }, 
+            {
+                text: 'Xóa lệnh',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onPOder_Delete(record);
+                }
+            }
+        ]
+        });
+          // HERE IS THE MAIN CHANGE
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.record = record;
+          menu_grid.showAt(position);
+    }, 
+    onPOder_Edit: function(rec){
+        var viewModel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Chi tiết lệnh',
+            closeAction: 'destroy',
+            height: 465,
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_POrder_Edit_Main',
+                viewModel: {
+                    data: {
+                        porder: rec,
+                    }
+                }
+            }]
+        });
+        form.show();        
+        form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(){
+            var porderStore = viewModel.getStore('porderStore');
+            porderStore.load();
+            form.close();
+        });
+    },  
+    onPOder_Delete: function(rec){       
     },
     renderSum: function(value, summaryData, dataIndex){
         var viewmodel = this.getViewModel();
