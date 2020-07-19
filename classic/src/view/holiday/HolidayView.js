@@ -124,7 +124,21 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
             {
                 flex: 1,
                 border: false
+            },
+
+            //////////////////////////////////////
+            
+            {
+                xtype: 'button',
+                margin: 5,
+                text: 'POP UP WINDOW',
+                width: 110,
+                iconCls: 'x-fa fa-plus',
+                itemId: 'btnPopupWindow',
+                handler: 'onPopupWindowClicked'
             }
+
+            //////////////////////////////////////
         ]
     }]
 });

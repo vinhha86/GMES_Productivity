@@ -25,7 +25,7 @@ Ext.define('GSmartApp.model.Session', {
                     },
                     success: function(result, opts) {
                         var sessionData = Ext.decode(result.responseText);
-                        console.log('Success login user:', sessionData);
+                        //console.log('Success login user:', sessionData);
                         var session = GSmartApp.model.Session.loadData(sessionData);
                         if (!session.isValid()) {
                             var error = new Error();
