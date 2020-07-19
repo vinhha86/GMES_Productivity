@@ -165,12 +165,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                     var porderReqStore = viewmodel.getStore('porderReqStore');
                     //Kiem tra xem yeu cau sx cua PO co > 1 phan xuong ko? Neu nhieu hon 1 phan xuong --> hien option chon sizeset va color
                     if (null != porderReqStore && porderReqStore.data.items.length > 1) {
-                        console.log('Hien window chon size va mau')
+                        console.log('Hien window chon size va mau');
+                        me.onSizeColorPickup(record.data.id, po_selected.productid_link, po_selected.pcontractid_link,po_selected.pcontract_poid_link);
                     } else {
                         me.onPOrderCreateByProduct(record.data.id, po_selected.productid_link, '', '');
                     }
                 }
             } );        
+    },
+    onSizeColorPickup:function(porderreqid_link, productid_link, pcontractid_link, poid_link){
+        var viewmodel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tạo lệnh sản xuất',
+            closeAction: 'destroy',
+            height: 465,
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_POrder_SizeColorPickup_Main',
+                viewModel: {
+                    data: {
+                        pcontractid_link: pcontractid_link,
+                        poid_link: poid_link
+                    }
+                }
+            }]
+        });
+        form.show();        
+        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('Thoat',function(){
+            var porderStore = viewModel.getStore('porderStore');
+            porderStore.load();
+            form.close();
+        });
     },
     onPOrderCreateByProduct:function(porderreqid_link, productid_link, sizesetlist, colorlist){
         var viewmodel = this.getViewModel();

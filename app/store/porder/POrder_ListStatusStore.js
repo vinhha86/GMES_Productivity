@@ -7,14 +7,14 @@ Ext.define('GSmartApp.store.porder.POrder_ListStatusStore', {
         {name: 'statusString', type: 'string'}
 	],
 	data:[
-		{statusNum:-1,	statusString:'Chưa chốt'},
-		{statusNum:0,	statusString:'Đã chốt, chưa phân chuyền'},
-        {statusNum:1,	statusString:'Đã phân chuyền, chưa yêu cầu sx'},
-        {statusNum:2,	statusString:'Yêu cầu sx đề kho và cắt chuẩn bị'},
-		{statusNum:3,	statusString:'Đang thực hiện công đoạn phụ (may trc 1 số bước khó) trước khi vào chuyền'},
+		{statusNum:-1,	statusString:'Chưa chốt PO'},
+		{statusNum:0,	statusString:'Chưa phân chuyền'},
+        {statusNum:1,	statusString:'Đã phân chuyền'},
+        {statusNum:2,	statusString:'Chuẩn bị SX'},
+		{statusNum:3,	statusString:'Công đoạn phụ'},
         {statusNum:4,	statusString:'Đang sản xuất'},
-        {statusNum:5,	statusString:'Đã sản xuất xong, chưa nhập kho TP hết'},
-		{statusNum:6,	statusString:'Đã hoàn thành mã hàng'}
+        {statusNum:5,	statusString:'Sản xuất xong'},
+		{statusNum:6,	statusString:'Nhập kho xong'}
 	]
 
 });
