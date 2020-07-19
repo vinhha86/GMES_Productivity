@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     control: {
         '#porderlistmain': {
             // activate: 'onActivate',
-            // itemdblclick: 'onitemdblclick',
+            itemdblclick: 'onitemdblclick',
             // itemclick: 'onItemClick',
             // celldblclick: 'onCellDblclick',
         },
@@ -129,5 +129,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
             filters.remove(this.codeFilter);
             this.codeFilter = null;
         }
-    }
+    },
+    onitemdblclick: function (m, record, item, index, e, eOpts) {
+        var id = record.data.id;
+        this.redirectTo("porderlistmain/" + id + "/edit");
+    },
 })
