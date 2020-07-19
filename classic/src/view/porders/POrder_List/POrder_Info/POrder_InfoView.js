@@ -50,14 +50,19 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                     labelWidth: 120,
                     width: 250
             },{
-                xtype: 'textfield',
+                xtype: 'numberfield',
                     margin: 2,
                     fieldLabel: "Số lượng",
                     allowBlank: false,
                     // itemId: 'contractcode',
                     blankText: 'Không được để trống',
+                    minValue: 0,
                     bind: {
                         value: '{porder.totalorder}'
+                    },
+                    hideTrigger:true,
+                    fieldStyle:{
+                        'text-align':'right',
                     },
                     labelWidth: 120,
                     width: 250

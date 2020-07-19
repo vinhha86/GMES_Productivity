@@ -17,23 +17,37 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
         xtype: 'tabpanel',
         itemId:'tabmain',
         items: [{
-            title: 'Thông tin chung',
+            title: 'Thông tin lệnh',
             layout: 'border',
             items: [{
                 region: 'north',
                 height: 120,
-                border: true,
+                border: false,
                 xtype: 'POrder_InfoView',
                 margin: 1
             },{
                 region: 'center',
-                border: true,
+                border: false,
                 xtype: 'POrder_ProductSKUView',
                 margin: 1
             }]
         }, {
-            title: 'Định mức',
-            // xtype: ''
+            title: 'Định mức sản xuất',
+            layout: 'border',
+            flex: 1,
+            items: [{
+                region: 'west',
+                width: '50%',
+                border: false,
+                xtype: 'POrder_List_GrantView',
+                margin: 1
+            },{
+                region: 'center',
+                width: '50%',
+                border: false,
+                xtype: 'POrder_List_GrantSKUView',
+                margin: 1
+            }]
         }]
     }],
     dockedItems: [{
@@ -50,14 +64,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
         }, {
             flex: 1,
             border: false
-        },
-        {
-            xtype: 'button',
-            text: 'Lưu',
-            margin: 1,
-            itemId: 'btnLuu',
-            iconCls: 'x-fa fa-save',
-            formBind: true
+        // },
+        // {
+        //     xtype: 'button',
+        //     text: 'Lưu',
+        //     margin: 1,
+        //     itemId: 'btnLuu',
+        //     iconCls: 'x-fa fa-save',
+        //     formBind: true
         }]
     }]
 })

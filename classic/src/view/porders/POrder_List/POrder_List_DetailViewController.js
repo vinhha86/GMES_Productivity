@@ -69,19 +69,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
     //     }
     // },
     onLoadData: function (id, type) {
-        var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var viewMain = Ext.getCmp('porderlistmain');
+        let me = this.getView();
+        let viewmodel = this.getViewModel();
+        let viewMain = Ext.getCmp('porderlistmain');
 
         me.IdPOrder = id;
 
-        var infoView = me.down('#POrder_InfoView');
+        let infoView = me.down('#POrder_InfoView');
         infoView.IdPOrder = id;
         infoView.getController().loadInfo(me.IdPOrder);
 
-        var productSkuView = me.down('#POrder_ProductSKUView');
+        let productSkuView = me.down('#POrder_ProductSKUView');
         productSkuView.IdPOrder = id;
         productSkuView.getController().loadInfo(me.IdPOrder);
+
+        let listGrantView = me.down('#POrder_List_GrantView');
+        listGrantView.IdPOrder = id;
+        listGrantView.getController().loadInfo(me.IdPOrder);
 
         // var productpair = me.down('#PContractPairProductView');
         // productpair.IdPcontract = id;

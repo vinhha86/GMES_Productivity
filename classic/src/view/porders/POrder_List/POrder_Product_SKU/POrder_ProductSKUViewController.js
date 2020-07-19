@@ -1,7 +1,6 @@
 Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_ProductSKUViewController',
-    isActivate: false,
     init: function () {
     },
     control: {
@@ -19,6 +18,5 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUViewController',
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('porderSKUStore');
         store.loadByPorderID(id);
-        console.log(id);
     },
 })
