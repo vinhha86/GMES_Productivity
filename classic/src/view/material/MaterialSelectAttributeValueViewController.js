@@ -103,7 +103,6 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
         }
     },
     onSelectValue: function(grid, record, index, eOpts){
-        console.log(grid.getStore());
         var me = this.getView();
 
         if(record.data.isdefault){

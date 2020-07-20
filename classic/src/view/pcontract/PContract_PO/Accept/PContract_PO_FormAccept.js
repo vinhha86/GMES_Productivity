@@ -72,6 +72,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
             queryMode: 'local',
             valueField: 'id',
             displayField: 'name',
+            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            fieldStyle: 'font-size:11px;',
             margin: 2,
             fieldLabel: "Đơn vị:",
             bind: {
@@ -88,6 +90,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
             queryMode: 'local',
             valueField: 'id',
             displayField: 'fullname',
+            labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
+            fieldStyle: 'font-size:11px;',
             margin: 2,
             fieldLabel: "Merchandiser:",
             bind: {

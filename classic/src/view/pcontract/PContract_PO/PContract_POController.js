@@ -100,7 +100,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onSelectPO: function(m, rec){
         var viewModel = this.getViewModel();
-        console.log(rec.data);
 
         var POShippingStore = viewModel.getStore('POShippingStore');
         POShippingStore.loadStore_bypo(rec.data.id);
@@ -190,6 +189,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 }]
             });
             form.show();
+
+            form.down('#PContract_PO_FormAccept').getController().on('AcceptSuccess', function(){
+                var store = viewmodel.getStore('PContractProductPOStore');
+                store.load();
+                form.close();
+            })
         }
     },
     onXoa: function(rec){
@@ -374,6 +379,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
+        var ishidden_accept = record.data.status < 0 ? false: true;
+
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
@@ -419,6 +426,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 // reference: 'PContract_PO_Menu_POAccept',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-check violetIcon',
+                hidden: ishidden_accept,
                 handler: function(){
                     var record = this.parentMenu.record;
                     me.onAccept(record);

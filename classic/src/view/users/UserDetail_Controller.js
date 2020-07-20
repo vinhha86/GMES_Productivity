@@ -49,14 +49,20 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
             })
     },
     onUpdate: function(){
+        var grid = this.getView();
+        grid.setLoading('Đang lưu dữ liệu');
         var me = this;
         var viewModel = this.getViewModel();
         var params = new Object();
         var user = new Object();
         user = viewModel.get('User');
         params.user = user;
+
+        delete params.user.authorities;
+        
         GSmartApp.Ajax.post('/api/v1/users/user_update', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {

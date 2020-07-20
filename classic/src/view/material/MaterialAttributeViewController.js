@@ -43,21 +43,21 @@ Ext.define('GSmartApp.view.material.MaterialAttributeViewController', {
                                 Ext.Msg.show({
                                     title: 'Thông báo',
                                     msg: 'Xóa thành công',
-                                    buttons: [{
-                                        itemId: 'cancel',
-                                        text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                    }]
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
                                 });
                                 var store = me.getStore();
                                 store.remove(rec);
                             } else {
                                 Ext.Msg.show({
-                                    title: 'Xóa thất bại',
-                                    msg: null,
-                                    buttons: [{
-                                        itemId: 'cancel',
-                                        text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                    }]
+                                    title: 'Thông báo',
+                                    msg: 'Xóa thất bại',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
                                 });
                             }
                             me.setLoading(false);
