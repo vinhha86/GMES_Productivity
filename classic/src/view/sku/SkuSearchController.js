@@ -44,9 +44,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
     control: {
-        '#btnChonSanPham': {
-            click: 'createPContractProduct'
-        },
         'ProductList': {
             itemdblclick: 'onEditProduct'
         }
@@ -136,7 +133,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     },
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
-        console.log(viewModel.get('sourceview'))
         if (viewModel.get('sourceview') == 'stockoutforcheck') {
             this.createStockoutForCheck();
         }
@@ -538,7 +534,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         var grid_skusearch = this.getView().items.get('grid_skusearch');
         var records = grid_skusearch.getSelection();
         if (records.length > 0) {
-            console.log(records[0].get('code'));
             var params = new Object();
             var stockout = new GSmartApp.model.Stockout({
                 id: -1,

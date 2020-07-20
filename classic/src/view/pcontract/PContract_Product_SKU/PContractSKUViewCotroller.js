@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                         sourceview: 'PContractSKU_ListProductView',
                         pcontractid_link: viewmodel.get('PContract.id'),
                         searchtype: 1,
-                        orgcustomerid_link: viewmodel.get('PContract.orgcustomerid_link'),
+                        orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link'),
                         productid_link : viewmodel.get('IdProduct'),
                         productid_link_notsearch: viewmodel.get('IdProduct'),
                         type: 10,
