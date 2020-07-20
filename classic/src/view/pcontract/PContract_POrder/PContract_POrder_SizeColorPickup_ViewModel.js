@@ -2,6 +2,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_ViewModel'
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContract_POrder_SizeColorPickup_ViewModel',
      stores:{
+        PContractProduct_PO_Store:{
+            type :'PContractProductStore'
+        },
+        PContractSKUStore:{
+            type: 'PContractSKUStore'
+        },        
         SizePickupStore:{
             type: 'SizeColorPickupStore'
         },
@@ -10,7 +16,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_ViewModel'
         },
     },
     data: {
-        pcontractid_link: null,
-        poid_link: null,
+        po: null,
+        porderreqid_link: null,
     }
 })

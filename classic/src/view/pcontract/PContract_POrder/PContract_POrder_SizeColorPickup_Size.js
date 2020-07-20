@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Size', {
         store:'{SizePickupStore}'
     },
     columns:[
-        { header: 'Cỡ', dataIndex: 'name', width: 70},  
+        { header: 'Cỡ', dataIndex: 'name', flex:1},  
     ]     
 });
 

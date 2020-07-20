@@ -173,8 +173,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 }
             } );        
     },
-    onSizeColorPickup:function(porderreqid_link, productid_link, pcontractid_link, poid_link){
+    onSizeColorPickup:function(porderreqid_link){
+        var me = this;
         var viewmodel = this.getViewModel();
+        var po_selected = viewmodel.get('po_selected');
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -193,20 +195,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 xtype: 'PContract_POrder_SizeColorPickup_Main',
                 viewModel: {
                     data: {
-                        pcontractid_link: pcontractid_link,
-                        poid_link: poid_link
+                        po: po_selected,
+                        porderreqid_link: porderreqid_link
                     }
                 }
             }]
         });
-        form.show();        
+        form.show();  
+        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder',function(product_select,sizelist,colorlist){
+            for(i=0;i<product_select.length;i++){
+                me.onPOrderCreateByProduct(porderreqid_link, product_select[i].data.id, sizelist, colorlist);
+            }            
+            form.close();
+        });
+
         form.down('PContract_POrder_SizeColorPickup_Main').getController().on('Thoat',function(){
-            var porderStore = viewModel.getStore('porderStore');
+            var porderStore = viewmodel.getStore('porderStore');
             porderStore.load();
             form.close();
         });
     },
-    onPOrderCreateByProduct:function(porderreqid_link, productid_link, sizesetlist, colorlist){
+    onPOrderCreateByProduct:function(porderreqid_link, productid_link, sizelist, colorlist){
         var viewmodel = this.getViewModel();
         var productStore = viewmodel.getStore('PContractProduct_PO_Store');
         productStore.loadStore_bypairid_Async(productid_link, null, true);
@@ -222,7 +231,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                         var params=new Object();
                         params.porderreqid_link = porderreqid_link;
                         params.productid_link = records[i].id;
-                        params.size_list = sizesetlist;
+                        params.size_list = sizelist;
                         params.color_list = colorlist;
                         console.log(params);
                         GSmartApp.Ajax.post('/api/v1/porder_req/gen_porder', Ext.JSON.encode(params),

@@ -14,16 +14,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
             layout: 'border',
             items:[
                 {
-                    region: 'east',
-                    title: 'Danh sách cỡ',
+                    region: 'west',
+                    title: 'Danh sách sản phẩm',
                     width:'50%',
-                    xtype: 'PContract_POrder_SizeColorPickup_Size',
+                    xtype: 'PContract_POrder_SizeColorPickup_Product',
                     border: true,
                     margin: 1,
                 },
                 {
                     region: 'center',
+                    title: 'Danh sách cỡ',
+                    xtype: 'PContract_POrder_SizeColorPickup_Size',
+                    border: true,
+                    margin: 1,
+                },
+                {
+                    region: 'east',
                     title: 'Danh sách màu',
+                    width:'25%',
                     xtype: 'PContract_POrder_SizeColorPickup_Color',
                     border: true,
                     margin: 1,
@@ -39,8 +47,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
             items:[
                 {
                     xtype: 'checkboxfield',
-                    label: 'Chọn hết các SKU còn lại',
-                    checked: false
+                    boxLabel: 'Chọn hết các SKU còn lại',
+                    flex: 1,
+                    checked: false,
+                    // listeners: {change:'onCheckStatusChange'}
                 },
             ]      
         }
@@ -50,6 +60,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
         layout: 'hbox',
         items:[{
             flex:1
+        },{
+            xtype: 'button',
+            text: 'Tạo lệnh SX',
+            itemId: 'btnGenPOrder',
+            iconCls: 'x-fa fa-magic',
+            margin: 5
         },{
             xtype: 'button',
             text: 'Thoát',
