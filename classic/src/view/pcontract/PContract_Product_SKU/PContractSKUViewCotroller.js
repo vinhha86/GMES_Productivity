@@ -8,11 +8,17 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         
     },
     onEdit: function(editor, context, e){
+        if(context.value == context.originalValue) return;
+
         var viewmodel = this.getViewModel();
         var data = context.record.data;
         var params = new Object();
         params.data = data;
         params.data.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        if(context.field == "pquantity_porder")
+            params.isupdte_amount = true;
+        else
+            params.isupdte_amount = false;
 
         delete params.data.listSKUvalue;
 
@@ -33,6 +39,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                         store.rejectChanges();
                     }
                     else {
+                        context.record.set('pquantity_production', response.amount);
                         store.commitChanges();
                     }
                 }

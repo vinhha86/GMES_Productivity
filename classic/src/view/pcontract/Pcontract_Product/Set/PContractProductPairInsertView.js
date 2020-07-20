@@ -52,13 +52,14 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
         border: false,
         layout:'hbox',
         items:[{
+            flex: 1,
+            border: false
+        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
             itemId:'btnChon',
             iconCls: 'x-fa fa-save'
-        },{
-            flex: 1
         },{
             xtype:'button',
             text: 'Thoát',

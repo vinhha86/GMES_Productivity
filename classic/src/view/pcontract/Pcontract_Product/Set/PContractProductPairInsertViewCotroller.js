@@ -35,40 +35,52 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
         for (var i = 0; i < select.length; i++) {
             var obj = select[i].data
             if(obj.amount > 0)
-            data.push(obj);
+                data.push(obj);
         }
-        params.listpair = data;
+        if(data.length < 2){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn phải nhập ít nhất 2 sản phẩm để ghép bộ',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
+        else{
+            params.listpair = data;
 
-        GSmartApp.Ajax.post('/api/v1/pcontractproductpairing/create', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if(response.mesErr != ""){
+            GSmartApp.Ajax.post('/api/v1/pcontractproductpairing/create', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if(response.mesErr != ""){
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: response.mesErr,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                        else{
+                            var main = Ext.getCmp('PContractPairProductView');
+                            var store = main.getStore();
+                            store.load();
+                            me.up('window').close();
+                        }                    
+                    } else {
                         Ext.Msg.show({
-                            title: 'Thông báo',
-                            msg: response.mesErr,
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
                             }
                         });
                     }
-                    else{
-                        var main = Ext.getCmp('PContractPairProductView');
-                        var store = main.getStore();
-                        store.load();
-                        me.up('window').close();
-                    }                    
-                } else {
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Lưu thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-            })
+                })
+        }
     }
 })
