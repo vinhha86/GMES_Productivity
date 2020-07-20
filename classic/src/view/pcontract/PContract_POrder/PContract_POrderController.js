@@ -326,7 +326,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             form.close();
         });
     },  
-    onPOder_Delete: function(rec){       
+    onPOder_Delete: function(rec){    
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Lệnh sản xuất', 'Bạn có thực sự muốn xóa Lệnh sản xuất? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var params=new Object();
+                    params.id = rec.data.id;
+                    GSmartApp.Ajax.post('/api/v1/porder/delete', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            var porderStore = viewmodel.getStore('porderStore');
+                            porderStore.load();
+                        } else {
+                            Ext.MessageBox.show({
+                                title: "Lệnh sản xuất",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    }); 
+                }
+            } );             
     },
     renderSum: function(value, summaryData, dataIndex){
         var viewmodel = this.getViewModel();

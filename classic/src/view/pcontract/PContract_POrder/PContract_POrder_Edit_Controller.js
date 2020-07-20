@@ -18,33 +18,34 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Controller', {
         var pcontract_poid_link =  porder.data.pcontract_poid_link;
         var pcontractid_link =  porder.data.pcontractid_link;
 
-        poSKUStore.loadStoreByPO_ASync(pcontractid_link, pcontract_poid_link);
-		poSKUStore.load({
-			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 this.fireEvent('logout');
-				}
-				else{
-                    porderSKUStore.loadByPorderID_ASync(porder.data.id);
-                    porderSKUStore.load({
-                        scope: this,
-                        callback: function(records, operation, success) {
-                            if(!success){
-                                 this.fireEvent('logout');
-                            }
-                            else{
-                                //Xoa khoi poSKUStore cac skuid da co trong porderSKUStore
-                                for (i=0; i<records.length; i++){
-                                    poSKUStore.removeAt(poSKUStore.find('skuid_link',records[i].data.skuid_link));
-                                }
-                                // poSKUStore.clearFilter();
-                            }
-                        }
-                    }); 
-				}
-			}
-		}); 
+        poSKUStore.loadPOSKU_Free(pcontractid_link, pcontract_poid_link);
+        porderSKUStore.loadByPorderID(porder.data.id);
+		// poSKUStore.load({
+		// 	scope: this,
+		// 	callback: function(records, operation, success) {
+		// 		if(!success){
+		// 			 this.fireEvent('logout');
+		// 		}
+		// 		else{
+        //             porderSKUStore.loadByPorderID_ASync(porder.data.id);
+        //             porderSKUStore.load({
+        //                 scope: this,
+        //                 callback: function(records, operation, success) {
+        //                     if(!success){
+        //                          this.fireEvent('logout');
+        //                     }
+        //                     else{
+        //                         //Xoa khoi poSKUStore cac skuid da co trong porderSKUStore
+        //                         for (i=0; i<records.length; i++){
+        //                             poSKUStore.removeAt(poSKUStore.find('skuid_link',records[i].data.skuid_link));
+        //                         }
+        //                         // poSKUStore.clearFilter();
+        //                     }
+        //                 }
+        //             }); 
+		// 		}
+		// 	}
+		// }); 
     },
     onPorder_RemoveSKU:function(){
         me = this;

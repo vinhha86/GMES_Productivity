@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             }).items;
             if (lstCheck.length == 0){
                 var porder_New = new Object({
+                    id: null,
                     pcontractid_link : pcontractid_link,
                     pcontract_poid_link: pcontract_poid_link,
                     // sizesetid_link : price_data.sizesetid_link,
@@ -64,5 +65,38 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             viewmodel.set('isPorderReq_CheckOK', true);
             return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
-    }        
+    },
+    onXoa: function(grid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        var objDel = grid.getStore().getAt (rowIndex);
+
+        Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    grid.getStore().remove(objDel);
+
+                    if(Ext.isNumber(objDel.data.id)){
+                        var porderReqStore = viewmodel.getStore('porderReqStore');
+                        var params=new Object();
+                        params.id = objDel.data.id;
+                        GSmartApp.Ajax.post('/api/v1/porder_req/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                porderReqStore.reload();
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Yêu cầu SX",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        }); 
+                    }
+                }
+            } );        
+    },     
 })
