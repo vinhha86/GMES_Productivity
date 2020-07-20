@@ -77,6 +77,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         dataIndex:'factories',
         flex: 1
     },{
+        text: 'Người phụ trách',
+        dataIndex: 'merchandiser_name',
+        width: 150
+    },{
         xtype: 'actioncolumn',
         width: 25,
         menuDisabled: true,

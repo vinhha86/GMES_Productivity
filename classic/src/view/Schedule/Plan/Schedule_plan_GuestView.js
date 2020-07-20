@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
             });
 
         var cm = new Sch.data.CrudManager({
-            autoLoad: true,
+            autoLoad: false,
             resourceStore: resourceStore,
             eventStore: eventStore,
             transport: {
