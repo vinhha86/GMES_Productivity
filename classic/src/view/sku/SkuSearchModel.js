@@ -38,7 +38,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchModel', {
         searchtype: 0, //0-all; 1-product; 2-main material; 3-sewing+packing; 4-material, 5 : NPL
         listMau: [],
         listCo: [],
-        invoiceid_link: 0 // để truyền xuống api trong invoice
+        invoiceid_link: 0 ,// để truyền xuống api trong invoice
+        isHidden_sku: false
     },
     formulas: {
         isVisible_btnChonSP: function(get){

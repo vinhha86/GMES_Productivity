@@ -38,7 +38,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchWindow', {
             id: 'grid_skusearch',
             flex: 1,  
             margin: 2,
-            xtype: 'SkuList'
+            xtype: 'SkuList',
+            bind: {
+                hidden: '{isHidden_sku}'
+            }
         },
         // {
         //     title:'Danh sách đơn hàng', 

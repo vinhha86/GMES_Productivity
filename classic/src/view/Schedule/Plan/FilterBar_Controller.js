@@ -62,6 +62,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
             if (panel_guessview.getHidden()){
                 panel_guessview.setHidden(false);
                 panel_orderungranted.setHidden(true);
+
+                var crud = panel_guessview.down('#treeplanguest').getCrudManager();
+                crud.load();
             }
             else
                 panel_guessview.setHidden(true);
@@ -72,6 +75,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         me.print();
     },
     onSearch: function(){
+        console.log(123);
         var sch = Ext.getCmp('treeplan');
         var crud = sch.getCrudManager();
 

@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.users.User_Info', {
                 store: '{OrgStore}',
                 value: '{User.orgid_link}'
             },
-            displayField: 'name',
+            displayField: 'code',
             valueField: 'id',
             margin: '5 5 0 1',
             labelWidth: 80,

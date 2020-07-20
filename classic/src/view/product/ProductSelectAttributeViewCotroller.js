@@ -13,7 +13,22 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
         },
         '#btnLuu': {
             click: 'onLuu'
+        },
+        'ProductSelectAttributeView': {
+            select: 'onSelectValue'
         }
+    },
+    onSelectValue: function(grid, record, index, eOpts){
+       var me = this.getView();
+
+        if(record.data.isdefault){
+            me.getSelectionModel().deselectAll();
+            me.getSelectionModel().select(record, true, true);
+        } else {
+            var rec = grid.getStore().findRecord('isdefault', true);
+            me.getSelectionModel().deselect(rec);
+        }
+
     },
     onThoat: function () {
         this.getView().up('window').close();
@@ -111,7 +126,7 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                     if (response.respcode == 200) {
                         for (var i = 0; i < response.data.length; i++) {
                             var data = me.getStore().findRecord('id', response.data[i].id);
-                            me.getSelectionModel().select(data, true);
+                            me.getSelectionModel().select(data, true, true);
                         }
                     }
                 }

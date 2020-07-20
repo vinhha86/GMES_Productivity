@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
     id: 'PContract_PO_Edit',
     layout: 'border',
     controller: 'PContract_PO_Edit_Controller',
-    // requires: ['Ext.ux.TreePicker'],
+    requires: ['GSmartApp.view.Schedule.Plan.Schedule_plan_View'],
     viewModel: {
         type: 'PContract_PO_Edit_ViewModel'
     },

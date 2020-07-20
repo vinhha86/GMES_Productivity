@@ -13,8 +13,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         columnLines: true,
         rowLines: true,
         getRowClass: function (record, index) {
-            if (record.data.status == 1) {
-                return "accept";
+            if (record.data.status == 0) {
+                return "po_accept";
             }
         }
     },
@@ -76,6 +76,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         text:'Phân xưởng SX',
         dataIndex:'factories',
         flex: 1
+    },{
+        text: 'Người phụ trách',
+        dataIndex: 'merchandiser_name',
+        width: 150
     },{
         xtype: 'actioncolumn',
         width: 25,

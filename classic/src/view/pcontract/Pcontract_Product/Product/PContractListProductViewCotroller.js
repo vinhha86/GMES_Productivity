@@ -51,7 +51,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                         searchtype: 1,
                         pcontractid_link: viewmodel.get('PContract.id'),
                         type: 10,                        
-                        orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link')
+                        orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link'),
+                        isHidden_sku: true
                     }
                 }
             });

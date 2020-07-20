@@ -26,7 +26,14 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
         },
         '#btnLuu': {
             click: 'onLuu'
+        },
+        '#btnThoat' : {
+            click: 'onThoat'
         }
+    },
+    onThoat: function(){
+        var me= this.getView();
+        me.up('window').close();
     },
     CheckValidate: function(){
         var viewmodel = this.getViewModel();
