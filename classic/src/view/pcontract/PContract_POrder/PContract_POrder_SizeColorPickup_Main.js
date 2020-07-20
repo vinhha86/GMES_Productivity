@@ -11,6 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
     items: [
         {
             region: 'center',
+            id:'PContract_POrder_SizeColorPickup_Center',
             layout: 'border',
             items:[
                 {
@@ -49,8 +50,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
                     xtype: 'checkboxfield',
                     boxLabel: 'Chọn hết các SKU còn lại',
                     flex: 1,
-                    checked: false,
-                    // listeners: {change:'onCheckStatusChange'}
+                    // checked: false,
+                    bind:{
+                        value:'{sku_all}'
+                    },
+                    listeners: {change:'onCheckStatusChange'}
                 },
             ]      
         }

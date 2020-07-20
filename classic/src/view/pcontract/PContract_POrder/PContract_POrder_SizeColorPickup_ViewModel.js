@@ -18,5 +18,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_ViewModel'
     data: {
         po: null,
         porderreqid_link: null,
+        sku_all: false
     }
 })

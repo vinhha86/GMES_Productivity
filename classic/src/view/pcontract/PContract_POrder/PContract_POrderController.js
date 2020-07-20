@@ -208,7 +208,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             }            
             form.close();
         });
-
+        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder_AllSKU',function(product_select,sizelist,colorlist){
+            for(i=0;i<product_select.data.items.length;i++){
+                me.onPOrderCreateByProduct(porderreqid_link, product_select.data.items[i].data.id, sizelist, colorlist);
+            }            
+            form.close();
+        });
         form.down('PContract_POrder_SizeColorPickup_Main').getController().on('Thoat',function(){
             var porderStore = viewmodel.getStore('porderStore');
             porderStore.load();
@@ -322,7 +327,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         form.show();        
         form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(){
             var porderStore = viewModel.getStore('porderStore');
-            porderStore.load();
+            if (null != porderStore) porderStore.load();
+            
             form.close();
         });
     },  

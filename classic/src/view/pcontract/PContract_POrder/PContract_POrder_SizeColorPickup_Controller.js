@@ -55,25 +55,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
     },
     onGenPOrder: function(){
         var viewmodel = this.getViewModel();
+        if (viewmodel.get('sku_all')){
+            //Neu chon sinh tat ca SKU con lai
+            var productStore = viewmodel.getStore('PContractProduct_PO_Store');
+            this.fireEvent('GenPOrder_AllSKU',productStore,'','');
+        } else {
+            var size_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Size').getView();
+            var size_select = size_View.getSelectionModel().getSelection();
+            var sizelist = '';
+            for (i=0; i< size_select.length; i++){
+                sizelist = sizelist + size_select[i].data.id + ';'
+            }
 
-        var size_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Size').getView();
-        var size_select = size_View.getSelectionModel().getSelection();
-        var sizelist = '';
-        for (i=0; i< size_select.length; i++){
-            sizelist = sizelist + size_select[i].data.id + ';'
+            var color_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Color').getView();
+            var color_select = color_View.getSelectionModel().getSelection();
+            var colorlist = '';
+            for (i=0; i< color_select.length; i++){
+                colorlist = colorlist + color_select[i].data.id + ';'
+            }
+
+            var product_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Product').getView();
+            var product_select = product_View.getSelectionModel().getSelection();
+
+            if (product_select.length == 0 && sizelist == '' && colorlist == ''){
+                Ext.MessageBox.show({
+                    title: "Lệnh sản xuất",
+                    msg: 'Bạn phải chọn ít nhất 1 điều kiện để tạo lệnh',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            } else {
+                this.fireEvent('GenPOrder',product_select,sizelist,colorlist);
+            }
         }
-
-        var color_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Color').getView();
-        var color_select = color_View.getSelectionModel().getSelection();
-        var colorlist = '';
-        for (i=0; i< color_select.length; i++){
-            colorlist = colorlist + color_select[i].data.id + ';'
-        }
-
-        var product_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Product').getView();
-        var product_select = product_View.getSelectionModel().getSelection();
-
-        this.fireEvent('GenPOrder',product_select,sizelist,colorlist);
+    },
+    onCheckStatusChange:function(e, newValue, oldValue, eOpts){
+        var centerView = Ext.getCmp('PContract_POrder_SizeColorPickup_Center');
+        console.log(newValue);
+        centerView.setDisabled(newValue);
     },
     onThoat: function () {
         this.fireEvent('Thoat');
