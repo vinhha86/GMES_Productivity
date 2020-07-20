@@ -136,13 +136,13 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     },
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
-
+        console.log(viewModel.get('sourceview'))
         if (viewModel.get('sourceview') == 'stockoutforcheck') {
             this.createStockoutForCheck();
         }
         //Tab san pham trong don hang
         if (viewModel.get('sourceview') == 'PContractListProductView') {
-            this.createPContractProduct_WithSKU();
+            this.createPContractProduct();
         }
         //Tab phan loai san pham trong don hang
         if (viewModel.get('sourceview') == 'PContractSKU_ListProductView') {
@@ -167,6 +167,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
     createPContractProduct: function () {
+        var m = this;
         var me = this.getView().down('#ProductList');
         var viewModel = this.getViewModel();
         var params = new Object();
@@ -208,7 +209,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         else {
                             var viewProduct = Ext.getCmp('PContractListProductView');
                             viewProduct.getStore().load();
-                            me.up('window').close();
+                            m.onCloseButton();
                         }
                     }
                 })
@@ -667,7 +668,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
 
         form.down('#'+xtype).on('CreateProduct', function (product) {
             me.onSearchButton();
-            form.close();
+            // form.close();
         })
     },
 

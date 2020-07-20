@@ -13,6 +13,16 @@ Ext.define('GSmartApp.view.product.ProductInfoViewCotroller', {
 
         me.down('#code').focus();
     },
+    control: {
+        '#buyercode': {
+            focusleave: 'onleavebuyercode'
+        }
+    },
+    onleavebuyercode: function(){
+        var viewModel = this.getViewModel();
+        if(viewModel.get('product.vendorcode')== "")
+            viewModel.set('product.vendorcode', viewModel.get('product.buyercode'));
+    },
     loadInfo: function (id) {
         if (id == 0) {
             this.getView().getForm().reset();
