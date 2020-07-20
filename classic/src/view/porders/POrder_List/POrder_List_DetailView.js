@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
                 margin: 1
             }]
         }, {
-            title: 'Định mức sản xuất',
+            title: 'Phân chuyền',
             layout: 'border',
             flex: 1,
             items: [{

@@ -18,14 +18,14 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			name: 'status', type: 'int',
 			convert: function (value) {
                 switch(value){
-					case -1: return 'Chưa chốt';
-					case 0: return 'Đã chốt, chưa phân chuyền';
-					case 1: return 'Đã phân chuyền, chưa yêu cầu sx';
-					case 2: return 'Yêu cầu sx đề kho và cắt chuẩn bị';
-					case 3: return 'Đang thực hiện công đoạn phụ (may trc 1 số bước khó) trước khi vào chuyền';
+					case -1: return 'Chưa chốt PO';
+					case 0: return 'Chưa phân chuyền';
+					case 1: return 'Đã phân chuyền';
+					case 2: return 'Chuẩn bị SX';
+					case 3: return 'Công đoạn phụ';
 					case 4: return 'Đang sản xuất';
-					case 5: return 'Đã sản xuất xong, chưa nhập kho TP hết';
-					case 6: return 'Đã hoàn thành mã hàng';
+					case 5: return 'Sản xuất xong';
+					case 6: return 'Nhập kho xong';
 					default: return '';
 				}
 			}
