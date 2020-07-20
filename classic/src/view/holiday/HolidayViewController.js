@@ -388,7 +388,7 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         infoView.down('#orgbuyerid_link').setReadOnly(true); // duplicate id
         infoView.down('#orgvenderid_link').setReadOnly(true);
         infoView.down('#contracttypeid_link').setReadOnly(true);
-        infoView.down('#orgbuyerid_link').setReadOnly(true); // duplicate id
+        infoView.down('#orgpayerid_link').setReadOnly(true); // duplicate id
         infoView.down('#orgshowid_link').setReadOnly(true);
         infoView.down('#market').setReadOnly(true);
         infoView.down('#contractcode').setReadOnly(true);

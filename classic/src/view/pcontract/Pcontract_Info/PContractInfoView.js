@@ -114,7 +114,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                         value: '{PContract.payer}',
                         store: '{PayerStore}'
                     },
-                    itemId: 'orgbuyerid_link',
+                    itemId: 'orgpayerid_link',
                     labelWidth: 100,
                     width: 300
                 }, {
