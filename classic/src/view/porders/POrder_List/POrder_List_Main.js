@@ -100,7 +100,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         width: 60,
     }, {
         text: 'Trạng thái',
-        dataIndex: 'status',
+        dataIndex: 'statusName',
         flex: 1
     }],
     dockedItems: [{
@@ -188,8 +188,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 bind:{
                     store:'{POrder_ListStatusStore}'
                 },
-                displayField: 'statusString',
-                valueField: 'statusNum',
+                // displayField: 'statusString',
+                // valueField: 'statusNum',
+                displayField: 'name',
+                valueField: 'id',
                 queryMode: 'local',
                 editable: true,
                 allowBlank: true,

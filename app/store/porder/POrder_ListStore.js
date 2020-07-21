@@ -14,22 +14,23 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
         {name: 'golivedate', type: 'date'},
         {name: 'totalorder', type: 'string'},
 		{name: 'productiondate_plan', type: 'date'},
-		{
-			name: 'status', type: 'int',
-			convert: function (value) {
-                switch(value){
-					case -1: return 'Chưa chốt PO';
-					case 0: return 'Chưa phân chuyền';
-					case 1: return 'Đã phân chuyền';
-					case 2: return 'Chuẩn bị SX';
-					case 3: return 'Công đoạn phụ';
-					case 4: return 'Đang sản xuất';
-					case 5: return 'Sản xuất xong';
-					case 6: return 'Nhập kho xong';
-					default: return '';
-				}
-			}
-		}
+		// {
+			// name: 'status', type: 'int',
+			// convert: function (value) {
+            //     switch(value){
+			// 		case -1: return 'Chưa chốt PO';
+			// 		case 0: return 'Chưa phân chuyền';
+			// 		case 1: return 'Đã phân chuyền';
+			// 		case 2: return 'Chuẩn bị SX';
+			// 		case 3: return 'Công đoạn phụ';
+			// 		case 4: return 'Đang sản xuất';
+			// 		case 5: return 'Sản xuất xong';
+			// 		case 6: return 'Nhập kho xong';
+			// 		default: return '';
+			// 	}
+			// }
+		// },
+		{name: 'statusName', type: 'string'}
 	],
 	loadStore: function(){
 		var me=this;
