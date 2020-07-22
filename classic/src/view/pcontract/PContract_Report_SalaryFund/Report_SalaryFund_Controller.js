@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
+Ext.define('GSmartApp.view.pcontract.Report_SalaryFund_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Report_CMP_Controller',
+    alias: 'controller.Report_SalaryFund_Controller',
 
     init:function(){
         // var viewmodel =  this.getViewModel();
@@ -70,23 +70,23 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
     },
     onRefreshTap: function(){
         var viewmodel =  this.getViewModel();
-        var cbo_cmpoption = Ext.getCmp('Report_CMP_cmpoption');
+        var cbo_cmpoption = Ext.getCmp('Report_SalaryFund_cmpoption');
 
         if (cbo_cmpoption != null && cbo_cmpoption.getValue() != null){
-            var CMPReportStore = viewmodel.get('CMPReportStore');
-            CMPReportStore.loadStore(new Date(),cbo_cmpoption.getValue());
+            var reportStore = viewmodel.get('SalaryFundReportStore');
+            reportStore.loadStore(new Date(),cbo_cmpoption.getValue());
         }
     },
     onExportExcel: function(){
         this.getView().saveDocumentAs({
             type: 'excel',
-            title: 'Bảng Tổng hợp giá gia công (CMP)',
-            fileName:'cmp.xls'
+            title: 'Bảng Tổng hợp quỹ lương (Salary Fund)',
+            fileName:'salaryfund.xls'
         });
     },
     onZoom: function(){
         var panel_po = Ext.getCmp('PContract_PO_Edit');
-        var west_cmp = panel_po.down('#panel_cmp');
-        west_cmp.setWidth(west_cmp.width == '100%'?'50%':'100%');
+        var west_salaryfund = panel_po.down('#panel_salaryfund');
+        west_salaryfund.setWidth(west_salaryfund.width == '100%'?'50%':'100%');
     }      
 });

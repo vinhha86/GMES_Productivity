@@ -101,6 +101,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var panel_po = Ext.getCmp('PContract_PO_Edit');
         var west_cmp = panel_po.down('#panel_cmp');
         west_cmp.setHidden(true);
+        var west_salaryfund = panel_po.down('#panel_salaryfund');
+        west_salaryfund.setHidden(true);
 
         var west_po = panel_po.down('#panel_po');
         west_po.setHidden(!west_po.getHidden());
@@ -109,8 +111,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var panel_po = Ext.getCmp('PContract_PO_Edit');
         var west_po = panel_po.down('#panel_po');
         west_po.setHidden(true);
+        var west_salaryfund = panel_po.down('#panel_salaryfund');
+        west_salaryfund.setHidden(true);
 
         var west_cmp = panel_po.down('#panel_cmp');
         west_cmp.setHidden(!west_cmp.getHidden());
+    },
+    onShowSalaryFund: function(){
+        var panel_po = Ext.getCmp('PContract_PO_Edit');
+        var west_po = panel_po.down('#panel_po');
+        west_po.setHidden(true);
+        var west_cmp = panel_po.down('#panel_cmp');
+        west_cmp.setHidden(true);
+
+        var west_salaryfund = panel_po.down('#panel_salaryfund');
+        west_salaryfund.setHidden(!west_salaryfund.getHidden());
     }
 })

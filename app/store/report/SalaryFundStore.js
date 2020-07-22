@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.store.CMPStore', {
+Ext.define('GSmartApp.store.SalaryFundStore', {
 	extend: 'Ext.data.Store',
-	storeId: 'CMPStore',
-    alias: 'store.CMPStore',
+	storeId: 'SalaryFundStore',
+    alias: 'store.SalaryFundStore',
     fields: [
 		{name: 'id', type: 'int'},
 		{name: 'orgid_link',   type: 'int'},
@@ -15,7 +15,7 @@ Ext.define('GSmartApp.store.CMPStore', {
 		},
 		{name: 'month',   type: 'int'},
 		{name: 'year',   type: 'int'},
-		{name: 'cmpamount',   type: 'number'},
+		{name: 'salaryfundamount',   type: 'int'},
 	],
 	sorters: [{
         property: 'orgid_link',
@@ -33,7 +33,7 @@ Ext.define('GSmartApp.store.CMPStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/report_cmp/orgcmp',
+			url: config.getAppBaseUrl()+'/api/v1/report_salaryfund/orgsalaryfund',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
