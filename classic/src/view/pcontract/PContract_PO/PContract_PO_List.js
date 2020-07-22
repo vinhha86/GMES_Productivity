@@ -52,34 +52,34 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     },{
         text:'Ngày giao',
         dataIndex:'shipdate',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-        width: 80
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        width: 70
     },
     {
         text:'Ngày NPL',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         dataIndex:'matdate',
-        width: 80
+        width: 70
     },
     {
         text:'Ngày VC',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         dataIndex:'productiondate',
-        width: 80
+        width: 70
     },
     {
         text:'Số ngày SX',
         dataIndex:'productiondays',
-        width: 70
+        width: 50
     },
     {
-        text:'Phân xưởng SX',
+        text:'Phân xưởng',
         dataIndex:'factories',
-        flex: 1
+        width: 80
     },{
-        text: 'Người phụ trách',
+        text: 'Phụ trách',
         dataIndex: 'merchandiser_name',
-        width: 150
+        flex: 1
     },{
         xtype: 'actioncolumn',
         width: 25,
@@ -130,24 +130,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 },{
                     text:'Ngày giao',
                     dataIndex:'shipdate',
-                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-                    width: 80
+                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    width: 70
                 },{
                     text:'Ngày NPL',
-                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
                     dataIndex:'matdate',
-                    width: 80
+                    width: 70
                 },{
                     text:'Ngày VC',
-                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
                     dataIndex:'productiondate',
-                    width: 80
+                    width: 70
                 },{
                     text:'Số ngày SX',
                     dataIndex:'productiondays',
-                    width: 70
+                    width: 50
                 },{
-                    text:'Phân xưởng SX',
+                    text:'Phân xưởng',
                     dataIndex:'factories',
                     flex: 1
                 },{

@@ -99,7 +99,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     },
     onShowKHGH: function(){
         var panel_po = Ext.getCmp('PContract_PO_Edit');
-        var west = panel_po.down('#panel_po');
-        west.setHidden(!west.getHidden());
+        var west_cmp = panel_po.down('#panel_cmp');
+        west_cmp.setHidden(true);
+
+        var west_po = panel_po.down('#panel_po');
+        west_po.setHidden(!west_po.getHidden());
+    },
+    onShowCMP: function(){
+        var panel_po = Ext.getCmp('PContract_PO_Edit');
+        var west_po = panel_po.down('#panel_po');
+        west_po.setHidden(true);
+
+        var west_cmp = panel_po.down('#panel_cmp');
+        west_cmp.setHidden(!west_cmp.getHidden());
     }
 })

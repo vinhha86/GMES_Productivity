@@ -11,6 +11,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
     items: [
         {
             region: 'west',
+            id: 'panel_cmp',
+            width: '50%',
+            xtype: 'Report_CMP',
+            border: true,
+            margin: 1,
+            hidden: true
+        },
+        {
+            region: 'west',
             id: 'panel_po',
             // title: 'Giao hàng - Chào giá',
             layout: 'border',

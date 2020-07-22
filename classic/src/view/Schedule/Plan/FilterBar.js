@@ -22,7 +22,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             weight: 30,
             bind : {
                 hidden: '{isHidden_CMP}'
-            }
+            },
+            handler: 'onShowCMP'
         },
         {
             xtype: 'button',

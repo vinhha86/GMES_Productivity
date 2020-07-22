@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
         if (store) {
             var cbProcessingDate = this.lookupReference('processingdate');
             store.loadByDate(cbProcessingDate.getValue());
-            console.log(store);
+            // console.log(store);
         }
     }, 
     
