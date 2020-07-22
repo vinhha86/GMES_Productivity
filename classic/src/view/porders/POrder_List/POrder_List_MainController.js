@@ -36,12 +36,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
 
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, [-1, 0, 1, 2, 3]);
+        store.loadStoreBySearch(null, null, null, null, null, null, [1, 2, 3, 4, 5]);
         store.sort('productiondate_plan', 'ASC');
         let store2 = viewmodel.getStore('POrder_ListVendorStore');
         store2.loadStore();
         let store3 = viewmodel.getStore('POrder_ListBuyerStore');
         store3.loadStore();
+        let store4 = viewmodel.getStore('POrder_ListStatusStore');
+        store4.loadStore();
     },
     onTimKiemClick: function () {
         // console.log('click tim kiem');
@@ -81,7 +83,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var me = this.getView();
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, [-1, 0, 1, 2, 3]);
+        store.loadStoreBySearch(null, null, null, null, null, null, [1, 2, 3, 4, 5]);
         me.down('#txtpo').setValue();
         me.down('#txtstyle').setValue();
         me.down('#txtbuyerid').setValue();

@@ -1,7 +1,6 @@
 Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_Bom_Color_ViewCotroller',
-    ischange: false,
     init: function () {
 
     },
@@ -38,8 +37,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                             listtitle.push(data.coSanPham);
                         }
                     }
-
-                    console.log(listtitle);
             
                     for (var i = 0; i < listtitle.length; i++) {
             
@@ -53,10 +50,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                             editor: {
                                 xtype: 'textfield',
                                 selectOnFocus: true,
-                                maskRe: /[0-9.]/,
-                                listeners: {
-                                    change: 'onChange'
-                                }
+                                maskRe: /[0-9.]/
                             },
                             renderer: function (value, metaData, record) {
                                 if (value == 0) return "";
@@ -86,17 +80,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                 }
             })
     },
-    onChange: function (grid, newValue, oldValue, eOpts) {
-        this.ischange = true;
-    },
     onEdit: function (editor, context, e) {
-        var me = this;
         var viewmodel = this.getViewModel();
-        if (!me.ischange) {
+        if(context.value == context.originalValue){
             var store = viewmodel.getStore('PContractBomColorStore');
             store.rejectChanges();
             return;
         }
+
+        var me = this;
 
         if (context.field == "amount") {
             me.updateBOM(context.record);
@@ -104,19 +96,64 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         else if (context.field == "amount_color") {
             me.updateColor(context.record);
         }
-        else {
-            me.updateSKU(context);
-        }
+        else if (context.field == "unitid_link") {
+            me.updateMaterial(context);
+         }
+         else{ 
+             me.updateSKU(context);
+         }
     },
     updateColumnSize: function (record) {
         var me = this;
         var grid = this.getView();
         var column = grid.getColumns();
         for (var i = 0; i < column.length; i++) {
-            if (i > me.length) {
+            if (i > 11) {
                 record.set(column[i].dataIndex, 0);
             }
         }
+    },
+    renderUnit: function(value, metaData, record, rowIdx, colIdx, store) {
+        var me = this;
+        var storeUnit = me.getViewModel().getStore('UnitStore');
+        if (value != null) {
+            var rec = storeUnit.findRecord("id", value, 0, false, false, true);
+            if (rec != null) {
+                return rec.data.code;
+            } else {
+                return record.data.unitName;
+            }
+        } else {
+            return '';
+        }
+    },
+    updateMaterial: function (context) {
+        var viewmodel = this.getViewModel();
+        var data = context.record.data;
+        var params = new Object();
+        params.data = data;
+        params.isUpdateBOM = false;
+
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    else {
+                        var storebom = viewmodel.getStore('PContractBomColorStore');
+                        storebom.commitChanges();
+                    }
+                }
+            })
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this.getView();
@@ -174,11 +211,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         var params = new Object();
         params.data = record.data;
         params.isUpdateBOM = true;
-        console.log(params);
         GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    me.ischange = false;
                     var response = Ext.decode(response.responseText);
                     var store = viewmodel.getStore('PContractBomColorStore');
                     if (response.respcode != 200) {
@@ -211,7 +246,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbomcolor', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    me.ischange = false;
                     var response = Ext.decode(response.responseText);
                     var store = viewmodel.getStore('PContractBomColorStore');
                     if (response.respcode != 200) {
@@ -246,7 +280,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbomsku', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    me.ischange = false;
                     var response = Ext.decode(response.responseText);
                     var store = viewmodel.getStore('PContractBomColorStore');
                     if (response.respcode != 200) {

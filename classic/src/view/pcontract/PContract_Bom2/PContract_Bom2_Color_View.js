@@ -61,8 +61,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
         }
     }, {
         text: 'ĐVT',
-        dataIndex: 'unitName',
-        width: 70
+        dataIndex: 'unitid_link',
+        width: 70,
+        getEditor: function (record) {
+            return Ext.create('Ext.grid.CellEditor', {
+                field: {
+                    xtype: 'combo',
+                    bind: {
+                        store: '{UnitStore}'
+                    },
+                    valueField: 'id',
+                    displayField: 'code',
+                    queryMode: 'local'
+                }
+            })
+        },
+        renderer: 'renderUnit'
     }, {
         text: 'Tiêu hao',
         dataIndex: 'lost_ratio',

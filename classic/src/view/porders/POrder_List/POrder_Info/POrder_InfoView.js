@@ -153,11 +153,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId:'txtstatus',
                 bind:{
                     store:'{POrder_ListStatusStore}',
-                    value: '{porder.status}'
+                    value: '{porder.porder_statusid_link}'
                 },
                 fieldLabel: "Trạng thái",
-                displayField: 'statusString',
-                valueField: 'statusNum',
+                displayField: 'name',
+                valueField: 'id',
                 queryMode: 'local',
                 editable: false,
                 allowBlank: false,
