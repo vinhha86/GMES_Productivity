@@ -7,16 +7,21 @@ Ext.define('GSmartApp.view.groupuser.GroupUser_Function_Controller', {
     control: {
         '#checkcolumn': {
             checkchange: 'onCheckChange'
+        },
+        '#checkcolumn_readonly' : {
+            checkchange: 'onCheckChange'
         }
     },
     onCheckChange: function( grid, rowIndex, checked, record, e, eOpts){
         var viewModel = this.getViewModel();
+        console.log(record);
+
         var params = new Object();
         params.roleid_link = viewModel.get('roleid_link');
         params.functionid_link = record.data.id;
-        params.checked = checked;
+        params.checked = record.data.checked;
         params.ishidden = false;
-        params.isreadonly = false;
+        params.isreadonly = record.data.readonly;
 
         GSmartApp.Ajax.post('/api/v1/approle/create_role_function', Ext.JSON.encode(params),
         function (success, response, options) {
@@ -34,7 +39,7 @@ Ext.define('GSmartApp.view.groupuser.GroupUser_Function_Controller', {
                 }
                 else{
                     var store = viewModel.getStore('FunctionStore');
-                    store.commitChanges();
+                    store.load();
                 }
             }
         })

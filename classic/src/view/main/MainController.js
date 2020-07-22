@@ -68,7 +68,6 @@ Ext.define('GSmartApp.view.main.MainController', {
             mainLayout.getActiveItem().destroy();
         }
 
-        console.log(view);
         newView = Ext.create({
             xtype: view,
             routeId: hashTag,  // for existingItem search later

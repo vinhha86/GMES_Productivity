@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
 
     },
     control: {
-        '#btnThemMoi': {
+        '#btnThemMoi_product_pcontract': {
             click: 'onThemMoi'
         },
         '#btnExcel': {

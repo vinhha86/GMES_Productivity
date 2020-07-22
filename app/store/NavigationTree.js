@@ -40,7 +40,17 @@ Ext.define('GSmartApp.store.NavigationTree', {
             timeout: 60000,
             reader: {
                 type: 'json',
-                rootProperty: 'children'
+                rootProperty: 'children',
+                processRawResponse:function(response) {     
+                    var session = GSmartApp.util.State.get('session');                
+                    var _token = session.token;
+                    var _expires = session.expires;
+                    if(response.responseJson!=null) {
+                        response.responseJson.data.token = _token;
+                        response.responseJson.data.expires = _expires;
+                        GSmartApp.util.State.set('session', response.responseJson.data);
+                    }
+                }
             }
         });
         this.load();

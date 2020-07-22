@@ -9,13 +9,14 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         store.loadStore_ByPage(25, 1, "", "", 0, 0, 0);
 
         this.onActivate();
+        common.Check_Role_Function();
     },
     control: {
         '#PContractMainView': {
             activate: 'onActivate',
             itemdblclick: 'ondblClick'
         },
-        '#btnThemMoi': {
+        '#btnThemMoi_PContractMainView': {
             click: 'onThemMoi'
         },
         '#orgcustomerid_link': {

@@ -24,6 +24,13 @@ Ext.define('GSmartApp.view.groupuser.GroupUser_Function', {
         text:'Tên chức năng',
         dataIndex:'name',
         flex: 1
+    },{
+        text: 'Chỉ xem',
+        width: 70,
+        xtype: 'checkcolumn',
+        itemId: 'checkcolumn_readonly',
+        dataIndex: 'readonly',
+        align: 'center'
     }]
 });
 
