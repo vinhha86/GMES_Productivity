@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
         var me = this;
-        // console.log(eventRecord);
+        console.log(eventRecord);
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Sản phẩm',

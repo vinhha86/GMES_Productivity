@@ -37,33 +37,33 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         flex: 1
     },
     {
-        text: 'Ngày giao hàng',
-        dataIndex: 'deliverydate',
-        width: 120,
+        text: 'Ngày lập',
+        dataIndex: 'contractdate',
+        width: 80,
         renderer: Ext.util.Format.dateRenderer('d/m/Y')
     }, 
     {
-        text: 'Người lập đơn',
+        text: 'Người lập',
         dataIndex: 'usercreatedName',
-        width: 120
+        width: 100
     },
     // {
     //     text: 'Trạng thái',
     //     dataIndex: 'status',
     //     width: 90
     // },   
-    {
-        text: 'Tỷ lệ hoàn thành',
-        xtype: 'widgetcolumn',
-        flex: 1,
-        widget: {
-            bind: '{record.complete_rate}',
-            xtype: 'progressbarwidget',
-            textTpl: [
-                '{percent:number("0")}%'
-            ]
-        }
-    }, 
+    // {
+    //     text: 'Tỷ lệ hoàn thành',
+    //     xtype: 'widgetcolumn',
+    //     flex: 1,
+    //     widget: {
+    //         bind: '{record.complete_rate}',
+    //         xtype: 'progressbarwidget',
+    //         textTpl: [
+    //             '{percent:number("0")}%'
+    //         ]
+    //     }
+    // }, 
     {
         xtype: 'actioncolumn',
         width: 50,

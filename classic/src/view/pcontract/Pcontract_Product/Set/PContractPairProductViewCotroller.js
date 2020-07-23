@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
 
     },
     control: {
-        '#btnThemMoi': {
+        '#PContractPairProductView_btnThemMoi': {
             click: 'onThemMoi'
         }
     },

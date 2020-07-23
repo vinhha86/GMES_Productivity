@@ -61,7 +61,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
 
     disableInfoViewBtn: function(){
         let me = this.getView();
-        let viewmodel = this.getViewModel();
         let infoView = me.down('#PContractInfoView');
         infoView.down('#contractcode').setReadOnly(true);
         infoView.down('#contractdate').setReadOnly(true);
@@ -77,18 +76,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
 
     disableListProductViewBtn: function(){
         let me = this.getView();
-        let viewmodel = this.getViewModel();
         let listProductView = me.down('#PContractListProductView');
-        listProductView.down('#btnThemMoi').setVisible(false);
+        listProductView.down('#btnThemMoi_product_pcontract').setVisible(false);
         let col = listProductView.getColumns()[6];
         col.hide();
     },
 
     disablePairProductViewBtn: function(){
         let me = this.getView();
-        let viewmodel = this.getViewModel();
         let pairProductView = me.down('#PContractPairProductView');
-        pairProductView.down('#btnThemMoi').setVisible(false);
+        pairProductView.down('#PContractPairProductView_btnThemMoi').setVisible(false);
         let col = pairProductView.getColumns()[2];
         col.hide();
         let cellEditing = pairProductView.getPlugins()[0];

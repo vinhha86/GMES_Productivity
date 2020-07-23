@@ -16,12 +16,12 @@ Ext.define('GSmartApp.view.pcontract.PContractView_Main', {
             margin: 1,
             region: 'center'
         },
-        {
-            xtype: 'PContract_PO_Factories',
-            id: 'panel_factories',
-            width: 350,
-            region: 'east',
-            hidden: true  
-        }    
+        // {
+        //     xtype: 'PContract_PO_Factories',
+        //     id: 'panel_factories',
+        //     width: 350,
+        //     region: 'east',
+        //     hidden: true  
+        // }    
     ]   
 })
