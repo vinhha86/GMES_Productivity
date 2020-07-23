@@ -32,13 +32,13 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
     }, {
         text: 'Ngày nghỉ',
         dataIndex: 'day',
-        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         flex: 1,
         editor:{
             completeOnEnter: true,
             field: {
                 xtype: 'datefield',
-                format: 'd-m-Y',
+                format: 'd/m/Y',
                 pickerAlign: 'tr-br?',
                 listeners: {
                     focusenter: 'onDateFocus',

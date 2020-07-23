@@ -32,12 +32,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
     }, {
         text: 'Ngày vào chuyền',
         dataIndex: 'start_date_plan',
-        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         flex: 1,
     }, {
         text: 'Ngày ra chuyền',
         dataIndex: 'finish_date_plan',
-        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         summaryType: 'count',
         summaryRenderer: function(){
             return '<b>Tổng SL : </b>';

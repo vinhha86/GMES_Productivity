@@ -132,7 +132,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                     bind: {
                         value: '{productiondate_plan}'
                     },
-                    format: 'd-m-Y',
+                    format: 'd/m/Y',
                     labelWidth: 120,
                     width: 250
             },{
@@ -145,7 +145,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                     bind: {
                         value: '{golivedate}'
                     },
-                    format: 'd-m-Y',
+                    format: 'd/m/Y',
                     labelWidth: 120,
                     width: 250
             },{
