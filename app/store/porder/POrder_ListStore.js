@@ -33,7 +33,6 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		{name: 'statusName', type: 'string'}
 	],
 	loadStore: function(){
-		var me=this;
 		var params = new Object();
 
 		this.setProxy({
@@ -66,10 +65,10 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			}
 		});
 	},  	
-	loadStoreBySearch: function(po, style, buyerid, vendorid, orderdatefrom, orderdateto, status){
-		var me=this;
+	loadStoreBySearch: function(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status){
 		var params = new Object();
-		params.po = po;
+		params.pobuyer = pobuyer;
+		params.povendor = povendor;
 		params.style = style;
 		params.buyerid = buyerid;
 		params.vendorid = vendorid;

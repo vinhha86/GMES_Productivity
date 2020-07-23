@@ -120,17 +120,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 emptyText: 'Style'
             },
             {
-                xtype:'textfield',
-                itemId:'txtpo',
-                // fieldLabel: 'Chú thích',
-                margin: 5,
-                // flex: 1,
-                width: 100,
-                allowBlank: true,
-                blankText: 'PO buyer',
-                emptyText: 'PO buyer'
-            },
-            {
                 xtype:'combobox',
                 itemId:'txtbuyerid',
                 bind:{
@@ -147,6 +136,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 width: 130,
             },
             {
+                xtype:'textfield',
+                itemId:'txtpobuyer',
+                // fieldLabel: 'Chú thích',
+                margin: 5,
+                // flex: 1,
+                width: 100,
+                allowBlank: true,
+                blankText: 'PO buyer',
+                emptyText: 'PO buyer'
+            },
+            {
                 xtype:'combobox',
                 itemId:'txtvendorid',
                 bind:{
@@ -161,6 +161,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 margin: 5,
                 // flex: 1,
                 width: 130,
+            },
+            {
+                xtype:'textfield',
+                itemId:'txtpovendor',
+                // fieldLabel: 'Chú thích',
+                margin: 5,
+                // flex: 1,
+                width: 100,
+                allowBlank: true,
+                blankText: 'PO vendor',
+                emptyText: 'PO vendor'
             },
             {
                 xtype:'datefield',
@@ -188,8 +199,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 bind:{
                     store:'{POrder_ListStatusStore}'
                 },
-                // displayField: 'statusString',
-                // valueField: 'statusNum',
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
@@ -200,20 +209,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 margin: 5,
                 flex: 1
             },
-            // { 
-            //     xtype: 'tagfield', 
-            //     // fieldLabel: 'Select a Show', 
-            //     bind:{
-            //         store:'{POrder_ListStatusStore}'
-            //     },
-            //     displayField: 'statusString', 
-            //     valueField: 'statusNum', 
-            //     queryMode: 'local', 
-            //     emptyText: 'Trạng thái',
-            //     margin: 5,
-            //     flex: 1,
-            //     filterPickList: true 
-            // },
             {
                 xtype: 'button',
                 margin: 5,
@@ -223,15 +218,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 itemId: 'btnTimKiem',
                 tooltip: 'Tìm kiếm'
             },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: '',
-                width: 35,
-                iconCls: 'x-fa fa-refresh',
-                itemId: 'btnRefresh',
-                tooltip: 'Mặc định'
-            }
+            // {
+            //     xtype: 'button',
+            //     margin: 5,
+            //     text: '',
+            //     width: 35,
+            //     iconCls: 'x-fa fa-refresh',
+            //     itemId: 'btnRefresh',
+            //     tooltip: 'Mặc định'
+            // }
             // {
             //     flex: 1,
             //     border: false

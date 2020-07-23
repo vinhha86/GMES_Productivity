@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
 
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, [1, 2, 3, 4, 5]);
+        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 4, 5]);
         store.sort('productiondate_plan', 'ASC');
         let store2 = viewmodel.getStore('POrder_ListVendorStore');
         store2.loadStore();
@@ -56,10 +56,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // console.log(me.down('#txtstatus').getValue());
         // console.log(typeof(me.down('#txtstatus').getValue()));
 
-        let po, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
-        if (me.down('#txtpo').getValue() == "") {
-            po = null;
-        }else po = me.down('#txtpo').getValue();
+        let pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
+        if (me.down('#txtpobuyer').getValue() == "") {
+            pobuyer = null;
+        }else pobuyer = me.down('#txtpobuyer').getValue();
+        if (me.down('#txtpovendor').getValue() == "") {
+            povendor = null;
+        }else povendor = me.down('#txtpovendor').getValue();
         if (me.down('#txtstyle').getValue() == "") {
             style = null;
         }else style = me.down('#txtstyle').getValue();
@@ -77,14 +80,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         }else orderdateto = me.down('#txtdateto').getValue();
         status = me.down('#txtstatus').getValue();
 
-        store.loadStoreBySearch(po, style, buyerid, vendorid, orderdatefrom, orderdateto, status);
+        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status);
     },
     onRefreshClick: function(){
         var me = this.getView();
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, [1, 2, 3, 4, 5]);
-        me.down('#txtpo').setValue();
+        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 4, 5]);
+        me.down('#txtpobuyer').setValue();
         me.down('#txtstyle').setValue();
         me.down('#txtbuyerid').setValue();
         me.down('#txtvendorid').setValue();

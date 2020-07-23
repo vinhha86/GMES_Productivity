@@ -13,6 +13,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         columnLines: true,
         rowLines: true
     },
+    features: [{
+        ftype: 'summary'
+    }],
     bind: {
         store: '{porderSKUStore}'
     },
@@ -32,10 +35,21 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'Cỡ',
         dataIndex: 'coSanPham',
+        summaryType: 'count',
+        summaryRenderer: function(){
+            return '<b>Tổng SL : </b>';
+        },
         flex: 1
     }, {
         text: 'Số lượng',
         dataIndex: 'pquantity_total',
+        summaryType: 'sum',
+        summaryRenderer: function(value){
+            return '<b>'+value+'</b>';
+        },
+        fieldStyle:{
+            'text-align':'right',
+        },
         flex: 1
     }]
 });

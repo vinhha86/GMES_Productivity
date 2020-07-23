@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     bind: {
         store: '{POrder_ListGrantSKUStore}'
     },
-    title: 'Danh sách sản phẩm',
+    title: 'Chi tiết màu, cỡ',
     columns: [{
         text: 'STT',
         width: 50,
