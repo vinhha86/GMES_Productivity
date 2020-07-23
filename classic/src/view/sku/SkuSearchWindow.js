@@ -11,8 +11,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchWindow', {
     ],
     controller: 'skusearch',
     title: 'Tìm kiếm nguyên phụ liệu - Sản phẩm',
-    width: 1200,
-    height: 500,
+    // width: 1200,
+    // height: 500,
     margin:10,
     layout: {
         type: 'hbox',

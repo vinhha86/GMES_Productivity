@@ -46,6 +46,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         priceStore.clearFilter();       
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));        
     },
+    onSewTarget_PercentChange: function(){
+        var viewmodel = this.getViewModel();
+        var po_data = viewmodel.get('po');
+        
+        var po_price_data = viewmodel.get('po_price');
+        po_price_data.price_sewingtarget = (po_price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        viewmodel.set('po_price',po_price_data);
+
+        //Update gia tri Sew target tai tat ca cac san pham
+        var priceStore = viewmodel.getStore('PriceStore');
+        priceStore.clearFilter(); 
+        for(var k =0; k<priceStore.data.length; k++){
+            var price_data = priceStore.data.items[k].data;
+            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        }      
+   
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+    },
     onIs_Tbd_Change: function(e, newValue, oldValue, eOpts){
         var viewmodel = this.getViewModel();
         if(newValue){

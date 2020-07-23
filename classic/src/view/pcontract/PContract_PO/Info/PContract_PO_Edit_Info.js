@@ -144,7 +144,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             maxValue: 100,
                             bind: {
                                 value: '{po.sewtarget_percent}'
-                            }
+                            },
+                            listeners: {
+                                focusleave: 'onSewTarget_PercentChange'
+                            }    
                         },    
                         {
                             xtype: 'textfield',

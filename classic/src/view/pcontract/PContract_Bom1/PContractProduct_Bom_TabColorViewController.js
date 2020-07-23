@@ -49,6 +49,8 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
 
         var form = Ext.create({
             xtype: 'skusearchwindow',
+            width: 1200,
+            height: 500,                   
             reference: 'skusearchwindow',
             viewModel: {
                 data: {

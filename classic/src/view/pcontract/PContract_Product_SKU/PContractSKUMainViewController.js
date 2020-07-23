@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
     },
     control:{
         'PContract_POList': {
-            select: 'onSelectPO'
+            itemclick: 'onSelectPO'
         },
         '#productFilter': {
-            select: 'onFilterProduct'
+            itemclick: 'onFilterProduct'
         }
     },
     onSelectPO: function(m, rec){

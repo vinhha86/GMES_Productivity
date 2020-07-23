@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductViewCotroller', {
     },
     control: {
         '#PContractSKU_ListProductView': {
-            select: 'onSelectProduct'
+            itemclick: 'onSelectProduct'
         }
     },
 

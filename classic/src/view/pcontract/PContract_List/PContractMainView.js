@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         dataIndex: 'contractcode',
         width: 120
     }, {
-        text: 'EndBuyer',
+        text: 'Buyer',
         dataIndex: 'buyername',
         flex: 1
     },{
@@ -36,6 +36,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         dataIndex: 'vendorname',
         flex: 1
     },
+    {
+        text: 'Sản phẩm',
+        dataIndex: 'productlist',
+        flex: 1
+    },  
+    {
+        text: 'PO',
+        dataIndex: 'polist',
+        flex: 1
+    },    
     {
         text: 'Ngày lập',
         dataIndex: 'contractdate',

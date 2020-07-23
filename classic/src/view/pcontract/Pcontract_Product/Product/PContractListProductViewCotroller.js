@@ -44,6 +44,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         else {
             var form = Ext.create({
                 xtype: 'skusearchwindow',
+                width: 800,
+                height: 500,
                 reference: 'skusearchwindow',
                 viewModel: {
                     data: {

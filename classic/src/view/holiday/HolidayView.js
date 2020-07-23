@@ -32,13 +32,13 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
     }, {
         text: 'Ngày nghỉ',
         dataIndex: 'day',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
         flex: 1,
         editor:{
             completeOnEnter: true,
             field: {
                 xtype: 'datefield',
-                format: 'd/m/Y',
+                format: 'd-m-Y',
                 pickerAlign: 'tr-br?',
                 listeners: {
                     focusenter: 'onDateFocus',
@@ -128,15 +128,15 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
 
             //////////////////////////////////////
             
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'POP UP WINDOW',
-                width: 110,
-                iconCls: 'x-fa fa-plus',
-                itemId: 'btnPopupWindow',
-                handler: 'onPopupWindowClicked'
-            }
+            // {
+            //     xtype: 'button',
+            //     margin: 5,
+            //     text: 'POP UP WINDOW',
+            //     width: 110,
+            //     iconCls: 'x-fa fa-plus',
+            //     itemId: 'btnPopupWindow',
+            //     handler: 'onPopupWindowClicked'
+            // }
 
             //////////////////////////////////////
         ]
