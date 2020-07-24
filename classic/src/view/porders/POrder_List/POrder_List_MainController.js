@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
 
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 4, 5]);
+        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 0, -1]);
         store.sort('productiondate_plan', 'ASC');
         let store2 = viewmodel.getStore('POrder_ListVendorStore');
         store2.loadStore();
@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var me = this.getView();
         let viewmodel = this.getViewModel();
         let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 4, 5]);
+        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 0, -1]);
         me.down('#txtpobuyer').setValue();
         me.down('#txtstyle').setValue();
         me.down('#txtbuyerid').setValue();
