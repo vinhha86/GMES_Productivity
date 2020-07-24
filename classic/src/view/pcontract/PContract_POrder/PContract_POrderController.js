@@ -162,13 +162,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                     var record = porderReqStore.getAt(rowIndex);                    
                     //Kiem tra xem co phai la san pham bo khong? --> nếu là bộ hiện danh sach san pham va so luong chua tao lenh de chon
                     var po_selected = viewmodel.get('po_selected');
-                    var porderReqStore = viewmodel.getStore('porderReqStore');
-                    //Kiem tra xem yeu cau sx cua PO co > 1 phan xuong ko? Neu nhieu hon 1 phan xuong --> hien option chon sizeset va color
-                    if (null != porderReqStore && porderReqStore.data.items.length > 1) {
-                        console.log('Hien window chon size va mau');
-                        me.onSizeColorPickup(record.data.id, po_selected.productid_link, po_selected.pcontractid_link,po_selected.pcontract_poid_link);
+                    if (null != po_selected){
+                        var porderReqStore = viewmodel.getStore('porderReqStore');
+                        //Kiem tra xem yeu cau sx cua PO co > 1 phan xuong ko? Neu nhieu hon 1 phan xuong --> hien option chon sizeset va color
+                        if (null != porderReqStore && porderReqStore.data.items.length > 1) {
+                            console.log('Hien window chon size va mau');
+                            me.onSizeColorPickup(record.data.id, po_selected.productid_link, po_selected.pcontractid_link,po_selected.pcontract_poid_link);
+                        } else {
+                            me.onPOrderCreateByProduct(record.data.id, po_selected.productid_link, '', '');
+                        }
                     } else {
-                        me.onPOrderCreateByProduct(record.data.id, po_selected.productid_link, '', '');
+                        Ext.MessageBox.show({
+                            title: "Lệnh sản xuất",
+                            msg: "Chưa chọn đơn hàng (PO). Click chuột vào đơn hàng trong danh sách đơn hàng để lựa chọn",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
                     }
                 }
             } );        
