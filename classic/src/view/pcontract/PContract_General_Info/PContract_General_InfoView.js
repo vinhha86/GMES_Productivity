@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.PContract.PContract_General_InfoView', {
             layout: 'border',
             items: [{
                 region: 'north',
-                height: 115,
+                height: 80,
                 border: true,
                 xtype: 'PContractInfoView',
                 margin: 1

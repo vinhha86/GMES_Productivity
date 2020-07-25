@@ -78,8 +78,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
         let me = this.getView();
         let listProductView = me.down('#PContractListProductView');
         if(listProductView.down('#btnThemMoi_product_pcontract') != null) listProductView.down('#btnThemMoi_product_pcontract').setVisible(false);
-        let col = listProductView.getColumns()[6];
-        col.hide();
+        // let col = listProductView.getColumns()[6];
+        // col.hide();
     },
 
     disablePairProductViewBtn: function(){

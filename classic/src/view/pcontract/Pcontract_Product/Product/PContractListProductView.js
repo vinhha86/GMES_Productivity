@@ -43,15 +43,15 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
     },{
         text:'Mã SP',
         dataIndex:'productCode',
-        width: 100
+        width: 120
     },{
         text:'Mã Buyer',
         dataIndex:'productBuyerCode',
-        width: 100
+        width: 120
     },{
         text:'Mã Vendor',
         dataIndex:'productVendorCode',
-        width: 100
+        width: 120
     },{
         text:'Tên SP',
         dataIndex:'productName',
@@ -88,16 +88,17 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
     //         selectOnFocus: true
     //     }
     // },
+    // {
+    //     text:'SL',
+    //     dataIndex:'pquantity',
+    //     width: 60,
+    //     editor:{
+    //         xtype:'textfield',
+    //         maskRe: /[0-9.]/,
+    //         selectOnFocus: true
+    //     }
+    // },
     {
-        text:'SL',
-        dataIndex:'pquantity',
-        width: 60,
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9.]/,
-            selectOnFocus: true
-        }
-    },{
         xtype: 'actioncolumn',
         width: 30,
         menuDisabled: true,

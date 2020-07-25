@@ -6,7 +6,11 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
     bodyPadding: 5,
     border: false,
     IdPContract: 0,
-    layout: 'vbox',
+    // layout: 'vbox',
+    layout: {
+        type: 'vbox',
+        align: 'stretch'
+    },
     items: [
         {
             layout: 'hbox',
