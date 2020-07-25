@@ -178,7 +178,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
             labelWidth : 0,
             bind:{
-                value: 'Đơn hàng (PO)'
+                value: 'Danh sách Đơn hàng (PO)'
             }
         },
 		'->'
@@ -187,7 +187,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             xtype:'button',
             itemId:'btnThemMoi',
             ui: 'header',
-			tooltip: 'Thêm kế hoạch giao hàng',
+			tooltip: 'Thêm mới đơn hàng',
             iconCls: 'x-fa fa-plus',
             handler: 'onAddPOTap',
         },

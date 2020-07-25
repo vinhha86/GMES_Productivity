@@ -234,7 +234,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 305,
+            height: 465,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
