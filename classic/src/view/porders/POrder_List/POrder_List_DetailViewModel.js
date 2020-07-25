@@ -32,6 +32,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         POrder_ListGrantSKUStore: {
             type: 'POrder_ListGrantSKUStore'
         },
+        POrder_ListGrantSKUStoreForWindow: {
+            type: 'POrder_ListGrantSKUStore'
+        },
     },
     data:{
         testdata: 'testdata123'

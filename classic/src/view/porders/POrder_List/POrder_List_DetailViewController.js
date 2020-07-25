@@ -26,52 +26,65 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         // '#PContractView': {
         //     activate: 'onActivate'
         // },
-        // '#tabmain': {
-        //     tabchange: 'onTabChange'
+        '#tabmain': {
+            tabchange: 'onTabChange'
+        }
+    },
+    onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
+        let me = this.getView();
+        if (newCard.xtype == "POrder_Tab_Info") {
+            let infoView = me.down('#POrder_InfoView');
+            infoView.IdPOrder = me.IdPOrder;
+            infoView.getController().loadInfo(me.IdPOrder);
+
+            let productSkuView = me.down('#POrder_ProductSKUView');
+            productSkuView.IdPOrder = me.IdPOrder;
+            productSkuView.getController().loadInfo(me.IdPOrder);
+        }
+        if (newCard.xtype == "POrder_Tab_Grant") {
+            let listGrantView = me.down('#POrder_List_GrantView');
+            listGrantView.IdPOrder = me.IdPOrder;
+            listGrantView.getController().loadInfo(me.IdPOrder);
+        }
+        // let viewmodel = this.getViewModel();
+        // if (newCard.xtype == "PContractProduct_BomColor_MainView") {
+        //     viewmodel.set('ishiddenActionColumn', true);
+        // }
+        // else {
+        //     viewmodel.set('ishiddenActionColumn', false);
+        //     if(newCard.xtype == 'PContract_PO_Main'){
+        //         var storeproduct = viewmodel.getStore('PContractProductTreeStore');
+        //         storeproduct.loadStore(viewmodel.get('PContract.id'));
+        //     } else {
+        //         if(newCard.xtype == 'PContractSKUMainView'){
+        //             var productFilterStore = viewmodel.getStore('ProductFilterStore');
+        //             productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
+
+        //             var PContractPOList = viewmodel.getStore('PContractPOList');
+        //             PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
+                    
+        //         } 
+        //         else if (newCard.xtype == 'PContract_POrder_Main') {
+        //             viewmodel.set('po_selected', null);
+        //             var productFilterStore = viewmodel.getStore('ProductFilterStore');
+        //             productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
+
+        //             var PContractPOList = viewmodel.getStore('PContractPOList');
+        //             PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
+        //         } 
+        //         else if (newCard.xtype == 'PContractProduct_Bom2_TabColorView') {
+        //            var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
+        //            tab.getController().onChangeProduct();
+        //         } 
+        //         else if (newCard.xtype == 'PContractProduct_Bom_TabColorView') {
+        //             var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+        //             tab.getController().onChangeProduct();
+        //         }
+        //     }
         // }
     },
-    // onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
-    //     var viewmodel = this.getViewModel();
-    //     if (newCard.xtype == "PContractProduct_BomColor_MainView") {
-    //         viewmodel.set('ishiddenActionColumn', true);
-    //     }
-    //     else {
-    //         viewmodel.set('ishiddenActionColumn', false);
-    //         if(newCard.xtype == 'PContract_PO_Main'){
-    //             var storeproduct = viewmodel.getStore('PContractProductTreeStore');
-    //             storeproduct.loadStore(viewmodel.get('PContract.id'));
-    //         } else {
-    //             if(newCard.xtype == 'PContractSKUMainView'){
-    //                 var productFilterStore = viewmodel.getStore('ProductFilterStore');
-    //                 productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
-
-    //                 var PContractPOList = viewmodel.getStore('PContractPOList');
-    //                 PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
-                    
-    //             } 
-    //             else if (newCard.xtype == 'PContract_POrder_Main') {
-    //                 viewmodel.set('po_selected', null);
-    //                 var productFilterStore = viewmodel.getStore('ProductFilterStore');
-    //                 productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
-
-    //                 var PContractPOList = viewmodel.getStore('PContractPOList');
-    //                 PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
-    //             } 
-    //             else if (newCard.xtype == 'PContractProduct_Bom2_TabColorView') {
-    //                var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
-    //                tab.getController().onChangeProduct();
-    //             } 
-    //             else if (newCard.xtype == 'PContractProduct_Bom_TabColorView') {
-    //                 var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
-    //                 tab.getController().onChangeProduct();
-    //             }
-    //         }
-    //     }
-    // },
-    onLoadData: function (id, type) {
+    onLoadData: function (id) {
         let me = this.getView();
-        let viewmodel = this.getViewModel();
-        let viewMain = Ext.getCmp('porderlistmain');
 
         me.IdPOrder = id;
 
@@ -86,7 +99,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         let listGrantView = me.down('#POrder_List_GrantView');
         listGrantView.IdPOrder = id;
         listGrantView.getController().loadInfo(me.IdPOrder);
-
+        
         // var productpair = me.down('#PContractPairProductView');
         // productpair.IdPcontract = id;
 

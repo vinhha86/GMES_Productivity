@@ -14,7 +14,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         rowLines: true
     },
     features: [{
-        ftype: 'summary'
+        ftype: 'summary',
+        groupHeaderTpl: 'Tổng',
+        dock: 'bottom'
     }],
     bind: {
         store: '{POrder_ListGrantSKUStore}'
@@ -40,18 +42,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     }, {
         text: 'Cỡ',
         dataIndex: 'coSanPham',
-        summaryType: 'count',
-        summaryRenderer: function(){
-            return '<b>Tổng SL : </b>';
-        },
         flex: 1
     }, {
         text: 'Số lượng',
         dataIndex: 'grantamount',
         summaryType: 'sum',
-        summaryRenderer: function(value){
-            return '<b>'+value+'</b>';
-        },
         flex: 1
     }]
 });
