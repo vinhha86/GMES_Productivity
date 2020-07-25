@@ -2,6 +2,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUViewController',
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_ProductSKUViewController',
     init: function () {
+        // let me = this.getView();
+        // this.loadInfo(me.IdPOrder);
     },
     control: {
         // '#POrder_ProductSKUView': {

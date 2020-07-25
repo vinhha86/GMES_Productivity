@@ -51,7 +51,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Lệnh sản xuất',
-                iconCls: 'x-fa fa-industry'
+                iconCls: 'x-fa fa-industry',
+                handler: function () {
+                    let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
+                        IdPOrder: eventRecord.data.id_origin,
+                        IdGrant: eventRecord.data.porder_grantid_link
+                    });
+                    window.show();
+                    console.log(eventRecord.data);
+                }
             },
             {
                 text: 'Tiến độ',

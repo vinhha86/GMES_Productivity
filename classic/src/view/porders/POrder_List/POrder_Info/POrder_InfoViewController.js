@@ -2,7 +2,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_InfoViewController',
     init: function () {
-        let me = this.getView();
+        // let me = this.getView();
+        // console.log(me.IdPOrder);
+        // this.loadInfo(me.IdPOrder);
 
         if (this.getView().IdPOrder == 0) {
             this.getView().getForm().reset();

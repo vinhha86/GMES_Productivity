@@ -14,7 +14,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
         rowLines: true
     },
     features: [{
-        ftype: 'summary'
+        ftype: 'summary',
+        groupHeaderTpl: 'Tổng',
+        dock: 'bottom'
     }],
     bind: {
         store: '{POrder_ListGrantStore}'
@@ -33,26 +35,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
         text: 'Ngày vào chuyền',
         dataIndex: 'start_date_plan',
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-        flex: 1,
+        // flex: 1,
     }, {
         text: 'Ngày ra chuyền',
         dataIndex: 'finish_date_plan',
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-        summaryType: 'count',
-        summaryRenderer: function(){
-            return '<b>Tổng SL : </b>';
-        },
-        flex: 1
+        // flex: 1
     }, {
         text: 'Số lượng',
         dataIndex: 'grantamount',
         summaryType: 'sum',
-        summaryRenderer: function(value){
-            return '<b>'+value+'</b>';
-        },
-        fieldStyle:{
-            'text-align':'right',
-        },
         flex: 1
     }]
 });

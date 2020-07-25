@@ -8,46 +8,20 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
     },
     IdPOrder: 0,
     layout: 'border',
-    height: 500,
+    // height: 500,
     items: [
     {
         region: 'center',
-        border: true,
+        border: false,
         margin: 1,
         xtype: 'tabpanel',
         itemId:'tabmain',
         items: [{
             title: 'Thông tin lệnh',
-            layout: 'border',
-            items: [{
-                region: 'north',
-                height: 120,
-                border: false,
-                xtype: 'POrder_InfoView',
-                margin: 1
-            },{
-                region: 'center',
-                border: false,
-                xtype: 'POrder_ProductSKUView',
-                margin: 1
-            }]
+            xtype: 'POrder_Tab_Info'
         }, {
             title: 'Phân chuyền',
-            layout: 'border',
-            flex: 1,
-            items: [{
-                region: 'west',
-                width: '50%',
-                border: false,
-                xtype: 'POrder_List_GrantView',
-                margin: 1
-            },{
-                region: 'center',
-                width: '50%',
-                border: false,
-                xtype: 'POrder_List_GrantSKUView',
-                margin: 1
-            }]
+            xtype: 'POrder_Tab_Grant'
         }]
     }],
     dockedItems: [{

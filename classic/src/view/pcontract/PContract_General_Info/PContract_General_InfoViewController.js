@@ -62,22 +62,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
     disableInfoViewBtn: function(){
         let me = this.getView();
         let infoView = me.down('#PContractInfoView');
-        infoView.down('#contractcode').setReadOnly(true);
-        infoView.down('#contractdate').setReadOnly(true);
-        infoView.down('#confirmdate').setReadOnly(true);
-        infoView.down('#orgbuyerid_link').setReadOnly(true); // duplicate id
-        infoView.down('#orgvenderid_link').setReadOnly(true);
-        infoView.down('#contracttypeid_link').setReadOnly(true);
-        infoView.down('#orgpayerid_link').setReadOnly(true); // duplicate id
-        infoView.down('#orgshowid_link').setReadOnly(true);
-        infoView.down('#market').setReadOnly(true);
-        infoView.down('#contractcode').setReadOnly(true);
+        if (infoView.down('#contractcode') != null) infoView.down('#contractcode').setReadOnly(true);
+        if (infoView.down('#contractdate') != null) infoView.down('#contractdate').setReadOnly(true);
+        if (infoView.down('#confirmdate') != null) infoView.down('#confirmdate').setReadOnly(true);
+        if (infoView.down('#orgbuyerid_link') != null) infoView.down('#orgbuyerid_link').setReadOnly(true); // duplicate id
+        if (infoView.down('#orgvenderid_link') != null) infoView.down('#orgvenderid_link').setReadOnly(true);
+        if (infoView.down('#contracttypeid_link') != null) infoView.down('#contracttypeid_link').setReadOnly(true);
+        if (infoView.down('#orgpayerid_link') != null) infoView.down('#orgpayerid_link').setReadOnly(true); // duplicate id
+        if (infoView.down('#orgshowid_link') != null) infoView.down('#orgshowid_link').setReadOnly(true);
+        if (infoView.down('#market') != null) infoView.down('#market').setReadOnly(true);
+        if (infoView.down('#contractcode') != null) infoView.down('#contractcode').setReadOnly(true);
     },
 
     disableListProductViewBtn: function(){
         let me = this.getView();
         let listProductView = me.down('#PContractListProductView');
-        listProductView.down('#btnThemMoi_product_pcontract').setVisible(false);
+        if(listProductView.down('#btnThemMoi_product_pcontract') != null) listProductView.down('#btnThemMoi_product_pcontract').setVisible(false);
         let col = listProductView.getColumns()[6];
         col.hide();
     },
@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
     disablePairProductViewBtn: function(){
         let me = this.getView();
         let pairProductView = me.down('#PContractPairProductView');
-        pairProductView.down('#PContractPairProductView_btnThemMoi').setVisible(false);
+        if(pairProductView.down('#PContractPairProductView_btnThemMoi') != null) pairProductView.down('#PContractPairProductView_btnThemMoi').setVisible(false);
         let col = pairProductView.getColumns()[2];
         col.hide();
         let cellEditing = pairProductView.getPlugins()[0];
@@ -98,9 +98,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
 
     disableAttributeViewBtn: function(){
         let me = this.getView();
-        let viewmodel = this.getViewModel();
         let attributeView = me.down('#PContractAttributeView');
-        attributeView.down('#btnThemMoi').setVisible(false);
+        if(attributeView.down('#btnThemMoi') != null) attributeView.down('#btnThemMoi').setVisible(false);
         let col = attributeView.getColumns()[2];
         col.hide();
     },

@@ -2,6 +2,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantViewController',
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_List_GrantViewController',
     init: function () {
+        // let me = this.getView();
+        // this.loadInfo(me.IdPOrder);
     },
     control: {
         '#POrder_List_GrantView': {
