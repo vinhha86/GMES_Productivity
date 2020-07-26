@@ -47,7 +47,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 text: 'Đơn hàng (PO)',
                 iconCls: 'x-fa fa-handshake-o',
                 handler: function () {
+                    let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
+                        viewModel: {
+                            data: {
+                                id: eventRecord.data.pcontract_poid_link
+                            }
+                        }
+                    });
+                    window.show();
                 }
+                // eventRecord.data.pcontract_poid_link
             },
             {
                 text: 'Lệnh sản xuất',

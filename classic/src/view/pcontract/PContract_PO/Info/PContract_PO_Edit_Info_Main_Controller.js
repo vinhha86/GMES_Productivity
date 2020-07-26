@@ -13,6 +13,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             this.getInfo(null);
         }
 
+        this.setPopupWindowConfig();
+
     },
     control: {
         '#btnThoat': {
@@ -148,4 +150,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             })
         
     },
+
+    setPopupWindowConfig: function(){
+        let me = this.getView();
+        let xtype = me.xtype;
+        if(xtype == 'PContract_PO_Edit_Info_Main_Window'){
+            let ppepr = me.down('#PContract_PO_Edit_Porder_Req');
+            if(ppepr != null){
+                let col = ppepr.getColumns()[2];
+                if(col != null) col.hide();
+            }
+        }
+    }
 })
