@@ -2,12 +2,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_List_DetailViewController',
     init: function () {
-        // this.onActivate();
-        // if (this.getView().IdPContract > 0){
-        //    this.onLoadData(this.getView().IdPContract,null);
-        //    dockBottomBar = this.lookupReference('dockBottomBar');
-        //    dockBottomBar.setHidden(true);
-        // }
+
     },
     listen: {
         controller: {
@@ -20,12 +15,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         '#btnQuayLai': {
             click: 'onQuayLai'
         },
-        // '#btnLuu': {
-        //     click: 'onLuu'
-        // },
-        // '#PContractView': {
-        //     activate: 'onActivate'
-        // },
+        '#btnTTSanPham': {
+            click: 'onTTSanPham'
+        },
+        '#btnTTDonHang': {
+            click: 'onTTDonHang'
+        },
         '#tabmain': {
             tabchange: 'onTabChange'
         }
@@ -46,42 +41,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             listGrantView.IdPOrder = me.IdPOrder;
             listGrantView.getController().loadInfo(me.IdPOrder);
         }
-        // let viewmodel = this.getViewModel();
-        // if (newCard.xtype == "PContractProduct_BomColor_MainView") {
-        //     viewmodel.set('ishiddenActionColumn', true);
-        // }
-        // else {
-        //     viewmodel.set('ishiddenActionColumn', false);
-        //     if(newCard.xtype == 'PContract_PO_Main'){
-        //         var storeproduct = viewmodel.getStore('PContractProductTreeStore');
-        //         storeproduct.loadStore(viewmodel.get('PContract.id'));
-        //     } else {
-        //         if(newCard.xtype == 'PContractSKUMainView'){
-        //             var productFilterStore = viewmodel.getStore('ProductFilterStore');
-        //             productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
-
-        //             var PContractPOList = viewmodel.getStore('PContractPOList');
-        //             PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
-                    
-        //         } 
-        //         else if (newCard.xtype == 'PContract_POrder_Main') {
-        //             viewmodel.set('po_selected', null);
-        //             var productFilterStore = viewmodel.getStore('ProductFilterStore');
-        //             productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
-
-        //             var PContractPOList = viewmodel.getStore('PContractPOList');
-        //             PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
-        //         } 
-        //         else if (newCard.xtype == 'PContractProduct_Bom2_TabColorView') {
-        //            var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
-        //            tab.getController().onChangeProduct();
-        //         } 
-        //         else if (newCard.xtype == 'PContractProduct_Bom_TabColorView') {
-        //             var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
-        //             tab.getController().onChangeProduct();
-        //         }
-        //     }
-        // }
     },
     onLoadData: function (id) {
         let me = this.getView();
@@ -99,124 +58,32 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         let listGrantView = me.down('#POrder_List_GrantView');
         listGrantView.IdPOrder = id;
         listGrantView.getController().loadInfo(me.IdPOrder);
-        
-        // var productpair = me.down('#PContractPairProductView');
-        // productpair.IdPcontract = id;
-
-        // var storepair = viewmodel.getStore('PContractProductPairStore');
-        // var store = viewmodel.getStore('PContractProductStore');
-        // if (id > 0) {
-        //     store.loadStore(id);
-        //     storepair.loadStore(id);
-        // }
-        // else {
-        //     store.removeAll();
-        // }
     },
     onQuayLai: function () {
         this.redirectTo('porderlistmain');
     },
-    // onActivate: function () {
-    //     var me = this.getView();
-    //     var viewmodel = this.getViewModel();
-
-    //     var KHStore = viewmodel.getStore('CustomerStore');
-    //     var VenderStore = viewmodel.getStore('Vender');
-    //     var EndBuyerStore = viewmodel.getStore('EndBuyer');
-    //     var BranchStore = viewmodel.getStore('BranchStore');
-    //     var SeasonStore = viewmodel.getStore('SeasonStore');
-    //     var UnitStore = viewmodel.getStore('UnitStore');
-    //     var MarketStore = viewmodel.getStore('MarketStore');
-    //     var PContractTypeStore = viewmodel.getStore('ContractTypes');
-
-    //     KHStore.loadStore(10, false);
-    //     VenderStore.loadStore(11, false);
-    //     EndBuyerStore.loadStore(12, false);
-    //     BranchStore.loadStore(false);
-    //     SeasonStore.loadStore(false);
-    //     UnitStore.loadStore();
-    //     MarketStore.loadStore(1);
-    //     PContractTypeStore.loadStore();
-    // },
-    // onLuu: function () {
-    //     var me = this.getView();
-    //     me.setLoading("Đang lưu dữ liệu");
-
-    //     var t = this;
-    //     var viewmodel = this.getViewModel();
-
-    //     var params = new Object();
-    //     var data = new Object();
-
-    //     data = viewmodel.get('PContract');
-    //     data.id = me.IdPContract;
-    //     data.orgrootid_link = 0;
-    //     data.status = 1;
-    //     data.usercreatedid_link = 0;
-    //     data.datecreated = '';
-
-    //     if(data.payer == 1){
-    //         data.orgpayerid_link = data.orgvendorid_link;
-    //         data.orgshowid_link = data.orgvendorid_link;
-    //     }            
-    //     else{
-    //         data.orgpayerid_link = data.orgbuyerid_link;
-    //         data.orgshowid_link = data.orgbuyerid_link;
-    //     }
-
-    //     if(data.orgshow == 1){
-    //         data.orgshowid_link = data.orgvendorid_link;
-    //     }            
-    //     else{
-    //         data.orgshowid_link = data.orgbuyerid_link;
-    //     }
-
-    //     params.data = data;
-    //     params.msgtype = "PContract_CREATE";
-    //     params.message = "Tạo đơn hàng";
-
-    //     GSmartApp.Ajax.post('/api/v1/pcontract/create', Ext.JSON.encode(params),
-    //         function (success, response, options) {
-    //             if (success) {
-    //                 var response = Ext.decode(response.responseText);
-    //                 if (response.respcode == 200) {
-    //                     Ext.MessageBox.show({
-    //                         title: "Thông báo",
-    //                         msg: "Lưu thành công",
-    //                         buttons: Ext.MessageBox.YES,
-    //                         buttonText: {
-    //                             yes: 'Đóng',
-    //                         }
-    //                     });
-
-    //                     if (data.id == 0) {
-    //                         t.redirectTo("lspcontract/" + response.id + "/edit");
-    //                     }
-    //                 }
-    //                 else {
-    //                     Ext.MessageBox.show({
-    //                         title: "Thông báo",
-    //                         msg: response.message,
-    //                         buttons: Ext.MessageBox.YES,
-    //                         buttonText: {
-    //                             yes: 'Đóng',
-    //                         }
-    //                     });
-    //                     var viewInfo = me.down('#PContractInfoView');
-    //                     viewInfo.down('#contractcode').focus();
-    //                 }
-
-    //             } else {
-    //                 Ext.MessageBox.show({
-    //                     title: "Thông báo",
-    //                     msg: "Lưu thất bại",
-    //                     buttons: Ext.MessageBox.YES,
-    //                     buttonText: {
-    //                         yes: 'Đóng',
-    //                     }
-    //                 });
-    //             }
-    //             me.setLoading(false);
-    //         })
-    // }     
+    onTTSanPham: function(){
+        // pcontractid_link
+        let viewModel = this.getViewModel();
+        let pcontractid_link = viewModel.get('porder').pcontractid_link;
+        // console.log(pcontractid_link);
+        let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
+            IdPContract: pcontractid_link
+        });
+        window.show();
+    },
+    onTTDonHang: function(){
+        // pcontract_poid_link
+        let viewModel = this.getViewModel();
+        let pcontract_poid_link = viewModel.get('porder').pcontract_poid_link;
+        // console.log(pcontract_poid_link);
+        let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
+            viewModel: {
+                data: {
+                    id: pcontract_poid_link
+                }
+            }
+        });
+        window.show();
+    },
 })

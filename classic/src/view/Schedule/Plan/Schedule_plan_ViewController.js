@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         IdGrant: eventRecord.data.porder_grantid_link
                     });
                     window.show();
-                    console.log(eventRecord.data);
+                    // console.log(eventRecord.data);
                 }
             },
             {

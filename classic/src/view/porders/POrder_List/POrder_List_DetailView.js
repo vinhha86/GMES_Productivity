@@ -38,6 +38,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
         }, {
             flex: 1,
             border: false
+        }, {
+            xtype: 'button',
+            text: 'Thông tin sản phẩm',
+            margin: 1,
+            itemId: 'btnTTSanPham',
+            iconCls: 'x-fa fa-search'
+        }, {
+            xtype: 'button',
+            text: 'Thông tin đơn hàng',
+            margin: 1,
+            itemId: 'btnTTDonHang',
+            iconCls: 'x-fa fa-search'
         // },
         // {
         //     xtype: 'button',
