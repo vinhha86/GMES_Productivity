@@ -5,6 +5,10 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP', {
     viewModel: {
         type: 'Report_CMP_ViewModel'
     },    
+    requires: [
+        'Ext.pivot.plugin.Exporter',
+        'Ext.pivot.plugin.Configurator'
+    ],
     // title: 'Bảng Tổng hợp CMP',
     // width: 750,
     // height: 350,

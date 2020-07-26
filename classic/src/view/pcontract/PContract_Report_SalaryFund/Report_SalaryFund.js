@@ -4,7 +4,11 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
     controller: 'Report_SalaryFund_Controller',
     viewModel: {
         type: 'Report_SalaryFund_ViewModel'
-    },    
+    },  
+    requires: [
+        'Ext.pivot.plugin.Exporter',
+        'Ext.pivot.plugin.Configurator'
+    ],      
     // title: 'Bảng Tổng hợp CMP',
     // width: 750,
     // height: 350,
