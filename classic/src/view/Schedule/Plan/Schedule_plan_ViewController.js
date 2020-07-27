@@ -348,28 +348,29 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var params = new Object();
 
         //Kiểm tra nếu cùng sản phẩm, đơn hàng và trùng ngày thì hỏi xem có merger hay không
-        
+
         var sch = this.getView().down('#treeplan');
         var store = sch.getCrudManager().getEventStore();
         var listEvent = store.getEventsForResource(me.newResource);
         var count = 0;
         var grant_des = null;
-        for(var i=0; i<listEvent.length;i++){
+        for (var i = 0; i < listEvent.length; i++) {
             var event = listEvent[i];
-            if(event.get('porderid_link') == record.get('porderid_link') && 
-                ((record.get('StartDate') >= event.get('StartDate') && record.get('StartDate') <= event.get('EndDate')) || 
-                (record.get('EndDate') >= event.get('StartDate') && record.get('EndDate') <= event.get('EndDate')))){
+
+            if (event.get('porderid_link') == record.get('porderid_link') &&
+                ((record.get('StartDate') >= event.get('StartDate') && record.get('StartDate') <= event.get('EndDate')) ||
+                    (record.get('EndDate') >= event.get('StartDate') && record.get('EndDate') <= event.get('EndDate')))) {
                 count++;
-                if(event.get('porder_grantid_link') != record.get('porder_grantid_link'))
+                if (event.get('porder_grantid_link') != record.get('porder_grantid_link'))
                     grant_des = event;
 
-                if(count>1){
+                if (count > 1) {
                     break;
                 }
             }
         }
 
-        if(count>1){
+        if (count > 1) {
             params.pordergrantid_link_des = grant_des.get('porder_grantid_link');
             params.pordergrantid_link_src = record.get('porder_grantid_link');
             params.sch = record.data;
@@ -383,7 +384,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             params.startdate = record.get('StartDate');
             params.enddate = record.get('EndDate');
             params.schedule = record.data;
-    
+
             me.MoveLenh(params, dragContext[0]);
         }
     },
@@ -588,7 +589,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
-    MergerLenh: function(params, rec, event){
+    MergerLenh: function (params, rec, event) {
         var grid = this.getView();
         grid.setLoading("Đang xử lý dữ liệu");
         var me = this;
