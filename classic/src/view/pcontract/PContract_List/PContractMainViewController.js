@@ -79,6 +79,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var contractcode = me.down('#contractcode').getValue();
         var orgendbuyerid_link = me.down('#orgendbuyerid_link').getValue();
         var orgvendorid_link = me.down('#orgvendorid_link').getValue();
+        var style = me.down('#style').getValue();
+        var po = me.down('#po').getValue();
 
         var page = store.currentPage;
 
@@ -106,8 +108,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             orgvendorid_link = 0;
         }
 
+        if (style == null) {
+            style = "";
+        }
+
+        if (po == null) {
+            po = "";
+        }
+
         store.loadStore_ByPage(limit, page, cust_contractcode, contractcode, orgendbuyerid_link,
-            orgvendorid_link);
+            orgvendorid_link, style, po);
     },
     onThemMoi: function () {
         var me = this.getView();

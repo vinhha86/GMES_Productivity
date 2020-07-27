@@ -132,6 +132,20 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             displayField: 'name',
             itemId: 'orgvendorid_link',
             margin: '5 1 5 0'
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            margin: '5 1 5 0',
+            emptyText: "Sản phẩm",
+            itemId: 'style',
+            width: 120
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            margin: '5 1 5 0',
+            emptyText: "PO",
+            itemId: 'po',
+            width: 120
         },
         {
             xtype: 'button',
