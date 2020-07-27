@@ -25,6 +25,8 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
             me.getSelectionModel().deselectAll();
             me.getSelectionModel().select(record, true, true);
         } else {
+            if(me.IdAttribute == 4 || me.IdAttribute == 30) return;
+            
             var rec = grid.getStore().findRecord('isdefault', true);
             me.getSelectionModel().deselect(rec);
         }
@@ -65,8 +67,8 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: null,
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
@@ -76,8 +78,8 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',

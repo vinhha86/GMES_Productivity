@@ -109,6 +109,8 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
             me.getSelectionModel().deselectAll();
             me.getSelectionModel().select(record, true, true);
         } else {
+            if(me.IdAttribute == 4 || me.IdAttribute == 36) return;
+
             var rec = grid.getStore().findRecord('isdefault', true);
             me.getSelectionModel().deselect(rec);
         }
