@@ -188,9 +188,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     }
 
                 } else {
+                    var response = Ext.decode(response.responseText);
                     Ext.MessageBox.show({
                         title: "Thông báo",
-                        msg: "Lưu thất bại",
+                        msg: response.message,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',

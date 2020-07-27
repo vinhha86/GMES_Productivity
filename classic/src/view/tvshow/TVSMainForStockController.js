@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.report.TVSMainForStockController', {
                     }
                 }          
             },
-            interval : 10000
+            interval : 60000
         });
     },
     onActivate: function(){

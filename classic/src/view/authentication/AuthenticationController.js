@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.authentication.AuthenticationController', {
         config.setToken('Bearer ' + _tok);
         GSmartApp.util.State.set('session', _tok);
         
-        console.log(me.getView());
+        // console.log(me.getView());
         me.getView().destroy();
 		GSmartApp.util.State.set('dataFormatList','vi-VN');
 		GSmartApp.util.State.set('dataFormat','d/m/Y');

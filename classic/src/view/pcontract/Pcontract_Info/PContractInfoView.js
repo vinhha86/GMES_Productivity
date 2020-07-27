@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     xtype: 'textfield',
                     margin: 2,
                     fieldLabel: "Mã nội bộ",
-                    allowBlank: false,
+                    // allowBlank: false,
                     itemId: 'contractcode',
                     blankText: 'Không được để trống',
                     bind: {
@@ -63,7 +63,6 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     xtype: 'combo',
                     margin: 2,
                     fieldLabel: "Thị trường:",
-                    allowBlank: false,
                     itemId: 'market',
                     blankText: 'Không được để trống',
                     bind: {
@@ -98,6 +97,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
             items: [
                 {
                     xtype: 'combo',
+                    allowBlank: false,
                     queryMode: 'local',
                     valueField: 'id',
                     displayField: 'name',
