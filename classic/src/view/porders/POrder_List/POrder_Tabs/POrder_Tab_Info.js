@@ -24,9 +24,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
             id: 'POrder_List_GrantSKUViewTabInfo',
             reference: 'POrder_List_GrantSKUViewTabInfo',
             bind: {
-                store: '{POrder_ListGrantSKUStoreForWindow}'
+                store: '{POrder_ListGrantSKUStoreForWindow}',
+                title: '{grantSKUViewTabInfoTitle}'
             },
-            title: 'Chi tiết tổ chuyền',
             width: '47%',
             border: true,
             hidden: true
