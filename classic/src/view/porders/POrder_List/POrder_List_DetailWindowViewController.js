@@ -65,7 +65,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         let listGrantView = me.down('#POrder_List_GrantView');
         listGrantView.IdPOrder = me.IdPOrder;
         listGrantView.getController().loadInfo(me.IdPOrder);
-        
+
+        this.setTitleGrantSKUViewTabInfo(me.IdGrant);
     },
 
     onBtnAddToGrantSku: function(){
@@ -116,5 +117,26 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                 }
             })
 
+    },
+    setTitleGrantSKUViewTabInfo: function(idgrant){
+        let viewModel = this.getViewModel();
+
+        let params = new Object();
+        let idPorderGrant = idgrant;
+
+        params.idPorderGrant = idPorderGrant;
+
+        // console.log(idgrant);
+        // console.log(params);
+
+        GSmartApp.Ajax.post('/api/v1/porder_grant/findone', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    let res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
+                        viewModel.set('grantSKUViewTabInfoTitle', 'Chi tiết màu, cỡ - ' + res.data.granttoorgname);
+                    }
+                } 
+            })
     }
 })
