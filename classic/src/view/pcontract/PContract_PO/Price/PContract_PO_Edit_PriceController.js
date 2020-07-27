@@ -258,6 +258,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     onCurrencyItemSelected: function (sender, record) {
         var viewmodel = this.getViewModel();
         viewmodel.set('po.exchangerate',record.data.exchangerate);
+        this.onExchangeRateChange();
     },
     onExchangeRateChange: function () {
         var viewmodel = this.getViewModel();

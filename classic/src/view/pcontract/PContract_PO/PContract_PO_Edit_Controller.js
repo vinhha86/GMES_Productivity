@@ -168,10 +168,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             viewmodel.set('po.packingnotice',packingnotice);          
             params.data = viewmodel.get('po');
             //Set trang thai cho PO
-            if (viewmodel.get('isSizeset_CheckOK') == false || viewmodel.get('isPorderReq_CheckOK') == false)
-                params.data.status = -2
-            else
-                params.data.status = -1
+            // if (viewmodel.get('isSizeset_CheckOK') == false || viewmodel.get('isPorderReq_CheckOK') == false)
+            //     params.data.status = -2
+            // else
+            //     params.data.status = -1
 
             var arrPOrders = [];
             // porderStore.each(function (record) {

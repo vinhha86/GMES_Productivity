@@ -5,7 +5,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 	model: 'GSmartApp.model.pcontract.PContractPO',
 	sorters: [{
         direction: 'ASC',
-        property: 'attributeName'
+        property: 'shipdate'
 	}],
 	loadStore: function(pcontractid_link, productid_link){
 		var me=this;

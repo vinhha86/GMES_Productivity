@@ -6,49 +6,51 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     },    
     onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
         var viewmodel = this.getViewModel();
-        console.log(data.records[0]);
-        var orgId = data.records[0].get('id_origin');
-        var orgCode = data.records[0].get('code');
-        var orgName = data.records[0].get('Name');
-        var pcontractid_link = viewmodel.get('po.pcontractid_link');
-        var pcontract_poid_link = viewmodel.get('po.id');
+        // console.log(data.records[0]);
+        //Chi cho phep keo phan xuong
+        if (data.records[0].get('parentId') == 'root') {
+            var orgId = data.records[0].get('id_origin');
+            var orgCode = data.records[0].get('code');
+            // var orgName = data.records[0].get('Name');
+            var pcontractid_link = viewmodel.get('po.pcontractid_link');
+            var pcontract_poid_link = viewmodel.get('po.id');
 
-        // var porderStore = viewmodel.getStore('POrderStore');
-        var porderReqStore = viewmodel.getStore('porderReqStore');
-        var priceStore = viewmodel.getStore('PriceStore');
-        var rootproductid_link = viewmodel.get('productpairid_link');
-        var po = viewmodel.get('po');
+            // var porderStore = viewmodel.getStore('POrderStore');
+            var porderReqStore = viewmodel.getStore('porderReqStore');
+            var priceStore = viewmodel.getStore('PriceStore');
+            var rootproductid_link = viewmodel.get('productpairid_link');
+            var po = viewmodel.get('po');
 
-        var lstSizeset = priceStore.queryBy(function(record,id){
-            return (record.get('productid_link') == rootproductid_link);
-        }).items;
-
-        // for(i=0; i<lstSizeset.length; i++){
-        //     var price_data = lstSizeset[i].data;
-            //Check xem co trung thong tin khong
-            var lstCheck = porderReqStore.queryBy(function(record,id){
-                // return (record.get('granttoorgid_link') == orgId
-                //     && record.get('sizesetid_link') == price_data.sizesetid_link
-                // );
-                return (record.get('granttoorgid_link') == orgId
-            );
+            var lstSizeset = priceStore.queryBy(function(record,id){
+                return (record.get('productid_link') == rootproductid_link);
             }).items;
-            if (lstCheck.length == 0){
-                var porder_New = new Object({
-                    id: null,
-                    pcontractid_link : pcontractid_link,
-                    pcontract_poid_link: pcontract_poid_link,
-                    // sizesetid_link : price_data.sizesetid_link,
-                    // sizesetname: price_data.sizesetname,
-                    granttoorgid_link: orgId,
-                    granttoorgcode: orgCode,
-                    totalorder: po.po_quantity
-                });
-                // console.log(porder_New);
-                porderReqStore.insert(0,porder_New);
-            }
-        // }
 
+            // for(i=0; i<lstSizeset.length; i++){
+            //     var price_data = lstSizeset[i].data;
+                //Check xem co trung thong tin khong
+                var lstCheck = porderReqStore.queryBy(function(record,id){
+                    // return (record.get('granttoorgid_link') == orgId
+                    //     && record.get('sizesetid_link') == price_data.sizesetid_link
+                    // );
+                    return (record.get('granttoorgid_link') == orgId
+                );
+                }).items;
+                if (lstCheck.length == 0){
+                    var porder_New = new Object({
+                        id: null,
+                        pcontractid_link : pcontractid_link,
+                        pcontract_poid_link: pcontract_poid_link,
+                        // sizesetid_link : price_data.sizesetid_link,
+                        // sizesetname: price_data.sizesetname,
+                        granttoorgid_link: orgId,
+                        granttoorgcode: orgCode,
+                        totalorder: po.po_quantity
+                    });
+                    // console.log(porder_New);
+                    porderReqStore.insert(0,porder_New);
+                }
+            // }
+        }
         //Huy bo de khong bi mat thogn tin ben Gantt
         dropHandlers.cancelDrop();
     },
