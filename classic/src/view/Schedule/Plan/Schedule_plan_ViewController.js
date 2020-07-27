@@ -460,9 +460,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     //tha tu yeu cau san xuat
     TaoLenhThu: function (params) {
+        var grid = this.getView();
+        grid.setLoading("Đang xử lý dữ liệu");
         var me = this.getView().down('#treeplan');
         GSmartApp.Ajax.post('/api/v1/schedule/create_pordergrant_test', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -499,9 +502,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     //tha tu lenh sx chua phan chuyen
     TaoLenhSanXuat: function (params) {
+        var grid = this.getView();
+        grid.setLoading("Đang xử lý dữ liệu");
         var me = this.getView().down('#treeplan');
         GSmartApp.Ajax.post('/api/v1/schedule/create_pordergrant', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -541,9 +547,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         me.undoManager.undo();
     },
     MoveLenh: function (params, rec) {
+        var grid = this.getView();
+        grid.setLoading("Đang xử lý dữ liệu");
         var me = this;
         GSmartApp.Ajax.post('/api/v1/schedule/move_porder', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -580,9 +589,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             })
     },
     MergerLenh: function(params, rec, event){
+        var grid = this.getView();
+        grid.setLoading("Đang xử lý dữ liệu");
         var me = this;
         GSmartApp.Ajax.post('/api/v1/schedule/merger_porder', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {

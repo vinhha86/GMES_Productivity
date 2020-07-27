@@ -77,6 +77,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             id: 'treeplan',
             useArrows: true,
             autoAdjustTimeAxis: false,
+            enableDragCreation: false,
             zoomLevels: [
                 { width: 50,    increment: 1,   resolution: 4, preset: 'year', resolutionUnit: 'MONTH' },
                 { width: 50,    increment: 1,   resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },

@@ -18,6 +18,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
     },
     onBreak: function(){
         var me = this;
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         var params = viewmodel.get('plan');
 
@@ -35,8 +36,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
             });
         }
         else {
+            grid.setLoading('Đang xử lý dữ liệu');
             GSmartApp.Ajax.post('/api/v1/schedule/break_porder' , Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
