@@ -371,6 +371,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 viewModel: {
                     data: {
                         id: rec.data.id,
+                        isedit: true
                     }
                 }
             }]

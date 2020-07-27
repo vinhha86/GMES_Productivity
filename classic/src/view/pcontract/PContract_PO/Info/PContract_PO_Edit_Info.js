@@ -36,7 +36,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                 {
                     region: 'west',
                     width: '50%',
-                    layout: 'vbox',
+                    layout: {
+                        type: 'vbox',
+                        align: 'stretch'
+                    },    
                     items:[
                         {
                             xtype: 'checkboxfield',
@@ -46,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             hideTrigger:true,
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex: 1,
                             margin: 1,
                             bind: {
                                 value: '{po.is_tbd}'
@@ -62,7 +65,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'PO Buyer:',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex: 1,
                             margin: 1,
                             bind: {
                                 value: '{po.po_buyer}',
@@ -80,7 +83,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             hideTrigger:true,
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex: 1,
                             margin: 1,
                             bind: {
                                 value: '{po.po_quantity}'
@@ -97,7 +100,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             reference: 'poinfo_matdate',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex: 1,
                             margin: 1,
                             format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
@@ -118,7 +121,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             reference: 'poinfo_productiondays',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex: 1,
                             margin: 1,
                             bind: {
                                 value: '{po.productiondays}'
@@ -128,17 +131,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                 },
                 {
                     region: 'center',
-                    layout: 'vbox',
+                    layout: {
+                        type: 'vbox',
+                        align: 'stretch'
+                    },                    
                     items:[
                         {
                             xtype: 'numberfield',
+                            id: 'PContract_PO_Edit_Info_sewtarget_percent',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;text-align:right',
                             fieldLabel: 'Sew Target %:',
                             hideTrigger:true,
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex:1,
                             margin: 1,
                             minValue: 0,
                             maxValue: 100,
@@ -148,7 +155,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             listeners: {
                                 focusleave: 'onSewTarget_PercentChange'
                             }    
-                        },    
+                        },  
+                        {
+                            xtype: 'panel',
+                            flex:1,
+                            // height: 31,
+                            id: 'PContract_PO_Edit_Info_sewtarget_hidepanel',
+                            hidden: true
+                        },
                         {
                             xtype: 'textfield',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -156,7 +170,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'PO Vendor:',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex:1,
                             margin: 1,
                             bind: {
                                 value: '{po.po_vendor}',
@@ -171,7 +185,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             reference: 'poinfo_shipdate',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex:1,
                             margin: 1,
                             format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
@@ -191,7 +205,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             reference: 'poinfo_productiondate',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex:1,
                             margin: 1,
                             format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
@@ -207,7 +221,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             reference: 'poinfo_qcorgname',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            width: '100%',
+                            flex:1,
                             margin: 1,
                             bind: {
                                 value: '{po.qcorgname}'

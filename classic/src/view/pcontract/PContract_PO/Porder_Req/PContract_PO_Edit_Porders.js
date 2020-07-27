@@ -60,6 +60,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porders', {
         editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
     },{
         xtype: 'actioncolumn',
+        id: 'PContract_PO_Edit_Porders_deletebutton',
         width: 20,
         menuDisabled: true,
         sortable: false,

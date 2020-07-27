@@ -50,7 +50,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
                         viewModel: {
                             data: {
-                                id: eventRecord.data.pcontract_poid_link
+                                id: eventRecord.data.pcontract_poid_link,
+                                isedit: true
                             }
                         }
                     });

@@ -3,6 +3,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
     alias: 'controller.PContract_PO_Edit_Info_Main_Controller',
     init: function(){
         var viewmodel = this.getViewModel();
+        var ctrsewtarget = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_percent');
+        var ctrsewtarget_hidden = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_hidepanel');
+        var ctrporderreqdel = Ext.getCmp('PContract_PO_Edit_Porder_Req_deletebutton');
+        //An/hien Sewtarget_percent
+        if(viewmodel.get('isedit')){
+            if (null!=ctrsewtarget && null!=ctrsewtarget_hidden && null!=ctrporderreqdel){
+                ctrsewtarget.setHidden(true);
+                ctrsewtarget_hidden.setHidden(false);
+                ctrporderreqdel.setHidden (true);
+            }
+        } else {
+            if (null!=ctrsewtarget && null!=ctrsewtarget_hidden && null!=ctrporderreqdel){
+                ctrsewtarget.setHidden(false);
+                ctrsewtarget_hidden.setHidden(true);
+                ctrporderreqdel.setHidden (false);
+            }
+        }
         var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
         PackingTypeStore.loadStore();
 
