@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
         {
             header:'Style',
             dataIndex:'stylebuyer',
-            width: 120
+            flex: 1
         },        
         {
             header:'Mã lệnh',

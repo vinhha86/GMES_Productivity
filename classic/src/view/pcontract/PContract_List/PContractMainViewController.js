@@ -169,6 +169,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                             else {
                                 store.removeAt(rowIndex);
                             }
+                        } else {
+                            var response = Ext.decode(response.responseText);
+                            Ext.Msg.show({
+                                title: 'Xóa hợp đồng',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
                         }
                     })
                 }
