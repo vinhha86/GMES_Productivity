@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractStore');
-        store.loadStore_ByPage(25, 1, "", "", 0, 0, 0);
+        store.loadStore_ByPage(25, 1, "", "", 0, 0, "", "");
 
         this.onActivate();
         common.Check_Role_Function();
