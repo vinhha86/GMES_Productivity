@@ -2,10 +2,20 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteriaController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SkuSearchCriteriaController',
     init: function () {
+        var me = this;
         var viewModel = this.getViewModel();
         var KHStore = viewModel.getStore('OrgStore');
-        KHStore.loadStore(12, false);
 
+        if(viewModel.get('isSearchViewHidden')){
+            me.getView().setHidden(true);
+        }else if(viewModel.get('isAddNPL')){
+            KHStore.loadStore(5, false);
+            me.lookupReference('skusearch_cboPartner').setHidden(true);
+            me.lookupReference('skusearch_cboProvider').setHidden(false);
+        }else{
+            KHStore.loadStore(12, false);
+        }
+        
     },
     control:{
         '#SkuSearchCriteria_Attr':{

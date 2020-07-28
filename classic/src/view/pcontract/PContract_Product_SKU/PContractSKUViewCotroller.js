@@ -117,7 +117,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
             var form =Ext.create({
                 xtype: 'skusearchwindow',
                 reference:'skusearchwindow',
-                width: 1200,
+                width: 800,
                 height: 500,                
                 viewModel: {
                     data: {
@@ -128,7 +128,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                         productid_link : viewmodel.get('IdProduct'),
                         productid_link_notsearch: viewmodel.get('IdProduct'),
                         type: 10,
-                        pcontract_poid_link: viewmodel.get('pcontract_poid_link')
+                        pcontract_poid_link: viewmodel.get('pcontract_poid_link'),
+                        isSearchViewHidden: true
                     }
                 }
             });
