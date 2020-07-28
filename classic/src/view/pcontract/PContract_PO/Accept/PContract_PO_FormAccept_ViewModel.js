@@ -17,7 +17,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewModel', {
             shipdate: new Date(),
             po_quantity: 0,
             id: 0,
-            orgbuyerid_link: 0
+            orgbuyerid_link: 0,
+            orgid_link: 0
         }
     }
 })
