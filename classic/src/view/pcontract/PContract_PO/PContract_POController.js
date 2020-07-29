@@ -1,6 +1,9 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POController',
+    init: function(){
+        common.Check_Object_Permission();
+    },
     control: {
         'PContract_PO_ProductList': {
             itemclick: 'onSelectProduct'
@@ -391,7 +394,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             items: [
             {
                 text: 'Sửa chào giá',
-                // reference: 'PContract_PO_Menu_POPriceEdit',
+                itemId: 'btnEditPrice_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-dollar brownIcon',
@@ -402,7 +405,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }, 
             {
                 text: 'Sửa đơn hàng',
-                // reference: 'PContract_PO_Menu_POinfoEdit',
+                itemId: 'btnEditPO_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-pencil greenIcon',
@@ -413,7 +416,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }, 
             {
                 text: 'Xóa đơn hàng',
-                // reference: 'PContract_PO_Menu_PODelete',
+                itemId: 'btnDeletePO_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-trash redIcon',
@@ -424,7 +427,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }, 
             {
                 text: 'Chốt đơn hàng',
-                // reference: 'PContract_PO_Menu_POAccept',
+                itemId: 'btnConfirmPO_PContract_PO_List',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-check violetIcon',
                 hidden: ishidden_accept,
@@ -434,7 +437,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 }
             }, {
                 text: 'Thêm đơn hàng con',
-                // reference: 'PContract_PO_Menu_POSub',
+                itemId: 'btnSubPO_PContract_PO_List',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-child blueIcon',
                 handler: function(){
@@ -443,7 +446,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 }
             }, {
                 text: 'Thêm KH giao hàng',
-                // reference: 'PContract_PO_Menu_POShipping',
+                itemId: 'btnShipping_PContract_PO_List',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-ship greenIcon',
                 handler: function(){
@@ -453,11 +456,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }
         ]
         });
-          // HERE IS THE MAIN CHANGE
-          var position = [e.getX()-10, e.getY()-10];
-          e.stopEvent();
-          menu_grid.record = record;
-          menu_grid.showAt(position);
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX()-10, e.getY()-10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
     },    
     onMenu_SubPO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
@@ -469,8 +473,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             viewModel: {},
             items: [
             {
-                text: 'Sửa đơn hàng',
-                // reference: 'PContract_PO_Menu_POinfoEdit',
+                text: 'Sửa đơn hàng con',
+                itemId: 'btnEditSubPO_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-pencil greenIcon',
@@ -480,8 +484,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 }
             }, 
             {
-                text: 'Xóa đơn hàng',
-                // reference: 'PContract_PO_Menu_PODelete',
+                text: 'Xóa đơn hàng con',
+                itemId: 'btnDeleteSubPO_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-trash redIcon',
@@ -492,7 +496,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }, 
             {
                 text: 'Thêm KH giao hàng',
-                // reference: 'PContract_PO_Menu_POShipping',
+                itemId: 'btnAddShipping_PContract_PO_List',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-ship greenIcon',
                 handler: function(){
@@ -507,6 +511,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
           e.stopEvent();
           menu_grid.record = record;
           menu_grid.showAt(position);
+          common.Check_Menu_Permission(menu_grid);
     },  
     onMenu_Shipping: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
@@ -519,7 +524,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             items: [
             {
                 text: 'Sửa kế hoạch',
-                // reference: 'PContract_PO_Menu_POinfoEdit',
+                itemId: 'btnEditShipping_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-pencil greenIcon',
@@ -530,7 +535,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }, 
             {
                 text: 'Xóa kế hoạch',
-                // reference: 'PContract_PO_Menu_PODelete',
+                itemId: 'btnDeleteShipping_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-trash redIcon',

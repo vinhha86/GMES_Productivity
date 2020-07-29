@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         store.loadStore_ByPage(25, 1, "", "", 0, 0, "", "");
 
         this.onActivate();
-        common.Check_Role_Function();
+        common.Check_Object_Permission();
     },
     control: {
         '#PContractMainView': {
@@ -53,8 +53,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             me.onloadPage();
         }
         me.isActivate = true;
-
-
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -184,7 +182,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 }
             }
         });
-
-       
+    },
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
+        return common.Check_ActionColum_Permission(item.itemId); 
     }
 })

@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.pcontract.PContractAttributeView', {
 		,
 		{
             xtype:'button',
-            itemId:'btnThemMoi',
+            itemId:'btnAttr_PContractAttributeView',
             ui: 'header',
             margin: '10 5 0 0',
 			tooltip: 'Thêm sản phẩm',
