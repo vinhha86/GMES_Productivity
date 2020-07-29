@@ -19,7 +19,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     },
     bind: {
         store: '{POrder_ListStore}'
-    },
+    },features: [{
+        ftype: 'grouping',
+        groupHeaderTpl: '<b>{name}</b>',
+        hideGroupedHeader: false,
+        enableGroupingMenu: false
+    }],
     columns: [{
         text: 'STT',
         width: 50,
@@ -98,6 +103,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         dataIndex: 'totalorder',
         // flex: 1,
         width: 60,
+        align: 'end'
     }, {
         text: 'Trạng thái',
         dataIndex: 'statusName',

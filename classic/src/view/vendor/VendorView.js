@@ -83,7 +83,8 @@ Ext.define('GSmartApp.view.vendor.VendorView', {
         text: 'Điện thoại',
         dataIndex: 'phone',
         width: 150,
-        flex: 1
+        flex: 1,
+        align: 'end'
     }, {
         text: 'Màu đại diện',
         dataIndex: 'clsName',

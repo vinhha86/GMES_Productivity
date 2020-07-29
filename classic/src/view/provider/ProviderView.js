@@ -60,7 +60,8 @@ Ext.define('GSmartApp.view.provider.ProviderView', {
     }, {
         text: 'Điện thoại',
         dataIndex: 'phone',
-        width: 90
+        width: 90,
+        align: 'end'
     },{
         text: 'Email',
         dataIndex: 'email',

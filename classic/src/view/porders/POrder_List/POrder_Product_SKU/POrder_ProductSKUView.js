@@ -46,7 +46,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         text: 'Số lượng',
         dataIndex: 'pquantity_total',
         summaryType: 'sum',
-        flex: 1
+        flex: 1,
+        align: 'end'
     }]
 });
 

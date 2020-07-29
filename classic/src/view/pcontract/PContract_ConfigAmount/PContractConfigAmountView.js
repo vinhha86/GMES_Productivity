@@ -33,14 +33,15 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountView', {
         text: 'Số lượng từ',
         dataIndex: 'amount_from',
         flex: 1,
+        align: 'end',
         editor:{
             field: {
                 xtype: 'numberfield',
                 allowDecimals: false,
                 hideTrigger:true,
                 fieldStyle:{
-                    'text-align':'left',
-                    // 'color': 'blue'
+                    'text-align':'right',
+                    'color': 'blue'
                 },
                 listeners:{
                     change: 'onAmountFromChange',
@@ -52,14 +53,15 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountView', {
         text: 'Số lượng đến',
         dataIndex: 'amount_to',
         flex: 1,
+        align: 'end',
         editor:{
             field: {
                 xtype: 'numberfield',
                 allowDecimals: false,
                 hideTrigger:true,
                 fieldStyle:{
-                    'text-align':'left',
-                    // 'color': 'blue'
+                    'text-align':'right',
+                    'color': 'blue'
                 },
                 listeners:{
                     change: 'onAmountToChange',
@@ -71,14 +73,15 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountView', {
         text: 'Số lượng thêm',
         dataIndex: 'amount_plus',
         flex: 1,
+        align: 'end',
         editor:{
             field: {
                 xtype: 'numberfield',
                 allowDecimals: true,
                 hideTrigger:true,
                 fieldStyle:{
-                    'text-align':'left',
-                    // 'color': 'blue'
+                    'text-align':'right',
+                    'color': 'blue'
                 },
                 listeners:{
                     change: 'onAmountPlusChange',
