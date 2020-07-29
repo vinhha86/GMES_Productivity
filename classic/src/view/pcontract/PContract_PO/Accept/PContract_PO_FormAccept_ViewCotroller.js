@@ -5,6 +5,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
         var viewmodel = this.getViewModel();
 		var OrgStore = viewmodel.getStore('OrgStore');
         OrgStore.loadOrg_Request(viewmodel.get('po.id'));
+
+        if(viewmodel.get('po.orgid_link') > 0){
+            var userStore = viewmodel.getStore('UserStore');
+            userStore.loadUserbyOrg_Buyer(viewmodel.get('po.orgid_link'), viewmodel.get('po.orgbuyerid_link'));
+        }
     },
     control: {
         '#btnThoat': {

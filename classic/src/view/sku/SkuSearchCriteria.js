@@ -81,6 +81,23 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                         value: '{orgcustomerid_link}',
                         readOnly: '{isReadOnly_cmbKhachHang}'
                     }
+                },
+                {
+                    xtype:  'combo',
+                    width: '100%',
+                    reference:'skusearch_cboProvider',
+                    // editable: false,
+                    margin: '0 0 2 0',
+                    valueField: 'id',
+                    displayField: 'name',
+                    queryMode: 'local',
+                    fieldLabel: "Provider",
+                    selectOnFocus: true,
+                    labelWidth: 80,
+                    bind:{
+                        store: '{OrgStore}'
+                    },
+                    hidden: true
                 },  
             ]
         },    

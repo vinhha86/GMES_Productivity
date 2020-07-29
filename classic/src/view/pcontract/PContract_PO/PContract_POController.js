@@ -148,57 +148,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     onAccept: function(rec){
         // var rec = grid.getStore().getAt(rowIndex);
         var viewmodel = this.getViewModel();
-        console.log(viewmodel.get('PContract.orgbuyerid_link'));
-        if(rec.get('status') == 1) {
-            Ext.Msg.show({
-                title: 'Thông báo',
-                msg: 'PO đã được xác nhận',
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng'
-                }
-            });
-        }
-        else {
-            var form = Ext.create('Ext.window.Window', {
-                height: 320,
-                closable: true,
-                title: 'Chốt PO',
-                resizable: false,
-                modal: true,
+        var form = Ext.create('Ext.window.Window', {
+            height: 320,
+            closable: true,
+            title: 'Chốt PO',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 400,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
                 border: false,
-                closeAction: 'destroy',
-                width: 400,
-                bodyStyle: 'background-color: transparent',
-                layout: {
-                    type: 'fit', // fit screen for window
-                    padding: 5
-                },
-                items: [{
-                    border: false,
-                    xtype: 'PContract_PO_FormAccept',
-                    viewModel: {
-                        data: {
-                            po: {
-                                po_quantity: rec.get('po_quantity'),
-                                po_buyer: rec.get('po_buyer'),
-                                po_vendor: rec.get('po_vendor'),
-                                shipdate: rec.get('shipdate'),
-                                id: rec.get('id'),
-                                orgbuyerid_link: viewmodel.get('PContract.orgbuyerid_link')
-                            }
+                xtype: 'PContract_PO_FormAccept',
+                viewModel: {
+                    data: {
+                        po: {
+                            po_quantity: rec.get('po_quantity'),
+                            po_buyer: rec.get('po_buyer'),
+                            po_vendor: rec.get('po_vendor'),
+                            shipdate: rec.get('shipdate'),
+                            id: rec.get('id'),
+                            orgbuyerid_link: viewmodel.get('PContract.orgbuyerid_link'),
+                            orgid_link: rec.get('orgmerchandiseid_link'),
+                            userid_link: rec.get('merchandiserid_link')
                         }
                     }
-                }]
-            });
-            form.show();
+                }
+            }]
+        });
+        form.show();
 
-            form.down('#PContract_PO_FormAccept').getController().on('AcceptSuccess', function(){
-                var store = viewmodel.getStore('PContractProductPOStore');
-                store.load();
-                form.close();
-            })
-        }
+        form.down('#PContract_PO_FormAccept').getController().on('AcceptSuccess', function(){
+            var store = viewmodel.getStore('PContractProductPOStore');
+            store.load();
+            form.close();
+        })
     },
     onXoa: function(rec){
         var viewmodel = this.getViewModel();
@@ -430,7 +419,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 itemId: 'btnConfirmPO_PContract_PO_List',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-check violetIcon',
-                hidden: ishidden_accept,
+                // hidden: ishidden_accept,
                 handler: function(){
                     var record = this.parentMenu.record;
                     me.onAccept(record);
