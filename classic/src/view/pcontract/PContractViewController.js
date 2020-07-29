@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
     alias: 'controller.PContractViewController',
     init: function () {
         this.onActivate();
-        // common.Check_Role_Function(this);
+        common.Check_Object_Permission();
+        
         if (this.getView().IdPContract > 0){
            this.onLoadData(this.getView().IdPContract,null);
            dockBottomBar = this.lookupReference('dockBottomBar');

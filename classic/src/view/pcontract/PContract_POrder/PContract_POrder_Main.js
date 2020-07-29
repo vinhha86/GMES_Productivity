@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_POrder_Main',
     id: 'PContract_POrder_Main',
+    itemId: 'PContract_POrder_Main',
     controller: 'PContract_POrderController',
 
     layout: 'border',

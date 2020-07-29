@@ -361,7 +361,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         var viewmodel = this.getViewModel();
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
         var price_data = viewSizeset.getView().selection.data;
-        console.log(price_data);
+        // console.log(price_data);
 
         //Tao ban copy voi product va sizeset cua san pham dang chon
         var po_price = viewmodel.get('po_price');
@@ -376,7 +376,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         //Copy value vao sizeset cua sp dang chon trong Viewmodel
         // viewmodel.set('po_price', po_price_copy);
-        console.log(viewmodel.get('po_price'));
+        // console.log(viewmodel.get('po_price'));
 
         //Copy value vao sizeset cua sp dang chon trong Store
         var priceStore = viewmodel.getStore('PriceStore');
@@ -386,5 +386,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         //Refresh chi tiet gia
         var Price_DStore = viewmodel.getStore('Price_DStore');
         Price_DStore.loadData(viewmodel.get('po_price.pcontract_price_d'));
+        
+        //Tinh toan lai SizesetAll cho tat ca cac san pham
+        var productStore = viewmodel.getStore('ProductStore');
+        for(var i =0; i<productStore.data.length; i++){
+            var product_data = productStore.data.items[i].data;
+            this.calPrice_SizesetAll(product_data.id);
+        }
+
+        //Tinh SisetAll cho san pham cha
+        this.calPrice_PairProduct();
+
+        //Hien lai thong tin tren SumUp cua Siseset dc chon sau khi tinh toan lai
+        var price_data = viewmodel.get('po_price');
+        price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        viewmodel.set('po_price',price_data);
      }
 })

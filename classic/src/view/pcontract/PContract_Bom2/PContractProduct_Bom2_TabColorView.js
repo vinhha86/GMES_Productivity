@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorView', {
     extend: 'Ext.tab.Panel',
     xtype: 'PContractProduct_Bom2_TabColorView',
     id: 'PContractProduct_Bom2_TabColorView',
+    itemId: 'PContractProduct_Bom2_TabColorView',
     controller: 'PContractProduct_Bom2_TabColorViewController',
     tabPosition: 'right',
     dockedItems: [{

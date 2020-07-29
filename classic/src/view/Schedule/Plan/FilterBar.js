@@ -37,6 +37,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         },
         {
             xtype: 'button',
+            itemId: 'btnGrantPorder_FilterBar',
             tooltip: 'Phân lệnh vào tổ chuyền',
             iconCls: 'x-fa fa-sliders',
             weight: 30,
@@ -47,6 +48,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         },
         {
             xtype: 'button',
+            itemId: 'btnGuessView_FilterBar',
             tooltip: 'Khung nhìn khách',
             iconCls: 'x-fa fa-user',
             weight: 30,
@@ -148,6 +150,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         }
         ,{
             xtype  : 'button',
+            itemId: 'btnExportPDF_FilterBar',
             iconCls: 'fa fa-file-pdf-o',
             tooltip: 'Xuất file PDF',
             handler: 'onExport'

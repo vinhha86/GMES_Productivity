@@ -9,6 +9,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
 
         VendorStore.loadStore(11, false);
         EndBuyerStore.loadStore(12, false);
+        common.Check_Object_Permission();
     },
     control: {
         '#checkYCSX' : {
