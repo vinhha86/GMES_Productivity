@@ -22,6 +22,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
         }, {
             title: 'Phân chuyền',
             xtype: 'POrder_Tab_Grant'
+        },{
+            title: 'Định mức',
+            xtype: 'PorderBom_TabColor'
         }]
     }],
     dockedItems: [{
