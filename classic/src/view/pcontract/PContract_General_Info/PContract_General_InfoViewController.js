@@ -11,6 +11,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
         this.disablePairProductViewBtn();
         this.disableDocumentViewBtn();
         this.disableAttributeViewBtn();
+
+        common.Check_Object_Permission();
     },
 
 

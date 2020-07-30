@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             SkuAtributesStore.loadDefaultAttr(10);
             this.onSearchButton();
         }
+        common.Check_Object_Permission();
     },
     onActivate: function () {
         var viewModel = this.getViewModel();
@@ -629,6 +630,11 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         {
             xtype = 'PackingTrimDetailView';
             title = 'Thêm mới phụ liệu hoàn thiện';
+        }
+        else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60)
+        {
+            xtype = 'SewingThreadDetailView';
+            title = 'Thêm mới chỉ may';
         }
     
         var form = Ext.create('Ext.window.Window', {

@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractProduct_Bom_TabColorViewController',
     init: function () {
+        common.Check_Object_Permission();
     },
     control: {
         '#PContractProduct_Bom_TabColorView': {
@@ -10,7 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
-        '#btnNPL': {
+        '#btnAddMaterial_Bom': {
             click: 'onThemNPL'
         }
     },

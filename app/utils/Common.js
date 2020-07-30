@@ -12,7 +12,8 @@ Ext.define('GSmartApp.util.Common', {
             var a = '#' + func.function_id_item;
             var item = Ext.first(a);
             // var item = me.lookupReference(func.function_id_item);
-
+            // console.log(a);
+            // console.log(item);
             if(item!=null){
                 item.setDisabled(func.isreadonly);
             } 

@@ -31,6 +31,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
         menuDisabled: true,
         sortable: false,
         items: [{
+            itemId: 'btnDeleteMaterial_Bom2',
+            isActionDisabled: 'checkActionColumnPermission',
             iconCls: 'x-fa fas fa-trash',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'

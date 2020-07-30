@@ -303,5 +303,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                     }
                 }
             })
-    }
+    },
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
+        return common.Check_ActionColum_Permission(item.itemId); 
+    }    
 })

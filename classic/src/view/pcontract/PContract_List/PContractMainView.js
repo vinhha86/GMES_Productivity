@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             itemId:'btnDelete_PContractMainView',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa',
-            isDisabled: 'checkActionColumnPermission'
+            isActionDisabled: 'checkActionColumnPermission'
         }]
     }],
     dockedItems: [{
