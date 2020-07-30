@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
         }
     },
     onKeyUp: function (m, e, eOpts) {
-        console.log(e);
+       
     },
     load_AttributeValue: function (id) {
         this.idAttribute = id;
@@ -44,12 +44,12 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
                     store.loadStore(params.data.attributeid_link);
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: App.Locales.btn_dong[App.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
                 me.setLoading(false);

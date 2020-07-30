@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         }
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
-        let me = this.getView();
+        var me = this.getView();
         if (newCard.xtype == "POrder_Tab_Info") {
             let infoView = me.down('#POrder_InfoView');
             infoView.IdPOrder = me.IdPOrder;
@@ -36,10 +36,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             productSkuView.IdPOrder = me.IdPOrder;
             productSkuView.getController().loadInfo(me.IdPOrder);
         }
-        if (newCard.xtype == "POrder_Tab_Grant") {
+        else if (newCard.xtype == "POrder_Tab_Grant") {
             let listGrantView = me.down('#POrder_List_GrantView');
             listGrantView.IdPOrder = me.IdPOrder;
             listGrantView.getController().loadInfo(me.IdPOrder);
+        }
+        else if(newCard.xtype == "PorderBom_TabColor"){
+            var tab = Ext.getCmp('PorderBom_TabColor').getController();
+            tab.createTab();
         }
     },
     onLoadData: function (id) {

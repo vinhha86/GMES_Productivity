@@ -8,7 +8,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         'GSmartApp.store.porder.POrder_ListStore',
         'GSmartApp.store.porder.porderSKUStore',
         'GSmartApp.store.porder.POrder_ListGrantStore',
-        'GSmartApp.store.porder.POrder_ListGrantSKUStore'
+        'GSmartApp.store.porder.POrder_ListGrantSKUStore',
+        'GSmartApp.store.pcontract.POrderBomColorStore'
     ],
     stores: {
         POrder_ListStore: {
@@ -35,6 +36,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         POrder_ListGrantSKUStoreForWindow: {
             type: 'POrder_ListGrantSKUStore'
         },
+        POrderBomColorStore: {
+            type: 'POrderBomColorStore'
+        }
     },
     data:{
         testdata: 'testdata123'

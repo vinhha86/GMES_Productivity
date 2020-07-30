@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.attribute.AttributeView', {
         }
     },{
         xtype: 'checkcolumn',
-        text:'S.phẩm',
+        text:'SP',
         headerWrap: true,
         flex: 1,
         dataIndex: 'isproduct',
@@ -71,6 +71,13 @@ Ext.define('GSmartApp.view.attribute.AttributeView', {
         flex: 1,
         dataIndex: 'ispackingtrims',
         itemId:'checkPLHT'
+    },{
+        xtype: 'checkcolumn',
+        text:'Chỉ',
+        headerWrap: true,
+        flex: 1,
+        dataIndex: 'isthread',
+        itemId:'checkthread'
     }],
     dockedItems:[{
         dock:'bottom',
