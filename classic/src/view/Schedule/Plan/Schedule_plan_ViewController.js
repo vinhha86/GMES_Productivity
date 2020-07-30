@@ -31,7 +31,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
         var me = this;
-        console.log(eventRecord);
+        var ishidden_delete = true;
+
+        if(eventRecord.data.status == -1)
+            ishidden_delete = false;
+
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Sản phẩm',
@@ -90,11 +94,58 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     me.ShowBreakPorder(eventRecord);
                 }
+            },
+            {
+                text: 'Xóa lệnh',
+                iconCls: 'x-fa fa-trash',
+                hidden: ishidden_delete,
+                handler: function () {
+                    me.Delete_Porder_Req(eventRecord);
+                }
             }
             ]
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+    },
+    Delete_Porder_Req: function(rec){
+        var grid = this.getView();
+        var me = this;
+        grid.setLoading('Đang xóa dữ liệu');
+        var params = new Object();
+        params.porderid_link = rec.get('porderid_link');
+        params.pordergrantid_link = rec.get('porder_grantid_link');
+
+        GSmartApp.Ajax.post('/api/v1/schedule/delete_porder_test', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var eventStore = grid.down('#treeplan').getCrudManager().getEventStore();
+                        eventStore.remove(rec);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Xóa thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Xóa thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
     },
     ShowBreakPorder: function (rec) {
         var me = this.getView().down('#treeplan');
