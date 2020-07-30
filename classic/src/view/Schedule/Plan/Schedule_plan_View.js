@@ -143,7 +143,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 {
                     xtype: 'treecolumn', //this is so we know which column will show the tree
                     text: 'Nhà máy',
-                    width: 200,
+                    width: 150,
                     sortable: false,
                     dataIndex: 'Name'
                 },
