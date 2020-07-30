@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
     items: [
         {
             xtype: 'button',
-            tooltip: 'Kế hoạch giao hàng',
+            tooltip: 'Đơn hàng',
             iconCls: 'x-fa fa-shopping-basket',
             weight: 30,
             bind : {
