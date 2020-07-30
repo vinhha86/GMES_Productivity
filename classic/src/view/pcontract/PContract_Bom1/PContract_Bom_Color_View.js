@@ -95,10 +95,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
-            selectOnFocus: true,
-            listeners:{
-                change: 'onChange'
-            }
+            selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
@@ -113,10 +110,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
-            selectOnFocus: true,
-            listeners:{
-                change: 'onChange'
-            }
+            selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";

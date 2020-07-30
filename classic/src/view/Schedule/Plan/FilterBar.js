@@ -173,7 +173,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'FilterFieldPorder',
             id: 'FilterFieldPorder',
-            emptyText: 'LSX',
+            emptyText: 'Mã lệnh',
             // fieldLabel: 'PO:',
             labelWidth: 30,
             width: 110,

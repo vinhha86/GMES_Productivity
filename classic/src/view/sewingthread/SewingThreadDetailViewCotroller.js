@@ -64,11 +64,11 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadDetailViewCotroller', {
                             },
                             fn: function(){
                                 if(!viewModel.get('isWindow'))
-                                    m.redirectTo("lssewingtrim/" + response.id + "/edit");
+                                    m.redirectTo("lssewingthread/" + response.id + "/edit");
                                 else
                                 {
                                     //Tạo event để form gọi lên hứng khi thêm sản phẩm thành công với trường hợp tạo sản phẩm trong đơn hàng
-                                    m.getView().fireEvent("CreateProduct", response.product);
+                                    m.getView().fireEvent("CreateThread", response.product);
                                 }
                             }
                         });
