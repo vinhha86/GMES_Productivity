@@ -185,9 +185,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
 		,
 	    {
             xtype:'button',
-            itemId:'btnThemMoi',
+            itemId:'btnAddPrice_PContract_PO_List',
             ui: 'header',
-			tooltip: 'Thêm mới đơn hàng',
+			tooltip: 'Thêm chào giá',
             iconCls: 'x-fa fa-plus',
             handler: 'onAddPOTap',
         },

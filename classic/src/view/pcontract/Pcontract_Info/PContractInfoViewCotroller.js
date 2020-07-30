@@ -9,7 +9,6 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
         }
 
         me.down('#contractcode').focus();
-        common.Check_Role_Function();
     },
     loadInfo: function (id) {
         var me = this.getView();

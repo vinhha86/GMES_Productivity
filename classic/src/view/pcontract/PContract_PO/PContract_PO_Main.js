@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'PContract_PO_Main',
     id: 'PContract_PO_Main',
+    itemId: 'PContract_PO_Main',
     controller: 'PContract_POController',    
     // viewModel: {
     //     type: 'PContract_POViewModel'

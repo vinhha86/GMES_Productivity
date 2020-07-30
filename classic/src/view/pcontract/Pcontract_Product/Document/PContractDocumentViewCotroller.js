@@ -2,9 +2,10 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractDocumentViewCotroller',
     init: function () {
+        common.Check_Object_Permission();
     },
     control: {
-        '#btnThemMoi': {
+        '#btnDoc_PContractDocumentView': {
             click: 'onThemMoi'
         },
         '#btnFile': {

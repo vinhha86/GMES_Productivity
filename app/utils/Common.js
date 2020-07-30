@@ -3,15 +3,43 @@ Ext.define('GSmartApp.util.Common', {
     alternateClassName: [
         'common'
     ],
-    Check_Role_Function: function () {
+    Check_Object_Permission: function () {
         var data = GSmartApp.util.State.get('session');
         var list_function = data.list_function;
 
         for (var i = 0; i < list_function.length; i++) {
             var func = list_function[i];
-            var item = Ext.getCmp(func.function_id_item);
-            if(item!=null)
+            var a = '#' + func.function_id_item;
+            var item = Ext.first(a);
+            // var item = me.lookupReference(func.function_id_item);
+
+            if(item!=null){
                 item.setDisabled(func.isreadonly);
+            } 
+        }
+    },
+    Check_Menu_Permission: function(me){
+        var data = GSmartApp.util.State.get('session');
+        var list_function = data.list_function;
+
+        for (var i = 0; i < list_function.length; i++) {
+            var func = list_function[i];
+            var item = me.queryById(func.function_id_item);
+            
+            if(item!=null){
+                item.setDisabled(func.isreadonly);
+            } 
+        }
+    },
+    Check_ActionColum_Permission: function(itemref){
+        var data = GSmartApp.util.State.get('session');
+        var list_function = data.list_function;
+
+        for (var i = 0; i < list_function.length; i++) {
+            var func = list_function[i];
+            if (func.function_id_item == itemref){
+                return func.isreadonly;
+            }
         }
     }
 })

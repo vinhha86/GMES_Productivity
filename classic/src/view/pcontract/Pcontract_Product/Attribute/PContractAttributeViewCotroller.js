@@ -2,10 +2,10 @@ Ext.define('GSmartApp.view.pcontract.PContractAttributeViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractAttributeViewCotroller',
     init: function () {
-
+        common.Check_Object_Permission();
     },
     control: {
-        '#btnThemMoi': {
+        '#btnAttr_PContractAttributeView': {
             click: 'onThemMoi'
         }
     },

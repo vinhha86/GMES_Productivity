@@ -22,8 +22,8 @@ Ext.define('GSmartApp.store.UserListStore', {
 		}
 	],
 	sorters: [{
-        property: 'index',
-        direction: 'DESC'
+        property: 'orgname',
+        direction: 'ASC'
     }],
 	loadStore: function(){
         var params = new Object();

@@ -2,10 +2,10 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractListProductViewCotroller',
     init: function () {
-
+        common.Check_Object_Permission();
     },
     control: {
-        '#btnThemMoi_product_pcontract': {
+        '#btnAddProduct_PContractListProductView': {
             click: 'onThemMoi'
         },
         '#btnExcel': {

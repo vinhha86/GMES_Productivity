@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.store.porder.POrder_ListStore', {
     extend: 'Ext.data.Store',
     storeId: 'POrder_ListStore',
-    alias: 'store.POrder_ListStore',
+	alias: 'store.POrder_ListStore',
+	groupField: 'granttoorgname',
     fields: [
 		{name: 'id', type: 'int'},
 		{name: 'ordercode', type: 'string'},
@@ -30,7 +31,8 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			// 	}
 			// }
 		// },
-		{name: 'statusName', type: 'string'}
+		{name: 'statusName', type: 'string'},
+		{name: 'granttoorgname', type: 'string'},
 	],
 	loadStore: function(){
 		var params = new Object();

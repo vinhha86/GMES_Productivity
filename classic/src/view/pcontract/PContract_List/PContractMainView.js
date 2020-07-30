@@ -83,11 +83,13 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             iconCls: 'x-fa fas fa-edit',
             tooltip: "Chi tiết",
             handler: 'onEdit',
-            id:'btnEdit_PContractMainView'
+            itemId:'btnEdit_PContractMainView'
         }, {
             iconCls: 'x-fa fas fa-trash',
+            itemId:'btnDelete_PContractMainView',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
+            handler: 'onXoa',
+            isDisabled: 'checkActionColumnPermission'
         }]
     }],
     dockedItems: [{
@@ -101,7 +103,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             width: 105,
             iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi_PContractMainView',
-            id: 'btnThemMoi_PContractMainView'
         },{
             xtype:'textfield',
             labelWidth: 0,

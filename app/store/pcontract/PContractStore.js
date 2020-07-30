@@ -49,9 +49,9 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 				if(!success){
 					 this.fireEvent('logout');
 				}
-				else{
-					console.log(records);
-				}
+				// else{
+				// 	console.log(records);
+				// }
 			}
 		});
 	},
