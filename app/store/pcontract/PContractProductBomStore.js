@@ -22,8 +22,11 @@ Ext.define('GSmartApp.store.pcontract.PContractProductBomStore', {
         {name: 'product_type',   type: 'int'},
         {name: 'pcontractid_link',   type: 'int'}
 	],
-	groupField: 'product_typeName',
+	groupField: 'product_typename',
 	sorters: [{
+        direction: 'ASC',
+        property: 'product_typename'
+    },{
         direction: 'ASC',
         property: 'product_type'
     },{

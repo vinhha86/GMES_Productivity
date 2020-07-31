@@ -3,7 +3,7 @@ Ext.define('GSmartApp.store.pcontract.POrderBomColorStore', {
 	alias: 'store.POrderBomColorStore',
 	storeId: 'POrderBomColorStore',
 	model: 'GSmartApp.model.porders.POrderBomColorModel',
-	groupField: 'product_typeName',
+	groupField: 'product_typename',
 	sorters: [{
         direction: 'ASC',
         property: 'product_type'

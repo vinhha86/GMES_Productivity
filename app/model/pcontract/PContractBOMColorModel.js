@@ -20,6 +20,13 @@ Ext.define('GSmartApp.model.pcontract.PContractBOMColorModel', {
 		{name: 'tenMauNPL',   type: 'string'},
         {name: 'coKho',   type: 'string'},
         {name: 'productType',   type: 'int'},
-        'unitName', 'materialCode'
-	]
+        {name: 'product_typename',   type: 'string'},
+        'unitName', 'materialCode','forothercontract_name',
+        {
+            name: 'forothercontract',
+            calculate: function(data){
+                return data.forothercontract_name == 'true' ? true : false;
+            }
+        }
+    ]
 });

@@ -17,6 +17,13 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_View', {
             } 
         }
     },
+    features: [{
+        id: 'grouping',
+        ftype:'grouping',
+        groupHeaderTpl: '{name}',
+        collapseTip: "",
+        expandTip:""
+    }],
     bind:{
         store:'{POrderBomColorStore}'
     },
