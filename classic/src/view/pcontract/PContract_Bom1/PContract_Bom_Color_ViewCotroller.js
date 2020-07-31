@@ -1,8 +1,19 @@
 Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_Bom_Color_ViewCotroller',
+    control: {
+        '#checkother' : {
+            checkchange: 'oncheckother'
+        }
+    },
     init: function () {
 
+    },
+    oncheckother: function(m, rowIndex, checked, record, e, eOpts){
+        var me = this;
+        
+
+        me.updateMaterial(record, checked);
     },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
@@ -91,7 +102,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         var me = this;
 
         if (context.field == "amount") {
-            me.updateBOM(context.record);
+            me.updateBOM(context.record, true);
         }
         else if (context.field == "amount_color") {
             me.updateColor(context.record);
@@ -99,8 +110,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         else if (context.field == "unitid_link") {
             me.updateMaterial(context);
          }
-         else{ 
-             me.updateSKU(context);
+         else { 
+             me.updateSKU(context.record);
          }
     },
     updateColumnSize: function (record) {
@@ -127,9 +138,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
             return '';
         }
     },
-    updateMaterial: function (context) {
+    updateMaterial: function (context, check) {
         var viewmodel = this.getViewModel();
-        var data = context.record.data;
+        var data = context.data;
+
+        if(check)
+            data.forothercontract = true;
+        else 
+            data.forothercontract = false;
+
         var params = new Object();
         params.data = data;
         params.isUpdateBOM = false;
@@ -149,8 +166,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                         });
                     }
                     else {
+                        if(check)
+                            context.set('forothercontract_name' ,'true');
+                        else 
+                            context.set('forothercontract_name' ,'false');
+
                         var storebom = viewmodel.getStore('PContractBomColorStore');
                         storebom.commitChanges();
+                        
                     }
                 }
             })
@@ -204,13 +227,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
             }
         });
     },
-    updateBOM: function (record) {
+    updateBOM: function (record, isupdatebom) {
         var grid = this.getView();
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.data = record.data;
-        params.isUpdateBOM = true;
+        params.isUpdateBOM = isupdatebom;
         GSmartApp.Ajax.post('/api/v1/pcontractproductbom/update_pcontract_productbom', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
