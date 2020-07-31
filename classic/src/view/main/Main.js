@@ -44,44 +44,6 @@ Ext.define('GSmartApp.view.main.Main', {
                     handler: 'onToggleNavigationSize'
                 },
                 '->',
-                /*{
-                    xtype: 'segmentedbutton',
-                    margin: '0 16 0 0',
-
-                    platformConfig: {
-                        ie9m: {
-                            hidden: true
-                        }
-                    },
-
-                    items: [{
-                        iconCls: 'x-fa fa-desktop',
-                        pressed: true
-                    }, {
-                        iconCls: 'x-fa fa-tablet',
-                        handler: 'onSwitchToModern',
-                        tooltip: 'Switch to modern toolkit'
-                    }]
-                },*/
-                // {
-                //     iconCls:'x-fa fa-search',
-                //     ui: 'header',
-                //     href: '#searchresults',
-                //     hrefTarget: '_self',
-                //     tooltip: 'See latest search'
-                // },
-                // {
-                //     iconCls:'x-fa fa-envelope',
-                //     ui: 'header',
-                //     tooltip: 'Check your email',
-				// 	handler: 'onTest'
-                // },
-                // {
-                //     iconCls:'x-fa fa-th-large',
-                //     ui: 'header',
-                //     tooltip: 'See your profile',
-				// 	handler: 'onTest1'
-                // },
                 {
                     iconCls:'x-fa fa fa-window-maximize',
                     //cls       : 'icon-fullscreen',
@@ -103,6 +65,19 @@ Ext.define('GSmartApp.view.main.Main', {
                     cls: 'top-user-name'
                 },
                 {
+                    xtype: 'splitbutton',
+                    menu: new Ext.menu.Menu({
+                        items: [
+                            // these will render as dropdown menu items when the arrow is clicked:
+                            {text: 'Item 1', handler: function(){ alert("Item 1 clicked"); }},
+                            {text: 'Item 2', handler: function(){ alert("Item 2 clicked"); }}
+                        ]
+                    }),
+                    bind: {
+                        iconCls: 'x-fa fa-home'
+                    }
+                },
+                {
                     xtype: 'image',
                     reference: 'tbavatar',
                     itemId: 'tbavatar',
@@ -112,7 +87,14 @@ Ext.define('GSmartApp.view.main.Main', {
                     width: 35,
                     alt:'current user image',
                     //src: 'resources/images/user-profile/2.png'
-                    src: config.getAvatar()
+                    bind: {
+                        src: '{avatar}'
+                    },
+                    listeners: {
+                        el: {
+                            click: 'onInfo'
+                        }
+                    }
                 }
             ]
         },

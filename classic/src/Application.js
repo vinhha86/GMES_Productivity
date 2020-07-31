@@ -103,6 +103,7 @@ Ext.define('GSmartApp.Application', {
             config.setToken('Bearer ' + session.get('token'));
             config.setFname(session.get('fname'));
             config.setAvatar(session.get('avatar'));
+
             Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });
             //console.log(config.getEnableSSO());
             if(!config.getEnableSSO()) {
