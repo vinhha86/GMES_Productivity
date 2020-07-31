@@ -320,6 +320,43 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			}
 		});
 	},
+	loadSewingThread_ByPage:function(limit, page, name, code){
+		var me=this;
+		var params = new Object();
+		params.code = code;
+		params.name = name;
+		me.pageSize = limit;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/product/getall_sewingthread',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'pagedata',
+				totalProperty: 'totalCount'
+			}
+		});
+		this.loadPage(page,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
 	loadPackingTrim_ByPage:function(limit, page, name, code){
 		var me=this;
 		var params = new Object();

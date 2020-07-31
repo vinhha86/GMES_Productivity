@@ -35,6 +35,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         menuDisabled: true,
         sortable: false,
         items: [{
+            itemId: 'btnDeleteMaterial_Bom',
+            isActionDisabled: 'checkActionColumnPermission',            
             iconCls: 'x-fa fas fa-trash',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'
@@ -105,10 +107,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
-            selectOnFocus: true,
-            listeners:{
-                change: 'onChange'
-            }
+            selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
@@ -123,10 +122,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
-            selectOnFocus: true,
-            listeners:{
-                change: 'onChange'
-            }
+            selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";

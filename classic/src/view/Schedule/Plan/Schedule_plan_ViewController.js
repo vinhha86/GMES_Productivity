@@ -31,10 +31,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
         var me = this;
-        console.log(eventRecord);
+        var ishidden_delete = true;
+
+        if(eventRecord.data.status == -1)
+            ishidden_delete = false;
+
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Sản phẩm',
+                itemId: 'btnViewProduct_Schedule_plan_View',
                 iconCls: 'x-fa fa-cart-arrow-down',
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
@@ -45,6 +50,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Đơn hàng (PO)',
+                itemId: 'btnViewPO_Schedule_plan_View',
                 iconCls: 'x-fa fa-handshake-o',
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
@@ -61,6 +67,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Lệnh sản xuất',
+                itemId: 'btnViewPOrder_Schedule_plan_View',
                 iconCls: 'x-fa fa-industry',
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
@@ -71,14 +78,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     // console.log(eventRecord.data);
                 }
             },
-            {
-                text: 'Tiến độ',
-                iconCls: 'x-fa fa-line-chart',
-                handler: function () {
-                }
-            },
+            // {
+            //     text: 'Tiến độ',
+            //     iconCls: 'x-fa fa-line-chart',
+            //     handler: function () {
+            //     }
+            // },
             {
                 text: 'Năng suất',
+                itemId: 'btnProductivity_Schedule_plan_View',
                 iconCls: 'x-fa fa-angle-double-right',
                 handler: function () {
                     me.ShowNangSuat(eventRecord);
@@ -86,15 +94,65 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Tách lệnh',
+                itemId: 'btnSplitPorder_Schedule_plan_View',
                 iconCls: 'x-fa fa-cut',
                 handler: function () {
                     me.ShowBreakPorder(eventRecord);
+                }
+            },
+            {
+                text: 'Xóa lệnh',
+                itemId: 'btnDeletePorder_Schedule_plan_View',
+                iconCls: 'x-fa fa-trash',
+                hidden: ishidden_delete,
+                handler: function () {
+                    me.Delete_Porder_Req(eventRecord);
                 }
             }
             ]
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+        common.Check_Menu_Permission(menu_grid);
+    },
+    Delete_Porder_Req: function(rec){
+        var grid = this.getView();
+        var me = this;
+        grid.setLoading('Đang xóa dữ liệu');
+        var params = new Object();
+        params.porderid_link = rec.get('porderid_link');
+        params.pordergrantid_link = rec.get('porder_grantid_link');
+
+        GSmartApp.Ajax.post('/api/v1/schedule/delete_porder_test', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var eventStore = grid.down('#treeplan').getCrudManager().getEventStore();
+                        eventStore.remove(rec);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Xóa thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Xóa thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
     },
     ShowBreakPorder: function (rec) {
         var me = this.getView().down('#treeplan');

@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.login.Login', {
             align: 'center',
             pack: 'center'
         },
-        padding: '75 50',
+        padding: '20 20',
         cls: 'auth-middle-panel',
         items: [{
             xtype: 'label',
@@ -38,7 +38,7 @@ Ext.define('GSmartApp.view.login.Login', {
         },{
             xtype: 'label',
             style: 'font-size: 20px',
-            html: 'Sign into your account',
+            html: 'Đăng nhập G-MES',
             margin: '10 0 10 0',
             padding: '0 0 10 0'
         },{
@@ -52,12 +52,14 @@ Ext.define('GSmartApp.view.login.Login', {
 
             items: [{
                 xtype: 'textfield',
+                fieldLabel: "Tên đăng nhập:",
                 name: 'username',
                 emptyText : 'Username',
                 value: 'admin@gpay.vn',
                 allowBlank: false
             }, {
                 xtype: 'textfield',
+                fieldLabel: "Mật khẩu:",
                 name: 'password',
                 emptyText : 'Password',
                 inputType: 'password',
@@ -66,7 +68,7 @@ Ext.define('GSmartApp.view.login.Login', {
             }],
             buttonAlign: 'center',
             buttons: [{
-                text: 'LOG IN',
+                text: 'Đăng nhập',
                 iconCls: 'x-fa fa-angle-right',
                 formBind: true,
                 cls: 'auth-btn',

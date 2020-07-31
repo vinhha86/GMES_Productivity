@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.authentication.Login', {
             items: [
                 {
                     xtype: 'label',
-                    text: 'Sign into your account'
+                    text: 'Đăng nhập GMES'
                 },
                 {
                     xtype: 'textfield',

@@ -34,6 +34,9 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
         },
         '#checkPLHT':{
             checkchange: 'oncheckchange'
+        },
+        '#checkthread' : {
+            checkchange: 'oncheckchange'
         }
     },
     onActivate: function(){
@@ -55,12 +58,12 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
                     store.loadStore();
                 } else {
                     Ext.Msg.show({
-                        title: 'Thêm mới thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Thêm mới thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
                 me.setLoading(false);
@@ -182,7 +185,6 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
             params.msgtype = "ATTRIBUTE_CREATE";
             params.message = "Tạo thuộc tính";
             params.data = select[0].data;
-            console.log(params);
 
             this.getView().setLoading("Đang lưu dữ liệu");
             this.ThemMoi_CapNhat(params);

@@ -44,6 +44,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
         }
     },{
         minWidth: 80,
+        itemID: 'btnAddProduct_ProductList',
         text: 'Tạo mới',
         iconCls: 'x-fa fa-magic',
         handler: 'onCreateProduct'
