@@ -9,6 +9,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         columnLines: true,
         rowLines: true
     },
+    features: [{
+        ftype:'grouping',
+        groupHeaderTpl: '{name}'
+    }],
     plugins: {
         cellediting: {
             clicksToEdit: 1,
@@ -35,6 +39,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'
         }]
+    },{
+        xtype: 'checkcolumn',
+        text: 'Ký gửi',
+        dataIndex: 'forothercontract',
+        itemId: 'checkother',
+        width: 60
     }, {
         text: 'Mã NPL',
         dataIndex: 'materialCode',

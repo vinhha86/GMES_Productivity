@@ -9,6 +9,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
         columnLines: true,
         rowLines: true
     },
+    features: [{
+        ftype:'grouping',
+        groupHeaderTpl: '{name}',
+        collapseTip: "",
+        expandTip:""
+    }],
     plugins: {
         cellediting: {
             clicksToEdit: 1,
