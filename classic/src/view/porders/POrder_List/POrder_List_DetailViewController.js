@@ -27,6 +27,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var me = this.getView();
+        var viewmodel = this.getViewModel();
+
         if (newCard.xtype == "POrder_Tab_Info") {
             let infoView = me.down('#POrder_InfoView');
             infoView.IdPOrder = me.IdPOrder;
@@ -44,6 +46,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         else if(newCard.xtype == "PorderBom_TabColor"){
             var tab = Ext.getCmp('PorderBom_TabColor').getController();
             tab.createTab();
+        }
+        else if(newCard.xtype == "PorderSewingCost_View"){
+            var storeSewing = viewmodel.getStore('PorderSewingCostStore');
+            var porderid_link = viewmodel.get('porder.id');
+            storeSewing.loadby_porder(porderid_link);
         }
     },
     onLoadData: function (id) {

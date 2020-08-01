@@ -256,8 +256,8 @@ Ext.define('GSmartApp.view.main.MainController', {
     onInfo: function(e){
         var menu_grid = new Ext.menu.Menu({
             items: [{
-                text: 'Sản phẩm',
-                iconCls: 'x-fa fa-cart-arrow-down'
+                text: 'Thay đổi mật khẩu',
+                iconCls: 'x-fa fa-key'
             }
             ]
         })
