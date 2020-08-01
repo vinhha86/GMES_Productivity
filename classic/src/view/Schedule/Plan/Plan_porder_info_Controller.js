@@ -9,24 +9,50 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info_Controller', {
             click: 'onThoat'
         },
         '#btnLuu': {
-            click: 'UpdatePorder'
+            click: 'onLuu'
         },
         '#date_start' : {
-            focusleave: 'onSelectStartDate',
-            collapse: 'onSelectStartDate'
+            collapse: 'onSelectStartDate',
+            focus: 'onfocusdatestart'
         },
         '#date_end' : {
-            focusleave: 'onSelectEndDate',
-            collapse: 'onSelectEndDate'
+            collapse: 'onSelectEndDate',
+            focus: 'onfocusdateend'
         },
         '#duration' : {
             specialkey: 'onSpecialkey',
-            focusleave: 'onDuration'
+            focus: 'onfocusduration'
         },
         '#productivity' : {
             specialkey: 'onSpecialkey',
-            focusleave: 'onProductivity'
+            focus: 'onfocusproductivity'
         }
+    },
+    itemId: '',
+    url: '',
+    onfocusproductivity: function(){
+        var me = this;
+        me.itemId = '#productivity';
+        me.url = 'update_productivity';
+    },
+    onfocusduration: function(){
+        var me = this;
+        me.itemId = '#duration';
+        me.url = 'update_duration';
+    },
+    onfocusdatestart: function(){
+        var me = this;
+        me.itemId = '#date_start';
+        me.url = 'update_date';
+    },
+    onfocusdateend: function(){
+        var me = this;
+        me.itemId = '#date_end';
+        me.url = 'update_date';
+    },
+    onLuu: function(){
+        var me = this;
+        me.Calculate(me.itemId, me.url, true);
     },
     onThoat: function(){
         this.getView().up('window').close();
@@ -54,7 +80,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info_Controller', {
             }
         }
     },
-    Calculate: function(itemId, url){
+    Calculate: function(itemId, url, isSave){
         var form = this.getView();
         form.setLoading('Đang tính số liệu!');
         var me = this;
@@ -70,6 +96,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info_Controller', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         viewmodel.set('sch',response.data);
+                        if(isSave){
+                            me.UpdatePorder();
+                        }
                     }
                     else {
                         Ext.Msg.show({

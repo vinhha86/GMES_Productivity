@@ -140,12 +140,12 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
                                     }
                                 } else {
                                     Ext.Msg.show({
-                                        title: 'Xóa thất bại',
-                                        msg: null,
-                                        buttons: [{
-                                            itemId: 'cancel',
-                                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                        }]
+                                        title: 'Thông báo',
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
                                     });
                                 }
                                 me.setLoading(false);

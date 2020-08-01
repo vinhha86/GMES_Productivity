@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
-        currentView: null
+        avatar: '',
+        iconCls: ''
     }
 });

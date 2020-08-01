@@ -20,10 +20,15 @@ Ext.define('GSmartApp.view.main.MainController', {
     },
     lastView: null,
     init: function (view) {
+        var viewmodel = this.getViewModel();
+        var data = GSmartApp.util.State.get('session');
+        var session = data ? GSmartApp.model.Session.loadData(data) : null;
+        viewmodel.set('avatar', session.get('avatar'));
+
         var tbname = this.lookup('tbname');
-        var tbavatar = this.lookup('tbavatar');
+        // var tbavatar = this.lookup('tbavatar');
         tbname.text = config.getFname();
-        tbavatar.src = config.getAvatar();
+        // tbavatar.src = config.getAvatar();
         if(''==window.location.hash) {
              this.redirectTo('dashboard');
         } else {
@@ -247,6 +252,17 @@ Ext.define('GSmartApp.view.main.MainController', {
                xtype: 'xlogin'
             });
         }
+    },
+    onInfo: function(e){
+        var menu_grid = new Ext.menu.Menu({
+            items: [{
+                text: 'Thay đổi mật khẩu',
+                iconCls: 'x-fa fa-key'
+            }
+            ]
+        })
+        e.stopEvent();
+        menu_grid.showAt(e.getXY());
     },
     onLogout:function(){
         // config.setToken(null);

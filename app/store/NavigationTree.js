@@ -48,6 +48,8 @@ Ext.define('GSmartApp.store.NavigationTree', {
                     if(response.responseJson!=null) {
                         response.responseJson.data.token = _token;
                         response.responseJson.data.expires = _expires;
+                        response.responseJson.data.avatar = session.avatar;
+
                         GSmartApp.util.State.set('session', response.responseJson.data);
                     }
                 }

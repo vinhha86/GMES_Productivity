@@ -25,6 +25,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
         },{
             title: 'Định mức',
             xtype: 'PorderBom_TabColor'
+        },{
+            title: 'Sewing Cost',
+            xtype: 'PorderSewingCost_View'
         }]
     }],
     dockedItems: [{

@@ -44,7 +44,13 @@ Ext.define('GSmartApp.view.login.LoginController', {
                         config.setToken('Bearer ' + session.get('token'));
                         config.setFname(session.get('fname'));
                         config.setAvatar(session.get('avatar'));
+
+
+
                         GSmartApp.util.State.set('session', session && session.getData(true));
+
+                        console.log(GSmartApp.util.State.get('session'));
+
                         var _token = session.get('token');
                         var playload = JSON.parse(atob(_token.split('.')[1]));
                         Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });
@@ -64,6 +70,13 @@ Ext.define('GSmartApp.view.login.LoginController', {
                                     Ext.create({
                                         xtype: 'app-main'
                                     });
+                                }
+                                else {
+                                    // var data = GSmartApp.util.State.get('session');
+                                    // var session = data ? GSmartApp.model.Session.loadData(data) : null;
+                                    // console.log(session);
+                                    var viewmodel = main.getViewModel();
+                                    viewmodel.set('avatar', session.get('avatar'));
                                 }
                                 //Ext.getCmp('id_avatar').setSrc(session.get('avatar'));
                             }
