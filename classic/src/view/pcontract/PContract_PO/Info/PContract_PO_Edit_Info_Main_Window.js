@@ -28,6 +28,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
                 {
                     region: 'center',
                     xtype: 'PContract_PO_Edit_Info',
+                    id: 'PContract_PO_Edit_Info_window',
                     border: true,
                     margin: 1,
                 },
