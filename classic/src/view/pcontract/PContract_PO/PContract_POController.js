@@ -141,7 +141,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
 
         form.down('PContract_PO_Edit').getController().on('Thoat',function(){
             var storePO = viewModel.getStore('PContractProductPOStore');
-            storePO.load();
+            if (null!=storePO) storePO.load();
             form.close();
         });
     },
