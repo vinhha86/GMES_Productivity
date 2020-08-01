@@ -126,6 +126,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                 {
                     region: 'center',
                     xtype: 'Schedule_plan_View',
+                    readOnly: true,
                     border: true,
                     margin: 1,
                     // hidden: true

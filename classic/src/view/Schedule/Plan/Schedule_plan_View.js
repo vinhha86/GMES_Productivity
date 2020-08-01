@@ -16,6 +16,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         'Sch.plugin.Printable'
     ],
     layout: 'fit',
+    readOnly: false,
     initComponent: function () {
         var me = this,
             viewmodel = this.getViewModel(),
@@ -72,6 +73,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
         });
 
         var sch = Ext.create('Sch.panel.SchedulerTree', {
+            readOnly: me.readOnly,
             rowHeight: 30,
             barMargin: 2,
             id: 'treeplan',
