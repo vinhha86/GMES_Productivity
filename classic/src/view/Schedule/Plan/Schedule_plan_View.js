@@ -149,7 +149,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 },
                 {
                     xtype: 'actioncolumn',
-                    width: 30,
+                    width: 25,
                     menuDisabled: true,
                     sortable: false,
                     items: [{

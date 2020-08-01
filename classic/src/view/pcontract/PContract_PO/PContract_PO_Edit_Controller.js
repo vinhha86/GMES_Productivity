@@ -45,6 +45,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
     },
     getInfo: function(id){
+        var me = this;
         var viewmodel = this.getViewModel();
         if (null != id){
             var params = new Object();
@@ -63,12 +64,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                         viewmodel.set('po.packingnotice', packing_arr);
                         
                         var store = viewmodel.getStore('PriceStore');
+                        store.clearFilter();
                         store.removeAll();
                         store.insert(0 , response.data.pcontract_price); 
                         
-                        //Lay danh sach POrders
-                        // var porderStore = viewmodel.getStore('POrderStore');
-                        // porderStore.loadByPO(viewmodel.get('pcontractid_link'),viewmodel.get('po.id'));
+                        store.filter('productid_link',viewmodel.get('product_selected_id_link'));
 
                         //Lay danh sach POrder_Req
                         var porderReqStore = viewmodel.getStore('porderReqStore');
