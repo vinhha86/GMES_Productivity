@@ -25,7 +25,20 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         {
             header: 'Tên công đoạn',
             dataIndex: 'name',
-            flex: 1
+            flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'workingname',
+                width: '99%',
+                // flex: 1,
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onWorkingnameKeyup',
+                    buffer: 500
+                }
+            }
         }
     ],
     dockedItems: [{

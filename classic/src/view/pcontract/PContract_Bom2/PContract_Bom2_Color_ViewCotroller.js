@@ -155,11 +155,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
         });
     },
     updateColumnSize: function (record) {
-        var me = this;
         var grid = this.getView();
         var column = grid.getColumns();
         for (var i = 0; i < column.length; i++) {
-            if (i > 11) {
+            if (i > 10) {
                 record.set(column[i].dataIndex, 0);
             }
         }

@@ -18,6 +18,26 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             click: 'onChon'
         }
     },
+    onWorkingnameKeyup: function(){
+        var grid = this.getView(),
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('workingname'),
+        filters = grid.store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
     onThoat: function(){
         this.getView().up('window').close();
     },

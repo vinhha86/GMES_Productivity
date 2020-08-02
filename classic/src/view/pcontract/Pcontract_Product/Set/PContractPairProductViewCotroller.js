@@ -94,10 +94,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
                 no: 'Không'
             },
             fn: function (btn) {
-                if (btn === 'no') {
-                    return;
-                }
-                else {
+                if (btn === 'yes') {
                     var params = new Object();
                     params.id = rec.data.id;
 

@@ -11,14 +11,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     },
     oncheckother: function(m, rowIndex, checked, record, e, eOpts){
         var me = this;
-        
-
         me.updateMaterial(record, checked);
     },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 11
+        var length = 12
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length -1 ) {
                 grid.headerCt.remove(i);
@@ -108,7 +106,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
             me.updateColor(context.record);
         }
         else if (context.field == "unitid_link") {
-            me.updateMaterial(context);
+            me.updateMaterial(context.record);
          }
          else { 
              me.updateSKU(context.record);
@@ -119,7 +117,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         var grid = this.getView();
         var column = grid.getColumns();
         for (var i = 0; i < column.length; i++) {
-            if (i > 11) {
+            if (i > 13) {
                 record.set(column[i].dataIndex, 0);
             }
         }
@@ -295,7 +293,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var params = new Object();
-        params.data = record.record.data;
+        params.data = record.data;
         params.colorid_link = grid.colorid_link;
         params.sizeid_link = record.field;
         params.value = record.value;
@@ -318,8 +316,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
                     }
                     else {
                         //Thanh cong thi commit de bo dau do trong grid
-                        record.record.set("amount", 0);
-                        record.record.set("amount_color", 0);
+                        record.set("amount", 0);
+                        record.set("amount_color", 0);
                         store.commitChanges();
                     }
                 }

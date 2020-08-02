@@ -49,6 +49,15 @@ Ext.define('GSmartApp.view.material.MaterialDetailView', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
+        },{
+            xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            bind: {
+                hidden: '{!isWindow}'
+            },
+            iconCls: 'x-fa fa-window-close'
         }]
     }]
 })
