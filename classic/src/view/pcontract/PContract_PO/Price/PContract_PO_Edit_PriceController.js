@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             price_data.price_cmp = priceD_data.price;
 
             //Tinh gia Sweing Target
-            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+            price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
         } else {
             //Tinh gia theo dinh muc va gia don vi
             if (e.colIdx == 1 || e.colIdx == 3)
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             var price_sizeset = priceStore.data.items[i].data;
             sum_price_cmp = sum_price_cmp + price_sizeset.price_cmp*price_sizeset.quantity;
             sum_price_fob = sum_price_fob + price_sizeset.price_fob*price_sizeset.quantity;
-            sum_price_sewingtarget = sum_price_sewingtarget + price_sizeset.price_sewingtarget*price_sizeset.quantity;
+            sum_price_sewingtarget = Math.round(sum_price_sewingtarget + price_sizeset.price_sewingtarget*price_sizeset.quantity);
             sum_price_sewingcost = sum_price_sewingcost + price_sizeset.price_sewingcost*price_sizeset.quantity;
             sum_totalprice = sum_totalprice + price_sizeset.totalprice*price_sizeset.quantity;
             sum_quantity = sum_quantity + price_sizeset.quantity;
@@ -181,8 +181,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 var price_SizesetALL = priceStore.data.items[k].data;
                 price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp/sum_quantity,2);
                 price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob/sum_quantity,2);
-                price_SizesetALL.price_sewingtarget = Ext.Number.roundToPrecision(sum_price_sewingtarget/sum_quantity,0);
-                price_SizesetALL.price_sewingcost = Ext.Number.roundToPrecision(sum_price_sewingcost/sum_quantity,0);
+                price_SizesetALL.price_sewingtarget = Math.round(sum_price_sewingtarget/sum_quantity);
+                price_SizesetALL.price_sewingcost =Math.round(sum_price_sewingcost/sum_quantity);
                 price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice/sum_quantity,2);
                 // console.log(price_SizesetALL);
             };  
@@ -266,7 +266,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         var priceStore = viewmodel.getStore('PriceStore');
         for(var k =0; k<priceStore.data.length; k++){
             var price_data = priceStore.data.items[k].data;
-            price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+            price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
         }
         //Tinh toan lai SizesetAll cho tat ca cac san pham
         var productStore = viewmodel.getStore('ProductStore');
@@ -280,7 +280,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         //Hien lai thong tin tren SumUp cua Siseset dc chon sau khi tinh toan lai
         var price_data = viewmodel.get('po_price');
-        price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
         viewmodel.set('po_price',price_data);
         console.log(viewmodel.get('po_price'));
     },
@@ -399,7 +399,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         //Hien lai thong tin tren SumUp cua Siseset dc chon sau khi tinh toan lai
         var price_data = viewmodel.get('po_price');
-        price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+        price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
         viewmodel.set('po_price',price_data);
      }
 })
