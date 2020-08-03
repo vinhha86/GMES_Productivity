@@ -1,17 +1,12 @@
-Ext.define('GSmartApp.store.DeviceGroupStore', {
+Ext.define('GSmartApp.store.LaborLevelStore', {
     extend: 'Ext.data.Store',
-    alias: 'store.devicegroupstore',
+    alias: 'store.LaborLevelStore',
 	fields: [
 		{name: 'id', type: 'number'},
-		{name: 'name',   type: 'string'}
+		{name: 'code',   type: 'string'},
+		{name: 'name',   type: 'string'},
+		{name: 'comment',   type: 'string'}
 	],
-	data:[{ 
-		id:1,
-		name:'Nhóm thiết bị số 1'
-	},{
-		id:2,
-		name:'Nhóm thiết bị số 2'
-	}],
 	loadStore:function(){
 		var me=this;
 		this.setProxy({
@@ -22,7 +17,7 @@ Ext.define('GSmartApp.store.DeviceGroupStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/device/getalldevicegroup',
+			url: config.getAppBaseUrl()+'/api/v1/laborlevel/getalllaborlevel',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
