@@ -20,12 +20,14 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     viewConfig: {
         enableTextSelection: false,
         stripeRows: false,
+        rowLines: true,
+        columnLines: true
     },
     columns: [
         {
             header: 'Tên công đoạn',
             dataIndex: 'name',
-            flex: 1,
+            width: 150,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -39,6 +41,28 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     buffer: 500
                 }
             }
+        }, {
+            header: 'Thiết bị',
+            dataIndex: 'devicegroup_name',
+            width: 120
+        },
+        {
+            header: 'Bậc thợ',
+            dataIndex: 'laborlevel_name',
+            width: 120
+        },
+        {
+            header: 'Thời gian',
+            dataIndex: 'timespent_standard',
+            width: 120,
+            renderer: function(value){
+                return value == null ? "" : (value + " (s)");
+            }
+        },
+        {
+            header: 'Chú thích',
+            dataIndex: 'techcomment',
+            flex: 1
         }
     ],
     dockedItems: [{

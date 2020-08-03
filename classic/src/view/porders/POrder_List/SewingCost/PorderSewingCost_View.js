@@ -42,6 +42,29 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             flex: 1
         },
         {
+            header: 'Thiết bị',
+            dataIndex: 'devicegroup_name',
+            width: 120
+        },
+        {
+            header: 'Bậc thợ',
+            dataIndex: 'laborlevel_name',
+            width: 120
+        },
+        {
+            header: 'Thời gian',
+            dataIndex: 'timespent_standard',
+            width: 120,
+            renderer: function(value){
+                return value == null ? "" : (value + " (s)");
+            }
+        },
+        {
+            header: 'Chú thích',
+            dataIndex: 'techcomment',
+            flex: 1
+        },
+        {
             header: 'Đơn giá',
             dataIndex: 'cost',
             align: 'right',

@@ -140,7 +140,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
             modal: true,
             border: false,
             closeAction: 'destroy',
-            width: 600,
+            width: 900,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
