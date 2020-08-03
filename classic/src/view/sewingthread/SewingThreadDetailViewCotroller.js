@@ -23,7 +23,13 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadDetailViewCotroller', {
         },
         '#btnLuu': {
             click: 'onLuu'
+        },
+        '#btnThoat' : {
+            click : 'onThoat'
         }
+    },
+    onThoat: function(){
+        this.getView().up('window').close();
     },
     onLuu: function () {
         var me = this.getView();
@@ -68,7 +74,9 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadDetailViewCotroller', {
                                 else
                                 {
                                     //Tạo event để form gọi lên hứng khi thêm sản phẩm thành công với trường hợp tạo sản phẩm trong đơn hàng
-                                    m.getView().fireEvent("CreateThread", response.product);
+                                    m.getView().fireEvent("CreateProduct", response.product);
+                                    viewModel.set('product', response.product);
+                                    m.onLoadData(response.product.id);
                                 }
                             }
                         });

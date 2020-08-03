@@ -697,6 +697,11 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             xtype = 'PackingTrimDetailView';
             title = 'Cập nhật phụ liệu hoàn thiện';
         }
+        else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60)
+        {
+            xtype = 'SewingTrimDetailView';
+            title = 'Cập nhật Chỉ may';
+        }
 
         var form = Ext.create('Ext.window.Window', {
             height: 500,
