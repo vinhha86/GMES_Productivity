@@ -45,6 +45,10 @@ Ext.define('GSmartApp.view.users.User_List', {
         text: 'Số máy bàn',
         dataIndex: 'tel_office',
         width: 120
+    },{
+        text: 'Trạng thái',
+        dataIndex: 'statusname',
+        width: 120
     }, {
         xtype: 'actioncolumn',
         width: 30,
