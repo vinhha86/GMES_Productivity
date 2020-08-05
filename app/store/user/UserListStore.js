@@ -22,6 +22,9 @@ Ext.define('GSmartApp.store.UserListStore', {
 		}
 	],
 	sorters: [{
+        property: 'status',
+        direction: 'DESC'
+    },{
         property: 'orgname',
         direction: 'ASC'
     }],
