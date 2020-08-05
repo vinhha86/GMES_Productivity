@@ -9,6 +9,9 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         'Ext.selection.CellModel'
     ],
     controller: 'pprocess',
+    viewModel: {
+        type: 'PProcessViewModel'
+    },    
     //title: 'Tiến độ sản xuất',
     //cls: 'tool-icon-size',
     //autoHeight: true,
@@ -17,8 +20,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     layout: 'fit',
     //frame: true,
     scrollable: true,
-    store: {
-        type: 'porderprocessing'
+    bind:{
+        store:'{POrderProcessingStore}'
     },
     columnLines: true,
     selModel: {
@@ -322,14 +325,26 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             listeners: {
                 change: 'onProcessingDateChange'
             }
-        }, {
+        }, 
+        {
             xtype: 'combobox',
             width: 130,
             editable: false,
-            //margin: '0 5 0 5',
-            //fieldLabel: 'Tổ SX',
-            store: {
-                type: 'orgtosx'
+            bind: {
+                store: '{FactoryStore}'
+            },
+            displayField: 'name',
+            valueField: 'id',
+            listeners: {
+                select: 'onFactoryItemSelected'
+            }
+        },        
+        {
+            xtype: 'combobox',
+            width: 130,
+            editable: false,
+            bind: {
+                store: '{ProductionLineStore}'
             },
             displayField: 'name',
             valueField: 'id',
@@ -337,19 +352,21 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             listeners: {
                 select: 'onOrgItemSelected'
             }
-        },{
+        },
+        {
             tooltip: 'Tải lại bảng tiến độ',
             iconCls: 'x-fa fa-refresh',
             weight: 30,
             handler: 'onRefreshTap'
-        },{
-            tooltip: 'Thêm lệnh sản xuất vào tổ chuyền',
-            text: 'Thêm lệnh sản xuất',
-            iconCls: 'x-fa fa-plus',
-            enableToggle: true,
-            pressed: true,
-            handler: 'onPOrderListDialog'
         },
+        // {
+        //     tooltip: 'Thêm lệnh sản xuất vào tổ chuyền',
+        //     text: 'Thêm lệnh sản xuất',
+        //     iconCls: 'x-fa fa-plus',
+        //     enableToggle: true,
+        //     pressed: true,
+        //     handler: 'onPOrderListDialog'
+        // },
         // {
         //     xtype: 'checkboxgroup',
         //     layout: 'column',
@@ -388,7 +405,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     //     }
     // },
     listeners: {
-        activate: 'onActivate',
+        // activate: 'onActivate',
         celldblclick: 'onCelldblclick'
     }
 });

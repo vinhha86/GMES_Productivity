@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.store.WorkingProcess.WorkingProcess_Store', {
+Ext.define('GSmartApp.store.WorkingProcess_Store', {
     extend: 'Ext.data.Store',
     storeId: 'WorkingProcess_Store',
     alias: 'store.WorkingProcess_Store',
 
-    model: 'GSmartApp.model.WorkingProcess.WorkingProcess_Model',
+    model: 'GSmartApp.model.WorkingProcess_Model',
        
     sorters: [{
         property: 'name',

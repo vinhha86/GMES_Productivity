@@ -2,78 +2,33 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.pprocess',
     init: function() {
-        this.callParent(arguments);
-
-        cbOrg = this.lookupReference('orgcombo');
-        cbOrg.store.loadConfig();
-        cbOrg.store.load();
-        cbOrg.setValue(-1);
-
-        this.onActivate();
-    },
-    onActivate: function(e, eOpts){
-        //Load danh sach lenh theo ngay
+        var viewmodel = this.getViewModel();
+        var FactoryStore = viewmodel.get('FactoryStore');
         var cbProcessingDate = this.lookupReference('processingdate');
-        this.getView().store.loadByDate(cbProcessingDate.getValue());
+        var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
+        
+        FactoryStore.loadStore_Async(13, null)
+		FactoryStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+                    //Tai du lieu tien do cua phan xuong dau tien trong danh sach Factory
+                    if (records.length > 0)
+                        POrderProcessingStore.loadByDate(cbProcessingDate.getValue(),records[0].data.id);
+                }
+			}
+		});
 
-        var store_userfunctions = Ext.data.StoreManager.lookup('store_userfunctions');
-        if (null != store_userfunctions){
-            var me = this;
-            form = me.getView();
-            store_userfunctions.loadFunctions(form,function(records, operation, success){
-                store_userfunctions.each(function(record) {
-                    var iObject = me.lookupReference(record.get('refid_item'));
-                    if (null != iObject){
-                        if (Ext.isDefined(iObject.hidden)){
-                            if (record.get('ishidden')){
-                                iObject.setHidden(true);
-                            }
-                        }
-                        if (Ext.isDefined(iObject.disabled)){
-                            if (record.get('isreadonly')){
-                                iObject.setDisabled(true);
-                            }
-                        }
-                    }
-                });                
-            });
-            // if(store_userfunctions.buffered) {
-            //     // forEach is private and part of the private PageMap
-            //     store_userfunctions.data.forEach(function(record, recordIdx) {
-            //         var iObject = me.lookupReference(record.get('refid_item'));
-            //         if (null != iObject){
-            //             if (Ext.isDefined(iObject.hidden)){
-            //                 if (record.get('ishidden')){
-            //                     iObject.setHidden(true);
-            //                 }
-            //             }
-            //             if (Ext.isDefined(iObject.disabled)){
-            //                 if (record.get('isreadonly')){
-            //                     iObject.setDisabled(true);
-            //                 }
-            //             }
-            //         }
-            //     }, this);
-            // } else {
-            //     store_userfunctions.each(function(record) {
-            //         var iObject = me.lookupReference(record.get('refid_item'));
-            //         if (null != iObject){
-            //             if (Ext.isDefined(iObject.hidden)){
-            //                 if (record.get('ishidden')){
-            //                     iObject.setHidden(true);
-            //                 }
-            //             }
-            //             if (Ext.isDefined(iObject.disabled)){
-            //                 if (record.get('isreadonly')){
-            //                     iObject.setDisabled(true);
-            //                 }
-            //             }
-            //         }
-            //     }, this);
-            // }                          
-        }
-       
     },
+    onFactoryItemSelected: function (sender, record) {
+        var viewmodel = this.getViewModel();
+        var cbProcessingDate = this.lookupReference('processingdate');
+        var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
+
+        POrderProcessingStore.loadByDate(cbProcessingDate.getValue(),record.get('id'));
+    },    
     onOrgItemSelected: function (sender, record) {
         console.log(record.get('id'));
         if (record.get('id') > 0){

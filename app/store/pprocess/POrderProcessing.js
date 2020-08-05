@@ -5,7 +5,11 @@ Ext.define('GSmartApp.store.POrderProcessing', {
 
     model: 'GSmartApp.model.POrderProcessing',
     autoLoad: false,
-    groupField: 'granttoorgname',
+    // groupField: 'granttoorgname',
+    grouper: {
+        property: 'granttoorgname',
+        sortProperty: 'granttoorgid_link'
+    },
     loadAllLatest:function(){
 		this.setProxy({
             type: 'ajax',
@@ -215,11 +219,18 @@ Ext.define('GSmartApp.store.POrderProcessing', {
 		});
         this.load();
     },             
-    sorters: [{
-        property: 'shortvalue',
-        direction: 'ASC'
-    },{
-        property: 'processingdate',
-        direction: 'DESC'
-    }]
+    sorters: [
+        // {
+        //     property: 'granttoorgid_link',
+        //     direction: 'ASC'
+        // },        
+        {
+            property: 'shortvalue',
+            direction: 'ASC'
+        },
+        {
+            property: 'processingdate',
+            direction: 'DESC'
+        }
+    ]
 });
