@@ -8,6 +8,27 @@ Ext.define('GSmartApp.store.NavigationTree', {
         {name: 'rowCls',   type: 'string'},
         {name: 'iconCls',  type: 'string',
             convert: function (value) {
+                switch(value){
+                    case 'daisize':
+                    case 'chinhanh':
+                    case 'chimay':
+                    case 'cangport':
+                    case 'banthanhpham':
+                    case 'endbuyer':
+                    case 'loaihinhdonhang':
+                    case 'ngaynghile':
+                    case 'ngoaite':
+                    case 'nguyenlieu':
+                    case 'phulieu-hoantien':
+                    case 'phulieumay':
+                    case 'pricefob':
+                    case 'sanpham':
+                    case 'supplier':
+                    case 'thuoctinh':
+                    case 'trusochinh':
+                    case 'unit':
+                        return 'myIcon icon-'+value;
+                }
                 return 'x-fa fa-'+value;
             }
         },
