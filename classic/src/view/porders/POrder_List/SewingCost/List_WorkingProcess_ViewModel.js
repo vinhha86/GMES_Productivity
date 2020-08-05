@@ -10,6 +10,16 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
         }
     },
     data: {
-        productid_link: 0
+        isDisable_themmoi: false,
+        working: {
+            name: '',
+            devicerequiredid_link: '',
+            laborrequiredid_link: '',
+            timespent_standard: '',
+            techcomment: '',
+            productid_link: 0,
+            process_type : 1,
+            status: 0
+        }
     }
 })

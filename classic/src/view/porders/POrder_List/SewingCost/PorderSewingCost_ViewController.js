@@ -151,7 +151,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                 xtype: 'List_WorkingProcess_View',
                 viewModel: {
                     data: {
-                        productid_link: productid_link
+                        working : {
+                            productid_link: productid_link
+                        }
                     }
                 }
             }]

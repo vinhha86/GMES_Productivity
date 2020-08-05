@@ -70,6 +70,15 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         layout: 'hbox',
         items: [
             {
+                xtype:'button',
+                text: 'Thêm công đoạn',
+                margin: 3,
+                itemId:'btnThemMoi',
+                iconCls: 'x-fa fa-plus',
+                bind: {
+                    disabled : '{isDisable_themmoi}'
+                }
+            },{
                 border: false,
                 flex : 1
             },{
@@ -86,5 +95,88 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                 iconCls: 'x-fa fa-window-close'
             }
         ]
+    },{
+        dock: 'top',
+        xtype: 'form',
+        layout: 'hbox',
+        itemId: 'addWorking',
+        hidden: true,
+        items: [{
+            xtype: 'textfield',
+            margin: 1,
+            fieldLabel: '',
+            emptyText: 'Tên công đoạn',
+            width: 150,
+            allowBlank: false,
+            blankText: 'Trường bắt buộc nhập',
+            selectOnFocus: true,
+            itemId: 'name',
+            bind: {
+                value: '{working.name}'
+            }
+        },
+        {
+            xtype: 'combo',
+            margin: 1,
+            fieldLabel: '',
+            emptyText: 'Thiết bị',
+            itemId: 'device',
+            width: 150,
+            selectOnFocus: true,
+            bind: {
+                value: '{working.devicerequiredid_link}'
+            }
+        },{
+            xtype: 'combo',
+            margin: 1,
+            fieldLabel: '',
+            emptyText: 'Bậc thợ',
+            itemId: 'labor',
+            width: 150,
+            selectOnFocus: true,
+            bind: {
+                value: '{working.laborrequiredid_link}'
+            }
+        },{
+            xtype: 'textfield',
+            margin: 1,
+            fieldLabel: '',
+            emptyText: 'Th.gian',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true,
+            width: 70,
+            allowBlank: false,
+            itemId: 'time',
+            blankText: 'Trường bắt buộc nhập',
+            bind: {
+                value: '{working.timespent_standard}'
+            }
+        },{
+            xtype: 'textfield',
+            margin: 1,
+            fieldLabel: '',
+            emptyText: 'Chú thích',
+            itemId: 'comment',
+            width: 150,
+            selectOnFocus: true,
+            bind: {
+                value: '{working.techcomment}'
+            }
+        }, {
+            flex: 1
+        }, {
+            xtype: 'button',
+            iconCls: 'x-fa fa-save',
+            margin: 1,
+            itemId: 'btnLuu',
+            tooltip: 'Lưu',
+            formBind: true
+        },{
+            xtype: 'button',
+            iconCls: 'x-fa fa-arrow-circle-up',
+            margin: 1,
+            tooltip: 'Hủy',
+            itemId: 'btnHuy'
+        }]
     }]
 });

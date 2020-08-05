@@ -124,32 +124,45 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
                 },
                 fn: function (btn) {
                     if (btn === 'yes') {
-                        me.setLoading("Đang xóa dữ liệu");
-                        var params = new Object();
-                        params.id = select[0].data.id;
-
-                        GSmartApp.Ajax.post('/api/v1/attribute/attribute_delete', Ext.JSON.encode(params),
-                            function (success, response, options) {
-                                if (success) {
-                                    var store = me.getViewModel().getStore('AttributeStore');
-                                    store.remove(select);
-                                    if(select[0].removedFrom == store.data.length){
-                                        me.getSelectionModel().select(store.data.length - 1);
-                                    }else{
-                                        me.getSelectionModel().select(select[0].removedFrom);
-                                    }
-                                } else {
-                                    Ext.Msg.show({
-                                        title: 'Thông báo',
-                                        msg: 'Xóa thất bại',
-                                        buttons: Ext.MessageBox.YES,
-                                        buttonText: {
-                                            yes: 'Đóng',
-                                        }
-                                    });
+                        var list = [4, 30, 36];
+                        if(list.includes(select[0].data.id)){
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Không thể xóa những thuộc tính dùng để sinh mã SKU cho sản phẩm và Nguyên phụ liệu",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
                                 }
-                                me.setLoading(false);
-                            })
+                            });
+                        }
+                        else {
+                            me.setLoading("Đang xóa dữ liệu");
+                            var params = new Object();
+                            params.id = select[0].data.id;
+    
+                            GSmartApp.Ajax.post('/api/v1/attribute/attribute_delete', Ext.JSON.encode(params),
+                                function (success, response, options) {
+                                    if (success) {
+                                        var store = me.getViewModel().getStore('AttributeStore');
+                                        store.remove(select);
+                                        if(select[0].removedFrom == store.data.length){
+                                            me.getSelectionModel().select(store.data.length - 1);
+                                        }else{
+                                            me.getSelectionModel().select(select[0].removedFrom);
+                                        }
+                                    } else {
+                                        Ext.Msg.show({
+                                            title: 'Thông báo',
+                                            msg: 'Xóa thất bại',
+                                            buttons: Ext.MessageBox.YES,
+                                            buttonText: {
+                                                yes: 'Đóng',
+                                            }
+                                        });
+                                    }
+                                    me.setLoading(false);
+                                })
+                        }
                     }
                 }
             });
