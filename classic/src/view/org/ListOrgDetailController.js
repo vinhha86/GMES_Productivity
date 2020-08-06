@@ -24,6 +24,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
     },
     onLuu: function () {
         var me = this.getView();
+        var treePanel = Ext.getCmp('ListOrgMenu');
         me.setLoading("Đang lưu dữ liệu");
 
         var viewModel = this.getViewModel();
@@ -46,8 +47,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
 
         if(data.id == 0){
             viewModel.set('currentRec',null);
-            viewModel.set('parentid_link',null);
-            viewModel.set('fieldState',false);
+            // viewModel.set('parentid_link',null);
+            // viewModel.set('fieldState',false);
             viewModel.set('id',0);
         }
 
@@ -64,8 +65,63 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                                 yes: 'Đóng',
                             }
                         });
+                        
                         var storeMenu = viewModel.getStore('MenuStore');
-                        storeMenu.loadStore();
+                        var items = storeMenu.data.items; // items trong tree
+                        var isExist = false; // Org ton tai hay chua
+                        var org = response.org;
+                        var parentId = org.parentid_link;
+
+                        if(data.id != 0 && org.status != -1){ // dat lai title cho detail
+                            me.setTitle(org.name);
+                        }
+
+                        // check ton tai
+                        if(storeMenu.getById(org.id) != null){
+                            isExist = true;
+                        }
+
+                        // neu da org ton tai, neu status = -1, xoa
+                        if(isExist && org.status == -1){
+                            if(org.parentid_link == -1){
+                                me.setLoading(false);
+                                return;
+                            }
+                            var node = storeMenu.getById(org.parentid_link);
+                            var node2 = storeMenu.getById(org.id);
+                            node.removeChild(node2);
+                            viewModel.set('currentRec',null);
+                            viewModel.set('parentid_link',null);
+                            viewModel.set('fieldState',false);
+                            viewModel.set('id',0);
+
+                        }
+
+                        // neu org chua ton tai, neu status = 1, them
+                        if(!isExist && org.status == 1){
+                            for(var i=0;i<items.length;i++){
+                                var parentOrg = items[i].data;
+                                // console.log(parentOrg);
+                                if(parentOrg.id == org.parentid_link){
+                                    org.children = [];
+                                    org.depth = parentOrg.depth+1;
+                                    org.expandable = true;
+                                    org.expanded = false;
+                                    org.glyph = '';
+                                    org.leaf = true;
+                                    org.qshowDelay = 0;
+                                    org.root = false;
+                                    org.selectable = true;
+                                    org.visible = true;
+                                    var node = storeMenu.getById(parentOrg.id);
+                                    node.appendChild(org);
+                                    break;
+                                }
+                            }
+                        }
+
+                        treePanel.reconfigure(storeMenu);
+
                     }
                     else {
                         Ext.Msg.show({

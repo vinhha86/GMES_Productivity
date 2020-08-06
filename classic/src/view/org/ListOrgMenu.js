@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
     controller: 'ListOrgMenuController',
     reference: 'ListOrgMenu',
     useArrows:true,
+    bufferedRenderer: false,
     bodyStyle: {
         
     },

@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         viewModel.set('parentid_link',record.data.parentid_link);
         viewModel.set('fieldState', true);
         // console.log(record.data);
+
+        // var store = viewModel.getStore('MenuStore');
+        // console.log(store.data.items);
     },
     onloadPage: function () {
         var me = this.getView();
