@@ -5,12 +5,13 @@ Ext.define('GSmartApp.store.attribute.attributeValueStore', {
 		{name: 'id', type: 'int'},
 		{name: 'attributeid_link',  type: 'int'},
 		{name: 'value',   type: 'string'},
-		'isdefault'
+		'isdefault',
+		'sortvalue'
 	],
-	sorters: {
-        direction: 'ASC',
-        property: 'name'
-    },
+	// sorters: {
+    //     direction: 'ASC',
+    //     property: 'sortvalue'
+    // },
 	loadStore:function(id){
 		var me=this;
 		var params = new Object();

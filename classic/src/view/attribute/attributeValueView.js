@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         type: 'attributeValueViewModel'
     },
     selModel: {
-        selType: 'checkboxmodel',
+        selType: 'rowmodel',
         mode: 'SINGLE'
     },
     plugins: {
@@ -20,7 +20,13 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         enableTextSelection: true,
         scrollable: true,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        plugins: {
+            ptype: 'gridviewdragdrop'
+        },
+        listeners: {
+            drop: 'onDrop',
+        }     
     },
     bind: {
         store: '{AttributeValueStore}'
@@ -28,7 +34,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
     columns: [{
         text: 'STT',
         width: 50,
-        xtype: 'rownumberer',
+        // xtype: 'rownumberer',
+        dataIndex: 'sortvalue',
         align: 'center'
     }, {
         text: 'Giá trị',
