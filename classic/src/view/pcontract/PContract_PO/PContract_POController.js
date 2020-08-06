@@ -10,11 +10,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         },
         'PContract_PO_List': {
             itemclick: 'onSelectPO'
+        },
+        '#btnExcel' : {
+            click: 'onExport'
         }
+    },
+    onExport: function(){
+        var viewmodel = this.getViewModel();
+        var pcontractid_link = viewmodel.get('PContract.id');
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Đơn hàng (PO)',
+            closeAction: 'destroy',
+            height: 500,
+            width: Ext.getBody().getViewSize().width*.95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'SelectPO_Quotation',
+                viewModel: {
+                    data: {
+                        pcontractid_link: pcontractid_link
+                    }
+                }
+            }]
+        });
+        form.show();
     },
     onFactoriesTap: function(){
         var panel_factories = this.getView().items.get('panel_factories');
-        console.log(panel_factories);
         if (null != panel_factories){
             if (panel_factories.getHidden())
             panel_factories.setHidden(false);

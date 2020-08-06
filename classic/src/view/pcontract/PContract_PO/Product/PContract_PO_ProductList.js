@@ -41,6 +41,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     //         return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
     //     }
     // }
-    ]    
+    ],
+    dockedItems: [{
+        dock: 'bottom',
+        layout: 'hbox',
+        items: [{
+            flex: 1
+        },{
+            xtype: 'button',
+            margin: 3,
+            text: 'Báo giá',
+            iconCls: 'x-fa fa-file-excel',
+            itemId: 'btnExcel'
+        }]
+    }] 
 });
 

@@ -109,13 +109,14 @@ Ext.define('GSmartApp.view.product.ProductImageViewController', {
         }
     },
     loadImg: function (img, filename) {
+        var viewmodel = this.getViewModel();
         var me = this.getView();
         var data = new Object();
         data.product_type = 10;
         data.img = img;
         var str = filename.split('.');
         data.ext = str[str.length - 1];
-        data.id = me.IdProduct;
+        data.id = viewmodel.get('product.id');
 
         GSmartApp.Ajax.post('/api/v1/product/viewimg', Ext.JSON.encode(data),
             function (success, response, options) {
