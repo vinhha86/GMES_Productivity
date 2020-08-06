@@ -267,5 +267,35 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             }
         }
         return true;
-    }
+    },
+    onDrop: function(node, data, dropRec, dropPosition){
+        var store = this.getViewModel().getStore('AttributeValueStore');
+        var arrData = [];
+        store.each(function(rec,ind){
+            rec.set('sortvalue',ind+1);
+            
+            arrData.push(rec.data);
+        });
+
+        var params = new Object();
+        params.msgtype = "ATTRIBUTEVALUE_REORDER";
+        params.message = "Sap xep thuoc tinh";
+        params.data = arrData;
+
+        GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_reorder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    // store.reload();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    }    
 })
