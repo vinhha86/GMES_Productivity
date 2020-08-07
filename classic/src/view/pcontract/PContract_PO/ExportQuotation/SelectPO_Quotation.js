@@ -32,11 +32,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
     columns:[{
         text:'PO Buyer',
         dataIndex:'po_buyer',
-        width: 100
+        width: 140
     },{
         text:'PO Vendor',
         dataIndex:'po_vendor',
-        width: 100
+        width: 140
     },{
         text:'SL',
         align: 'end',
@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
         text:'Ngày giao',
         dataIndex:'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 70
+        width: 95
     },
     {
         text:'Ngày NPL',
@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
     {
         text:'Phân xưởng',
         dataIndex:'factories',
-        width: 80
+        flex: 1
     }],
     dockedItems:[{
         dock: 'bottom',
@@ -87,6 +87,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
             margin: 3,
             itemId:'btnThoat',
             iconCls: 'x-fa fa-window-close'
+        }]
+    },{
+        dock:'top',
+        layout:'hbox',
+        items: [{
+            xtype: 'textfield',
+            margin: 3,
+            fieldLabel: 'Tên báo giá',
+            bind: {
+                value: '{name_quotation}'
+            }
         }]
     }]
 });
