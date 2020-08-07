@@ -16,8 +16,21 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
     data: {
         id: 0,
         parentid_link: null,
-        name: '',
+        titleName: '',
         currentRec:null,
+        // Form
+        code: null,
+        name: null,
+        city: null,
+        address: null,
+        contactperson: null,
+        email: null,
+        phone: null,
+        linecost: null,
+        orgtypeid_link: null,
+        colorid_link: null,
+        status: null,
+        //
         fieldState: false
     },
     formulas: {
@@ -25,10 +38,10 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
             if (get('id') == 0 && get('parentid_link') == null) {
                 return 'Chi tiết đơn vị';
             }else if(get('id') == 0 && get('parentid_link') != null){
-                return 'Thêm mới đơn vị trực thuộc \'' + this.get('name') + '\'';
+                return 'Thêm mới đơn vị trực thuộc \'' + this.get('titleName') + '\'';
             }
             else {
-                return this.get('name');
+                return this.get('titleName');
             }
         },
         btnThemState: function(get){

@@ -73,7 +73,9 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
                     searchtype: 5,
                     pcontractid_link: viewmodel.get('PContract.id'),
                     productid_link_notsearch: productid_link,
-                    isAddNPL: true
+                    isAddNPL: true,
+                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
                 }
             }
         });

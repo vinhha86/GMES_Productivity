@@ -40,7 +40,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
     }, {
         text: 'Giá trị',
         dataIndex: 'value',
-        flex: 1,
+        // flex: 1,
+        width: 150,
         editor: {
             completeOnEnter: true,
             field: {
@@ -48,6 +49,19 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
                 allowBlank: false,
                 blankText: 'Không được để trống giá trị',
                 itemId: 'txtValue'
+            }
+        }
+    },{
+        text: 'Mô tả',
+        dataIndex: 'description',
+        flex: 1,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                allowBlank: true,
+                // blankText: 'Không được để trống giá trị',
+                itemId: 'txtDescription'
             }
         }
     },{

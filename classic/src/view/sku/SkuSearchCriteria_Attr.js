@@ -34,6 +34,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria_Attr', {
         width: 50,
         menuDisabled: true,
         sortable: false,
+        bind:{
+            hidden: '{isHiddenSkuSearchCriteria_Attr_actioncolumn}'
+        },
         items: [{
             iconCls: 'x-fa fas fa-plus',
             tooltip: 'Thêm giá trị',
@@ -65,7 +68,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria_Attr', {
 			ui: 'header',
             margin: '10 5 0 0',
 			tooltip: 'Thêm thuộc tính',
-            iconCls: 'x-fa fa-plus'
+            iconCls: 'x-fa fa-plus',
+            bind:{
+                hidden: '{isHiddenSkuSearchCriteria_Attr_btnThemMoi}'
+            }
         }]
     }]
 });

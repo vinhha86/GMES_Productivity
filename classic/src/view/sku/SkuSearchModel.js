@@ -39,7 +39,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchModel', {
         listMau: [],
         listCo: [],
         invoiceid_link: 0 ,// để truyền xuống api trong invoice
-        isHidden_sku: false
+        isHidden_sku: false,
+        isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
+        isHiddenSkuSearchCriteria_Attr_btnThemMoi: false
+
     },
     formulas: {
         isVisible_btnChonSP: function(get){

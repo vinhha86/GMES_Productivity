@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
     alias: 'controller.ListOrgDetailController',
     Id: 0,
     init: function () {
-        
     },
     control: {
         '#btnLuu': {
@@ -13,16 +12,29 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
             click: 'onThemTrucThuoc'
         }
     },
+    emptyForm: function(){
+        var viewModel = this.getViewModel();
+        viewModel.set('code', null);
+        viewModel.set('name', null);
+        viewModel.set('city', null);
+        viewModel.set('address', null);
+        viewModel.set('contactperson', null);
+        viewModel.set('email', null);
+        viewModel.set('phone', null);
+        viewModel.set('linecost', null);
+        viewModel.set('orgtypeid_link', null);
+        viewModel.set('colorid_link', null);
+        viewModel.set('status', null);
+    },
     onThemTrucThuoc: function(){
         // parentid_link
         var viewModel = this.getViewModel();
-        var data = new Object();
-        data = viewModel.get('currentRec');
-        viewModel.set('parentid_link',data.id);
+        viewModel.set('parentid_link',viewModel.get('id'));
         viewModel.set('id',0);
-        viewModel.set('currentRec',null);
+        this.emptyForm();
     },
     onLuu: function () {
+        var m = this;
         var me = this.getView();
         var treePanel = Ext.getCmp('ListOrgMenu');
         me.setLoading("Đang lưu dữ liệu");
@@ -31,10 +43,19 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
 
         var params = new Object();
         var data = new Object();
-        data = viewModel.get('currentRec');
         data.id = viewModel.get('id');
         data.parentid_link=viewModel.get('parentid_link');
-        
+        data.code = viewModel.get('code');
+        data.name = viewModel.get('name');
+        data.city = viewModel.get('city');
+        data.address = viewModel.get('address');
+        data.contactperson = viewModel.get('contactperson');
+        data.email = viewModel.get('email');
+        data.phone = viewModel.get('phone');
+        data.linecost = viewModel.get('linecost');
+        data.orgtypeid_link = viewModel.get('orgtypeid_link');
+        data.colorid_link = viewModel.get('colorid_link');
+        data.status = viewModel.get('status');
         if(data.status==true){
             data.status=1;
         }else{
@@ -46,9 +67,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         params.message = "Tạo org";
 
         if(data.id == 0){
-            viewModel.set('currentRec',null);
-            // viewModel.set('parentid_link',null);
-            // viewModel.set('fieldState',false);
+            m.emptyForm();
             viewModel.set('id',0);
         }
 
@@ -79,6 +98,19 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                         // check ton tai
                         if(storeMenu.getById(org.id) != null){
                             isExist = true;
+                            var node = storeMenu.getById(org.id);
+                            var nodeData = node.data;
+                            node.data.code = org.code;
+                            node.data.name = org.name;
+                            node.data.city = org.city;
+                            node.data.address = org.address;
+                            node.data.contactperson = org.contactperson;
+                            node.data.email = org.email;
+                            node.data.phone = org.phone;
+                            node.data.linecost = org.linecost;
+                            node.data.orgtypeid_link = org.orgtypeid_link;
+                            node.data.colorid_link = org.colorid_link;
+                            node.data.status = org.status;
                         }
 
                         // neu da org ton tai, neu status = -1, xoa
@@ -90,7 +122,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                             var node = storeMenu.getById(org.parentid_link);
                             var node2 = storeMenu.getById(org.id);
                             node.removeChild(node2);
-                            viewModel.set('currentRec',null);
+                            m.emptyForm();
                             viewModel.set('parentid_link',null);
                             viewModel.set('fieldState',false);
                             viewModel.set('id',0);

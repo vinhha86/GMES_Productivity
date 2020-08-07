@@ -17,6 +17,10 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             focus: 'onfocus',
             focusleave: 'onfocusleave'
         },
+        '#txtDescription': {
+            focus: 'onfocusDescription',
+            focusleave: 'onfocusleaveDescription'
+        },
         '#txtThemMoi': {
             keydown: 'onKeyUp'
         }
@@ -235,7 +239,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             data.orgid_link = 0;
             data.attributeid_link = this.idAttribute;
             data.value = m.getValue();
-            data.description = "";
+            // data.description = "";
             data.categoryid_link = 0;
             data.usercreateid_link = 0;
             data.timecreate = "";
@@ -267,6 +271,33 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
             }
         }
         return true;
+    },
+    onfocusDescription: function (m, event, eOpts) {
+        this.oldDescription = m.getValue();
+    },
+    onfocusleaveDescription: function (m, event, eOpts) {
+        if (m.getValue() == this.oldDescription) return;
+
+        var select = this.getView().getSelectionModel().getSelection();
+        var data = new Object();
+        data = select[0].data;
+        // data.id = select[0].data.id;
+        data.orgid_link = 0;
+        data.attributeid_link = this.idAttribute;
+        // data.value = m.getValue();
+        data.description = m.getValue();
+        data.categoryid_link = 0;
+        data.usercreateid_link = 0;
+        data.timecreate = "";
+
+        var params = new Object();
+        params.msgtype = "ATTRIBUTEVALUE_UPDATE";
+        params.message = "Cập nhật mô tả thuộc tính";
+        params.data = data;
+
+        this.getView().setLoading("Đang lưu dữ liệu");
+        this.ThemMoi_CapNhat(params);
+    
     },
     onDrop: function(node, data, dropRec, dropPosition){
         var store = this.getViewModel().getStore('AttributeValueStore');

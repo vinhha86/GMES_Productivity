@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{currentRec.code}'
+            value :'{code}'
         },
         width: 400,
         labelWidth: 105
@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 200,
         maxLengthText: 'Tối đa 200 ký tự',
         bind:{
-            value :'{currentRec.name}'
+            value :'{name}'
         },
         width: 400,
         labelWidth: 105
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{currentRec.city}'
+            value :'{city}'
         },
         width: 400,
         labelWidth: 105
@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 200,
         maxLengthText: 'Tối đa 200 ký tự',
         bind:{
-            value :'{currentRec.address}'
+            value :'{address}'
         },
         width: 400,
         labelWidth: 105
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{currentRec.contactperson}'
+            value :'{contactperson}'
         },
         width: 400,
         labelWidth: 105
@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{currentRec.email}'
+            value :'{email}'
         },
         width: 400,
         labelWidth: 105
@@ -94,7 +94,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 20,
         maxLengthText: 'Tối đa 20 ký tự',
         bind:{
-            value :'{currentRec.phone}'
+            value :'{phone}'
         },
         width: 400,
         labelWidth: 105
@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
             'color': 'blue'
         },
         bind:{
-            value :'{currentRec.linecost}'
+            value :'{linecost}'
         },
         width: 400,
         labelWidth: 105
@@ -122,7 +122,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Loại đơn vị ('+ '<span style="color:red">*</span>' + ')',
         bind:{
             store:'{OrgTypeStore}',
-            value:'{currentRec.orgtypeid_link}'
+            value:'{orgtypeid_link}'
         },
         displayField: 'name',
         valueField: 'id',
@@ -137,7 +137,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Màu đại diện ',
         bind:{
             store:'{ColorStore}',
-            value:'{currentRec.colorid_link}'
+            value:'{colorid_link}'
         },
         displayField: 'name',
         valueField: 'id',
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         uncheckedValue:-1,
         // checked:true,
         bind: {
-            value:'{currentRec.status}'
+            value:'{status}'
         }
     }],
     dockedItems:[{
