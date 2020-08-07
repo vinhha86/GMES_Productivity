@@ -257,12 +257,49 @@ Ext.define('GSmartApp.view.main.MainController', {
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Thay đổi mật khẩu',
-                iconCls: 'x-fa fa-key'
+                iconCls: 'x-fa fa-key',
+                handler: 'onChangePass'
             }
             ]
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+    },
+    onChangePass: function(){
+        var me = this;
+        var data = GSmartApp.util.State.get('session');
+        var session = data ? GSmartApp.model.Session.loadData(data) : null;
+        
+        var form = Ext.create('Ext.window.Window', {
+            height: 200,
+            closable: true,
+            title: 'Thay đổi mật khẩu',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'ChangePass',
+                viewModel: {
+                    data: {
+                        userid: session.get('id'),
+                        username: session.get('username')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ChangePass').on('Success',function(){
+            form.close();
+            me.onLogout();
+        })
     },
     onLogout:function(){
         // config.setToken(null);
