@@ -7,6 +7,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
         }  
     },
     data: {
-        pcontractid_link: 0
+        pcontractid_link: 0,
+        name_quotation: "Quotation_"+common.getFormatDate(new Date())
     }
 })

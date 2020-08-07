@@ -21,6 +21,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
     onChon: function() {
         var me = this;
         var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        
         var select = grid.getSelectionModel().getSelection();
 
         if(select.length == 0) {
@@ -45,7 +47,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        me.saveByteArray("Quotation.xlsx", response.data);
+                        me.saveByteArray(viewmodel.get("name_quotation")+".xlsx", response.data);
                     }
                     else {
                         Ext.Msg.show({

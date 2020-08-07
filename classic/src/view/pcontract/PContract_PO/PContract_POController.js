@@ -19,15 +19,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         var viewmodel = this.getViewModel();
         var pcontractid_link = viewmodel.get('PContract.id');
 
+        var data = GSmartApp.util.State.get('session');
+        var session = data ? GSmartApp.model.Session.loadData(data) : null;
+        var org_name = session.get('orgname');
+        var date = common.getFormatDate(new Date());
+
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
             modal: true,
             border: false,
-            title: 'Đơn hàng (PO)',
+            title: org_name + '-Quotation-' + date,
             closeAction: 'destroy',
-            height: 500,
-            width: Ext.getBody().getViewSize().width*.95,
+            height: 400,
+            width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
