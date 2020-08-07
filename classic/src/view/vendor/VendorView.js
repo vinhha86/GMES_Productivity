@@ -27,12 +27,12 @@ Ext.define('GSmartApp.view.vendor.VendorView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100,
+        width: 120,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'vendorCodeFilter',
-            width: 96,
+            width: 116,
             flex: 1,
             margin: 2,
             enableKeyEvents: true,

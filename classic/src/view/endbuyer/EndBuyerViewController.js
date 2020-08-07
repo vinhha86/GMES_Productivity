@@ -106,6 +106,7 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('OrgStore');
         store.GetOrgByTypeId(12);
+        store.sort('code', 'ASC');
     },
     onEndbuyerCodeFilterKeyup:function(){
         var grid = this.getView(),

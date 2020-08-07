@@ -106,6 +106,7 @@ Ext.define('GSmartApp.view.vendor.VendorViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('OrgStore');
         store.GetOrgByTypeId(11);
+        store.sort('code', 'ASC');
     },
     onVendorCodeFilterKeyup:function(){
         var grid = this.getView(),
