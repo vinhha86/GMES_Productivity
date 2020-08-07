@@ -113,11 +113,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                     metaData.tdCls =  'process-done';
                 } else if (c == 6) {
                     metaData.tdCls =  'process-finish';
-                }                
-                //metaData.tdCls = record.get('change') > 0 ? 'color-other' : 'color-gio';
-                // if (null != record.get('productiondate')){
-                //     metaData.tdAttr = 'data-qtip="' + Ext.util.Format.date(record.get('productiondate'),'d/m/Y') + '"';
-                // }
+                } 
                 return value;
             },
             summaryType: 'count', summaryRenderer: 'renderSum'                   
@@ -328,6 +324,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         }, 
         {
             xtype: 'combobox',
+            reference:'factorycombo',
             width: 130,
             editable: false,
             bind: {
@@ -338,9 +335,16 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             listeners: {
                 select: 'onFactoryItemSelected'
             }
-        },        
+        },     
+        {
+            tooltip: 'Tải lại bảng tiến độ',
+            iconCls: 'x-fa fa-refresh',
+            weight: 30,
+            handler: 'onRefreshTap'
+        },           
         {
             xtype: 'combobox',
+            emptyText: 'Tổ chuyền',
             width: 130,
             editable: false,
             bind: {
@@ -352,12 +356,6 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             listeners: {
                 select: 'onOrgItemSelected'
             }
-        },
-        {
-            tooltip: 'Tải lại bảng tiến độ',
-            iconCls: 'x-fa fa-refresh',
-            weight: 30,
-            handler: 'onRefreshTap'
         },
         // {
         //     tooltip: 'Thêm lệnh sản xuất vào tổ chuyền',
@@ -380,7 +378,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //     ]
         // }
         { xtype: 'checkboxfield', id: 'chkGrant', reference: 'chkGrant', boxLabel:  'Chưa SX', checked: true, listeners: {change:'onCheckStatusChange'}},
-        { xtype: 'checkboxfield', id: 'chkReady', reference: 'chkReady', boxLabel: '<span style="background-color:yellow; color:red">' + 'Chuẩn bị SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
+        // { xtype: 'checkboxfield', id: 'chkReady', reference: 'chkReady', boxLabel: '<span style="background-color:yellow; color:red">' + 'Chuẩn bị SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
         { xtype: 'checkboxfield', id: 'chkSubProcess', reference: 'chkSubProcess', boxLabel: '<span style="background-color:blue; color:yellow">' + 'Công đoạn phụ' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
         { xtype: 'checkboxfield', id: 'chkRunning', reference: 'chkRunning', boxLabel: '<span style="background-color:green; color:yellow">' + 'Đang SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
         { xtype: 'checkboxfield', id: 'chkDone', reference: 'chkDone', boxLabel: '<span style="background-color:lightgray; color:blue">' + 'Kết thúc SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},

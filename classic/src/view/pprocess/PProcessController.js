@@ -6,6 +6,8 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
         var FactoryStore = viewmodel.get('FactoryStore');
         var cbProcessingDate = this.lookupReference('processingdate');
         var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
+        var factoryCombo = this.lookupReference('factorycombo');
+        var ProductionLineStore = viewmodel.get('ProductionLineStore');
         
         FactoryStore.loadStore_Async(13, null)
 		FactoryStore.load({
@@ -15,8 +17,11 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
 					 this.fireEvent('logout');
 				} else {
                     //Tai du lieu tien do cua phan xuong dau tien trong danh sach Factory
-                    if (records.length > 0)
+                    if (records.length > 0){
+                        factoryCombo.setValue(records[0].data.id);
                         POrderProcessingStore.loadByDate(cbProcessingDate.getValue(),records[0].data.id);
+                        ProductionLineStore.loadToSX(records[0].data.id);
+                    }
                 }
 			}
 		});
@@ -26,11 +31,26 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
         var viewmodel = this.getViewModel();
         var cbProcessingDate = this.lookupReference('processingdate');
         var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
+        var ProductionLineStore = viewmodel.get('ProductionLineStore');
+        
 
         POrderProcessingStore.loadByDate(cbProcessingDate.getValue(),record.get('id'));
+
+        //Lay danh sach to chuyen
+        var orgcombo = this.lookupReference('orgcombo');
+        ProductionLineStore.loadToSX_Async(record.get('id'));
+        ProductionLineStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(success){
+                    orgcombo.setValue(-1);
+                    this.getView().store.filters.remove('granttoorgid_link');
+				}
+			}
+		});
     },    
     onOrgItemSelected: function (sender, record) {
-        console.log(record.get('id'));
+        // console.log(record.get('id'));
         if (record.get('id') > 0){
             //Them ^ va $ de xu ly loi filter so 1
             sIDSelect = new RegExp("^"+record.get('id')+"$"); 
@@ -64,15 +84,16 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
 
     //When date change --> Reload Store with Processing Date
     onProcessingDateChange: function(newValue, oldValue, eOpts ){
-        this.getView().store.loadByDate(oldValue);
+        this.onRefreshTap();
     },
 
     //When pressing get latest data
     onRefreshTap: function(){
         var store = this.getView().store;
+        var factoryCombo = this.lookupReference('factorycombo');
         if (store) {
             var cbProcessingDate = this.lookupReference('processingdate');
-            store.loadByDate(cbProcessingDate.getValue());
+            store.loadByDate(cbProcessingDate.getValue(), factoryCombo.getValue());
             // console.log(store);
         }
     }, 
