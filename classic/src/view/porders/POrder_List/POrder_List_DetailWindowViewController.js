@@ -10,7 +10,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         },
         '#btnAddToGrantSku': {
             click: 'onBtnAddToGrantSku'
+        },
+        '#btnThoat' : {
+            click: 'onThoat'
         }
+    },
+    onThoat: function(){
+        this.getView().close();
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         let me = this.getView();
@@ -103,8 +109,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         GSmartApp.Ajax.post('/api/v1/porderlist/addskutogrant', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    viewmodel.getStore('porderSKUStore').loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
+                    var response = Ext.decode(response.responseText);
+                    if(response.respcode == 200) {
+                        viewmodel.getStore('porderSKUStore').loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
                     viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
+                    me.fireEvent('UpdatePorder',response.porderinfo, response.amount);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: "Lưu thất bại",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
                 }else {
                     Ext.Msg.show({
                         title: "Thông báo",

@@ -15,11 +15,15 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimSelectAttributeValueViewContro
             click: 'onLuu'
         },
         'PackingTrimSelectAttributeValueView' : {
-            select: 'onSelectValue'
+            select: 'onSelectValue',
+            beforedeselect : 'onDeselect'
         }
     },
     onThoat: function () {
         this.getView().up('window').close();
+    },
+    onDeselect: function( grid, record, index, eOpts){
+        if(record.data.isdefault) return false;
     },
     onSelectValue: function(grid, record, index, eOpts){
         var me = this.getView();
@@ -30,8 +34,8 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimSelectAttributeValueViewContro
         } else {
             if(me.IdAttribute == 4 || me.IdAttribute == 36) return;
             
-            var rec = grid.getStore().findRecord('isdefault', true);
-            me.getSelectionModel().deselect(rec);
+            // var rec = grid.getStore().findRecord('isdefault', true);
+            // me.getSelectionModel().deselect(rec);
         }
 
     },

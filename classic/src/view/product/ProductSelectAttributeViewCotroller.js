@@ -15,8 +15,12 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
             click: 'onLuu'
         },
         'ProductSelectAttributeView': {
-            select: 'onSelectValue'
+            select: 'onSelectValue',
+            beforedeselect : 'onDeselect'
         }
+    },
+    onDeselect: function( grid, record, index, eOpts){
+        if(record.data.isdefault) return false;
     },
     onSelectValue: function(grid, record, index, eOpts){
        var me = this.getView();
@@ -27,8 +31,8 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
         } else {
             if(me.IdAttribute == 4 || me.IdAttribute == 30) return;
             
-            var rec = grid.getStore().findRecord('isdefault', true);
-            me.getSelectionModel().deselect(rec);
+            // var rec = grid.getStore().findRecord('isdefault', true);
+            // me.getSelectionModel().deselect(rec);
         }
 
     },

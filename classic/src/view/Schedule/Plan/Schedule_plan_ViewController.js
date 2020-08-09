@@ -71,12 +71,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 text: 'Lệnh sản xuất',
                 iconCls: 'x-fa fa-industry',
                 handler: function () {
-                    let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
-                        IdPOrder: eventRecord.data.id_origin,
-                        IdGrant: eventRecord.data.porder_grantid_link
-                    });
-                    window.show();
-                    // console.log(eventRecord.data);
+                    me.Show_LenhSanXuat(eventRecord);
                 }
             },
             {
@@ -111,6 +106,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+    },
+    Show_LenhSanXuat: function(eventRecord){
+        let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
+            IdPOrder: eventRecord.data.id_origin,
+            IdGrant: eventRecord.data.porder_grantid_link
+        });
+        window.show();
+
+        window.on('UpdatePorder', function(porderinfo, amount){
+            eventRecord.set('mahang', porderinfo);
+            eventRecord.set('name', porderinfo);
+            eventRecord.set('totalpackage',amount)
+        })
     },
     Delete_Porder_Req: function(rec){
         var grid = this.getView();

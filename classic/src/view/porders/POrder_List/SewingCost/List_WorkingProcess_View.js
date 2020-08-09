@@ -43,13 +43,31 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             }
         }, {
             header: 'Thiết bị',
-            dataIndex: 'devicegroup_name',
-            width: 120
+            dataIndex: 'devicerequiredid_link',
+            width: 120,
+            editor: {
+                xtype: 'combo',
+                valueField: 'id',
+                displayField: 'name',
+                bind: {
+                    store: '{DeviceStore}'
+                }
+            },
+            renderer: 'renderDevice'
         },
         {
             header: 'Bậc thợ',
-            dataIndex: 'laborlevel_name',
-            width: 120
+            dataIndex: 'laborrequiredid_link',
+            width: 120,
+            editor: {
+                xtype: 'combo',
+                valueField: 'id',
+                displayField: 'name',
+                bind: {
+                    store: '{LaborStore}'
+                }
+            },
+            renderer: 'renderLabor'
         },
         {
             header: 'Thời gian',
@@ -122,9 +140,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             emptyText: 'Thiết bị',
             itemId: 'device',
             width: 150,
+            valueField: 'id',
+            displayField: 'name',
             selectOnFocus: true,
             bind: {
-                value: '{working.devicerequiredid_link}'
+                value: '{working.devicerequiredid_link}',
+                store: '{DeviceStore}'
             }
         },{
             xtype: 'combo',
@@ -134,8 +155,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             itemId: 'labor',
             width: 150,
             selectOnFocus: true,
+            valueField: 'id',
+            displayField: 'name',
             bind: {
-                value: '{working.laborrequiredid_link}'
+                value: '{working.laborrequiredid_link}',
+                store: '{LaborStore}'
             }
         },{
             xtype: 'textfield',

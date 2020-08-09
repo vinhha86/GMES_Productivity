@@ -15,7 +15,8 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
             click: 'onLuu'
         },
         'MaterialSelectAttributeValueView': {
-            select: 'onSelectValue'
+            select: 'onSelectValue',
+            beforedeselect : 'onDeselect'
         }
     },
     onThoat: function () {
@@ -102,6 +103,9 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
             m.Luu();
         }
     },
+    onDeselect: function( grid, record, index, eOpts){
+        if(record.data.isdefault) return false;
+    },
     onSelectValue: function(grid, record, index, eOpts){
         var me = this.getView();
 
@@ -111,8 +115,8 @@ Ext.define('GSmartApp.view.material.MaterialSelectAttributeValueViewController',
         } else {
             if(me.IdAttribute == 4 || me.IdAttribute == 36) return;
 
-            var rec = grid.getStore().findRecord('isdefault', true);
-            me.getSelectionModel().deselect(rec);
+            // var rec = grid.getStore().findRecord('isdefault', true);
+            // me.getSelectionModel().deselect(rec);
         }
 
     },

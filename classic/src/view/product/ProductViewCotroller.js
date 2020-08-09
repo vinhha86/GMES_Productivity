@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
 
         store.loadProduct_ByPage(limit, page, name, code);
     },
-    onViewNPL: function (grid, rowIndex, colIndex) {
+    onViewWorkingProcess: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var rec = grid.getStore().getAt(rowIndex);
 

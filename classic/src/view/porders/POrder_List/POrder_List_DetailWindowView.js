@@ -34,5 +34,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
             title: 'Phân chuyền',
             xtype: 'POrder_Tab_Grant'
         }]
+    }],
+    dockedItems: [{
+        dock:'bottom',
+        layout:'hbox',
+        items: [{
+            flex:1
+        },{
+            xtype: 'button',
+            margin: 3,
+            text: 'Thoát',
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close'
+        }]
     }]
 })

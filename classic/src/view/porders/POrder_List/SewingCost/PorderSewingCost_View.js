@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
         },
         {
             header: 'Thiết bị',
-            dataIndex: 'devicegroup_name',
+            dataIndex: 'device_name',
             width: 120
         },
         {

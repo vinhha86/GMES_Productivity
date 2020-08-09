@@ -1,15 +1,14 @@
-Ext.define('GSmartApp.store.DeviceStore', {
+Ext.define('GSmartApp.store.Labor.LaborStore', {
     extend: 'Ext.data.Store',
-    alias: 'store.DeviceStore',
+    alias: 'store.LaborStore',
 	fields: [
 		{name: 'id', type: 'string'},
 		{name: 'code',  type: 'string'},
-		{name: 'name',   type: 'string'}
+        {name: 'name',   type: 'string'},
+        {name: 'comment',   type: 'string'}
 	],
-	loadStore:function(type){
+	loadStore:function(){
 		var me=this;
-		var params = new Object();
-		params.type =type;
 		
 		this.setProxy({
 			type: 'ajax',
@@ -19,15 +18,13 @@ Ext.define('GSmartApp.store.DeviceStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/device/device_getactivate',
+			url: config.getAppBaseUrl()+'/api/v1/labor/getall',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
 				'Accept': "application/json", 
-				'Content-Type':"application/json",
-				'authorization': GSmartApp.Ajax.access_token(),
+				'Content-Type':"application/json"
 			 },
-			extraParams: params,
 			reader: {
 				type: 'json',
 				rootProperty: 'data'

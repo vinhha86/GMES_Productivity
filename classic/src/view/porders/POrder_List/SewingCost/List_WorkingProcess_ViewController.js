@@ -8,7 +8,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         var productid_link = viewmodel.get('working.productid_link');
         store.loadby_product(productid_link);
 
+        var storeDevice = viewmodel.getStore('DeviceStore');
+        storeDevice.loadStore(10);
 
+        var storelabor = viewmodel.getStore('LaborStore');
+        storelabor.loadStore();
     },
     control: {
         '#btnThoat': {
@@ -40,6 +44,34 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         },
         '#comment' : {
             specialkey: 'onSpecialkey'
+        }
+    },
+    renderDevice: function(value, metaData, record){
+        var me = this;
+        var storeDevice = me.getViewModel().getStore('DeviceStore');
+        if (value != null) {
+            var rec = storeDevice.findRecord("id", value, 0, false, false, true);
+            if (rec != null) {
+                return rec.data.name;
+            } else {
+                return record.data.device_name;
+            }
+        } else {
+            return '';
+        }
+    },
+    renderLabor: function(value, metaData, record) {
+        var me = this;
+        var storeLabor = me.getViewModel().getStore('LaborStore');
+        if (value != null) {
+            var rec = storeLabor.findRecord("id", value, 0, false, false, true);
+            if (rec != null) {
+                return rec.data.name;
+            } else {
+                return record.data.laborlevel_name;
+            }
+        } else {
+            return '';
         }
     },
     onLuu: function(){

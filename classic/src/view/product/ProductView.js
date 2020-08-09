@@ -51,8 +51,8 @@ Ext.define('GSmartApp.view.product.ProductView', {
             handler: 'onXoa'
         },{
             iconCls: 'x-fa fas fa-list',
-            tooltip: "Định mức",
-            handler: 'onViewNPL'
+            tooltip: "Công đoạn chuẩn",
+            handler: 'onViewWorkingProcess'
         }]
     }],
     dockedItems: [{
