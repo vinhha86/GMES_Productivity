@@ -1,17 +1,20 @@
 Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
     extend : 'Ext.form.Panel',
-    xtype  : 'subtaskstaskeditor',
+    xtype  : 'TaskEditor',
 
     mixins : [
         'Kanban.editor.Base'
     ],
 
     requires : [
-        'Kanban.examples.subtasks.view.TaskEditorViewController',
-        'Kanban.examples.subtasks.view.CommentView'
+        'GSmartApp.view.TaskBoard.TaskEditorViewController',
+        'GSmartApp.view.TaskBoard.Comment'
     ],
 
-    controller : 'taskeditor',
+    controller : 'TaskEditorViewController',
+    viewModel: {
+        type: 'TaskEditor_ViewModel'
+    },
 
     /**
      * @cfg {String} triggerEvent The event that should trigger the editing to start. Set to null to disable the editor from being activated.
@@ -42,38 +45,34 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                     name       : 'Name',
                     itemId     : 'nameField',
                     cls        : 'namefield',
+                    readOnly   : true,
                     allowBlank : false,
                     flex       : 1,
                     margin     : '0 20 0 0'
-                },
-                {
-                    xtype   : 'tool',
-                    type    : 'close',
-                    cls     : 'close',
-                    handler : 'onCloseClick',
-                    tabIndex : -1
                 }
             ]
         },
+        // {
+        //     xtype        : 'combobox',
+        //     itemId       : 'stateCombo',
+        //     name         : 'State',
+        //     displayField : 'Name',
+        //     valueField   : 'Id',
+        //     fieldLabel   : 'List'
+        // },
         {
             xtype        : 'combobox',
-            itemId       : 'stateCombo',
-            name         : 'State',
-            displayField : 'Name',
-            valueField   : 'Id',
-            fieldLabel   : 'List'
-        },
-        {
-            xtype        : 'combobox',
-            store        : 'UserStore',
+            bind: {
+                store: '{TaskUser_Store}'
+            },
             name         : 'ResourceId',
             displayField : 'Name',
             valueField   : 'Id',
-            fieldLabel   : 'Assigned to'
+            fieldLabel   : 'Người phụ trách'
         },
         {
             xtype      : 'checkboxgroup',
-            fieldLabel : 'Checklist',
+            fieldLabel : 'Chi tiết',
             columns    : 1,
             vertical   : true,
             cls        : 'checklist',
@@ -88,7 +87,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             items  : [
                 {
                     xtype     : 'textfield',
-                    emptyText : 'Add checklist item...',
+                    emptyText : 'Thêm chi tiết',
                     reference : 'newItemName',
                     flex      : 1,
                     listeners : {
@@ -111,16 +110,16 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         },
         {
             xtype      : 'textarea',
-            itemId     : 'comments',
+            itemId     : 'textcomment',
             cls        : 'comments',
-            emptyText  : 'Write comment...',
-            fieldLabel : 'Add Comment',
+            emptyText  : 'Nội dung chú thích...',
+            fieldLabel : 'Thêm chú thích',
             anchor     : '90%',
             height     : 50
         },
         {
             xtype   : 'button',
-            text    : 'Add',
+            text    : 'Thêm chú thích',
             anchor  : null,
             handler : 'onAddCommentClick'
         },
@@ -128,42 +127,43 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             xtype     : 'component',
             cls       : 'comment-title',
             focusable : false,
-            html      : 'Comments'
+            html      : 'Danh sách chú thích'
         },
         {
-            xtype        : 'commentview'
+            xtype        : 'Comment'
         }
 
     ],
 
     buttons : [
         {
-            text    : 'Close',
+            text    : 'Thoát',
+            iconCls: 'x-fa fa-window-close',
             handler : 'onCloseClick'
         }
     ],
 
-    afterRender : function () {
-        var controller = this.getController();
-        this.callParent(arguments);
+    // afterRender : function () {
+        // var controller = this.getController();
+        // this.callParent(arguments);
 
-        var model  = this.panel.taskStore.getModel(),
-            states = model.prototype.states,
-            locale = Sch.locale.Active[ 'Kanban.locale' ] || {};
+        // var model  = this.panel.taskStore.getModel(),
+        //     states = model.prototype.states,
+        //     locale = Sch.locale.Active[ 'Kanban.locale' ] || {};
 
-        var data =  Ext.Array.map(states, function (state) {
-            return {
-                Id   : state,
-                Name : locale[ state ] || state
-            };
-        });
+        // var data =  Ext.Array.map(states, function (state) {
+        //     return {
+        //         Id   : state,
+        //         Name : locale[ state ] || state
+        //     };
+        // });
 
-        this.down('#stateCombo').setStore({
-            fields : ['Id', 'Name'],
-            data : data
-        });
-        this.getEl().on('keyup', controller.onKeyUp, controller);
-    },
+        // this.down('#stateCombo').setStore({
+        //     fields : ['Id', 'Name'],
+        //     data : data
+        // });
+        // this.getEl().on('keyup', controller.onKeyUp, controller);
+    // },
 
 
     listeners : {
@@ -188,7 +188,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
     },
 
     getCommentView : function() {
-        return this.down('#commentView');
+        return this.down('#Comment');
     },
 
     triggerEdit : function (record, e) {
@@ -196,6 +196,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         if (e.getTarget('.subtask')) return;
 
         this.getForm().loadRecord(record);
+
+        console.log(this);
 
         var checkboxGroup = this.getSubtaskList();
         var commentView   = this.getCommentView();

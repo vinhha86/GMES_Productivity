@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.store.TaskBoard.TaskUser_Store', {
     extend  : 'Kanban.data.TaskStore',
     storeId : 'TaskUser_Store',
+    alias: 'store.TaskUser_Store',
     proxy   : 'memory',
     data : [
         { Id : 1, Name : 'Mats' },

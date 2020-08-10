@@ -1,4 +1,4 @@
-Ext.define('Kanban.plugin.DragSelector', {
+Ext.define('GSmartApp.plugin.DragSelector', {
     extend : 'Ext.ux.DataView.DragSelector',
     alias  : 'plugin.kanban_dragselector',
 

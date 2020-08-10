@@ -7,121 +7,110 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
         type: 'TaskBoardViewModel'
     },
     layout: 'fit',
-    requires : [
-        // 'Kanban.examples.subtasks.view.TaskBoardController',
-        // 'Kanban.examples.subtasks.model.Task',
-        // 'Kanban.examples.subtasks.view.TaskEditor',
+    requires: [
+        'GSmartApp.view.TaskBoard.TaskBoardViewController',
+        'GSmartApp.model.TaskBoard.TaskBoard_Model',
+        'GSmartApp.view.TaskBoard.TaskEditor',
 
-        'GSmartApp.store.TaskBoard.TaskBoard_Store',
-        'GSmartApp.store.TaskBoard.TaskUser_Store',
-
-        'Kanban.plugin.DragSelector'
+        'GSmartApp.plugin.DragSelector'
     ],
     initComponent: function () {
         var me = this;
 
-        var taskStore = new Kanban.data.TaskStore({
-            data    : [
-                { "Id" : 1, "Name" : "Fix IE7 bug", "State" : "ChuaBatDau", "ResourceId" : 1, "ImageUrl" : ""},
-                { "Id" : 2, "Name" : "Sneak-install Chrome Frame", "State" : "ChuaBatDau", "ResourceId" : 1},
-                { "Id" : 3, "Name" : "Add Windows Phone support", "State" : "DangXuLy", "ResourceId" : 3},
-                { "Id" : 4, "Name" : "Make App", "State" : "DangXuLy"},
-                { "Id" : 5, "Name" : "Find Unicorn", "State" : "Test", "ResourceId" : 2},
-                { "Id" : 6, "Name" : "IE6 support", "State" : "DangXuLy"},
-                { "Id" : 7, "Name" : "Chrome development", "State" : "Done"},
-                { "Id" : 8, "Name" : "Find holy grail", "State" : "Done"},
-                { "Id" : 9, "Name" : "Dig hole", "State" : "Done"},
-                { "Id" : 10, "Name" : "Eat raisins", "State" : "ChuaBatDau","ResourceId" : 6},
-                { "Id" : 11, "Name" : "Do some cool task", "State" : "ChuaBatDau", "ResourceId" : 7},
-                { "Id" : 12, "Name" : "Eat raisins", "State" : "ChuaBatDau",  "ResourceId" : 6},
-                { "Id" : 14, "Name" : "Change floor tiles", "State" : "Done"}
-            ]
-        });
+        var viewmodel = this.getViewModel();
+        var taskStore = viewmodel.getStore('TaskBoard_Store');
+        var userStore = viewmodel.getStore('TaskUser_Store');
 
-        var resourceStore = new Kanban.data.ResourceStore({
-            data    : [
-                { "Id" : 1, "Name" : "Mats" },
-                { "Id" : 2, "Name" : "Homer" },
-                { "Id" : 3, "Name" : "Brian"},
-                { "Id" : 4, "Name" : "Dave"},
-                { "Id" : 5, "Name" : "Lisa"},
-                { "Id" : 6, "Name" : "Lee"},
-                { "Id" : 7, "Name" : "Arnold"},
-                { "Id" : 8, "Name" : "That guy"}
-            ]
-        });
-
-        var task = Ext.create('Kanban.view.TaskBoard',{
-            
-            editor : {
-                xtype: 'kanban_simpleeditor',
-                dataIndex: 'Name'
-            },
-        
-            viewConfig : {
-                multiSelect : true,
-                plugins     : 'kanban_dragselector',
-                taskBodyTpl : '<div class="task-header">' + '<div class="sch-task-name">{Name}</div>' + '</div>'
-            },
-        
-            resourceStore : resourceStore,
-        
-            taskStore : taskStore,
+        var task = Ext.create('Kanban.view.TaskBoard', {
+            id: 'taskboard',
+            enableUserMenu: false,
             taskMenu: false,
-            // userMenu : new Kanban.menu.UserMenu({
-            //     resourceStore : resourceStore
-            // }),
-            
-            columns : [
+            taskStore: taskStore,
+            resourceStore: userStore,
+
+            editor: {
+                xtype: 'TaskEditor',
+                userStore: userStore
+            },
+
+            fitColumns: false,
+            defaults: {
+                width: 300
+            },
+
+            columns: [
                 {
-                    state       : 'ChuaBatDau',
-                    title       : 'Chưa bắt đầu',
-                    dockedItems : [{
-                        xtype   : 'container',
-                        dock    : 'bottom',
-                        layout  : 'fit',
-                        border  : 0,
-                        padding : '5 8',
-                        items   : {
-                            height : 30,
-                            xtype : 'addnewfield',
-                            store : taskStore,
-                            emptyText: 'Việc mới'
-                        }
-                    },{
-                        dock: 'top',
-                        xtype: 'container',
-                        layout: 'fit',
-                        border: 0,
-                        items: {
-                            height:30,
-                            xtype: 'filterfield',
-                            store: taskStore,
-                            field : 'Name' 
-                        }
-                    }]
+                    state: 'NotStarted',
+                    title: 'Chưa bắt đầu'
                 },
                 {
-                    state : 'DangXuLy',
-                    title : 'Đang xử lý'
+                    state: 'InProgress',
+                    title: 'Đang làm'
                 },
                 {
-                    xtype    : 'container',
-                    flex     : 1,
-                    layout   : { type : 'vbox', align : 'stretch' },
-                    defaults : { xtype : 'taskcolumn', flex : 1 },
-                    items    : [
-                        {
-                            state : 'Test',
-                            title : 'Test'
-                        }
-                    ]
+                    state: 'Done',
+                    title: 'Đã xong'
                 },
                 {
-                    state : 'Done',
-                    title : 'Done'
+                    state: 'Done',
+                    title: 'Từ chối'
                 }
-            ]
+            ],
+
+            viewConfig: {
+                resourceImgTpl: '',
+                multiSelect: true,
+                plugins: 'kanban_dragselector',
+
+                taskBodyTpl: '<div class="task-header">' +
+                    '<div class="task-progress" style="width:{PercentDone}%"></div>' +
+                    '<span class="task-id">{Name}</span>' +
+                    '<span class="task-user">{[values.task.getResource() && values.task.getResource().getName()]}</span>' +
+                    '</div>' +
+                    '<div class="task-body">' +
+                    '<tpl if="values.task.getResource() && values.task.getResource().get(\'ImageUrl\')">' +
+                    '<img class="task-userimg" src="{[values.task.getResource().get("ImageUrl")]}"/>' +
+                    '</tpl>' +
+                    '<ul class="subtasks">' +
+                    '<tpl for="values.task.subTasks()">' +
+                    '<li class="{[values.data.Done ? "subtask-done" : ""]}"><label class="subtask"><input data-id="{[values.internalId]}" class="subtask-checkbox" type="checkbox" name="checkbox" {[ values.data.Done ? "checked" : "" ]} >{[values.data.Name]}</label></li>' +
+                    '</tpl>' +
+                    '</ul>' +
+                    '<div class="task-footer">' +
+                    '<tpl if="values.task.comments().getCount() == 1">' +
+                    '<span class="task-comments x-fa fa-comment-o"> {[values.task.comments().getCount()]} comment</span>' +
+                    '<tpl elseif = "values.task.comments().getCount() &gt;= 2">'+ 
+                    '<span class="task-comments x-fa fa-comment-o"> {[values.task.comments().getCount()]} comments</span>'+
+                    '</tpl>' +
+                    '</div>' +
+                    '</div>',
+
+                // Enable smart diff update of the Task HTML contents
+                onUpdate: function (store, record, operation, modifiedFieldNames) {
+
+                    var fragment = document.createElement('div');
+                    var currentNode = this.getNode(record);
+                    var selModel = this.getSelectionModel();
+
+                    this.tpl.overwrite(fragment, this.collectData([record]));
+                    Ext.fly(currentNode).down('.task-header').syncContent(Ext.fly(fragment).down('.task-header', true));
+
+                    Ext.fly(currentNode).down('.task-body').update(Ext.fly(fragment).down('.task-body', true).innerHTML);
+
+                    selModel.onUpdate(record);
+                    if (selModel.isSelected(record)) {
+                        this.onItemSelect(record);
+                    }
+                }
+            },
+
+            listeners: {
+                "change": {
+                    fn: 'onCheckboxChange',
+                    element: 'body'
+                }
+            }
+        
         })
 
         Ext.apply(me, {

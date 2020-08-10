@@ -17,14 +17,14 @@ Ext.define('GSmartApp.model.TaskBoard.TaskBoard_Model', {
     associations : [
         {
             model          : 'GSmartApp.model.TaskBoard.Comment_model',
-            associationKey : 'Comment_model',
-            name           : 'Comment_model',
+            associationKey : 'Comments',
+            name           : 'comments',
             type           : 'hasMany'
         },
         {
             model          : 'GSmartApp.model.TaskBoard.SubTask_model',
-            associationKey : 'SubTask_model',
-            name           : 'SubTask_model',
+            associationKey : 'SubTasks',
+            name           : 'subTasks',
             type           : 'hasMany'
         }
     ],
