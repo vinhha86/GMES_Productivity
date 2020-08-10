@@ -8,7 +8,13 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
     },
     layout: 'fit',
     requires : [
-        'Kanban.editor.SimpleEditor',
+        // 'Kanban.examples.subtasks.view.TaskBoardController',
+        // 'Kanban.examples.subtasks.model.Task',
+        // 'Kanban.examples.subtasks.view.TaskEditor',
+
+        'GSmartApp.store.TaskBoard.TaskBoard_Store',
+        'GSmartApp.store.TaskBoard.TaskUser_Store',
+
         'Kanban.plugin.DragSelector'
     ],
     initComponent: function () {
