@@ -112,8 +112,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                     var response = Ext.decode(response.responseText);
                     if(response.respcode == 200) {
                         viewmodel.getStore('porderSKUStore').loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
-                    viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
-                    me.fireEvent('UpdatePorder',response.porderinfo, response.amount);
+                        viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
+                        me.fireEvent('UpdatePorder',response.porderinfo, response.amount);
                     }
                     else {
                         Ext.Msg.show({
@@ -145,9 +145,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         let idPorderGrant = idgrant;
 
         params.idPorderGrant = idPorderGrant;
-
-        // console.log(idgrant);
-        // console.log(params);
 
         GSmartApp.Ajax.post('/api/v1/porder_grant/findone', Ext.JSON.encode(params),
             function (success, response, options) {
