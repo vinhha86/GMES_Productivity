@@ -203,6 +203,10 @@
             {
                 "path": "${toolkit.name}/src/schedule/sch-all-debug.js",
                 "includeInBundle": true
+            },
+            {
+                "path": "${toolkit.name}/src/taskboard/taskboard-all-thin-debug.js",
+                "includeInBundle": true
             }
         ],
 		"requires": [
