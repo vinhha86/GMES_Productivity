@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         dock:'top',
         xtype:'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 40,
         items:[{
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
@@ -142,14 +142,15 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             iconCls: 'x-fa fa-plus',
             handler: 'onThemSKU'
         },
-        // {
-        //     xtype:'button',
-        //     itemId:'btnShowFactory',
-        //     ui: 'header',
-		// 	tooltip: 'Xem năng suất nhà máy',
-        //     iconCls: 'x-fa fa-industry',
-        //     handler: 'onFactoriesTap',
-        // }
+        {
+            xtype:'button',
+            text: 'Chốt màu,cỡ',
+            itemId:'btnConfirmSKU',
+            // ui: 'header',
+			tooltip: 'Chốt chi tiết màu cỡ',
+            iconCls: 'x-fa fa-check greenIcon',
+            // handler: 'onFactoriesTap',
+        }
         ]
     }]    
 });
