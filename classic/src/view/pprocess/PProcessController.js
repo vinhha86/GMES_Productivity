@@ -9,7 +9,8 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
         var factoryCombo = this.lookupReference('factorycombo');
         var ProductionLineStore = viewmodel.get('ProductionLineStore');
         
-        FactoryStore.loadStore_Async(13, null)
+        // FactoryStore.loadStore_Async(13, null);
+        FactoryStore.loadStore_allchildren_byorg_async('13',false);
 		FactoryStore.load({
 			scope: this,
 			callback: function(records, operation, success) {
@@ -43,29 +44,35 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(success){
-                    orgcombo.setValue(-1);
-                    this.getView().store.filters.remove('granttoorgid_link');
+                    if (null != orgcombo){
+                        orgcombo.setValue(-1);
+                        if (null!=POrderProcessingStore.filters)
+                            POrderProcessingStore.filters.remove('granttoorgid_link');
+                    }
 				}
 			}
 		});
     },    
     onOrgItemSelected: function (sender, record) {
-        // console.log(record.get('id'));
+        var viewmodel = this.getViewModel();
+        var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
         if (record.get('id') > 0){
             //Them ^ va $ de xu ly loi filter so 1
             sIDSelect = new RegExp("^"+record.get('id')+"$"); 
-            this.getView().store.filter('granttoorgid_link',sIDSelect);
+            POrderProcessingStore.filter('granttoorgid_link',sIDSelect);
         }
         else {
-            this.getView().store.filters.remove('granttoorgid_link');
+            POrderProcessingStore.filters.remove('granttoorgid_link');
             //this.getView().store.clearFilter(); 
         }
     },
     onPOrderFilterKeyup: function() {
+        var viewmodel = this.getViewModel();
+        var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('porderFilterField'),
-            filters = this.getView().store.getFilters();
+            filters = POrderProcessingStore.getFilters();
 
         if (filterField.value) {
             this.porderFilter = filters.add({
@@ -219,6 +226,80 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                     });
                 }
             });
+    },
+    onProcessingItemEdit_Single: function(editor, e){
+        if (e.originalValue != e.value){
+            console.log(editor.context.column.dataIndex);
+            var cbProcessingDate = this.lookupReference('processingdate');
+            var params=new Object();
+            params.processingdate = cbProcessingDate.getValue();
+            params.id = e.record.data.id;
+            params.porderid_link = e.record.data.porderid_link;
+            params.pordergrantid_link = e.record.data.pordergrantid_link;
+            params.dataIndex = editor.context.column.dataIndex;
+            params.newValue = e.value;
+            params.newSumValue = 0;
+            
+            switch(editor.context.column.dataIndex) {
+                case "amountcut":
+                    params.newSumValue = e.record.data.amountcutsumprev + e.value;
+                    e.record.set('amountcutsum',params.newSumValue);
+                    break;	          				
+                case "amountinput":
+                    params.newSumValue = e.record.data.amountinputsumprev + e.value;
+                    e.record.set('amountinputsum',params.newSumValue);
+                    break;
+                case "amountoutput":
+                    params.newSumValue = e.record.data.amountoutputsumprev + e.value;
+                    e.record.set('amountoutputsum',params.newSumValue);
+                    break;	  
+                case "amounterror":
+                    params.newSumValue = e.record.data.amounterrorsumprev + e.value;
+                    e.record.set('amounterrorsum',params.newSumValue);
+                    break;	   	      	        			
+                case "amountkcs":
+                    params.newSumValue = e.record.data.amountkcssumprev + e.value;
+                    e.record.set('amountkcssum',params.newSumValue);
+                    break;  
+                case "amountpacked":
+                    params.newSumValue = e.record.data.amountpackedsumprev + e.value;
+                    e.record.set('amountpackedsum',params.newSumValue);
+                    break;  
+                case "amountstocked":
+                    params.newSumValue = e.record.data.amountstockedsumprev + e.value;
+                    e.record.set('amountstockedsum',params.newSumValue);
+                    break;       
+                case "comment":
+                    params.commentValue = e.value;
+                    break;            	        				
+            }
+            GSmartApp.Ajax.post('/api/v1/pprocess/update_single', Ext.JSON.encode(params),
+			function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+				if (success) {
+                    e.record.beginedit;
+                    // e.record.set('amountcutsum',response.amountcutsum);
+                    // e.record.set('amountinputsum',response.amountinputsum);
+                    // e.record.set('amountoutputsum',response.amountoutputsum);
+                    // e.record.set('amounterrorsum',response.amounterrorsum);
+                    // e.record.set('amountkcssum',response.amountkcssum);
+                    // e.record.set('amountpackedsum',response.amountpackedsum);
+                    // e.record.set('amountstockedsum',response.amountstockedsum);
+                    // e.record.set('amountpackstockedsum',response.amountpackstockedsum);
+                    e.record.set('status',response.status);
+                    e.record.endedit;
+				} else {
+                    Ext.MessageBox.show({
+                        title: "Tiến độ",
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            });            
+        }
     },
     onItemSetReady: function(grid, rowIndex, colIndex){
         var record = this.getView().store.getAt(rowIndex);

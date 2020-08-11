@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         cellediting: {
             clicksToEdit: 2,
             listeners: {
-                edit: 'onProcessingItemEdit'
+                edit: 'onProcessingItemEdit_Single'
             }            
         }
         // rowediting: {
@@ -60,38 +60,38 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     columns: [
         //{ text: 'STT',  dataIndex: 'id', width: 44 },
         //{xtype: 'rownumberer'},
-        { 
-			xtype: 'actioncolumn',
-			width: 25,
-			menuDisabled: true,
-            sortable: false,
-            locked: true,
-            renderer: function (value, metadata, record) {
-                if (record.get('balance_status') > 0) {
-                    this.iconCls = 'x-fa fas fa-battery-4 greenIcon';
-                    this.tooltip = 'NPL Sẵn sàng';                    
+        // { 
+		// 	xtype: 'actioncolumn',
+		// 	width: 25,
+		// 	menuDisabled: true,
+        //     sortable: false,
+        //     locked: true,
+        //     renderer: function (value, metadata, record) {
+        //         if (record.get('balance_status') > 0) {
+        //             this.iconCls = 'x-fa fas fa-battery-4 greenIcon';
+        //             this.tooltip = 'NPL Sẵn sàng';                    
 
-                }
-                else {
-                    if (record.get('balance_date') != null){
-                        var dt = new Date(record.get('balance_date'));
-                        this.tooltip = 'Dự kiến NPL về: ' + Ext.Date.format(dt, "d/m/Y"); 
-                        this.iconCls = 'x-fa fas fa-battery-2 violetIcon';    
-                    } else {
-                        this.tooltip = 'Dự kiến NPL về: Chưa xác định';
-                        this.iconCls = 'x-fa fas fa-battery-0 redIcon';
-                    }
-                }
-            },
-            handler: 'onSetBalance' 
-		},           
-        { header: 'Mã SX', locked: true, dataIndex: 'ordercode', width: 70,
+        //         }
+        //         else {
+        //             if (record.get('balance_date') != null){
+        //                 var dt = new Date(record.get('balance_date'));
+        //                 this.tooltip = 'Dự kiến NPL về: ' + Ext.Date.format(dt, "d/m/Y"); 
+        //                 this.iconCls = 'x-fa fas fa-battery-2 violetIcon';    
+        //             } else {
+        //                 this.tooltip = 'Dự kiến NPL về: Chưa xác định';
+        //                 this.iconCls = 'x-fa fas fa-battery-0 redIcon';
+        //             }
+        //         }
+        //     },
+        //     handler: 'onSetBalance' 
+		// },           
+        { header: 'Mã SX', locked: true, dataIndex: 'pordercode', width: 100,
             //editor: {xtype: 'textfield', readOnly: true},
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'porderFilterField',
-                width: 65,
+                width: 95,
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {
@@ -118,15 +118,16 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             },
             summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
-        { header: 'Lịch giao hàng', headerWrap: true, locked: true, dataIndex: 'golivedesc', width: 80,
-            editor: {
-                allowBlank: true,
-                selectOnFocus: false
-            }
-        },
-        { header: 'Dự kiến SX', headerWrap: true, locked: true, dataIndex: 'productiondate', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y')},
-        { header: 'Cắt DK', locked: true, dataIndex: 'totalorder', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum'},
-        { header: 'Cắt TT', locked: true, dataIndex: 'amountcutsum', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
+        { header: 'Lịch giao hàng', headerWrap: true, locked: true, dataIndex: 'golivedate', width: 70, renderer: Ext.util.Format.dateRenderer('d/m/y')},
+        // { header: 'Lịch giao hàng', headerWrap: true, locked: true, dataIndex: 'golivedesc', width: 80,
+        //     editor: {
+        //         allowBlank: true,
+        //         selectOnFocus: false
+        //     }
+        // },
+        // { header: 'Dự kiến SX', headerWrap: true, locked: true, dataIndex: 'productiondate', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y')},
+        { header: 'SL đơn hàng', locked: true, dataIndex: 'totalorder', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum'},
+        { header: 'SL cắt', locked: true, dataIndex: 'amountcutsum', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
             renderer: function (value, metaData, record, rowIndex) {
                 var c = record.get('iscuttt');
                 if (c == 0) {
@@ -140,7 +141,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         { header: 'Khoán RC', reference: 'pprocess_edit_amounttarget',
             columns: [
                 { header: 'H-nay', dataIndex: 'amounttarget', width: 55,
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, minValue: 0, maxValue: 100000, selectOnFocus: false},
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
@@ -156,7 +157,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         { header: 'Vào chuyền', reference: 'pprocess_edit_amountinput',
             columns: [
                 { header: 'SL', dataIndex: 'amountinput', width: 55,
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false},
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
@@ -171,7 +172,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         { header: 'Ra chuyền', reference: 'pprocess_edit_amountoutput',
             columns: [
                 { header: 'SL', dataIndex: 'amountoutput', width: 55,
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false},
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
@@ -197,7 +198,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         { header: 'Đăng ký QC', reference: 'pprocess_edit_amountkcsreg',
             columns: [
                 { header: 'H-nay', dataIndex: 'amountkcsreg', width: 55,
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, minValue: 0, maxValue: 100000, selectOnFocus: false},
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
@@ -213,7 +214,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         { header: 'Nhập kho', reference: 'pprocess_edit_amountstocked',
             columns: [
                 { header: 'SL', dataIndex: 'amountstocked', width: 55,
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false},
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
@@ -243,7 +244,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         { header: 'Đóng gói', reference: 'pprocess_edit_amountpacked',
             columns: [
                 { header: 'SL', dataIndex: 'amountpacked', width: 55, id: 'pprocess_edit_amountpacked',
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: false},
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
@@ -275,38 +276,21 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //         }
         //     }
         // }        
-        { 
-            xtype: 'actioncolumn',
-            reference: 'porderprocessing_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-            {
-				iconCls: 'x-fa fas fa-bars violetIcon',
-                //tooltip:'Chuẩn bị SX',
-                //handler: 'onItemSetReady'
-                handler: 'onMenu'
-            },
-            // {
-			// 	iconCls: 'x-fa fas fa-forward violetIcon',
-			// 	tooltip: 'Chuyển/Tách chuyền',
-			// 	handler: 'onSplitGrant'
-			// },{
-			// 	iconCls: 'x-fa fas fa-cogs blueIcon',
-			// 	tooltip: 'Công đoạn phụ',
-			// 	handler: 'onSubProcess'
-			// },{
-			// 	iconCls: 'x-fa fas fa-stop-circle redIcon',
-			// 	tooltip: 'Dừng SX',
-			// 	handler: 'onFinishProcess'
-			// },{
-			// 	iconCls: 'x-fa fas fa-file-text-o orangeIcon',
-			// 	tooltip: 'Biên bản lỗi'
-			// 	//handler: 'onDelete'
-            // }
-        ]
-        }
+        // { 
+        //     xtype: 'actioncolumn',
+        //     reference: 'porderprocessing_contextmenu',
+		// 	width: 25,
+		// 	menuDisabled: true,
+		// 	sortable: false,
+		// 	items: [
+        //     {
+		// 		iconCls: 'x-fa fas fa-bars violetIcon',
+        //         //tooltip:'Chuẩn bị SX',
+        //         //handler: 'onItemSetReady'
+        //         handler: 'onMenu'
+        //     },
+        // ]
+        // }
     ],
     dockedItems: [{
         dock: 'top',
