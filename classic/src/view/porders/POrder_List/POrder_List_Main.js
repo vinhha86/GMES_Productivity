@@ -81,28 +81,28 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         dataIndex: 'po_vendor',
         flex: 1
     }, {
-        text: 'Ngày giao SX',
+        text: 'Tạo lệnh',
         dataIndex: 'orderdate',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // flex: 1,
-        width: 80,
+        width: 70,
     }, {
-        text: 'Ngày vào chuyền',
+        text: 'Vào chuyền',
         dataIndex: 'productiondate_plan',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // flex: 1,
-        width: 80,
+        width: 70,
     }, {
-        text: 'Ngày giao hàng',
+        text: 'Giao hàng',
         dataIndex: 'golivedate',
-        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // flex: 1,
-        width: 80,
+        width: 70,
     }, {
         text: 'Số lượng',
         dataIndex: 'totalorder',
         // flex: 1,
-        width: 60,
+        width: 75,
         align: 'end'
     }, {
         text: 'Trạng thái',
