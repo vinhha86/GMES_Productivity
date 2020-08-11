@@ -6,9 +6,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         'GSmartApp.store.TaskBoard.TaskUser_Store'
     ],
     stores: {
-        TaskBoard_Store: {
-            type: 'TaskBoard_Store'
-        },
         TaskUser_Store : {
             type: 'TaskUser_Store'
         }

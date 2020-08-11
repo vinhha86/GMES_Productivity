@@ -51,13 +51,17 @@ Ext.define('GSmartApp.view.users.User_List', {
         width: 120
     }, {
         xtype: 'actioncolumn',
-        width: 30,
+        width: 50,
         menuDisabled: true,
         sortable: false,
         items: [{
             iconCls: 'x-fa fas fa-edit',
             tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
             handler: 'onEdit'
+        },{
+            iconCls: 'x-fa fas fa-list',
+            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+            handler: 'onCustommer'
         }]
     }],
     dockedItems: [{

@@ -38,6 +38,35 @@ Ext.define('GSmartApp.view.users.UserListController', {
 		
 		this.redirectTo("lsusers/"+id+"/edit");
 	},
+	onCustommer: function(grid, rowIndex, colIndex){
+		var record = grid.getStore().getAt(rowIndex);
+		var id = record.get('id');
+
+		var me = this.getView();
+        var record = grid.getStore().getAt(row);
+        var form = Ext.create('Ext.window.Window', {
+            height: 400,
+            closable: true,
+            title: 'Thuộc tính : ' + record.data.attributeName,
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 400,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'ProductSelectAttributeView',
+                IdAttribute: record.data.attributeid_link,
+                IdProduct: me.IdProduct
+            }]
+        });
+        form.show();
+	},
 	onItemdblclick:function(grid, record, item, index, e, eOpts ){
 		var id = record.get('id');
 		

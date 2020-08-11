@@ -19,6 +19,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
 
         var viewmodel = this.getViewModel();
         var taskStore = viewmodel.getStore('TaskBoard_Store');
+        taskStore.loadStore();
         var userStore = viewmodel.getStore('TaskUser_Store');
 
         var task = Ext.create('Kanban.view.TaskBoard', {
