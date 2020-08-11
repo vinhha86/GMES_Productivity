@@ -25,7 +25,6 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         storeSku.removeAll();
     },
     onFilterProduct: function(combo, record, eOpts ){
-        console.log(2222);
         var store = this.getViewModel().getStore('PContractPOList');
         var productid_link = record.get('productid_link');
         var pcontractid_link = this.getViewModel().get('PContract.id');

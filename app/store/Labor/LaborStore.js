@@ -18,7 +18,7 @@ Ext.define('GSmartApp.store.Labor.LaborStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/labor/getall',
+			url: config.getAppBaseUrl()+'/api/v1/laborlevel/getalllaborlevel',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
