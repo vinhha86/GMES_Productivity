@@ -1,7 +1,6 @@
 Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
     extend : 'Ext.form.Panel',
     xtype  : 'TaskEditor',
-
     mixins : [
         'Kanban.editor.Base'
     ],
@@ -26,7 +25,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
     autoScroll  : true,
     bodyPadding : 20,
     floating    : true,
-
+    closeAction: 'destroy',
     constrain   : true,
     modal       : true,
     cls         : 'taskeditor',
@@ -41,16 +40,24 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             layout : 'hbox',
             items  : [
                 {
-                    xtype      : 'textfield',
+                    xtype      : 'displayfield',
                     name       : 'Name',
                     itemId     : 'nameField',
-                    cls        : 'namefield',
-                    readOnly   : true,
-                    allowBlank : false,
+                    fieldStyle: "font-weight: bold; font-size: 15px",
                     flex       : 1,
                     margin     : '0 20 0 0'
                 }
             ]
+        },
+        {
+            xtype      : 'displayfield',
+            name       : 'Description',
+            fieldLabel: 'Mô tả: ',
+            labelStyle: "font-weight: bold; font-size: 13px",
+            itemId     : 'descriptionField',
+            fieldStyle: "font-size: 13px",
+            flex       : 1,
+            margin     : '0 20 0 0'
         },
         // {
         //     xtype        : 'combobox',
@@ -84,6 +91,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             xtype  : 'container',
             layout : 'hbox',
             itemId : 'addButtons',
+            bind: {
+                hidden: '{ishidden_add_checklist}'
+            },
             items  : [
                 {
                     xtype     : 'textfield',
@@ -196,8 +206,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         if (e.getTarget('.subtask')) return;
 
         this.getForm().loadRecord(record);
-
-        console.log(this);
 
         var checkboxGroup = this.getSubtaskList();
         var commentView   = this.getCommentView();

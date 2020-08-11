@@ -11,7 +11,8 @@ Ext.define('GSmartApp.model.TaskBoard.TaskBoard_Model', {
         {
             name    : 'PercentDone',
             type    : 'int'
-        }
+        },
+        'tasktypeid_link'
     ],
 
     associations : [

@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.TaskBoard.Comment', {
     
     itemTpl : '<tpl for=".">' +
     '<div class="comment-wrap">' +
-    '<div class="comment-header"><h4>{userName}</h4><span class="date">{[Ext.util.Format.date(values.Date, "M d G:i")]}</span></div>' +
+    '<div class="comment-header"><h4>{userName}</h4><span class="date">{[Ext.util.Format.date(values.Date, "d/m/y G:i")]}</span></div>' +
     '<div class="comment-body"><img src="{userImgUrl}"/><p>{Text}</p></div>' +
     '</div>' +
     '</tpl>',
@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.TaskBoard.Comment', {
         var collected = this.callParent(arguments),
             userStore = Ext.StoreManager.lookup('TaskUser_Store'),
             result    = [];
-
+        
         for (var i = 0; i < collected.length; i++) {
             var renderData = Ext.apply({}, collected[ i ]);
             var comment    = comments[ i ];

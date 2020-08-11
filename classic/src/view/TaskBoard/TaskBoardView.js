@@ -21,17 +21,18 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
         var taskStore = viewmodel.getStore('TaskBoard_Store');
         taskStore.loadStore();
         var userStore = viewmodel.getStore('TaskUser_Store');
+        userStore.loadUserbyOrg(-1);
 
         var task = Ext.create('Kanban.view.TaskBoard', {
             id: 'taskboard',
             enableUserMenu: false,
+            border: true,
             taskMenu: false,
             taskStore: taskStore,
             resourceStore: userStore,
 
             editor: {
-                xtype: 'TaskEditor',
-                userStore: userStore
+                xtype: 'TaskEditor'
             },
 
             fitColumns: false,
@@ -63,18 +64,19 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                 multiSelect: true,
                 plugins: 'kanban_dragselector',
 
-                taskBodyTpl: '<div class="task-header">' +
+                taskBodyTpl: '<div class="{cls_task}">' +
                     '<div class="task-progress" style="width:{PercentDone}%"></div>' +
                     '<span class="task-id">{Name}</span>' +
                     '<span class="task-user">{[values.task.getResource() && values.task.getResource().getName()]}</span>' +
                     '</div>' +
                     '<div class="task-body">' +
+                    '<div class="sch-task-name">{Description}</div>' +
                     '<tpl if="values.task.getResource() && values.task.getResource().get(\'ImageUrl\')">' +
                     '<img class="task-userimg" src="{[values.task.getResource().get("ImageUrl")]}"/>' +
                     '</tpl>' +
                     '<ul class="subtasks">' +
                     '<tpl for="values.task.subTasks()">' +
-                    '<li class="{[values.data.Done ? "subtask-done" : ""]}"><label class="subtask"><input data-id="{[values.internalId]}" class="subtask-checkbox" type="checkbox" name="checkbox" {[ values.data.Done ? "checked" : "" ]} >{[values.data.Name]}</label></li>' +
+                    '<li class="{[values.data.Done ? "subtask-done" : ""]}"><label class="subtask"><input data-id="{[values.internalId]}" class="subtask-checkbox" disabled = "true" type="checkbox" name="checkbox" {[ values.data.Done ? "checked" : "" ]} >{[values.data.Name]}</label></li>' +
                     '</tpl>' +
                     '</ul>' +
                     '<div class="task-footer">' +
@@ -106,16 +108,29 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
             },
 
             listeners: {
-                "change": {
-                    fn: 'onCheckboxChange',
-                    element: 'body'
-                }
+                //// Event check subtask o ngoai tam thoi bo khong cho check
+                // "change": {
+                //     fn: 'onCheckboxChange',
+                //     element: 'body'
+                // }, 
+                taskdrop: 'onTaskDrop',
+                beforetaskdropfinalize: 'beforeDrop',
             }
         
         })
 
         Ext.apply(me, {
-            items: [task]
+            items: [task],
+            dockedItems: [{
+                dock: 'top',
+                xtype: 'toolbar',
+                items:[{
+                    xtype: 'button',
+                    tooltip: 'Thêm việc khác',
+                    iconCls: 'x-fa fa-plus',
+                    itemId: 'btnAddTask'
+                }]
+            }]
         });
 
         me.callParent();

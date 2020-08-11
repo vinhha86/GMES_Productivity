@@ -9,5 +9,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         TaskUser_Store : {
             type: 'TaskUser_Store'
         }
+    },
+    data: {
+        ishidden_add_checklist: true
     }
 })

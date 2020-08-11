@@ -10,6 +10,41 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
             }
         }
     },
+    control: {
+        '#btnAddTask': {
+            click: 'onAddTask'
+        }
+    },
+
+    onAddTask: function(){
+        var view = this.getView();
+        var form = Ext.create('Ext.window.Window', {
+            height: 200,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thêm việc mới',
+            closeAction: 'destroy',
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'AddTask'
+            }]
+        });
+        form.show();
+
+        form.down('#AddTask').on('Addtask', function(task){
+            var taskStore = view.down('#taskboard').getTaskStore();
+            var mainTask  = taskStore.insert(0, task);
+
+            form.close();
+        })
+    },
 
     refreshMainTask : function (store, model) {
         model = model instanceof Array ? model[ 0 ] : model;
@@ -29,12 +64,34 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         }
     },
 
-    onCheckboxChange : function (e, checkbox) {
-        var taskboard = this.getView().down('#taskboard');
-        var task      = taskboard.resolveRecordByNode(checkbox);
-        var subtask   = task.subTasks().getByInternalId(Number(checkbox.getAttribute('data-id')));
-        var current   = subtask.get('Done');
+    beforeDrop: function(drop, dragContext, e, eOpts){
+        var task = dragContext.taskRecords[0];
+        if(task.get('tasktypeid_link') != -1){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được phép di chuyển công việc! Trạng thái công việc sẽ được tự động cập nhật',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function () {
+                    dragContext.finalize(false);
+                }
+            });
+            return false;
+        }
+    },
 
-        subtask.set('Done', !current);
+    onTaskDrop: function(drop, task, eOpts ){
+
     }
+
+    // onCheckboxChange : function (e, checkbox) {
+    //     var taskboard = this.getView().down('#taskboard');
+    //     var task      = taskboard.resolveRecordByNode(checkbox);
+    //     var subtask   = task.subTasks().getByInternalId(Number(checkbox.getAttribute('data-id')));
+    //     var current   = subtask.get('Done');
+
+    //     subtask.set('Done', !current);
+    // }
 })

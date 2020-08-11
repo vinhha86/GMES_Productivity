@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.users.User_List', {
             handler: 'onEdit'
         },{
             iconCls: 'x-fa fas fa-list',
-            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+            tooltip: 'Danh sách Vendor/Buyer',
             handler: 'onCustommer'
         }]
     }],
