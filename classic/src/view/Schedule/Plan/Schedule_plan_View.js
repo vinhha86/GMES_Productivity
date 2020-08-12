@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 '</ul>'
             ),
             eventRenderer: function (flight, resource, meta) {
-                if (resource.data.leaf) {
+                if (resource.data.type >=1) {
                     return flight.get('mahang');
                 } else {
                     return '&nbsp;';
