@@ -25,7 +25,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
     autoScroll  : true,
     bodyPadding : 20,
     floating    : true,
-    closeAction: 'destroy',
     constrain   : true,
     modal       : true,
     cls         : 'taskeditor',
