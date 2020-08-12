@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
             form.hide();
         }
         
-        this.getView().close();
+        this.getView().hide();
     },
 
     onAddSpecialKey : function (field, e, t) {
