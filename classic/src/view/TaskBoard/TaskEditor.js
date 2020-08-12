@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         {
             xtype      : 'displayfield',
             name       : 'Description',
-            fieldLabel: 'Mô tả: ',
+            fieldLabel: 'Mô tả ',
             labelStyle: "font-weight: bold; font-size: 13px",
             itemId     : 'descriptionField',
             fieldStyle: "font-size: 13px",
@@ -79,6 +79,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         {
             xtype      : 'checkboxgroup',
             fieldLabel : 'Chi tiết',
+            itemId      : 'checklist',
             columns    : 1,
             vertical   : true,
             cls        : 'checklist',
@@ -214,7 +215,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         checkboxGroup.add(Ext.Array.map(record.subTasks().getRange(), function (subtask) {
             return {
                 boxLabel : subtask.getName(),
-                checked  : subtask.get('Done')
+                checked  : subtask.get('Done'),
+                name  : subtask.getId()
             };
         }));
 

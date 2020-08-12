@@ -35,11 +35,32 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                 xtype: 'TaskEditor'
             },
 
-            fitColumns: false,
-            defaults: {
-                width: 300
-            },
-
+            // fitColumns: false,
+            // defaults: {
+            //     width: 300
+            // },
+            // columnConfigs : {
+            //     all : {
+            //         iconCls : 'x-fa fa-gear' // add some icon to the header
+            //     },
+        
+            //     'NotStarted' : {
+            //         dockedItems : {
+            //             xtype   : 'container',
+            //             dock    : 'top',
+            //             layout  : 'fit',
+            //             border  : 0,
+            //             padding : '5 8',    
+            //             items   : {
+            //                 height : 30,
+            //                 xtype : 'columnfilter',
+            //                 emptyText: 'Tên công việc',
+            //                 store: taskStore
+            //             }
+            //         }
+            //     }
+            // },
+        
             columns: [
                 {
                     state: 'NotStarted',
@@ -54,7 +75,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     title: 'Đã xong'
                 },
                 {
-                    state: 'Done',
+                    state: 'Reject',
                     title: 'Từ chối'
                 }
             ],
@@ -90,13 +111,12 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
 
                 // Enable smart diff update of the Task HTML contents
                 onUpdate: function (store, record, operation, modifiedFieldNames) {
-
                     var fragment = document.createElement('div');
                     var currentNode = this.getNode(record);
                     var selModel = this.getSelectionModel();
 
                     this.tpl.overwrite(fragment, this.collectData([record]));
-                    Ext.fly(currentNode).down('.task-header').syncContent(Ext.fly(fragment).down('.task-header', true));
+                    Ext.fly(currentNode).down('.'+record.get('cls_task')).syncContent(Ext.fly(fragment).down('.'+record.get('cls_task'), true));
 
                     Ext.fly(currentNode).down('.task-body').update(Ext.fly(fragment).down('.task-body', true).innerHTML);
 
