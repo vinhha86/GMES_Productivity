@@ -16,7 +16,8 @@ Ext.define('GSmartApp.view.TaskBoard.AddTask', {
         blankText: 'Không được để trống',
         bind: {
             value: '{text}'
-        }
+        },
+        itemId: 'text'
     }],
     dockedItems: [{
         dock: 'bottom',

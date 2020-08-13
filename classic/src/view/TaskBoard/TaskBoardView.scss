@@ -265,12 +265,14 @@
 
 .task-id {
     font-weight : 600;
+    font-size: 11px;
 }
 
 .task-user {
     float        : right;
     margin-right : 20px;
     font-weight  : 600;
+    font-size: 11px;
 }
 
 .sch-taskview div.sch-task-selected {
@@ -287,6 +289,7 @@
     margin      : 0;
     width       : 90%;
     font-weight : bold;
+    font-size: 11px;
 }
 
 .task-userimg {
@@ -313,6 +316,7 @@
     float   : left;
     margin  : 10px 0 0 0;
     padding : 0;
+    font-size: 11px;
 }
 
 .subtasks li {
@@ -322,9 +326,10 @@
 .subtasks label {
     display     : block;
     margin-top  : 2px;
-    cursor      : pointer;
+    // cursor      : pointer;
     color       : #333;
     font-weight : 500;
+    font-size: 11px;
 }
 
 ul.subtasks li {
