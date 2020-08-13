@@ -230,64 +230,96 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
     onProcessingItemEdit_Single: function(editor, e){
         if (e.originalValue != e.value){
             console.log(editor.context.column.dataIndex);
+            switch(editor.context.column.dataIndex) {
+                case "amountinput":
+                    if ((e.value + e.record.get('amountinputsumprev')) > e.record.get('grantamount')) {
+                        e.cancel = true;
+                        Ext.MessageBox.show({
+                            title: "Tiến độ",
+                            msg: 'Số vào chuyền không được lớn hơn Số lượng đơn hàng',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        return false;
+                    }
+                    break;	  
+                case "amountoutput":
+                    if ((e.value + e.record.get('amountoutputsumprev')) > e.record.get('amountinputsum')) {
+                        e.cancel = true;
+                        Ext.MessageBox.show({
+                            title: "Tiến độ",
+                            msg: 'Số ra chuyền không được lớn hơn Số vào chuyền',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        return false;
+                    }
+                    break;	  
+                case "amountstocked":
+                    if ((e.value + e.record.get('amountstockedsumprev')) > e.record.get('amountoutputsum')) {
+                        e.cancel = true;
+                        Ext.MessageBox.show({
+                            title: "Tiến độ",
+                            msg: 'Số nhập kho không được lớn hơn Số ra chuyền',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        return false;
+                    }
+                    break;	                    
+                case "amountpacked":
+                    if ((e.value + e.record.get('amountpackedsumprev')) > e.record.get('amountoutputsum')) {
+                        e.cancel = true;
+                        Ext.MessageBox.show({
+                            title: "Tiến độ",
+                            msg: 'Số đóng gói không được lớn hơn Số ra chuyền',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        return false;
+                    }
+                    break;	
+            }
+
+            //Neu du lieu OK --> Update new value vao record data
+            e.record.data[e.field] = e.value;
+
             var cbProcessingDate = this.lookupReference('processingdate');
             var params=new Object();
             params.processingdate = cbProcessingDate.getValue();
-            params.id = e.record.data.id;
-            params.porderid_link = e.record.data.porderid_link;
-            params.pordergrantid_link = e.record.data.pordergrantid_link;
+            // params.id = e.record.data.id;
+            // params.porderid_link = e.record.data.porderid_link;
+            // params.pordergrantid_link = e.record.data.pordergrantid_link;
             params.dataIndex = editor.context.column.dataIndex;
-            params.newValue = e.value;
-            params.newSumValue = 0;
+            params.data = e.record.data;
+            // params.newValue = e.value;
+            // params.newSumValue = 0;
             
-            switch(editor.context.column.dataIndex) {
-                case "amountcut":
-                    params.newSumValue = e.record.data.amountcutsumprev + e.value;
-                    e.record.set('amountcutsum',params.newSumValue);
-                    break;	          				
-                case "amountinput":
-                    params.newSumValue = e.record.data.amountinputsumprev + e.value;
-                    e.record.set('amountinputsum',params.newSumValue);
-                    break;
-                case "amountoutput":
-                    params.newSumValue = e.record.data.amountoutputsumprev + e.value;
-                    e.record.set('amountoutputsum',params.newSumValue);
-                    break;	  
-                case "amounterror":
-                    params.newSumValue = e.record.data.amounterrorsumprev + e.value;
-                    e.record.set('amounterrorsum',params.newSumValue);
-                    break;	   	      	        			
-                case "amountkcs":
-                    params.newSumValue = e.record.data.amountkcssumprev + e.value;
-                    e.record.set('amountkcssum',params.newSumValue);
-                    break;  
-                case "amountpacked":
-                    params.newSumValue = e.record.data.amountpackedsumprev + e.value;
-                    e.record.set('amountpackedsum',params.newSumValue);
-                    break;  
-                case "amountstocked":
-                    params.newSumValue = e.record.data.amountstockedsumprev + e.value;
-                    e.record.set('amountstockedsum',params.newSumValue);
-                    break;       
-                case "comment":
-                    params.commentValue = e.value;
-                    break;            	        				
-            }
             GSmartApp.Ajax.post('/api/v1/pprocess/update_single', Ext.JSON.encode(params),
 			function (success, response, options) {
                 var response = Ext.decode(response.responseText);
 				if (success) {
                     e.record.beginedit;
-                    // e.record.set('amountcutsum',response.amountcutsum);
-                    // e.record.set('amountinputsum',response.amountinputsum);
-                    // e.record.set('amountoutputsum',response.amountoutputsum);
-                    // e.record.set('amounterrorsum',response.amounterrorsum);
-                    // e.record.set('amountkcssum',response.amountkcssum);
-                    // e.record.set('amountpackedsum',response.amountpackedsum);
-                    // e.record.set('amountstockedsum',response.amountstockedsum);
-                    // e.record.set('amountpackstockedsum',response.amountpackstockedsum);
+                    e.record.set('amountcutsum',response.amountcutsum);
+                    e.record.set('amountinputsum',response.amountinputsum);
+                    e.record.set('amountoutputsum',response.amountoutputsum);
+                    e.record.set('amounterrorsum',response.amounterrorsum);
+                    e.record.set('amountkcssum',response.amountkcssum);
+                    e.record.set('amountpackedsum',response.amountpackedsum);
+                    e.record.set('amountstockedsum',response.amountstockedsum);
+                    e.record.set('amountpackstockedsum',response.amountpackstockedsum);
                     e.record.set('status',response.status);
                     e.record.endedit;
+                    e.record.commit();
+                    return true;
 				} else {
                     Ext.MessageBox.show({
                         title: "Tiến độ",
@@ -297,6 +329,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                             yes: 'Đóng',
                         }
                     });
+                    return true;
                 }
             });            
         }

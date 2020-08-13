@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         cellediting: {
             clicksToEdit: 2,
             listeners: {
-                edit: 'onProcessingItemEdit_Single'
+                validateedit: 'onProcessingItemEdit_Single'
             }            
         }
         // rowediting: {
@@ -126,18 +126,18 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //     }
         // },
         // { header: 'Dự kiến SX', headerWrap: true, locked: true, dataIndex: 'productiondate', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y')},
-        { header: 'SL đơn hàng', locked: true, dataIndex: 'totalorder', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum'},
-        { header: 'SL cắt', locked: true, dataIndex: 'amountcutsum', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
-            renderer: function (value, metaData, record, rowIndex) {
-                var c = record.get('iscuttt');
-                if (c == 0) {
-                    metaData.tdCls = 'process-granted';
-                } else {
-                    metaData.tdCls =  'process-finish';
-                }      
-                return value;
-            },        
-        },
+        { header: 'SL đơn hàng', locked: true, dataIndex: 'grantamount', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum'},
+        // { header: 'SL cắt', locked: true, dataIndex: 'amountcutsum', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
+        //     renderer: function (value, metaData, record, rowIndex) {
+        //         var c = record.get('iscuttt');
+        //         if (c == 0) {
+        //             metaData.tdCls = 'process-granted';
+        //         } else {
+        //             metaData.tdCls =  'process-finish';
+        //         }      
+        //         return value;
+        //     },        
+        // },
         { header: 'Khoán RC', reference: 'pprocess_edit_amounttarget',
             columns: [
                 { header: 'H-nay', dataIndex: 'amounttarget', width: 55,
