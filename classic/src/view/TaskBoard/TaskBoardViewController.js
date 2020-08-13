@@ -41,6 +41,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
 
         form.down('#AddTask').on('Addtask', function(task){
             var taskStore = view.down('#taskboard').getTaskStore();
+
             taskStore.insert(0, task);
             form.close();
         })
@@ -49,7 +50,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
     refreshMainTask : function (store, model) {
         model = model instanceof Array ? model[ 0 ] : model;
 
-        console.log(model);
         var taskStore = this.getView().down('#taskboard').getTaskStore();
         var mainTask  = taskStore.getById(model.get('TaskId'));
 

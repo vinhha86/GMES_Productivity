@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.TaskBoard.Comment', {
     
     itemTpl : '<tpl for=".">' +
     '<div class="comment-wrap">' +
-    '<div class="comment-header"><h4>{userName}</h4><span class="date">{[Ext.util.Format.date(values.Date, "d/m/y G:i")]}</span></div>' +
+    '<div class="comment-header"><h4>{userName}</h4><span class="date">{[Ext.util.Format.date(values.Date, "d/m/y G:i")]}</span><span style = "float:right">{typename}</span></div>' +
     '<div class="comment-body"><img src="{userImgUrl}"/><p>{Text}</p></div>' +
     '</div>' +
     '</tpl>',

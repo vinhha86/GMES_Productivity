@@ -68,10 +68,11 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         // },
         {
             xtype        : 'combobox',
+            itemId      : 'comboUser',
             bind: {
                 store: '{TaskUser_Store}'
             },
-            name         : 'ResourceId',
+            // name         : 'ResourceId',
             displayField : 'Name',
             valueField   : 'Id',
             fieldLabel   : 'Người phụ trách'
@@ -83,6 +84,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             columns    : 1,
             vertical   : true,
             cls        : 'checklist',
+            bind: {
+                disabled: '{isdisable_checkbox}'
+            },
             defaults   : {
                 boxLabelAlign : 'after'
             }
@@ -125,13 +129,33 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             emptyText  : 'Nội dung chú thích...',
             fieldLabel : 'Thêm chú thích',
             anchor     : '90%',
-            height     : 50
+            height     : 50,
+            bind: {
+                editable: '{isedit_comment}',
+                value: '{comment}'
+            }
         },
         {
-            xtype   : 'button',
-            text    : 'Thêm chú thích',
-            anchor  : null,
-            handler : 'onAddCommentClick'
+            layout: 'hbox',
+            items: [{
+                xtype   : 'button',
+                text    : 'Thêm chú thích',
+                anchor  : null,
+                margin: 3,
+                handler : 'onAddCommentClick'
+            },{
+                xtype: 'combo',
+                itemId: 'comboFlowStatus',
+                bind: {
+                    store: '{FlowStatusStore}',
+                    value: '{flow_status}'
+                },
+                displayField: 'name',
+                valueField: 'id',
+                margin: 3,
+                editable: false,
+                emptyText: 'Loại phản hồi'
+            }]
         },
         {
             xtype     : 'component',
@@ -212,6 +236,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
 
         checkboxGroup.removeAll();
 
+        record.subTasks().sort('Id', 'DESC');
         checkboxGroup.add(Ext.Array.map(record.subTasks().getRange(), function (subtask) {
             return {
                 boxLabel : subtask.getName(),

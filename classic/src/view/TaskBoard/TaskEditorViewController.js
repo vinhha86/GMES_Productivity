@@ -8,12 +8,24 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         },
         'TaskEditor': {
             activate: 'onActivate'
+        },
+        '#comboUser' : {
+            select: 'onUpdateUser'
+        },
+        '#comboFlowStatus' : {
+            select: 'onSelectStatus'
         }
     },
     init: function () {
+        var form = this.getView();
         var viewmodel = this.getViewModel();
         var storeUser = viewmodel.getStore('TaskUser_Store');
         storeUser.loadUserbyOrg(-1);
+
+        var flowStatusStore = viewmodel.getStore('FlowStatusStore');
+        flowStatusStore.loadStore();
+
+        
     },
     onActivate: function () {
         var form = this.getView();
@@ -21,11 +33,103 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         var form = this.getView();
         if (form.getRecord().data.tasktypeid_link == -1) {
             viewmodel.set('ishidden_add_checklist', false);
+            viewmodel.set('isdisable_checkbox', false);
         }
         else {
-            var checkboxGroup = form.down('#checklist');
-            checkboxGroup.setDisabled(true);
+            viewmodel.set('isdisable_checkbox', true);
         }
+
+        form.down('#comboUser').setValue(form.getRecord().getResourceId());
+
+        //Loai task la ycsx thi moi hien day du 
+        var flowStatusStore = viewmodel.getStore('FlowStatusStore');
+        if (form.getRecord().data.tasktypeid_link != 0){
+            filters = flowStatusStore.getFilters();
+            filters.add({
+                property: 'id',
+                value: 2,
+                operator: '>',
+            })
+        }
+        else {
+            flowStatusStore.clearFilter();
+        }
+    },
+    onSelectStatus: function(combo, record, eOpts){
+        var viewmodel = this.getViewModel();
+        var status = record.get('id');
+        switch(status){
+            case 1:
+                viewmodel.set('isedit_comment', false);
+                viewmodel.set('comment','Phân xưởng chấp nhận Yêu cầu');
+                break;
+            case 2:
+                viewmodel.set('isedit_comment', true);
+                viewmodel.set('comment','Phân xưởng không sản xuất được!');
+                break;
+            case 3:
+                viewmodel.set('isedit_comment', true);
+                viewmodel.set('comment','');
+                break;
+            case 4:
+                viewmodel.set('isedit_comment', true);
+                viewmodel.set('comment','Tôi không thể nhận việc trong thời gian này!');
+                break;
+            default:
+                break;
+        }
+    },
+    onUpdateUser: function(combo, record, eOpts){
+        var form = this.getView();
+        form.setLoading("Đang xử lý dữ liệu");
+
+        var params = new Object();
+        params.userid_link = record.get('Id');
+        params.taskid_link = form.getRecord().getId();
+
+        GSmartApp.Ajax.post('/api/v1/task/update_task_userincharge', Ext.JSON.encode(params),
+            function (success, response, options) {
+                form.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+
+                        form.getRecord().comments().add(response.data);
+                        
+                        var taskboard = Ext.getCmp('taskboard');
+                        var taskStore = taskboard.getTaskStore();
+                        var mainTask = taskStore.getById(form.getRecord().getId());
+                        mainTask.set('ResourceId',record.get('Id'));
+                        taskboard.refreshTaskNode(mainTask);
+                    }
+                    else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function () {
+                                form.down('#comboUser').setValue(form.getRecord().getResourceId());
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Có lỗi trong quá trình xử lý dữ liệu!",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        },
+                        fn: function () {
+                            form.down('#comboUser').setValue(form.getRecord().getResourceId());
+                        }
+                    });
+                }
+            })
     },
     onCheckboxChange: function (checkboxGroup, newValue) {
         var me = this.getView();
@@ -219,7 +323,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                                         Text: field.getValue(),
                                         Date: response.data.Date,
                                         UserId: response.data.UserId, /* TODO read logged in user id */
-                                        TaskId: form.getRecord().getId()
+                                        TaskId: form.getRecord().getId(),
+                                        typename : response.data.typename
                                     });
 
                                     field.reset();
