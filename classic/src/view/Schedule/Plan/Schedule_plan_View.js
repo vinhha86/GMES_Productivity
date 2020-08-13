@@ -109,7 +109,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             columnLines: true,
             rowLines: true,
             cls: 'tree-scheduler',
-            snapRelativeToEventStartDate : false,
+            snapRelativeToEventStartDate : true,
             tooltipTpl: new Ext.XTemplate(
                 '<ul class="eventTip">',
                 '<li>{mahang}</li>',  
