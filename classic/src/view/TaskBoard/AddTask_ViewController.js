@@ -9,6 +9,9 @@ Ext.define('GSmartApp.view.TaskBoard.AddTask_ViewController', {
             click: 'onLuu'
         }
     },
+    init: function(){
+        
+    },
     onThoat: function(){
         this.getView().up('window').close();
     },

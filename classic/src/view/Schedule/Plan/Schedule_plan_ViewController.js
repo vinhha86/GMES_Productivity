@@ -623,6 +623,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         rec.set('duration', response.data.duration);
                         rec.set('productivity', response.data.productivity);
                         rec.set('porder_grantid_link', response.data.porder_grantid_link);
+                        // rec.set('Stảt')
                     }
                     else {
                         Ext.Msg.show({
