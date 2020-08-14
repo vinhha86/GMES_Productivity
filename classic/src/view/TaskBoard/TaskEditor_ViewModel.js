@@ -12,6 +12,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         },
         FlowStatusStore: {
             type: 'TaskFlowStatusStore'
+        },
+        TaskUser_Store_Full: {
+            type: 'TaskUser_Store'
         }
     },
     data: {
@@ -19,6 +22,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         isdisable_checkbox: false,
         flow_status: 3,
         isedit_comment: true,
-        comment: ''
+        comment: '',
+        btncomment: false,
+        btnreject : true,
+        btnaccept: true
     }
 })

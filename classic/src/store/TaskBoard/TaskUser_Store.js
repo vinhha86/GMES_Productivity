@@ -33,6 +33,5 @@ Ext.define('GSmartApp.store.TaskBoard.TaskUser_Store', {
 				rootProperty: 'data'
 			}
 		});
-		this.load();
-	},
+	}
 });

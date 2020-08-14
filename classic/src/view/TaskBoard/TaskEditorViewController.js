@@ -21,15 +21,21 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         var viewmodel = this.getViewModel();
         var storeUser = viewmodel.getStore('TaskUser_Store');
         storeUser.loadUserbyOrg(-1);
+        storeUser.load();
 
         var flowStatusStore = viewmodel.getStore('FlowStatusStore');
         flowStatusStore.loadStore();
 
-        
+        var storeUserFull = viewmodel.getStore('TaskUser_Store_Full');
+        storeUserFull.loadUserbyOrg(1);
+        storeUserFull.load();
+
     },
     onActivate: function () {
         var form = this.getView();
         var viewmodel = this.getViewModel();
+        var comment = form.getCommentView();
+        comment.userStore = viewmodel.getStore('TaskUser_Store_Full');
         var form = this.getView();
         if (form.getRecord().data.tasktypeid_link == -1) {
             viewmodel.set('ishidden_add_checklist', false);
@@ -62,14 +68,23 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
             case 1:
                 viewmodel.set('isedit_comment', false);
                 viewmodel.set('comment','Phân xưởng chấp nhận Yêu cầu');
+                viewmodel.set('btncomment', true);
+                viewmodel.set('btnreject', true);
+                viewmodel.set('btnaccept', false);
                 break;
             case 2:
                 viewmodel.set('isedit_comment', true);
                 viewmodel.set('comment','Phân xưởng không sản xuất được!');
+                viewmodel.set('btncomment', true);
+                viewmodel.set('btnreject', false);
+                viewmodel.set('btnaccept', true);
                 break;
             case 3:
                 viewmodel.set('isedit_comment', true);
                 viewmodel.set('comment','');
+                viewmodel.set('btncomment', false);
+                viewmodel.set('btnreject', true);
+                viewmodel.set('btnaccept', true);
                 break;
             case 4:
                 viewmodel.set('isedit_comment', true);
@@ -77,6 +92,79 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                 break;
             default:
                 break;
+        }
+    },
+    onRejectReq: function(){
+        var me = this;
+        var form = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var user_incharge = form.down('#comboUser').getValue();
+        var data = GSmartApp.util.State.get('session');
+        var session = data ? GSmartApp.model.Session.loadData(data) : null;
+        var current_user = session.get('Id');
+
+        if(user_incharge == current_user){
+            var field = form.down('#textcomment');
+
+            var params = new Object();
+            params.taskid_link = form.getRecord().getId();
+            params.comment = field.getValue();
+            params.status = 2;
+
+            GSmartApp.Ajax.post('/api/v1/task/reject_porder_req', Ext.JSON.encode(params),
+            function (success, response, options) {
+                form.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+
+                        me.onCloseClick();
+                        
+                        var taskboard = Ext.getCmp('taskboard');
+                        var taskStore = taskboard.getTaskStore();
+                        taskStore.remove(form.getRecord());
+                    }
+                    else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function () {
+                                form.down('#comboUser').setValue(form.getRecord().getResourceId());
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Có lỗi trong quá trình xử lý dữ liệu!",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+        }
+        else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn không phải Người phụ trách công việc! Bạn không được từ chối YCSX cho phân xưởng",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                },
+                fn: function () {
+                    viewmodel.set('flow_status', 3);
+                    var field = form.down('#textcomment');
+                    field.reset();
+                }
+            });
         }
     },
     onUpdateUser: function(combo, record, eOpts){

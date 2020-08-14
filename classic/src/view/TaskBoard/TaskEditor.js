@@ -142,7 +142,28 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                 text    : 'Thêm chú thích',
                 anchor  : null,
                 margin: 3,
-                handler : 'onAddCommentClick'
+                handler : 'onAddCommentClick',
+                bind : {
+                    hidden: '{btncomment}'
+                }
+            },{
+                xtype   : 'button',
+                text    : 'Chấp nhận YCSX',
+                anchor  : null,
+                margin: 3,
+                handler : 'onAcceptReq',
+                bind : {
+                    hidden: '{btnaccept}'
+                }
+            },{
+                xtype   : 'button',
+                text    : 'Từ chối YCSX',
+                anchor  : null,
+                margin: 3,
+                handler : 'onRejectReq',
+                bind : {
+                    hidden: '{btnreject}'
+                }
             },{
                 xtype: 'combo',
                 itemId: 'comboFlowStatus',
