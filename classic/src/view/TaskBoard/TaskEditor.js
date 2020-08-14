@@ -148,7 +148,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                 }
             },{
                 xtype   : 'button',
-                text    : 'Chấp nhận YCSX',
+                text    : 'Chấp nhận',
                 anchor  : null,
                 margin: 3,
                 handler : 'onAcceptReq',
@@ -157,7 +157,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                 }
             },{
                 xtype   : 'button',
-                text    : 'Từ chối YCSX',
+                text    : 'Từ chối',
                 anchor  : null,
                 margin: 3,
                 handler : 'onRejectReq',

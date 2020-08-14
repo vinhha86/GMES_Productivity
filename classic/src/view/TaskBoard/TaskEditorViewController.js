@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
             filters = flowStatusStore.getFilters();
             filters.add({
                 property: 'id',
-                value: 2,
+                value: 1,
                 operator: '>',
             })
         }
@@ -94,6 +94,87 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                 break;
         }
     },
+    onAcceptReq: function(){
+        var me = this;
+        var form = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var user_incharge = form.down('#comboUser').getValue();
+        var data = GSmartApp.util.State.get('session');
+        var session = data ? GSmartApp.model.Session.loadData(data) : null;
+        var current_user = session.get('Id');
+
+        var field = form.down('#textcomment');
+
+        if(user_incharge == current_user){
+        var params = new Object();
+            params.taskid_link = form.getRecord().getId();
+            params.comment = field.getValue();
+
+            GSmartApp.Ajax.post('/api/v1/task/accept_porer_req', Ext.JSON.encode(params),
+            function (success, response, options) {
+                form.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+
+                        me.onCloseClick();
+
+                        var taskboard = Ext.getCmp('taskboard');
+                        var taskStore = taskboard.getTaskStore();
+                        var mainTask = taskStore.getById(form.getRecord().getId());
+                        mainTask.set('State', 'Done');
+
+                        form.getRecord().comments().add(response.comment);
+                        var checkboxGroup  = form.down('#checklist');
+                        var subTasks = mainTask.subTasks();
+                        for(var i=0; i< subTasks.data.length; i++){
+                            var sub = subTasks.data.items[i];
+                            sub.set('Done', true);
+                        }
+                        
+                        taskboard.refreshTaskNode(mainTask);
+
+
+                    }
+                    else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Có lỗi trong quá trình xử lý dữ liệu!",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+        }
+        else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn không phải Người phụ trách công việc! Bạn không được từ chối YCSX cho phân xưởng",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                },
+                fn: function () {
+                    viewmodel.set('flow_status', 3);
+                    field.reset();
+                }
+            });
+        }
+    },
     onRejectReq: function(){
         var me = this;
         var form = this.getView();
@@ -132,9 +213,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng'
-                            },
-                            fn: function () {
-                                form.down('#comboUser').setValue(form.getRecord().getResourceId());
                             }
                         });
                     }
@@ -188,6 +266,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                         var taskStore = taskboard.getTaskStore();
                         var mainTask = taskStore.getById(form.getRecord().getId());
                         mainTask.set('ResourceId',record.get('Id'));
+                        mainTask.set('State', 'InProgress');
                         taskboard.refreshTaskNode(mainTask);
                     }
                     else {
