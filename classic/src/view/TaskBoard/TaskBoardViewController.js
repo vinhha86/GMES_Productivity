@@ -15,7 +15,19 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
             click: 'onAddTask'
         }
     },
+    init: function(){
+        var me = this.getView().down('#taskboard');
+        var taskStore = me.getTaskStore();
 
+        me.undoManager = new Robo.Manager({
+            transactionBoundary: 'timeout',
+            stores: [
+                taskStore
+            ]
+        });
+        me.undoManager.start();
+
+    },
     onAddTask: function(){
         var view = this.getView();
         var form = Ext.create('Ext.window.Window', {
@@ -67,6 +79,10 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
 
     beforeDrop: function(drop, dragContext, e, eOpts){
         var task = dragContext.taskRecords[0];
+        var data = GSmartApp.util.State.get('session');
+        var session = data ? GSmartApp.model.Session.loadData(data) : null;
+        var current_user = session.get('Id');
+
         if(task.get('tasktypeid_link') != -1){
             Ext.Msg.show({
                 title: 'Thông báo',
@@ -81,9 +97,77 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
             });
             return false;
         }
+        else if (current_user != task.get('ResourceId')){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được phép di chuyển công việc không phải mình phụ trách!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function () {
+                    dragContext.finalize(false);
+                }
+            });
+            return false;
+        }
+        return true;
     },
 
     onTaskDrop: function(drop, task, eOpts ){
+        var data = task[0];
+        console.log(data);
+        var me = this;
+        var form = this.getView();
+        form.setLoading('Đang xử lý dữ liệu');
+
+        var taskstatusid_link = 0;
+        if(data.get('State') == 'DangLam'){
+            taskstatusid_link = 1;
+        } else if(data.get('State') == 'DaXong'){
+            taskstatusid_link = 2;
+        } else if(data.get('State') == 'TuChoi'){
+            taskstatusid_link = -1;
+        }
+        var params = new Object();
+        params.taskid_link = data.get('Id');
+        params.taskstatusid_link = taskstatusid_link;
+
+        GSmartApp.Ajax.post('/api/v1/task/update_state_task', Ext.JSON.encode(params),
+            function (success, response, options) {
+                form.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                var state = data.previousValues.State;
+                                data.set('State',state)
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Có lỗi trong quá trình xử lý dữ liệu!",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        },
+                        fn: function(){
+                            var state = data.previousValues.State;
+                            data.set('State',state)
+                        }
+                    });
+                }
+            })
 
     }
 
