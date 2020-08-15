@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
     },
     viewConfig: {
         stripeRows: true,
-        enableTextSelection: true,
+        enableTextSelection: false,
         scrollable: true,
         columnLines: true,
         rowLines: true,

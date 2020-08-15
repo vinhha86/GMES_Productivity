@@ -29,21 +29,23 @@ Ext.define('GSmartApp.view.pcontract.PContractAttributeView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 50,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-plus',
-            tooltip: "Thêm mới giá trị",
-            handler: 'onAddValue'
-        },{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: "Xóa thuộc tính",
-            handler: 'onXoaAtt'
-        }]
-    }],
+    },
+    // {
+    //     xtype: 'actioncolumn',
+    //     width: 50,
+    //     menuDisabled: true,
+    //     sortable: false,
+    //     items: [{
+    //         iconCls: 'x-fa fas fa-plus',
+    //         tooltip: "Thêm mới giá trị",
+    //         handler: 'onAddValue'
+    //     },{
+    //         iconCls: 'x-fa fas fa-trash',
+    //         tooltip: "Xóa thuộc tính",
+    //         handler: 'onXoaAtt'
+    //     }]
+    // }
+    ],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',
@@ -57,14 +59,15 @@ Ext.define('GSmartApp.view.pcontract.PContractAttributeView', {
         },
 		'->'
 		,
-		{
-            xtype:'button',
-            itemId:'btnAttr_PContractAttributeView',
-            ui: 'header',
-            margin: '10 5 0 0',
-			tooltip: 'Thêm sản phẩm',
-            iconCls: 'x-fa fa-plus'
-        }]
+		// {
+        //     xtype:'button',
+        //     itemId:'btnAttr_PContractAttributeView',
+        //     ui: 'header',
+        //     margin: '10 5 0 0',
+		// 	tooltip: 'Thêm sản phẩm',
+        //     iconCls: 'x-fa fa-plus'
+        // }
+    ]
     }]
 });
 
