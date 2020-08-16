@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
             dataIndex: 'salaryfundamount',
             header: 'Tổng',
             aggregator: 'sum',
-            width: 90,
+            width: 100,
             renderer: function(value){
                 return Ext.util.Format.number(value, '0,000');
             }

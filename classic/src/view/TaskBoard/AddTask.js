@@ -6,11 +6,16 @@ Ext.define('GSmartApp.view.TaskBoard.AddTask', {
     viewModel: {
         type: 'AddTask_ViewModel'
     },
-    layout: 'hbox',
+    layout: {
+        type: 'hbox',
+        align: 'stretch'
+    },
     items: [{
         xtype: 'textarea',
+        flex: 1,
         margin: 3,
         fieldLabel: 'Nội dung',
+        labelAlign: 'top',
         emptyText: 'Thêm việc mới',
         allowBlank: false,
         blankText: 'Không được để trống',
