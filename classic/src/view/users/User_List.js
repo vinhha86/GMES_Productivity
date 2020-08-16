@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.users.User_List', {
     },{
         text: 'Đơn vị',
         dataIndex: 'orgname',
-        width: 250
+        width: 150
     }, {
         text: 'Nhóm quyền',
         dataIndex: 'usergroup_name',
@@ -39,16 +39,16 @@ Ext.define('GSmartApp.view.users.User_List', {
     }, {
         text: 'Số di động',
         dataIndex: 'tel_mobile',
-        width: 120
+        width: 100
     },
     {
         text: 'Số máy bàn',
         dataIndex: 'tel_office',
-        width: 120
+        width: 100
     },{
         text: 'Trạng thái',
         dataIndex: 'statusname',
-        width: 120
+        width: 100
     }, {
         xtype: 'actioncolumn',
         width: 50,

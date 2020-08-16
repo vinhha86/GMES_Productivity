@@ -20,10 +20,10 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
      */
     triggerEvent : 'taskdblclick',
 
-    width       : 450,
+    width       : 550,
     height      : 550,
     autoScroll  : true,
-    bodyPadding : 20,
+    bodyPadding : 10,
     floating    : true,
     constrain   : true,
     modal       : true,
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             cls        : 'comments',
             emptyText  : 'Nội dung chú thích...',
             fieldLabel : 'Thêm chú thích',
-            anchor     : '90%',
+            anchor     : '100%',
             height     : 50,
             bind: {
                 editable: '{isedit_comment}',
