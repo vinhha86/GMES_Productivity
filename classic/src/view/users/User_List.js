@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.users.User_List', {
         align: 'center'
     }, {
         text: 'Tên người dùng',
-        dataIndex: 'Name',
+        dataIndex: 'fullname',
         width: 150
     }, {
         text: 'Tài khoản',

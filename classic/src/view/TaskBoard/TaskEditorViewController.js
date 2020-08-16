@@ -123,14 +123,14 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                         var taskboard = Ext.getCmp('taskboard');
                         var taskStore = taskboard.getTaskStore();
                         var mainTask = taskStore.getById(form.getRecord().getId());
-                        mainTask.set('State', 'Done');
+                        mainTask.set('State', 'DaLam');
 
                         form.getRecord().comments().add(response.comment);
                         var checkboxGroup  = form.down('#checklist');
                         var subTasks = mainTask.subTasks();
                         for(var i=0; i< subTasks.data.length; i++){
                             var sub = subTasks.data.items[i];
-                            sub.set('Done', true);
+                            sub.set('DaLam', true);
                         }
                         
                         taskboard.refreshTaskNode(mainTask);
@@ -266,7 +266,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                         var taskStore = taskboard.getTaskStore();
                         var mainTask = taskStore.getById(form.getRecord().getId());
                         mainTask.set('ResourceId',record.get('Id'));
-                        mainTask.set('State', 'InProgress');
+                        mainTask.set('State', 'ChuaLam');
                         taskboard.refreshTaskNode(mainTask);
                     }
                     else {
