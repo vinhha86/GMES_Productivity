@@ -8,50 +8,51 @@ Ext.define('GSmartApp.view.users.User_Info', {
         layout: 'hbox',
         items:[{
             xtype: 'textfield',
-            fieldLabel: 'Họ',
+            fieldLabel: 'Họ và tên',
             labelWidth: 100,
             bind: {
                 value: '{User.firstname}'
             },
-            margin: '5 1 0 5'
+            margin: '5 1 0 5',
+            width: 240
         },{
             xtype: 'textfield',
-            fieldLabel: 'Đệm',
-            labelWidth: 80,
+            labelWidth: 0,
             bind: {
                 value: '{User.middlename}'
             },
-            margin: '5 1 0 1'
+            margin: '5 1 0 0',
+            width: 150
         },{
             xtype: 'textfield',
-            fieldLabel: 'Tên',
             bind: {
                 value: '{User.lastname}'
             },
-            labelWidth: 80,
-            margin: '5 5 0 1',
-            flex: 1
+            labelWidth: 0,
+            margin: '5 5 0 0',
+            width: 140
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Tên đăng nhập',
+            labelWidth: 100,
+            flex: 1,
+            bind: {
+                value: '{User.username}',
+                readOnly: '{isReadOnly}'
+            },
+            margin: '5 5 0 1'
         }]
     },
     {
         layout: 'hbox',
         items:[{
             xtype: 'textfield',
-            fieldLabel: 'Tên đăng nhập',
-            labelWidth: 100,
-            bind: {
-                value: '{User.username}',
-                readOnly: '{isReadOnly}'
-            },
-            margin: '5 1 0 5'
-        },{
-            xtype: 'textfield',
             fieldLabel: 'Email',
-            labelWidth: 80,
+            labelWidth: 100,
             bind: {
                 value: '{User.email}'
             },
-            margin: '5 1 0 1'
+            margin: '5 1 0 5'
         },{
             xtype: 'combo',
             bind: {
@@ -63,7 +64,19 @@ Ext.define('GSmartApp.view.users.User_Info', {
             margin: '5 5 0 1',
             labelWidth: 80,
             fieldLabel: 'Đơn vị',
-            flex: 1
+            itemId: 'cmbOrg'
+        },{
+            xtype: 'combo',
+            bind: {
+                store: '{OrgGrantStore}',
+                value: '{User.org_grant_id_link}'
+            },
+            displayField: 'code',
+            valueField: 'id',
+            margin: '5 5 0 1',
+            labelWidth: 100,
+            flex: 1,
+            fieldLabel: 'Tổ chuyền'
         }]
     },
     {
@@ -83,7 +96,7 @@ Ext.define('GSmartApp.view.users.User_Info', {
                 value: '{User.tel_office}'
             },
             labelWidth: 80,
-            margin: '5 1 0 1'
+            margin: '5 5 0 1'
         },{
             xtype: 'combo',
             bind: {
@@ -93,7 +106,7 @@ Ext.define('GSmartApp.view.users.User_Info', {
             displayField: 'name',
             valueField: 'id',
             margin: '5 5 0 1',
-            labelWidth: 80,
+            labelWidth: 100,
             fieldLabel: 'Trạng thái',
             flex: 1
         }]

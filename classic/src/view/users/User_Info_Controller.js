@@ -5,5 +5,23 @@ Ext.define('GSmartApp.view.users.User_Info_Controller', {
 		var listidtype = "4,8,9,13";
 		var OrgStore = this.getViewModel().getStore('OrgStore');
 		OrgStore.loadStore_allchildren_byorg(listidtype);
+
+		var viewmodel = this.getViewModel();
+		if(viewmodel.get('User.id') > 0){
+			var grantStore = viewmodel.getStore('OrgGrantStore');
+			var parentid_link = viewmodel.get('User.orgid_link');
+			grantStore.getbyParent(parentid_link);
+		}
+	},
+	control: {
+		'#cmbOrg' : {
+			select: 'onSelectOrg'
+		}
+	},
+	onSelectOrg: function(combo, record){
+		var viewmodel = this.getViewModel();
+		var grantStore = viewmodel.getStore('OrgGrantStore');
+			var parentid_link = record.get('id');
+			grantStore.getbyParent(parentid_link);
 	}
 })

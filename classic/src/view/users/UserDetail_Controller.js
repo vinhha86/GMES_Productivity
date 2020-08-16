@@ -44,6 +44,9 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                        viewModel.set('User', response.data);
+                       var grantStore = viewModel.getStore('OrgGrantStore');
+                        var parentid_link = viewModel.get('User.orgid_link');
+                        grantStore.getbyParent(parentid_link);
                     }
                 }
             })
