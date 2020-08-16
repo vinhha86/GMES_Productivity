@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                 xtype: 'TaskEditor'
             },
 
-            // fitColumns: false,
+            fitColumns: false,
             // defaults: {
             //     width: 300
             // },
@@ -64,30 +64,26 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
         
             columns: [
                 {
-                    state: 'NotStarted',
-                    title: 'Chưa làm',
-                    border: true
+                    state: 'ChuaLam',
+                    title: 'Chưa bắt đầu'
                 },
                 {
-                    state: 'InProgress',
-                    title: 'Đang làm',
-                    border: true
+                    state: 'DangLam',
+                    title: 'Đang làm'
                 },
                 {
-                    state: 'Done',
-                    title: 'Đã xong',
-                    border: true
+                    state: 'DaXong',
+                    title: 'Đã xong'
                 },
                 {
-                    state: 'Reject',
-                    title: 'Từ chối',
-                    border: true
+                    state: 'TuChoi',
+                    title: 'Từ chối'
                 }
             ],
 
             viewConfig: {
                 resourceImgTpl: '',
-                multiSelect: true,
+                multiSelect: false,
                 plugins: 'kanban_dragselector',
 
                 taskBodyTpl: '<div class="{cls_task}">' +
