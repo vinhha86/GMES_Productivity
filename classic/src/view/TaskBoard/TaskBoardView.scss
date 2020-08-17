@@ -356,4 +356,105 @@ ul.subtasks li {
     background: aliceblue;
 }
 
+//News
+.text-wrapper {
+    position: relative;
+    overflow: visible;
+
+    word-wrap: break-word;
+    white-space: pre-wrap;      /* CSS3 */
+    /*white-space: -moz-pre-wrap; /* Firefox */
+    /*white-space: -pre-wrap;     /* Opera <7 */
+    /*white-space: -o-pre-wrap;   /* Opera 7 */
+    /*word-wrap: break-word;      /* IE */
+
+    .news-icon {
+        width: 35px;
+        height: 35px;
+        margin-top: 15px;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .news-data {
+        background-color: $exec-tile-background;
+        margin: 0 0 8px 35px;
+        padding: 15px;
+        border-radius: 3px;
+
+        -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow:    0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+        box-shadow:         0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+    }
+    .news-title {
+        font-size: $exec-font-size-large-title;
+        line-height: $exec-font-size-large-title;
+        color: $exec-font-dark-color;
+        margin-bottom: 5px;
+    }
+    .news-small {
+        font-size: $exec-font-size-small-content;
+        color: $exec-font-color;
+    
+        img {
+            vertical-align: top;
+            margin: 0 5px 0 10px;
+            height: 12px;
+        }
+    }
+    .news-content {
+        margin-left: 10px;
+    }
+
+    .news-author {
+        text-transform: uppercase;
+    }
+
+    .news-paragraph {
+        background-color: $exec-tile-background;
+        // font-size: $exec-font-size-small-content;
+        min-height: 10px;
+        overflow: hidden;
+        font-weight: $exec-font-regular;
+        margin-top: 5px;
+    }
+
+    .news-picture {
+        width: 35px;
+        height: 35px;
+        background-color: $exec-light-background;
+        float: left;
+        border-radius: 3px;
+        overflow: hidden;
+
+        img {
+            width: 35px;
+        }
+    }
+
+    .news-toggle {
+        text-align: right;
+        margin-top: 15px;
+
+        span {
+            color: $exec-blue-color;
+            font-size: $exec-font-size-small-title;
+            font-weight: $exec-font-semibold;
+            cursor: pointer;
+            width: 100px;
+            display: inline-block;
+            //text-align: left;
+        }
+
+        img {
+            height: 14px;
+            vertical-align: middle;
+            margin: 0 5px 0 5px;
+        }
+    }
+}
 // /* EOF SUBTASK LIST STYLES */
