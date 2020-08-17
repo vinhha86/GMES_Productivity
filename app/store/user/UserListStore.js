@@ -9,6 +9,7 @@ Ext.define('GSmartApp.store.UserListStore', {
 		{name: 'firtname',   type: 'string'},
 		{name: 'status',   type: 'number'},
 		'index',
+		'org_grant_id_link',
 		{
 			name: 'statusname',
 			type: 'string',

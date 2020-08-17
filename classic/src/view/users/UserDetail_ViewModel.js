@@ -15,6 +15,9 @@ Ext.define('GSmartApp.view.users.UserDetail_ViewModel', {
         OrgStore: {
             type: 'ListOrgStore'
         },
+        OrgGrantStore : {
+            type: 'ListOrgStore'
+        },
         StatusUserStore: {
             type: 'StatusUserStore'
         },
