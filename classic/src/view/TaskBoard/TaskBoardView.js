@@ -149,21 +149,34 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     xtype: 'button',
                     tooltip: 'Thêm việc khác',
                     iconCls: 'x-fa fa-plus',
-                    itemId: 'btnAddTask'
+                    itemId: 'btnAddTask',
+                    margin: 5
                 },{
                     xtype      : 'columnfilter',
                     fieldLabel : 'Cột hiển thị',
                     labelWidth: 80,
-                    margin     : '0 10 0 0',
+                    margin     : 5,
                     panel      : task
                 },{
-                    xtype      : 'highlightfield',
+                    xtype      : 'filterfield',
+                    store       : taskStore,
                     fieldLabel : 'Tìm kiếm',
-                    margin     : '0 10 0 0',
+                    margin     : 5,
                     panel      : task,
                     width      : 190,
                     labelWidth : 90,
                     field: 'Description'
+                },{
+                    xtype: 'combo',
+                    margin: 5,
+                    bind : {
+                        store: '{TaskTypeStore}'
+                    },
+                    valueField: 'id',
+                    displayField: 'name',
+                    margin: 5,
+                    editable: false,
+                    emptyText: 'Loại công việc'
                 }]
             }]
         });
