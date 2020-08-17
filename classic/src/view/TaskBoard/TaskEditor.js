@@ -68,6 +68,17 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         // },
         {
             xtype        : 'combobox',
+            itemId      : 'comboOrg',
+            bind: {
+                store: '{OrgStore}'
+            },
+            // name         : 'ResourceId',
+            displayField : 'name',
+            valueField   : 'id',
+            fieldLabel   : 'Đơn vị'
+        },
+        {
+            xtype        : 'combobox',
             itemId      : 'comboUser',
             bind: {
                 store: '{TaskUser_Store}'
@@ -123,15 +134,15 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             ]
         },
         {
-            xtype      : 'textarea',
+            xtype      : 'htmleditor',
             itemId     : 'textcomment',
             cls        : 'comments',
             emptyText  : 'Nội dung chú thích...',
             fieldLabel : 'Thêm chú thích',
             anchor     : '100%',
-            height     : 50,
+            height     : 200,
             bind: {
-                editable: '{isedit_comment}',
+                disabled: '{!isedit_comment}',
                 value: '{comment}'
             }
         },

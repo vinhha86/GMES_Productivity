@@ -30,6 +30,10 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         storeUserFull.loadUserbyOrg(1);
         storeUserFull.load();
 
+        var listid = "13";
+        var orgStore = viewmodel.getStore('OrgStore');
+        orgStore.loadStore_allchildren_byorg(listid);
+
     },
     onActivate: function () {
         var form = this.getView();
@@ -46,6 +50,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         }
 
         form.down('#comboUser').setValue(form.getRecord().getResourceId());
+        form.down('#comboOrg').setValue(form.getRecord().data.orgid_link);
 
         //Loai task la ycsx thi moi hien day du 
         var flowStatusStore = viewmodel.getStore('FlowStatusStore');

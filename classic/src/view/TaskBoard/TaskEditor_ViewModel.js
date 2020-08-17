@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
     requires: [
         'GSmartApp.store.TaskBoard.TaskBoard_Store',
         'GSmartApp.store.TaskBoard.TaskUser_Store',
-        'GSmartApp.store.TaskBoard.TaskFlowStatusStore'
+        'GSmartApp.store.TaskBoard.TaskFlowStatusStore',
+        'GSmartApp.store.org.ListOrgStore'
     ],
     stores: {
         TaskUser_Store : {
@@ -15,6 +16,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         },
         TaskUser_Store_Full: {
             type: 'TaskUser_Store'
+        },
+        OrgStore: {
+            type : 'ListOrgStore'
         }
     },
     data: {

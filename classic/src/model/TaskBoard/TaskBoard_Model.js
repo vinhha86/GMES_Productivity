@@ -32,12 +32,13 @@ Ext.define('GSmartApp.model.TaskBoard.TaskBoard_Model', {
 
     // Don't allow setting as Done if some subtask is not completed
     isValidTransition : function(state) {
-        if (state === 'Done') {
-            var subtasks = this.subTasks();
+        // if (state === 'Done') {
+        //     var subtasks = this.subTasks();
 
-            return this.callParent(arguments) && subtasks.query('Done', false).length === 0;
-        }
+        //     return this.callParent(arguments) && subtasks.query('Done', false).length === 0;
+        // }
 
-        return this.callParent(arguments);
+        // return this.callParent(arguments);
+        return true;
     }
 });

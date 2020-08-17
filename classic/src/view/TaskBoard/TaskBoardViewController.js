@@ -19,13 +19,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         var me = this.getView().down('#taskboard');
         var taskStore = me.getTaskStore();
 
-        me.undoManager = new Robo.Manager({
-            transactionBoundary: 'timeout',
-            stores: [
-                taskStore
-            ]
-        });
-        me.undoManager.start();
+        var viewmodel = this.getViewModel();
+        var typeStore = viewmodel.getStore('TaskTypeStore');
+        typeStore.loadStore();
 
     },
     onAddTask: function(){

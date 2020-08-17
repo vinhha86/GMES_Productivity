@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewModel', {
     alias: 'viewmodel.TaskBoardViewModel',
     requires: [
         'GSmartApp.store.TaskBoard.TaskBoard_Store',
-        'GSmartApp.store.TaskBoard.TaskUser_Store'
+        'GSmartApp.store.TaskBoard.TaskUser_Store',
+        'GSmartApp.store.TaskBoard.TaskTypeStore'
     ],
     stores: {
         TaskBoard_Store: {
@@ -11,6 +12,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewModel', {
         },
         TaskUser_Store : {
             type: 'TaskUser_Store'
+        },
+        TaskTypeStore: {
+            type: 'TaskTypeStore'
         }
     }
 })
