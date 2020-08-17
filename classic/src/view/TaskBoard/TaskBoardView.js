@@ -65,19 +65,23 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
             columns: [
                 {
                     state: 'ChuaLam',
-                    title: 'Chưa bắt đầu'
+                    title: 'Chưa làm',
+                    border: true
                 },
                 {
                     state: 'DangLam',
-                    title: 'Đang làm'
+                    title: 'Đang làm',
+                    border: true
                 },
                 {
                     state: 'DaXong',
-                    title: 'Đã xong'
+                    title: 'Đã xong',
+                    border: true
                 },
                 {
                     state: 'TuChoi',
-                    title: 'Từ chối'
+                    title: 'Từ chối',
+                    border: true
                 }
             ],
 

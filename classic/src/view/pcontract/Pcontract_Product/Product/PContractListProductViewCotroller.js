@@ -116,6 +116,16 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                                 else {
                                     store.removeAt(rowIndex);
                                 }
+                            } else {
+                                var response = Ext.decode(response.responseText);
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
                             }
                         })
                 }
