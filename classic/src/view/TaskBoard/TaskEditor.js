@@ -137,8 +137,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             xtype      : 'htmleditor',
             itemId     : 'textcomment',
             cls        : 'comments',
-            emptyText  : 'Nội dung chú thích...',
-            fieldLabel : 'Thêm chú thích',
+            emptyText  : 'Nội dung tin nhắn...',
+            fieldLabel : 'Thêm tin nhắn',
             anchor     : '100%',
             height     : 200,
             bind: {
@@ -150,7 +150,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             layout: 'hbox',
             items: [{
                 xtype   : 'button',
-                text    : 'Thêm chú thích',
+                text    : 'Thêm tin nhắn',
                 anchor  : null,
                 margin: 3,
                 handler : 'onAddCommentClick',
@@ -193,7 +193,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             xtype     : 'component',
             cls       : 'comment-title',
             focusable : false,
-            html      : 'Danh sách chú thích'
+            html      : 'Danh sách tin nhắn'
         },
         {
             xtype        : 'Comment'
