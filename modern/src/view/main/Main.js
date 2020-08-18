@@ -27,10 +27,11 @@ Ext.define('GSmartApp.view.main.Main', {
             userCls: 'main-nav-container',
             reference: 'navigation',
             scrollable: true,
+            hidden: true,
             items: [
                 {
                     xtype: 'treelist',
-                    reference: 'navigationTree',
+                    reference: 'navigationTreeList',
                     ui: 'navigation',
                     store: 'NavigationTree',
                     expanderFirst: false,
@@ -45,10 +46,9 @@ Ext.define('GSmartApp.view.main.Main', {
         {
             xtype: 'navigationview',
             flex: 1,
-            reference: 'mainCard',
-            text: 'Push a new view!',
+            reference: 'mainCardPanel',
             userCls: 'main-container',
             navigationBar: false
-        }
+        },
     ]
 });

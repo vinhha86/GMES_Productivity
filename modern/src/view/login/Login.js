@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.login.Login', {
             items: [
                 {
                     xtype: 'formpanel',
+                    padding: 10,
                     items: [{
                             xtype: 'label',
                             id: 'login-form-error-label',

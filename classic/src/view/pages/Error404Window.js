@@ -10,6 +10,8 @@ Ext.define('GSmartApp.view.pages.Error404Window', {
         'Ext.toolbar.Spacer'
     ],
 
+    header: false,
+
     items: [
         {
             xtype: 'container',
@@ -29,7 +31,7 @@ Ext.define('GSmartApp.view.pages.Error404Window', {
                 {
                     xtype: 'label',
                     cls: 'error-page-desc',
-                    html: '<div>Seems you\'ve hit a wall!</div><div>Try going back to our <a href="#dashboard"> Home page </a></div>'
+                    html: '<div>Bạn không được quyền truy cập trang này!</div><div>Ấn vào <a href="#dashboard">đây</a> để quay về trang chủ.</div>'
                 },
                 {
                     xtype: 'tbspacer',
