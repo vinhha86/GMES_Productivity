@@ -483,30 +483,31 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                     if (success) {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
-                            Ext.MessageBox.show({
-                                title: "Thông báo",
-                                msg: "Thành công",
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                },
-                                fn: function () {
-                                    form.getRecord().comments().add({
-                                        Text: field.getValue(),
-                                        Date: response.data.Date,
-                                        UserId: response.data.UserId, /* TODO read logged in user id */
-                                        TaskId: form.getRecord().getId(),
-                                        typename : response.data.typename
-                                    });
+                            // Ext.MessageBox.show({
+                            //     title: "Thông báo",
+                            //     msg: "Thành công",
+                            //     buttons: Ext.MessageBox.YES,
+                            //     buttonText: {
+                            //         yes: 'Đóng',
+                            //     },
+                            //     fn: function () {
 
-                                    field.reset();
-
-                                    var taskboard = Ext.getCmp('taskboard');
-                                    var taskStore = taskboard.getTaskStore();
-                                    var mainTask = taskStore.getById(form.getRecord().getId());
-                                    taskboard.refreshTaskNode(mainTask);
-                                }
+                            //     }
+                            // });
+                            form.getRecord().comments().add({
+                                Text: field.getValue(),
+                                Date: response.data.Date,
+                                UserId: response.data.UserId, /* TODO read logged in user id */
+                                TaskId: form.getRecord().getId(),
+                                typename : response.data.typename
                             });
+
+                            field.reset();
+
+                            var taskboard = Ext.getCmp('taskboard');
+                            var taskStore = taskboard.getTaskStore();
+                            var mainTask = taskStore.getById(form.getRecord().getId());
+                            taskboard.refreshTaskNode(mainTask);
                         }
                         else {
                             Ext.MessageBox.show({

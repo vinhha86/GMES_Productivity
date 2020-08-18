@@ -51,46 +51,49 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
         {
             xtype      : 'displayfield',
             name       : 'Description',
-            fieldLabel: 'Mô tả ',
+            fieldLabel: 'Mô tả công việc:',
             labelStyle: "font-weight: bold; font-size: 13px",
             itemId     : 'descriptionField',
             fieldStyle: "font-size: 13px",
             flex       : 1,
             margin     : '0 20 0 0'
         },
-        // {
-        //     xtype        : 'combobox',
-        //     itemId       : 'stateCombo',
-        //     name         : 'State',
-        //     displayField : 'Name',
-        //     valueField   : 'Id',
-        //     fieldLabel   : 'List'
-        // },
         {
-            xtype        : 'combobox',
-            itemId      : 'comboOrg',
-            bind: {
-                store: '{OrgStore}'
-            },
-            // name         : 'ResourceId',
-            displayField : 'name',
-            valueField   : 'id',
-            fieldLabel   : 'Đơn vị'
+            xtype: 'container',
+            layout: 'hbox',
+            items:[
+                {
+                    xtype        : 'combobox',
+                    width: 220,
+                    itemId      : 'comboOrg',
+                    bind: {
+                        store: '{OrgStore}'
+                    },
+                    // name         : 'ResourceId',
+                    displayField : 'name',
+                    valueField   : 'id',
+                    fieldLabel   : 'Đơn vị:',
+                    labelWidth: 50,
+                },
+                {
+                    xtype        : 'combobox',
+                    flex: 1,
+                    itemId      : 'comboUser',
+                    bind: {
+                        store: '{TaskUser_Store}'
+                    },
+                    // name         : 'ResourceId',
+                    displayField : 'Name',
+                    valueField   : 'Id',
+                    fieldLabel   : 'Người phụ trách:',
+                    labelWidth: 120,
+                },
+            ]
         },
-        {
-            xtype        : 'combobox',
-            itemId      : 'comboUser',
-            bind: {
-                store: '{TaskUser_Store}'
-            },
-            // name         : 'ResourceId',
-            displayField : 'Name',
-            valueField   : 'Id',
-            fieldLabel   : 'Người phụ trách'
-        },
+
         {
             xtype      : 'checkboxgroup',
-            fieldLabel : 'Chi tiết',
+            fieldLabel : 'Chi tiết công việc:',
             itemId      : 'checklist',
             columns    : 1,
             vertical   : true,
@@ -140,7 +143,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             emptyText  : 'Nội dung tin nhắn...',
             fieldLabel : 'Thêm tin nhắn',
             anchor     : '100%',
-            height     : 200,
+            height     : 180,
             bind: {
                 disabled: '{!isedit_comment}',
                 value: '{comment}'
@@ -150,7 +153,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
             layout: 'hbox',
             items: [{
                 xtype   : 'button',
-                text    : 'Thêm tin nhắn',
+                text    : 'Gửi',
                 anchor  : null,
                 margin: 3,
                 handler : 'onAddCommentClick',
@@ -159,7 +162,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                 }
             },{
                 xtype   : 'button',
-                text    : 'Chấp nhận',
+                text    : 'Gửi',
                 anchor  : null,
                 margin: 3,
                 handler : 'onAcceptReq',
@@ -168,7 +171,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                 }
             },{
                 xtype   : 'button',
-                text    : 'Từ chối',
+                text    : 'Gửi',
                 anchor  : null,
                 margin: 3,
                 handler : 'onRejectReq',
