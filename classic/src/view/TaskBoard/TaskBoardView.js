@@ -151,6 +151,12 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                 xtype: 'toolbar',
                 items:[{
                     xtype: 'button',
+                    tooltip: 'Làm mới danh sách',
+                    iconCls: 'x-fa fa-refresh',
+                    itemId: 'btnRefresh',
+                    margin: 5
+                },{
+                    xtype: 'button',
                     tooltip: 'Thêm việc khác',
                     iconCls: 'x-fa fa-plus',
                     itemId: 'btnAddTask',
@@ -179,6 +185,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     valueField: 'id',
                     displayField: 'name',
                     margin: 5,
+                    value: -10,
                     editable: false,
                     emptyText: 'Loại công việc'
                 }]

@@ -69,7 +69,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                     bind: {
                         store: '{OrgStore}'
                     },
-                    // name         : 'ResourceId',
                     displayField : 'name',
                     valueField   : 'id',
                     fieldLabel   : 'Đơn vị:',

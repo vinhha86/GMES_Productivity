@@ -14,6 +14,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         },
         '#comboFlowStatus' : {
             select: 'onSelectStatus'
+        },
+        '#comboOrg' : {
+            select : 'onSelectOrg'
         }
     },
     init: function () {
@@ -65,6 +68,12 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         else {
             flowStatusStore.clearFilter();
         }
+    },
+    onSelectOrg: function(combo, record){
+        var viewmodel = this.getViewModel();
+        var storeUser = viewmodel.getStore('TaskUser_Store');
+        storeUser.loadUserbyOrg(record.data.id);
+        storeUser.load();
     },
     onSelectStatus: function(combo, record, eOpts){
         var viewmodel = this.getViewModel();
@@ -128,16 +137,14 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                         var taskboard = Ext.getCmp('taskboard');
                         var taskStore = taskboard.getTaskStore();
                         var mainTask = taskStore.getById(form.getRecord().getId());
-                        mainTask.set('State', 'DaLam');
+                        mainTask.set('State', 'DaXong');
 
                         form.getRecord().comments().add(response.comment);
-                        var checkboxGroup  = form.down('#checklist');
                         var subTasks = mainTask.subTasks();
                         for(var i=0; i< subTasks.data.length; i++){
                             var sub = subTasks.data.items[i];
-                            sub.set('DaLam', true);
+                            sub.set('Done', true);
                         }
-                        
                         taskboard.refreshTaskNode(mainTask);
 
 
@@ -168,7 +175,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         else {
             Ext.MessageBox.show({
                 title: "Thông báo",
-                msg: "Bạn không phải Người phụ trách công việc! Bạn không được từ chối YCSX cho phân xưởng",
+                msg: "Bạn không phải Người phụ trách công việc! Bạn không được chấp nhận YCSX cho phân xưởng",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng'
@@ -266,12 +273,14 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
                     if (response.respcode == 200) {
 
                         form.getRecord().comments().add(response.data);
+                        var cmbOrg = form.down('#comboOrg');
                         
                         var taskboard = Ext.getCmp('taskboard');
                         var taskStore = taskboard.getTaskStore();
                         var mainTask = taskStore.getById(form.getRecord().getId());
                         mainTask.set('ResourceId',record.get('Id'));
                         mainTask.set('State', 'ChuaLam');
+                        mainTask.set('orgid_link', cmbOrg.getValue());
                         taskboard.refreshTaskNode(mainTask);
                     }
                     else {
