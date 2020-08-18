@@ -13,7 +13,13 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         },
         '#btnAddMaterial_Bom': {
             click: 'onThemNPL'
+        },
+        '#btnConfirmBOM1' : {
+            click: 'onConfirmBOM1'
         }
+    },
+    onConfirmBOM1: function(){
+
     },
     onChangeProduct: function (combo, newValue, oldValue, eOpts) {
         var me = this.getView();

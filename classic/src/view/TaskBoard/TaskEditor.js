@@ -92,7 +92,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
 
         {
             xtype      : 'checkboxgroup',
-            fieldLabel : 'Chi tiết công việc:',
+            fieldLabel : 'Chi tiết công việc',
             itemId      : 'checklist',
             columns    : 1,
             vertical   : true,
