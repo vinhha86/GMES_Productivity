@@ -13,7 +13,56 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         },
         '#btnAddMaterial_Bom2' : {
             click: 'onThemMoiNPL'
+        },
+        '#btnConfirmBOM2' : {
+            click: 'onConfirmBOM2'
         }
+    },
+    onConfirmBOM2: function(){
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var productid_link = viewmodel.get('IdProduct');
+
+        if (productid_link == 0) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn sản phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function (btn) {
+                    me.down('#cmbSanPham').expand();
+                }
+            });
+            return;
+        }
+        else {
+            me.setLoading('Đang xử lý dữ liệu');
+            var params = new Object();
+            params.pcontractid_link = viewmodel.get('PContract.id');
+            params.productid_link = viewmodel.get('IdProduct');
+
+            GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/confim_bom2', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if(response.respcode == 200){
+                        Ext.Msg.alert({
+                            title: "Thông báo",
+                            msg: 'Thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                }
+            })
+        }
+
     },
     onChangeProduct: function (combo, newValue, oldValue, eOpts) {
         var me = this.getView();

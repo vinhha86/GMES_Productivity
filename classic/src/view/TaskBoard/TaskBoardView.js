@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
             //         }
             //     }
             // },
-        
+ 
             columns: [
                 {
                     state: 'ChuaLam',
@@ -131,7 +131,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     }
                 }
             },
-
+            taskRenderer : function (task, renderData) {
+                renderData.style = 'border-left-color: red'
+            },
             listeners: {
                 //// Event check subtask o ngoai tam thoi bo khong cho check
                 // "change": {
@@ -180,14 +182,15 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     xtype: 'combo',
                     margin: 5,
                     bind : {
-                        store: '{TaskTypeStore}'
+                        store: '{TaskTypeStore}',
+                        value: -10
                     },
                     valueField: 'id',
                     displayField: 'name',
                     margin: 5,
-                    value: -10,
                     editable: false,
-                    emptyText: 'Loại công việc'
+                    emptyText: 'Loại công việc',
+                    itemId: 'cmbtype'
                 }]
             }]
         });

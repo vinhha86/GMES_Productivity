@@ -347,7 +347,48 @@ ul.subtasks li {
     padding    : 7px 8px;
     overflow   : hidden;
 }
-
+.task-header-porderreq {
+    position   : relative;
+    background : coral;
+    color      : rgb(34, 9, 9);
+    padding    : 7px 8px;
+    overflow   : hidden;
+}
+.task-header-podetail {
+    position   : relative;
+    background : yellowgreen;
+    color      : rgb(34, 9, 9);
+    padding    : 7px 8px;
+    overflow   : hidden;
+}
+.task-header-bom {
+    position   : relative;
+    background : powderblue;
+    color      : rgb(34, 9, 9);
+    padding    : 7px 8px;
+    overflow   : hidden;
+}
+.task-header-bom2 {
+    position   : relative;
+    background : palegoldenrod;
+    color      : rgb(34, 9, 9);
+    padding    : 7px 8px;
+    overflow   : hidden;
+}
+.task-header-pordercreate {
+    position   : relative;
+    background : violet;
+    color      : rgb(34, 9, 9);
+    padding    : 7px 8px;
+    overflow   : hidden;
+}
+.task-header-granttoline {
+    position   : relative;
+    background : slateblue;
+    color      : rgb(34, 9, 9);
+    padding    : 7px 8px;
+    overflow   : hidden;
+}
 .x-form-item-default.x-item-disabled {
     opacity: 1
 }

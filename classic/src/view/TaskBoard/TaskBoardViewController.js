@@ -16,6 +16,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         },
         '#btnRefresh' : {
             click: 'onRefresh'
+        },
+        '#cmbtype' : {
+            select: 'onSelectType'
         }
     },
     init: function(){
@@ -25,6 +28,22 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         var typeStore = viewmodel.getStore('TaskTypeStore');
         typeStore.loadStore();
 
+    },
+    onSelectType: function(combo, record){
+        var tasktypeid_link = record.get('id');
+        var me = this.getView().down('#taskboard');
+        var store = me.getTaskStore();
+        store.clearFilter();
+        filters = store.getFilters();
+        console.log()
+        if (tasktypeid_link > -10) {
+            filters.add({
+                id: tasktypeid_link,
+                operator: '=',
+                value: tasktypeid_link,
+                property: 'tasktypeid_link'
+            });
+        }
     },
     onRefresh: function(){
         var me = this.getView().down('#taskboard');
