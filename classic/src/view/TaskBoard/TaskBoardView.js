@@ -180,14 +180,15 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     xtype: 'combo',
                     margin: 5,
                     bind : {
-                        store: '{TaskTypeStore}'
+                        store: '{TaskTypeStore}',
+                        value: -10
                     },
                     valueField: 'id',
                     displayField: 'name',
                     margin: 5,
-                    value: -10,
                     editable: false,
-                    emptyText: 'Loại công việc'
+                    emptyText: 'Loại công việc',
+                    itemId: 'cmbtype'
                 }]
             }]
         });
