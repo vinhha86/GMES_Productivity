@@ -9,7 +9,11 @@ Ext.define('GSmartApp.store.TaskBoard.TaskTypeStore', {
     //     { Id : 2, Name : 'Homer' },
     //     { Id : 3, Name : 'Brian' },
     //     { Id : 8, Name : 'Lee' }
-    // ],
+	// ],
+	sorters: [{
+		property: 'id',
+        direction: 'ASC'
+	}],
     loadStore: function(){
         this.setProxy({
 			type: 'ajax',
