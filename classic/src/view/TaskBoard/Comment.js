@@ -14,7 +14,8 @@ Ext.define('GSmartApp.view.TaskBoard.Comment', {
     '<div class="text-wrapper">' +
     '<div class="news-icon"><img src="resources/icons/forum-icon-small.png"></div>' +
     '<div class="news-data">' +
-        '<div class="news-picture"><img src="{userImgUrl}"></div>' +
+        // '<div class="news-picture"><img src="{userImgUrl}"></div>' +
+        '<div class="news-picture"><img src="resources/icons/photo-2.png"></div>' +
         '<div class="news-content">' +
             '<div class="news-title">{typename}</div>' +
             '<div class="news-small">bởi <span class="news-author">{userName}</span>' +

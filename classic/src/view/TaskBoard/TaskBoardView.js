@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
             //         }
             //     }
             // },
-        
+ 
             columns: [
                 {
                     state: 'ChuaLam',
@@ -131,7 +131,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     }
                 }
             },
-
             listeners: {
                 //// Event check subtask o ngoai tam thoi bo khong cho check
                 // "change": {
