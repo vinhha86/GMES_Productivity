@@ -131,6 +131,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                     }
                 }
             },
+            taskRenderer : function (task, renderData) {
+                renderData.style = 'border-left-color: red'
+            },
             listeners: {
                 //// Event check subtask o ngoai tam thoi bo khong cho check
                 // "change": {
