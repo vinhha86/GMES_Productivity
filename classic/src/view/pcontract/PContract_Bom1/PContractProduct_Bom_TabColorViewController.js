@@ -44,10 +44,10 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
             params.pcontractid_link = viewmodel.get('PContract.id');
             params.productid_link = viewmodel.get('IdProduct');
 
-            GSmartApp.Ajax.post('/api/v1/create_pcontract_productbom/confim_bom1', Ext.JSON.encode(params),
+            GSmartApp.Ajax.post('/api/v1/pcontractproductbom/confim_bom1', Ext.JSON.encode(params),
             function (success, response, options) {
+                me.setLoading(false);
                 if (success) {
-                    me.setLoading(false);
                     var response = Ext.decode(response.responseText);
                     if(response.respcode == 200){
                         Ext.Msg.alert({
