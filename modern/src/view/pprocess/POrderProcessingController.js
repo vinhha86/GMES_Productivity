@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingController', {
         if (filterField.getValue() != null || filterField.getValue() != '') {
             this.porderFilter = filters.add({
                 id: 'porderFilter',
-                property: 'ordercode',
+                property: 'pordercode',
                 value: filterField.getValue(),
                 anyMatch: true,
                 caseSensitive: false

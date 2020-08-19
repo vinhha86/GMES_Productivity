@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.main.Toolbar', {
                 handler: 'onSwitchToClassic'
             }, {
                 iconCls: 'x-fa fa-tablet',
-                pressed: true
+                pressed: true,
+                hidden: true
             }]
         },
         {
@@ -62,7 +63,8 @@ Ext.define('GSmartApp.view.main.Toolbar', {
             iconCls:'x-fa fa-search',
             href: '#searchresults',
             margin: '0 7 0 0',
-            handler: 'toolbarButtonClick'
+            handler: 'toolbarButtonClick',
+            hidden: true
         },
         {
             xtype:'button',
@@ -70,7 +72,8 @@ Ext.define('GSmartApp.view.main.Toolbar', {
             iconCls:'x-fa fa-envelope',
             href: '#email',
             margin: '0 7 0 0',
-            handler: 'toolbarButtonClick'
+            handler: 'toolbarButtonClick',
+            hidden: true
         },
         /*{
             xtype:'button',
@@ -86,7 +89,8 @@ Ext.define('GSmartApp.view.main.Toolbar', {
             iconCls:'x-fa fa-th-large',
             href: '#dashboard',
             margin: '0 7 0 0',
-            handler: 'toolbarButtonClick'
+            handler: 'toolbarButtonClick',
+            hidden: true
         },
         {
             iconCls:'x-fa fa fa-power-off',
