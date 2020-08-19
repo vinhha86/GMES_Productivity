@@ -69,7 +69,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                     bind: {
                         store: '{OrgStore}'
                     },
-                    // name         : 'ResourceId',
                     displayField : 'name',
                     valueField   : 'id',
                     fieldLabel   : 'Đơn vị:',
@@ -93,7 +92,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
 
         {
             xtype      : 'checkboxgroup',
-            fieldLabel : 'Chi tiết công việc:',
+            fieldLabel : 'Chi tiết công việc',
             itemId      : 'checklist',
             columns    : 1,
             vertical   : true,

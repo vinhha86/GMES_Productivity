@@ -13,16 +13,23 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
     control: {
         '#btnAddTask': {
             click: 'onAddTask'
+        },
+        '#btnRefresh' : {
+            click: 'onRefresh'
         }
     },
     init: function(){
         var me = this.getView().down('#taskboard');
-        var taskStore = me.getTaskStore();
 
         var viewmodel = this.getViewModel();
         var typeStore = viewmodel.getStore('TaskTypeStore');
         typeStore.loadStore();
 
+    },
+    onRefresh: function(){
+        var me = this.getView().down('#taskboard');
+        var taskStore = me.getTaskStore();
+        taskStore.load();
     },
     onAddTask: function(){
         var view = this.getView();

@@ -7,11 +7,15 @@ Ext.define('GSmartApp.view.main.MainController', {
             '#' : {
                 unmatchedroute : 'onRouteChange'
             }
+        },
+        global: {
+            navigationback: 'onNavigationBack'
         }
     },
 
     routes: {
         ':node': 'onRouteChange',
+        ':node/:id(/:args)?':'onRouteDataChange'
     },
 
     config: {
@@ -30,11 +34,15 @@ Ext.define('GSmartApp.view.main.MainController', {
         me.navigationTree = refs.navigationTree;
 
         if(''==window.location.hash) {
-             this.redirectTo('dashboard');
+             this.redirectTo('lsporderprocessing');
         } else {
             var hash = window.location.hash.substring(1);
             console.log(' hash view: ', hash);
-            this.setCurrentView(hash);
+            var listhast = hash.split('/');
+            if(listhast.length> 1)
+            this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+            else
+            this.onRouteChange(hash);
         }
         
         
@@ -61,10 +69,57 @@ Ext.define('GSmartApp.view.main.MainController', {
             this.redirectTo(to);
         }
     },
-
-    onRouteChange: function (id) {
+    onRouteChange:function(id){
+        console.log('onRouteChange:' + id);
+        var me = this,
+        refs = me.getReferences();
+        backbutton = refs.backbutton;
+        backbutton.setHidden(true);
         this.setCurrentView(id);
     },
+	onRouteDataChange(hashTag,id,args){
+		args = Ext.Array.clean((args || '').split('/'));
+		hashTag = (hashTag || '').toLowerCase();
+		var session= GSmartApp.util.State.get('session');
+		if(!session){
+			 this.redirectTo("login");
+		}
+        var me = this,
+            refs = me.getReferences(),
+            mainCard = refs.mainCardPanel,
+            mainLayout = mainCard.getLayout(),
+            navigationList = refs.navigationTreeList,
+            store = navigationList.getStore(),
+            node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
+
+        var xtype_edit = (node && node.get('xtype_edit')) || 'page404';
+
+        backbutton = refs.backbutton;
+        backbutton.setHidden(false);
+
+        // if (mainLayout.getActiveItem() && mainLayout.getActiveItem().xtype == xtype_edit){
+        //     mainLayout.getActiveItem().destroy();
+        // }
+
+        if (mainCard.getActiveItem()){
+            mainCard.getActiveItem().destroy();
+        }
+        if (args == 'edit'){
+            item = mainCard.add({
+                xtype: xtype_edit,
+                routeId: xtype_edit
+            });
+            mainCard.setActiveItem(item);
+            me.fireEvent('loaddata', id,node);
+        } else {
+            item = mainCard.add({
+                xtype: xtype_edit,
+                routeId: xtype_edit
+            });
+            mainCard.setActiveItem(item);
+            me.fireEvent('newdata', node);
+        }
+	},
 
     onSwitchToClassic: function () {
         Ext.Msg.confirm('Switch to Classic', 'Are you sure you want to switch toolkits?',
@@ -98,8 +153,8 @@ Ext.define('GSmartApp.view.main.MainController', {
 
         var me = this,
             refs = me.getReferences(),
-            mainCard = refs.mainCard,
-            navigationTree = me.navigationTree,
+            mainCard = refs.mainCardPanel,
+            navigationTree = refs.navigationTreeList,
             store = navigationTree.getStore(),
             node = store.findNode('routeId', hashTag) ||
                    store.findNode('viewType', hashTag),
@@ -194,5 +249,9 @@ Ext.define('GSmartApp.view.main.MainController', {
                 console.log('Error on user logout', errors);
                 self.closeSession();
             });
-    }
+    },
+    onNavigationBack: function() {
+        Ext.util.History.back();
+    },
+    
 });

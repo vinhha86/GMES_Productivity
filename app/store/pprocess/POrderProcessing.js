@@ -45,6 +45,41 @@ Ext.define('GSmartApp.store.POrderProcessing', {
 		// 	}
 		// });        
     },
+    loadById: function(id){
+        this.removeAll();
+
+        var param=new Object();
+        param.processingdate_to = new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate());
+        param.orgid = id;
+        //console.log(Ext.JSON.encode(param));
+
+		this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create : 'POST',
+                read   : 'POST',
+                update : 'POST',
+                destroy: 'POST'
+            },
+            pageParam: false, //to remove param "page"
+            startParam: false, //to remove param "start"
+            limitParam: false, //to remove param "limit"            
+            cors: true,
+			url: config.getAppBaseUrl()+'/api/v1/pprocess/getbyid',
+			paramsAsJson:true,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+            useDefaultXhrHeader: false,
+			extraParams: param,
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+            },
+		});
+    },
     loadByDate:function(processingdate, orgid){
         this.removeAll();
 

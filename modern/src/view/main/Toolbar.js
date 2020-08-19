@@ -12,7 +12,8 @@ Ext.define('GSmartApp.view.main.Toolbar', {
             xtype: 'component',
             reference: 'logo',
             userCls: 'main-logo',
-            html: 'Sencha'
+            html: 'Sencha',
+            hidden: true
         },
         {
             xtype: 'button',
@@ -21,7 +22,19 @@ Ext.define('GSmartApp.view.main.Toolbar', {
             margin: '0 0 0 10',
             listeners: {
                 tap: 'onToggleNavigationSize'
-            }
+            },
+            hidden: true
+        },
+        {
+            xtype: 'button',
+            reference: 'backbutton',
+            ui: 'header',
+            iconCls: 'x-fa fa-arrow-left',
+            margin: '0 0 0 10',
+            handler: function () {
+                Ext.fireEvent('navigationback');
+            },
+            // hidden: true
         },
         '->',
         {
