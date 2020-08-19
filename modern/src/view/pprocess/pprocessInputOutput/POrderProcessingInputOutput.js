@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             },
             items: [{
                 xtype: 'numberfield',
+                cls: 'valueField',
                 reference: 'io_amountinput',
                 bind: {
                     value: '{amountinput}'
@@ -42,6 +43,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
                 }
             },{
                 xtype: 'numberfield',
+                cls: 'valueField',
                 reference: 'io_amountinputsum',
                 bind: {
                     value: '{amountinputsum}'
@@ -60,6 +62,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             items: [{
                 xtype: 'button',
                 text: '+1',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -70,6 +73,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             },{
                 xtype: 'button',
                 text: '+10',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -86,6 +90,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             items: [{
                 xtype: 'button',
                 text: '-1',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -96,6 +101,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             },{
                 xtype: 'button',
                 text: '-10',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -103,29 +109,6 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
                 listeners:{
                     tap: 'onInputTap'
                 }
-            }]
-        },{
-            // Kế hoạch ngày
-            layout: 'hbox',
-            defaults: {
-                margin:'2 2 2 2'
-            },
-            items: [{
-                xtype: 'label',
-                html: 'KH ngày:',
-                flex: 1
-            },{
-                xtype: 'numberfield',
-                reference: 'io_amounttarget',
-                // label: 'KH ngày:',
-                bind: {
-                    value: '{amounttarget}'
-                },
-                minValue: 0,
-                editable: false,
-                readOnly: true,
-                textAlign: 'right',
-                flex: 1
             }]
         }]
     },{
@@ -142,6 +125,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             },
             items: [{
                 xtype: 'numberfield',
+                cls: 'valueField',
                 reference: 'io_amountoutput',
                 bind: {
                     value: '{amountoutput}'
@@ -153,6 +137,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
                 flex: 1
             },{
                 xtype: 'numberfield',
+                cls: 'valueField',
                 reference: 'io_amountoutputsum',
                 bind: {
                     value: '{amountoutputsum}'
@@ -171,6 +156,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             items: [{
                 xtype: 'button',
                 text: '+1',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -181,6 +167,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             },{
                 xtype: 'button',
                 text: '+10',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -197,6 +184,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             items: [{
                 xtype: 'button',
                 text: '-1',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -207,6 +195,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
             },{
                 xtype: 'button',
                 text: '-10',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -214,6 +203,30 @@ Ext.define('GSmartApp.view.pprocess.pprocessInputOutput.POrderProcessingInputOut
                 listeners:{
                     tap: 'onOutputTap'
                 }
+            }]
+        },{
+            // Kế hoạch ngày
+            layout: 'hbox',
+            defaults: {
+                margin:'2 2 2 2'
+            },
+            items: [{
+                xtype: 'label',
+                html: 'KH ngày:',
+                flex: 1
+            },{
+                xtype: 'numberfield',
+                cls: 'valueField',
+                reference: 'io_amounttarget',
+                // label: 'KH ngày:',
+                bind: {
+                    value: '{amounttarget}'
+                },
+                minValue: 0,
+                editable: false,
+                readOnly: true,
+                textAlign: 'right',
+                flex: 1
             }]
         }]
     },]

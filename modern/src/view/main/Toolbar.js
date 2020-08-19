@@ -50,7 +50,8 @@ Ext.define('GSmartApp.view.main.Toolbar', {
 
             items: [{
                 iconCls: 'x-fa fa-desktop',
-                handler: 'onSwitchToClassic'
+                handler: 'onSwitchToClassic',
+                hidden: true
             }, {
                 iconCls: 'x-fa fa-tablet',
                 pressed: true,

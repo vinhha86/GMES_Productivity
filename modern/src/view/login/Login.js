@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.login.Login', {
                     items: [{
                             xtype: 'label',
                             id: 'login-form-error-label',
-                            html: 'Invalid username/password',
+                            html: 'Sai tên đăng nhập hoặc mật khẩu',
                             hidden: true,
                             margin: '10 0 10 0',
                             padding: '0 0 10 0'
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.login.Login', {
                         {
                             xtype: 'label',
                             style: 'font-size: 20px; text-align: center',
-                            html: 'Sign into your account',
+                            html: 'Đăng nhập G-MES',
                             margin: '10 0 0 0',
                             padding: '0 0 10 0'
                         },
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.login.Login', {
                             xtype: 'textfield',
                             name: 'username',
                             scrollable: false,
-                            label: 'Username',
+                            label: 'Tên đăng nhập',
                             labelWidth: '40%',
                             required: true,
                             errorTarget: 'side',
@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.login.Login', {
                             xtype: 'passwordfield',
                             name: 'password',
                             scrollable: false,
-                            label: 'Password',
+                            label: 'Mật khẩu',
                             labelWidth: '40%',
                             required: true,
                             errorTarget: 'side'
@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.login.Login', {
                     ],
                     buttonAlign: 'center',
                     buttons: [{
-                        text: 'LOG IN',
+                        text: 'Đăng nhập',
                         iconCls: 'x-fa fa-angle-right',
                         handler: 'onLoginClick',
                         formBind: true,

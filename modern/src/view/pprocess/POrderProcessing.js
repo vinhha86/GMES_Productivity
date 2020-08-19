@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     defaults: {
         margin:'0 0 10 0'
     },
+    cls: 'porderprocessing-modern',
 
     items: [{
         layout: 'hbox',
@@ -65,22 +66,42 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         height: '100%',
         width: '100%',
         features: [{
+            id: 'group',
             ftype: 'grouping',
-            groupHeaderTpl: '<b>{name}</b>',
+            groupHeaderTpl: '<b>Tổ sản xuất: {name}</b>',
             hideGroupedHeader: false,
             enableGroupingMenu: false
         }],
-        viewConfig: {
-            enableTextSelection: false,
-            stripeRows: false,
-         },
+        columnLines: true,
+        // viewConfig: {
+        //     enableTextSelection: false,
+        //     stripeRows: false,
+        //  },
         bind: {
             store:'{POrderProcessingStore}'
         },
+        cls: 'porderprocessing-modern-grid',
         columns: [{
-            text: 'Mã lệnh',
+            text: 'Mã SX',
             flex: 1,
             dataIndex: 'pordercode',
+            renderer: function (value, record, dataIndex, cell, column ) {
+                var c = record.data.status;
+                if (c == 1) {
+                    cell.setCls('process-granted');
+                } else if (c == 2) {
+                    cell.setCls('process-ready');
+                } else if (c == 3) {
+                    cell.setCls('process-subprocess');
+                } else if (c == 4) {
+                    cell.setCls('process-running');
+                } else if (c == 5) {
+                    cell.setCls('process-done');
+                } else if (c == 6) {
+                    cell.setCls('process-finish');
+                }
+                return value;
+            },
         }, {
             text: 'PO Buyer',
             flex: 1,

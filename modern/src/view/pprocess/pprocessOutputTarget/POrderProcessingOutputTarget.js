@@ -45,6 +45,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             items: [{
                 xtype: 'button',
                 text: '+1',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -55,6 +56,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             },{
                 xtype: 'button',
                 text: '+10',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -71,6 +73,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             items: [{
                 xtype: 'button',
                 text: '-1',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -81,6 +84,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             },{
                 xtype: 'button',
                 text: '-10',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -122,6 +126,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             items: [{
                 xtype: 'button',
                 text: '+1',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -132,6 +137,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             },{
                 xtype: 'button',
                 text: '+10',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -148,6 +154,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             items: [{
                 xtype: 'button',
                 text: '-1',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -158,6 +165,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
             },{
                 xtype: 'button',
                 text: '-10',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'

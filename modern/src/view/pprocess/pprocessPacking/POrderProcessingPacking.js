@@ -56,6 +56,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessPacking.POrderProcessingPacking', {
             items: [{
                 xtype: 'button',
                 text: '+1',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -66,6 +67,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessPacking.POrderProcessingPacking', {
             },{
                 xtype: 'button',
                 text: '+10',
+                cls: 'btnPlus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -82,6 +84,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessPacking.POrderProcessingPacking', {
             items: [{
                 xtype: 'button',
                 text: '-1',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'
@@ -92,6 +95,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessPacking.POrderProcessingPacking', {
             },{
                 xtype: 'button',
                 text: '-10',
+                cls: 'btnMinus',
                 flex: 1,
                 bind: {
                     disabled: '{isbtnDisabled}'

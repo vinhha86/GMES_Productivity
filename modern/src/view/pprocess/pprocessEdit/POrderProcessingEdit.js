@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEdit', {
     defaults: {
         margin:'0 0 10 0'
     },
+    cls: 'porderprocessingedit-modern',
 
     items: [{
         // Combo box, date, SL
