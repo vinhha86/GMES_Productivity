@@ -10,6 +10,22 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
     },
     // orgtypeid_link, parentid_link, linecost, colorid_link
     items: [{
+        width:400,
+        margin: 5,
+        labelWidth: 105,
+        xtype: 'combobox',
+        fieldLabel: 'Loại đơn vị ('+ '<span style="color:red">*</span>' + ')',
+        bind:{
+            store:'{OrgTypeStore}',
+            value:'{orgtypeid_link}'
+        },
+        displayField: 'name',
+        valueField: 'id',
+        queryMode: 'local',
+        editable: false,
+        allowBlank: false,
+        readOnly: true
+    },{
         xtype:'textfield',
         margin: 5,
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
@@ -119,21 +135,6 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         margin: 5,
         labelWidth: 105,
         xtype: 'combobox',
-        fieldLabel: 'Loại đơn vị ('+ '<span style="color:red">*</span>' + ')',
-        bind:{
-            store:'{OrgTypeStore}',
-            value:'{orgtypeid_link}'
-        },
-        displayField: 'name',
-        valueField: 'id',
-        queryMode: 'local',
-        editable: false,
-        allowBlank: false
-    },{
-        width:400,
-        margin: 5,
-        labelWidth: 105,
-        xtype: 'combobox',
         fieldLabel: 'Màu đại diện ',
         bind:{
             store:'{ColorStore}',
@@ -161,15 +162,15 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         border: false,
         dock:'bottom',
         items:[{
-            xtype:'button',
-            text: 'Thêm đơn vị trực thuộc',
-            margin: 3,
-            itemId:'btnThemDonViTrucThuoc',
-            iconCls: 'x-fa fa-plus',
-            formBind: false,
-            bind:{
-                disabled:'{btnThemState}'
-            }
+            // xtype:'button',
+            // text: 'Thêm đơn vị trực thuộc',
+            // margin: 3,
+            // itemId:'btnThemDonViTrucThuoc',
+            // iconCls: 'x-fa fa-plus',
+            // formBind: false,
+            // bind:{
+            //     disabled:'{btnThemState}'
+            // }
         },{
             flex:1,
             border: false

@@ -68,6 +68,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         }
     },
     onContextMenu: function(tree, record, item, index, e, eOpts ) {
+        var me = this;
         //Phan xuong
         if(record.data.orgtypeid_link == 13){
             var menu_grid = new Ext.menu.Menu({ items:
@@ -80,8 +81,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                         iconCls: 'x-fa fas fa-sliders',
                         handler: function(){
                             console.log(record);
-                            // var record = this.parentMenu.record;
-                            // me.onPOPriceEdit(record);
+                            me.createproductionline(record.data);
                         },
                     }, 
                 ]
@@ -102,8 +102,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                         iconCls: 'x-fa fas fa-files-o',
                         handler: function(){
                             console.log(record);
-                            // var record = this.parentMenu.record;
-                            // me.onPOPriceEdit(record);
+                            me.duplicate(record.data);
                         },
                     }, 
                 ]
@@ -126,6 +125,17 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             console.log(record);
                             // var record = this.parentMenu.record;
                             // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 13);
+                            viewModel.set('status', true);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
                         },
                     }, 
                 ]
@@ -134,5 +144,163 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
             e.stopEvent();
             menu_grid.showAt(position);
         }
+    },
+    duplicate: function (record){
+        var treePanel = Ext.getCmp('ListOrgMenu');
+        var viewModel = this.getViewModel();
+
+        console.log(record);
+        var params = new Object();
+        var data = record;
+        // data.prefix = parentRecord.data.code;
+        params.data = data;
+        params.msgtype = "ORG_DUPLICATE";
+        params.message = "Nhân bản org";
+
+        GSmartApp.Ajax.post('/api/v1/orgmenu/duplicate', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Nhân bản thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+
+                        var storeMenu = viewModel.getStore('MenuStore');
+                        var items = storeMenu.data.items; // items trong tree
+                        var isExist = false;
+                        var org = response.org;
+
+                        // neu org chua ton tai, neu status = 1, them
+                        if(!isExist && org.status == 1){
+                            for(var i=0;i<items.length;i++){
+                                var parentOrg = items[i].data;
+                                // console.log(parentOrg);
+                                if(parentOrg.id == org.parentid_link){
+                                    org.children = [];
+                                    org.depth = parentOrg.depth+1;
+                                    org.expandable = true;
+                                    org.expanded = false;
+                                    org.glyph = '';
+                                    org.leaf = true;
+                                    org.qshowDelay = 0;
+                                    org.root = false;
+                                    org.selectable = true;
+                                    org.visible = true;
+                                    var node = storeMenu.getById(parentOrg.id);
+                                    node.appendChild(org);
+                                    break;
+                                }
+                            }
+                        }
+
+                        treePanel.reconfigure(storeMenu);
+
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Nhân bản thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Nhân bản thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
+    createproductionline: function(record){
+        // console.log(record);
+        var treePanel = Ext.getCmp('ListOrgMenu');
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        var data = record;
+        // data.prefix = parentRecord.data.code;
+        params.data = data;
+        params.msgtype = "ORG_PRODUCTIONLINE_CREATE";
+        params.message = "Thêm tổ chuyền";
+
+        GSmartApp.Ajax.post('/api/v1/orgmenu/createproductionline', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Thêm tổ chuyền thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+
+                        var storeMenu = viewModel.getStore('MenuStore');
+                        var items = storeMenu.data.items; // items trong tree
+                        var isExist = false;
+                        var org = response.org;
+
+                        // neu org chua ton tai, neu status = 1, them
+                        if(!isExist && org.status == 1){
+                            for(var i=0;i<items.length;i++){
+                                var parentOrg = items[i].data;
+                                // console.log(parentOrg);
+                                if(parentOrg.id == org.parentid_link){
+                                    org.children = [];
+                                    org.depth = parentOrg.depth+1;
+                                    org.expandable = true;
+                                    org.expanded = false;
+                                    org.glyph = '';
+                                    org.leaf = true;
+                                    org.qshowDelay = 0;
+                                    org.root = false;
+                                    org.selectable = true;
+                                    org.visible = true;
+                                    var node = storeMenu.getById(parentOrg.id);
+                                    node.appendChild(org);
+                                    break;
+                                }
+                            }
+                        }
+
+                        treePanel.reconfigure(storeMenu);
+
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thêm tổ chuyền thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thêm tổ chuyền thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     }
 })
