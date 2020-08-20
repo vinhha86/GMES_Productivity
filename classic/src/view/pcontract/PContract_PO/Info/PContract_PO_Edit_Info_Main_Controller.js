@@ -6,6 +6,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var ctrsewtarget = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_percent');
         var ctrsewtarget_hidden = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_hidepanel');
         var ctrporderreqdel = Ext.getCmp('PContract_PO_Edit_Porder_Req_deletebutton');
+        var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
+        
         //An/hien Sewtarget_percent
         if(viewmodel.get('isedit')){
             if (null!=ctrsewtarget && null!=ctrsewtarget_hidden && null!=ctrporderreqdel){
@@ -22,6 +24,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         }
         var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
         PackingTypeStore.loadStore();
+        var PortStore = viewmodel.getStore('PortStore');
+        PortStore.loadStore(null,null);
 
         if(viewmodel.get('id') > 0){
             this.getInfo(viewmodel.get('id'));
@@ -60,10 +64,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                         var porderReqStore = viewmodel.getStore('porderReqStore');
                         porderReqStore.loadByPO(id);     
                         
-                        //Lay danh sach ke hoach giao hang
-                        var POShippingStore = viewmodel.getStore('POShippingStore');
-                        POShippingStore.loadStore_bypo(id);
-                        console.log(POShippingStore);
+                        // //Lay danh sach ke hoach giao hang
+                        // var POShippingStore = viewmodel.getStore('POShippingStore');
+                        // POShippingStore.loadStore_bypo(id);
+                        // console.log(POShippingStore);
                     }
                 }
             })

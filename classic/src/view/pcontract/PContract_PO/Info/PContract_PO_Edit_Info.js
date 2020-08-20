@@ -231,6 +231,50 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     ]
                 }
             ]
+        },
+        {
+            region: 'south',
+            id: 'PContract_PO_Edit_Info_PortFromTo',
+            layout: 'hbox',
+            height: 35,
+            items:[
+                {
+                    xtype: 'combo',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',            
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'name',
+                    margin: 1,
+                    fieldLabel: "Cảng đi:",
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    bind: {
+                        value: '{po.portfromid_link}',
+                        store: '{PortStore}'
+                    },
+                    itemId: 'portfromid_link',
+                    flex: 1
+                },    
+                {
+                    xtype: 'combo',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',           
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'name',
+                    margin: 1,
+                    fieldLabel: "Cảng đến:",
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    bind: {
+                        value: '{po.porttoid_link}',
+                        store: '{PortStore}'
+                    },
+                    itemId: 'porttoid_link',
+                    flex: 1
+                },  
+            ]
         }
     ]
 })

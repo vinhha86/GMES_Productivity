@@ -8,9 +8,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         'PContract_PO_ProductList': {
             itemclick: 'onSelectProduct'
         },
-        'PContract_PO_List': {
-            itemclick: 'onSelectPO'
-        },
+        // 'PContract_PO_List': {
+        //     itemclick: 'onSelectPO'
+        // },
         '#btnExcel' : {
             click: 'onExport'
         }
@@ -262,7 +262,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 465,
+            height: 350,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -387,7 +387,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 465,
+            height: 350,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -469,16 +469,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     var record = this.parentMenu.record;
                     me.onAdd_SubPO(record);
                 }
-            }, {
-                text: 'Thêm KH giao hàng',
-                itemId: 'btnShipping_PContract_PO_List',
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-ship greenIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onAdd_Shipping(record);
-                }
-            }
+            }, 
+            // {
+            //     text: 'Thêm KH giao hàng',
+            //     itemId: 'btnShipping_PContract_PO_List',
+            //     margin: '10 0 0',
+            //     iconCls: 'x-fa fas fa-ship greenIcon',
+            //     handler: function(){
+            //         var record = this.parentMenu.record;
+            //         me.onAdd_Shipping(record);
+            //     }
+            // }
         ]
         });
         // HERE IS THE MAIN CHANGE
@@ -519,16 +520,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     me.onXoa(record);
                 }
             }, 
-            {
-                text: 'Thêm KH giao hàng',
-                itemId: 'btnAddShipping_PContract_PO_List',
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-ship greenIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onAdd_Shipping(record);
-                }
-            }
+            // {
+            //     text: 'Thêm KH giao hàng',
+            //     itemId: 'btnAddShipping_PContract_PO_List',
+            //     margin: '10 0 0',
+            //     iconCls: 'x-fa fas fa-ship greenIcon',
+            //     handler: function(){
+            //         var record = this.parentMenu.record;
+            //         me.onAdd_Shipping(record);
+            //     }
+            // }
         ]
         });
           // HERE IS THE MAIN CHANGE
