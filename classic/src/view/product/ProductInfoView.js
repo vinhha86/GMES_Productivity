@@ -18,40 +18,7 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
             items:[{
                 xtype:'textfield',
                 margin: 1,
-                fieldLabel: "Mã nội bộ",
-                bind:{
-                    value : '{product.code}'
-                },
-                tooltip:'Nhập mã sản phẩm',
-                itemId:'code',
-                name:'code',
-                height: 32,
-                allowBlank: false,
-                blankText: 'Không được để trống',
-                labelWidth: 110
-            },{
-                xtype:'textfield',
-                margin: 1,
-                height: 32,
-                width: 400,
-                tooltip:'Nhập tên sản phẩm',
-                fieldLabel: "Tên nội bộ",
-                allowBlank: false,
-                blankText: 'Không được để trống',
-                bind:{
-                    value : '{product.name}'
-                },
-                name:'name',
-                labelWidth: 110
-            }]
-        },
-        {
-            layout:'hbox',
-            border:false,
-            items:[{
-                xtype:'textfield',
-                margin: 1,
-                fieldLabel: "Mã Buyer",
+                fieldLabel: "Mã Buyer (<span style = 'color: red'>*</span>)",
                 bind:{
                     value : '{product.buyercode}'
                 },
@@ -68,7 +35,7 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 height: 32,
                 width: 400,
                 tooltip:'Nhập tên Buyer',
-                fieldLabel: "Tên Buyer",
+                fieldLabel: "Tên Buyer (<span style = 'color: red'>*</span>)",
                 allowBlank: false,
                 blankText: 'Không được để trống',
                 bind:{
@@ -107,68 +74,37 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 labelWidth: 110
             }]
         },        
-        // {
-        //     layout:'hbox',
-        //     border:false,
-        //     items:[{
-        //         xtype:'combo',
-        //         queryMode: 'local',
-        //         valueField: 'id',
-        //         displayField: 'fullName',
-        //         margin: 1,
-        //         height: 32,
-        //         tooltip:'Chọn người thiết kế',
-        //         fieldLabel: "Người thiết kế",
-        //         bind:{
-        //             value : '{product.designerid_link}',
-        //             store : '{UserStore}'
-        //         },
-        //         itemId:'designerid_link',
-        //         name: 'designerid_link',
-        //         labelWidth: 110
-        //     },{
-        //         xtype:'textfield',
-        //         margin: 1,
-        //         height: 32,
-        //         width: 400,
-        //         fieldLabel: "Người duyệt mẫu",
-        //         bind:{
-        //             value : '{product.samplemakername}'
-        //         },
-        //         name:'samplemakername',
-        //         readOnly : true,
-        //         labelWidth: 110
-        //     }]
-        // },{
-        //     layout:'hbox',
-        //     border:false,
-        //     items:[{
-        //         xtype:'datefield',
-        //         margin: 1,
-        //         height: 32,
-        //         fieldLabel: "Ngày duyệt mẫu",
-        //         bind:{
-        //             value : '{product.samplemakeDate}'
-        //         },
-        //         format: 'd/m/Y',
-        //         readOnly: true,
-        //         itemId:'samplemakeDate',
-        //         name: 'samplemakeDate',
-        //         labelWidth: 110
-        //     },{
-        //         xtype:'textfield',
-        //         margin: 1,
-        //         width: 400,
-        //         height: 32,
-        //         fieldLabel: "Người may mẫu",
-        //         bind:{
-        //             value : '{product.samplemakername}'
-        //         },
-        //         name:'samplemakername',
-        //         readOnly : true,
-        //         labelWidth: 110
-        //     }]
-        // }
+        {
+            layout:'hbox',
+            border:false,
+            items:[{
+                xtype:'textfield',
+                margin: 1,
+                fieldLabel: "Mã nội bộ",
+                bind:{
+                    value : '{product.code}'
+                },
+                tooltip:'Nhập mã sản phẩm',
+                itemId:'code',
+                name:'code',
+                height: 32,
+                labelWidth: 110
+            },{
+                xtype:'textfield',
+                margin: 1,
+                height: 32,
+                width: 400,
+                tooltip:'Nhập tên sản phẩm',
+                fieldLabel: "Tên nội bộ",
+                allowBlank: false,
+                blankText: 'Không được để trống',
+                bind:{
+                    value : '{product.name}'
+                },
+                name:'name',
+                labelWidth: 110
+            }]
+        }
         ]
     },{
         xtype:'ProductImageView',

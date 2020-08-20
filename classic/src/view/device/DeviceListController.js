@@ -174,12 +174,12 @@ Ext.define('GSmartApp.view.device.InvoiceListController', {
 					formDevice.getForm().reset(); 
 				}else{
 					Ext.Msg.show({ 
-					  title: 'Thêm mới/sửa thất bại',
-					  msg: null, 
-					  buttons: [{
-						itemId: 'cancel',   
-						text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale], 
-					  }]
+					  title: 'Thông báo',
+					  msg: 'Thêm mới/sửa thất bại', 
+					  buttons: Ext.MessageBox.YES,
+					  buttonText: {
+						yes: 'Đóng',
+					  }
 					});
 				}
 				me.getView().setLoading(true);

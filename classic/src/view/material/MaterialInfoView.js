@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
             items:[{
                 xtype:'textfield',
                 margin: 2,
-                fieldLabel: "Mã nguyên liệu",
+                fieldLabel: "Mã nguyên liệu (<span style = 'color: red'>*</span>)",
                 bind:{
                     value : '{product.code}'
                 },
@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                 height: 32,
                 allowBlank: false,
                 blankText: 'Không được để trống',
-                labelWidth: 110,
+                labelWidth: 125,
                 flex: 1,
             },{
                 xtype:'textfield',
@@ -35,14 +35,14 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                 height: 32,
                 flex: 1,
                 tooltip:'Nhập tên nguyên liệu',
-                fieldLabel: "Tên nguyên liệu",
+                fieldLabel: "Tên nguyên liệu (<span style = 'color: red'>*</span>)",
                 allowBlank: false,
                 blankText: 'Không được để trống',
                 bind:{
                     value : '{product.name}'
                 },
                 name:'name',
-                labelWidth: 110
+                labelWidth: 125
             }]
         },
         {
@@ -57,9 +57,9 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                     valueField: 'id',
                     displayField: 'name',
                     queryMode: 'local',
-                    fieldLabel: "Loại nguyên liệu",
+                    fieldLabel: "Loại nguyên liệu (<span style = 'color: red'>*</span>)",
                     allowBlank: false,
-                    labelWidth: 110,
+                    labelWidth: 125,
                     blankText: 'Không được để trống',
                     bind:{
                         store: '{ProductTypeStore}',
@@ -74,9 +74,9 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                     valueField: 'id',
                     displayField: 'name',
                     queryMode: 'local',
-                    fieldLabel: "Đơn vị tính",
+                    fieldLabel: "Đơn vị tính (<span style = 'color: red'>*</span>)",
                     allowBlank: false,
-                    labelWidth: 110,
+                    labelWidth: 125,
                     blankText: 'Không được để trống',
                     bind:{
                         store: '{UnitStore}',

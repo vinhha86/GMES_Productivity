@@ -43,21 +43,21 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimAttributeViewController', {
                                 Ext.Msg.show({
                                     title: 'Thông báo',
                                     msg: 'Xóa thành công',
-                                    buttons: [{
-                                        itemId: 'cancel',
-                                        text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                    }]
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
                                 });
                                 var store = me.getStore();
                                 store.remove(rec);
                             } else {
                                 Ext.Msg.show({
-                                    title: 'Xóa thất bại',
-                                    msg: null,
-                                    buttons: [{
-                                        itemId: 'cancel',
-                                        text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                    }]
+                                    title: 'Thông báo',
+                                    msg: 'Xóa thất bại',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
                                 });
                             }
                             me.setLoading(false);
@@ -119,21 +119,21 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimAttributeViewController', {
     },
     onThemMoiAtt: function(){
         var me = this.getView();
-        if(me.IdProduct ==0 ){
+        var viewModel = this.getViewModel();
+        if(viewModel.get('product.id') ==0 ){
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo phụ liệu hoàn thiện trước khi chọn thuộc tính',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             var viewInfo = Ext.getCmp('PackingTrimInfoView');
             viewInfo.down('#code').focus();
             return;
         }
 
-        var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             height: 400,
             closable: true,

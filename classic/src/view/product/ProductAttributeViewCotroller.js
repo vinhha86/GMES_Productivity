@@ -122,21 +122,21 @@ Ext.define('GSmartApp.view.attribute.ProductAttributeViewCotroller', {
     },
     onThemMoiAtt: function(){
         var me = this.getView();
-        if(me.IdProduct ==0 ){
+        var viewModel = this.getViewModel();
+        if(viewModel.get('product.id') == 0){
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo sản phẩm trước khi chọn thuộc tính',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             var viewInfo = Ext.getCmp('ProductInfoView');
-            viewInfo.down('#code').focus();
+            viewInfo.down('#buyercode').focus();
             return;
         }
 
-        var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             height: 400,
             closable: true,

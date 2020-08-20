@@ -100,9 +100,9 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     allowBlank: false,
                     queryMode: 'local',
                     valueField: 'id',
-                    displayField: 'name',
+                    displayField: 'code',
                     margin: 2,
-                    fieldLabel: "Buyer:",
+                    fieldLabel: "Buyer (<span style = 'color: red'>*</span>)",
                     bind: {
                         value: '{PContract.orgbuyerid_link}',
                         store: '{EndBuyer}'
@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     xtype: 'combo',
                     queryMode: 'local',
                     valueField: 'id',
-                    displayField: 'name',
+                    displayField: 'code',
                     margin: 2,
                     fieldLabel: "Vendor:",
                     bind: {

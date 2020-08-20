@@ -20,8 +20,11 @@ Ext.define('GSmartApp.view.product.ProductInfoViewCotroller', {
     },
     onleavebuyercode: function(){
         var viewModel = this.getViewModel();
-        if(viewModel.get('product.vendorcode')== "")
+        if(viewModel.get('product.vendorcode')== ""){
             viewModel.set('product.vendorcode', viewModel.get('product.buyercode'));
+            viewModel.set('product.code', viewModel.get('product.buyercode'));
+        }
+            
     },
     loadInfo: function (id) {
         if (id == 0) {
