@@ -456,6 +456,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 function (success, response, options) {
                     if (success) {
                         var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
+                        console.log(tab);
                         if(tab.items.length > 0){
                             var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
                             storebomcolor.load();
