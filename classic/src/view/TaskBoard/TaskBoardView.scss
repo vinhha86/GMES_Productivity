@@ -178,7 +178,7 @@
 
 .sch-task,
 .sch-task-inner {
-    border  : 0;
+    // border  : 3px;
     padding : 0;
     border-radius : 3px;
 }
@@ -496,10 +496,6 @@ ul.subtasks li {
             vertical-align: middle;
             margin: 0 5px 0 5px;
         }
-    }
-
-    .sch-task.sch-task-state-InProgress {
-        border-left-color: #e7a84b;
     }
 }
 // /* EOF SUBTASK LIST STYLES */
