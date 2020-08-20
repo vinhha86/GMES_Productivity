@@ -27,10 +27,10 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimImageViewController', {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo sản phẩm trước khi upload ảnh',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             return;
         }
@@ -57,21 +57,21 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimImageViewController', {
     onSelect: function (m, value, eOpts) {
         var me = this.getView();
         var th = this;
-        if (me.IdProduct == 0) {
+        var viewmodel = this.getViewModel();
+        if (viewmodel.get('product.id') == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo phụ liệu hoàn thiện trước khi chọn thuộc tính',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: App.Locales.btn_dong[App.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             var viewInfo = Ext.getCmp('ProductInfoView');
             viewInfo.down('#code').focus();
             return false;
         }
         else {
-            var viewmodel = this.getViewModel();
             var filename = value.replace(/C:\\fakepath\\/g, '');
             var img = 0;
 

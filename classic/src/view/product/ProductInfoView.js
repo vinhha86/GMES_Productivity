@@ -35,9 +35,7 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 height: 32,
                 width: 400,
                 tooltip:'Nhập tên Buyer',
-                fieldLabel: "Tên Buyer (<span style = 'color: red'>*</span>)",
-                allowBlank: false,
-                blankText: 'Không được để trống',
+                fieldLabel: "Tên Buyer",
                 bind:{
                     value : '{product.buyername}'
                 },

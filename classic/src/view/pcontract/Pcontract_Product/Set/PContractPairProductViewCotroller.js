@@ -19,10 +19,10 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo đơn hàng trước khi ghép bộ sản phẩm',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             var viewInfo = Ext.getCmp('PContractInfoView');
             viewInfo.down('#cust_contractcode').focus();
@@ -106,10 +106,10 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
                                     Ext.Msg.show({
                                         title: "Thông báo",
                                         msg: 'Xóa thất bại',
-                                        buttons: [{
-                                            itemId: 'cancel',
-                                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                        }]
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
                                     });
                                 }
                                 else {

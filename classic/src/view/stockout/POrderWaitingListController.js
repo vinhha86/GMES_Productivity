@@ -196,12 +196,12 @@ Ext.define('GSmartApp.view.stockout.POrderWaitingListController', {
                         },
                         failure :function(response,options){
                             Ext.Msg.show({ 
-                                title: 'Hủy chuẩn bị sản xuất thất bại',
-                                msg: null, 
-                                buttons: [{
-                                  itemId: 'cancel',   
-                                  text: "Đóng", 
-                                }]
+                                title: 'Thông báo',
+                                msg: 'Hủy chuẩn bị sản xuất thất bại', 
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
                               });
                         }
                     }); 

@@ -45,13 +45,13 @@ Ext.define('GSmartApp.view.mainfactory.MainFactoryDetailViewCotroller', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        Ext.Msg.show({
-                            title: 'Lưu thành công',
-                            msg: null,
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Lưu thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
 
                         if (data.id == 0) {
@@ -62,24 +62,24 @@ Ext.define('GSmartApp.view.mainfactory.MainFactoryDetailViewCotroller', {
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: response.message,
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            title: "Thông báo",
+                            msg: "Lưu thất bại",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
                         me.down('#code').focus();
                     }
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: "Thông báo",
+                        msg: "Lưu thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
                 me.setLoading(false);

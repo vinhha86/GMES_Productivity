@@ -46,12 +46,12 @@ Ext.define('GSmartApp.view.product.ProductInfoViewCotroller', {
                     }
                 } else {
                     Ext.Msg.show({
-                        title: 'Lấy thông tin thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
             })
