@@ -77,12 +77,12 @@ Ext.define('GSmartApp.view.pprocess.POrderListController', {
                     }
 				} else {
                     Ext.Msg.show({ 
-                        title: 'Thêm lệnh thất bại',
-                        msg: null, 
-                        buttons: [{
-                          itemId: 'cancel',   
-                          text: "Đóng", 
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Thêm lệnh thất bại', 
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                       });
                 }
             });

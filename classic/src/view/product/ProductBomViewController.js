@@ -39,10 +39,10 @@ Ext.define('GSmartApp.view.product.ProductBomViewController', {
                                     Ext.Msg.show({
                                         title: "Thông báo",
                                         msg: 'Xóa thất bại',
-                                        buttons: [{
-                                            itemId: 'cancel',
-                                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                                        }]
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
                                     });
                                 }
                                 else {
@@ -70,10 +70,10 @@ Ext.define('GSmartApp.view.product.ProductBomViewController', {
                         Ext.Msg.show({
                             title: "Thông báo",
                             msg: 'Lưu thất bại',
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
                     }
                     else {

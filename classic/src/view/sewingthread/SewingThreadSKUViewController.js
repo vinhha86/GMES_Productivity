@@ -42,12 +42,12 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadSKUViewController', {
                     store.load();
                 } else {
                     Ext.Msg.show({
-                        title: 'Thất bại',
-                        msg: null,
-                        buttons: [{
-                            itemId: 'cancel',
-                            text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                        }]
+                        title: 'Thông báo',
+                        msg: 'Thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
                     });
                 }
                 me.setLoading(false);

@@ -27,10 +27,10 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimImageViewController', {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo sản phẩm trước khi upload ảnh',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             return;
         }
@@ -61,10 +61,10 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimImageViewController', {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo phụ liệu may trước khi chọn thuộc tính',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             var viewInfo = Ext.getCmp('ProductInfoView');
             viewInfo.down('#code').focus();

@@ -19,10 +19,10 @@ Ext.define('GSmartApp.view.product.ProductMaterialViewController', {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: 'Bạn chưa chọn nguyên phụ liệu',
-                buttons: [{
-                    itemId: 'cancel',
-                    text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                }]
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
             });
             return;
         }
@@ -46,10 +46,10 @@ Ext.define('GSmartApp.view.product.ProductMaterialViewController', {
                         Ext.Msg.show({
                             title: "Thông báo",
                             msg: 'Có lỗi trong quá trình chọn NPL',
-                            buttons: [{
-                                itemId: 'cancel',
-                                text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-                            }]
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
                         });
                     }
                     else {
