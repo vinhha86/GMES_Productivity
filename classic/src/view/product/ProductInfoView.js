@@ -94,8 +94,6 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 width: 400,
                 tooltip:'Nhập tên sản phẩm',
                 fieldLabel: "Tên nội bộ",
-                allowBlank: false,
-                blankText: 'Không được để trống',
                 bind:{
                     value : '{product.name}'
                 },

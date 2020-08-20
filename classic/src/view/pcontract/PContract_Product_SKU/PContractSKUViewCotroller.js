@@ -5,7 +5,54 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         
     },
     control:{
-        
+        '#btnConfirmSKU' : {
+            click: 'onConfimSKU'
+        }
+    },
+    onConfimSKU: function(){
+        var viewmodel = this.getViewModel();
+        if(viewmodel.get('IdProduct') == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn chưa chọn sản phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else {
+            var params = new Object();
+            params.pcontractid_link = viewmodel.get('PContract.id');
+            params.productid_link = viewmodel.get('IdProduct');
+
+            GSmartApp.Ajax.post('/api/v1/pcontractproduct/comfim_sizebreakdown', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        if (success) {
+                            var response = Ext.decode(response.responseText);
+                            if(response.respcode == 200){
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: 'Thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'OK'
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            Ext.Msg.show({
+                                title: "Thông báo",
+                                msg: 'Thất bại',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'OK'
+                                }
+                            });
+                        }
+                    })
+        }
     },
     onEdit: function(editor, context, e){
         if(context.value == context.originalValue) return;

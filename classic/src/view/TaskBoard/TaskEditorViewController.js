@@ -136,18 +136,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
 
                         var taskboard = Ext.getCmp('taskboard');
                         var taskStore = taskboard.getTaskStore();
-                        var mainTask = taskStore.getById(form.getRecord().getId());
-                        mainTask.set('State', 'DaXong');
-
-                        form.getRecord().comments().add(response.comment);
-                        var subTasks = mainTask.subTasks();
-                        for(var i=0; i< subTasks.data.length; i++){
-                            var sub = subTasks.data.items[i];
-                            sub.set('Done', true);
-                        }
-                        taskboard.refreshTaskNode(mainTask);
-
-
+                        taskStore.load();
                     }
                     else {
                         Ext.MessageBox.show({
