@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorView', {
                 queryMode: 'local',
                 editable: false,
                 valueField: 'productid_link',
-                displayField: 'productName'
+                displayField: 'productBuyerCode'
             },
             {
                 xtype:'button',

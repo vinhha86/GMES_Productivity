@@ -62,8 +62,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductViewCotroller', {
                     }
                 } else {
                     Ext.Msg.show({
-                        title: 'Lấy thông tin thất bại',
-                        msg: null,
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',

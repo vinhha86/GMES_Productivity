@@ -94,7 +94,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 value: '{IdProduct_filterPO}'
             },
             valueField: 'productid_link',
-            displayField: 'productName',
+            displayField: 'productBuyerCode',
             queryMode: 'local'
         }]
     }]
