@@ -114,23 +114,23 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                         }
 
                         // neu da org ton tai, neu status = -1, xoa
-                        if(isExist && org.status == -1){
-                            if(org.parentid_link == -1){
-                                me.setLoading(false);
-                                return;
-                            }
-                            var node = storeMenu.getById(org.parentid_link);
-                            var node2 = storeMenu.getById(org.id);
-                            node.removeChild(node2);
-                            m.emptyForm();
-                            viewModel.set('parentid_link',null);
-                            viewModel.set('fieldState',false);
-                            viewModel.set('id',0);
+                        // if(isExist && org.status == -1){
+                        //     if(org.parentid_link == -1){
+                        //         me.setLoading(false);
+                        //         return;
+                        //     }
+                        //     var node = storeMenu.getById(org.parentid_link);
+                        //     var node2 = storeMenu.getById(org.id);
+                        //     node.removeChild(node2);
+                        //     m.emptyForm();
+                        //     viewModel.set('parentid_link',null);
+                        //     viewModel.set('fieldState',false);
+                        //     viewModel.set('id',0);
 
-                        }
+                        // }
 
                         // neu org chua ton tai, neu status = 1, them
-                        if(!isExist && org.status == 1){
+                        if(!isExist){
                             for(var i=0;i<items.length;i++){
                                 var parentOrg = items[i].data;
                                 // console.log(parentOrg);
@@ -153,6 +153,19 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                         }
 
                         treePanel.reconfigure(storeMenu);
+
+                        // chay lai filter
+
+                        var ListOrgMenu = Ext.getCmp('ListOrgMenu');
+                        var ListOrgMenuController = ListOrgMenu.getController();
+                        var chkBoxFilterValue = viewModel.get('isDisplayInactive');
+
+                        if (chkBoxFilterValue) {
+                            ListOrgMenu.getStore().getFilters().removeAll();
+                        } else {
+                            ListOrgMenu.getStore().getFilters().removeAll();
+                            ListOrgMenu.getStore().getFilters().add(ListOrgMenuController.activeOnlyFilter);
+                        }
 
                     }
                     else {

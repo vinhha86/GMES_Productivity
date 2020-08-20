@@ -18,6 +18,7 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
         parentid_link: null,
         titleName: '',
         currentRec:null,
+        isDisplayInactive: false,
         // Form
         code: null,
         name: null,

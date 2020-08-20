@@ -40,6 +40,13 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         storeColor.loadStore();
         var storeOrgType = viewModel.getStore('OrgTypeStore');
         storeOrgType.loadAllOrgType();
+
+        this.activeOnlyFilter = Ext.create('Ext.util.Filter', {
+            id: 'activeOnlyFilter',
+            property: 'status',
+            value: 1
+        });
+        storeMenu.getFilters().add(this.activeOnlyFilter);
     },
     onDropOrg: function(node, data, dropRec, dropPosition){
         // console.log(node);
@@ -302,5 +309,16 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                     });
                 }
             })
+    },
+    onchkboxchange: function ( chkbox, newValue, oldValue, eOpts ) {
+        // console.log(newValue);
+
+        var me = this;
+        var view = this.getView();
+        if (!newValue) {
+            view.getStore().getFilters().add(me.activeOnlyFilter);
+        } else {
+            view.getStore().getFilters().remove(me.activeOnlyFilter);
+        }
     }
 })

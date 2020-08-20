@@ -37,6 +37,23 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
     }],
     listeners: {
        itemcontextmenu: 'onContextMenu'
-   }    
+    },
+    dockedItems: [{
+        dock: 'top',
+        layout: 'hbox',
+        border: false,
+        items: [{
+            xtype: 'checkbox',
+            fieldLabel: 'Hiện đơn vị không hoạt động ',
+            labelWidth: 200,
+            labelAlign: 'right',
+            bind: {
+                value:'{isDisplayInactive}'
+            },
+            listeners: {
+                change: 'onchkboxchange'
+            }
+        }]
+    }]
 });
 
