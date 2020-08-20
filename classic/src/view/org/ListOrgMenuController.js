@@ -48,20 +48,70 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         });
         storeMenu.getFilters().add(this.activeOnlyFilter);
     },
-    onDropOrg: function(node, data, dropRec, dropPosition){
+    onDropOrg: function(node, data, overModel, dropPosition){
         // console.log(node);
-        // console.log(data);
-        // console.log(dropRec);
-        // console.log(dropPosition);
-        // if (dropPosition == 'append'){
-        //     //change parent node
-        // } else {
-        //     //reorder
-        // }
+        // console.log(data.records[0].data);
+        // console.log(overModel.data);
+        var start = data.records[0].data;
+        var target = overModel.data;
+
+        if((start.orgtypeid_link == 14 && target.orgtypeid_link == 13) && start.parentid_link != target.id){
+            // console.log('ok chay thoi');
+            var params = new Object();
+            var data = start;
+            data.parentid_link = target.id;
+            params.data = data;
+            // console.log(data);
+            // console.log(params);
+
+            params.msgtype = "ORG_SAVE";
+            params.message = "Lưu org";
+
+            GSmartApp.Ajax.post('/api/v1/orgmenu/createOrg', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Lưu thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            
+                        }
+                        else {
+                            Ext.Msg.show({
+                                title: 'Lưu thất bại',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Lưu thất bại',
+                            msg: null,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                })
+        }
     },  
     onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
-        console.log(dropHandlers);
-        console.log(overModel);
+        // console.log(data.records[0].data);
+        // console.log(dropHandlers);
+        // console.log(overModel.data);
+        var start = data.records[0].data;
+        var target = overModel.data;
+
         if (data.records[0].childNodes.length > 0) {
             Ext.MessageBox.show({
                 title: "Quản lý đơn vị",
@@ -72,7 +122,25 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                 }
             });
             dropHandlers.cancelDrop();
+            return;
         }
+        if(!(start.orgtypeid_link == 14 && target.orgtypeid_link == 13)){
+            if(start.parentid_link != target.parentid_link){
+                Ext.MessageBox.show({
+                    title: "Quản lý đơn vị",
+                    msg: "Đơn vị di chuyển phải là tổ, đơn vị đích phải là phân xưởng",
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                dropHandlers.cancelDrop();
+                return;
+            }
+        }
+        // if((start.orgtypeid_link == 14 && target.orgtypeid_link == 13) && target.leaf){
+        //     target.leaf = false;
+        // }
     },
     onContextMenu: function(tree, record, item, index, e, eOpts ) {
         var me = this;
