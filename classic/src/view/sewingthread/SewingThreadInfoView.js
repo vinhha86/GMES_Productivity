@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadInfoView', {
             items:[{
                 xtype:'textfield',
                 margin: 2,
-                fieldLabel: "Mã chỉ may",
+                fieldLabel: "Mã chỉ may (<span style = 'color: red'>*</span>)",
                 bind:{
                     value : '{product.code}'
                 },
@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadInfoView', {
                 margin: 2,
                 height: 32,
                 width: 400,
-                fieldLabel: "Tên chỉ May",
+                fieldLabel: "Tên chỉ May (<span style = 'color: red'>*</span>)",
                 allowBlank: false,
                 blankText: 'Không được để trống',
                 bind:{
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadInfoView', {
                 valueField: 'id',
                 displayField: 'name',
                 queryMode: 'local',
-                fieldLabel: "Đơn vị tính",
+                fieldLabel: "Đơn vị tính (<span style = 'color: red'>*</span>)",
                 allowBlank: false,
                 labelWidth: 110,
                 blankText: 'Không được để trống',
