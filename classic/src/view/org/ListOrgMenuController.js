@@ -40,5 +40,98 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         storeColor.loadStore();
         var storeOrgType = viewModel.getStore('OrgTypeStore');
         storeOrgType.loadAllOrgType();
+    },
+    onDropOrg: function(node, data, dropRec, dropPosition){
+        // console.log(node);
+        // console.log(data);
+        // console.log(dropRec);
+        // console.log(dropPosition);
+        // if (dropPosition == 'append'){
+        //     //change parent node
+        // } else {
+        //     //reorder
+        // }
+    },  
+    onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
+        console.log(eOpts);
+        if (data.records[0].childNodes.length > 0) {
+            Ext.MessageBox.show({
+                title: "Quản lý đơn vị",
+                msg: "Không được di chuyển đơn vị cha",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            dropHandlers.cancelDrop();
+        }
+    },
+    onContextMenu: function(tree, record, item, index, e, eOpts ) {
+        //Phan xuong
+        if(record.data.orgtypeid_link == 13){
+            var menu_grid = new Ext.menu.Menu({ items:
+                [
+                    {
+                        text: 'Thêm Tổ SX',
+                        itemId: 'btnAddLine_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-sliders',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                        },
+                    }, 
+                ]
+                });
+            var position = e.getXY();
+            e.stopEvent();
+            menu_grid.showAt(position);
+        }
+        //To san xuat
+        if(record.data.orgtypeid_link == 14){
+            var menu_grid = new Ext.menu.Menu({ items:
+                [
+                    {
+                        text: 'Nhân bản',
+                        itemId: 'btnDuplicate_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-files-o',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                        },
+                    }, 
+                ]
+                });
+            var position = e.getXY();
+            e.stopEvent();
+            menu_grid.showAt(position);
+        }        
+        //Tong cong ty
+        if (record.data.orgtypeid_link == 1){
+            var menu_grid = new Ext.menu.Menu({ items:
+                [
+                    {
+                        text: 'Thêm Phân xưởng',
+                        itemId: 'btnAddFactory_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-industry',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                        },
+                    }, 
+                ]
+                });
+            var position = e.getXY();
+            e.stopEvent();
+            menu_grid.showAt(position);
+        }
     }
 })

@@ -89,7 +89,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                 resourceImgTpl: '',
                 multiSelect: false,
                 plugins: 'kanban_dragselector',
-
+                // taskRenderer : function (task, renderData) {
+                //     renderData.style = 'border-left-color: red'
+                // },
                 taskBodyTpl: '<div class="{cls_task}">' +
                     '<div class="task-progress" style="width:{PercentDone}%"></div>' +
                     '<span class="task-id">{Name}</span>' +
@@ -130,9 +132,6 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                         this.onItemSelect(record);
                     }
                 }
-            },
-            taskRenderer : function (task, renderData) {
-                renderData.style = 'border-left-color: red'
             },
             listeners: {
                 //// Event check subtask o ngoai tam thoi bo khong cho check

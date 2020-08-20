@@ -15,6 +15,16 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
     //     columnLines: true,
     //     rowLines: true
     // },    
+    viewConfig: {
+        plugins: {
+            ptype: 'treeviewdragdrop',
+            containerScroll: true
+        },
+        listeners: {
+            beforedrop: 'onBeforeDropOrg',
+            drop: 'onDropOrg',
+        }      
+    },
     rootVisible: false,
     bind:{
         store:'{MenuStore}'
@@ -24,6 +34,9 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
         dataIndex:'name',
         xtype: 'treecolumn',
         flex: 1
-    }]
+    }],
+    listeners: {
+       itemcontextmenu: 'onContextMenu'
+   }    
 });
 

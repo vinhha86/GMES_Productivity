@@ -84,9 +84,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         GSmartApp.Ajax.post('/api/v1/porder_req/delete', Ext.JSON.encode(params),
                         function (success, response, options) {
                             var response = Ext.decode(response.responseText);
-                            if (success) {
-                                porderReqStore.reload();
-                            } else {
+                            if (!success) {
                                 Ext.MessageBox.show({
                                     title: "Yêu cầu SX",
                                     msg: response.message,
@@ -96,6 +94,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                                     }
                                 });
                             }
+                            porderReqStore.reload();
                         }); 
                     }
                 }
