@@ -28,13 +28,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
                 }
             ]
         },
-        {
-            region: 'south',
-            height: 150,
-            xtype: 'PContract_PO_Shipping_List',
-            border: true,
-            margin: 1,            
-        }
+        // {
+        //     region: 'south',
+        //     height: 150,
+        //     xtype: 'PContract_PO_Shipping_List',
+        //     border: true,
+        //     margin: 1,            
+        // }
     ],
     dockedItems:[{
         dock:'bottom',

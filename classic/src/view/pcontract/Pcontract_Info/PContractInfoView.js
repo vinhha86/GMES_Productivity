@@ -109,8 +109,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     },
                     itemId: 'orgbuyerid_link',
                     labelWidth: 80,
-                    flex: 1
-                }, 
+                    flex: 1                }, 
                 {
                     xtype: 'combo',
                     queryMode: 'local',

@@ -3,6 +3,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     alias: 'controller.PContract_PO_Edit_Controller',
     init: function(){
         var viewmodel = this.getViewModel();
+        var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
+        if (ctrportfromto){
+            ctrportfromto.setHidden(true);
+        }
+        
         var CurrencyStore = viewmodel.getStore('CurrencyStore');
         CurrencyStore.loadStore();
         var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
@@ -29,9 +34,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 }
 			}
 		});        
-      
-
-
     },
     control: {
         '#btnThoat': {
