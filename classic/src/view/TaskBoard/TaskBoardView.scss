@@ -497,5 +497,9 @@ ul.subtasks li {
             margin: 0 5px 0 5px;
         }
     }
+
+    .sch-task.sch-task-state-InProgress {
+        border-left-color: #e7a84b;
+    }
 }
 // /* EOF SUBTASK LIST STYLES */

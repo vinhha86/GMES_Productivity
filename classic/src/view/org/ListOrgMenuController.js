@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         // }
     },  
     onBeforeDropOrg:  function( node, data, overModel, dropPosition, dropHandlers, eOpts){
-        console.log(eOpts);
+        console.log(dropHandlers);
+        console.log(overModel);
         if (data.records[0].childNodes.length > 0) {
             Ext.MessageBox.show({
                 title: "Quản lý đơn vị",

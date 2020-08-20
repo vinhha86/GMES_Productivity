@@ -43,6 +43,13 @@ Ext.define('GSmartApp.view.main.Main', {
                     id: 'main-navigation-btn',
                     handler: 'onToggleNavigationSize'
                 },
+                {
+                    xtype: 'label',
+                    style: "font-size:13px;font-weight:bold;",
+                    bind: {
+                        text: '{selected_menu}'
+                    },
+                },                
                 '->',
                 {
                     iconCls:'x-fa fa fa-window-maximize',
@@ -103,6 +110,7 @@ Ext.define('GSmartApp.view.main.Main', {
                     width: 250,
                     items: [{
                         xtype: 'treelist',
+                        // style: "font-size:10px;",
                         height: '100%',
                         reference: 'navigationTreeList',
                         itemId: 'navigationTreeList',

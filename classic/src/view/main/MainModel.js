@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.main.MainModel', {
 
     data: {
         avatar: '',
-        iconCls: ''
-    }
+        iconCls: '',
+        selected_menu: ''
+    },
 });
