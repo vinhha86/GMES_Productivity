@@ -249,7 +249,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                         params.productid_link = records[i].id;
                         params.size_list = sizelist;
                         params.color_list = colorlist;
-                        console.log(params);
+                        // console.log(params);
                         GSmartApp.Ajax.post('/api/v1/porder_req/gen_porder', Ext.JSON.encode(params),
                         function (success, response, options) {
                             var response = Ext.decode(response.responseText);

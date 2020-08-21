@@ -49,20 +49,12 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         storeMenu.getFilters().add(this.activeOnlyFilter);
     },
     onDropOrg: function(node, data, overModel, dropPosition){
-        // console.log(node);
-        // console.log(data.records[0].data);
-        // console.log(overModel.data);
         var start = data.records[0].data;
         var target = overModel.data;
-
-        if((start.orgtypeid_link == 14 && target.orgtypeid_link == 13) && start.parentid_link != target.id){
-            // console.log('ok chay thoi');
+        if(start.orgtypeid_link == 14 && target.orgtypeid_link == 13 && start.parentid_link != target.id){
             var params = new Object();
-            var data = start;
-            data.parentid_link = target.id;
-            params.data = data;
-            // console.log(data);
-            // console.log(params);
+            start.parentid_link = target.id;
+            params.data = start;
 
             params.msgtype = "ORG_SAVE";
             params.message = "Lưu org";
@@ -138,7 +130,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                 return;
             }
         }
-        // if((start.orgtypeid_link == 14 && target.orgtypeid_link == 13) && target.leaf){
+        // if(target.orgtypeid_link == 13){
         //     target.leaf = false;
         // }
     },
