@@ -95,11 +95,20 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         else {
             store.removeAll();
         }
+
+        if(type!= "" && type!= null){
+            var strSplit = type.toString().split('_');
+            if(strSplit.length > 1){
+                var tab = me.down('#tabmain');
+                tab.setActiveTab(parseInt(strSplit[1]));
+            }
+        }
     },
     onQuayLai: function () {
         this.redirectTo('lspcontract');
     },
     onActivate: function () {
+        var th = this;
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -120,6 +129,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         UnitStore.loadStore();
         MarketStore.loadStore(1);
         PContractTypeStore.loadStore();
+
+        if(viewmodel.get('PContract.id') > 0 && viewmodel.get('isWindow')){
+            th.onLoadData(viewmodel.get('PContract.id'));
+            var tab = me.down('#tabmain');
+            tab.setActiveTab(viewmodel.get('tabActivate'));
+        }
     },
     onLuu: function () {
         var me = this.getView();

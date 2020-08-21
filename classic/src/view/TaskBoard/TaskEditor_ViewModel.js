@@ -5,7 +5,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         'GSmartApp.store.TaskBoard.TaskBoard_Store',
         'GSmartApp.store.TaskBoard.TaskUser_Store',
         'GSmartApp.store.TaskBoard.TaskFlowStatusStore',
-        'GSmartApp.store.org.ListOrgStore'
+        'GSmartApp.store.org.ListOrgStore',
+        'GSmartApp.store.TaskBoard.TaskObjectStore'
     ],
     stores: {
         TaskUser_Store : {
@@ -19,6 +20,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         },
         OrgStore: {
             type : 'ListOrgStore'
+        },
+        TaskObjectStore: {
+            type: 'TaskObjectStore'
         }
     },
     data: {
@@ -29,6 +33,8 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor_ViewModel', {
         comment: '',
         btncomment: false,
         btnreject : true,
-        btnaccept: true
+        btnaccept: true,
+
+        objecttype: 0
     }
 })

@@ -199,13 +199,13 @@ Ext.define('GSmartApp.view.main.MainController', {
         if (mainLayout.getActiveItem()){
             mainLayout.getActiveItem().destroy();
         }
-        if (args == 'edit'){
+        if (args.toString().includes('edit')){
             item = mainCard.add({
                 xtype: xtype_edit,
                 routeId: xtype_edit
             });
             mainLayout.setActiveItem(item);
-            me.fireEvent('loaddata', id,node);
+            me.fireEvent('loaddata', id,args);
         } else {
             item = mainCard.add({
                 xtype: xtype_edit,

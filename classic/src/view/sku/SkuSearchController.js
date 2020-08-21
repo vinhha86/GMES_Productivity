@@ -366,7 +366,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                             viewProduct.getStore().load();
 
                             //load lai danh sach thuoc tinh
-                            var storeAttValue = Ext.getCmp('PContractAttributeView').getStore();
+                            var storeAttValue = Ext.getCmp('PContractView').getViewModel().getStore('PContractAttValueStore');
+                            console.log(storeAttValue);
                             storeAttValue.loadStore(viewModel.get('pcontractid_link'), viewModel.get('productid_link_notsearch'));
 
                             //load lai ds sku

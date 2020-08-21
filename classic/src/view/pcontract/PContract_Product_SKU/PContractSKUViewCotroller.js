@@ -10,6 +10,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         }
     },
     onConfimSKU: function(){
+        var me = this.getView();
         var viewmodel = this.getViewModel();
         if(viewmodel.get('IdProduct') == 0){
             Ext.Msg.show({
@@ -37,6 +38,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                                     buttons: Ext.MessageBox.YES,
                                     buttonText: {
                                         yes: 'OK'
+                                    },
+                                    fn: function(){
+                                        me.fireEvent('ConfimSKU');
                                     }
                                 });
                             }

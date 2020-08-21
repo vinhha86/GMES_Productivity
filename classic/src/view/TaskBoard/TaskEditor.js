@@ -43,8 +43,29 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditor', {
                     name       : 'Name',
                     itemId     : 'nameField',
                     fieldStyle: "font-weight: bold; font-size: 15px",
-                    flex       : 1,
-                    margin     : '0 20 0 0'
+                    flex       : 2,
+                    margin     : '1 20 1 1'
+                },
+                {
+                    flex: 1
+                },
+                {
+                     xtype: 'combo',
+                     bind: {
+                        store: '{TaskObjectStore}'
+                     },
+                     quereMode: 'local',
+                     valueField: 'objectid_link',
+                     displayField: 'name',
+                     itemId: 'cmbObject',
+                     emptyText: 'Chọn đối tượng',
+                     margin: '1 0 1 1'
+                },
+                {
+                    xtype: 'button',
+                    iconCls: 'x-fa fa-forward',
+                    margin: '1 1 1 1',
+                    itemId : 'btnForward'
                 }
             ]
         },

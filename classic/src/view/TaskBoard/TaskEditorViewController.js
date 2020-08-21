@@ -17,6 +17,12 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         },
         '#comboOrg' : {
             select : 'onSelectOrg'
+        },
+        '#cmbObject' : {
+            select: 'onSelectObject'
+        },
+        '#btnForward': {
+            click: 'ShowByType'
         }
     },
     init: function () {
@@ -43,6 +49,11 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         var viewmodel = this.getViewModel();
         var comment = form.getCommentView();
         comment.userStore = viewmodel.getStore('TaskUser_Store_Full');
+
+        var objectStore = viewmodel.getStore('TaskObjectStore');
+        var taskid_link = form.getRecord().getId();
+        objectStore.loadStore(taskid_link);
+
         var form = this.getView();
         if (form.getRecord().data.tasktypeid_link == -1) {
             viewmodel.set('ishidden_add_checklist', false);
@@ -68,6 +79,69 @@ Ext.define('GSmartApp.view.TaskBoard.TaskEditorViewController', {
         else {
             flowStatusStore.clearFilter();
         }
+    },
+    onSelectObject: function(combo, record){
+        var me = this;
+        var viewmodel = this.getViewModel();
+
+        var type = record.get('taskobjecttypeid_link');
+        viewmodel.set('objecttype', type);
+        me.ShowByType();
+    },
+    ShowByType: function(){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var type = viewmodel.get('objecttype');
+        switch(type){
+            case 2:
+                // this.redirectTo("lspcontract/" + objectid + "/edit_2");
+                // me.onCloseClick();
+                me.ShowPContractSKU();
+                break;
+            default:
+                break;
+        }
+    },
+    ShowPContractSKU: function(){
+        var form = this.getView();
+        var objectid = form.down('#cmbObject').getValue();
+
+        var form = Ext.create('Ext.window.Window', {
+            height: Ext.getBody().getViewSize().height*.95,
+            width: Ext.getBody().getViewSize().width*.95,
+            closable: true,
+            title: 'Chi tiết màu, cỡ sản phẩm',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContractView',
+                viewModel: {
+                    data: {
+                        PContract: {
+                            id: objectid
+                        },
+                        isWindow: true,
+                        tabActivate: 2
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#PContractView').down('#PContractSKUView').on('ConfimSKU', function(){
+            form.close();
+            
+            var taskboard = Ext.getCmp('taskboard');
+            var taskStore = taskboard.getTaskStore();
+            taskStore.load();
+        })
     },
     onSelectOrg: function(combo, record){
         var viewmodel = this.getViewModel();
