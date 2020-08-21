@@ -23,10 +23,16 @@ Ext.define('GSmartApp.store.NavigationTree', {
                     case 'phulieumay':
                     case 'pricefob':
                     case 'sanpham':
-                    case 'supplier':
+                    case 'vendor':
                     case 'thuoctinh':
                     case 'trusochinh':
                     case 'unit':
+                    case 'provider':
+                    case 'bactho':
+                    case 'thietbi':
+                    case 'donvitinh':
+                    case 'soluong':
+                    case 'khsanxuat':
                         return 'myIcon icon-'+value;
                 }
                 return 'x-fa fa-'+value;
