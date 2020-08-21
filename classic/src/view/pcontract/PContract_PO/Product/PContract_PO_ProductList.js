@@ -20,17 +20,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     reference: 'PContract_DeliveryPlan_ProductList',
     columns:[
         {
-            text:'Tên SP',
+            text:'Style',
             xtype: 'treecolumn',
-            dataIndex:'text',
-            flex: 1,
+            dataIndex:'code',
+            width: 120,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'styleCodeFilter',
+                width: '99%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStyleCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
             
         },
         {
-            text:'Style',
-            dataIndex:'code',
-            width: 120,
-            cls: 'x-tree-node-icon'
+            text:'Tên SP',
+            dataIndex:'text',
+            flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'textFilter',
+                width: '99%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onTextFilterKeyup',
+                    buffer: 500
+                }
+            },
         },
     // {
     //     text:'Ảnh',
