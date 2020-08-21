@@ -168,8 +168,17 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                         // margin: '5 0 0',
                         iconCls: 'x-fa fas fa-files-o',
                         handler: function(){
-                            console.log(record);
                             me.duplicate(record.data);
+                        },
+                    }, 
+                    {
+                        text: 'Xoá vĩnh viễn',
+                        itemId: 'btnDelete_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-trash',
+                        handler: function(){
+                            me.deleteProductionLine(record.data);
                         },
                     }, 
                 ]
@@ -361,6 +370,59 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                 } else {
                     Ext.Msg.show({
                         title: 'Thêm tổ chuyền thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
+    deleteProductionLine: function(record){
+        console.log(record);
+        var viewModel = this.getViewModel();
+        var storeMenu = viewModel.getStore('MenuStore');
+        var params = new Object();
+        params.id = record.id;
+
+        params.msgtype = "PRODCTION_LINE_DELETE";
+        params.message = "Xoá tổ chuyền";
+
+        GSmartApp.Ajax.post('/api/v1/orgmenu/deleteProductionLine', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+
+                        if(response.message == 'Xoá thành công'){
+                            var node = storeMenu.getById(record.parentid_link);
+                            var node2 = storeMenu.getById(record.id);
+                            node.removeChild(node2);
+                        }
+                        
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Xoá thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Xoá thất bại',
                         msg: null,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {

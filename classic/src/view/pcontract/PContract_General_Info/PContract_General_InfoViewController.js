@@ -79,23 +79,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
     disableListProductViewBtn: function(){
         let me = this.getView();
         let listProductView = me.down('#PContractListProductView');
-        if(listProductView.down('#btnThemMoi_product_pcontract') != null) listProductView.down('#btnThemMoi_product_pcontract').setVisible(false);
-        // let col = listProductView.getColumns()[6];
-        // col.hide();
+        if(listProductView.down('#btnAddProduct_PContractListProductView') != null) listProductView.down('#btnAddProduct_PContractListProductView').setVisible(false);
+        let col = listProductView.getColumns()[5];
+        if (col) col.hide();
     },
 
     disablePairProductViewBtn: function(){
         let me = this.getView();
         let pairProductView = me.down('#PContractPairProductView');
-        if(pairProductView.down('#PContractPairProductView_btnThemMoi') != null) pairProductView.down('#PContractPairProductView_btnThemMoi').setVisible(false);
+        if(pairProductView.down('#btnPair_PContractPairProductView') != null) pairProductView.down('#btnPair_PContractPairProductView').setVisible(false);
         let col = pairProductView.getColumns()[2];
         col.hide();
         let cellEditing = pairProductView.getPlugins()[0];
-        cellEditing.destroy();
+        if (cellEditing) cellEditing.destroy();
     },
 
     disableDocumentViewBtn: function(){
-        
+        let me = this.getView();
+        let listDocumentView = me.down('#PContractDocumentView');
+        if(listDocumentView.down('#btnDoc_PContractDocumentView') != null) listDocumentView.down('#btnDoc_PContractDocumentView').setVisible(false);
     },
 
     disableAttributeViewBtn: function(){
@@ -103,6 +105,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
         let attributeView = me.down('#PContractAttributeView');
         if(attributeView.down('#btnThemMoi') != null) attributeView.down('#btnThemMoi').setVisible(false);
         let col = attributeView.getColumns()[2];
-        col.hide();
+        if (col) col.hide();
     },
 })

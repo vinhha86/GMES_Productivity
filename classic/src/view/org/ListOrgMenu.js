@@ -33,7 +33,20 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
         text:'Đơn vị',
         dataIndex:'name',
         xtype: 'treecolumn',
-        flex: 1
+        flex: 1,
+        renderer: function (value, metaData, record, rowIndex) {
+            // metaData.tdCls = 'process-editablecolumn';
+            // console.log(metaData);
+            if(record.data.status != 1)
+            metaData.tdStyle = 'color: lightgray;';
+            if(record.data.orgtypeid_link == 1)
+                metaData.iconCls = 'x-fa fa-building'
+            if(record.data.orgtypeid_link == 13)
+                metaData.iconCls = 'x-fa fa-industry'
+            if(record.data.orgtypeid_link == 14)
+                metaData.iconCls = 'x-fa fa-cogs'
+            return value;
+        }                     
     }],
     listeners: {
        itemcontextmenu: 'onContextMenu'
