@@ -115,5 +115,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEdit', {
     },{
         // Khoán ra chuyền, Đăng ký Quality Control
         xtype: 'POrderProcessingOutputTarget'
+    },{
+        flex: 1,
+        height: '70px'
     }]
 });

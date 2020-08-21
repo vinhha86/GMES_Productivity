@@ -115,5 +115,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             // itemtap: 'onItemTap',
             childtap: 'onChildTap'
         },
+    },{
+        flex: 1,
+        height: '70px'
     }]
 });

@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.pprocess.pprocessOutputTarget.POrderProcessingOutputT
         flex: 2,
         items: [{
             xtype: 'label',
-            html: 'Khoán RC:'
+            html: 'Khoán ra chuyền:'
         },{
             layout: 'hbox',
             defaults: {

@@ -47,6 +47,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditController', {
                         viewmodel.set('amounterror', records[0].data.amounterror);
                         viewmodel.set('amounterrorsum', records[0].data.amounterrorsum);
                         viewmodel.set('amountkcscomplete', records[0].data.amountkcs - records[0].data.amounterror);
+                        viewmodel.set('amountstocked', records[0].data.amountstocked);
+                        viewmodel.set('amountstockedsum', records[0].data.amountstockedsum);
                         viewmodel.set('amountpacked', records[0].data.amountpacked);
                         viewmodel.set('amountpackedsum', records[0].data.amountpackedsum);
                         viewmodel.set('amounttarget', records[0].data.amounttarget);
@@ -222,6 +224,52 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditController', {
         me.onProcessingItemEdit_Single(temp, 'amounterror');
     },
     // Packing
+    onStockingTap: function(btn, e, eOpts){
+        var me = this;
+        var view = this.getView();
+        var viewmodel = this.getViewModel();
+        var field = view.lookupReference('p_amountstocked');
+        var textValue = btn.getText();
+        var temp = field.getValue();
+
+        viewmodel.set('isbtnDisabled', true);
+
+        if(temp == null){
+            field.setValue(0);
+            temp = 0;
+        }
+
+        switch(textValue){
+            case '+1':
+                temp+=1;
+                break;
+            case '+10':
+                temp+=10;
+                break;
+            case '-1':
+                temp+=-1;
+                break;
+            case '-10':
+                temp+=-10;
+                break;
+        }
+        if(temp < 0){
+            temp = 0;
+        }
+
+        var amountstockedsumprev = viewmodel.get('record').amountstockedsumprev;
+        if(amountstockedsumprev == null) amountstockedsumprev = 0;
+        var amountoutputsum = viewmodel.get('record').amountoutputsum;
+        if(amountoutputsum == null) amountoutputsum = 0;
+
+        if ((temp + amountstockedsumprev) > amountoutputsum) {
+            Ext.Msg.alert('Tiến độ', 'Số nhập kho không được lớn hơn Số ra chuyền');
+            viewmodel.set('isbtnDisabled', false);
+            return false;
+        }else{
+            me.onProcessingItemEdit_Single(temp, 'amountstocked');
+        }
+    },
     onPackingTap: function(btn, e, eOpts){
         var me = this;
         var view = this.getView();

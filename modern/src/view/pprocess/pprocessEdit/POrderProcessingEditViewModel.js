@@ -29,6 +29,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditViewModel', {
         // Packing
         amountpacked: null,
         amountpackedsum: null,
+        amountstocked: null,
+        amountstockedsum: null,
 
         // input target, qc reg
         amounttarget: null,
