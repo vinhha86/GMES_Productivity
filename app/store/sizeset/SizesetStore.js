@@ -5,9 +5,13 @@ Ext.define('GSmartApp.store.sizeset.SizesetStore', {
 	fields: [
 		{name: 'id', type: 'int'},
 		{name: 'name', type: 'string'},
-		{name: 'comment', type: 'string'}
+		{name: 'comment', type: 'string'},
+		{name: 'sortvalue', type: 'int'},
 		
 	],
+	sorters: [{
+		property: "sortvalue", direction: "ASC"
+	}],
 	loadStore:function(){
 		var me=this;
 		var params = new Object();

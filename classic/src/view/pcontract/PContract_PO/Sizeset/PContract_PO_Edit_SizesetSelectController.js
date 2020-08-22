@@ -23,6 +23,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
                             sizesetStore.remove(fSizeset);
                         }
                     } 
+                    var sorters = sizesetStore.getSorters();
+                    sorters.add('sortvalue');
+                    sorters.remove('id');
+                    // console.log(sizesetStore.getSorters());
                 }
 			}
 		});  
@@ -108,6 +112,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
                     newSizeset.productid_link =p_data.id;
                     newSizeset.sizesetid_link = data.id;
                     newSizeset.sizesetname = data.name;
+                    newSizeset.sortvalue = data.sortvalue;
                     newSizeset.price_cmp = null;
                     newSizeset.price_fob = null;
                     //Mac dinh price_sewingtarget =  20% price_cmp (tinh theo tien viet)

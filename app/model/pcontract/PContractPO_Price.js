@@ -8,6 +8,7 @@ Ext.define('GSmartApp.model.pcontract.PContractPO_Price', {
 		{name: 'pcontract_poid_link',   type: 'int'},
 		{name: 'productid_link',   type: 'int'},
 		{name: 'sizesetid_link',   type: 'int'},
+		{name: 'sortvalue',   type: 'int'},
 		{name: 'price_cmp',   type: 'number'},
 		{name: 'price_fob',   type: 'number'},
 		{name: 'sewfobratio',   type: 'number'},

@@ -88,8 +88,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetViewController', {
         let viewmodel = this.getViewModel();
         let storeSizeset = viewmodel.getStore('SizesetStore');
         storeSizeset.loadStore();
-        let storeAttributeValue = viewmodel.getStore('AttributeValueStore');
-        storeAttributeValue.loadStore(30);
+        // let storeAttributeValue = viewmodel.getStore('AttributeValueStore');
+        // storeAttributeValue.loadStore(30);
 
     },
 
@@ -293,4 +293,39 @@ Ext.define('GSmartApp.view.sizeset.SizesetViewController', {
         viewModel.set('oldComment', record.data.comment);
         viewModel.set('newComment', record.data.comment);
     },
+    onDrop: function(node, data, dropRec, dropPosition){
+        var store = this.getViewModel().getStore('SizesetStore');
+        var arrData = [];
+        store.each(function(rec,ind){
+            var record = new Object();
+            record.id = rec.data.id;
+            record.sortvalue = ind+1;
+            // rec.set('sortvalue',ind+1);
+            
+            // arrData.push(rec.data);
+            arrData.push(record);
+        });
+
+        var params = new Object();
+        params.msgtype = "SIZESET_REORDER";
+        params.message = "Sap xep SizeSet";
+        params.data = arrData;
+
+        GSmartApp.Ajax.post('/api/v1/sizeset/sizeset_reorder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    // store.reload();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    }
+
 })
