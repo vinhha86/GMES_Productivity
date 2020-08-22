@@ -18,18 +18,21 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
             border: false,
             items: [
                 {
-                    xtype: 'textfield',
+                    xtype: 'combo',
+                    allowBlank: false,
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'code',
                     margin: 2,
-                    fieldLabel: "Mã nội bộ",
-                    // allowBlank: false,
-                    itemId: 'contractcode',
-                    blankText: 'Không được để trống',
+                    fieldLabel: "Buyer (<span style = 'color: red'>*</span>)",
                     bind: {
-                        value: '{PContract.contractcode}'
+                        value: '{PContract.orgbuyerid_link}',
+                        store: '{EndBuyer}'
                     },
+                    itemId: 'orgbuyerid_link',
                     labelWidth: 80,
-                    flex: 1
-                }, 
+                    flex: 1               
+                 }, 
                 {
                     xtype: 'datefield',
                     margin: 2,
@@ -96,20 +99,18 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
             border: false,
             items: [
                 {
-                    xtype: 'combo',
-                    allowBlank: false,
-                    queryMode: 'local',
-                    valueField: 'id',
-                    displayField: 'code',
+                    xtype: 'textfield',
                     margin: 2,
-                    fieldLabel: "Buyer (<span style = 'color: red'>*</span>)",
+                    fieldLabel: "Mã nội bộ",
+                    // allowBlank: false,
+                    itemId: 'contractcode',
+                    blankText: 'Không được để trống',
                     bind: {
-                        value: '{PContract.orgbuyerid_link}',
-                        store: '{EndBuyer}'
+                        value: '{PContract.contractcode}'
                     },
-                    itemId: 'orgbuyerid_link',
                     labelWidth: 80,
-                    flex: 1                }, 
+                    flex: 1
+                }, 
                 {
                     xtype: 'combo',
                     queryMode: 'local',

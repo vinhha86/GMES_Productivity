@@ -1,6 +1,11 @@
 Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractInfoViewCotroller',
+    control: {
+        '#orgbuyerid_link' : {
+            select: 'onSelectBuyer'
+        }
+    },
     init: function () {
         var me = this.getView();
 
@@ -9,6 +14,10 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
         }
 
         me.down('#contractcode').focus();
+    },
+    onSelectBuyer: function(combo, record) {
+        var viewmodel  = this.getViewModel();
+        viewmodel.set('PContract.contractcode', record.get('code'));
     },
     loadInfo: function (id) {
         var me = this.getView();

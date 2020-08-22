@@ -27,10 +27,10 @@ Ext.define('GSmartApp.view.sku.ProductList', {
         stripeRows: false,
     },                  
     columns: [
-        { header: 'Mã nội bộ', dataIndex: 'code', width: 90,
+        { header: 'Mã Buyer', dataIndex: 'buyercode', width: 100,
             summaryType: 'count'                  
         },
-        { header: 'Mã NCC', dataIndex: 'partnercode', width: 90},
+        { header: 'Mã NCC', dataIndex: 'partnercode', width: 100},
         { header: 'Tên', dataIndex: 'name', flex: 1},
     ],
     fbar: [{
