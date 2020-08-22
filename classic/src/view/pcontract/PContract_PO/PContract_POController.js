@@ -578,5 +578,51 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
           menu_grid.record = record;
           menu_grid.showAt(position);
     },         
+    onStyleCodeFilterKeyup: function(){
+        var filterField = this.lookupReference('styleCodeFilter'),
+            PContract_PO_ProductList = Ext.getCmp('PContract_PO_ProductList');
+            store = PContract_PO_ProductList.getStore(),
+            filters = store.getFilters();
+        
+	    store.filterer = 'bottomup';
+        store.getRoot().expandChildren(true);
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },         
+    onTextFilterKeyup: function(){
+        var filterField = this.lookupReference('textFilter'),
+            PContract_PO_ProductList = Ext.getCmp('PContract_PO_ProductList');
+            store = PContract_PO_ProductList.getStore(),
+            filters = store.getFilters();
+        
+	    store.filterer = 'bottomup';
+        store.getRoot().expandChildren(true);
+
+        if (filterField.value) {
+            this.textFilter = filters.add({
+                id: 'textFilter',
+                property: 'text',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.textFilter) {
+            filters.remove(this.textFilter);
+            this.textFilter = null;
+        }
+    },
 });
 
