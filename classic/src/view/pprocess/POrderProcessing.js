@@ -126,7 +126,12 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //     }
         // },
         // { header: 'Dự kiến SX', headerWrap: true, locked: true, dataIndex: 'productiondate', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y')},
-        { header: 'SL đơn hàng', locked: true, dataIndex: 'grantamount', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum'},
+        { header: 'SL đơn hàng', locked: true, dataIndex: 'grantamount', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
+            align: 'end', 
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
+        },
         // { header: 'SL cắt', locked: true, dataIndex: 'amountcutsum', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
         //     renderer: function (value, metaData, record, rowIndex) {
         //         var c = record.get('iscuttt');
@@ -143,14 +148,19 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 { header: 'H-nay', dataIndex: 'amounttarget', width: 55,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
-                        return value;
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 },
                 { header: 'H-trc', dataIndex: 'amounttargetprev', width: 55,
                     //editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
-                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                    summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
                 }                
             ]
         },
@@ -159,13 +169,18 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 { header: 'SL', dataIndex: 'amountinput', width: 55,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
-                        return value;
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
                 { header: 'LK', dataIndex: 'amountinputsum', width: 60, 
-                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                    summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
                 }
             ]
         },
@@ -174,13 +189,18 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 { header: 'SL', dataIndex: 'amountoutput', width: 55,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
-                        return value;
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
                 { header: 'LK', dataIndex: 'amountoutputsum', width: 60, 
-                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                    summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
                 }
             ]
         },
@@ -200,14 +220,19 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 { header: 'H-nay', dataIndex: 'amountkcsreg', width: 55,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
-                        return value;
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 },
                 { header: 'H-trc', dataIndex: 'amountkcsregprev', width: 55,
                     //editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
-                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                    summaryType: 'sum', summaryRenderer: 'renderSum', 
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
                 }                
             ]
         },
@@ -216,13 +241,18 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 { header: 'SL', dataIndex: 'amountstocked', width: 55,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
-                        return value;
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
                 { header: 'LK', dataIndex: 'amountstockedsum', width: 60,
-                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                    summaryType: 'sum', summaryRenderer: 'renderSum', 
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
                 }
             ]
         },
@@ -246,21 +276,34 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 { header: 'SL', dataIndex: 'amountpacked', width: 55, id: 'pprocess_edit_amountpacked',
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                     renderer: function (value, metaData, record, rowIndex) {
                         metaData.tdCls = 'process-editablecolumn';
-                        return value;
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
                 { header: 'LK', dataIndex: 'amountpackedsum', width: 60, 
-                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                    summaryType: 'sum', summaryRenderer: 'renderSum', 
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
                 }
             ]
         },
         { header: 'Nhập thành phẩm', dataIndex: 'totalstocked', width: 60,
-            summaryType: 'sum', summaryRenderer: 'renderSum'
+            summaryType: 'sum', summaryRenderer: 'renderSum', 
+            align: 'end', 
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
         },
         { header: 'ĐG-RC', dataIndex: 'amountdg_rc', width: 65,
-            summaryType: 'sum', summaryRenderer: 'renderSum'
+            summaryType: 'sum', summaryRenderer: 'renderSum', 
+            align: 'end', 
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
         },
         { header: 'Ghi chú', dataIndex: 'comment', flex: 1,
         editor: {
