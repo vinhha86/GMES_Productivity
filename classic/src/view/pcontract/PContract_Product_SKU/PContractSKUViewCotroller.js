@@ -59,6 +59,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         }
     },
     onEdit: function(editor, context, e){
+        var grid = this.getView();
+
         if(context.value == context.originalValue) return;
 
         var viewmodel = this.getViewModel();
@@ -92,6 +94,15 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                     else {
                         context.record.set('pquantity_production', response.amount);
                         store.commitChanges();
+                        
+                        if(context.rowIdx < store.data.length - 1) {  
+                            var cellediting = grid.getPlugin('cellediting');
+                            cellediting.startEditByPosition({
+                                row: (context.rowIdx + 1),
+                                column: context.colIdx
+                            });
+                        }
+                        
                     }
                 }
             })
