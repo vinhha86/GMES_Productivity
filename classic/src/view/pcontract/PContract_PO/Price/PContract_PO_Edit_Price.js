@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         cellediting: {
             clicksToEdit: 1,
             listeners: {
-                edit: 'onPriceDItemEdit'
+                edit: 'onPriceDItemEdit',
+                beforeedit: 'onPriceDItemBeforeEdit'
             }             
         }
     },
@@ -29,18 +30,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },
     {
         text: 'ĐM',
-        dataIndex: 'quota',
         align: 'end',
-        width: 60,
-        editor: {
-            completeOnEnter: true,
-            field: {
-                xtype: 'numberfield',
-                hideTrigger:true,
-                allowBlank: false,
-            }
+        dataIndex: 'quota',
+        width: 70,
+        xtype: 'numbercolumn',
+        format: '0.0000',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.0000')
         }
-    },   
+    },  
     {
         text: 'ĐVT',
         dataIndex: 'unitid_link',
@@ -65,35 +69,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },    
     {
         text: 'Đơn giá',
-        dataIndex: 'unitprice',
         align: 'end',
+        dataIndex: 'unitprice',
         width: 70,
-        editor: {
-            completeOnEnter: true,
-            field: {
-                xtype: 'numberfield',
-                hideTrigger:true,
-                allowBlank: false,
-            }
+        xtype: 'numbercolumn',
+        format: '0.0000',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.0000')
         }
-    },        
+    },  
     {
         text: 'Giá chào',
         align: 'end',
         dataIndex: 'price',
         width: 80,
-        editor: {
-            completeOnEnter: true,
-            field: {
-                xtype: 'numberfield',
-                hideTrigger:true,
-                allowBlank: false,
-            }
+        xtype: 'numbercolumn',
+        format: '0.0000',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.0000')
         }
-    },
+    },    
     {
         text: 'FOB',
         xtype: 'checkcolumn',
+        disabled : true,
         dataIndex: 'isfob',
         width: 45
     },{

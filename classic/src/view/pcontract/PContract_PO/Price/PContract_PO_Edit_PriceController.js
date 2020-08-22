@@ -77,6 +77,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             form.close();
         })
     },
+    onPriceDItemBeforeEdit: function(editor, e){
+        console.log(editor);
+        console.log(e.record.data)
+        var priceD_data = e.record.data;
+        if (priceD_data.fobpriceid_link == 1 && e.field != 'price'){
+            return false;
+        } else {
+            return true
+        }
+    },
     onPriceDItemEdit: function(editor, e){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
@@ -91,10 +101,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
             //Tinh gia Sweing Target
             price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
+            // price_data.price_sewingtarget = Ext.Number.roundToPrecision((price_data.price_cmp*po_data.exchangerate)*(po_data.sewtarget_percent/100),0);
         } else {
             //Tinh gia theo dinh muc va gia don vi
             if (e.colIdx == 1 || e.colIdx == 3)
-                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,2);
+                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,4);
         }
         
         //SUM FOB Price
@@ -179,11 +190,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         if (sum_quantity > 0){
             for(var k =0; k<priceStore.data.length; k++){
                 var price_SizesetALL = priceStore.data.items[k].data;
-                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp/sum_quantity,2);
-                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob/sum_quantity,2);
+                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp/sum_quantity,4);
+                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob/sum_quantity,4);
                 price_SizesetALL.price_sewingtarget = Math.round(sum_price_sewingtarget/sum_quantity);
                 price_SizesetALL.price_sewingcost =Math.round(sum_price_sewingcost/sum_quantity);
-                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice/sum_quantity,2);
+                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice/sum_quantity,4);
                 // console.log(price_SizesetALL);
             };  
         }

@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     bind: {
                         value: '{po_price.price_cmp}'
                     },
+                    decimalPrecision: 4
                 }, 
                 // {
                 //     xtype: 'numberfield',
@@ -63,7 +64,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     margin: 1,
                     bind: {
                         value: '{po_price.price_fob}'
-                    }
+                    },
+                    decimalPrecision: 4
                 }, 
                 // {
                 //     xtype: 'numberfield',
@@ -106,7 +108,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     margin: 1,
                     bind: {
                         value: '{po_price.totalprice}'
-                    }
+                    },
+                    decimalPrecision: 4
                 }, 
                 // {
                 //     xtype: 'numberfield',
@@ -145,7 +148,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     bind: {
                         value: '{po_price.price_sewingtarget}',
                         readOnly: '{isSewPriceReadonly}'
-                    }                    
+                    },
+                    decimalPrecision: 0       
                 }                
             ]
         },        
