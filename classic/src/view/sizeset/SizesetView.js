@@ -16,7 +16,13 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
     viewConfig: {
         stripeRows: true,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        plugins: {
+            ptype: 'gridviewdragdrop'
+        },
+        listeners: {
+            drop: 'onDrop',
+        }     
     },
     bind: {
         store: '{SizesetStore}'

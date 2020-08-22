@@ -110,6 +110,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 newSizeset.pcontract_poid_link = new_po.data.id;
                 newSizeset.productid_link =p_data.id;
                 newSizeset.sizesetid_link = 1;
+                newSizeset.sortvalue = 1;
                 newSizeset.sizesetname = 'ALL';
                 newSizeset.price_cmp = null;
                 newSizeset.price_fob = null;
