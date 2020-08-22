@@ -81,6 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         } else {
             var new_po = new GSmartApp.model.pcontract.PContractPO();
             new_po.data.id = null;
+            new_po.data.po_quantity = null;
             new_po.data.pcontractid_link = viewmodel.get('pcontractid_link');
             new_po.data.productid_link = viewmodel.get('productpairid_link');
             viewmodel.set('po', new_po.data);

@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
         {
             region: 'west',
             id: 'panel_cmp',
-            width: '50%',
+            width: '55%',
             xtype: 'Report_CMP',
             border: true,
             margin: 1,
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
         {
             region: 'west',
             id: 'panel_salaryfund',
-            width: '50%',
+            width: '55%',
             xtype: 'Report_SalaryFund',
             border: true,
             margin: 1,
@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             id: 'panel_po',
             // title: 'Giao hàng - Chào giá',
             layout: 'border',
-            width: '50%',
+            width: '55%',
             // border: true,
             // margin: 1,
             // collapsible: true,
@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                     items:[
                         {
                             region: 'west',
-                            width: 160,
+                            width: 180,
                             xtype: 'PContract_PO_Edit_Sizeset',
                             border: true,
                             margin: 1,                            

@@ -37,8 +37,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
     },{
         header:'SL',
         align: 'end',
-        width: 65,
+        width: 80,
         dataIndex:'quantity',
+        renderer: 'renderValue',
         // summaryType: 'sum', 
         // summaryRenderer: 'renderSum',
         editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}

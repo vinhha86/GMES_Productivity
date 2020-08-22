@@ -63,7 +63,7 @@ Ext.define('GSmartApp.view.login.Login', {
                 name: 'password',
                 emptyText : 'Password',
                 inputType: 'password',
-                // value: 'admin123',
+                value: 'admin123',
                 allowBlank: false
             }],
             buttonAlign: 'center',

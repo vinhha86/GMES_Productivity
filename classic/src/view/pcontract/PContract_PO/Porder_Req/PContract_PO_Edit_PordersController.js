@@ -68,6 +68,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     },
+    renderValue: function (value, metaData, record, rowIndex) {
+        if (null == value) value = 0;
+        return Ext.util.Format.number(value, '0,000');    
+    } ,
     onXoa: function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
         var objDel = grid.getStore().getAt (rowIndex);

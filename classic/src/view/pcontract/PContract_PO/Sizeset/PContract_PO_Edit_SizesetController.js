@@ -246,5 +246,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
             priceStore.clearFilter();
             priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
         }
-    },    
+    },  
+    renderValue: function (value, metaData, record, rowIndex) {
+        if (null == value) value = 0;
+        return Ext.util.Format.number(value, '0,000');    
+    }  
 })

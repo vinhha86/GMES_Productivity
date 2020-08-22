@@ -55,9 +55,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         header:'SL',
         align: 'end',
         dataIndex:'totalorder',
-        width: 90,
+        width: 100,
         summaryType: 'sum', 
         summaryRenderer: 'renderSum',
+        renderer: 'renderValue',
         editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
     },{
         xtype: 'actioncolumn',

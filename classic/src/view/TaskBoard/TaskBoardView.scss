@@ -178,7 +178,7 @@
 
 .sch-task,
 .sch-task-inner {
-    // border  : 3px;
+    border  : 0;
     padding : 0;
     border-radius : 3px;
 }
@@ -207,6 +207,7 @@
 }
 
 .task-body {
+    border-left: 3px solid red;
     padding    : 7px 10px 3px;
     min-height : 33px;
     overflow   : hidden;

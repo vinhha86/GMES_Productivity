@@ -87,20 +87,20 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
 
             viewConfig: {
                 resourceImgTpl: '',
-                taskRenderer : function (task, renderData) {
-                    if (task.getState() === 'DaXong') {
-                        renderData.style = 'border-left-color: powderblue';
-                    }
-                    else if (task.getState() === 'ChuaLam') {
-                        renderData.style = 'border-left-color: palegoldenrod';
-                    }
-                    else if (task.getState() === 'DangLam') {
-                        renderData.style = 'border-left-color: yellowgreen';
-                    }
-                    else if (task.getState() === 'TuChoi') {
-                        renderData.style = 'border-left-color: red';
-                    } 
-                },
+                // taskRenderer : function (task, renderData) {
+                //     if (task.getState() === 'DaXong') {
+                //         renderData.style = 'border-left-color: powderblue';
+                //     }
+                //     else if (task.getState() === 'ChuaLam') {
+                //         renderData.style = 'border-left-color: palegoldenrod';
+                //     }
+                //     else if (task.getState() === 'DangLam') {
+                //         renderData.style = 'border-left-color: yellowgreen';
+                //     }
+                //     else if (task.getState() === 'TuChoi') {
+                //         renderData.style = 'border-left-color: red';
+                //     } 
+                // },
                 multiSelect: false,
                 plugins: 'kanban_dragselector',
                 // taskRenderer : function (task, renderData) {
