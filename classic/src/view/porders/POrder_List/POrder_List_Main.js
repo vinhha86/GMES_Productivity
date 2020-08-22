@@ -101,6 +101,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     }, {
         text: 'Số lượng',
         dataIndex: 'totalorder',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
         // flex: 1,
         width: 75,
         align: 'end'

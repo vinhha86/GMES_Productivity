@@ -19,4 +19,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
     //     let store = viewmodel.getStore('POrder_ListGrantStore');
     //     store.loadStore(id);
     // },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    } ,
 })

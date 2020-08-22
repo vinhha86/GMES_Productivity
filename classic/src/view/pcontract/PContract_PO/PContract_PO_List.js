@@ -130,16 +130,34 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 },{
                     text:'Ngày giao',
                     dataIndex:'shipdate',
-                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var string = value.substring(0, value.length - 9) + 'Z';
+                        var result = new Date(string);
+                        // return result;
+                        return Ext.Date.format(result, 'd/m/y');
+                    },
                     width: 70
                 },{
                     text:'Ngày NPL',
-                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var string = value.substring(0, value.length - 9) + 'Z';
+                        var result = new Date(string);
+                        // return result;
+                        return Ext.Date.format(result, 'd/m/y');
+                    },
                     dataIndex:'matdate',
                     width: 70
                 },{
                     text:'Ngày VC',
-                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var string = value.substring(0, value.length - 9) + 'Z';
+                        var result = new Date(string);
+                        // return result;
+                        return Ext.Date.format(result, 'd/m/y');
+                    },
                     dataIndex:'productiondate',
                     width: 70
                 },{

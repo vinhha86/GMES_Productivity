@@ -46,7 +46,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     }, {
         text: 'Số lượng',
         dataIndex: 'grantamount',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
         summaryType: 'sum',
+        summaryRenderer: 'renderSum',
         flex: 1,
         align: 'end'
     }]

@@ -34,6 +34,9 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountView', {
         dataIndex: 'amount_from',
         flex: 1,
         align: 'end',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
         editor:{
             field: {
                 xtype: 'numberfield',
@@ -54,6 +57,9 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountView', {
         dataIndex: 'amount_to',
         flex: 1,
         align: 'end',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
         editor:{
             field: {
                 xtype: 'numberfield',

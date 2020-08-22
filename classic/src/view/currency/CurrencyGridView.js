@@ -59,6 +59,9 @@ Ext.define('GSmartApp.view.currency.CurrencyGridView', {
     }, {
         text: 'Tỉ giá (VND)',
         dataIndex: 'exchangerate',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000.00');
+        },
         width: 150,
         flex: 1,
         align: 'end'
