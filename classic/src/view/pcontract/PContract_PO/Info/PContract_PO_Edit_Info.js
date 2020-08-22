@@ -250,7 +250,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     valueField: 'id',
                     displayField: 'name',
                     margin: 1,
-                    fieldLabel: "Cảng đi:",
+                    fieldLabel: "Cảng xuất:",
                     labelAlign: 'left',
                     labelWidth: 78,
                     bind: {

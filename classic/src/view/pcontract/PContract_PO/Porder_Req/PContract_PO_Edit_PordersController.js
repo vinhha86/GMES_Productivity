@@ -11,45 +11,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         if (data.records[0].get('parentId') == 'root') {
             var orgId = data.records[0].get('id_origin');
             var orgCode = data.records[0].get('code');
-            // var orgName = data.records[0].get('Name');
             var pcontractid_link = viewmodel.get('po.pcontractid_link');
             var pcontract_poid_link = viewmodel.get('po.id');
 
-            // var porderStore = viewmodel.getStore('POrderStore');
             var porderReqStore = viewmodel.getStore('porderReqStore');
-            var priceStore = viewmodel.getStore('PriceStore');
-            var rootproductid_link = viewmodel.get('productpairid_link');
             var po = viewmodel.get('po');
 
-            var lstSizeset = priceStore.queryBy(function(record,id){
-                return (record.get('productid_link') == rootproductid_link);
+            var lstCheck = porderReqStore.queryBy(function(record,id){
+                return (record.get('granttoorgid_link') == orgId
+            );
             }).items;
+            
+            if (lstCheck.length == 0){
+                var porder_New = new Object({
+                    id: null,
+                    pcontractid_link : pcontractid_link,
+                    pcontract_poid_link: pcontract_poid_link,
+                    // sizesetid_link : price_data.sizesetid_link,
+                    // sizesetname: price_data.sizesetname,
+                    granttoorgid_link: orgId,
+                    granttoorgcode: orgCode,
+                    // totalorder: po.po_quantity
+                });
+                // console.log(porder_New);
+                porderReqStore.insert(0,porder_New);
 
-            // for(i=0; i<lstSizeset.length; i++){
-            //     var price_data = lstSizeset[i].data;
-                //Check xem co trung thong tin khong
-                var lstCheck = porderReqStore.queryBy(function(record,id){
-                    // return (record.get('granttoorgid_link') == orgId
-                    //     && record.get('sizesetid_link') == price_data.sizesetid_link
-                    // );
-                    return (record.get('granttoorgid_link') == orgId
-                );
-                }).items;
-                if (lstCheck.length == 0){
-                    var porder_New = new Object({
-                        id: null,
-                        pcontractid_link : pcontractid_link,
-                        pcontract_poid_link: pcontract_poid_link,
-                        // sizesetid_link : price_data.sizesetid_link,
-                        // sizesetname: price_data.sizesetname,
-                        granttoorgid_link: orgId,
-                        granttoorgcode: orgCode,
-                        totalorder: po.po_quantity
-                    });
-                    // console.log(porder_New);
-                    porderReqStore.insert(0,porder_New);
+                // //Chia deu so luong cho cac phan xuong
+                var org_quantity = Math.round(po.po_quantity/porderReqStore.data.items.length);
+                var dis_quantity=0;
+                for(i=0; i< porderReqStore.data.items.length; i++){
+                    var rec = porderReqStore.getAt(i);
+                    rec.beginedit;
+                    if (i < porderReqStore.data.items.length -1)
+                        rec.data.totalorder = org_quantity;
+                    else
+                        rec.data.totalorder = po.po_quantity - dis_quantity;
+                    rec.endedit;
+                    rec.commit();
+                    dis_quantity = dis_quantity + org_quantity;
                 }
-            // }
+            }
         }
         //Huy bo de khong bi mat thogn tin ben Gantt
         dropHandlers.cancelDrop();

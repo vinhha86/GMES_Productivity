@@ -98,7 +98,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         renderer: function (value, metaData, record) {
             return value+" %";
         }
-    },{
+    },
+    {
         text: 'Chung',
         dataIndex: 'amount',
         width: 65,
@@ -113,7 +114,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
             if(value ==0) return "";
             return Ext.util.Format.number(value, '0.0000')
         }
-    },{
+    },
+    {
         text: 'Màu',
         dataIndex: 'amount_color',
         width: 65,
