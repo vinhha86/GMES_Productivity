@@ -132,20 +132,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     dataIndex:'shipdate',
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
                     renderer: function(value){
-                        var string = value.substring(0, value.length - 9) + 'Z';
-                        var result = new Date(string);
-                        // return result;
-                        return Ext.Date.format(result, 'd/m/y');
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
                     },
                     width: 70
                 },{
                     text:'Ngày NPL',
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
                     renderer: function(value){
-                        var string = value.substring(0, value.length - 9) + 'Z';
-                        var result = new Date(string);
-                        // return result;
-                        return Ext.Date.format(result, 'd/m/y');
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
                     },
                     dataIndex:'matdate',
                     width: 70
@@ -153,10 +149,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text:'Ngày VC',
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
                     renderer: function(value){
-                        var string = value.substring(0, value.length - 9) + 'Z';
-                        var result = new Date(string);
-                        // return result;
-                        return Ext.Date.format(result, 'd/m/y');
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
                     },
                     dataIndex:'productiondate',
                     width: 70

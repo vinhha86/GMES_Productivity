@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     recalProductionDate: function(){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
-        var dt = Ext.Date.subtract(new Date(po_data.matdate), Ext.Date.DAY, -7);
+        // var dt = Ext.Date.subtract(new Date(po_data.matdate), Ext.Date.DAY, -7);
+        var dt = Ext.Date.subtract(Ext.Date.parse(po_data.matdate, 'c'), Ext.Date.DAY, -7);
         viewmodel.set('po.productiondate',dt);
         // console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
 
