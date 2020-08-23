@@ -294,7 +294,6 @@ Ext.define('GSmartApp.view.sizeset.SizesetViewController', {
         viewModel.set('newComment', record.data.comment);
     },
     onDrop: function(node, data, dropRec, dropPosition){
-        console.log(dropRec);
 
         var store = this.getViewModel().getStore('SizesetStore');
         var arrData = [];
