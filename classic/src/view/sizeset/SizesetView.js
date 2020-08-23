@@ -13,8 +13,14 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
             clicksToEdit: 2
         }
     },
+    selModel: {
+        selType: 'rowmodel',
+        mode: 'SINGLE'
+    },
     viewConfig: {
         stripeRows: true,
+        enableTextSelection: false,
+        scrollable: true,
         columnLines: true,
         rowLines: true,
         plugins: {
@@ -30,7 +36,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
     columns: [{
         text: 'STT',
         width: 50,
-        xtype: 'rownumberer',
+        dataIndex: 'sortvalue',
         align: 'center'
     }, {
         text: 'Tên dải size',

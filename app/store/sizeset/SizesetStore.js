@@ -9,9 +9,9 @@ Ext.define('GSmartApp.store.sizeset.SizesetStore', {
 		{name: 'sortvalue', type: 'int'},
 		
 	],
-	sorters: [{
-		property: "sortvalue", direction: "ASC"
-	}],
+	// sorters: [{
+		// property: "sortvalue", direction: "ASC"
+	// }],
 	loadStore:function(){
 		var me=this;
 		var params = new Object();
