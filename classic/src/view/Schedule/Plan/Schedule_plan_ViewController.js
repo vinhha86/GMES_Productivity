@@ -46,9 +46,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 iconCls: 'x-fa fa-cart-arrow-down',
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
-                        IdPContract: eventRecord.data.pcontractid_link
+                        IdPContract: eventRecord.data.pcontractid_link,
+                        IdProduct: eventRecord.data.productid_link
                     });
                     window.show();
+                    // console.log(eventRecord);
                 }
             },
             {

@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
                 modal: true,
                 border: false,
                 closeAction: 'destroy',
-                width: 300,
+                width: 400,
                 bodyStyle: 'background-color: transparent',
                 layout: {
                     type: 'fit', // fit screen for window
