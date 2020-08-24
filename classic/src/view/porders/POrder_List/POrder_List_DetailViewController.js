@@ -77,9 +77,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         // pcontractid_link
         let viewModel = this.getViewModel();
         let pcontractid_link = viewModel.get('porder').pcontractid_link;
+        let productid_link = viewModel.get('porder').productid_link;
         // console.log(pcontractid_link);
+        // console.log(viewModel.get('porder'));
         let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
-            IdPContract: pcontractid_link
+            IdPContract: pcontractid_link,
+            IdProduct: productid_link
         });
         window.show();
     },
