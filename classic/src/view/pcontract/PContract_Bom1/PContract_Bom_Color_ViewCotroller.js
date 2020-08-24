@@ -108,6 +108,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
         else if (context.field == "unitid_link") {
             me.updateMaterial(context.record);
          }
+         else if (context.field == "lost_ratio") {
+            me.updateMaterial(context.record);
+         }
          else { 
              me.updateSKU(context.record);
          }
@@ -139,6 +142,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     updateMaterial: function (context, check) {
         var viewmodel = this.getViewModel();
         var data = context.data;
+        console.log(data);
 
         if(check)
             data.forothercontract = true;

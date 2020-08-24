@@ -46,6 +46,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             width: 70,
             summaryType: 'sum', 
             summaryRenderer: 'renderSum',
+            align: 'right',
+            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            },
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
         },{
             xtype: 'actioncolumn',

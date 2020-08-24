@@ -19,8 +19,52 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
         'PContract_POrder_SizeColorPickup_Product':{
             select: 'onSelectProduct',
             deselect: 'onDeSelectProduct'
+        },
+        'PContract_POrder_SizeColorPickup_Size' : {
+            select: 'onCalculate_total_select',
+            deselect: 'onCalculate_total_select'
+        },
+        'PContract_POrder_SizeColorPickup_Color': {
+            select: 'onCalculate_total_select',
+            deselect: 'onCalculate_total_select'
         }
-    }, 
+    },
+    onCalculate_total_select: function(){
+        var form = this.getView();
+        var viewmodel = this.getViewModel();
+        var size_View = form.down('PContract_POrder_SizeColorPickup_Size');
+            var size_select = size_View.getSelectionModel().getSelection();
+            var sizelist = '';
+            for (i=0; i< size_select.length; i++){
+                sizelist = sizelist + size_select[i].data.id + ';'
+            }
+
+            var color_View = form.down('PContract_POrder_SizeColorPickup_Color');
+            var color_select = color_View.getSelectionModel().getSelection();
+            var colorlist = '';
+            for (i=0; i< color_select.length; i++){
+                colorlist = colorlist + color_select[i].data.id + ';'
+            }
+
+            var product_View = form.down('PContract_POrder_SizeColorPickup_Product');
+            var product_select = product_View.getSelectionModel().getSelection();
+
+            if (product_select.length != 0 || sizelist == '' || colorlist == ''){
+                var params=new Object();
+                params.porderreqid_link = viewmodel.get('porderreqid_link');
+                params.productid_link = product_select[0].data.id;
+                params.size_list = sizelist;
+                params.color_list = colorlist;
+
+                GSmartApp.Ajax.post('/api/v1/porder_req/get_total_select', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                viewmodel.set('totalselect', response.total);
+                            }
+                        }); 
+            }
+    },
     onSelectProduct: function(m, rec){
         this.refreshSizeColorList();
     },

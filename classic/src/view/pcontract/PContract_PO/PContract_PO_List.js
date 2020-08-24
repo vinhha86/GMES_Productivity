@@ -46,9 +46,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         width: 100
     },{
         text:'SL',
-        align: 'end',
+        align: 'right',
         dataIndex:'po_quantity',
-        width: 60
+        width: 90,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        }
     },{
         text:'Ngày giao',
         dataIndex:'shipdate',
@@ -70,7 +73,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     {
         text:'Số ngày SX',
         dataIndex:'productiondays',
-        width: 50
+        width: 70
     },
     {
         text:'Phân xưởng',
@@ -126,7 +129,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text:'SL',
                     align: 'end',
                     dataIndex:'po_quantity',
-                    width: 60
+                    width: 90,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                    }
                 },{
                     text:'Ngày giao',
                     dataIndex:'shipdate',
@@ -157,7 +163,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 },{
                     text:'Số ngày SX',
                     dataIndex:'productiondays',
-                    width: 50
+                    width: 70
                 },{
                     text:'Phân xưởng',
                     dataIndex:'factories',

@@ -61,6 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         {
                             xtype: 'textfield',
                             allowBlank: false,
+                            blankText: 'Không được để trống',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;',
                             fieldLabel: "PO Buyer (<span style = 'color: red'>*</span>):",
@@ -115,7 +116,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                 value: '{po.matdate}'
                             },
                             listeners: {
-                                select: 'onMatDateChange'
+                                collapse: 'onMatDateChange'
                             }            
                         },      
                         {
@@ -201,7 +202,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                 value: '{po.shipdate}'
                             },
                             listeners: {
-                                select: 'onShipDateChange'
+                                collapse: 'onShipDateChange'
                             }
                         },   
                         {

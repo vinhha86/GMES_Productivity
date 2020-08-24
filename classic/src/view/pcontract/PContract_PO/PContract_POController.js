@@ -280,6 +280,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }]
         });
         form.show();   
+
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function(){
+            var storePO = viewModel.getStore('PContractProductPOStore');
+            storePO.load();
+            form.close();
+        })
     },
     onAdd_Shipping: function(rec){
         var viewModel = this.getViewModel();
@@ -405,6 +411,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             }]
         });
         form.show();        
+
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function(){
+            var storePO = viewModel.getStore('PContractProductPOStore');
+            storePO.load();
+            form.close();
+        })
     },
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;

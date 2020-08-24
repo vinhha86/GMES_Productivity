@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             renderer: 'rendernumber',
             editor:{
                 xtype:'textfield',
-                maskRe: /[0-9.]/,
+                maskRe: /[0-9]/,
                 selectOnFocus: true,
                 cancelOnEsc: false,
                 completeOnEnter: false

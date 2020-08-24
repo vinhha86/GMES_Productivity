@@ -45,17 +45,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
             xtype: 'panel',
             border: true,
             margin: 1,
+            layout: 'hbox',
             items:[
                 {
                     xtype: 'checkboxfield',
                     boxLabel: 'Chọn hết các SKU còn lại',
-                    flex: 1,
-                    // checked: false,
+                    width: 200,
+                    margin: 3,
                     bind:{
                         value:'{sku_all}'
                     },
                     listeners: {change:'onCheckStatusChange'}
                 },
+                {
+                    flex: 1
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    bind: {
+                        value: '{totalselect}'
+                    },
+                    fieldStyle: "font-weight: bold; font-size: 13px; color: red"
+                }
             ]      
         }
     ],

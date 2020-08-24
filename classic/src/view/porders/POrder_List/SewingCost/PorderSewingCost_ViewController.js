@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     rendernumber: function (value, metaData, record, rowIdx, colIdx, stor) {
-        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        return value == 0 ? "" : Ext.util.Format.number(value, '0,000.000');
     },
     onXoa: function (grid, rowIndex, colIndex) {
         grid.setLoading('Đang xóa dữ liệu');

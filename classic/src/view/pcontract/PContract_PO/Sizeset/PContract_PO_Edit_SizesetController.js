@@ -86,10 +86,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var price_data = e.record.data;
 
         priceStore.clearFilter();
-        priceStore.each(function (record) {
-            //Neu la lenh moi (sencha tu sinh id) --> set = null
+        var total = 0;
+        // priceStore.each(function (record) {
+        //     //Neu la lenh moi (sencha tu sinh id) --> set = null
+        //     if(record.data.sizesetid_link == price_data.sizesetid_link) record.data.quantity = price_data.quantity;
+        // });
+        var length = priceStore.data.length;
+        for(var i=1; i< length; i++){
+            var record = priceStore.data.items[i];
             if(record.data.sizesetid_link == price_data.sizesetid_link) record.data.quantity = price_data.quantity;
-        });
+
+            if(i<length-1){
+                total+= record.data.quantity;
+            }
+        }
+        var rec = priceStore.data.items[length-1];
+        var recAll = priceStore.data.items[0];
+        rec.set('quantity', recAll.data.quantity - total);
+
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     },
     onSizesetBeforeEdit: function(editor, context, eOpts){
