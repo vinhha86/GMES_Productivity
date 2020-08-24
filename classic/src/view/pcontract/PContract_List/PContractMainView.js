@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     controller: 'PContractMainViewController',
     reference: 'PContractMainView',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         columnLines: true,
         rowLines: true
     },
@@ -26,15 +26,15 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     }, {
         text: 'Mã nội bộ',
         dataIndex: 'contractcode',
-        width: 120
+        width: 100
     }, {
         text: 'Buyer',
         dataIndex: 'buyername',
-        flex: 1
+        width: 100
     },{
         text: 'Vendor',
         dataIndex: 'vendorname',
-        flex: 1
+        width: 100
     },
     {
         text: 'Sản phẩm',

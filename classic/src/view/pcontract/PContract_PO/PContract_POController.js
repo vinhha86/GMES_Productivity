@@ -187,7 +187,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         var form = Ext.create('Ext.window.Window', {
             height: 320,
             closable: true,
-            title: 'Chốt PO',
+            title: 'Chốt đơn hàng (PO)',
             resizable: false,
             modal: true,
             border: false,

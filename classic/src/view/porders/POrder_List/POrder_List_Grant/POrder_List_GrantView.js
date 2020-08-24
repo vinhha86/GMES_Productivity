@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
     controller: 'POrder_List_GrantViewController',
     reference: 'POrder_List_GrantView',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         columnLines: true,
         rowLines: true
     },
