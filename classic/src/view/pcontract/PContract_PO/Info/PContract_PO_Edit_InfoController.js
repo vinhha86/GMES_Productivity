@@ -33,22 +33,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var po_data = viewmodel.get('po');
         //Update gia tri SizesetALl tai tat ca cac san pham
         var priceStore = viewmodel.getStore('PriceStore');
-        priceStore.clearFilter(); 
-        filters = priceStore.getFilters();
-        filters.add({
-            // id: 'porderFilter',
-            property: 'sizesetid_link',
-            operator: '=',
-            value: 1,
-            anyMatch: true,
-            caseSensitive: false
-        });    
-        for(var k =0; k<priceStore.data.length; k++){
-            var price_root = priceStore.data.items[k].data;
-            price_root.quantity = po_data.po_quantity;
-        }      
-        priceStore.clearFilter();       
-        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));        
+        if(priceStore!= null) {
+            priceStore.clearFilter(); 
+            filters = priceStore.getFilters();
+            filters.add({
+                // id: 'porderFilter',
+                property: 'sizesetid_link',
+                operator: '=',
+                value: 1,
+                anyMatch: true,
+                caseSensitive: false
+            });    
+            for(var k =0; k<priceStore.data.length; k++){
+                var price_root = priceStore.data.items[k].data;
+                price_root.quantity = parseFloat(po_data.po_quantity.replace(/,/gi,''));
+            }      
+            priceStore.clearFilter();       
+            priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));  
+        }
+              
     },
     onSewTarget_PercentChange: function(){
         

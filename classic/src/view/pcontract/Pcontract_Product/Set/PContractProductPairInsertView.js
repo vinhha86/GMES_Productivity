@@ -31,8 +31,8 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
         }
     },{
         text:'Mã SP',
-        dataIndex:'productCode',
-        width: 60
+        dataIndex:'productBuyerCode',
+        width: 100
     },{
         text:'Tên SP',
         dataIndex:'productName',
@@ -41,10 +41,14 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
         text:'Số lượng',
         dataIndex:'amount',
         width: 80,
+        align: 'right',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
+        },
+        renderer: function(value, meta, record){
+            return Ext.util.Format.number(value, '0,000');
         }
     }],
     dockedItems:[{

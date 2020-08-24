@@ -77,18 +77,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             }                               
                         }, 
                         {
-                            xtype: 'numberfield',
+                            xtype: 'textfield',
                             textAlign: 'right',
                             allowDecimals: false,
                             decimalSeparator: ',',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;text-align:right',
                             fieldLabel: 'Số lượng:',
-                            hideTrigger:true,
+                            maskRe: /[0-9]/,
                             labelAlign: 'left',
                             labelWidth: 78,
                             flex: 1,
                             margin: 1,
+                            vtype: 'dollar',
+                            enforceMaxLength: true,
+                            maxLength: 9,
                             bind: {
                                 value: '{po.po_quantity}'
                             },

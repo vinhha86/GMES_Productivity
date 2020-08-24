@@ -124,6 +124,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         viewmodel.set('po.packingnotice',packingnotice);  
 
         params.data = viewmodel.get('po');
+        params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').replace(/,/gi,''));
 
         var arrPOrders = [];
         var porderReqStore = viewmodel.getStore('porderReqStore');
