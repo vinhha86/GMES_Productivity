@@ -58,11 +58,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
         let storepair = viewmodel.getStore('PContractProductPairStore');
         let store = viewmodel.getStore('PContractProductStore');
         store.loadStore(me.IdPContract);
-        store.getFilters().add({
-            property: 'productid_link',
-            value: me.IdProduct,
-            exactMatch: true
-        });
+        if(me.IdProduct){
+            store.getFilters().add({
+                property: 'productid_link',
+                value: me.IdProduct,
+                exactMatch: true
+            });
+        }
         storepair.loadStore(me.IdPContract);
     },
 
