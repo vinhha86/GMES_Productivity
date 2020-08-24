@@ -36,7 +36,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
     columns: [{
         text: 'STT',
         width: 50,
-        dataIndex: 'sortvalue',
+        // dataIndex: 'sortvalue',
+        xtype: 'rownumberer',
         align: 'center'
     }, {
         text: 'Tên dải size',
