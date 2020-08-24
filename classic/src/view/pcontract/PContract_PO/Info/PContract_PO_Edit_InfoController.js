@@ -46,7 +46,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
             });    
             for(var k =0; k<priceStore.data.length; k++){
                 var price_root = priceStore.data.items[k].data;
-                price_root.quantity = parseFloat(po_data.po_quantity.replace(/,/gi,''));
+                if(typeof po_data.po_quantity === 'number')
+                    price_root.quantity = parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
+                else
+                    price_root.quantity = parseFloat(po_data.po_quantity.replace(/,/gi,''));
             }      
             priceStore.clearFilter();       
             priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));  
