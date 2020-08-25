@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         flex: 1,
         summaryType: 'count',
         summaryRenderer: function (value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ 'Tổng';
+            return '<div style="color:black; font-weight: bold; align: right">'+ 'Tổng';
         }
     },
     // {
@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
         }
     },{
         text:'SL SX',
@@ -83,7 +83,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
         }
     },{
         text:'SL mẫu',
@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
         }
     },{
         text:'SL Tổng',
@@ -106,7 +106,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         align: 'right',
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
         }
     },{
         xtype: 'actioncolumn',
