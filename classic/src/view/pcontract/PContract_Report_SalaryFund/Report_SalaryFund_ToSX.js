@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
+Ext.define('GSmartApp.view.pcontract.Report_SalaryFund_ToSX', {
     extend: 'Ext.pivot.Grid',
-    xtype: 'Report_SalaryFund',
+    xtype: 'Report_SalaryFund_ToSX',
     controller: 'Report_SalaryFund_Controller',
     viewModel: {
         type: 'Report_SalaryFund_ViewModel'
@@ -63,14 +63,14 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
         // Configure the left axis dimensions that will be used to generate
         // the grid rows
         leftAxis: [
-            // {
-            //     dataIndex: 'parentorgname',
-            //     header: 'Phân xưởng',
-            //     width: 80
-            // }, 
+            {
+                dataIndex: 'parentorgname',
+                header: 'Phân xưởng',
+                width: 80
+            }, 
             {
                 dataIndex: 'orgname',
-                header: 'Phân xưởng',
+                header: 'Tổ SX',
                 sortable: false,
                 width: 80
             }
@@ -126,7 +126,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
             tooltip: 'Tải lại bảng CMP',
             iconCls: 'x-fa fa-refresh',
             weight: 30,
-            handler: 'onRefreshTap'
+            handler: 'onRefreshTap_ToSX'
         },{
             tooltip: 'Xuất Excel',
             iconCls: 'x-fa fa-file-excel-o',

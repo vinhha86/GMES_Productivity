@@ -30,6 +30,7 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP', {
     },       
     // Set this to false if multiple dimensions are configured on leftAxis and
     // you want to automatically expand the row groups when calculations are ready.
+    enableLocking: true,
     startRowGroupsCollapsed: false,
     startColGroupsCollapsed: false,
     matrix: {
@@ -42,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP', {
         // layout is "outline"
         viewLayoutType: 'compact',
         textRowLabels: 'Đơn vị',
-        compactViewColumnWidth: 100,
+        compactViewColumnWidth: 120,
         rowGrandTotalsPosition: 'last',
         colGrandTotalsPosition: 'none',
         textGrandTotalTpl: 'Tổng:',

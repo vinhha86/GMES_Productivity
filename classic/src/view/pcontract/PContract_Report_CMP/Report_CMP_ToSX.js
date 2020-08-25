@@ -1,14 +1,14 @@
-Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
+Ext.define('GSmartApp.view.pcontract.Report_CMP_ToSX', {
     extend: 'Ext.pivot.Grid',
-    xtype: 'Report_SalaryFund',
-    controller: 'Report_SalaryFund_Controller',
+    xtype: 'Report_CMP_ToSX',
+    controller: 'Report_CMP_Controller',
     viewModel: {
-        type: 'Report_SalaryFund_ViewModel'
-    },  
+        type: 'Report_CMP_ViewModel'
+    },    
     requires: [
         'Ext.pivot.plugin.Exporter',
         'Ext.pivot.plugin.Configurator'
-    ],      
+    ],
     // title: 'Bảng Tổng hợp CMP',
     // width: 750,
     // height: 350,
@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
         type: 'rowmodel'
     },
     bind:{
-        store:'{SalaryFundReportStore}'
+        store:'{CMPReportStore}'
     },
     plugins: {
         pivotexporter: true
@@ -50,29 +50,26 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
         textTotalTpl: 'Tổng ({name})',
         // Configure the aggregate dimensions. Multiple dimensions are supported.
         aggregate: [{
-            dataIndex: 'salaryfundamount',
+            dataIndex: 'cmpamount',
             header: 'Tổng',
             aggregator: 'sum',
-            width: 100,
-            renderer: function(value){
-                return Ext.util.Format.number(value, '0,000');
-            }
+            width: 90
             // flex:1
         }],
 
         // Configure the left axis dimensions that will be used to generate
         // the grid rows
         leftAxis: [
-            // {
-            //     dataIndex: 'parentorgname',
-            //     header: 'Phân xưởng',
-            //     width: 80
-            // }, 
+            {
+                dataIndex: 'parentorgname',
+                header: 'Phân xưởng',
+                width: 80
+            }, 
             {
                 dataIndex: 'orgname',
-                header: 'Phân xưởng',
+                header: 'Tổ SX',
                 sortable: false,
-                width: 80
+                width: 120
             }
         ],
 
@@ -105,13 +102,13 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Bảng Tổng hợp quỹ lương (Salary Fund)'
+            value: 'Bảng Tổng hợp giá gia công (CMP)'
         },
         '->'
         ,            
         {
             xtype: 'combobox',
-            id: 'Report_SalaryFund_cmpoption',
+            id: 'Report_CMP_cmpoption',
             width: 200,
             editable: false,
             //margin: '0 5 0 5',
@@ -126,7 +123,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
             tooltip: 'Tải lại bảng CMP',
             iconCls: 'x-fa fa-refresh',
             weight: 30,
-            handler: 'onRefreshTap'
+            handler: 'onRefreshTap_ToSX'
         },{
             tooltip: 'Xuất Excel',
             iconCls: 'x-fa fa-file-excel-o',
