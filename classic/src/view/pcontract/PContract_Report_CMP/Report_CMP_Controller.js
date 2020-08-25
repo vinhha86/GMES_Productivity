@@ -69,12 +69,33 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
         Ext.log((group ? 'Group "' + group.name + '" collapsed on ' : 'All groups collapsed on ') + type);
     },
     onRefreshTap: function(){
+        var me = this;
         var viewmodel =  this.getViewModel();
         var cbo_cmpoption = Ext.getCmp('Report_CMP_cmpoption');
 
         if (cbo_cmpoption != null && cbo_cmpoption.getValue() != null){
             var CMPReportStore = viewmodel.get('CMPReportStore');
             CMPReportStore.loadStore(new Date(),cbo_cmpoption.getValue());
+            CMPReportStore.load({
+                scope: this,
+                callback: function(records, operation, success) {
+                    if(!success){
+                        // this.fireEvent('logout');
+                    } else {
+                        setTimeout(function(){
+                            var thisMonth = new Date().getMonth() + 1;
+                            var view = me.getView();
+                            var viewPos = view.getPosition();
+                            var columns = view.getColumns();
+                            var columnPos = columns[thisMonth].getPosition();
+                            // console.log(viewPos);
+                            // console.log(columnPos);
+                            view.getScrollable().scrollBy(columnPos[0] - viewPos[0], null);
+                        }, 1000);
+                        
+                    }
+                }
+            });
         }
     },
     onExportExcel: function(){

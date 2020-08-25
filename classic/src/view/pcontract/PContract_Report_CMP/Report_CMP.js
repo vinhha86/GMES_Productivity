@@ -15,6 +15,9 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP', {
     // collapsible: true,
     multiSelect: true,
     columnLines: true,
+    viewConfig: {
+        scrollable: true,
+    },
 
     selModel: {
         type: 'rowmodel'
