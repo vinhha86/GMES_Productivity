@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditController', {
                         viewmodel.set('amountkcssum', records[0].data.amountkcssum);
                         viewmodel.set('amounterror', records[0].data.amounterror);
                         viewmodel.set('amounterrorsum', records[0].data.amounterrorsum);
-                        viewmodel.set('amountkcscomplete', records[0].data.amountkcs - records[0].data.amounterror);
+                        viewmodel.set('amountkcscomplete', records[0].data.amountkcssum - records[0].data.amounterrorsum);
                         viewmodel.set('amountstocked', records[0].data.amountstocked);
                         viewmodel.set('amountstockedsum', records[0].data.amountstockedsum);
                         viewmodel.set('amountpacked', records[0].data.amountpacked);
@@ -427,12 +427,12 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditController', {
                 }
                 if(response.amounterrorsum != null) {
                     viewmodel.set('amounterrorsum',response.amounterrorsum);
-                    viewmodel.set('amountkcscomplete', viewmodel.get('amountkcs') - viewmodel.get('amounterror'));
+                    viewmodel.set('amountkcscomplete', viewmodel.get('amountkcssum') - viewmodel.get('amounterrorsum'));
                     record.amounterrorsum = response.amounterrorsum;
                 }
                 if(response.amountkcssum != null) {
                     viewmodel.set('amountkcssum',response.amountkcssum);
-                    viewmodel.set('amountkcscomplete', viewmodel.get('amountkcs') - viewmodel.get('amounterror'));
+                    viewmodel.set('amountkcscomplete', viewmodel.get('amountkcssum') - viewmodel.get('amounterrorsum'));
                     record.amountkcssum = response.amountkcssum;
                 }
                 if(response.amountpackedsum != null) {
