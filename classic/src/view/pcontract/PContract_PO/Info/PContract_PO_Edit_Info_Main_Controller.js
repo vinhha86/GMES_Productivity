@@ -82,7 +82,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    console.log(response);
                     if(response.respcode == 200){
                         var parent_po = response.data;
                         new_po.data.pcontractid_link = parent_po.pcontractid_link;
@@ -100,7 +99,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                         //Lay danh sach POrder_Req
                         // console.log(viewmodel.get('parentpoid_link'));
                         var porderReqStore = viewmodel.getStore('porderReqStore');
-                        porderReqStore.loadByPO(viewmodel.get('parentpoid_link'));
+                        porderReqStore.loadByPO_Async(viewmodel.get('parentpoid_link'));
+                        porderReqStore.load({
+                            scope: this,
+                            callback: function(records, operation, success) {
+                                if(!success){
+                                     this.fireEvent('logout');
+                                } else {
+                                    porderReqStore.each(function (record) {
+                                        record.data.id = null
+                                    });
+                                }
+                            }
+                        });                                
+
                     }
                 }
             })            

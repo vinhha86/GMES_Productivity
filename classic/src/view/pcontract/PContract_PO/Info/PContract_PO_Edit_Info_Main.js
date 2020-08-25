@@ -43,6 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
             flex:1
         },{
             xtype:'button',
+            formBind: true,
             text: 'Lưu',
             margin: 5,
             itemId:'btnLuu',
