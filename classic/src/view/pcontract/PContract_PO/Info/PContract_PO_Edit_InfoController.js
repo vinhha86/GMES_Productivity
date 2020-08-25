@@ -1,26 +1,110 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_InfoController',
-    onShipDateChange: function(newValue, oldValue, eOpts ){
-        this.recalProductionDate();
-    },
-    onMatDateChange: function(newValue, oldValue, eOpts ){
-        this.recalProductionDate();
-    },   
-    recalProductionDate: function(){
+    onShipDateChange: function(field){
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
-        var po_data = viewmodel.get('po');
-        var matdate = Ext.Date.parse(po_data.matdate, 'c');
-        if (null == matdate) matdate = new Date(po_data.matdate);
-        // var dt = Ext.Date.subtract(new Date(po_data.matdate), Ext.Date.DAY, -7);
-        // var dt = Ext.Date.subtract(Ext.Date.parse(po_data.matdate, 'c'), Ext.Date.DAY, -7);
-        var dt = Ext.Date.subtract(matdate, Ext.Date.DAY, -7);
-        viewmodel.set('po.productiondate',dt);
-        // console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
+        if(viewmodel.get('po.matdate') == null) return;
 
-        var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
-        // console.log(days);
-        viewmodel.set('po.productiondays',days);
+        grid.setLoading('Đang tính toán dữ liệu!');
+
+        var params = new Object();
+        params.date_material = viewmodel.get('po.matdate');
+        params.amount_day = 7;
+        params.shipdate = field.getValue();
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/get_productiondate', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                   
+                    if(response.respcode == 200){
+                        viewmodel.set('po.productiondate',response.productiondate);
+                        viewmodel.set('po.productiondays',response.duration);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình tính dữ liệu! Bạn hãy thử lại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                field.expand();
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình tính dữ liệu! Bạn hãy thử lại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        },
+                        fn: function(){
+                            field.expand();
+                        }
+                    });
+                }
+            })
+    },
+    onMatDateChange: function(field){
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        if(viewmodel.get('po.shipdate') == null) return;
+
+        grid.setLoading('Đang tính toán dữ liệu!');
+
+        var params = new Object();
+        params.date_material = field.getValue();
+        params.amount_day = 7;
+        params.shipdate = viewmodel.get('po.shipdate');
+
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/get_productiondate', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                   
+                    if(response.respcode == 200){
+                        viewmodel.set('po.productiondate',response.productiondate);
+                        viewmodel.set('po.productiondays',response.duration);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình tính dữ liệu! Bạn hãy thử lại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                field.expand();
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình tính dữ liệu! Bạn hãy thử lại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        },
+                        fn: function(){
+                            field.expand();
+                        }
+                    });
+                }
+            })
+
+        
     },
     onPOBuyerChange: function() {
         var viewmodel = this.getViewModel();
@@ -33,6 +117,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var po_data = viewmodel.get('po');
         //Update gia tri SizesetALl tai tat ca cac san pham
         var priceStore = viewmodel.getStore('PriceStore');
+
         if(priceStore!= null) {
             priceStore.clearFilter(); 
             filters = priceStore.getFilters();
@@ -44,9 +129,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                 anyMatch: true,
                 caseSensitive: false
             });    
+
             for(var k =0; k<priceStore.data.length; k++){
                 var price_root = priceStore.data.items[k].data;
-                price_root.quantity = parseFloat(po_data.po_quantity.replace(/,/gi,''));
+                if(po_data.po_quantity!=null){
+                    if(typeof po_data.po_quantity === 'number')
+                        price_root.quantity = parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
+                    else
+                        price_root.quantity = parseFloat(po_data.po_quantity.replace(/,/gi,''));
+                }
+
             }      
             priceStore.clearFilter();       
             priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));  

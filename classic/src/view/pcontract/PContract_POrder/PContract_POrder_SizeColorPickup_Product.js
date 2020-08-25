@@ -29,7 +29,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Product', 
         {
             text:'SL',
             dataIndex:'pquantity',
-            width: 90
+            width: 90,
+            align: 'right',
+            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            }
         }
     ]     
 });

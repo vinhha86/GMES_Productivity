@@ -171,7 +171,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             } 
             viewmodel.set('po.packingnotice',packingnotice); 
             params.data = viewmodel.get('po');
-            params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').replace(/,/gi,''));
+            if(typeof viewmodel.get('po.po_quantity') === 'number')
+                params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+            else
+                params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').replace(/,/gi,''));
             //Set trang thai cho PO
             // if (viewmodel.get('isSizeset_CheckOK') == false || viewmodel.get('isPorderReq_CheckOK') == false)
             //     params.data.status = -2
@@ -200,7 +203,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             // console.log(params);
             // console.log(Ext.JSON.encode(params));
             // return;
-            console.log(params.data);
 
             GSmartApp.Ajax.post('/api/v1/pcontract_po/create', Ext.JSON.encode(params),
                 function (success, response, options) {

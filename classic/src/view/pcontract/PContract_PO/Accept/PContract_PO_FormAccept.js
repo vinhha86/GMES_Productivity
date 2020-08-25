@@ -63,6 +63,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
             labelAlign: 'left',
             labelWidth: 90,
             width: '100%',
+            vtype: 'dollar',
             margin: 2,
             bind: {
                 value: '{po.po_quantity}'
@@ -75,7 +76,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;',
             margin: 2,
-            fieldLabel: "Đơn vị:",
+            fieldLabel: "Đơn vị chính:",
             bind: {
                 value: '{po.orgid_link}',
                 store: '{OrgStore}'

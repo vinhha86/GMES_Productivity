@@ -37,15 +37,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 porderReqStore.insert(0,porder_New);
 
                 // //Chia deu so luong cho cac phan xuong
-                var org_quantity = Math.round(po.po_quantity/porderReqStore.data.items.length);
+                var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+                var org_quantity = Math.round(po_quantity/porderReqStore.data.length);
+
                 var dis_quantity=0;
-                for(i=0; i< porderReqStore.data.items.length; i++){
-                    var rec = porderReqStore.getAt(i);
+
+                for(i=0; i< porderReqStore.data.length; i++){
+                    var rec = porderReqStore.data.items[i];
                     rec.beginedit;
-                    if (i < porderReqStore.data.items.length -1)
-                        rec.data.totalorder = org_quantity;
+                    if (i < porderReqStore.data.length -1)
+                        rec.set('totalorder', org_quantity);
                     else
-                        rec.data.totalorder = po.po_quantity - dis_quantity;
+                        rec.set('totalorder',  po_quantity - dis_quantity);
                     rec.endedit;
                     rec.commit();
                     dis_quantity = dis_quantity + org_quantity;
@@ -104,5 +107,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     }
                 }
             } );        
-    },     
+    },  
+    onEdit: function(editor, context, e){
+
+        var viewmodel = this.getViewModel();
+        var porderReqStore = viewmodel.getStore('porderReqStore');
+
+        var total = 0;
+        for(var i=0; i<porderReqStore.data.length-1;i++){
+            var rec = porderReqStore.data.items[i];
+            total += rec.get('totalorder');
+        }
+
+        var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+        var record = porderReqStore.data.items[porderReqStore.data.length-1];
+
+        if(po_quantity >= total){
+            record.set('totalorder', po_quantity - total);
+        }            
+        else
+        {
+            var curRec = porderReqStore.getAt(context.rowIdx);
+            curRec.set('totalorder', context.originalValue);
+        }
+        
+    }  
 })

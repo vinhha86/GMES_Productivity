@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         flex: 1,
         summaryType: 'count',
         summaryRenderer: function (value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">'+ 'Tổng';
+            return '<div style="color:red; font-weight: bold; align: right">'+ 'Tổng';
         }
     },
     // {
@@ -62,6 +62,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         dataIndex:'pquantity_porder',
         width: 80,
         align: 'right',
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -69,13 +72,16 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
         }
     },{
         text:'SL SX',
         dataIndex:'pquantity_production',
         width: 80,
         align: 'right',
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -83,13 +89,16 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
         }
     },{
         text:'SL mẫu',
         dataIndex:'pquantity_sample',
         width: 80,
         align: 'right',
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -97,16 +106,19 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
         }
     },{
         text:'SL Tổng',
         dataIndex:'pquantity_total',
         width: 100,
         align: 'right',
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">'+ value ;
+            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
         }
     },{
         xtype: 'actioncolumn',

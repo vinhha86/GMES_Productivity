@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
         else if (context.field == "amount_color") {
             me.updateColor(context.record);
         }
-        else if (context.field == "unitid_link") {
+        else if (context.field == "unitid_link" || context.field == "lost_ratio") {
            me.updateMaterial(context);
         }
         else{ 

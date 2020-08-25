@@ -95,6 +95,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         width: 70,
         xtype: 'numbercolumn',
         format: '0.000',
+        editor: {
+            xtype: 'textfield',
+            selectOnFocus: true,
+            maskRe: /[0-9.]/
+        },
         renderer: function (value, metaData, record) {
             return value+" %";
         }
