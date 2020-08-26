@@ -198,5 +198,20 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
             form.show();
         }
         
-    },    
+    },
+    renderSum: function(value, summaryData, dataIndex){
+        var viewmodel = this.getViewModel();
+        var Product_pquantity = viewmodel.get('Product_pquantity');
+        if (null == Product_pquantity) Product_pquantity = 0;
+        if (null == value) value = 0;
+        if (Product_pquantity != value){
+            // viewmodel.set('isPorderReq_CheckOK', false);
+            viewmodel.set('ProductSKUSummaryCssStyle', '<div style="color:red; font-weight: bold; align: right">');
+        }
+        else {
+            // viewmodel.set('isPorderReq_CheckOK', true);
+            viewmodel.set('ProductSKUSummaryCssStyle', '<div style="color:black; font-weight: bold; align: right">');
+        }
+        return viewmodel.get('ProductSKUSummaryCssStyle') + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
 })

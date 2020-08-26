@@ -41,7 +41,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         flex: 1,
         summaryType: 'count',
         summaryRenderer: function (value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ 'Tổng';
+            var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
+            var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
+            return ProductSKUSummaryCssStyle + 'Tổng' + '</div>';
         }
     },
     // {
@@ -71,9 +73,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             selectOnFocus: true
         },
         summaryType: 'sum',
-        summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
-        }
+        // summaryRenderer: function(value, summaryData, dataIndex) {
+        //     return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
+        // },
+        summaryRenderer: 'renderSum'
     },{
         text:'SL SX',
         dataIndex:'pquantity_production',
@@ -89,7 +92,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
+            var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
+            var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
+            return ProductSKUSummaryCssStyle + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     },{
         text:'SL mẫu',
@@ -106,7 +111,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
+            var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
+            var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
+            return ProductSKUSummaryCssStyle + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     },{
         text:'SL Tổng',
@@ -118,7 +125,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
+            var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
+            var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
+            return ProductSKUSummaryCssStyle + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     },{
         xtype: 'actioncolumn',

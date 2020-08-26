@@ -33,8 +33,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoViewController', {
                     let res = Ext.decode(response.responseText);
                     if (res.respcode == 200) {
                         viewModel.set('porder', res.data);
-                        viewModel.set('productiondate_plan', new Date(res.data.productiondate_plan));  
-                        viewModel.set('golivedate', new Date(res.data.golivedate));
+                        // safari vs chrome
+                        var productiondate_plan = Ext.Date.parse(res.data.productiondate_plan, 'c');
+                        if(productiondate_plan == null) productiondate_plan = new Date(res.data.productiondate_plan);
+                        var golivedate = Ext.Date.parse(res.data.golivedate, 'c');
+                        if(golivedate == null) productiondate_plan = new Date(res.data.golivedate);
+                        viewModel.set('productiondate_plan', productiondate_plan);  
+                        viewModel.set('golivedate', golivedate);
                     }
                 } else {
                     Ext.Msg.show({

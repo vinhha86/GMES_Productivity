@@ -147,6 +147,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         isproductleaf: false,
 
         isWindow: false,
-        tabActivate: 0
+        tabActivate: 0,
+
+        Product_pquantity: 0, // SL Tổng chi tiết màu, cỡ
+        ProductSKUSummaryCssStyle: '<div style="color:red; font-weight: bold; align: right">', // màu tổng summary chi tiết màu, cỡ
     }
 })

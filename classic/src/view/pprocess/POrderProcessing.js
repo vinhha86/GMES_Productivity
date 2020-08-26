@@ -118,7 +118,13 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
             },
             summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
-        { header: 'Lịch giao hàng', headerWrap: true, locked: true, dataIndex: 'golivedate', width: 70, renderer: Ext.util.Format.dateRenderer('d/m/y')},
+        { header: 'Lịch giao hàng', headerWrap: true, locked: true, dataIndex: 'golivedate', width: 70, 
+            // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            renderer: function(value){
+                var date = Ext.Date.parse(value, 'c');
+                return Ext.Date.format(date, 'd/m/y');
+            },
+        },
         // { header: 'Lịch giao hàng', headerWrap: true, locked: true, dataIndex: 'golivedesc', width: 80,
         //     editor: {
         //         allowBlank: true,

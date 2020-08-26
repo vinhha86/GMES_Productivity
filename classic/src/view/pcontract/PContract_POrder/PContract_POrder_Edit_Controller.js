@@ -126,5 +126,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Controller', {
     },
     onThoat: function () {
         this.fireEvent('Thoat');
-    }
+    },
+    renderSum: function (value) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
 })

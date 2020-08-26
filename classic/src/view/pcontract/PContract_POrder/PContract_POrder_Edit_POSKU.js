@@ -24,7 +24,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_POSKU', {
         { header: 'SKU', dataIndex: 'skuCode', flex: 1},
         { header: 'Màu', dataIndex: 'mauSanPham', width: 70},
         { header: 'Cỡ', dataIndex: 'coSanPham', width: 70},  
-        { header: 'Số lượng', dataIndex: 'pquantity_total', width: 80, summaryType: 'sum', align: 'end'}
+        { header: 'Số lượng', dataIndex: 'pquantity_total', width: 80, summaryType: 'sum', align: 'end', 
+            summaryRenderer: 'renderSum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            }
+        }
     ]  
 });
 
