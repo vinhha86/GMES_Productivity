@@ -104,11 +104,57 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     me.Delete_Porder_Req(eventRecord);
                 }
+            },
+            {
+                text: 'Hủy phân chuyền',
+                iconCls: 'x-fa fa-ban',
+                hidden: !ishidden_delete,
+                handler: function () {
+                    me.cancel_pordergrant(eventRecord);
+                }
             }
             ]
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+    },
+    cancel_pordergrant: function(rec){
+        var grid = this.getView();
+        grid.setLoading('Đang xử lý dữ liệu');
+
+        var params = new Object();
+        params.porder_grantid_link = rec.get('porder_grantid_link');
+
+        GSmartApp.Ajax.post('/api/v1/schedule/cancel_pordergrant', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.mes == "" || response.mes == null) {
+                        var eventStore = grid.down('#treeplan').getCrudManager().getEventStore();
+                        eventStore.remove(rec);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.mes,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: response.mes,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
     },
     Show_LenhSanXuat: function(eventRecord){
         let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {

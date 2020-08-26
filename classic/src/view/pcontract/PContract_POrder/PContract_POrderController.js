@@ -213,6 +213,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             }]
         });
         form.show();  
+        
         form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder',function(product_select,sizelist,colorlist){
             for(i=0;i<product_select.length;i++){
                 me.onPOrderCreateByProduct(porderreqid_link, product_select[i].data.id, sizelist, colorlist);
@@ -256,6 +257,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                             if (success) {
                                 var porderStore = viewmodel.getStore('porderStore');
                                 porderStore.reload();
+
+                                var storereq = viewmodel.getStore('porderReqStore');
+                                storereq.load();
                             } else {
                                 Ext.MessageBox.show({
                                     title: "Lệnh sản xuất",
