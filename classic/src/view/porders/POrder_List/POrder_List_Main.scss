@@ -1,0 +1,34 @@
+#porderlistmain{
+    .process-free {
+        background-color: lightblue;
+        color:black;
+    }
+    .process-granted {
+        background-color: white;
+        color:black;
+    }
+    .process-ready {
+        background-color: yellow;
+        color:red;
+    }
+    .process-cutting {
+        background-color: darkorange;
+        color:blue;
+    }
+    .process-subprocess {
+        background-color: blue;
+        color:yellow;
+    }
+    .process-running {
+        background-color: green;
+        color:yellow;
+    }
+    .process-done {
+        background-color: lightgray;
+        color:blue;
+    }
+    .process-finish {
+        background-color: rgb(159, 100, 161);
+        color:yellow;
+    }
+}

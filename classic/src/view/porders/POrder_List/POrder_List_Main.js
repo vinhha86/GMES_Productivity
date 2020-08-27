@@ -34,6 +34,25 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         text: 'Mã lệnh',
         dataIndex: 'ordercode',
         flex: 1,
+        renderer: function (value, metaData, record, rowIndex) {
+            var c = record.get('status');
+            if(c == 0){
+                metaData.tdCls = 'process-free';
+            }else if (c == 1) {
+                metaData.tdCls = 'process-granted';
+            } else if (c == 2) {
+                metaData.tdCls =  'process-ready';
+            } else if (c == 3) {
+                metaData.tdCls =  'process-subprocess';
+            } else if (c == 4) {
+                metaData.tdCls =  'process-running';
+            } else if (c == 5) {
+                metaData.tdCls =  'process-done';
+            } else if (c == 6) {
+                metaData.tdCls =  'process-finish';
+            } 
+            return value;
+        },
         items: {
             xtype: 'textfield',
             fieldStyle: "",
