@@ -383,5 +383,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             return '<div style="font-weight: bold; color:red;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
         else 
             return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
-    }    
+    },
+    renderSumPOrder: function(value, summaryData, dataIndex){    
+        return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';   
+    }
 })

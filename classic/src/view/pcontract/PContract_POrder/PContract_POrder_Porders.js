@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
             dataIndex:'totalorder',
             width: 70,
             summaryType: 'sum', 
-            // summaryRenderer: 'renderSum',
+            summaryRenderer: 'renderSumPOrder',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
             },
