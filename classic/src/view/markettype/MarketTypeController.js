@@ -225,7 +225,7 @@ Ext.define('GSmartApp.view.markettype.MarketTypeController', {
         viewModel.set('newCode',record.data.code);
     },
     onMarketTypeCodeFilterKeyup:function(){
-        let filterField = this.lookupReference('laborLevelCodeFilter'),
+        let filterField = this.lookupReference('marketTypeCodeFilter'),
             filters = this.getView().store.getFilters();
 
         if (filterField.value) {
@@ -243,7 +243,7 @@ Ext.define('GSmartApp.view.markettype.MarketTypeController', {
         }
     },
     onMarketTypeNameFilterKeyup:function(){
-        let filterField = this.lookupReference('laborLevelNameFilter'),
+        let filterField = this.lookupReference('marketTypeNameFilter'),
             filters = this.getView().store.getFilters();
 
         if (filterField.value) {
