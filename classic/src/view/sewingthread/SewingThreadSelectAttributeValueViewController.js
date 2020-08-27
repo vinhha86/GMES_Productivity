@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadSelectAttributeValueViewContro
             click: 'onThoat'
         },
         '#btnLuu': {
-            click: 'onLuu'
+            click: 'Luu'
         },
         'SewingThreadSelectAttributeValueView' : {
             select: 'onSelectValue'

@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimSelectAttributeValueViewControll
             click: 'onThoat'
         },
         '#btnLuu': {
-            click: 'onLuu'
+            click: 'Luu'
         },
         'SewingTrimSelectAttributeValueView' : {
             select: 'onSelectValue',
@@ -91,34 +91,6 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimSelectAttributeValueViewControll
                     });
                 }
             })
-    },
-    onLuu: function () {
-        var me = this.getView();
-        var m = this;
-        var viewmodel = this.getViewModel();
-
-        if (me.IdAttribute == 35 || me.IdAttribute == 36) {
-            Ext.Msg.show({
-                title: 'Thông báo',
-                msg: 'Thay đổi giá trị thuộc tính của màu , cỡ nguyên liệu sẽ thay đổi đến mã SKU của phụ liệu may',
-                buttons: Ext.Msg.YESNO,
-                icon: Ext.Msg.QUESTION,
-                buttonText: {
-                    yes: 'Có',
-                    no: 'Không'
-                },
-                fn: function (btn) {
-                    if (btn === 'no') {
-                        me.up('window').close();
-                    }
-                    else {
-                        m.Luu();
-                    }
-                }
-            });
-        }else{
-            m.Luu();
-        }
     },
     loadAttributeValueStore: function () {
         var me = this.getView();

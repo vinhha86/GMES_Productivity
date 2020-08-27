@@ -160,7 +160,7 @@ Ext.define('GSmartApp.store.OrgStore', {
 		var me=this;
 		var params = new Object();
 		params.orgtypeid_link =typeid;
-		var access_token = GSmartApp.Ajax.access_token();
+		
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -174,8 +174,7 @@ Ext.define('GSmartApp.store.OrgStore', {
 			noCache: false,
 			headers :{
 				'Accept': "application/json", 
-				'Content-Type':"application/json",
-				'authorization':  access_token
+				'Content-Type':"application/json"
 			 },
 			extraParams: params,
 			reader: {

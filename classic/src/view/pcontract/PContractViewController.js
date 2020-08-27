@@ -122,11 +122,15 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         var PContractTypeStore = viewmodel.getStore('ContractTypes');
 
         KHStore.loadStore(10, false);
-        VenderStore.loadStore(11, false);
+        VenderStore.loadStore(11, false);        
+        VenderStore.sort('code', 'ASC');
+
         EndBuyerStore.loadStore(12, false);
-        BranchStore.loadStore(false);
-        SeasonStore.loadStore(false);
-        UnitStore.loadStore();
+        EndBuyerStore.sort('code', 'ASC');
+
+        // BranchStore.loadStore(false);
+        // SeasonStore.loadStore(false);
+        // UnitStore.loadStore();
         MarketStore.loadStore(1);
         PContractTypeStore.loadStore();
 

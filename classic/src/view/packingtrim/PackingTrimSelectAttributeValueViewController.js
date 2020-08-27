@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimSelectAttributeValueViewContro
             click: 'onThoat'
         },
         '#btnLuu': {
-            click: 'onLuu'
+            click: 'Luu'
         },
         'PackingTrimSelectAttributeValueView' : {
             select: 'onSelectValue',
