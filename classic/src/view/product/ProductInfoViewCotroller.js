@@ -41,6 +41,7 @@ Ext.define('GSmartApp.view.product.ProductInfoViewCotroller', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
+
                         viewModel.set('product', response.data);
                         viewModel.set('img',response.img);
                     }
