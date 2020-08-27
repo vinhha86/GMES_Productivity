@@ -133,16 +133,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     }],
     dockedItems: [{
         dock: 'top',
-        layout: 'hbox',
+        layout: 'vbox',
         border: false,
-        items: [
-            {
+        items: [{
+            layout: 'hbox',
+            border: false,
+            items:[{
                 xtype:'textfield',
                 itemId:'txtstyle',
                 // fieldLabel: 'Chú thích',
                 margin: 5,
                 // flex: 1,
-                width: 100,
+                width: 130,
                 allowBlank: true,
                 blankText: 'Style',
                 emptyText: 'Style'
@@ -169,7 +171,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // fieldLabel: 'Chú thích',
                 margin: 5,
                 // flex: 1,
-                width: 100,
+                width: 130,
                 allowBlank: true,
                 blankText: 'PO buyer',
                 emptyText: 'PO buyer'
@@ -196,7 +198,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // fieldLabel: 'Chú thích',
                 margin: 5,
                 // flex: 1,
-                width: 100,
+                width: 130,
                 allowBlank: true,
                 blankText: 'PO vendor',
                 emptyText: 'PO vendor'
@@ -259,6 +261,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             //     flex: 1,
             //     border: false
             // }
+            ]
+        },{
+            layout: 'hbox',
+            border: false,
+            items: [{
+                html: '<div style="background-color:lightblue; color:black;">Chưa phân chuyền</div>',
+                margin: '5'
+            },{
+                html: '<div style="background-color:white; color:black;">Đã phân chuyền</div>',
+                margin: '5'
+            },{
+                html: '<div style="background-color:yellow; color:red;">Chuẩn bị SX</div>',
+                margin: '5'
+            },{
+                html: '<div style="background-color:blue; color:yellow;">Công đoạn phụ</div>',
+                margin: '5'
+            },{
+                html: '<div style="background-color:green; color:yellow;">Đang SX</div>',
+                margin: '5'
+            },{
+                html: '<div style="background-color:lightgray; color:blue;">SX xong</div>',
+                margin: '5'
+            },{
+                html: '<div style="background-color:rgb(159, 100, 161); color:yellow;">Nhập kho xong</div>',
+                margin: '5'
+            }]
+        }
         ]
     }]
 });
