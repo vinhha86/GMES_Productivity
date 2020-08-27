@@ -19,7 +19,6 @@ Ext.define('GSmartApp.view.product.ProductSKUViewCotroller', {
         this.oldValue = m.getValue();
     },
     onfocusleave: function (m, event, eOpts) {
-        console.log(m);
         var me = this.getView();
         if (m.getValue() == this.oldValue) return;
 

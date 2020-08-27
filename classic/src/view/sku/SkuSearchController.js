@@ -37,6 +37,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             var SkuStore = viewModel.getStore('SkuStore');
             var productid_link = viewModel.get('productid_link');
             SkuStore.loadByProduct(productid_link);
+            SkuStore.sort([
+                {property :'color_name', direction: 'ASC'},
+                {property :'sort_size', direction: 'ASC'}
+            ]);
 
             var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');    
             SkuAtributesStore.loadDefaultAttr(10);
@@ -606,6 +610,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 viewModel.set('productid_link_notsearch', record.data.id);
             }
             SkuStore.loadByProduct(record.get('id'));
+            SkuStore.sort([
+                {property :'color_name', direction: 'ASC'},
+                {property :'sort_size', direction: 'ASC'}
+            ]);
         }
     },
     onCreateProduct: function(){

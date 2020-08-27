@@ -3,6 +3,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
     alias: 'controller.PContract_PO_FormAccept_ViewCotroller',
     init: function(){
         var viewmodel = this.getViewModel();
+        console.log(viewmodel.get('po'));
+
 		var OrgStore = viewmodel.getStore('OrgStore');
         OrgStore.loadOrg_Request(viewmodel.get('po.id'));
 
@@ -38,7 +40,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
         params.orgid_link = viewmodel.get('po.orgid_link');
         params.pcontract_poid_link = viewmodel.get('po.id');
 
-        GSmartApp.Ajax.post('/api/v1/pcontract_po/accept', Ext.JSON.encode(params),
+        if(viewmodel.get('po.po_buyer') == 'TBD'){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn không được xác nhận đơn hàng mà chưa rõ PO Buyer',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                },
+                fn: function(){
+                    if(isSuccess)
+                        me.fireEvent('AcceptSuccess');
+                }
+            });
+        }
+        else {
+            GSmartApp.Ajax.post('/api/v1/pcontract_po/accept', Ext.JSON.encode(params),
             function (success, response, options) {
                 var mes = "";
                 var isSuccess = false;
@@ -70,5 +87,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
                     }
                 });
             })
+        }
+
+        
     }
 })

@@ -89,6 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
                 newSize.id = data.sizeid_link;
                 newSize.name = data.coSanPham;
                 sizePickupStore.insert(0,newSize);
+                // sizePickupStore.sort('','ASC')
 
                 var newColor = new Object();
                 newColor.id = data.color_id;

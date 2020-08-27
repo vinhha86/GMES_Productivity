@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelect', {
         flex: 1
     }, {
         text: 'Cỡ',
-        dataIndex: 'list_sizename',
+        dataIndex: 'attrValues',
         flex: 1
     }],
     dockedItems:[{

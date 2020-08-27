@@ -17,7 +17,8 @@ Ext.define('GSmartApp.store.porder.porderSKUStore', {
         {name: 'skuCode',   type: 'string'},
         {name: 'mauSanPham',   type: 'string'},
 		{name: 'coSanPham', type: 'string'},
-		{name: 'ordercode', type: 'string'}
+		{name: 'ordercode', type: 'string'},
+		'sort_size'
 	],
 	groupField: 'ordercode',
 	sorters: [{
@@ -25,7 +26,7 @@ Ext.define('GSmartApp.store.porder.porderSKUStore', {
         property: 'mauSanPham'
 	},{
         direction: 'ASC',
-        property: 'coSanPham'
+        property: 'sort_size'
 	}],
 	loadStore: function(productid_link){
 		var me=this;

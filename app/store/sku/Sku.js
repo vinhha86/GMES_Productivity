@@ -125,10 +125,6 @@ Ext.define('GSmartApp.store.Sku', {
 			}
 		});
         this.load();
-    },       
-    sorters: [{
-        property: 'code',
-        direction: 'ASC'
-    }]
+    }
 
 });

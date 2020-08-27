@@ -18,6 +18,7 @@ Ext.define('GSmartApp.model.Sku', {
         'color_code',
         'color_name',
         'size_name',
+        'sort_size',
         'unitid_link',
         'imgurl1',
         'imgurl2',

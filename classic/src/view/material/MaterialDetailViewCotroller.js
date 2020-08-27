@@ -130,6 +130,10 @@ Ext.define('GSmartApp.view.material.MaterialDetailViewCotroller', {
         if (id != 0) {
             storeAtt.loadStore(id);
             storeSKU.loadStore(id);
+            storeSKU.sort([
+                {property :'color_name', direction: 'ASC'},
+                {property :'sort_size', direction: 'ASC'}
+            ]);
         }
         else {
             storeAtt.removeAll();
