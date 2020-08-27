@@ -64,8 +64,22 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                 buffer: 500
             }
         }    },
-        { header: 'Bắt đầu', headerWrap: true, dataIndex: 'po_Productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
-        { header: 'Kết thúc', headerWrap: true, dataIndex: 'shipdate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
+        { header: 'Bắt đầu', headerWrap: true, dataIndex: 'po_Productiondate', 
+            // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            renderer: function(value){
+                var date = Ext.Date.parse(value, 'c');
+                return Ext.Date.format(date, 'd/m/y');
+            },
+            width: 100
+        },
+        { header: 'Kết thúc', headerWrap: true, dataIndex: 'shipdate', 
+            // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            renderer: function(value){
+                var date = Ext.Date.parse(value, 'c');
+                return Ext.Date.format(date, 'd/m/y');
+            },
+            width: 100
+        },
         { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right'},
     ],
     dockedItems: [{
