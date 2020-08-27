@@ -132,6 +132,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         // SeasonStore.loadStore(false);
         // UnitStore.loadStore();
         MarketStore.loadStore(1);
+        MarketStore.sort('name', 'ASC');
         PContractTypeStore.loadStore();
 
         if(viewmodel.get('PContract.id') > 0 && viewmodel.get('isWindow')){

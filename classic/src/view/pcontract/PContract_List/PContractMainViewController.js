@@ -47,7 +47,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var EndBuyer = viewmodel.getStore('EndBuyer');
         var Vendor = viewmodel.getStore('Vendor');
         EndBuyer.loadStore(12);
+        EndBuyer.sort('name','ASC');
         Vendor.loadStore(11);
+        Vendor.sort('name','ASC');
 
         if (me.isActivate) {
             me.onloadPage();

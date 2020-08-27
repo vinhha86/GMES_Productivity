@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.markettype.MarketTypeController', {
         let viewmodel = this.getViewModel();
         let store  =  viewmodel.getStore('MarketStore');
         store.loadStore(1);
+        store.sort('name', 'ASC');
     },
     control: {
         '#btnThemMoi': {

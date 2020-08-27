@@ -40,8 +40,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         store.sort('productiondate_plan', 'ASC');
         let store2 = viewmodel.getStore('POrder_ListVendorStore');
         store2.loadStore();
+        store2.sort('vendorname','ASC');
         let store3 = viewmodel.getStore('POrder_ListBuyerStore');
         store3.loadStore();
+        store3.sort('buyername','ASC');
         let store4 = viewmodel.getStore('POrder_ListStatusStore');
         store4.loadStore();
     },
