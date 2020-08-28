@@ -31,4 +31,16 @@
         background-color: rgb(159, 100, 161);
         color:yellow;
     }
+
+    //
+    .color-box{
+        display: flex; 
+        align-items: center;
+    }
+    .color-square{
+        display: inline-block; 
+        width: 20px; 
+        height: 20px; 
+        border: 1px solid lightgray;
+    }
 }

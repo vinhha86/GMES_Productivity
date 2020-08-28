@@ -262,33 +262,52 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             //     border: false
             // }
             ]
-        },{
+        }
+        ]
+    },{
+        dock: 'bottom',
+        layout: 'vbox',
+        border: false,
+        items: [{
             layout: 'hbox',
             border: false,
             items: [{
-                html: '<div style="background-color:lightblue; color:black;">Chưa phân chuyền</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-free"></div>&nbspChưa phân chuyền'
+                +'</div>',
                 margin: '5'
             },{
-                html: '<div style="background-color:white; color:black;">Đã phân chuyền</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-granted"></div>&nbspĐã phân chuyền'
+                +'</div>',
                 margin: '5'
             },{
-                html: '<div style="background-color:yellow; color:red;">Chuẩn bị SX</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-ready"></div>&nbspChuẩn bị SX'
+                +'</div>',
                 margin: '5'
             },{
-                html: '<div style="background-color:blue; color:yellow;">Công đoạn phụ</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-subprocess"></div>&nbspCông đoạn phụ'
+                +'</div>',
                 margin: '5'
             },{
-                html: '<div style="background-color:green; color:yellow;">Đang SX</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-running"></div>&nbspĐang SX'
+                +'</div>',
                 margin: '5'
             },{
-                html: '<div style="background-color:lightgray; color:blue;">SX xong</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-done"></div>&nbspSX xong'
+                +'</div>',
                 margin: '5'
             },{
-                html: '<div style="background-color:rgb(159, 100, 161); color:yellow;">Nhập kho xong</div>',
+                html: '<div class="color-box">'
+                +'<div class="color-square process-finish"></div>&nbspNhập kho xong'
+                +'</div>',
                 margin: '5'
             }]
-        }
-        ]
+        }]
     }]
 });
 
