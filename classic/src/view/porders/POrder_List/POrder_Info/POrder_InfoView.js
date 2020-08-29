@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
             items: [{
                 xtype: 'textfield',
                 margin: 2,
-                fieldLabel: "Style",
+                fieldLabel: "Mã Buyer",
                 allowBlank: false,
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',

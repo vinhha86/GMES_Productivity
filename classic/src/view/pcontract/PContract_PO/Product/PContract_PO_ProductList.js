@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     reference: 'PContract_DeliveryPlan_ProductList',
     columns:[
         {
-            text:'Style',
+            text:'Mã Buyer',
             xtype: 'treecolumn',
             dataIndex:'code',
             width: 120,

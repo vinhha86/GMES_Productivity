@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             }
         }
     }, {
-        text: 'Style',
+        text: 'Mã Buyer',
         dataIndex: 'stylebuyer',
         flex: 1,
         items: {
@@ -146,8 +146,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // flex: 1,
                 width: 130,
                 allowBlank: true,
-                blankText: 'Style',
-                emptyText: 'Style'
+                blankText: 'Mã Buyer',
+                emptyText: 'Mã Buyer'
             },
             {
                 xtype:'combobox',

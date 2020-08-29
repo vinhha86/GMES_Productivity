@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         width: 100
     },
     {
-        text: 'Sản phẩm',
+        text: 'Mã Buyer',
         dataIndex: 'productlist',
         flex: 1
     },  
@@ -137,7 +137,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
-            emptyText: "Sản phẩm",
+            emptyText: "Mã Buyer",
             itemId: 'style',
             width: 120
         },{

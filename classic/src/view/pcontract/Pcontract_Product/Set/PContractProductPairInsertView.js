@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
             return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
         }
     },{
-        text:'Mã SP',
+        text:'Mã Buyer',
         dataIndex:'productBuyerCode',
         width: 100
     },{
