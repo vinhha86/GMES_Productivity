@@ -80,9 +80,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var crud = sch.getCrudManager();
 
         var viewmodel = this.getViewModel();
-        
         sch.setStartDate(viewmodel.get('schedule.startDate'));
-        sch.setEndDate(viewmodel.get('schedule.endDate'));
+        var end = viewmodel.get('schedule.endDate');
+
+        sch.setEndDate(Sch.util.Date.add(end, 'd', 1));
         
         var params = new Object();
         params.listid = viewmodel.get('schedule.listid');
