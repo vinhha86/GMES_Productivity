@@ -20,15 +20,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var dt = Ext.Date.subtract(matdate, Ext.Date.DAY, -7);
         viewmodel.set('po.productiondate',dt);
         // console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
-
-        var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
+        
+        var productiondate = Ext.Date.parse(po_data.productiondate, 'c');
+        if (null == productiondate) productiondate = new Date(po_data.productiondate);
+        // console.log(productiondate);
+        var shipdate = Ext.Date.parse(po_data.shipdate, 'c');
+        if (null == shipdate) shipdate = new Date(po_data.shipdate);
+        // console.log(shipdate);
+        var days = Ext.Date.diff(productiondate, shipdate, 'd');
         // console.log(days);
         viewmodel.set('po.productiondays',days);
     },
     recalProductionDays: function(){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
-        var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
+
+        var productiondate = Ext.Date.parse(po_data.productiondate, 'c');
+        if (null == productiondate) productiondate = new Date(po_data.productiondate);
+        // console.log(productiondate);
+        var shipdate = Ext.Date.parse(po_data.shipdate, 'c');
+        if (null == shipdate) shipdate = new Date(po_data.shipdate);
+        // console.log(shipdate);
+
+        var days = Ext.Date.diff(productiondate, shipdate, 'd');
+        // console.log(days);
         viewmodel.set('po.productiondays',days);
     },
     onPOBuyerChange: function() {

@@ -221,8 +221,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
                                 value: '{po.productiondate}',
-                                minValue: '{po.matdate}',
-                                maxValue: '{po.shipdate}'
+                                // minValue: '{po.matdate}',
+                                // maxValue: '{po.shipdate}'
                             },
                             listeners: {
                                 collapse: 'onProductionDateChange'
