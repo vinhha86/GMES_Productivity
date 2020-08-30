@@ -207,10 +207,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },   
                         {
                             xtype: 'datefield',
+                            // allowBlank: false,
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;',
                             fieldLabel: 'Ngày VC:',
-                            readOnly: true,
+                            // readOnly: true,
                             reference: 'poinfo_productiondate',
                             labelAlign: 'left',
                             labelWidth: 78,
@@ -219,7 +220,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             format: 'd/m/y',
                             altFormats: "Y-m-d\\TH:i:s.uO",
                             bind: {
-                                value: '{po.productiondate}'
+                                value: '{po.productiondate}',
+                                minValue: '{po.matdate}',
+                                maxValue: '{po.shipdate}'
+                            },
+                            listeners: {
+                                collapse: 'onProductionDateChange'
                             }
                         },     
                         {

@@ -6,7 +6,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     },
     onMatDateChange: function(newValue, oldValue, eOpts ){
         this.recalProductionDate();
-    },   
+    },
+    onProductionDateChange: function(newValue, oldValue, eOpts ){
+        this.recalProductionDays();
+    },
     recalProductionDate: function(){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
@@ -20,6 +23,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
 
         var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
         // console.log(days);
+        viewmodel.set('po.productiondays',days);
+    },
+    recalProductionDays: function(){
+        var viewmodel = this.getViewModel();
+        var po_data = viewmodel.get('po');
+        var days = Ext.Date.diff(new Date(po_data.productiondate), new Date(po_data.shipdate), 'd');
         viewmodel.set('po.productiondays',days);
     },
     onPOBuyerChange: function() {
