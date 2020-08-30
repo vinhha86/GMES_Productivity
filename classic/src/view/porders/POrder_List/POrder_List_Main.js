@@ -66,7 +66,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 buffer: 500
             }
         }
-    }, {
+    }, 
+    {
         text: 'Mã Buyer',
         dataIndex: 'stylebuyer',
         flex: 1,
@@ -83,23 +84,29 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 buffer: 500
             }
         }
-    }, {
-        text: 'Tên Buyer',
-        dataIndex: 'buyername',
-        flex: 1
-    }, {
-        text: 'PO Buyer',
+    },       
+    {
+        text: 'PO',
         dataIndex: 'po_buyer',
-        flex: 1,
-    }, {
-        text: 'Tên Vendor',
+        width: 100
+    },     
+    {
+        text: 'Buyer',
+        dataIndex: 'buyername',
+        width: 100
+    }, 
+    {
+        text: 'Vendor',
         dataIndex: 'vendorname',
-        flex: 1
-    }, {
-        text: 'PO Vendor',
-        dataIndex: 'po_vendor',
-        flex: 1
-    }, {
+        width: 100
+    },   
+
+    // {
+    //     text: 'PO Vendor',
+    //     dataIndex: 'po_vendor',
+    //     flex: 1
+    // }, 
+    {
         text: 'Tạo lệnh',
         dataIndex: 'orderdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
@@ -192,17 +199,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // flex: 1,
                 width: 130,
             },
-            {
-                xtype:'textfield',
-                itemId:'txtpovendor',
-                // fieldLabel: 'Chú thích',
-                margin: 5,
-                // flex: 1,
-                width: 130,
-                allowBlank: true,
-                blankText: 'PO vendor',
-                emptyText: 'PO vendor'
-            },
+            // {
+            //     xtype:'textfield',
+            //     itemId:'txtpovendor',
+            //     // fieldLabel: 'Chú thích',
+            //     margin: 5,
+            //     // flex: 1,
+            //     width: 130,
+            //     allowBlank: true,
+            //     blankText: 'PO vendor',
+            //     emptyText: 'PO vendor'
+            // },
             {
                 xtype:'datefield',
                 itemId:'txtdatefrom',
