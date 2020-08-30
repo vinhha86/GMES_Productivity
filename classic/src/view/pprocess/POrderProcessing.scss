@@ -102,8 +102,12 @@
 {
     background-image: url(../images/profile-icon.png);
 }
+// .x-grid-cell-inner {
+//     white-space: normal;
+//     font-size: 11px;
+// }
 .x-grid-cell-inner {
-    white-space: normal;
+    white-space: nowrap;
     font-size: 11px;
 }
 .boldlabel .x-form-cb-label {font-weight: bold;font-size: 14px;}

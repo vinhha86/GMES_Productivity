@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtpobuyer').getValue() == "") {
             pobuyer = null;
         }else pobuyer = me.down('#txtpobuyer').getValue();
-        if (me.down('#txtpovendor').getValue() == "") {
+        if (null==me.down('#txtpovendor') || me.down('#txtpovendor').getValue() == "") {
             povendor = null;
         }else povendor = me.down('#txtpovendor').getValue();
         if (me.down('#txtstyle').getValue() == "") {
