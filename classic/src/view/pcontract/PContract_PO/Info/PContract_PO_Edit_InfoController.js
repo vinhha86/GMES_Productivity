@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_InfoController',
     onShipDateChange: function(newValue, oldValue, eOpts ){
-        this.recalProductionDate();
+        this.recalProductionDays();
     },
     onMatDateChange: function(newValue, oldValue, eOpts ){
         this.recalProductionDate();
