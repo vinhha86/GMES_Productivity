@@ -92,9 +92,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         return Ext.util.Format.number(value, '0,000');    
     } ,
     onXoa: function(grid, rowIndex, colIndex){
+        var me = this;
         var viewmodel = this.getViewModel();
         var objDel = grid.getStore().getAt (rowIndex);
-
+        
         Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
@@ -118,12 +119,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                             }
                             else {
                                 grid.getStore().remove(objDel);
-                                
+                                me.reCalculate();
                             }
                             // porderReqStore.reload();
                         }); 
                     } else {
                         grid.getStore().remove(objDel);
+                        me.reCalculate();
                     }
                 }
             } );        
@@ -131,8 +133,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     reCalculate: function(){
         var viewmodel = this.getViewModel();
         if(viewmodel.get('po.isauto_calculate')) {        
-            var store = viewmodel.getStore('porderReqStore');
+            var porderReqStore = viewmodel.getStore('porderReqStore');
 
+            var count = 0;
+            var amount_fix =0 ;
+            for(var i=0; i<porderReqStore.data.length;i++){
+                var rec = porderReqStore.data.items[i];
+                if(rec.get('is_calculate')){
+                    amount_fix += rec.get('totalorder');
+                }
+                else
+                count++;
+            }
+            var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+
+            var amount = (po_quantity - amount_fix) / count;
+
+            for(var i=0; i<porderReqStore.data.length;i++){
+                var rec = porderReqStore.data.items[i];
+                if(!rec.get('is_calculate')){
+                    rec.set('totalorder', amount);
+                }
+            }
         }
     },
     onEdit: function(editor, context, e){
