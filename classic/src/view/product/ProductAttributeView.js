@@ -52,6 +52,14 @@ Ext.define('GSmartApp.view.product.ProductAttributeView', {
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'
         }]
+    },{
+        xtype: 'checkcolumn',
+        dataIndex : 'is_select',
+        text: 'Xem',
+        width: 50,
+        listeners: {
+            checkchange: 'onCheckAttribute'
+        }
     }],
     dockedItems:[{
         dock:'top',

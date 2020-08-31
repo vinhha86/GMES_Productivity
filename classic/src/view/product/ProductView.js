@@ -29,8 +29,8 @@ Ext.define('GSmartApp.view.product.ProductView', {
             return value;
         }
     }, {
-        text: 'Tên sản phẩm',
-        dataIndex: 'name',
+        text: 'Mô tả',
+        dataIndex: 'info',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';

@@ -15,6 +15,37 @@ Ext.define('GSmartApp.view.attribute.ProductAttributeViewCotroller', {
             click: 'onXoa'
         }
     },
+    onCheckAttribute: function(col, rowIndex, checked, record, e, eOpts){
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var params = new Object();
+        params.productid_link = me.IdProduct;
+        params.attributeid_link = record.get('attributeid_link');
+        params.check = checked;
+
+        GSmartApp.Ajax.post('/api/v1/product/update_select_att', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var viewInfo = Ext.getCmp('ProductInfoView');
+                    viewInfo.getController().loadInfo(me.IdProduct);
+                    var store = viewmodel.getStore('ProductAttributeValueStore');
+                    store.commitChanges();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình xử lý dữ liệu! Bạn vui lòng thử lại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        },
+                        fn: function(){
+                            record.set('is_select', !checked);
+                        }
+                    });
+                }
+            })
+    },
     onXoa: function(grid, row, col){
         var viewmodel = this.getViewModel();
         var me = this.getView();

@@ -22,19 +22,6 @@ Ext.define('GSmartApp.view.product.ProductSKU', {
         store:'{SKUStore}'
     },
     columns:[{
-        xtype: 'actioncolumn',
-        width: 20,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fa-info-circle',
-            align: 'center',
-        }],
-        renderer: function(value, metaData, record){
-            metaData.tdAttr = 'data-qtip="' + record.get('info_sku') + '"';
-        return value;
-        }
-    },{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
