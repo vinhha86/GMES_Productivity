@@ -134,8 +134,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
         } 
         viewmodel.set('po.packingnotice',packingnotice);  
-
+        
         params.data = viewmodel.get('po');
+
         params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
 
         var arrPOrders = [];
@@ -146,6 +147,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
 
             //Neu la Sub-PO moi
             if (null == params.data.id) record.data.id = null;
+            delete record.data.product;
             arrPOrders.push(record.data);
         });
         params.po_orders = arrPOrders;
