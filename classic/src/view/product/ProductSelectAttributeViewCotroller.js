@@ -67,6 +67,9 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                         SKUView = Ext.getCmp('ProductSKU');
                         SKUView.getStore().load();
 
+                        viewInfo = Ext.getCmp('ProductInfoView');
+                        viewInfo.getController().loadInfo(me.IdProduct);
+
                         me.up('window').close();
                     }
                     else {
