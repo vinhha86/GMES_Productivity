@@ -32,11 +32,19 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimView', {
     },{
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text: 'Cỡ khổ',
         dataIndex: 'coKho',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',

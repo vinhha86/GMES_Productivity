@@ -39,9 +39,27 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
     //     }
     // },
     {
+<<<<<<< HEAD
         text:'Tên SP',
         dataIndex:'code',
         flex: 1
+=======
+        text:'Mã Buyer',
+        dataIndex:'code',
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },{
+        text:'Tên SP',
+        dataIndex:'name',
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+>>>>>>> 8aa8add46764d219fe7c151530837e141225f504
     },
     {
         text:'SL',

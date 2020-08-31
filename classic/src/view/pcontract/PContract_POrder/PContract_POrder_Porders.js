@@ -32,7 +32,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
         {
             header:'Mã Buyer',
             dataIndex:'stylebuyer',
-            flex: 1
+            flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
         },        
         {
             header:'Mã lệnh',
@@ -55,6 +59,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
                 } else if (c == 6) {
                     metaData.tdCls =  'process-finish';
                 } 
+                metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
         },        

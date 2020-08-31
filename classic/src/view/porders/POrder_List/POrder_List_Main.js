@@ -50,7 +50,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 metaData.tdCls =  'process-done';
             } else if (c == 6) {
                 metaData.tdCls =  'process-finish';
-            } 
+            }
+            metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         },
         // items: {
@@ -83,22 +84,38 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         //         keyup: 'onStylebuyerFilterKeyup',
         //         buffer: 500
         //     }
-        // }
+        // },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },       
     {
         text: 'PO',
         dataIndex: 'po_buyer',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },     
     {
         text: 'Buyer',
         dataIndex: 'buyername',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, 
     {
         text: 'Vendor',
         dataIndex: 'vendorname',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },   
 
     // {
@@ -136,7 +153,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     }, {
         text: 'Trạng thái',
         dataIndex: 'statusName',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }],
     dockedItems: [{
         dock: 'top',

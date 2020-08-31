@@ -26,25 +26,45 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     }, {
         text: 'Mã nội bộ',
         dataIndex: 'contractcode',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Buyer',
         dataIndex: 'buyername',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text: 'Vendor',
         dataIndex: 'vendorname',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     {
         text: 'Mã Buyer',
         dataIndex: 'productlist',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },  
     {
         text: 'PO',
         dataIndex: 'polist',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },    
     {
         text: 'Ngày lập',
@@ -55,7 +75,11 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     {
         text: 'Người lập',
         dataIndex: 'usercreatedName',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     // {
     //     text: 'Trạng thái',

@@ -80,6 +80,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
     ],
     dockedItems: [{
         dock: 'top',
+        padding: '0 0 10 5',
+        height: 30,
         xtype: 'toolbar',
         items: [{
             xtype: 'checkboxfield',

@@ -50,7 +50,11 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                 keyup: 'onStyleFilterKeyup',
                 buffer: 500
             }
-        }    },
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }},
         { header: 'PO Vendor', dataIndex: 'po_vendor', flex: 1,
         items: {
             xtype: 'textfield',
@@ -63,7 +67,11 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                 keyup: 'onPOFilterKeyup',
                 buffer: 500
             }
-        }    },
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }},
         { header: 'Bắt đầu', headerWrap: true, dataIndex: 'po_Productiondate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){

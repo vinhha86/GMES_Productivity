@@ -44,6 +44,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
             var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
             return ProductSKUSummaryCssStyle + 'Tổng' + '</div>';
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     },
     // {
@@ -54,7 +58,11 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     {
         text:'Màu',
         dataIndex:'mauSanPham',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Cỡ',
         dataIndex:'coSanPham',

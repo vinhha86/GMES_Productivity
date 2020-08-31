@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
     alias: 'controller.PContract_PO_FormAccept_ViewCotroller',
     init: function(){
         var viewmodel = this.getViewModel();
-        console.log(viewmodel.get('po'));
 
 		var OrgStore = viewmodel.getStore('OrgStore');
         OrgStore.loadOrg_Request(viewmodel.get('po.id'));

@@ -22,6 +22,149 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         },
         
     },
+    onAddPorderReq: function(){
+        var viewmodel = this.getViewModel();
+
+        if(viewmodel.get('po_selected.id') == null) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn PO",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thêm yêu cầu xếp kế hoạch',
+            closeAction: 'destroy',
+            height: 150,
+            width: 400,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Form_SelectOrg_PorderReq',
+                viewModel: {
+                    data: {
+                        pcontractpo_id_link: viewmodel.get('po_selected.id'),
+                        pcontractid_link: viewmodel.get('po_selected.pcontractid_link'),
+                        productid_link: viewmodel.get('po_selected.productid_link')
+                    }
+                }
+            }]
+        });
+        form.show();   
+
+        form.down('#Form_SelectOrg_PorderReq').getController().on('Chon', function(){
+            var storePO = viewmodel.getStore('porderReqStore');
+            storePO.load();
+            form.close();
+        })
+    },
+    onXoaPorderReq: function(grid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        var objDel = grid.getStore().getAt (rowIndex);
+
+        Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+
+                    if(Ext.isNumber(objDel.data.id)){
+                        var params=new Object();
+                        params.id = objDel.data.id;
+                        GSmartApp.Ajax.post('/api/v1/porder_req/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (!success) {
+                                Ext.MessageBox.show({
+                                    title: "Yêu cầu SX",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                            else {
+                                grid.getStore().remove(objDel);
+                            }
+                            // porderReqStore.reload();
+                        }); 
+                    }
+                }
+            } );        
+    },
+    onCheckCalculate: function( col, rowIndex, checked, record, e, eOpts){
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.porder_reqid_link = record.get('id');
+        params.check = checked;
+
+        GSmartApp.Ajax.post('/api/v1/porder_req/update_iscalculate', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            var porderSKUStore = viewmodel.getStore('porderReqStore');
+                            porderSKUStore.commitChanges();
+                        } else {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Có lỗi trong quá trình xử lý dữ liệu! Bạn vui lòng thử lại",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                },
+                                fn: function(){
+                                    record.set('is_calculate', !checked);
+                                }
+                            });
+                        }
+                    }); 
+    },
+    onEditPorderReq: function(editor, context, e){
+        var viewmodel = this.getViewModel();
+        if(viewmodel.get('po_selected.isauto_calculate')) {
+            var porderReqStore = viewmodel.getStore('porderReqStore');
+
+            var count = 0;
+            var amount_fix =0 ;
+            for(var i=0; i<porderReqStore.data.length;i++){
+                var rec = porderReqStore.data.items[i];
+                if(rec.get('is_calculate')){
+                    amount_fix += rec.get('totalorder');
+                }
+                else
+                count++;
+            }
+    
+            var po_quantity = parseFloat(viewmodel.get('po_selected.po_quantity').toString().replace(/,/gi,''));
+
+            var amount = (po_quantity - amount_fix - context.value) / (count-1);
+            
+            var curRec = porderReqStore.getAt(context.rowIdx);
+            if(po_quantity - amount_fix >= context.value){
+                for(var i=0; i<porderReqStore.data.length;i++){
+                    var rec = porderReqStore.data.items[i];
+                    if(!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')){
+                        rec.set('totalorder', amount);
+                    }
+                }
+            }            
+            else
+            {
+                curRec.set('totalorder', context.originalValue);
+            }
+        }
+    },
     onFilterProduct: function(combo, record, eOpts ){
         var store = this.getViewModel().getStore('PContractPOList');
         var productid_link = record.get('productid_link');

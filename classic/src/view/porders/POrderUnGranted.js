@@ -73,12 +73,23 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 // if (null != record.get('productiondate')){
                 //     metaData.tdAttr = 'data-qtip="' + Ext.util.Format.date(record.get('productiondate'),'d/m/Y') + '"';
                 // }
+                metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
             // summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
-        { header: 'Mã Buyer', dataIndex: 'buyercode', flex: 1},
-        { header: 'PO', dataIndex: 'po_vendor', flex: 1},
+        { header: 'Mã Buyer', dataIndex: 'buyercode', flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
+        { header: 'PO', dataIndex: 'po_vendor', flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
         { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
         { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),

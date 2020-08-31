@@ -28,10 +28,24 @@ Ext.define('GSmartApp.view.sku.ProductList', {
     },                  
     columns: [
         { header: 'Mã Buyer', dataIndex: 'buyercode', width: 100,
-            summaryType: 'count'                  
+            summaryType: 'count',
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
         },
-        { header: 'Mã NCC', dataIndex: 'partnercode', width: 100},
-        { header: 'Tên', dataIndex: 'name', flex: 1},
+        { header: 'Mã NCC', dataIndex: 'partnercode', width: 100,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
+        { header: 'Tên', dataIndex: 'name', flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
     ],
     fbar: [{
         minWidth: 80,

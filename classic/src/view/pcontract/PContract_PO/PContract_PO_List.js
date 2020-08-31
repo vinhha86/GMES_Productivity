@@ -44,11 +44,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     columns:[{
         text:'PO Buyer',
         dataIndex:'po_buyer',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'PO Vendor',
         dataIndex:'po_vendor',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'SL',
         align: 'right',
@@ -91,7 +99,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     },{
         text: 'Phụ trách',
         dataIndex: 'merchandiser_name',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         xtype: 'actioncolumn',
         width: 25,

@@ -23,19 +23,35 @@ Ext.define('GSmartApp.view.product.ProductView', {
     }, {
         text: 'Mã SP',
         dataIndex: 'code',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Tên sản phẩm',
         dataIndex: 'name',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Người thiết kế',
         dataIndex: 'designerName',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Người may mẫu',
         dataIndex: 'samplemakername',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         xtype: 'actioncolumn',
         width: 70,

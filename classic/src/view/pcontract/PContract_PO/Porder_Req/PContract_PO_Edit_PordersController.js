@@ -126,7 +126,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             } );        
     },  
     onEdit: function(editor, context, e){
-
         var viewmodel = this.getViewModel();
         if(viewmodel.get('po.isauto_calculate')) {
             console.log(context);
