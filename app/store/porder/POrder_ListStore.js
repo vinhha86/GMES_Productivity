@@ -12,10 +12,10 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
         {name: 'po_buyer', type: 'string'},
         {name: 'vendorname', type: 'string'},
         {name: 'po_vendor', type: 'string'},
-        {name: 'orderdate', type: 'date'},
-        {name: 'golivedate', type: 'date'},
+        {name: 'orderdate', type: 'date', dateFormat: 'c'},
+        {name: 'golivedate', type: 'date', dateFormat: 'c'},
         {name: 'totalorder', type: 'string'},
-		{name: 'productiondate_plan', type: 'date'},
+		{name: 'productiondate_plan', type: 'date', dateFormat: 'c'},
 		// {
 			// name: 'status', type: 'int',
 			// convert: function (value) {
