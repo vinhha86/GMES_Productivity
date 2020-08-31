@@ -11,9 +11,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
     plugins: {
         cellediting: {
             clicksToEdit: 1,
-            // listeners: {
-            //     edit: 'onEdit'
-            // } 
+            listeners: {
+                edit: 'onEditPorderReq'
+            } 
         }
     },
     features: [{
@@ -29,11 +29,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
         store:'{porderReqStore}'
     },
     columns:[
-        // {
-        //     header:'Style',
-        //     dataIndex:'ordercode',
-        //     width: 100
-        // },
+        {
+            xtype: 'checkcolumn',
+            dataIndex : 'is_calculate',
+            width: 30,
+            listeners: {
+                checkchange: 'onCheckCalculate'
+            }
+        },
         {
             header:'Phân xưởng',
             dataIndex:'granttoorgcode',
@@ -50,7 +53,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
             },
-            editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
+            getEditor: function (record) {
+                if (!record.get('is_calculate')) {
+                    return Ext.create('Ext.grid.CellEditor', {
+                        field: {
+                            xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false
+                        }
+                    })
+                }
+            }
         },{
             xtype: 'actioncolumn',
             width: 50,
@@ -63,7 +74,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             },{
                 iconCls: 'x-fa fas fa-trash',
                 tooltip: 'Xóa',
-                handler: 'onXoa'
+                handler: 'onXoaPorderReq'
             }]
         }
     ],
@@ -80,10 +91,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             labelWidth: 120,
             flex: 1,
             bind: {
-                value: '{po.isauto_calculate}'
+                value: '{po_selected.isauto_calculate}'
             }
         },'->'
-		,]
+		,{
+            xtype:'button',
+            itemId:'btnAdd_PorderReq',
+            ui: 'header',
+			tooltip: 'Thêm yêu cầu SX',
+            iconCls: 'x-fa fa-plus',
+            handler: 'onAddPorderReq'
+        }]
     }]
 });
 
