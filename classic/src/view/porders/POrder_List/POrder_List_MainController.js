@@ -3,62 +3,66 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     alias: 'controller.POrder_List_MainController',
     isActivate: false,
     init: function () {
-        this.onloadPage();
-        let startField = this.lookupReference('startdate');
-        let endField = this.lookupReference('enddate');
-        startField.getPicker().monthYearFormat = 'm-Y';
-        endField.getPicker().monthYearFormat = 'm-Y';
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrder_ListStore');
+        store.sort('orderdate','DESC');
+        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 0, -1], 25, 1);
+
+        this.onActivate();
     },
     control: {
         '#porderlistmain': {
-            // activate: 'onActivate',
+            activate: 'onActivate',
             itemdblclick: 'onitemdblclick',
-            // itemclick: 'onItemClick',
-            // celldblclick: 'onCellDblclick',
         },
         '#btnTimKiem': {
-            click: 'onTimKiemClick'
+            click: 'onBtnTimKiem'
         },
-        '#btnRefresh': {
-            click: 'onRefreshClick'
-        }
+        '#limitpage': {
+            specialkey: 'onSpecialkey'
+        },
     },
     onActivate: function () {
-        let me = this;
+        var me = this;
+        var viewmodel = this.getViewModel();
+
+        var VendorStore = viewmodel.getStore('POrder_ListVendorStore');
+        VendorStore.loadStore();
+        VendorStore.sort('vendorname','ASC');
+        var BuyerStore = viewmodel.getStore('POrder_ListBuyerStore');
+        BuyerStore.loadStore();
+        BuyerStore.sort('buyername','ASC');
+        var ListStatusStore = viewmodel.getStore('POrder_ListStatusStore');
+        ListStatusStore.loadStore();
+
+        var startField = this.lookupReference('startdate');
+        var endField = this.lookupReference('enddate');
+        startField.getPicker().monthYearFormat = 'm-Y';
+        endField.getPicker().monthYearFormat = 'm-Y';
+
         if (me.isActivate) {
-            this.onloadPage();
+            me.onloadPage();
         }
         me.isActivate = true;
     },
-    onloadPage: function () {
-        let me = this.getView();
-        let t = this;
-
-        let viewmodel = this.getViewModel();
-        let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 0, -1]);
-        store.sort('productiondate_plan', 'ASC');
-        let store2 = viewmodel.getStore('POrder_ListVendorStore');
-        store2.loadStore();
-        store2.sort('vendorname','ASC');
-        let store3 = viewmodel.getStore('POrder_ListBuyerStore');
-        store3.loadStore();
-        store3.sort('buyername','ASC');
-        let store4 = viewmodel.getStore('POrder_ListStatusStore');
-        store4.loadStore();
+    onSpecialkey: function (field, e) {
+        var me = this;
+        if (field.itemId == "limitpage") {
+            var viewmodel = this.getViewModel();
+            var store = viewmodel.getStore('POrder_ListStore');
+            store.currentPage = 1;
+        }
+        if (e.getKey() == e.ENTER) {
+            me.onloadPage();
+        }
     },
-    onTimKiemClick: function () {
-        // console.log('click tim kiem');
-
-        ///////////////////////////////////
-        let me = this.getView();
-        let viewmodel = this.getViewModel();
-        let store = viewmodel.getStore('POrder_ListStore');
-        
-        // console.log(me.down('#txtstatus').getValue());
-        // console.log(typeof(me.down('#txtstatus').getValue()));
-
-        let pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
+    onloadPage: function () {
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrder_ListStore');
+        //
+        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
         if (me.down('#txtpobuyer').getValue() == "") {
             pobuyer = null;
         }else pobuyer = me.down('#txtpobuyer').getValue();
@@ -80,22 +84,62 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtdateto').getValue() == "") {
             orderdateto = null;
         }else orderdateto = me.down('#txtdateto').getValue();
-        status = me.down('#txtstatus').getValue();
+        if(me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == ""){
+            status = [];
+        }else status = me.down('#txtstatus').getValue();
 
-        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status);
+
+        var limit = me.down('#limitpage').getValue();
+        var page = store.currentPage;
+        if (limit == null) {
+            limit = 25;
+        }
+        if (page == null) {
+            page = 1;
+        }
+        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page);
     },
-    onRefreshClick: function(){
+    onBtnTimKiem: function () {
         var me = this.getView();
-        let viewmodel = this.getViewModel();
-        let store = viewmodel.getStore('POrder_ListStore');
-        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 0, -1]);
-        me.down('#txtpobuyer').setValue();
-        me.down('#txtstyle').setValue();
-        me.down('#txtbuyerid').setValue();
-        me.down('#txtvendorid').setValue();
-        me.down('#txtdatefrom').setValue();
-        me.down('#txtdateto').setValue();
-        me.down('#txtstatus').setValue();
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrder_ListStore');
+        //
+        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
+        if (me.down('#txtpobuyer').getValue() == "") {
+            pobuyer = null;
+        }else pobuyer = me.down('#txtpobuyer').getValue();
+        if (null==me.down('#txtpovendor') || me.down('#txtpovendor').getValue() == "") {
+            povendor = null;
+        }else povendor = me.down('#txtpovendor').getValue();
+        if (me.down('#txtstyle').getValue() == "") {
+            style = null;
+        }else style = me.down('#txtstyle').getValue();
+        if (me.down('#txtbuyerid').getValue() == "") {
+            buyerid = null;
+        }else buyerid = me.down('#txtbuyerid').getValue();
+        if (me.down('#txtvendorid').getValue() == "") {
+            vendorid = null;
+        }else vendorid = me.down('#txtvendorid').getValue();
+        if (me.down('#txtdatefrom').getValue() == "") {
+            orderdatefrom = null;
+        }else orderdatefrom = me.down('#txtdatefrom').getValue();
+        if (me.down('#txtdateto').getValue() == "") {
+            orderdateto = null;
+        }else orderdateto = me.down('#txtdateto').getValue();
+        if(me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == ""){
+            status = [];
+        }else status = me.down('#txtstatus').getValue();
+
+
+        var limit = me.down('#limitpage').getValue();
+        var page = 1;
+        if (limit == null) {
+            limit = 25;
+        }
+        // if (page == null) {
+        //     page = 1;
+        // }
+        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page);
     },
     onOrdercodeFilterKeyup: function(){
         var grid = this.getView(),
