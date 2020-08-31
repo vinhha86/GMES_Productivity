@@ -184,6 +184,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         layout: 'hbox',
         xtype: 'toolbar',
         border: false,
+        cls: 'botToolbar',
         items: [{
             xtype: 'textfield',
             value: 25,

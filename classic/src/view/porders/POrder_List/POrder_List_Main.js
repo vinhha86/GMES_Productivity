@@ -341,6 +341,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             xtype: 'toolbar',
             border: false,
             width: '100%',
+            cls: 'botToolbar',
             items: [{
                 xtype: 'textfield',
                 value: 25,
