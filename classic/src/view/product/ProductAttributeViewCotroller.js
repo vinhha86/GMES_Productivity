@@ -17,20 +17,40 @@ Ext.define('GSmartApp.view.attribute.ProductAttributeViewCotroller', {
     },
     onCheckAttribute: function(col, rowIndex, checked, record, e, eOpts){
         var me = this.getView();
+        me.setLoading("Đang xử lý dữ liệu!");
         var viewmodel = this.getViewModel();
+
+        var store = viewmodel.getStore('ProductAttributeValueStore');
+        var description = "";
+        for(var i=0; i< store.data.length; i++){
+            var rec = store.data.items[i];
+            if(rec.get('is_select')){
+                var name = rec.get('attributeValueName').replace('ALL, ','');
+                if(description!=""){
+                    description += "; "+name;
+                }
+                else {
+                    description = name;
+                }
+            }
+        }
 
         var params = new Object();
         params.productid_link = me.IdProduct;
         params.attributeid_link = record.get('attributeid_link');
         params.check = checked;
+        params.description = description;
 
         GSmartApp.Ajax.post('/api/v1/product/update_select_att', Ext.JSON.encode(params),
             function (success, response, options) {
+                me.setLoading(false);
                 if (success) {
                     var viewInfo = Ext.getCmp('ProductInfoView');
                     viewInfo.getController().loadInfo(me.IdProduct);
                     var store = viewmodel.getStore('ProductAttributeValueStore');
                     store.commitChanges();
+
+                    viewmodel.set('product.description', description);
                 } else {
                     Ext.Msg.show({
                         title: 'Thông báo',

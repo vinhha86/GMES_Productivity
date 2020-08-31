@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 tooltip:'Mô tả',
                 fieldLabel: "Mô tả",
                 bind:{
-                    value : '{product.info}'
+                    value : '{product.description}'
                 },
                 name:'info',
                 anchor    : '99%',

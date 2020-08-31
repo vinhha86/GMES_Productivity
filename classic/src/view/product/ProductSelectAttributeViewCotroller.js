@@ -41,12 +41,45 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
     },
     Luu: function () {
         var me = this.getView();
+        var select = me.getSelectionModel().getSelection();
+
+        var gridAtt = Ext.getCmp('ProductAttributeView');
+        var store = gridAtt.getStore();
+        var description = "";
+        for(var i=0; i< store.data.length; i++){
+            var rec = store.data.items[i];
+
+            if(rec.get('is_select')){
+                var name = "";  
+                if(rec.get('attributeid_link') == me.IdAttribute) {
+                    for (var j = 0; j < select.length; j++) {
+                        if(name==""){
+                            name = select[j].get('value');
+                        }
+                        else{
+                            name += ", "+select[j].get('value');
+                        }
+                    }
+                }
+                else {
+                    name = rec.get('attributeValueName').replace('ALL, ','');
+                }
+
+                if(description!=""){
+                    description += "; "+name;
+                }
+                else {
+                    description = name;
+                }
+            }
+        }
+
         var params = new Object();
         params.productid_link = me.IdProduct;
         params.attributeid_link = me.IdAttribute;
+        params.description = description;
 
         var obj = [];
-        var select = me.getSelectionModel().getSelection();
         for (var i = 0; i < select.length; i++) {
             var data = select[i].data;
             obj.push(data.id);
