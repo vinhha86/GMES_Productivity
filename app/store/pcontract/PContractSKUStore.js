@@ -25,14 +25,15 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
         {name: 'mauSanPham',   type: 'string'},
 		{name: 'coSanPham', type: 'string'},
 		'sizeid_link',
-		'color_id'
+		'color_id',
+		'sort_value'
     ],
 	sorters: [{
         direction: 'ASC',
         property: 'mauSanPham'
 	},{
         direction: 'ASC',
-        property: 'coSanPham'
+        property: 'sort_value'
 	}],
 	loadStore: function(pcontractid_link, productid_link){
 		var me=this;
