@@ -4,7 +4,17 @@ Ext.define('GSmartApp.store.POrder_Req', {
     alias: 'store.POrder_Req',
 
 	model: 'GSmartApp.model.POrder_Req',
-	groupField: 'granttoorgname',
+	groupField: 'granttoorgcode',
+	sorters: [
+		// {
+		// 	direction: 'DESC',
+		// 	property: 'is_calculate'
+		// },
+		{
+			direction: 'ASC',
+			property: 'granttoorgcode'
+		}
+	],	
 	load_byOrg: function(){
 		this.setProxy({
 			type: 'ajax',
