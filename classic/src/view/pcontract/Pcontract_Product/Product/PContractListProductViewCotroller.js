@@ -75,7 +75,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         var productid = record.data.productid_link;
         var productName = record.data.productName;
 
-        storeAttValue.loadStore(PContractId, productid);
+        // storeAttValue.loadStore(PContractId, productid);
+        storeAttValue.loadStoreByProductId(productid);
         storeDoc.loadStore(PContractId, productid);
 
         viewmodel.set('titleAttvalue', 'Thuộc tính : ' + productName);
