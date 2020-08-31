@@ -16,7 +16,8 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 		{name: 'imgproduct'},
 		'productBuyerCode',
 		'productVendorCode',
-		'pairamount'
+		'pairamount',
+		'productinfo'
     ],
 	sorters: [{
         direction: 'ASC',

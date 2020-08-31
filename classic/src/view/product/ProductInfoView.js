@@ -44,60 +44,47 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
             }]
         },
         {
-            layout:'hbox',
-            border:false,
-            items:[{
-                xtype:'textfield',
-                margin: 1,
-                fieldLabel: "Mã Vendor",
-                bind:{
-                    value : '{product.vendorcode}'
-                },
-                tooltip:'Nhập mã Vendor',
-                itemId:'vendorcode',
-                name:'vendorcode',
-                height: 32,
-                labelWidth: 110
+            layout: 'hbox',
+            items: [{
+                layout:'vbox',
+                border:false,
+                items:[{
+                    xtype:'textfield',
+                    margin: 1,
+                    fieldLabel: "Mã Vendor",
+                    bind:{
+                        value : '{product.vendorcode}'
+                    },
+                    tooltip:'Nhập mã Vendor',
+                    itemId:'vendorcode',
+                    name:'vendorcode',
+                    height: 32,
+                    labelWidth: 110
+                },{
+                    xtype:'textfield',
+                    margin: 1,
+                    fieldLabel: "Mã nội bộ",
+                    bind:{
+                        value : '{product.code}'
+                    },
+                    tooltip:'Nhập mã sản phẩm',
+                    itemId:'code',
+                    name:'code',
+                    height: 32,
+                    labelWidth: 110
+                }]
             },{
-                xtype:'textfield',
+                xtype:'textarea',
                 margin: 1,
-                height: 32,
+                minHeight: 30,
                 width: 400,
-                tooltip:'Nhập tên Vendor',
-                fieldLabel: "Tên Vendor",
+                tooltip:'Mô tả',
+                fieldLabel: "Mô tả",
                 bind:{
-                    value : '{product.vendorname}'
+                    value : '{product.info}'
                 },
-                name:'vendorname',
-                labelWidth: 110
-            }]
-        },        
-        {
-            layout:'hbox',
-            border:false,
-            items:[{
-                xtype:'textfield',
-                margin: 1,
-                fieldLabel: "Mã nội bộ",
-                bind:{
-                    value : '{product.code}'
-                },
-                tooltip:'Nhập mã sản phẩm',
-                itemId:'code',
-                name:'code',
-                height: 32,
-                labelWidth: 110
-            },{
-                xtype:'textfield',
-                margin: 1,
-                height: 32,
-                width: 400,
-                tooltip:'Nhập tên sản phẩm',
-                fieldLabel: "Tên nội bộ",
-                bind:{
-                    value : '{product.name}'
-                },
-                name:'name',
+                name:'info',
+                anchor    : '99%',
                 labelWidth: 110
             }]
         }

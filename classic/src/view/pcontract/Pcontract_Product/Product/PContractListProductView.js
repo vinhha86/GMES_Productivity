@@ -41,20 +41,12 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             
         }
     },{
-        text:'Mã SP',
-        dataIndex:'productCode',
-        width: 120
-    },{
         text:'Mã Buyer',
         dataIndex:'productBuyerCode',
         width: 120
     },{
-        text:'Mã Vendor',
-        dataIndex:'productVendorCode',
-        width: 120
-    },{
-        text:'Tên SP',
-        dataIndex:'productName',
+        text:'Mô tả',
+        dataIndex:'productinfo',
         flex: 1
     },
     // {
