@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                                     }
                                 });
                             }
-                            porderReqStore.reload();
+                            // porderReqStore.reload();
                         }); 
                     }
                 }
