@@ -238,8 +238,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 format: 'd/m/Y',
                 margin: 5,
                 // flex: 1,
-                width: 130,
-                emptyText: 'Giao SX từ'
+                width: 125,
+                emptyText: 'Tạo lệnh từ'
             },
             {
                 xtype:'datefield',
@@ -248,8 +248,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 format: 'd/m/Y',
                 margin: 5,
                 // flex: 1,
-                width: 130,
-                emptyText: 'Giao SX đến'
+                width: 135,
+                emptyText: 'Tạo lệnh đến'
             },
             {
                 xtype:'combobox',

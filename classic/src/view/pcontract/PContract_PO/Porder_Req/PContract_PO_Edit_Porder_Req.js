@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
     columns:[{
         xtype: 'checkcolumn',
         dataIndex : 'is_calculate',
-        width: 30
+        width: 25
     },{
         header:'Phân xưởng',
         dataIndex:'granttoorgcode',
@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         header:'SL',
         align: 'end',
         dataIndex:'totalorder',
-        width: 100,
+        width: 75,
         summaryType: 'sum', 
         summaryRenderer: 'renderSum',
         renderer: 'renderValue',
