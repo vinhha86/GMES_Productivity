@@ -35,15 +35,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 });
                 // console.log(porder_New);
                 porderReqStore.insert(0,porder_New);
+                porderReqStore.sort('is_calculate','DESC');
+
+                var count = 0;
+                var amount_fix = 0;
+                for(var i=0; i<porderReqStore.data.length;i++){
+                    var record = porderReqStore.data.items[i];
+                    if(record.get('is_calculate')){
+                        amount_fix += record.get('totalorder');
+                    }
+                    else
+                        count++;
+                }
 
                 // //Chia deu so luong cho cac phan xuong
                 var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
-                var org_quantity = Math.round(po_quantity/porderReqStore.data.length);
+                po_quantity -= amount_fix;
+                var org_quantity = Math.round(po_quantity/count);
 
                 var dis_quantity=0;
 
                 for(i=0; i< porderReqStore.data.length; i++){
                     var rec = porderReqStore.data.items[i];
+                    if(rec.get('is_calculate')) continue;
+
                     rec.beginedit;
                     if (i < porderReqStore.data.length -1)
                         rec.set('totalorder', org_quantity);
@@ -83,7 +98,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
-                    grid.getStore().remove(objDel);
 
                     if(Ext.isNumber(objDel.data.id)){
                         var porderReqStore = viewmodel.getStore('porderReqStore');
@@ -102,6 +116,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                                     }
                                 });
                             }
+                            else {
+                                grid.getStore().remove(objDel);
+                            }
                             // porderReqStore.reload();
                         }); 
                     }
@@ -111,25 +128,40 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     onEdit: function(editor, context, e){
 
         var viewmodel = this.getViewModel();
-        var porderReqStore = viewmodel.getStore('porderReqStore');
+        if(viewmodel.get('po.isauto_calculate')) {
+            console.log(context);
+            var porderReqStore = viewmodel.getStore('porderReqStore');
 
-        var total = 0;
-        for(var i=0; i<porderReqStore.data.length-1;i++){
-            var rec = porderReqStore.data.items[i];
-            total += rec.get('totalorder');
-        }
+            var count = 0;
+            var amount_fix =0 ;
+            for(var i=0; i<porderReqStore.data.length;i++){
+                var rec = porderReqStore.data.items[i];
+                if(rec.get('is_calculate')){
+                    amount_fix += rec.get('totalorder');
+                }
+                else
+                count++;
+            }
+    
+            var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
 
-        var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
-        var record = porderReqStore.data.items[porderReqStore.data.length-1];
-
-        if(po_quantity >= total){
-            record.set('totalorder', po_quantity - total);
-        }            
-        else
-        {
+            var amount = (po_quantity - amount_fix - context.value) / (count-1);
+            
             var curRec = porderReqStore.getAt(context.rowIdx);
-            curRec.set('totalorder', context.originalValue);
+            if(po_quantity - amount_fix >= context.value){
+                for(var i=0; i<porderReqStore.data.length;i++){
+                    var rec = porderReqStore.data.items[i];
+                    if(!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')){
+                        rec.set('totalorder', amount);
+                    }
+                }
+            }            
+            else
+            {
+                curRec.set('totalorder', context.originalValue);
+            }
         }
+        
         
     }  
 })

@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Main', {
         {
             region: 'center',
             border: true,
-            title: 'Yêu cầu sản xuất',
+            // title: 'Yêu cầu sản xuất',
             xtype: 'PContract_POrder_Req',
             padding: 1,
             // width: '25%',       

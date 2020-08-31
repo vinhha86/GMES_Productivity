@@ -46,7 +46,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
     data: {
         id: null,
         parentId : 0,
-        po: null,
         po_price: null,
         po_price_copy: null,
         packing_arr: null,
@@ -60,6 +59,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         org_droppedcode: null,
         isSewPriceReadonly: true,
         isSewCostPriceReadonly: true,
+        po: {
+            isauto_calculate: true,
+        },
         schedule: {
             startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),

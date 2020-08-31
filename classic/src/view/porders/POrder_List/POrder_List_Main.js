@@ -53,37 +53,37 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             } 
             return value;
         },
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'ordercodeFilter',
-            width: '98%',
-            // flex: 1,
-            margin: 2,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onOrdercodeFilterKeyup',
-                buffer: 500
-            }
-        }
+        // items: {
+        //     xtype: 'textfield',
+        //     fieldStyle: "",
+        //     reference: 'ordercodeFilter',
+        //     width: '98%',
+        //     // flex: 1,
+        //     margin: 2,
+        //     enableKeyEvents: true,
+        //     listeners: {
+        //         keyup: 'onOrdercodeFilterKeyup',
+        //         buffer: 500
+        //     }
+        // }
     }, 
     {
         text: 'Mã Buyer',
         dataIndex: 'stylebuyer',
         flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'stylebuyerFilter',
-            width: '98%',
-            // flex: 1,
-            margin: 2,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onStylebuyerFilterKeyup',
-                buffer: 500
-            }
-        }
+        // items: {
+        //     xtype: 'textfield',
+        //     fieldStyle: "",
+        //     reference: 'stylebuyerFilter',
+        //     width: '98%',
+        //     // flex: 1,
+        //     margin: 2,
+        //     enableKeyEvents: true,
+        //     listeners: {
+        //         keyup: 'onStylebuyerFilterKeyup',
+        //         buffer: 500
+        //     }
+        // }
     },       
     {
         text: 'PO',
@@ -238,6 +238,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 },
                 displayField: 'name',
                 valueField: 'id',
+                value: [1, 2, 3, 0, -1],
                 queryMode: 'local',
                 editable: true,
                 allowBlank: true,
@@ -313,6 +314,40 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 +'<div class="color-square process-finish"></div>&nbspNhập kho xong'
                 +'</div>',
                 margin: '5'
+            }]
+        }, {
+            layout: 'hbox',
+            xtype: 'toolbar',
+            border: false,
+            width: '100%',
+            items: [{
+                xtype: 'textfield',
+                value: 25,
+                itemId: 'limitpage',
+                maskRe: /[0-9]/,
+                width: 180,
+                selectOnFocus: true,
+                margin: 5,
+                fieldLabel: 'Số bản ghi/ Trang',
+                labelWidth: 120
+            }, '-', {
+                xtype: 'pagingtoolbar',
+                displayInfo: true,
+                flex: 1,
+                nextText: 'Trang tiếp',
+                prevText: 'Trang trước',
+                afterPageText: '/ {0}',
+                beforePageText: 'Trang',
+                itemId: 'page',
+                refreshText: 'Làm mới dữ liệu',
+                border: false,
+                bind: {
+                    store: '{POrder_ListStore}'
+                },
+                emptyMsg: 'Không có kết quả tìm kiếm',
+                lastText: 'Trang cuối',
+                firstText: 'Trang đầu',
+                displayMsg: 'Hiển thị {0} - {1} của {2}'
             }]
         }]
     }]

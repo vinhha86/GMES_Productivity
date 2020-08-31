@@ -53,15 +53,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
         },{
             xtype: 'actioncolumn',
-            width: 25,
+            width: 50,
             menuDisabled: true,
             sortable: false,
             items: [{
                 iconCls: 'x-fa fas fa-magic',
                 tooltip: 'Tạo lệnh',
                 handler: 'onPOrderCreate'
+            },{
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: 'Xóa',
+                handler: 'onXoa'
             }]
         }
-    ]
+    ],
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        items: [{
+            xtype: 'checkboxfield',
+            labelStyle: "font-size:11px",
+            fieldStyle: 'font-size:11px;text-align:right',
+            fieldLabel: 'Tự động chia số lượng:',
+            hideTrigger:true,
+            labelAlign: 'left',
+            labelWidth: 120,
+            flex: 1,
+            bind: {
+                value: '{po.isauto_calculate}'
+            }
+        },'->'
+		,]
+    }]
 });
 

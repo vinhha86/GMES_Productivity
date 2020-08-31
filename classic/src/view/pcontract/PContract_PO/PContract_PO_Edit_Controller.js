@@ -84,6 +84,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             new_po.data.po_quantity = null;
             new_po.data.pcontractid_link = viewmodel.get('pcontractid_link');
             new_po.data.productid_link = viewmodel.get('productpairid_link');
+            new_po.set('isauto_calculate', true);
             viewmodel.set('po', new_po.data);
 
             //Them sizeset all cho tat ca cac san pham
@@ -194,6 +195,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 // var porder = new Object();
                 // porder.granttoorgid_link = record.data.granttoorgid_link;
                 // porder.totalorder = record.data.totalorder;
+                delete record.data.product;
+
                 arrPOrders.push(record.data);
             });
             params.po_orders = arrPOrders;

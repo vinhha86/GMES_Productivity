@@ -34,14 +34,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
     }],
-    selModel: {
-        //selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE',
+    //     checkOnly: true
+    // },
     bind:{
         store:'{porderReqStore}'
     },
     columns:[{
+        xtype: 'checkcolumn',
+        dataIndex : 'is_calculate',
+        width: 30
+    },{
         header:'Phân xưởng',
         dataIndex:'granttoorgcode',
         flex: 1
@@ -59,7 +64,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         summaryType: 'sum', 
         summaryRenderer: 'renderSum',
         renderer: 'renderValue',
-        editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
+        getEditor: function (record) {
+            if (!record.get('is_calculate')) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false
+                    }
+                })
+            }
+        }
     },{
         xtype: 'actioncolumn',
         id: 'PContract_PO_Edit_Porder_Req_deletebutton',
@@ -70,6 +83,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
             iconCls: 'x-fa fas fa-trash',
             tooltip: 'Xóa',
             handler: 'onXoa'
+        }]
+    }],
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        items: [{
+            xtype: 'checkboxfield',
+            labelStyle: "font-size:11px",
+            fieldStyle: 'font-size:11px;text-align:right',
+            fieldLabel: 'Tự động chia số lượng:',
+            hideTrigger:true,
+            labelAlign: 'left',
+            labelWidth: 120,
+            flex: 1,
+            bind: {
+                value: '{po.isauto_calculate}'
+            }
         }]
     }]
 });

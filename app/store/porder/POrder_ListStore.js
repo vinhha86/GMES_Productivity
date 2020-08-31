@@ -3,6 +3,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
     storeId: 'POrder_ListStore',
 	alias: 'store.POrder_ListStore',
 	groupField: 'granttoorgname',
+    pageSize: 25,
     fields: [
 		{name: 'id', type: 'int'},
 		{name: 'ordercode', type: 'string'},
@@ -67,7 +68,8 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			}
 		});
 	},  	
-	loadStoreBySearch: function(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status){
+	loadStoreBySearch: function(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page){
+		var me=this;
 		var params = new Object();
 		params.pobuyer = pobuyer;
 		params.povendor = povendor;
@@ -77,6 +79,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		params.orderdatefrom = orderdatefrom;
 		params.orderdateto = orderdateto;
 		params.status = status;
+		me.pageSize = limit;
 
 		this.setProxy({
 			type: 'ajax',
@@ -96,10 +99,11 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			 },
 			reader: {
 				type: 'json',
-				rootProperty: 'data'
+				rootProperty: 'data',
+				totalProperty: 'totalCount'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(page,{
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){

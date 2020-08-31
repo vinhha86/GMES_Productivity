@@ -16,6 +16,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             if (record.data.status == 0) {
                 return "po_accept";
             }
+            else {
+                if(record.get('po_quantity') != record.get('amount_org')){
+                    return "po_notaccept"
+                }
+            }
         }
     },
     selModel: {
@@ -78,7 +83,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     {
         text:'Phân xưởng',
         dataIndex:'factories',
-        width: 80
+        width: 80,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text: 'Phụ trách',
         dataIndex: 'merchandiser_name',
@@ -129,6 +138,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text:'SL',
                     align: 'end',
                     dataIndex:'po_quantity',
+                    width: 90,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                    }
+                },{
+                    text:'YCSX',
+                    align: 'end',
+                    dataIndex:'amount_org',
                     width: 90,
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
