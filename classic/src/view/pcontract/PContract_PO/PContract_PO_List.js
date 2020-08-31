@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             }
             else {
                 if(record.get('po_quantity') != record.get('amount_org')){
-                    return "po_notaccept"
+                    return "po_wrongamount"
                 }
             }
         }
@@ -247,6 +247,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         //     handler: 'onFactoriesTap',
         // }
         ]
-    }]
+    },
+    {
+        dock: 'bottom',
+        layout: 'vbox',
+        border: false,
+        items: [{
+            layout: 'hbox',
+            border: false,
+            items: [{
+                html: '<div class="color-box">'
+                +'<div class="color-square po_free"></div>&nbspChưa chốt'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square po_wrongamount"></div>&nbspSai SL phân xưởng'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square po_accept"></div>&nbspĐã chốt'
+                +'</div>',
+                margin: '5'
+            }]
+        }]
+    }    
+    ],
+    
 });
 

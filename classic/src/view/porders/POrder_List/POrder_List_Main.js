@@ -293,7 +293,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             ]
         }
         ]
-    },{
+    },
+    {
         dock: 'bottom',
         layout: 'vbox',
         border: false,
@@ -336,7 +337,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 +'</div>',
                 margin: '5'
             }]
-        }, {
+        }, 
+        {
             layout: 'hbox',
             xtype: 'toolbar',
             border: false,

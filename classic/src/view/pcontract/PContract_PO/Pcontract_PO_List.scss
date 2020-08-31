@@ -1,8 +1,27 @@
 .po_accept {
     background :rgb(200, 238, 200);
 }
-
-.po_notaccept {
+.po_free {
+    background: white;
+}
+.po_wrongamount {
     background: yellow;
 }
-
+.color-box{
+    display: flex; 
+    align-items: center;
+    font-size: 12px;
+}
+.color-square{
+    display: inline-block; 
+    width: 14px; 
+    height: 14px; 
+    border: 1px solid lightgray;
+}
+// .x-grid-cell-inner {
+//     white-space: nowrap;
+//     font-size: 11px;
+// }
+.botToolbar{
+    padding: 0 0 0 0;
+}
