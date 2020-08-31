@@ -118,17 +118,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                             }
                             else {
                                 grid.getStore().remove(objDel);
+                                
                             }
                             // porderReqStore.reload();
                         }); 
                     }
                 }
             } );        
-    },  
+    },
+    reCalculate: function(){
+        var viewmodel = this.getViewModel();
+        if(viewmodel.get('po.isauto_calculate')) {        
+            var store = viewmodel.getStore('porderReqStore');
+
+        }
+    },
     onEdit: function(editor, context, e){
         var viewmodel = this.getViewModel();
         if(viewmodel.get('po.isauto_calculate')) {
-            console.log(context);
             var porderReqStore = viewmodel.getStore('porderReqStore');
 
             var count = 0;
