@@ -39,12 +39,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
     //     }
     // },
     {
-        text:'Mã Buyer',
-        dataIndex:'code',
-        width: 100
-    },{
         text:'Tên SP',
-        dataIndex:'name',
+        dataIndex:'code',
         flex: 1
     },
     {

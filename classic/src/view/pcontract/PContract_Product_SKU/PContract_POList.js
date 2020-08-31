@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         store:'{PContractPOList}'
     },
     columns:[{
-        text:'Mã Buyer',
+        text:'Tên SP',
         dataIndex:'productbuyercode',
         flex: 1
     },{
