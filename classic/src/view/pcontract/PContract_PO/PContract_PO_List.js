@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         'Ext.grid.plugin.RowWidget'
     ],
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
         rowLines: true,
