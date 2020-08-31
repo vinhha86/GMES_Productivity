@@ -47,10 +47,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng'
-                },
-                fn: function(){
-                    if(isSuccess)
-                        me.fireEvent('AcceptSuccess');
+                }
+            });
+        }
+        else if(viewmodel.get('po.po_quantity') != viewmodel.get('po.amount_org')){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Số lượng PO không trùng với số lượng phân về cho các xưởng',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
                 }
             });
         }
@@ -67,7 +73,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
                         isSuccess = true;
                     }
                     else{
-                        mes = "Có lỗi trong khi xử lý dữ liệu! Bạn vui lòng liên hệ kỹ thuật để trợ giúp";
+                        mes = response.message;
                     }
                 }
                 else{
