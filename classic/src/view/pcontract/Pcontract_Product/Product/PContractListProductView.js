@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             
         }
     },{
-        text:'Mã Buyer',
+        text:'Mã Buyer (SP)',
         dataIndex:'productBuyerCode',
         width: 120
     },{

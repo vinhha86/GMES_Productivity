@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
     //     }
     // },
     {
-        text:'Mã Buyer',
+        text:'Mã Buyer (SP)',
         dataIndex:'code',
         width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductView', {
         }
     },{
         text:'Tên SP',
-        dataIndex:'name',
+        dataIndex:'info',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
