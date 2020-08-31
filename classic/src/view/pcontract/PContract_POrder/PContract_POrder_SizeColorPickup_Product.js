@@ -18,13 +18,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Product', 
     },
     columns:[
         {
-            text:'Style',
+            text:'Mã Buyer (SP)',
             dataIndex:'code',
-            width: 100
+            width: 100,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }   
         },{
-            text:'Tên SP',
-            dataIndex:'name',
-            flex: 1
+            text:'Mô tả',
+            dataIndex:'info',
+            flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
         },
         {
             text:'SL',
