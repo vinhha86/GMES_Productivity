@@ -50,6 +50,10 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
                 blankText: 'Không được để trống giá trị',
                 itemId: 'txtValue'
             }
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     },{
         text: 'Mô tả',
@@ -63,6 +67,10 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
                 // blankText: 'Không được để trống giá trị',
                 itemId: 'txtDescription'
             }
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     },{
         xtype: 'actioncolumn',

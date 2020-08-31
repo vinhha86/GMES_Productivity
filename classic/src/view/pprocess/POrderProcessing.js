@@ -113,7 +113,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                     metaData.tdCls =  'process-done';
                 } else if (c == 6) {
                     metaData.tdCls =  'process-finish';
-                } 
+                }
+                metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
             summaryType: 'count', summaryRenderer: 'renderSum'                   

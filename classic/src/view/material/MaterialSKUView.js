@@ -38,7 +38,11 @@ Ext.define('GSmartApp.view.material.MaterialSKUView', {
     },{
         text:'SKU ',
         dataIndex:'code',
-        width: 80
+        width: 80,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Mã vạch',
         dataIndex:'barcode',
@@ -56,7 +60,11 @@ Ext.define('GSmartApp.view.material.MaterialSKUView', {
     },{
         text:'Màu NPL',
         dataIndex:'color_name',
-        width: 100
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Cỡ khổ',
         dataIndex:'size_name',

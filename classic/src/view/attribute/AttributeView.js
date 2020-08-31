@@ -42,6 +42,10 @@ Ext.define('GSmartApp.view.attribute.AttributeView', {
                 blankText:'Không được để trống tên thuộc tính',
                 itemId:'txtName'
             }
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     },{
         xtype: 'checkcolumn',

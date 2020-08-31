@@ -24,11 +24,19 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria_Attr', {
     },{
         text:'Tên thuộc tính',
         dataIndex:'name',
-        width: 120
+        width: 120,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Giá trị',
         dataIndex:'description',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         xtype: 'actioncolumn',
         width: 50,

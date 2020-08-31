@@ -37,6 +37,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
                     buffer: 500
                 }
             },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
             
         },
         {
@@ -56,6 +60,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
                     buffer: 500
                 }
             },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
         },
     // {
     //     text:'Ảnh',

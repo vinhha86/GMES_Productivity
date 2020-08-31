@@ -25,11 +25,19 @@ Ext.define('GSmartApp.view.material.MaterialAttributeView', {
     },{
         text:'Tên thuộc tính',
         dataIndex:'attributeName',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Giá trị',
         dataIndex:'attributeValueName',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         xtype: 'actioncolumn',
         width: 50,

@@ -40,6 +40,10 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerView', {
                 keyup: 'onEndbuyerCodeFilterKeyup',
                 buffer: 500
             }
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     }, {
         text: 'Tên End Buyer',
@@ -58,38 +62,66 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerView', {
                 keyup: 'onEndbuyerNameFilterKeyup',
                 buffer: 500
             }
+        },
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     }, {
         text: 'Thành phố',
         dataIndex: 'city',
         width: 150,
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Địa chỉ',
         dataIndex: 'address',
         width: 150,
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Người đại diện',
         dataIndex: 'contactperson',
         width: 150,
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Email',
         dataIndex: 'email',
         width: 150,
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Điện thoại',
         dataIndex: 'phone',
         width: 150,
         flex: 1,
-        align: 'end'
+        align: 'end',
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         text: 'Màu đại diện',
         dataIndex: 'clsName',
         width: 150,
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     }, {
         xtype: 'actioncolumn',
         width: 50,

@@ -20,7 +20,11 @@ Ext.define('GSmartApp.view.pcontract.PContractAttributeView', {
     columns:[{
         text:'Tên thuộc tính',
         dataIndex:'attributeName',
-        width: 150
+        width: 150,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Giá trị',
         dataIndex:'attributeValueName',
