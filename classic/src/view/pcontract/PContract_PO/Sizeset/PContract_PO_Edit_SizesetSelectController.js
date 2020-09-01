@@ -50,6 +50,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
 
         var me = this.getView();
         var po = p_viewmodel.get('po');
+
         var po_pricelist = po.pcontract_price;
         var select = me.getSelectionModel().getSelection();   
 
