@@ -78,8 +78,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         })
     },
     onPriceDItemBeforeEdit: function(editor, e){
-        console.log(editor);
-        console.log(e.record.data)
         var priceD_data = e.record.data;
         if (priceD_data.fobpriceid_link == 1 && e.field != 'price'){
             return false;
@@ -90,6 +88,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     onPriceDItemEdit: function(editor, e){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
+        po_data.exchangerate = parseFloat(po_data.exchangerate.toString().replace(/,/gi,''));
+
         var Price_DStore = viewmodel.getStore('Price_DStore');
         var priceD_data = e.record.data;
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
@@ -281,6 +281,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     onExchangeRateChange: function () {
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
+        po_data.exchangerate = parseFloat(po_data.exchangerate.toString().replace(/,/gi,''));
+
         var priceStore = viewmodel.getStore('PriceStore');
         for(var k =0; k<priceStore.data.length; k++){
             var price_data = priceStore.data.items[k].data;
@@ -417,6 +419,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         //Hien lai thong tin tren SumUp cua Siseset dc chon sau khi tinh toan lai
         var price_data = viewmodel.get('po_price');
+        po_data.exchangerate = parseFloat(po_data.exchangerate.toString().replace(/,/gi,''));
         price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
         viewmodel.set('po_price',price_data);
      }

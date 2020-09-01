@@ -162,12 +162,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             }
         },       
         {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
             fieldStyle: 'font-size:11px;text-align:right',
-            hideTrigger:true,
             width: 120,
             cls: 'inputBoxNarror',
+            vtype: 'dollar',
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
             bind: {
