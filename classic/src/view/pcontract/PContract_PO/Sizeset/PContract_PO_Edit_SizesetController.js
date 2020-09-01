@@ -66,13 +66,45 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
                         for (i=0; i< colDel.items.length; i++){
                             me.calPrice_SizesetAll(colDel.items[i].data.productid_link);
                         }
+                        me.recalculate_amount();
                         me.calPrice_PairProduct();
                     }
                 }
             });
         }
     },
-    
+    recalculate_amount: function(){
+        var viewmodel = this.getViewModel();
+        var priceStore = viewmodel.getStore('PriceStore');
+
+        var length = priceStore.data.length;
+        var amount_fix = 0; //Lay nhung dai co da fix
+        var count = 0; //Dem de biet co bao nhieu dai co chua fix
+        for(var i=1; i< length; i++){
+            var record = priceStore.data.items[i];
+            if(record.get('is_fix')){
+                amount_fix += record.get('quantity');
+            }
+            else
+            count++;
+        }
+        var total_amount = priceStore.data.items[0].get('quantity');
+        if(count>0){
+            var amount = (total_amount - amount_fix) / count;
+
+            priceStore.clearFilter();
+            length = priceStore.data.length;
+            for(var i=1; i< length; i++){
+                var record = priceStore.data.items[i];
+                if(record.get('sizesetid_link') != 1 && !record.get('is_fix')){
+                    record.set('quantity',amount);
+                }
+            };
+
+        }
+
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+    },
     onItemSelect: function(m, rec){
         var viewModel = this.getViewModel();
         viewModel.set('po_price', rec.data);
@@ -90,9 +122,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
             var rec = priceStore.data.items[i];
             if(rec.data.sizesetid_link == record.data.sizesetid_link) 
                 rec.set('is_fix',checked);
-            else {
-
-            }
         };
 
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
