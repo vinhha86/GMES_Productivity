@@ -136,10 +136,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             width: '35%',
             items:[
                 {
-                    xtype: 'numberfield',
+                    xtype: 'textfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
-                    hideTrigger:true,
                     fieldLabel: 'Sew Target:',
                     labelAlign: 'left',
                     labelWidth: 70,
@@ -149,7 +148,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                         value: '{po_price.price_sewingtarget}',
                         readOnly: '{isSewPriceReadonly}'
                     },
-                    decimalPrecision: 3       
+                    vtype: 'dollar'
                 }                
             ]
         },        
