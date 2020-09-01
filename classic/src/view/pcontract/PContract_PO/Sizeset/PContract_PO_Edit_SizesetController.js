@@ -127,7 +127,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     },
     onSizesetItemEdit: function(editor, context){
+
         var viewmodel = this.getViewModel();
+        if(context.value == context.originalValue){
+            return;
+        }
+
         var priceStore = viewmodel.getStore('PriceStore');
         var price_data = context.record.data;
 
@@ -140,19 +145,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var length = priceStore.data.length;
         var amount_fix = 0; //Lay nhung dai co da fix
         var count = 0; //Dem de biet co bao nhieu dai co chua fix
+        var last_amount = 0;
+
+        var last_rec = new Object(); // lay dong cuoi cung ko fix ma khong phai dong dang sua
         for(var i=1; i< length; i++){
             var record = priceStore.data.items[i];
             if(record.get('is_fix')){
                 amount_fix += record.get('quantity');
             }
-            else
-            count++;
+            else{
+                count++;
+                if(record.data.sizesetid_link != price_data.sizesetid_link){
+                    last_rec = record;
+                }
+            }
         }
         var total_amount = priceStore.data.items[0].get('quantity');
         var amount = context.value;
         if(count>1){
-            amount = (total_amount - amount_fix - context.value) / (count-1);
-        }
+            amount = Math.ceil((total_amount - amount_fix - context.value) / (count-1));
+            last_amount = total_amount - amount_fix - context.value - (count-2)*amount;
+        };
 
         priceStore.clearFilter();
         length = priceStore.data.length;
@@ -162,7 +175,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
                 record.set('quantity',context.value);
             else {
                 if(record.get('sizesetid_link') != 1 && !record.get('is_fix')){
-                    record.set('quantity',amount);
+                    if(last_rec != null){
+                        if(last_rec.get('sizesetid_link') == record.get('sizesetid_link')){
+                            record.set('quantity', last_amount);
+                        }
+                        else 
+                        record.set('quantity',amount);
+                    }
                 }
             }
         };
