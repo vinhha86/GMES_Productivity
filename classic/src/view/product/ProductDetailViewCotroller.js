@@ -73,6 +73,9 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
         data.usercreateid_link = 0;
         data.timecreate = '';
 
+        //Lay ten san pham = ten Buyer SP
+        data.name = data.buyername;
+
         delete data.designerName;
         delete data.productAttribute;
 

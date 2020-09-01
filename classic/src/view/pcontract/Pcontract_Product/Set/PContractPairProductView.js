@@ -22,9 +22,9 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
         store:'{PContractProductPairStore}'
     },
     columns:[{
-        text:'Mã Buyer',
+        text:'Mã SP (Buyer)',
         dataIndex:'productpairCode',
-        width: 80,
+        width: 100,
         editor:{
             xtype:'textfield',
             selectOnFocus: true

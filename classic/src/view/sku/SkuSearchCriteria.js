@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                     queryMode: 'local',
                     fieldLabel: "Phân loại:",
                     allowBlank: false,
-                    labelWidth: 80,
+                    labelWidth: 90,
                     blankText: 'Không được để trống',
                     bind:{
                         store: '{ProductTypeStore}',
@@ -45,10 +45,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                     items: [
                         {
                             xtype: 'textfield',
-                            flex: 1,
+                            width: 190,
                             reference:'skusearch_code',
-                            fieldLabel: 'Mã Buyer:',
-                            labelWidth: 80,
+                            fieldLabel: 'Mã SP (Buyer):',
+                            labelWidth: 90,
                             hideLabel: false,
                             bind: '{code}'
                         },
@@ -57,8 +57,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                             flex: 1,
                             margin: '0 0 0 5',
                             reference:'skusearch_partnercode',
-                            fieldLabel: 'KH/NCC:',
-                            labelWidth: 70,
+                            fieldLabel: 'Mã NCC:',
+                            labelWidth: 60,
                             hideLabel: false,
                             bind: '{partnercode}'
                         },
@@ -73,9 +73,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                     valueField: 'id',
                     displayField: 'name',
                     queryMode: 'local',
-                    fieldLabel: "Endbuyer",
+                    fieldLabel: "Buyer",
                     selectOnFocus: true,
-                    labelWidth: 80,
+                    labelWidth: 90,
                     bind:{
                         store: '{OrgStore}',
                         value: '{orgcustomerid_link}',

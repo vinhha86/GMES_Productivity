@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
         stripeRows: false,
     },                  
     columns: [
-        { header: 'Mã Buyer', dataIndex: 'buyercode', width: 100,
+        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 100,
             summaryType: 'count',
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
