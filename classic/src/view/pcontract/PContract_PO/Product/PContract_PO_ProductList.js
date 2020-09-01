@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     reference: 'PContract_DeliveryPlan_ProductList',
     columns:[
         {
-            text:'Mã Buyer (SP)',
+            text:'Mã SP (Buyer)',
             xtype: 'treecolumn',
             dataIndex:'code',
             width: 120,
@@ -44,8 +44,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
             
         },
         {
-            text:'Mô tả',
-            dataIndex:'info',
+            text:'Tên SP (Buyer)',
+            dataIndex:'text',
             flex: 1,
             items: {
                 xtype: 'textfield',

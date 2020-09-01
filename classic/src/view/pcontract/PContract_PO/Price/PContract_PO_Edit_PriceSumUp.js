@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     bind: {
                         value: '{po_price.price_cmp}'
                     },
-                    decimalPrecision: 4
+                    decimalPrecision: 3
                 }, 
                 // {
                 //     xtype: 'numberfield',
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     bind: {
                         value: '{po_price.price_fob}'
                     },
-                    decimalPrecision: 4
+                    decimalPrecision: 3
                 }, 
                 // {
                 //     xtype: 'numberfield',
