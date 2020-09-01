@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
             items:[{
                 xtype:'textfield',
                 margin: 1,
-                fieldLabel: "Mã Buyer (<span style = 'color: red'>*</span>)",
+                fieldLabel: "Mã SP (Buyer) (<span style = 'color: red'>*</span>)",
                 bind:{
                     value : '{product.buyercode}'
                 },
@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                 height: 32,
                 width: 400,
                 tooltip:'Nhập tên Buyer',
-                fieldLabel: "Tên Buyer",
+                fieldLabel: "Tên SP (Buyer)",
                 bind:{
                     value : '{product.buyername}'
                 },
