@@ -105,7 +105,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         } else {
             //Tinh gia theo dinh muc va gia don vi
             if (e.colIdx == 1 || e.colIdx == 3)
-                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,4);
+                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
         }
         
         //SUM FOB Price
@@ -190,11 +190,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         if (sum_quantity > 0){
             for(var k =0; k<priceStore.data.length; k++){
                 var price_SizesetALL = priceStore.data.items[k].data;
-                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp/sum_quantity,4);
-                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob/sum_quantity,4);
+                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp/sum_quantity,3);
+                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob/sum_quantity,3);
                 price_SizesetALL.price_sewingtarget = Math.round(sum_price_sewingtarget/sum_quantity);
                 price_SizesetALL.price_sewingcost =Math.round(sum_price_sewingcost/sum_quantity);
-                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice/sum_quantity,4);
+                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice/sum_quantity,3);
                 // console.log(price_SizesetALL);
             };  
         }
