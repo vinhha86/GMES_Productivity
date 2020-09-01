@@ -47,8 +47,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
         var p_viewmodel = parent.getViewModel();
         var productStore = p_viewmodel.getStore('ProductStore');
         var priceStore = p_viewmodel.getStore('PriceStore');
-        console.log(priceStore);
-
 
         var me = this.getView();
         var po = p_viewmodel.get('po');
@@ -67,8 +65,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
 
             return;
         } else {
-            
-
             
             for (var i = 0; i < select.length; i++) {
                 var data = select[i].data;

@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         dataIndex: 'quota',
         width: 70,
         xtype: 'numbercolumn',
-        format: '0.0000',
+        format: '0.000',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.0000')
+            return Ext.util.Format.number(value, '0.000')
         }
     },  
     {
@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         dataIndex: 'unitprice',
         width: 70,
         xtype: 'numbercolumn',
-        format: '0.0000',
+        format: '0.000',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.0000')
+            return Ext.util.Format.number(value, '0.000')
         }
     },  
     {
@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         dataIndex: 'price',
         width: 80,
         xtype: 'numbercolumn',
-        format: '0.0000',
+        format: '0.000',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.0000')
+            return Ext.util.Format.number(value, '0.000')
         }
     },    
     {

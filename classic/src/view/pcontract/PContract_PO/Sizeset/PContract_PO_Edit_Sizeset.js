@@ -31,18 +31,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
         store:'{PriceStore}'
     },
     columns:[{
+        xtype: 'checkcolumn',
+        dataIndex : 'is_fix',
+        width: 25,
+        listeners: {
+            checkchange: 'onCheckSizeSet'
+        }
+    },{
         header:'Dải cỡ',
         dataIndex:'sizesetname',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         header:'SL',
         align: 'end',
-        width: 80,
+        width: 70,
         dataIndex:'quantity',
         renderer: 'renderValue',
         // summaryType: 'sum', 
         // summaryRenderer: 'renderSum',
-        editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false}
+        getEditor: function (record) {
+            if (!record.get('is_fix')) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false
+                    }
+                })
+            }
+        }
 
     },
     {

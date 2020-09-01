@@ -80,29 +80,63 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var Price_DStore = viewModel.getStore('Price_DStore');
         Price_DStore.loadData(rec.data.pcontract_price_d);
     },
-    onSizesetItemEdit: function(editor, e){
+    onCheckSizeSet: function(col, rowIndex, checked, record, e, eOpts){
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
-        var price_data = e.record.data;
 
         priceStore.clearFilter();
+        var length = priceStore.data.length;
+        for(var i=1; i< length; i++){
+            var rec = priceStore.data.items[i];
+            if(rec.data.sizesetid_link == record.data.sizesetid_link) 
+                rec.set('is_fix',checked);
+            else {
+
+            }
+        };
+
+        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+    },
+    onSizesetItemEdit: function(editor, context){
+        var viewmodel = this.getViewModel();
+        var priceStore = viewmodel.getStore('PriceStore');
+        var price_data = context.record.data;
+
+        // priceStore.clearFilter();
         var total = 0;
         // priceStore.each(function (record) {
         //     //Neu la lenh moi (sencha tu sinh id) --> set = null
         //     if(record.data.sizesetid_link == price_data.sizesetid_link) record.data.quantity = price_data.quantity;
         // });
         var length = priceStore.data.length;
+        var amount_fix = 0; //Lay nhung dai co da fix
+        var count = 0; //Dem de biet co bao nhieu dai co chua fix
         for(var i=1; i< length; i++){
             var record = priceStore.data.items[i];
-            if(record.data.sizesetid_link == price_data.sizesetid_link) record.data.quantity = price_data.quantity;
-
-            if(i<length-1){
-                total+= record.data.quantity;
+            if(record.get('is_fix')){
+                amount_fix += record.get('quantity');
             }
+            else
+            count++;
         }
-        var rec = priceStore.data.items[length-1];
-        var recAll = priceStore.data.items[0];
-        rec.set('quantity', recAll.data.quantity - total);
+        var total_amount = priceStore.data.items[0].get('quantity');
+        var amount = context.value;
+        if(count>1){
+            amount = (total_amount - amount_fix - context.value) / (count-1);
+        }
+
+        priceStore.clearFilter();
+        length = priceStore.data.length;
+        for(var i=1; i< length; i++){
+            var record = priceStore.data.items[i];
+            if(record.data.sizesetid_link == price_data.sizesetid_link) 
+                record.set('quantity',context.value);
+            else {
+                if(record.get('sizesetid_link') != 1 && !record.get('is_fix')){
+                    record.set('quantity',amount);
+                }
+            }
+        };
 
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     },
@@ -125,7 +159,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
     },
     //Cong don cho sizeset ALL theo binh quan gia quyen
     calPrice_SizesetAll: function(productid){
-        console.log(productid);
         var viewmodel = this.getViewModel();
         // if (viewmodel.get('isproductpair') == 1){
         var priceStore = viewmodel.getStore('PriceStore');

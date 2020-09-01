@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                         store: '{ProductStore}',
                         value: '{product_selected_id_link}'
                     },
-                    displayField: 'name',
+                    displayField: 'code',
                     valueField: 'id',
                     queryMode : 'local'
                 },
