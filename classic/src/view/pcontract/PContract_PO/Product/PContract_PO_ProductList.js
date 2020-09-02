@@ -9,6 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         columnLines: true,
         rowLines: true
     },
+    indent: 0,
     selModel: {
         //selType: 'checkboxmodel',
         mode: 'SINGLE'
@@ -39,6 +40,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
             },
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
+                if(record.data.parent_id != 0){
+                    return '- ' + value;
+                }
                 return value;
             }
             
