@@ -196,7 +196,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 },{
                     text:'Phân xưởng',
                     dataIndex:'factories',
-                    flex: 1
+                    flex: 1,
+                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
                 },{
                     xtype: 'actioncolumn',
                     width: 25,

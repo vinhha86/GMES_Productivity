@@ -67,6 +67,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         form.down('#Form_SelectOrg_PorderReq').getController().on('Chon', function(){
             var storePO = viewmodel.getStore('porderReqStore');
             storePO.load();
+            var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
+            PContractProductPOStore.load();
             form.close();
         })
     },
