@@ -85,6 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     },
     {
         text:'Số ngày SX',
+        align: 'right',
         dataIndex:'productiondays',
         width: 70
     },
