@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             width: '20%',
             items:[
                 {
-                    xtype: 'numberfield',
+                    xtype: 'new_numberfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
                     hideTrigger:true,
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             width: '20%',
             items:[
                 {
-                    xtype: 'numberfield',
+                    xtype: 'new_numberfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
                     hideTrigger:true,
@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             width: '25%',
             items:[
                 {
-                    xtype: 'numberfield',
+                    xtype: 'new_numberfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
                     hideTrigger:true,
@@ -109,7 +109,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     bind: {
                         value: '{po_price.totalprice}'
                     },
-                    decimalPrecision: 3
+                    decimalPrecision: 3,
+                    allowOnlyWhitespace: false
                 }, 
                 // {
                 //     xtype: 'numberfield',
