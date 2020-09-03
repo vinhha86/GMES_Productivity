@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     columns:[{
         text:'Mã Buyer (SP)',
         dataIndex:'productbuyercode',
-        flex: 1,
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         text:'Ngày giao',
         dataIndex:'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 80
+        width: 75
     },{
         text:'SL',
         align: 'end',

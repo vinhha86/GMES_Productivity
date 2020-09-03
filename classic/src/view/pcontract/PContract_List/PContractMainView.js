@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         }
     },  
     {
-        text: 'PO',
+        text: 'PO Buyer',
         dataIndex: 'polist',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
@@ -69,13 +69,13 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     {
         text: 'Ngày lập',
         dataIndex: 'contractdate',
-        width: 80,
-        renderer: Ext.util.Format.dateRenderer('d/m/Y')
+        width: 75,
+        renderer: Ext.util.Format.dateRenderer('d/m/y')
     }, 
     {
         text: 'Người lập',
         dataIndex: 'usercreatedName',
-        width: 100,
+        width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -137,7 +137,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         },{
             xtype: 'combo',
             labelWidth: 0,
-            emptyText:'EndBuyer',
+            emptyText:'Buyer',
             bind: {
                 store : '{EndBuyer}'
             },
@@ -161,9 +161,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
-            emptyText: "Mã Buyer",
+            emptyText: "Mã SP (Buyer)",
             itemId: 'style',
-            width: 120
+            width: 150
         },{
             xtype:'textfield',
             labelWidth: 0,

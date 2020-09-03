@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },
     columns:[{
         text: 'STT',
-        width: 45,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     },{
@@ -66,11 +66,11 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'Cỡ',
         dataIndex:'coSanPham',
-        width: 50
+        width: 65
     },{
         text:'SL đơn',
         dataIndex:'pquantity_porder',
-        width: 65,
+        width: 62,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'SL SX',
         dataIndex:'pquantity_production',
-        width: 65,
+        width: 62,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -126,7 +126,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     },{
         text:'SL Tổng',
         dataIndex:'pquantity_total',
-        width: 75,
+        width: 70,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
