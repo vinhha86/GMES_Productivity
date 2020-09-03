@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     columns:[{
         text:'PO Buyer',
         dataIndex:'po_buyer',
-        width: 100,
+        width: 110,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         text:'SL',
         align: 'right',
         dataIndex:'po_quantity',
-        width: 90,
+        width: 60,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
@@ -135,6 +135,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             widget: 
             {
                 xtype: 'grid',
+                viewConfig: {
+                    stripeRows: false
+                },                
                 bind: {
                     store: '{record.sub_po}',
                     // title: 'Danh sách hàng xuất'
@@ -142,7 +145,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 columns:[{
                     text:'PO Buyer',
                     dataIndex:'po_buyer',
-                    width: 100
+                    width: 110
                 },{
                     text:'PO Vendor',
                     dataIndex:'po_vendor',
@@ -151,7 +154,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text:'SL',
                     align: 'end',
                     dataIndex:'po_quantity',
-                    width: 90,
+                    width: 60,
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
                     }
@@ -159,7 +162,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text:'YCSX',
                     align: 'end',
                     dataIndex:'amount_org',
-                    width: 90,
+                    width: 70,
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
                     }
@@ -193,7 +196,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 },{
                     text:'Số ngày SX',
                     dataIndex:'productiondays',
-                    width: 70
+                    width: 65
                 },{
                     text:'Phân xưởng',
                     dataIndex:'factories',
