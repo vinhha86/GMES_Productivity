@@ -35,13 +35,13 @@ Ext.define('GSmartApp.view.sku.SkuList', {
                 return value;
             }
         },
-        { header: 'Mã vạch', dataIndex: 'barcode', width: 110,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            }
-        },
-        { header: 'Màu', dataIndex: 'color_name', width: 70,
+        // { header: 'Mã vạch', dataIndex: 'barcode', width: 110,
+        //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        //         metaData.tdAttr = 'data-qtip="' + value + '"';
+        //         return value;
+        //     }
+        // },
+        { header: 'Màu', dataIndex: 'color_name', flex: 1,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;

@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     }, {
         text: 'Mã lệnh',
         dataIndex: 'ordercode',
-        flex: 1,
+        width: 120,
         renderer: function (value, metaData, record, rowIndex) {
             var c = record.get('status');
             if(c == 0){
@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     {
         text: 'Mã SP (Buyer)',
         dataIndex: 'stylebuyer',
-        flex: 1,
+        width: 120,
         // items: {
         //     xtype: 'textfield',
         //     fieldStyle: "",
@@ -91,9 +91,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         }
     },       
     {
-        text: 'PO',
+        text: 'PO Buyer',
         dataIndex: 'po_buyer',
-        width: 100,
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     }, {
         text: 'Trạng thái',
         dataIndex: 'statusName',
-        flex: 1,
+        width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -188,7 +188,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 queryMode: 'local',
                 editable: true,
                 allowBlank: true,
-                emptyText: 'Tên buyer',
+                emptyText: 'Buyer',
                 margin: 5,
                 // flex: 1,
                 width: 130,
@@ -201,8 +201,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // flex: 1,
                 width: 130,
                 allowBlank: true,
-                blankText: 'PO buyer',
-                emptyText: 'PO buyer'
+                blankText: 'PO Buyer',
+                emptyText: 'PO Buyer'
             },
             {
                 xtype:'combobox',
@@ -215,7 +215,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 queryMode: 'local',
                 editable: true,
                 allowBlank: true,
-                emptyText: 'Tên vendor',
+                emptyText: 'Vendor',
                 margin: 5,
                 // flex: 1,
                 width: 130,
