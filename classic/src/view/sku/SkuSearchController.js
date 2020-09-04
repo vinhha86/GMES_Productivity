@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         if(viewModel.get('productid_link') != 0){
             var SkuStore = viewModel.getStore('SkuStore');
             var productid_link = viewModel.get('productid_link');
-            SkuStore.loadByProduct(productid_link);
+            SkuStore.loadByProduct(productid_link, true);
             SkuStore.sort([
                 {property :'color_name', direction: 'ASC'},
                 {property :'sort_size', direction: 'ASC'}
