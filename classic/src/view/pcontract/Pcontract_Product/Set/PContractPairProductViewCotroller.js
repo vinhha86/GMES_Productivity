@@ -136,7 +136,10 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
         var data = context.record.data;
         var mes = "";
         if (data.productpairCode == "" || data.productpairCode == null) {
-            mes = "Bạn chưa nhập mã của bộ sản phẩm";
+            mes = "Bạn chưa nhập mã (Buyer) của bộ sản phẩm";
+        }
+        if (data.productpairVendorCode == "" || data.productpairVendorCode == null) {
+            mes = "Bạn chưa nhập mã (Vendor) của bộ sản phẩm";
         }
 
         if (mes == "") {
@@ -144,6 +147,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
             params.id = data.productpairid_link;
             params.name = data.productpairName;
             params.code = data.productpairCode;
+            params.vendorCode = data.productpairVendorCode;
 
             GSmartApp.Ajax.post('/api/v1/product/update_productpair', Ext.JSON.encode(params),
                 function (success, response, options) {
@@ -176,6 +180,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
                     yes: 'Đóng',
                 }
             });
+            context.record.set(context.field, context.originalValue);
         }
 
     }
