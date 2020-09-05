@@ -31,6 +31,7 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
         orgtypeid_link: null,
         colorid_link: null,
         status: null,
+        costpersec: null,
         //
         fieldState: false
     },
@@ -51,6 +52,13 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
             }else{
                 return null;
             }
-        }
+        },
+        isProductionLine: function(get){
+            if (get('orgtypeid_link')==14){
+                return true;
+            }else{
+                return false;
+            }
+        },
     }
 })

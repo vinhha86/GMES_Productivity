@@ -145,6 +145,23 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         queryMode: 'local',
         editable: false
     },{
+        xtype:'numberfield',
+        margin: 5,
+        fieldLabel: 'Đơn giá/ giây',
+        allowBlank: true,
+        hideTrigger:true,
+        minValue: 0,
+        fieldStyle:{
+            'text-align':'right',
+            'color': 'blue'
+        },
+        bind:{
+            value :'{costpersec}',
+            visible: '{isProductionLine}'
+        },
+        width: 400,
+        labelWidth: 105
+    },{
         width:400,
         margin: 5,
         labelWidth: 105,

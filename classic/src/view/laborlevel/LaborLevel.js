@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.laborlevel.LaborLevel', {
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 2
+            clicksToEdit: 1
         }
     },
     reference: 'LaborLevel',
@@ -89,6 +89,28 @@ Ext.define('GSmartApp.view.laborlevel.LaborLevel', {
                 listeners:{
                     change:'onChangeName',
                     focusleave:'onFocusLeaveName'
+                }
+            }
+        }
+    },{
+        text:'Hệ số',
+        dataIndex:'rate',
+        flex: 1,
+        align: 'end',
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'numberfield',
+                allowDecimals: true,
+                hideTrigger:true,
+                itemId:'txtRate',
+                fieldStyle:{
+                    'text-align':'right',
+                    'color': 'blue'
+                },
+                listeners:{
+                    change:'onChangeRate',
+                    focusleave:'onFocusLeaveRate'
                 }
             }
         }

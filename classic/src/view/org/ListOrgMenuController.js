@@ -28,6 +28,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         viewModel.set('orgtypeid_link', record.data.orgtypeid_link);
         viewModel.set('colorid_link', record.data.colorid_link);
         viewModel.set('status', record.data.status);
+        viewModel.set('costpersec', record.data.costpersec);
         //
         viewModel.set('fieldState', true);
     },
