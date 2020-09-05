@@ -41,7 +41,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         PackingTypeStore:{
             type: 'PackingTypeStore'
-        }
+        },
+        QCOrgStore: {
+            type: 'orgstore'
+        },
     },
     data: {
         id: null,
