@@ -10,6 +10,9 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
+        '#btnSort': {
+            click: 'onSort'
+        },
         '#btnXoa': {
             click: 'onXoa'
         },
@@ -302,10 +305,16 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
     onDrop: function(node, data, dropRec, dropPosition){
         var store = this.getViewModel().getStore('AttributeValueStore');
         var arrData = [];
-        store.each(function(rec,ind){
-            rec.set('sortvalue',ind+1);
+        // store.each(function(rec,ind){
+        //     rec.set('sortvalue',ind+1);
             
-            arrData.push(rec.data);
+        //     arrData.push(rec.data);
+        // });
+        store.each(function(rec,ind){
+            var temp = new Object();
+            temp.id = rec.get('id');
+            temp.sortvalue = ind+1;
+            arrData.push(temp);
         });
 
         var params = new Object();
@@ -328,5 +337,41 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
                     });
                 }
             })
-    }    
+    },
+    onSort: function (){
+        var store = this.getViewModel().getStore('AttributeValueStore');
+        store.sort('value','ASC');
+
+        var arrData = [];
+
+        store.each(function(rec,ind){
+            var temp = new Object();
+            temp.id = rec.get('id');
+            temp.sortvalue = ind+1;
+            arrData.push(temp);
+        });
+        store.sorters.clear();
+
+        var params = new Object();
+        params.msgtype = "ATTRIBUTEVALUE_REORDER";
+        params.message = "Sap xep thuoc tinh";
+        params.data = arrData;
+
+        GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_reorder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    store.load();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    store.load();
+                }
+            })
+    }
 })

@@ -34,8 +34,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
     columns: [{
         text: 'STT',
         width: 50,
-        // xtype: 'rownumberer',
-        dataIndex: 'sortvalue',
+        xtype: 'rownumberer',
+        // dataIndex: 'sortvalue',
         align: 'center'
     }, {
         text: 'Giá trị',
@@ -107,6 +107,12 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             flex: 1,
             allowBlank: false,
             blankText: 'Nhập giá trị thuộc tính để thêm mới'
+        }, {
+            xtype: 'button',
+            margin: 5,
+            text: 'Sắp xếp A-Z',
+            width: 100,
+            itemId: 'btnSort'
         }]
     }]
 });
