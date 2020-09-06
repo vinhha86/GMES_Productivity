@@ -14,6 +14,8 @@ Ext.define('GSmartApp.view.laborlevel.LaborLevelViewModel', {
         oldCode: null,
         newCode: null,
         oldComment: null,
-        newComment: null
+        newComment: null,
+        oldRate: null,
+        newRate: null
     }
 })

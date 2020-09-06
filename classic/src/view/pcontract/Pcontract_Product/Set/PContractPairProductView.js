@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
     columns:[{
         text:'Mã SP (Buyer)',
         dataIndex:'productpairCode',
-        width: 100,
+        flex: 1,
         editor:{
             xtype:'textfield',
             selectOnFocus: true
@@ -34,8 +34,8 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
             return value;
         }
     },{
-        text:'Tên bộ SP',
-        dataIndex:'productpairName',
+        text:'Mã SP (Vendor)',
+        dataIndex:'productpairVendorCode',
         flex: 1,
         editor:{
             xtype:'textfield',
@@ -47,10 +47,15 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
         }
     },{
         xtype: 'actioncolumn',
-        width: 50,
+        width: 60,
         menuDisabled: true,
         sortable: false,
         items: [{
+            iconCls: 'x-fa fas fa-info-circle',
+            getTip : function(value, metaData, record){
+                return record.data.productpairName;
+            },
+        },{
             iconCls: 'x-fa fas fa-edit',
             tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
             handler: 'onEdit'

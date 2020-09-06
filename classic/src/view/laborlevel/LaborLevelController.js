@@ -232,6 +232,30 @@ Ext.define('GSmartApp.view.laborlevel.LaborLevelController', {
         // console.log(viewModel.get('currentName'));
         // console.log(viewModel.get('currentRec').id);
     },
+    onChangeRate: function(textField, newValue, oldValue, eOpts){
+        let viewModel = this.getViewModel();
+        viewModel.set('newRate',newValue);
+    },
+    onFocusLeaveRate: function(textField, event, eOpts){
+        let me = this.getView();
+        let viewModel = this.getViewModel();
+        let newRate = viewModel.get('newRate');
+        let oldRate = viewModel.get('oldRate');
+
+        if(newRate==oldRate){
+            return;
+        }
+
+        let data = new Object();
+        data = viewModel.get('currentRec');
+        data.rate=newRate;
+
+        let params = new Object();
+        params.data = data;
+
+        me.setLoading("Đang lưu dữ liệu");
+        this.ThemMoi_CapNhat(params);
+    },
     onRowClick:function(row, record, element, rowIndex, e, eOpts){
         // console.log(record); 
         let viewModel = this.getViewModel();
@@ -242,6 +266,8 @@ Ext.define('GSmartApp.view.laborlevel.LaborLevelController', {
         viewModel.set('newCode',record.data.code);
         viewModel.set('oldComment',record.data.comment);
         viewModel.set('newComment',record.data.comment);
+        viewModel.set('oldRate',record.data.rate);
+        viewModel.set('newRate',record.data.rate);
     },
     onLaborLevelCodeFilterKeyup:function(){
         let filterField = this.lookupReference('laborLevelCodeFilter'),

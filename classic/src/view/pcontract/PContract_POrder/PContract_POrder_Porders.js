@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
     },
     columns:[
         {
-            header:'Mã Buyer',
+            header:'Mã SP(Buyer)',
             dataIndex:'stylebuyer',
             flex: 1,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {

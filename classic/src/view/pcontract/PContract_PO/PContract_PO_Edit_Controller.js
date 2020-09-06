@@ -12,6 +12,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         CurrencyStore.loadStore();
         var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
         PackingTypeStore.loadStore();
+        var QCOrgStore = viewmodel.getStore('QCOrgStore');
+        QCOrgStore.GetOrgByTypeId(16);
 
         var productStore = viewmodel.getStore('ProductStore');
         var productpairid_link = viewmodel.get('productpairid_link');

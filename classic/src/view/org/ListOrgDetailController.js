@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         viewModel.set('orgtypeid_link', null);
         viewModel.set('colorid_link', null);
         viewModel.set('status', null);
+        viewModel.set('costpersec', null);
     },
     onThemTrucThuoc: function(){
         // parentid_link
@@ -55,6 +56,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         data.linecost = viewModel.get('linecost');
         data.orgtypeid_link = viewModel.get('orgtypeid_link');
         data.colorid_link = viewModel.get('colorid_link');
+        data.costpersec = viewModel.get('costpersec');
         data.status = viewModel.get('status');
         if(data.status==true){
             data.status=1;
@@ -110,6 +112,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                             node.data.linecost = org.linecost;
                             node.data.orgtypeid_link = org.orgtypeid_link;
                             node.data.colorid_link = org.colorid_link;
+                            node.data.costpersec = org.costpersec;
                             node.data.status = org.status;
                         }
 

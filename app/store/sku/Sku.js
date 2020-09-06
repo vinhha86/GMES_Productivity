@@ -5,9 +5,14 @@ Ext.define('GSmartApp.store.Sku', {
 
     model: 'GSmartApp.model.Sku',
     autoLoad: false,
-    loadByProduct:function(productid_link){
+    loadByProduct:function(productid_link, isremove){
         var param=new Object();
         param.productid_link = productid_link;
+        param.isremove = false;
+
+        if(isremove)
+            param.isremove = isremove;
+
         this.removeAll();
 
 		this.setProxy({

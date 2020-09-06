@@ -1,31 +1,16 @@
-Ext.define('GSmartApp.view.org.ListOrgDetail', {
+Ext.define('GSmartApp.view.qcorg.QCOrgDetailView', {
     extend: 'Ext.form.Panel',
-    xtype: 'ListOrgDetail',
-    id:'ListOrgDetail',
-    controller: 'ListOrgDetailController',
+    xtype: 'QCOrgDetailView', // same with database, 'PortDetailView' shows error
+    id:'QCOrgDetailView',
+    controller: 'QCOrgDetailViewController',
+    viewModel:{
+        type:'QCOrgViewModel'
+    },
     layout: 'vbox',
     bind:{
-        title: '{title}',
-        hidden : '{!fieldState}'
+        title: '{title}'
     },
-    // orgtypeid_link, parentid_link, linecost, colorid_link
     items: [{
-        width:400,
-        margin: 5,
-        labelWidth: 105,
-        xtype: 'combobox',
-        fieldLabel: 'Loại đơn vị ('+ '<span style="color:red">*</span>' + ')',
-        bind:{
-            store:'{OrgTypeStore}',
-            value:'{orgtypeid_link}'
-        },
-        displayField: 'name',
-        valueField: 'id',
-        queryMode: 'local',
-        editable: false,
-        allowBlank: false,
-        readOnly: true
-    },{
         xtype:'textfield',
         margin: 5,
         fieldLabel: 'Tên tắt ('+ '<span style="color:red">*</span>' + ')',
@@ -34,99 +19,95 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{code}'
+            value :'{currentRec.code}'
         },
         width: 400,
-        labelWidth: 105
+        itemId: 'code',
+        labelWidth: 105,
+        listeners: {
+            afterrender: function(field) {
+              field.focus(false, 1000);
+            }
+        }
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Tên đơn vị ('+ '<span style="color:red">*</span>' + ')',
+        fieldLabel: 'Tên đơn vị QC ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
         maxLength: 200,
         maxLengthText: 'Tối đa 200 ký tự',
         bind:{
-            value :'{name}'
+            value :'{currentRec.name}'
         },
         width: 400,
+        itemId: 'name',
         labelWidth: 105
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Thành phố ',
+        fieldLabel: 'Thành phố',
         allowBlank: true,
+        blankText : 'Không được để trống',
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{city}'
+            value :'{currentRec.city}'
         },
         width: 400,
         labelWidth: 105
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Địa chỉ ',
+        fieldLabel: 'Địa chỉ',
         allowBlank: true,
+        blankText : 'Không được để trống',
         maxLength: 200,
         maxLengthText: 'Tối đa 200 ký tự',
         bind:{
-            value :'{address}'
+            value :'{currentRec.address}'
         },
         width: 400,
         labelWidth: 105
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Người đại diện ',
+        fieldLabel: 'Người đại diện',
         allowBlank: true,
+        blankText : 'Không được để trống',
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{contactperson}'
+            value :'{currentRec.contactperson}'
         },
         width: 400,
         labelWidth: 105
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Email ',
+        fieldLabel: 'Email',
         allowBlank: true,
+        blankText : 'Không được để trống',
         vtype: 'email',
         vtypeText : 'Bạn phải nhập đúng định dạng email. Ví dụ name@example.com',
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            value :'{email}'
+            value :'{currentRec.email}'
         },
         width: 400,
         labelWidth: 105
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Điện thoại ',
+        fieldLabel: 'Phone',
         allowBlank: true,
+        blankText : 'Không được để trống',
         maskRe: /[0-9+-]/,
         maxLength: 20,
         maxLengthText: 'Tối đa 20 ký tự',
         bind:{
-            value :'{phone}'
-        },
-        width: 400,
-        labelWidth: 105
-    },{
-        xtype:'numberfield',
-        margin: 5,
-        fieldLabel: 'Line Cost ',
-        allowBlank: true,
-        hideTrigger:true,
-        minValue: 0,
-        fieldStyle:{
-            'text-align':'right',
-            'color': 'blue'
-        },
-        bind:{
-            value :'{linecost}'
+            value :'{currentRec.phone}'
         },
         width: 400,
         labelWidth: 105
@@ -138,56 +119,23 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         fieldLabel: 'Màu đại diện ',
         bind:{
             store:'{ColorStore}',
-            value:'{colorid_link}'
+            value:'{currentRec.colorid_link}'
         },
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
         editable: false
-    },{
-        xtype:'numberfield',
-        margin: 5,
-        fieldLabel: 'Đơn giá/ giây',
-        allowBlank: true,
-        hideTrigger:true,
-        minValue: 0,
-        fieldStyle:{
-            'text-align':'right',
-            'color': 'blue'
-        },
-        bind:{
-            value :'{costpersec}',
-            visible: '{isProductionLine}'
-        },
-        width: 400,
-        labelWidth: 105
-    },{
-        width:400,
-        margin: 5,
-        labelWidth: 105,
-        xtype: 'checkbox',
-        fieldLabel: 'Hoạt động ',
-        inputValue:1,
-        uncheckedValue:-1,
-        // checked:true,
-        bind: {
-            value:'{status}'
-        }
     }],
     dockedItems:[{
         layout:'hbox',
         border: false,
         dock:'bottom',
         items:[{
-            // xtype:'button',
-            // text: 'Thêm đơn vị trực thuộc',
-            // margin: 3,
-            // itemId:'btnThemDonViTrucThuoc',
-            // iconCls: 'x-fa fa-plus',
-            // formBind: false,
-            // bind:{
-            //     disabled:'{btnThemState}'
-            // }
+            xtype:'button',
+            text: 'Quay lại',
+            margin: 3,
+            itemId:'btnQuayLai',
+            iconCls: 'x-fa fa-backward'
         },{
             flex:1,
             border: false
@@ -196,6 +144,13 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuu',
+            iconCls: 'x-fa fa-save',
+            formBind: true
+        },{
+            xtype:'button',
+            text: 'Lưu và tạo mới',
+            margin: 3,
+            itemId:'btnLuuVaTaoMoi',
             iconCls: 'x-fa fa-save',
             formBind: true
         }]

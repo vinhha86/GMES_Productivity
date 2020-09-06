@@ -227,9 +227,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             listeners: {
                                 collapse: 'onProductionDateChange'
                             }
-                        },     
+                        },
+                        // {
+                        //     xtype: 'textfield',
+                        //     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        //     fieldStyle: 'font-size:11px;',
+                        //     fieldLabel: 'Đơn vị QC:',
+                        //     reference: 'poinfo_qcorgname',
+                        //     labelAlign: 'left',
+                        //     labelWidth: 78,
+                        //     flex:1,
+                        //     margin: 1,
+                        //     bind: {
+                        //         value: '{po.qcorgname}'
+                        //     }
+                        // },
                         {
-                            xtype: 'textfield',
+                            xtype: 'combobox',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;',
                             fieldLabel: 'Đơn vị QC:',
@@ -238,10 +252,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             labelWidth: 78,
                             flex:1,
                             margin: 1,
+                            displayField: 'code',
+                            valueField: 'name',
+                            queryMode: 'local',
+                            editable: true,
                             bind: {
+                                store: '{QCOrgStore}',
                                 value: '{po.qcorgname}'
                             }
-                        },                                           
+                        },
                     ]
                 }
             ]

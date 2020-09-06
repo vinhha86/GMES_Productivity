@@ -56,16 +56,25 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },  
+    },
     {
-        text: 'PO Buyer',
-        dataIndex: 'polist',
+        text: 'Mã SP (Vendor)',
+        dataIndex: 'productVendorCodelist',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },    
+    },
+    // {
+    //     text: 'PO Buyer',
+    //     dataIndex: 'polist',
+    //     flex: 1,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },    
     {
         text: 'Ngày lập',
         dataIndex: 'contractdate',
