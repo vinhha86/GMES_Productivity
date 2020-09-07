@@ -102,6 +102,62 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
                 },            
             ]
         }
-    ]
+    ],
+    dockedItems: [{
+        dock: 'bottom',
+        layout: 'hbox',
+        border: true,
+        items: [{
+            layout: 'vbox',
+            border: false,
+            flex: 1,
+            items: [{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-free"></div>&nbspChưa phân chuyền'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-granted"></div>&nbspĐã phân chuyền'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-ready"></div>&nbspChuẩn bị SX'
+                +'</div>',
+                margin: '5'
+            }]
+        },{
+            layout: 'vbox',
+            border: false,
+            flex: 1,
+            items: [{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-subprocess"></div>&nbspCông đoạn phụ'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-running"></div>&nbspĐang SX'
+                +'</div>',
+                margin: '5'
+            }]
+        },{
+            layout: 'vbox',
+            border: false,
+            flex: 1,
+            items: [{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-done"></div>&nbspSX xong'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square process-finish"></div>&nbspNhập kho xong'
+                +'</div>',
+                margin: '5'
+            }]
+        }]
+    }]
 });
 

@@ -31,8 +31,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Mã lệnh',
-        dataIndex: 'ordercode',
+        text: 'Mã Buyer',
+        dataIndex: 'buyercode',
         width: 120,
         renderer: function (value, metaData, record, rowIndex) {
             var c = record.get('status');
