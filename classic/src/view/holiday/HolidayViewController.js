@@ -12,6 +12,9 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         '#btnXoa': {
             click: 'onXoaNhieu'
         },
+        '#btnClone': {
+            click: 'onClone'
+        },
         '#HolidayView': {
             itemclick: 'onItemClick'
         }
@@ -153,6 +156,70 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
             }
         });
     },
+    onClone: function(){
+        let m = this.getView();
+        let me = this;
+        let data = this.lookupReference('yearsCboBox').getValue();
+        if(data == 'Tất cả'){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn cần phải chọn năm",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn muốn tạo mới ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    me.Clone(data);
+                }
+            }
+        });
+    },
+    Clone: function(data){
+        let me = this.getView();
+        me.setLoading("Đang tạo mới dữ liệu");
+        let params = new Object();
+        params.year = data;
+
+        GSmartApp.Ajax.post('/api/v1/holiday/clone', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Tạo mới thành công",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+
+                    let store = me.getStore();
+                    store.load();
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Tạo mới thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+    },
     onDateFocus: function(dateField, event, eOpts){
         // show picker
         let picker = dateField.getPicker();
@@ -165,6 +232,22 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         let viewModel = this.getViewModel();
         let data = viewModel.get('data');
         data.day = newValue;
+        viewModel.set('isChanged', true);
+        // console.log(oldValue);
+        // console.log(newValue);
+    },
+    onDateToFocus: function(dateField, event, eOpts){
+        // show picker
+        let picker = dateField.getPicker();
+        picker.monthYearFormat = 'm-yy';
+        dateField.expand();
+    },
+    onDateToChange: function(dateField, newValue, oldValue, eOpts){
+        // set date to data.day
+        let view = this.getView();
+        let viewModel = this.getViewModel();
+        let data = viewModel.get('data');
+        data.dayto = newValue;
         viewModel.set('isChanged', true);
         // console.log(oldValue);
         // console.log(newValue);
@@ -190,10 +273,20 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
 
             // console.log(data.day);
             // console.log(data.day.getTime());
-
-            let time = data.day.getTime();
+            let time, timeto;
+            if(data.day == null){
+                time = data.dayto.getTime();
+            }else{
+                time = data.day.getTime();
+            }
+            if(data.dayto == null){
+                timeto = data.day.getTime();
+            }else{
+                timeto = data.dayto.getTime();
+            }
             params.data = data;
             params.time = time;
+            params.timeto = timeto;
             ////////////////////////////////////////////
 
             params.msgtype = "HOLIDAY_CREATE";
@@ -245,17 +338,22 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
         let viewModel = this.getViewModel();
         viewModel.set('data', record.data);
         viewModel.set('isChanged', false);
-
-        // console.log(record.data);
     },
 
     //////////////////////////////// SECOND
 
-    onPopupWindowClicked: function(){
-        let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
-            IdPContract: 34
-        });
-        window.show();
-    }
+    // onPopupWindowClicked: function(){
+    //     let window = Ext.create('Ext.window.Window', {
+    //         title: 'Demo',
+    //         width: '90%',
+    //         height: 600,
+    //         layout: 'fit',
+    //         items: {  // Let's put an empty grid in just to illustrate fit layout
+    //             xtype: 'ProductionLineBalance',
+    //             border: false
+    //         }
+    //     });
+    //     window.show();
+    // }
 
 })

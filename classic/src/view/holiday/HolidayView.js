@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Ngày nghỉ',
+        text: 'Nghỉ từ',
         dataIndex: 'day',
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         flex: 1,
@@ -43,6 +43,24 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
                 listeners: {
                     focusenter: 'onDateFocus',
                     change: 'onDateChange',
+                    focusleave: 'onFocusLeave'
+                }
+            }
+        }
+    }, {
+        text: 'Nghỉ đến',
+        dataIndex: 'dayto',
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+        flex: 1,
+        editor:{
+            completeOnEnter: true,
+            field: {
+                xtype: 'datefield',
+                format: 'd/m/Y',
+                pickerAlign: 'tr-br?',
+                listeners: {
+                    focusenter: 'onDateToFocus',
+                    change: 'onDateToChange',
                     focusleave: 'onFocusLeave'
                 }
             }
@@ -81,6 +99,7 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
                 margin: 5,
                 labelWidth: 105,
                 xtype: 'combobox',
+                reference: 'yearsCboBox',
                 fieldLabel: 'Chọn theo năm',
                 bind:{
                     store:'{HolidayYearStore}'
@@ -112,6 +131,14 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
                 width: 110,
                 iconCls: 'x-fa fa-plus',
                 itemId: 'btnThemMoi'
+            },
+            {
+                xtype: 'button',
+                margin: 5,
+                text: 'Tạo ngày nghỉ mặc định',
+                width: 200,
+                iconCls: 'x-fa fa-plus',
+                itemId: 'btnClone'
             },
             {
                 xtype: 'button',
