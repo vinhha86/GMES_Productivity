@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_POList',
     // id:'PContract_POList',
-
+    controller: 'PContract_POListController',
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true,
@@ -39,7 +39,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        }
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'POBuyerFilter',
+            width: '98%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPOBuyerFilterKeyup',
+                buffer: 500
+            }
+        },
+
     },{
         text:'PO Vendor',
         dataIndex:'po_vendor',

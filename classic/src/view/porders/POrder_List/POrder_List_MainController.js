@@ -141,46 +141,25 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // }
         store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page);
     },
-    onOrdercodeFilterKeyup: function(){
-        var grid = this.getView(),
-            // Access the field using its "reference" property name.
-            filterField = this.lookupReference('ordercodeFilter'),
-            filters = this.getView().store.getFilters();
+    // onPOBuyerFilterKeyup:function(){
+    //     var grid = this.getView(),
+    //         filterField = this.lookupReference('POBuyerFilter'),
+    //         filters = this.getView().store.getFilters();
 
-        if (filterField.value) {
-            this.codeFilter = filters.add({
-                id: 'codeFilter',
-                property: 'ordercode',
-                value: filterField.value,
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.codeFilter) {
-            filters.remove(this.codeFilter);
-            this.codeFilter = null;
-        }
-    },
-    onStylebuyerFilterKeyup: function(){
-        var grid = this.getView(),
-            // Access the field using its "reference" property name.
-            filterField = this.lookupReference('stylebuyerFilter'),
-            filters = this.getView().store.getFilters();
-
-        if (filterField.value) {
-            this.codeFilter = filters.add({
-                id: 'styleFilter',
-                property: 'stylebuyer',
-                value: filterField.value,
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.codeFilter) {
-            filters.remove(this.codeFilter);
-            this.codeFilter = null;
-        }
-    },
+    //     if (filterField.value) {
+    //         this.POBuyerFilter = filters.add({
+    //             id: 'POBuyerFilter',
+    //             property: 'po_buyer',
+    //             value: filterField.value,
+    //             anyMatch: true,
+    //             caseSensitive: false
+    //         });
+    //     }
+    //     else if (this.POBuyerFilter) {
+    //         filters.remove(this.POBuyerFilter);
+    //         this.POBuyerFilter = null;
+    //     }
+    // },
     onitemdblclick: function (m, record, item, index, e, eOpts) {
         var id = record.data.id;
         this.redirectTo("porderlistmain/" + id + "/edit");

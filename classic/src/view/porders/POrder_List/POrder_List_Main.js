@@ -54,37 +54,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         },
-        // items: {
-        //     xtype: 'textfield',
-        //     fieldStyle: "",
-        //     reference: 'ordercodeFilter',
-        //     width: '98%',
-        //     // flex: 1,
-        //     margin: 2,
-        //     enableKeyEvents: true,
-        //     listeners: {
-        //         keyup: 'onOrdercodeFilterKeyup',
-        //         buffer: 500
-        //     }
-        // }
     }, 
     {
         text: 'Mã SP (Buyer)',
         dataIndex: 'stylebuyer',
         width: 120,
-        // items: {
-        //     xtype: 'textfield',
-        //     fieldStyle: "",
-        //     reference: 'stylebuyerFilter',
-        //     width: '98%',
-        //     // flex: 1,
-        //     margin: 2,
-        //     enableKeyEvents: true,
-        //     listeners: {
-        //         keyup: 'onStylebuyerFilterKeyup',
-        //         buffer: 500
-        //     }
-        // },
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -97,7 +71,20 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        }
+        },
+        // items: {
+        //     xtype: 'textfield',
+        //     fieldStyle: "",
+        //     reference: 'POBuyerFilter',
+        //     width: '98%',
+        //     flex: 1,
+        //     margin: 2,
+        //     enableKeyEvents: true,
+        //     listeners: {
+        //         keyup: 'onPOBuyerFilterKeyup',
+        //         buffer: 500
+        //     }
+        // },
     },     
     {
         text: 'Buyer',
