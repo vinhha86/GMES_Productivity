@@ -16,6 +16,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
         {name: 'golivedate', type: 'date', dateFormat: 'c'},
         {name: 'totalorder', type: 'string'},
 		{name: 'productiondate_plan', type: 'date', dateFormat: 'c'},
+		{name: 'startDatePlan', type: 'date', dateFormat: 'c'},
 		// {
 			// name: 'status', type: 'int',
 			// convert: function (value) {
