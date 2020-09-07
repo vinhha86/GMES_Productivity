@@ -78,7 +78,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,
-            selectOnFocus: true
+            selectOnFocus: true,
+            listeners: {
+                specialkey: 'onSpecialkey'
+            }
         },
         summaryType: 'sum',
         // summaryRenderer: function(value, summaryData, dataIndex) {

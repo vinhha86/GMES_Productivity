@@ -58,10 +58,14 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                     })
         }
     },
+    onSpecialkey: function( text, e, eOpts ){
+        console.log(e.keyCode);
+        if(e.keyCode == 9) e.stopEvent();
+    },
     onEdit: function(editor, context, e){
         var grid = this.getView();
-
         if(context.value == context.originalValue) return;
+        grid.setLoading("Đang xử lý");
 
         var viewmodel = this.getViewModel();
         var data = context.record.data;
@@ -77,6 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
 
         GSmartApp.Ajax.post('/api/v1/pcontractsku/update', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     var store = viewmodel.getStore('PContractSKUStore');
