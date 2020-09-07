@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
         }
     },{
         xtype: 'actioncolumn',
-        width: 60,
+        width: 65,
         menuDisabled: true,
         sortable: false,
         items: [{
