@@ -6,13 +6,13 @@ Ext.define('GSmartApp.view.packingtype.PackingType', {
         type: 'PackingTypeViewModel'
     },
     controller: 'PackingTypeController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     plugins: {
         cellediting: {
-            clicksToEdit: 2
+            clicksToEdit: 1
         }
     },
     reference: 'PackingType',

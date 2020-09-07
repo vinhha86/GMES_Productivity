@@ -6,13 +6,13 @@ Ext.define('GSmartApp.view.markettype.MarketType', {
         type: 'MarketTypeViewModel'
     },
     controller: 'MarketTypeController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     plugins: {
         cellediting: {
-            clicksToEdit: 2
+            clicksToEdit: 1
         }
     },
     reference: 'MarketType',

@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.laborlevel.LaborLevel', {
         type: 'LaborLevelViewModel'
     },
     controller: 'LaborLevelController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     plugins: {
         cellediting: {
             clicksToEdit: 1

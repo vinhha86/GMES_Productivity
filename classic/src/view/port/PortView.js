@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.Port.PortView', {
         type: 'PortViewModel'
     },
     controller: 'PortViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'PortView',
     viewConfig: {
         stripeRows: true,

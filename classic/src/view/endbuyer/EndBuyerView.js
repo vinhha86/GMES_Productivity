@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.endbuyer.EndBuyerView', {
         type: 'EndBuyerViewModel'
     },
     controller: 'EndBuyerViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'EndBuyerView',
     viewConfig: {
         stripeRows: true,

@@ -3,10 +3,10 @@ Ext.define('GSmartApp.view.currency.CurrencyGridView', {
     xtype: 'CurrencyGridView',
     id: 'CurrencyGridView',
     controller: 'CurrencyGridViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'CurrencyGridView',
     viewConfig: {
         stripeRows: true,

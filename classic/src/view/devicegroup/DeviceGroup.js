@@ -6,13 +6,13 @@ Ext.define('GSmartApp.view.devicegroup.DeviceGroup', {
         type: 'DeviceGroupViewModel'
     },
     controller: 'DeviceGroupController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     plugins: {
         cellediting: {
-            clicksToEdit: 2
+            clicksToEdit: 1
         }
     },
     reference: 'DeviceGroup',

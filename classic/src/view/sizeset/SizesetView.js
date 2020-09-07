@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
     reference: 'SizesetView',
     plugins: {
         cellediting: {
-            clicksToEdit: 2
+            clicksToEdit: 1
         }
     },
     selModel: {

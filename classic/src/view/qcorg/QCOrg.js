@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.qcorg.QCOrg', {
         type: 'QCOrgViewModel'
     },
     controller: 'QCOrgController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'QCOrg',
     viewConfig: {
         stripeRows: true,

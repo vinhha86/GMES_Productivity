@@ -6,13 +6,13 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
         type: 'FOBPriceViewViewModel'
     },
     controller: 'FOBPriceViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     plugins: {
         cellediting: {
-            clicksToEdit: 2
+            clicksToEdit: 1
         }
     },
     reference: 'FOBPriceView',

@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.provider.ProviderView', {
         type: 'ProviderViewModel'
     },
     controller: 'ProviderViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'ProviderView',
     viewConfig: {
         stripeRows: true,

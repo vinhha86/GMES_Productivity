@@ -7,10 +7,10 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountView', {
     },
     controller: 'PContractConfigAmountViewController',
     reference: 'PContractConfigAmountView',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     plugins: {
         cellediting: {
             clicksToEdit: 1

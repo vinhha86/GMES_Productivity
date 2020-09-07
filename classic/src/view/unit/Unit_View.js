@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.unit.Unit_View', {
         type: 'UnitViewModel'
     },
     controller: 'UnitViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'Unit_View',
     viewConfig: {
         stripeRows: true,

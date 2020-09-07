@@ -7,10 +7,10 @@ Ext.define('GSmartApp.view.taskgrant.TaskGrant', {
     },
     controller: 'TaskGrantController',
     reference: 'TaskGrant',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     viewConfig: {
         stripeRows: true,
         columnLines: true,

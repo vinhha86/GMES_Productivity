@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.vendor.VendorView', {
         type: 'VendorViewModel'
     },
     controller: 'VendorViewController',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     reference: 'VendorView',
     viewConfig: {
         stripeRows: true,

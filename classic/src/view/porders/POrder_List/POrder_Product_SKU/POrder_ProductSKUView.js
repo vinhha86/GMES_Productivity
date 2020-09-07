@@ -13,10 +13,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         columnLines: true,
         rowLines: true
     },
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
     features: [{
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
