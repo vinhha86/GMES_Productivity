@@ -131,7 +131,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         width: 70,
     }, {
         text: 'Vào chuyền',
-        dataIndex: 'startDatePlan',
+        dataIndex: 'productiondate_plan',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // flex: 1,
         width: 70,

@@ -4,8 +4,8 @@ Ext.define('GSmartApp.store.porder.POrder_ListGrantStore', {
 	fields: [
         {name: 'id', type: 'int'},
         {name: 'granttoorgname', type: 'string'},
-        {name: 'start_date_plan', type: 'date', dateFormat: 'c'},
-        {name: 'finish_date_plan', type: 'date', dateFormat: 'c'},
+        {name: 'start_date_plan', type: 'date'},
+        {name: 'finish_date_plan', type: 'date'},
         {name: 'grantamount', type: 'int'}
 	],
 	// groupField: 'ordercode',
