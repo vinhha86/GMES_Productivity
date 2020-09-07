@@ -211,7 +211,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             id: rec.get('id'),
                             orgbuyerid_link: viewmodel.get('PContract.orgbuyerid_link'),
                             orgid_link: rec.get('orgmerchandiseid_link'),
-                            userid_link: rec.get('merchandiserid_link')
+                            userid_link: rec.get('merchandiserid_link'),
+                            po_quantity: rec.get('po_quantity'),
+                            amount_org: rec.get('amount_org')
                         }
                     }
                 }

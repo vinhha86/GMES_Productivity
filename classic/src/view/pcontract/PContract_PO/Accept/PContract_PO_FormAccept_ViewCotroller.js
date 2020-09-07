@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
         var userStore = viewmodel.getStore('UserStore');
         userStore.loadUserbyOrg_Buyer(record.get('id'), viewmodel.get('po.orgbuyerid_link'));
     },
-    onAccept: function() {
+    onAccept: function(grid, rowIndex, colIndex) {
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
