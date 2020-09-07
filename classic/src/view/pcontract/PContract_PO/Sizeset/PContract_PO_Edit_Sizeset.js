@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
     },{
         header:'SL',
         align: 'end',
-        width: 70,
+        width: 65,
         dataIndex:'quantity',
         renderer: 'renderValue',
         // summaryType: 'sum', 

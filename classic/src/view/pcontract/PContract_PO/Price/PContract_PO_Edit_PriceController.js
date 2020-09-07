@@ -131,6 +131,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     
     //Cong don cho sizeset ALL theo binh quan gia quyen
     calPrice_SizesetAll: function(productid){
+        // console.log(productid);
         var viewmodel = this.getViewModel();
         // if (viewmodel.get('isproductpair') == 1){
         var priceStore = viewmodel.getStore('PriceStore');
@@ -211,7 +212,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             var priceStore = viewmodel.getStore('PriceStore');
             for (i=0;i <priceStore.data.length; i++){
                 var curSizeset = priceStore.data.items[i];
-                console.log(curSizeset);
+                // console.log(curSizeset);
 
                 filters = priceStore.getFilters();
 
@@ -235,7 +236,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     
                 var sum_price_cmp = priceStore.sum('price_cmp');
                 var sum_price_fob = priceStore.sum('price_fob');
-                var sum_price_sewingtarget = priceStore.sum('price_sewingtarget');
+                var sum_price_sewingtarget = Math.round(priceStore.sum('price_sewingtarget'));
                 var sum_price_sewingcost = priceStore.sum('price_sewingcost');
                 var sum_totalprice = priceStore.sum('totalprice');
                 var sum_salaryfund = priceStore.sum('salaryfund');       

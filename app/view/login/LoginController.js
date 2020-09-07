@@ -88,7 +88,8 @@ Ext.define('GSmartApp.view.login.LoginController', {
                         console.log('Error on login', errors);
                         try {
                             if (Ext.decode(errors.responseText).description || errors.description) {
-                                var message = errors.description ? errors.description : Ext.decode(errors.responseText).description;
+                                // var message = errors.description ? errors.description : Ext.decode(errors.responseText).description;
+                                var message = "Sai tên hoặc mật khẩu đăng nhập";
                                 Ext.getCmp('login-form-error-label').setHtml(message);
                             } else {
                                 Ext.getCmp('login-form-error-label').setHtml('Unauthorized');

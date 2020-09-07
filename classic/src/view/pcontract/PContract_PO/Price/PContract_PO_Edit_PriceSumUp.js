@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: '20%',
+            width: 95,
             items:[
                 {
                     xtype: 'new_numberfield',
@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: '20%',
+            width: 95,
             items:[
                 {
                     xtype: 'new_numberfield',
@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: '25%',
+            width: 115,
             items:[
                 {
                     xtype: 'new_numberfield',
@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     readOnly: true,
                     fieldLabel: 'Giá chào:',
                     labelAlign: 'left',
-                    labelWidth: 60,
+                    labelWidth: 52,
                     width:'100%',
                     margin: 1,
                     bind: {
@@ -131,26 +131,43 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
         },
         {
             xtype: 'container',
-            layout: 'vbox',
+            layout: 'hbox',
             margin: 1,
-            // flex:1,
-            width: '35%',
+            flex:1,
+            // width: '35%',
             items:[
                 {
                     xtype: 'textfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
-                    fieldLabel: 'Sew Target:',
+                    fieldLabel: 'Target Sew:',
                     labelAlign: 'left',
-                    labelWidth: 70,
-                    width:'100%',
+                    labelWidth: 63,
+                    width: 126,
                     margin: 1,
                     bind: {
                         value: '{po_price.price_sewingtarget}',
                         readOnly: '{isSewPriceReadonly}'
                     },
                     vtype: 'dollar'
-                }                
+                },
+                {
+                    xtype: 'numberfield',
+                    labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
+                    fieldStyle: 'font-size:11px;text-align:right;background-color:white',
+                    hideTrigger:true,
+                    readOnly: false,
+                    fieldLabel: 'Buy:',
+                    labelAlign: 'left',
+                    labelWidth: 30,
+                    flex: 1,
+                    margin: 1,
+                    bind: {
+                        value: '{po_price.price_vendortarget}'
+                    },
+                    decimalPrecision: 3,
+                    allowOnlyWhitespace: false
+                },         
             ]
         },        
     ]
