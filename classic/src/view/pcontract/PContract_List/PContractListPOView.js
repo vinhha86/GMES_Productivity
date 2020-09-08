@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.PContractMainView', {
+Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContractMainView',
-    id: 'PContractMainView',
+    xtype: 'PContractListPOView',
+    id: 'PContractListPOView',
     requires: [
         'Ext.ProgressBarWidget'
     ],
@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         type: 'PContractMainViewModel'
     },
     controller: 'PContractMainViewController',
-    reference: 'PContractMainView',
+    reference: 'PContractListPOView',
     viewConfig: {
         stripeRows: false,
         columnLines: true,

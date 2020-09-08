@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                         store: '{EndBuyer}'
                     },
                     itemId: 'orgbuyerid_link',
-                    labelWidth: 80,
+                    labelWidth: 110,
                     flex: 1               
                  }, 
                 {
@@ -101,14 +101,14 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                 {
                     xtype: 'textfield',
                     margin: 2,
-                    fieldLabel: "Mã nội bộ",
+                    fieldLabel: "Mã đơn hàng:",
                     // allowBlank: false,
                     itemId: 'contractcode',
                     blankText: 'Không được để trống',
                     bind: {
                         value: '{PContract.contractcode}'
                     },
-                    labelWidth: 80,
+                    labelWidth: 110,
                     flex: 1
                 }, 
                 {

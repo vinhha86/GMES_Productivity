@@ -138,9 +138,6 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
         if (data.productpairCode == "" || data.productpairCode == null) {
             mes = "Bạn chưa nhập mã (Buyer) của bộ sản phẩm";
         }
-        if (data.productpairVendorCode == "" || data.productpairVendorCode == null) {
-            mes = "Bạn chưa nhập mã (Vendor) của bộ sản phẩm";
-        }
 
         if (mes == "") {
             var params = new Object();
