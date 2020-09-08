@@ -59,7 +59,6 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         }
     },
     onSpecialkey: function( text, e, eOpts ){
-        console.log(e.keyCode);
         if(e.keyCode == 9) e.stopEvent();
     },
     onEdit: function(editor, context, e){
