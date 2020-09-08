@@ -4,6 +4,7 @@ Ext.define("GSmartApp.extend.new_numberfield", {
     alias: "widget.new_numberfield",
     xtype: 'new_numberfield',
     defaultValue: 0,
+    allowBlank: true,
     setValue : function(v){
         v = typeof v == 'number' ? v : String(v).replace(this.decimalSeparator, ".");
         v = isNaN(v) ? '' : String(v).replace(".", this.decimalSeparator);
