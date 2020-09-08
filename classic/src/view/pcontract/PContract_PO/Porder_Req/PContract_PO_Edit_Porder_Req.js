@@ -30,9 +30,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         }
     },
     features: [{
-        ftype:'summary',
-        groupHeaderTpl: 'Tổng',
-        dock: 'bottom'
+        id: 'group',
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '{name}',
+        hideGroupedHeader: true,
+        enableGroupingMenu: false
     }],
     // selModel: {
     //     selType: 'checkboxmodel',
@@ -49,7 +51,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
     },{
         header:'Phân xưởng',
         dataIndex:'granttoorgcode',
-        flex: 1
+        flex: 1,
+        summaryType: 'count',
+        summaryRenderer: function(value, summaryData, dataIndex) {
+            return ((value === 0 || value > 1) ? '' + value + ' PX' : '1 PX');
+        }
     },
     // {
     //     header:'Dải cỡ',
@@ -103,6 +109,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
                 value: '{po.isauto_calculate}'
             }
         }]
+    },{
+        dock: 'bottom',
+        xtype: 'displayfield',
+        height: 30,
+        labelStyle: "font-size:11px;",
+        fieldStyle: 'font-size:11px;text-align:right',
+        bind: {
+            value: '{porder_req.sum_set}'
+        }
     }]
 });
 

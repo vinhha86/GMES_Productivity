@@ -17,6 +17,7 @@ Ext.define('GSmartApp.model.POrder_Req', {
 		'po_Productiondate',
 		'shipdate',
 		'granttoorgname',
-		'is_calculate'
+		'is_calculate',
+		'product_code'
     ]
 });

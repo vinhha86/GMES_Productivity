@@ -87,6 +87,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         isPO_BuyerDisable: false,
         isPO_VendorDisable: false,
         isSizeset_CheckOK: false,
-        isPorderReq_CheckOK: false
+        isPorderReq_CheckOK: false,
+        porder_req: {
+            sum_set: 0
+        }
     }
 })
