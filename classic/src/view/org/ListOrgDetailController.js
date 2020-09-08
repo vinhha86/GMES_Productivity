@@ -64,6 +64,10 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
             data.status=-1;
         }
 
+        if(viewModel.get('orgtypeid_link') == 13){
+            data.is_manufacturer = viewModel.get('is_manufacturer');
+        }
+
         params.data = data;
         params.msgtype = "ORG_CREATE";
         params.message = "Tạo org";
@@ -113,6 +117,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                             node.data.orgtypeid_link = org.orgtypeid_link;
                             node.data.colorid_link = org.colorid_link;
                             node.data.costpersec = org.costpersec;
+                            node.data.is_manufacturer = org.is_manufacturer;
                             node.data.status = org.status;
                         }
 
@@ -155,6 +160,12 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                             }
                         }
 
+                        // neu la don vi gia cong, them 1 to chuyen
+                        if(!isExist && org.orgtypeid_link == 13 && org.is_manufacturer == 1){
+                            console.log('are you even here ?');
+                            m.createProductionLineForManufacturer(org);
+                        }
+
                         treePanel.reconfigure(storeMenu);
 
                         // chay lai filter
@@ -193,6 +204,65 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                     });
                 }
                 me.setLoading(false);
+            })
+    },
+    createProductionLineForManufacturer: function (record) {
+        var treePanel = Ext.getCmp('ListOrgMenu');
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        var data = record;
+        // data.prefix = parentRecord.data.code;
+        params.data = data;
+        params.msgtype = "ORG_PRODUCTIONLINE_CREATE";
+        params.message = "Thêm tổ chuyền";
+
+        GSmartApp.Ajax.post('/api/v1/orgmenu/createproductionline', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // Ext.Msg.show({
+                        //     title: 'Thông báo',
+                        //     msg: 'Thêm tổ chuyền thành công',
+                        //     buttons: Ext.MessageBox.YES,
+                        //     buttonText: {
+                        //         yes: 'Đóng',
+                        //     }
+                        // });
+
+                        var storeMenu = viewModel.getStore('MenuStore');
+                        var items = storeMenu.data.items; // items trong tree
+                        var isExist = false;
+                        var org = response.org;
+
+                        // neu org chua ton tai, neu status = 1, them
+                        if(!isExist && org.status == 1){
+                            for(var i=0;i<items.length;i++){
+                                var parentOrg = items[i].data;
+                                // console.log(parentOrg);
+                                if(parentOrg.id == org.parentid_link){
+                                    org.children = [];
+                                    org.depth = parentOrg.depth+1;
+                                    org.expandable = true;
+                                    org.expanded = false;
+                                    org.glyph = '';
+                                    org.leaf = true;
+                                    org.qshowDelay = 0;
+                                    org.root = false;
+                                    org.selectable = true;
+                                    org.visible = true;
+                                    var node = storeMenu.getById(parentOrg.id);
+                                    node.appendChild(org);
+                                    break;
+                                }
+                            }
+                        }
+
+                        treePanel.reconfigure(storeMenu);
+
+                    }
+                }
             })
     }
 })

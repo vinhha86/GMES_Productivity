@@ -41,8 +41,13 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
             metaData.tdStyle = 'color: lightgray;';
             if(record.data.orgtypeid_link == 1)
                 metaData.iconCls = 'x-fa fa-building'
-            if(record.data.orgtypeid_link == 13)
-                metaData.iconCls = 'x-fa fa-industry'
+            if(record.data.orgtypeid_link == 13){
+                    metaData.iconCls = 'x-fa fa-industry'
+                if(record.data.is_manufacturer == 1)
+                    metaData.iconCls = 'x-fa fa-handshake'
+                else
+                    metaData.iconCls = 'x-fa fa-industry'
+            }
             if(record.data.orgtypeid_link == 14)
                 metaData.iconCls = 'x-fa fa-sliders'
             return value;

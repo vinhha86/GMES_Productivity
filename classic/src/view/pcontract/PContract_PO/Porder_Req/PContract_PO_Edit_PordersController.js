@@ -42,7 +42,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
                 for (var j = 0; j < list_product.length; j++) {
                     var data = list_product[j];
-                    console.log(data);
 
                     var porder_New = new Object({
                         id: null,
@@ -161,29 +160,50 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     },
     reCalculate: function () {
         var viewmodel = this.getViewModel();
+
         if (viewmodel.get('po.isauto_calculate')) {
             var porderReqStore = viewmodel.getStore('porderReqStore');
 
-            var count = 0;
-            var amount_fix = 0;
-            for (var i = 0; i < porderReqStore.data.length; i++) {
-                var rec = porderReqStore.data.items[i];
-                if (rec.get('is_calculate')) {
-                    amount_fix += rec.get('totalorder');
-                }
-                else
-                    count++;
+            var ProductStore = viewmodel.getStore('ProductStore');
+            var list_product = [];
+
+            if (ProductStore.data.length == 1) {
+                list_product.push(ProductStore.data.items[0].data);
             }
-            var po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
-
-            var amount = (po_quantity - amount_fix) / count;
-
-            for (var i = 0; i < porderReqStore.data.length; i++) {
-                var rec = porderReqStore.data.items[i];
-                if (!rec.get('is_calculate')) {
-                    rec.set('totalorder', amount);
+            else {
+                for (var i = 1; i < ProductStore.data.length; i++) {
+                    list_product.push(ProductStore.data.items[i].data);
                 }
             }
+
+            for(var j=0; j< list_product.length; j++){
+                var data = list_product[j];
+                var count = 0;
+                var amount_fix = 0;
+                for (var i = 0; i < porderReqStore.data.length; i++) {
+                    var rec = porderReqStore.data.items[i];
+                    if(rec.get('productid_link') != data.id) continue;
+
+                    if (rec.get('is_calculate')) {
+                        amount_fix += rec.get('totalorder');
+                    }
+                    else
+                        count++;
+                }
+                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
+                po_quantity = po_quantity * data.pairamount;
+                var amount = (po_quantity - amount_fix) / count;
+
+                for (var i = 0; i < porderReqStore.data.length; i++) {
+                    var rec = porderReqStore.data.items[i];
+                    if(rec.get('productid_link') != data.id) continue;
+                    if (!rec.get('is_calculate')) {
+                        rec.set('totalorder', amount);
+                    }
+                }
+            }
+
+            
         }
     },
     onEdit: function (editor, context, e) {
@@ -191,35 +211,52 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         if (viewmodel.get('po.isauto_calculate')) {
             var porderReqStore = viewmodel.getStore('porderReqStore');
 
-            var count = 0;
-            var amount_fix = 0;
-            for (var i = 0; i < porderReqStore.data.length; i++) {
-                var rec = porderReqStore.data.items[i];
-                if (rec.get('is_calculate')) {
-                    amount_fix += rec.get('totalorder');
-                }
-                else
-                    count++;
-            }
+            var ProductStore = viewmodel.getStore('ProductStore');
+            var list_product = [];
 
-            var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
-
-            var amount = (po_quantity - amount_fix - context.value) / (count - 1);
-
-            var curRec = porderReqStore.getAt(context.rowIdx);
-            if (po_quantity - amount_fix >= context.value) {
-                for (var i = 0; i < porderReqStore.data.length; i++) {
-                    var rec = porderReqStore.data.items[i];
-                    if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
-                        rec.set('totalorder', amount);
-                    }
-                }
+            if (ProductStore.data.length == 1) {
+                list_product.push(ProductStore.data.items[0].data);
             }
             else {
-                curRec.set('totalorder', context.originalValue);
+                for (var i = 1; i < ProductStore.data.length; i++) {
+                    list_product.push(ProductStore.data.items[i].data);
+                }
+            }
+
+            for(var j =0; j < list_product.length; j++){
+                var count = 0;
+                var amount_fix = 0;
+                var data = list_product[j];
+
+                for (var i = 0; i < porderReqStore.data.length; i++) {
+                    var rec = porderReqStore.data.items[i];
+                    if(rec.get('productid_link') != data.id) continue;
+                    if (rec.get('is_calculate')) {
+                        amount_fix += rec.get('totalorder');
+                    }
+                    else
+                        count++;
+                }
+    
+                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
+                po_quantity = po_quantity * data.pairamount;
+                var amount = (po_quantity - amount_fix - context.value) / (count - 1);
+    
+                var curRec = porderReqStore.getAt(context.rowIdx);
+                if (po_quantity - amount_fix >= context.value) {
+                    for (var i = 0; i < porderReqStore.data.length; i++) {
+                        var rec = porderReqStore.data.items[i];
+                        if(rec.get('productid_link') != curRec.get('productid_link')) continue;
+                        if (!rec.get('is_calculate') && 
+                        rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
+                            rec.set('totalorder', amount);
+                        }
+                    }
+                }
+                else {
+                    curRec.set('totalorder', context.originalValue);
+                }
             }
         }
-
-
     }
 })
