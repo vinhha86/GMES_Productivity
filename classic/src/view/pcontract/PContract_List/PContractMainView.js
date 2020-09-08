@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     {
         text: 'Số hợp đồng',
-        dataIndex: 'productlist',
+        dataIndex: 'contractBuyerCode',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     {
         text: 'Năm HĐ',
-        dataIndex: 'productVendorCodelist',
+        dataIndex: 'contractBuyerYear',
         width: 75,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     {
         text: 'Loại hình',
-        dataIndex: 'productVendorCodelist',
+        dataIndex: 'contractTypeName',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     {
         text: 'Thị trường',
-        dataIndex: 'productVendorCodelist',
+        dataIndex: 'marketTypeName',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -152,13 +152,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi_PContractMainView',
         },{
-            xtype:'textfield',
-            labelWidth: 0,
-            margin: '5 1 5 0',
-            emptyText: "Năm HĐ",
-            itemId: 'contractcode',
-            width: 120
-        },{
             xtype: 'combo',
             labelWidth: 0,
             emptyText:'Buyer',
@@ -167,7 +160,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             },
             valueField: 'id',
             displayField: 'name',
-            itemId: 'orgendbuyerid_link',
+            itemId: 'orgbuyerid_link',
             margin: '5 1 5 0'
         },
         {
@@ -185,15 +178,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
-            emptyText: "Mã SP (Buyer)",
-            itemId: 'style',
-            width: 150
+            emptyText: "Số HĐ",
+            itemId: 'contractbuyer_code',
+            width: 120
         },{
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
-            emptyText: "PO",
-            itemId: 'po',
+            emptyText: "Năm HĐ",
+            maskRe: /[0-9]/,
+            itemId: 'contractbuyer_year',
             width: 120
         },
         {

@@ -132,7 +132,8 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     valueField: 'id',
                     displayField: 'contract_code',
                     margin: 2,
-                    fieldLabel: "Hợp đồng GC:",
+                    allowBlank: false,
+                    fieldLabel: "Hợp đồng GC :",
                     bind: {
                         value: '{PContract.contractbuyerid_link}',
                         store: '{ContractBuyerStore}'

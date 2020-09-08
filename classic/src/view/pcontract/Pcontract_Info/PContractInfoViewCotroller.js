@@ -18,9 +18,10 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
     onSelectBuyer: function(combo, record) {
         var viewmodel  = this.getViewModel();
         viewmodel.set('PContract.contractcode', record.get('code'));
-
-        var storeContractBuyer = viewmodel.get('ContractBuyerStore');
-        storeContractBuyer.loadStore();
+        // console.log(record);
+        this.getView().down('#contractbuyerid_link').setValue(null);
+        var storeContractBuyer = viewmodel.getStore('ContractBuyerStore');
+        storeContractBuyer.loadStoreByBuyer(record.id);
     },
     loadInfo: function (id) {
         var me = this.getView();
@@ -38,6 +39,9 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         viewModel.set('PContract', response.data);
+                        console.log(response.data);
+                        var storeContractBuyer = viewModel.getStore('ContractBuyerStore');
+                        storeContractBuyer.loadStoreByBuyer(response.data.orgbuyerid_link);
                     }
                 } else {
                     Ext.Msg.show({

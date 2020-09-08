@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractStore');
-        store.loadStore_ByPage(25, 1, "", "", 0, 0, "", "");
+        store.loadStore(0, 0, "", "");
 
         this.onActivate();
         common.Check_Object_Permission();
@@ -20,15 +20,15 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         '#btnThemMoi_PContractMainView': {
             click: 'onThemMoi'
         },
-        '#orgcustomerid_link': {
-            select: 'onloadPage'
-        },
-        '#orgendbuyerid_link': {
-            select: 'onloadPage'
-        }, 
-        '#orgvendorid_link': {
-            select: 'onloadPage'
-        },
+        // '#orgcustomerid_link': {
+        //     select: 'onloadPage'
+        // },
+        // '#orgbuyerid_link': {
+        //     select: 'onloadPage'
+        // }, 
+        // '#orgvendorid_link': {
+        //     select: 'onloadPage'
+        // },
         '#btnTimKiem': {
             click: 'onloadPage'
         },
@@ -75,50 +75,28 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractStore');
 
-        var limit = me.down('#limitpage').getValue();
-        var cust_contractcode = "";
-        var contractcode = me.down('#contractcode').getValue();
-        var orgendbuyerid_link = me.down('#orgendbuyerid_link').getValue();
+        var orgbuyerid_link = me.down('#orgbuyerid_link').getValue();
         var orgvendorid_link = me.down('#orgvendorid_link').getValue();
-        var style = me.down('#style').getValue();
-        var po = me.down('#po').getValue();
+        var contractbuyer_code = me.down('#contractbuyer_code').getValue();
+        var contractbuyer_year = me.down('#contractbuyer_year').getValue();
 
-        var page = store.currentPage;
-
-        if (limit == null) {
-            limit = 25;
-        }
-
-        if (page == null) {
-            page = 1;
-        }
-
-        if (cust_contractcode == null) {
-            cust_contractcode = "";
-        }
-
-        if (contractcode == null) {
-            contractcode = "";
-        }
-
-        if (orgendbuyerid_link == null) {
-            orgendbuyerid_link = 0;
+        if (orgbuyerid_link == null) {
+            orgbuyerid_link = 0;
         }
 
         if (orgvendorid_link == null) {
             orgvendorid_link = 0;
         }
 
-        if (style == null) {
-            style = "";
+        if (contractbuyer_code == null) {
+            contractbuyer_code = "";
         }
 
-        if (po == null) {
-            po = "";
+        if (contractbuyer_year == null) {
+            contractbuyer_year = "";
         }
 
-        store.loadStore_ByPage(limit, page, cust_contractcode, contractcode, orgendbuyerid_link,
-            orgvendorid_link, style, po);
+        store.loadStore(orgbuyerid_link, orgvendorid_link, contractbuyer_code, contractbuyer_year);
     },
     onThemMoi: function () {
         var me = this.getView();
