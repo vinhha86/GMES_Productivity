@@ -6,6 +6,7 @@ Ext.define('GSmartApp.store.holiday.HolidayStore', {
 		{name: 'id', type: 'int'},
 		{name: 'year', type: 'string'},
         {name: 'day', type: 'date', dateFormat: 'c'},
+        {name: 'dayto', type: 'date', dateFormat: 'c'},
 		{name: 'comment', type: 'string'}
     ],
 	loadStore:function(){
