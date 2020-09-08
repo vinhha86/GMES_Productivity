@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
     },
     onloadDetail: function( grid, record, item, index, e, eOpts){
         var viewModel = this.getViewModel();
-        console.log(record.data);
+        // console.log(record.data);
         viewModel.set('currentRec', record.data);
         viewModel.set('id', record.data.id);
         viewModel.set('titleName', record.data.name);
@@ -29,6 +29,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         viewModel.set('colorid_link', record.data.colorid_link);
         viewModel.set('status', record.data.status);
         viewModel.set('costpersec', record.data.costpersec);
+        viewModel.set('is_manufacturer', record.data.is_manufacturer);
         //
         viewModel.set('fieldState', true);
     },
@@ -210,11 +211,35 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             //
                             viewModel.set('orgtypeid_link', 13);
                             viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
                             //
                             viewModel.set('fieldState', true);
                             viewModel.set('titleName', record.data.name);
                         },
-                    }, 
+                    },{
+                        text: 'Thêm Đơn vị gia công',
+                        itemId: 'btnAddManufacturer_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-handshake',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 13);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 1);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },
                 ]
                 });
             var position = e.getXY();
@@ -302,7 +327,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
             })
     },
     createproductionline: function(record){
-        // console.log(record);
+        console.log(record);
         var treePanel = Ext.getCmp('ListOrgMenu');
         var viewModel = this.getViewModel();
 

@@ -32,6 +32,7 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
         colorid_link: null,
         status: null,
         costpersec: null,
+        is_manufacturer: null,
         //
         fieldState: false
     },
