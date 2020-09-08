@@ -5,9 +5,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     requires: [
         'Ext.ProgressBarWidget'
     ],
-    viewModel: {
-        type: 'PContractMainViewModel'
-    },
     controller: 'PContractMainViewController',
     reference: 'PContractMainView',
     viewConfig: {
@@ -20,7 +17,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     columns: [{
         text: 'STT',
-        width: 50,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     }, {
@@ -49,7 +46,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         }
     },
     {
-        text: 'Mã SP (Buyer)',
+        text: 'Số hợp đồng',
         dataIndex: 'productlist',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
@@ -58,7 +55,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         }
     },
     {
-        text: 'Mã SP (Vendor)',
+        text: 'Năm HĐ',
+        dataIndex: 'productVendorCodelist',
+        width: 75,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },
+    {
+        text: 'Loại hình',
         dataIndex: 'productVendorCodelist',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
@@ -66,6 +72,15 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             return value;
         }
     },
+    {
+        text: 'Thị trường',
+        dataIndex: 'productVendorCodelist',
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },    
     // {
     //     text: 'PO Buyer',
     //     dataIndex: 'polist',
@@ -132,15 +147,15 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         items: [{
             xtype: 'button',
             margin: '5 1 5 1',
-            text: 'Thêm mới',
-            width: 105,
+            text: 'Thêm đơn hàng',
+            width: 135,
             iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi_PContractMainView',
         },{
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
-            emptyText: "Mã nội bộ",
+            emptyText: "Năm HĐ",
             itemId: 'contractcode',
             width: 120
         },{
@@ -188,41 +203,43 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             iconCls: 'x-fa fa-search',
             itemId: 'btnTimKiem'
         }]
-    }, {
-        dock: 'bottom',
-        layout: 'hbox',
-        xtype: 'toolbar',
-        border: false,
-        cls: 'botToolbar',
-        items: [{
-            xtype: 'textfield',
-            value: 25,
-            itemId: 'limitpage',
-            maskRe: /[0-9]/,
-            width: 180,
-            selectOnFocus: true,
-            margin: 5,
-            fieldLabel: 'Số bản ghi/ Trang',
-            labelWidth: 120
-        }, '-', {
-            xtype: 'pagingtoolbar',
-            displayInfo: true,
-            flex: 1,
-            nextText: 'Trang tiếp',
-            prevText: 'Trang trước',
-            afterPageText: '/ {0}',
-            beforePageText: 'Trang',
-            itemId: 'page',
-            refreshText: 'Làm mới dữ liệu',
-            border: false,
-            bind: {
-                store: '{PContractStore}'
-            },
-            emptyMsg: 'Không có kết quả tìm kiếm',
-            lastText: 'Trang cuối',
-            firstText: 'Trang đầu',
-            displayMsg: 'Hiển thị {0} - {1} của {2}'
-        }]
-    }]
+    }, 
+    // {
+    //     dock: 'bottom',
+    //     layout: 'hbox',
+    //     xtype: 'toolbar',
+    //     border: false,
+    //     cls: 'botToolbar',
+    //     items: [{
+    //         xtype: 'textfield',
+    //         value: 25,
+    //         itemId: 'limitpage',
+    //         maskRe: /[0-9]/,
+    //         width: 180,
+    //         selectOnFocus: true,
+    //         margin: 5,
+    //         fieldLabel: 'Số bản ghi/ Trang',
+    //         labelWidth: 120
+    //     }, '-', {
+    //         xtype: 'pagingtoolbar',
+    //         displayInfo: true,
+    //         flex: 1,
+    //         nextText: 'Trang tiếp',
+    //         prevText: 'Trang trước',
+    //         afterPageText: '/ {0}',
+    //         beforePageText: 'Trang',
+    //         itemId: 'page',
+    //         refreshText: 'Làm mới dữ liệu',
+    //         border: false,
+    //         bind: {
+    //             store: '{PContractStore}'
+    //         },
+    //         emptyMsg: 'Không có kết quả tìm kiếm',
+    //         lastText: 'Trang cuối',
+    //         firstText: 'Trang đầu',
+    //         displayMsg: 'Hiển thị {0} - {1} của {2}'
+    //     }]
+    // }
+    ]
 });
 

@@ -13,11 +13,14 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
             this.getView().getForm().reset();
         }
 
-        me.down('#contractcode').focus();
+        me.down('#orgbuyerid_link').focus();
     },
     onSelectBuyer: function(combo, record) {
         var viewmodel  = this.getViewModel();
         viewmodel.set('PContract.contractcode', record.get('code'));
+
+        var storeContractBuyer = viewmodel.get('ContractBuyerStore');
+        storeContractBuyer.loadStore();
     },
     loadInfo: function (id) {
         var me = this.getView();

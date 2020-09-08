@@ -46,6 +46,8 @@ Ext.define('GSmartApp.store.contractbuyer.ContractBuyerStore', {
 			callback: function(records, operation, success) {
 				if(!success){
 					 this.fireEvent('logout');
+				} else {
+					console.log(records);
 				}
 			}
 		});

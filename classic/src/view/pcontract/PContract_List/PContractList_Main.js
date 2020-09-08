@@ -6,18 +6,23 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main', {
         type: 'border'
     },
     // controller: 'PContractViewController',
-    // viewModel: {
-    //     type: 'PContractViewModel'
-    // },
+    viewModel: {
+        type: 'PContractList_Main_ViewModel'
+    },
     items:[
         {
             region: 'north',
             height: '50%',
-            xtype: 'PContractMainView'
+            xtype: 'PContractMainView',
+            border: true,
+            margin: 1
         },
         {
             region: 'center',
             xtype: 'PContractListPOView',
+            // title: 'Danh sách PO',
+            border: true,
+            margin: 1
         }    
     ]   
 })

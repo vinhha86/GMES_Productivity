@@ -14,7 +14,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     control: {
         '#PContractMainView': {
             activate: 'onActivate',
-            itemdblclick: 'ondblClick'
+            itemdblclick: 'ondblClick',
+            select: 'onPContractSelect'
         },
         '#btnThemMoi_PContractMainView': {
             click: 'onThemMoi'
@@ -187,5 +188,12 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     },
     checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
         return common.Check_ActionColum_Permission(item.itemId); 
+    },
+    onPContractSelect: function(e, selected, eOpts){
+        if (null != selected){
+            var viewmodel = this.getViewModel();
+            var store = viewmodel.getStore('PContractPOList');
+            store.loadLeafOnly_ByContract(selected.data.id);
+        }
     }
 })

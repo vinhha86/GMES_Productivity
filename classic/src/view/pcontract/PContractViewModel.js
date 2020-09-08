@@ -124,7 +124,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         },
         PayerStore: {
             type: 'PayerStore'
-        }      
+        },
+        ContractBuyerStore: {
+            type: 'ContractBuyerStore'
+        }                
     },
     data:{
         titleAttvalue: 'Thuộc tính ',

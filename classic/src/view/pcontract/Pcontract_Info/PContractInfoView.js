@@ -33,20 +33,21 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     labelWidth: 110,
                     flex: 1               
                  }, 
-                {
-                    xtype: 'datefield',
+                 {
+                    xtype: 'combo',
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'code',
                     margin: 2,
-                    fieldLabel: "Ngày lập:",
+                    fieldLabel: "Vendor:",
                     bind: {
-                        value: '{PContract.contractdate}'
+                        value: '{PContract.orgvendorid_link}',
+                        store: '{Vender}'
                     },
-                    format: 'd/m/Y',
-                    altFormats: "Y-m-d\\TH:i:s.uO",
-                    value: new Date(),
-                    itemId: 'contractdate',
+                    itemId: 'orgvenderid_link',
                     labelWidth: 80,
                     flex: 1
-                }, 
+                },                  
                 {
                     xtype: 'combo',
                     queryMode: 'local',
@@ -74,7 +75,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     },
                     displayField: 'name',
                     valueField: 'id',
-                    labelWidth: 80,
+                    labelWidth: 100,
                     flex: 1
                 }           
                 // {
@@ -112,20 +113,34 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     flex: 1
                 }, 
                 {
-                    xtype: 'combo',
-                    queryMode: 'local',
-                    valueField: 'id',
-                    displayField: 'code',
+                    xtype: 'datefield',
                     margin: 2,
-                    fieldLabel: "Vendor:",
+                    fieldLabel: "Ngày lập:",
                     bind: {
-                        value: '{PContract.orgvendorid_link}',
-                        store: '{Vender}'
+                        value: '{PContract.contractdate}'
                     },
-                    itemId: 'orgvenderid_link',
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    value: new Date(),
+                    itemId: 'contractdate',
                     labelWidth: 80,
                     flex: 1
                 }, 
+                {
+                    xtype: 'combo',
+                    queryMode: 'local',
+                    valueField: 'id',
+                    displayField: 'contract_code',
+                    margin: 2,
+                    fieldLabel: "Hợp đồng GC:",
+                    bind: {
+                        value: '{PContract.contractbuyerid_link}',
+                        store: '{ContractBuyerStore}'
+                    },
+                    itemId: 'contractbuyerid_link',
+                    labelWidth: 100,
+                    flex: 1
+                },                
                 {
                     xtype: 'combo',
                     queryMode: 'local',
@@ -139,21 +154,6 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     },
                     itemId: 'orgpayerid_link',
                     labelWidth: 100,
-                    flex: 1
-                }, 
-                {
-                    xtype: 'combo',
-                    queryMode: 'local',
-                    valueField: 'id',
-                    displayField: 'name',
-                    margin: 2,
-                    fieldLabel: "Bên hiển thị:",
-                    bind: {
-                        value: '{PContract.orgshow}',
-                        store: '{PayerStore}'
-                    },
-                    itemId: 'orgshowid_link',
-                    labelWidth: 80,
                     flex: 1
                 }
             ]
