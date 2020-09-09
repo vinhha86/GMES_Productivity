@@ -55,9 +55,11 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 			}
 		});
 	},
-	loadStore: function(orgbuyerid_link, orgvendorid_link, contractbuyer_code, contractbuyer_year){
+	loadStore: function(productbuyer_code, po_code, orgbuyerid_link, orgvendorid_link, contractbuyer_code, contractbuyer_year){
 		var me=this;
 		var params = new Object();
+		params.productbuyer_code = productbuyer_code;
+		params.po_code = po_code;
 		params.orgbuyerid_link = orgbuyerid_link;
 		params.orgvendorid_link = orgvendorid_link;
 		params.contractbuyer_code = contractbuyer_code;
