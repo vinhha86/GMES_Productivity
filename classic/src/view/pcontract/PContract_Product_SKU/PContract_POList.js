@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             xtype:'combo',
             editable: false,
             width: 250,
-            margin: '5 5 5 50',
+            margin: '5 5 5 40',
             fieldLabel: 'Sản phẩm',
             itemId: 'productFilter',
             bind: {
