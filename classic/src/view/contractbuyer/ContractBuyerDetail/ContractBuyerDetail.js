@@ -25,6 +25,20 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         itemId: 'contract_code',
         labelWidth: 105
     },{
+        xtype:'textfield',
+        margin: 5,
+        fieldLabel: 'Năm hợp đồng',
+        allowBlank: true,
+        maskRe: /[0-9]/,
+        maxLength: 4,
+        maxLengthText: 'Tối đa 4 ký tự',
+        bind:{
+            value :'{currentRec.contract_year}'
+        },
+        width: 400,
+        itemId: 'contract_year',
+        labelWidth: 105
+    },{
         xtype:'datefield',
         margin: 5,
         fieldLabel: 'Ngày hợp đồng',
