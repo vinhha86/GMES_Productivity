@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
                 for (var j = 0; j < list_product.length; j++) {
                     var data = list_product[j];
-
+                    
                     var porder_New = new Object({
                         id: null,
                         pcontractid_link: pcontractid_link,
@@ -52,7 +52,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         granttoorgid_link: orgId,
                         granttoorgcode: orgCode,
                         productid_link : data.id,
-                        product_code : data.code
+                        product_code : data.code,
+                        amount_inset: data.pairamount == null ? 1 : data.pairamount
                         // totalorder: po.po_quantity
                     });
                     // console.log(porder_New);

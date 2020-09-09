@@ -27,14 +27,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         //selType: 'checkboxmodel',
         mode: 'SINGLE'
     },
-    plugins: {
-        cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            } 
-        }
-    },
+    // plugins: {
+    //     cellediting: {
+    //         clicksToEdit: 1,
+    //         listeners: {
+    //             edit: 'onEdit'
+    //         } 
+    //     }
+    // },
     bind:{
         store:'{PContractProductPOStore}'
     },
@@ -42,6 +42,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     //     type: 'PContract_PO'
     // },
     columns:[{
+        text: 'STT',
+        width: 40,
+        xtype: 'rownumberer',
+        align: 'center'
+    },{
         text:'PO Buyer',
         dataIndex:'po_buyer',
         width: 110,
@@ -130,99 +135,99 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             // }
         ]
     }],
-    plugins: {
-        rowwidget: {
-            widget: 
-            {
-                xtype: 'grid',
-                viewConfig: {
-                    stripeRows: false
-                },                
-                bind: {
-                    store: '{record.sub_po}',
-                    // title: 'Danh sách hàng xuất'
-				},
-                columns:[{
-                    text:'PO Buyer',
-                    dataIndex:'po_buyer',
-                    width: 110
-                },{
-                    text:'PO Vendor',
-                    dataIndex:'po_vendor',
-                    width: 100
-                },{
-                    text:'SL',
-                    align: 'end',
-                    dataIndex:'po_quantity',
-                    width: 60,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                    }
-                },{
-                    text:'YCSX',
-                    align: 'end',
-                    dataIndex:'amount_org',
-                    width: 70,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                    }
-                },{
-                    text:'Ngày giao',
-                    dataIndex:'shipdate',
-                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function(value){
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    },
-                    width: 70
-                },{
-                    text:'Ngày NPL',
-                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function(value){
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    },
-                    dataIndex:'matdate',
-                    width: 70
-                },{
-                    text:'Ngày VC',
-                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function(value){
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    },
-                    dataIndex:'productiondate',
-                    width: 70
-                },{
-                    text:'Số ngày SX',
-                    dataIndex:'productiondays',
-                    width: 65
-                },{
-                    text:'Phân xưởng',
-                    dataIndex:'factories',
-                    flex: 1,
-                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
-                    }
-                },{
-                    xtype: 'actioncolumn',
-                    width: 25,
-                    menuDisabled: true,
-                    sortable: false,
-                    items: [
-                        {
-                            iconCls: 'x-fa fas fa-bars violetIcon',
-                            handler: 'onMenu_SubPO'
-                        },            
-                    ]
-                }],	
-                listeners:{
-                    itemclick: 'onSelectPO'
-                }					
-			}
-		}
-	},    
+    // plugins: {
+    //     rowwidget: {
+    //         widget: 
+    //         {
+    //             xtype: 'grid',
+    //             viewConfig: {
+    //                 stripeRows: false
+    //             },                
+    //             bind: {
+    //                 store: '{record.sub_po}',
+    //                 // title: 'Danh sách hàng xuất'
+	// 			},
+    //             columns:[{
+    //                 text:'PO Buyer',
+    //                 dataIndex:'po_buyer',
+    //                 width: 110
+    //             },{
+    //                 text:'PO Vendor',
+    //                 dataIndex:'po_vendor',
+    //                 width: 100
+    //             },{
+    //                 text:'SL',
+    //                 align: 'end',
+    //                 dataIndex:'po_quantity',
+    //                 width: 60,
+    //                 renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+    //                     return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+    //                 }
+    //             },{
+    //                 text:'YCSX',
+    //                 align: 'end',
+    //                 dataIndex:'amount_org',
+    //                 width: 70,
+    //                 renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+    //                     return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+    //                 }
+    //             },{
+    //                 text:'Ngày giao',
+    //                 dataIndex:'shipdate',
+    //                 // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+    //                 renderer: function(value){
+    //                     var date = Ext.Date.parse(value, 'c');
+    //                     return Ext.Date.format(date, 'd/m/y');
+    //                 },
+    //                 width: 70
+    //             },{
+    //                 text:'Ngày NPL',
+    //                 // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+    //                 renderer: function(value){
+    //                     var date = Ext.Date.parse(value, 'c');
+    //                     return Ext.Date.format(date, 'd/m/y');
+    //                 },
+    //                 dataIndex:'matdate',
+    //                 width: 70
+    //             },{
+    //                 text:'Ngày VC',
+    //                 // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+    //                 renderer: function(value){
+    //                     var date = Ext.Date.parse(value, 'c');
+    //                     return Ext.Date.format(date, 'd/m/y');
+    //                 },
+    //                 dataIndex:'productiondate',
+    //                 width: 70
+    //             },{
+    //                 text:'Số ngày SX',
+    //                 dataIndex:'productiondays',
+    //                 width: 65
+    //             },{
+    //                 text:'Phân xưởng',
+    //                 dataIndex:'factories',
+    //                 flex: 1,
+    //                 renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //                     metaData.tdAttr = 'data-qtip="' + value + '"';
+    //                     return value;
+    //                 }
+    //             },{
+    //                 xtype: 'actioncolumn',
+    //                 width: 25,
+    //                 menuDisabled: true,
+    //                 sortable: false,
+    //                 items: [
+    //                     {
+    //                         iconCls: 'x-fa fas fa-bars violetIcon',
+    //                         handler: 'onMenu_SubPO'
+    //                     },            
+    //                 ]
+    //             }],	
+    //             listeners:{
+    //                 itemclick: 'onSelectPO'
+    //             }					
+	// 		}
+	// 	}
+	// },    
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

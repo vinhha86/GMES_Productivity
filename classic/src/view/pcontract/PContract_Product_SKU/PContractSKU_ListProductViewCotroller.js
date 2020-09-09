@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductViewCotroller', {
         var productid_link = viewmodel.get('IdProduct');
 
         storeSku.loadStoreByPO_and_Product(productid_link, pcontract_poid_link);
-
+        
     },
     viewImg: function (grid, metadata, rowIndex) {
         var me = this.getView();

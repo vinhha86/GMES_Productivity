@@ -164,8 +164,20 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
                 value: 'Chi tiết màu, cỡ'
             }
         },
+        {
+            xtype: 'combo',
+            bind: {
+                store: '{PContractProduct_PO_Store}'
+            },
+            valueField: 'id',
+            displayField: 'code',
+            queryMode : 'local',
+            fieldLabel: 'Sản phẩm',
+            margin: '5 5 5 50',
+            itemId: 'cmbSanPham'
+        },
 		'->'
-		,
+        ,
 	    {
             xtype:'button',
             itemId: 'btnThemSKU',

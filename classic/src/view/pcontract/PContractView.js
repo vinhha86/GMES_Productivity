@@ -69,10 +69,10 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
                 }]
             }]
         }, {
-            title: 'Đơn hàng (PO) - Chào giá',
+            title: 'Chào giá',
             xtype: 'PContract_PO_Main'
         },{
-            title: 'Chi tiết màu,cỡ',
+            title: 'Chi tiết PO',
             xtype: 'PContractSKUMainView'
         },
         // {

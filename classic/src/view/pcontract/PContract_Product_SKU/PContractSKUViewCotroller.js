@@ -7,7 +7,19 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
     control:{
         '#btnConfirmSKU' : {
             click: 'onConfimSKU'
+        },
+        '#cmbSanPham': {
+            select: 'onSelectSanPham'
         }
+    },
+    onSelectSanPham: function(combo, record, eOpts){
+        var viewmodel = this.getViewModel();
+        var storeSku = viewmodel.getStore('PContractSKUStore');
+        var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        viewmodel.set('IdProduct', record.data.id);
+        viewmodel.set('Product_pquantity', record.data.pquantity);
+
+        storeSku.loadStoreByPO_and_Product(record.data.id, pcontract_poid_link);
     },
     onConfimSKU: function(){
         var me = this.getView();
@@ -115,7 +127,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         var th = this;
         Ext.Msg.show({
             title: "Thông báo",
-            msg: 'bạn có chắc chắn muốn xóa SKU ?',
+            msg: 'Bạn có chắc chắn muốn xóa SKU ?',
             buttons: Ext.MessageBox.YESNO,
             buttonText: {
                 yes: 'Có',

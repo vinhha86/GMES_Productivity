@@ -15,21 +15,22 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainView', {
     }, {
         region: 'west',
         width: '45%',
-        layout: 'border',
-        items:[
-            {
-                region: 'north',
-                height: '50%',
-                xtype: 'PContract_POList',
-                border: true,
-                margin: 1,
-            },
-            {
-                region: 'center',
-                xtype: 'PContractSKU_ListProductView',
-                border: true,
-                margin: 1,
-            }            
-        ]
+        xtype: 'PContract_POList'
+        // layout: 'border',
+        // items:[
+        //     {
+        //         region: 'north',
+        //         height: '50%',
+        //         xtype: 'PContract_POList',
+        //         border: true,
+        //         margin: 1,
+        //     },
+        //     {
+        //         region: 'center',
+        //         xtype: 'PContractSKU_ListProductView',
+        //         border: true,
+        //         margin: 1,
+        //     }            
+        // ]
     }]
 })

@@ -25,6 +25,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         store:'{PContractPOList}'
     },
     columns:[{
+        text: 'STT',
+        width: 40,
+        xtype: 'rownumberer',
+        align: 'center'
+    },{
         text:'Mã Buyer (SP)',
         dataIndex:'productbuyercode',
         width: 100,
@@ -75,6 +80,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
+    },{
+        xtype: 'actioncolumn',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        items: [
+            {
+                iconCls: 'x-fa fas fa-list',
+                tooltip: 'Sửa PO',
+                handler: 'onEdit'
+            }
+        ]
     }],
     // plugins: {
     //     rowwidget: {
@@ -111,11 +128,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     dockedItems:[{
         dock:'top',
         border: 'hbox',
+        xtype: 'toolbar',
+        padding: '0 0 10 5',
+        height: 40,
         items:[{
+            xtype:'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black",
+            labelWidth : 0,
+            bind:{
+                value: 'Danh sách PO'
+            }
+        },{
             xtype:'combo',
             editable: false,
-            width:'95%',
-            margin: 5,
+            flex: 1,
+            margin: '5 5 5 50',
             fieldLabel: 'Sản phẩm',
             itemId: 'productFilter',
             bind: {
@@ -125,6 +152,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             valueField: 'productid_link',
             displayField: 'productBuyerCode',
             queryMode: 'local'
+        },'->'
+        ,
+	    {
+            xtype:'button',
+            itemId: 'btnThemPO',
+            ui: 'header',
+			tooltip: 'Thêm PO',
+            iconCls: 'x-fa fa-plus',
+            handler: 'onThemPO'
         }]
     }]
 });

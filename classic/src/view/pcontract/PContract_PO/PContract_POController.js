@@ -422,7 +422,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
-        var ishidden_accept = record.data.status < 0 ? false: true;
 
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
@@ -442,17 +441,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     me.onPOPriceEdit(record);
                 },
             }, 
-            {
-                text: 'Sửa đơn hàng',
-                itemId: 'btnEditPO_PContract_PO_List',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-pencil greenIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onPOInfoEdit(record);
-                }
-            }, 
+            // {
+            //     // text: 'Sửa đơn hàng',
+            //     // itemId: 'btnEditPO_PContract_PO_List',
+            //     // separator: true,
+            //     // margin: '10 0 0',
+            //     // iconCls: 'x-fa fas fa-pencil greenIcon',
+            //     // handler: function(){
+            //     //     var record = this.parentMenu.record;
+            //     //     me.onPOInfoEdit(record);
+            //     // }
+            // }, 
             {
                 text: 'Xóa đơn hàng',
                 itemId: 'btnDeletePO_PContract_PO_List',
@@ -474,16 +473,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     var record = this.parentMenu.record;
                     me.onAccept(record);
                 }
-            }, {
-                text: 'Thêm đơn hàng con',
-                itemId: 'btnSubPO_PContract_PO_List',
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-child blueIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onAdd_SubPO(record);
-                }
             }, 
+            // {
+            //     // text: 'Thêm đơn hàng con',
+            //     // itemId: 'btnSubPO_PContract_PO_List',
+            //     // margin: '10 0 0',
+            //     // iconCls: 'x-fa fas fa-child blueIcon',
+            //     // handler: function(){
+            //     //     var record = this.parentMenu.record;
+            //     //     me.onAdd_SubPO(record);
+            //     // }
+            // }, 
             // {
             //     text: 'Thêm KH giao hàng',
             //     itemId: 'btnShipping_PContract_PO_List',
