@@ -243,8 +243,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     for (var i = 0; i < porderReqStore.data.length; i++) {
                         var rec = porderReqStore.data.items[i];
                         if(rec.get('productid_link') != curRec.get('productid_link')) continue;
-                        if (!rec.get('is_calculate') && 
-                        rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
+                        if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
                             rec.set('totalorder', amount);
                         }
                     }

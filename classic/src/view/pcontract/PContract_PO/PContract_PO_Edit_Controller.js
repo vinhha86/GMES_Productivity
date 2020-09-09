@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
     },
     getInfo: function(id){
-        var me = this;
+        var me = this.getView();
         var viewmodel = this.getViewModel();
         if (null != id){
             var params = new Object();
@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                         store.clearFilter();
                         store.removeAll();
                         store.insert(0 , response.data.pcontract_price); 
+                        me.down('#PContract_PO_Edit_Sizeset').getSelectionModel().select(0);
                         
                         store.filter('productid_link',viewmodel.get('product_selected_id_link'));
 
