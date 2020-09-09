@@ -3,12 +3,11 @@ Ext.define("GSmartApp.extend.new_numberfield", {
     extend:'Ext.form.field.Number',
     alias: "widget.new_numberfield",
     xtype: 'new_numberfield',
-    defaultValue: 0,
-    allowBlank: true,
+    defaultValue: '0.000',
     setValue : function(v){
         v = typeof v == 'number' ? v : String(v).replace(this.decimalSeparator, ".");
-        v = isNaN(v) ? 0 : String(v).replace(".", this.decimalSeparator);
-        v = isNaN(v) ? 0 : this.fixPrecision(String(v).replace(".", this.decimalSeparator));
+        v = isNaN(v) ? '' : String(v).replace(".", this.decimalSeparator);
+        v = isNaN(v) ? '' : this.fixPrecision(String(v).replace(".", this.decimalSeparator));
         return Ext.form.NumberField.superclass.setRawValue.call(this, v);
         }, 
     onSpinUp: function() {
@@ -25,7 +24,8 @@ Ext.define("GSmartApp.extend.new_numberfield", {
             
             var nan = isNaN(value);
             if(!this.allowDecimals || this.decimalPrecision == -1 || nan || !value){
-               return nan ? 0 : value;
+                var val = (nan || value == null) ? '0.000' : value
+               return val;
             }
             return parseFloat(value).toFixed(this.decimalPrecision);
         }

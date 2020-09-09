@@ -138,7 +138,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         params.data = viewmodel.get('po');
         
 
-        params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+        params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
         params.data.exchangerate = parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi,''));
 
         var arrPOrders = [];
