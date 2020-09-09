@@ -90,41 +90,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 iconCls: 'x-fa fas fa-list',
                 tooltip: 'Sửa PO',
                 handler: 'onEdit'
+            },
+            {
+                iconCls: 'x-fa fas fa-trash redIcon',
+                tooltip: 'Xóa PO',
+                handler: 'onXoaPO'
             }
         ]
-    }],
-    // plugins: {
-    //     rowwidget: {
-    //         widget: 
-    //         {
-    //             xtype: 'grid',
-    //             bind: {
-    //                 store: '{record.sub_po}',
-    //                 // title: 'Danh sách hàng xuất'
-	// 			},
-    //             columns:[
-    //                 {
-    //                     text:'PO Buyer',
-    //                     dataIndex:'po_buyer',
-    //                     width: 100
-    //                 },{
-    //                     text:'PO Vendor',
-    //                     dataIndex:'po_vendor',
-    //                     width: 100
-    //                 },{
-    //                     text:'Ngày giao',
-    //                     dataIndex:'shipdate',
-    //                     renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-    //                     width: 80
-    //                 },{
-    //                     text:'SL',
-    //                     dataIndex:'po_quantity',
-    //                     width: 60
-    //                 }			
-    //             ]				
-	// 		}
-	// 	}
-	// },      
+    }],    
     dockedItems:[{
         dock:'top',
         border: 'hbox',
@@ -141,7 +114,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         },{
             xtype:'combo',
             editable: false,
-            flex: 1,
+            width: 250,
             margin: '5 5 5 50',
             fieldLabel: 'Sản phẩm',
             itemId: 'productFilter',

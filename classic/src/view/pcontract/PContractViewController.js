@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
 
                     var PContractPOList = viewmodel.getStore('PContractPOList');
-                    PContractPOList.loadLeafOnly(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
+                    PContractPOList.loadLeafOnly_ByContract(viewmodel.get('PContract.id'));
                     
                 } 
                 else if (newCard.xtype == 'PContract_POrder_Main') {

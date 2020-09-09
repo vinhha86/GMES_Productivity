@@ -75,6 +75,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
             isReqPorder: true,
             isAllgrant: true
         },
+        ishidden_tbd: false,
         isHidden_PO: false,
         isHidden_CMP: false,
         isHidden_Salary: false,

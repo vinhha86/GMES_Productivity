@@ -52,7 +52,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             flex: 1,
                             margin: 1,
                             bind: {
-                                value: '{po.is_tbd}'
+                                value: '{po.is_tbd}',
+                                hidden: '{ishidden_tbd}'
                             },
                             listeners: {
                                 change: 'onIs_Tbd_Change'

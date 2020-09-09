@@ -48,7 +48,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     },
     onPOBuyerChange: function() {
         var viewmodel = this.getViewModel();
-        if (viewmodel.get('po.po_vendor').length == 0){
+        var po_vendor = viewmodel.get('po.po_vendor') == null ? "" : viewmodel.get('po.po_vendor');
+        if (po_vendor == "" ){
             viewmodel.set('po.po_vendor', viewmodel.get('po.po_buyer'));
         }
     },

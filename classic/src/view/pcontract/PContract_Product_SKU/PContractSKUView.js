@@ -169,6 +169,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             bind: {
                 store: '{PContractProduct_PO_Store}'
             },
+            width: 250,
             valueField: 'id',
             displayField: 'code',
             queryMode : 'local',

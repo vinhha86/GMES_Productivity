@@ -125,64 +125,82 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
     onSave: function(){
         var me = this;
         var viewmodel = this.getViewModel();
-        var params = new Object();
+        var mes = "";
 
-        var packing_arr = viewmodel.get('po.packingnotice'); 
-        var packingnotice = '';
-        for(i=0;i<packing_arr.length;i++){
-            packingnotice = packingnotice + packing_arr[i];
-            if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
-        } 
-        viewmodel.set('po.packingnotice',packingnotice);  
-        
-        params.data = viewmodel.get('po');
-        
+        if(viewmodel.get('po.parentpoid_link') == null){
+            mes = "Bạn chưa chọn chào giá !";
+        }
 
-        params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
-        params.data.exchangerate = parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi,''));
+        if(mes == ""){
+            var params = new Object();
 
-        var arrPOrders = [];
-        var porderReqStore = viewmodel.getStore('porderReqStore');
-        porderReqStore.each(function (record) {
-            //Neu la lenh moi (sencha tu sinh id) --> set = null
-            if(!Ext.isNumber(record.data.id)) record.data.id = null;
-
-            //Neu la Sub-PO moi
-            if (null == params.data.id) record.data.id = null;
-            delete record.data.product;
-            arrPOrders.push(record.data);
-        });
-        params.po_orders = arrPOrders;
-
-        GSmartApp.Ajax.post('/api/v1/pcontract_po/update', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                   
-                    if(response.respcode == 200){
+            var packing_arr = viewmodel.get('po.packingnotice') == null ? [] : viewmodel.get('po.packingnotice'); 
+            var packingnotice = '';
+            for(i=0;i<packing_arr.length;i++){
+                packingnotice = packingnotice + packing_arr[i];
+                if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
+            } 
+            viewmodel.set('po.packingnotice',packingnotice);  
+            
+            params.data = viewmodel.get('po');
+            
+    
+            params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+            params.data.exchangerate = viewmodel.get('po.exchangerate') == null ? 0 : parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi,''));
+    
+            var arrPOrders = [];
+            var porderReqStore = viewmodel.getStore('porderReqStore');
+            porderReqStore.each(function (record) {
+                //Neu la lenh moi (sencha tu sinh id) --> set = null
+                if(!Ext.isNumber(record.data.id)) record.data.id = null;
+    
+                //Neu la Sub-PO moi
+                if (null == params.data.id) record.data.id = null;
+                delete record.data.product;
+                arrPOrders.push(record.data);
+            });
+            params.po_orders = arrPOrders;
+    
+            GSmartApp.Ajax.post('/api/v1/pcontract_po/update', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                       
+                        if(response.respcode == 200){
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Lưu thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
+                                },
+                                fn: function(){
+                                    me.getInfo(response.id);
+                                }
+                            });
+                        }
+                    } else {
                         Ext.Msg.show({
                             title: 'Thông báo',
-                            msg: 'Lưu thành công',
+                            msg: 'Lưu thất bại',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
-                                yes: 'Đóng'
-                            },
-                            fn: function(){
-                                me.getInfo(response.id);
+                                yes: 'Đóng',
                             }
                         });
                     }
-                } else {
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Lưu thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
+                })
+        }
+        else {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: mes,
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
-            })
+            });
+        }
         
     }
 })
