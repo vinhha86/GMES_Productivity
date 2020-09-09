@@ -17,9 +17,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
         }
     },
     features: [{
-        ftype:'summary',
-        groupHeaderTpl: 'Tổng',
-        dock: 'bottom'
+        id: 'group',
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '{name}',
+        hideGroupedHeader: true,
+        enableGroupingMenu: false
     }],
     selModel: {
         //selType: 'checkboxmodel',
@@ -38,9 +40,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             }
         },
         {
-            header:'Phân xưởng',
+            header:'PX',
             dataIndex:'granttoorgcode',
-            flex: 1
+            flex: 1,
+            summaryType: 'count',
+            summaryRenderer: function(value, summaryData, dataIndex) {
+                return ((value === 0 || value > 1) ? '' + value + ' PX' : '1 PX');
+            }
         },
         {
             header:'SL',

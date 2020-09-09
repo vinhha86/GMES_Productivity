@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
 
     },    
     {
-        text:'Mã SP(Buyer)',
+        text:'Mã SP (Buyer)',
         dataIndex:'productbuyercode',
         width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
@@ -63,9 +63,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     },
     {
-        text:'Mã SP(Vendor)',
+        text:'Mã SP (Vendor)',
         dataIndex:'productvendorcode',
-        flex: 1,
+        width: 70,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;

@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
         }
     }, {
         text: 'PO Vendor',
-        dataIndex: 'po_vendor',
+        dataIndex: 'productvendorcode',
         width: 100,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';

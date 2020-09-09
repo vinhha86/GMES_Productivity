@@ -2,7 +2,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POrderController',
     init: function () {
-        
+         var viewmodel = this.getViewModel();
+         var porderReqStore = viewmodel.getStore('porderReqStore');
+         porderReqStore.setGroupField('product_code');
     },
     control:{
         '#btnSKUSelect':{
@@ -172,12 +174,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         var productid_link = record.get('productid_link');
         var pcontractid_link = this.getViewModel().get('PContract.id');
 
-        store.loadLeafOnly(pcontractid_link , productid_link);
+        store.loadLeafOnly_ByContract(pcontractid_link , productid_link);
     },
     onSelectPO: function(m, rec){
         var viewmodel = this.getViewModel();
         var po_id = rec.data.id;
-        var pcontractid_link = rec.data.pcontractid_link;
         viewmodel.set('po_selected', rec.data);
 
         //Lay danh sach POrder_Req
