@@ -11,7 +11,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     },
     onBeforeDropOrg: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
         var viewmodel = this.getViewModel();
-        // console.log(data.records[0]);
         //Chi cho phep keo phan xuong
         if (data.records[0].get('parentId') == 'root') {
             var orgId = data.records[0].get('id_origin');
@@ -22,29 +21,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             var porderReqStore = viewmodel.getStore('porderReqStore');
             var po = viewmodel.get('po');
 
-            var lstCheck = porderReqStore.queryBy(function (record, id) {
-                return (record.get('granttoorgid_link') == orgId );
-            }).items;
-
             var ProductStore = viewmodel.getStore('ProductStore');
             var list_product = [];
 
             if (ProductStore.data.length == 1) {
+                //San pham don chiec
                 list_product.push(ProductStore.data.items[0].data);
             }
             else {
+                //San pham bo
                 for (var i = 1; i < ProductStore.data.length; i++) {
                     list_product.push(ProductStore.data.items[i].data);
                 }
             }
 
-            if (lstCheck.length < list_product.length) {
+            for (var j = 0; j < list_product.length; j++) {
+                var data = list_product[j];
+                data.pairamount = data.pairamount == null ? 1 : data.pairamount;
 
-                for (var j = 0; j < list_product.length; j++) {
-                    var data = list_product[j];
-                    console.log(data);
-                    data.pairamount = data.pairamount == null ? 1 : data.pairamount;
+                var lstCheck = porderReqStore.queryBy(function (record, id) {
+                    return (record.get('granttoorgid_link') == orgId && record.get('productid_link') == data.id);
+                }).items;
 
+                //Chi thuc hien tinh toan khi chua co Phan xuong va San pham trong POrder_req
+                if (lstCheck.length == 0){
                     var porder_New = new Object({
                         id: null,
                         pcontractid_link: pcontractid_link,
@@ -58,43 +58,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         amount_inset: data.pairamount
                         // totalorder: po.po_quantity
                     });
-                    // console.log(porder_New);
                     porderReqStore.insert(0, porder_New);
-                    // porderReqStore.sort('is_calculate','DESC');
 
+                    //Tinh tong so cac Row duoc danh dau fix (ko tinh tu dong) va tong so luong fix
                     var count = 0;
                     var amount_fix = 0;
                     for (var i = 0; i < porderReqStore.data.length; i++) {
                         var record = porderReqStore.data.items[i];
-                        if(record.get('productid_link') != data.id) continue;
-                        
-                        if (record.get('is_calculate')) {
-                            amount_fix += record.get('totalorder');
+                        if(record.get('productid_link') == data.id){
+                            if (record.get('is_calculate')) {
+                                amount_fix += record.get('totalorder');
+                            }
+                            else
+                                count++;
                         }
-                        else
-                            count++;
                     }
 
-                    // //Chia deu so luong cho cac phan xuong
+                    //Chia deu so luong cho cac phan xuong
                     var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                     po_quantity = po_quantity * data.pairamount;
                     po_quantity -= amount_fix;
                     var org_quantity = Math.round(po_quantity / count);
-                    var dis_quantity = 0;
 
-                    for (i = 0; i < porderReqStore.data.length; i++) {
-                        var rec = porderReqStore.data.items[i];
-                        if (rec.get('is_calculate')) continue;
-                        if(rec.get('productid_link') != data.id) continue;
-
-                        if (i  ==  porderReqStore.data.length - 1){
-                            rec.set('totalorder', (po_quantity - dis_quantity));
-                        } 
-                        else {
-                            rec.set('totalorder', org_quantity);
+                    porderReqStore.each(function (record) {
+                        if (!record.get('is_calculate') && record.get('productid_link') == data.id) {
+                            if (po_quantity-org_quantity >= org_quantity ){
+                                record.set('totalorder', org_quantity);
+                                po_quantity = po_quantity - org_quantity;
+                            }
+                            else
+                                record.set('totalorder', po_quantity);//Lay phan con lai
                         }
-                        dis_quantity += org_quantity;
-                    }
+                    });  
+
                 }
             }
         }
