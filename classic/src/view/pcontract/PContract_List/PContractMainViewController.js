@@ -197,7 +197,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 po_code = "";
             }
 
-            store.loadStore(selected.id, productbuyer_code, po_code);
+            store.loadStoreBySearch(selected.id, productbuyer_code, po_code);
         }
     },
     onMenu_ContractList: function(grid, rowIndex, colIndex, item, e, record){

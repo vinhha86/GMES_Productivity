@@ -179,7 +179,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadStore: function(pcontractid_link, buyercode, po_buyer){
+	loadStoreBySearch: function(pcontractid_link, buyercode, po_buyer){
 		var me=this;
 		var params = new Object();
         params.pcontractid_link = pcontractid_link;
