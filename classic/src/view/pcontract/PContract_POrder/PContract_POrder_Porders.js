@@ -121,19 +121,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Porders', {
                 +'<div class="color-square process-granted"></div>&nbspĐã phân chuyền'
                 +'</div>',
                 margin: '5'
-            },{
-                html: '<div class="color-box">'
-                +'<div class="color-square process-ready"></div>&nbspChuẩn bị SX'
-                +'</div>',
-                margin: '5'
-            }]
+            },]
         },{
             layout: 'vbox',
             border: false,
             flex: 1,
             items: [{
                 html: '<div class="color-box">'
-                +'<div class="color-square process-subprocess"></div>&nbspCông đoạn phụ'
+                +'<div class="color-square process-ready"></div>&nbspChuẩn bị SX'
                 +'</div>',
                 margin: '5'
             },{
