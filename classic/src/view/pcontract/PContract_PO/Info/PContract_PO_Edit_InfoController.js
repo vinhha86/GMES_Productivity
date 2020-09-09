@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var po_price_data = viewmodel.get('po_price');
         if (null != po_data && null != po_price_data)
         if (null != po_price_data.price_cmp && null != po_data.exchangerate && null != po_data.sewtarget_percent){
-            po_price_data.price_sewingtarget = (po_price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+            po_price_data.price_sewingtarget = Math.round((po_price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
             viewmodel.set('po_price',po_price_data);
 
             //Update gia tri Sew target tai tat ca cac san pham

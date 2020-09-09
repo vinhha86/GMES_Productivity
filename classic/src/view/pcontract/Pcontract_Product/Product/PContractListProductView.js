@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
     controller: 'PContractListProductViewCotroller',
     IdPContract: 0,
     viewConfig: {
+        stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
         rowLines: true

@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.pcontract.PContractAttributeView', {
     controller: 'PContractAttributeViewCotroller',
     IdPcontract: 0,
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
         rowLines: true
