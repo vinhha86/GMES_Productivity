@@ -42,7 +42,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
                 for (var j = 0; j < list_product.length; j++) {
                     var data = list_product[j];
-                    
+                    console.log(data);
+                    data.pairamount = data.pairamount == null ? 1 : data.pairamount;
+
                     var porder_New = new Object({
                         id: null,
                         pcontractid_link: pcontractid_link,
@@ -53,7 +55,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         granttoorgcode: orgCode,
                         productid_link : data.id,
                         product_code : data.code,
-                        amount_inset: data.pairamount == null ? 1 : data.pairamount
+                        amount_inset: data.pairamount
                         // totalorder: po.po_quantity
                     });
                     // console.log(porder_New);
@@ -76,10 +78,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     // //Chia deu so luong cho cac phan xuong
                     var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                     po_quantity = po_quantity * data.pairamount;
-
                     po_quantity -= amount_fix;
                     var org_quantity = Math.round(po_quantity / count);
-
                     var dis_quantity = 0;
 
                     for (i = 0; i < porderReqStore.data.length; i++) {
@@ -87,14 +87,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         if (rec.get('is_calculate')) continue;
                         if(rec.get('productid_link') != data.id) continue;
 
-                        rec.beginedit;
-                        if (i < porderReqStore.data.length - 1)
+                        if (i  ==  porderReqStore.data.length - 1){
+                            rec.set('totalorder', (po_quantity - dis_quantity));
+                        } 
+                        else {
                             rec.set('totalorder', org_quantity);
-                        else
-                            rec.set('totalorder', po_quantity - dis_quantity);
-                        rec.endedit;
-                        rec.commit();
-                        dis_quantity = dis_quantity + org_quantity;
+                        }
+                        dis_quantity += org_quantity;
                     }
                 }
             }
