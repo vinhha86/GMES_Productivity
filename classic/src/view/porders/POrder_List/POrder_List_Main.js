@@ -305,11 +305,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 margin: '5'
             },{
                 html: '<div class="color-box">'
-                +'<div class="color-square process-subprocess"></div>&nbspCông đoạn phụ'
-                +'</div>',
-                margin: '5'
-            },{
-                html: '<div class="color-box">'
                 +'<div class="color-square process-running"></div>&nbspĐang SX'
                 +'</div>',
                 margin: '5'
