@@ -124,22 +124,17 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     // }, 
     {
         xtype: 'actioncolumn',
-        width: 50,
+        width: 25,
         menuDisabled: true,
         sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-edit',
-            tooltip: "Chi tiết",
-            handler: 'onEdit',
-            itemId:'btnEdit_PContractMainView'
-        }, {
-            iconCls: 'x-fa fas fa-trash',
-            itemId:'btnDelete_PContractMainView',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa',
-            isActionDisabled: 'checkActionColumnPermission'
-        }]
-    }],
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_ContractList'
+            },            
+        ]
+    }    
+   ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
@@ -151,6 +146,20 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             width: 135,
             iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi_PContractMainView',
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            margin: '5 1 5 0',
+            emptyText: "Mã SP(Buyer)",
+            itemId: 'productbuyer_code',
+            width: 120
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            margin: '5 1 5 0',
+            emptyText: "PO Buyer",
+            itemId: 'po_code',
+            width: 120
         },{
             xtype: 'combo',
             labelWidth: 0,
@@ -188,7 +197,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             emptyText: "Năm HĐ",
             maskRe: /[0-9]/,
             itemId: 'contractbuyer_year',
-            width: 120
+            width: 80
         },
         {
             xtype: 'button',

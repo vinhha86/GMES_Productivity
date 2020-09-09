@@ -104,8 +104,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 
         this.redirectTo("lspcontract/" + idpcontract + "/edit");
     },
-    onEdit: function(grid, rowIndex, colIndex){
-        var rec = grid.getStore().getAt(rowIndex);
+    onEdit: function(rec){
+        // var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
         this.redirectTo("lspcontract/" + id + "/edit");
     },
@@ -113,8 +113,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var id = record.data.id;
         this.redirectTo("lspcontract/" + id + "/edit");
     },
-    onXoa: function (grid, rowIndex, colIndex) {
-        var rec = grid.getStore().getAt(rowIndex);
+    onXoa: function (rec) {
+        // var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
 
         var params = new Object();
@@ -173,5 +173,56 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             var store = viewmodel.getStore('PContractPOList');
             store.loadLeafOnly_ByContract(selected.data.id);
         }
+    },
+    onMenu_ContractList: function(grid, rowIndex, colIndex, item, e, record){
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Chi tiết đơn hàng',
+                itemId: 'btnEditPContract_PContract_PO_List',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-edit brownIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onEdit(record);
+                },
+            }, 
+            {
+                text: 'Xóa đơn hàng',
+                itemId: 'btnDeletePO_PContract_PO_List',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onXoa(record);
+                }
+            }, 
+            {
+                text: 'Quyết toán đơn hàng',
+                itemId: 'btnEditPO_PContract_PO_List',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-calculator greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    // me.onPOInfoEdit(record);
+                }
+            },             
+        ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX()-10, e.getY()-10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
     }
 })
