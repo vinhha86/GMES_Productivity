@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.login.Login', {
                 fieldLabel: "Tên đăng nhập:",
                 name: 'username',
                 emptyText : 'Username',
-                value: 'admin@gpay.vn',
+                // value: 'admin@gpay.vn',
                 allowBlank: false
             }, {
                 xtype: 'textfield',
@@ -63,7 +63,7 @@ Ext.define('GSmartApp.view.login.Login', {
                 name: 'password',
                 emptyText : 'Password',
                 inputType: 'password',
-                value: 'admin123',
+                // value: 'admin123',
                 allowBlank: false
             }],
             buttonAlign: 'center',

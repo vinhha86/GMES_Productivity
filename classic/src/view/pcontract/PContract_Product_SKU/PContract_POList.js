@@ -29,15 +29,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         width: 40,
         xtype: 'rownumberer',
         align: 'center'
-    },{
-        text:'Mã Buyer (SP)',
-        dataIndex:'productbuyercode',
-        width: 100,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },{
+    },
+    {
         text:'PO Buyer',
         dataIndex:'po_buyer',
         flex: 1,
@@ -59,15 +52,35 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             }
         },
 
-    },{
-        text:'PO Vendor',
-        dataIndex:'po_vendor',
+    },    
+    {
+        text:'Mã SP(Buyer)',
+        dataIndex:'productbuyercode',
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },
+    {
+        text:'Mã SP(Vendor)',
+        dataIndex:'productvendorcode',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
+    },    
+    // {
+    //     text:'PO Vendor',
+    //     dataIndex:'po_vendor',
+    //     flex: 1,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },
+    {
         text:'Ngày GH',
         dataIndex:'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
