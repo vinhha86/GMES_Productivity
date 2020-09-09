@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             return value;
         }
     },{
-        text:'Ngày giao',
+        text:'Ngày GH',
         dataIndex:'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 75
@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         text:'SL',
         align: 'end',
         dataIndex:'po_quantity',
-        width: 60,
+        width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
