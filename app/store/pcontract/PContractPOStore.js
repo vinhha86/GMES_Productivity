@@ -65,12 +65,12 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadLeafOnly_ByContract: function(pcontractid_link){
+	loadLeafOnly_ByContract: function(pcontractid_link, productid_link){
 		var me=this;
 		var params = new Object();
         params.pcontractid_link = pcontractid_link;
-        params.productid_link = null;
-
+        params.productid_link = productid_link;
+		console.log(params);
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -178,35 +178,5 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			}
 		});
 		this.load();
-	},
-	loadStoreBySearch: function(pcontractid_link, buyercode, po_buyer){
-		var me=this;
-		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
-        params.buyercode = buyercode;
-        params.po_buyer = po_buyer;
-
-		this.setProxy({
-			type: 'ajax',
-			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
-				destroy: 'POST'
-			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getByContractAndProductBuyerCodeAndPOBuyer',
-			paramsAsJson:true,
-			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			}
-		});
-		this.load();
-	}
+	}	
 });
