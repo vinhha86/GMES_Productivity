@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractStore');
-        store.loadStore(0, 0, "", "");
+        store.loadStore("", "", 0, 0, "", "");
 
         this.onActivate();
         common.Check_Object_Permission();
@@ -73,12 +73,22 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var t = this;
 
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PContractStore');
+        var PContractStore = viewmodel.getStore('PContractStore');
 
+        var productbuyer_code = me.down('#productbuyer_code').getValue();
+        var po_code = me.down('#po_code').getValue();
         var orgbuyerid_link = me.down('#orgbuyerid_link').getValue();
         var orgvendorid_link = me.down('#orgvendorid_link').getValue();
         var contractbuyer_code = me.down('#contractbuyer_code').getValue();
         var contractbuyer_year = me.down('#contractbuyer_year').getValue();
+
+        if (productbuyer_code == null) {
+            productbuyer_code = "";
+        }
+
+        if (po_code == null) {
+            po_code = "";
+        }
 
         if (orgbuyerid_link == null) {
             orgbuyerid_link = 0;
@@ -96,7 +106,10 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             contractbuyer_year = "";
         }
 
-        store.loadStore(orgbuyerid_link, orgvendorid_link, contractbuyer_code, contractbuyer_year);
+        PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link, orgvendorid_link, contractbuyer_code, contractbuyer_year);
+        var PContractPOList = viewmodel.getStore('PContractPOList');
+        PContractPOList.removeAll();
+        me.getSelectionModel().deselectAll();
     },
     onThemMoi: function () {
         var me = this.getView();
@@ -169,9 +182,22 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     },
     onPContractSelect: function(e, selected, eOpts){
         if (null != selected){
+            var me = this.getView();
             var viewmodel = this.getViewModel();
             var store = viewmodel.getStore('PContractPOList');
-            store.loadLeafOnly_ByContract(selected.data.id);
+
+            var productbuyer_code = me.down('#productbuyer_code').getValue();
+            var po_code = me.down('#po_code').getValue();
+
+            if (productbuyer_code == null) {
+                productbuyer_code = "";
+            }
+    
+            if (po_code == null) {
+                po_code = "";
+            }
+
+            store.loadStore(selected.id, productbuyer_code, po_code);
         }
     },
     onMenu_ContractList: function(grid, rowIndex, colIndex, item, e, record){

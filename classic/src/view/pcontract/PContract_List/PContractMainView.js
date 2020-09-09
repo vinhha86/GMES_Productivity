@@ -196,6 +196,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             margin: '5 1 5 0',
             emptyText: "Năm HĐ",
             maskRe: /[0-9]/,
+            maxLength: 4,
             itemId: 'contractbuyer_year',
             width: 80
         },
