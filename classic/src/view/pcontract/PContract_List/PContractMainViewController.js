@@ -182,7 +182,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     },
     onPContractSelect: function(e, selected, eOpts){
         if (null != selected){
-            console.log(selected);
             var me = this.getView();
             var viewmodel = this.getViewModel();
             var store = viewmodel.getStore('PContractPOList');

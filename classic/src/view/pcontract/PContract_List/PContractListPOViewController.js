@@ -3,15 +3,17 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
     alias: 'controller.PContractListPOViewController',
     isActivate: false,
     control: {
-        '#PContractListPOView': {
+        'PContractListPOView': {
             itemdblclick: 'onPOSelect'
         }
     },
-    onPOSelect: function(e, selected, eOpts){
-        console.log(selected);
-        if (null != selected){
-            console.log(select);
-            // this.redirectTo('lspcontract/');
+    onPOSelect: function( grid, record, item, index, e, eOpts){
+        if (null != record){
+            var pcontractid_link = record.get('pcontractid_link');
+            var poid_link = record.get('id');
+            var productid_link = record.get('productid_link');
+
+            this.redirectTo('lspcontract/'+pcontractid_link+"/edit_"+poid_link+"_"+productid_link);
         }
     }
 })

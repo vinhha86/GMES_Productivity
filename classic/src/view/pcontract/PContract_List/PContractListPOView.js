@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     requires: [
         'Ext.ProgressBarWidget'
     ],
-    controller: 'PContractMainViewController',
+    controller: 'PContractListPOViewController',
     reference: 'PContractListPOView',
     viewConfig: {
         stripeRows: false,
