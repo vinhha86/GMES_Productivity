@@ -136,29 +136,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     },
     onEditPorderReq: function(editor, context, e){
         var viewmodel = this.getViewModel();
+
         if(viewmodel.get('po_selected.isauto_calculate')) {
             var porderReqStore = viewmodel.getStore('porderReqStore');
 
             var count = 0;
             var amount_fix =0 ;
+            var curRec = porderReqStore.getAt(context.rowIdx);
             for(var i=0; i<porderReqStore.data.length;i++){
                 var rec = porderReqStore.data.items[i];
-                if(rec.get('is_calculate')){
-                    amount_fix += rec.get('totalorder');
+                if(curRec.get('productid_link') == rec.get('productid_link') && curRec.get('id') != rec.get('id')) {
+                    if(rec.get('is_calculate')){
+                        amount_fix += rec.get('totalorder');
+                    }
+                    else
+                    count++;
                 }
-                else
-                count++;
             }
     
             var po_quantity = parseFloat(viewmodel.get('po_selected.po_quantity').toString().replace(/,/gi,''));
+            po_quantity = po_quantity * context.record.get('amount_inset');
 
-            var amount = (po_quantity - amount_fix - context.value) / (count-1);
-            
-            var curRec = porderReqStore.getAt(context.rowIdx);
+            console.log(amount_fix);
+            console.log(context.value);
+            var amount = 0;
+            if(count > 1){
+                amount = (po_quantity - amount_fix - context.value) / (count-1);
+            }
+            else {
+                amount = po_quantity - amount_fix - context.value;
+            }
+
             if(po_quantity - amount_fix >= context.value){
-                for(var i=0; i<porderReqStore.data.length;i++){
+                for (var i = 0; i < porderReqStore.data.length; i++) {
                     var rec = porderReqStore.data.items[i];
-                    if(!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')){
+                    if(rec.get('productid_link') != curRec.get('productid_link')) continue;
+                    if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
                         rec.set('totalorder', amount);
                     }
                 }

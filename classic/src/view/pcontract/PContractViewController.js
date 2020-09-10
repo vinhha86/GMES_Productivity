@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
 
                     var PContractPOList = viewmodel.getStore('PContractPOList');
-                    PContractPOList.loadLeafOnly_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
+                    PContractPOList.loadLeafOnly_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'), viewmodel.get('pcontract_poid_link_filter'));
                     
                 } 
                 else if (newCard.xtype == 'PContract_POrder_Main') {
@@ -73,10 +73,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
     onLoadData: function (id, type) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-
         if(type!= "" && type!= null){
             var strSplit = type.toString().split('_');
-            if(strSplit.length > 1){
+            if(strSplit.length > 2){
                 viewmodel.set('pcontract_poid_link_filter', strSplit[1]);
                 viewmodel.set('productid_link_filter', strSplit[2]);
                 viewmodel.set('IdProduct_filterPO', strSplit[2]);

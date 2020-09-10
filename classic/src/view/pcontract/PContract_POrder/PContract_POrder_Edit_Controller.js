@@ -87,7 +87,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Controller', {
         var porder = viewmodel.get('porder');
         var poSKU_View = Ext.getCmp('PContract_POrder_Edit_POSKU').getView();
         var poSKU_select = poSKU_View.getSelectionModel().getSelection();
-        console.log(poSKU_select);
         var poSKU_list = [];
         for (var i = 0; i < poSKU_select.length; i++) {
             var data = poSKU_select[i].data;
