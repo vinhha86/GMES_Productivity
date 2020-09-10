@@ -65,11 +65,14 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadLeafOnly_ByContract: function(pcontractid_link, productid_link){
+	loadLeafOnly_ByContract: function(pcontractid_link, productid_link, pcontractpo_id_link){
 		var me=this;
+		pcontractpo_id_link = pcontractpo_id_link ==null ? 0 : pcontractpo_id_link;
 		var params = new Object();
         params.pcontractid_link = pcontractid_link;
-        params.productid_link = productid_link;
+		params.productid_link = productid_link;
+		params.pcontractpo_id_link = pcontractpo_id_link;
+		
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
