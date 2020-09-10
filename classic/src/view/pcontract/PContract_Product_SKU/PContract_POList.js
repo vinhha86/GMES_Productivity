@@ -95,20 +95,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     },{
         xtype: 'actioncolumn',
-        width: 50,
+        width: 25,
         menuDisabled: true,
         sortable: false,
         items: [
             {
-                iconCls: 'x-fa fas fa-list',
-                tooltip: 'Sửa PO',
-                handler: 'onEdit'
-            },
-            {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: 'Xóa PO',
-                handler: 'onXoaPO'
-            }
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_PO'
+            },                
+            // {
+            //     iconCls: 'x-fa fas fa-list',
+            //     tooltip: 'Sửa PO',
+            //     handler: 'onEdit'
+            // },
+            // {
+            //     iconCls: 'x-fa fas fa-trash',
+            //     tooltip: 'Xóa PO',
+            //     handler: 'onXoaPO'
+            // }
         ]
     }],    
     dockedItems:[{

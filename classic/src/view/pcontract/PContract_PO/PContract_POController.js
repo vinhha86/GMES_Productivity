@@ -453,7 +453,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             //     // }
             // }, 
             {
-                text: 'Xóa đơn hàng',
+                text: 'Xóa chào giá',
                 itemId: 'btnDeletePO_PContract_PO_List',
                 separator: true,
                 margin: '10 0 0',

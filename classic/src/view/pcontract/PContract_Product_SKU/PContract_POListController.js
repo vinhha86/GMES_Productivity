@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             form.close();
         })
     },
-    onXoaPO: function(grid, rowIndex, colIndex, item, e, rec){
+    onXoaPO: function(rec){
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
             function (choice) {
@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 }
             } );    
     },
-    onEdit: function(grid, rowIndex, colIndex, item, e, rec){
+    onEdit: function(rec){
         var viewModel = this.getViewModel();
     
         var form = Ext.create('Ext.window.Window', {
@@ -119,5 +119,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             storePO.load();
             form.close();
         })
-    }
+    },
+    onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Sửa PO',
+                itemId: 'btnEditPrice_PContract_PO_List',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-dollar brownIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onEdit(record);
+                },
+            }, 
+            {
+                text: 'Xóa PO',
+                itemId: 'btnDeletePO_PContract_PO_List',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onXoaPO(record);
+                }
+            }
+        ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX()-10, e.getY()-10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
+    },        
 })
