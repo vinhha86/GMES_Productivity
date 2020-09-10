@@ -20,6 +20,7 @@ Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.InsertPO_Ma
     },
     data: {
         pcontractid_link: 0,
+        productid_link: 0,
         po : {
             parentpoid_link: null,
         },

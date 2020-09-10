@@ -56,21 +56,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     {
         text:'Mã SP (Buyer)',
         dataIndex:'productbuyercode',
-        width: 100,
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     },
-    {
-        text:'Mã SP (Vendor)',
-        dataIndex:'productvendorcode',
-        width: 70,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },    
+    // {
+    //     text:'Mã SP (Vendor)',
+    //     dataIndex:'productvendorcode',
+    //     width: 70,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },    
     // {
     //     text:'PO Vendor',
     //     dataIndex:'po_vendor',
@@ -127,9 +127,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         },{
             xtype:'combo',
             editable: false,
-            width: 250,
-            margin: '5 5 5 40',
+            width: 260,
+            margin: '0 0 0 20',
             fieldLabel: 'Sản phẩm',
+            labelWidth: 70,
             itemId: 'productFilter',
             bind: {
                 store: '{ProductFilterStore}',

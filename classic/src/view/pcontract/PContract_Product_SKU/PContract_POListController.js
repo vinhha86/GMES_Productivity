@@ -43,7 +43,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     data: {
                         po: {
                             pcontractid_link: viewmodel.get('PContract.id')
-                        }
+                        },
+                        productid_link: viewmodel.get('IdProduct_filterPO')
                     }
                 }
             }]

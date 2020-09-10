@@ -40,10 +40,14 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         
     },
     onFilterProduct: function(combo, record, eOpts ){
-        console.log(record);
-        var store = this.getViewModel().getStore('PContractPOList');
+        // console.log(record);
+        var viewmodel =  this.getViewModel();
+        var store = viewmodel.getStore('PContractPOList');
         var productid_link = record.get('productid_link');
-        var pcontractid_link = this.getViewModel().get('PContract.id');
+        viewmodel.set('IdProduct_filterPO',productid_link);
+        
+        
+        var pcontractid_link = viewmodel.get('PContract.id');
 
         store.loadLeafOnly_ByContract(pcontractid_link , productid_link);
     }

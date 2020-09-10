@@ -5,7 +5,8 @@ Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.ListPO_Offe
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractProductPOStore');
         var pcontractid_link = viewmodel.get('po.pcontractid_link');
-        store.loadAccept_ByContract(pcontractid_link);
+        var productid_link = viewmodel.get('productid_link');
+        store.loadAccept_ByContract(pcontractid_link,productid_link);
     },
     control:{
         'ListPO_Offer' : {
