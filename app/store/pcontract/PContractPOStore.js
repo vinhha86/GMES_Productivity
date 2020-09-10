@@ -70,7 +70,6 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		var params = new Object();
         params.pcontractid_link = pcontractid_link;
         params.productid_link = productid_link;
-		console.log(params);
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

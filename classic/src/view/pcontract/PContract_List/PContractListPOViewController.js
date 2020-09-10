@@ -4,13 +4,14 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
     isActivate: false,
     control: {
         '#PContractListPOView': {
-            select: 'onPOSelect'
+            itemdblclick: 'onPOSelect'
         }
     },
     onPOSelect: function(e, selected, eOpts){
         console.log(selected);
         if (null != selected){
-            //redirect den PContract_PO o day
+            console.log(select);
+            // this.redirectTo('lspcontract/');
         }
     }
 })
