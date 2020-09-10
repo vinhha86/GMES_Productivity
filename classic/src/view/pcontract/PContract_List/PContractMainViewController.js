@@ -182,6 +182,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     },
     onPContractSelect: function(e, selected, eOpts){
         if (null != selected){
+            console.log(selected);
             var me = this.getView();
             var viewmodel = this.getViewModel();
             var store = viewmodel.getStore('PContractPOList');
@@ -197,7 +198,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 po_code = "";
             }
 
-            store.loadStoreBySearch(selected.id, productbuyer_code, po_code);
+            store.loadLeafOnly_ByContract(selected.id, 0);
         }
     },
     onMenu_ContractList: function(grid, rowIndex, colIndex, item, e, record){

@@ -99,8 +99,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         if(type!= "" && type!= null){
             var strSplit = type.toString().split('_');
             if(strSplit.length > 1){
-                var tab = me.down('#tabmain');
-                tab.setActiveTab(parseInt(strSplit[1]));
+                // var tab = me.down('#tabmain');
+                // tab.setActiveTab(parseInt(strSplit[1]));
+                console.log(strSplit[1]); 
             }
         }
     },
