@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Porder.Form_SelectOrg_PorderReq_C
         params.data.is_calculate = false;
         params.data.totalorder = parseFloat(viewmodel.get('amount').toString().replace(/,/gi,''));
 
-        GSmartApp.Ajax.post('/api/v1/porder_req/create', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/porder_req/create_from_po', Ext.JSON.encode(params),
         function (success, response, options) {
             var response = Ext.decode(response.responseText);
             if (!success) {

@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     },{
         xtype: 'actioncolumn',
-        width: 25,
+        width: 50,
         menuDisabled: true,
         sortable: false,
         items: [
@@ -105,7 +105,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 handler: 'onEdit'
             },
             {
-                iconCls: 'x-fa fas fa-trash redIcon',
+                iconCls: 'x-fa fas fa-trash',
                 tooltip: 'Xóa PO',
                 handler: 'onXoaPO'
             }
