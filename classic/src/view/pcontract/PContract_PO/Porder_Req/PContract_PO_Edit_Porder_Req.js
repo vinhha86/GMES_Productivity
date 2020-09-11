@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         }
     },{
         xtype: 'actioncolumn',
-        id: 'PContract_PO_Edit_Porder_Req_deletebutton',
+        // id: 'PContract_PO_Edit_Porder_Req_deletebutton',
         width: 20,
         menuDisabled: true,
         sortable: false,
@@ -108,16 +108,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
             bind: {
                 value: '{po.isauto_calculate}'
             }
+        },
+        '->',
+        {
+            xtype:'button',
+            itemId: 'btnThemOrg',
+            ui: 'header',
+			tooltip: 'Thêm đơn vị',
+            iconCls: 'x-fa fa-plus',
+            handler: 'onThemOrg',
+            bind: {
+                hidden: '{hidden_btnThemOrg}'
+            }
         }]
-    },{
-        dock: 'bottom',
-        xtype: 'displayfield',
-        height: 30,
-        labelStyle: "font-size:11px;",
-        fieldStyle: 'font-size:11px;text-align:right',
-        bind: {
-            value: '{porder_req.sum_set}'
-        }
-    }]
+    },
+    // {
+    //     dock: 'bottom',
+    //     xtype: 'displayfield',
+    //     height: 30,
+    //     labelStyle: "font-size:11px;",
+    //     fieldStyle: 'font-size:11px;text-align:right',
+    //     bind: {
+    //         value: '{porder_req.sum_set}'
+    //     }
+    // }
+]
 });
 

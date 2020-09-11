@@ -155,26 +155,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             }
     
             var po_quantity = parseFloat(viewmodel.get('po_selected.po_quantity').toString().replace(/,/gi,''));
-            po_quantity = po_quantity * context.record.get('amount_inset');
+            po_quantity = po_quantity * context.record.get('amount_inset') - context.value;
 
-            console.log(amount_fix);
-            console.log(context.value);
             var amount = 0;
             if(count > 1){
-                amount = (po_quantity - amount_fix - context.value) / (count-1);
+                amount = (po_quantity - amount_fix ) / (count-1);
             }
             else {
-                amount = po_quantity - amount_fix - context.value;
+                amount = po_quantity - amount_fix;
             }
 
             if(po_quantity - amount_fix >= context.value){
-                for (var i = 0; i < porderReqStore.data.length; i++) {
-                    var rec = porderReqStore.data.items[i];
-                    if(rec.get('productid_link') != curRec.get('productid_link')) continue;
-                    if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
-                        rec.set('totalorder', amount);
+                // for (var i = 0; i < porderReqStore.data.length; i++) {
+                //     var rec = porderReqStore.data.items[i];
+                //     if(rec.get('productid_link') != curRec.get('productid_link')) continue;
+                //     if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
+                //         rec.set('totalorder', amount);
+                //     }
+                // }
+
+                porderReqStore.each(function (record) {
+                    if (!record.get('is_calculate') && record.get('productid_link') == curRec.get('productid_link') 
+                    && record.get('id') != curRec.get('id')) {
+                        if (po_quantity-amount >= amount -1 ){
+                            record.set('totalorder', amount);
+                            po_quantity = po_quantity - amount;
+                        }
+                        else
+                            record.set('totalorder', po_quantity);//Lay phan con lai
                     }
-                }
+                });  
             }            
             else
             {
