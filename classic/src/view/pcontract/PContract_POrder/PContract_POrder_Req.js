@@ -70,18 +70,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             }
         },{
             xtype: 'actioncolumn',
-            width: 50,
+            width: 25,
             menuDisabled: true,
             sortable: false,
-            items: [{
-                iconCls: 'x-fa fas fa-magic',
-                tooltip: 'Tạo lệnh',
-                handler: 'onPOrderCreate'
-            },{
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: 'Xóa',
-                handler: 'onXoaPorderReq'
-            }]
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_POrder_Req'
+                },                                
+                // {
+                //     iconCls: 'x-fa fas fa-magic',
+                //     tooltip: 'Tạo lệnh',
+                //     handler: 'onPOrderCreate'
+                // },{
+                //     iconCls: 'x-fa fas fa-trash',
+                //     tooltip: 'Xóa',
+                //     handler: 'onXoaPorderReq'
+                // }
+            ]
         }
     ],
     dockedItems: [{

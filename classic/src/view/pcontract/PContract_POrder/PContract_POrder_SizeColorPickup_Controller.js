@@ -4,10 +4,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
     init: function(){
         var viewmodel = this.getViewModel();
         var po = viewmodel.get('po');
-        var productStore = viewmodel.getStore('PContractProduct_PO_Store');
-        productStore.loadStore_bypairid(po.productid_link, po.po_quantity, true);
+        // var productStore = viewmodel.getStore('PContractProduct_PO_Store');
+        // productStore.loadStore_bypairid(po.productid_link, po.po_quantity, true);
         var storeSku = viewmodel.getStore('PContractSKUStore');
-        storeSku.loadStoreByPO(po.pcontractid_link, po.id); 
+        storeSku.loadStoreByPO_ASync(po.pcontractid_link, po.id); 
+        storeSku.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+				else{
+					this.refreshSizeColorList();
+				}
+			}
+		});
+        
     },
     control: {
         '#btnThoat': {
@@ -46,13 +58,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
                 colorlist = colorlist + color_select[i].data.id + ';'
             }
 
-            var product_View = form.down('PContract_POrder_SizeColorPickup_Product');
-            var product_select = product_View.getSelectionModel().getSelection();
+            // var product_View = form.down('PContract_POrder_SizeColorPickup_Product');
+            // var product_select = product_View.getSelectionModel().getSelection();
 
-            if (product_select.length != 0 || sizelist == '' || colorlist == ''){
+            if (sizelist == '' || colorlist == ''){
                 var params=new Object();
                 params.porderreqid_link = viewmodel.get('porderreqid_link');
-                params.productid_link = product_select[0].data.id;
+                params.productid_link = viewmodel.get('productid_link');
                 params.size_list = sizelist;
                 params.color_list = colorlist;
 
@@ -75,14 +87,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
         console.log(storeSku);
+        console.log(viewmodel.get('productid_link'));
+
         var sizePickupStore = viewmodel.getStore('SizePickupStore');
         var colorPickupStore = viewmodel.getStore('ColorPickupStore');
         sizePickupStore.removeAll();
         colorPickupStore.removeAll();
-        var product_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Product').getView();
-        var product_select = product_View.getSelectionModel().getSelection();
-        for (i=0; i< product_select.length; i++){
-            storeSku.filter('productid_link',product_select[i].data.id);
+        // var product_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Product').getView();
+        // var product_select = product_View.getSelectionModel().getSelection();
+        // for (i=0; i< product_select.length; i++){
+            // storeSku.filter('productid_link',product_select[i].data.id);
+            storeSku.filter('productid_link',viewmodel.get('productid_link'));
             for(k=0; k<storeSku.data.items.length; k++){
                 var data = storeSku.data.items[k].data;
                 var newSize = new Object();
@@ -96,7 +111,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
                 newColor.name = data.mauSanPham;
                 colorPickupStore.insert(0,newColor);
             }
-        }
+        // }
     },
     onGenPOrder: function(){
         var viewmodel = this.getViewModel();
@@ -119,10 +134,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
                 colorlist = colorlist + color_select[i].data.id + ';'
             }
 
-            var product_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Product').getView();
-            var product_select = product_View.getSelectionModel().getSelection();
+            // var product_View = Ext.getCmp('PContract_POrder_SizeColorPickup_Product').getView();
+            // var product_select = product_View.getSelectionModel().getSelection();
 
-            if (product_select.length == 0 && sizelist == '' && colorlist == ''){
+            if (sizelist == '' && colorlist == ''){
                 Ext.MessageBox.show({
                     title: "Lệnh sản xuất",
                     msg: 'Bạn phải chọn ít nhất 1 điều kiện để tạo lệnh',
@@ -132,7 +147,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
                     }
                 });
             } else {
-                this.fireEvent('GenPOrder',product_select,sizelist,colorlist);
+                this.fireEvent('GenPOrder',sizelist,colorlist);
             }
         }
     },

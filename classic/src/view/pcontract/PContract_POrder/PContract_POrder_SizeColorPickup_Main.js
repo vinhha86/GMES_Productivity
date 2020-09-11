@@ -14,14 +14,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
             id:'PContract_POrder_SizeColorPickup_Center',
             layout: 'border',
             items:[
-                {
-                    region: 'west',
-                    title: 'Danh sách sản phẩm',
-                    width:'50%',
-                    xtype: 'PContract_POrder_SizeColorPickup_Product',
-                    border: true,
-                    margin: 1,
-                },
+                // {
+                //     region: 'west',
+                //     title: 'Danh sách sản phẩm',
+                //     width:'50%',
+                //     xtype: 'PContract_POrder_SizeColorPickup_Product',
+                //     border: true,
+                //     margin: 1,
+                // },
                 {
                     region: 'center',
                     title: 'Danh sách cỡ',
@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Main', {
                 {
                     region: 'east',
                     title: 'Danh sách màu',
-                    width:'25%',
+                    width:'50%',
                     xtype: 'PContract_POrder_SizeColorPickup_Color',
                     border: true,
                     margin: 1,

@@ -131,7 +131,7 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.load();
+		// this.load();
 	},
 	loadStoreByPO_and_Product: function(productid_link, pcontract_poid_link){
 		var me=this;

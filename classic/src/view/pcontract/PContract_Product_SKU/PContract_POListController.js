@@ -132,10 +132,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             items: [
             {
                 text: 'Sửa PO',
-                itemId: 'btnEditPrice_PContract_PO_List',
+                itemId: 'btnEditPO_PContract_POList',
                 separator: true,
                 margin: '10 0 0',
-                iconCls: 'x-fa fas fa-dollar brownIcon',
+                iconCls: 'x-fa fas fa-pencil brownIcon',
                 handler: function(){
                     var record = this.parentMenu.record;
                     me.onEdit(record);
@@ -143,7 +143,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             }, 
             {
                 text: 'Xóa PO',
-                itemId: 'btnDeletePO_PContract_PO_List',
+                itemId: 'btnDelPO_PContract_POList',
                 separator: true,
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-trash redIcon',
