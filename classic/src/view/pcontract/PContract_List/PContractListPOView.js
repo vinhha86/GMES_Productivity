@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text:'SL',
         align: 'right',
         dataIndex:'po_quantity',
-        width: 60,
+        width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }

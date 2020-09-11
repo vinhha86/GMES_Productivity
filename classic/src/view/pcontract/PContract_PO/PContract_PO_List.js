@@ -12,16 +12,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         enableTextSelection: true,
         columnLines: true,
         rowLines: true,
-        getRowClass: function (record, index) {
-            if (record.data.status == 0) {
-                return "po_accept";
-            }
-            else {
-                if(record.get('po_quantity') != record.get('amount_org')){
-                    return "po_wrongamount"
-                }
-            }
-        }
+        // getRowClass: function (record, index) {
+        //     if (record.data.status == 0) {
+        //         return "po_accept";
+        //     }
+        //     else {
+        //         if(record.get('po_quantity') != record.get('amount_org')){
+        //             return "po_wrongamount"
+        //         }
+        //     }
+        // }
     },
     selModel: {
         //selType: 'checkboxmodel',
@@ -52,6 +52,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         width: 110,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
+
+            if (record.data.status == 0) {
+                metaData.tdCls =  "po_accept";
+            }
+            else {
+                if(record.get('po_quantity') != record.get('amount_org')){
+                    metaData.tdCls =  "po_wrongamount"
+                }
+            }            
             return value;
         }
     },{
@@ -66,7 +75,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         text:'SL',
         align: 'right',
         dataIndex:'po_quantity',
-        width: 60,
+        width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }

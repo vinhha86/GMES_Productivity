@@ -74,9 +74,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             form.close();
         })
     },
-    onXoaPorderReq: function(grid, rowIndex, colIndex){
+    onXoaPorderReq: function(objDel){
         var viewmodel = this.getViewModel();
-        var objDel = grid.getStore().getAt (rowIndex);
+        // var objDel = grid.getStore().getAt (rowIndex);
 
         Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
             function (choice) {
@@ -99,7 +99,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                                 });
                             }
                             else {
-                                grid.getStore().remove(objDel);
+                                var porderReqStore = viewmodel.get('porderReqStore');
+                                if (null!=porderReqStore){
+                                    porderReqStore.remove(objDel);
+                                }
+                                // grid.getStore().remove(objDel);
                             }
                             // porderReqStore.reload();
                         }); 
@@ -321,22 +325,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             // })         
         }
     },    
-    onPOrderCreate:function(rid, rowIndex, colIndex){
+    onPOrderCreate:function(record){
         var me = this;
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Lệnh sản xuất', 'Tạo lệnh sản xuất cho phân xưởng? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
                     var porderReqStore = viewmodel.getStore('porderReqStore');
-                    var record = porderReqStore.getAt(rowIndex);                    
+                    // var record = porderReqStore.getAt(rowIndex);                    
                     //Kiem tra xem co phai la san pham bo khong? --> nếu là bộ hiện danh sach san pham va so luong chua tao lenh de chon
                     var po_selected = viewmodel.get('po_selected');
                     if (null != po_selected){
                         var porderReqStore = viewmodel.getStore('porderReqStore');
                         //Kiem tra xem yeu cau sx cua PO co > 1 phan xuong ko? Neu nhieu hon 1 phan xuong --> hien option chon sizeset va color
                         if (null != porderReqStore && porderReqStore.data.items.length > 1) {
-                            console.log('Hien window chon size va mau');
-                            me.onSizeColorPickup(record.data.id, po_selected.productid_link, po_selected.pcontractid_link,po_selected.pcontract_poid_link);
+                            // console.log('Hien window chon size va mau');
+                            // me.onSizeColorPickup(record.data.id, po_selected.productid_link, po_selected.pcontractid_link,po_selected.pcontract_poid_link);
+                            me.onSizeColorPickup(record);
                         } else {
                             me.onPOrderCreateByProduct(record.data.id, po_selected.productid_link, '', '');
                         }
@@ -353,7 +358,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 }
             } );        
     },
-    onSizeColorPickup:function(porderreqid_link){
+    onSizeColorPickup:function(record){
+        // console.log(record.data.productid_link);
+        var productid_link = record.data.productid_link;
+        var porderreqid_link = record.data.id;
         var me = this;
         var viewmodel = this.getViewModel();
         var po_selected = viewmodel.get('po_selected');
@@ -376,28 +384,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                 viewModel: {
                     data: {
                         po: po_selected,
-                        porderreqid_link: porderreqid_link
+                        porderreqid_link: porderreqid_link,
+                        productid_link: productid_link
                     }
                 }
             }]
         });
         form.show();  
         
-        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder',function(product_select,sizelist,colorlist){
-            for(i=0;i<product_select.length;i++){
-                me.onPOrderCreateByProduct(porderreqid_link, product_select[i].data.id, sizelist, colorlist);
-            }            
+        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder',function(sizelist,colorlist){
+            // for(i=0;i<product_select.length;i++){
+            //     me.onPOrderCreateByProduct(porderreqid_link, product_select[i].data.id, sizelist, colorlist);
+            // } 
+            me.onPOrderCreateByProduct(porderreqid_link, productid_link, sizelist, colorlist);           
             form.close();
         });
-        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder_AllSKU',function(product_select,sizelist,colorlist){
-            for(i=0;i<product_select.data.items.length;i++){
-                me.onPOrderCreateByProduct(porderreqid_link, product_select.data.items[i].data.id, sizelist, colorlist);
-            }            
+        form.down('PContract_POrder_SizeColorPickup_Main').getController().on('GenPOrder_AllSKU',function(sizelist,colorlist){
+            // for(i=0;i<product_select.data.items.length;i++){
+            //     me.onPOrderCreateByProduct(porderreqid_link, product_select.data.items[i].data.id, sizelist, colorlist);
+            // }            
+            me.onPOrderCreateByProduct(porderreqid_link, productid_link, sizelist, colorlist);
             form.close();
         });
         form.down('PContract_POrder_SizeColorPickup_Main').getController().on('Thoat',function(){
-            var porderStore = viewmodel.getStore('porderStore');
-            porderStore.load();
+            // var porderStore = viewmodel.getStore('porderStore');
+            // porderStore.load();
             form.close();
         });
     },
@@ -482,6 +493,48 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
           menu_grid.record = record;
           menu_grid.showAt(position);
     }, 
+    onMenu_POrder_Req: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Tạo lệnh SX',
+                itemId: 'btnGenPO_PContract_POrder',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-magic greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onPOrderCreate(record);
+                },
+            }, 
+            {
+                text: 'Xóa yêu cầu SX',
+                itemId: 'btnDel_PContract_POrder',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash redIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onXoaPorderReq(record);
+                }
+            }
+        ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX()-10, e.getY()-10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
+    },      
+
     onPOder_Edit: function(rec){
         var viewModel = this.getViewModel();
 
