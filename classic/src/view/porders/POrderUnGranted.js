@@ -39,20 +39,48 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         }        
      },
     columns: [
-        { header: 'Mã SX', locked: false, dataIndex: 'ordercode', flex: 1,
-            items: {
-                xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'porderFilterField',
-                width: '99%',
-                margin: 1,
-                enableKeyEvents: true,
-                listeners: {
-                    keyup: 'onPOrderFilterKeyup',
-                    buffer: 500
-                }
-            },
-            renderer: function (value, metaData, record, rowIndex) {
+        // { header: 'Mã SX', locked: false, dataIndex: 'ordercode', flex: 1,
+        //     items: {
+        //         xtype: 'textfield',
+        //         fieldStyle: "",
+        //         reference: 'porderFilterField',
+        //         width: '99%',
+        //         margin: 1,
+        //         enableKeyEvents: true,
+        //         listeners: {
+        //             keyup: 'onPOrderFilterKeyup',
+        //             buffer: 500
+        //         }
+        //     },
+        //     renderer: function (value, metaData, record, rowIndex) {
+        //         var c = record.get('status');
+        //         if (c == 1) {
+        //             metaData.tdCls = 'process-granted';
+        //         } else if (c == 2) {
+        //             metaData.tdCls =  'process-ready';
+        //         } else if (c == 3) {
+        //             metaData.tdCls =  'process-running';
+        //         } else if (c == 4) {
+        //             metaData.tdCls =  'process-done';
+        //         } else if (c == 5) {
+        //             metaData.tdCls =  'process-finish';
+        //         } else if (c == 6) {
+        //             metaData.tdCls =  'process-subprocess';
+        //         } else if (c == 0) {
+        //             metaData.tdCls =  'process-free';
+        //         }              
+        //         //metaData.tdCls = record.get('change') > 0 ? 'color-other' : 'color-gio';
+        //         // if (null != record.get('productiondate')){
+        //         //     metaData.tdAttr = 'data-qtip="' + Ext.util.Format.date(record.get('productiondate'),'d/m/Y') + '"';
+        //         // }
+        //         metaData.tdAttr = 'data-qtip="' + value + '"';
+        //         return value;
+        //     },
+        //     // summaryType: 'count', summaryRenderer: 'renderSum'                   
+        // },
+        { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
                 var c = record.get('status');
                 if (c == 1) {
                     metaData.tdCls = 'process-granted';
@@ -69,22 +97,10 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 } else if (c == 0) {
                     metaData.tdCls =  'process-free';
                 }              
-                //metaData.tdCls = record.get('change') > 0 ? 'color-other' : 'color-gio';
-                // if (null != record.get('productiondate')){
-                //     metaData.tdAttr = 'data-qtip="' + Ext.util.Format.date(record.get('productiondate'),'d/m/Y') + '"';
-                // }
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            },
-            // summaryType: 'count', summaryRenderer: 'renderSum'                   
-        },
-        { header: 'Mã Buyer', dataIndex: 'buyercode', flex: 1,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
         },
-        { header: 'PO', dataIndex: 'po_vendor', flex: 1,
+        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', flex: 1,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
