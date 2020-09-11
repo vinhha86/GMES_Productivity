@@ -5,24 +5,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('porderReqStore');
         store.setGroupField('product_code');
+        // store.clearGrouping();
+    },
+    onThemOrg: function(){
+        var listorg = Ext.getCmp('ListOrg_Req');
+        listorg.setWidth(150);
     },
     onDropOrg: function (node, data, dropRec, dropPosition) {
 
     },
-    onBeforeDropOrg: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {
+    onBeforeDropOrg: function (node, context, overModel, dropPosition, dropHandlers, eOpts) {
         var viewmodel = this.getViewModel();
         //Chi cho phep keo phan xuong
-        if (data.records[0].get('parentId') == 'root') {
-            var orgId = data.records[0].get('id_origin');
-            var orgCode = data.records[0].get('code');
-            var pcontractid_link = viewmodel.get('po.pcontractid_link');
-            var pcontract_poid_link = viewmodel.get('po.id');
+        var pcontractid_link = viewmodel.get('po.pcontractid_link');
+        var pcontract_poid_link = viewmodel.get('po.id');
+        var orgId = 0;
+        var orgCode = "";
+        var list_product = [];
+        
+
+        if (context.records[0].get('parentId') == 'root') {
+            orgId = context.records[0].get('id_origin');
+            orgCode = context.records[0].get('code');
 
             var porderReqStore = viewmodel.getStore('porderReqStore');
-            var po = viewmodel.get('po');
 
             var ProductStore = viewmodel.getStore('ProductStore');
-            var list_product = [];
 
             if (ProductStore.data.length == 1) {
                 //San pham don chiec
@@ -34,70 +42,108 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     list_product.push(ProductStore.data.items[i].data);
                 }
             }
+            
+        } 
+        else if (context.records[0].get('parentid_link') == 1){
+            var porderReqStore = viewmodel.getStore('porderReqStore');
 
-            for (var j = 0; j < list_product.length; j++) {
-                var data = list_product[j];
-                data.pairamount = data.pairamount == null ? 1 : data.pairamount;
+            orgId = context.records[0].get('id');
+            orgCode = context.records[0].get('code');
 
-                var lstCheck = porderReqStore.queryBy(function (record, id) {
-                    return (record.get('granttoorgid_link') == orgId && record.get('productid_link') == data.id);
-                }).items;
+            porderReqStore.each(function (record) {
+                if(list_product.length > 0) {
+                    var check = false;
 
-                //Chi thuc hien tinh toan khi chua co Phan xuong va San pham trong POrder_req
-                if (lstCheck.length == 0){
-                    var porder_New = new Object({
-                        id: null,
-                        pcontractid_link: pcontractid_link,
-                        pcontract_poid_link: pcontract_poid_link,
-                        // sizesetid_link : price_data.sizesetid_link,
-                        // sizesetname: price_data.sizesetname,
-                        granttoorgid_link: orgId,
-                        granttoorgcode: orgCode,
-                        productid_link : data.id,
-                        product_code : data.code,
-                        amount_inset: data.pairamount
-                        // totalorder: po.po_quantity
-                    });
-                    porderReqStore.insert(0, porder_New);
-
-                    //Tinh tong so cac Row duoc danh dau fix (ko tinh tu dong) va tong so luong fix
-                    var count = 0;
-                    var amount_fix = 0;
-                    for (var i = 0; i < porderReqStore.data.length; i++) {
-                        var record = porderReqStore.data.items[i];
-                        if(record.get('productid_link') == data.id){
-                            if (record.get('is_calculate')) {
-                                amount_fix += record.get('totalorder');
-                            }
-                            else
-                                count++;
+                    for(var i=0; i<list_product.length;i++){
+                        var data = list_product[i];
+                        if(data.id == record.get('productid_link')){
+                            check = true;
+                            break;
                         }
                     }
 
-                    //Chia deu so luong cho cac phan xuong
-                    var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
-                    po_quantity = po_quantity * data.pairamount;
-                    po_quantity -= amount_fix;
-                    var org_quantity = Math.round(po_quantity / count);
-
-                    porderReqStore.each(function (record) {
-                        if (!record.get('is_calculate') && record.get('productid_link') == data.id) {
-                            if (po_quantity-org_quantity >= org_quantity ){
-                                record.set('totalorder', org_quantity);
-                                po_quantity = po_quantity - org_quantity;
-                            }
-                            else
-                                record.set('totalorder', po_quantity);//Lay phan con lai
-                        }
-                    });  
-
+                    if(!check){
+                        var newobj = new Object();
+                        newobj.id = record.get('productid_link');
+                        newobj.pairamount = record.get('amount_inset');
+                        newobj.code = record.get('product_code');
+                        list_product.push(newobj);
+                    }
                 }
+                else{
+                    var data = new Object();
+                    data.id = record.get('productid_link');
+                    data.pairamount = record.get('amount_inset');
+                    data.code = record.get('product_code');
+                    list_product.push(data);
+                }
+            });
+
+        }
+
+        for (var j = 0; j < list_product.length; j++) {
+            var data = list_product[j];
+            data.pairamount = data.pairamount == null ? 1 : data.pairamount;
+
+            var lstCheck = porderReqStore.queryBy(function (record, id) {
+                return (record.get('granttoorgid_link') == orgId && record.get('productid_link') == data.id);
+            }).items;
+            
+            //Chi thuc hien tinh toan khi chua co Phan xuong va San pham trong POrder_req
+            if (lstCheck.length == 0 && orgId != 0){
+                var porder_New = new Object({
+                    id: null,
+                    pcontractid_link: pcontractid_link,
+                    pcontract_poid_link: pcontract_poid_link,
+                    // sizesetid_link : price_data.sizesetid_link,
+                    // sizesetname: price_data.sizesetname,
+                    granttoorgid_link: orgId,
+                    granttoorgcode: orgCode,
+                    productid_link : data.id,
+                    product_code : data.code,
+                    amount_inset: data.pairamount
+                    // totalorder: po.po_quantity
+                });
+                porderReqStore.insert(0, porder_New);
+
+                //Tinh tong so cac Row duoc danh dau fix (ko tinh tu dong) va tong so luong fix
+                var count = 0;
+                var amount_fix = 0;
+                for (var i = 0; i < porderReqStore.data.length; i++) {
+                    var record = porderReqStore.data.items[i];
+                    if(record.get('productid_link') == data.id){
+                        if (record.get('is_calculate')) {
+                            amount_fix += record.get('totalorder');
+                        }
+                        else
+                            count++;
+                    }
+                }
+
+                //Chia deu so luong cho cac phan xuong
+                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
+                po_quantity = po_quantity * data.pairamount;
+                po_quantity -= amount_fix;
+                var org_quantity = Math.round(po_quantity / count);
+
+                porderReqStore.each(function (record) {
+                    if (!record.get('is_calculate') && record.get('productid_link') == data.id) {
+                        if (po_quantity-org_quantity >= org_quantity -1 ){
+                            record.set('totalorder', org_quantity);
+                            po_quantity = po_quantity - org_quantity;
+                        }
+                        else
+                            record.set('totalorder', po_quantity);//Lay phan con lai
+                    }
+                });  
+
             }
         }
-        //Huy bo de khong bi mat thogn tin ben Gantt
+
         dropHandlers.cancelDrop();
     },
-    renderSum: function (value, summaryData, dataIndex) {
+    renderSum: function (value, summaryData, dataIndex, record) {
+        console.log(summaryData);
         var viewmodel = this.getViewModel();
         var po_totalorder = viewmodel.get('po.po_quantity');
         if (null == po_totalorder) po_totalorder = 0;
@@ -162,14 +208,45 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
             var ProductStore = viewmodel.getStore('ProductStore');
             var list_product = [];
-
-            if (ProductStore.data.length == 1) {
-                list_product.push(ProductStore.data.items[0].data);
+            if(ProductStore != null) {
+                if (ProductStore.data.length == 1) {
+                    list_product.push(ProductStore.data.items[0].data);
+                }
+                else {
+                    for (var i = 1; i < ProductStore.data.length; i++) {
+                        list_product.push(ProductStore.data.items[i].data);
+                    }
+                }
             }
             else {
-                for (var i = 1; i < ProductStore.data.length; i++) {
-                    list_product.push(ProductStore.data.items[i].data);
-                }
+                porderReqStore.each(function (record) {
+                    if(list_product.length > 0) {
+                        var check = false;
+    
+                        for(var i=0; i<list_product.length;i++){
+                            var data = list_product[i];
+                            if(data.id == record.get('productid_link')){
+                                check = true;
+                                break;
+                            }
+                        }
+    
+                        if(!check){
+                            var newobj = new Object();
+                            newobj.id = record.get('productid_link');
+                            newobj.pairamount = record.get('amount_inset');
+                            newobj.code = record.get('product_code');
+                            list_product.push(newobj);
+                        }
+                    }
+                    else{
+                        var data = new Object();
+                        data.id = record.get('productid_link');
+                        data.pairamount = record.get('amount_inset');
+                        data.code = record.get('product_code');
+                        list_product.push(data);
+                    }
+                });
             }
 
             for(var j=0; j< list_product.length; j++){
@@ -188,15 +265,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 }
                 var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                 po_quantity = po_quantity * data.pairamount;
-                var amount = (po_quantity - amount_fix) / count;
+                var amount = Math.round((po_quantity - amount_fix) / count);
 
-                for (var i = 0; i < porderReqStore.data.length; i++) {
-                    var rec = porderReqStore.data.items[i];
-                    if(rec.get('productid_link') != data.id) continue;
-                    if (!rec.get('is_calculate')) {
-                        rec.set('totalorder', amount);
+                porderReqStore.each(function (record) {
+                    if (!record.get('is_calculate') && record.get('productid_link') == data.id) {
+                        if (po_quantity-amount >= amount -1 ){
+                            record.set('totalorder', amount);
+                            po_quantity = po_quantity - amount;
+                        }
+                        else
+                            record.set('totalorder', po_quantity);//Lay phan con lai
                     }
-                }
+                });  
+
+                // for (var i = 0; i < porderReqStore.data.length; i++) {
+                //     var rec = porderReqStore.data.items[i];
+                //     if(rec.get('productid_link') != data.id) continue;
+                //     if (!rec.get('is_calculate')) {
+                //         rec.set('totalorder', amount);
+                //     }
+                // }
             }
 
             
@@ -209,14 +297,45 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
             var ProductStore = viewmodel.getStore('ProductStore');
             var list_product = [];
-
-            if (ProductStore.data.length == 1) {
-                list_product.push(ProductStore.data.items[0].data);
+            if(ProductStore != null) {
+                if (ProductStore.data.length == 1) {
+                    list_product.push(ProductStore.data.items[0].data);
+                }
+                else {
+                    for (var i = 1; i < ProductStore.data.length; i++) {
+                        list_product.push(ProductStore.data.items[i].data);
+                    }
+                }
             }
             else {
-                for (var i = 1; i < ProductStore.data.length; i++) {
-                    list_product.push(ProductStore.data.items[i].data);
-                }
+                porderReqStore.each(function (record) {
+                    if(list_product.length > 0) {
+                        var check = false;
+    
+                        for(var i=0; i<list_product.length;i++){
+                            var data = list_product[i];
+                            if(data.id == record.get('productid_link')){
+                                check = true;
+                                break;
+                            }
+                        }
+    
+                        if(!check){
+                            var newobj = new Object();
+                            newobj.id = record.get('productid_link');
+                            newobj.pairamount = record.get('amount_inset');
+                            newobj.code = record.get('product_code');
+                            list_product.push(newobj);
+                        }
+                    }
+                    else{
+                        var data = new Object();
+                        data.id = record.get('productid_link');
+                        data.pairamount = record.get('amount_inset');
+                        data.code = record.get('product_code');
+                        list_product.push(data);
+                    }
+                });
             }
 
             for(var j =0; j < list_product.length; j++){
@@ -235,18 +354,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 }
     
                 var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
-                po_quantity = po_quantity * data.pairamount;
-                var amount = (po_quantity - amount_fix - context.value) / (count - 1);
+                po_quantity = po_quantity * data.pairamount - context.value;
+                var amount = count > 1 ? po_quantity - amount_fix : Math.round((po_quantity - amount_fix ) / (count - 1));
     
                 var curRec = porderReqStore.getAt(context.rowIdx);
                 if (po_quantity - amount_fix >= context.value) {
-                    for (var i = 0; i < porderReqStore.data.length; i++) {
-                        var rec = porderReqStore.data.items[i];
-                        if(rec.get('productid_link') != curRec.get('productid_link')) continue;
-                        if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
-                            rec.set('totalorder', amount);
+                    // for (var i = 0; i < porderReqStore.data.length; i++) {
+                    //     var rec = porderReqStore.data.items[i];
+                    //     if(rec.get('productid_link') != curRec.get('productid_link')) continue;
+                    //     if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
+                    //         rec.set('totalorder', amount);
+                    //     }
+                    // }
+
+                    porderReqStore.each(function (record) {
+                        if (!record.get('is_calculate') && record.get('productid_link') == curRec.get('productid_link') 
+                        && record.get('id') != curRec.get('id')) {
+                            if (po_quantity-amount >= amount -1 ){
+                                record.set('totalorder', amount);
+                                po_quantity = po_quantity - amount;
+                            }
+                            else
+                                record.set('totalorder', po_quantity);//Lay phan con lai
                         }
-                    }
+                    });  
                 }
                 else {
                     curRec.set('totalorder', context.originalValue);

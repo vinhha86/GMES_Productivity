@@ -91,6 +91,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         isPorderReq_CheckOK: false,
         porder_req: {
             sum_set: 0
-        }
+        },
+        hidden_btnThemOrg: true
     }
 })

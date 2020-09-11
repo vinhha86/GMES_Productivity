@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.InsertPO_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.InsertPO_Main_ViewModel',
+    requires: ['GSmartApp.store.org.ListOrgStore'],
     stores:{
         PContractProductPOStore: {
             type: 'PContractPOStore'
@@ -16,6 +17,9 @@ Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.InsertPO_Ma
         },   
         PortStore: {
             type: 'portstore'
+        },
+        OrgStore: {
+            type: 'ListOrgStore'
         }
     },
     data: {
@@ -24,6 +28,7 @@ Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.InsertPO_Ma
         po : {
             parentpoid_link: null,
         },
-        ishidden_tbd: true
+        ishidden_tbd: true,
+        hidden_btnThemOrg: false
     }
 })
