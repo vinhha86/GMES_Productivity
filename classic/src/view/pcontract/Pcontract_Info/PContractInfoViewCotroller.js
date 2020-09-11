@@ -39,7 +39,6 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         viewModel.set('PContract', response.data);
-                        console.log(response.data);
                         var storeContractBuyer = viewModel.getStore('ContractBuyerStore');
                         storeContractBuyer.loadStoreByBuyer(response.data.orgbuyerid_link);
                     }
