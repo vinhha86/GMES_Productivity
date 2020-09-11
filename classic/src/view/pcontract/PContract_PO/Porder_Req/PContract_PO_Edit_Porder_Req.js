@@ -57,11 +57,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
             return ((value === 0 || value > 1) ? '' + value + ' PX' : '1 PX');
         }
     },
-    // {
-    //     header:'Dải cỡ',
-    //     dataIndex:'sizesetname',
-    //     flex: 1
-    // },
+    {
+        header:'Phân xưởng',
+        itemId: 'amount_inset',
+        hidden: true,
+        dataIndex:'amount_inset',
+        flex: 1,
+        summaryType: 'average'
+    },
     {
         header:'SL',
         align: 'end',
