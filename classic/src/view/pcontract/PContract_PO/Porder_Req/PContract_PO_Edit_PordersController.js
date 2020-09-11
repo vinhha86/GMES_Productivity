@@ -4,8 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     init: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('porderReqStore');
-        store.setGroupField('product_code');
-        // store.clearGrouping();
+        store.setGroupField('productinfo');
     },
     onThemOrg: function(){
         var listorg = Ext.getCmp('ListOrg_Req');
@@ -34,12 +33,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
             if (ProductStore.data.length == 1) {
                 //San pham don chiec
-                list_product.push(ProductStore.data.items[0].data);
+                var obj = ProductStore.data.items[0].data;
+                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+                obj.pairamount = obj.pairamount == null ? 1:obj.pairamount;
+                obj.total_req = po_quantity * obj.pairamount
+                list_product.push(obj);
             }
             else {
                 //San pham bo
                 for (var i = 1; i < ProductStore.data.length; i++) {
-                    list_product.push(ProductStore.data.items[i].data);
+                    var obj = ProductStore.data.items[i].data;
+                    var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+                    obj.total_req = po_quantity * obj.pairamount
+                    list_product.push(obj);
                 }
             }
             
@@ -67,14 +73,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         newobj.id = record.get('productid_link');
                         newobj.pairamount = record.get('amount_inset');
                         newobj.code = record.get('product_code');
+                        var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+                        newobj.total_req = po_quantity * record.get('amount_inset');
                         list_product.push(newobj);
                     }
                 }
-                else{
+                else {
                     var data = new Object();
                     data.id = record.get('productid_link');
                     data.pairamount = record.get('amount_inset');
                     data.code = record.get('product_code');
+                    var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+                    data.total_req = po_quantity * record.get('amount_inset');
                     list_product.push(data);
                 }
             });
@@ -101,7 +111,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     granttoorgcode: orgCode,
                     productid_link : data.id,
                     product_code : data.code,
-                    amount_inset: data.pairamount
+                    amount_inset: data.pairamount,
+                    productinfo: data.code + " ("+Ext.util.Format.number(data.total_req, '0,000') + ")"
                     // totalorder: po.po_quantity
                 });
                 porderReqStore.insert(0, porder_New);
@@ -143,7 +154,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         dropHandlers.cancelDrop();
     },
     renderSum: function (value, summaryData, dataIndex, record) {
-        console.log(summaryData);
+        console.log(record);
         var viewmodel = this.getViewModel();
         var po_totalorder = viewmodel.get('po.po_quantity');
         if (null == po_totalorder) po_totalorder = 0;
