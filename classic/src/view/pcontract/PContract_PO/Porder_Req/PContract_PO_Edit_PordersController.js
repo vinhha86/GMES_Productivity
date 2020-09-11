@@ -310,7 +310,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             var list_product = [];
             var data = new Object();
             data.id = context.record.get('productid_link');
-            data.pairamount = context.record.get('amount_inset');
+            data.pairamount = context.record.get('amount_inset') == null ? 1 : context.record.get('amount_inset');
             data.code = context.record.get('product_code');
 
             list_product.push(data);
