@@ -712,17 +712,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        rec.set('duration', response.data.duration);
-                        rec.set('productivity', response.data.productivity);
-                        rec.set('StartDate', response.data.StartDate);
-                        rec.set('EndDate', response.data.EndDate);
-                        rec.set('Name', response.data.Name);
-                        rec.set('mahang', response.data.mahang);
-                        rec.set('totalpackage', response.data.totalpackage);
+                        event.set('duration', response.data.duration);
+                        event.set('productivity', response.data.productivity);
+                        event.set('StartDate', response.data.StartDate);
+                        event.set('EndDate', response.data.EndDate);
+                        event.set('Name', response.data.Name);
+                        event.set('mahang', response.data.mahang);
+                        event.set('totalpackage', response.data.totalpackage);
 
                         var sch = me.getView().down('#treeplan');
                         var store = sch.getCrudManager().getEventStore();
-                        store.remove(event);
+                        store.remove(rec);
                     }
                     else {
                         Ext.Msg.show({

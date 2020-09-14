@@ -13,10 +13,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         columnLines: true,
         rowLines: true
     },
-    // selModel: {
-    //     selType: 'checkboxmodel',
-    //     mode: 'MULTI'
-    // },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+        bind: {
+            hidden: '{isProductSkuSelectHidden}'
+        }
+    },
     features: [{
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
@@ -58,6 +61,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
+        flex: 1,
+        align: 'end'
+    }, {
+        text: 'Đã vào chuyền',
+        dataIndex: 'inProductionQuantity',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        flex: 1,
+        align: 'end'
+    }, {
+        text: 'Chưa vào chuyền',
+        dataIndex: 'remainQuantity',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
         flex: 1,
         align: 'end'
     }]

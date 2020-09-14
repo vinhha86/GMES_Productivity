@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         '#btnAddToGrantSku': {
             click: 'onBtnAddToGrantSku'
         },
+        '#btnRemoveFromGrantSku': {
+            click: 'onBtnRemoveFromGrantSku'
+        },
         '#btnThoat' : {
             click: 'onThoat'
         }
@@ -30,7 +33,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
             let productSkuView = me.down('#POrder_ProductSKUView');
             productSkuView.IdPOrder = me.IdPOrder;
             let porderSKUStore = viewmodel.getStore('porderSKUStore');
-            porderSKUStore.loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
+            porderSKUStore.loadByPorderID(me.IdPOrder, me.IdGrant);
 
             let storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
             storeGrantSKUTabInfo.loadStore(me.IdGrant);
@@ -47,6 +50,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
     onLoadData: function () {
         let me = this.getView();
         let viewmodel = this.getViewModel();
+        viewmodel.set('IdPOrder',me.IdPOrder);
+        viewmodel.set('IdGrant',me.IdGrant);
+        viewmodel.set('isProductSkuSelectHidden', false);
 
         let infoView = me.down('#POrder_InfoView');
         infoView.IdPOrder = me.IdPOrder;
@@ -56,7 +62,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         productSkuView.IdPOrder = me.IdPOrder;
         // productSkuView.getController().loadInfo(me.IdPOrder);
         let porderSKUStore = viewmodel.getStore('porderSKUStore');
-        porderSKUStore.loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
+        // porderSKUStore.loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
+        porderSKUStore.loadByPorderID(me.IdPOrder, me.IdGrant);
         productSkuView.setWidth('47%');
 
         let grantSKUViewTabInfo = me.down('#POrder_List_GrantSKUViewTabInfo');
@@ -77,6 +84,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
 
     onBtnAddToGrantSku: function(){
         let me = this.getView();
+        me.setLoading(true);
         let viewmodel = this.getViewModel();
 
         let productSkuView = me.down('#POrder_ProductSKUView');
@@ -85,19 +93,31 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         let select = productSkuView.getSelectionModel().getSelection();
 
         if(select.length == 0){
-            Ext.Msg.show({
-                title: "Thông báo",
-                msg: "Phải chọn ít nhất một SKU",
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-            });
+            // Ext.Msg.show({
+            //     title: "Thông báo",
+            //     msg: "Phải chọn ít nhất một SKU",
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     }
+            // });
             return;
         }
         // console.log(select);
         for (let i = 0; i < select.length; i++) {
-            // data.push({'id': select[i].data.id});
+            // console.log(select[i].data);
+            if(select[i].data.remainQuantity < 1){
+                // Ext.Msg.show({
+                //     title: "Thông báo",
+                //     msg: "Số lượng chưa vào chuyền phải lớn hơn 0",
+                //     buttons: Ext.MessageBox.YES,
+                //     buttonText: {
+                //         yes: 'Đóng',
+                //     }
+                // });
+                // return;
+                continue;
+            }
             data.push(select[i].data.id);
         }
 
@@ -111,7 +131,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if(response.respcode == 200) {
-                        viewmodel.getStore('porderSKUStore').loadByPorderIDandNotGrantId(me.IdPOrder, me.IdGrant);
+                        viewmodel.getStore('porderSKUStore').load();
                         viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
                         me.fireEvent('UpdatePorder',response.porderinfo, response.amount);
                     }
@@ -135,6 +155,72 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         }
                     });
                 }
+                me.setLoading(false);
+            })
+
+    },
+    onBtnRemoveFromGrantSku: function(){
+        let me = this.getView();
+        me.setLoading(true);
+        let viewmodel = this.getViewModel();
+
+        let GrantSKUView = me.down('#POrder_List_GrantSKUViewTabInfo');
+
+        let data = [];
+        let select = GrantSKUView.getSelectionModel().getSelection();
+
+        if(select.length == 0){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Phải chọn ít nhất một SKU",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        // console.log(select);
+        for (let i = 0; i < select.length; i++) {
+            // data.push({'id': select[i].data.id});
+            data.push(select[i].data.id);
+        }
+
+        let params = new Object();
+        params.idSkus = data;
+        params.idGrant = me.IdGrant;
+        params.idPOrder = me.IdPOrder;
+
+        GSmartApp.Ajax.post('/api/v1/porderlist/removeskufromgrant', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if(response.respcode == 200) {
+                        viewmodel.getStore('porderSKUStore').load();
+                        viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
+                        me.fireEvent('UpdatePorder',response.porderinfo, response.amount);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: "Lưu thất bại",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                }else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Xoá thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
             })
 
     },
