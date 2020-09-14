@@ -368,35 +368,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     else
                         count++;
                 }
-    
-                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
-                po_quantity = po_quantity * data.pairamount - context.value;
-                var amount = count > 1 ? po_quantity - amount_fix : Math.round((po_quantity - amount_fix ) / (count - 1));
-    
-                var curRec = porderReqStore.getAt(context.rowIdx);
-                if (po_quantity - amount_fix >= 0) {
-                    // for (var i = 0; i < porderReqStore.data.length; i++) {
-                    //     var rec = porderReqStore.data.items[i];
-                    //     if(rec.get('productid_link') != curRec.get('productid_link')) continue;
-                    //     if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
-                    //         rec.set('totalorder', amount);
-                    //     }
-                    // }
 
-                    porderReqStore.each(function (record) {
-                        if (!record.get('is_calculate') && record.get('productid_link') == curRec.get('productid_link') 
-                        && record.get('id') != curRec.get('id')) {
-                            if (po_quantity-amount >= amount -1 ){
-                                record.set('totalorder', amount);
-                                po_quantity = po_quantity - amount;
+                if(count > 1){
+                    var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
+                    po_quantity = po_quantity * data.pairamount - context.value;
+                    var amount = Math.round((po_quantity - amount_fix ) / (count - 1));
+        
+                    var curRec = porderReqStore.getAt(context.rowIdx);
+                    if (po_quantity - amount_fix >= 0) {
+                        // for (var i = 0; i < porderReqStore.data.length; i++) {
+                        //     var rec = porderReqStore.data.items[i];
+                        //     if(rec.get('productid_link') != curRec.get('productid_link')) continue;
+                        //     if (!rec.get('is_calculate') && rec.get('granttoorgcode') != curRec.get('granttoorgcode')) {
+                        //         rec.set('totalorder', amount);
+                        //     }
+                        // }
+    
+                        porderReqStore.each(function (record) {
+                            if (!record.get('is_calculate') && record.get('productid_link') == curRec.get('productid_link') 
+                            && record.get('id') != curRec.get('id')) {
+                                if (po_quantity-amount >= amount -1 ){
+                                    record.set('totalorder', amount);
+                                    po_quantity = po_quantity - amount;
+                                }
+                                else
+                                    record.set('totalorder', po_quantity);//Lay phan con lai
                             }
-                            else
-                                record.set('totalorder', po_quantity);//Lay phan con lai
-                        }
-                    });  
-                }
-                else {
-                    curRec.set('totalorder', context.originalValue);
+                        });  
+                    }
+                    else {
+                        curRec.set('totalorder', context.originalValue);
+                    }
                 }
             }
         }

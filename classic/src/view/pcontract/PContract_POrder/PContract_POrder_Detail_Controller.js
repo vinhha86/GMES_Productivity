@@ -121,35 +121,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
     onPOder_Delete: function(){    
         var me=this;
         var viewmodel = this.getViewModel();
-        var porder = viewmodel.get('porder_selected');
-        Ext.Msg.confirm('Lệnh sản xuất', 'Bạn có thực sự muốn xóa Lệnh sản xuất? chọn YES để thực hiện',
-            function (choice) {
-                if (choice === 'yes') {
-                    var params=new Object();
-                    params.id = porder.id;
-                    GSmartApp.Ajax.post('/api/v1/porder/delete', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        var response = Ext.decode(response.responseText);
-                        if (success) {
-                            viewmodel.set('porder_selected',null);
-                            me.refreshSKUList(null);
-                            //Refresh Porder_req de lay thong tin moi nhat ve Porder
-                            var porderReqStore = viewmodel.getStore('porderReqStore');
-                            porderReqStore.reload();
+        if (null != viewmodel.get('porder_selected')){
+            var porder = viewmodel.get('porder_selected');
+            Ext.Msg.confirm('Lệnh sản xuất', 'Bạn có thực sự muốn xóa Lệnh sản xuất? chọn YES để thực hiện',
+                function (choice) {
+                    if (choice === 'yes') {
+                        var params=new Object();
+                        params.id = porder.id;
+                        GSmartApp.Ajax.post('/api/v1/porder/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                viewmodel.set('porder_selected',null);
+                                me.refreshSKUList(null);
+                                //Refresh Porder_req de lay thong tin moi nhat ve Porder
+                                var porderReqStore = viewmodel.getStore('porderReqStore');
+                                porderReqStore.reload();
 
-                        } else {
-                            Ext.MessageBox.show({
-                                title: "Lệnh sản xuất",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
-                    }); 
-                }
-            } );             
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Lệnh sản xuất",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        }); 
+                    }
+            } );     
+        }        
     },
     refreshSKUList:function(orderid){
         var viewmodel = this.getViewModel();

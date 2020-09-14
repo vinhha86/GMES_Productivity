@@ -18,6 +18,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Main', {
                     title: 'Chi tiết lệnh',
                     width:'40%',
                     xtype: 'PContract_POrder_Edit_PorderSKU',
+                    itemId:'PContract_POrder_Edit_PorderSKU',
                     border: true,
                     margin: 1,
                 },

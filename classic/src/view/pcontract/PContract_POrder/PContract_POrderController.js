@@ -522,70 +522,81 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     onPOder_Create: function(recPOder_Req){
         var me = this;
         var viewmodel = this.getViewModel();
-        Ext.Msg.confirm('Lệnh sản xuất', 'Tạo lệnh sản xuất cho phân xưởng? chọn YES để thực hiện',
-            function (choice) {
-                if (choice === 'yes') {
-                    var rec = new Object();
-                    rec.porderreqid_link = recPOder_Req.data.id;
-                    rec.granttoorgid_link = recPOder_Req.data.granttoorgid_link;
-                    rec.pcontractid_link = recPOder_Req.data.pcontractid_link;
-                    rec.pcontract_poid_link = recPOder_Req.data.pcontract_poid_link;
-                    rec.productid_link = recPOder_Req.data.productid_link;
-                    var params=new Object();
-                    params.data = rec;
-                    GSmartApp.Ajax.post('/api/v1/porder/create', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        var response = Ext.decode(response.responseText);
-                        if (success) {
-                            viewmodel.set('porder_selected',response.data);
-                            var porder = viewmodel.get('porder_selected');
-                            var form = Ext.create('Ext.window.Window', {
-                                closable: true,
-                                resizable: false,
-                                modal: true,
-                                border: false,
-                                title: 'Chi tiết lệnh',
-                                closeAction: 'destroy',
-                                height: 465,
-                                width: Ext.getBody().getViewSize().width*.95,
-                                bodyStyle: 'background-color: transparent',
-                                layout: {
-                                    type: 'fit', // fit screen for window
-                                    padding: 5
-                                },
-                                items: [{
-                                    xtype: 'PContract_POrder_Edit_Main',
-                                    viewModel: {
-                                        data: {
-                                            porder: porder,
-                                            isedit: true
-                                        }
-                                    }
-                                }]
-                            });
-                            form.show();        
-                            form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(){
-                                me.refreshSKUList(porder.id);
-                
-                                //Refresh Porder_req de lay thong tin moi nhat ve Porder
-                                var porderReqStore = viewmodel.getStore('porderReqStore');
-                                porderReqStore.reload();
-                
-                                form.close();
-                            });                               
-                        } else {
-                            Ext.MessageBox.show({
-                                title: "Lệnh sản xuất",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
-                    });                     
+        if (recPOder_Req.data.porderlist.length > 0){
+            Ext.MessageBox.show({
+                title: "Lệnh sản xuất",
+                msg: "Đã có lệnh sản xuất, không thể tạo thêm",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
-            } );        
+            });
+        } else {
+            Ext.Msg.confirm('Lệnh sản xuất', 'Tạo lệnh sản xuất cho phân xưởng? chọn YES để thực hiện',
+                function (choice) {
+                    if (choice === 'yes') {
+                        var rec = new Object();
+                        rec.porderreqid_link = recPOder_Req.data.id;
+                        rec.granttoorgid_link = recPOder_Req.data.granttoorgid_link;
+                        rec.pcontractid_link = recPOder_Req.data.pcontractid_link;
+                        rec.pcontract_poid_link = recPOder_Req.data.pcontract_poid_link;
+                        rec.productid_link = recPOder_Req.data.productid_link;
+                        var params=new Object();
+                        params.data = rec;
+                        GSmartApp.Ajax.post('/api/v1/porder/create', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                viewmodel.set('porder_selected',response.data);
+                                var porder = viewmodel.get('porder_selected');
+                                var form = Ext.create('Ext.window.Window', {
+                                    closable: true,
+                                    resizable: false,
+                                    modal: true,
+                                    border: false,
+                                    title: 'Chi tiết lệnh',
+                                    closeAction: 'destroy',
+                                    height: 465,
+                                    width: Ext.getBody().getViewSize().width*.95,
+                                    bodyStyle: 'background-color: transparent',
+                                    layout: {
+                                        type: 'fit', // fit screen for window
+                                        padding: 5
+                                    },
+                                    items: [{
+                                        xtype: 'PContract_POrder_Edit_Main',
+                                        viewModel: {
+                                            data: {
+                                                porder: porder,
+                                                isedit: true
+                                            }
+                                        }
+                                    }]
+                                });
+                                form.show();        
+                                form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(){
+                                    me.refreshSKUList(porder.id);
+                    
+                                    //Refresh Porder_req de lay thong tin moi nhat ve Porder
+                                    var porderReqStore = viewmodel.getStore('porderReqStore');
+                                    porderReqStore.reload();
+                    
+                                    form.close();
+                                });                               
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Lệnh sản xuất",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        });                     
+                    }
+                } );     
+        }   
     },      
     onPOder_Delete: function(rec){    
         var viewmodel = this.getViewModel();

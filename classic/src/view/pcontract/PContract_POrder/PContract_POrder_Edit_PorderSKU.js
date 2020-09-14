@@ -1,8 +1,6 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_PorderSKU', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_POrder_Edit_PorderSKU',
-    // id:'PContract_POrder_Edit_PorderSKU',
-    
     viewConfig: {
         stripeRows: false,
         enableTextSelection: false,
