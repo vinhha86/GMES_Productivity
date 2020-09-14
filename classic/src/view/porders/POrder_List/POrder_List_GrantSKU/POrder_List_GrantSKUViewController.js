@@ -4,12 +4,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
     init: function () {
     },
     control: {
-        // '#POrder_List_GrantSKUView': {
-        //     activate: 'onActivate',
-        //     // itemdblclick: 'onitemdblclick',
-        //     itemclick: 'onItemClick',
-        //     celldblclick: 'onCellDblclick',
-        // }
+        '#POrder_List_GrantSKUView': {
+            itemclick: 'onItemClick',
+        }
+    },
+    control: {
+        '#POrder_List_GrantSKUViewTabInfo': {
+            itemclick: 'onItemClick',
+        }
     },
     // loadInfo: function (id) {
     //     let me = this.getView();
@@ -22,5 +24,91 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
-    } ,
+    },
+    onItemClick: function(thisItem, record, item, index, e, eOpts){
+        // console.log(record);
+        let viewModel = this.getViewModel();
+        viewModel.set('currentGrantSKURec', record.data);
+        viewModel.set('oldGrantSKUAmount', record.data.grantamount);
+        viewModel.set('newGrantSKUAmount', record.data.grantamount);
+    },
+    onGrantSKUAmountChange: function(textField, newValue, oldValue, eOpts){
+        let viewModel = this.getViewModel();
+        viewModel.set('newGrantSKUAmount', newValue);
+    },
+    onGrantSKUAmountLeave: function(textField, event, eOpts){
+        let me = this.getView();
+        let viewModel = this.getViewModel();
+        let POrder_ListGrantSKUStoreForWindow = viewModel.getStore('POrder_ListGrantSKUStoreForWindow');
+        let porderSKUStore = viewModel.getStore('porderSKUStore');
+        let newGrantSKUAmount = viewModel.get('newGrantSKUAmount');
+        let oldGrantSKUAmount = viewModel.get('oldGrantSKUAmount');
+        let skuId =  viewModel.get('currentGrantSKURec.skuid_link');
+        let productSKURecord = porderSKUStore.findRecord('skuid_link', skuId);
+
+        if(newGrantSKUAmount==oldGrantSKUAmount){
+            return;
+        }
+
+        // nhỏ hơn 1 lớn hơn số lượng còn lại
+        if(newGrantSKUAmount < 1){
+            // Ext.MessageBox.show({
+            //     title: "Thông báo",
+            //     msg: "Số lượng nhập phải lớn hơn 0",
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     }
+            // });
+            textField.setValue(oldGrantSKUAmount);
+            return;
+        }
+
+        // lớn hơn số lượng còn lại
+        if(newGrantSKUAmount - oldGrantSKUAmount > productSKURecord.data.remainQuantity){
+            // Ext.MessageBox.show({
+            //     title: "Thông báo",
+            //     msg: "Số lượng nhập quá giới hạn",
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     }
+            // });
+            textField.setValue(oldGrantSKUAmount);
+            return;
+        }
+
+        if(newGrantSKUAmount == null || newGrantSKUAmount == ''){
+            textField.setValue(oldGrantSKUAmount);
+            return;
+        }
+
+        let data = new Object();
+        data = viewModel.get('currentGrantSKURec');
+        data.grantamount=newGrantSKUAmount;
+
+        let params = new Object();
+        params.data = data;
+        params.idPOrder = viewModel.get('IdPOrder');
+        params.idGrant = viewModel.get('IdGrant');
+
+        me.setLoading("Đang lưu dữ liệu");
+        GSmartApp.Ajax.post('/api/v1/porderlist/savegrantskuonchange', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    POrder_ListGrantSKUStoreForWindow.load();
+                    porderSKUStore.load();
+                } else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Lưu thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+    },
 })

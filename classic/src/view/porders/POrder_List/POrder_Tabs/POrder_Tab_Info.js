@@ -49,6 +49,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                             iconCls: 'x-fa fa-arrow-right',
                             weight: 30,
                             // handler: 'onPorder_AddSKU'
+                        },
+                        {height: 10},
+                        {
+                            xtype: 'button',
+                            id: 'btnRemoveFromGrantSku',
+                            tooltip: 'Xoá khỏi tổ chuyền',
+                            iconCls: 'x-fa fa-arrow-left',
+                            weight: 30,
+                            // handler: 'onPorder_AddSKU'
                         }
                     ]
                 }

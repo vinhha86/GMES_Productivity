@@ -45,6 +45,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         }
     },
     data:{
-        testdata: 'testdata123'
+        isProductSkuSelectHidden: true
     }
 })

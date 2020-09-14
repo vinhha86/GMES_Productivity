@@ -13,6 +13,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         columnLines: true,
         rowLines: true
     },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1
+        }
+    },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     features: [{
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
@@ -60,6 +69,21 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         dataIndex: 'grantamount',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                allowBlank: false,
+                blankText:'Không được để trống số lượng',
+                itemId:'txtgrantamount',
+                maskRe: /[0-9]/,
+                listeners:{
+                    // focusenter: 'onNameFocus',
+                    change: 'onGrantSKUAmountChange',
+                    focusleave: 'onGrantSKUAmountLeave'
+                }
+            }
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
