@@ -19,7 +19,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         }
     },
     onThoat: function(){
-        me.fireEvent('Thoat');
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var amount = viewmodel.get('amount');
+        var porderinfo = viewmodel.get('porderinfo');
+
+        me.fireEvent('Thoat',porderinfo, amount);
         // this.getView().close();
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {

@@ -163,17 +163,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         window.show();
 
-        window.on('Thoat', function(){
+        window.on('Thoat', function(porderinfo, amount){
+            eventRecord.set('mahang', porderinfo);
+            eventRecord.set('name', porderinfo);
+            eventRecord.set('totalpackage',amount)
 
             window.close();
         })
 
-        window.on('UpdatePorder', function(porderinfo, amount){
-            console.log(123);
-            eventRecord.set('mahang', porderinfo);
-            eventRecord.set('name', porderinfo);
-            eventRecord.set('totalpackage',amount)
-        })
+        // window.on('UpdatePorder', function(porderinfo, amount){
+        //     eventRecord.set('mahang', porderinfo);
+        //     eventRecord.set('name', porderinfo);
+        //     eventRecord.set('totalpackage',amount)
+        // })
     },
     Delete_Porder_Req: function(rec){
         var grid = this.getView();
