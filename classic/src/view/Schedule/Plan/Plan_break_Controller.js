@@ -3,7 +3,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
     alias: 'controller.Plan_break_Controller',
     init: function(){
       var view = this.getView();
-      view.down('#quantity').focus();
+      var viewmodel = this.getViewModel();
+      var store = viewmodel.getStore('POrder_ListGrantSKUStore');
+      var pordergrantid_link = viewmodel.get('plan.pordergrant_id_link');
+      store.loadStore(pordergrantid_link);
     } ,
     control: {
         '#btnThoat' : {
@@ -15,6 +18,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
     },
     onThoat: function(){
         this.getView().up('window').close();
+    },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
     onBreak: function(){
         var me = this;

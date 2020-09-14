@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Plan_break_ViewModel',
+    requires: ['GSmartApp.store.porder.POrder_ListGrantSKUStore'],
     data: {
         plan : {
             quantity: 0,
@@ -11,5 +12,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_ViewModel', {
             pordergrant_id_link: 0
         },
         quantity: 0
+    },
+    stores: {
+        POrder_ListGrantSKUStore: {
+            type: 'POrder_ListGrantSKUStore'
+        }
     }
 })
