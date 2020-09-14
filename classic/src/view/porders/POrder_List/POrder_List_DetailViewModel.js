@@ -45,6 +45,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         }
     },
     data:{
-        isProductSkuSelectHidden: true
+        IdPOrder: null,
+        IdGrant: null,
+        //
+        grantSKUViewTabInfoTitle: 'Chi tiết màu, cỡ',
+        //
+        currentGrantSKURec: null,
+        oldGrantSKUAmount: null,
+        newGrantSKUAmount: null,
     }
 })
