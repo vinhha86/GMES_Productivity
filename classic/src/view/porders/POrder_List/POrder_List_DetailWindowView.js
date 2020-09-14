@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
     id: 'POrder_List_DetailWindowView',
     height: '90%',
     width: '90%',
-    closable: true,
+    closable: false,
     title: 'Thông tin lệnh sản xuất',
     resizable: false,
     modal: true,
