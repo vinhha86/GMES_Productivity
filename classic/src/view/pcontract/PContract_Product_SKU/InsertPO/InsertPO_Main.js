@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
     extend: 'Ext.form.Panel',
     xtype: 'InsertPO_Main',
     id: 'InsertPO_Main',
-    controller: 'InsertPO_Main_ViewController',
+    // controller: 'InsertPO_Main_ViewController',
     viewModel : {
         type: 'InsertPO_Main_ViewModel'
     },

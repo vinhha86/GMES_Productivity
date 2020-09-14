@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Main', {
                 {
                     region: 'east',
                     title: 'Chi tiết lệnh',
-                    width:'47%',
+                    width:'40%',
                     xtype: 'PContract_POrder_Edit_PorderSKU',
                     border: true,
                     margin: 1,
@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Main', {
                 {
                     region: 'west',
                     title: 'Chi tiết đơn hàng',
-                    width:'47%',
+                    width:'55%',
                     xtype: 'PContract_POrder_Edit_POSKU',
                     border: true,
                     margin: 1,

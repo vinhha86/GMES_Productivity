@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
     id:'PContract_POrder_Req',
     viewConfig: {
         stripeRows: false,
-        enableTextSelection: true,
+        enableTextSelection: false,
         columnLines: true,
         rowLines: true,
     },
@@ -31,16 +31,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
         store:'{porderReqStore}'
     },
     columns:[
+        // {
+        //     xtype: 'checkcolumn',
+        //     dataIndex : 'is_calculate',
+        //     width: 30,
+        //     listeners: {
+        //         checkchange: 'onCheckCalculate'
+        //     }
+        // },
         {
-            xtype: 'checkcolumn',
-            dataIndex : 'is_calculate',
-            width: 30,
-            listeners: {
-                checkchange: 'onCheckCalculate'
-            }
-        },
-        {
-            header:'PX',
+            header:'Phân xưởng',
             dataIndex:'granttoorgcode',
             flex: 1,
             summaryType: 'count',
@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             }
         },
         {
-            header:'SL',
+            header:'SL y/c',
             align: 'end',
             dataIndex:'totalorder',
             width: 70,
@@ -59,15 +59,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
             },
-            getEditor: function (record) {
-                if (!record.get('is_calculate')) {
-                    return Ext.create('Ext.grid.CellEditor', {
-                        field: {
-                            xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false
-                        }
-                    })
-                }
-            }
+            // getEditor: function (record) {
+            //     if (!record.get('is_calculate')) {
+            //         return Ext.create('Ext.grid.CellEditor', {
+            //             field: {
+            //                 xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 9999999, selectOnFocus: false
+            //             }
+            //         })
+            //     }
+            // }
         },{
             xtype: 'actioncolumn',
             width: 25,
@@ -90,32 +90,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             ]
         }
     ],
-    dockedItems: [{
-        dock: 'top',
-        padding: '0 0 10 5',
-        height: 30,
-        xtype: 'toolbar',
-        items: [{
-            xtype: 'checkboxfield',
-            labelStyle: "font-size:11px",
-            fieldStyle: 'font-size:11px;text-align:right',
-            fieldLabel: 'Tự động chia số lượng:',
-            hideTrigger:true,
-            labelAlign: 'left',
-            labelWidth: 120,
-            flex: 1,
-            bind: {
-                value: '{po_selected.isauto_calculate}'
-            }
-        },'->'
-		,{
-            xtype:'button',
-            itemId:'btnAdd_PorderReq',
-            ui: 'header',
-			tooltip: 'Thêm yêu cầu SX',
-            iconCls: 'x-fa fa-plus',
-            handler: 'onAddPorderReq'
-        }]
-    }]
+    // dockedItems: [{
+    //     dock: 'top',
+    //     padding: '0 0 10 5',
+    //     height: 30,
+    //     xtype: 'toolbar',
+    //     items: [{
+    //         xtype: 'checkboxfield',
+    //         labelStyle: "font-size:11px",
+    //         fieldStyle: 'font-size:11px;text-align:right',
+    //         fieldLabel: 'Tự động chia số lượng:',
+    //         hideTrigger:true,
+    //         labelAlign: 'left',
+    //         labelWidth: 120,
+    //         flex: 1,
+    //         bind: {
+    //             value: '{po_selected.isauto_calculate}'
+    //         }
+    //     },'->'
+	// 	,{
+    //         xtype:'button',
+    //         itemId:'btnAdd_PorderReq',
+    //         ui: 'header',
+	// 		tooltip: 'Thêm yêu cầu SX',
+    //         iconCls: 'x-fa fa-plus',
+    //         handler: 'onAddPorderReq'
+    //     }]
+    // }]
 });
 

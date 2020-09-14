@@ -5,11 +5,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_ViewModel', {
         POSKUStore:{
             type: 'PContractSKUStore'
         },
-        POrderSKUStore:{
+        porderSKUStore:{
             type: 'porderSKUStore'
         },
     },
     data: {
         porder: null,
+        isedit: true
     }
 })

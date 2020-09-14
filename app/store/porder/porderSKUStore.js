@@ -58,6 +58,7 @@ Ext.define('GSmartApp.store.porder.porderSKUStore', {
 	},
 	loadByPorderID: function(porderid_link){
 		var me=this;
+		this.removeAll();
 		var params = new Object();
 		params.porderid_link = porderid_link;
 

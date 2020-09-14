@@ -22,14 +22,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_POSKU', {
     },
     columns:[
         { header: 'SKU', dataIndex: 'skuCode', flex: 1},
-        { header: 'Màu', dataIndex: 'mauSanPham', width: 70},
-        { header: 'Cỡ', dataIndex: 'coSanPham', width: 70},  
-        { header: 'Số lượng', dataIndex: 'pquantity_total', width: 80, summaryType: 'sum', align: 'end', 
+        { header: 'Màu', dataIndex: 'mauSanPham', width: 100},
+        { header: 'Cỡ', dataIndex: 'coSanPham', width: 60},  
+        { header: 'SL đơn hàng', dataIndex: 'pquantity_total', width: 85, summaryType: 'sum', align: 'end', 
             summaryRenderer: 'renderSum',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             }
-        }
+        },
+        { header: 'SL trong lệnh', dataIndex: 'pquantity_granted', width: 85, summaryType: 'sum', align: 'end', 
+            summaryRenderer: 'renderSum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                return Ext.util.Format.number(value, '0,000');
+            }
+        },
+        { header: 'SL còn lại', dataIndex: 'pquantity_free', width: 85, summaryType: 'sum', align: 'end', 
+            summaryRenderer: 'renderSum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                return Ext.util.Format.number(value, '0,000');
+            }
+        }             
     ]  
 });
 

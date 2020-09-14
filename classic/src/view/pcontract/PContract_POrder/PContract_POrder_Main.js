@@ -25,8 +25,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Main', {
         {
             region: 'east',
             border: true,
-            title: 'Lệnh sản xuất',
-            xtype: 'PContract_POrder_Porders',
+            // title: 'Lệnh sản xuất',
+            xtype: 'PContract_POrder_Detail',
             padding: 1,
             width: '40%',       
         }

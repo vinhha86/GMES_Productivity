@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.pcontract.ListOrg_Req', {
     controller: 'ListOrg_ReqController',
     viewConfig: {
         stripeRows: false,
-        enableTextSelection: true,
+        enableTextSelection: false,
         columnLines: true,
         rowLines: true,
         plugins: {
