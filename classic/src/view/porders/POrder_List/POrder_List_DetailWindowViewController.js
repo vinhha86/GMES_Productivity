@@ -84,6 +84,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
 
     onBtnAddToGrantSku: function(){
         let me = this.getView();
+        me.setLoading(true);
         let viewmodel = this.getViewModel();
 
         let productSkuView = me.down('#POrder_ProductSKUView');
@@ -154,11 +155,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         }
                     });
                 }
+                me.setLoading(false);
             })
 
     },
     onBtnRemoveFromGrantSku: function(){
         let me = this.getView();
+        me.setLoading(true);
         let viewmodel = this.getViewModel();
 
         let GrantSKUView = me.down('#POrder_List_GrantSKUViewTabInfo');
@@ -217,6 +220,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         }
                     });
                 }
+                me.setLoading(false);
             })
 
     },
