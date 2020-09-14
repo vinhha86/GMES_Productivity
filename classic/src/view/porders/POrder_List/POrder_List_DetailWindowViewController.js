@@ -19,7 +19,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         }
     },
     onThoat: function(){
-        this.getView().close();
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var amount = viewmodel.get('amount');
+        var porderinfo = viewmodel.get('porderinfo');
+
+        me.fireEvent('Thoat',porderinfo, amount);
+        // this.getView().close();
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         let me = this.getView();
@@ -133,7 +139,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                     if(response.respcode == 200) {
                         viewmodel.getStore('porderSKUStore').load();
                         viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
-                        me.fireEvent('UpdatePorder',response.porderinfo, response.amount);
+                        viewmodel.set('porderinfo', response.porderinfo);
+                        viewmodel.set('amount', response.amount);
+
+                        me.fireEvent('UpdatePorder',viewmodel.get('porderinfo'), viewmodel.get('amount'));
                     }
                     else {
                         Ext.Msg.show({

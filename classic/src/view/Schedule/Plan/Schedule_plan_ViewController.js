@@ -163,11 +163,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         window.show();
 
-        window.on('UpdatePorder', function(porderinfo, amount){
+        window.on('Thoat', function(porderinfo, amount){
             eventRecord.set('mahang', porderinfo);
             eventRecord.set('name', porderinfo);
             eventRecord.set('totalpackage',amount)
+
+            window.close();
         })
+
+        // window.on('UpdatePorder', function(porderinfo, amount){
+        //     eventRecord.set('mahang', porderinfo);
+        //     eventRecord.set('name', porderinfo);
+        //     eventRecord.set('totalpackage',amount)
+        // })
     },
     Delete_Porder_Req: function(rec){
         var grid = this.getView();
@@ -209,6 +217,41 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             })
     },
     ShowBreakPorder: function (rec) {
+        var params = new Object();
+        GSmartApp.Ajax.post('/api/v1/schedule/gen_pordergrant', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var me = this.getView().down('#treeplan');
+                        let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
+                            IdPOrder: rec.get('porderid_link'),
+                            IdGrant: response.id
+                        });
+                        window.show();
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình tách lệnh!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình tách lệnh!',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+
         var me = this.getView().down('#treeplan');
         var form = Ext.create('Ext.window.Window', {
             height: 150,
@@ -245,7 +288,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         form.show();
 
         form.down('#Plan_break').getController().on('BreakPorder', function (data) {
-            console.log(data);
+            
             rec.set('EndDate', data.old_data.EndDate);
             rec.set('duration', data.old_data.duration);
             rec.set('productivity', data.old_data.productivity);
