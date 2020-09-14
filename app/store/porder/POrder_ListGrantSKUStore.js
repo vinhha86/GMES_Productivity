@@ -12,7 +12,10 @@ Ext.define('GSmartApp.store.porder.POrder_ListGrantSKUStore', {
 	// groupField: 'ordercode',
 	sorters: [{
         direction: 'ASC',
-        property: 'skucode'
+        property: 'mauSanPham'
+	},{
+        direction: 'ASC',
+        property: 'sort_size'
 	}],
 	loadStore: function(pordergrantid){
 		var me=this;

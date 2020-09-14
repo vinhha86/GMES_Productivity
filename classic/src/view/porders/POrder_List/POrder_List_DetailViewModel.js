@@ -50,9 +50,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         //
         grantSKUViewTabInfoTitle: 'Chi tiết màu, cỡ',
         //
-        currentGrantSKURec: null,
-        oldGrantSKUAmount: null,
-        newGrantSKUAmount: null,
         porderinfo: '',
         amount: 0
     }

@@ -158,8 +158,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     Show_LenhSanXuat: function(eventRecord){
         let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
-            IdPOrder: eventRecord.data.id_origin,
-            IdGrant: eventRecord.data.porder_grantid_link
+            // IdPOrder: eventRecord.data.id_origin,
+            // IdGrant: eventRecord.data.porder_grantid_link,
+            viewModel: {
+                data: {
+                    IdPOrder: eventRecord.data.id_origin,
+                    IdGrant: eventRecord.data.porder_grantid_link
+                }
+            }
         });
         window.show();
 

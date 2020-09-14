@@ -15,7 +15,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
         }
     },
     selModel: {
@@ -45,14 +48,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
             return value;
         }
     }, {
-        text: 'Tên',
-        dataIndex: 'skuname',
-        flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },  {
         text: 'Màu',
         dataIndex: 'mauSanPham',
         flex: 1,
@@ -78,11 +73,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
                 blankText:'Không được để trống số lượng',
                 itemId:'txtgrantamount',
                 maskRe: /[0-9]/,
-                listeners:{
-                    // focusenter: 'onNameFocus',
-                    change: 'onGrantSKUAmountChange',
-                    focusleave: 'onGrantSKUAmountLeave'
-                }
             }
         },
         summaryType: 'sum',

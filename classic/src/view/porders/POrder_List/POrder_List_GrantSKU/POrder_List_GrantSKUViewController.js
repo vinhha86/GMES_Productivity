@@ -9,9 +9,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
         }
     },
     control: {
-        '#POrder_List_GrantSKUViewTabInfo': {
-            itemclick: 'onItemClick',
-        }
+        // '#POrder_List_GrantSKUViewTabInfo': {
+        //     itemclick: 'onItemClick',
+        // }
     },
     // loadInfo: function (id) {
     //     let me = this.getView();
@@ -32,60 +32,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
         viewModel.set('oldGrantSKUAmount', record.data.grantamount);
         viewModel.set('newGrantSKUAmount', record.data.grantamount);
     },
-    onGrantSKUAmountChange: function(textField, newValue, oldValue, eOpts){
-        let viewModel = this.getViewModel();
-        viewModel.set('newGrantSKUAmount', newValue);
-    },
-    onGrantSKUAmountLeave: function(textField, event, eOpts){
-        let me = this.getView();
+    onEdit: function(editor, context, eOpts){
+        let me = this;
         let viewModel = this.getViewModel();
         let POrder_ListGrantSKUStoreForWindow = viewModel.getStore('POrder_ListGrantSKUStoreForWindow');
         let porderSKUStore = viewModel.getStore('porderSKUStore');
-        let newGrantSKUAmount = viewModel.get('newGrantSKUAmount');
-        let oldGrantSKUAmount = viewModel.get('oldGrantSKUAmount');
-        let skuId =  viewModel.get('currentGrantSKURec.skuid_link');
-        let productSKURecord = porderSKUStore.findRecord('skuid_link', skuId);
 
-        if(newGrantSKUAmount==oldGrantSKUAmount){
+        if(context.value == context.originalValue){
+            POrder_ListGrantSKUStoreForWindow.rejectChanges();
             return;
         }
 
-        // nhỏ hơn 1 lớn hơn số lượng còn lại
-        if(newGrantSKUAmount < 1){
-            // Ext.MessageBox.show({
-            //     title: "Thông báo",
-            //     msg: "Số lượng nhập phải lớn hơn 0",
-            //     buttons: Ext.MessageBox.YES,
-            //     buttonText: {
-            //         yes: 'Đóng',
-            //     }
-            // });
-            textField.setValue(oldGrantSKUAmount);
-            return;
+        if(context.field == 'grantamount'){
+            me.updateGrantAmount(context.record);
         }
-
-        // lớn hơn số lượng còn lại
-        if(newGrantSKUAmount - oldGrantSKUAmount > productSKURecord.data.remainQuantity){
-            // Ext.MessageBox.show({
-            //     title: "Thông báo",
-            //     msg: "Số lượng nhập quá giới hạn",
-            //     buttons: Ext.MessageBox.YES,
-            //     buttonText: {
-            //         yes: 'Đóng',
-            //     }
-            // });
-            textField.setValue(oldGrantSKUAmount);
-            return;
-        }
-
-        if(newGrantSKUAmount == null || newGrantSKUAmount == ''){
-            textField.setValue(oldGrantSKUAmount);
-            return;
-        }
-
-        let data = new Object();
-        data = viewModel.get('currentGrantSKURec');
-        data.grantamount=newGrantSKUAmount;
+    },
+    updateGrantAmount: function(record){
+        let me = Ext.getCmp('POrder_List_DetailWindowView')
+        let viewModel = this.getViewModel();
+        let POrder_ListGrantSKUStoreForWindow = viewModel.getStore('POrder_ListGrantSKUStoreForWindow');
+        let porderSKUStore = viewModel.getStore('porderSKUStore');
+        let data = record.data;
 
         let params = new Object();
         params.data = data;
@@ -95,9 +62,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
         me.setLoading("Đang lưu dữ liệu");
         GSmartApp.Ajax.post('/api/v1/porderlist/savegrantskuonchange', Ext.JSON.encode(params),
             function (success, response, options) {
+                var response = Ext.decode(response.responseText);
                 if (success) {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    POrder_ListGrantSKUStoreForWindow.commitChanges();
                     POrder_ListGrantSKUStoreForWindow.load();
                     porderSKUStore.load();
+                    viewModel.set('porderinfo', response.porderinfo);
+                    viewModel.set('amount', response.amount);
+                    me.fireEvent('UpdatePorder',viewModel.get('porderinfo'), viewModel.get('amount'));
                 } else {
                     Ext.MessageBox.show({
                         title: "Thông báo",
@@ -107,6 +87,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
                             yes: 'Đóng',
                         }
                     });
+                    POrder_ListGrantSKUStoreForWindow.rejectChanges();
                 }
                 me.setLoading(false);
             })
