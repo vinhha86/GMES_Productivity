@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         flex: 1,
         align: 'end'
     }, {
-        text: 'Đã vào chuyền',
+        text: 'Đã phân chuyền',
         dataIndex: 'inProductionQuantity',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         flex: 1,
         align: 'end'
     }, {
-        text: 'Chưa vào chuyền',
+        text: 'Chưa phân chuyền',
         dataIndex: 'remainQuantity',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
