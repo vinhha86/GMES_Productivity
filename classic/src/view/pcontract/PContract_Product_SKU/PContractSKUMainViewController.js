@@ -28,7 +28,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
                 var cmbSanPham = skuView.down('#cmbSanPham');
                 cmbSanPham.select(record);
                 viewModel.set('IdProduct', record.get('id'));
-
+                viewModel.set('Product_pquantity', record.data.pquantity); 
+                // console.log(record);
                 //clear sku list
                 var storeSku = viewModel.getStore('PContractSKUStore');
                 storeSku.removeAll();
