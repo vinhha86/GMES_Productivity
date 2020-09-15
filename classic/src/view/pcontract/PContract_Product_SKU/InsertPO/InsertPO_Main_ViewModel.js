@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.InsertPO_Main_ViewModel', {
+Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.InsertPO_Main_ViewModel',
     requires: ['GSmartApp.store.org.ListOrgStore'],

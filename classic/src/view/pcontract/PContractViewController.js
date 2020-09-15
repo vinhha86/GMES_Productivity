@@ -35,15 +35,19 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var viewmodel = this.getViewModel();
         if (newCard.xtype == "PContractProduct_BomColor_MainView") {
+            viewmodel.set('isHidden_btnLuu', true);
             viewmodel.set('ishiddenActionColumn', true);
         }
         else {
             viewmodel.set('ishiddenActionColumn', false);
+            viewmodel.set('isHidden_btnLuu', false);
             if(newCard.xtype == 'PContract_PO_Main'){
+                viewmodel.set('isHidden_btnLuu', true);
                 var storeproduct = viewmodel.getStore('PContractProductTreeStore');
                 storeproduct.loadStore(viewmodel.get('PContract.id'), viewmodel.get('productid_link_filter'));
             } else {
                 if(newCard.xtype == 'PContractSKUMainView'){
+                    viewmodel.set('isHidden_btnLuu', true);
                     var productFilterStore = viewmodel.getStore('ProductFilterStore');
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
 
@@ -52,6 +56,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     
                 } 
                 else if (newCard.xtype == 'PContract_POrder_Main') {
+                    viewmodel.set('isHidden_btnLuu', true);
                     viewmodel.set('po_selected', null);
                     var productFilterStore = viewmodel.getStore('ProductFilterStore');
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
@@ -60,10 +65,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     PContractPOList.loadLeafOnly_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'), viewmodel.get('pcontract_poid_link_filter'));
                 } 
                 else if (newCard.xtype == 'PContractProduct_Bom2_TabColorView') {
-                   var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
-                   tab.getController().onChangeProduct();
+                    viewmodel.set('isHidden_btnLuu', true);
+                    var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
+                    tab.getController().onChangeProduct();
                 } 
                 else if (newCard.xtype == 'PContractProduct_Bom_TabColorView') {
+                    viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
                     tab.getController().onChangeProduct();
                 }

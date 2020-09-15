@@ -228,31 +228,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         })
     },
     onXoa: function(rec){
-        var viewmodel = this.getViewModel();
-        Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
-            function (choice) {
-                if (choice === 'yes') {
-                    var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
-                    var params=new Object();
-                    params.id = rec.data.id;
-                    GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        var response = Ext.decode(response.responseText);
-                        if (success) {
-                            PContractProductPOStore.reload();
-                        } else {
-                            Ext.MessageBox.show({
-                                title: "Kế hoạch giao hàng",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
-                    }); 
+        if (rec.data.status >=0){
+            Ext.MessageBox.show({
+                title: "Chào giá",
+                msg: "Đã chốt đơn hàng, không được xóa",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
-            } );        
+            });
+        } else {
+            var viewmodel = this.getViewModel();
+            Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Chào giá? chọn YES để thực hiện',
+                function (choice) {
+                    if (choice === 'yes') {
+                        var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
+                        var params=new Object();
+                        params.id = rec.data.id;
+                        GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                PContractProductPOStore.reload();
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Chào giá",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        }); 
+                    }
+                } );      
+        }  
     },
     onAdd_SubPO: function(rec){
         var viewModel = this.getViewModel();
@@ -422,7 +433,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
-
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,

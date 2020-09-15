@@ -49,13 +49,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Req', {
             }
         },
         {
-            header:'SL y/c',
+            header:'SL yêu cầu',
             align: 'end',
             dataIndex:'totalorder',
-            width: 70,
+            width: 75,
             summaryType: 'sum', 
             summaryRenderer: 'renderSum',
-            align: 'right',
+            // align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
             },

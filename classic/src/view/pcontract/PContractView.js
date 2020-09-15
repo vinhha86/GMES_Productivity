@@ -119,7 +119,10 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             margin: 1,
             itemId: 'btnLuu',
             iconCls: 'x-fa fa-save',
-            formBind: true
+            formBind: true,
+            bind: {
+                hidden: '{isHidden_btnLuu}'
+            }
         }]
     }]
 })

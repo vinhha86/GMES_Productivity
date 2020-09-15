@@ -151,6 +151,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         isproductleaf: false,
 
         isWindow: false,
+        isHidden_btnLuu: false,
         tabActivate: 0,
         pcontract_poid_link_filter: 0, // dung de filter chi theo po 
         productid_link_filter : 0, // dung de filter theo product

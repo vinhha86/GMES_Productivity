@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract..PContract_Product_SKU.InsertPO.ListPO_OfferController', {
+Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_OfferController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.ListPO_OfferController',
     init: function () {
