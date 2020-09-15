@@ -39,48 +39,92 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             this.porderFilter = null;
         }
     },
-    onPOFilterKeyup: function () {
-        var grid = Ext.getCmp('Porder_Req');
+    onUnGrantedPoBuyerFilterKeyup: function () {
+        var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Porder_Req_Store');
+        var store = viewmodel.getStore('POrderUnGranted');
         // Access the field using its "reference" property name.
-        filterField = this.lookupReference('poFilterField'),
+        filterField = this.lookupReference('unGrantedPoBuyerFilterField'),
             filters = store.getFilters();
 
         if (filterField.value) {
-            this.porderFilter = filters.add({
-                id: 'poFilter',
+            this.poBuyerFilterUnGranted = filters.add({
+                id: 'ungrantedPoBuyerFilter',
                 property: 'po_buyer',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false
             });
         }
-        else if (this.porderFilter) {
-            filters.remove(this.porderFilter);
-            this.porderFilter = null;
+        else if (this.poBuyerFilterUnGranted) {
+            filters.remove(this.poBuyerFilterUnGranted);
+            this.poBuyerFilterUnGranted = null;
         }
     },
-    onStyleFilterKeyup: function () {
-        var grid = Ext.getCmp('Porder_Req');
+    onUnGrantedBuyerCodeFilterKeyup: function () {
+        var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Porder_Req_Store');
+        var store = viewmodel.getStore('POrderUnGranted');
         // Access the field using its "reference" property name.
-        filterField = this.lookupReference('styleFilterField'),
+        filterField = this.lookupReference('unGrantedBuyerCodeFilterField'),
             filters = store.getFilters();
 
         if (filterField.value) {
-            this.porderFilter = filters.add({
-                id: 'styleFilter',
-                property: 'po_vendor',
+            this.codeFilterUnGranted = filters.add({
+                id: 'ungrantedBuyerCodeFilter',
+                property: 'buyercode',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false
             });
         }
-        else if (this.porderFilter) {
-            filters.remove(this.porderFilter);
-            this.porderFilter = null;
+        else if (this.codeFilterUnGranted) {
+            filters.remove(this.codeFilterUnGranted);
+            this.codeFilterUnGranted = null;
+        }
+    },
+    onCodeFilterKeyup: function () {
+        var grid = Ext.getCmp('Porder_Req');
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('codeFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'product_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
+    onPoBuyerFilterKeyup: function () {
+        var grid = Ext.getCmp('Porder_Req');
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('poBuyerFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.pobuyerFilter = filters.add({
+                id: 'pobuyerFilter',
+                property: 'po_buyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.pobuyerFilter) {
+            filters.remove(this.pobuyerFilter);
+            this.pobuyerFilter = null;
         }
     },
     onHiddenList: function () {

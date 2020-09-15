@@ -194,10 +194,19 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
-            emptyText: "Năm HĐ",
+            emptyText: "Từ năm",
             maskRe: /[0-9]/,
             maxLength: 4,
-            itemId: 'contractbuyer_year',
+            itemId: 'contractbuyer_yearfrom',
+            width: 80
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            margin: '5 1 5 0',
+            emptyText: "Đến năm",
+            maskRe: /[0-9]/,
+            maxLength: 4,
+            itemId: 'contractbuyer_yearto',
             width: 80
         },
         {

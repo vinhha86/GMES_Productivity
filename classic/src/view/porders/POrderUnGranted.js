@@ -79,6 +79,18 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         //     // summaryType: 'count', summaryRenderer: 'renderSum'                   
         // },
         { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedPoBuyerFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedPoBuyerFilterKeyup',
+                    buffer: 500
+                }
+            },
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 var c = record.get('status');
@@ -101,6 +113,18 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             }
         },
         { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedBuyerCodeFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedBuyerCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;

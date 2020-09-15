@@ -42,12 +42,12 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
         items: {
             xtype: 'textfield',
             fieldStyle: "",
-            reference: 'styleFilterField',
+            reference: 'poBuyerFilterField',
             width: '99%',
             margin: 1,
             enableKeyEvents: true,
             listeners: {
-                keyup: 'onStyleFilterKeyup',
+                keyup: 'onPoBuyerFilterKeyup',
                 buffer: 500
             }
         },
@@ -55,16 +55,16 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
-        { header: 'PO Vendor', dataIndex: 'po_vendor', flex: 1,
+        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', flex: 1,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
-            reference: 'poFilterField',
+            reference: 'codeFilterField',
             width: '99%',
             margin: 1,
             enableKeyEvents: true,
             listeners: {
-                keyup: 'onPOFilterKeyup',
+                keyup: 'onCodeFilterKeyup',
                 buffer: 500
             }
         },
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
-        { header: 'Bắt đầu', headerWrap: true, dataIndex: 'po_Productiondate', 
+        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'po_Productiondate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');
@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             },
             width: 100
         },
-        { header: 'Kết thúc', headerWrap: true, dataIndex: 'shipdate', 
+        { header: 'Giao hàng', headerWrap: true, dataIndex: 'shipdate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');

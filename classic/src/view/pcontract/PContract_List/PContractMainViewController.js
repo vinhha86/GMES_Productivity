@@ -6,7 +6,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractStore');
-        store.loadStore("", "", 0, 0, "", "");
+        var d = new Date();
+        var thisYear = d.getFullYear();
+        store.loadStore("", "", 0, 0, "", thisYear-1, thisYear);
 
         this.onActivate();
         common.Check_Object_Permission();
@@ -80,7 +82,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var orgbuyerid_link = me.down('#orgbuyerid_link').getValue();
         var orgvendorid_link = me.down('#orgvendorid_link').getValue();
         var contractbuyer_code = me.down('#contractbuyer_code').getValue();
-        var contractbuyer_year = me.down('#contractbuyer_year').getValue();
+        var contractbuyer_yearfrom = me.down('#contractbuyer_yearfrom').getValue();
+        var contractbuyer_yearto = me.down('#contractbuyer_yearto').getValue();
 
         if (productbuyer_code == null) {
             productbuyer_code = "";
@@ -102,11 +105,17 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             contractbuyer_code = "";
         }
 
-        if (contractbuyer_year == null) {
-            contractbuyer_year = "";
+        if (contractbuyer_yearfrom == null) {
+            contractbuyer_yearfrom = "";
         }
 
-        PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link, orgvendorid_link, contractbuyer_code, contractbuyer_year);
+        if (contractbuyer_yearto == null) {
+            contractbuyer_yearto = "";
+        }
+
+        PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link, 
+            orgvendorid_link, contractbuyer_code, 
+            contractbuyer_yearfrom, contractbuyer_yearto);
         var PContractPOList = viewmodel.getStore('PContractPOList');
         PContractPOList.removeAll();
         me.getSelectionModel().deselectAll();
