@@ -14,7 +14,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            } 
         }
     },
     features: [{
@@ -65,8 +68,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             completeOnEnter: true,
             field: {
                 xtype: 'textfield',
-                allowBlank: false,
-                blankText:'Không được để trống số lượng',
                 maskRe: /[0-9]/
             }
         },
