@@ -10,6 +10,7 @@ Ext.define('GSmartApp.store.contractbuyer.ContractBuyerStore', {
 		{name: 'buyerid_link', type: 'int'},
 		{name: 'vendorid_link', type: 'int'},
 		{name: 'comment', type: 'string'},
+        {name: 'contract_date_finish', type: 'date', dateFormat: 'c'},
 		{name: 'buyerName', type: 'string'},
 		{name: 'vendorName', type: 'string'},
 		{name: 'buyerCode', type: 'string'},

@@ -41,6 +41,13 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
         renderer: Ext.util.Format.dateRenderer('d/m/Y')
     },
     {
+        text: 'Ngày kết thúc',
+        dataIndex: 'contract_date_finish',
+        width: 100,
+        align: 'center',
+        renderer: Ext.util.Format.dateRenderer('d/m/Y')
+    },
+    {
         text: 'Buyer',
         dataIndex: 'buyerCode',
         width: 150,

@@ -53,6 +53,20 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         itemId: 'contract_date',
         labelWidth: 105
     },{
+        xtype:'datefield',
+        margin: 5,
+        fieldLabel: 'Ngày kết thúc',
+        allowBlank: true,
+        reference: 'contract_date_finish',
+        format: 'd/m/Y',
+        bind:{
+            value:'{currentRec.contract_date_finish}'
+        },
+        // value: new Date(),
+        width: 400,
+        itemId: 'contract_date_finish',
+        labelWidth: 105
+    },{
         xtype: 'combobox',
         margin: 5,
         fieldLabel: 'Buyer',

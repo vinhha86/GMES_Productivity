@@ -13,6 +13,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         Vendor.sort('code','ASC');
         var contract_date = this.lookupReference('contract_date');
         contract_date.getPicker().monthYearFormat = 'm-Y';
+        var contract_date_finish = this.lookupReference('contract_date_finish');
+        contract_date_finish.getPicker().monthYearFormat = 'm-Y';
     },
     listen: {
         controller: {
@@ -144,9 +146,13 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
                     viewmodel.set('contract_code', data.contract_code);
 
                     var contract_date = viewmodel.get('currentRec.contract_date');
+                    var contract_date_finish = viewmodel.get('currentRec.contract_date_finish');
                     var d = Ext.Date.parse(contract_date, 'c');
+                    var d_finish = Ext.Date.parse(contract_date_finish, 'c');
                     if (null == d) d = new Date(contract_date);
+                    if (null == d_finish) d_finish = new Date(contract_date_finish);
                     viewmodel.set('currentRec.contract_date',d);
+                    viewmodel.set('currentRec.contract_date_finish',d_finish);
                 }
             })
     }
