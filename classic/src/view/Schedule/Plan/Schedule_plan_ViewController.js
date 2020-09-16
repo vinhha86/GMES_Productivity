@@ -47,7 +47,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
                         IdPContract: eventRecord.data.pcontractid_link,
-                        IdProduct: eventRecord.data.productid_link
+                        IdProduct: eventRecord.data.productid_link,
+                        viewModel: {
+                            data: {
+                                isWindow: true
+                            }
+                        }
                     });
                     window.show();
                     // console.log(eventRecord);

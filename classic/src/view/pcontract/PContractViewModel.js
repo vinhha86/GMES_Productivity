@@ -160,7 +160,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
     },
     formulas: {
         ishidden_addproduct : function(get){
-            if(get('productid_link_filter') > 0) return true;
+            if(get('productid_link_filter') > 0 || get('isWindow')) return true;
             return false;
         }
     }

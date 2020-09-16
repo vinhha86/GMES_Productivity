@@ -100,6 +100,9 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
         width: 30,
         menuDisabled: true,
         sortable: false,
+        bind: {
+            hidden: '{isWindow}',
+        },
         items: [
             // {
             // iconCls: 'x-fa fas fa-edit',
@@ -109,7 +112,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             {
                 iconCls: 'x-fa fas fa-trash',
                 tooltip: 'Hủy',
-                handler: 'onXoa'
+                handler: 'onXoa',
             }
         ]
     }],
