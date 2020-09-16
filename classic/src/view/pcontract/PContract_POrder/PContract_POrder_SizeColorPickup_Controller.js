@@ -86,8 +86,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
     refreshSizeColorList:function(){
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
-        console.log(storeSku);
-        console.log(viewmodel.get('productid_link'));
 
         var sizePickupStore = viewmodel.getStore('SizePickupStore');
         var colorPickupStore = viewmodel.getStore('ColorPickupStore');
@@ -153,7 +151,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
     },
     onCheckStatusChange:function(e, newValue, oldValue, eOpts){
         var centerView = Ext.getCmp('PContract_POrder_SizeColorPickup_Center');
-        console.log(newValue);
         centerView.setDisabled(newValue);
     },
     onThoat: function () {

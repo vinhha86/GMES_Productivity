@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContract_PO_Edit_Info_Main_ViewModel',
-    requires: ['GSmartApp.store.org.ListOrgStore'],
+    requires: ['GSmartApp.store.org.ListOrgStore','GSmartApp.store.product.ProductStore',],
     stores:{
         porderReqStore: {
             type: 'POrder_Req'
@@ -17,12 +17,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_ViewModel', {
         },     
         OrgStore: {
             type: 'ListOrgStore'
+        },
+        ProductStore: {
+            type: 'ProductStore'
         }
     },
     data: {
         id: null,
         parentpoid_link: null,
         po: null,
-        isedit: false
+        isedit: false,
+        productpairid_link: 0
     }
 })

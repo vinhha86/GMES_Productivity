@@ -27,27 +27,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             orgId = context.records[0].get('id_origin');
             orgCode = context.records[0].get('code');
 
-            var porderReqStore = viewmodel.getStore('porderReqStore');
-
-            var ProductStore = viewmodel.getStore('ProductStore');
-
-            if (ProductStore.data.length == 1) {
-                //San pham don chiec
-                var obj = ProductStore.data.items[0].data;
-                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
-                obj.pairamount = obj.pairamount == null ? 1:obj.pairamount;
-                obj.total_req = po_quantity * obj.pairamount
-                list_product.push(obj);
-            }
-            else {
-                //San pham bo
-                for (var i = 1; i < ProductStore.data.length; i++) {
-                    var obj = ProductStore.data.items[i].data;
-                    var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
-                    obj.total_req = po_quantity * obj.pairamount
-                    list_product.push(obj);
-                }
-            }
+            
             
         } 
         else if (context.records[0].get('parentid_link') == 1){
@@ -56,39 +36,61 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             orgId = context.records[0].get('id');
             orgCode = context.records[0].get('code');
 
-            porderReqStore.each(function (record) {
-                if(list_product.length > 0) {
-                    var check = false;
+            // porderReqStore.each(function (record) {
+            //     if(list_product.length > 0) {
+            //         var check = false;
 
-                    for(var i=0; i<list_product.length;i++){
-                        var data = list_product[i];
-                        if(data.id == record.get('productid_link')){
-                            check = true;
-                            break;
-                        }
-                    }
+            //         for(var i=0; i<list_product.length;i++){
+            //             var data = list_product[i];
+            //             if(data.id == record.get('productid_link')){
+            //                 check = true;
+            //                 break;
+            //             }
+            //         }
 
-                    if(!check){
-                        var newobj = new Object();
-                        newobj.id = record.get('productid_link');
-                        newobj.pairamount = record.get('amount_inset');
-                        newobj.code = record.get('product_code');
-                        var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
-                        newobj.total_req = po_quantity * record.get('amount_inset');
-                        list_product.push(newobj);
-                    }
-                }
-                else {
-                    var data = new Object();
-                    data.id = record.get('productid_link');
-                    data.pairamount = record.get('amount_inset');
-                    data.code = record.get('product_code');
-                    var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
-                    data.total_req = po_quantity * record.get('amount_inset');
-                    list_product.push(data);
-                }
-            });
+            //         if(!check){
+            //             var newobj = new Object();
+            //             newobj.id = record.get('productid_link');
+            //             newobj.pairamount = record.get('amount_inset');
+            //             newobj.code = record.get('product_code');
+            //             var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+            //             newobj.total_req = po_quantity * record.get('amount_inset');
+            //             list_product.push(newobj);
+            //         }
+            //     }
+            //     else {
+            //         var data = new Object();
+            //         data.id = record.get('productid_link');
+            //         data.pairamount = record.get('amount_inset');
+            //         data.code = record.get('product_code');
+            //         var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+            //         data.total_req = po_quantity * record.get('amount_inset');
+            //         list_product.push(data);
+            //     }
+            // });
 
+        }
+
+        var porderReqStore = viewmodel.getStore('porderReqStore');
+
+        var ProductStore = viewmodel.getStore('ProductStore');
+
+        if (ProductStore.data.length == 1) {
+            //San pham don chiec
+            var obj = ProductStore.data.items[0].data;
+            var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+            obj.pairamount = obj.pairamount == null ? 1:obj.pairamount;
+            obj.total_req = po_quantity * obj.pairamount
+            list_product.push(obj);
+        }
+        else {
+            //San pham bo
+            for (var i = 1; i < ProductStore.data.length; i++) {
+                var obj = ProductStore.data.items[i].data;
+                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
+                obj.total_req = po_quantity * obj.pairamount
+                list_product.push(obj);
+            }
         }
 
         for (var j = 0; j < list_product.length; j++) {
@@ -154,7 +156,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         dropHandlers.cancelDrop();
     },
     renderSum: function (value, summaryData, dataIndex, record) {
-        console.log(summaryData.amount_inset);
         var viewmodel = this.getViewModel();
         var po_totalorder = viewmodel.get('po.po_quantity');
         if (null == po_totalorder) po_totalorder = 0;
