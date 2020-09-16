@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_POSKU', {
                 return Ext.util.Format.number(value, '0,000');
             }
         },
-        { header: 'SL trong lệnh', dataIndex: 'pquantity_granted', width: 85, summaryType: 'sum', align: 'end', 
+        { header: 'SL trong lệnh', dataIndex: 'pquantity_lenhsx', width: 85, summaryType: 'sum', align: 'end', 
             summaryRenderer: 'renderSum',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 return Ext.util.Format.number(value, '0,000');

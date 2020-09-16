@@ -516,6 +516,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             var porderStore = viewModel.getStore('porderStore');
             if (null != porderStore) porderStore.load();
             
+            //Refresh Porder_req de lay thong tin moi nhat ve Porder
+            var porderReqStore = viewmodel.getStore('porderReqStore');
+            porderReqStore.reload();
+            var PContractPOList = viewmodel.get('PContractPOList');
+            PContractPOList.reload();
+            
             form.close();
         });
     }, 
@@ -580,7 +586,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                                     //Refresh Porder_req de lay thong tin moi nhat ve Porder
                                     var porderReqStore = viewmodel.getStore('porderReqStore');
                                     porderReqStore.reload();
-                    
+                                    var PContractPOList = viewmodel.get('PContractPOList');
+                                    PContractPOList.reload();
+
                                     form.close();
                                 });                               
                             } else {
@@ -611,6 +619,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                         if (success) {
                             var porderStore = viewmodel.getStore('porderStore');
                             porderStore.load();
+
+                            //Refresh Porder_req de lay thong tin moi nhat ve Porder
+                            var porderReqStore = viewmodel.getStore('porderReqStore');
+                            porderReqStore.reload();
+                            var PContractPOList = viewmodel.get('PContractPOList');
+                            PContractPOList.reload();
+
                         } else {
                             Ext.MessageBox.show({
                                 title: "Lệnh sản xuất",

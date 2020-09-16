@@ -45,7 +45,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
                 //Refresh Porder_req de lay thong tin moi nhat ve Porder
                 var porderReqStore = viewmodel.getStore('porderReqStore');
                 porderReqStore.reload();
-
+                var PContractPOList = viewmodel.get('PContractPOList');
+                PContractPOList.reload();
                 form.close();
             });            
         }
@@ -80,6 +81,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
                     });
                 } else {
                     me.reloadSKU();
+                    var PContractPOList = viewmodel.get('PContractPOList');
+                    PContractPOList.reload();
                 }
             });    
         }    
@@ -89,6 +92,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     onPorder_EditSKU: function(editor, context, e){
+        var viewmodel = this.getViewModel;
         var grid = this.getView();
         if(context.value == context.originalValue) return;
 
@@ -105,6 +109,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     porderSKUStore.commitChanges();
+                    var PContractPOList = viewmodel.get('PContractPOList');
+                    PContractPOList.reload();
                 } else {
                     Ext.Msg.show({
                         title: "Thông báo",
@@ -137,7 +143,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
                                 //Refresh Porder_req de lay thong tin moi nhat ve Porder
                                 var porderReqStore = viewmodel.getStore('porderReqStore');
                                 porderReqStore.reload();
-
+                                var PContractPOList = viewmodel.get('PContractPOList');
+                                PContractPOList.reload();
                             } else {
                                 Ext.MessageBox.show({
                                     title: "Lệnh sản xuất",

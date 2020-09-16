@@ -36,6 +36,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
+
+            if (record.data.status == 0) {
+                metaData.tdCls =  "po_free";
+            }
+            else {
+                metaData.tdCls =  "po_accept";
+            }    
+            
             return value;
         },
         items: {

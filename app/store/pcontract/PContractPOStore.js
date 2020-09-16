@@ -34,7 +34,13 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.load();
+		// this.load();
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				console.log(records);
+			}
+		});		
 	},
 	loadLeafOnly: function(pcontractid_link, productid_link){
 		var me=this;
