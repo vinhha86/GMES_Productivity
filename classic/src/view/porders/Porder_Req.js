@@ -56,22 +56,27 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             return value;
         }},
         { header: 'Mã SP (Buyer)', dataIndex: 'product_code', flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'codeFilterField',
-            width: '99%',
-            margin: 1,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onCodeFilterKeyup',
-                buffer: 500
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'codeFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
             }
         },
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }},
         { header: 'Vào chuyền', headerWrap: true, dataIndex: 'po_Productiondate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
@@ -88,7 +93,12 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             },
             width: 100
         },
-        { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right'},
+        { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+            summaryType: 'sum',
+            summaryRenderer: function(value, summaryData, dataIndex) {
+                return '<div style="color:black; font-weight: bold; align: right">'+'SL: ' + Ext.util.Format.number(value, '0,000')+'</div>';
+            }
+        },
     ],
     dockedItems: [{
         dock: 'top',
