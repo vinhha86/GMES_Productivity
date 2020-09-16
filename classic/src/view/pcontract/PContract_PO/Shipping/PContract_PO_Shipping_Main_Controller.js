@@ -135,7 +135,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
     onAddSKUTap: function(){
         var viewmodel = this.getViewModel();
         var shipping = viewmodel.get('shipping');
-        console.log(shipping);
         var me = this;
         if (null != shipping){
             var form = Ext.create('Ext.window.Window', {
@@ -166,7 +165,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Main_Controller', {
                 var Shipping_DStore = viewmodel.get('Shipping_DStore');
                 for (var i = 0; i < select.length; i++) {
                     var data = select[i].data;
-                    console.log(data);
                     var newShipping_D = new Object();
                     newShipping_D.id = null;
                     newShipping_D.skuid_link = data.skuid_link;

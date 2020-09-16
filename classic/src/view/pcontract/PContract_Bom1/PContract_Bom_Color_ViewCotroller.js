@@ -142,7 +142,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_ViewCotroller', {
     updateMaterial: function (context, check) {
         var viewmodel = this.getViewModel();
         var data = context.data;
-        console.log(data);
 
         if(check)
             data.forothercontract = true;

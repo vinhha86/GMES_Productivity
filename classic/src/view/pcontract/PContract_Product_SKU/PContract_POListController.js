@@ -86,7 +86,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     },
     onEdit: function(rec){
         var viewModel = this.getViewModel();
-    
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -107,7 +106,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     type: 'PContract_PO_Edit_Info_Main_ViewModel',
                     data: {
                         id: rec.data.id,
-                        isedit: true
+                        isedit: true,
+                        productpairid_link: rec.get('productid_link')
                     }
                 }
             }]

@@ -99,7 +99,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                                 });
                             }
                             else {
-                                var porderReqStore = viewmodel.get('porderReqStore');
+                                var porderReqStore = viewmodel.getStore('porderReqStore');
                                 if (null!=porderReqStore){
                                     porderReqStore.remove(objDel);
                                 }
@@ -486,7 +486,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
 
     onPOder_Edit: function(rec){
         var viewModel = this.getViewModel();
-        console.log(rec);
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,

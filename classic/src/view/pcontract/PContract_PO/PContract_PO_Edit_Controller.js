@@ -49,6 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
     },
     getInfo: function(id){
+        var m = this;
         var me = this.getView();
         var viewmodel = this.getViewModel();
         if (null != id){
@@ -61,6 +62,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                    
                     if(response.respcode == 200){
                         viewmodel.set('po', response.data);
+                        if(response.data.currencyid_link == null || response.data.currencyid_link == 0){
+                            m.setDefaultCurrency(); // để mặc định là usd
+                        }
 
                         //Chuyen packing notice ve array
                         var packing_str = response.data.packingnotice;
@@ -89,6 +93,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             new_po.data.productid_link = viewmodel.get('productpairid_link');
             new_po.set('isauto_calculate', true);
             viewmodel.set('po', new_po.data);
+            m.setDefaultCurrency(); // để mặc định là usd
 
             //Them sizeset all cho tat ca cac san pham
             var productStore = viewmodel.getStore('ProductStore');
@@ -126,6 +131,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 priceStore.insert(0,newSizeset);
             }            
         }
+    },
+    setDefaultCurrency: function(){
+        var viewmodel = this.getViewModel();
+
+        var params = new Object();
+        params.id = 1;
+        GSmartApp.Ajax.post('/api/v1/currency/getone', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                if(response.respcode == 200){
+                    viewmodel.set('po.currencyid_link', response.data.id);
+                    viewmodel.set('po.exchangerate', response.data.exchangerate);
+                }
+            }
+        })
+
     },
     onThoat: function(){
         // this.getView().up('window').close();
