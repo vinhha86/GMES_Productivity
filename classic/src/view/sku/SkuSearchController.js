@@ -11,6 +11,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         common.Check_Object_Permission();
     },
     onActivate: function () {
+        console.log(123);
         var viewModel = this.getViewModel();
         var producttypeStore = viewModel.getStore('ProductTypeStore');
 

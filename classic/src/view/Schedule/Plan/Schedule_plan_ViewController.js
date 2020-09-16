@@ -503,7 +503,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             }
         }
-
         if (count > 1) {
             params.pordergrantid_link_des = grant_des.get('porder_grantid_link');
             params.pordergrantid_link_src = record.get('porder_grantid_link');
@@ -694,7 +693,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         rec.set('duration', response.data.duration);
                         rec.set('productivity', response.data.productivity);
                         rec.set('porder_grantid_link', response.data.porder_grantid_link);
-                        // rec.set('Stảt')
+                        rec.set('EndDate', response.data.EndDate);
                     }
                     else {
                         Ext.Msg.show({

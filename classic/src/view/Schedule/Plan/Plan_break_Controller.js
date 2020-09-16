@@ -21,6 +21,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
     },
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
+        console.log(value);
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
     onEdit: function (editor, context, e) {

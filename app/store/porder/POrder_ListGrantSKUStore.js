@@ -7,7 +7,8 @@ Ext.define('GSmartApp.store.porder.POrder_ListGrantSKUStore', {
         {name: 'skucode', type: 'string'},
         {name: 'coSanPham', type: 'string'},
         {name: 'mauSanPham', type: 'string'},
-        {name: 'grantamount', type: 'int'}
+		{name: 'grantamount', type: 'int'},
+		{name: 'amount_break', type: 'int'}
 	],
 	// groupField: 'ordercode',
 	sorters: [{
