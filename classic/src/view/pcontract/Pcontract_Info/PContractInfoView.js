@@ -155,7 +155,10 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     },
                     itemId: 'orgpayerid_link',
                     labelWidth: 100,
-                    flex: 1
+                    flex: 1,
+                    listeners :{
+                        select: 'onSelectPayer'
+                    }
                 }
             ]
         }

@@ -23,6 +23,16 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
         var storeContractBuyer = viewmodel.getStore('ContractBuyerStore');
         storeContractBuyer.loadStoreByBuyer(record.id);
     },
+    onSelectPayer: function(combo, record){
+        // console.log(record);
+        var viewmodel  = this.getViewModel();
+        if(record.id == 1){ // vendor
+                viewmodel.set('PContract.orgshowid_link', viewmodel.get('PContract.orgvendorid_link'));
+        }
+        if(record.id == 2){ // buyer
+                viewmodel.set('PContract.orgshowid_link', viewmodel.get('PContract.orgbuyerid_link'));
+        }
+    },
     loadInfo: function (id) {
         var me = this.getView();
         if (id == 0) {
