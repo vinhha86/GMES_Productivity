@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         displayField: 'code',
         valueField: 'id',
         queryMode: 'local',
-        editable: false,
+        // editable: false,
         width:400,
         labelWidth: 105,
     },{
@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         displayField: 'code',
         valueField: 'id',
         queryMode: 'local',
-        editable: false,
+        // editable: false,
         width:400,
         labelWidth: 105,
     },{

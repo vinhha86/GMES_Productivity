@@ -144,6 +144,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             },
             valueField: 'id',
             displayField: 'name',
+            queryMode: 'local',
             itemId: 'buyerid_link',
             margin: '5 1 5 0',
             width: 130
@@ -156,6 +157,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             },
             valueField: 'id',
             displayField: 'name',
+            queryMode: 'local',
             itemId: 'vendorid_link',
             margin: '5 1 5 0',
             width: 130

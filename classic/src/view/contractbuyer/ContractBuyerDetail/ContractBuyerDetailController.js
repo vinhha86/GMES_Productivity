@@ -107,6 +107,19 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
     },
     Luu:function(thisBtn){
         var m = this;
+        var viewModel = this.getViewModel();
+        var year = viewModel.get('currentRec.contract_year');
+        if(year < 2000 || year > 2100){
+            Ext.Msg.show({
+                title: 'Lưu thất bại',
+                msg: 'Năm hợp đồng không hợp lệ',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
         m.onLuu(thisBtn);
     },
     onQuayLai: function () {
