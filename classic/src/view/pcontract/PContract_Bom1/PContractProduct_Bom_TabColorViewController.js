@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         }
 
     },
-    onChangeProduct: function (combo, newValue, oldValue, eOpts) {
+    onChangeProduct: function (combo, rec, eOpts) {
         var me = this.getView();
         var th = this;
         var viewmodel = this.getViewModel();
