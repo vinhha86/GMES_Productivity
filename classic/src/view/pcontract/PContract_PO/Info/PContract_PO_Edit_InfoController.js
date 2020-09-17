@@ -106,7 +106,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
             priceStore.clearFilter(); 
             for(var k =0; k<priceStore.data.length; k++){
                 var price_data = priceStore.data.items[k].data;
-                price_data.price_sewingtarget = (price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100;
+                price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
             }      
     
             priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
