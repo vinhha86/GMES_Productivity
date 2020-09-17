@@ -96,7 +96,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
         for (var j = 0; j < list_product.length; j++) {
             var data = list_product[j];
-            console.log(data);
             data.pairamount = data.pairamount == null ? 1 : data.pairamount;
 
             var lstCheck = porderReqStore.queryBy(function (record, id) {
