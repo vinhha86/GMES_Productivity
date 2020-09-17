@@ -264,14 +264,14 @@ Ext.define('GSmartApp.store.POrderFilter', {
         this.load();
     }, 
        
-    sorters: [{
-        property: 'status',
-        direction: 'DESC'
-    },
-    {
+    // sorters: [{
+    //     property: 'status',
+    //     direction: 'DESC'
+    // },
+    // {
         
-        property: 'ordercode',
-        direction: 'ASC'
-    }
-    ]
+    //     property: 'ordercode',
+    //     direction: 'ASC'
+    // }
+    // ]
 });
