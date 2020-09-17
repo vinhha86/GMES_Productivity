@@ -58,6 +58,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
         dataIndex: 'grantamount',
         flex: 1,
         align: 'end',
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum',        
         renderer: function(value, metaData, record, rowIdx, colIdx, store){
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }

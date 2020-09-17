@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Sản phẩm',
-                iconCls: 'x-fa fa-cart-arrow-down',
+                iconCls: 'x-fa fa-shopping-bag',
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
                         IdPContract: eventRecord.data.pcontractid_link,
@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Đơn hàng (PO)',
-                iconCls: 'x-fa fa-handshake-o',
+                iconCls: 'x-fa fa-cart-plus',
                 handler: function () {
                     // console.log(eventRecord.data.pcontract_poid_link);
                     let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
@@ -82,12 +82,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     me.Show_LenhSanXuat(eventRecord);
                 }
             },
-            {
-                text: 'Tiến độ',
-                iconCls: 'x-fa fa-line-chart',
-                handler: function () {
-                }
-            },
+            // {
+            //     text: 'Tiến độ',
+            //     iconCls: 'x-fa fa-line-chart',
+            //     handler: function () {
+            //     }
+            // },
             {
                 text: 'Năng suất',
                 iconCls: 'x-fa fa-angle-double-right',
