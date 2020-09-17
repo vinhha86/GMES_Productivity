@@ -7,12 +7,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var ctrsewtarget_hidden = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_hidepanel');
         var ctrporderreqdel = Ext.getCmp('PContract_PO_Edit_Porder_Req_deletebutton');
         var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
-
+        
         var productStore = viewmodel.getStore('ProductStore');
-        var productpairid_link = viewmodel.get('productpairid_link');
-        productStore.loadStore_bypairid_Async(productpairid_link, null, false);
+        if(productStore != null){
 
-		productStore.load();
+            var productpairid_link = viewmodel.get('productpairid_link');
+            productStore.loadStore_bypairid_Async(productpairid_link);
+            productStore.load();
+        }
+
         
         //An/hien Sewtarget_percent
         if(viewmodel.get('isedit')){

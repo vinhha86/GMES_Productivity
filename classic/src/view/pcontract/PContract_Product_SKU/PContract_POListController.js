@@ -85,6 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             } );    
     },
     onEdit: function(rec){
+        console.log(rec);
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: true,

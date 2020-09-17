@@ -266,6 +266,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         }  
     },
     onAdd_SubPO: function(rec){
+        console.log(rec);
         var viewModel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -285,9 +286,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             items: [{
                 xtype: 'PContract_PO_Edit_Info_Main',
                 viewModel: {
+                    type: 'PContract_PO_Edit_Info_Main_ViewModel',
                     data: {
                         id: null,
                         parentpoid_link: rec.data.id,
+                        productpairid_link: rec.get('productid_link')
                     }
                 }
             }]

@@ -75,6 +75,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
         var ProductStore = viewmodel.getStore('ProductStore');
 
+        console.log(ProductStore);
+
         if (ProductStore.data.length == 1) {
             //San pham don chiec
             var obj = ProductStore.data.items[0].data;

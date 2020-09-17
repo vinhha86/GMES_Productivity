@@ -60,7 +60,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                                 }
                             }
                         });                                
-
+                        
+                        
+                        var productStore = viewmodel.getStore('ProductStore');
+                        if(productStore != null){
+                            console.log(record.get('productid_link'));
+                            if(record.get('productid_link') > 0)
+                                productStore.loadStore_bypairid_Async(record.get('productid_link'));
+                                productStore.load();
+                        }
                     }
                 }
             })  
