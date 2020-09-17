@@ -75,7 +75,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
         var ProductStore = viewmodel.getStore('ProductStore');
 
-        console.log(ProductStore);
 
         if (ProductStore.data.length == 1) {
             //San pham don chiec
@@ -97,6 +96,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
         for (var j = 0; j < list_product.length; j++) {
             var data = list_product[j];
+            console.log(data);
             data.pairamount = data.pairamount == null ? 1 : data.pairamount;
 
             var lstCheck = porderReqStore.queryBy(function (record, id) {
@@ -105,6 +105,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             
             //Chi thuc hien tinh toan khi chua co Phan xuong va San pham trong POrder_req
             if (lstCheck.length == 0 && orgId != 0){
+                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                 var porder_New = new Object({
                     id: null,
                     pcontractid_link: pcontractid_link,
@@ -116,7 +117,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     productid_link : data.id,
                     product_code : data.code,
                     amount_inset: data.pairamount,
-                    productinfo: data.code + " ("+Ext.util.Format.number(data.total_req, '0,000') + ")"
+                    productinfo: data.code + " ("+Ext.util.Format.number(po_quantity * data.pairamount, '0,000') + ")"
                     // totalorder: po.po_quantity
                 });
                 porderReqStore.insert(0, porder_New);
@@ -136,7 +137,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 }
 
                 //Chia deu so luong cho cac phan xuong
-                var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
+               
                 po_quantity = po_quantity * data.pairamount;
                 po_quantity -= amount_fix;
                 var org_quantity = Math.round(po_quantity / count);
