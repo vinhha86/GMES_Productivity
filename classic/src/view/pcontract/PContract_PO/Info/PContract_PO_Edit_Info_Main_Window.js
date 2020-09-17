@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
     extend: 'Ext.window.Window',
     xtype: 'PContract_PO_Edit_Info_Main_Window',
     id: 'PContract_PO_Edit_Info_Main_Window',
-    height: 440,
+    height: 330,
     width: 800,
     closable: true,
     resizable: false,
@@ -41,12 +41,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
                 }
             ]
         },
-        {
-            region: 'south',
-            height: 150,
-            xtype: 'PContract_PO_Shipping_List',
-            border: true,
-            margin: 1,            
-        }
+        // {
+        //     region: 'south',
+        //     height: 150,
+        //     xtype: 'PContract_PO_Shipping_List',
+        //     border: true,
+        //     margin: 1,            
+        // }
     ]
 })

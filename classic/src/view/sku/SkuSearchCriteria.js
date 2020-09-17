@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
                     queryMode: 'local',
                     fieldLabel: "Provider",
                     selectOnFocus: true,
-                    labelWidth: 80,
+                    labelWidth: 90,
                     bind:{
                         store: '{OrgStore}'
                     },
