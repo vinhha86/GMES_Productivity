@@ -137,7 +137,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     },
     onSizesetItemEdit: function(editor, context){
-
+        console.log(context);
         var viewmodel = this.getViewModel();
         if(context.value == context.originalValue){
             return;
@@ -176,6 +176,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
             amount = Math.ceil((total_amount - amount_fix - context.value) / (count-1));
             last_amount = total_amount - amount_fix - context.value - (count-2)*amount;
         };
+
+        if(amount <0 || last_amount < 0) {
+            context.record.set('quantity', context.originalValue);
+            return;
+        }
 
         priceStore.clearFilter();
         length = priceStore.data.length;
@@ -226,7 +231,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var productStore = viewmodel.getStore('ProductStore');
         for(i=0; i<productStore.data.items.length;i++ ){
             var product = productStore.data.items[i].data;
-            console.log(product);
             if (5 != product.product_selected_typeid_link)
                 Ext.getCmp('PContract_PO_Edit_Price').getController().calPrice_SizesetAll(product.id);
         }
