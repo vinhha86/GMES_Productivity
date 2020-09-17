@@ -273,6 +273,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             rec.set('productivity', data.old_data.productivity);
             rec.set('Name', data.old_data.Name);
             rec.set('mahang', data.old_data.mahang);
+            rec.set('totalpackage', data.old_data.totalpackage);
 
             var eventStore = me.getCrudManager().getEventStore();
             eventStore.insert(0, data.new_data);
