@@ -40,8 +40,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                         new_po.data.parentpoid_link = parent_po.id;
                         
                         viewmodel.set('po', new_po.data);
-                        viewmodel.set('po.po_buyer', record.get('po_buyer'));
-                        viewmodel.set('po.po_vendor', record.get('po_vendor'));
+                        // viewmodel.set('po.po_buyer', record.get('po_buyer'));
+                        // viewmodel.set('po.po_vendor', record.get('po_vendor'));
                         viewmodel.set('po.productid_link', record.get('productid_link'));
 
                         //Lay danh sach POrder_Req
