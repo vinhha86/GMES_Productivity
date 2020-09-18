@@ -526,7 +526,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     onPOder_Create: function(recPOder_Req){
         var me = this;
         var viewmodel = this.getViewModel();
-        console.log(viewmodel.get('po_selected'));
         if (recPOder_Req.data.porderlist.length > 0){
             Ext.MessageBox.show({
                 title: "Lệnh sản xuất",

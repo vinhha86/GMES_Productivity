@@ -124,6 +124,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
             }  
             var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
             viewSizeset.getView().select(0);
+            Ext.getCmp('PContract_PO_Edit_Price').setDisabled(true);
             this.onThoat();
         }
     
