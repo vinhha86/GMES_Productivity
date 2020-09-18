@@ -169,7 +169,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             bind: {
                 store: '{PContractProduct_PO_Store}'
             },
-            width: 260,
+            width: 300,
             valueField: 'id',
             displayField: 'code_amount',
             queryMode : 'local',
@@ -190,7 +190,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         },
         {
             xtype:'button',
-            text: 'Chốt màu,cỡ',
+            // text: 'Chốt màu,cỡ',
             itemId:'btnConfirmSKU',
             // ui: 'header',
 			tooltip: 'Chốt chi tiết màu cỡ',
