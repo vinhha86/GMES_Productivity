@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
-            closable: true,
+            closable: false,
             resizable: false,
             modal: true,
             border: false,
@@ -85,10 +85,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             } );    
     },
     onEdit: function(rec){
-        console.log(rec);
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
-            closable: true,
+            closable: false,
             resizable: false,
             modal: true,
             border: false,
@@ -118,6 +117,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function(){
             var storePO = viewModel.getStore('PContractPOList');
             storePO.load();
+
+            var store_porder_req = viewModel.getStore('porderReqStore');
+            var po_id = rec.get('id');
+            store_porder_req.loadByPO(po_id);
             form.close();
         })
     },

@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     init: function () {
          var viewmodel = this.getViewModel();
          var porderReqStore = viewmodel.getStore('porderReqStore');
-         porderReqStore.setGroupField('product_code');
+         porderReqStore.setGroupField('productinfo');
     },
     control:{
         '#btnSKUSelect':{
@@ -224,7 +224,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         if (rec.data.porderlist.length > 0){
             var porder = rec.data.porderlist[0];
             viewmodel.set('porder_selected',porder);
-            console.log(porder);
             this.refreshSKUList(porder.id);
         } else {
             viewmodel.set('porder_selected',null);
