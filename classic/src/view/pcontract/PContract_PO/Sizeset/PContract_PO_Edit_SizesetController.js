@@ -116,7 +116,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
 
         // console.log(viewModel.getStore('PriceStore').data.length);
         // console.log(viewModel);
-        if(rec.data.sizesetname == 'ALL' && viewModel.getStore('PriceStore').data.length > 1){
+        if(viewModel.get('product_selected_typeid_link') == 5){
+            Ext.getCmp('PContract_PO_Edit_Price').setDisabled(true);
+        }else if(rec.data.sizesetname == 'ALL' && viewModel.getStore('PriceStore').data.length > 1){
             Ext.getCmp('PContract_PO_Edit_Price').setDisabled(true);
         }else{
             Ext.getCmp('PContract_PO_Edit_Price').setDisabled(false);
