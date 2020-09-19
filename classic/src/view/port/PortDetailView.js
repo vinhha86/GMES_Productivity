@@ -56,6 +56,20 @@ Ext.define('GSmartApp.view.Port.PortDetailView', {
         },
         width: 400,
         labelWidth: 105
+    },{
+        xtype: 'combobox',
+        margin: 5,
+        fieldLabel: 'PT vận chuyển',
+        bind:{
+            store:'{ShipModeStore}',
+            value:'{currentRec.shipmodeid_link}'
+        },
+        displayField: 'name',
+        valueField: 'id',
+        queryMode: 'local',
+        // editable: false,
+        width:400,
+        labelWidth: 105,
     }],
     dockedItems:[{
         layout:'hbox',

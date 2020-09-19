@@ -27,12 +27,12 @@ Ext.define('GSmartApp.view.Port.PortView', {
     }, {
         text: 'Tên viết tắt',
         dataIndex: 'code',
-        width: 100,
+        width: 150,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'portCodeFilter',
-            width: 96,
+            width: '99%',
             flex: 1,
             margin: 2,
             enableKeyEvents: true,
@@ -74,6 +74,24 @@ Ext.define('GSmartApp.view.Port.PortView', {
             enableKeyEvents: true,
             listeners: {
                 keyup: 'onPortEnNameFilterKeyup',
+                buffer: 500
+            }
+        }
+    }, {
+        text: 'Phương thức vận chuyển',
+        dataIndex: 'shipModeName',
+        width: 150,
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'portShipModeNameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPortShipModeNameFilterKeyup',
                 buffer: 500
             }
         }

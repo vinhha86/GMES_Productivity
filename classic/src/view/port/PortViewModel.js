@@ -5,6 +5,9 @@ Ext.define('GSmartApp.view.Port.PortViewModel', {
     stores: {
         PortStore: {
             type: 'portstore'
+        },
+        ShipModeStore: {
+            type: 'ShipModeStore'
         }
     },
     data: {

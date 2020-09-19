@@ -106,6 +106,7 @@ Ext.define('GSmartApp.view.Port.PortViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PortStore');
         store.loadStore();
+        store.getSorters().add('code');
     },
     onPortCodeFilterKeyup:function(){
         var grid = this.getView(),
@@ -165,6 +166,26 @@ Ext.define('GSmartApp.view.Port.PortViewController', {
         else if (this.enNameFilter) {
             filters.remove(this.enNameFilter);
             this.enNameFilter = null;
+        }
+    },
+    onPortShipModeNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('portShipModeNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.shipModeNameFilter = filters.add({
+                id: 'shipModeNameFilter',
+                property: 'shipModeName',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.shipModeNameFilter) {
+            filters.remove(this.shipModeNameFilter);
+            this.shipModeNameFilter = null;
         }
     }
 })
