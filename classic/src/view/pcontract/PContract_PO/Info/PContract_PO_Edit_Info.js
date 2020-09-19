@@ -42,22 +42,47 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     },    
                     items:[
                         {
-                            xtype: 'checkboxfield',
-                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;text-align:right',
-                            fieldLabel: 'Chưa xác định:',
-                            hideTrigger:true,
-                            labelAlign: 'left',
-                            labelWidth: 78,
-                            flex: 1,
-                            margin: 1,
-                            bind: {
-                                value: '{po.is_tbd}',
-                                readOnly: '{ishidden_tbd}'
-                            },
-                            listeners: {
-                                change: 'onIs_Tbd_Change'
-                            }
+                            layout: 'hbox',
+                            items:[
+                                {
+                                    xtype: 'checkboxfield',
+                                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                                    fieldStyle: 'font-size:11px;text-align:right',
+                                    fieldLabel: 'Chưa xác định:',
+                                    hideTrigger:true,
+                                    labelAlign: 'left',
+                                    labelWidth: 78,
+                                    flex: 1,
+                                    margin: 1,
+                                    bind: {
+                                        value: '{po.is_tbd}',
+                                        readOnly: '{ishidden_tbd}'
+                                    },
+                                    listeners: {
+                                        change: 'onIs_Tbd_Change'
+                                    }
+                                },
+                                {
+                                    xtype: 'numberfield',
+                                    id: 'PContract_PO_Edit_Info_sewtarget_percent',
+                                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                                    fieldStyle: 'font-size:11px;text-align:right',
+                                    fieldLabel: 'Sew Target %:',
+                                    hideTrigger:true,
+                                    labelAlign: 'left',
+                                    labelWidth: 78,
+                                    flex:1,
+                                    margin: 1,
+                                    minValue: 0,
+                                    maxValue: 100,
+                                    bind: {
+                                        value: '{po.sewtarget_percent}'
+                                    },
+                                    listeners: {
+                                        focusleave: 'onSewTarget_PercentChange'
+                                    }    
+                                },  
+                            ]
                         },                            
                         {
                             xtype: 'textfield',
@@ -145,26 +170,45 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         align: 'stretch'
                     },                    
                     items:[
+                        // {
+                        //     xtype: 'numberfield',
+                        //     id: 'PContract_PO_Edit_Info_sewtarget_percent',
+                        //     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        //     fieldStyle: 'font-size:11px;text-align:right',
+                        //     fieldLabel: 'Sew Target %:',
+                        //     hideTrigger:true,
+                        //     labelAlign: 'left',
+                        //     labelWidth: 78,
+                        //     flex:1,
+                        //     margin: 1,
+                        //     minValue: 0,
+                        //     maxValue: 100,
+                        //     bind: {
+                        //         value: '{po.sewtarget_percent}'
+                        //     },
+                        //     listeners: {
+                        //         focusleave: 'onSewTarget_PercentChange'
+                        //     }    
+                        // },
                         {
-                            xtype: 'numberfield',
-                            id: 'PContract_PO_Edit_Info_sewtarget_percent',
+                            xtype: 'combobox',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;text-align:right',
-                            fieldLabel: 'Sew Target %:',
-                            hideTrigger:true,
+                            fieldStyle: 'font-size:11px;',
+                            fieldLabel: 'PT v/chuyển  :',
+                            // reference: 'poinfo_qcorgname',
                             labelAlign: 'left',
                             labelWidth: 78,
                             flex:1,
                             margin: 1,
-                            minValue: 0,
-                            maxValue: 100,
+                            displayField: 'name',
+                            valueField: 'id',
+                            queryMode: 'local',
+                            editable: true,
                             bind: {
-                                value: '{po.sewtarget_percent}'
-                            },
-                            listeners: {
-                                focusleave: 'onSewTarget_PercentChange'
-                            }    
-                        },  
+                                store: '{ShipModeStore}',
+                                value: '{po.shipmodeid_link}'
+                            }
+                        },
                         {
                             xtype: 'panel',
                             flex:1,
