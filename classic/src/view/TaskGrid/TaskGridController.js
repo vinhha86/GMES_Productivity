@@ -2,9 +2,9 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.TaskGridController',
     control: {
-        // '#btnAddTask': {
-        //     click: 'onAddTask'
-        // },
+        '#btnAddTask': {
+            click: 'onAddTask'
+        },
         '#btnRefresh' : {
             click: 'onRefresh'
         },
@@ -42,6 +42,36 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
             filters.remove(this.tasktypeFilter);
             this.tasktypeFilter = null;
         }
+    },
+    onAddTask: function(){
+        var view = this.getView();
+        var viewmodel = this.getViewModel();
+        var TaskBoard_Store = viewmodel.getStore('TaskBoard_Store');
+        var form = Ext.create('Ext.window.Window', {
+            height: 200,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thêm việc mới',
+            closeAction: 'destroy',
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'AddTask'
+            }]
+        });
+        form.show();        
+        form.down('#AddTask').down('#text').focus();
+
+        form.down('#AddTask').on('Addtask', function(task){
+            TaskBoard_Store.insert(0, task);
+            form.close();
+        })
     },
     onNameFilterKeyup:function(){
         var grid = this.getView(),
