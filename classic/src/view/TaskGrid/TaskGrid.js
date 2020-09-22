@@ -85,16 +85,6 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGrid', {
                     return 'Từ chối';
             }
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            // handler: 'onXoa',
-        }]
     }],
     dockedItems:[{
         dock: 'top',

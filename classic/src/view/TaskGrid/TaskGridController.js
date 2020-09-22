@@ -10,7 +10,10 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         },
         '#cmbtype' : {
             select: 'onSelectType'
-        }
+        },
+        '#TaskGrid' : {
+            itemdblclick :'onItemDblclick'
+        },
     },
     init: function(){
         var viewmodel = this.getViewModel();
@@ -132,5 +135,36 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
             filters.remove(this.userInChargeNameFilter);
             this.userInChargeNameFilter = null;
         }
-    }
+    },
+    onItemDblclick: function(thisView, record, item, index, e, eOpts){
+        // console.log(thisView);
+        // console.log(record);
+        // console.log(item);
+        // console.log(index);
+        // console.log(e);
+        var form = Ext.create('Ext.window.Window', {
+            height: 550,
+            width: 550,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                // padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'TaskGridEditor',
+                viewModel: {
+                    data: {
+                        record: record.data
+                    }
+                }
+            }]
+        });
+        form.show();
+    },
 })
