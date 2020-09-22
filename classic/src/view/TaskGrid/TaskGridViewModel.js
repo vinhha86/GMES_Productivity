@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridViewModel', {
     requires: [
         'GSmartApp.store.TaskBoard.TaskBoard_Store',
         'GSmartApp.store.TaskBoard.TaskUser_Store',
-        'GSmartApp.store.TaskBoard.TaskTypeStore'
+        'GSmartApp.store.TaskBoard.TaskTypeStore',
+        'GSmartApp.store.TaskBoard.TaskStatusStore'
     ],
     stores: {
         TaskBoard_Store: {
@@ -15,6 +16,13 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridViewModel', {
         },
         TaskTypeStore: {
             type: 'TaskTypeStore'
+        },
+        TaskStatusStore: {
+            type: 'TaskStatusStore'
         }
+    },
+    data: {
+        isTaskBoardHidden: false,
+        isTaskGridHidden: true
     }
 })

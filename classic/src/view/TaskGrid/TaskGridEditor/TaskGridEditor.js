@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
 
     requires : [
         'GSmartApp.view.TaskGrid.TaskGridEditorController',
-        'GSmartApp.view.TaskBoard.Comment'
+        'GSmartApp.view.TaskGrid.TaskGridEditor.CommentGrid'
     ],
 
     controller : 'TaskGridEditorController',
@@ -236,15 +236,18 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
                 emptyText: 'Loại phản hồi'
             }]
         },
-        // {
-        //     xtype     : 'component',
-        //     cls       : 'comment-title',
-        //     focusable : false,
-        //     html      : 'Danh sách tin nhắn'
-        // },
-        // {
-        //     xtype        : 'Comment'
-        // }
+        {
+            xtype     : 'component',
+            cls       : 'comment-title',
+            focusable : false,
+            html      : '<div style="font-weight: bold; font-size: 13px;">Danh sách tin nhắn</div>'
+        },
+        {
+            xtype        : 'CommentGrid',
+            bind: {
+                store: '{TaskCommentStore}',
+            }
+        }
 
     ],
 

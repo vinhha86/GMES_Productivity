@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         },
         '#cmbtype' : {
             select: 'onSelectType'
+        },
+        '#btnSwitch' : {
+            click: 'onBtnSwitch'
         }
     },
     init: function(){
@@ -28,6 +31,11 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         var typeStore = viewmodel.getStore('TaskTypeStore');
         typeStore.loadStore();
 
+    },
+    onBtnSwitch: function () {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('isTaskBoardHidden',true);
+        Ext.getCmp('TaskGrid').getViewModel().set('isTaskGridHidden',false);
     },
     onSelectType: function(combo, record){
         var tasktypeid_link = record.get('id');

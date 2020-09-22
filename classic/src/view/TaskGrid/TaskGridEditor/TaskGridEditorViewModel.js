@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorViewModel', {
         'GSmartApp.store.TaskBoard.TaskUser_Store',
         'GSmartApp.store.TaskBoard.TaskFlowStatusStore',
         'GSmartApp.store.org.ListOrgStore',
-        'GSmartApp.store.TaskBoard.TaskObjectStore'
+        'GSmartApp.store.TaskBoard.TaskObjectStore',
+        'GSmartApp.store.TaskBoard.TaskCommentStore'
     ],
     stores: {
         TaskUser_Store : {
@@ -23,6 +24,9 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorViewModel', {
         },
         TaskObjectStore: {
             type: 'TaskObjectStore'
+        },
+        TaskCommentStore: {
+            type: 'TaskCommentStore'
         }
     },
     data: {

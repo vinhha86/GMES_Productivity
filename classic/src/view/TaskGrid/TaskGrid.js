@@ -91,6 +91,12 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGrid', {
         xtype: 'toolbar',
         items:[{
             xtype: 'button',
+            tooltip: 'Chuyển view',
+            iconCls: 'x-fa fa-toggle-on',
+            itemId: 'btnSwitch',
+            margin: 5
+        },{
+            xtype: 'button',
             tooltip: 'Làm mới danh sách',
             iconCls: 'x-fa fa-refresh',
             itemId: 'btnRefresh',
@@ -102,15 +108,6 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGrid', {
             itemId: 'btnAddTask',
             margin: 5
         },{
-            // xtype      : 'filterfield',
-            // store       : taskStore,
-            // fieldLabel : 'Tìm kiếm',
-            // margin     : 5,
-            // panel      : task,
-            // width      : 190,
-            // labelWidth : 90,
-            // field: 'Description'
-        // },{
             xtype: 'combo',
             margin: 5,
             bind : {
@@ -123,6 +120,18 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGrid', {
             editable: false,
             emptyText: 'Loại công việc',
             itemId: 'cmbtype'
+        },{
+            xtype: 'combo',
+            margin: 5,
+            bind : {
+                store: '{TaskStatusStore}',
+            },
+            valueField: 'Name',
+            displayField: 'Text',
+            margin: 5,
+            editable: false,
+            emptyText: 'Trạng thái',
+            itemId: 'taskstatus'
         }]
     }],
 });

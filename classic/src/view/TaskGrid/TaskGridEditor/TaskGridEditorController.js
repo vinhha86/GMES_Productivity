@@ -55,6 +55,25 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
         var orgStore = viewmodel.getStore('OrgStore');
         orgStore.loadStore_allchildren_byorg(listid);
 
+        // Comments
+        var TaskCommentStore = viewmodel.getStore('TaskCommentStore');
+        TaskCommentStore.loadStore(taskid_link);
+
+        //Loai task la ycsx thi moi hien day du 
+        var FlowStatusStore = viewmodel.getStore('FlowStatusStore');
+        var tasktypeid_link = record.tasktypeid_link;
+        if (tasktypeid_link != 0){
+            filters = FlowStatusStore.getFilters();
+            filters.add({
+                property: 'id',
+                value: 1,
+                operator: '>',
+            })
+        }
+        else {
+            FlowStatusStore.clearFilter();
+        }
+
     },
     // onActivate: function () {
     //     var form = this.getView();
@@ -151,9 +170,12 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
         form.down('#PContractView').down('#PContractSKUView').on('ConfimSKU', function(){
             form.close();
             
-            var taskboard = Ext.getCmp('taskboard');
-            var taskStore = taskboard.getTaskStore();
-            taskStore.load();
+            // var taskboard = Ext.getCmp('taskboard');
+            // var taskStore = taskboard.getTaskStore();
+            // taskStore.load();
+            var TaskGrid = Ext.getCmp('TaskGrid');
+            var TaskBoard_Store = TaskGrid.getStore();
+            TaskBoard_Store.load();
         })
     },
     onSelectOrg: function(combo, record){
@@ -195,6 +217,74 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
                 break;
         }
     },
+    onAddCommentClick: function () {
+        var form = this.getView();
+        var field = form.down('#textcomment');
+        var text = field.getValue();
+        var viewmodel = this.getViewModel();
+
+        if (text) {
+            var params = new Object();
+            // params.taskid_link = form.getRecord().getId();
+            params.taskid_link = viewmodel.get('record.id');
+            params.text = text;
+
+            GSmartApp.Ajax.post('/api/v1/task/add_comment', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Thành công",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                },
+                                fn: function () {
+
+                                }
+                            });
+                            // form.getRecord().comments().add({
+                            //     Text: field.getValue(),
+                            //     Date: response.data.Date,
+                            //     UserId: response.data.UserId, /* TODO read logged in user id */
+                            //     TaskId: form.getRecord().getId(),
+                            //     typename : response.data.typename
+                            // });
+                            var TaskCommentStore = viewmodel.getStore('TaskCommentStore');
+                            // console.log(TaskCommentStore);
+                            TaskCommentStore.insert(0, {
+                                "typename": response.data.typename,
+                                "date": response.data.Date,
+                                "text": field.getValue(),
+                                "taskId": response.data.TaskId,
+                                "userId": response.data.UserId,
+                                "userFullName": response.data.UserFullName,
+                                "Date": response.data.Date,
+                                "TaskId": response.data.TaskId,
+                                "UserId": response.data.UserId,
+                                "Text": field.getValue(),
+                                "UserFullName": response.data.UserFullName,
+                            });
+
+                            field.reset();
+
+                        }
+                        else {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
+                                }
+                            });
+                        }
+                    }
+                })
+        }
+    },
     onAcceptReq: function(){
         var me = this;
         var form = this.getView();
@@ -209,7 +299,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
 
         if(user_incharge == current_user){
         var params = new Object();
-            params.taskid_link = form.getRecord().getId();
+            params.taskid_link = viewmodel.get('record.id');
             params.comment = field.getValue();
 
             GSmartApp.Ajax.post('/api/v1/task/accept_porer_req', Ext.JSON.encode(params),
@@ -219,11 +309,15 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
 
-                        me.onCloseClick();
+                        // me.onCloseClick();
 
-                        var taskboard = Ext.getCmp('taskboard');
-                        var taskStore = taskboard.getTaskStore();
-                        taskStore.load();
+                        // var taskboard = Ext.getCmp('taskboard');
+                        // var taskStore = taskboard.getTaskStore();
+                        // taskStore.load();
+                        var TaskGrid = Ext.getCmp('TaskGrid');
+                        var TaskBoard_Store = TaskGrid.getStore();
+                        TaskBoard_Store.load();
+                        form.close();
                     }
                     else {
                         Ext.MessageBox.show({
@@ -277,7 +371,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
             var field = form.down('#textcomment');
 
             var params = new Object();
-            params.taskid_link = form.getRecord().getId();
+            params.taskid_link = viewmodel.get('record.id');
             params.comment = field.getValue();
             params.status = 2;
 
@@ -288,11 +382,17 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
 
-                        me.onCloseClick();
+                        // me.onCloseClick();
                         
-                        var taskboard = Ext.getCmp('taskboard');
-                        var taskStore = taskboard.getTaskStore();
-                        taskStore.remove(form.getRecord());
+                        // var taskboard = Ext.getCmp('taskboard');
+                        // var taskStore = taskboard.getTaskStore();
+                        // taskStore.remove(form.getRecord());
+
+                        var TaskGrid = Ext.getCmp('TaskGrid');
+                        var TaskBoard_Store = TaskGrid.getStore();
+                        var task = TaskBoard_Store.getById(viewmodel.get('record.id'));
+                        TaskBoard_Store.remove(task);
+                        me.getView().up('window').close();
                     }
                     else {
                         Ext.MessageBox.show({
@@ -350,16 +450,47 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
 
-                        form.getRecord().comments().add(response.data);
-                        var cmbOrg = form.down('#comboOrg');
+                        var TaskCommentStore = viewmodel.getStore('TaskCommentStore');
+                            // console.log(TaskCommentStore);
+                        TaskCommentStore.insert(0, {
+                            "typename": response.data.typename,
+                            "date": response.data.Date,
+                            "text": response.data.Text,
+                            "taskId": response.data.TaskId,
+                            "userId": response.data.UserId,
+                            "userFullName": response.data.UserFullName,
+                            "Date": response.data.Date,
+                            "TaskId": response.data.TaskId,
+                            "UserId": response.data.UserId,
+                            "Text": response.data.Text,
+                            "UserFullName": response.data.UserFullName,
+                        });
                         
-                        var taskboard = Ext.getCmp('taskboard');
-                        var taskStore = taskboard.getTaskStore();
-                        var mainTask = taskStore.getById(form.getRecord().getId());
-                        mainTask.set('ResourceId',record.get('Id'));
-                        mainTask.set('State', 'ChuaLam');
-                        mainTask.set('orgid_link', cmbOrg.getValue());
-                        taskboard.refreshTaskNode(mainTask);
+                        // var taskboard = Ext.getCmp('taskboard');
+                        // var taskStore = taskboard.getTaskStore();
+                        // var mainTask = taskStore.getById(form.getRecord().getId());
+                        // mainTask.set('ResourceId',record.get('Id'));
+                        // mainTask.set('State', 'ChuaLam');
+                        // mainTask.set('orgid_link', cmbOrg.getValue());
+                        // taskboard.refreshTaskNode(mainTask);
+
+                        var TaskGrid = Ext.getCmp('TaskGrid');
+                        var TaskBoard_Store = TaskGrid.getStore();
+                        var task = TaskBoard_Store.getById(response.data.TaskId);
+                        var cmbOrg = form.down('#comboOrg');
+                        var comboUser = form.down('#comboUser');
+                        var comboUserSelection = comboUser.getSelection();
+                        // console.log(comboUserSelection);
+                        // đơn vị
+                        task.set('orgid_link', cmbOrg.getValue());
+                        // người phu trách id, Tên
+                        task.set('userInChargeName', comboUserSelection.get('Name'));
+                        task.set('UserInChargeName', comboUserSelection.get('Name'));
+                        task.set('userinchargeid_link', comboUserSelection.get('Id'));
+                        // trạng thái
+                        task.set('state', 'ChuaLam');
+                        task.set('State', 'ChuaLam');
+                        // console.log(task);
                     }
                     else {
                         Ext.MessageBox.show({
@@ -555,61 +686,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
         }
     },
 
-    onAddCommentClick: function () {
-        var form = this.getView();
-        var field = form.down('#textcomment');
-        var text = field.getValue();
-
-        if (text) {
-            var params = new Object();
-            params.taskid_link = form.getRecord().getId();
-            params.text = text;
-
-            GSmartApp.Ajax.post('/api/v1/task/add_comment', Ext.JSON.encode(params),
-                function (success, response, options) {
-                    if (success) {
-                        var response = Ext.decode(response.responseText);
-                        if (response.respcode == 200) {
-                            // Ext.MessageBox.show({
-                            //     title: "Thông báo",
-                            //     msg: "Thành công",
-                            //     buttons: Ext.MessageBox.YES,
-                            //     buttonText: {
-                            //         yes: 'Đóng',
-                            //     },
-                            //     fn: function () {
-
-                            //     }
-                            // });
-                            form.getRecord().comments().add({
-                                Text: field.getValue(),
-                                Date: response.data.Date,
-                                UserId: response.data.UserId, /* TODO read logged in user id */
-                                TaskId: form.getRecord().getId(),
-                                typename : response.data.typename
-                            });
-
-                            field.reset();
-
-                            var taskboard = Ext.getCmp('taskboard');
-                            var taskStore = taskboard.getTaskStore();
-                            var mainTask = taskStore.getById(form.getRecord().getId());
-                            taskboard.refreshTaskNode(mainTask);
-                        }
-                        else {
-                            Ext.MessageBox.show({
-                                title: "Thông báo",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng'
-                                }
-                            });
-                        }
-                    }
-                })
-        }
-    },
+    
 
     onKeyUp: function (e, t) {
         if (e.getKey() === e.ESC) {

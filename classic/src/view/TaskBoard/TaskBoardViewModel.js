@@ -16,5 +16,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewModel', {
         TaskTypeStore: {
             type: 'TaskTypeStore'
         }
+    },
+    data: {
+        isTaskBoardHidden: false,
+        isTaskGridHidden: true
     }
 })

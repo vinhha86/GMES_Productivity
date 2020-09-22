@@ -18,7 +18,9 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
         var me = this;
 
         var viewmodel = this.getViewModel();
+        // console.log(viewmodel);
         var taskStore = viewmodel.getStore('TaskBoard_Store');
+        // console.log(taskStore);
         taskStore.loadStore();
         var userStore = viewmodel.getStore('TaskUser_Store');
         userStore.loadUserbyOrg(-1);
@@ -165,6 +167,12 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardView', {
                 dock: 'top',
                 xtype: 'toolbar',
                 items:[{
+                    xtype: 'button',
+                    tooltip: 'Chuyển view',
+                    iconCls: 'x-fa fa-toggle-off',
+                    itemId: 'btnSwitch',
+                    margin: 5
+                },{
                     xtype: 'button',
                     tooltip: 'Làm mới danh sách',
                     iconCls: 'x-fa fa-refresh',

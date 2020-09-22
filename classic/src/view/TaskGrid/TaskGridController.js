@@ -11,9 +11,15 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         '#cmbtype' : {
             select: 'onSelectType'
         },
+        '#taskstatus' : {
+            select: 'onSelectStatus'
+        },
         '#TaskGrid' : {
             itemdblclick :'onItemDblclick'
         },
+        '#btnSwitch' : {
+            click: 'onBtnSwitch'
+        }
     },
     init: function(){
         var viewmodel = this.getViewModel();
@@ -21,6 +27,11 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         TaskBoard_Store.loadStore();
         var typeStore = viewmodel.getStore('TaskTypeStore');
         typeStore.loadStore();
+    },
+    onBtnSwitch: function () {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('isTaskGridHidden',true);
+        Ext.getCmp('TaskBoardView').getViewModel().set('isTaskBoardHidden',false);
     },
     onRefresh: function(){
         var viewmodel = this.getViewModel();
@@ -44,6 +55,25 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         else if (this.tasktypeFilter) {
             filters.remove(this.tasktypeFilter);
             this.tasktypeFilter = null;
+        }
+    },
+    onSelectStatus: function(combo, record){
+        var viewmodel = this.getViewModel();
+        var Name = record.get('Name');
+        var TaskBoard_Store = viewmodel.getStore('TaskBoard_Store');
+        // TaskBoard_Store.clearFilter();
+        filters = TaskBoard_Store.getFilters();
+        if (Name != 'TatCa') {
+            this.taskstatusFilter = filters.add({
+                id: 'taskstatusFilter',
+                property: 'State',
+                value: Name,
+                operator: '='
+            });
+        }
+        else if (this.taskstatusFilter) {
+            filters.remove(this.taskstatusFilter);
+            this.taskstatusFilter = null;
         }
     },
     onAddTask: function(){
