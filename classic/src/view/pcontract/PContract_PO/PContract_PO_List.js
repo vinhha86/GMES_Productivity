@@ -200,6 +200,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     width: 70
                 },{
                     text:'Ngày VC',
+                    hidden: true,
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
                     renderer: function(value){
                         var date = Ext.Date.parse(value, 'c');
@@ -210,7 +211,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 },{
                     text:'Số ngày SX',
                     dataIndex:'productiondays',
-                    width: 65
+                    width: 65,
+                    hidden: true
                 },{
                     text:'Phân xưởng',
                     dataIndex:'factories',

@@ -610,7 +610,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             if(viewModel.get('searchtype') == 1){
                 viewModel.set('productid_link_notsearch', record.data.id);
             }
-            SkuStore.loadByProduct(record.get('id'));
+            SkuStore.loadByProduct(record.get('id'), true);
             SkuStore.sort([
                 {property :'color_name', direction: 'ASC'},
                 {property :'sort_size', direction: 'ASC'}

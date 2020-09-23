@@ -83,6 +83,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
         dock: 'bottom',
         layout: 'hbox',
         items: [{
+            xtype: 'filefield',
+            buttonText: 'Tải báo giá',
+            buttonOnly: true,
+            hidden: true,
+            itemId: 'fileUpload',
+            width: 35,
+            height: 32,
+            margin: 3
+        },{
+            xtype: 'button',
+            margin: 3,
+            text: 'Tải báo giá',
+            iconCls: 'x-fa fa-upload',
+            itemId: 'btnUpload'
+        },{
             flex: 1
         },{
             xtype: 'button',

@@ -13,7 +13,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         // },
         '#btnExcel' : {
             click: 'onExport'
+        },
+        '#btnUpload' : {
+            click: 'onUpload'
+        },
+        '#fileUpload': {
+            change: 'onSelect'
         }
+    },
+    onUpload: function(){
+        var me = this.getView();
+        me.down('#fileUpload').fileInputEl.dom.click();
+    },
+    onSelect: function(m, value){
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractid_link', viewmodel.get('PContract.id'));
+
+        GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_template', data,
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    m.reset();
+                    console.log(response);
+                }
+            })
     },
     onExport: function(){
         var viewmodel = this.getViewModel();
