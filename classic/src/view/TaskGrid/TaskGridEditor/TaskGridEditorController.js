@@ -74,6 +74,15 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
             FlowStatusStore.clearFilter();
         }
 
+        // 
+        if (record.tasktypeid_link == -1) {
+            viewmodel.set('ishidden_add_checklist', false);
+            viewmodel.set('isdisable_checkbox', false);
+        }
+        else {
+            viewmodel.set('isdisable_checkbox', true);
+        }
+
     },
     // onActivate: function () {
     //     var form = this.getView();
@@ -434,6 +443,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
         }
     },
     onUpdateUser: function(combo, record, eOpts){
+
         var form = this.getView();
         var viewmodel = this.getViewModel();
         form.setLoading("Đang xử lý dữ liệu");
@@ -501,7 +511,9 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
                                 yes: 'Đóng'
                             },
                             fn: function () {
-                                form.down('#comboUser').setValue(form.getRecord().getResourceId());
+                                // form.down('#comboUser').setValue(form.getRecord().getResourceId());
+                                // form.down('#comboOrg').setValue(viewmodel.get('record.orgid_link'));
+                                // form.down('#comboUser').setValue(viewmodel.get('record.userinchargeid_link'));
                             }
                         });
                     }
@@ -515,7 +527,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
                             yes: 'Đóng'
                         },
                         fn: function () {
-                            form.down('#comboUser').setValue(form.getRecord().getResourceId());
+                            // form.down('#comboUser').setValue(form.getRecord().getResourceId());
                         }
                     });
                 }
@@ -602,14 +614,15 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditorController', {
     },
 
     onCloseClick: function () {
-        var form = this.getView();
+        // var form = this.getView();
 
-        if (form.isValid()) {
-            form.updateRecord();
-            form.hide();
-        }
+        // if (form.isValid()) {
+        //     form.updateRecord();
+        //     form.hide();
+        // }
 
-        this.getView().hide();
+        // this.getView().hide();
+        this.getView().up('window').close();
     },
 
     onAddSpecialKey: function (field, e, t) {

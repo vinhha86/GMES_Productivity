@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
     extend : 'Ext.form.Panel',
     xtype  : 'TaskGridEditor',
+    id: 'TaskGridEditor', 
 
     requires : [
         'GSmartApp.view.TaskGrid.TaskGridEditorController',
@@ -11,7 +12,6 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
     viewModel: {
         type: 'TaskGridEditorViewModel'
     },
-
 
     // width       : 550,
     // height      : 550,
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
             },
             labelStyle: "font-weight: bold; font-size: 13px",
             itemId     : 'descriptionField',
-            fieldStyle: "font-size: 13px",
+            fieldStyle: "font-size: 13px; margin:0 5px 10px 5px;",
             flex       : 1,
             margin     : '0 20 0 0'
         },
@@ -93,9 +93,10 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
                     displayField : 'name',
                     valueField   : 'id',
                     fieldLabel   : 'Đơn vị:',
-                    labelStyle: "font-weight: bold; font-size: 13px",
+                    labelStyle: "font-weight: bold; font-size: 13px;",
                     labelWidth: 50,
                 },
+                {width: 5},
                 {
                     xtype        : 'combobox',
                     flex: 1,
@@ -108,7 +109,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
                     displayField : 'Name',
                     valueField   : 'Id',
                     fieldLabel   : 'Người phụ trách:',
-                    labelStyle: "font-weight: bold; font-size: 13px",
+                    labelStyle: "font-weight: bold; font-size: 13px;",
                     labelWidth: 120,
                 },
             ]
@@ -148,37 +149,37 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
                 }
             }]
         },
-        {
-            xtype  : 'container',
-            layout : 'hbox',
-            itemId : 'addButtons',
-            bind: {
-                hidden: '{ishidden_add_checklist}'
-            },
-            items  : [
-                {
-                    xtype     : 'textfield',
-                    emptyText : 'Thêm chi tiết',
-                    reference : 'newItemName',
-                    flex      : 1,
-                    listeners : {
-                        specialkey : 'onAddSpecialKey',
-                        focus      : 'onAddItemFocus',
-                        blur       : 'onAddItemBlur'
-                    }
-                },
-                {
-                    xtype   : 'tool',
-                    cls     : 'cancel-add',
-                    hidden  : true,
-                    type    : 'close',
-                    handler : function () {
-                        this.getEl().focus();
-                    },
-                    width   : 50
-                }
-            ]
-        },
+        // {
+        //     xtype  : 'container',
+        //     layout : 'hbox',
+        //     itemId : 'addButtons',
+        //     bind: {
+        //         hidden: '{ishidden_add_checklist}'
+        //     },
+        //     items  : [
+        //         {
+        //             xtype     : 'textfield',
+        //             emptyText : 'Thêm chi tiết',
+        //             reference : 'newItemName',
+        //             flex      : 1,
+        //             listeners : {
+        //                 specialkey : 'onAddSpecialKey',
+        //                 focus      : 'onAddItemFocus',
+        //                 blur       : 'onAddItemBlur'
+        //             }
+        //         },
+        //         {
+        //             xtype   : 'tool',
+        //             cls     : 'cancel-add',
+        //             hidden  : true,
+        //             type    : 'close',
+        //             handler : function () {
+        //                 this.getEl().focus();
+        //             },
+        //             width   : 50
+        //         }
+        //     ]
+        // },
         {
             xtype      : 'htmleditor',
             itemId     : 'textcomment',
@@ -258,6 +259,23 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
     //         handler : 'onCloseClick'
     //     }
     // ],
+
+    dockedItems:[{
+        layout:'hbox',
+        border: false,
+        dock:'bottom',
+        items:[{
+            flex:1,
+            border: false
+        },{
+            xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+            handler : 'onCloseClick'
+        }]
+    }],
 
     // afterRender : function () {
         // var controller = this.getController();

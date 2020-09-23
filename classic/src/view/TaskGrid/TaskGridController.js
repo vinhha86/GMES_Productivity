@@ -32,6 +32,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         var viewmodel = this.getViewModel();
         viewmodel.set('isTaskGridHidden',true);
         Ext.getCmp('TaskBoardView').getViewModel().set('isTaskBoardHidden',false);
+        Ext.getCmp('TaskBoardView').getViewModel().getStore('TaskBoard_Store').loadStore();
     },
     onRefresh: function(){
         var viewmodel = this.getViewModel();
@@ -175,6 +176,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         var form = Ext.create('Ext.window.Window', {
             height: 550,
             width: 550,
+            header: false,
             closable: true,
             resizable: false,
             modal: true,

@@ -36,6 +36,7 @@ Ext.define('GSmartApp.view.TaskBoard.TaskBoardViewController', {
         var viewmodel = this.getViewModel();
         viewmodel.set('isTaskBoardHidden',true);
         Ext.getCmp('TaskGrid').getViewModel().set('isTaskGridHidden',false);
+        Ext.getCmp('TaskGrid').getViewModel().getStore('TaskBoard_Store').loadStore();
     },
     onSelectType: function(combo, record){
         var tasktypeid_link = record.get('id');
