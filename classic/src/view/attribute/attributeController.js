@@ -217,6 +217,10 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
         var me = this.getView();
         var valueView = Ext.getCmp('attributeValueView');
         valueView.getController().load_AttributeValue(record.data.id);
+        if(record.data.id == 30) // size set
+            valueView.getViewModel().set('isABCsortHidden', true);
+        else
+            valueView.getViewModel().set('isABCsortHidden', false);
     },
     checkValidate: function(name){
         var store = this.getViewModel().getStore('AttributeStore');

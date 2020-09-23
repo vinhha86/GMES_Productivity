@@ -6,5 +6,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueViewModel', {
         AttributeValueStore: {
             type: 'attributeValueStore'
         }
+    },
+    data: {
+        isABCsortHidden: true
     }
 })

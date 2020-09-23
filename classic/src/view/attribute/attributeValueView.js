@@ -36,7 +36,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         width: 50,
         xtype: 'rownumberer',
         // dataIndex: 'sortvalue',
-        align: 'center'
+        align: 'center',
+        sortable: false
     }, {
         text: 'Giá trị',
         dataIndex: 'value',
@@ -54,7 +55,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        }
+        },
+        sortable: false
     },{
         text: 'Mô tả',
         dataIndex: 'description',
@@ -71,7 +73,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        }
+        },
+        sortable: false
     },{
         xtype: 'actioncolumn',
         width: 30,
@@ -81,7 +84,8 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             iconCls: 'x-fa fas fa-trash',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoaAtt'
-        }]
+        }],
+        sortable: false
     }],
     dockedItems: [{
         dock: 'bottom',
@@ -112,7 +116,10 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             margin: 5,
             text: 'Sắp xếp A-Z',
             width: 100,
-            itemId: 'btnSort'
+            itemId: 'btnSort',
+            bind: {
+                hidden: '{isABCsortHidden}'
+            }
         }]
     }]
 });
