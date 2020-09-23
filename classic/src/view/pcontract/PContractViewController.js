@@ -74,6 +74,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
                     tab.getController().onChangeProduct();
                 }
+                else {
+                    var storeproductlist = viewmodel.getStore('PContractProductStore');
+                    storeproductlist.load();
+                    var storeproductpair = viewmodel.getStore('PContractProductPairStore');
+                    storeproductpair.load();
+                }
             }
         }
     },
