@@ -36,7 +36,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     m.reset();
-                    console.log(response);
+                    var storeProduct = viewmodel.getStore('PContractProductTreeStore');
+                    storeProduct.load();
                 }
             })
     },

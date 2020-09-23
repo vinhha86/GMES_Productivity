@@ -71,8 +71,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
                         //Chuyen packing notice ve array
                         var packing_str = response.data.packingnotice;
-                        var packing_arr = packing_str.split(';');
-                        viewmodel.set('po.packingnotice', packing_arr);
+                        if(packing_str!=null){
+                            var packing_arr = packing_str.split(';');
+                            viewmodel.set('po.packingnotice', packing_arr);
+                        }
+                        
                         
                         var store = viewmodel.getStore('PriceStore');
                         store.clearFilter();
