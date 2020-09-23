@@ -42,6 +42,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
     //     type: 'PContract_PO'
     // },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_PO'
+            },            
+            // {
+            //     iconCls: 'x-fa fas fa-trash',
+            //     tooltip: 'Xóa',
+            //     handler: 'onXoa'
+            // },{
+            //     iconCls: 'x-fa fas fa-list',
+            //     tooltip: 'Chi tiết',
+            //     handler: 'onEdit'
+            // },{
+            //     iconCls: 'x-fa fas fa-check',
+            //     tooltip: 'Chốt đơn',
+            //     handler: 'onAccept'
+            // }
+        ]
+    },{
         text: 'STT',
         width: 40,
         xtype: 'rownumberer',
@@ -119,31 +143,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 25,
-        menuDisabled: true,
-        sortable: false,
-        items: [
-            {
-                iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu_PO'
-            },            
-            // {
-            //     iconCls: 'x-fa fas fa-trash',
-            //     tooltip: 'Xóa',
-            //     handler: 'onXoa'
-            // },{
-            //     iconCls: 'x-fa fas fa-list',
-            //     tooltip: 'Chi tiết',
-            //     handler: 'onEdit'
-            // },{
-            //     iconCls: 'x-fa fas fa-check',
-            //     tooltip: 'Chốt đơn',
-            //     handler: 'onAccept'
-            // }
-        ]
-    }],
+    },],
     plugins: {
         rowwidget: {
             widget: 

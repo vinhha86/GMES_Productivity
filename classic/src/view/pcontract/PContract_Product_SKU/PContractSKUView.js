@@ -31,6 +31,16 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         store:'{PContractSKUStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: 'Xóa',
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 40,
         xtype: 'rownumberer',
@@ -140,17 +150,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
             return ProductSKUSummaryCssStyle + Ext.util.Format.number(value, '0,000') + '</div>';
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xóa',
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',
