@@ -121,6 +121,15 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             bind: {
                 hidden: '{isABCsortHidden}'
             }
+        }, {
+            xtype: 'button',
+            margin: 5,
+            text: 'Sắp xếp Z-A',
+            width: 100,
+            itemId: 'btnSortDesc',
+            bind: {
+                hidden: '{isABCsortHidden}'
+            }
         }]
     }]
 });
