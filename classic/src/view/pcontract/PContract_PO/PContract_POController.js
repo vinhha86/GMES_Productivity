@@ -666,7 +666,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         if (filterField.value) {
             this.textFilter = filters.add({
                 id: 'textFilter',
-                property: 'text',
+                property: 'info',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false
