@@ -19,7 +19,10 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridViewModel', {
         },
         TaskStatusStore: {
             type: 'TaskStatusStore'
-        }
+        },
+        OrgStore: {
+            type : 'ListOrgStore'
+        },
     },
     data: {
         isTaskBoardHidden: false,

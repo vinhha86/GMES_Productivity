@@ -14,6 +14,12 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         '#taskstatus' : {
             select: 'onSelectStatus'
         },
+        '#comboOrgGrid' : {
+            select : 'onSelectOrgGrid'
+        },
+        '#comboUserGrid' : {
+            change : 'onChangeUserGrid'
+        },
         '#TaskGrid' : {
             itemdblclick :'onItemDblclick'
         },
@@ -23,10 +29,16 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
     },
     init: function(){
         var viewmodel = this.getViewModel();
+
         var TaskBoard_Store = viewmodel.getStore('TaskBoard_Store');
         TaskBoard_Store.loadStore();
+        
         var typeStore = viewmodel.getStore('TaskTypeStore');
         typeStore.loadStore();
+
+        var listid = "13";
+        var orgStore = viewmodel.getStore('OrgStore');
+        orgStore.loadStore_allchildren_byorg(listid);
     },
     onBtnSwitch: function () {
         var viewmodel = this.getViewModel();
@@ -75,6 +87,35 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridController', {
         else if (this.taskstatusFilter) {
             filters.remove(this.taskstatusFilter);
             this.taskstatusFilter = null;
+        }
+    },
+    onSelectOrgGrid: function(combo, record){
+        // console.log(record);
+        var viewmodel = this.getViewModel();
+        var storeUser = viewmodel.getStore('TaskUser_Store');
+        storeUser.loadUserbyOrg(record.data.id);
+        storeUser.load();
+        var comboUserGrid = this.getView().down('#comboUserGrid');
+        comboUserGrid.setValue('');
+    },
+    onChangeUserGrid: function(cb, newValue, oldValue){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            // filterField = this.lookupReference('userInChargeNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (newValue) {
+            this.userInChargeNameFilter2 = filters.add({
+                id: 'userInChargeNameFilter2',
+                property: 'UserInChargeName',
+                value: newValue,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.userInChargeNameFilter2) {
+            filters.remove(this.userInChargeNameFilter2);
+            this.userInChargeNameFilter2 = null;
         }
     },
     onAddTask: function(){

@@ -132,6 +132,31 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGrid', {
             editable: false,
             emptyText: 'Trạng thái',
             itemId: 'taskstatus'
+        },{
+            xtype: 'combo',
+            margin: 5,
+            bind : {
+                store: '{OrgStore}',
+            },
+            valueField: 'id',
+            displayField: 'name',
+            margin: 5,
+            editable: false,
+            emptyText: 'Đơn vị',
+            itemId: 'comboOrgGrid'
+        },{
+            xtype: 'combo',
+            margin: 5,
+            bind : {
+                store: '{TaskUser_Store}',
+            },
+            valueField: 'Name',
+            displayField: 'Name',
+            margin: 5,
+            // editable: false,
+            queryMode: 'local',
+            emptyText: 'Người phụ trách',
+            itemId: 'comboUserGrid'
         }]
     }],
 });
