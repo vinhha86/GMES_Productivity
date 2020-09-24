@@ -25,6 +25,21 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentView', {
         store:'{PContractDocumentStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 50,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-download',
+            tooltip: "Tải xuống",
+            handler: 'onDownload'
+        },{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text:'Tên tài liệu',
         dataIndex:'filename',
         width: 150,
@@ -44,21 +59,7 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentView', {
             xtype:'textfield',
             selectOnFocus: true
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 50,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-download',
-            tooltip: "Tải xuống",
-            handler: 'onDownload'
-        },{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

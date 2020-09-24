@@ -26,6 +26,17 @@ Ext.define('GSmartApp.view.markettype.MarketType', {
         store:'{MarketStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -90,17 +101,7 @@ Ext.define('GSmartApp.view.markettype.MarketType', {
                 }
             }
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'bottom',
         layout:'hbox',

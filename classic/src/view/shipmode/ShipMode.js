@@ -29,6 +29,18 @@ Ext.define('GSmartApp.view.shipmode.ShipMode', {
         store:'{ShipModeStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa',
+            // isDisabled: 'isButtonDisabled'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -59,18 +71,7 @@ Ext.define('GSmartApp.view.shipmode.ShipMode', {
                 itemId:'txtName'
             }
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa',
-            // isDisabled: 'isButtonDisabled'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'bottom',
         layout:'hbox',

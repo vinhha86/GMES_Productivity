@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         width: 25,
         menuDisabled: true,
         sortable: false,
+        align: 'center',
         items: [{
             iconCls: 'x-fa fas fa-trash',
             tooltip: 'Xóa',

@@ -16,6 +16,21 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimView', {
         store: '{ProductStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 50,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-edit',
+            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+            handler: 'onCapNhat'
+        }, {
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -49,21 +64,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimView', {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
         flex: 1
-    },  {
-        xtype: 'actioncolumn',
-        width: 50,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-edit',
-            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
-            handler: 'onCapNhat'
-        }, {
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',

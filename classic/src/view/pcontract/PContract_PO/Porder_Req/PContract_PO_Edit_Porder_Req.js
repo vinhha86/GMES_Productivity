@@ -49,6 +49,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
         dataIndex : 'is_calculate',
         width: 25
     },{
+        xtype: 'actioncolumn',
+        // id: 'PContract_PO_Edit_Porder_Req_deletebutton',
+        width: 20,
+        menuDisabled: true,
+        sortable: false,
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: 'Xóa',
+            handler: 'onXoa'
+        }]
+    },{
         header:'Phân xưởng',
         dataIndex:'granttoorgcode',
         flex: 1,
@@ -82,18 +93,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
                 })
             }
         }
-    },{
-        xtype: 'actioncolumn',
-        // id: 'PContract_PO_Edit_Porder_Req_deletebutton',
-        width: 20,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xóa',
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',

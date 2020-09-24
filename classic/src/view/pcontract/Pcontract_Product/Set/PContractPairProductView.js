@@ -22,6 +22,26 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
         store:'{PContractProductPairStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 65,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-info-circle',
+            getTip : function(value, metaData, record){
+                return record.data.productpairName;
+            },
+        },{
+            iconCls: 'x-fa fas fa-edit',
+            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+            handler: 'onEdit'
+        },{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text:'Mã SP (Buyer)',
         dataIndex:'productpairCode',
         flex: 1,
@@ -45,26 +65,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 65,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-info-circle',
-            getTip : function(value, metaData, record){
-                return record.data.productpairName;
-            },
-        },{
-            iconCls: 'x-fa fas fa-edit',
-            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
-            handler: 'onEdit'
-        },{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

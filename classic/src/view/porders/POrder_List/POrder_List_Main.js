@@ -60,6 +60,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         text: 'Mã Buyer',
         dataIndex: 'buyercode',
         width: 120,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
         // renderer: function (value, metaData, record, rowIndex) {
         //     var c = record.get('status');
         //     if(c == 0){

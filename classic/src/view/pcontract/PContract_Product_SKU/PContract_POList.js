@@ -25,6 +25,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         store:'{PContractPOList}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_PO'
+            },                
+            // {
+            //     iconCls: 'x-fa fas fa-list',
+            //     tooltip: 'Sửa PO',
+            //     handler: 'onEdit'
+            // },
+            // {
+            //     iconCls: 'x-fa fas fa-trash',
+            //     tooltip: 'Xóa PO',
+            //     handler: 'onXoaPO'
+            // }
+        ]
+    },{
         text: 'STT',
         width: 40,
         xtype: 'rownumberer',
@@ -101,28 +123,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 25,
-        menuDisabled: true,
-        sortable: false,
-        items: [
-            {
-                iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu_PO'
-            },                
-            // {
-            //     iconCls: 'x-fa fas fa-list',
-            //     tooltip: 'Sửa PO',
-            //     handler: 'onEdit'
-            // },
-            // {
-            //     iconCls: 'x-fa fas fa-trash',
-            //     tooltip: 'Xóa PO',
-            //     handler: 'onXoaPO'
-            // }
-        ]
-    }],    
+    },],    
     dockedItems:[{
         dock:'top',
         border: 'hbox',

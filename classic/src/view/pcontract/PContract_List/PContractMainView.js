@@ -16,6 +16,18 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         store: '{PContractStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_ContractList'
+            },            
+        ]
+    },{
         text: 'STT',
         width: 40,
         xtype: 'rownumberer',
@@ -122,18 +134,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     //         ]
     //     }
     // }, 
-    {
-        xtype: 'actioncolumn',
-        width: 25,
-        menuDisabled: true,
-        sortable: false,
-        items: [
-            {
-                iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu_ContractList'
-            },            
-        ]
-    }    
    ],
     dockedItems: [{
         dock: 'top',

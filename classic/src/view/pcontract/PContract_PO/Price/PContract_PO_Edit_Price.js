@@ -24,6 +24,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         store:'{Price_DStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 45,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        bind:{
+            hidden: '{ishiddenActionColumn}'
+        },
+        items: [
+            {
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+                handler: 'onPriceD_Delete'
+            },
+            {
+                iconCls: 'x-fa fas fa-dollar',
+                tooltip: 'Gợi ý giá',
+                handler: 'onPriceGuide'
+            }
+        ]
+    },{
         text: 'Tên giá',
         dataIndex: 'fobprice_name',
         flex:1
@@ -107,27 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         disabled : true,
         dataIndex: 'isfob',
         width: 45
-    },{
-        xtype: 'actioncolumn',
-        width: 45,
-        menuDisabled: true,
-        sortable: false,
-        bind:{
-            hidden: '{ishiddenActionColumn}'
-        },
-        items: [
-            {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-                handler: 'onPriceD_Delete'
-            },
-            {
-                iconCls: 'x-fa fas fa-dollar',
-                tooltip: 'Gợi ý giá',
-                handler: 'onPriceGuide'
-            }
-        ]
-    }],
+    },],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

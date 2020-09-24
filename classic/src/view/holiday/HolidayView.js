@@ -25,6 +25,17 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
         store: '{HolidayStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 40,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
