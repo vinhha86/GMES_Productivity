@@ -217,7 +217,7 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
         var me = this.getView();
         var valueView = Ext.getCmp('attributeValueView');
         valueView.getController().load_AttributeValue(record.data.id);
-        if(record.data.id == 30) // size set
+        if(record.data.id == 30 || record.data.id == 3) // size set, age
             valueView.getViewModel().set('isABCsortHidden', true);
         else
             valueView.getViewModel().set('isABCsortHidden', false);
