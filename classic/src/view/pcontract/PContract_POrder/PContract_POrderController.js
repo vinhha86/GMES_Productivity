@@ -526,16 +526,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     onPOder_Create: function(recPOder_Req){
         var me = this;
         var viewmodel = this.getViewModel();
-        if (recPOder_Req.data.porderlist.length > 0){
-            Ext.MessageBox.show({
-                title: "Lệnh sản xuất",
-                msg: "Đã có lệnh sản xuất, không thể tạo thêm",
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-            });
-        } else {
+        // if (recPOder_Req.data.porderlist.length > 0){
+        //     Ext.MessageBox.show({
+        //         title: "Lệnh sản xuất",
+        //         msg: "Đã có lệnh sản xuất, không thể tạo thêm",
+        //         buttons: Ext.MessageBox.YES,
+        //         buttonText: {
+        //             yes: 'Đóng',
+        //         }
+        //     });
+        // } else {
             Ext.Msg.confirm('Lệnh sản xuất', 'Tạo lệnh sản xuất cho phân xưởng? chọn YES để thực hiện',
                 function (choice) {
                     if (choice === 'yes') {
@@ -545,8 +545,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                         rec.pcontractid_link = recPOder_Req.data.pcontractid_link;
                         rec.pcontract_poid_link = recPOder_Req.data.pcontract_poid_link;
                         rec.productid_link = recPOder_Req.data.productid_link;
+                        rec.totalorder_req = recPOder_Req.data.totalorder;
+                        rec.totalorder = recPOder_Req.data.totalorder;
                         var params=new Object();
                         params.data = rec;
+                        params.isBypassSKUEmpty = false;
                         GSmartApp.Ajax.post('/api/v1/porder/create', Ext.JSON.encode(params),
                         function (success, response, options) {
                             var response = Ext.decode(response.responseText);
@@ -590,20 +593,56 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                                     form.close();
                                 });                               
                             } else {
-                                Ext.MessageBox.show({
-                                    title: "Lệnh sản xuất",
-                                    msg: response.message,
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'Đóng',
-                                    }
-                                });
+                                if (response.respcode == 1012){
+                                    //Chua khai bao chi tiet SKU cho san pham
+                                    Ext.Msg.confirm('Lệnh sản xuất', response.message + ". Tạo lệnh sản xuất chỉ với số lượng tổng?",
+                                    function (choice) {
+                                        if (choice === 'yes') {
+                                            params.isBypassSKUEmpty = true;
+                                            me.onPOder_Create_Again(params);
+                                        }
+                                    });                  
+                                } else {
+                                    Ext.MessageBox.show({
+                                        title: "Lệnh sản xuất",
+                                        msg: response.message,
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
                             }
                         });                     
                     }
-                } );     
-        }   
-    },      
+                });     
+        // }   
+    },  
+    
+    onPOder_Create_Again:function(params){
+        var viewmodel = this.getViewModel();        
+        GSmartApp.Ajax.post('/api/v1/porder/create', Ext.JSON.encode(params),
+        function (success, response, options) {
+            var response = Ext.decode(response.responseText);
+            if (success) {
+                viewmodel.set('porder_selected',response.data);
+                //Refresh Porder_req de lay thong tin moi nhat ve Porder
+                var porderReqStore = viewmodel.getStore('porderReqStore');
+                porderReqStore.reload();
+                var PContractPOList = viewmodel.get('PContractPOList');
+                PContractPOList.reload();                               
+            } else {
+                Ext.MessageBox.show({
+                    title: "Lệnh sản xuất",
+                    msg: response.message,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        });
+    },
     onPOder_Delete: function(rec){    
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Lệnh sản xuất', 'Bạn có thực sự muốn xóa Lệnh sản xuất? chọn YES để thực hiện',

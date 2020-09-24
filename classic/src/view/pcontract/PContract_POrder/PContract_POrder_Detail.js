@@ -108,7 +108,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                     text: 'Xóa lệnh',
                     margin: 1,
                     iconCls: 'x-fa fa-trash'
-                }            
+                },
+                {
+                    xtype: 'textfield',
+                    labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
+                    fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:azure',                            
+                    fieldLabel: "SL yêu cầu",
+                    bind: {
+                        value: '{porder_selected.totalorder_req}'
+                    },
+                    labelWidth: 70,
+                    margin: 1,
+                    vtype: 'dollar',
+                    textAlign: 'right',
+                    labelAlign: 'left',
+                    // width: '50%',
+                },                     
             ]
         }
     ]

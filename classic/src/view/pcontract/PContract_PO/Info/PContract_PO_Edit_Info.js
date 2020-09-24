@@ -70,7 +70,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                     fieldLabel: 'Sew Target %:',
                                     hideTrigger:true,
                                     labelAlign: 'left',
-                                    labelWidth: 78,
+                                    labelWidth: 75,
                                     flex:1,
                                     margin: 1,
                                     minValue: 0,

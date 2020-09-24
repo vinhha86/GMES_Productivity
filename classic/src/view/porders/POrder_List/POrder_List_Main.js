@@ -27,12 +27,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     }],
     columns: [{
         text: 'STT',
-        width: 50,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
-    }, {
-        text: 'Mã Buyer',
-        dataIndex: 'buyercode',
+    }, 
+    {
+        text: 'Mã lệnh',
+        dataIndex: 'ordercode',
         width: 120,
         renderer: function (value, metaData, record, rowIndex) {
             var c = record.get('status');
@@ -54,6 +55,31 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         },
+    },     
+    {
+        text: 'Mã Buyer',
+        dataIndex: 'buyercode',
+        width: 120,
+        // renderer: function (value, metaData, record, rowIndex) {
+        //     var c = record.get('status');
+        //     if(c == 0){
+        //         metaData.tdCls = 'process-free';
+        //     }else if (c == 1) {
+        //         metaData.tdCls = 'process-granted';
+        //     } else if (c == 2) {
+        //         metaData.tdCls =  'process-ready';
+        //     } else if (c == 3) {
+        //         metaData.tdCls =  'process-subprocess';
+        //     } else if (c == 4) {
+        //         metaData.tdCls =  'process-running';
+        //     } else if (c == 5) {
+        //         metaData.tdCls =  'process-done';
+        //     } else if (c == 6) {
+        //         metaData.tdCls =  'process-finish';
+        //     }
+        //     metaData.tdAttr = 'data-qtip="' + value + '"';
+        //     return value;
+        // },
     }, 
     {
         text: 'Mã SP (Buyer)',

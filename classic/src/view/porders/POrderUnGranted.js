@@ -39,45 +39,45 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         }        
      },
     columns: [
-        // { header: 'Mã SX', locked: false, dataIndex: 'ordercode', flex: 1,
-        //     items: {
-        //         xtype: 'textfield',
-        //         fieldStyle: "",
-        //         reference: 'porderFilterField',
-        //         width: '99%',
-        //         margin: 1,
-        //         enableKeyEvents: true,
-        //         listeners: {
-        //             keyup: 'onPOrderFilterKeyup',
-        //             buffer: 500
-        //         }
-        //     },
-        //     renderer: function (value, metaData, record, rowIndex) {
-        //         var c = record.get('status');
-        //         if (c == 1) {
-        //             metaData.tdCls = 'process-granted';
-        //         } else if (c == 2) {
-        //             metaData.tdCls =  'process-ready';
-        //         } else if (c == 3) {
-        //             metaData.tdCls =  'process-running';
-        //         } else if (c == 4) {
-        //             metaData.tdCls =  'process-done';
-        //         } else if (c == 5) {
-        //             metaData.tdCls =  'process-finish';
-        //         } else if (c == 6) {
-        //             metaData.tdCls =  'process-subprocess';
-        //         } else if (c == 0) {
-        //             metaData.tdCls =  'process-free';
-        //         }              
-        //         //metaData.tdCls = record.get('change') > 0 ? 'color-other' : 'color-gio';
-        //         // if (null != record.get('productiondate')){
-        //         //     metaData.tdAttr = 'data-qtip="' + Ext.util.Format.date(record.get('productiondate'),'d/m/Y') + '"';
-        //         // }
-        //         metaData.tdAttr = 'data-qtip="' + value + '"';
-        //         return value;
-        //     },
-        //     // summaryType: 'count', summaryRenderer: 'renderSum'                   
-        // },
+        { header: 'Mã lệnh', locked: false, dataIndex: 'ordercode', flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'porderFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onPOrderFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function (value, metaData, record, rowIndex) {
+                var c = record.get('status');
+                if (c == 1) {
+                    metaData.tdCls = 'process-granted';
+                } else if (c == 2) {
+                    metaData.tdCls =  'process-ready';
+                } else if (c == 3) {
+                    metaData.tdCls =  'process-running';
+                } else if (c == 4) {
+                    metaData.tdCls =  'process-done';
+                } else if (c == 5) {
+                    metaData.tdCls =  'process-finish';
+                } else if (c == 6) {
+                    metaData.tdCls =  'process-subprocess';
+                } else if (c == 0) {
+                    metaData.tdCls =  'process-free';
+                }              
+                //metaData.tdCls = record.get('change') > 0 ? 'color-other' : 'color-gio';
+                // if (null != record.get('productiondate')){
+                //     metaData.tdAttr = 'data-qtip="' + Ext.util.Format.date(record.get('productiondate'),'d/m/Y') + '"';
+                // }
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+            // summaryType: 'count', summaryRenderer: 'renderSum'                   
+        },
         { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
             items: {
                 xtype: 'textfield',
@@ -134,16 +134,16 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
             },
         },
-        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 100},
+        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 75},
         { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');
                 return Ext.Date.format(date, 'd/m/y');
             },
-            width: 100
+            width: 75
         },
-        { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+        { header: 'Số lượng', dataIndex: 'totalorder', width: 75,  xtype: 'numbercolumn', format: '0,000', align: 'right',
 
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
