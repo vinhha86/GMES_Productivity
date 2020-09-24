@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_List', {
         flex: 1
     },{
         xtype: 'actioncolumn',
-        width: 25,
+        width: 28,
         menuDisabled: true,
         sortable: false,
         items: [

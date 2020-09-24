@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     },
     columns:[{
         xtype: 'actioncolumn',
-        width: 25,
+        width: 28,
         menuDisabled: true,
         sortable: false,
         align: 'center',

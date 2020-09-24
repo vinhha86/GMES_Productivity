@@ -40,8 +40,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
     },
     {
         xtype: 'actioncolumn',
+        width: 28,
         reference: 'sku_contextmenu',
-        width: 25,
         menuDisabled: true,
         sortable: false,
         align: 'center',

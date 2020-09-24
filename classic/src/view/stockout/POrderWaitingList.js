@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.stockout.POrderWaitingList', {
         },		   
         {
             xtype: 'actioncolumn',
-            width: 25,
+            width: 28,
             menuDisabled: true,
             sortable: false,
             iconCls: 'x-fa fas fa-trash-o redIcon',

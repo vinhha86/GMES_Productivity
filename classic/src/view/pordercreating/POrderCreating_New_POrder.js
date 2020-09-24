@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.pordercreating.POrderCreating_New_POrder', {
         {text:'Số lượng', dataIndex:'totalorder', width: 70},
         {
             xtype: 'actioncolumn',
-            width: 25,
+            width: 28,
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metadata, record) {

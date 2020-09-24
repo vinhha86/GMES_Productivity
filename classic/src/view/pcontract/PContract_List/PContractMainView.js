@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     columns: [{
         xtype: 'actioncolumn',
-        width: 25,
+        width: 28,
         menuDisabled: true,
         sortable: false,
         align: 'center',

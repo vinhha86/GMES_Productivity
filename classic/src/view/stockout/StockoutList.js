@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.stockout.StockoutList', {
         },
         {
             xtype: 'actioncolumn',
-            width: 25,
+            width: 28,
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metadata, record) {
