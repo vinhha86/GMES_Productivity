@@ -16,6 +16,21 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadView', {
         store: '{ProductStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 50,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-edit',
+            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+            handler: 'onCapNhat'
+        }, {
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -28,7 +43,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadView', {
         text: 'Tên chỉ may',
         dataIndex: 'name',
         cls: 'x-grid3-hd-inner',
-        width: 250
+        flex: 1,
     },{
         text: 'Màu',
         dataIndex: 'tenMauNPL',
@@ -43,21 +58,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadView', {
     //     dataIndex: 'thanhPhanVai',
     //     flex: 1
     // },  
-    {
-        xtype: 'actioncolumn',
-        width: 50,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-edit',
-            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
-            handler: 'onCapNhat'
-        }, {
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    ],
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',

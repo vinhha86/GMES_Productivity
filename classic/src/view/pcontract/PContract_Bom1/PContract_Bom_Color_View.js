@@ -34,6 +34,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_Color_View', {
         width: 30,
         menuDisabled: true,
         sortable: false,
+        align: 'center',
         items: [{
             itemId: 'btnDeleteMaterial_Bom',
             isActionDisabled: 'checkActionColumnPermission',            

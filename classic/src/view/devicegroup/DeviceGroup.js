@@ -26,6 +26,17 @@ Ext.define('GSmartApp.view.devicegroup.DeviceGroup', {
         store:'{DeviceGroupStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -60,17 +71,7 @@ Ext.define('GSmartApp.view.devicegroup.DeviceGroup', {
                 }
             }
         }
-    },{
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'bottom',
         layout:'hbox',

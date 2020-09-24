@@ -32,6 +32,18 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         store: '{AttributeValueStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoaAtt'
+        }],
+        sortable: false
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -75,18 +87,7 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             return value;
         },
         sortable: false
-    },{
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoaAtt'
-        }],
-        sortable: false
-    }],
+    },],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',

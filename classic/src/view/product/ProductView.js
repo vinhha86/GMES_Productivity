@@ -16,6 +16,25 @@ Ext.define('GSmartApp.view.product.ProductView', {
         store: '{ProductStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 70,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-edit',
+            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+            handler: 'onCapNhat'
+        }, {
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        },{
+            iconCls: 'x-fa fas fa-list',
+            tooltip: "Công đoạn chuẩn",
+            handler: 'onViewWorkingProcess'
+        }]
+    },{
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
@@ -52,25 +71,7 @@ Ext.define('GSmartApp.view.product.ProductView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    }, {
-        xtype: 'actioncolumn',
-        width: 70,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-edit',
-            tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
-            handler: 'onCapNhat'
-        }, {
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        },{
-            iconCls: 'x-fa fas fa-list',
-            tooltip: "Công đoạn chuẩn",
-            handler: 'onViewWorkingProcess'
-        }]
-    }],
+    }, ],
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',

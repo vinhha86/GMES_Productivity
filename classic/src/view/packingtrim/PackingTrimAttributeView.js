@@ -17,6 +17,21 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimAttributeView', {
         store:'{ProductAttributeValueStore}'
     },
     columns:[{
+        xtype: 'actioncolumn',
+        width: 50,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-plus',
+            tooltip: 'Thêm giá trị',
+            handler: 'onAddValue'
+        },{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
@@ -29,21 +44,7 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimAttributeView', {
         text:'Giá trị',
         dataIndex:'attributeValueName',
         flex: 1
-    },{
-        xtype: 'actioncolumn',
-        width: 50,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-plus',
-            tooltip: 'Thêm giá trị',
-            handler: 'onAddValue'
-        },{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

@@ -37,6 +37,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
         listeners: {
             checkchange: 'onCheckSizeSet'
         }
+    },
+    {
+        xtype: 'actioncolumn',
+        reference: 'sku_contextmenu',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        renderer: function (value, metadata, record) {
+            if (record.get('sizesetid_link') == 1) {
+                this.iconCls = 'x-fa fas fa-trash-o greyIcon';
+            }
+            else {
+                this.iconCls = 'x-fa fas fa-trash-o redIcon';
+                this.tooltip = 'Xóa dải cỡ';  
+            }
+        },            
+        handler: 'onXoa'
     },{
         header:'Dải cỡ',
         dataIndex:'sizesetname',
@@ -63,24 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Sizeset', {
             }
         }
 
-    },
-    {
-        xtype: 'actioncolumn',
-        reference: 'sku_contextmenu',
-        width: 20,
-        menuDisabled: true,
-        sortable: false,
-        renderer: function (value, metadata, record) {
-            if (record.get('sizesetid_link') == 1) {
-                this.iconCls = 'x-fa fas fa-trash-o greyIcon';
-            }
-            else {
-                this.iconCls = 'x-fa fas fa-trash-o redIcon';
-                this.tooltip = 'Xóa dải cỡ';  
-            }
-        },            
-        handler: 'onXoa'
-    }      
+    },    
     ],
     dockedItems:[{
         dock:'top',

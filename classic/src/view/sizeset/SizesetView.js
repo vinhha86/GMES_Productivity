@@ -34,13 +34,24 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
         store: '{SizesetStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 40,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            iconCls: 'x-fa fas fa-trash',
+            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            handler: 'onXoa'
+        }]
+    },{
         text: 'STT',
         width: 50,
         // dataIndex: 'sortvalue',
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Tên dải size',
+        text: 'Tên dải cỡ',
         dataIndex: 'name',
         flex: 1,
         items: {
@@ -61,7 +72,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
             field: {
                 xtype: 'textfield',
                 allowBlank: false,
-                blankText:'Không được để trống tên dải size',
+                blankText:'Không được để trống tên dải cỡ',
                 itemId:'txtName',
                 listeners:{
                     focusenter: 'onNameFocus',
@@ -92,17 +103,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
         text: 'Cỡ',
         dataIndex: 'attrValues',
         flex: 1
-    },{
-        xtype: 'actioncolumn',
-        width: 40,
-        menuDisabled: true,
-        sortable: false,
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
-    }],
+    },],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
@@ -124,8 +125,8 @@ Ext.define('GSmartApp.view.sizeset.SizesetView', {
                 margin: 5,
                 flex: 1,
                 allowBlank: false,
-                blankText: 'Nhập tên dải size',
-                emptyText: 'Tên dải size'
+                blankText: 'Nhập tên dải cỡ',
+                emptyText: 'Tên dải cỡ'
             },
             {
                 xtype:'textfield',

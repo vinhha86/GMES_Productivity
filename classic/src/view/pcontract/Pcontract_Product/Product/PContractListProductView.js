@@ -28,6 +28,27 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
     },
     reference: 'PContractListProductView',
     columns:[{
+        xtype: 'actioncolumn',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        bind: {
+            hidden: '{isWindow}',
+        },
+        items: [
+            // {
+            // iconCls: 'x-fa fas fa-edit',
+            // tooltip: "Số lượng",
+            // handler: 'onEditSoLuong'
+            // },
+            {
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: 'Hủy',
+                handler: 'onXoa',
+            }
+        ]
+    },{
         text:'Ảnh',
         dataIndex:'imgproduct',
         width: 45,
@@ -95,27 +116,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
     //         selectOnFocus: true
     //     }
     // },
-    {
-        xtype: 'actioncolumn',
-        width: 30,
-        menuDisabled: true,
-        sortable: false,
-        bind: {
-            hidden: '{isWindow}',
-        },
-        items: [
-            // {
-            // iconCls: 'x-fa fas fa-edit',
-            // tooltip: "Số lượng",
-            // handler: 'onEditSoLuong'
-            // },
-            {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: 'Hủy',
-                handler: 'onXoa',
-            }
-        ]
-    }],
+    ],
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

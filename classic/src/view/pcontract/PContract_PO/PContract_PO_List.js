@@ -46,6 +46,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         width: 25,
         menuDisabled: true,
         sortable: false,
+        align: 'center',
         items: [
             {
                 iconCls: 'x-fa fas fa-bars violetIcon',
