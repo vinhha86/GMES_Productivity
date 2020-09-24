@@ -9,7 +9,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
             itemclick: 'onSelectPO'
         },
         '#productFilter': {
-            select: 'onFilterProduct'
+            select: 'onFilterProduct',
+            change: 'onChangeProduct'
         }
     },
     onSelectPO: function(m, rec){
@@ -51,5 +52,16 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         var pcontractid_link = viewmodel.get('PContract.id');
 
         store.loadLeafOnly_ByContract(pcontractid_link , productid_link);
+    },
+    onChangeProduct: function(m, newValue, oldValue){
+        if(newValue == "" || newValue == null){
+            var viewmodel =  this.getViewModel();
+            var store = viewmodel.getStore('PContractPOList');            
+            
+            var pcontractid_link = viewmodel.get('PContract.id');
+    
+            store.loadLeafOnly_ByContract(pcontractid_link , 0);
+        }
+        
     }
 })

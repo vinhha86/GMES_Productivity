@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                     margin: 1,
                                     bind: {
                                         value: '{po.is_tbd}',
-                                        readOnly: '{ishidden_tbd}'
+                                        // readOnly: '{ishidden_tbd}'
                                     },
                                     listeners: {
                                         change: 'onIs_Tbd_Change'

@@ -195,7 +195,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var mes = me.CheckValidate();
         if(mes == ""){
             var params = new Object();
-            var packing_arr = viewmodel.get('po.packingnotice'); 
+            var packing_arr = viewmodel.get('po.packingnotice')+""; 
             var packingnotice = '';
             for(i=0;i<packing_arr.length;i++){
                 packingnotice = packingnotice + packing_arr[i];
@@ -203,8 +203,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             } 
             viewmodel.set('po.packingnotice',packingnotice); 
             params.data = viewmodel.get('po');
-            params.data.po_quantity = parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
-            params.data.exchangerate = parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi,''));
+            params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
+            params.data.exchangerate = viewmodel.get('po.exchangerate') == null ? 0 : parseFloat(viewmodel.get('po.exchangerate').replace(/,/gi,''));
             //Set trang thai cho PO
             // if (viewmodel.get('isSizeset_CheckOK') == false || viewmodel.get('isPorderReq_CheckOK') == false)
             //     params.data.status = -2

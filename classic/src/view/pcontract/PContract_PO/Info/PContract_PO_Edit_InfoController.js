@@ -79,6 +79,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
          
         var porderReqStore = viewmodel.getStore('porderReqStore');
         if(porderReqStore!=null){
+            porderReqStore.setGroupField("");
             var po_quantity = po_data.po_quantity == null ? 0 : parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
             porderReqStore.each(function (record) {
                 var amount_inset = record.get('amount_inset') == 0 ? 1 : record.get('amount_inset');
@@ -86,7 +87,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                 var amount_req = po_quantity * amount_inset;
                 var info = record.get('product_code') + " (" +Ext.util.Format.number(amount_req, '0,000')+")";
                 record.set('productinfo', info);
-            })
+            });
+            porderReqStore.setGroupField('productinfo');
         }
     },
     onSewTarget_PercentChange: function(){
