@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
 
     requires : [
         'GSmartApp.view.TaskGrid.TaskGridEditorController',
-        'GSmartApp.view.TaskGrid.TaskGridEditor.CommentGrid'
+        'GSmartApp.view.TaskGrid.CommentGrid'
     ],
 
     controller : 'TaskGridEditorController',

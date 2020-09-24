@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor.CommentGrid', {
+Ext.define('GSmartApp.view.TaskGrid.CommentGrid', {
     extend       : 'Ext.DataView',
     xtype        : 'CommentGrid',
     itemSelector : 'div.comment-wrap',
