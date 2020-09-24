@@ -177,7 +177,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetViewController', {
     
     // Create new window
     onCellDblclick: function( thisCell, td, cellIndex, record, tr, rowIndex, e, eOpts){
-        if(cellIndex == 3){
+        if(cellIndex == 4){
             let form = Ext.create('Ext.window.Window', {
                 height: 400,
                 closable: true,
