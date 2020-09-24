@@ -124,7 +124,7 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
                 },
                 fn: function (btn) {
                     if (btn === 'yes') {
-                        var list = [4, 30, 36];
+                        var list = [3, 4, 30, 36];
                         if(list.includes(select[0].data.id)){
                             Ext.MessageBox.show({
                                 title: "Thông báo",
