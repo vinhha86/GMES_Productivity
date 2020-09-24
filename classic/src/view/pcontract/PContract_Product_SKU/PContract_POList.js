@@ -138,7 +138,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             }
         },{
             xtype:'combo',
-            editable: false,
+            editable: true,
             width: 260,
             margin: '0 0 0 20',
             fieldLabel: 'Sản phẩm',
@@ -147,7 +147,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             bind: {
                 store: '{ProductFilterStore}',
                 value: '{IdProduct_filterPO}',
-                readOnly: '{ishidden_addproduct}'
+                // readOnly: '{ishidden_addproduct}'
             },
             valueField: 'productid_link',
             displayField: 'productBuyerCode',
