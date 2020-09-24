@@ -113,7 +113,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             tooltipTpl: new Ext.XTemplate(
                 '<ul class="eventTip">',
                 '<li>{mahang}</li>',  
-                '<li>Lệnh SX: {pordercode}</li>',                
+                '<li>Lệnh SX: {pordercode}</li>',  
+                '<li>Mã SP: {productbuyercode}</li>',               
                 '<li>Buyer: {buyername}</li>',
                 '<li>Vendor: {vendorname}</li>',
                 '<li>Vào chuyền: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
