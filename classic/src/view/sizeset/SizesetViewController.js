@@ -16,7 +16,18 @@ Ext.define('GSmartApp.view.sizeset.SizesetViewController', {
             celldblclick: 'onCellDblclick',
         }
     },
-    Luu_CapNhat: function (params) {
+    Luu_CapNhat: function (record) {
+        // console.log(record);
+        var params = new Object();
+        var data = new Object();
+        data.id = record.data.id;
+        data.orgrootid_link = record.data.orgrootid_link;
+        data.name = record.data.name;
+        data.comment = record.data.comment;
+        data.usercreatedid_link = record.data.usercreatedid_link;
+        data.timecreate = record.data.timecreate;
+        data.sortvalue = record.data.sortvalue;
+        params.data = data;
         let me = this.getView();
         GSmartApp.Ajax.post('/api/v1/sizeset/createsizeset', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -177,6 +188,7 @@ Ext.define('GSmartApp.view.sizeset.SizesetViewController', {
     
     // Create new window
     onCellDblclick: function( thisCell, td, cellIndex, record, tr, rowIndex, e, eOpts){
+        console.log(record);
         if(cellIndex == 4){
             let form = Ext.create('Ext.window.Window', {
                 height: 400,
