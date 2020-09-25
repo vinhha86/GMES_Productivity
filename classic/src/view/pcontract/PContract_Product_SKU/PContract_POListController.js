@@ -124,6 +124,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             form.close();
         })
     },
+    onFOBPO: function(rec){
+        var viewModel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thông tin FOB',
+            closeAction: 'destroy',
+            height: 500,
+            width: 500,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'FOBPricePODetail',
+                viewModel: {
+                    data: {
+                        record: rec
+                    }
+                }
+            }]
+        });
+        form.show();
+    },
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
 
@@ -154,6 +181,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 handler: function(){
                     var record = this.parentMenu.record;
                     me.onXoaPO(record);
+                }
+            },
+            {
+                text: 'Chi tiết FOB',
+                itemId: 'btnDetailFOB_PContract_POList',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-book greenIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    me.onFOBPO(record);
                 }
             }
         ]

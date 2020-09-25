@@ -20,7 +20,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                 store: '{PackingTypeStore}',
                 value: '{po.packingnotice}'
             },
-            displayField: 'code',
+            // displayField: 'code',
+            displayField: 'codename',
             valueField: 'id',
             filterPickList: true,
             queryMode: 'local',          

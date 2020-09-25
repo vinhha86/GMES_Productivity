@@ -5,10 +5,16 @@ Ext.define('GSmartApp.store.PackingTypeStore', {
 		{name: 'id', type: 'int'},
 		{name: 'orgrootid_link', type: 'int'},
 		{name: 'code',   type: 'string'},
-		{name: 'name',   type: 'string'}
+		{name: 'name',   type: 'string'},
+		{
+            name    : 'codename', 
+            convert : function (value, rec) {
+               return rec.get('code') + ' - ' + rec.get('name');
+            }
+        }
 	],
     sorters: [{
-        property: 'id',
+        property: 'code',
         direction: 'ASC'
     }],	
 	loadStore:function(){
