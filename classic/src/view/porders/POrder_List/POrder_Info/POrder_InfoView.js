@@ -102,11 +102,34 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                     value: '{porder.productname}'
                 },
                 labelWidth: 110,
-                flex: 2,
+                flex: 1,
                 // width: 250
             },{
+                xtype: 'textfield',
                 margin: 2,
-                flex: 1
+                fieldLabel: "SL yêu cầu",
+                // allowBlank: false,
+                // itemId: 'contractcode',
+                blankText: 'Không được để trống',
+                bind: {
+                    value: '{porder.totalorder_req}'
+                },
+                labelWidth: 110,
+                flex: 1,
+                // width: 250
+            },{
+                xtype: 'textfield',
+                margin: 2,
+                fieldLabel: "SL phân lệnh",
+                allowBlank: false,
+                // itemId: 'contractcode',
+                blankText: 'Không được để trống',
+                bind: {
+                    value: '{porder.totalorder}'
+                },
+                labelWidth: 110,
+                flex: 1,
+                // width: 250
             }]
         },{
             layout: 'hbox',
