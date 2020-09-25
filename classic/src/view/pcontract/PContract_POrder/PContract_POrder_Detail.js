@@ -109,14 +109,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                             }                                               
                         },
                         {
-                            xtype: 'textfield',
+                            xtype: 'datefield',
                             readOnly: true,
+                            hideTrigger: true,
                             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
-                            fieldStyle: 'font-size:11px;text-align:right;background-color:azure',                            
-                            fieldLabel: "SL chuyền",
+                            fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
+                            fieldLabel: "Ngày kết thúc",
                             bind: {
-                                value: '{porder_selected.plan_linerequired}'
+                                value: '{porder_selected.finishdate_plan}'
                             },
+                            format: 'd/m/Y',
+                            altFormats: "Y-m-d\\TH:i:s.uO",
                             labelWidth: 80,
                             width: '50%',
                         },                
@@ -153,7 +156,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                 {
                     xtype: 'textfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
-                    fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:lightyellow',                            
+                    fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:azure',                            
                     fieldLabel: "SL yêu cầu",
                     bind: {
                         value: '{porder_selected.totalorder_req}'
@@ -163,7 +166,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                     vtype: 'dollar',
                     textAlign: 'right',
                     labelAlign: 'left',
-                    // width: '50%',
+                    readOnly: true,
+                    // listeners: {
+                    //     focusleave: 'onPOrder_update'
+                    // }   
                 },                     
             ]
         }

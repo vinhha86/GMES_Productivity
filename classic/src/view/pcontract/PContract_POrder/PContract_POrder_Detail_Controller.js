@@ -165,7 +165,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
         var viewmodel = this.getViewModel();   
         
         var porder = viewmodel.get('porder_selected');
-        porder.plan_productivity = porder.plan_productivity == null ? 0 : parseFloat(porder.plan_productivity.toString().replace(/,/gi,''));            
+        porder.plan_productivity = porder.plan_productivity == null ? 0 : parseFloat(porder.plan_productivity.toString().replace(/,/gi,''));
+        porder.totalorder_req = porder.totalorder_req == null ? 0 : parseFloat(porder.totalorder_req.toString().replace(/,/gi,''));           
         
         var params=new Object();
         params.data = porder; 
