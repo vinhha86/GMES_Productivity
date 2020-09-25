@@ -38,11 +38,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
                 tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
                 handler: 'onPriceD_Delete'
             },
-            {
-                iconCls: 'x-fa fas fa-dollar',
-                tooltip: 'Gợi ý giá',
-                handler: 'onPriceGuide'
-            }
+            // {
+            //     iconCls: 'x-fa fas fa-dollar',
+            //     tooltip: 'Gợi ý giá',
+            //     handler: 'onPriceGuide'
+            // }
         ]
     },{
         text: 'Tên giá',

@@ -330,6 +330,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },
                         {
                             xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px;',                            
                             labelWidth: 78,
                             margin: 1,
                             flex: 1,

@@ -104,7 +104,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             // price_data.price_sewingtarget = Ext.Number.roundToPrecision((price_data.price_cmp*po_data.exchangerate)*(po_data.sewtarget_percent/100),0);
         } else {
             //Tinh gia theo dinh muc va gia don vi
-            if (e.colIdx == 1 || e.colIdx == 3)
+            if (e.colIdx == 2 || e.colIdx == 4)
                 priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
         }
         

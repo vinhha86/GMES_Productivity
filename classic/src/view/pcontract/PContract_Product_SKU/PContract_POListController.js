@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             border: false,
             title: 'Thêm mới PO',
             closeAction: 'destroy',
-            height: 550,
+            height: 600,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             border: false,
             title: 'Thông tin PO',
             closeAction: 'destroy',
-            height: 350,
+            height: 400,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
