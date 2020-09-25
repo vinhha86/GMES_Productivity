@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             select: 'onSelectPOrder'
         },
         'PContract_POrder_Req': {
-            select: 'onSelectPOrder_Req'
+            itemclick: 'onSelectPOrder_Req'
         },
         
     },
@@ -554,44 +554,49 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                         function (success, response, options) {
                             var response = Ext.decode(response.responseText);
                             if (success) {
-                                viewmodel.set('porder_selected',response.data);
-                                var porder = viewmodel.get('porder_selected');
-                                var form = Ext.create('Ext.window.Window', {
-                                    closable: true,
-                                    resizable: false,
-                                    modal: true,
-                                    border: false,
-                                    title: 'Chi tiết lệnh',
-                                    closeAction: 'destroy',
-                                    height: 465,
-                                    width: Ext.getBody().getViewSize().width*.95,
-                                    bodyStyle: 'background-color: transparent',
-                                    layout: {
-                                        type: 'fit', // fit screen for window
-                                        padding: 5
-                                    },
-                                    items: [{
-                                        xtype: 'PContract_POrder_Edit_Main',
-                                        viewModel: {
-                                            data: {
-                                                porder: porder,
-                                                isedit: true
-                                            }
-                                        }
-                                    }]
-                                });
-                                form.show();        
-                                form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(){
-                                    me.refreshSKUList(porder.id);
-                    
-                                    //Refresh Porder_req de lay thong tin moi nhat ve Porder
-                                    var porderReqStore = viewmodel.getStore('porderReqStore');
-                                    porderReqStore.reload();
-                                    var PContractPOList = viewmodel.get('PContractPOList');
-                                    PContractPOList.reload();
+                                me.POder_GetByID(response.data.id);
+                                var porderReqStore = viewmodel.getStore('porderReqStore');
+                                porderReqStore.reload();                                
+                                // viewmodel.set('porder_selected',response.data);
+                                // var porder = viewmodel.get('porder_selected');
 
-                                    form.close();
-                                });                               
+                                // var form = Ext.create('Ext.window.Window', {
+                                //     closable: true,
+                                //     resizable: false,
+                                //     modal: true,
+                                //     border: false,
+                                //     title: 'Thêm SKU vào Lệnh sản xuất',
+                                //     closeAction: 'destroy',
+                                //     height: 465,
+                                //     width: Ext.getBody().getViewSize().width*.95,
+                                //     bodyStyle: 'background-color: transparent',
+                                //     layout: {
+                                //         type: 'fit', // fit screen for window
+                                //         padding: 5
+                                //     },
+                                //     items: [{
+                                //         xtype: 'PContract_POrder_Edit_Main',
+                                //         viewModel: {
+                                //             data: {
+                                //                 porder: porder,
+                                //                 isedit: true
+                                //             }
+                                //         }
+                                //     }]
+                                // });
+                                // form.show();        
+                                // form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(data){
+                                //     me.POder_GetByID(porder.id);
+                                //     me.refreshSKUList(porder.id);
+                                    
+                                //     //Refresh Porder_req de lay thong tin moi nhat ve Porder
+                                //     var porderReqStore = viewmodel.getStore('porderReqStore');
+                                //     porderReqStore.reload();
+                                //     var PContractPOList = viewmodel.get('PContractPOList');
+                                //     PContractPOList.reload();
+
+                                //     form.close();
+                                // });                               
                             } else {
                                 if (response.respcode == 1012){
                                     //Chua khai bao chi tiet SKU cho san pham
@@ -620,12 +625,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
     },  
     
     onPOder_Create_Again:function(params){
+        var me=this;
         var viewmodel = this.getViewModel();        
         GSmartApp.Ajax.post('/api/v1/porder/create', Ext.JSON.encode(params),
         function (success, response, options) {
             var response = Ext.decode(response.responseText);
             if (success) {
-                viewmodel.set('porder_selected',response.data);
+                me.POder_GetByID(response.data.id);
                 //Refresh Porder_req de lay thong tin moi nhat ve Porder
                 var porderReqStore = viewmodel.getStore('porderReqStore');
                 porderReqStore.reload();
@@ -676,6 +682,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                     }); 
                 }
             } );             
+    },
+    POder_GetByID: function(id){    
+        var viewmodel = this.getViewModel();
+        var params=new Object();
+        params.porderid_link = id;
+        GSmartApp.Ajax.post('/api/v1/porder/getone', Ext.JSON.encode(params),
+        function (success, response, options) {
+            var response = Ext.decode(response.responseText);
+            if (success) {
+                viewmodel.set('porder_selected',response.data);
+                console.log(response.data);                
+            } else {
+                Ext.MessageBox.show({
+                    title: "Lệnh sản xuất",
+                    msg: response.message,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        });        
     },
     renderSum: function(value, summaryData, dataIndex){
         var viewmodel = this.getViewModel();

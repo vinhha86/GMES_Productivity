@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
     items: [
         {
             region: 'north',
-            height: 75,
+            height: 115,
             border: true,
             xtype: 'panel',
             padding: 1,
@@ -23,6 +23,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                     items:[
                         {
                             xtype: 'textfield',
+                            readOnly: true,
                             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                             fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:azure',                            
                             fieldLabel: "Mã lệnh",
@@ -34,6 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                         },
                         {
                             xtype: 'textfield',
+                            readOnly: true,
                             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                             fieldStyle: 'font-size:11px;text-align:right;background-color:azure',                            
                             fieldLabel: "Trạng thái",
@@ -53,6 +55,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                     items:[
                         {
                             xtype: 'datefield',
+                            readOnly: true,
                             hideTrigger: true,
                             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                             fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
@@ -67,6 +70,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                         },                        
                         {
                             xtype: 'datefield',
+                            readOnly: true,
                             hideTrigger: true,
                             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                             fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
@@ -80,7 +84,44 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                             width: '50%',
                         }                    
                     ]                        
-                }
+                },
+                {
+                    xtype: 'panel',
+                    margin: 2,
+                    width: '100%',
+                    layout: 'hbox',
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
+                            fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:white',                            
+                            fieldLabel: "NS xưởng",
+                            bind: {
+                                value: '{porder_selected.plan_productivity}'
+                            },
+                            labelWidth: 80,
+                            width: '50%',
+                            vtype: 'dollar',
+                            textAlign: 'right',
+                            labelAlign: 'left',        
+                            listeners: {
+                                focusleave: 'onPOrder_update'
+                            }                                               
+                        },
+                        {
+                            xtype: 'textfield',
+                            readOnly: true,
+                            labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
+                            fieldStyle: 'font-size:11px;text-align:right;background-color:azure',                            
+                            fieldLabel: "SL chuyền",
+                            bind: {
+                                value: '{porder_selected.plan_linerequired}'
+                            },
+                            labelWidth: 80,
+                            width: '50%',
+                        },                
+                    ]      
+                },                
             ]
         },
         {
@@ -112,7 +153,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                 {
                     xtype: 'textfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
-                    fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:azure',                            
+                    fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:lightyellow',                            
                     fieldLabel: "SL yêu cầu",
                     bind: {
                         value: '{porder_selected.totalorder_req}'

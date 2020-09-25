@@ -102,7 +102,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Controller', {
         }
     },
     onThoat: function () {
-        this.fireEvent('Thoat');
+        var viewmodel = this.getViewModel();
+        this.fireEvent('Thoat',viewmodel.get('porder'));
     },
     renderSum: function (value) {
         if (null == value) value = 0;

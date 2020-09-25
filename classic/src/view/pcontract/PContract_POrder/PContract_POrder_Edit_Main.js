@@ -66,7 +66,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Edit_Main', {
         //     height: 50,
         //     xtype: 'panel',
         //     border: true,
-        //     margin: 1,            
+        //     margin: 1,
+        //     items:[
+        //         {
+        //             xtype: 'panel',
+        //             margin: 2,
+        //             width: '100%',
+        //             layout: 'hbox',
+        //             items:[
+        //                 {
+        //                     xtype: 'textfield',
+        //                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
+        //                     fieldStyle: 'font-size:11px;font-weight:bold;text-align:right;background-color:azure',                            
+        //                     fieldLabel: "NS xưởng",
+        //                     bind: {
+        //                         value: '{porder.plan_productivity}'
+        //                     },
+        //                     labelWidth: 80,
+        //                     width: '50%',
+        //                 },
+        //                 {
+        //                     xtype: 'textfield',
+        //                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
+        //                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',                            
+        //                     fieldLabel: "SL chuyền",
+        //                     bind: {
+        //                         value: '{porder.plan_linerequired}'
+        //                     },
+        //                     labelWidth: 80,
+        //                     width: '50%',
+        //                 },                
+        //             ]                      
+        //         }                
+        //     ]          
         // }
     ],
     dockedItems:[{

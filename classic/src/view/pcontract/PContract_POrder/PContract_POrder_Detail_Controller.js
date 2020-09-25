@@ -160,6 +160,61 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
             } );     
         }        
     },
+    onPOrder_update: function(){
+        var me=this;
+        var viewmodel = this.getViewModel();   
+        
+        var porder = viewmodel.get('porder_selected');
+        porder.plan_productivity = porder.plan_productivity == null ? 0 : parseFloat(porder.plan_productivity.toString().replace(/,/gi,''));            
+        
+        var params=new Object();
+        params.data = porder; 
+        
+        
+        GSmartApp.Ajax.post('/api/v1/porder/update', Ext.JSON.encode(params),
+        function (success, response, options) {
+            var response = Ext.decode(response.responseText);
+            if (success) {
+                me.POder_GetByID(response.data.id);
+                //Refresh Porder_req de lay thong tin moi nhat ve Porder
+                var porderReqStore = viewmodel.getStore('porderReqStore');
+                porderReqStore.reload();
+                // var PContractPOList = viewmodel.get('PContractPOList');
+                // PContractPOList.reload();                               
+            } else {
+                Ext.MessageBox.show({
+                    title: "Lệnh sản xuất",
+                    msg: response.message,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        });
+    },    
+    POder_GetByID: function(id){    
+        var viewmodel = this.getViewModel();
+        var params=new Object();
+        params.porderid_link = id;
+        GSmartApp.Ajax.post('/api/v1/porder/getone', Ext.JSON.encode(params),
+        function (success, response, options) {
+            var response = Ext.decode(response.responseText);
+            if (success) {
+                viewmodel.set('porder_selected',response.data);
+                console.log(response.data);                
+            } else {
+                Ext.MessageBox.show({
+                    title: "Lệnh sản xuất",
+                    msg: response.message,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        });        
+    },    
     refreshSKUList:function(orderid){
         var viewmodel = this.getViewModel();
         //Lay danh sach POrders_SKU
