@@ -44,17 +44,48 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         flex: 1
     },
     {
-        text: 'Giá',
+        text: 'ĐM',
+        align: 'end',
+        dataIndex: 'quota',
+        width: 70,
+        xtype: 'numbercolumn',
+        format: '0.000',
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.000')
+        }
+    },
+    {
+        text: 'ĐVT',
+        dataIndex: 'unitcode',
+        width: 65,
+    },
+    {
+        text: 'Đơn giá',
+        dataIndex: 'unitprice',
+        width: 70,
+        xtype: 'numbercolumn',
+        format: '0.000',
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.000')
+        }
+    },
+    {
+        text: 'Giá chào',
         dataIndex: 'price',
-        flex: 1
+        flex: 1,
+        xtype: 'numbercolumn',
+        format: '0.000',
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.000')
+        }
     },
     {
         text: 'Đơn vị',
         dataIndex: 'currencyName',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            return value;
-        }
     },
     ],
 
