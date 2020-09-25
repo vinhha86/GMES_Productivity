@@ -112,6 +112,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
     
             params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
             params.data.exchangerate = viewmodel.get('po.exchangerate') == null ? 0 : parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi,''));
+            params.data.plan_productivity = viewmodel.get('po.plan_productivity') == null ? 0 : parseFloat(viewmodel.get('po.plan_productivity').toString().replace(/,/gi,''));
     
             var arrPOrders = [];
             var porderReqStore = viewmodel.getStore('porderReqStore');
