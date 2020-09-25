@@ -40,6 +40,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail_Controller', {
             });
             form.show();        
             form.down('PContract_POrder_Edit_Main').getController().on('Thoat',function(){
+                me.POder_GetByID(porder.id);
                 me.refreshSKUList(porder.id);
 
                 //Refresh Porder_req de lay thong tin moi nhat ve Porder
