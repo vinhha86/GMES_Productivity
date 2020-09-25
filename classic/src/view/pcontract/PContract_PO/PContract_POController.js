@@ -180,7 +180,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Đơn hàng - Chào giá',
             closeAction: 'destroy',
-            height: Ext.getBody().getViewSize().height*.95,
+            height: Ext.getBody().getViewSize().height*.99,
             width: Ext.getBody().getViewSize().width*.95,
             bodyStyle: 'background-color: transparent',
             layout: {

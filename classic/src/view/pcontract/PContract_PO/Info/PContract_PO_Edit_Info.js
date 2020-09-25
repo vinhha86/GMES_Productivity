@@ -160,6 +160,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             bind: {
                                 value: '{po.productiondays}'
                             }
+                        }, 
+                        {
+                            xtype: 'textfield',
+                            textAlign: 'right',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px;text-align:right',
+                            fieldLabel: 'NS dự kiến:',
+                            maskRe: /[0-9]/,
+                            labelAlign: 'left',
+                            labelWidth: 78,
+                            flex: 1,
+                            margin: 1,
+                            vtype: 'dollar',
+                            enforceMaxLength: true,
+                            maxLength: 9,
+                            bind: {
+                                value: '{po.plan_productivity}'
+                            },
+                            listeners: {
+                                focusleave: 'onProductivityChange'
+                            } 
                         },                                                  
                     ]
                 },
@@ -306,6 +327,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                 value: '{po.qcorgname}'
                             }
                         },
+                        {
+                            xtype: 'textfield',
+                            labelWidth: 78,
+                            margin: 1,
+                            flex: 1,
+                            fieldLabel: 'Số chuyền',
+                            readOnly: true,
+                            bind : {
+                                value: '{po.plan_linerequired}'
+                            }
+                        }
                     ]
                 }
             ]

@@ -11,6 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         this.recalProductionDays();
     },
     recalProductionDate: function(){
+        var me = this;
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
         var matdate = Ext.Date.parse(po_data.matdate, 'c');
@@ -30,8 +31,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var days = Ext.Date.diff(productiondate, shipdate, 'd');
         // console.log(days);
         viewmodel.set('po.productiondays',days);
+        me.onProductivityChange();
     },
     recalProductionDays: function(){
+        var me = this;
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
 
@@ -45,6 +48,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var days = Ext.Date.diff(productiondate, shipdate, 'd');
         // console.log(days);
         viewmodel.set('po.productiondays',days);
+        me.onProductivityChange();
     },
     onPOBuyerChange: function() {
         var viewmodel = this.getViewModel();
@@ -53,7 +57,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
             viewmodel.set('po.po_vendor', viewmodel.get('po.po_buyer'));
         }
     },
+    onProductivityChange: function(){
+        var viewmodel = this.getViewModel();
+        var po_data = viewmodel.get('po');
+        var po_quantity = po_data.po_quantity == null ? 0 : parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
+        var productivity = po_data.plan_productivity == null ? 0 : parseFloat(po_data.plan_productivity.toString().replace(/,/gi,''));
+        var productiondays = po_data.productiondays;
+
+        if(productiondays < 0 || productivity == 0){
+            viewmodel.set('po.plan_linerequired', 0);
+        }
+        else {
+            var plan_linerequired = Math.round(((po_quantity/productiondays)/productivity) * 10) / 10;
+            viewmodel.set('po.plan_linerequired', plan_linerequired);
+        }
+    },
     onPOQuantityChange: function(){
+        var me = this;
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
         //Update gia tri SizesetALl tai tat ca cac san pham
@@ -90,6 +110,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
             });
             porderReqStore.setGroupField('productinfo');
         }
+        me.onProductivityChange();
     },
     onSewTarget_PercentChange: function(){
         
