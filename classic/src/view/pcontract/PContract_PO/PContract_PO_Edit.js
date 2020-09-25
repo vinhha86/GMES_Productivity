@@ -139,7 +139,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
         dock:'bottom',
         layout: 'hbox',
         items:[{
-            flex:1
+            xtype: 'button',
+            text: 'Thoát',
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+            margin: 5
         },{
             xtype:'button',
             formBind: true,
@@ -148,11 +152,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
         },{
-            xtype: 'button',
-            text: 'Thoát',
-            itemId: 'btnThoat',
-            iconCls: 'x-fa fa-window-close',
-            margin: 5
+            flex:1
         }]
     }]
 })
