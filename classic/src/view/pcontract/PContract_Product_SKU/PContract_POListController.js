@@ -133,8 +133,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             border: false,
             title: 'Thông tin FOB',
             closeAction: 'destroy',
-            height: 500,
-            width: 500,
+            height: 400,
+            width: 700,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
