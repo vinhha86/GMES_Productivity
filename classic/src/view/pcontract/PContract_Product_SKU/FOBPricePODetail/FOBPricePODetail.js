@@ -36,12 +36,20 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     {
         text: 'Dải cỡ',
         dataIndex: 'sizesetname',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     {
         text: 'Tên',
         dataIndex: 'fobprice_name',
-        flex: 1
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     {
         text: 'ĐM',
@@ -59,6 +67,10 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         text: 'ĐVT',
         dataIndex: 'unitcode',
         width: 65,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     {
         text: 'Đơn giá',
@@ -86,6 +98,10 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         text: 'Đơn vị',
         dataIndex: 'currencyName',
         flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     ],
 
