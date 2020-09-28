@@ -20,6 +20,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_ViewModel', {
         },
         ProductStore: {
             type: 'ProductStore'
+        },
+        ShipModeStore: {
+            type: 'ShipModeStore'
+        },
+        QCOrgStore: {
+            type: 'orgstore'
         }
     },
     data: {

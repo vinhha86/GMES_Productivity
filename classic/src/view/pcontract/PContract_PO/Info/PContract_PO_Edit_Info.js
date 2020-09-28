@@ -12,7 +12,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
             height: 50,
             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
             fieldStyle: 'font-size:11px;',
-            xtype: 'tagfield',
             labelWidth: 78,
             labelAlign: 'left',
             fieldLabel:'Đóng gói:',
@@ -25,7 +24,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
             valueField: 'id',
             filterPickList: true,
             queryMode: 'local',          
-            publishes: 'po.packingnotice',   
+            // publishes: 'po.packingnotice',   
             style: {
                 background: 'white'
             }
@@ -167,7 +166,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             textAlign: 'right',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;text-align:right',
-                            fieldLabel: 'NS dự kiến:',
+                            fieldLabel: 'NS Target:',
                             maskRe: /[0-9]/,
                             labelAlign: 'left',
                             labelWidth: 78,

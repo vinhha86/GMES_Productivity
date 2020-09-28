@@ -40,8 +40,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                         new_po.data.parentpoid_link = parent_po.id;
                         new_po.data.sewtarget_percent = parent_po.sewtarget_percent;
                         new_po.data.shipmodeid_link = parent_po.shipmodeid_link;
+                        new_po.data.qcorgname = parent_po.qcorgname;
+                        new_po.data.plan_productivity = parent_po.plan_productivity;
                         
-                        viewmodel.set('po', new_po.data);
+                        var packing_str = response.data.packingnotice;
+                        if(packing_str!=null){
+                            new_po.data.packingnotice = packing_str.split(';');
+                        }
+                        viewmodel.set('po',  new_po.data);
                         // viewmodel.set('po.po_buyer', record.get('po_buyer'));
                         // viewmodel.set('po.po_vendor', record.get('po_vendor'));
                         viewmodel.set('po.productid_link', record.get('productid_link'));
@@ -66,7 +72,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                         
                         var productStore = viewmodel.getStore('ProductStore');
                         if(productStore != null){
-                            console.log(record.get('productid_link'));
                             if(record.get('productid_link') > 0)
                                 productStore.loadStore_bypairid_Async(record.get('productid_link'));
                                 productStore.load();

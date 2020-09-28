@@ -23,7 +23,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
         },
         ProductStore: {
             type: 'ProductStore'
-        }
+        },
+        ShipModeStore: {
+            type: 'ShipModeStore'
+        },
+        QCOrgStore: {
+            type: 'orgstore'
+        },
     },
     data: {
         pcontractid_link: 0,

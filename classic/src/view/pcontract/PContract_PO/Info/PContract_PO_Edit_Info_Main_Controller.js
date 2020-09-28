@@ -18,6 +18,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             }
         }
 
+        var ShipModeStore  =  viewmodel.getStore('ShipModeStore');
+        ShipModeStore.loadStore();
+        ShipModeStore.getSorters().add('name');
+
+        var QCOrgStore = viewmodel.getStore('QCOrgStore');
+        QCOrgStore.GetOrgByTypeId(16);
+        var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
+        PackingTypeStore.loadStore();
+        var PortStore = viewmodel.getStore('PortStore');
+        PortStore.loadStore(null,null);
         
         //An/hien Sewtarget_percent
         if(viewmodel.get('isedit')){
@@ -33,10 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                 ctrporderreqdel.setHidden (false);
             }
         }
-        var PackingTypeStore = viewmodel.getStore('PackingTypeStore');
-        PackingTypeStore.loadStore();
-        var PortStore = viewmodel.getStore('PortStore');
-        PortStore.loadStore(null,null);
+        
 
         if(viewmodel.get('id') > 0){
             this.getInfo(viewmodel.get('id'));
