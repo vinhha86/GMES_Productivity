@@ -260,7 +260,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             duration: rec.get('duration')
                         },
                         quantity: rec.get('totalpackage'),
-                        amount: rec.get('totalpackage')/2
+                        amount: Math.round(rec.get('totalpackage')/2)
                     }
                 }
             }]

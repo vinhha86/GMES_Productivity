@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
             sum += amount;
         });
 
-        if(!viewmodel.get('ishidden')){
+        if(!viewmodel.get('ishidden') && sum == 0){
             sum = viewmodel.get('amount') == "" ? 0 : parseInt(viewmodel.get('amount').replace(/,/gi,''));
         }
 

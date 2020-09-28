@@ -26,14 +26,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         me.down('#fileUpload').fileInputEl.dom.click();
     },
     onSelect: function(m, value){
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
         data.append('pcontractid_link', viewmodel.get('PContract.id'));
-
+        grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_template', data,
             function (success, response, options) {
                 if (success) {
+                    grid.setLoading(false);
                     var response = Ext.decode(response.responseText);
                     m.reset();
                     var storeProduct = viewmodel.getStore('PContractProductTreeStore');
