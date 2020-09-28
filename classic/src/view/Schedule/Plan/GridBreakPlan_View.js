@@ -99,6 +99,23 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             iconCls: 'x-fa fa-window-close',
             margin: 5
         }]
+    },{
+        dock: 'top',
+        layout: 'hbox',
+        items:[{
+            flex: 1
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Số lượng tách',
+            maskRe: /[0-9]/,
+            vtype: 'dollar',
+            itemId: 'amount',
+            margin: 1,
+            bind: {
+                value: '{amount}',
+                readOnly: '{ishidden}'
+            }
+        }]
     }]
 });
 

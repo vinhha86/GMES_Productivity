@@ -6,7 +6,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
       var viewmodel = this.getViewModel();
       var store = viewmodel.getStore('POrder_ListGrantSKUStore');
       var pordergrantid_link = viewmodel.get('plan.pordergrant_id_link');
-      store.loadStore(pordergrantid_link);
+      store.loadStore_NotAsync(pordergrantid_link);
+      store.load({
+          scope: this,
+          callback: function(records, operation, success){
+            if(records.length == 0){
+                viewmodel.set('ishidden', false);
+                view.down('#amount').focus();
+            }
+          }
+      })
     } ,
     control: {
         '#btnThoat' : {
@@ -21,7 +30,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
     },
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
-        console.log(value);
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
     onEdit: function (editor, context, e) {
@@ -56,6 +64,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
             var amount = parseInt("0"+record.data.amount_break);
             sum += amount;
         });
+
+        if(!viewmodel.get('ishidden')){
+            sum = viewmodel.get('amount') == "" ? 0 : parseInt(viewmodel.get('amount').replace(/,/gi,''));
+        }
 
         if(sum == 0){
             Ext.Msg.show({

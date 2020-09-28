@@ -259,7 +259,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             pordergrant_id_link: rec.get('porder_grantid_link'),
                             duration: rec.get('duration')
                         },
-                        quantity: rec.get('totalpackage')
+                        quantity: rec.get('totalpackage'),
+                        amount: rec.get('totalpackage')/2
                     }
                 }
             }]

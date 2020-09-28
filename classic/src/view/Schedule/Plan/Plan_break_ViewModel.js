@@ -11,7 +11,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_ViewModel', {
             producttivity: 0,
             pordergrant_id_link: 0
         },
-        quantity: 0
+        quantity: 0,
+        amount: 0,
+        ishidden: true
     },
     stores: {
         POrder_ListGrantSKUStore: {
