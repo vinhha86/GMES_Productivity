@@ -38,6 +38,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                         new_po.data.merchandiserid_link = parent_po.merchandiserid_link;
                         new_po.data.packingnotice = parent_po.packingnotice;
                         new_po.data.parentpoid_link = parent_po.id;
+                        new_po.data.sewtarget_percent = parent_po.sewtarget_percent;
+                        new_po.data.shipmodeid_link = parent_po.shipmodeid_link;
                         
                         viewmodel.set('po', new_po.data);
                         // viewmodel.set('po.po_buyer', record.get('po_buyer'));

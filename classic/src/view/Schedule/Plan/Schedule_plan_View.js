@@ -114,15 +114,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 '<ul class="eventTip">',
                 '<li>{mahang}</li>',  
                 '<li>Lệnh SX: {pordercode}</li>',  
-                '<li>NS Target: {productivity_po}</li>',
-                '<li>NS Xưởng: {productivity_porder}</li>',
+                '<li>NS Target: {[Ext.util.Format.number(values.productivity_po, "0,000")]}</li>',
+                '<li>NS Xưởng: {[Ext.util.Format.number(values.productivity_porder, "0,000")]}</li>',
                 '<li>Mã SP: {productbuyercode}</li>',               
                 '<li>Buyer: {buyername}</li>',
                 '<li>Vendor: {vendorname}</li>',
                 '<li>Vào chuyền: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
                 '<li>Kết thúc: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
                 '<li>Số ngày SX: {duration}</li>',
-                '<li>Năng suất tổ: {productivity}</li>',
+                '<li>Năng suất tổ: {[Ext.util.Format.number(values.productivity, "0,000")]}</li>',
                 '</ul>'
             ),
             eventRenderer: function (flight, resource, meta) {

@@ -195,9 +195,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var mes = me.CheckValidate();
         if(mes == ""){
             var params = new Object();
-            var packing_arr = viewmodel.get('po.packingnotice')+""; 
+            var packing_arr = viewmodel.get('po.packingnotice');
+            packing_arr = packing_arr == null ? "" : packing_arr;
             var packingnotice = '';
             for(i=0;i<packing_arr.length;i++){
+                if (packing_arr[i] =="") continue;
                 packingnotice = packingnotice + packing_arr[i];
                 if (i < packing_arr.length-1) packingnotice = packingnotice  + ';';
             } 
