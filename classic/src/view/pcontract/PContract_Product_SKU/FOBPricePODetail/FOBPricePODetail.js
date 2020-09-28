@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     {
         text: 'Dải cỡ',
         dataIndex: 'sizesetname',
-        flex: 1,
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     {
         text: 'Giá chào',
         dataIndex: 'price',
-        flex: 1,
+        width: 80,
         xtype: 'numbercolumn',
         format: '0.000',
         renderer: function (value, metaData, record) {
@@ -95,9 +95,9 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         }
     },
     {
-        text: 'Đơn vị',
+        text: 'Loại tiền',
         dataIndex: 'currencyName',
-        flex: 1,
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
