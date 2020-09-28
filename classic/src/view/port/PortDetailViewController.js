@@ -4,6 +4,9 @@ Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
     Id: 0,
     init: function () {
         var me = this.getView();
+        var viewmodel = me.getViewModel();
+        viewmodel.getStore('ShipModeStore').loadStore();
+        viewmodel.getStore('ShipModeStore').getSorters().add('name');
     },
     listen: {
         controller: {
@@ -127,8 +130,6 @@ Ext.define('GSmartApp.view.Port.PortDetailViewCotroller', {
         var viewMain = Ext.getCmp('PortView');
         var viewmodel = me.getViewModel();
         viewmodel.set('id', id);
-        viewmodel.getStore('ShipModeStore').loadStore();
-        viewmodel.getStore('ShipModeStore').getSorters().add('name');
         if (id == 0) {
             viewmodel.set('currentRec', null);
             me.getView().getForm().reset();
