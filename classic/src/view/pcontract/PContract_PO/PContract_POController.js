@@ -34,10 +34,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_template', data,
             function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
                 if (success) {
-                    grid.setLoading(false);
                     var response = Ext.decode(response.responseText);
-                    m.reset();
                     var storeProduct = viewmodel.getStore('PContractProductTreeStore');
                     storeProduct.load();
                 }
