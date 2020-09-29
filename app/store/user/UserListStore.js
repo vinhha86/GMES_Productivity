@@ -15,9 +15,9 @@ Ext.define('GSmartApp.store.UserListStore', {
 			type: 'string',
 			calculate: function(data) {
 				if(1==data.status){
-					 return GSmartApp.Locales.trangthai_hoatdong[GSmartApp.Locales.currentLocale] ;
+					 return 'Sử dụng' ;
 				}else{
-					return GSmartApp.Locales.trangthai_dunghoatdong[GSmartApp.Locales.currentLocale] 
+					return 'Không sử dụng'
 				}
 			}
 		}
