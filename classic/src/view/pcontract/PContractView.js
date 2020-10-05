@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
     extend: 'Ext.form.Panel',
     xtype: 'PContractView',
     id: 'PContractView',
+    itemId: 'PContractView',
     controller: 'PContractViewController',
     viewModel: {
         type: 'PContractViewModel'

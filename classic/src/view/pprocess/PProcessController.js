@@ -91,7 +91,13 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
 
     //When date change --> Reload Store with Processing Date
     onProcessingDateChange: function(newValue, oldValue, eOpts ){
-        this.onRefreshTap();
+        console.log(newValue.value);
+        var viewmodel = this.getViewModel();
+        var factoryCombo = this.lookupReference('factorycombo');
+        if (null != factoryCombo.getValue()){
+            var POrderProcessingStore = viewmodel.get('POrderProcessingStore');
+            POrderProcessingStore.loadByDate(newValue.value,factoryCombo.getValue());
+        }
     },
 
     //When pressing get latest data
