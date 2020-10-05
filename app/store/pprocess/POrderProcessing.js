@@ -253,7 +253,40 @@ Ext.define('GSmartApp.store.POrderProcessing', {
 			}
 		});
         this.load();
-    },             
+    },
+    loadByPOrderAndPOrderGrant: function(porderid_link, pordergrantid_link){
+        var param=new Object();
+        param.porderid_link = porderid_link;
+        param.pordergrantid_link = pordergrantid_link;
+
+		this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create : 'POST',
+                read   : 'POST',
+                update : 'POST',
+                destroy: 'POST'
+            },
+            pageParam: false, //to remove param "page"
+            startParam: false, //to remove param "start"
+            limitParam: false, //to remove param "limit"            
+            cors: true,
+			url: config.getAppBaseUrl()+'/api/v1/pprocess/getByPOrderAndPOrderGrant',
+			paramsAsJson:true,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+            useDefaultXhrHeader: false,
+			extraParams: param,
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+            },
+        });
+        this.load();
+    },
     sorters: [
         // {
         //     property: 'granttoorgid_link',

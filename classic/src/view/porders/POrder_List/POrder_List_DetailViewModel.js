@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         'GSmartApp.store.porder.POrder_ListGrantStore',
         'GSmartApp.store.porder.POrder_ListGrantSKUStore',
         'GSmartApp.store.pcontract.POrderBomColorStore',
-        'GSmartApp.store.porder.PorderSewingCostStore'
+        'GSmartApp.store.porder.PorderSewingCostStore',
+        'GSmartApp.store.pprocess.POrderGrantStore'
     ],
     stores: {
         POrder_ListStore: {
@@ -42,7 +43,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         },
         PorderSewingCostStore: {
             type: 'PorderSewingCostStore'
-        }
+        },
+        POrderGrantStore: {
+            type: 'POrderGrantStore'
+        },
+        porderprocessing: {
+            type: 'porderprocessing'
+        },
     },
     data:{
         IdPOrder: null,

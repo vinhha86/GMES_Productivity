@@ -52,9 +52,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             var porderid_link = viewmodel.get('porder.id');
             storeSewing.loadby_porder(porderid_link);
         }
+        else if(newCard.xtype == "PorderProcessingDetail"){
+            var POrderGrantStore = viewmodel.getStore('POrderGrantStore');
+            var porderid_link = viewmodel.get('IdPOrder');
+            POrderGrantStore.loadStoreByPOrderId(porderid_link);
+        }
     },
     onLoadData: function (id) {
         let me = this.getView();
+        let viewmodel = this.getViewModel();
+        viewmodel.set('IdPOrder', id);
 
         me.IdPOrder = id;
 
