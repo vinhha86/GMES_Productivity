@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
         cellediting: {
             clicksToEdit: 2,
             listeners: {
-                // validateedit: 'onProcessingItemEdit_Single'
+                validateedit: 'onProcessingItemEdit_Single'
             }            
         }
         // rowediting: {
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
         // },
         { header: 'Khoán RC', reference: 'pprocess_edit_amounttarget',
             columns: [
-                { header: 'H-nay', dataIndex: 'amounttarget', width: 55,
+                { header: 'H-nay', dataIndex: 'amounttarget', width: 60,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                         return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 },
-                { header: 'H-trc', dataIndex: 'amounttargetprev', width: 55,
+                { header: 'H-trc', dataIndex: 'amounttargetprev', width: 60,
                     //editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
@@ -117,7 +117,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
         },
         { header: 'Đăng ký QC', reference: 'pprocess_edit_amountkcsreg',
             columns: [
-                { header: 'H-nay', dataIndex: 'amountkcsreg', width: 55,
+                { header: 'H-nay', dataIndex: 'amountkcsreg', width: 60,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                         return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 },
-                { header: 'H-trc', dataIndex: 'amountkcsregprev', width: 55,
+                { header: 'H-trc', dataIndex: 'amountkcsregprev', width: 60,
                     //editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum', 
                     align: 'end', 
@@ -182,7 +182,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                 }
             ]
         },
-        { header: 'Nhập thành phẩm', dataIndex: 'totalstocked', width: 60,
+        { header: 'Nhập thành phẩm', dataIndex: 'totalstocked', width: 65,
             summaryType: 'sum', summaryRenderer: 'renderSum', 
             align: 'end', 
             renderer: function(value){
@@ -256,6 +256,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                 select: 'onPOrderGrantStoreComboSelect'
             }
         },
+        '->',
         {
             xtype: 'datefield',
             width: 130,
@@ -263,7 +264,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
             reference:'addProcessingdate',
             name: 'addProcessingdate',
             value: new Date(),  // defaults to today,
-            // maxValue: new Date(),
+            maxValue: new Date(),
         }, 
         { 
             xtype: 'button',

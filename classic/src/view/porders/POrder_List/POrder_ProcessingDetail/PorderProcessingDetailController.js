@@ -107,8 +107,11 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetailController', {
             });
     },
     onProcessingItemEdit_Single: function(editor, e){
+        var me = this;
         if (e.originalValue != e.value){
-            console.log(editor.context.column.dataIndex);
+            // console.log(editor);
+            // console.log(e);
+            // console.log(editor.context.column.dataIndex);
             switch(editor.context.column.dataIndex) {
                 case "amountinput":
                     if ((e.value + e.record.get('amountinputsumprev')) > e.record.get('grantamount')) {
@@ -171,9 +174,10 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetailController', {
             //Neu du lieu OK --> Update new value vao record data
             e.record.data[e.field] = e.value;
 
-            var cbProcessingDate = this.lookupReference('processingdate');
+            // var cbProcessingDate = this.lookupReference('processingdate');
             var params=new Object();
-            params.processingdate = cbProcessingDate.getValue();
+            params.processingdate = editor.context.record.data.processingdate;
+            // params.processingdate = cbProcessingDate.getValue();
             // params.id = e.record.data.id;
             // params.porderid_link = e.record.data.porderid_link;
             // params.pordergrantid_link = e.record.data.pordergrantid_link;
@@ -198,6 +202,8 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetailController', {
                     e.record.set('status',response.status);
                     e.record.endedit;
                     e.record.commit();
+
+                    me.onRefreshTap();
                     return true;
 				} else {
                     Ext.MessageBox.show({
