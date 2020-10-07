@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		var userStore = this.getViewModel().getStore('UserStore');
 		userStore.loadStore();
 
-		var listidtype = "4,8,9,11,12";
+		var listidtype = "4,8,9";
 		var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		orgfromstore.loadStore_byRoot(listidtype);
 
@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
     },
     onSelectCurency: function(combo, record, eOpts ){
        var viewModel = this.getViewModel();
-	   viewModel.set('stockin.vat_exchangerate', record.data.exrate);
+	   viewModel.set('stockin.vat_exchangerate', record.data.exchangerate);
 	   viewModel.set('curencycode',record.data.code);
     }
 })

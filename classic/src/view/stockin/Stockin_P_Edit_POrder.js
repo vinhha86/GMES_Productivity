@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrder', {
         width: 90
     },{
         text:'Tên SP',
-        dataIndex:'productName',
+        dataIndex:'productcode',
         flex: 1
     },{
         text:'Ngày SX',
@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrder', {
             text: 'Thoát',
             margin: 3,
             itemId:'btnThoat',
-            iconCls: 'x-fa fa-backward'
+            iconCls: 'x-fa fa-window-close'
         }]
     }]
 });
