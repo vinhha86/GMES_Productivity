@@ -2,8 +2,7 @@ Ext.define('GSmartApp.model.Stockout_pklist', {
     extend: 'GSmartApp.model.Base',
     idProperty: 'idx',
     fields: [
-        {name: 'id', type: 'int'},
-        {name: 'idx', type: 'int'},
+        {name: 'id',type: 'int'},
         'orgrootid_link',
         'stockoutid_link',
         'stockoutdid_link',
@@ -56,7 +55,7 @@ Ext.define('GSmartApp.model.Stockout_pklist', {
         {
             name: 'dif_processed',
             calculate: function(data) {
-                return data.ydsprocessed - data.ydscheck;
+                return data.ydsprocessed - data.ydsorigin;
             }
         }             
     ]

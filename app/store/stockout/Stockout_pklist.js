@@ -1,13 +1,13 @@
-Ext.define('GSmartApp.store.Stockout_watinglist', {
+Ext.define('GSmartApp.store.Stockout_pklist', {
     extend: 'Ext.data.Store',
-    storeId: 'store_stockout_waitinglist',
-    alias: 'store.stockout_waitinglist',
+    storeId: 'store_stockout_pklist',
+    alias: 'store.stockout_pklist',
 
-    model: 'GSmartApp.model.Stockout',
- 
-    loadByDate:function(){
+    model: 'GSmartApp.model.Stockout_pklist',
+    autoLoad: false,
+    loadByStockoutDId:function(stockoutdid){
         var param=new Object();
-        param.processingdate_to = new Date();
+        param.stockoutdid_link = stockoutdid;
         this.removeAll();
 
 		this.setProxy({
@@ -22,32 +22,32 @@ Ext.define('GSmartApp.store.Stockout_watinglist', {
             startParam: false, //to remove param "start"
             limitParam: false, //to remove param "limit"            
             cors: true,
-			url: config.getAppBaseUrl()+'/api/v1/porders/getwaitinglist',
+			url: config.getAppBaseUrl()+'/api/v1/stockout/getbystockoutdid',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
 				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			},
+				'Content-Type':"application/json",
+				'authorization': 'Bearer ' + access_token
+			 },
             useDefaultXhrHeader: false,
 			extraParams: param,
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
-            },
-            success : function(response,options ) {
-                // var response = Ext.decode(response.responseText);
-                console.log(response);
-            },
-            failure :function(response,options){
-				console.log(response);
+            }
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
 			}
 		});
-        this.load();
-    },
-         
+    },    
     sorters: [{
-        property: 'priority',
+        property: 'stockincode',
         direction: 'ASC'
     }]
 

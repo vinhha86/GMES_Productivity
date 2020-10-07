@@ -2,7 +2,7 @@ Ext.define('GSmartApp.model.Stockout_d', {
     extend: 'GSmartApp.model.Base',
     idProperty: 'idx',
     fields: [
-        {name: 'id', type: 'int'},
+        {name: 'id'},
         {name: 'idx', type: 'int'},
         'orgrootid_link',
         'stockoutid_link',
@@ -11,12 +11,17 @@ Ext.define('GSmartApp.model.Stockout_d', {
         'skuid_link',
         'mainskucode',
         'skucode',
+        'skuname',
+        'product_code',
         'skutype',
         'skutypeid_link',
         'colorid_link',
         'color_name',
+        'sizeid_link',
+        'size_name',
         'color_code',
         'unitid_link',
+        'unit_name',
         'totalorder_design',
         'totalorder_tech',
         'widthorder',
@@ -27,22 +32,17 @@ Ext.define('GSmartApp.model.Stockout_d', {
         'totalydscheck',
         'totalpackageprocessed',
         'totalydsprocessed',
-        'totalydsstockout',
         'totalerror',
         {
             name: 'totaldif',
             calculate: function(data) {
-                return data.totalydsprocessed - data.totalorder_tech;
+                return data.totalorder_tech - data.totalydsprocessed;
             }
-        },    
-        {
-            name: 'stockoutdif',
-            calculate: function(data) {
-                return data.totalydsstockout - data.totalorder_tech;
-            }
-        },        
+        },          
         'unitprice',
+        'totalprice',
         'p_skuid_link',
+        'status',
         'extrainfo',
         'usercreateid_link',
         {name: 'timecreate', type: 'date', dateFormat: 'c'},

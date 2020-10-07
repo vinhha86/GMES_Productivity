@@ -45,11 +45,6 @@ Ext.define('GSmartApp.Application', {
 		'GSmartApp.store.stockin.StockinListStore',
 		
 		
-		'GSmartApp.store.stockout.StockoutStore',
-		'GSmartApp.store.stockout.StockoutStatusStore',
-		'GSmartApp.store.stockout.StockoutListStore',
-		'GSmartApp.store.stockout.StockoutDetailStore',
-		
 		'TagReadsStore',
 		
 		'UserListStore',

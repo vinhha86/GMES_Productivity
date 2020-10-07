@@ -1,10 +1,9 @@
-Ext.define('GSmartApp.store.Stockout_d', {
+Ext.define('GSmartApp.store.stockout.Stockout_d', {
     extend: 'Ext.data.Store',
     storeId: 'store_stockout_d',
-    alias: 'store.stockout_d',
+    alias: 'store.Stockout_d',
     autoLoad: false,
     model: 'GSmartApp.model.Stockout_d',
-    groupField: 'productcolor_name',
       
     loadByStockoutID:function(stockoutid_link){
         var param=new Object();
@@ -23,7 +22,7 @@ Ext.define('GSmartApp.store.Stockout_d', {
             startParam: false, //to remove param "start"
             limitParam: false, //to remove param "limit"            
             cors: true,
-			url: config.getAppBaseUrl()+'/api/v1/stockout/getstockoutd_bystockoutid',
+			url: config.getAppBaseUrl()+'/api/v1/stockout/getbystockoutdid',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
@@ -35,16 +34,16 @@ Ext.define('GSmartApp.store.Stockout_d', {
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
-            },
-            success : function(response,options ) {
-                //var response = Ext.decode(response.responseText);
-                console.log(response);
-            },
-            failure :function(response,options){
-				console.log(response);
+            }
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
 			}
 		});
-        this.load();
     } 
     // sorters: [{
     //     property: 'stockincode',

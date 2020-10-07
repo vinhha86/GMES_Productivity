@@ -1,0 +1,53 @@
+Ext.define('GSmartApp.view.stockout.Stockout_P_Edit', {
+    extend: 'Ext.container.Container',
+    xtype: 'stockout_p_edit',
+    controller: 'Stockout_P_EditController',
+    viewModel: 'Stockout_P_EditModel',
+	layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    items: [
+        {
+            xtype: 'stockout_p_edit_m',
+            id: 'stockout_p_edit_m',
+            margin: '5 0 0 0',
+            height: 165
+        },
+        {
+            xtype: 'stockout_p_edit_d',
+            reference: 'grd_stockoutd',
+            margin: '0 5 5 0',
+            flex: 1
+        },
+        {
+            xtype: 'container',
+            height: 35,
+            layout:'hbox',
+            items:[
+            {
+                width:100,
+                xtype:'button',
+                text:  "Quay lại",
+                iconCls: 'x-fa fa-backward',
+                handler: 'onUrlBack'
+            },
+            {
+                flex:1
+            },
+            {
+                width:80,
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  'Lưu',
+                iconCls: 'x-fa fa-floppy-o',
+                handler: 'onSave',
+                bind:{
+                    disabled: '{isStart}'
+                }
+            }
+        ]
+        }        
+    ] 
+});
