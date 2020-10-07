@@ -1,16 +1,16 @@
 @include treelist-ui(
     $ui: 'navigation',
-    $padding: 0 10px,
+    $padding: 0 3px,
 
     // Black-ish background color
     $background-color: $panel-navigation-background-color,
     $toolstrip-background-color: #32404e,
 
     $tool-float-indicator-color: $panel-header-background-color,
-    $tool-float-indicator-width: 5px,
+    $tool-float-indicator-width: 3px,
 
     $tool-indicator-selected-color: $panel-header-background-color,
-    $tool-indicator-selected-width: 5px,
+    $tool-indicator-selected-width: 3px,
     $tool-selected-background-color: mix(white, $panel-navigation-background-color, 10%),
     //$tool-selected-color: #fff,
     //$tool-selected-background-color: $panel-header-background-color,
@@ -33,11 +33,11 @@
     $item-icon-over-color: #fff,
     $item-expander-over-color: #fff,
     $item-text-over-color: mix(white, $panel-navigation-item-text-color, 50%),
-    $item-text-font-size: 14px,
+    $item-text-font-size: 13px,
 
     // Various sizes for the pieces:
     $item-icon-font-size: 18px,
-    $item-icon-width: 44px,
+    $item-icon-width: 40px,
     $item-expander-font-size: 16px,
     $item-expander-width: 24px,
 
