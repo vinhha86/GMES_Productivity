@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
             title: 'Quy trình công nghệ',
             xtype: 'PorderSewingCost_View'
         },{
-            title: 'Tiến độ',
+            title: 'Tiến độ sản xuất',
             xtype: 'PorderProcessingDetail'
         }]
     }],
