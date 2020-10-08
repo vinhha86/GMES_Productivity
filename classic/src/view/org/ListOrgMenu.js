@@ -50,6 +50,12 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
             }
             if(record.data.orgtypeid_link == 14)
                 metaData.iconCls = 'x-fa fa-sliders'
+            if(record.data.orgtypeid_link == 8)
+                metaData.iconCls = 'x-fa fa-home'
+            if(record.data.orgtypeid_link == 9)
+                metaData.iconCls = 'x-fa fa-check-circle'
+            if(record.data.orgtypeid_link == 21)
+                metaData.iconCls = 'x-fa fa-bath'
             return value;
         }                     
     }],

@@ -180,7 +180,6 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                             ListOrgMenu.getStore().getFilters().removeAll();
                             ListOrgMenu.getStore().getFilters().add(ListOrgMenuController.activeOnlyFilter);
                         }
-
                     }
                     else {
                         Ext.Msg.show({

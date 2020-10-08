@@ -49,6 +49,9 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
             value: 1
         });
         storeMenu.getFilters().add(this.activeOnlyFilter);
+        storeMenu.getSorters().add('orgtypeid_link');
+        storeMenu.getSorters().add('is_manufacturer');
+        storeMenu.getSorters().add('code');
     },
     onDropOrg: function(node, data, overModel, dropPosition){
         var start = data.records[0].data;
@@ -152,7 +155,76 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             console.log(record);
                             me.createproductionline(record.data);
                         },
-                    }, 
+                    }, {
+                        text: 'Thêm Kho thành phẩm',
+                        itemId: 'btnAddProductStore_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-home',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 8);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    }, {
+                        text: 'Thêm Tổ hoàn thiện',
+                        itemId: 'btnAddProductQC_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-check-circle',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 9);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    }, {
+                        text: 'Thêm Tổ giặt là',
+                        itemId: 'btnAddWashingLine_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-bath',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 21);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    }
                 ]
                 });
             var position = e.getXY();
