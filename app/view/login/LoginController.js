@@ -117,4 +117,33 @@ Ext.define('GSmartApp.view.login.LoginController', {
             }
         }
     },
+    onRegisterDemoClick: function(){
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Đăng ký nhận demo',
+            closeAction: 'destroy',
+            height: 350,
+            width: 500,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'RegisterDemo',
+             }]
+        });
+        form.show();   
+
+        // form.down('#Form_SelectOrg_PorderReq').getController().on('Chon', function(){
+        //     var storePO = viewmodel.getStore('porderReqStore');
+        //     storePO.load();
+        //     var PContractProductPOStore = viewmodel.getStore('PContractProductPOStore');
+        //     PContractProductPOStore.load();
+        //     form.close();
+        // })
+    }
 });

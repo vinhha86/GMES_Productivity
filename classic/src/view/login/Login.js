@@ -38,7 +38,8 @@ Ext.define('GSmartApp.view.login.Login', {
         },{
             xtype: 'label',
             style: 'font-size: 20px',
-            html: 'Đăng nhập G-MES',
+            // html: 'Đăng nhập G-MES',
+            html: 'Quản lý sản xuất (G-MES)',
             margin: '10 0 10 0',
             padding: '0 0 10 0'
         },{
@@ -67,15 +68,26 @@ Ext.define('GSmartApp.view.login.Login', {
                 allowBlank: false
             }],
             buttonAlign: 'center',
-            buttons: [{
+            buttons: [
+                {
                 text: 'Đăng nhập',
                 iconCls: 'x-fa fa-angle-right',
                 formBind: true,
                 cls: 'auth-btn',
                 handler: 'onLoginClick',
                 margin: '20 0 0 0'
-            }]
-        }]
+                }             
+            ]
+        },
+        {
+            xtype: 'button',
+            text: 'Đăng ký nhận demo',
+            iconCls: 'x-fa fa-bullhorn',
+            cls: 'reg-btn',
+            handler: 'onRegisterDemoClick',
+            margin: '20 0 0 0'
+        }     
+        ]
     }],
     listeners: {
         afterrender: 'initKeyMappings'

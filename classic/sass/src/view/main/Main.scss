@@ -186,6 +186,9 @@
     border:1px solid #ccc;
 }
 
+.reg-btn {
+    background-color: mediumslateblue;
+}
 //UI Styles for buttons
 @include extjs-button-small-ui(
     $ui: 'soft-blue',
