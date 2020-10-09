@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineController', {
         var m = this;
         var viewModel = this.getViewModel();
         var HandoverStore = viewModel.getStore('HandoverStore');
-        HandoverStore.loadStore();
+        HandoverStore.loadStoreByType(1);
     },
     control: {
         '#btnThemMoi': {

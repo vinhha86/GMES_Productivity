@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
         rowLines: true
     },
     bind: {
-        store: '{porderSKUStore}'
+        store: '{HandoverProductStore}'
     },
     columns: [{
         text: 'STT',
@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
         align: 'center'
     }, {
         text: 'Mã SP(Buyer)',
-        dataIndex: 'skucode',
+        dataIndex: 'buyercode',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
         }
     }, {
         text: 'Tên SP(Buyer)',
-        dataIndex: 'mauSanPham',
+        dataIndex: 'buyername',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
         }
     }, {
         text: 'Số lượng',
-        dataIndex: 'pquantity_total',
+        dataIndex: 'totalpackage',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
@@ -44,12 +44,20 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
         align: 'end'
     }, {
         text: 'Đơn vị tính',
-        dataIndex: 'inProductionQuantity',
+        dataIndex: 'unitName',
         flex: 1,
     }, {
-        text: 'SKU',
-        dataIndex: 'remainQuantity',
-        flex: 1,
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu'
+            },            
+        ]
     }]
 });
 

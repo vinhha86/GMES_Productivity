@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                                 yes: 'Đóng',
                             }
                         });
-                        m.redirectTo("lscontractbuyer/" + response.data.id + "/edit");
+                        m.redirectTo("handover_cut_toline/" + response.data.id + "/edit");
                     }
                     else {
                         Ext.Msg.show({
@@ -111,6 +111,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         // console.log(session.id);
     },
     loadInfo: function(id){
+        var m = this;
         var viewModel = this.getViewModel();
         var params = new Object();
         params.id = id;
@@ -121,10 +122,22 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                     data = response.data;
                     viewModel.set('currentRec', data);
 
+                    var handover_date = viewModel.get('currentRec.handover_date');
+                    var date = Ext.Date.parse(handover_date, 'c');
+                    if (null == date) date = new Date(handover_date);
+                    viewModel.set('currentRec.handover_date',date);
+
                     var POrderGrantStore = viewModel.getStore('POrderGrantStore');
                     POrderGrantStore.loadStoreByPOrderId(data.porderid_link);
+
+                    m.loadHandoverProduct(data.id);
                 }
             })
+    },
+    loadHandoverProduct: function(handoverid_link){
+        var viewModel = this.getViewModel();
+        var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+        HandoverProductStore.loadStore(handoverid_link);
     },
     onChange: function(cbbox, newValue, oldValue, eOpts){
         // console.log(newValue);
@@ -147,5 +160,35 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         
         viewModel.set('currentRec.pordergrantid_link', pordergrantid_link);
         viewModel.set('currentRec.orgid_to_link', orgid_to_link);
+    },
+    onMenu: function(grid, rowIndex, colIndex, item, e, record){
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Chi tiết SKU',
+                itemId: 'btnSKU',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-edit brownIcon',
+                handler: function(){
+                    var record = this.parentMenu.record;
+                    // me.onEdit(record);
+                    console.log(record);
+                },
+            }
+        ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX()-10, e.getY()-10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        // common.Check_Menu_Permission(menu_grid);
     }
 })
