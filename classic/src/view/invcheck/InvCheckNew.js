@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
         pack: 'start',
         align: 'stretch'
     },
-	qrcode:null,
+	// qrcode:null,
 	items:[{
 		// height: 280,
 		 layout: {
@@ -38,32 +38,41 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 				 },{
 					 xtype:'hiddenfield',
 					 name:'status'
-				 },{
+				 },
+				 {
+					 xtype: 'container',
+					 layout: 'hbox',
+					 flex: 1,
+					 items:[
+						{
+							width: 370,
+							labelWidth:70,
+							xtype: 'textfield',
+							name:'invcheckcode',
+							reference:'invcheckcode',
+							fieldLabel: 'Số phiếu',
+							readOnly:true
+						}, {
+							flex:1,
+							margin:'0 0 0 5',
+							labelWidth:90,
+							xtype: 'datefield',
+							format:'d/m/Y',
+							name:'invcheckdatetime',
+							reference:'invcheckdatetime',
+							fieldLabel: 'Ngày kiểm kê',
+							readOnly:true
+						}
+					 ]
+				 },
+				 {
 					 flex:1,
-					 labelWidth:70,
-					 xtype: 'textfield',
-					 name:'invcheckcode',
-					 reference:'invcheckcode',
-					 fieldLabel: GSmartApp.Locales.sophieu[GSmartApp.Locales.currentLocale],
-					 readOnly:true
-				 }, {
-					 flex:1,
-					 margin:'0 5 0 0',
-					 labelWidth:100,
-					 xtype: 'datefield',
-					 dateFormat:GSmartApp.util.State.get('dataFormat'),
-					 name:'invcheckdatetime',
-					 reference:'invcheckdatetime',
-					 fieldLabel: GSmartApp.Locales.ngay_lapphieu[GSmartApp.Locales.currentLocale],
-					 readOnly:true
-				 },{
-					 flex:2,
-					 margin:'0 5 0 0',
+					 margin:'0 0 0 5',
 					 name:'orgcheckid_link',
 					 reference:'orgcheckid_link',
 					 labelWidth:90,
 					 xtype: 'combobox',
-					 fieldLabel: GSmartApp.Locales.kho_kiemke[GSmartApp.Locales.currentLocale],
+					 fieldLabel: 'Kho kiểm kê',
 					 queryMode: 'local',
 					 store:'WareHouseStore',
 					 displayField: 'name',
@@ -78,30 +87,14 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 				 layout:'hbox',
 				 margin:2,
 				 items:[{
-					 flex:2,
-					 margin:'0 5 0 0',
+					 flex:1,
 					 labelWidth:70,
 					 name:'p_skuid_link',
 					 reference:'productcode',
 					 xtype: 'combobox',
-					 fieldLabel: GSmartApp.Locales.sanpham[GSmartApp.Locales.currentLocale],
+					 fieldLabel: 'Sản phẩm',
 					 queryMode: 'local',
 					 store:'SkuStore',
-					 displayField: 'name',
-					 valueField: 'id',
-					 bind:{
-						 readOnly:'{isEdit}'
-					 }
-				 },{
-					 flex:2,
-					 margin:'0 5 0 0',
-					 labelWidth:90,
-					 name:'bossid_link',
-					 reference:'bossid',
-					 xtype: 'combobox',
-					 fieldLabel: GSmartApp.Locales.chuhang[GSmartApp.Locales.currentLocale],
-					 queryMode: 'local',
-					 store:'BossStore',
 					 displayField: 'name',
 					 valueField: 'id',
 					 bind:{
@@ -113,28 +106,29 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 				 margin:2,
 				 items:[{
 					 flex:1,
-					 margin:'0 5 0 0',
 					 name:'extrainfo',
 					 labelWidth:70,
 					 xtype: 'textfield',
-					 fieldLabel: GSmartApp.Locales.ghichu[GSmartApp.Locales.currentLocale],
+					 fieldLabel: 'Ghi chú',
 					 bind:{
 						 readOnly:'{isEdit}'
 					 }
 				 }]
 			 }]
 		 
-		 },{
-			 width:240,
-			 layout: {
-				type: 'vbox',
-				align: 'center',
-				pack: 'center'
-			},
-			 items:[{
-				 id:'invCheckQrcode',
-			 }]
-		 }]
+		 },
+		//  {
+		// 	 width:240,
+		// 	 layout: {
+		// 		type: 'vbox',
+		// 		align: 'center',
+		// 		pack: 'center'
+		// 	},
+		// 	 items:[{
+		// 		 id:'invCheckQrcode',
+		// 	 }]
+		//  }
+		]
 		 
 	},{
 		layout:'hbox',
@@ -162,7 +156,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 			 bind:{
 				 hidden:'{isEdit}'
 			 },
-			 text: GSmartApp.Locales.btn_taosolieukiemke[GSmartApp.Locales.currentLocale],
+			 text: 'Tạo số liệu kiểm kê',
 			 iconCls: 'x-fa fa-plus',
 			 handler: 'onInvCheckCreate'
 		 },{
@@ -185,120 +179,121 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
         lockedViewConfig: {
             scroll: 'horizontal'
         },
-		//plugins: {
-		//	gridsummaryrow: true
-		//},
+		features: [{
+			ftype: 'summary',
+			dock: 'bottom'
+		}], 
 		store:'GSmartApp.store.invcheck.InvCheckDetailStore',
 		columns: [{
-				text:GSmartApp.Locales.ma_vattu[GSmartApp.Locales.currentLocale], 
+				text:'Mã vạch', 
 				dataIndex: 'skucode',
-				flex:1,
-				minWidth:120,
+				width:120,
 				summaryRenderer:function (grid, context) {
 					return 'Tổng cộng';
 				}
 			},
 			{
-				text:GSmartApp.Locales.ten_vattu[GSmartApp.Locales.currentLocale], 
+				text:'SKU', 
 				dataIndex: 'skuname',
 				flex:1,
-				minWidth:120
+				// minWidth:120
 			},{
-				text:GSmartApp.Locales.donvitinh[GSmartApp.Locales.currentLocale], 
+				text:'Đơn vị tính', 
 				dataIndex: 'unitname',
-				width:100,
+				width:80,
 			},{
-				text:GSmartApp.Locales.so_sosach[GSmartApp.Locales.currentLocale], 
+				text: 'Số sổ sách', 
 				columns:[{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.soluong[GSmartApp.Locales.currentLocale], 
+					text: 'Số lượng', 
 					dataIndex: 'ydsorigin',
 					width:85,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.giatri[GSmartApp.Locales.currentLocale], 
+					text: 'Giá', 
 					dataIndex: 'unitprice',
 					width:80,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.thanhtien[GSmartApp.Locales.currentLocale], 
+					text: 'Thành tiền', 
 					dataIndex: 'totalamount',
 					width:105,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				}]
 			},{
-				text:GSmartApp.Locales.so_thucte[GSmartApp.Locales.currentLocale], 
+				text: 'Số lượng thực tế', 
 				columns:[{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.soluong[GSmartApp.Locales.currentLocale], 
+					text: 'Số lượng', 
 					dataIndex: 'ydscheck',
 					width:85,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.giatri[GSmartApp.Locales.currentLocale], 
+					text: 'Giá', 
 					dataIndex: 'unitprice',
 					width:80,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.thanhtien[GSmartApp.Locales.currentLocale], 
+					text: 'Thành tiền', 
 					dataIndex: 'totalamountcheck',
 					width:105,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				}]
 			},{
-				text:GSmartApp.Locales.chenhlech[GSmartApp.Locales.currentLocale], 
+				text:'Chênh lệch', 
 				columns:[{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.soluong[GSmartApp.Locales.currentLocale], 
+					text: 'Số lượng', 
 					dataIndex: 'ydsdiff',
 					width:85,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.giatri[GSmartApp.Locales.currentLocale], 
+					text: 'Giá', 
 					dataIndex: 'unitprice',
 					width:80,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
-					text: GSmartApp.Locales.thanhtien[GSmartApp.Locales.currentLocale], 
+					text: 'Thành tiền', 
 					dataIndex: 'totalamountdiff',
 					width:105,
 					align:'right',
-					summary: 'sum'
+					summaryType: 'sum', summaryRenderer: 'renderSum'
 				}]
-			},{
-				width: 40,
-				hideable: false,
-				cell: {
-					tools:[{
-						iconCls: 'fas fa-align-justify',
-						tooltip:GSmartApp.Locales.packinglist[GSmartApp.Locales.currentLocale], 
-						handler: 'onPackinglist'
-					}]
-				}
-			}
+			},
+			// {
+			// 	width: 40,
+			// 	hideable: false,
+			// 	cell: {
+			// 		tools:[{
+			// 			iconCls: 'fas fa-align-justify',
+			// 			tooltip:GSmartApp.Locales.packinglist[GSmartApp.Locales.currentLocale], 
+			// 			handler: 'onPackinglist'
+			// 		}]
+			// 	}
+			// }
 		]
 	},{
 		layout:'hbox',
@@ -306,17 +301,11 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 		items:[{
 			width:100,
 			xtype:'button',
-			text:  GSmartApp.Locales.btn_quaylai[GSmartApp.Locales.currentLocale],
+			text:  'Quay lại',
 			iconCls: 'x-fa fa-backward',
-			handler: 'onBlack'
-		},{
-			flex:1
-		//},{
-		//	width:100,
-		//	xtype:'button',
-		//	text:  GSmartApp.Locales.btn_luu[GSmartApp.Locales.currentLocale],
-		//	handler: 'onSave'
-		}]
+			handler: 'onUrlBack'
+		}
+	]
 	}]
 });
 

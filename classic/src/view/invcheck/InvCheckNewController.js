@@ -13,48 +13,36 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 		});
 		Ext.getStore('DeviceInvStore').loadStore(1);
 		Ext.getStore('BossStore').loadStore(6);
-	//	Ext.getStore('WareHouseStore').invCheckLoadStore(3);
+		Ext.getStore('WareHouseStore').invCheckLoadStore(8);
     },
 	listen: {
         controller: {
             '*': {
                 loaddata: 'onLoadData',
-				urlBack:'onUrlBack'
+				urlBack:'onUrlBack',
+				newdata: 'onNewData',
             }
         }
     },
 	onLoadData:function(id,type){
-		if(type.getId()=='lsinvcheck'){
+		if(type.getId()=='invcheck'){
 			Ext.getStore('WareHouseStore').GetOrgDest('lsinvcheck');
 			var view =this.getView();
 			var viewModel = view.getViewModel();
 			viewModel.set('urlback',type);
 			viewModel.set('isEdit',true);
-			this.onQrCode(id);
+			// this.onQrCode(id);
 			this.getById(id);
 			this.lookupReference('id').setValue(id);
 		}
 	},
-	onUrlBack:function(type){
-		var me=this;
-		if(type.getId()=='lsinvcheck'){
-			Ext.getStore('WareHouseStore').GetOrgDest('lsinvcheck');
-			var view =this.getView();
-			var formInvCheck = this.lookupReference('formInvCheck').getForm();
-			var gridInvCheck = this.lookupReference('gridInvCheck');
-			gridInvCheck.getStore().removeAll();
-			var viewModel = view.getViewModel();
-			viewModel.set('urlback',type);
-			viewModel.set('isEdit',false);
-			formInvCheck.reset(true);
-			var params = new Object();
-			params.invcheckdatetime = new Date();
-			//params.orgcheckid_link=GSmartApp.util.State.get('orgid_link');
-			formInvCheck.setValues(params);
-			try{
-				view.qrcode._el.getElementsByTagName('img')[0].src="";
-			}catch(e){}
-		}
+	onNewData: function(){
+		console.log('Create New Invcheck');
+		var gridInvCheck = this.lookupReference('gridInvCheck');
+		gridInvCheck.getStore().removeAll();
+	},
+	onUrlBack:function(){
+		this.redirectTo("invcheck");
 	},
 	onBlack:function(){
 		var view =this.getView();
@@ -114,7 +102,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 					}
 					if(response.data!=null && response.data.length>0){
 					//	me.getById(response.data[0].id);
-						me.redirectTo(entry.get('urlc')+"/"+response.data[0].id+"/edit");
+						me.redirectTo("invcheck/"+response.data[0].id+"/edit");
 					}
 				}
 				me.getView().setLoading(false);
@@ -194,20 +182,24 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 		
 		}
 	},
-	onQrCode:function(){
-		var view  = this.getView();
-		var refs = this.getReferences();
-		if(view.qrcode ==null){
-			view.qrcode = new QRCode("invCheckQrcode", {
-				text: "",
-				width: 100,
-				height: 100,
-				colorDark : "#000000",
-				colorLight : "#ffffff",
-				correctLevel : QRCode.CorrectLevel.H
-			})	
-		}
-		view.qrcode.clear(); // clear the code.
-		view.qrcode.makeCode("xin chào"); // make another code.
-	},
+	renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    }  	
+	// onQrCode:function(){
+	// 	var view  = this.getView();
+	// 	var refs = this.getReferences();
+	// 	if(view.qrcode ==null){
+	// 		view.qrcode = new QRCode("invCheckQrcode", {
+	// 			text: "",
+	// 			width: 100,
+	// 			height: 100,
+	// 			colorDark : "#000000",
+	// 			colorLight : "#ffffff",
+	// 			correctLevel : QRCode.CorrectLevel.H
+	// 		})	
+	// 	}
+	// 	view.qrcode.clear(); // clear the code.
+	// 	view.qrcode.makeCode("xin chào"); // make another code.
+	// },
 });
