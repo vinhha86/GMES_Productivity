@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                 // width: 250
             },{
                 xtype:'combobox',
-                // itemId:'txtstatus',
+                itemId:'comboboxPordergrant',
                 bind:{
                     store:'{POrderGrantStore}',
                     value: '{currentRec.pordergrantid_link}'

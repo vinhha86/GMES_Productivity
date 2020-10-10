@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
     data: {
         id: 0,
         currentRec: {
-            in: null,
+            id: null,
             handovertypeid_link: null,
             handover_code: null,
             handover_date: null,

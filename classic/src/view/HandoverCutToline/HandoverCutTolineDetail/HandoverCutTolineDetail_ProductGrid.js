@@ -2,13 +2,19 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
     extend: 'Ext.grid.Panel',
     xtype: 'HandoverCutTolineDetail_ProductGrid',
     id: 'HandoverCutTolineDetail_ProductGrid',
-    IdPOrder: 0,
-    // controller: 'POrder_ProductSKUViewController',
     reference: 'HandoverCutTolineDetail_ProductGrid',
     viewConfig: {
         stripeRows: true,
         columnLines: true,
         rowLines: true
+    },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEditProductTotalPackage'
+            } 
+        }
     },
     bind: {
         store: '{HandoverProductStore}'
@@ -37,6 +43,11 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
     }, {
         text: 'Số lượng',
         dataIndex: 'totalpackage',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
