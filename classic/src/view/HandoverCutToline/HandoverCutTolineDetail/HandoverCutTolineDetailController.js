@@ -27,6 +27,12 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         '#btnLuu': {
             click: 'Luu'
         },
+        '#btnHandover': {
+            click: 'onHandover'
+        },
+        '#btnConfirm': {
+            click: 'onConfirm'
+        },
     },
     onLuu: function (thisBtn) {
         // var viewMain = Ext.getCmp('ContractBuyer');
@@ -278,5 +284,106 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         menu_grid.record = record;
         menu_grid.showAt(position);
         // common.Check_Menu_Permission(menu_grid);
+    },
+    onHandover: function(){
+        // giao
+        var m = this;
+        var viewModel = this.getViewModel();
+        var handoverid_link = viewModel.get('currentRec.id');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Xác nhận giao?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    m.setStatus(1, handoverid_link);
+                }
+                else {
+                    return;
+                }
+            }
+        });
+    },
+    onConfirm: function(){
+        // nhận
+        var viewModel = this.getViewModel();
+        var handoverid_link = viewModel.get('currentRec.id');
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Nơi nhận xác thực',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'HandoverCutTolineConfirm',
+                viewModel: {
+                    // type: 'HandoverCutTolineConfirmViewModel',
+                    // data: {
+                    //     handoverid_link: handoverid_link
+                    // }
+                }
+            }]
+        });
+        form.show();
+    },
+    setStatus: function(status, handoverid_link){
+        var viewModel = this.getViewModel();
+        var params = new Object();
+        params.status = status;
+        params.handoverid_link = handoverid_link;
+        params.msgtype = "HANDOVER_SETSTATUS";
+        params.message = "Set status";
+
+        GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        viewModel.set('currentRec.status', 1);
+                        console.log(viewModel.get('currentRec'));
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Lưu thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lưu thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     }
 })

@@ -39,10 +39,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineController', {
         var me = this;
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        var contract_code = rec.get('contract_code');
         Ext.Msg.show({
             title: 'Thông báo',
-            msg: 'Bạn có chắc chắn xóa hợp đồng "' + contract_code + '" ?',
+            msg: 'Bạn có chắc chắn xóa ?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,
             buttonText: {
@@ -62,7 +61,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineController', {
         var params = new Object();
         params.id = id;
 
-        GSmartApp.Ajax.post('/api/v1/contractbuyer/delete', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/handover/delete', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     Ext.MessageBox.show({
