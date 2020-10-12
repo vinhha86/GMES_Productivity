@@ -8,8 +8,8 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         var productid_link = viewmodel.get('working.productid_link');
         store.loadby_product(productid_link);
 
-        var storeDevice = viewmodel.getStore('DeviceStore');
-        storeDevice.loadStore(10);
+        var storeDeviceGroup = viewmodel.getStore('DeviceGroupStore');
+        storeDeviceGroup.loadStore();
 
         var storelabor = viewmodel.getStore('LaborStore');
         storelabor.loadStore();
@@ -48,9 +48,10 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     },
     renderDevice: function(value, metaData, record){
         var me = this;
-        var storeDevice = me.getViewModel().getStore('DeviceStore');
-        if (value != null) {
-            var rec = storeDevice.findRecord("id", value, 0, false, false, true);
+        var storeDeviceGroup = me.getViewModel().getStore('storeDeviceGroup');
+        console.log(storeDeviceGroup);
+        if (null != storeDeviceGroup && value != null) {
+            var rec = storeDeviceGroup.findRecord("id", value, 0, false, false, true);
             if (rec != null) {
                 return rec.data.name;
             } else {
@@ -63,7 +64,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     renderLabor: function(value, metaData, record) {
         var me = this;
         var storeLabor = me.getViewModel().getStore('LaborStore');
-        if (value != null) {
+        if (null != storeLabor && value != null) {
             var rec = storeLabor.findRecord("id", value, 0, false, false, true);
             if (rec != null) {
                 return rec.data.name;

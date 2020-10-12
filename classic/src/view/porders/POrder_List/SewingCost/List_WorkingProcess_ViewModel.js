@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
     requires: [
         'GSmartApp.store.WorkingProcess_Store',
         'GSmartApp.store.DeviceStore',
+        'GSmartApp.store.device.device_group_store',
         'GSmartApp.store.Labor.LaborStore'
     ],
     stores: {
@@ -12,6 +13,9 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
         },
         DeviceStore: {
             type: 'DeviceStore'
+        },
+        DeviceGroupStore: {
+            type: 'device_group_store'
         },
         LaborStore: {
             type: 'LaborStore'

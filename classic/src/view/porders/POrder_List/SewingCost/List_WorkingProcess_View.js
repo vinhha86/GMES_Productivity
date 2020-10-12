@@ -43,31 +43,33 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             }
         }, {
             header: 'Thiết bị',
-            dataIndex: 'devicerequiredid_link',
+            // dataIndex: 'devicerequiredid_link',
+            dataIndex: 'device_name',
             width: 120,
-            editor: {
-                xtype: 'combo',
-                valueField: 'id',
-                displayField: 'name',
-                bind: {
-                    store: '{DeviceStore}'
-                }
-            },
-            renderer: 'renderDevice'
+            // editor: {
+            //     xtype: 'combo',
+            //     valueField: 'id',
+            //     displayField: 'name',
+            //     bind: {
+            //         store: '{DeviceGroupStore}'
+            //     }
+            // },
+            // renderer: 'renderDevice'
         },
         {
             header: 'Bậc thợ',
-            dataIndex: 'laborrequiredid_link',
+            // dataIndex: 'laborrequiredid_link',
+            dataIndex: 'laborlevel_name',
             width: 120,
-            editor: {
-                xtype: 'combo',
-                valueField: 'id',
-                displayField: 'name',
-                bind: {
-                    store: '{LaborStore}'
-                }
-            },
-            renderer: 'renderLabor'
+            // editor: {
+            //     xtype: 'combo',
+            //     valueField: 'id',
+            //     displayField: 'name',
+            //     bind: {
+            //         store: '{LaborStore}'
+            //     }
+            // },
+            // renderer: 'renderLabor'
         },
         {
             header: 'Thời gian',
@@ -145,7 +147,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             selectOnFocus: true,
             bind: {
                 value: '{working.devicerequiredid_link}',
-                store: '{DeviceStore}'
+                store: '{DeviceGroupStore}'
             }
         },{
             xtype: 'combo',
