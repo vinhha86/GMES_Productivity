@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchWindow', {
         //     xtype: 'ContractList'
         // }
     ],
-    listeners: {
-        activate: 'onActivate'
-    }
+    // listeners: {
+    //     activate: 'onActivate'
+    // }
 });

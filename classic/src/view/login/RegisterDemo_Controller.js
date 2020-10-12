@@ -31,6 +31,14 @@ Ext.define('GSmartApp.view.login.RegisterDemo_Controller', {
                 'Accept': 'application/json'
             },
             success: function(result, opts) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: "GPAY Technology đã nhận được yêu cầu đăng ký sử dụng Demo Hệ thống quản lý sản xuất. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất. Xin cảm ơn!",
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });                
                 me.onThoat();
             },
             failure: function(err, opts) {

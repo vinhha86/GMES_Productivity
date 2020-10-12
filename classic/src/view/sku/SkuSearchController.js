@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             SkuAtributesStore.loadDefaultAttr(10);
             this.onSearchButton();
         }
+        this.onActivate();
         common.Check_Object_Permission();
     },
     onActivate: function () {
