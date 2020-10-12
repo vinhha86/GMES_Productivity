@@ -41,6 +41,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
             porderid_link: null,
             pordergrantid_link: null,
             status: null
-        }
+        },
+        pordercode: ''
     }
 })

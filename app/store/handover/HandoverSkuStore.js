@@ -3,7 +3,8 @@ Ext.define('GSmartApp.store.handover.HandoverSkuStore', {
 	alias: 'store.HandoverSkuStore',
 	storeId: 'HandoverSkuStore',
 	fields: [
-        {name: 'id', type: 'int'},
+		{name: 'id', type: 'int'},
+		{name: 'totalpackage', type: 'int'},
 	],
 	loadStore:function(handoverid_link, handoverproductid_link, porderid_link, productid_link){
         var params = new Object();
@@ -38,6 +39,34 @@ Ext.define('GSmartApp.store.handover.HandoverSkuStore', {
 				if(!success){
 					 this.fireEvent('logout');
 				}
+			}
+		});
+	},
+	loadStore_Async:function(handoverid_link, handoverproductid_link, porderid_link, productid_link){
+        var params = new Object();
+        params.handoverid_link = handoverid_link;
+        params.handoverproductid_link = handoverproductid_link;
+        params.porderid_link = porderid_link;
+        params.productid_link = productid_link;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/handoversku/getByHandoverProduct', ///////
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
 			}
 		});
 	},

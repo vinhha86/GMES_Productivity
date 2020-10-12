@@ -8,9 +8,33 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetailControlle
         var porderid_link = viewModel.get('porderid_link');
         var productid_link = viewModel.get('productid_link');
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
-        HandoverSkuStore.loadStore(handoverid_link, handoverproductid_link, porderid_link, productid_link);
         HandoverSkuStore.getSorters().add('skuColor');
         HandoverSkuStore.getSorters().add('skuSizeSortVal');
+        HandoverSkuStore.loadStore_Async(handoverid_link, handoverproductid_link, porderid_link, productid_link);
+        
+        HandoverSkuStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    var params=new Object();
+                    params.handoverid_link = handoverid_link;
+                    params.handoverproductid_link = handoverproductid_link;
+                    params.porderid_link = porderid_link;
+                    params.productid_link = productid_link;
+                    // console.log(params);
+                    GSmartApp.Ajax.post('/api/v1/handoversku/getByHandoverProduct', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            // console.log(response);
+                            HandoverSkuStore.setData(response.data);
+                        }
+                    }); 
+                }
+            }
+        });
     },
     listen: {
         
@@ -30,10 +54,6 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetailControlle
             HandoverSkuStore.rejectChanges();
             return;
         }
-        // console.log(typeof context.value);
-        var num = parseInt(context.value);
-        context.record.data.totalpackage = num;
-        // console.log(context.record.data);
         grid.setLoading(true);
         var data = context.record.data;
         var params = new Object();

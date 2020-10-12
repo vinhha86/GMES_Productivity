@@ -16,43 +16,64 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
             border: false,
             width: '100%',
             items: [
-                {
-                xtype:'combobox',
-                // itemId:'txtstatus',
-                bind:{
-                    store:'{POrder_ListStore}',
-                    value: '{currentRec.porderid_link}'
-                },
-                fieldLabel: "Mã lệnh",
-                displayField: 'ordercode',
-                valueField: 'id',
-                queryMode: 'local',
-                editable: false,
-                allowBlank: false,
-                // readOnly: true,
-                margin: 2,
-                labelWidth: 80,
-                flex: 1,
-                // width: 250
-                listeners: {
-                    // change: 'onChange',
-                    select: 'onOrderCodeSelect'
-                }
-            },
-            // {
-            //     xtype: 'textfield',
-            //     margin: 2,
-            //     fieldLabel: "Mã lệnh",
-            //     allowBlank: false,
-            //     // itemId: 'contractcode',
-            //     blankText: 'Không được để trống',
-            //     bind: {
-            //         value: '{porder.ordercode}'
+            //     {
+            //     xtype:'combobox',
+            //     // itemId:'txtstatus',
+            //     bind:{
+            //         store:'{POrder_ListStore}',
+            //         value: '{currentRec.porderid_link}'
             //     },
+            //     fieldLabel: "Mã lệnh",
+            //     displayField: 'ordercode',
+            //     valueField: 'id',
+            //     queryMode: 'local',
+            //     editable: false,
+            //     allowBlank: false,
+            //     // readOnly: true,
+            //     margin: 2,
             //     labelWidth: 80,
             //     flex: 1,
             //     // width: 250
+            //     listeners: {
+            //         // change: 'onChange',
+            //         select: 'onOrderCodeSelect'
+            //     }
             // },
+            {
+                layout: 'hbox',
+                border: false,
+                margin: 2,
+                flex : 1,
+                // width: '100%',
+                items: [{
+                    xtype: 'textfield',
+                    // margin: 2,
+                    fieldLabel: "Mã lệnh",
+                    allowBlank: false,
+                    itemId: 'pordercode',
+                    blankText: 'Không được để trống',
+                    bind: {
+                        value: '{pordercode}'
+                    },
+                    labelWidth: 80,
+                    flex: 1,
+                    // width: 250
+                },{
+                    xtype:'button',
+                    // text: 'Lưu',
+                    margin: '0 0 0 2',
+                    itemId:'btnPlus',
+                    iconCls: 'x-fa fa-plus',
+                    // formBind: true
+                },{
+                    xtype:'button',
+                    // text: 'Lưu',
+                    margin: '0 0 0 2',
+                    itemId:'btnSearch',
+                    iconCls: 'x-fa fa-search',
+                    // formBind: true
+                }]
+            },
             {
                 xtype: 'textfield',
                 margin: 2,
@@ -114,9 +135,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
-                editable: false,
+                // editable: false,
                 allowBlank: false,
-                readOnly: true,
+                // readOnly: true,
                 margin: 2,
                 labelWidth: 80,
                 flex: 1,
