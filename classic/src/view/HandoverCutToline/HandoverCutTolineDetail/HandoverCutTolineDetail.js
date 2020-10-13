@@ -38,6 +38,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
             margin: 3,
             itemId:'btnConfirm',
             iconCls: 'x-fa fa-check',
+            bind: {
+                hidden: '{isCreateNew}'
+            }
         },{
             flex:1,
             border: false
@@ -47,6 +50,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
             margin: 3,
             itemId:'btnHandover',
             iconCls: 'x-fa fa-check',
+            bind: {
+                hidden: '{isCreateNew}'
+            }
         },{
             xtype:'button',
             text: 'Lưu',

@@ -16,29 +16,6 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
             border: false,
             width: '100%',
             items: [
-            //     {
-            //     xtype:'combobox',
-            //     // itemId:'txtstatus',
-            //     bind:{
-            //         store:'{POrder_ListStore}',
-            //         value: '{currentRec.porderid_link}'
-            //     },
-            //     fieldLabel: "Mã lệnh",
-            //     displayField: 'ordercode',
-            //     valueField: 'id',
-            //     queryMode: 'local',
-            //     editable: false,
-            //     allowBlank: false,
-            //     // readOnly: true,
-            //     margin: 2,
-            //     labelWidth: 80,
-            //     flex: 1,
-            //     // width: 250
-            //     listeners: {
-            //         // change: 'onChange',
-            //         select: 'onOrderCodeSelect'
-            //     }
-            // },
             {
                 layout: 'hbox',
                 border: false,
@@ -58,6 +35,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                     labelWidth: 80,
                     flex: 1,
                     // width: 250
+                    
                 },{
                     xtype:'button',
                     // text: 'Lưu',
@@ -65,6 +43,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                     itemId:'btnPlus',
                     iconCls: 'x-fa fa-plus',
                     // formBind: true
+                    bind: {
+                        visible: '{isCreateNew}'
+                    }
                 },{
                     xtype:'button',
                     // text: 'Lưu',
@@ -72,6 +53,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                     itemId:'btnSearch',
                     iconCls: 'x-fa fa-search',
                     // formBind: true
+                    bind: {
+                        visible: '{isCreateNew}'
+                    }
                 }]
             },
             {

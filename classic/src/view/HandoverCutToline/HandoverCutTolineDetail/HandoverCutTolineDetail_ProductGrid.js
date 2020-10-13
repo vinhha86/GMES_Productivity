@@ -68,7 +68,10 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_ProductGrid
                 iconCls: 'x-fa fas fa-bars violetIcon',
                 handler: 'onMenu'
             },            
-        ]
+        ],
+        bind: {
+            hidden: '{isCreateNew}'
+        }
     }]
 });
 

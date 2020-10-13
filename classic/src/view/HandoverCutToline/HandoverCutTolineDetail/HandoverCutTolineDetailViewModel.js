@@ -40,8 +40,12 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
             extrainfo: null,
             porderid_link: null,
             pordergrantid_link: null,
-            status: null
+            status: null,
+            handoverProducts: [{
+                
+            }]
         },
-        pordercode: ''
+        pordercode: '',
+        isCreateNew: false
     }
 })

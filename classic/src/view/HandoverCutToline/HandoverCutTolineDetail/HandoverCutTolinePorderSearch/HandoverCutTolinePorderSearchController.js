@@ -49,6 +49,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolinePorderSearchContro
         handover_cut_toline_edit.getViewModel().set('currentRec.porderid_link', porderid_link);
         handover_cut_toline_edit.getViewModel().set('pordercode', ordercode);
 
+        handover_cut_toline_edit.getController().loadHandoverProductOnPorderSelect(porderid_link);
+
         this.onQuayLai();
     },
 })
