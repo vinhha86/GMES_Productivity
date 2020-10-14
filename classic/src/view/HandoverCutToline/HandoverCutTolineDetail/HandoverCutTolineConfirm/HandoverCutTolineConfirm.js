@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirm', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            // value :'{username}'
+            value :'{username}'
         },
         width: 300,
         itemId: 'username',
@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirm', {
         maxLength: 100,
         maxLengthText: 'Tối đa 100 ký tự',
         bind:{
-            // value :'{password}'
+            value :'{password}'
         },
         width: 300,
         itemId: 'password',

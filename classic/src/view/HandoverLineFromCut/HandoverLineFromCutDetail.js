@@ -1,14 +1,14 @@
 
-Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
+Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutDetail', {
     extend: 'Ext.form.Panel',
-    xtype: 'handover_cut_toline_edit',
-    id:'handover_cut_toline_edit',
+    xtype: 'handover_line_fromcut_edit',
+    id:'handover_line_fromcut_edit',
     controller: 'HandoverCutTolineDetailController',
     viewModel:{
         type:'HandoverCutTolineDetailViewModel'
     },
     layout: 'border',
-    title: 'Xuất bán thành phẩm lên chuyền',
+    title: 'Nhận bán thành phẩm vào chuyền',
     items: [
         {
             region: 'north',
@@ -59,7 +59,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
             margin: 3,
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
-            formBind: true
+            formBind: true,
+            hidden: true
         }]
     }]
 })

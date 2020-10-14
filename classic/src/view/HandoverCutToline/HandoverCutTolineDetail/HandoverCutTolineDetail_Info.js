@@ -24,9 +24,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                 // width: '100%',
                 items: [{
                     xtype: 'textfield',
-                    // margin: 2,
                     fieldLabel: "Mã lệnh",
-                    allowBlank: false,
+                    // allowBlank: false,
                     itemId: 'pordercode',
                     blankText: 'Không được để trống',
                     bind: {
@@ -34,25 +33,23 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                     },
                     labelWidth: 80,
                     flex: 1,
-                    // width: 250
-                    
+                    enableKeyEvents : true,
+                    listeners: {
+                        keypress: 'onPressEnterPordercode'
+                    }
                 },{
                     xtype:'button',
-                    // text: 'Lưu',
                     margin: '0 0 0 2',
                     itemId:'btnPlus',
                     iconCls: 'x-fa fa-plus',
-                    // formBind: true
                     bind: {
                         visible: '{isCreateNew}'
                     }
                 },{
                     xtype:'button',
-                    // text: 'Lưu',
                     margin: '0 0 0 2',
                     itemId:'btnSearch',
                     iconCls: 'x-fa fa-search',
-                    // formBind: true
                     bind: {
                         visible: '{isCreateNew}'
                     }
@@ -61,16 +58,14 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
             {
                 xtype: 'textfield',
                 margin: 2,
-                fieldLabel: "Số phiếu",
-                allowBlank: false,
-                // itemId: 'contractcode',
+                fieldLabel: 'Số phiếu',
+                // allowBlank: false,
                 blankText: 'Không được để trống',
                 bind: {
                     value: '{currentRec.handover_code}'
                 },
                 labelWidth: 80,
                 flex: 1,
-                // width: 250
             },{
                 xtype: 'datefield',
                 margin: 2,
@@ -97,7 +92,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                 valueField: 'id',
                 queryMode: 'local',
                 editable: false,
-                allowBlank: false,
+                // allowBlank: false,
                 readOnly: true,
                 margin: 2,
                 labelWidth: 80,
@@ -115,7 +110,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                     store:'{ListOrgStore}',
                     value: '{currentRec.orgid_from_link}'
                 },
-                fieldLabel: "Nơi giao",
+                fieldLabel: 'Nơi giao ('+ '<span style="color:red">*</span>' + ')',
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
@@ -133,7 +128,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                     store:'{POrderGrantStore}',
                     value: '{currentRec.pordergrantid_link}'
                 },
-                fieldLabel: "Nơi nhận",
+                fieldLabel: 'Nơi nhận ('+ '<span style="color:red">*</span>' + ')',
                 displayField: 'displayName',
                 valueField: 'id',
                 queryMode: 'local',
@@ -159,7 +154,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail_Info', {
                 valueField: 'id',
                 queryMode: 'local',
                 // editable: false,
-                allowBlank: false,
+                // allowBlank: false,
+                readOnly: true,
                 margin: 2,
                 labelWidth: 80,
                 flex: 1,

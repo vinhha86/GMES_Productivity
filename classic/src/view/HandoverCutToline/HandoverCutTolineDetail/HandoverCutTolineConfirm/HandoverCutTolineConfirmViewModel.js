@@ -6,8 +6,10 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirmViewModel',
     stores: {
     },
     data: {
-        username: null,
-        password: null,
-        handoverid_link: null
+        username: '',
+        password: '',
+        handoverid_link: null,
+        isIn: false, // nhan
+        isOut: false // giao
     }
 })

@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
+Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCut', {
     extend: 'Ext.grid.Panel',
-    xtype: 'handover_cut_toline',
-    id: 'handover_cut_toline',
+    xtype: 'handover_line_fromcut',
+    id: 'handover_line_fromcut',
     viewModel: {
-        type: 'HandoverCutTolineViewModel'
+        type: 'HandoverLineFromCutViewModel'
     },
-    controller: 'HandoverCutTolineController',
-    reference: 'handover_cut_toline',
+    controller: 'HandoverLineFromCutController',
+    reference: 'handover_line_fromcut',
     viewConfig: {
         stripeRows: false,
         columnLines: true,
@@ -26,10 +26,10 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
             iconCls: 'x-fa fas fa-edit',
             tooltip: "Chi tiết",
             handler: 'onCapNhat',
-        }, {
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xoá',
-            handler: 'onXoa',
+        // }, {
+        //     iconCls: 'x-fa fas fa-trash',
+        //     tooltip: 'Xoá',
+        //     handler: 'onXoa',
         }]
     },{
         text: 'STT',
@@ -41,14 +41,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
         dataIndex: 'ordercode',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            var status = record.data.status;
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            switch(status){
-                case 0: metaData.tdCls = 'status0'; break;
-                case 1: metaData.tdCls = 'status1'; break;
-                case 2: metaData.tdCls = 'status2'; break;
-                default: break;
-            }
             return value;
         }
     }, {
@@ -82,16 +75,6 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
         }
     },
     {
-        text: 'SL giao',
-        dataIndex: 'handoverTotal',
-        width: 80,
-        align: 'end',
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return Ext.util.Format.number(value, '0,000');;
-        }
-    },
-    {
         text: 'Người nhận',
         dataIndex: 'receiverUserName',
         width: 120,
@@ -108,18 +91,28 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
+    },
+    {
+        text: 'SL nhận',
+        dataIndex: 'handoverTotal',
+        width: 80,
+        align: 'end',
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return Ext.util.Format.number(value, '0,000');;
+        }
     }],
-    dockedItems: [{
-        dock: 'top',
-        xtype: 'toolbar',
-        border: false,
-        items: [{
-            xtype: 'button',
-            margin: '5 1 5 1',
-            text: 'Thêm mới',
-            width: 105,
-            iconCls: 'x-fa fa-plus',
-            itemId: 'btnThemMoi',
+    // dockedItems: [{
+    //     dock: 'top',
+    //     xtype: 'toolbar',
+    //     border: false,
+    //     items: [{
+            // xtype: 'button',
+            // margin: '5 1 5 1',
+            // text: 'Thêm mới',
+            // width: 105,
+            // iconCls: 'x-fa fa-plus',
+            // itemId: 'btnThemMoi',
         // },{
         //     xtype:'textfield',
         //     labelWidth: 0,
@@ -187,8 +180,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
         //     // text: 'Tìm kiếm',
         //     iconCls: 'x-fa fa-search',
         //     itemId: 'btnTimKiem'
-        }]
-    }, {
+    //     }]
+    // }, {
         // dock: 'bottom',
         // layout: 'hbox',
         // xtype: 'toolbar',
@@ -223,6 +216,6 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
         //     firstText: 'Trang đầu',
         //     displayMsg: 'Hiển thị {0} - {1} của {2}'
         // }]
-    }]
+    // }]
 });
 

@@ -38,9 +38,10 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 			}
 		});
 	},
-	loadStoreByType:function(handovertypeid_link){
+	loadStoreByType:function(handovertypeid_link, in_out){
 		var params = new Object();
-		params.id = handovertypeid_link;
+		params.handovertypeid_link = handovertypeid_link;
+		params.in_out = in_out;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

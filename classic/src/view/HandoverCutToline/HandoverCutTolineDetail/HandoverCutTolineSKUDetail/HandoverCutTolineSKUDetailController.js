@@ -50,6 +50,10 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetailControlle
         var viewModel = this.getViewModel();
         var grid = this.getView();
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+        if(viewModel.get('isIn')){
+            HandoverSkuStore.rejectChanges();
+            return;
+        }
         if(context.value == context.originalValue || context.value < 0 || context.value == ''){
             HandoverSkuStore.rejectChanges();
             return;
@@ -64,7 +68,16 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetailControlle
                 grid.setLoading(false);
                 var response = Ext.decode(response.responseText);
                 if (success) {
+                    context.record.set('totalpackage', context.value);
                     HandoverSkuStore.commitChanges();
+                    //
+                    if(context.rowIdx < HandoverSkuStore.data.length - 1) {  
+                        var cellediting = grid.getPlugin('cellediting');
+                        cellediting.startEditByPosition({
+                            row: (context.rowIdx + 1),
+                            column: context.colIdx
+                        });
+                    }
                     // load handoverProduct grid
                     var main = Ext.getCmp('handover_cut_toline_edit');
                     var HandoverProductStore = main.getViewModel().getStore('HandoverProductStore');
@@ -81,5 +94,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetailControlle
                     HandoverSkuStore.rejectChanges();
                 }
             })
-    },   
+    },
+    onSpecialkey: function( text, e, eOpts ){
+        if(e.keyCode == 9) e.stopEvent();
+    },
 })

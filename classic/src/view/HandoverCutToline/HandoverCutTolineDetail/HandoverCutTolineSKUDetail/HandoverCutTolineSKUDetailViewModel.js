@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetailViewModel
         handoverid_link: null, 
         handoverproductid_link: null, 
         porderid_link: null, 
-        productid_link: null
+        productid_link: null,
+        isIn: false
     }
 })

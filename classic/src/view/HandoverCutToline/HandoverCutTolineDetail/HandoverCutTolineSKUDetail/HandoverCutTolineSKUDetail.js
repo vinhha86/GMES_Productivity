@@ -45,7 +45,10 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineSKUDetail', {
             editor:{
                 xtype:'textfield',
                 maskRe: /[0-9.]/,
-                selectOnFocus: true
+                selectOnFocus: true,
+                listeners: {
+                    specialkey: 'onSpecialkey'
+                }
             },
         }
     ]

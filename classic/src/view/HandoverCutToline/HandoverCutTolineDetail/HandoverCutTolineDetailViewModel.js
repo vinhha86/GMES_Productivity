@@ -46,6 +46,31 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
             }]
         },
         pordercode: '',
-        isCreateNew: false
+        isCreateNew: false,
+        isIn: false, // view nhap
+        isOut: false, // view xuat
+    },
+    formulas: {
+        isBtnConfirmOutHidden : function (get) {
+            if (get('isIn')) {
+                console.log(1);
+                return true;
+            }
+            if (get('isCreateNew')) {
+                console.log(2);
+                return true;
+            }
+            console.log(3);
+            return false;
+        },
+        isBtnConfirmInHidden : function (get) {
+            if (get('isOut')) {
+                return true;
+            }
+            if (get('isCreateNew')) {
+                return true;
+            }
+            return false;
+        },
     }
 })

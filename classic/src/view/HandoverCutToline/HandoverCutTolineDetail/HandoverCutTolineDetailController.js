@@ -13,6 +13,14 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         ListOrgStore.loadStoreByOrgTypeString(orgtypestring);
         // var POrder_ListStore = viewModel.getStore('POrder_ListStore');
         // POrder_ListStore.loadStore();
+
+        //
+        var viewOut = Ext.getCmp('handover_cut_toline_edit');
+        var viewIn = Ext.getCmp('handover_line_fromcut_edit');
+        if(viewOut) viewModel.set('isOut', true);
+        if(viewIn) viewModel.set('isIn', true);
+        console.log('Out: ' + viewModel.get('isOut'));
+        console.log('In: ' + viewModel.get('isIn'));
     },
     listen: {
         controller: {
@@ -29,7 +37,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
             click: 'onLuu'
         },
         '#btnHandover': {
-            click: 'onHandover'
+            click: 'onConfirm'
         },
         '#btnConfirm': {
             click: 'onConfirm'
@@ -175,17 +183,18 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         var params = new Object();
         var data = new Object();
         data = viewModel.get('currentRec');
-        console.log(HandoverProductStore.getById(0).data);
+        // console.log(HandoverProductStore.getById(0).data);
 
         params.data = data;
-        params.handoverProduct = HandoverProductStore.getById(0).data;
+        if(viewModel.get('isCreateNew'))
+            params.handoverProduct = HandoverProductStore.getById(0).data;
         params.msgtype = "HANDOVER_CREATE";
         params.message = "Tạo handover";
 
         GSmartApp.Ajax.post('/api/v1/handover/create', Ext.JSON.encode(params),
             function (success, response, options) {
+                var response = Ext.decode(response.responseText);
                 if (success) {
-                    var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.Msg.show({
                             title: 'Thông báo',
@@ -218,7 +227,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                 } else {
                     Ext.Msg.show({
                         title: 'Lưu thất bại',
-                        msg: null,
+                        msg: response.message,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
@@ -228,7 +237,11 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
             })
     },
     onQuayLai: function () {
-        this.redirectTo('handover_cut_toline');
+        var viewModel = this.getViewModel();
+        if(viewModel.get('isOut')) 
+            this.redirectTo('handover_cut_toline');
+        if(viewModel.get('isIn'))
+            this.redirectTo('handover_line_fromcut');
     },
     onLoadData: function (id, type) {
         var m = this;
@@ -246,7 +259,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
         viewModel.set('currentRec.handovertypeid_link', 1);
-        viewModel.set('currentRec.handover_userid_link', session.id);
+        // viewModel.set('currentRec.handover_userid_link', session.id);
         viewModel.set('currentRec.handover_date', new Date());
         // viewModel.set('currentRec.orgid_from_link', session.orgid_link);
 
@@ -330,6 +343,11 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
     },
     onEditProductTotalPackage: function (editor, context, e) {
         var viewModel = this.getViewModel();
+        if(viewModel.get('isIn')){
+            var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+            HandoverProductStore.rejectChanges();
+            return;
+        }
         if(context.value == context.originalValue || context.value < 0){
             var HandoverProductStore = viewModel.getStore('HandoverProductStore');
             HandoverProductStore.rejectChanges();
@@ -398,6 +416,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                     var handoverid_link = viewModel.get('currentRec.id');
                     var handoverproductid_link = record.data.id;
                     var productid_link = record.data.productid_link;
+                    var isIn = viewModel.get('isIn');
 
                     var form = Ext.create('Ext.window.Window', {
                         height: 400,
@@ -421,7 +440,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                                     handoverid_link: handoverid_link, 
                                     handoverproductid_link: handoverproductid_link, 
                                     porderid_link: porderid_link, 
-                                    productid_link: productid_link
+                                    productid_link: productid_link,
+                                    isIn: isIn
                                 }
                             }
                         }]
@@ -438,34 +458,12 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         menu_grid.showAt(position);
         // common.Check_Menu_Permission(menu_grid);
     },
-    onHandover: function(){
-        // giao
-        var m = this;
-        var viewModel = this.getViewModel();
-        var handoverid_link = viewModel.get('currentRec.id');
-        Ext.Msg.show({
-            title: 'Thông báo',
-            msg: 'Xác nhận giao?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            buttonText: {
-                yes: 'Có',
-                no: 'Không'
-            },
-            fn: function (btn) {
-                if (btn === 'yes') {
-                    m.setStatus(1, handoverid_link);
-                }
-                else {
-                    return;
-                }
-            }
-        });
-    },
     onConfirm: function(){
         // nhận
         var viewModel = this.getViewModel();
         var handoverid_link = viewModel.get('currentRec.id');
+        var isIn = viewModel.get('isIn');
+        var isOut = viewModel.get('isOut');
         var form = Ext.create('Ext.window.Window', {
             // height: 200,
             width: 315,
@@ -483,61 +481,16 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
             items: [{
                 xtype: 'HandoverCutTolineConfirm',
                 viewModel: {
-                    // type: 'HandoverCutTolineConfirmViewModel',
-                    // data: {
-                    //     handoverid_link: handoverid_link
-                    // }
+                    type: 'HandoverCutTolineConfirmViewModel',
+                    data: {
+                        handoverid_link: handoverid_link,
+                        isIn: isIn,
+                        isOut: isOut
+                    }
                 }
             }]
         });
         form.show();
-    },
-    setStatus: function(status, handoverid_link){
-        var viewModel = this.getViewModel();
-        var params = new Object();
-        params.status = status;
-        params.handoverid_link = handoverid_link;
-        params.msgtype = "HANDOVER_SETSTATUS";
-        params.message = "Set status";
-
-        GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        Ext.Msg.show({
-                            title: 'Thông báo',
-                            msg: 'Lưu thành công',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
-                        viewModel.set('currentRec.status', 1);
-                        console.log(viewModel.get('currentRec'));
-                    }
-                    else {
-                        Ext.Msg.show({
-                            title: 'Lưu thất bại',
-                            msg: response.message,
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
-                    }
-
-                } else {
-                    Ext.Msg.show({
-                        title: 'Lưu thất bại',
-                        msg: null,
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-            })
     },
     loadHandoverProductOnPorderSelect: function(porderid_link){
         var viewModel = this.getViewModel();
@@ -561,5 +514,12 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                     }
                 }
             })
+    },
+    onPressEnterPordercode: function(textfield, e, eOpts){
+        var me = this;
+        if(e.getKey() == e.ENTER) {
+            // Ext.Msg.alert('Keys','You pressed the Enter key');
+            me.onBtnPlus();
+        }
     }
 })

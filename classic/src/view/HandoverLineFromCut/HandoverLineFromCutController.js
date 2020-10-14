@@ -1,17 +1,17 @@
-Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineController', {
+Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutTolineController',
+    alias: 'controller.HandoverLineFromCutController',
     init: function () {
         var m = this;
         var viewModel = this.getViewModel();
         var HandoverStore = viewModel.getStore('HandoverStore');
-        HandoverStore.loadStoreByType(1, 1); // type, in_out
+        HandoverStore.loadStoreByType(1, 0); // type, in_out
     },
     control: {
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
-        '#handover_cut_toline': {
+        '#handover_line_fromcut': {
             itemdblclick: 'onCapNhatdbl'
         }
     },
@@ -24,16 +24,16 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineController', {
     // },
     onThemMoi: function (m, record) {
         // this.redirectTo("handover_cut_toline/" + 0 + "/edit");
-        this.redirectTo("handover_cut_toline/" + 0 + "/edit");
+        this.redirectTo("handover_line_fromcut/" + 0 + "/edit");
     },
     onCapNhatdbl: function (m, record, item, index, e, eOpts) {
         var id = record.data.id;
-        this.redirectTo("handover_cut_toline/" + id + "/edit");
+        this.redirectTo("handover_line_fromcut/" + id + "/edit");
     },
     onCapNhat: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        this.redirectTo("handover_cut_toline/" + id + "/edit");
+        this.redirectTo("handover_line_fromcut/" + id + "/edit");
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this;
