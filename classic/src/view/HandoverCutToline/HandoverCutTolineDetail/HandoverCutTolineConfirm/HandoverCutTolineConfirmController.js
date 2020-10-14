@@ -71,25 +71,25 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirmController'
         var viewModel = this.getViewModel();
         var handoverid_link = viewModel.get('handoverid_link');
         var status = 0;
-        var handover_userid_link = 0;
+        var approver_userid_link = 0;
         var receiver_userid_link = 0;
         if(viewModel.get('isOut')) {
             status = 1;
-            handover_userid_link = userid_link;
+            approver_userid_link = userid_link;
         }
         if(viewModel.get('isIn')) {
             status = 2;
             receiver_userid_link = userid_link;
         }
-        m.setStatus(status, handoverid_link, handover_userid_link, receiver_userid_link);
+        m.setStatus(status, handoverid_link, approver_userid_link, receiver_userid_link);
     },
-    setStatus: function(status, handoverid_link, handover_userid_link, receiver_userid_link){
+    setStatus: function(status, handoverid_link, approver_userid_link, receiver_userid_link){
         var m = this;
         var viewModel = this.getViewModel();
         var params = new Object();
         params.status = status;
         params.handoverid_link = handoverid_link;
-        params.handover_userid_link = handover_userid_link;
+        params.approver_userid_link = approver_userid_link;
         params.receiver_userid_link = receiver_userid_link;
         params.msgtype = "HANDOVER_SETSTATUS";
         params.message = "Set status";
@@ -101,7 +101,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirmController'
                     if (response.respcode == 200) {
                         Ext.Msg.show({
                             title: 'Thông báo',
-                            msg: 'Xác nhận thành công',
+                            msg: 'Xác thực thành công',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
@@ -111,8 +111,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirmController'
                         var mainView;
                         if(viewModel.get('isOut')) mainView = Ext.getCmp('handover_cut_toline_edit');
                         if(viewModel.get('isIn')) mainView = Ext.getCmp('handover_line_fromcut_edit');
-                        if(handover_userid_link != 0)
-                            mainView.getViewModel().set('currentRec.handover_userid_link', handover_userid_link);
+                        if(approver_userid_link != 0)
+                            mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
                         if(receiver_userid_link != 0)
                             mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
                         mainView.getViewModel().set('currentRec.status', status);
@@ -121,7 +121,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirmController'
                     }
                     else {
                         Ext.Msg.show({
-                            title: 'Xác nhận thất bại',
+                            title: 'Xác thực thất bại',
                             msg: response.message,
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
@@ -132,7 +132,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineConfirmController'
 
                 } else {
                     Ext.Msg.show({
-                        title: 'Xác nhận thất bại',
+                        title: 'Xác thực thất bại',
                         msg: null,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {

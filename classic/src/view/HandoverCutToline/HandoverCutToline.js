@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
     }, {
         text: 'Số phiếu',
         dataIndex: 'handover_code',
-        width: 120,
+        width: 150,
     },
     {
         text: 'Ngày xuất',

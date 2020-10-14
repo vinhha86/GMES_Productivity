@@ -259,7 +259,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
         viewModel.set('currentRec.handovertypeid_link', 1);
-        // viewModel.set('currentRec.handover_userid_link', session.id);
+        viewModel.set('currentRec.handover_userid_link', session.id);
         viewModel.set('currentRec.handover_date', new Date());
         // viewModel.set('currentRec.orgid_from_link', session.orgid_link);
 

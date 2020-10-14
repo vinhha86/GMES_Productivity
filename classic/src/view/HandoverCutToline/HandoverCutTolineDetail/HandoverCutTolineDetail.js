@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
             border: false
         },{
             xtype:'button',
-            text: 'Người giao xác thực',
+            text: 'Người xuất xác thực',
             margin: 3,
             itemId:'btnHandover',
             iconCls: 'x-fa fa-check',
