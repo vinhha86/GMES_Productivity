@@ -49,16 +49,6 @@ Ext.define('GSmartApp.view.product.ProductDetailView', {
             itemId:'btnNPL',
             iconCls: 'x-fa fa-list'
         },{
-            flex:1,
-            border: false
-        },{
-            xtype:'button',
-            text: 'Lưu',
-            margin: 3,
-            itemId:'btnLuu',
-            iconCls: 'x-fa fa-save',
-            formBind: true
-        },{
             xtype:'button',
             text: 'Thoát',
             margin: 3,
@@ -67,6 +57,16 @@ Ext.define('GSmartApp.view.product.ProductDetailView', {
                 hidden: '{!isWindow}'
             },
             iconCls: 'x-fa fa-window-close'
+        },{
+            xtype:'button',
+            text: 'Lưu',
+            margin: 3,
+            itemId:'btnLuu',
+            iconCls: 'x-fa fa-save',
+            formBind: true
+        },{
+            flex:1,
+            border: false
         }]
     }]
 })

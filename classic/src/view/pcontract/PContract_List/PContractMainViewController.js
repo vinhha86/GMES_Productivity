@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var store = viewmodel.getStore('PContractStore');
         var d = new Date();
         var thisYear = d.getFullYear();
-        store.loadStore("", "", 0, 0, "", thisYear-1, thisYear);
+        store.loadStore("", "", 0, 0, "", thisYear-1, thisYear+1);
 
         this.onActivate();
         common.Check_Object_Permission();

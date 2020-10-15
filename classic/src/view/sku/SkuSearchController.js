@@ -622,67 +622,78 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         var viewmodel = this.getViewModel();
         var me = this;
         var xtype = '', title ='';
-        if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
-        {
-            xtype = 'ProductDetailView';
-            title = 'Thêm mới sản phẩm';
-        }
-        else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
-        {
-            xtype = 'MaterialDetailView';
-            title = 'Thêm mới nguyên liệu';
-        }
-        else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40)
-        {
-            xtype = 'SewingTrimDetailView';
-            title = 'Thêm mới phụ liệu may';
-        }
-        else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50)
-        {
-            xtype = 'PackingTrimDetailView';
-            title = 'Thêm mới phụ liệu hoàn thiện';
-        }
-        else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60)
-        {
-            xtype = 'SewingThreadDetailView';
-            title = 'Thêm mới chỉ may';
-        }
-    
-        var form = Ext.create('Ext.window.Window', {
-            height: 500,
-            closable: true,
-            title: title,
-            resizable: false,
-            modal: true,
-            border: false,
-            closeAction: 'destroy',
-            width: 1200,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
+        if (null != viewmodel.get('type') && viewmodel.get('type') > 0) {
+            if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
+            {
+                xtype = 'ProductDetailView';
+                title = 'Thêm mới sản phẩm';
+            }
+            else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
+            {
+                xtype = 'MaterialDetailView';
+                title = 'Thêm mới nguyên liệu';
+            }
+            else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40)
+            {
+                xtype = 'SewingTrimDetailView';
+                title = 'Thêm mới phụ liệu may';
+            }
+            else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50)
+            {
+                xtype = 'PackingTrimDetailView';
+                title = 'Thêm mới phụ liệu hoàn thiện';
+            }
+            else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60)
+            {
+                xtype = 'SewingThreadDetailView';
+                title = 'Thêm mới chỉ may';
+            }
+        
+            var form = Ext.create('Ext.window.Window', {
+                height: 500,
+                closable: true,
+                title: title,
+                resizable: false,
+                modal: true,
                 border: false,
-                xtype: xtype,
-                viewModel: {
-                    data: {
-                        btnQuayLai: true,
-                        isWindow: true,
-                        product: {
-                            producttypeid_link: viewmodel.get('type'),
-                            id: 0
+                closeAction: 'destroy',
+                width: 1200,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: xtype,
+                    viewModel: {
+                        data: {
+                            btnQuayLai: true,
+                            isWindow: true,
+                            product: {
+                                producttypeid_link: viewmodel.get('type'),
+                                id: 0
+                            }
                         }
                     }
-                }
-            }]
-        });
-        form.show();
+                }]
+            });
+            form.show();
 
-        form.down('#'+xtype).on('CreateProduct', function (product) {
-            me.onSearchButton();
-            // form.close();
-        })
+            form.down('#'+xtype).on('CreateProduct', function (product) {
+                me.onSearchButton();
+                // form.close();
+            })
+        } else {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: 'Bạn cần chọn phân loại sản phẩm/nguyên phụ liệu và bấm nút Tìm sản phẩm trước khi tạo mới',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
     },
 
     onEditProduct: function(grid, rec){

@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.main.Main', {
                     xtype: 'component',
                     reference: 'senchaLogo',
                     cls: 'sencha-logo',
-                    html: '<div class="main-logo"><img src="resources/images/icons/i8-factory.png">G-MES</div>',
+                    html: '<div class="main-logo"><img src="resources/images/icons/i8-factory.png">Quản lý SX (G-MES)</div>',
                     width: 250
                 },
                 {
