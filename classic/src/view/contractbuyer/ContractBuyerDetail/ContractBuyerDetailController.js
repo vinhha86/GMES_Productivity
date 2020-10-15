@@ -4,9 +4,9 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
     Id: 0,
     init: function () {
         var me = this.getView();
-        var viewmodel = me.getViewModel();
-        var EndBuyer = viewmodel.getStore('EndBuyer');
-        var Vendor = viewmodel.getStore('Vendor');
+        var viewModel = me.getViewModel();
+        var EndBuyer = viewModel.getStore('EndBuyer');
+        var Vendor = viewModel.getStore('Vendor');
         EndBuyer.loadStore(12);
         EndBuyer.sort('code','ASC');
         Vendor.loadStore(11);
@@ -108,8 +108,11 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
     Luu:function(thisBtn){
         var m = this;
         var viewModel = this.getViewModel();
-        var year = viewModel.get('currentRec.contract_year');
-        if(year < 2000 || year > 2100){
+        var contract_year = viewModel.get('currentRec.contract_year');
+        var contract_date = viewModel.get('currentRec.contract_date');
+        var contract_date_finish = viewModel.get('currentRec.contract_date_finish');
+
+        if(contract_year < 2000 || contract_year > 2100){
             Ext.Msg.show({
                 title: 'Lưu thất bại',
                 msg: 'Năm hợp đồng không hợp lệ',
@@ -120,6 +123,16 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
             });
             return;
         }
+
+        if(contract_date == null){
+            contract_date = new Date(contract_year, 0, 1); // var d = new Date(2018, 11, 24);
+            viewModel.set('currentRec.contract_date', contract_date);
+        }
+        if(contract_date_finish == null){
+            contract_date_finish = new Date(contract_year, 11, 31); // var d = new Date(2018, 11, 24);
+            viewModel.set('currentRec.contract_date_finish', contract_date_finish);
+        }
+        
         m.onLuu(thisBtn);
     },
     onQuayLai: function () {
@@ -128,26 +141,26 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
     onLoadData: function (id, type) {
         var me = this;
         var viewMain = Ext.getCmp('ContractBuyer');
-        var viewmodel = me.getViewModel();
-        viewmodel.set('id', id);
+        var viewModel = me.getViewModel();
+        viewModel.set('id', id);
         if (id == 0) {
-            viewmodel.set('currentRec', null);
+            viewModel.set('currentRec', null);
             me.getView().getForm().reset();
         }
         else {
             if(viewMain){
                 var data = viewMain.getStore().getById(id).data;
-                viewmodel.set('currentRec', data);
-                viewmodel.set('contract_code', data.contract_code);
+                viewModel.set('currentRec', data);
+                viewModel.set('contract_code', data.contract_code);
             }
             else{
-                me.loadInfo(id, viewmodel);
+                me.loadInfo(id, viewModel);
             }
         }
 
         me.Id = id;
     },
-    loadInfo: function(id, viewmodel ){
+    loadInfo: function(id, viewModel ){
         var params = new Object();
         params.id = id;
         GSmartApp.Ajax.post('/api/v1/contractbuyer/getone', Ext.JSON.encode(params),
@@ -155,18 +168,39 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     data = response.data;
-                    viewmodel.set('currentRec', data);
-                    viewmodel.set('contract_code', data.contract_code);
+                    viewModel.set('currentRec', data);
+                    viewModel.set('contract_code', data.contract_code);
 
-                    var contract_date = viewmodel.get('currentRec.contract_date');
-                    var contract_date_finish = viewmodel.get('currentRec.contract_date_finish');
+                    var contract_date = viewModel.get('currentRec.contract_date');
+                    var contract_date_finish = viewModel.get('currentRec.contract_date_finish');
                     var d = Ext.Date.parse(contract_date, 'c');
                     var d_finish = Ext.Date.parse(contract_date_finish, 'c');
                     if (null == d) d = new Date(contract_date);
                     if (null == d_finish) d_finish = new Date(contract_date_finish);
-                    viewmodel.set('currentRec.contract_date',d);
-                    viewmodel.set('currentRec.contract_date_finish',d_finish);
+                    viewModel.set('currentRec.contract_date',d);
+                    viewModel.set('currentRec.contract_date_finish',d_finish);
                 }
             })
+    },
+    onContractYearFocusLeave: function(textfield, event, eOpts){
+        var me = this;
+        var viewMain = Ext.getCmp('ContractBuyer');
+        var viewModel = me.getViewModel();
+        // console.log(textfield.getValue());
+        var contract_year = textfield.getValue();
+        var contract_date = viewModel.get('currentRec.contract_date');
+        var contract_date_finish = viewModel.get('currentRec.contract_date_finish');
+        if(contract_year < 2000 || contract_year > 2100){
+            textfield.setValue(new Date().getFullYear());
+            contract_year = new Date().getFullYear();
+        }
+        if(contract_date == null){
+            contract_date = new Date(contract_year, 0, 1); // var d = new Date(2018, 11, 24);
+            viewModel.set('currentRec.contract_date', contract_date);
+        }
+        if(contract_date_finish == null){
+            contract_date_finish = new Date(contract_year, 11, 31); // var d = new Date(2018, 11, 24);
+            viewModel.set('currentRec.contract_date_finish', contract_date_finish);
+        }
     }
 })

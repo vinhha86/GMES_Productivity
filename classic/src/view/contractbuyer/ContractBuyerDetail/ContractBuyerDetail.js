@@ -23,12 +23,12 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         },
         width: 400,
         itemId: 'contract_code',
-        labelWidth: 105
+        labelWidth: 120
     },{
         xtype:'textfield',
         margin: 5,
-        fieldLabel: 'Năm hợp đồng',
-        allowBlank: true,
+        fieldLabel: 'Năm hợp đồng ('+ '<span style="color:red">*</span>' + ')',
+        allowBlank: false,
         maskRe: /[0-9]/,
         maxLength: 4,
         maxLengthText: 'Tối đa 4 ký tự',
@@ -37,7 +37,10 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         },
         width: 400,
         itemId: 'contract_year',
-        labelWidth: 105
+        labelWidth: 120,
+        listeners: {
+            focusleave: 'onContractYearFocusLeave'
+        }
     },{
         xtype:'datefield',
         margin: 5,
@@ -51,7 +54,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         // value: new Date(),
         width: 400,
         itemId: 'contract_date',
-        labelWidth: 105
+        labelWidth: 120
     },{
         xtype:'datefield',
         margin: 5,
@@ -65,7 +68,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         // value: new Date(),
         width: 400,
         itemId: 'contract_date_finish',
-        labelWidth: 105
+        labelWidth: 120
     },{
         xtype: 'combobox',
         margin: 5,
@@ -79,7 +82,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         queryMode: 'local',
         // editable: false,
         width:400,
-        labelWidth: 105,
+        labelWidth: 120,
     },{
         xtype: 'combobox',
         margin: 5,
@@ -93,7 +96,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         queryMode: 'local',
         // editable: false,
         width:400,
-        labelWidth: 105,
+        labelWidth: 120,
     },{
         xtype:'textarea',
         margin: 5,
@@ -108,7 +111,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         maxLengthText: 'Tối đa 1000 ký tự',
         width: 400,
         height: 200,
-        labelWidth: 105
+        labelWidth: 120
     }],
     dockedItems:[{
         layout:'hbox',
