@@ -108,6 +108,22 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
+    },
+    {
+        text: 'Trạng thái',
+        dataIndex: 'status',
+        width: 120,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            var valueStr = '';
+            switch(value){
+                case 0: valueStr = 'Chưa duyệt'; break;
+                case 1: valueStr = 'Đã duyệt'; break;
+                case 2: valueStr = 'Đã nhận'; break;
+                default: valueStr = ''; break;
+            }
+            metaData.tdAttr = 'data-qtip="' + valueStr + '"';
+            return valueStr;
+        }
     }],
     dockedItems: [{
         dock: 'top',
@@ -189,40 +205,64 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
         //     itemId: 'btnTimKiem'
         }]
     }, {
-        // dock: 'bottom',
-        // layout: 'hbox',
-        // xtype: 'toolbar',
-        // border: false,
-        // cls: 'botToolbar',
-        // items: [{
-        //     xtype: 'textfield',
-        //     value: 25,
-        //     itemId: 'limitpage',
-        //     maskRe: /[0-9]/,
-        //     width: 180,
-        //     selectOnFocus: true,
-        //     margin: 5,
-        //     fieldLabel: 'Số bản ghi/ Trang',
-        //     labelWidth: 120
-        // }, '-', {
-        //     xtype: 'pagingtoolbar',
-        //     displayInfo: true,
-        //     flex: 1,
-        //     nextText: 'Trang tiếp',
-        //     prevText: 'Trang trước',
-        //     afterPageText: '/ {0}',
-        //     beforePageText: 'Trang',
-        //     itemId: 'page',
-        //     refreshText: 'Làm mới dữ liệu',
+        dock: 'bottom',
+        layout: 'vbox',
+        border: false,
+        items: [{
+            layout: 'hbox',
+            border: false,
+            items: [{
+                html: '<div class="color-box">'
+                +'<div class="color-square status0"></div>&nbspChưa duyệt'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square status1"></div>&nbspĐã duyệt'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square status2"></div>&nbspĐã nhận'
+                +'</div>',
+                margin: '5'
+            }]
+        // }, 
+        // {
+        //     layout: 'hbox',
+        //     xtype: 'toolbar',
         //     border: false,
-        //     bind: {
-        //         store: '{ContractBuyerStore}'
-        //     },
-        //     emptyMsg: 'Không có kết quả tìm kiếm',
-        //     lastText: 'Trang cuối',
-        //     firstText: 'Trang đầu',
-        //     displayMsg: 'Hiển thị {0} - {1} của {2}'
-        // }]
+        //     cls: 'botToolbar',
+        //     items: [{
+        //         xtype: 'textfield',
+        //         value: 25,
+        //         itemId: 'limitpage',
+        //         maskRe: /[0-9]/,
+        //         width: 180,
+        //         selectOnFocus: true,
+        //         margin: 5,
+        //         fieldLabel: 'Số bản ghi/ Trang',
+        //         labelWidth: 120
+        //     }, '-', {
+        //         xtype: 'pagingtoolbar',
+        //         displayInfo: true,
+        //         flex: 1,
+        //         nextText: 'Trang tiếp',
+        //         prevText: 'Trang trước',
+        //         afterPageText: '/ {0}',
+        //         beforePageText: 'Trang',
+        //         itemId: 'page',
+        //         refreshText: 'Làm mới dữ liệu',
+        //         border: false,
+        //         bind: {
+        //             store: '{ContractBuyerStore}'
+        //         },
+        //         emptyMsg: 'Không có kết quả tìm kiếm',
+        //         lastText: 'Trang cuối',
+        //         firstText: 'Trang đầu',
+        //         displayMsg: 'Hiển thị {0} - {1} của {2}'
+        //     }]
+        }]
     }]
 });
 
