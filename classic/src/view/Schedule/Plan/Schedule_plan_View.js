@@ -121,8 +121,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 '<li>Kết thúc: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
                 '<li>Số ngày SX: {duration}</li>',
                 '<li>NS Target: {[Ext.util.Format.number(values.productivity_po, "0,000")]}</li>',
-                '<li>NS Xưởng: {[Ext.util.Format.number(values.productivity_porder, "0,000")]}</li>',                
-                '<li>NS Tổ: {[Ext.util.Format.number(values.productivity, "0,000")]}</li>',
+                '<li>NS tổ: {[Ext.util.Format.number(values.productivity_porder, "0,000")]}</li>',                
+                '<li>NS Xưởng: {[Ext.util.Format.number(values.productivity, "0,000")]}</li>',
                 '</ul>'
             ),
             eventRenderer: function (flight, resource, meta) {

@@ -176,7 +176,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             enforceMaxLength: true,
                             maxLength: 9,
                             bind: {
-                                value: '{po.plan_productivity}'
+                                value: '{pcontract_po_productivity.plan_productivity}'
                             },
                             listeners: {
                                 focusleave: 'onProductivityChange'
@@ -337,7 +337,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             fieldLabel: 'Số chuyền',
                             readOnly: true,
                             bind : {
-                                value: '{po.plan_linerequired}'
+                                value: '{pcontract_po_productivity.plan_linerequired}'
                             }
                         }
                     ]

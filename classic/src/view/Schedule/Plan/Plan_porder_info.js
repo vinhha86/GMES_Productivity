@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
         },{
             xtype: 'textfield',
             margin: 5,
-            fieldLabel: 'Năng suất',
+            fieldLabel: 'NS Xưởng',
             itemId: 'productivity',
             enableKeyEvents: true,
             maskRe: /[0-9.]/,
