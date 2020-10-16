@@ -42,35 +42,35 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
      },
     columns: [
         { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'poBuyerFilterField',
-            width: '99%',
-            margin: 1,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onPoBuyerFilterKeyup',
-                buffer: 500
-            }
-        },
+        // items: {
+        //     xtype: 'textfield',
+        //     fieldStyle: "",
+        //     reference: 'poBuyerFilterField',
+        //     width: '99%',
+        //     margin: 1,
+        //     enableKeyEvents: true,
+        //     listeners: {
+        //         keyup: 'onPoBuyerFilterKeyup',
+        //         buffer: 500
+        //     }
+        // },
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
         { header: 'Mã SP (Buyer)', dataIndex: 'product_code', flex: 1,
-            items: {
-                xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'codeFilterField',
-                width: '99%',
-                margin: 1,
-                enableKeyEvents: true,
-                listeners: {
-                    keyup: 'onCodeFilterKeyup',
-                    buffer: 500
-                }
-            },
+            // items: {
+            //     xtype: 'textfield',
+            //     fieldStyle: "",
+            //     reference: 'codeFilterField',
+            //     width: '99%',
+            //     margin: 1,
+            //     enableKeyEvents: true,
+            //     listeners: {
+            //         keyup: 'onCodeFilterKeyup',
+            //         buffer: 500
+            //     }
+            // },
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
