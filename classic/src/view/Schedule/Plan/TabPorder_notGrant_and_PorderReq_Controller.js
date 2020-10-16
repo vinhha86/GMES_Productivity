@@ -5,8 +5,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrderUnGranted');
         var store_req = viewmodel.getStore('Porder_Req_Store');
+        var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
         store.getSorters().add('productiondate');
         store_req.getSorters().add('po_Productiondate');
+        Porder_Req_Granted_Store.getSorters().add('po_Productiondate');
     },
     onSearchTap: function () {
         var viewmodel = this.getViewModel();
@@ -145,7 +147,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
         Porder_Req_Granted_Store.load_reqGranted();
     },
-    onDeleteReqGranted: function () {
+    onDeleteReqGranted: function (btn, e, eOpts) {
+        // console.log(btn);
+        var isDeleteReq = false;
+        if(btn.itemId == 'btnDeleteReqAndReqGranted') isDeleteReq = true;
+        if(btn.itemId == 'btnDeleteReqGranted') isDeleteReq = false;
+
         var m = Ext.getCmp('Porder_Req_Granted');
         var me = this;
         var data = [];
@@ -175,17 +182,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             },
             fn: function (btn) {
                 if (btn === 'yes') {
-                    me.deleteReqGranted(data);
+                    me.deleteReqGranted(data, isDeleteReq);
                 }
             }
         });
     },
-    deleteReqGranted: function (data) {
+    deleteReqGranted: function (data, isDeleteReq) {
         var m = this;
         var me = Ext.getCmp('Porder_Req_Granted');
         me.setLoading("Đang xóa dữ liệu");
         var params = new Object();
         params.data = data;
+        params.isDeleteReq = isDeleteReq;
 
         GSmartApp.Ajax.post('/api/v1/porder_req/deleteReqGranted', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -214,6 +222,50 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                 }
                 me.setLoading(false);
             })
+    },
+    onCodeReqGrantedFilterKeyup: function () {
+        var grid = Ext.getCmp('Porder_Req_Granted');
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Granted_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('codeReqGrantedFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.codeReqGrantedFilter = filters.add({
+                id: 'codeReqGrantedFilter',
+                property: 'product_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeReqGrantedFilter) {
+            filters.remove(this.codeReqGrantedFilter);
+            this.codeReqGrantedFilter = null;
+        }
+    },
+    onPoBuyerReqGrantedFilterKeyup: function () {
+        var grid = Ext.getCmp('Porder_Req_Granted');
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Granted_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('poBuyerReqGrantedFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.poBuyerReqGrantedFilter = filters.add({
+                id: 'poBuyerReqGrantedFilter',
+                property: 'po_buyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.poBuyerReqGrantedFilter) {
+            filters.remove(this.poBuyerReqGrantedFilter);
+            this.poBuyerReqGrantedFilter = null;
+        }
     },
     //
 })

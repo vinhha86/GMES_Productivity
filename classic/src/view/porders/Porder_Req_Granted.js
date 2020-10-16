@@ -42,37 +42,38 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
      },
     columns: [
         { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
-        // items: {
-        //     xtype: 'textfield',
-        //     fieldStyle: "",
-        //     reference: 'poBuyerFilterField',
-        //     width: '99%',
-        //     margin: 1,
-        //     enableKeyEvents: true,
-        //     listeners: {
-        //         keyup: 'onPoBuyerFilterKeyup',
-        //         buffer: 500
-        //     }
-        // },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'poBuyerReqGrantedFilterField',
+            width: '99%',
+            margin: 1,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPoBuyerReqGrantedFilterKeyup',
+                buffer: 500
+            }
+        },
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
         { header: 'Mã SP (Buyer)', dataIndex: 'product_code', flex: 1,
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'codeFilterField',
-            //     width: '99%',
-            //     margin: 1,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onCodeFilterKeyup',
-            //         buffer: 500
-            //     }
-            // },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'codeReqGrantedFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onCodeReqGrantedFilterKeyup',
+                    buffer: 500
+                }
+            },
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
+                metaData.tdCls =  'greenbox';
                 return value;
             },
             summaryType: 'count',
@@ -96,7 +97,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
             },
             width: 70
         },
-        { header: 'Yêu cầu xếp kế hoạch', headerWrap: true, dataIndex: 'plandate_required', 
+        { header: 'Ngày cần xếp xong', headerWrap: true, dataIndex: 'plandate_required', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');
@@ -128,7 +129,20 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
                 handler: 'onHiddenListReq'
             },
             { 
-                tooltip: 'Xoá lệnh ướm',
+                tooltip: 'Xóa xếp kế hoạch',
+                xtype: 'button',
+                itemId: 'btnDeleteReqGranted',
+                text: 'Xóa xếp kế hoạch',
+                iconCls: 'x-fa fa-trash',
+                weight: 30,
+                handler: 'onDeleteReqGranted'
+            },
+
+            { 
+                tooltip: 'Xóa yêu cầu',
+                xtype: 'button',
+                itemId: 'btnDeleteReqAndReqGranted',
+                text: 'Xóa yêu cầu',
                 iconCls: 'x-fa fa-trash',
                 weight: 30,
                 handler: 'onDeleteReqGranted'

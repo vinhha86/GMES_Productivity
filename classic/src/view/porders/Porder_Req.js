@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             },
             width: 70
         },
-        { header: 'Yêu cầu xếp kế hoạch', headerWrap: true, dataIndex: 'plandate_required', 
+        { header: 'Ngày cần xếp xong', headerWrap: true, dataIndex: 'plandate_required', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');
