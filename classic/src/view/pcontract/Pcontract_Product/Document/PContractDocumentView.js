@@ -81,6 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentView', {
             buttonOnly: true,
             itemId: 'btnFile',
             tooltip:'Upload File',
+            multiple: true,
             hidden: true,
             margin: 1
         },{
