@@ -328,17 +328,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var productid_link = viewmodel.get('product_selected_id_link');
         var po = viewmodel.get('po');
         
-       if(po.id != null){
-           var data = new Object();
-        for(var i=0; i<po.pcontract_po_productivity.length; i++){
-            if(po.pcontract_po_productivity[i].productid_link == productid_link){
-                data = po.pcontract_po_productivity[i];
-                break;
+        var data = new Object();
+        if (po.pcontract_po_productivity != null) {
+           
+            for (var i = 0; i < po.pcontract_po_productivity.length; i++) {
+                if (po.pcontract_po_productivity[i].productid_link == productid_link) {
+                    data = po.pcontract_po_productivity[i];
+                    break;
+                }
             }
+            viewmodel.set('pcontract_po_productivity', data);
         }
-        viewmodel.set('pcontract_po_productivity',data);
-       }
-        
     },
     // onSewCostChange: function (sender, newValue, oldValue, eOpts) {
     //     var viewmodel = this.getViewModel();

@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var productivity = po_productivity.plan_productivity == null ? 0 : parseFloat(po_productivity.plan_productivity.toString().replace(/,/gi,''));
         var productiondays = po_data.productiondays;
 
-        if(productiondays < 0 || productivity == 0){
+        if(productiondays <= 0 || productivity == 0){
             viewmodel.set('pcontract_po_productivity.plan_linerequired', 0);
         }
         else {
@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
             if(po_data.pcontract_po_productivity[i].productid_link == productid_link){
                 data = po_data.pcontract_po_productivity[i];
                 data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
-                data.plan_productivity = viewmodel.get('pcontract_po_productivity.plan_productivity');
+                data.plan_productivity = productivity;
 
                 break;
             }
@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
 
         if(data.productid_link == null){
             data.productid_link = productid_link;
-            data.plan_productivity = viewmodel.get('pcontract_po_productivity.plan_productivity');
+            data.plan_productivity = productivity;
             data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
 
             po_data.pcontract_po_productivity.push(data);
