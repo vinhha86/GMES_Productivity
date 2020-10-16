@@ -33,6 +33,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
         },
         Porder_Req_Store: {
             type: 'POrder_Req'
+        },
+        Porder_Req_Granted_Store: {
+            type: 'POrder_Req'
         }
     }
 })

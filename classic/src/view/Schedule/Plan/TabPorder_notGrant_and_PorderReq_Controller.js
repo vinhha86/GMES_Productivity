@@ -137,5 +137,83 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     onHiddenListReq: function () {
         var filter = Ext.getCmp('FilterBar').getController();
         filter.onGrantToOrgTap();
-    }
+    },
+
+    // tab Yêu cầu đã xếp
+    onSearchPorderReqGranted: function () {
+        var viewmodel = this.getViewModel();
+        var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
+        Porder_Req_Granted_Store.load_reqGranted();
+    },
+    onDeleteReqGranted: function () {
+        var m = Ext.getCmp('Porder_Req_Granted');
+        var me = this;
+        var data = [];
+        var select = m.getSelectionModel().getSelection();
+        if(select.length == 0){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Phải chọn ít nhất một yêu cầu",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        for (var i = 0; i < select.length; i++) {
+            data.push({'id': select[i].data.id});
+        }
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    me.deleteReqGranted(data);
+                }
+            }
+        });
+    },
+    deleteReqGranted: function (data) {
+        var m = this;
+        var me = Ext.getCmp('Porder_Req_Granted');
+        me.setLoading("Đang xóa dữ liệu");
+        var params = new Object();
+        params.data = data;
+
+        GSmartApp.Ajax.post('/api/v1/porder_req/deleteReqGranted', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Xóa thành công",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    m.onSearchPorderReq();
+                    m.onSearchPorderReqGranted();
+                    var panel = Ext.getCmp('FilterBar').getController();
+                    panel.onSearch();
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Xóa thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+    },
+    //
 })

@@ -9,5 +9,8 @@ Ext.define('GSmartApp.view.Schuedule.Plan.TabPorder_notGrant_and_PorderReq', {
     },{
         title: 'Yêu cầu xếp kế hoạch',
         xtype: 'Porder_Req'
+    },{
+        title: 'Yêu cầu đã xếp',
+        xtype: 'Porder_Req_Granted'
     }]
 })

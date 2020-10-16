@@ -48,6 +48,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
                 var store_req = viewmodel.getStore('Porder_Req_Store');
                 store_req.load_byOrg();
 
+                var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
+                Porder_Req_Granted_Store.load_reqGranted();
+
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }

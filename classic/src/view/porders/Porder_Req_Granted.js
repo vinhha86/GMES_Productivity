@@ -1,41 +1,44 @@
-Ext.define('GSmartApp.view.porders.Porder_Req', {
+Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Porder_Req',
-    id: 'Porder_Req',
+    xtype: 'Porder_Req_Granted',
+    id: 'Porder_Req_Granted',
     requires: [
         'Ext.Number',
         'Ext.Date'
     ],
     bind:{
-        store:'{Porder_Req_Store}'
+        store:'{Porder_Req_Granted_Store}'
     },
     columnLines: true,
     //multiSelect: true,
-    selModel: 'rowmodel',
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     features: [{
         ftype: 'grouping',
         groupHeaderTpl: '<b>{name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
-    },{
-        ftype: 'summary',
-        dock: 'bottom'
+    // },{
+    //     ftype: 'summary',
+    //     dock: 'bottom'
     }], 
     viewConfig: {
         stripeRows: false,
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            enableDrag: true,
-            id: 'Porder_Req_Event',
-            copy: false,
-            dragText: '{0} Phân chuyền',
-            dragGroup: 'porderFreeDropGroup',
-            dropGroup: 'porderGanttDropGroup'
-        },
-        listeners: {
-            drop: 'onDrop',
-            beforedrop: 'onBeforeDrop'
-        }        
+        // plugins: {
+        //     ptype: 'gridviewdragdrop',
+        //     enableDrag: true,
+        //     id: 'Porder_Req_Event',
+        //     copy: false,
+        //     dragText: '{0} Phân chuyền',
+        //     dragGroup: 'porderFreeDropGroup',
+        //     dropGroup: 'porderGanttDropGroup'
+        // },
+        // listeners: {
+        //     drop: 'onDrop',
+        //     beforedrop: 'onBeforeDrop'
+        // }        
      },
     columns: [
         { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
@@ -116,13 +119,19 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                 tooltip: 'Làm mới danh sách',
                 iconCls: 'x-fa fa-refresh',
                 weight: 30,
-                handler: 'onSearchPorderReq'
+                handler: 'onSearchPorderReqGranted'
             },
             {
                 tooltip: 'Ẩn danh sách',
                 iconCls: 'x-fa fa-eye',
                 weight: 30,
                 handler: 'onHiddenListReq'
+            },
+            { 
+                tooltip: 'Xoá lệnh ướm',
+                iconCls: 'x-fa fa-trash',
+                weight: 30,
+                handler: 'onDeleteReqGranted'
             }
     ]
     }]
