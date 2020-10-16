@@ -176,7 +176,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         var viewModel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
-            closable: true,
+            closable: false,
             resizable: false,
             modal: true,
             border: false,
@@ -208,6 +208,43 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             if (null != storePO) storePO.load();
             form.close();
         });
+    },
+    onCancel_PO: function (rec) {
+        var params = new Object();
+        var viewmodel = this.getViewModel();
+        params.pcontract_poid_link = rec.get('id');
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/check_cancel', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                var mes = response.mes;
+                if (mes == null || mes == "") {
+                    mes = "Bạn có chắc chắn muốn hủy PO?"
+                }
+
+                Ext.Msg.confirm('Đơn hàng', mes,
+                    function (choice) {
+                        if (choice === 'yes') {
+                            GSmartApp.Ajax.post('/api/v1/pcontract_po/cancel_po', Ext.JSON.encode(params),
+                                function (success, response, options) {
+                                    var response = Ext.decode(response.responseText);
+                                    if (success) {
+                                        var storePO = viewmodel.getStore('PContractProductPOStore');
+                                        storePO.load();
+                                    } else {
+                                        Ext.MessageBox.show({
+                                            title: "Chào giá",
+                                            msg: response.message,
+                                            buttons: Ext.MessageBox.YES,
+                                            buttonText: {
+                                                yes: 'Đóng',
+                                            }
+                                        });
+                                    }
+                                });
+                        }
+                    });
+            });
     },
     onAccept: function (rec) {
         // var rec = grid.getStore().getAt(rowIndex);
@@ -494,7 +531,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     }
                 },
                 {
-                    text: 'Chốt đơn hàng',
+                    text: 'Chốt chào giá',
                     itemId: 'btnConfirmPO_PContract_PO_List',
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-check violetIcon',
@@ -503,7 +540,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         var record = this.parentMenu.record;
                         me.onAccept(record);
                     }
-                },
+                }
                 // {
                 //     // text: 'Thêm đơn hàng con',
                 //     // itemId: 'btnSubPO_PContract_PO_List',
@@ -543,37 +580,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             viewModel: {},
             items: [
                 {
-                    text: 'Sửa đơn hàng con',
-                    itemId: 'btnEditSubPO_PContract_PO_List',
-                    separator: true,
+                    text: 'Hủy PO',
+                    itemId: 'btnPausePO_PContract_PO_List',
                     margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-pencil greenIcon',
+                    iconCls: 'x-fa fas fa-ban violetIcon',
+                    // hidden: ishidden_accept,
                     handler: function () {
                         var record = this.parentMenu.record;
-                        me.onPOInfoEdit(record);
+                        me.onCancel_PO(record);
                     }
-                },
-                {
-                    text: 'Xóa đơn hàng con',
-                    itemId: 'btnDeleteSubPO_PContract_PO_List',
-                    separator: true,
-                    margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-trash redIcon',
-                    handler: function () {
-                        var record = this.parentMenu.record;
-                        me.onXoa(record);
-                    }
-                },
-                // {
-                //     text: 'Thêm KH giao hàng',
-                //     itemId: 'btnAddShipping_PContract_PO_List',
-                //     margin: '10 0 0',
-                //     iconCls: 'x-fa fas fa-ship greenIcon',
-                //     handler: function(){
-                //         var record = this.parentMenu.record;
-                //         me.onAdd_Shipping(record);
-                //     }
-                // }
+                }
             ]
         });
         // HERE IS THE MAIN CHANGE

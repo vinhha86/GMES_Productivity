@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POListController',
-    onPOBuyerFilterKeyup:function(){
+    onPOBuyerFilterKeyup: function () {
         var grid = this.getView(),
             filterField = this.lookupReference('POBuyerFilter'),
             filters = this.getView().store.getFilters();
@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             this.POBuyerFilter = null;
         }
     },
-    onThemPO: function(){
+    onThemPO: function () {
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -49,42 +49,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 }
             }]
         });
-        form.show();    
+        form.show();
 
-        form.down('#InsertPO_Main').down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function(){
+        form.down('#InsertPO_Main').down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
             var storePO = viewmodel.getStore('PContractPOList');
             storePO.load();
             form.close();
         })
     },
-    onXoaPO: function(rec){
+    onXoaPO: function (rec) {
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
                     var PContractPOList = viewmodel.getStore('PContractPOList');
-                    var params=new Object();
+                    var params = new Object();
                     params.id = rec.data.id;
                     GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        var response = Ext.decode(response.responseText);
-                        if (success) {
-                            PContractPOList.reload();
-                        } else {
-                            Ext.MessageBox.show({
-                                title: "Kế hoạch giao hàng",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
-                    }); 
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                PContractPOList.reload();
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Kế hoạch giao hàng",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        });
                 }
-            } );    
+            });
     },
-    onEdit: function(rec){
+    onEdit: function (rec) {
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -112,9 +112,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 }
             }]
         });
-        form.show();        
+        form.show();
 
-        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function(){
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
             var storePO = viewModel.getStore('PContractPOList');
             storePO.load();
 
@@ -124,7 +124,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             form.close();
         })
     },
-    onFOBPO: function(rec){
+    onFOBPO: function (rec) {
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -161,46 +161,57 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             minWidth: 150,
             viewModel: {},
             items: [
-            {
-                text: 'Sửa PO',
-                itemId: 'btnEditPO_PContract_POList',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-pencil brownIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onEdit(record);
+                {
+                    text: 'Sửa PO',
+                    itemId: 'btnEditPO_PContract_POList',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-pencil brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onEdit(record);
+                    },
                 },
-            }, 
-            {
-                text: 'Xóa PO',
-                itemId: 'btnDelPO_PContract_POList',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-trash redIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onXoaPO(record);
+                {
+                    text: 'Xóa PO',
+                    itemId: 'btnDelPO_PContract_POList',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onXoaPO(record);
+                    }
+                },
+                // {
+                //     text: 'Hủy PO',
+                //     itemId: 'btnPausePO_PContract_PO_List',
+                //     margin: '10 0 0',
+                //     iconCls: 'x-fa fas fa-stop violetIcon',
+                //     // hidden: ishidden_accept,
+                //     handler: function () {
+                //         // var record = this.parentMenu.record;
+                //         // me.onAccept(record);
+                //     }
+                // },
+                {
+                    text: 'Chi tiết FOB',
+                    itemId: 'btnDetailFOB_PContract_POList',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-book greenIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onFOBPO(record);
+                    }
                 }
-            },
-            {
-                text: 'Chi tiết FOB',
-                itemId: 'btnDetailFOB_PContract_POList',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-book greenIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onFOBPO(record);
-                }
-            }
-        ]
+            ]
         });
         // HERE IS THE MAIN CHANGE
-        var position = [e.getX()-10, e.getY()-10];
+        var position = [e.getX() - 10, e.getY() - 10];
         e.stopEvent();
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
-    },        
+    },
 })

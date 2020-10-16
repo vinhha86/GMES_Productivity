@@ -158,9 +158,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     // title: 'Danh sách hàng xuất'
 				},
                 columns:[{
+                    xtype: 'actioncolumn',
+                    width: 28,
+                    menuDisabled: true,
+                    sortable: false,
+                    align: 'center',
+                    items: [
+                        {
+                            iconCls: 'x-fa fas fa-bars violetIcon',
+                            handler: 'onMenu_SubPO'
+                        }
+                    ]
+                },{
                     text:'PO Buyer',
                     dataIndex:'po_buyer',
-                    width: 110
+                    width: 110,
+                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                        if (record.data.status == 0) {
+                            metaData.tdCls =  "po_accept";
+                        }
+                        else if (record.data.status == -3){
+                            metaData.tdCls =  "po_cancel";
+                            metaData.tdAttr = 'data-qtip="PO đã hủy"';
+                        }            
+                        return value;
+                    }
                 },{
                     text:'PO Vendor',
                     dataIndex:'po_vendor',
