@@ -6,6 +6,12 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutViewModel', {
         HandoverStore: {
             type: 'HandoverStore'
         },
+        ListOrgStoreFrom: {
+            type: 'ListOrgStore'
+        },
+        ListOrgStoreTo: {
+            type: 'ListOrgStore'
+        },
     },
     data: {
         

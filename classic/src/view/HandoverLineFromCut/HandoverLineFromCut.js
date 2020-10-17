@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCut', {
     },
     {
         text: 'Nơi giao',
-        dataIndex: 'orgFromName',
+        dataIndex: 'orgFromNameParent',
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCut', {
     },
     {
         text: 'Nơi nhận',
-        dataIndex: 'orgToName',
+        dataIndex: 'orgToNameParent',
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -102,120 +102,140 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCut', {
             return Ext.util.Format.number(value, '0,000');;
         }
     }],
-    // dockedItems: [{
-    //     dock: 'top',
-    //     xtype: 'toolbar',
-    //     border: false,
-    //     items: [{
-            // xtype: 'button',
-            // margin: '5 1 5 1',
-            // text: 'Thêm mới',
-            // width: 105,
-            // iconCls: 'x-fa fa-plus',
-            // itemId: 'btnThemMoi',
-        // },{
-        //     xtype:'textfield',
-        //     labelWidth: 0,
-        //     margin: '5 1 5 0',
-        //     emptyText: "Mã hợp đồng",
-        //     itemId: 'contract_code',
-        //     width: 120
-        // },{
-        //     xtype: 'combo',
-        //     labelWidth: 0,
-        //     emptyText:'Năm',
-        //     bind: {
-        //         store : '{ContractBuyerYearsStore}'
-        //     },
-        //     valueField: 'contract_year',
-        //     displayField: 'contract_year',
-        //     itemId: 'contract_year',
-        //     margin: '5 1 5 0',
-        //     width: 100
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        border: false,
+        items: [{
+            xtype: 'button',
+            margin: '5 1 5 1',
+            text: 'Thêm mới',
+            width: 105,
+            iconCls: 'x-fa fa-plus',
+            itemId: 'btnThemMoi',
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            margin: '5 1 5 0',
+            emptyText: "Mã lệnh",
+            itemId: 'ordercode',
+            width: 120
         // },{
         //     xtype: 'datefield',
         //     labelWidth: 0,
-        //     emptyText:'Từ ngày',
-        //     itemId: 'contract_datefrom',
-        //     reference: 'contract_datefrom',
+        //     emptyText:'Xuát từ',
+        //     itemId: 'handover_datefrom',
+        //     reference: 'handover_datefrom',
         //     margin: '5 1 5 0',
         //     width: 130
         // },{
         //     xtype: 'datefield',
         //     labelWidth: 0,
-        //     emptyText:'Đến ngày',
-        //     itemId: 'contract_dateto',
-        //     reference: 'contract_dateto',
+        //     emptyText:'Xuất đến',
+        //     itemId: 'handover_dateto',
+        //     reference: 'handover_dateto',
         //     margin: '5 1 5 0',
         //     width: 130
+        },{
+            xtype: 'datefield',
+            labelWidth: 0,
+            emptyText:'Nhập từ',
+            itemId: 'handover_datefrom',
+            reference: 'handover_datefrom',
+            margin: '5 1 5 0',
+            width: 130
+        },{
+            xtype: 'datefield',
+            labelWidth: 0,
+            emptyText:'Nhập đến',
+            itemId: 'handover_dateto',
+            reference: 'handover_dateto',
+            margin: '5 1 5 0',
+            width: 130
+        },{
+            xtype: 'combo',
+            labelWidth: 0,
+            emptyText:'Nơi giao',
+            bind: {
+                store : '{ListOrgStoreFrom}'
+            },
+            valueField: 'id',
+            displayField: 'nameParent',
+            queryMode: 'local',
+            itemId: 'orgid_from_link',
+            margin: '5 1 5 0',
+            width: 130
+        },{
+            xtype: 'combo',
+            labelWidth: 0,
+            emptyText:'Nơi nhận',
+            bind: {
+                store : '{ListOrgStoreTo}'
+            },
+            valueField: 'id',
+            displayField: 'nameParent',
+            queryMode: 'local',
+            itemId: 'orgid_to_link',
+            margin: '5 1 5 0',
+            width: 130
         // },{
-        //     xtype: 'combo',
-        //     labelWidth: 0,
-        //     emptyText:'Buyer',
-        //     bind: {
-        //         store : '{EndBuyer}'
+        //     xtype:'combobox',
+        //     itemId:'status',
+        //     bind:{
+        //         store:'{HandOverStatusStore}'
         //     },
-        //     valueField: 'id',
         //     displayField: 'name',
-        //     queryMode: 'local',
-        //     itemId: 'buyerid_link',
-        //     margin: '5 1 5 0',
-        //     width: 130
-        // },{
-        //     xtype: 'combo',
-        //     labelWidth: 0,
-        //     emptyText:'Vendor',
-        //     bind: {
-        //         store : '{Vendor}'
-        //     },
         //     valueField: 'id',
-        //     displayField: 'name',
+        //     value: [0,1,2],
         //     queryMode: 'local',
-        //     itemId: 'vendorid_link',
+        //     editable: true,
+        //     allowBlank: true,
+        //     multiSelect: true,
+        //     emptyText: 'Trạng thái',
         //     margin: '5 1 5 0',
         //     width: 130
-        // },{
-        //     xtype: 'button',
-        //     margin: '5 1 5 1',
-        //     // text: 'Tìm kiếm',
-        //     iconCls: 'x-fa fa-search',
-        //     itemId: 'btnTimKiem'
-    //     }]
-    // }, {
-        // dock: 'bottom',
-        // layout: 'hbox',
-        // xtype: 'toolbar',
-        // border: false,
-        // cls: 'botToolbar',
-        // items: [{
-        //     xtype: 'textfield',
-        //     value: 25,
-        //     itemId: 'limitpage',
-        //     maskRe: /[0-9]/,
-        //     width: 180,
-        //     selectOnFocus: true,
-        //     margin: 5,
-        //     fieldLabel: 'Số bản ghi/ Trang',
-        //     labelWidth: 120
-        // }, '-', {
-        //     xtype: 'pagingtoolbar',
-        //     displayInfo: true,
-        //     flex: 1,
-        //     nextText: 'Trang tiếp',
-        //     prevText: 'Trang trước',
-        //     afterPageText: '/ {0}',
-        //     beforePageText: 'Trang',
-        //     itemId: 'page',
-        //     refreshText: 'Làm mới dữ liệu',
-        //     border: false,
-        //     bind: {
-        //         store: '{ContractBuyerStore}'
-        //     },
-        //     emptyMsg: 'Không có kết quả tìm kiếm',
-        //     lastText: 'Trang cuối',
-        //     firstText: 'Trang đầu',
-        //     displayMsg: 'Hiển thị {0} - {1} của {2}'
-        // }]
-    // }]
+        },{
+            xtype: 'button',
+            margin: '5 1 5 1',
+            // text: 'Tìm kiếm',
+            iconCls: 'x-fa fa-search',
+            itemId: 'btnTimKiem'
+        }]
+    }, {
+        dock: 'bottom',
+        layout: 'hbox',
+        xtype: 'toolbar',
+        border: false,
+        cls: 'botToolbar',
+        items: [{
+            xtype: 'textfield',
+            value: 25,
+            itemId: 'limitpage',
+            maskRe: /[0-9]/,
+            width: 180,
+            selectOnFocus: true,
+            margin: 5,
+            fieldLabel: 'Số bản ghi/ Trang',
+            labelWidth: 120
+        }, '-', {
+            xtype: 'pagingtoolbar',
+            displayInfo: true,
+            flex: 1,
+            nextText: 'Trang tiếp',
+            prevText: 'Trang trước',
+            afterPageText: '/ {0}',
+            beforePageText: 'Trang',
+            itemId: 'page',
+            refreshText: 'Làm mới dữ liệu',
+            border: false,
+            bind: {
+                store: '{HandoverStore}'
+            },
+            emptyMsg: 'Không có kết quả tìm kiếm',
+            lastText: 'Trang cuối',
+            firstText: 'Trang đầu',
+            displayMsg: 'Hiển thị {0} - {1} của {2}'
+        }]
+    }]
 });
 

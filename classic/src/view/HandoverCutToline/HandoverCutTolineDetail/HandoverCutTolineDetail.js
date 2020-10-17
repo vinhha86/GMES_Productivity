@@ -33,25 +33,25 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
             itemId:'btnQuayLai',
             iconCls: 'x-fa fa-backward'
         },{
-            xtype:'button',
-            text: 'Nơi nhận xác thực',
-            margin: 3,
-            itemId:'btnConfirm',
-            iconCls: 'x-fa fa-check',
-            bind: {
-                hidden: '{isBtnConfirmInHidden}'
-            }
-        },{
             flex:1,
             border: false
         },{
             xtype:'button',
-            text: 'Người xuất xác thực',
+            text: 'Người xuất xác nhận',
             margin: 3,
             itemId:'btnHandover',
             iconCls: 'x-fa fa-check',
             bind: {
                 hidden: '{isBtnConfirmOutHidden}'
+            }
+        },{
+            xtype:'button',
+            text: 'Xóa',
+            margin: 3,
+            itemId:'btnDelete',
+            iconCls: 'x-fa fa-trash',
+            bind: {
+                // hidden: '{isBtnConfirmInHidden}'
             }
         },{
             xtype:'button',
