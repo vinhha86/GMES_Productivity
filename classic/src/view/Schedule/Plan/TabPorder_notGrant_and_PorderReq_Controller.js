@@ -149,10 +149,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onDeleteReqGranted: function (btn, e, eOpts) {
         // console.log(btn);
+        var msgConfirm = "";
         var isDeleteReq = false;
-        if(btn.itemId == 'btnDeleteReqAndReqGranted') isDeleteReq = true;
-        if(btn.itemId == 'btnDeleteReqGranted') isDeleteReq = false;
-
+        if(btn.itemId == 'btnDeleteReqAndReqGranted'){
+            isDeleteReq = true;
+            msgConfirm = "Bạn có chắc chắn muốn xóa các Yêu cầu xếp kế hoạch được chọn?"
+        }
+        if(btn.itemId == 'btnDeleteReqGranted'){
+            isDeleteReq = false;
+            msgConfirm = "Bạn có chắc chắn muốn xóa lệnh ướm thử trên biểu đồ của các Yêu cầu xếp kế hoạch được chọn?"
+        }
         var m = Ext.getCmp('Porder_Req_Granted');
         var me = this;
         var data = [];
@@ -160,7 +166,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         if(select.length == 0){
             Ext.Msg.show({
                 title: "Thông báo",
-                msg: "Phải chọn ít nhất một yêu cầu",
+                msg: "Bạn phải chọn ít nhất một yêu cầu",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
@@ -173,7 +179,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         }
         Ext.Msg.show({
             title: 'Thông báo',
-            msg: 'Bạn có chắc chắn xóa ?',
+            msg: msgConfirm,
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,
             buttonText: {

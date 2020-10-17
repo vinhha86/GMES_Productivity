@@ -531,7 +531,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     }
                 },
                 {
-                    text: 'Chốt chào giá',
+                    text: 'Chốt chào giá -> Lập PO',
                     itemId: 'btnConfirmPO_PContract_PO_List',
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-check violetIcon',

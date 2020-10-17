@@ -554,7 +554,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                         function (success, response, options) {
                             var response = Ext.decode(response.responseText);
                             if (success) {
-                                me.POder_GetByID(response.data.id);
+                                me.POder_GetByID(response.id);
                                 var porderReqStore = viewmodel.getStore('porderReqStore');
                                 porderReqStore.reload();                                
                                 // viewmodel.set('porder_selected',response.data);
@@ -703,7 +703,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
                     }
                 });
             }
-        });        
+        });   
+        
+        //Refresh danh sach sku
+        this.refreshSKUList(id);
     },
     renderSum: function(value, summaryData, dataIndex){
         var viewmodel = this.getViewModel();
