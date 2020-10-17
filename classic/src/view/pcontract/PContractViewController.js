@@ -68,11 +68,17 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
                     tab.getController().onChangeProduct();
+
+                    var UnitStore = viewmodel.getStore('UnitStore');
+                    UnitStore.loadStore();
                 } 
                 else if (newCard.xtype == 'PContractProduct_Bom_TabColorView') {
                     viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
                     tab.getController().onChangeProduct();
+
+                    var UnitStore = viewmodel.getStore('UnitStore');
+                    UnitStore.loadStore();
                 }
                 else {
                     var storeproductlist = viewmodel.getStore('PContractProductStore');
