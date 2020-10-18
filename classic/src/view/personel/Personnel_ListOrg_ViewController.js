@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.org.Personnel_ListOrg_ViewController', {
+Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Personnel_ListOrg_ViewController',
     init: function () {
