@@ -12,13 +12,19 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 		{
             name    : 'orgFromNameParent', 
             convert : function (value, rec) {
-               return rec.get('orgFromParentcode') + ' - ' + rec.get('orgFromName');
+				if(rec.get('orgFromParentcode') == null || rec.get('orgFromParentcode') == ''){
+					return rec.get('orgFromName');
+				}
+               	return rec.get('orgFromParentcode') + ' - ' + rec.get('orgFromName');
             }
         },
 		{
             name    : 'orgToNameParent', 
             convert : function (value, rec) {
-               return rec.get('orgToParentcode') + ' - ' + rec.get('orgToName');
+				if(rec.get('orgToParentcode') == null || rec.get('orgToParentcode') == ''){
+					return rec.get('orgToName');
+				}
+               	return rec.get('orgToParentcode') + ' - ' + rec.get('orgToName');
             }
         }
 	],

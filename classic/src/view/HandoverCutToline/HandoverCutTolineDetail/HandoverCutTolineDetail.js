@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetail', {
             itemId:'btnDelete',
             iconCls: 'x-fa fa-trash',
             bind: {
-                // hidden: '{isBtnConfirmInHidden}'
+                hidden: '{isBtnDeleteHidden}'
             }
         },{
             xtype:'button',

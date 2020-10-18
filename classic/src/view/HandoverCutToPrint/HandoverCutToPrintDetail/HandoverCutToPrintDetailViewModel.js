@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', {
+Ext.define('GSmartApp.view.handovercuttoprint.HandoverCutToPrintDetailViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.HandoverCutTolineDetailViewModel',
+    alias: 'viewmodel.HandoverCutToPrintDetailViewModel',
     requires: [
         'GSmartApp.store.UserListStore',
         'GSmartApp.store.org.ListOrgStore',
@@ -18,8 +18,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
         POrder_ListStore: {
             type: 'POrder_ListStore'
         },
-        POrderGrantStore:{
-            type: 'POrderGrantStore'
+        ListOrgStore_Print:{
+            type: 'ListOrgStore'
         },
         HandoverProductStore:{
             type: 'HandoverProductStore'
@@ -85,6 +85,12 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
             return false;
         },
         isBtnCancelConfirmHidden : function (get) {
+            if (get('isOut')) {
+                return true;
+            }
+            if (get('isCreateNew')) {
+                return true;
+            }
             if (get('currentRec.status') != 2) {
                 return true;
             }

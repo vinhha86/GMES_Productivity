@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
+Ext.define('GSmartApp.view.handovercuttoprint.HandoverCutToPrint', {
     extend: 'Ext.grid.Panel',
-    xtype: 'handover_cut_toline',
-    id: 'handover_cut_toline',
+    xtype: 'handover_cut_toprint',
+    id: 'handover_cut_toprint',
     viewModel: {
-        type: 'HandoverCutTolineViewModel'
+        type: 'HandoverCutToPrintViewModel'
     },
-    controller: 'HandoverCutTolineController',
-    reference: 'handover_cut_toline',
+    controller: 'HandoverCutToPrintController',
+    reference: 'handover_cut_toprint',
     viewConfig: {
         stripeRows: false,
         columnLines: true,
@@ -200,7 +200,8 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutToline', {
                 store : '{ListOrgStoreTo}'
             },
             valueField: 'id',
-            displayField: 'nameParent',
+            // displayField: 'nameParent',
+            displayField: 'name',
             queryMode: 'local',
             itemId: 'orgid_to_link',
             margin: '5 1 5 0',
