@@ -29,26 +29,36 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
 
         me.down('#btnFile').fileInputEl.dom.click();
     },
-    onUpload: function (m, value, eOpts) {
+    onUpload: function (m, newFileName, oldFileName) {
         var me = this.getView();
         var th = this;
-        var filename = value.replace(/C:\\fakepath\\/g, '');
+
+        // var displayFileNames = me.up('form').getForm().findField('fileNames'),
+        // fileList = m.getFileList(),
+        // fileNames = Ext.Array.pluck(fileList, 'name');
+
+        // displayFileNames.setValue(fileNames.join(','));
+
         var viewmodel = this.getViewModel();
         var IdProduct = viewmodel.get('IdProduct');
         var IdPcontract = viewmodel.get('PContract').id;
 
-        var data = new FormData();
-        data.append('file', m.fileInputEl.dom.files[0]);
-        data.append('pcontractid_link', IdPcontract);
-        data.append('productid_link', IdProduct);
+        for(var i=0; i<m.fileInputEl.dom.files.length;i++){
+            var data = new FormData();
+            data.append('file', m.fileInputEl.dom.files[i]);
+            data.append('pcontractid_link', IdPcontract);
+            data.append('productid_link', IdProduct);
+    
+            GSmartApp.Ajax.postUpload('/api/v1/pcontractdocument/uploadfile', data,
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        viewmodel.getStore('PContractDocumentStore').load();
+                    }
+                })
+        }
 
-        GSmartApp.Ajax.postUpload('/api/v1/pcontractdocument/uploadfile', data,
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    viewmodel.getStore('PContractDocumentStore').load();
-                }
-            })
+        
     },
     onDownload: function (grid, rowIndex, colIndex) {
         var me = this;

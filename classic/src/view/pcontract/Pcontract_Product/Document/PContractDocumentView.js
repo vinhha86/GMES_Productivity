@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentView', {
 		'->'
 		,
 		{
-            xtype: 'filefield',
+            xtype: 'new_fileupload',
             buttonText: '+',
             buttonOnly: true,
             itemId: 'btnFile',
