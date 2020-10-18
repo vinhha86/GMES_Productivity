@@ -26,6 +26,14 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
+
+            if (record.data.status == 0) {
+                metaData.tdCls =  "po_accept";
+            }
+            else if (record.data.status == -3){
+                metaData.tdCls =  "po_cancel";
+                metaData.tdAttr = 'data-qtip="PO đã hủy"';
+            }           
             return value;
         }
     }, {
@@ -127,6 +135,34 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         //     iconCls: 'x-fa fa-plus'
         // },
         ]
-    }]    
+    },
+    {
+        dock: 'bottom',
+        width: '100%',
+        layout: 'vbox',
+        border: false,
+        items: [{
+            layout: 'hbox',
+            border: false,
+            items: [{
+                html: '<div class="color-box">'
+                +'<div class="color-square po_free"></div>&nbspChưa chốt'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square po_accept"></div>&nbspĐã chốt'
+                +'</div>',
+                margin: '5'
+            },{
+                html: '<div class="color-box">'
+                +'<div class="color-square po_cancel"></div>&nbspĐã hủy'
+                +'</div>',
+                margin: '5'
+            }]
+        }]
+    }     
+    ], 
+     
 });
 
