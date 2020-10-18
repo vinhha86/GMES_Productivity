@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutDetail', {
             iconCls: 'x-fa fa-backward'
         },{
             xtype:'button',
-            text: 'Nơi nhận xác thực',
+            text: 'Nơi nhận xác nhận',
             margin: 3,
             itemId:'btnConfirm',
             iconCls: 'x-fa fa-check',
@@ -42,17 +42,17 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutDetail', {
                 hidden: '{isBtnConfirmInHidden}'
             }
         },{
+            xtype:'button',
+            text: 'Huỷ xác nhận',
+            margin: 3,
+            itemId:'btnCancelConfirm',
+            iconCls: 'x-fa fa-times-circle',
+            bind: {
+                hidden: '{!isBtnConfirmInHidden}'
+            }
+        },{
             flex:1,
             border: false
-        },{
-            xtype:'button',
-            text: 'Người giao xác thực',
-            margin: 3,
-            itemId:'btnHandover',
-            iconCls: 'x-fa fa-check',
-            bind: {
-                hidden: '{isBtnConfirmOutHidden}'
-            }
         },{
             xtype:'button',
             text: 'Lưu',

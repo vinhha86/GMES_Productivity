@@ -5,11 +5,30 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutController', {
         var m = this;
         var viewModel = this.getViewModel();
         var HandoverStore = viewModel.getStore('HandoverStore');
-        HandoverStore.loadStoreByType(1, 0); // type, in_out
+        // HandoverStore.loadStoreByType(1, 0); // type, in_out
+        HandoverStore.loadStoreBySearch(1, '', 
+            null, null, null, null, [1], 25, 1);
+        //
+        var ListOrgStoreFrom = viewModel.getStore('ListOrgStoreFrom');
+        var orgtypestring = '17';
+        ListOrgStoreFrom.loadStoreByOrgTypeString(orgtypestring);
+        ListOrgStoreFrom.getSorters().remove('id');
+        ListOrgStoreFrom.getSorters().add('parentid_link');
+        ListOrgStoreFrom.getSorters().add('name');
+        //
+        var ListOrgStoreTo = viewModel.getStore('ListOrgStoreTo');
+        var orgtypestring2 = '14';
+        ListOrgStoreTo.loadStoreByOrgTypeString(orgtypestring2);
+        ListOrgStoreTo.getSorters().remove('id');
+        ListOrgStoreTo.getSorters().add('parentid_link');
+        ListOrgStoreTo.getSorters().add('name');
     },
     control: {
         '#btnThemMoi': {
             click: 'onThemMoi'
+        },
+        '#btnTimKiem': {
+            click: 'onSearch'
         },
         '#handover_line_fromcut': {
             itemdblclick: 'onCapNhatdbl'
@@ -22,6 +41,43 @@ Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCutController', {
     //     }
     //     me.isActivate = true;
     // },
+    onSearch: function(){
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('HandoverStore');
+        //
+        var handovertypeid_link = 1;
+        var ordercode, handover_datefrom, handover_dateto, orgid_from_link, orgid_to_link, status;
+        if (me.down('#ordercode').getValue() == "") {
+            ordercode = null;
+        }else ordercode = me.down('#ordercode').getValue();
+        if (me.down('#handover_datefrom').getValue() == "") {
+            handover_datefrom = null;
+        }else handover_datefrom = me.down('#handover_datefrom').getValue();
+        if (me.down('#handover_dateto').getValue() == "") {
+            handover_dateto = null;
+        }else handover_dateto = me.down('#handover_dateto').getValue();
+        if (me.down('#orgid_from_link').getValue() == "") {
+            orgid_from_link = null;
+        }else orgid_from_link = me.down('#orgid_from_link').getValue();
+        if (me.down('#orgid_to_link').getValue() == "") {
+            orgid_to_link = null;
+        }else orgid_to_link = me.down('#orgid_to_link').getValue();
+        // if(me.down('#status').getValue() == null || me.down('#status').getValue() == ""){
+        //     status = [];
+        // }else status = me.down('#status').getValue();
+
+        var limit = me.down('#limitpage').getValue();
+        var page = store.currentPage;
+        if (limit == null) {
+            limit = 25;
+        }
+        if (page == null) {
+            page = 1;
+        }
+        store.loadStoreBySearch(handovertypeid_link, ordercode, 
+            handover_datefrom, handover_dateto, orgid_from_link, orgid_to_link, [1], limit, page);
+    },
     onThemMoi: function (m, record) {
         // this.redirectTo("handover_cut_toline/" + 0 + "/edit");
         this.redirectTo("handover_line_fromcut/" + 0 + "/edit");

@@ -20,7 +20,14 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
         {name: 'status',   type: 'int'},
 		{name: 'parentid_link',   type: 'int'},
 		{name: 'phone',   type: 'string'},
-		{name: 'rootid_link',   type: 'int'}
+		{name: 'rootid_link',   type: 'int'},
+		{name: 'parentcode',   type: 'string'},
+		{
+            name    : 'nameParent', 
+            convert : function (value, rec) {
+               return rec.get('parentcode') + ' - ' + rec.get('name');
+            }
+        }
 	],
 	sorters: {
         direction: 'ASC',

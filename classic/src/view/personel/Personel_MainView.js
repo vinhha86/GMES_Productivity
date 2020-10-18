@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.personel.Personel_MainView', {
     }, {
         region: 'center',
         title: 'Danh sách nhân viên',
+        xtype: 'Personnel_ListView',
         border: true,
         margin: 1
     }]

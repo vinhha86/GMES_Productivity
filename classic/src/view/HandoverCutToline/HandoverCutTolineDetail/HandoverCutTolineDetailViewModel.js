@@ -53,14 +53,14 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
     formulas: {
         isBtnConfirmOutHidden : function (get) {
             if (get('isIn')) {
-                console.log(1);
                 return true;
             }
             if (get('isCreateNew')) {
-                console.log(2);
                 return true;
             }
-            console.log(3);
+            if (get('currentRec.status') != 0) {
+                return true;
+            }
             return false;
         },
         isBtnConfirmInHidden : function (get) {
@@ -68,6 +68,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailViewModel', 
                 return true;
             }
             if (get('isCreateNew')) {
+                return true;
+            }
+            if (get('currentRec.status') != 1) {
                 return true;
             }
             return false;

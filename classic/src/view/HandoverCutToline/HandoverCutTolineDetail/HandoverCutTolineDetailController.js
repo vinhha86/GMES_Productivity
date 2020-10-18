@@ -36,6 +36,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         '#btnLuu': {
             click: 'onLuu'
         },
+        '#btnDelete': {
+            click: 'onDelete'
+        },
         '#btnHandover': {
             click: 'onConfirm'
         },
@@ -48,6 +51,133 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         '#btnSearch': {
             click: 'onBtnSearch'
         },
+        '#btnCancelConfirm': {
+            click: 'onCancelConfirm'
+        }
+    },
+    onCancelConfirm: function (){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var id = viewModel.get('currentRec.id');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn hủy ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    me.CancelConfirm(id);
+                }
+            }
+        });
+    },
+    CancelConfirm: function(id){
+        var m = this;
+        var me = this.getView();
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/handover/cancelconfirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if(response.message == 'Phiếu chưa được xác nhận'){
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }else{
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Huỷ xác nhận thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        m.getViewModel().set('currentRec.status', 1);
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Huỷ xác nhận thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
+    onDelete: function () {
+        var me = this;
+        var viewModel = this.getViewModel();
+        var id = viewModel.get('currentRec.id');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    me.Xoa(id);
+                }
+            }
+        });
+    },
+    Xoa: function (id) {
+        var m = this;
+        var me = this.getView();
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/handover/delete', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if(response.message == 'Phiếu đã được bên nhận xác nhận'){
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }else{
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Xóa thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        m.onQuayLai();
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Xóa thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     },
     onBtnPlus: function(){
         var me = this;
