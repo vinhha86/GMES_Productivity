@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController', {
+Ext.define('GSmartApp.view.handoverlinetopack.HandoverLineToPackDetailController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutTolineDetailController',
+    alias: 'controller.HandoverLineToPackDetailController',
     init: function () {
         // var session = GSmartApp.util.State.get('session');
         // console.log(session);
@@ -9,14 +9,15 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
         var UserListStore = viewModel.getStore('UserListStore');
         UserListStore.loadUserbyOrg(1);
         var ListOrgStore = viewModel.getStore('ListOrgStore');
-        var orgtypestring = '17';
+        var orgtypestring = '14';
         ListOrgStore.loadStoreByOrgTypeString(orgtypestring);
-        // var POrder_ListStore = viewModel.getStore('POrder_ListStore');
-        // POrder_ListStore.loadStore();
 
+        // var ListOrgStore_ProductQC = viewModel.getStore('ListOrgStore_ProductQC');
+        // var orgtypestring2 = '9';
+        // ListOrgStore_ProductQC.getbyParentandType(8,orgtypestring2);
         //
-        var viewOut = Ext.getCmp('handover_cut_toline_edit');
-        var viewIn = Ext.getCmp('handover_line_fromcut_edit');
+        var viewOut = Ext.getCmp('handover_line_topack_edit');
+        var viewIn = Ext.getCmp('handover_pack_fromline_edit');
         if(viewOut) viewModel.set('isOut', true);
         if(viewIn) viewModel.set('isIn', true);
         console.log('Out: ' + viewModel.get('isOut'));
@@ -218,10 +219,6 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                         }else{
                             // load bản ghi đầu tiên trả vê, cần sửa lại nếu có nhiều lệnh trùng ordercode
                             var porderid_link = response.data[0].id;
-                            var POrderGrantStore = viewModel.getStore('POrderGrantStore');
-                            POrderGrantStore.loadStoreByPOrderId(porderid_link);
-                            me.getView().down('#comboboxPordergrant').setValue(null);
-                            me.getView().down('#comboboxPordergrant').focus();
                             viewModel.set('currentRec.porderid_link', porderid_link);
 
                             me.loadHandoverProductOnPorderSelect(porderid_link);
@@ -290,9 +287,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                 padding: 5
             },
             items: [{
-                xtype: 'HandoverCutTolinePorderSearch',
+                xtype: 'HandoverLineToPackPorderSearch',
                 viewModel: {
-                    type: 'HandoverCutTolinePorderSearchViewModel',
+                    type: 'HandoverLineToPackPorderSearchViewModel',
                     data: {
                         pordercode: pordercode
                     }
@@ -341,7 +338,7 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                         if (null == date) date = new Date(handover_date);
                         viewModel.set('currentRec.handover_date',date);
 
-                        m.redirectTo("handover_cut_toline/" + response.data.id + "/edit");
+                        m.redirectTo("handover_line_topack/" + response.data.id + "/edit");
                         // m.loadHandoverProduct(response.data.id);
                     }
                     else {
@@ -370,9 +367,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
     onQuayLai: function () {
         var viewModel = this.getViewModel();
         if(viewModel.get('isOut')) 
-            this.redirectTo('handover_cut_toline');
+            this.redirectTo('handover_line_topack');
         if(viewModel.get('isIn'))
-            this.redirectTo('handover_line_fromcut');
+            this.redirectTo('handover_pack_fromline');
     },
     onLoadData: function (id, type) {
         var m = this;
@@ -384,17 +381,18 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
     },
     loadNewInfo: function(){
         var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
         viewModel.set('isCreateNew', true);
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
-        viewModel.set('currentRec.handovertypeid_link', 1);
+        viewModel.set('currentRec.handovertypeid_link', 4);
         viewModel.set('currentRec.handover_userid_link', session.id);
         viewModel.set('currentRec.handover_date', new Date());
         // viewModel.set('currentRec.orgid_from_link', session.orgid_link);
 
-        // nếu orgid_link là tổ cắt thì chọn tổ cắt, nếu không chọn combo
+        // nếu orgid_link là tổ chuyền thì chọn tổ chuyền, nếu không chọn combo
         var params = new Object();
         params.id = session.orgid_link;
         GSmartApp.Ajax.post('/api/v1/org/getOrgById', Ext.JSON.encode(params),
@@ -403,8 +401,11 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                     var response = Ext.decode(response.responseText);
                     data = response.data;
                     // console.log(data);
-                    if(data.orgtypeid_link == 17){ // tổ cắt
+                    if(data.orgtypeid_link == 14){ // tổ chuyền
                         viewModel.set('currentRec.orgid_from_link', session.orgid_link);
+                        me.down('#orgid_from_link').setReadOnly(true);
+
+                        m.loadListOrgStore_ProductQC(data.parentid_link);
                     }
                 }
             })
@@ -429,8 +430,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                     viewModel.set('pordercode',viewModel.get('currentRec.ordercode'));
                     // console.log(viewModel.get('currentRec'));
 
-                    var POrderGrantStore = viewModel.getStore('POrderGrantStore');
-                    POrderGrantStore.loadStoreByPOrderId(data.porderid_link);
+                    var ListOrgStore_ProductQC = viewModel.getStore('ListOrgStore_ProductQC');
+                    var orgtypestring2 = '9';
+                    ListOrgStore_ProductQC.getbyParentandType(data.orgFromParentId,orgtypestring2);
 
                     m.loadHandoverProduct(data.id);
                 }
@@ -564,9 +566,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                             padding: 5
                         },
                         items: [{
-                            xtype: 'HandoverCutTolineSKUDetail',
+                            xtype: 'HandoverLineToPackSKUDetail',
                             viewModel: {
-                                type: 'HandoverCutTolineSKUDetailViewModel',
+                                type: 'HandoverLineToPackSKUDetailViewModel',
                                 data: {
                                     handoverid_link: handoverid_link, 
                                     handoverproductid_link: handoverproductid_link, 
@@ -610,9 +612,9 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
                 padding: 5
             },
             items: [{
-                xtype: 'HandoverCutTolineConfirm',
+                xtype: 'HandoverLineToPackConfirm',
                 viewModel: {
-                    type: 'HandoverCutTolineConfirmViewModel',
+                    type: 'HandoverLineToPackConfirmViewModel',
                     data: {
                         handoverid_link: handoverid_link,
                         isIn: isIn,
@@ -652,5 +654,19 @@ Ext.define('GSmartApp.view.handovercuttoline.HandoverCutTolineDetailController',
             // Ext.Msg.alert('Keys','You pressed the Enter key');
             me.onBtnPlus();
         }
+    },
+    onOrgFromComboSelect: function(cbo, record, eOpts){
+        // console.log(record.data.parentid_link);
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var parentid_link = record.data.parentid_link;
+        this.loadListOrgStore_ProductQC(parentid_link);
+        me.down('#orgid_to_link').setValue(null);
+    },
+    loadListOrgStore_ProductQC: function(parentid_link){
+        var viewModel = this.getViewModel();
+        var ListOrgStore_ProductQC = viewModel.getStore('ListOrgStore_ProductQC');
+        var orgtypestring2 = '9';
+        ListOrgStore_ProductQC.getbyParentandType(parentid_link,orgtypestring2);
     }
 })

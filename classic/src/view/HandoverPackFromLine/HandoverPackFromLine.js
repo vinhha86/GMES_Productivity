@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.HandoverLineFromCut.HandoverLineFromCut', {
+Ext.define('GSmartApp.view.HandoverPackFromLine.HandoverPackFromLine', {
     extend: 'Ext.grid.Panel',
-    xtype: 'handover_line_fromcut',
-    id: 'handover_line_fromcut',
+    xtype: 'handover_pack_fromline',
+    id: 'handover_pack_fromline',
     viewModel: {
-        type: 'HandoverLineFromCutViewModel'
+        type: 'HandoverPackFromLineViewModel'
     },
-    controller: 'HandoverLineFromCutController',
-    reference: 'handover_line_fromcut',
+    controller: 'HandoverPackFromLineController',
+    reference: 'handover_pack_fromline',
     viewConfig: {
         stripeRows: false,
         columnLines: true,

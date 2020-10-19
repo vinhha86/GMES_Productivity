@@ -99,6 +99,7 @@ Ext.define('GSmartApp.view.handovercuttoprint.HandoverCutToPrintDetailController
                             }
                         });
                         m.getViewModel().set('currentRec.status', 1);
+                        m.getViewModel().set('currentRec.receiver_userid_link', null);
                     }
                 } else {
                     Ext.Msg.show({
