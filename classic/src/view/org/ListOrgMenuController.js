@@ -49,9 +49,10 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
             value: 1
         });
         storeMenu.getFilters().add(this.activeOnlyFilter);
-        storeMenu.getSorters().add('orgtypeid_link');
-        storeMenu.getSorters().add('is_manufacturer');
-        storeMenu.getSorters().add('code');
+        // storeMenu.getSorters().add('orgtypeid_link');
+        // storeMenu.getSorters().add('is_manufacturer');
+        // storeMenu.getSorters().add('code');
+        storeMenu.getSorters().add('id');
     },
     onDropOrg: function(node, data, overModel, dropPosition){
         var start = data.records[0].data;

@@ -34,7 +34,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
     },
     data: {
         personnel: {
-
+            id: null,
+            status: 1
         }
     }
 })

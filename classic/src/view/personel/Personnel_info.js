@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 layout: 'vbox',
                 items: [{
                     xtype: 'textfield',
+                    itemId: 'code',
                     labelWidth: 78,
                     fieldLabel: 'Mã NV:',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -41,7 +42,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     labelWidth: 78,
                     flex: 1,
                     margin: 1,
-                    format: 'd/m/y',
+                    format: 'd/m/Y',
                     altFormats: "Y-m-d\\TH:i:s.uO",
                     bind: {
                         value: '{personnel.birthdate}'
@@ -65,6 +66,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 layout: 'vbox',
                 items: [{
                     xtype: 'combo',
+                    itemId: 'cmbDonViQuanLy',
+                    queryMode: 'local',
                     labelWidth: 78,
                     fieldLabel: 'ĐV Quản lý',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -74,13 +77,14 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     flex: 1,
                     margin: 1,
                     bind: {
-                        value: '{personnel.gender}',
+                        value: '{personnel.orgmanagerid_link}',
                         store: '{OrgManagerStore}'
                     }
                 },{
                     xtype: 'combo',
                     labelWidth: 78,
-                    fieldLabel: 'ĐV Quản lý',
+                    queryMode: 'local',
+                    fieldLabel: 'ĐV trực thuộc',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -88,8 +92,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     flex: 1,
                     margin: 1,
                     bind: {
-                        value: '{personnel.gender}',
-                        store: '{OrgManagerStore}'
+                        value: '{personnel.orgid_link}',
+                        store: '{OrgStore}'
                     }
                 },{
                     xtype: 'combo',
@@ -122,6 +126,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 layout: 'vbox',
                 items: [{
                     xtype: 'combo',
+                    itemId: 'cmbQuocTich',
+                    queryMode: 'local',
                     labelWidth: 78,
                     fieldLabel: 'Quốc tịch',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -136,6 +142,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     }
                 },{
                     xtype: 'combo',
+                    itemId: 'cmbThanhPho',
+                    queryMode: 'local',
                     labelWidth: 78,
                     fieldLabel: 'Tỉnh, TP',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -150,8 +158,10 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     }
                 },{
                     xtype: 'combo',
+                    itemId:'cmbQuanHuyen',
                     labelWidth: 78,
                     fieldLabel: 'Quận, huyện',
+                    queryMode: 'local',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -166,6 +176,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     xtype: 'combo',
                     labelWidth: 78,
                     fieldLabel: 'Xã',
+                    queryMode: 'local',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -225,6 +236,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
             fieldLabel: 'Địa chỉ:',
             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
             fieldStyle: 'font-size:11px;',
+            bind: {
+                value: '{personnel.address}'
+            },
             width: '100%'
         }]
     },{

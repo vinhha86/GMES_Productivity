@@ -31,6 +31,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             }]
         });
         form.show();
+        form.down('#code').focus();
 
         form.down('Personnel_info_main').getController().on('Thoat', function () {
             form.close();

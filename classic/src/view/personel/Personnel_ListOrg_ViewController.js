@@ -20,6 +20,6 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
 
         storeMenu.getSorters().add('orgtypeid_link');
         storeMenu.getSorters().add('is_manufacturer');
-        storeMenu.getSorters().add('code');
+        storeMenu.getSorters().add('id');
     }
 })
