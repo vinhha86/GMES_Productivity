@@ -10,6 +10,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
         OrgManagerStore: {
             type: 'ListOrgStore'
         },
+        OrgStore: {
+            type: 'ListOrgStore'
+        },
         OrgCountryStore: {
             type: 'ListOrgStore'
         },
