@@ -13,6 +13,10 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
 
     var OrgCountryStore = viewmodel.getStore('OrgCountryStore');
     OrgCountryStore.loadStore(24, false);
+
+    if (viewmodel.get('personnel.id') != null) {
+      this.loadImage(viewmodel.get('personnel.id'));
+    }
   },
   control: {
     '#cmbDonViQuanLy': {
@@ -21,35 +25,94 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     '#cmbQuocTich': {
       change: 'onSelectQuocTich'
     },
-    '#cmbThanhPho' : {
+    '#cmbThanhPho': {
       change: 'onChangeThanhPho'
     },
-    '#cmbQuanHuyen' : {
+    '#cmbQuanHuyen': {
       change: 'onSelectQuanHuyen'
+    },
+    '#btnUploadImage': {
+      click: 'onUploadImage'
+    },
+    '#btnFile': {
+      change: 'onSelect'
     }
+  },
+  onUploadImage: function () {
+    var me = this.getView();
+    var viewmodel = this.getViewModel();
+    if (viewmodel.get('personnel.id') == null) {
+      Ext.Msg.show({
+        title: "Thông báo",
+        msg: 'Bạn phải lưu thông tin nhân viên trước khi tải ảnh nhân viên!',
+        buttons: Ext.MessageBox.YES,
+        buttonText: {
+          yes: 'Đóng',
+        }
+      });
+      return;
+    }
+
+    me.down('#btnFile').fileInputEl.dom.click();
+  },
+  loadImage: function (id) {
+    var viewmodel = this.getViewModel();
+    var params = new Object();
+    params.id = id;
+
+    GSmartApp.Ajax.post('/api/v1/personnel/viewimage', Ext.JSON.encode(params),
+      function (success, response, options) {
+        if (success) {
+          var response = Ext.decode(response.responseText);
+          if (response.respcode == 200) {
+            viewmodel.set('personnel.image', response.data);
+          }
+        }
+      })
+  },
+  onSelect: function (m, value, eOpts) {
+    var me = this.getView();
+    var viewmodel = this.getViewModel();
+    var data = new FormData();
+    data.append('file', m.fileInputEl.dom.files[0]);
+    data.append('id', viewmodel.get('personnel.id'));
+
+    GSmartApp.Ajax.postUpload('/api/v1/personnel/upload_img', data,
+      function (success, response, options) {
+        if (success) {
+          var response = Ext.decode(response.responseText);
+          me.down('#img').setSrc('data:image/gif;base64,' + response.data);
+        }
+      })
   },
   onSelectDVQL: function (combo, newvalue, oldvalue, e) {
     var viewmodel = this.getViewModel();
 
     var OrgStore = viewmodel.getStore('OrgStore');
-    var listid = '22,14,8,9,17';
+    var listid = '';
+    if (newvalue == 1) {
+      listid = "1";
+    }
+    else {
+      listid = '22,14,8,9,17';
+    }
     OrgStore.getbyParentandType(newvalue, listid);
   },
   onSelectQuocTich: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
-    var OrgProvinceStore  = viewmodel.getStore('OrgProvinceStore');
+    var OrgProvinceStore = viewmodel.getStore('OrgProvinceStore');
     var listid = '25';
     OrgProvinceStore.getbyParentandType(newvalue, listid);
   },
-  onChangeThanhPho: function(combo, newvalue, oldValue, e){
+  onChangeThanhPho: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
-    var OrgDistrictStore  = viewmodel.getStore('OrgDistrictStore');
+    var OrgDistrictStore = viewmodel.getStore('OrgDistrictStore');
     var listid = '26';
     OrgDistrictStore.getbyParentandType(newvalue, listid);
   },
-  onSelectQuanHuyen: function(combo, newvalue, oldValue, e){
+  onSelectQuanHuyen: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
-    var OrgCommuneStore  = viewmodel.getStore('OrgCommuneStore');
+    var OrgCommuneStore = viewmodel.getStore('OrgCommuneStore');
     var listid = '27';
     OrgCommuneStore.getbyParentandType(newvalue, listid);
   }

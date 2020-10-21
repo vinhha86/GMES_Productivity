@@ -1,19 +1,19 @@
-Ext.define('GSmartApp.view.personel.Personnel_ListView', {
+Ext.define('GSmartApp.view.personel.Personnel_history', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Personnel_ListView',
-    id: 'Personnel_ListView',
-    controller: 'Personnel_ListView_Controller',
+    xtype: 'Personnel_history',
+    id: 'Personnel_history',
+    controller: 'Personnel_history_ViewController',
     viewConfig: {
         stripeRows: false,
         columnLines: true,
         rowLines: true
     },
     bind: {
-        store: '{Personnel_Store}'
+        store: '{PersonnelHis_Store}'
     },
     columns: [{
         xtype: 'actioncolumn',
-        width: 28,
+        width: 50,
         menuDisabled: true,
         sortable: false,
         align: 'center',
@@ -21,7 +21,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             {
                 iconCls: 'x-fa fas fa-edit',
                 handler: 'onEdit'
-            },            
+            },
+            {
+                iconCls: 'x-fa fas fa-trash',
+                handler: 'onDelete'
+            }            
         ]
     },{
         text: 'STT',
@@ -29,25 +33,25 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Họ và tên',
-        dataIndex: 'fullname',
+        text: 'Loại',
+        dataIndex: 'type_name',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     }, {
-        text: 'Mã NV',
-        dataIndex: 'code',
-        width: 100,
+        text: 'Chức vụ',
+        dataIndex: 'position_name',
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     },{
-        text: 'Số CMT',
-        dataIndex: 'idnumber',
-        width: 100,
+        text: 'Cấp bậc',
+        dataIndex: 'level_name',
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -55,7 +59,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     },
     {
         text: 'Đơn vị trực thuộc',
-        dataIndex: 'orgname',
+        dataIndex: 'org_name',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -63,21 +67,22 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         }
     },
     {
-        text: 'Cấp bậc',
-        dataIndex: 'contractBuyerYear',
-        width: 75,
+        text: 'Số quyết định',
+        dataIndex: 'decision_number',
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     },
     {
-        text: 'Chức vụ',
-        dataIndex: 'contractTypeName',
-        flex: 1,
+        text: 'Ngày quyết định',
+        dataIndex: 'decision_date',
+        align: 'center',
+        width: 130,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            var date = Ext.Date.parse(value, 'c');
+            return Ext.Date.format(date, 'd/m/Y');
         }
     }
    ],
@@ -88,18 +93,21 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         items: [{
             xtype: 'button',
             margin: 1,
-            text: 'Thêm mới',
+            text: 'Thêm mới chức vụ',
             iconCls: 'x-fa fa-plus',
-            itemId: 'btnThemMoi_Personnel',
-        },'->',{
-            xtype: 'checkbox',
-            margin: '1 5 1 1',
-            boxLabel: 'Xem tất cả',
-            labelAlign: 'right',
-            bind: {
-                value: '{isviewall}',
-                disabled: '{isdisabled}'
-            }
+            itemId: 'btn_position',
+        },{
+            xtype: 'button',
+            margin: 1,
+            text: 'Thêm mới cấp bậc',
+            iconCls: 'x-fa fa-plus',
+            itemId: 'btn_level',
+        },{
+            xtype: 'button',
+            margin: 1,
+            text: 'Thêm mới phòng ban',
+            iconCls: 'x-fa fa-plus',
+            itemId: 'btn_department',
         }]
     }
     ]

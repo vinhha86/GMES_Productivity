@@ -15,26 +15,11 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main', {
         border: true,
         margin: 1
     },{
-        region: 'south',
-        title: 'Điều chuyển',
-        height: 200,
+        region: 'center',
+        title: 'Quá trình công tác',
+        xtype: 'Personnel_history',
         border: true,
         margin: 1
-    }, {
-        region: 'center',
-        margin: 1,
-        layout: 'border',
-        items: [{
-            region: 'center',
-            title: 'Chức vụ',
-            margin: 1,
-            border: true
-        }, {
-            region: 'west',
-            title: 'Cấp bậc',
-            width: '50%',
-            margin: 1
-        }]
     }],
     dockedItems: [{
         layout: 'hbox',

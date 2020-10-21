@@ -1,18 +1,11 @@
-Ext.define('GSmartApp.store.personnel.Personnel_Store', {
-    extend: 'Ext.data.Store',
-	alias: 'store.Personnel_Store',
-	storeId: 'Personnel_Store',
-	idProperty: 'idx',
-	model: 'GSmartApp.model.personnel.PersonnelModel',
-	sorters: [{
-        direction: 'ASC',
-        property: 'code'
-	}],
-	loadStore_byOrg(orgid_link, ismanager, isviewall){
+Ext.define('GSmartApp.store.personnel.personnel_his_store', {
+	extend: 'Ext.data.Store',
+	storeId: 'personnel_his_store',
+	alias: 'store.personnel_his_store',
+	model: 'GSmartApp.model.personnel.Personnel_His_Model',
+	loadStore_by_person(personnelid_link){
 		var params = new Object();
-		params.orgid_link = orgid_link;
-		params.ismanager = ismanager;
-		params.isviewall = isviewall;
+		params.personnelid_link = personnelid_link == null ? 0 : personnelid_link;
 
 		this.setProxy({
 			type: 'ajax',
@@ -22,7 +15,7 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/personnel/getby_org',
+			url: config.getAppBaseUrl()+'/api/v1/personnel/get_his_person',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,

@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     xtype: 'combo',
                     labelWidth: 78,
                     queryMode: 'local',
-                    fieldLabel: 'ĐV trực thuộc',
+                    fieldLabel: 'Phòng ban',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -245,7 +245,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
         layout: 'vbox',
         items: [{
             xtype: 'image',
-            itemId: 'img1',
+            itemId: 'img',
             width: 130,
             height: 130,
             margin: 1,
@@ -263,6 +263,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
             buttonOnly: true,
             itemId: 'btnFile',
             tooltip:'Upload File',
+            accept: 'image/*',
             hidden: true
         },{
             xtype:'button',

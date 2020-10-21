@@ -9,5 +9,9 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
         Personnel_Store: {
             type: 'Personnel_Store'
         }
+    },
+    data: {
+        isviewall : false, // bind checkbox xem tat ca
+        isdisabled: false
     }
 })
