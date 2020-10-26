@@ -165,6 +165,7 @@ Ext.define('GSmartApp.view.pcontract.PContractDocumentViewCotroller', {
                     params.pcontractid_link = pcontractid_link;
                     params.productid_link = productid_link;
                     params.filename = filename;
+                    params.id = data.get('id');
 
                     GSmartApp.Ajax.post('/api/v1/pcontractdocument/delete', Ext.JSON.encode(params),
                         function (success, response, options) {
