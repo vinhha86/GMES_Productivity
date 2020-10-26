@@ -114,39 +114,43 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
             items:[{
                 xtype: 'textfield',
                 fieldLabel: "Mã SP(Buyer)",
-                // itemId: 'pordercode',
+                itemId: 'ptsBuyerCode',
                 // blankText: 'Không được để trống',
                 bind: {
-                    // value: '{pordercode}'
+                    value: '{ptsBuyerCode}'
                 },
                 margin: '0 3',
                 labelWidth: 100,
                 // flex: 1,
-                // enableKeyEvents : true,
-                // listeners: {
-                //     keypress: 'onPressEnterPordercode'
-                // }
+                enableKeyEvents : true,
+                listeners: {
+                    keypress: 'onPressEnterBuyerCodePackToStock'
+                }
             },{
                 xtype: 'textfield',
                 fieldLabel: "SL",
-                // itemId: 'pordercode',
+                maskRe: /[0-9]/,
+                itemId: 'ptsQuantity',
                 // blankText: 'Không được để trống',
                 bind: {
-                    // value: '{pordercode}'
+                    value: '{ptsQuantity}'
                 },
                 margin: '0 3',
                 labelWidth: 30,
                 // flex: 1,
-                // enableKeyEvents : true,
-                // listeners: {
-                //     keypress: 'onPressEnterPordercode'
-                // }
+                enableKeyEvents : true,
+                listeners: {
+                    keypress: 'onPressEnterQuantityPackToStock'
+                }
             },{
                 xtype:'button',
                 // text: 'Lưu',
                 margin: '0 3',
-                // itemId:'btnLuu',
-                iconCls: 'x-fa fa-plus'
+                itemId:'btnAddProductPackToStock',
+                iconCls: 'x-fa fa-plus',
+                listeners: {
+                    click: 'onBtnAddProductPackToStock'
+                }
             }],
             bind: {
                 hidden: '{isRdoLine1Hidden}'
@@ -157,24 +161,27 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
             items:[{
                 xtype: 'textfield',
                 fieldLabel: "Mã vạch",
-                // itemId: 'pordercode',
+                itemId: 'ptsSkuCode',
                 // blankText: 'Không được để trống',
                 bind: {
-                    // value: '{pordercode}'
+                    value: '{ptsSkuCode}'
                 },
                 margin: '0 3',
                 labelWidth: 100,
                 // flex: 1,
-                // enableKeyEvents : true,
-                // listeners: {
-                //     keypress: 'onPressEnterPordercode'
-                // }
+                enableKeyEvents : true,
+                listeners: {
+                    keypress: 'onPressEnterSkuCodePackToStock'
+                }
             },{
                 xtype:'button',
                 // text: 'Lưu',
                 margin: '0 3',
-                // itemId:'btnLuu',
-                iconCls: 'x-fa fa-plus'
+                itemId:'btnAddSkuPackToStock',
+                iconCls: 'x-fa fa-plus',
+                listeners: {
+                    click: 'onBtnAddSkuPackToStock'
+                }
             }],
             bind: {
                 hidden: '{isRdoLine2Hidden}'

@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailSKUDetailViewModel', {
         handoverproductid_link: null, 
         porderid_link: null, 
         productid_link: null,
-        viewId: ''
+        viewId: '',
+        data: null, // pack to stock, loadSkuCodePackToStockWindow
     }
 })

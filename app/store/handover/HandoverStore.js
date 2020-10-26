@@ -2,7 +2,9 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
     extend: 'Ext.data.Store',
 	alias: 'store.HandoverStore',
 	storeId: 'HandoverStore',
+    idProperty: 'idx',
 	fields: [
+		{name: 'idx'},
         {name: 'id', type: 'int'},
 		{name: 'handover_date', type: 'date' , dateFormat: 'c', format: 'd/m/y'},
         {name: 'orgFromName', type: 'string'},

@@ -2,9 +2,12 @@ Ext.define('GSmartApp.store.handover.HandoverProductStore', {
     extend: 'Ext.data.Store',
 	alias: 'store.HandoverProductStore',
 	storeId: 'HandoverProductStore',
-	fields: [
-        {name: 'id', type: 'int'},
-	],
+	model: 'GSmartApp.model.handover.HandoverProductModel',
+    // idProperty: 'idx',
+	// fields: [
+	// 	{name: 'idx'},
+    //     {name: 'id', type: 'int'},
+	// ],
 	loadStore:function(handoverid_link){
         var params = new Object();
         params.handoverid_link = handoverid_link;

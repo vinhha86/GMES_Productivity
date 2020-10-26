@@ -101,6 +101,12 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_Info', {
                 labelWidth: 80,
                 flex: 1,
                 // width: 250
+            },{
+                flex: 1,
+                margin: 2,
+                bind: {
+                    hidden: '{!isPorderCodeFieldHidden}'
+                }
             }]
         },{
             layout: 'hbox',

@@ -376,16 +376,31 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
         var viewModel = this.getViewModel();
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
-        console.log(HandoverProductStore);
+
+        var handoverProductsData = HandoverProductStore.getData().items;
+        var handoverProducts = new Array();
+        console.log(handoverProductsData);
+        for(var i=0;i<handoverProductsData.length;i++){
+            console.log(handoverProductsData[i].data.buyercode);
+            handoverProducts.push(handoverProductsData[i].data);
+        }
 
         var params = new Object();
         var data = new Object();
         data = viewModel.get('currentRec');
 
+        // if(viewModel.get('isCreateNew')){
+        //     data.handoverProducts = handoverProducts;
+        // }
+
+        data.handoverProducts = handoverProducts;
+
+        // console.log(data);
+
         params.data = data;
-        if(viewModel.get('isCreateNew')){
-            params.handoverProduct = HandoverProductStore.getById(0).data;
-        }
+        // if(viewModel.get('isCreateNew')){
+        //     params.handoverProduct = HandoverProductStore.getById(0).data;
+        // }
         params.msgtype = "HANDOVER_CREATE";
         params.message = "Tạo handover";
 
@@ -410,6 +425,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
                         var viewIdList = viewModel.get('viewIdList');
                         m.redirectTo(viewIdList + "/" + response.data.id + "/edit");
+                        HandoverProductStore.load();
                     }
                     else {
                         Ext.Msg.show({
@@ -521,7 +537,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             }
         }
         // Xuất từ tổ hoàn thiện đi kho TP
-        // nếu org_grant_id_link là tổ chuyền thì chọn tổ chuyền, nếu không chọn combo
+        // nếu org_grant_id_link là tổ hoàn thiện thì chọn tổ hoàn thiện, nếu không chọn combo
         if(viewId == 'handover_pack_tostock_detail'){
             // console.log(session);
             if(session.org_grant_id_link != null) {
@@ -555,6 +571,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                     data = response.data;
                     viewModel.set('isCreateNew', false);
                     viewModel.set('currentRec', data);
+                    // console.log(data);
 
                     var handover_date = viewModel.get('currentRec.handover_date');
                     var date = Ext.Date.parse(handover_date, 'c');
@@ -564,7 +581,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                     // console.log(viewModel.get('currentRec'));
 
                     var viewId = viewModel.get('viewId');
-                    console.log(viewId);
+                    // console.log(viewId);
                     if(viewId == 'handover_cut_toline_detail'){
                         var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
                         ListOrgStore_To.loadStoreByPorderIdLink(data.porderid_link);
@@ -802,9 +819,371 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
         ListOrgStore_To.getbyParentandType(parentid_link,orgtypestring);
     },
+
+    /////////// RADIO PACK TO STOCK
     onRadioChange: function(rdo, newValue, oldValue, eOpts ) {
         // var viewModel = this.getViewModel();
         // console.log(viewModel.get('radioVal'));
         // console.log(newValue);
+    },
+    // Nhap thu cong
+    onPressEnterBuyerCodePackToStock: function(textfield, e, eOpts){
+        var me = this;
+        if(e.getKey() == e.ENTER) {
+            var me = this;
+        var viewModel = this.getViewModel();
+        var ptsBuyerCode = viewModel.get('ptsBuyerCode');
+
+        if(ptsBuyerCode == null || ptsBuyerCode.length == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Mã SP(Buyer) không được bỏ trống',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
+        var params = new Object();
+        params.buyercode = ptsBuyerCode;
+
+        GSmartApp.Ajax.post('/api/v1/product/getProductByExactBuyercode', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        if(response.message == 'Mã SP(buyer) không tồn tại'){
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            me.getView().down('#ptsBuyerCode').focus();
+                        }else{
+                            me.getView().down('#ptsQuantity').focus();
+                        }
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Lấy thông tin thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lấy thông tin thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+        }
+    },
+    onPressEnterQuantityPackToStock: function(textfield, e, eOpts){
+        if(e.getKey() == e.ENTER) {
+            var me = this;
+            var viewModel = this.getViewModel();
+            var ptsQuantity = viewModel.get('ptsQuantity');
+
+            if(ptsQuantity == null || ptsQuantity.length == 0){
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Số lượng không được bỏ trống',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                return;
+            }
+
+            me.onBtnAddProductPackToStock();
+        }
+    },
+    onBtnAddProductPackToStock: function(){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var ptsQuantity = viewModel.get('ptsQuantity');
+        var ptsBuyerCode = viewModel.get('ptsBuyerCode');
+
+        if(ptsBuyerCode == null || ptsBuyerCode.length == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Mã SP(Buyer) không được bỏ trống',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            me.getView().down('#ptsBuyerCode').focus();
+            return;
+        }
+        if(ptsQuantity == null || ptsQuantity.length == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Số lượng không được bỏ trống',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            me.getView().down('#ptsQuantity').focus();
+            return;
+        }
+
+        var params = new Object();
+        params.buyercode = ptsBuyerCode;
+
+        GSmartApp.Ajax.post('/api/v1/product/getProductByExactBuyercode', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        if(response.message == 'Mã SP(buyer) không tồn tại'){
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            me.getView().down('#ptsBuyerCode').focus();
+                        }else{
+                            // console.log(response.data);
+                            var productid_link = response.data.id;
+                            var product_quantity = ptsQuantity;
+
+                            // kiểm tra Product Store có chứa product hay ko
+                            var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+                            var index = HandoverProductStore.find('productid_link', productid_link,
+                            0, false, false, true);
+                            if(index != -1){
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: 'Sản phẩm đã có trong danh sách',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                                return;
+                            }
+                            me.addToProductStore(productid_link, product_quantity);
+                        }
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Lấy thông tin thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lấy thông tin thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+
+    },
+    addToProductStore: function(productid_link, product_quantity){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var params = new Object();
+        params.productid_link = productid_link;
+        params.product_quantity = product_quantity;
+
+        GSmartApp.Ajax.post('/api/v1/handoverproduct/getNewHandoverProductByProductId', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    response.data.buyercode = response.buyercode;
+                    response.data.buyername = response.buyername;
+                    response.data.unitName = response.unitName;
+
+                    var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+                    HandoverProductStore.add(response.data);
+
+                    if(viewModel.get('currentRec.id') != null && viewModel.get('currentRec.id') > 0){
+                        // console.log(response.data);
+                        response.data.handoverid_link = viewModel.get('currentRec.id');
+                        me.addProductToDb(response.data);
+                    }
+                }
+            })
+
+    },
+    addProductToDb: function (data) {
+        var me = this;
+        var viewModel = this.getViewModel();
+        var params = new Object();
+        params.data = data;
+
+        GSmartApp.Ajax.post('/api/v1/handoverproduct/create', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+                    HandoverProductStore.load();
+                }
+            })
+    },
+    // Nhap ma vach sku
+    onPressEnterSkuCodePackToStock: function(textfield, e, eOpts){
+        // window
+        var me = this;
+        if(e.getKey() == e.ENTER) {
+            var viewModel = this.getViewModel();
+            var ptsSkuCode = viewModel.get('ptsSkuCode');
+
+            if(ptsSkuCode == null || ptsSkuCode.length == 0){
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Mã vạch không được bỏ trống',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                me.getView().down('#ptsSkuCode').focus();
+                return;
+            }
+
+            me.BtnAddSkuPackToStock(ptsSkuCode, 10);
+        }
+    },
+    onBtnAddSkuPackToStock: function(){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var ptsSkuCode = viewModel.get('ptsSkuCode');
+
+        if(ptsSkuCode == null || ptsSkuCode.length == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Mã vạch không được bỏ trống',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            me.getView().down('#ptsSkuCode').focus();
+            return;
+        }
+
+        me.BtnAddSkuPackToStock(ptsSkuCode, 10);
+    },
+    BtnAddSkuPackToStock: function(skucode, skutypeid_link){
+        // window
+        var me = this;
+        var params = new Object();
+        params.skucode = skucode;
+        params.skutypeid_link = skutypeid_link;
+
+        GSmartApp.Ajax.post('/api/v1/sku/getProductSKU_ByCode', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        if(response.message == 'Mã vạch không tồn tại'){
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            me.getView().down('#ptsSkuCode').focus();
+                        }else{
+                            me.loadSkuCodePackToStockWindow(response.data);
+                        }
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Lấy thông tin thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lấy thông tin thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+        
+    },
+    loadSkuCodePackToStockWindow:function(data){
+        var viewModel = this.getViewModel();
+        var handoverid_link = viewModel.get('currentRec.id'); // 0
+        var viewId = viewModel.get('viewId'); // handover_pack_tostock_detail
+        // console.log(handoverid_link);
+        // console.log(viewId);
+        // console.log(data);
+
+        var form = Ext.create('Ext.window.Window', {
+            height: 400,
+            width: 500,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Chi tiết SKU',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'HandoverDetailSKUDetail',
+                viewModel: {
+                    type: 'HandoverDetailSKUDetailViewModel',
+                    data: {
+                        handoverid_link: handoverid_link,
+                        viewId: viewId,
+                        data: data,
+                        handoverproductid_link: null, 
+                        porderid_link: null, 
+                        productid_link: null,
+                    }
+                }
+            }]
+        });
+        form.show();
     }
 })

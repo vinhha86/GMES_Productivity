@@ -53,6 +53,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailViewModel', {
         viewIdParent: '', // id view parent HandoverDetail ex: handover_cut_toline_edit
         viewIdList: '', //  id view list, for btnQuayLai ex: handover_cut_toline
         radioVal: 1,
+
+        // PACK TO STOCK values:
+        ptsBuyerCode: '',
+        ptsQuantity: null,
+        ptsSkuCode: '',
     },
     formulas: {
         isBtnConfirmOutHidden : function (get) { // Xuat
