@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             }
                         }
                     });
+                    console.log(eventRecord.data.pcontract_poid_link);
                     window.show();
                 }
                 // eventRecord.data.pcontract_poid_link
