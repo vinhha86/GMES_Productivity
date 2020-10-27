@@ -131,7 +131,11 @@ Ext.define('GSmartApp.view.handover.HandoverDetailSKUDetailController', {
             HandoverSkuStore.rejectChanges();
             return;
         }
-        if(context.value == context.originalValue || context.value < 0 || context.value == ''){
+        if(context.value == context.originalValue){
+            // HandoverSkuStore.rejectChanges();
+            return;
+        }
+        if(context.value < 0 || context.value == ''){
             HandoverSkuStore.rejectChanges();
             return;
         }

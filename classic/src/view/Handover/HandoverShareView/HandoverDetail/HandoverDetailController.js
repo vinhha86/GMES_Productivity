@@ -370,7 +370,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         });
         form.show();
     },
-    onLuu: function (thisBtn) {
+    onLuu: function () {
         var m = this;
         var me = this.getView();
 
@@ -621,16 +621,19 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
     onEditProductTotalPackage: function (editor, context, e) {
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');
+        var HandoverProductStore = viewModel.getStore('HandoverProductStore');
         if(
             viewId == 'handover_line_fromcut_detail' ||
             viewId == 'handover_pack_fromline_detail'
         ){
-            var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+            
             HandoverProductStore.rejectChanges();
             return;
         }
-        if(context.value == context.originalValue || context.value < 0){
-            var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+        if(context.value == context.originalValue){
+            return;
+        }
+        if(context.value < 0 || context.value == ''){
             HandoverProductStore.rejectChanges();
             return;
         }
@@ -1120,7 +1123,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                             });
                             me.getView().down('#ptsSkuCode').focus();
                         }else{
-                            me.loadSkuCodePackToStockWindow(response.data);
+                            // me.loadSkuCodePackToStockWindow(response.data);
+                            me.addProductByBarcodePackToStock(response.data);
                         }
                     }
                     else {
@@ -1146,6 +1150,153 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                 }
             })
         
+    },
+    addProductByBarcodePackToStock: function(data){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var handoverid_link = viewModel.get('currentRec.id'); // 0
+        var viewId = viewModel.get('viewId'); // handover_pack_tostock_detail
+
+        var data = data[0];
+        data.skuCode = data.code;
+        data.skuColor = data.color_name;
+        data.skuSize = data.size_name;
+        data.skuSizeSortVal = data.sort_size;
+        data.totalpackage = 1;
+        console.log(data);
+        
+        var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+
+        var handoverSku = new Object();
+        handoverSku.productid_link = data.productid_link;
+        handoverSku.skuid_link = data.id;
+        handoverSku.totalpackage = 1;
+
+        var index = HandoverProductStore.find('productid_link', data.productid_link,
+        0, false, false, true);
+        if(index != -1){
+            // đã có
+            // console.log(index);
+            var products = HandoverProductStore.getData().items;
+            var p = HandoverProductStore.findRecord('productid_link', data.productid_link,
+            0, false, false, true);
+            var product = p.data;
+
+            if(product.handoverSKUs.length > 0){
+                // console.log('>0');
+                var SKUs = product.handoverSKUs;
+                var isSkusExist = false;
+                for(var i=0;i<SKUs.length;i++){
+                    var sku = SKUs[i];
+                    // console.log(handoverSKU);
+                    if(sku.skuid_link == handoverSku.skuid_link){
+                        sku.totalpackage += handoverSku.totalpackage;
+                        isSkusExist = true;
+                    }
+                }
+                if(!isSkusExist){
+                    SKUs.push(handoverSku);
+                }
+
+                var total = 0;
+                for(var i=0;i<SKUs.length;i++){
+                    var sku = SKUs[i];
+                    total+=parseInt(sku.totalpackage);
+                }
+                // product.totalpackage = total;
+                p.set('totalpackage', total);
+            }else{
+                // console.log('=0');
+                var SKUs = product.handoverSKUs;
+                SKUs.push(handoverSku);
+                var total = 0;
+                for(var i=0;i<SKUs.length;i++){
+                    var sku = SKUs[i];
+                    total+=parseInt(sku.totalpackage);
+                }
+                p.set('totalpackage', total);
+            }
+        }else{
+            // chưa có, thêm product vào store
+            var handoverProduct = new Object();
+            handoverProduct.productid_link = handoverSku.productid_link;
+            handoverProduct.unitid_link = 2;
+            handoverProduct.totalpackage = handoverSku.totalpackage;
+            handoverProduct.buyercode  = data.product_code;
+            handoverProduct.buyername = data.product_name;
+            handoverProduct.unitName = 'Chiếc';
+
+            var handoverSKUs = new Array();
+            handoverSKUs.push(handoverSku);
+
+            handoverProduct.handoverSKUs = handoverSKUs;
+            HandoverProductStore.add(handoverProduct);
+        }
+
+        if(handoverid_link != null && handoverid_link != 0){
+            me.LuuProduct();
+        }
+
+    },
+    LuuProduct: function(){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+
+        var handoverProductsData = HandoverProductStore.getData().items;
+        var handoverProducts = new Array();
+        console.log(handoverProductsData);
+        for(var i=0;i<handoverProductsData.length;i++){
+            console.log(handoverProductsData[i].data.buyercode);
+            handoverProducts.push(handoverProductsData[i].data);
+        }
+
+        var params = new Object();
+        var data = new Object();
+        data = viewModel.get('currentRec');
+
+        data.handoverProducts = handoverProducts;
+
+        params.data = data;
+        params.msgtype = "HANDOVER_CREATE";
+        params.message = "Tạo handover";
+
+        GSmartApp.Ajax.post('/api/v1/handover/create', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        
+                        viewModel.set('currentRec', response.data);
+                        var handover_date = viewModel.get('currentRec.handover_date');
+                        var date = Ext.Date.parse(handover_date, 'c');
+                        if (null == date) date = new Date(handover_date);
+                        viewModel.set('currentRec.handover_date',date);
+
+                        HandoverProductStore.load();
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Lưu thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lưu thất bại',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     },
     loadSkuCodePackToStockWindow:function(data){
         var viewModel = this.getViewModel();
