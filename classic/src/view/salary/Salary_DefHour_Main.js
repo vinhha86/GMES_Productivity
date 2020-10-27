@@ -18,17 +18,39 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Main', {
             layout: 'border',
             items:[
                 {
-                    region: 'west',
-                    width: '80%',
+                    region: 'center',
                     border: true,
                     xtype: 'Salary_DefHour_SalTypeLevel'
                 },
                 {
-                    region: 'center',
-                    xtype: 'panel',
+                    region: 'east',
+                    border: true,
+                    margin: '0 0 0 5',
+                    width: 180,
+                    xtype: 'Salary_DefHour_SalTypeLabor',
                 }
             ]
         }
-    ]
-
+    ],
+    dockedItems: [{
+        layout: 'hbox',
+        reference: 'dockBottomBar',
+        border: false,
+        dock: 'bottom',
+        items: [{
+            flex: 1,
+            border: false
+        }, 
+        {
+            xtype: 'button',
+            text: 'Lưu',
+            margin: 1,
+            itemId: 'btnLuu_SalDefHour',
+            iconCls: 'x-fa fa-save',
+            formBind: true,
+            bind: {
+                hidden: '{isHidden_btnLuu}'
+            },
+        }]
+    }]
 })

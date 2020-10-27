@@ -3,14 +3,14 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
     alias: 'controller.Salary_DefHour_Controller',
     init: function () {
         var viewmodel = this.getViewModel();
-        var SalTypeLevelStore = viewmodel.getStore('SalTypeLevelStore');
-        SalTypeLevelStore.loadStore(1,0);
+        var SalTypeLevel_DefHourStore = viewmodel.getStore('SalTypeLevel_DefHourStore');
+        SalTypeLevel_DefHourStore.loadStore(1,0);
     },
-    // control: {
-    //     '#Salary_ListOrg_View': {
-    //         itemclick: 'onloadDetail'
-    //     }
-    // }
+    control: {
+        '#btnLuu_SalDefHour': {
+            click: 'onSaveSal_DefHour'
+        }
+    },
     onPivotGroupExpand: function(matrix, type, group) {
         Ext.log((group ? 'Group "' + group.name + '" expanded on ' : 'All groups expanded on ') + type);
     },
@@ -20,5 +20,16 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
     },
     onAddSalType: function(){
 
+    },
+    onAddSalLabor: function(){
+
+    },
+    onSalTypeLevel_Edit:function(editor, context, eOpts ){
+        console.log(context);
+    },
+    onSaveSal_DefHour: function(){
+        var viewmodel = this.getViewModel();
+        var SalTypeLevel_DefHourStore = viewmodel.getStore('SalTypeLevel_DefHourStore');
+        console.log(SalTypeLevel_DefHourStore);
     }
 })

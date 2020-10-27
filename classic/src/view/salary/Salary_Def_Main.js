@@ -26,26 +26,5 @@ Ext.define('GSmartApp.view.salary.Salary_Def_Main', {
                 xtype: 'panel'
             }
         ]            
-    }],
-    dockedItems: [{
-        layout: 'hbox',
-        reference: 'dockBottomBar',
-        border: false,
-        dock: 'bottom',
-        items: [{
-            flex: 1,
-            border: false
-        }, 
-        {
-            xtype: 'button',
-            text: 'Lưu',
-            margin: 1,
-            itemId: 'btnLuu',
-            iconCls: 'x-fa fa-save',
-            formBind: true,
-            bind: {
-                hidden: '{isHidden_btnLuu}'
-            }
-        }]
     }]
 })

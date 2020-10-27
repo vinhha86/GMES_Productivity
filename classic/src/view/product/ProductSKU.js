@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.product.ProductSKU', {
                     xtype: 'textfield',
                     allowBlank: false,
                     blankText: 'Không được để trống',
-                    itemId:'txtcode'
+                    itemId:'txtpartnercode'
                 }
             })
         },
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.product.ProductSKU', {
                     xtype: 'textfield',
                     allowBlank: false,
                     blankText: 'Không được để trống',
-                    itemId:'txtcode'
+                    itemId:'txtbarcode'
                 }
             })
         },

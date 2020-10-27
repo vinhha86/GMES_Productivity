@@ -6,7 +6,11 @@ Ext.define('GSmartApp.view.product.ProductSKUViewCotroller', {
         var me = this.getView();
     },
     control: {
-        '#txtcode': {
+        '#txtpartnercode': {
+            focus: 'onfocus',
+            focusleave: 'onfocusleave'
+        },
+        '#txtbarcode': {
             focus: 'onfocus',
             focusleave: 'onfocusleave'
         },
@@ -29,10 +33,12 @@ Ext.define('GSmartApp.view.product.ProductSKUViewCotroller', {
         }
 
         var select = this.getView().getSelectionModel().getSelection();
-        if(m.itemId == "txtcode")
+        if(m.itemId == "txtbarcode")
             select[0].data.barcode = m.getValue();
+        else if (m.itemId == "txtpartnercode")
+            select[0].data.partnercode = m.getValue();            
         else if (m.itemId == "txtsku")
-        select[0].data.code = m.getValue();
+            select[0].data.code = m.getValue();
 
         var params = new Object();
         params.msgtype = "SKU_CREATE";

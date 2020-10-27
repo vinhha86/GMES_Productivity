@@ -18,9 +18,10 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
 
     selModel: {
         type: 'rowmodel'
+        // type: 'spreadsheet'
     },
     bind:{
-        store:'{SalTypeLevelStore}'
+        store:'{SalTypeLevel_DefHourStore}'
     },
     plugins: {
         // pivotexporter: true
@@ -28,7 +29,10 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
             clicksToEdit: 1,
             // define here the type of editing: 'overwrite', 'increment',
             // 'percentage', 'uniform'
-            defaultUpdater: 'uniform'
+            defaultUpdater: 'uniform',
+            listeners: {
+                validateedit: 'onSalTypeLevel_Edit'
+            }       
         }        
     },       
     // Set this to false if multiple dimensions are configured on leftAxis and
@@ -52,13 +56,27 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
         textGrandTotalTpl: 'Tổng:',
         textTotalTpl: 'Tổng ({name})',
         // Configure the aggregate dimensions. Multiple dimensions are supported.
-        aggregate: [{
-            dataIndex: 'salamount',
-            // header: 'Tổng',
-            // aggregator: 'sum',
-            width: 100,
-            editor: 'numberfield'
-        }],
+        aggregate: [
+            {
+                dataIndex: 'salratio',
+                header: 'HS',
+                width: 50,
+                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100, selectOnFocus: false},
+                // renderer: function(value){
+                //     return Ext.util.Format.number(value, '0,000');
+                // }
+            },     
+            {
+                dataIndex: 'salamount',
+                header: 'Lương',
+                // aggregator: 'sum',
+                width: 80,
+                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 1000000000, selectOnFocus: false},
+                renderer: function(value){
+                    return Ext.util.Format.number(value, '0,000');
+                }
+            }
+        ],
 
         // Configure the left axis dimensions that will be used to generate
         // the grid rows

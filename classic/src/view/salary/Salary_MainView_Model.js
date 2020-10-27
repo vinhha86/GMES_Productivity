@@ -6,9 +6,12 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
         OrgStore: {
             type: 'ListOrgMenuTreeStore'
         },
-        SalTypeLevelStore: {
+        SalTypeLevel_DefHourStore: {
             type: 'SalTypeLevelStore'
-        }
+        },
+        SalTypeLaborLevelStore: {
+            type: 'SalTypeLaborLevelStore'
+        }        
     },
     data: {
         isMenuHide_SalType: false,

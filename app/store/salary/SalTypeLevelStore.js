@@ -49,7 +49,7 @@ Ext.define('GSmartApp.store.SalTypeLevelStore', {
 				if(!success){
 					 this.fireEvent('logout');
 				} else {
-					console.log(records);
+					// console.log(records);
 				}
 			}
 		});
