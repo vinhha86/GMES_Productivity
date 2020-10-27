@@ -157,6 +157,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
             emptyText:'Xuất từ',
             itemId: 'handover_datefrom',
             reference: 'handover_datefrom',
+            format:'d/m/Y',
             margin: '5 1 5 0',
             width: 130
         },{
@@ -165,6 +166,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
             emptyText:'Xuất đến',
             itemId: 'handover_dateto',
             reference: 'handover_dateto',
+            format:'d/m/Y',
             margin: '5 1 5 0',
             width: 130
         },{
