@@ -704,7 +704,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
                     var form = Ext.create('Ext.window.Window', {
                         height: 400,
-                        width: 500,
+                        width: 600,
                         closable: true,
                         resizable: false,
                         modal: true,

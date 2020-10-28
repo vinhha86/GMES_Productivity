@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailSKUDetail', {
     },
     columns:[
         { header: 'SKU', dataIndex: 'skuCode', flex: 1},
+        { header: 'Mã vạch', dataIndex: 'barcode', width: 150},
         { header: 'Màu', dataIndex: 'skuColor', width: 100},
         { header: 'Cỡ', dataIndex: 'skuSize', width: 70},  
         { header: 'Số lượng', dataIndex: 'totalpackage', width: 80, summaryType: 'sum', align: 'end', 
