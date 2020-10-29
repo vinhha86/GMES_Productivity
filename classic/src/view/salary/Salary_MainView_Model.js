@@ -20,12 +20,23 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
         },
         SalBasicStore: {
             type: 'SalBasicStore'
-        }      
+        },
+        SalComStore: {
+            type: 'SalComStore'
+        },
+        SalComLaborLevelStore: {
+            type: 'SalComLaborLevelStore'
+        } ,
+        SalComPositionStore: {
+            type: 'SalComPositionStore'
+        }                        
     },
     data: {
+        selected_tab: null,
         isMenuHide_SalType: false,
         selected_orgid: null,
         selected_saltypeid: null,
+        selected_salcomid: null,
         org_sal_basic: {
             id: null,
             sal_basic: null,

@@ -108,6 +108,12 @@ Ext.define('GSmartApp.view.personel.Personnel_history', {
             text: 'Thêm mới phòng ban',
             iconCls: 'x-fa fa-plus',
             itemId: 'btn_department',
+        },{
+            xtype: 'button',
+            margin: 1,
+            text: 'Thêm mới ngạch,bậc lương',
+            iconCls: 'x-fa fa-plus',
+            itemId: 'btn_salary',
         }]
     }
     ]

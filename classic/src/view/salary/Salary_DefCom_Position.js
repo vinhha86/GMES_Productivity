@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
+Ext.define('GSmartApp.view.pcontract.Salary_DefCom_Position', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Salary_DefProductivity_SalTypeLabor',
-    id:'Salary_DefProductivity_SalTypeLabor',
+    xtype: 'Salary_DefCom_Position',
+    id:'Salary_DefCom_Position',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
         }
     },
     bind:{
-        store:'{SalTypeLaborLevelStore}'
+        store:'{SalComPositionStore}'
     },
     columns:[
         {
@@ -32,11 +32,11 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
             sortable: false,
             align: 'center',
             iconCls:'x-fa fas fa-trash-o redIcon',
-            handler: 'onXoa_LaborLevel'
+            handler: 'onXoa_Position'
         },   
         {
-            text:'Chức danh',
-            dataIndex:'laborlevel_name',
+            text:'Chức vụ',
+            dataIndex:'position_name',
             flex: 1
         }
     ],    
@@ -50,15 +50,15 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Chức danh công việc'
+            value: 'Chức vụ'
         },
         '->'
         ,            
         {
-            tooltip: 'Thêm vị trí',
+            tooltip: 'Thêm chức vụ',
             iconCls: 'x-fa fa-plus',
             weight: 30,
-            handler: 'onAddSalLabor'
+            handler: 'onAddSalPosition'
         }
     ]
     }]

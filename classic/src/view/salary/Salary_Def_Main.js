@@ -23,8 +23,12 @@ Ext.define('GSmartApp.view.salary.Salary_Def_Main', {
                 xtype: 'Salary_DefProductivity_Main'
             },
             {
-                title: 'Phụ cấp',
-                xtype: 'panel'
+                title: 'Phụ cấp chức vụ',
+                xtype: 'Salary_DefCom_Position_Main'
+            },
+            {
+                title: 'Phụ cấp khác',
+                xtype: 'Salary_DefCom_Labor_Main'
             }
         ]            
     }]

@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
+Ext.define('GSmartApp.view.pcontract.Salary_DefCom_Grid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Salary_DefProductivity_SalTypeLabor',
-    id:'Salary_DefProductivity_SalTypeLabor',
+    xtype: 'Salary_DefCom_Grid',
+    itemId:'Salary_DefCom_Grid',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -14,20 +14,19 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
-                edit: 'onEdit'
-            } 
+                validateedit: 'onDefComGridItemEdit'
+            }       
         }
     },
     bind:{
-        store:'{SalTypeLaborLevelStore}'
+        store:'{SalComStore}'
     },
     columns:[
         {
             xtype: 'actioncolumn',
             width: 28,
-            reference: 'sku_contextmenu',
             menuDisabled: true,
             sortable: false,
             align: 'center',
@@ -35,9 +34,24 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
             handler: 'onXoa_LaborLevel'
         },   
         {
-            text:'Chức danh',
-            dataIndex:'laborlevel_name',
+            text:'Loại phụ cấp',
+            dataIndex:'name',
             flex: 1
+        },
+        {
+            text:'Hệ số',
+            dataIndex:'comratio',
+            width: 50,
+            editor: {xtype: 'numberfield', hideTrigger:true, allowDecimals: true, allowBlank: false, maxValue: 100, selectOnFocus: false},
+        },
+        {
+            text:'Phụ cấp',
+            dataIndex:'comamount',
+            width: 80,
+            editor: {xtype: 'numberfield', hideTrigger:true, allowDecimals: false, allowBlank: false, maxValue: 1000000000, selectOnFocus: false},
+            renderer: function (value, metaData, record, rowIndex) {
+                return Ext.util.Format.number(parseInt(value), '0,000');
+            }       
         }
     ],    
     dockedItems: [{
@@ -50,7 +64,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Chức danh công việc'
+            value: 'Phụ cấp'
         },
         '->'
         ,            
@@ -58,7 +72,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
             tooltip: 'Thêm vị trí',
             iconCls: 'x-fa fa-plus',
             weight: 30,
-            handler: 'onAddSalLabor'
+            handler: 'onAddSalCom'
         }
     ]
     }]

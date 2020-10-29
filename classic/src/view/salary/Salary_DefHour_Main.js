@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Main', {
                     region: 'east',
                     border: true,
                     margin: '0 0 0 5',
-                    width: 180,
+                    width: 210,
                     xtype: 'Salary_DefHour_SalTypeLabor',
                 }
             ]

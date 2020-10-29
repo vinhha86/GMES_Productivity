@@ -61,7 +61,17 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
         SalTypeLevel_DefProductivityStore.loadStore(record.get('id'),1);
 
         //Lay thong tin Phu cap
-
+        if (viewmodel.get('selected_tab') == 'Salary_DefCom_Position_Main') {
+            var SalComStore = viewmodel.getStore('SalComStore');
+            SalComStore.removeAll();
+            SalComStore.loadStore(viewmodel.get('selected_orgid'),0);
+        }
+        if (viewmodel.get('selected_tab') == 'Salary_DefCom_Labor_Main') {
+            var SalComStore = viewmodel.getStore('SalComStore');
+            SalComStore.removeAll();
+            SalComStore.loadStore(viewmodel.get('selected_orgid'),1);
+        }
+        
         //Xoa thong tin Vi tri cong viec
         var SalTypeLaborLevelStore = viewmodel.getStore('SalTypeLaborLevelStore');
         SalTypeLaborLevelStore.removeAll();        

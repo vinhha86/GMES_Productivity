@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
+Ext.define('GSmartApp.view.pcontract.Salary_DefCom_Labor', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Salary_DefProductivity_SalTypeLabor',
-    id:'Salary_DefProductivity_SalTypeLabor',
+    xtype: 'Salary_DefCom_Labor',
+    id:'Salary_DefCom_Labor',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -21,13 +21,12 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
         }
     },
     bind:{
-        store:'{SalTypeLaborLevelStore}'
+        store:'{SalComLaborLevelStore}'
     },
     columns:[
         {
             xtype: 'actioncolumn',
             width: 28,
-            reference: 'sku_contextmenu',
             menuDisabled: true,
             sortable: false,
             align: 'center',
@@ -55,7 +54,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
         '->'
         ,            
         {
-            tooltip: 'Thêm vị trí',
+            tooltip: 'Thêm chức danh',
             iconCls: 'x-fa fa-plus',
             weight: 30,
             handler: 'onAddSalLabor'

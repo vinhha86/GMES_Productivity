@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLabor', {
             handler: 'onXoa_LaborLevel'
         },   
         {
-            text:'Chức vụ',
+            text:'Chức danh',
             dataIndex:'laborlevel_name',
             flex: 1
         }
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLabor', {
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Vị trí công việc'
+            value: 'Chức danh công việc'
         },
         '->'
         ,            

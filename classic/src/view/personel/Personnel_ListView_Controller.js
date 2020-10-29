@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             title: 'Thêm mới nhân viên',
             closeAction: 'destroy',
             height: Ext.getBody().getViewSize().height * .95,
-            width: Ext.getBody().getViewSize().width * .8,
+            width: Ext.getBody().getViewSize().width * .85,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             title: 'Cập nhật nhân viên',
             closeAction: 'destroy',
             height: Ext.getBody().getViewSize().height * .95,
-            width: Ext.getBody().getViewSize().width * .8,
+            width: Ext.getBody().getViewSize().width * .85,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
