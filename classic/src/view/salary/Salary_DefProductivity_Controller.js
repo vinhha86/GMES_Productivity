@@ -1,13 +1,8 @@
-Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
+Ext.define('GSmartApp.view.salary.Salary_DefProductivity_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Salary_DefHour_Controller',
+    alias: 'controller.Salary_DefProductivity_Controller',
     init: function () {
 
-    },
-    control: {
-        '#btnLuu_SalDefHour': {
-            click: 'onSaveSal_DefHour'
-        }
     },
     onPivotGroupExpand: function(matrix, type, group) {
         Ext.log((group ? 'Group "' + group.name + '" expanded on ' : 'All groups expanded on ') + type);
@@ -23,18 +18,12 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
         for (i=0;i<SalTypeLevel_DefHourStore.data.items.length;i++){
             var record = SalTypeLevel_DefHourStore.data.items[i];
             if (null != record.modified){
-                record.beginedit
-                if (null != viewmodel.get('org_sal_basic.sal_basic'))
-                    record.set('salamount',record.get('salratio')*viewmodel.get('org_sal_basic.sal_basic'));
-                record.endedit;
-
                 //Update to DB
                 var params = new Object();
                 params.id = record.get('id');
                 params.saltypeid_link = record.get('saltypeid_link');
                 params.sallevelid_link = record.get('sallevelid_link');
                 params.salratio = record.get('salratio');
-                params.salamount = record.get('salamount');
         
                 GSmartApp.Ajax.post('/api/v1/salary/saltype_level_update', Ext.JSON.encode(params),
                     function (success, response, options) {
@@ -76,7 +65,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
                     viewModel: {
                         data: {
                             orgid_link: viewmodel.get('selected_orgid'),
-                            typeid_link: 0 //DefHour
+                            typeid_link: 1 //Productivity
                         }
                     }
                 }]
@@ -84,7 +73,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
             form.show();
 
             form.down('#SalType_AddNew').getController().on('AcceptSuccess', function () {
-                var store = viewmodel.getStore('SalTypeLevel_DefHourStore');
+                var store = viewmodel.getStore('SalTypeLevel_DefProductivityStore');
                 store.load();
                 form.close();
             })

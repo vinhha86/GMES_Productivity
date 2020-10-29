@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.salary.Salary_MainView', {
     layout: 'border',
     items: [{
         region: 'west',
-        width: '20%',
+        width: 200,
         title: 'Danh sách đơn vị',
         xtype: 'Salary_ListOrg_View',
         border: true,

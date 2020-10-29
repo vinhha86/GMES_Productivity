@@ -26,7 +26,10 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_SalBasic', {
                 },
                 vtype: 'dollar',
                 textAlign: 'right',
-                labelAlign: 'left'
+                labelAlign: 'left',
+                listeners:{
+                    focusleave: 'onUpdateSalBasic'
+                }
             },
             {
                 xtype: 'textfield',
@@ -42,12 +45,15 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_SalBasic', {
                 },
                 vtype: 'dollar',
                 textAlign: 'right',
-                labelAlign: 'left'
+                labelAlign: 'left',
+                listeners:{
+                    focusleave: 'onUpdateSalBasic'
+                }
             },
             {
                 xtype: 'numberfield',
                 allowDecimals: false,
-                minValue: 1,
+                minValue: 0,
                 maxValue: 30,
                 itemId: 'workingdays',
                 labelWidth: 140,
@@ -58,7 +64,11 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_SalBasic', {
                 margin: 5,
                 bind: {
                     value: '{org_sal_basic.workingdays}'
+                },
+                listeners:{
+                    focusleave: 'onUpdateSalBasic'
                 }
+
             }
         ]            
     }]

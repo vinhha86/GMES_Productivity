@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
+Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLevel', {
     extend: 'Ext.pivot.Grid',
-    xtype: 'Salary_DefHour_SalTypeLevel',
-    id:'Salary_DefHour_SalTypeLevel',
+    xtype: 'Salary_DefProductivity_SalTypeLevel',
+    id:'Salary_DefProductivity_SalTypeLevel',
     requires: [
         'Ext.pivot.plugin.Exporter',
         'Ext.pivot.plugin.Configurator',
@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
         // type: 'spreadsheet'
     },
     bind:{
-        store:'{SalTypeLevel_DefHourStore}'
+        store:'{SalTypeLevel_DefProductivityStore}'
     },
     plugins: {
         // pivotexporter: true
@@ -67,16 +67,6 @@ Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
                 // renderer: function(value){
                 //     return Ext.util.Format.number(value, '0,000');
                 // }
-            },     
-            {
-                dataIndex: 'salamount',
-                header: 'Lương',
-                // aggregator: 'sum',
-                width: 80,
-                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 1000000000, selectOnFocus: false},
-                renderer: function(value){
-                    return Ext.util.Format.number(value, '0,000');
-                }
             }
         ],
 

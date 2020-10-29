@@ -139,7 +139,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
                                 grid.getStore().remove(rec);
                             }
                         }
-                })
+                    })
                 }
             }
         });

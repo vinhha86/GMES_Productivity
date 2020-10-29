@@ -1,28 +1,21 @@
-Ext.define('GSmartApp.store.SalTypeLevelStore', {
+Ext.define('GSmartApp.store.SalTypeLaborLevelStore', {
 	extend: 'Ext.data.Store',
-	storeId: 'SalTypeLevelStore',
-	alias: 'store.SalTypeLevelStore',
-	idProperty: 'idx',
+	storeId: 'SalTypeLaborLevelStore',
+    alias: 'store.SalTypeLaborLevelStore',
     fields: [
-		'idx',
 		{name: 'id', type: 'int'},
 		{name: 'saltypeid_link',   type: 'int'},
-		{name: 'saltype_code',   type: 'string'},
-		{name: 'saltype_name',   type: 'string'},
-		{name: 'sallevelid_link',   type: 'int'},
-		{name: 'sallevel_code',   type: 'string'},
-		{name: 'sallevel_name',   type: 'string'},
-		{name: 'salratio',   type: 'number'},
-		{name: 'salamount',   type: 'integer'}
+		{name: 'laborlevelid_link',   type: 'int'},
+		{name: 'laborlevel_code',   type: 'string'},
+		{name: 'laborlevel_name',   type: 'string'}
 	],
 	sorters: [{
         property: 'id',
         direction: 'ASC'
     }],
-	loadStore:function(orgid_link, typeid_link){
+	loadStore:function(saltypeid_link){
 		var params = new Object();
-		params.orgid_link = orgid_link;
-		params.typeid_link = typeid_link;
+		params.saltypeid_link = saltypeid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -31,7 +24,7 @@ Ext.define('GSmartApp.store.SalTypeLevelStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/salary/saltype_level_byorg',
+			url: config.getAppBaseUrl()+'/api/v1/salary/saltype_laborlevel',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
