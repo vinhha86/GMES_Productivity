@@ -14,9 +14,9 @@ Ext.define('GSmartApp.view.salary.Salary_DefProductivity_Controller', {
     onPivotUpdate: function(editor, e) {
         Ext.log('Event "pivotupdate" fired');
         var viewmodel = this.getViewModel();
-        var SalTypeLevel_DefHourStore = viewmodel.getStore('SalTypeLevel_DefHourStore');
-        for (i=0;i<SalTypeLevel_DefHourStore.data.items.length;i++){
-            var record = SalTypeLevel_DefHourStore.data.items[i];
+        var SalTypeLevel_DefProductivityStore = viewmodel.getStore('SalTypeLevel_DefProductivityStore');
+        for (i=0;i<SalTypeLevel_DefProductivityStore.data.items.length;i++){
+            var record = SalTypeLevel_DefProductivityStore.data.items[i];
             if (null != record.modified){
                 //Update to DB
                 var params = new Object();
@@ -159,8 +159,8 @@ Ext.define('GSmartApp.view.salary.Salary_DefProductivity_Controller', {
     },
     onSaveSal_DefHour: function(){
         var viewmodel = this.getViewModel();
-        var SalTypeLevel_DefHourStore = viewmodel.getStore('SalTypeLevel_DefHourStore');
-        console.log(SalTypeLevel_DefHourStore);
+        var SalTypeLevel_DefProductivityStore = viewmodel.getStore('SalTypeLevel_DefProductivityStore');
+        console.log(SalTypeLevel_DefProductivityStore);
     },
     onPivotItemClick: function(params, e, eOpts) {
         var viewmodel = this.getViewModel();

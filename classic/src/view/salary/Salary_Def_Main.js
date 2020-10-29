@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.salary.Salary_Def_Main', {
     xtype: 'Salary_Def_Main',
     id: 'Salary_Def_Main',
     itemId: 'Salary_Def_Main',
-    // controller: 'PContractViewController',
+    controller: 'Salary_Def_Main_Controller',
     IdPContract: 0,
     layout: 'border',
     height: 500,
@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.salary.Salary_Def_Main', {
         region: 'center',
         margin: 1,
         xtype: 'tabpanel',
+        itemId:'tabmain',
         items: [
             {
                 title: 'Lương giờ',

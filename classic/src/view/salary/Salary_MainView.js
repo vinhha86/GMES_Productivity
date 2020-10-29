@@ -16,7 +16,6 @@ Ext.define('GSmartApp.view.salary.Salary_MainView', {
     
     }, {
         region: 'center',
-        // title: 'Danh sách nhân viên',
         xtype: 'Salary_Def_Main',
         border: true,
         margin: 1
