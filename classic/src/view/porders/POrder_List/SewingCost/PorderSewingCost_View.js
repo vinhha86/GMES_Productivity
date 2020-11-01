@@ -134,10 +134,10 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             },
             {
                 xtype:'button',
-                text: 'Cân bằng lệnh',
+                text: 'Cân bằng chuyền',
                 itemId:'btnPorderBalance',
                 // ui: 'header',
-                tooltip: 'Cân bằng lệnh',
+                tooltip: 'Cân bằng chuyền',
                 // iconCls: 'x-fa fa-check greenIcon',
                 handler: 'onBtnPorderBalance',
             }        

@@ -12,11 +12,11 @@ Ext.define('GSmartApp.view.POrder_Grant_Balance.POrderGrantBalance_Personnel', {
             enableDrag: true,
             //dragText: '{0} Mã sản xuất được tính lương',
             dragGroup: 'PersonnelGroup',
-            // dropGroup: 'BalanceDetailGroupSub'
+            dropGroup: 'WorkingProcessGroup'
         },
         listeners: {
             // drop: 'onDropOrg',
-            // beforedrop: 'onBeforeDropBalanceDetailSub'
+            beforedrop: 'onBeforeWorkingProcessGroupDrop'
         }
     },
     bind: {

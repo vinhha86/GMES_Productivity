@@ -14,9 +14,9 @@ Ext.define('GSmartApp.view.POrder_Grant_Balance.POrderGrantBalance_Detail', {
         rowLines: true,
         plugins:{
             ptype: 'gridviewdragdrop',
-            enableDrag: false,
+            enableDrag: true,
             //dragText: '{0} Mã sản xuất được tính lương',
-            // dragGroup: 'BalanceDetailGroup',
+            dragGroup: 'WorkingProcessGroup',
             dropGroup: 'PersonnelGroup'
         },
         listeners: {
