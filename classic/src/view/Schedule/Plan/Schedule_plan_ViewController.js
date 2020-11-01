@@ -118,6 +118,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     me.cancel_pordergrant(eventRecord);
                 }
+            },
+            {
+                text: 'Cân bằng chuyền',
+                iconCls: 'x-fa fa-balance-scale',
+                handler: function () {
+                    me.porderGrantBalance(eventRecord);
+                }
             }
             ]
         })
@@ -852,5 +859,38 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     //     });
 
     //     this.getView()[value.length > 0 ? 'addCls' : 'removeCls']('highlighting');
-    // }
+    // },
+    porderGrantBalance: function(eventRecord){
+        // console.log(eventRecord.data);
+        
+        var porderid_link = eventRecord.data.porderid_link;
+        var pordergrantid_link = eventRecord.data.porder_grantid_link;
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '95%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Cân bằng chuyền',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrderGrantBalance',
+                viewModel: {
+                    type: 'POrderGrantBalanceViewModel',
+                    data: {
+                        porderid_link: porderid_link,
+                        pordergrantid_link: pordergrantid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+    }
 })

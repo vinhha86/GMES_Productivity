@@ -379,9 +379,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
         var handoverProductsData = HandoverProductStore.getData().items;
         var handoverProducts = new Array();
-        console.log(handoverProductsData);
+        // console.log(handoverProductsData);
         for(var i=0;i<handoverProductsData.length;i++){
-            console.log(handoverProductsData[i].data.buyercode);
+            // console.log(handoverProductsData[i].data.buyercode);
             handoverProducts.push(handoverProductsData[i].data);
         }
 
@@ -548,7 +548,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                         if (success) {
                             var response = Ext.decode(response.responseText);
                             data = response.data;
-                            console.log(data);
+                            // console.log(data);
                             if(data != null && data.orgtypeid_link == 9){ // Tổ hoàn thiện
                                 viewModel.set('currentRec.orgid_from_link', session.org_grant_id_link);
                                 me.down('#orgid_from_link').setReadOnly(true);
@@ -694,7 +694,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                 iconCls: 'x-fa fas fa-edit brownIcon',
                 handler: function(){
                     var record = this.parentMenu.record;
-                    console.log(record);
+                    // console.log(record);
                     // me.onEdit(record);
                     var porderid_link = viewModel.get('currentRec.porderid_link');
                     var handoverid_link = viewModel.get('currentRec.id');
@@ -1163,7 +1163,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         data.skuSize = data.size_name;
         data.skuSizeSortVal = data.sort_size;
         data.totalpackage = 1;
-        console.log(data);
+        // console.log(data);
         
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
 
@@ -1245,9 +1245,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
         var handoverProductsData = HandoverProductStore.getData().items;
         var handoverProducts = new Array();
-        console.log(handoverProductsData);
+        // console.log(handoverProductsData);
         for(var i=0;i<handoverProductsData.length;i++){
-            console.log(handoverProductsData[i].data.buyercode);
+            // console.log(handoverProductsData[i].data.buyercode);
             handoverProducts.push(handoverProductsData[i].data);
         }
 

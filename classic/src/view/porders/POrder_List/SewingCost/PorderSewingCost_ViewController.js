@@ -210,5 +210,35 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                     }
                 })
         })
+    },
+    onBtnPorderBalance: function(){
+        var viewModel = this.getViewModel();
+        var porderid_link = viewModel.get('IdPOrder');
+        // console.log('porderid_link : ' + porderid_link);
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '95%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Cân bằng lệnh',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrderBalance',
+                viewModel: {
+                    type: 'POrderBalanceViewModel',
+                    data: {
+                        porderid_link: porderid_link,
+                    }
+                }
+            }]
+        });
+        form.show();
     }
 });

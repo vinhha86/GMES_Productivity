@@ -131,7 +131,16 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 tooltip: 'Chốt quy trình công nghệ',
                 iconCls: 'x-fa fa-check greenIcon',
                 // handler: 'onFactoriesTap',
-            }            
+            },
+            {
+                xtype:'button',
+                text: 'Cân bằng lệnh',
+                itemId:'btnPorderBalance',
+                // ui: 'header',
+                tooltip: 'Cân bằng lệnh',
+                // iconCls: 'x-fa fa-check greenIcon',
+                handler: 'onBtnPorderBalance',
+            }        
         ]
     }]
 });

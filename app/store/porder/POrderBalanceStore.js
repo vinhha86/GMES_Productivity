@@ -1,18 +1,17 @@
-Ext.define('GSmartApp.store.personnel.Personnel_Store', {
+Ext.define('GSmartApp.store.porder.POrderBalanceStore', {
     extend: 'Ext.data.Store',
-	alias: 'store.Personnel_Store',
-	storeId: 'Personnel_Store',
-	idProperty: 'idx',
-	model: 'GSmartApp.model.personnel.PersonnelModel',
-	sorters: [{
-        direction: 'ASC',
-        property: 'code'
-	}],
-	loadStore_byOrg(orgid_link, ismanager, isviewall){
-		var params = new Object();
-		params.orgid_link = orgid_link;
-		params.ismanager = ismanager;
-		params.isviewall = isviewall;
+    storeId: 'POrderBalanceStore',
+	alias: 'store.POrderBalanceStore',
+	// groupField: 'granttoorgname',
+    // pageSize: 25,
+    fields: [
+		{name: 'id', type: 'int'},
+		{name: 'balance_name', type: 'string'},
+        {name: 'sortvalue', type: 'int'},
+	],
+	loadStore: function(porderid_link){
+        var params = new Object();
+        params.porderid_link = porderid_link;
 
 		this.setProxy({
 			type: 'ajax',
@@ -22,10 +21,10 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/personnel/getby_org',
+			url: config.getAppBaseUrl()+'/api/v1/porder_balance/getByPorder',
 			paramsAsJson:true,
-			extraParams : params,
 			noCache: false,
+			extraParams : params,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -44,8 +43,9 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 			}
 		});
 	},
-	loadStore_byPorderGrant(pordergrantid_link){
-		var params = new Object();
+	loadStoreByPorderAndPorderGrant: function(porderid_link, pordergrantid_link){
+        var params = new Object();
+		params.porderid_link = porderid_link;
 		params.pordergrantid_link = pordergrantid_link;
 
 		this.setProxy({
@@ -56,10 +56,10 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/personnel/getby_pordergrant',
+			url: config.getAppBaseUrl()+'/api/v1/porder_balance/getByPorderAndPorderGrant',
 			paramsAsJson:true,
-			extraParams : params,
 			noCache: false,
+			extraParams : params,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -77,5 +77,5 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 				}
 			}
 		});
-	}
+	},
 });
