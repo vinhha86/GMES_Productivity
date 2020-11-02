@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetailController', {
         var store  =  viewmodel.getStore('FOBPricePODetailStore');
         // console.log(viewmodel);
         var pcontract_poid_link = viewmodel.get('record.id');
+        console.log(pcontract_poid_link);
         // console.log(viewmodel.get('record.data.id'));
         store.loadStore(pcontract_poid_link);
     },

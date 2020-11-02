@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
         var po_productivity = viewmodel.get('pcontract_po_productivity');
-
+        console.log(po_productivity);
         var po_quantity = po_data.po_quantity == null ? 0 : parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
         var productivity = po_productivity.plan_productivity == null ? 0 : parseFloat(po_productivity.plan_productivity.toString().replace(/,/gi,''));
         var productiondays = po_data.productiondays;

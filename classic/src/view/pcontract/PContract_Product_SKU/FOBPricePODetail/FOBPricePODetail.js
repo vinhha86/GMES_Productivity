@@ -7,11 +7,6 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     },
     controller: 'FOBPricePODetailController',
     reference: 'FOBPricePODetail',
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 2
-    //     }
-    // },
     viewConfig: {
         stripeRows: false,
         columnLines: true,
@@ -20,19 +15,13 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     bind: {
         store: '{FOBPricePODetailStore}'
     },
-    features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '<b>{name}</b>',
-        hideGroupedHeader: false,
-        enableGroupingMenu: false
-    }],
     columns: [
-    // {
-    //     text: 'STT',
-    //     width: 40,
-    //     xtype: 'rownumberer',
-    //     align: 'center'
-    // }, 
+    {
+        text: 'STT',
+        width: 40,
+        xtype: 'rownumberer',
+        align: 'center'
+    }, 
     {
         text: 'Dải cỡ',
         dataIndex: 'sizesetname',

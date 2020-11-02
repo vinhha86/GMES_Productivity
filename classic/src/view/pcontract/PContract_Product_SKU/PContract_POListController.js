@@ -1,26 +1,35 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POListController',
-    onPOBuyerFilterKeyup: function () {
-        var grid = this.getView(),
-            filterField = this.lookupReference('POBuyerFilter'),
-            filters = this.getView().store.getFilters();
+    
+    onSelectPO: function(m, rec){
+        var viewModel = this.getViewModel();
+        viewModel.set('pcontract_poid_link', rec.data.id);
+        var productid_link = rec.data.productid_link;
 
-        if (filterField.value) {
-            this.POBuyerFilter = filters.add({
-                id: 'POBuyerFilter',
-                property: 'po_buyer',
-                value: filterField.value,
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.POBuyerFilter) {
-            filters.remove(this.POBuyerFilter);
-            this.POBuyerFilter = null;
-        }
+        var productStore = viewModel.getStore('PContractProduct_PO_Store');
+        productStore.loadStore_bypairid_Async(productid_link, rec.data.po_quantity, true);
+        productStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				var record = productStore.getAt(0);
+                var skuView = Ext.getCmp('PContractSKUView');
+                var cmbSanPham = skuView.down('#cmbSanPham');
+                cmbSanPham.select(record);
+                viewModel.set('IdProduct', record.get('id'));
+                viewModel.set('Product_pquantity', record.data.pquantity); 
+                // console.log(record);
+                //clear sku list
+                var storeSku = viewModel.getStore('PContractSKUStore');
+                storeSku.removeAll();
+                storeSku.loadStoreByPO_and_Product(record.get('id'), rec.data.id);
+			}
+		});
+        
+
+        
     },
-    onThemPO: function () {
+    onThemPO: function (rec) {
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -42,9 +51,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 viewModel: {
                     data: {
                         po: {
-                            pcontractid_link: viewmodel.get('PContract.id')
+                            pcontractid_link: viewmodel.get('PContract.id'),
+                            parentpoid_link: rec == null ? 0 : rec.data.id
                         },
-                        productid_link: viewmodel.get('IdProduct_filterPO')
+                        productid_link: viewmodel.get('IdProduct_filterPO'),
+
                     }
                 }
             }]
@@ -125,6 +136,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         })
     },
     onFOBPO: function (rec) {
+        console.log(rec);
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -157,9 +169,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
-            //padding: 10,
             minWidth: 150,
-            viewModel: {},
             items: [
                 {
                     text: 'Sửa PO',
@@ -182,28 +192,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         var record = this.parentMenu.record;
                         me.onXoaPO(record);
                     }
-                },
-                // {
-                //     text: 'Hủy PO',
-                //     itemId: 'btnPausePO_PContract_PO_List',
-                //     margin: '10 0 0',
-                //     iconCls: 'x-fa fas fa-stop violetIcon',
-                //     // hidden: ishidden_accept,
-                //     handler: function () {
-                //         // var record = this.parentMenu.record;
-                //         // me.onAccept(record);
-                //     }
-                // },
-                {
-                    text: 'Chi tiết FOB',
-                    itemId: 'btnDetailFOB_PContract_POList',
-                    separator: true,
-                    margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-book greenIcon',
-                    handler: function () {
-                        var record = this.parentMenu.record;
-                        me.onFOBPO(record);
-                    }
                 }
             ]
         });
@@ -214,4 +202,51 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
+    onMenu_PO_Parent: function(grid, rowIndex, colIndex, item, e, record){
+        var me = this;
+
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            minWidth: 150,
+            items: [
+                {
+                    text: 'Thêm PO',
+                    itemId: 'btnInsert_PO',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-plus brownIcon',
+                    handler: function () {
+                        me.onThemPO(record);
+                    }
+                },
+                {
+                    text: 'Tải DS PO',
+                    itemId: 'btnUpload_PO',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-upload brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                    }
+                },
+                {
+                    text: 'Chi tiết FOB',
+                    itemId: 'btnDetailFOB_PContract_POList',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-book greenIcon',
+                    handler: function () {
+                        me.onFOBPO(record.data);
+                    }
+                }
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
+    }
 })

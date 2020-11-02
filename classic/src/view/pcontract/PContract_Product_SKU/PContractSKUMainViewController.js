@@ -5,41 +5,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         
     },
     control:{
-        'PContract_POList': {
-            itemclick: 'onSelectPO'
-        },
         '#productFilter': {
             select: 'onFilterProduct',
             change: 'onChangeProduct'
         }
-    },
-    onSelectPO: function(m, rec){
-        var main = this.getView();
-        var viewModel = this.getViewModel();
-        viewModel.set('pcontract_poid_link', rec.data.id);
-        var productid_link = rec.data.productid_link;
-
-        var productStore = viewModel.getStore('PContractProduct_PO_Store');
-        productStore.loadStore_bypairid_Async(productid_link, rec.data.po_quantity, true);
-        productStore.load({
-			scope: this,
-			callback: function(records, operation, success) {
-				var record = productStore.getAt(0);
-                var skuView = main.down('#PContractSKUView');
-                var cmbSanPham = skuView.down('#cmbSanPham');
-                cmbSanPham.select(record);
-                viewModel.set('IdProduct', record.get('id'));
-                viewModel.set('Product_pquantity', record.data.pquantity); 
-                // console.log(record);
-                //clear sku list
-                var storeSku = viewModel.getStore('PContractSKUStore');
-                storeSku.removeAll();
-                storeSku.loadStoreByPO_and_Product(record.get('id'), rec.data.id);
-			}
-		});
-        
-
-        
     },
     onFilterProduct: function(combo, record, eOpts ){
         // console.log(record);

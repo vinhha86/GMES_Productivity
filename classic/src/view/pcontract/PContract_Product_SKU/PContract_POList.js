@@ -5,13 +5,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     controller: 'PContract_POListController',
     viewConfig: {
         stripeRows: false,
-        enableTextSelection: true,
+        enableTextSelection: false,
         columnLines: true,
         rowLines: true
-    },
-    selModel: {
-        //selType: 'checkboxmodel',
-        mode: 'SINGLE'
     },
     plugins: {
         cellediting: {
@@ -33,18 +29,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         items: [
             {
                 iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu_PO'
-            },                
-            // {
-            //     iconCls: 'x-fa fas fa-list',
-            //     tooltip: 'Sửa PO',
-            //     handler: 'onEdit'
-            // },
-            // {
-            //     iconCls: 'x-fa fas fa-trash',
-            //     tooltip: 'Xóa PO',
-            //     handler: 'onXoaPO'
-            // }
+                handler: 'onMenu_PO_Parent'
+            }
         ]
     },{
         text: 'STT',
@@ -55,33 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     {
         text:'PO Buyer',
         dataIndex:'po_buyer',
-        flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-
-            if (record.data.status == 0) {
-                metaData.tdCls =  "po_free";
-            }
-            else {
-                metaData.tdCls =  "po_accept";
-            }    
-            
-            return value;
-        },
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'POBuyerFilter',
-            width: '98%',
-            flex: 1,
-            margin: 2,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onPOBuyerFilterKeyup',
-                buffer: 500
-            }
-        },
-
+        flex: 1
     },    
     {
         text:'Mã SP (Buyer)',
@@ -92,24 +52,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             return value;
         }
     },
-    // {
-    //     text:'Mã SP (Vendor)',
-    //     dataIndex:'productvendorcode',
-    //     width: 70,
-    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-    //         metaData.tdAttr = 'data-qtip="' + value + '"';
-    //         return value;
-    //     }
-    // },    
-    // {
-    //     text:'PO Vendor',
-    //     dataIndex:'po_vendor',
-    //     flex: 1,
-    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-    //         metaData.tdAttr = 'data-qtip="' + value + '"';
-    //         return value;
-    //     }
-    // },
     {
         text:'Ngày GH',
         dataIndex:'shipdate',
@@ -123,7 +65,80 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
-    },],    
+    }],    
+    plugins: {
+        rowwidget: {
+            widget: 
+            {
+                xtype: 'grid',
+                viewConfig: {
+                    stripeRows: false
+                },                
+                bind: {
+                    store: '{record.sub_po}'
+                },
+                columns:[{
+                    xtype: 'actioncolumn',
+                    width: 28,
+                    menuDisabled: true,
+                    sortable: false,
+                    align: 'center',
+                    items: [
+                        {
+                            iconCls: 'x-fa fas fa-bars violetIcon',
+                            handler: 'onMenu_PO'
+                        }
+                    ]
+                },{
+                    text: 'STT',
+                    width: 40,
+                    xtype: 'rownumberer',
+                    align: 'center'
+                },{
+                    text:'PO Buyer',
+                    dataIndex:'po_buyer',
+                    flex: 1,
+                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                        metaData.tdAttr = 'data-qtip="' + value + '"';
+            
+                        if (record.data.status == 0) {
+                            metaData.tdCls =  "po_free";
+                        }
+                        else {
+                            metaData.tdCls =  "po_accept";
+                        }    
+                        
+                        return value;
+                    }
+                },{
+                    text:'Mã SP (Buyer)',
+                    dataIndex:'productbuyercode',
+                    flex: 1,
+                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
+                },
+                {
+                    text:'Ngày GH',
+                    dataIndex:'shipdate',
+                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    width: 75
+                },{
+                    text:'SL',
+                    align: 'end',
+                    dataIndex:'po_quantity',
+                    width: 70,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                    }
+                }],
+                listeners: {
+                    itemclick: 'onSelectPO'
+                }				
+			}
+		}
+	}, 
     dockedItems:[{
         dock:'top',
         border: 'hbox',

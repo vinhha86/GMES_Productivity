@@ -2,11 +2,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
     extend: 'Ext.app.ViewController',
     alias: 'controller.ListPO_OfferController',
     init: function () {
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractProductPOStore');
         var pcontractid_link = viewmodel.get('po.pcontractid_link');
         var productid_link = viewmodel.get('productid_link');
-        store.loadAccept_ByContract(pcontractid_link,productid_link);
+        store.loadAccept_ByContract_Async(pcontractid_link,productid_link);
+        store.load({
+            scope: this,
+            callback: function(){
+                var rec = store.findRecord('id',viewmodel.get('po.parentpoid_link'));
+                console.log(rec);
+                if(rec!=null)
+                    grid.getSelectionModel().select(rec);
+            }
+        });
     },
     control:{
         'ListPO_Offer' : {

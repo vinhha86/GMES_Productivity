@@ -71,10 +71,16 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             }]
         }, {
             title: 'Chào giá',
-            xtype: 'PContract_PO_Main'
+            xtype: 'PContract_PO_Main',
+            bind: {
+                disabled: '{disabledTab}'
+            }
         },{
             title: 'Chi tiết PO',
-            xtype: 'PContractSKUMainView'
+            xtype: 'PContractSKUMainView',
+            bind: {
+                disabled: '{disabledTab}'
+            }
         },
         // {
         //     title: 'Nguyên phụ liệu',
@@ -82,13 +88,22 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
         // }, 
         {
             title: 'Định mức hải quan',
-            xtype: 'PContractProduct_Bom_TabColorView'
+            xtype: 'PContractProduct_Bom_TabColorView',
+            bind: {
+                disabled: '{disabledTab}'
+            }
         }, {
             title: 'Định mức cân đối',
-            xtype: 'PContractProduct_Bom2_TabColorView'
+            xtype: 'PContractProduct_Bom2_TabColorView',
+            bind: {
+                disabled: '{disabledTab}'
+            }
         },{
             title: 'Lệnh sản xuất',
-            xtype: 'PContract_POrder_Main'
+            xtype: 'PContract_POrder_Main',
+            bind: {
+                disabled: '{disabledTab}'
+            }
         }]
     }],
     dockedItems: [{
