@@ -43,6 +43,8 @@ Ext.define('GSmartApp.view.product.ProductDetailViewModel', {
             img5:''
         },
         isWindow: false,
-        btnQuayLai: false
+        btnQuayLai: false,
+        IdAttribute: null,
+        IdProduct: null
     }
 })
