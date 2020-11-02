@@ -5,5 +5,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchSelectAttributeValueModel', {
         SkuAtributeValueStore: {
             type: 'skuattributevalues'
         }
+    },
+    data: {
+        IdAttribute: null,
+        AttrRecord: null
     }
 });

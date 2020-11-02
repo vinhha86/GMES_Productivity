@@ -165,6 +165,13 @@ Ext.define('GSmartApp.view.attribute.ProductAttributeViewCotroller', {
             items: [{
                 border: false,
                 xtype: 'ProductSelectAttributeView',
+                viewModel: {
+                    type: 'ProductDetailViewModel',
+                    data: {
+                        IdAttribute: record.data.attributeid_link,
+                        IdProduct: me.IdProduct
+                    }
+                },
                 IdAttribute: record.data.attributeid_link,
                 IdProduct: me.IdProduct
             }]

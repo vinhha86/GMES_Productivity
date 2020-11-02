@@ -137,7 +137,14 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteriaController', {
                 border: false,
                 xtype: 'SkuSearchSelectAttributeValue',
                 IdAttribute: record.data.id,
-                AttrRecord: record
+                AttrRecord: record,
+                viewModel: {
+                    type: 'SkuSearchSelectAttributeValueModel',
+                    data: {
+                        IdAttribute: record.data.id,
+                        AttrRecord: record
+                    }
+                },
             }]
         });
         form.show();

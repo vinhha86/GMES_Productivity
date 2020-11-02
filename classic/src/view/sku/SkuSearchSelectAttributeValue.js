@@ -35,8 +35,19 @@ Ext.define('GSmartApp.view.sku.SkuSearchSelectAttributeValue', {
         layout:'hbox',
         border: false,
         items:[{
-            border: false,
-            flex : 1
+        //     border: false,
+        //     flex : 1
+        // },{
+            xtype: 'textfield',
+            margin: 3,
+            itemId: 'txtAttributeValueAdd',
+            flex: 1
+        },{
+            xtype:'button',
+            text: 'Thêm',
+            margin: 3,
+            itemId:'btnAddAttributeValue',
+            iconCls: 'x-fa fa-plus'
         },{
             xtype:'button',
             text: 'Lưu',
