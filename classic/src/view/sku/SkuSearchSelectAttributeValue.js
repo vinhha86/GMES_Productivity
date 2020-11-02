@@ -31,23 +31,32 @@ Ext.define('GSmartApp.view.sku.SkuSearchSelectAttributeValue', {
         flex: 1
     }],
     dockedItems:[{
-        dock:'bottom',
+        dock:'top',
         layout:'hbox',
         border: false,
         items:[{
-        //     border: false,
-        //     flex : 1
-        // },{
             xtype: 'textfield',
             margin: 3,
             itemId: 'txtAttributeValueAdd',
-            flex: 1
+            flex: 1,
+            enableKeyEvents : true,
+            listeners: {
+                keypress: 'onEnterAddAttributeValue'
+            }
         },{
             xtype:'button',
             text: 'Thêm',
             margin: 3,
             itemId:'btnAddAttributeValue',
             iconCls: 'x-fa fa-plus'
+        }]
+    },{
+        dock:'bottom',
+        layout:'hbox',
+        border: false,
+        items:[{
+            border: false,
+            flex : 1
         },{
             xtype:'button',
             text: 'Lưu',

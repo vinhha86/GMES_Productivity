@@ -113,4 +113,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchSelectAttributeValueCotroller', {
                 me.setLoading(false);
             })
     },
+    onEnterAddAttributeValue: function(textfield, e, eOpts){
+        var m = this;
+        if(e.getKey() == e.ENTER) {
+            m.onBtnAddAttributeValue();
+        }
+    }
 })
