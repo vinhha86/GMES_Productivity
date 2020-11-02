@@ -9,14 +9,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         columnLines: true,
         rowLines: true
     },
-    plugins: {
-        cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            } 
-        }
-    },
     bind:{
         store:'{PContractPOList}'
     },
@@ -71,6 +63,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             widget: 
             {
                 xtype: 'grid',
+                plugins: {
+                    cellediting: {
+                        clicksToEdit: 2,
+                        listeners: {
+                            validateedit: 'onPOListEdit'
+                        } 
+                    }
+                },
+                features: [{
+                    ftype: 'summary',
+                    dock: 'bottom'
+                }],                 
                 viewConfig: {
                     stripeRows: false
                 },                
@@ -111,19 +115,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                         return value;
                     }
                 },{
-                    text:'Mã SP (Buyer)',
-                    dataIndex:'productbuyercode',
+                    text:'Ship Mode',
+                    dataIndex:'shipmodeid_link',
                     flex: 1,
-                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
-                    }
+                    editor: {
+                        completeOnEnter: true,
+                        field: {
+                            xtype: 'combo',
+                            typeAhead: true,
+                            triggerAction: 'all',
+                            selectOnFocus: false,
+                            bind: {
+                                store: '{ShipModeStore}',
+                                value: '{shipmodeid_link}'
+                            },
+                            displayField: 'name',
+                            valueField: 'id',
+                            queryMode : 'local'                
+                        }
+                    },
+                    renderer: 'renderShipping'
                 },
                 {
                     text:'Ngày GH',
+                    xtype: 'datecolumn',
                     dataIndex:'shipdate',
                     renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    width: 75
+                    width: 75,
+                    editor: {
+                        xtype: 'datefield',
+                        fieldStyle: 'font-size:11px;',
+                        format: 'd/m/y',
+                        altFormats: "Y-m-d\\TH:i:s.uO",
+                    },
                 },{
                     text:'SL',
                     align: 'end',
@@ -131,7 +155,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     width: 70,
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                    }
+                    },
+                    editor: {
+                        xtype: 'numberfield', 
+                        fieldStyle: 'font-size:11px;',
+                        hideTrigger:true, 
+                        allowBlank: false, 
+                        minValue: 0, 
+                        maxValue: 1000000, 
+                        selectOnFocus: false, 
+                        decimalPrecision: 0
+                    },
+                    summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
                 }],
                 listeners: {
                     itemclick: 'onSelectPO'

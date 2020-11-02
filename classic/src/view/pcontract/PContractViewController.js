@@ -10,6 +10,14 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
            dockBottomBar = this.lookupReference('dockBottomBar');
            dockBottomBar.setHidden(true);
         }
+
+        var viewModel = this.getViewModel();
+        var ShipModeStore = viewModel.getStore('ShipModeStore');
+        if (null != ShipModeStore){
+            ShipModeStore.loadStore();
+            ShipModeStore.getSorters().add('name');
+            console.log(ShipModeStore);
+        }
     },
     listen: {
         controller: {

@@ -1,7 +1,10 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POListController',
-    
+    init: function(){
+
+
+    },
     onSelectPO: function(m, rec){
         var viewModel = this.getViewModel();
         viewModel.set('pcontract_poid_link', rec.data.id);
@@ -25,9 +28,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 storeSku.loadStoreByPO_and_Product(record.get('id'), rec.data.id);
 			}
 		});
-        
-
-        
     },
     onThemPO: function (rec) {
         var viewmodel = this.getViewModel();
@@ -248,5 +248,45 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
+    },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
+    renderShipping: function(val, meta, record, rindex, cindex, store) {
+        if (null != val){
+            var viewmodel = this.getViewModel();
+            var ShipModeStore = viewmodel.getStore('ShipModeStore');
+            if (null!=ShipModeStore){
+                var objUnit = ShipModeStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.name;
+            }
+        }
+     },
+     onPOListEdit: function(editor, e){
+        if (e.originalValue != e.value){
+            e.record.data[e.field] = e.value;
+            var params=new Object();
+            params.data = e.record.data;
+            console.log(params);
+            GSmartApp.Ajax.post('/api/v1/pcontract_po/update', Ext.JSON.encode(params),
+			function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success){
+                    e.record.commit();
+                } 
+                else {
+                    Ext.MessageBox.show({
+                        title: "PO",
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            });                        
+        }
     }
 })
