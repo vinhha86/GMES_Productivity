@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
     },
     onBeforeDropOrg: function (node, context, overModel, dropPosition, dropHandlers, eOpts) {
+        console.log(context);
         var viewmodel = this.getViewModel();
         //Chi cho phep keo phan xuong
         var pcontractid_link = viewmodel.get('po.pcontractid_link');

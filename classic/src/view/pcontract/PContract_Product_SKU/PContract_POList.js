@@ -102,17 +102,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     text:'PO Buyer',
                     dataIndex:'po_buyer',
                     flex: 1,
-                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                    // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                    //     metaData.tdAttr = 'data-qtip="' + value + '"';
             
-                        if (record.data.status == 0) {
-                            metaData.tdCls =  "po_free";
-                        }
-                        else {
-                            metaData.tdCls =  "po_accept";
-                        }    
+                    //     if (record.data.status == 0) {
+                    //         metaData.tdCls =  "po_free";
+                    //     }
+                    //     else {
+                    //         metaData.tdCls =  "po_accept";
+                    //     }    
                         
-                        return value;
+                    //     return value;
+                    // },
+                    editor: {
+                        allowBlank: false,
+                        selectOnFocus: false
                     }
                 },{
                     text:'Ship Mode',
@@ -204,16 +208,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             valueField: 'productid_link',
             displayField: 'productBuyerCode',
             queryMode: 'local'
-        },'->'
-        ,
-	    {
-            xtype:'button',
-            itemId: 'btnThemPO',
-            ui: 'header',
-			tooltip: 'Thêm PO',
-            iconCls: 'x-fa fa-plus',
-            handler: 'onThemPO'
-        }]
-    }]
+        },
+        // '->'
+        // ,
+	    // {
+        //     xtype:'button',
+        //     itemId: 'btnThemPO',
+        //     ui: 'header',
+		// 	tooltip: 'Thêm PO',
+        //     iconCls: 'x-fa fa-plus',
+        //     handler: 'onThemPO'
+        // }
+    ]
+    }],
+    listeners: {
+        itemclick: 'onSelectParentPO'
+    }				
 });
 

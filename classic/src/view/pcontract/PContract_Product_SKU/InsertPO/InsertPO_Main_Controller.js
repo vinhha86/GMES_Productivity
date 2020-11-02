@@ -1,38 +1,39 @@
-Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_OfferController', {
+Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Main_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.ListPO_OfferController',
+    alias: 'controller.InsertPO_Main_Controller',
     init: function () {
-        var grid = this.getView();
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PContractProductPOStore');
-        var pcontractid_link = viewmodel.get('po.pcontractid_link');
-        var productid_link = viewmodel.get('productid_link');
-        store.loadAccept_ByContract_Async(pcontractid_link,productid_link);
-        store.load({
-            scope: this,
-            callback: function(){
-                var rec = store.findRecord('id',viewmodel.get('po.parentpoid_link'));
-                console.log(rec);
-                if(rec!=null)
-                    grid.getSelectionModel().select(rec);
-            }
-        });
-    },
-    control:{
-        'ListPO_Offer' : {
-            select: 'onSelectOffer'
-        }
-    },
-    onSelectOffer: function( grid, record, index, eOpts){
-        var viewmodel = this.getViewModel();
-        viewmodel.set('po.parentpoid_link', record.get('id'));
+        // var grid = this.getView();
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.getStore('PContractProductPOStore');
+        // var pcontractid_link = viewmodel.get('po.pcontractid_link');
+        // var productid_link = viewmodel.get('productid_link');
+        // store.loadAccept_ByContract_Async(pcontractid_link,productid_link);
+        // store.load({
+        //     scope: this,
+        //     callback: function(){
+        //         var rec = store.findRecord('id',viewmodel.get('po.parentpoid_link'));
+        //         console.log(rec);
+        //         if(rec!=null)
+        //             grid.getSelectionModel().select(rec);
+        //     }
+        // });
 
+        this.loadPO();
+    },
+    // control:{
+    //     'ListPO_Offer' : {
+    //         select: 'onSelectOffer'
+    //     }
+    // },
+    loadPO:function(){
+        var viewmodel = this.getViewModel();
         var new_po = new GSmartApp.model.pcontract.PContractPO();
             new_po.data.id = null;
 
             //Lay thong tin parent po
             var params = new Object();
             params.id = viewmodel.get('po.parentpoid_link');
+            console.log(params);
             GSmartApp.Ajax.post('/api/v1/pcontract_po/getone', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -60,7 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                         viewmodel.set('po',  new_po.data);
                         // viewmodel.set('po.po_buyer', record.get('po_buyer'));
                         // viewmodel.set('po.po_vendor', record.get('po_vendor'));
-                        viewmodel.set('po.productid_link', record.get('productid_link'));
+                        // viewmodel.set('po.productid_link', record.get('productid_link'));
 
                         //Lay danh sach POrder_Req
                         // console.log(viewmodel.get('parentpoid_link'));
@@ -82,12 +83,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.ListPO_Offer
                         
                         var productStore = viewmodel.getStore('ProductStore');
                         if(productStore != null){
-                            if(record.get('productid_link') > 0)
-                                productStore.loadStore_bypairid_Async(record.get('productid_link'));
+                            if(viewmodel.get('po.productid_link') > 0)
+                                productStore.loadStore_bypairid_Async(viewmodel.get('po.productid_link'));
                                 productStore.load();
                         }
                     }
                 }
-            })  
+            })
+    },
+    onSelectOffer: function( grid, record, index, eOpts){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('po.parentpoid_link', record.get('id'));
+
+  
     }
 })

@@ -1,9 +1,15 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POListController',
-    init: function(){
-
-
+    onSelectParentPO: function(m, rec){
+        var viewModel = this.getViewModel();
+        var productStore = viewModel.getStore('PContractProduct_PO_Store');
+        productStore.removeAll();
+        var storeSku = viewModel.getStore('PContractSKUStore');
+        storeSku.removeAll();
+        var skuView = Ext.getCmp('PContractSKUView');
+        var cmbSanPham = skuView.down('#cmbSanPham');
+        cmbSanPham.clearValue();
     },
     onSelectPO: function(m, rec){
         var viewModel = this.getViewModel();
@@ -39,7 +45,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             border: false,
             title: 'Thêm mới PO',
             closeAction: 'destroy',
-            height: 600,
+            height: 400,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
