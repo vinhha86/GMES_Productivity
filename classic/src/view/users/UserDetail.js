@@ -25,13 +25,22 @@ Ext.define('GSmartApp.view.users.UserDetail', {
 		xtype: 'UserGroup_Menu',
 		margin: 1,
 		border: true
-	},{
+	},
+	{
 		region: 'east',
-		xtype: 'UserGroup_Function',
+		xtype: 'User_OrgView',
 		width: '30%',
 		margin: 1,
 		border: true
-	}],
+	}
+	// {
+	// 	region: 'east',
+	// 	xtype: 'UserGroup_Function',
+	// 	width: '30%',
+	// 	margin: 1,
+	// 	border: true
+	// }
+	],
 	dockedItems:[{
         layout:'hbox',
         border: false,

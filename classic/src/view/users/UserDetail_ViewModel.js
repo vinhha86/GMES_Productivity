@@ -9,7 +9,8 @@ Ext.define('GSmartApp.view.users.UserDetail_ViewModel', {
 
         },
         roleid_link: 0,
-        menuid_link: ''
+        menuid_link: '',
+        userid_link: null
     },
     stores: {
         OrgStore: {
@@ -29,6 +30,9 @@ Ext.define('GSmartApp.view.users.UserDetail_ViewModel', {
         },
         FunctionStore: {
             type: 'GroupUser_Function_Store'
+        },
+        GpayUserOrg: {
+            type: 'GpayUserOrg'
         }
     },
     formulas: {
