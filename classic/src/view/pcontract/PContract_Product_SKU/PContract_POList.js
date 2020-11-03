@@ -208,6 +208,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             valueField: 'productid_link',
             displayField: 'productBuyerCode',
             queryMode: 'local'
+        },{
+            xtype: 'filefield',
+            buttonText: 'Tải báo giá',
+            buttonOnly: true,
+            hidden: true,
+            itemId: 'fileUploadPO',
+            width: 35,
+            height: 32,
+            margin: 3
         },
         // '->'
         // ,

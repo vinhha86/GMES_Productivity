@@ -1,6 +1,34 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_POListController',
+    control: {
+        '#fileUploadPO': {
+            change: 'onSelect'
+        }
+    },
+    onUpload: function () {
+        var me = this.getView();
+        me.down('#fileUploadPO').fileInputEl.dom.click();
+    },
+    onSelect: function (m, value) {
+        // var grid = this.getView();
+        // var viewmodel = this.getViewModel();
+        // var data = new FormData();
+        // data.append('file', m.fileInputEl.dom.files[0]);
+        // data.append('pcontractid_link', viewmodel.get('PContract.id'));
+        // grid.setLoading("Đang tải dữ liệu");
+        // GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_template', data,
+        //     function (success, response, options) {
+        //         grid.setLoading(false);
+        //         m.reset();
+        //         if (success) {
+        //             var response = Ext.decode(response.responseText);
+        //             var storeProduct = viewmodel.getStore('PContractProductTreeStore');
+        //             storeProduct.load();
+        //         }
+        //     })\
+        console.log(value);
+    },
     onSelectParentPO: function(m, rec){
         var viewModel = this.getViewModel();
         var productStore = viewModel.getStore('PContractProduct_PO_Store');
@@ -234,6 +262,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     iconCls: 'x-fa fas fa-upload brownIcon',
                     handler: function () {
                         var record = this.parentMenu.record;
+                        me.onUpload();
                     }
                 },
                 {
