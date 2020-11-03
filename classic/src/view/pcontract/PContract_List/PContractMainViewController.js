@@ -5,10 +5,10 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     init: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PContractStore');
+        var PContractStore = viewmodel.getStore('PContractStore');
         var d = new Date();
         var thisYear = d.getFullYear();
-        store.loadStore("", "", 0, 0, "", thisYear-1, thisYear+1);
+        PContractStore.loadStore("", "", 0, 0, "", thisYear-1, thisYear+1);
 
         this.onActivate();
         common.Check_Object_Permission();
@@ -44,8 +44,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     onActivate: function () {
         var me = this;
         var viewmodel = this.getViewModel();
-        var KHStore = viewmodel.getStore('CustomerStore');
-        KHStore.loadStore(10, true);
+        // var KHStore = viewmodel.getStore('CustomerStore');
+        // KHStore.loadStore(10, true);
 
         var EndBuyer = viewmodel.getStore('EndBuyer');
         var Vendor = viewmodel.getStore('Vendor');

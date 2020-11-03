@@ -249,7 +249,6 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
     onEnterAddAttributeValue: function(textfield, e, eOpts){
         var m = this;
         if(e.getKey() == e.ENTER) {
-            console.log('here yet 2');
             m.onBtnAddAttributeValue();
         }
     }

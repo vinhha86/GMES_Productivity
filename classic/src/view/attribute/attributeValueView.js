@@ -111,7 +111,11 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
             margin: 5,
             flex: 1,
             allowBlank: false,
-            blankText: 'Nhập giá trị thuộc tính để thêm mới'
+            blankText: 'Nhập giá trị thuộc tính để thêm mới',
+            enableKeyEvents : true,
+            listeners: {
+                keypress: 'onEnterAddAttributeValue'
+            }
         }, {
             xtype: 'button',
             margin: 5,
