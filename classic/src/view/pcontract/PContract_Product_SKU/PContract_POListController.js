@@ -6,28 +6,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             change: 'onSelect'
         }
     },
-    onUpload: function () {
+    onUpload: function (record) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('pcontract_po_parentid_link', record.get('id'));
         var me = this.getView();
         me.down('#fileUploadPO').fileInputEl.dom.click();
     },
     onSelect: function (m, value) {
-        // var grid = this.getView();
-        // var viewmodel = this.getViewModel();
-        // var data = new FormData();
-        // data.append('file', m.fileInputEl.dom.files[0]);
-        // data.append('pcontractid_link', viewmodel.get('PContract.id'));
-        // grid.setLoading("Đang tải dữ liệu");
-        // GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_template', data,
-        //     function (success, response, options) {
-        //         grid.setLoading(false);
-        //         m.reset();
-        //         if (success) {
-        //             var response = Ext.decode(response.responseText);
-        //             var storeProduct = viewmodel.getStore('PContractProductTreeStore');
-        //             storeProduct.load();
-        //         }
-        //     })\
-        console.log(value);
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractid_link', viewmodel.get('PContract.id'));
+        data.append('parentid_link', viewmodel.get('pcontract_po_parentid_link'));
+
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_po', data,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    var store = viewmodel.getStore('PContractPOList');
+                    store.load();
+                }
+            })
     },
     onSelectParentPO: function(m, rec){
         var viewModel = this.getViewModel();
@@ -38,6 +41,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var skuView = Ext.getCmp('PContractSKUView');
         var cmbSanPham = skuView.down('#cmbSanPham');
         cmbSanPham.clearValue();
+
+
     },
     onSelectPO: function(m, rec){
         var viewModel = this.getViewModel();
@@ -262,7 +267,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     iconCls: 'x-fa fas fa-upload brownIcon',
                     handler: function () {
                         var record = this.parentMenu.record;
-                        me.onUpload();
+
+                        me.onUpload(record);
                     }
                 },
                 {
