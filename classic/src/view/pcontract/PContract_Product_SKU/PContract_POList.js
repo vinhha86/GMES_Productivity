@@ -33,7 +33,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     {
         text:'PO Buyer',
         dataIndex:'po_buyer',
-        flex: 1
+        flex: 1,
+        editor: {
+            allowBlank: false,
+            selectOnFocus: false
+        }
     },    
     {
         text:'Mã SP (Buyer)',
@@ -59,6 +63,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     }],    
     plugins: {
+        cellediting: {
+            clicksToEdit: 2,
+            listeners: {
+                validateedit: 'onPOListEdit'
+            } 
+        },        
         rowwidget: {
             widget: 
             {
