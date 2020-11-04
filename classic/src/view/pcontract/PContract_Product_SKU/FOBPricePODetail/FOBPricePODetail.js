@@ -15,6 +15,10 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     bind: {
         store: '{FOBPricePODetailStore}'
     },
+    features: [{
+        ftype: 'grouping',
+        groupHeaderTpl: '{name}'
+    }],
     columns: [
     {
         text: 'STT',
@@ -104,6 +108,13 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
             margin: 3,
             itemId:'btnThoat',
             iconCls: 'x-fa fa-window-close',
+            formBind: false
+        },{
+            xtype:'button',
+            text: 'Thêm giá FOB',
+            margin: 3,
+            itemId:'btnAddFOB',
+            iconCls: 'x-fa fa-plus',
             formBind: false
         },{
             flex:1,
