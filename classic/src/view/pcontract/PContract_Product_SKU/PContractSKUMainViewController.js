@@ -17,10 +17,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         var productid_link = record.get('productid_link');
         // viewmodel.set('IdProduct_filterPO',productid_link);
         
-        
+        console.log(productid_link);
         var pcontractid_link = viewmodel.get('PContract.id');
 
-        store.loadLeafOnly_ByContract(pcontractid_link , productid_link);
+        store.loadAccept_ByContract(pcontractid_link , productid_link);
     },
     onChangeProduct: function(m, newValue, oldValue){
         if(newValue == "" || newValue == null){
@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
             
             var pcontractid_link = viewmodel.get('PContract.id');
     
-            store.loadLeafOnly_ByContract(pcontractid_link , 0);
+            store.loadAccept_ByContract(pcontractid_link , 0);
         }
         
     }
