@@ -2,10 +2,11 @@ Ext.define('GSmartApp.store.FOBPricePODetailStore', {
     extend: 'Ext.data.Store',
     storeId: 'FOBPricePODetailStore',
 	alias: 'store.FOBPricePODetailStore',
-	groupField: 'productCode',
+	groupField: 'productBuyerCode',
     fields: [
 		{name: 'id', type: 'int'},
         {name: 'productCode', type: 'string'},
+        {name: 'productBuyerCode', type: 'string'},
         {name: 'fobprice_name', type: 'string'},
         {name: 'sizesetname', type: 'string'},
         {name: 'price', type: 'number'},
