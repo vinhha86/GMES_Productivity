@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_POList',
-    // id:'PContract_POList',
+    itemId:'PContract_POList',
     controller: 'PContract_POListController',
     viewConfig: {
         stripeRows: false,
@@ -73,6 +73,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             widget: 
             {
                 xtype: 'grid',
+                itemId: 'PO_ChildList',
                 plugins: {
                     cellediting: {
                         clicksToEdit: 2,
@@ -183,9 +184,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
                 }],
-                listeners: {
-                    itemclick: 'onSelectPO'
-                }				
+                // listeners: {
+                //     itemclick: 'onSelectPO'
+                // }				
 			}
 		}
 	}, 
@@ -240,8 +241,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         // }
     ]
     }],
-    listeners: {
-        itemclick: 'onSelectParentPO'
-    }				
+    // listeners: {
+    //     itemclick: 'onSelectParentPO'
+    // }				
 });
 

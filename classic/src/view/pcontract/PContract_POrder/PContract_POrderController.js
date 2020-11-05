@@ -10,8 +10,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         '#btnSKUSelect':{
             click: 'onSKUSelect'
         },
-        'PContract_POList': {
-            select: 'onSelectPO'
+        '#PContract_POList':{
+            itemclick: 'onSelectParentPO'
+        },
+        '#PO_ChildList':{
+            itemclick: 'onSelectPO'
         },
         'PContract_POrder_Porders': {
             select: 'onSelectPOrder'
@@ -208,6 +211,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
         //Lay danh sach POrder_Req
         var porderReqStore = viewmodel.getStore('porderReqStore');
         porderReqStore.loadByPO(po_id);
+
+        this.refreshSKUList(null);
+        viewmodel.set('porder_selected',null);
+    },
+    onSelectParentPO: function(m, rec){
+        var viewmodel = this.getViewModel();
+        var porderReqStore = viewmodel.getStore('porderReqStore');
+        porderReqStore.removeAll();
 
         this.refreshSKUList(null);
         viewmodel.set('porder_selected',null);

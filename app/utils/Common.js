@@ -13,11 +13,22 @@ Ext.define('GSmartApp.util.Common', {
             var item = Ext.first(a);
             // var item = me.lookupReference(func.function_id_item);
             // if (a == '#PContract_PO_Main'){
-                // console.log(a);
-                // console.log(item);
+            //     console.log(a);
+            //     console.log(item);
+            //     console.log(func.isreadonly);
+            //     if(null!=item){
+            //         item.setDisabled(func.isreadonly);
+            //         item.setHidden(func.isreadonly);
+            //     }
+            //     console.log(item);
             // }
             if(item!=null){
-                item.setDisabled(func.isreadonly);
+                if (a == '#PContract_PO_Main'){
+                    item.setDisabled(func.isreadonly);
+                    item.setHidden(func.isreadonly);
+                } else {
+                    item.setDisabled(func.isreadonly);
+                }
             } 
         }
     },

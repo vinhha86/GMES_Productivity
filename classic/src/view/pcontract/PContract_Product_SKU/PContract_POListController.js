@@ -8,6 +8,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         '#productFilter': {
             select: 'onFilterProduct',
             change: 'onChangeProduct'
+        },
+        '#PO_ChildList':{
+            itemclick: 'onSelectPO'
+        },
+        '#PContract_POList':{
+            itemclick: 'onSelectParentPO'
         }
     },
     onFilterProduct: function(combo, record, eOpts ){
