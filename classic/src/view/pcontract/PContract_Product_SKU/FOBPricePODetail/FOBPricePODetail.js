@@ -19,6 +19,15 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         ftype: 'grouping',
         groupHeaderTpl: '{name}'
     }],
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onPriceDItemEdit',
+                beforeedit: 'onPriceDItemBeforeEdit'
+            }             
+        }
+    },
     columns: [
     {
         text: 'STT',
@@ -48,9 +57,15 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         text: 'ĐM',
         align: 'end',
         dataIndex: 'quota',
-        width: 70,
+        width: 100,
         xtype: 'numbercolumn',
         format: '0.000',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            // maskRe: /^0$|^[1-9]\d*$|^\.\d+$|^0\.\d*$|^[1-9]\d*\.\d*$/,
+            selectOnFocus: true
+        },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
             return Ext.util.Format.number(value, '0.000')
@@ -58,19 +73,37 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     },
     {
         text: 'ĐVT',
-        dataIndex: 'unitcode',
-        width: 65,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
+        dataIndex: 'unitid_link',
+        width: 100,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'combo',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnFocus: false,
+                bind: {
+                    store: '{UnitStore}',
+                    // value: '{unitid_link}'
+                },
+                displayField: 'code',
+                valueField: 'id',
+                queryMode : 'local'                
+            }
+        },
+        renderer: 'renderUnit'
     },
     {
         text: 'Đơn giá',
         dataIndex: 'unitprice',
-        width: 70,
+        width: 100,
         xtype: 'numbercolumn',
         format: '0.000',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
             return Ext.util.Format.number(value, '0.000')
@@ -79,7 +112,7 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
     {
         text: 'Giá chào',
         dataIndex: 'price',
-        width: 80,
+        width: 100,
         xtype: 'numbercolumn',
         format: '0.000',
         renderer: function (value, metaData, record) {

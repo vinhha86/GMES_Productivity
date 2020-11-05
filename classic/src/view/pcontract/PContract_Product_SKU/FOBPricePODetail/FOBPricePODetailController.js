@@ -3,14 +3,17 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetailController', {
     alias: 'controller.FOBPricePODetailController',
     init: function(){
         var viewModel = this.getViewModel();
-        var store  =  viewModel.getStore('FOBPricePODetailStore');
+        var FOBPricePODetailStore  =  viewModel.getStore('FOBPricePODetailStore');
         // console.log(viewModel);
         var pcontract_poid_link = viewModel.get('record.id');
         console.log(pcontract_poid_link);
         // console.log(viewModel.get('record.data.id'));
-        store.loadStore(pcontract_poid_link);
-        store.getSorters().add('sizesetSortValue');
-        store.getSorters().add('fobprice_name');
+        FOBPricePODetailStore.loadStore(pcontract_poid_link);
+        FOBPricePODetailStore.getSorters().add('sizesetSortValue');
+        FOBPricePODetailStore.getSorters().add('fobprice_name');
+
+        var UnitStore = viewModel.getStore('UnitStore');
+        UnitStore.loadStore();
     },
     control: {
         '#btnThoat': {
@@ -67,8 +70,8 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetailController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        var store  =  viewModel.getStore('FOBPricePODetailStore');
-                        store.load();
+                        var FOBPricePODetailStore  =  viewModel.getStore('FOBPricePODetailStore');
+                        FOBPricePODetailStore.load();
                     }
                     else {
                         Ext.Msg.show({
@@ -95,5 +98,83 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetailController', {
 
             form.close();
         })
-    }
+    },
+    onPriceDItemEdit: function (editor, context, eOpts){
+        // console.log('on edit price d');
+        var viewModel = this.getViewModel();
+        var FOBPricePODetailStore = viewModel.getStore('FOBPricePODetailStore');
+        var priceD_data = context.record.data;
+        // console.log(priceD_data);
+        // console.log(context);
+
+        if(context.value == "" || context.value == context.originalValue || isNaN(context.value)){
+            FOBPricePODetailStore.rejectChanges(); //commitChanges()
+            return;
+        }
+
+        if(context.field == 'quota' && (priceD_data.unitprice != null || priceD_data.unitprice != "")){
+            priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
+        }
+        if(context.field == 'unitprice' && (priceD_data.quota != null || priceD_data.quota != "")){
+            priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
+        }
+
+        console.log(priceD_data);
+        this.updatePriceD(priceD_data);
+        // FOBPricePODetailStore.commitChanges();
+    },
+    onPriceDItemBeforeEdit: function(editor, context, eOpts){
+        // console.log('on before edit price d');
+        // console.log(context);
+    },
+    updatePriceD: function(data){
+        var viewModel = this.getViewModel();
+        var FOBPricePODetailStore = viewModel.getStore('FOBPricePODetailStore');
+
+        var params = new Object();
+        params.data = data;
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_price_d/updatePContractPriceD', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                if (response.respcode == 200) {
+                    FOBPricePODetailStore.commitChanges();
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Lưu thông tin thất bại',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    FOBPricePODetailStore.rejectChanges();
+                }
+
+            } else {
+                Ext.Msg.show({
+                    title: 'Lưu thông tin thất bại',
+                    msg: null,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                FOBPricePODetailStore.rejectChanges();
+            }
+        })
+    },
+    renderUnit: function(val, meta, record, rindex, cindex, store) {
+        if (null != val){
+            var viewModel = this.getViewModel();
+            var UnitStore = viewModel.getStore('UnitStore');
+            if (null!=UnitStore){
+                var objUnit = UnitStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.code;
+            }
+        }
+     },
 })
