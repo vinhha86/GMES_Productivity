@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Main', {
             border: true,
             xtype: 'PContract_POList',
             padding: 1,
-            width: '40%',                   
+            width: '45%',                   
         },
         {
             region: 'center',
@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Main', {
             // title: 'Lệnh sản xuất',
             xtype: 'PContract_POrder_Detail',
             padding: 1,
-            width: '40%',       
+            width: '37%',       
         }
     ]
 })
