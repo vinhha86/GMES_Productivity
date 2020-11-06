@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
         var po_productivity = viewmodel.get('pcontract_po_productivity');
-        console.log(po_productivity);
+        
         if (null != po_productivity){
             var po_quantity = po_data.po_quantity == null ? 0 : parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
             var productivity = po_productivity.plan_productivity == null ? 0 : parseFloat(po_productivity.plan_productivity.toString().replace(/,/gi,''));
@@ -127,9 +127,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         if(porderReqStore!=null){
             porderReqStore.setGroupField("");
             var po_quantity = po_data.po_quantity == null ? 0 : parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
+            
             porderReqStore.each(function (record) {
-                var amount_inset = record.get('amount_inset') == 0 ? 1 : record.get('amount_inset');
-
+                var amount_inset = (record.get('amount_inset') == 0 || record.get('amount_inset') == null) ? 1 : record.get('amount_inset');
+                
                 var amount_req = po_quantity * amount_inset;
                 var info = record.get('product_code') + " (" +Ext.util.Format.number(amount_req, '0,000')+")";
                 record.set('productinfo', info);
