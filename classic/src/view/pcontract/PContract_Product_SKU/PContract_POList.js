@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         dataIndex:'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 75
-    },{
+    },
+    {
         text:'SL',
         align: 'end',
         dataIndex:'po_quantity',
@@ -132,7 +133,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 },{
                     text:'Ship Mode',
                     dataIndex:'shipmodeid_link',
-                    flex: 1,
+                    width: 75,
                     editor: {
                         completeOnEnter: true,
                         field: {
@@ -152,6 +153,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     renderer: 'renderShipping'
                 },
                 {
+                    text:'Ngày VC',
+                    xtype: 'datecolumn',
+                    dataIndex:'productiondate',
+                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    width: 75,
+                    editor: {
+                        xtype: 'datefield',
+                        fieldStyle: 'font-size:11px;',
+                        format: 'd/m/y',
+                        altFormats: "Y-m-d\\TH:i:s.uO",
+                    },
+                },
+                {
                     text:'Ngày GH',
                     xtype: 'datecolumn',
                     dataIndex:'shipdate',
@@ -163,7 +177,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                         format: 'd/m/y',
                         altFormats: "Y-m-d\\TH:i:s.uO",
                     },
-                },{
+                },
+                {
                     text:'SL',
                     align: 'end',
                     dataIndex:'po_quantity',
