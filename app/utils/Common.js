@@ -25,7 +25,7 @@ Ext.define('GSmartApp.util.Common', {
             if(item!=null){
                 if (a == '#PContract_PO_Main'){
                     item.setDisabled(func.isreadonly);
-                    item.setHidden(func.isreadonly);
+                    if(func.isreadonly && !item.getHidden()) item.setHidden(true);
                 } else {
                     item.setDisabled(func.isreadonly);
                 }
