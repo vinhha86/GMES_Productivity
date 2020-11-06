@@ -57,6 +57,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 m.reset();
                 if (success) {
                     var response = Ext.decode(response.responseText);
+                    if(response.respcode != 200){
+                        Ext.MessageBox.show({
+                            title: "Có lỗi trong quá trình tải PO",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
                     var store = viewmodel.getStore('PContractPOList');
                     store.load();
                 }
