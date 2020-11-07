@@ -156,7 +156,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     text:'Ngày VC',
                     xtype: 'datecolumn',
                     dataIndex:'productiondate',
-                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
+                    },
                     width: 75,
                     editor: {
                         xtype: 'datefield',
@@ -169,7 +173,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     text:'Ngày GH',
                     xtype: 'datecolumn',
                     dataIndex:'shipdate',
-                    renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
+                    },
                     width: 75,
                     editor: {
                         xtype: 'datefield',
