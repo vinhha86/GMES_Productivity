@@ -92,25 +92,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
             height: 32,
             margin: 3
         },{
-            xtype: 'button',
+            xtype: 'splitbutton',
             margin: 3,
-            text: 'Tải báo giá',
-            iconCls: 'x-fa fa-upload',
-            itemId: 'btnUpload'
-        },{
-            xtype: 'button',
-            margin: 3,
-            text: 'Mẫu file',
-            iconCls: 'x-fa fa-download',
-            itemId: 'btnUploadTemplate'
-        },{
-            flex: 1
-        },{
-            xtype: 'button',
-            margin: 3,
-            text: 'Excel',
-            iconCls: 'x-fa fa-file-excel',
-            itemId: 'btnExcel'
+            iconCls: 'x-fa fas fa-bars violetIcon',
+            menu: new Ext.menu.Menu({
+                items: [
+                    // these will render as dropdown menu items when the arrow is clicked:
+                    {
+                        text: 'Upload báo giá',
+                        iconCls: 'x-fa fa-upload',
+                        itemId: 'btnUpload'
+                    },
+                    {
+                        text: 'Mẫu file upload', 
+                        iconCls: 'x-fa fa-download',
+                        itemId: 'btnUploadTemplate'
+                    },
+                    {
+                        text: 'Xuất Excel báo giá', 
+                        iconCls: 'x-fa fa-download',
+                        itemId: 'btnExcel'
+                    }
+                ]
+            })
         }]
     }] 
 });
