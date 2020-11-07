@@ -307,8 +307,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     iconCls: 'x-fa fas fa-upload brownIcon',
                     handler: function () {
                         var record = this.parentMenu.record;
-
-                        me.onUpload(record);
+                        if(record.get('po_buyer') == 'TBD'){
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Bạn không được upload cho PO có mã TBD! Bạn phải cập nhật số PO trước khi upload",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
+                                }
+                            });
+                        }
+                        else {
+                            me.onUpload(record);
+                        }
                     }
                 },
                 {
