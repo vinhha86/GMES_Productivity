@@ -71,10 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             }]
         }, {
             title: 'Chào giá',
-            xtype: 'PContract_PO_Main',
-            bind: {
-                disabled: '{disabledTab}'
-            }
+            xtype: 'PContract_PO_Main'
         },{
             title: 'Chi tiết PO',
             xtype: 'PContractSKUMainView',
