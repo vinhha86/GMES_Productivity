@@ -163,6 +163,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_Detail', {
                         value: '{porder_selected.totalorder_req}'
                     },
                     labelWidth: 70,
+                    flex: 1,
                     margin: 1,
                     vtype: 'dollar',
                     textAlign: 'right',
