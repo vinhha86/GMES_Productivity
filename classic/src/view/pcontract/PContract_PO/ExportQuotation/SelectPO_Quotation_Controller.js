@@ -93,5 +93,5 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
            bytes[i] = ascii;
         }
         return bytes;
-     },
+     }
 })

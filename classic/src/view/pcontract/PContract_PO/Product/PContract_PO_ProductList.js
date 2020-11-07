@@ -98,12 +98,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
             iconCls: 'x-fa fa-upload',
             itemId: 'btnUpload'
         },{
+            xtype: 'button',
+            margin: 3,
+            text: 'Mẫu file',
+            iconCls: 'x-fa fa-download',
+            itemId: 'btnUploadTemplate'
+        },{
             flex: 1
         },{
             xtype: 'button',
             margin: 3,
-            text: 'Báo giá',
-            iconCls: 'x-fa fa-download',
+            text: 'Excel',
+            iconCls: 'x-fa fa-file-excel',
             itemId: 'btnExcel'
         }]
     }] 

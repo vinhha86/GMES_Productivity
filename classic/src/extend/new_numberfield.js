@@ -21,8 +21,7 @@ Ext.define("GSmartApp.extend.new_numberfield", {
                 }   
             }   
         },
-    fixPrecision : function(value){
-            
+    fixPrecision : function(value) {            
             var nan = isNaN(value);
             if(!this.allowDecimals || this.decimalPrecision == -1 || nan || !value){
                 var val = (nan || value == null) ? '0.000' : value

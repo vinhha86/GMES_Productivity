@@ -244,7 +244,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             height: 32,
             margin: 3
         },
-        // '->'
+        '->',
+        {
+            xtype: 'button',
+            margin: 3,
+            text: 'Mẫu file Upload',
+            iconCls: 'x-fa fa-download',
+            itemId: 'btnUploadTemplate'
+        }
         // ,
 	    // {
         //     xtype:'button',
