@@ -68,7 +68,8 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.000')
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
+            return Ext.util.Format.number(value, '0,000.000');
         }
     },
     {
@@ -106,7 +107,8 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.000')
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
+            return Ext.util.Format.number(value, '0,000.000');
         }
     },
     {
@@ -117,7 +119,8 @@ Ext.define('GSmartApp.view.pcontract.FOBPricePODetail', {
         format: '0.000',
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.000')
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
+            return Ext.util.Format.number(value, '0,000.000');
         }
     },
     {
