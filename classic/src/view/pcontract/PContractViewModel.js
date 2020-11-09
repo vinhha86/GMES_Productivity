@@ -169,9 +169,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
             if(get('productid_link_filter') > 0 || get('isWindow')) return true;
             return false;
         },
-        // disabledTab: function(get){
-        //     if(get('PContract.id') == null || get('PContract.id') == 0) return true;
-        //     return false;
-        // }
+        disabledTab: function(get){
+            if(get('PContract.id') == null || get('PContract.id') == 0) return true;
+            return false;
+        }
     }
 })
