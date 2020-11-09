@@ -11,16 +11,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         // 'PContract_PO_List': {
         //     itemclick: 'onSelectPO'
         // },
-        '#btnExcel': {
+        '#splbtn_Excel': {
             click: 'onExport'
         },
-        '#btnUpload': {
+        '#splbtn_Upload': {
             click: 'onUpload'
         },
         '#fileUpload': {
             change: 'onSelect'
         },
-        '#btnUploadTemplate' : {
+        '#splbtn_Template' : {
             click: 'onDownloadTemplate'
         }
     },

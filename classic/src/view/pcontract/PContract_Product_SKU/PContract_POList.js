@@ -230,7 +230,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             xtype:'combo',
             editable: true,
             width: 260,
-            margin: '0 0 0 20',
+            margin: '0 0 0 5',
             fieldLabel: 'Sản phẩm',
             labelWidth: 70,
             itemId: 'productFilter',
@@ -242,7 +242,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             valueField: 'productid_link',
             displayField: 'productBuyerCode',
             queryMode: 'local'
-        },{
+        },
+        {
             xtype: 'filefield',
             buttonText: 'Tải báo giá',
             buttonOnly: true,
@@ -252,11 +253,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             height: 32,
             margin: 3
         },
-        '->',
+        // '->',
         {
             xtype: 'button',
+            tooltip: 'Tải file mẫu (PO Line)',
             margin: 3,
-            text: 'Mẫu file Upload',
+            // text: 'Mẫu file PO',
             iconCls: 'x-fa fa-download',
             itemId: 'btnUploadTemplate'
         }

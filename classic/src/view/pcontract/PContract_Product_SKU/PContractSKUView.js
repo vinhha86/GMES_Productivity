@@ -187,7 +187,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             ui: 'header',
 			tooltip: 'Thêm SKU',
             iconCls: 'x-fa fa-plus',
-            handler: 'onThemSKU'
+            handler: 'onThemSKU',
+            bind: {
+                disabled: '{isDisable_btnThemSKU}'
+            }
         },
         {
             xtype:'button',
@@ -196,7 +199,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             // ui: 'header',
 			tooltip: 'Chốt chi tiết màu cỡ',
             iconCls: 'x-fa fa-check greenIcon',
-            // handler: 'onFactoriesTap',
+            bind: {
+                disabled: '{isDisable_btnConfirmSKU}'
+            }
         }
         ]
     }]    

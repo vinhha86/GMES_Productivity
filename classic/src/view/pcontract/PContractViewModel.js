@@ -155,6 +155,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
 
         isWindow: false,
         isHidden_btnLuu: false,
+        isDisable_btnThemSKU: false,
+        isDisable_btnConfirmSKU: false,
         tabActivate: 0,
         pcontract_poid_link_filter: 0, // dung de filter chi theo po 
         productid_link_filter : 0, // dung de filter theo product
@@ -167,9 +169,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
             if(get('productid_link_filter') > 0 || get('isWindow')) return true;
             return false;
         },
-        disabledTab: function(get){
-            if(get('PContract.id') == null || get('PContract.id') == 0) return true;
-            return false;
-        }
+        // disabledTab: function(get){
+        //     if(get('PContract.id') == null || get('PContract.id') == 0) return true;
+        //     return false;
+        // }
     }
 })

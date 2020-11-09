@@ -138,11 +138,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var skuView = Ext.getCmp('PContractSKUView');
         var cmbSanPham = skuView.down('#cmbSanPham');
         cmbSanPham.clearValue();
-
-
+        viewModel.set('isDisable_btnThemSKU',true);
+        viewModel.set('isDisable_btnConfirmSKU',true);
     },
     onSelectPO: function(m, rec){
         var viewModel = this.getViewModel();
+        viewModel.set('isDisable_btnThemSKU',false);
+        viewModel.set('isDisable_btnConfirmSKU',false);        
         viewModel.set('pcontract_poid_link', rec.data.id);
         var productid_link = rec.data.productid_link;
 
@@ -357,7 +359,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     }
                 },
                 {
-                    text: 'Tải DS PO',
+                    text: 'Upload File PO (Excel)',
                     itemId: 'btnUpload_PO',
                     separator: true,
                     margin: '10 0 0',

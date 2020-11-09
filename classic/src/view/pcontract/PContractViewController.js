@@ -100,6 +100,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         }
     },
     onLoadData: function (id, type) {
+        console.log("me kiep");
         var me = this.getView();
         var viewmodel = this.getViewModel();
         if(type!= "" && type!= null){

@@ -81,8 +81,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
     ],
     dockedItems: [{
         dock: 'bottom',
-        layout: 'hbox',
-        items: [{
+        xtype: 'toolbar',
+        height: 40,
+        padding: 2,
+        // layout: 'hbox',
+        items: [
+        {
             xtype: 'filefield',
             buttonText: 'Tải báo giá',
             buttonOnly: true,
@@ -91,31 +95,55 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
             width: 35,
             height: 32,
             margin: 3
-        },{
-            xtype: 'splitbutton',
-            margin: 3,
-            iconCls: 'x-fa fas fa-bars violetIcon',
-            menu: new Ext.menu.Menu({
-                items: [
-                    // these will render as dropdown menu items when the arrow is clicked:
-                    {
-                        text: 'Upload báo giá',
-                        iconCls: 'x-fa fa-upload',
-                        itemId: 'btnUpload'
-                    },
-                    {
-                        text: 'Mẫu file upload', 
-                        iconCls: 'x-fa fa-download',
-                        itemId: 'btnUploadTemplate'
-                    },
-                    {
-                        text: 'Xuất Excel báo giá', 
-                        iconCls: 'x-fa fa-download',
-                        itemId: 'btnExcel'
-                    }
-                ]
-            })
-        }]
+        },
+        // {
+        //     xtype: 'splitbutton',
+        //     renderTo: Ext.getBody(),
+        //     margin: 3,
+        //     iconCls: 'x-fa fas fa-bars violetIcon',
+        //     menu: new Ext.menu.Menu({
+        //         items: [
+        //             // these will render as dropdown menu items when the arrow is clicked:
+        //             {
+        //                 text: 'Upload báo giá',
+        //                 iconCls: 'x-fa fa-upload',
+        //                 itemId: 'splbtn_Upload'
+        //             },
+        //             {
+        //                 text: 'Mẫu file upload', 
+        //                 iconCls: 'x-fa fa-download',
+        //                 itemId: 'splbtn_Template'
+        //             },
+        //             {
+        //                 text: 'Xuất Excel báo giá', 
+        //                 iconCls: 'x-fa fa-download',
+        //                 itemId: 'splbtn_Excel'
+        //             }
+        //         ]
+        //     })
+        // }
+        {
+            xtype:'button',
+            tooltip: 'Upload báo giá',
+            // margin: 3,
+            iconCls: 'x-fa fa-upload',
+            itemId: 'splbtn_Upload'
+        },
+        {
+            xtype:'button',
+            tooltip: 'Xuất Excel báo giá',
+            // margin: 3,
+            iconCls: 'x-fa fa-file-excel-o',
+            itemId: 'splbtn_Excel'
+        },
+        {
+            xtype:'button',
+            tooltip: 'Tải file mẫu',
+            // margin: 3,
+            iconCls: 'x-fa fa-download',
+            itemId: 'splbtn_Template'
+        }
+        ]
     }] 
 });
 
