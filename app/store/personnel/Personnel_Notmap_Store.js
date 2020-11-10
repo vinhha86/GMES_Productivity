@@ -1,19 +1,14 @@
-Ext.define('GSmartApp.store.personnel.Personnel_Store', {
+Ext.define('GSmartApp.store.personnel.Personnel_Notmap_Store', {
     extend: 'Ext.data.Store',
-	alias: 'store.Personnel_Store',
-	storeId: 'Personnel_Store',
-	idProperty: 'idx',
-	model: 'GSmartApp.model.personnel.PersonnelModel',
-	sorters: [{
-        direction: 'ASC',
-        property: 'code'
-	}],
-	loadStore_byOrg(orgid_link, ismanager, isviewall){
+	alias: 'store.Personnel_Notmap_Store',
+	storeId: 'Personnel_Notmap_Store',
+	fields: [
+		{name: 'id', type: 'int'},
+		{name: 'register_code', type: 'string'},
+		{name: 'register_name', type: 'string'}
+	],
+	loadStore(){
 		var params = new Object();
-		params.orgid_link = orgid_link;
-		params.ismanager = ismanager;
-		params.isviewall = isviewall;
-
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -22,7 +17,7 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/personnel/getby_org',
+			url: config.getAppBaseUrl()+'/api/v1/personnel/getPersonnelNotmap',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
@@ -57,38 +52,6 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl()+'/api/v1/personnel/getby_pordergrant',
-			paramsAsJson:true,
-			extraParams : params,
-			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			}
-		});
-		this.loadPage(1,{
-			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 this.fireEvent('logout');
-				}
-			}
-		});
-	},
-	loadStore_byNotRegister(){
-		var params = new Object();
-		this.setProxy({
-			type: 'ajax',
-			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
-				destroy: 'POST'
-			},
-			url: config.getAppBaseUrl()+'/api/v1/personnel/getByNotRegister',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
