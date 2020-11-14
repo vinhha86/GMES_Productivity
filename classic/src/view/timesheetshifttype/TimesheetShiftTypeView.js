@@ -26,11 +26,15 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
     },
     columns: [{
         xtype: 'actioncolumn',
-        width: 40,
+        width: 60,
         menuDisabled: true,
         sortable: false,
         align: 'center',
         items: [{
+            iconCls: 'x-fa fas fa-edit',
+            tooltip: "Chi tiết",
+            handler: 'onCapNhat',
+        },{
             iconCls: 'x-fa fas fa-trash',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'
@@ -66,14 +70,14 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
                 iconCls: 'x-fa fa-plus',
                 itemId: 'btnThemMoi'
             },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Xoá',
-                width: 110,
-                iconCls: 'x-fa fa-trash',
-                itemId: 'btnXoa'
-            },
+            // {
+            //     xtype: 'button',
+            //     margin: 5,
+            //     text: 'Xoá',
+            //     width: 110,
+            //     iconCls: 'x-fa fa-trash',
+            //     itemId: 'btnXoa'
+            // },
             {
                 flex: 1,
                 border: false

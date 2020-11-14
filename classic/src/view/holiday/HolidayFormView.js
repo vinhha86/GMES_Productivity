@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.holiday.HolidayFormView', {
             text: 'Thoát',
             margin: 3,
             itemId:'btnThoat',
-            iconCls: 'x-fa fa-backward',
+            iconCls: 'x-fa fa-window-close',
             formBind: false
         },{
             xtype:'button',

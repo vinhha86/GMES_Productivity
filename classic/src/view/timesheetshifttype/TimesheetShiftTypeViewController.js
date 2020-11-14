@@ -50,14 +50,22 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
         });
         form.show();
     },
+    onCapNhat: function(grid, rowIndex, colIndex){
+        var rec = grid.getStore().getAt(rowIndex);
+        // console.log(rec.data);
+        this.itemDetail(rec.data);
+    },
     onItemdblclick: function(m, record, item, index, e, eOpts){
-        console.log(record.data);
-        var id = record.data.id;
-        var name = record.data.name;
-        var datefrom = record.data.datefrom;
-        var dateto = record.data.dateto;
-        var checkboxfrom = record.data.checkboxfrom;
-        var checkboxto = record.data.checkboxto;
+        // console.log(record.data);
+        this.itemDetail(record.data);
+    },
+    itemDetail: function(data){
+        var id = data.id;
+        var name = data.name;
+        var datefrom = data.datefrom;
+        var dateto = data.dateto;
+        var checkboxfrom = data.checkboxfrom;
+        var checkboxto = data.checkboxto;
 
         var viewModel = this.getViewModel();
         var me = this.getView();
