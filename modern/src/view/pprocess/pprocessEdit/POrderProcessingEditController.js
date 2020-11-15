@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditController', {
         if(grantamount == null) grantamount = 0;
 
         if ((temp + amountinputsumprev) > grantamount) {
-            Ext.Msg.alert('Tiến độ', 'Số nhập kho không được lớn hơn Số ra chuyền');
+            Ext.Msg.alert('Tiến độ', 'Số vào chuyền không được lớn hơn Số tổng');
             viewmodel.set('isbtnDisabled', false);
             return false;
         }else{

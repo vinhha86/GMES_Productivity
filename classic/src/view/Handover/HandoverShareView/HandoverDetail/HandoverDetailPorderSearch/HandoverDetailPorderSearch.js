@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearch', {
             border: false
         },{
             xtype:'button',
-            text: 'Quay lại',
+            text: 'Thoát',
             margin: 3,
             itemId:'btnQuayLai',
             iconCls: 'x-fa fa-window-close'
