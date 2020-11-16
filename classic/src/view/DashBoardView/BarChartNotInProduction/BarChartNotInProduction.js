@@ -1,24 +1,8 @@
-Ext.define('GSmartApp.view.DashBoardView.BarChartOutputAmount', {
+Ext.define('GSmartApp.view.DashBoardView.BarChartNotInProduction', {
     extend: 'Ext.panel.Panel',
-    xtype: 'BarChartOutputAmount',
-    controller: 'BarChartOutputAmountController',
+    xtype: 'BarChartNotInProduction',
+    controller: 'BarChartNotInProductionController',
     requires: ['Ext.chart.theme.Muted'],
-    // width: 650,
-
-    // profiles: {
-    //     classic: {
-    //         width: 650
-    //     },
-    //     neptune: {
-    //         width: 650
-    //     },
-    //     graphite: {
-    //         width: 800
-    //     },
-    //     'classic-material': {
-    //         width: 800
-    //     }
-    // },
     layout: 'fit',
 
     items: [
@@ -32,7 +16,7 @@ Ext.define('GSmartApp.view.DashBoardView.BarChartOutputAmount', {
             //     alignTo: 'chart'
             // },
             subtitle: {
-                text: 'Số lượng ra chuyền/ngày tháng hiện tại',
+                text: 'SL chưa phân chuyền/sản xuất',
                 alignTo: 'chart'
             }
         },
@@ -45,7 +29,7 @@ Ext.define('GSmartApp.view.DashBoardView.BarChartOutputAmount', {
         //     type: 'two-year-sales'
         // },
         bind:{
-            store:'{BarChartOutputAmountStore}'
+            store:'{BarChartNotInProductionStore}'
         },
         legend: {
             type: 'dom',
@@ -54,28 +38,33 @@ Ext.define('GSmartApp.view.DashBoardView.BarChartOutputAmount', {
         axes: [{
             type: 'numeric3d',
             position: 'left',
-            fields: ['sumOutput', 'sumError', 'sumStocked'],
+            fields: ['sumChuaPhanChuyen', 'sumChuaSanXuat'],
             grid: true,
-            title: 'Số lượng',
+            // title: 'Số lượng',
             renderer: 'onAxisLabelRender'
         }, {
             type: 'category3d',
             position: 'bottom',
-            fields: 'name',
-            title: {
-                text: 'Phân xưởng',
-                translationX: -30
+            fields: 'orgCode',
+            // title: {
+            //     text: 'Phân xưởng',
+            //     translationX: -30
+            // },
+            grid: true,
+            label: {
+                rotate: {
+                    degrees: -45
+                }
             },
-            grid: true
         }],
         series: {
             type: 'bar3d',
             stacked: false,
-            title: ['Ra chuyền', 'Lỗi', 'Nhập kho'],
-            xField: 'name',
-            yField: ['sumOutput', 'sumError', 'sumStocked'],
+            title: ['Chưa phân chuyền', 'Chưa sản xuất'],
+            xField: 'orgCode',
+            yField: ['sumChuaPhanChuyen', 'sumChuaSanXuat'],
             label: {
-                field: ['sumOutput', 'sumError', 'sumStocked'],
+                field: ['sumChuaPhanChuyen', 'sumChuaSanXuat'],
                 display: 'insideEnd',
                 renderer: 'onSeriesLabelRender'
             },

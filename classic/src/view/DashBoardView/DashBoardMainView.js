@@ -37,11 +37,13 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
         margin: 1,
         layout: 'hbox',
         items:[{
+            xtype:'LineChartPackStockedAmount',
             border: true,
             margin: 1,
             height: '100%',
             flex: 1,
         },{
+            xtype: 'BarChartNotInProduction',
             border: true,
             margin: 1,
             height: '100%',
