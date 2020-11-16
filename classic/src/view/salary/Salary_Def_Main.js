@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.salary.Salary_Def_Main', {
     controller: 'Salary_Def_Main_Controller',
     IdPContract: 0,
     layout: 'border',
-    height: 500,
+    // height: 500,
     items: [
     {
         region: 'center',

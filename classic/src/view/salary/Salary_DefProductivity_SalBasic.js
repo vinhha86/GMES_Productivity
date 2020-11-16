@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefProductivity_SalBasic', {
     itemId: 'Salary_DefProductivity_SalBasic',
     IdPContract: 0,
     layout: 'border',
-    height: 100,
+    // height: 100,
     items: [
     {
         region: 'center',

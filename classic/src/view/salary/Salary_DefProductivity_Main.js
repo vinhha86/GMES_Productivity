@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefProductivity_Main', {
     itemId: 'Salary_DefProductivity_Main',
     controller: 'Salary_DefProductivity_Controller',
     layout: 'border',
-    height: 500,
+    // height: 500,
     items: [
         {
             region: 'north',
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefProductivity_Main', {
                     region: 'east',
                     border: true,
                     margin: '0 0 0 5',
-                    width: 180,
+                    width: 210,
                     xtype: 'Salary_DefProductivity_SalTypeLabor',
                 }
             ]

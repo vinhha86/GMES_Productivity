@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Main', {
     itemId: 'Salary_DefHour_Main',
     controller: 'Salary_DefHour_Controller',
     layout: 'border',
-    height: 500,
+    // height: 500,
     items: [
         {
             region: 'north',
