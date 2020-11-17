@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.DashBoardView.BarChartOutputAmount', {
             //     alignTo: 'chart'
             // },
             subtitle: {
-                text: 'Số lượng ra chuyền/ngày tháng hiện tại',
+                text: 'Năng suất trung bình ngày',
                 alignTo: 'chart'
             }
         },

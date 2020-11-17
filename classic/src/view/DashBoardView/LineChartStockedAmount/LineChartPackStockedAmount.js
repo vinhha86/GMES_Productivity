@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.DashBoardView.LineChartPackStockedAmount', {
             },
             captions: {
                 // title: 'Line Charts - Marked Lines',
-                subtitle: 'Số lượng nhập kho hoàn thiện'
+                subtitle: 'Tiến độ sản xuất/nhập kho'
             },
             axes: [{
                 type: 'numeric',

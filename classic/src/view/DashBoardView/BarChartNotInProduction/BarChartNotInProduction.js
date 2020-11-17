@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.DashBoardView.BarChartNotInProduction', {
             //     alignTo: 'chart'
             // },
             subtitle: {
-                text: 'SL chưa phân chuyền/sản xuất',
+                text: 'Chờ sản xuất',
                 alignTo: 'chart'
             }
         },
