@@ -168,7 +168,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
                 store : '{EndBuyer}'
             },
             valueField: 'id',
-            displayField: 'name',
+            displayField: 'code',
             queryMode: 'local',
             itemId: 'orgbuyerid_link',
             margin: '5 1 5 0'
