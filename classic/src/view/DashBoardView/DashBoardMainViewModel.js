@@ -4,7 +4,9 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainViewModel', {
     requires: [
         'GSmartApp.store.BarChartOutputAmountStore',
         'GSmartApp.store.LineChartPackStockedAmountStore',
-        'GSmartApp.store.BarChartNotInProductionStore'
+        'GSmartApp.store.BarChartNotInProductionStore',
+        'GSmartApp.store.PieChartMarketTypeStore',
+        'GSmartApp.store.LineChartRegisterCodeCountStore'
     ],
     stores: {
         BarChartOutputAmountStore: {
@@ -15,6 +17,12 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainViewModel', {
         },
         BarChartNotInProductionStore: {
             type: 'BarChartNotInProductionStore'
+        },
+        PieChartMarketTypeStore: {
+            type: 'PieChartMarketTypeStore'
+        },
+        LineChartRegisterCodeCountStore: {
+            type: 'LineChartRegisterCodeCountStore'
         },
     },
     data: {

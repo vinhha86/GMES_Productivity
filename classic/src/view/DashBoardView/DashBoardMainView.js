@@ -23,6 +23,7 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
             height: '100%',
             flex: 2,
         },{
+            xtype: 'PieChartMarketType',
             border: true,
             margin: 1,
             height: '100%',
@@ -49,6 +50,7 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
             height: '100%',
             flex: 1,
         },{
+            xtype: 'LineChartRegisterCodeCount',
             border: true,
             margin: 1,
             height: '100%',
