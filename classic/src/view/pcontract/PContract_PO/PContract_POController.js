@@ -95,8 +95,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 m.reset();
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    var storeProduct = viewmodel.getStore('PContractProductTreeStore');
-                    storeProduct.load();
+                    if(response.respcode == 200){
+                        var storeProduct = viewmodel.getStore('PContractProductTreeStore');
+                        storeProduct.load();
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
                 }
             })
     },
