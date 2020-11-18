@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
     id:'DashBoardMainView',
     reference: 'DashBoardMainView',
     controller: 'DashBoardMainViewController',
+    requires: [ 'Ext.chart.*' ],
     viewModel: {
         type: 'DashBoardMainViewModel'
     },

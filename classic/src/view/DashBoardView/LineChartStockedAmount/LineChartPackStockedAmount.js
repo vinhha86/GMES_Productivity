@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.DashBoardView.LineChartPackStockedAmount', {
     xtype: 'LineChartPackStockedAmount',
     controller: 'LineChartPackStockedAmountController',
     layout: 'fit',
-
     items: [{
             xtype: 'cartesian',
             reference: 'chart',
