@@ -5,10 +5,10 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
     init: function () {
         var me = this.getView();
         var viewModel = me.getViewModel();
-        var EndBuyer = viewModel.getStore('EndBuyer');
+        // var EndBuyer = viewModel.getStore('EndBuyer');
         var Vendor = viewModel.getStore('Vendor');
-        EndBuyer.loadStore(12);
-        EndBuyer.sort('code','ASC');
+        // EndBuyer.loadStore(12);
+        // EndBuyer.sort('code','ASC');
         Vendor.loadStore(11);
         Vendor.sort('code','ASC');
         var contract_date = this.lookupReference('contract_date');
@@ -32,13 +32,16 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         },
         '#btnLuuVaTaoMoi': {
             click: 'Luu'
+        },
+        '#btnThemMoiBuyer': {
+            click: 'ThemMoiBuyer'
         }
     },
     onLuu: function (thisBtn) {
         var viewMain = Ext.getCmp('ContractBuyer');
         var m = this;
         var me = this.getView();
-        me.setLoading("Đang lưu dữ liệu");
+        // me.setLoading("Đang lưu dữ liệu");
 
         var viewModel = this.getViewModel();
 
@@ -46,6 +49,11 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         var data = new Object();
         data = viewModel.get('currentRec');
         data.id = this.Id;
+
+        var contractBuyerDs = data.contractBuyerDs;
+        for(var i=0; i<contractBuyerDs.length; i++){
+            contractBuyerDs[i].id = 0;
+        }
 
         params.data = data;
         params.msgtype = "CONTRACTBUYER_CREATE";
@@ -144,7 +152,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         var viewModel = me.getViewModel();
         viewModel.set('id', id);
         if (id == 0) {
-            viewModel.set('currentRec', null);
+            viewModel.set('currentRec', new Object());
+            viewModel.set('currentRec.contractBuyerDs', new Array());
             me.getView().getForm().reset();
         }
         else {
@@ -202,5 +211,99 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
             contract_date_finish = new Date(contract_year, 11, 31); // var d = new Date(2018, 11, 24);
             viewModel.set('currentRec.contract_date_finish', contract_date_finish);
         }
+    },
+    ThemMoiBuyer: function(){
+        var viewModel = this.getViewModel();
+        var me = this.getView();
+        var m = this;
+
+        var contractBuyerDs = viewModel.get('currentRec.contractBuyerDs');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: 500,
+            width: 400,
+            closable: true,
+            title: 'Danh sách Buyer',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'ContractBuyerDetail_BuyerList',
+                viewModel: {
+                    type: 'ContractBuyerDetail_BuyerListViewModel',
+                    data: {
+                        contractBuyerDs: contractBuyerDs
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ContractBuyerDetail_BuyerList').getController().on('AddBuyer', function (select) {
+            
+            // console.log(contractBuyerDs);
+            // console.log('---')
+            // console.log(select);
+            for(var i=0;i < select.length;i++){
+                var newContractBuyerD = new Object({
+                    id: null,
+                    buyerCode: select[i].data.code,
+                    buyerName: select[i].data.name,
+                    buyerid_link: select[i].data.id,
+                    contractbuyerid_link: null
+                })
+                contractBuyerDs.push(newContractBuyerD);
+            }
+            // console.log('---')
+            // console.log(contractBuyerDs);
+
+            var ContractBuyerListBuyerGrid = m.lookupReference('ContractBuyerListBuyerGrid');
+            ContractBuyerListBuyerGrid.getStore().setData(contractBuyerDs);
+        })
+    },
+    onXoaBuyer: function(grid, rowIndex, colIndex){
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa Buyer ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    
+                }else{
+                    return;
+                }
+            }
+        });
+
+        var rec = grid.getStore().getAt(rowIndex);
+        // console.log(rec);
+        // grid.getStore().remove(rec);
+
+        var viewModel = this.getViewModel();
+        var contractBuyerDs = viewModel.get('currentRec.contractBuyerDs');
+        // console.log(contractBuyerDs);
+        for(var i=contractBuyerDs.length-1;i>=0;i--){
+            if(contractBuyerDs[i].buyerid_link == rec.data.buyerid_link){
+                contractBuyerDs.splice(i,1);
+                break;
+            }
+        }
+
+        var ContractBuyerListBuyerGrid = this.lookupReference('ContractBuyerListBuyerGrid');
+        ContractBuyerListBuyerGrid.getStore().setData(contractBuyerDs);
+        // console.log(contractBuyerDs);
     }
 })
