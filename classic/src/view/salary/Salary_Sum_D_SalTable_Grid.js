@@ -9,7 +9,6 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
     ],
     layout: 'fit',
     scrollable: true,
-    loadMask: true,
     bind:{
         store:'{SalarySumStore}'
     },
@@ -52,7 +51,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
     // renderTo: Ext.getBody(),   
     columns: [
         {xtype: 'rownumberer'},
-        { header: 'Họ và tên', locked: true, dataIndex: 'personel_fullname', width: 200,
+        { header: 'Họ và tên', locked: true, dataIndex: 'personel_fullname', width: 150,
             //editor: {xtype: 'textfield', readOnly: true},
             // items: {
             //     xtype: 'textfield',
@@ -68,8 +67,8 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
             // },
             summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
-        { header: 'Thang lương', headerWrap: true, dataIndex: 'personel_saltypecode', width: 60},
-        { header: 'Bậc lương', headerWrap: true, dataIndex: 'personel_sallevelcode', width: 50},
+        { header: 'Thang lương', headerWrap: true, align: 'center', dataIndex: 'personel_saltypecode', width: 60},
+        { header: 'Bậc lương', headerWrap: true, align: 'center', dataIndex: 'personel_sallevelcode', width: 55},
         { header: 'Lương sản phẩm',
             columns: [
                 { header: 'Số SP', dataIndex: 'luongsp_sl', width: 55,
@@ -102,7 +101,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
                         return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
-                { header: 'Số tiền', dataIndex: 'luongtg_tien', width: 80, 
+                { header: 'Số tiền', dataIndex: 'luongtg_tien', width: 100, 
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
                     renderer: function(value){
@@ -122,7 +121,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
                         return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
-                { header: 'Số tiền', dataIndex: 'nghi_tien', width: 80, 
+                { header: 'Số tiền', dataIndex: 'nghi_tien', width: 90, 
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
                     renderer: function(value){
@@ -147,7 +146,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             }            
         },    
-        { header: 'Tổng lương', headerWrap: true, dataIndex: 'tongluong', width: 80,
+        { header: 'Tổng lương', headerWrap: true, dataIndex: 'tongluong', width: 100,
             summaryType: 'sum', summaryRenderer: 'renderSum',
             align: 'end', 
             renderer: function (value, metaData, record, rowIndex) {
@@ -264,11 +263,24 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
                 }
             }, 
             {
-                tooltip: 'Tính lương',
+                tooltip: 'Tải bảng lương',
                 iconCls: 'x-fa fa-refresh',
                 weight: 30,
+                handler: 'onReload_SalTable'
+            },
+            {
+                text: 'Tính lương',
+                iconCls: 'x-fa fa-calculator',
+                weight: 30,
                 handler: 'onCal_SalTable'
-            }
+            },
+            '->',
+            {
+                text: 'Chốt bảng lương',
+                iconCls: 'x-fa fa-check',
+                weight: 30,
+                handler: 'onConfirm_SalTable'
+            },
     ]
     }],
 });

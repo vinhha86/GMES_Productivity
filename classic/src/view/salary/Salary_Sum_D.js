@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D', {
                 xtype: 'Salary_Sum_D_SalTable_Grid'
             },
             {
-                title: 'Bảng tăng ca',
+                title: 'Bảng thưởng',
                 xtype: 'panel'
             },
         ]            

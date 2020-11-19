@@ -39,8 +39,48 @@ Ext.define('GSmartApp.store.SalarySumStore', {
 	sorters: [{
         property: 'sumcolid_link',
         direction: 'ASC'
-    }],
-	loadStore:function(orgid_link,year,month){
+	}],
+	loadStore:function(orgid_link,year,month,m){
+        var params = new Object();
+        params.orgid_link = orgid_link;
+        params.year = year;
+        params.month = month;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/salarysum/salary_sum_byorg',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		// this.load();
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				m.setLoading(false);
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+					// console.log(records);
+				}
+			}
+		});
+	},
+	calSalTable:function(orgid_link,year,month,m){
         var params = new Object();
         params.orgid_link = orgid_link;
         params.year = year;
@@ -67,10 +107,10 @@ Ext.define('GSmartApp.store.SalarySumStore', {
 				rootProperty: 'data'
 			}
 		});
-		// this.load();
 		this.load({
 			scope: this,
 			callback: function(records, operation, success) {
+				m.setLoading(false);
 				if(!success){
 					 this.fireEvent('logout');
 				} else {
