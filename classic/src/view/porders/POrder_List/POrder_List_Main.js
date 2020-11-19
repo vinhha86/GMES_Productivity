@@ -25,157 +25,172 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         hideGroupedHeader: false,
         enableGroupingMenu: false
     }],
-    columns: [{
-        text: 'STT',
-        width: 40,
-        xtype: 'rownumberer',
-        align: 'center'
-    }, 
-    {
-        text: 'Mã lệnh',
-        dataIndex: 'ordercode',
-        width: 120,
-        renderer: function (value, metaData, record, rowIndex) {
-            var c = record.get('status');
-            if(c == 0){
-                metaData.tdCls = 'process-free';
-            }else if (c == 1) {
-                metaData.tdCls = 'process-granted';
-            } else if (c == 2) {
-                metaData.tdCls =  'process-ready';
-            } else if (c == 3) {
-                metaData.tdCls =  'process-subprocess';
-            } else if (c == 4) {
-                metaData.tdCls =  'process-running';
-            } else if (c == 5) {
-                metaData.tdCls =  'process-done';
-            } else if (c == 6) {
-                metaData.tdCls =  'process-finish';
-            }
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        },
-    },     
-    // {
-    //     text: 'Mã Buyer',
-    //     dataIndex: 'buyercode',
-    //     width: 120,
-    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-    //         metaData.tdAttr = 'data-qtip="' + value + '"';
-    //         return value;
-    //     }
-    //     // renderer: function (value, metaData, record, rowIndex) {
-    //     //     var c = record.get('status');
-    //     //     if(c == 0){
-    //     //         metaData.tdCls = 'process-free';
-    //     //     }else if (c == 1) {
-    //     //         metaData.tdCls = 'process-granted';
-    //     //     } else if (c == 2) {
-    //     //         metaData.tdCls =  'process-ready';
-    //     //     } else if (c == 3) {
-    //     //         metaData.tdCls =  'process-subprocess';
-    //     //     } else if (c == 4) {
-    //     //         metaData.tdCls =  'process-running';
-    //     //     } else if (c == 5) {
-    //     //         metaData.tdCls =  'process-done';
-    //     //     } else if (c == 6) {
-    //     //         metaData.tdCls =  'process-finish';
-    //     //     }
-    //     //     metaData.tdAttr = 'data-qtip="' + value + '"';
-    //     //     return value;
-    //     // },
-    // }, 
-    {
-        text: 'Mã SP (Buyer)',
-        dataIndex: 'stylebuyer',
-        width: 140,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },       
-    {
-        text: 'PO Buyer',
-        dataIndex: 'po_buyer',
-        flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        },
-        // items: {
-        //     xtype: 'textfield',
-        //     fieldStyle: "",
-        //     reference: 'POBuyerFilter',
-        //     width: '98%',
-        //     flex: 1,
-        //     margin: 2,
-        //     enableKeyEvents: true,
-        //     listeners: {
-        //         keyup: 'onPOBuyerFilterKeyup',
-        //         buffer: 500
+    columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_POrderList'
+                },            
+            ]
+        },           
+        {
+            text: 'STT',
+            width: 40,
+            xtype: 'rownumberer',
+            align: 'center'
+        }, 
+        {
+            text: 'Mã lệnh',
+            dataIndex: 'ordercode',
+            width: 120,
+            renderer: function (value, metaData, record, rowIndex) {
+                var c = record.get('status');
+                if(c == 0){
+                    metaData.tdCls = 'process-free';
+                }else if (c == 1) {
+                    metaData.tdCls = 'process-granted';
+                } else if (c == 2) {
+                    metaData.tdCls =  'process-ready';
+                } else if (c == 3) {
+                    metaData.tdCls =  'process-subprocess';
+                } else if (c == 4) {
+                    metaData.tdCls =  'process-running';
+                } else if (c == 5) {
+                    metaData.tdCls =  'process-done';
+                } else if (c == 6) {
+                    metaData.tdCls =  'process-finish';
+                }
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },     
+        // {
+        //     text: 'Mã Buyer',
+        //     dataIndex: 'buyercode',
+        //     width: 120,
+        //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        //         metaData.tdAttr = 'data-qtip="' + value + '"';
+        //         return value;
         //     }
-        // },
-    },     
-    {
-        text: 'Buyer',
-        dataIndex: 'buyername',
-        width: 120,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    }, 
-    {
-        text: 'Vendor',
-        dataIndex: 'vendorname',
-        width: 120,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },   
+        //     // renderer: function (value, metaData, record, rowIndex) {
+        //     //     var c = record.get('status');
+        //     //     if(c == 0){
+        //     //         metaData.tdCls = 'process-free';
+        //     //     }else if (c == 1) {
+        //     //         metaData.tdCls = 'process-granted';
+        //     //     } else if (c == 2) {
+        //     //         metaData.tdCls =  'process-ready';
+        //     //     } else if (c == 3) {
+        //     //         metaData.tdCls =  'process-subprocess';
+        //     //     } else if (c == 4) {
+        //     //         metaData.tdCls =  'process-running';
+        //     //     } else if (c == 5) {
+        //     //         metaData.tdCls =  'process-done';
+        //     //     } else if (c == 6) {
+        //     //         metaData.tdCls =  'process-finish';
+        //     //     }
+        //     //     metaData.tdAttr = 'data-qtip="' + value + '"';
+        //     //     return value;
+        //     // },
+        // }, 
+        {
+            text: 'Mã SP (Buyer)',
+            dataIndex: 'stylebuyer',
+            width: 140,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },       
+        {
+            text: 'PO Buyer',
+            dataIndex: 'po_buyer',
+            flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+            // items: {
+            //     xtype: 'textfield',
+            //     fieldStyle: "",
+            //     reference: 'POBuyerFilter',
+            //     width: '98%',
+            //     flex: 1,
+            //     margin: 2,
+            //     enableKeyEvents: true,
+            //     listeners: {
+            //         keyup: 'onPOBuyerFilterKeyup',
+            //         buffer: 500
+            //     }
+            // },
+        },     
+        {
+            text: 'Buyer',
+            dataIndex: 'buyername',
+            width: 120,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        }, 
+        {
+            text: 'Vendor',
+            dataIndex: 'vendorname',
+            width: 120,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },   
 
-    // {
-    //     text: 'PO Vendor',
-    //     dataIndex: 'po_vendor',
-    //     flex: 1
-    // }, 
-    {
-        text: 'Tạo lệnh',
-        dataIndex: 'orderdate',
-        renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        // flex: 1,
-        width: 70,
-    }, {
-        text: 'Vào chuyền',
-        dataIndex: 'startDatePlan',
-        renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        // flex: 1,
-        width: 70,
-    }, {
-        text: 'Giao hàng',
-        dataIndex: 'golivedate',
-        renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        // flex: 1,
-        width: 70,
-    }, {
-        text: 'Số lượng',
-        dataIndex: 'totalorder',
-        renderer: function(value){
-            return Ext.util.Format.number(parseFloat(value), '0,000');
-        },
-        // flex: 1,
-        width: 75,
-        align: 'end'
-    }, {
-        text: 'Trạng thái',
-        dataIndex: 'statusName',
-        width: 120,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+        // {
+        //     text: 'PO Vendor',
+        //     dataIndex: 'po_vendor',
+        //     flex: 1
+        // }, 
+        {
+            text: 'Tạo lệnh',
+            dataIndex: 'orderdate',
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            // flex: 1,
+            width: 70,
+        }, {
+            text: 'Vào chuyền',
+            dataIndex: 'startDatePlan',
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            // flex: 1,
+            width: 70,
+        }, {
+            text: 'Giao hàng',
+            dataIndex: 'golivedate',
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            // flex: 1,
+            width: 70,
+        }, {
+            text: 'Số lượng',
+            dataIndex: 'totalorder',
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
+            // flex: 1,
+            width: 75,
+            align: 'end'
+        }, {
+            text: 'Trạng thái',
+            dataIndex: 'statusName',
+            width: 120,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
         }
-    }],
+    ],
     dockedItems: [{
         dock: 'top',
         layout: 'vbox',

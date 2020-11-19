@@ -164,4 +164,57 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var id = record.data.id;
         this.redirectTo("porderlistmain/" + id + "/edit");
     },
+    onMenu_POrderList: function (grid, rowIndex, colIndex, item, e, record) {
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Chuẩn bị sản xuất',
+                reference: 'pprocess_productivity',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-bell yellowIcon',
+                handler: function() {
+                    var record = this.parentMenu.record;
+                    if (record.get('status') > 0 && record.get('status') < 4){     
+                        // var form =Ext.create({
+                        //     xtype: 'pordersetready',
+                        //     reference:'pordersetready'
+                        // });
+                        // var viewModel = form.getViewModel();
+                        // viewModel.set('record',record);
+                        // form.show();
+                    }
+                }
+            }, 
+            {
+                text: 'Kết thúc sản xuất',
+                reference: 'pprocess_subprocess',
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-stop violetIcon',
+                handler: function() {
+                    var record = this.parentMenu.record;
+                    if (record.get('status') > 4){     
+                        // var form =Ext.create({
+                        //     xtype: 'pordersetready',
+                        //     reference:'pordersetready'
+                        // });
+                        // var viewModel = form.getViewModel();
+                        // viewModel.set('record',record);
+                        // form.show();
+                    }                  
+                }
+            }
+        ]
+        });
+          // HERE IS THE MAIN CHANGE
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.record = record;
+          menu_grid.showAt(position);
+    },    
 })

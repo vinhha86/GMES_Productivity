@@ -532,7 +532,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
             form.show();
         }
     },
-    onMenu: function (grid, rowIndex, colIndex, item, e, record) {
+    onMenu_POrderProcessingList: function (grid, rowIndex, colIndex, item, e, record) {
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
@@ -541,96 +541,45 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
             viewModel: {},
             items: [
             {
-                text: 'Kế hoạch SX',
-                reference: 'pprocess_setready',
+                text: 'Năng suất công nhân',
+                reference: 'pprocess_productivity',
                 separator: true,
                 margin: '10 0 0',
-                iconCls: 'x-fa fas fa-bell-o greenIcon',
+                iconCls: 'x-fa fas fa-link greenIcon',
                 handler: function() {
                     var record = this.parentMenu.record;
-                    // console.log(record.get('status'));
-                    // if (record.get('status') > 1){
-                    //     Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa SX mới có thể đưa vào chuẩn bị SX');
-                    // }
-                    // else {
-            
-                        var form =Ext.create({
-                            xtype: 'pordersetready',
-                            reference:'pordersetready'
+                    if (record.get('status') < 4){     
+                        Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái đang sản xuất mới ghi nhận được năng suất');
+                    } else {      
+                        var form = Ext.create('Ext.window.Window', {
+                            height: 500,
+                            closable: true,
+                            title: 'Năng suất công nhân',
+                            resizable: false,
+                            modal: true,
+                            border: false,
+                            closeAction: 'destroy',
+                            width: 600,
+                            bodyStyle: 'background-color: transparent',
+                            layout: {
+                                type: 'fit', // fit screen for window
+                                padding: 5
+                            },
+                            items: [{
+                                border: false,
+                                xtype: 'Productivity_Main',
+                                viewModel: {
+                                    data: {
+                                        record: record
+                                    }
+                                }
+                            }]
                         });
-                        var viewModel = form.getViewModel();
-                        viewModel.set('record',record);
-                        form.show();
-                    // }                    
+                        form.show();                        
+                    }
                 }
             }, 
             {
-                text: 'Hủy phân chuyền',
-                reference: 'pprocess_cancelgrant',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-ban redIcon',
-                handler: function() {
-                    var record = this.parentMenu.record;
-                    if (record.get('status') > 3){
-                        Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa SX mới có thể Hủy phân chuyền');
-                    }
-                    else {
-            
-                        var form =Ext.create({
-                            xtype: 'porderungrantwindow',
-                            reference:'porderungrantwindow'
-                        });
-                        var viewModel = form.getViewModel();
-                        viewModel.set('granttoorgid_link',record.get('granttoorgid_link'));
-                        if (Ext.isNumber(record.get('id')))
-                            viewModel.set('pprocesingid',record.get('id'));
-                        else
-                            viewModel.set('pprocesingid',-1);
-                        viewModel.set('porderid_link',record.get('porderid_link'));
-                        viewModel.set('ordercode',record.get('ordercode'));
-                        viewModel.set('comment','Bạn có thực sự muốn hủy phân chuyền lệnh ' + record.get('ordercode') + ' khỏi Tổ SX: ' + record.get('granttoorgname'));
-                    
-                        form.show();
-                    }                    
-                }
-            }, 
-            {
-                text: 'Chuyển/Tách chuyền',
-                reference: 'pprocess_split',
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-forward violetIcon',
-                handler: function() {
-                    var record = this.parentMenu.record;
-                    if (record.get('status') > 3){
-                        Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa SX mới có thể tách chuyền');
-                    }
-                    else {                    
-                        if (record.get('amountcutsum') > 0){
-                            var form =Ext.create({
-                                xtype: 'pordersplitgrant',
-                                reference:'pordersplitgrant'
-                            });
-                            var viewModel = form.getViewModel();
-                            viewModel.set('sourceorgid_link',record.get('granttoorgid_link'));
-                            if (Ext.isNumber(record.get('id')))
-                                viewModel.set('pprocesingid',record.get('id'));
-                            else
-                                viewModel.set('pprocesingid',-1);
-                            viewModel.set('porderid_link',record.get('porderid_link'));
-                            viewModel.set('ordercode',record.get('ordercode'));
-                            viewModel.set('productiondate',new Date());
-                            viewModel.set('amountcutsum',record.get('amountcutsum'));
-                            viewModel.set('amountorigin',record.get('amountcutsum'));
-                        
-                            form.show();
-                        }
-                        else {
-                            Ext.Msg.alert('Lệnh SX','Số cắt thực tế cần > 0');
-                        } 
-                    }                
-                }
-            }, {
                 text: 'Công đoạn phụ',
                 reference: 'pprocess_subprocess',
                 margin: '10 0 0',
@@ -656,8 +605,9 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                         form.show();
                     }                    
                 }
-            }, {
-                text: 'Kết thúc lệnh',
+            }, 
+            {
+                text: 'Biên bản lỗi, hỏng',
                 reference: 'pprocess_stop',
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-stop-circle redIcon',

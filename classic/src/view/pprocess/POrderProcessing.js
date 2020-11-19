@@ -84,7 +84,21 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //         }
         //     },
         //     handler: 'onSetBalance' 
-		// },           
+        // },   
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            locked: true,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_POrderProcessingList'
+                },            
+            ]
+        },                
         { header: 'Mã SX', locked: true, dataIndex: 'pordercode', width: 100,
             //editor: {xtype: 'textfield', readOnly: true},
             items: {
@@ -133,7 +147,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //     }
         // },
         // { header: 'Dự kiến SX', headerWrap: true, locked: true, dataIndex: 'productiondate', width: 80, renderer: Ext.util.Format.dateRenderer('d/m/Y')},
-        { header: 'SL đơn hàng', locked: true, dataIndex: 'grantamount', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
+        { header: 'SL đơn', locked: true, dataIndex: 'grantamount', width: 60, summaryType: 'sum', summaryRenderer: 'renderSum',
             align: 'end', 
             renderer: function(value){
                 return Ext.util.Format.number(parseFloat(value), '0,000');
@@ -152,7 +166,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         // },
         { header: 'Khoán RC', reference: 'pprocess_edit_amounttarget',
             columns: [
-                { header: 'H-nay', dataIndex: 'amounttarget', width: 55,
+                { header: 'H-nay', dataIndex: 'amounttarget', width: 60,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
@@ -224,7 +238,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         // },      
         { header: 'Đăng ký QC', reference: 'pprocess_edit_amountkcsreg',
             columns: [
-                { header: 'H-nay', dataIndex: 'amountkcsreg', width: 55,
+                { header: 'H-nay', dataIndex: 'amountkcsreg', width: 60,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
@@ -241,6 +255,41 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                         return Ext.util.Format.number(parseFloat(value), '0,000');
                     },
                 }                
+            ]
+        },
+        { header: 'Nhập hoàn thiện', reference: 'pprocess_edit_amountpackstocked',
+            columns: [
+                { header: 'SL', dataIndex: 'amountpackstocked', width: 55,
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: true},
+                    summaryType: 'sum', summaryRenderer: 'renderSum',
+                    renderer: function (value, metaData, record, rowIndex) {
+                        metaData.tdCls = 'process-editablecolumn';
+                        return value;
+                    }                     
+                }, 
+                { header: 'LK', dataIndex: 'amountpackstockedsum', width: 60,
+                    summaryType: 'sum', summaryRenderer: 'renderSum'
+                }
+            ]
+        },        
+        { header: 'Đóng gói', reference: 'pprocess_edit_amountpacked',
+            columns: [
+                { header: 'SL', dataIndex: 'amountpacked', width: 55, id: 'pprocess_edit_amountpacked',
+                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
+                    summaryType: 'sum', summaryRenderer: 'renderSum',
+                    align: 'end', 
+                    renderer: function (value, metaData, record, rowIndex) {
+                        metaData.tdCls = 'process-editablecolumn';
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    }                     
+                }, 
+                { header: 'LK', dataIndex: 'amountpackedsum', width: 60, 
+                    summaryType: 'sum', summaryRenderer: 'renderSum', 
+                    align: 'end', 
+                    renderer: function(value){
+                        return Ext.util.Format.number(parseFloat(value), '0,000');
+                    },
+                }
             ]
         },
         { header: 'Nhập kho', reference: 'pprocess_edit_amountstocked',
@@ -262,56 +311,21 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                     },
                 }
             ]
-        },
-        // { header: 'Nhập hoàn thiện', reference: 'pprocess_edit_amountpackstocked',
-        //     columns: [
-        //         { header: 'SL', dataIndex: 'amountpackstocked', width: 55,
-        //             editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: true, maxValue: 100000, selectOnFocus: true},
-        //             summaryType: 'sum', summaryRenderer: 'renderSum',
-        //             renderer: function (value, metaData, record, rowIndex) {
-        //                 metaData.tdCls = 'process-editablecolumn';
-        //                 return value;
-        //             }                     
-        //         }, 
-        //         { header: 'LK', dataIndex: 'amountpackstockedsum', width: 60,
-        //             summaryType: 'sum', summaryRenderer: 'renderSum'
-        //         }
-        //     ]
-        // },        
-        { header: 'Đóng gói', reference: 'pprocess_edit_amountpacked',
-            columns: [
-                { header: 'SL', dataIndex: 'amountpacked', width: 55, id: 'pprocess_edit_amountpacked',
-                    editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
-                    summaryType: 'sum', summaryRenderer: 'renderSum',
-                    align: 'end', 
-                    renderer: function (value, metaData, record, rowIndex) {
-                        metaData.tdCls = 'process-editablecolumn';
-                        return Ext.util.Format.number(parseFloat(value), '0,000');
-                    }                     
-                }, 
-                { header: 'LK', dataIndex: 'amountpackedsum', width: 60, 
-                    summaryType: 'sum', summaryRenderer: 'renderSum', 
-                    align: 'end', 
-                    renderer: function(value){
-                        return Ext.util.Format.number(parseFloat(value), '0,000');
-                    },
-                }
-            ]
-        },
-        { header: 'Nhập thành phẩm', dataIndex: 'totalstocked', width: 60,
-            summaryType: 'sum', summaryRenderer: 'renderSum', 
-            align: 'end', 
-            renderer: function(value){
-                return Ext.util.Format.number(parseFloat(value), '0,000');
-            },
-        },
-        { header: 'ĐG-RC', dataIndex: 'amountdg_rc', width: 65,
-            summaryType: 'sum', summaryRenderer: 'renderSum', 
-            align: 'end', 
-            renderer: function(value){
-                return Ext.util.Format.number(parseFloat(value), '0,000');
-            },
-        },
+        },        
+        // { header: 'Nhập kho TP', dataIndex: 'totalstocked', width: 60,
+        //     summaryType: 'sum', summaryRenderer: 'renderSum', 
+        //     align: 'end', 
+        //     renderer: function(value){
+        //         return Ext.util.Format.number(parseFloat(value), '0,000');
+        //     },
+        // },
+        // { header: 'ĐG-RC', dataIndex: 'amountdg_rc', width: 65,
+        //     summaryType: 'sum', summaryRenderer: 'renderSum', 
+        //     align: 'end', 
+        //     renderer: function(value){
+        //         return Ext.util.Format.number(parseFloat(value), '0,000');
+        //     },
+        // },
         { header: 'Ghi chú', dataIndex: 'comment', flex: 1,
         editor: {
             allowBlank: true,
