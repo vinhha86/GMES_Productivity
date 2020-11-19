@@ -15,11 +15,29 @@ Ext.define('GSmartApp.store.SalarySumStore', {
 		{name: 'sumcoltypeid_link',   type: 'int'},
 		{name: 'sumvalue',   type: 'number'},
 		{name: 'personel_fullname',   type: 'string'},
+		{name: 'personel_saltypecode',   type: 'string'},
+		{name: 'personel_sallevelcode',   type: 'string'},
 		{name: 'sumcol_code',   type: 'string'},
-		{name: 'sumcoltype_name',   type: 'string'}
+		{name: 'sumcoltype_name',   type: 'string'},
+		{name: 'luongsp_sl',   type: 'int'},
+		{name: 'luongsp_tien',   type: 'int'},
+		{name: 'luongtg_sl',   type: 'int'},
+		{name: 'luongtg_tien',   type: 'int'},
+		{name: 'nghi_sl',   type: 'int'},
+		{name: 'nghi_tien',   type: 'int'},
+		{name: 'phucap_chucvu',   type: 'int'},
+		{name: 'phucap_khac',   type: 'int'},
+		{name: 'tongluong',   type: 'int'},
+		{name: 'ky1_tien',   type: 'int'},
+		{name: 'ky2_tien',   type: 'int'},
+		{name: 'giamtru_bhxh',   type: 'int'},
+		{name: 'giamtru_bhyt',   type: 'int'},
+		{name: 'giamtru_bhtn',   type: 'int'},
+		{name: 'giamtru_kpcd',   type: 'int'},
+		{name: 'giamtru_tong',   type: 'int'}
 	],
 	sorters: [{
-        property: 'id',
+        property: 'sumcolid_link',
         direction: 'ASC'
     }],
 	loadStore:function(orgid_link,year,month){

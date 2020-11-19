@@ -13,6 +13,10 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_Controller', {
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
 
     },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    } ,
     onCal_SalTable: function(){
         var viewmodel = this.getViewModel();
         // console.log(viewmodel.get('month') + "/" + viewmodel.get('year'));
@@ -26,6 +30,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_Controller', {
                     yes: 'Đóng',
                 }
             });
+            return;
         }
         if (null == viewmodel.get('year')){
             Ext.MessageBox.show({
@@ -36,6 +41,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_Controller', {
                     yes: 'Đóng',
                 }
             });
+            return;
         }
         if (null == viewmodel.get('selected_orgid')){
             Ext.MessageBox.show({
@@ -46,8 +52,10 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_Controller', {
                     yes: 'Đóng',
                 }
             });
+            return;
         }
         var SalarySumStore = viewmodel.get('SalarySumStore');
+        SalarySumStore.removeAll();
         SalarySumStore.loadStore(viewmodel.get('selected_orgid'),viewmodel.get('year'),viewmodel.get('month'));     
     }
 })

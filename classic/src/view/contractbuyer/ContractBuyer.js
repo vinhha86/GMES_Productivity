@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
     {
         text: 'Buyer',
         dataIndex: 'buyerCodes',
-        width: 150,
+        width: 250,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
     {
         text: 'Vendor',
         dataIndex: 'vendorCode',
-        width: 150,
+        width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;

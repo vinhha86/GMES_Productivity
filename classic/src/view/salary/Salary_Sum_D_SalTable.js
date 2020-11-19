@@ -103,8 +103,14 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable', {
          */
         topAxis: [
             {
+                dataIndex: 'sumcoltype_name',
+                header: 'Nhóm',
+                // labelRenderer: 'monthLabelRenderer'
+            },
+            {
                 dataIndex: 'sumcol_code',
-                header: 'Bậc lương',
+                sortIndex: 'sumcolid_link',
+                header: 'Cột',
                 // labelRenderer: 'monthLabelRenderer'
             }
         ]
