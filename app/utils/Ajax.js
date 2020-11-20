@@ -18,6 +18,46 @@ Ext.define('GSmartApp.util.Ajax', {
 					url: config.getAppBaseUrl()+url,
 					method:'POST',
 					cors: true,
+					timeout: 60000,
+					headers :{
+						'Content-Type':"application/json",
+						'authorization': 'Bearer ' + access_token
+					},
+					useDefaultXhrHeader: false,
+					params: params,
+					success : function(response,options ) {
+						callback.call(me, true, response, options);
+					},
+					failure :function(response,options){
+						callback.call(me, false, response, options);
+						console.log(response,options);
+						//me.fireEvent('logout');
+						
+					}
+				});
+			}
+		}
+	},
+	post_with_timeout: function(url,params,callback, timeout) {
+		if(timeout == null )
+			timeout = 45000;
+		var me =this;
+		var data = App.util.State.get('session');
+		if(data==null){
+			//me.redirectTo('login', {replace: true});
+		} else {
+			var access_token =data.access_token;
+			if(access_token==null){
+				access_token = data.data.access_token;
+			}
+			if(access_token==null){
+				me.redirectTo('login', {replace: true});
+			} else {
+				Ext.Ajax.request({
+					url: config.getAppBaseUrl()+url,
+					method:'POST',
+					cors: true,
+					timeout: timeout,
 					headers :{
 						'Content-Type':"application/json",
 						'authorization': 'Bearer ' + access_token
