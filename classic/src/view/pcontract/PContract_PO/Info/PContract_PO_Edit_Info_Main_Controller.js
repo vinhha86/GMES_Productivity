@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
 
                         //Chuyen packing notice ve array
                         var packing_str = response.data.packingnotice;
-                        var packing_arr = packing_str.split(';');
+                        var packing_arr = packing_str == null ? "" : packing_str.split(';');
                         viewmodel.set('po.packingnotice', packing_arr);
 
                         //Lay danh sach POrder_Req
