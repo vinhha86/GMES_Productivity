@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.product.SalComLabor_Add_Cotroller', {
+Ext.define('GSmartApp.view.salary.SalComLabor_Add_Cotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SalComLabor_Add_Cotroller',
     init: function () {

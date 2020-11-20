@@ -330,7 +330,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         dock: 'bottom',
         layout: 'vbox',
         border: false,
-        items: [{
+        items: [
+        {
             layout: 'hbox',
             border: false,
             items: [{

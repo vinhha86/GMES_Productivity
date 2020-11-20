@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.SalCom_AddNew_Model', {
+Ext.define('GSmartApp.view.salary.SalCom_AddNew_Model', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.SalCom_AddNew_Model',
     data: {

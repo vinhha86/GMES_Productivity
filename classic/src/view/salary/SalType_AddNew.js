@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.SalType_AddNew', {
+Ext.define('GSmartApp.view.salary.SalType_AddNew', {
     extend: 'Ext.form.Panel',
     xtype: 'SalType_AddNew',
     id: 'SalType_AddNew',

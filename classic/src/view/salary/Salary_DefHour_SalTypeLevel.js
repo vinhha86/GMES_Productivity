@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefHour_SalTypeLevel', {
+Ext.define('GSmartApp.view.salary.Salary_DefHour_SalTypeLevel', {
     extend: 'Ext.pivot.Grid',
     xtype: 'Salary_DefHour_SalTypeLevel',
     id:'Salary_DefHour_SalTypeLevel',

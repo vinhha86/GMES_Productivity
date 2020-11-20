@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.product.SalTypeLabor_Add', {
+Ext.define('GSmartApp.view.salary.SalTypeLabor_Add', {
     extend: 'Ext.grid.Panel',
     xtype: 'SalTypeLabor_Add',
     id: 'SalTypeLabor_Add',

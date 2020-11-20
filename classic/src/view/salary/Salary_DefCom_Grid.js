@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefCom_Grid', {
+Ext.define('GSmartApp.view.salary.Salary_DefCom_Grid', {
     extend: 'Ext.grid.Panel',
     xtype: 'Salary_DefCom_Grid',
     itemId:'Salary_DefCom_Grid',

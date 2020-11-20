@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLabor', {
+Ext.define('GSmartApp.view.salary.Salary_DefProductivity_SalTypeLabor', {
     extend: 'Ext.grid.Panel',
     xtype: 'Salary_DefProductivity_SalTypeLabor',
     id:'Salary_DefProductivity_SalTypeLabor',

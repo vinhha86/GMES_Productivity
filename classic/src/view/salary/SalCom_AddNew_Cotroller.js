@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.SalCom_AddNew_Cotroller', {
+Ext.define('GSmartApp.view.salary.SalCom_AddNew_Cotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SalCom_AddNew_Cotroller',
     control: {

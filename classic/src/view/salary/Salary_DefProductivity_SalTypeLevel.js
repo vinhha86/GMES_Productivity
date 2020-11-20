@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.Salary_DefProductivity_SalTypeLevel', {
+Ext.define('GSmartApp.view.salary.Salary_DefProductivity_SalTypeLevel', {
     extend: 'Ext.pivot.Grid',
     xtype: 'Salary_DefProductivity_SalTypeLevel',
     id:'Salary_DefProductivity_SalTypeLevel',
