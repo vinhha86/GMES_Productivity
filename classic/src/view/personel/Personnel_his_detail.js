@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         width: '100%',
         bind: {
             store : '{PositionStore}',
-            readOnly: '{isPosition}',
+            hidden: '{!isPosition}',
             value: '{his.positionid_link}'
         }
     },{
@@ -37,10 +37,11 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         width: '100%',
         bind: {
             store : '{LaborStore}',
-            readOnly: '{isLevel}',
+            hidden: '{!isLevel}',
             value: '{his.levelid_link}'
         }
-    },{
+    },
+    {
         xtype: 'combo',
         margin: 5,
         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -52,10 +53,43 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         width: '100%',
         bind: {
             store : '{OrgStore}',
-            readOnly: '{isOrg}',
+            hidden: '{!isOrg}',
             value: '{his.orgid_link}'
         }
-    },{
+    },
+    {
+        xtype: 'radiogroup',
+        itemId: 'rdoSalType',
+        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+        fieldStyle: 'font-size:11px;',
+        width: '100%',
+        cls: 'x-check-group-alt',
+        items: [
+            { boxLabel: 'Lương thời gian', inputValue: 0, checked: true, margin: 2},
+            { boxLabel: 'Lương sản phẩm', inputValue: 1, margin: 2},
+            { boxLabel: 'Lương khoán', inputValue: 2, margin: 2}
+        ],
+        bind: {
+            hidden: '{!isSalary}',
+        }        
+    },
+    {
+        xtype: 'combo',
+        margin: 5,
+        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+        fieldStyle: 'font-size:11px;',
+        fieldLabel: 'Thang lương',
+        displayField: 'name',
+        valueField: 'id',
+        labelWidth: 105,
+        width: '100%',
+        bind: {
+            store : '{SalTypeStore}',
+            hidden: '{!isSalary}',
+            value: '{his.saltypeid_link}'
+        }
+    },    
+    {
         xtype: 'textfield',
         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
         fieldStyle: 'font-size:11px;',

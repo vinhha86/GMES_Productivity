@@ -7,7 +7,10 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     control: {
         '#btnThemMoi_Personnel' : {
             click: 'onThemMoi'
-        }
+        },
+        '#Personnel_ListView': {
+            itemdblclick: 'onitemdblclick'
+        },
     },
     onThemMoi: function(){
         var viewModel = this.getViewModel();
@@ -47,9 +50,15 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         });
     },
     onEdit: function(grid, rowIndex, colIndex){
-        var viewModel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
-
+        this.showEditForm(rec);
+    },
+    onitemdblclick: function (m, record, item, index, e, eOpts) {
+        console.log(record);
+        this.showEditForm(record);
+    },    
+    showEditForm:function(rec){
+        var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,

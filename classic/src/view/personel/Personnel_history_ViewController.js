@@ -15,7 +15,10 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
         },
         '#btn_department': {
             click: 'onEditDep'
-        }
+        },
+        '#btn_salary': {
+            click: 'onEditSalary'
+        },
     },
     getTitle: function(id, itype){
         var name ="", type="";
@@ -34,13 +37,16 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
             case 3:
                 type = "phòng ban";
                 break;
+            case 4:
+                type = "ngạch, bậc lương";
+                break;                
             default: 
                 "";
         }
 
         return name + type;
     },
-    OpenShowDetail: function (isPosition, isLevel, isOrg, type, personnelid_link, id, positionid_link, levelid_link, orgid_link, decision_number, decision_date) {
+    OpenShowDetail: function (isPosition, isLevel, isOrg, isSalary, type, personnelid_link, id, positionid_link, levelid_link, orgid_link, decision_number, decision_date) {
         var me = this;
 
         var viewmodel = this.getViewModel();
@@ -65,6 +71,7 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
                         isPosition: isPosition,
                         isLevel: isLevel,
                         isOrg: isOrg,
+                        isSalary: isSalary,
                         his: {
                             type: type,
                             personnelid_link: personnelid_link,
@@ -108,7 +115,7 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
             return;
         }
 
-        me.OpenShowDetail(false, true, true, 1, viewmodel.get('personnel.id'), null, null, null, null, null, null);
+        me.OpenShowDetail(true, false, false, false, 1, viewmodel.get('personnel.id'), null, null, null, null, null, null);
     },
     onEditLevel: function () {
         var me = this;
@@ -127,7 +134,7 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
             return;
         }
 
-        me.OpenShowDetail(true, false, true, 2, viewmodel.get('personnel.id'), null, null, null, null, null, null);
+        me.OpenShowDetail(false, true, false, false, 2, viewmodel.get('personnel.id'), null, null, null, null, null, null);
     },
     onEditDep: function () {
         var me = this;
@@ -146,8 +153,27 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
             return;
         }
 
-        me.OpenShowDetail(true, true, false, 3, viewmodel.get('personnel.id'), null, null, null, null, null, null);
+        me.OpenShowDetail(false, false, true, false, 3, viewmodel.get('personnel.id'), null, null, null, null, null, null);
     },
+    onEditSalary: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+
+        if (viewmodel.get('personnel.id') == null) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn phải lưu thông tin nhân viên trước khi cập nhật lương",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+
+            return;
+        }
+
+        me.OpenShowDetail(false, false, false, true, 4, viewmodel.get('personnel.id'), null, null, null, null, null, null);
+    },    
     onEdit: function(grid, rowIndex){
         var me = this;
         var viewmodel = this.getViewModel();

@@ -59,7 +59,10 @@ Ext.define('GSmartApp.view.salary.SalCom_AddNew_Cotroller', {
     onUpdateComRatio: function(e, isValid, eOpts){
         var viewmodel = this.getViewModel();
         if (null != viewmodel.get('sal_basic') && null != viewmodel.get('comratio')){
-            viewmodel.set('comamount',viewmodel.get('sal_basic')*viewmodel.get('comratio'));
+            var comratio = null!=viewmodel.get('comratio')?parseFloat(viewmodel.get('comratio').toString().replace(/,/gi,'')):0;
+            var sal_basic = null!=viewmodel.get('sal_basic')?parseFloat(viewmodel.get('sal_basic').toString().replace(/,/gi,'')):0;
+            var comamount =  Math.round(sal_basic*comratio);
+            viewmodel.set('comamount',comamount);
         }
     }    
 })

@@ -12,12 +12,20 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewModel', {
         },
         OrgStore: {
             type: 'ListOrgStore'
+        },
+        SalTypeStore: {
+            type: 'SalTypeStore'
         }
     },
     data: {
+        isPosition: true,
+        isLevel: true,
+        isOrg: true,
+        isSalary: true,       
         his: {
             type: 0,
-            personnelid_link: 0
+            personnelid_link: 0,
+            saltypeid_link: null
         },
         orgmanagerid_link: 0
     },
@@ -31,9 +39,10 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewModel', {
                 type = "chức vụ";
             else if (get('his').type == 2)
                 type = 'cấp bậc';
-            else
+            else if (get('his').type == 3)
                 type = 'phòng ban';
-
+            else
+                type = 'ngạch, bậc lương';
             return name + type;
         }
     }

@@ -4,22 +4,32 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
     init: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-        var PositionStore = viewmodel.getStore('PositionStore');
-        PositionStore.loadStore();
-
-        var LaborStore = viewmodel.getStore('LaborStore');
-        LaborStore.loadStore();
-
-        var orgStore = viewmodel.getStore('OrgStore');
-        var listid = '';
-        if (viewmodel.get('orgmanagerid_link') == 1) {
-            listid = "1";
+        if (viewmodel.get('isPosition')){
+            var PositionStore = viewmodel.getStore('PositionStore');
+            PositionStore.loadStore();
         }
-        else {
-            listid = '22,14,8,9,17';
+
+        if (viewmodel.get('isLevel')){
+            var LaborStore = viewmodel.getStore('LaborStore');
+            LaborStore.loadStore();
         }
-        orgStore.getbyParentandType(viewmodel.get('orgmanagerid_link'), listid);
-       
+
+        if (viewmodel.get('isOrg')){
+            var orgStore = viewmodel.getStore('OrgStore');
+            var listid = '';
+            if (viewmodel.get('orgmanagerid_link') == 1) {
+                listid = "1";
+            }
+            else {
+                listid = '22,14,8,9,17';
+            }
+            orgStore.getbyParentandType(viewmodel.get('orgmanagerid_link'), listid);
+        }
+
+        if (viewmodel.get('isSalary')){
+            var SalTypeStore = viewmodel.getStore('SalTypeStore');
+            SalTypeStore.loadStore(viewmodel.get('orgmanagerid_link'),0);
+        }
     },
     control: {
         '#btnThoat': {
@@ -30,6 +40,9 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
         },
         '#cmbDonViQL': {
 
+        },
+        '#rdoSalType': {
+            change: 'onRdoSalType_Change'
         }
     },
     onThoat: function () {
@@ -73,5 +86,14 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
                     }
                 }
             })
+    },
+    onRdoSalType_Change: function  ( m, newValue, oldValue, eOpts ) {
+        var viewmodel = this.getViewModel();
+        if (viewmodel.get('isSalary')){
+            var iNewValue = m.getChecked()[0].inputValue;
+            var SalTypeStore = viewmodel.getStore('SalTypeStore');
+            SalTypeStore.removeAll();
+            SalTypeStore.loadStore(viewmodel.get('orgmanagerid_link'),iNewValue);
+        }
     }
 })
