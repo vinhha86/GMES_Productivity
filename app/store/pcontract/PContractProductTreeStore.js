@@ -5,7 +5,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductTreeStore', {
     model: 'GSmartApp.model.pcontract.PContractProductTreeModel',
 	sorters: [{
         direction: 'ASC',
-        property: 'id'
+        property: 'code'
 	}],
 	loadStore: function(pcontractid_link, productid_link){
 		var me=this;
