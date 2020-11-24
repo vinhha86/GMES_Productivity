@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
 
     //When date change --> Reload Store with Processing Date
     onProcessingDateChange: function(newValue, oldValue, eOpts ){
-        console.log(newValue.value);
+        // console.log(newValue.value);
         var viewmodel = this.getViewModel();
         var factoryCombo = this.lookupReference('factorycombo');
         if (null != factoryCombo.getValue()){
@@ -233,7 +233,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
     },
     onProcessingItemEdit_Single: function(editor, e){
         if (e.originalValue != e.value){
-            console.log(editor.context.column.dataIndex);
+            // console.log(editor.context.column.dataIndex);
             switch(editor.context.column.dataIndex) {
                 case "amountinput":
                     if ((e.value + e.record.get('amountinputsumprev')) > e.record.get('grantamount')) {
@@ -340,7 +340,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
     },
     onItemSetReady: function(grid, rowIndex, colIndex){
         var record = this.getView().store.getAt(rowIndex);
-        console.log(record.get('status'));
+        // console.log(record.get('status'));
         if (record.get('status') > 1){
             Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa SX mới có thể đưa vào chuẩn bị SX');
         }
@@ -503,7 +503,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
     },
     onSetBalance: function(grid, rowIndex, colIndex){
         var record = this.getView().store.getAt(rowIndex);
-        console.log(record.get('status'));
+        // console.log(record.get('status'));
         if (record.get('status') > 2 && record.get('status') != 6){
             Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa SX mới có thể thiết lập cân đối nguyên phụ liệu');
         }
@@ -533,6 +533,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
         }
     },
     onMenu_POrderProcessingList: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
@@ -547,7 +548,12 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                 margin: '10 0 0',
                 iconCls: 'x-fa fas fa-link greenIcon',
                 handler: function() {
+                    var date = me.lookupReference('processingdate').getValue();
                     var record = this.parentMenu.record;
+
+                    // console.log(date);
+                    // console.log(record);
+
                     if (record.get('status') < 4){     
                         Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái đang sản xuất mới ghi nhận được năng suất');
                     } else {      
@@ -570,7 +576,8 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                                 xtype: 'Productivity_Main',
                                 viewModel: {
                                     data: {
-                                        record: record
+                                        record: record,
+                                        date: date
                                     }
                                 }
                             }]
