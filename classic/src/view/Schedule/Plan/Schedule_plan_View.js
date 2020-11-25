@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     direction: 'ASC'
                 }]
             });
-
+        var startDate = new Date(new Date().getTime() - 15*86400000);
         var cm = new Sch.data.CrudManager({
             autoLoad: false,
             resourceStore: resourceStore,
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         },
                         params: {
                             listid: '13,14',
-                            startDate:  new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
+                            startDate:  startDate,
                             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
                             PO_code: '',
                             Buyer: 0,

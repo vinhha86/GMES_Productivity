@@ -16,7 +16,6 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         if (null != ShipModeStore){
             ShipModeStore.loadStore();
             ShipModeStore.getSorters().add('name');
-            console.log(ShipModeStore);
         }
     },
     listen: {
