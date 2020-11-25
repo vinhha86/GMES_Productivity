@@ -52,19 +52,18 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
     columns: [
         {xtype: 'rownumberer'},
         { header: 'Họ và tên', locked: true, dataIndex: 'personel_fullname', width: 150,
-            //editor: {xtype: 'textfield', readOnly: true},
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'porderFilterField',
-            //     width: 95,
-            //     margin: 2,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onPOrderFilterKeyup',
-            //         buffer: 500
-            //     }
-            // },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'fullnameFilterField',
+                width: 145,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onfullnameFilterKeyup',
+                    buffer: 500
+                }
+            },
             summaryType: 'count', summaryRenderer: 'renderSum'                   
         },
         { header: 'Thang lương', headerWrap: true, align: 'center', dataIndex: 'personel_saltypecode', width: 60},

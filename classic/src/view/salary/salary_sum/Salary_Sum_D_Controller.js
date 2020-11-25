@@ -103,5 +103,25 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_Controller', {
     },
     onConfirm_SalTable:function(){
         
-    }
+    },
+    onfullnameFilterKeyup: function() {
+        var viewmodel = this.getViewModel();
+        var SalarySumStore = viewmodel.get('SalarySumStore');
+        var filterField = this.lookupReference('fullnameFilterField'),
+            filters = SalarySumStore.getFilters();
+
+        if (filterField.value) {
+            this.myFilter = filters.add({
+                id: 'fullnameFilter',
+                property: 'personel_fullname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.porderFilter) {
+            filters.remove(this.myFilter);
+            this.myFilter = null;
+        }
+    },
 })

@@ -67,6 +67,24 @@ Ext.define('GSmartApp.view.personel.Personnel_history', {
         }
     },
     {
+        text: 'Thang lương',
+        dataIndex: 'saltype_name',
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },
+    {
+        text: 'Bậc lương',
+        dataIndex: 'sallevel_name',
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },
+    {
         text: 'Số quyết định',
         dataIndex: 'decision_number',
         width: 100,

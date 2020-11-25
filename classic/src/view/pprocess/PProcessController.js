@@ -541,64 +541,100 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
             minWidth: 150,
             viewModel: {},
             items: [
-            {
-                text: 'Năng suất công nhân',
-                reference: 'pprocess_productivity',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-link greenIcon',
-                handler: function() {
-                    var date = me.lookupReference('processingdate').getValue();
-                    var record = this.parentMenu.record;
-
-                    // console.log(date);
-                    // console.log(record);
-
-                    if (record.get('status') < 4){     
-                        Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái đang sản xuất mới ghi nhận được năng suất');
-                    } else {      
-                        var form = Ext.create('Ext.window.Window', {
-                            height: 500,
-                            closable: true,
-                            title: 'Năng suất công nhân',
-                            resizable: false,
-                            modal: true,
-                            border: false,
-                            closeAction: 'destroy',
-                            width: 600,
-                            bodyStyle: 'background-color: transparent',
-                            layout: {
-                                type: 'fit', // fit screen for window
-                                padding: 5
-                            },
-                            items: [{
-                                border: false,
-                                xtype: 'Productivity_Main',
-                                viewModel: {
-                                    data: {
-                                        record: record,
-                                        date: date
-                                    }
-                                }
-                            }]
-                        });
-                        form.show();                        
+                {
+                    text: 'Bố trí công nhân',
+                    reference: 'pprocess_productivity',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-balance-scale greenIcon',
+                    handler: function() {
+                        var date = me.lookupReference('processingdate').getValue();
+                        var record = this.parentMenu.record;
+                        me.porderGrantBalance(record);
                     }
-                }
-            }, 
-            {
-                text: 'Công đoạn phụ',
-                reference: 'pprocess_subprocess',
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-cogs blueIcon',
-                handler: function() {
-                    var record = this.parentMenu.record;
-                    if (record.get('status') > 3){
-                        Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa vào chuyền mới được thiết lập công đoạn phụ');
-                    } else {
+                },                 
+                {
+                    text: 'Năng suất công nhân',
+                    reference: 'pprocess_productivity',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-link greenIcon',
+                    handler: function() {
+                        var date = me.lookupReference('processingdate').getValue();
+                        var record = this.parentMenu.record;
+
+                        // console.log(date);
+                        // console.log(record);
+
+                        if (record.get('status') < 4){     
+                            Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái đang sản xuất mới ghi nhận được năng suất');
+                        } else {      
+                            var form = Ext.create('Ext.window.Window', {
+                                height: 500,
+                                closable: true,
+                                title: 'Năng suất công nhân',
+                                resizable: false,
+                                modal: true,
+                                border: false,
+                                closeAction: 'destroy',
+                                width: 600,
+                                bodyStyle: 'background-color: transparent',
+                                layout: {
+                                    type: 'fit', // fit screen for window
+                                    padding: 5
+                                },
+                                items: [{
+                                    border: false,
+                                    xtype: 'Productivity_Main',
+                                    viewModel: {
+                                        data: {
+                                            record: record,
+                                            date: date
+                                        }
+                                    }
+                                }]
+                            });
+                            form.show();                        
+                        }
+                    }
+                }, 
+                {
+                    text: 'Công đoạn phụ',
+                    reference: 'pprocess_subprocess',
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-cogs blueIcon',
+                    handler: function() {
+                        var record = this.parentMenu.record;
+                        if (record.get('status') > 3){
+                            Ext.Msg.alert('Lệnh SX','Lệnh cần ở trạng thái chưa vào chuyền mới được thiết lập công đoạn phụ');
+                        } else {
+                            var form =Ext.create({
+                                xtype: 'pordersubprocesswindow',
+                                reference:'pordersubprocesswindow'
+                            });
+                            var viewModel = form.getViewModel();
+                            viewModel.set('granttoorgid_link',record.get('granttoorgid_link'));
+                            if (Ext.isNumber(record.get('id')))
+                                viewModel.set('pprocesingid',record.get('id'));
+                            else
+                                viewModel.set('pprocesingid',-1);
+                            viewModel.set('porderid_link',record.get('porderid_link'));
+                            viewModel.set('ordercode',record.get('ordercode'));
+                        
+                            form.show();
+                        }                    
+                    }
+                }, 
+                {
+                    text: 'Biên bản lỗi, hỏng',
+                    reference: 'pprocess_stop',
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-stop-circle redIcon',
+                    handler: function() {
+                        var record = this.parentMenu.record;
                         var form =Ext.create({
-                            xtype: 'pordersubprocesswindow',
-                            reference:'pordersubprocesswindow'
+                            xtype: 'porderfinishwindow',
+                            reference:'porderfinishwindow'
                         });
                         var viewModel = form.getViewModel();
                         viewModel.set('granttoorgid_link',record.get('granttoorgid_link'));
@@ -608,35 +644,11 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                             viewModel.set('pprocesingid',-1);
                         viewModel.set('porderid_link',record.get('porderid_link'));
                         viewModel.set('ordercode',record.get('ordercode'));
-                    
-                        form.show();
-                    }                    
+                        viewModel.set('comment',record.get('comment'));
+                
+                        form.show();                    
+                    }
                 }
-            }, 
-            {
-                text: 'Biên bản lỗi, hỏng',
-                reference: 'pprocess_stop',
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-stop-circle redIcon',
-                handler: function() {
-                    var record = this.parentMenu.record;
-                    var form =Ext.create({
-                        xtype: 'porderfinishwindow',
-                        reference:'porderfinishwindow'
-                    });
-                    var viewModel = form.getViewModel();
-                    viewModel.set('granttoorgid_link',record.get('granttoorgid_link'));
-                    if (Ext.isNumber(record.get('id')))
-                        viewModel.set('pprocesingid',record.get('id'));
-                    else
-                        viewModel.set('pprocesingid',-1);
-                    viewModel.set('porderid_link',record.get('porderid_link'));
-                    viewModel.set('ordercode',record.get('ordercode'));
-                    viewModel.set('comment',record.get('comment'));
-            
-                    form.show();                    
-                }
-            }
         ]
         });
           // HERE IS THE MAIN CHANGE
@@ -674,5 +686,39 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
             });
             form.show();              
         }
-    }       
+    } ,
+    porderGrantBalance: function(eventRecord){
+        // console.log(eventRecord.data);
+        
+        var porderid_link = eventRecord.data.porderid_link;
+        var pordergrantid_link = eventRecord.data.pordergrantid_link;
+        console.log(eventRecord);
+        console.log(pordergrantid_link);
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '95%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Bố trí công nhân',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrderGrantBalance',
+                viewModel: {
+                    type: 'POrderGrantBalanceViewModel',
+                    data: {
+                        porderid_link: porderid_link,
+                        pordergrantid_link: pordergrantid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+    }      
 });

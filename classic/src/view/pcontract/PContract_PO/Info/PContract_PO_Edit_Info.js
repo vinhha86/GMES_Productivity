@@ -127,41 +127,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             }           
                         },    
                         {
-                            xtype: 'datefield',
-                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;',
-                            fieldLabel: 'Ngày NPL về:',
-                            reference: 'poinfo_matdate',
-                            labelAlign: 'left',
-                            labelWidth: 78,
-                            flex: 1,
-                            margin: 1,
-                            format: 'd/m/y',
-                            altFormats: "Y-m-d\\TH:i:s.uO",
-                            bind: {
-                                value: '{po.matdate}'
-                            },
-                            listeners: {
-                                collapse: 'onMatDateChange'
-                            }            
-                        },      
-                        {
-                            xtype: 'numberfield',
-                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;text-align:right',
-                            readOnly: true,
-                            fieldLabel: 'Số ngày SX:',
-                            hideTrigger:true,
-                            reference: 'poinfo_productiondays',
-                            labelAlign: 'left',
-                            labelWidth: 78,
-                            flex: 1,
-                            margin: 1,
-                            bind: {
-                                value: '{po.productiondays}'
-                            }
-                        }, 
-                        {
                             xtype: 'textfield',
                             textAlign: 'right',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
@@ -181,7 +146,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             listeners: {
                                 focusleave: 'onProductivityChange'
                             } 
-                        },                                                  
+                        },    
+                        {
+                            xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px; text-align: right',                            
+                            labelWidth: 78,
+                            margin: 1,
+                            flex: 1,
+                            fieldLabel: 'Số chuyền',
+                            readOnly: true,
+                            bind : {
+                                value: '{pcontract_po_productivity.plan_linerequired}'
+                            }
+                        },                        
+                        {
+                            xtype: 'combobox',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px;',
+                            fieldLabel: 'Đơn vị QC:',
+                            reference: 'poinfo_qcorgname',
+                            labelAlign: 'left',
+                            labelWidth: 78,
+                            flex:1,
+                            margin: 1,
+                            displayField: 'code',
+                            valueField: 'name',
+                            queryMode: 'local',
+                            editable: true,
+                            bind: {
+                                store: '{QCOrgStore}',
+                                value: '{po.qcorgname}'
+                            }
+                        },                                                                      
                     ]
                 },
                 {
@@ -273,6 +270,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                         },   
                         {
                             xtype: 'datefield',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px;',
+                            fieldLabel: 'Ngày NPL về:',
+                            reference: 'poinfo_matdate',
+                            labelAlign: 'left',
+                            labelWidth: 78,
+                            flex: 1,
+                            margin: 1,
+                            format: 'd/m/y',
+                            altFormats: "Y-m-d\\TH:i:s.uO",
+                            bind: {
+                                value: '{po.matdate}'
+                            },
+                            listeners: {
+                                collapse: 'onMatDateChange'
+                            }            
+                        },                              
+                        {
+                            xtype: 'datefield',
                             // allowBlank: false,
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;',
@@ -294,52 +310,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                 collapse: 'onProductionDateChange'
                             }
                         },
-                        // {
-                        //     xtype: 'textfield',
-                        //     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                        //     fieldStyle: 'font-size:11px;',
-                        //     fieldLabel: 'Đơn vị QC:',
-                        //     reference: 'poinfo_qcorgname',
-                        //     labelAlign: 'left',
-                        //     labelWidth: 78,
-                        //     flex:1,
-                        //     margin: 1,
-                        //     bind: {
-                        //         value: '{po.qcorgname}'
-                        //     }
-                        // },
                         {
-                            xtype: 'combobox',
+                            xtype: 'numberfield',
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;',
-                            fieldLabel: 'Đơn vị QC:',
-                            reference: 'poinfo_qcorgname',
+                            fieldStyle: 'font-size:11px;text-align:right',
+                            readOnly: true,
+                            fieldLabel: 'Số ngày SX:',
+                            hideTrigger:true,
+                            reference: 'poinfo_productiondays',
                             labelAlign: 'left',
                             labelWidth: 78,
-                            flex:1,
-                            margin: 1,
-                            displayField: 'code',
-                            valueField: 'name',
-                            queryMode: 'local',
-                            editable: true,
-                            bind: {
-                                store: '{QCOrgStore}',
-                                value: '{po.qcorgname}'
-                            }
-                        },
-                        {
-                            xtype: 'textfield',
-                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;',                            
-                            labelWidth: 78,
-                            margin: 1,
                             flex: 1,
-                            fieldLabel: 'Số chuyền',
-                            readOnly: true,
-                            bind : {
-                                value: '{pcontract_po_productivity.plan_linerequired}'
+                            margin: 1,
+                            bind: {
+                                value: '{po.productiondays}'
                             }
-                        }
+                        }, 
                     ]
                 }
             ]

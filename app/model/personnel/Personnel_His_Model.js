@@ -14,6 +14,8 @@ Ext.define('GSmartApp.model.personnel.Personnel_His_Model', {
                         return "Cấp bậc";
                     case 3:
                         return "Phòng ban";
+                    case 4:
+                        return "Thang, bậc lương";                    
                     default:
                         return "";
                 }

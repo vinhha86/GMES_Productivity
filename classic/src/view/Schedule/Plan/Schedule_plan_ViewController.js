@@ -120,7 +120,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             },
             {
-                text: 'Nhân sự lệnh',
+                text: 'Bố trí công nhân',
                 iconCls: 'x-fa fa-balance-scale',
                 handler: function () {
                     me.porderGrantBalance(eventRecord);
@@ -873,7 +873,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             resizable: false,
             modal: true,
             border: false,
-            title: 'Nhân sự lệnh',
+            title: 'Bố trí công nhân',
             closeAction: 'destroy',
             bodyStyle: 'background-color: transparent',
             layout: {

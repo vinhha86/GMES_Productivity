@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
 
         if (viewmodel.get('isSalary')){
             var SalTypeStore = viewmodel.getStore('SalTypeStore');
-            SalTypeStore.loadStore(viewmodel.get('orgmanagerid_link'),0);
+            SalTypeStore.loadStore(viewmodel.get('orgmanagerid_link'),viewmodel.get('saltype'));
         }
     },
     control: {
@@ -43,7 +43,10 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
         },
         '#rdoSalType': {
             change: 'onRdoSalType_Change'
-        }
+        },
+        '#cboSalType': {
+            change: 'onCboSalType_Change'
+        },
     },
     onThoat: function () {
         this.fireEvent('Thoat');
@@ -73,6 +76,28 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
             });
             return false;
         }
+        else if (viewmodel.get('his.type') == 3 && viewmodel.get('his.orgid_link') == null) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn đơn vị",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+            });
+            return false;
+        }
+        else if (viewmodel.get('his.type') == 4 && (viewmodel.get('his.saltypeid_link') == null || viewmodel.get('his.sallevelid_link') == null)) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn thang lương, bậc lương",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+            });
+            return false;
+        }
 
         var params = new Object();
         params.data = viewmodel.get('his');
@@ -90,10 +115,22 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
     onRdoSalType_Change: function  ( m, newValue, oldValue, eOpts ) {
         var viewmodel = this.getViewModel();
         if (viewmodel.get('isSalary')){
-            var iNewValue = m.getChecked()[0].inputValue;
             var SalTypeStore = viewmodel.getStore('SalTypeStore');
+            viewmodel.set('his.saltypeid_link',null);
+            viewmodel.set('his.sallevelid_link',null);
             SalTypeStore.removeAll();
-            SalTypeStore.loadStore(viewmodel.get('orgmanagerid_link'),iNewValue);
+            SalTypeStore.loadStore(viewmodel.get('orgmanagerid_link'),viewmodel.get('saltype'));
+        }
+    },
+    onCboSalType_Change: function  ( m, newValue, oldValue, eOpts ) {
+        var viewmodel = this.getViewModel();
+        if (viewmodel.get('isSalary')){
+            var SalTypeLevelStore = viewmodel.getStore('SalTypeLevelStore');
+            viewmodel.set('his.sallevelid_link',null);
+            SalTypeLevelStore.removeAll();
+            SalTypeLevelStore.getSorters().removeAll();
+            SalTypeLevelStore.getSorters().add('sallevel_code','ASC');
+            SalTypeLevelStore.loadBySaltypeId(viewmodel.get('his.saltypeid_link'));
         }
     }
 })

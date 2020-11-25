@@ -15,9 +15,13 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewModel', {
         },
         SalTypeStore: {
             type: 'SalTypeStore'
+        },
+        SalTypeLevelStore: {
+            type: 'SalTypeLevelStore'
         }
     },
     data: {
+        saltype: 0,
         isPosition: true,
         isLevel: true,
         isOrg: true,
@@ -25,7 +29,8 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewModel', {
         his: {
             type: 0,
             personnelid_link: 0,
-            saltypeid_link: null
+            saltypeid_link: null,
+            sallevelid_link: null
         },
         orgmanagerid_link: 0
     },

@@ -69,12 +69,16 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
             { boxLabel: 'Lương sản phẩm', inputValue: 1, margin: 2},
             { boxLabel: 'Lương khoán', inputValue: 2, margin: 2}
         ],
+        simpleValue: true,
         bind: {
             hidden: '{!isSalary}',
+            value: '{saltype}'
         }        
     },
     {
         xtype: 'combo',
+        itemId: 'cboSalType',
+        editable: false,
         margin: 5,
         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
         fieldStyle: 'font-size:11px;',
@@ -89,6 +93,24 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
             value: '{his.saltypeid_link}'
         }
     },    
+    {
+        xtype: 'combo',
+        itemId: 'cboSalLevel',
+        editable: false,
+        margin: 5,
+        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+        fieldStyle: 'font-size:11px;',
+        fieldLabel: 'Bậc lương',
+        displayField: 'sallevel_name',
+        valueField: 'sallevelid_link',
+        labelWidth: 105,
+        width: '100%',
+        bind: {
+            store : '{SalTypeLevelStore}',
+            hidden: '{!isSalary}',
+            value: '{his.sallevelid_link}'
+        }
+    },   
     {
         xtype: 'textfield',
         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
