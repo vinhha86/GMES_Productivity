@@ -165,6 +165,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         this.redirectTo("porderlistmain/" + id + "/edit");
     },
     onMenu_POrderList: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
@@ -180,14 +181,31 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
                 iconCls: 'x-fa fas fa-bell yellowIcon',
                 handler: function() {
                     var record = this.parentMenu.record;
-                    if (record.get('status') > 0 && record.get('status') < 4){     
-                        // var form =Ext.create({
-                        //     xtype: 'pordersetready',
-                        //     reference:'pordersetready'
-                        // });
-                        // var viewModel = form.getViewModel();
-                        // viewModel.set('record',record);
-                        // form.show();
+                    if (record.get('status') > 0 && record.get('status') < 4){   // 2   
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Đổi trạng thái lệnh thành chuẩn bị sản xuất ?',
+                            buttons: Ext.Msg.YESNO,
+                            icon: Ext.Msg.QUESTION,
+                            buttonText: {
+                                yes: 'Có',
+                                no: 'Không'
+                            },
+                            fn: function (btn) {
+                                if (btn === 'yes') {
+                                    me.updatePorderStatus(record.data.id, 2);
+                                }
+                            }
+                        });
+                    }else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Trạng thái lệnh phải là Đã phân chuyền hoặc Công đoạn phụ',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
                     }
                 }
             }, 
@@ -198,15 +216,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
                 iconCls: 'x-fa fas fa-stop violetIcon',
                 handler: function() {
                     var record = this.parentMenu.record;
-                    if (record.get('status') > 4){     
-                        // var form =Ext.create({
-                        //     xtype: 'pordersetready',
-                        //     reference:'pordersetready'
-                        // });
-                        // var viewModel = form.getViewModel();
-                        // viewModel.set('record',record);
-                        // form.show();
-                    }                  
+                    // console.log(record.data.id);
+                    if (record.get('status') > 4){     // 6
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Đổi trạng thái lệnh thành kết thúc sản xuất ?',
+                            buttons: Ext.Msg.YESNO,
+                            icon: Ext.Msg.QUESTION,
+                            buttonText: {
+                                yes: 'Có',
+                                no: 'Không'
+                            },
+                            fn: function (btn) {
+                                if (btn === 'yes') {
+                                    me.updatePorderStatus(record.data.id, 6);
+                                }
+                            }
+                        });
+                    }else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Trạng thái lệnh phải là đã sản xuất xong',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
                 }
             }
         ]
@@ -216,5 +252,39 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
           e.stopEvent();
           menu_grid.record = record;
           menu_grid.showAt(position);
-    },    
+    },
+    updatePorderStatus: function(porderid_link, status){
+        var me = this.getView();
+        me.setLoading("Đang lưu dữ liệu");
+        var params = new Object();
+        params.porderid_link = porderid_link;
+        params.status = status;
+
+        GSmartApp.Ajax.post('/api/v1/porder/updateStatus', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Lưu thành công",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+
+                    var store = me.getStore();
+                    store.load();
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lưu thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+    } 
 })
