@@ -17,7 +17,6 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUMainViewController', {
         var productid_link = record.get('productid_link');
         // viewmodel.set('IdProduct_filterPO',productid_link);
         
-        console.log(productid_link);
         var pcontractid_link = viewmodel.get('PContract.id');
 
         store.loadAccept_ByContract(pcontractid_link , productid_link);
