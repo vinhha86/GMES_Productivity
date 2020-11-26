@@ -243,5 +243,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                     });
                 }
             })
-    }
+    },
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
+        return common.Check_ActionColum_Permission(item.itemId); 
+    }    
 })

@@ -34,10 +34,14 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductView', {
             },
         },{
             iconCls: 'x-fa fas fa-edit',
+            itemId: 'btnSua_SPBo',
+            isActionDisabled: 'checkActionColumnPermission',
             tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
             handler: 'onEdit'
         },{
             iconCls: 'x-fa fas fa-trash',
+            itemId: 'btnXoa_SPBo',
+            isActionDisabled: 'checkActionColumnPermission',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'
         }]

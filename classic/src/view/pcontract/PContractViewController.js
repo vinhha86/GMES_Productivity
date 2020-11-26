@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         '#btnQuayLai': {
             click: 'onQuayLai'
         },
-        '#btnLuu': {
+        '#btnLuu_PContract': {
             click: 'onLuu'
         },
         '#PContractView': {

@@ -28,6 +28,7 @@ Ext.define('GSmartApp.util.Common', {
                     if(func.isreadonly && !item.getHidden()) item.setHidden(true);
                 } else {
                     item.setDisabled(func.isreadonly);
+                    if(func.isreadonly && !item.getHidden()) item.setHidden(true);
                 }
             } 
         }

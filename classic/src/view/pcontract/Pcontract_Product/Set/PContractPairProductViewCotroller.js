@@ -180,5 +180,8 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
             context.record.set(context.field, context.originalValue);
         }
 
-    }
+    },
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
+        return common.Check_ActionColum_Permission(item.itemId); 
+    }    
 })

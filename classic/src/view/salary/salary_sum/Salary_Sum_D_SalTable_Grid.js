@@ -70,7 +70,7 @@ Ext.define('GSmartApp.view.salary.Salary_Sum_D_SalTable_Grid', {
         { header: 'Bậc lương', headerWrap: true, align: 'center', dataIndex: 'personel_sallevelcode', width: 55},
         { header: 'Lương sản phẩm',
             columns: [
-                { header: 'Số SP', dataIndex: 'luongsp_sl', width: 55,
+                { header: 'Số giây', dataIndex: 'luongsp_sl', width: 65,
                     // editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, minValue: 0, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 

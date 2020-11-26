@@ -44,6 +44,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             // },
             {
                 iconCls: 'x-fa fas fa-trash',
+                itemId: 'btn_XoaSP',
+                isActionDisabled: 'checkActionColumnPermission',
                 tooltip: 'Hủy',
                 handler: 'onXoa',
             }
