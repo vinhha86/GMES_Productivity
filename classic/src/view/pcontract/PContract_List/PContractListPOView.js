@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     // },
     {
         text:'Phân xưởng',
-        dataIndex:'factory_name',
+        dataIndex:'factories',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
