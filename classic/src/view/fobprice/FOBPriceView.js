@@ -72,7 +72,17 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
                 }
             }
         }
-    },],
+    },{ 
+        xtype: 'checkcolumn',
+        text: 'Mặc định',
+        dataIndex: 'isdefault',
+        headerCheckbox: false,
+        width: 100,
+        listeners: {
+            beforecheckchange: 'onBeforecheckchange',
+            checkchange: 'onCheckchange'
+        }
+    }],
     dockedItems:[{
         dock:'bottom',
         layout:'hbox',

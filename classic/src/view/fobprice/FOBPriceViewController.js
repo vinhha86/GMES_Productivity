@@ -30,6 +30,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
                             yes: 'Đóng',
                         }
                     });
+                    store.rejectChanges();
                 }
                 me.setLoading(false);
             })
@@ -58,6 +59,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
             data.orgrootid_link = 0;
             data.name = me.down('#txtThemMoi').getValue();
             data.issystemfix = false;
+            data.isdefault = false;
 
             var params = new Object();
             params.data = data;
@@ -233,5 +235,20 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
             filters.remove(this.nameFilter);
             this.nameFilter = null;
         }
-    }
+    },
+    onBeforecheckchange:function(column, rowIndex, checked, record, e, eOpts){},
+    onCheckchange:function(column, rowIndex, checked, record, e, eOpts){
+        // console.log(column);
+        // console.log(record);
+        var viewModel = this.getViewModel();
+        var PriceStore = viewModel.getStore('PriceStore');
+        if(record.get('id') == 1) { // Giá CMP
+            PriceStore.rejectChanges();
+            return;
+        }
+
+        var params = new Object();
+        params.data = record.data;
+        this.ThemMoi_CapNhat(params);
+    },
 })
