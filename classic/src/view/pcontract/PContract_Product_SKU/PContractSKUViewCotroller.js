@@ -118,7 +118,6 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                                 column: context.colIdx
                             });
                         }
-                        
                     }
                 }
             })

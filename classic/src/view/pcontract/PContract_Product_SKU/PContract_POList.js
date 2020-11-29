@@ -37,6 +37,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         editor: {
             allowBlank: false,
             selectOnFocus: false
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'POFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPOFilterKeyup',
+                buffer: 500
+            }
         }
     },    
     {
@@ -46,6 +59,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'MaSPFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onSPFilterKeyup',
+                buffer: 500
+            }
         }
     },
     {
@@ -59,7 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         align: 'end',
         dataIndex:'po_quantity',
         width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {           
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }],    
@@ -191,9 +217,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     align: 'end',
                     dataIndex:'po_quantity',
                     width: 70,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                    },
+                    renderer: 'onRender_poquantity',
                     editor: {
                         xtype: 'numberfield', 
                         fieldStyle: 'font-size:11px;',
