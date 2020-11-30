@@ -143,6 +143,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
+        if (null == po_data.exchangerate) po_data.exchangerate = 0;
+        if (null == po_data.sewtarget_percent) po_data.sewtarget_percent = 20;
         po_data.exchangerate = parseFloat(po_data.exchangerate.toString().replace(/,/gi,''));
         
         var po_price_data = viewmodel.get('po_price');

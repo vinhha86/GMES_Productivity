@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     bind:{
         store:'{PContractPOList}'
     },
+    reserveScrollbar : true,
     columns:[{
         xtype: 'actioncolumn',
         width: 28,

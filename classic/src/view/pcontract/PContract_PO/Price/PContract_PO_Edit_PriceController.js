@@ -88,6 +88,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     onPriceDItemEdit: function(editor, e){
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
+        if (null == po_data.exchangerate) po_data.exchangerate = 0;
         po_data.exchangerate = parseFloat(po_data.exchangerate.toString().replace(/,/gi,''));
 
         var Price_DStore = viewmodel.getStore('Price_DStore');

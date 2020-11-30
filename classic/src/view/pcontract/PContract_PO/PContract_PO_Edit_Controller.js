@@ -65,10 +65,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
                         if (response.respcode == 200) {
                             viewmodel.set('po', response.data);
-                            if (response.data.currencyid_link == null || response.data.currencyid_link == 0) {
+                            if (response.data.exchangerate == null || response.data.currencyid_link == 0) {
                                 m.setDefaultCurrency(); // để mặc định là usd
                             }
 
+                            //Dat gia tri mac dinh = 20% cho Sew Target
+                            if (null == viewmodel.get('po.sewtarget_percent')) viewmodel.set('po.sewtarget_percent', 20);
+                            
                             //Chuyen packing notice ve array
                             var packing_str = response.data.packingnotice;
                             if (packing_str != null) {
@@ -110,6 +113,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             new_po.data.pcontract_po_productivity = [];
             new_po.data.pcontractid_link = viewmodel.get('pcontractid_link');
             new_po.data.productid_link = viewmodel.get('productpairid_link');
+            new_po.data.sewtarget_percent = 20;
             new_po.set('isauto_calculate', true);
             viewmodel.set('po', new_po.data);
             m.setDefaultCurrency(); // để mặc định là usd
