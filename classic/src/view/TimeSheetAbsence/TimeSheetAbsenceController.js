@@ -2,19 +2,24 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.TimeSheetAbsenceController',
     init: function () {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         // this.onloadPage();
 
-        var TimeSheetAbsenceStore = viewmodel.getStore('TimeSheetAbsenceStore');
+        var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
         TimeSheetAbsenceStore.loadStore();
+
+        var ListOrgStore = viewModel.getStore('ListOrgStore');
+        ListOrgStore.loadStore(13, null);
+        var TimeSheetAbsenceTypeStore = viewModel.getStore('TimeSheetAbsenceTypeStore');
+        TimeSheetAbsenceTypeStore.loadStore();
     },
     control: {
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
-        // '#btnTimKiem': {
-        //     click: 'onloadPage'
-        // },
+        '#btnTimKiem': {
+            click: 'onloadPage'
+        },
         '#TimeSheetAbsence': {
             itemdblclick: 'onCapNhatdbl'
         }
@@ -23,10 +28,9 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         var me = this;
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        var contract_code = rec.get('contract_code');
         Ext.Msg.show({
             title: 'Thông báo',
-            msg: 'Bạn có chắc chắn xóa hợp đồng "' + contract_code + '" ?',
+            msg: 'Bạn có chắc chắn xóa đăng ký nghỉ này ?',
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,
             buttonText: {
@@ -35,18 +39,18 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
             },
             fn: function (btn) {
                 if (btn === 'yes') {
-                    me.Xoa(id, rec);
+                    me.Xoa(id);
                 }
             }
         });
     },
-    Xoa: function (id, rec) {
+    Xoa: function (id) {
         var me = this.getView();
         me.setLoading("Đang xóa dữ liệu");
         var params = new Object();
         params.id = id;
 
-        GSmartApp.Ajax.post('/api/v1/contractbuyer/delete', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/timesheetabsence/delete', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     Ext.MessageBox.show({
@@ -59,7 +63,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
                     });
 
                     var store = me.getStore();
-                    store.remove(rec);
+                    store.load();
                 } else {
                     Ext.Msg.show({
                         title: "Thông báo",
@@ -73,41 +77,21 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
                 me.setLoading(false);
             })
     },
-    // onloadPage: function () {
-    //     var viewmodel = this.getViewModel();
-    //     var ContractBuyerStore = viewmodel.getStore('ContractBuyerStore');
-    //     ContractBuyerStore.loadStore();
-
-    //     var EndBuyer = viewmodel.getStore('EndBuyer');
-    //     var Vendor = viewmodel.getStore('Vendor');
-    //     EndBuyer.loadStore(12);
-    //     EndBuyer.sort('code','ASC');
-    //     Vendor.loadStore(11);
-    //     Vendor.sort('code','ASC');
-
-    //     var ContractBuyerYearsStore = viewmodel.getStore('ContractBuyerYearsStore');
-    //     ContractBuyerYearsStore.loadYearsStore();
-
-    //     var contract_datefrom = this.lookupReference('contract_datefrom');
-    //     contract_datefrom.getPicker().monthYearFormat = 'm-Y';
-    //     var contract_dateto = this.lookupReference('contract_dateto');
-    //     contract_dateto.getPicker().monthYearFormat = 'm-Y';
-    // },
     onloadPage: function() {
         var me = this.getView();
 
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('ContractBuyerStore');
+        var viewModel = this.getViewModel();
+        var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
 
         var limit = me.down('#limitpage').getValue();
-        var contract_code = me.down('#contract_code').getValue();
-        var contract_year = me.down('#contract_year').getValue();
-        var contract_datefrom = me.down('#contract_datefrom').getValue();
-        var contract_dateto = me.down('#contract_dateto').getValue();
-        var buyerid_link = me.down('#buyerid_link').getValue();
-        var vendorid_link = me.down('#vendorid_link').getValue();
+        var orgFactory = me.down('#orgFactoryList').getValue();
+        var personnelCode = me.down('#personnelCode').getValue();
+        var personnelName = me.down('#personnelName').getValue();
+        var datefrom = me.down('#datefrom').getValue();
+        var dateto = me.down('#dateto').getValue();
+        var timeSheetAbsenceType = me.down('#timeSheetAbsenceTypeList').getValue();
 
-        var page = store.currentPage;
+        var page = TimeSheetAbsenceStore.currentPage;
 
         if (limit == null) {
             limit = 25;
@@ -117,32 +101,33 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
             page = 1;
         }
 
-        if (contract_code == null) {
-            contract_code = "";
+        if (orgFactory == null) {
+            orgFactory = 0;
         }
 
-        if (contract_year == null) {
-            contract_year = null;
+        if (personnelCode == null) {
+            personnelCode = "";
         }
 
-        if (contract_datefrom == null) {
-            contract_datefrom = null;
+        if (personnelName == null) {
+            personnelName = "";
         }
 
-        if (contract_dateto == null) {
-            contract_dateto = null;
+        if (datefrom == null) {
+            datefrom = null;
         }
 
-        if (buyerid_link == null) {
-            buyerid_link = 0;
+        if (dateto == null) {
+            dateto = null;
         }
 
-        if (vendorid_link == null) {
-            vendorid_link = 0;
+        if (timeSheetAbsenceType == null) {
+            timeSheetAbsenceType = 0;
         }
 
-        store.loadStore_ByPage(limit, page, contract_code, contract_year, contract_datefrom,
-            contract_dateto, buyerid_link, vendorid_link);
+        TimeSheetAbsenceStore.loadStore_ByPage(limit, page, 
+            orgFactory, personnelCode, personnelName, datefrom, dateto, timeSheetAbsenceType
+            );
             
     },
     onThemMoi: function(){

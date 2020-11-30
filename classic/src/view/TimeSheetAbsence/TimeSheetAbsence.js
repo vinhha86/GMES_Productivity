@@ -122,11 +122,12 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             labelWidth: 0,
             emptyText:'Đơn vị',
             bind: {
-                // store : '{ContractBuyerYearsStore}'
+                store : '{ListOrgStore}'
             },
-            // valueField: 'contract_year',
-            // displayField: 'contract_year',
-            // itemId: 'contract_year',
+            valueField: 'id',
+            displayField: 'name',
+            itemId: 'orgFactoryList',
+            queryMode: 'local',
             margin: '5 1 5 0',
             width: 100
         },{
@@ -134,21 +135,21 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             labelWidth: 0,
             margin: '5 1 5 0',
             emptyText: "Mã nhân viên",
-            // itemId: 'contract_code',
+            itemId: 'personnelCode',
             width: 120
         },{
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
             emptyText: "Họ tên",
-            // itemId: 'contract_code',
+            itemId: 'personnelName',
             width: 120
         },{
             xtype: 'datefield',
             labelWidth: 0,
             emptyText:'Từ ngày',
-            // itemId: 'contract_datefrom',
-            // reference: 'contract_datefrom',
+            itemId: 'datefrom',
+            reference: 'datefrom',
             format:'d/m/Y',
             margin: '5 1 5 0',
             width: 130
@@ -156,8 +157,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             xtype: 'datefield',
             labelWidth: 0,
             emptyText:'Đến ngày',
-            // itemId: 'contract_dateto',
-            // reference: 'contract_dateto',
+            itemId: 'dateto',
+            reference: 'dateto',
             format:'d/m/Y',
             margin: '5 1 5 0',
             width: 130
@@ -166,12 +167,12 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             labelWidth: 0,
             emptyText:'Loại nghỉ',
             bind: {
-                // store : '{EndBuyer}'
+                store : '{TimeSheetAbsenceTypeStore}'
             },
-            // valueField: 'id',
-            // displayField: 'name',
-            // queryMode: 'local',
-            // itemId: 'buyerid_link',
+            valueField: 'id',
+            displayField: 'name',
+            itemId: 'timeSheetAbsenceTypeList',
+            queryMode: 'local',
             margin: '5 1 5 0',
             width: 130
         },{

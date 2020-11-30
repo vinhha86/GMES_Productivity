@@ -21,6 +21,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             // allowBlank: false,
             flex:1,
             labelWidth: 110,
+            queryMode: 'local',
             listeners: {
                 change: 'onFactoryListChange'
             }
@@ -38,6 +39,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             // allowBlank: false,
             flex:1,
             labelWidth: 110,
+            queryMode: 'local',
             listeners: {
                 change: 'onProductionLineListChange'
             }
@@ -171,6 +173,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             // allowBlank: false,
             flex:1,
             labelWidth: 110,
+            queryMode: 'local',
             listeners: {
                 // change: 'onChange'
             }
