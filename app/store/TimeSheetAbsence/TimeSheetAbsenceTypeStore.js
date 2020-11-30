@@ -1,19 +1,12 @@
-Ext.define('GSmartApp.store.fobprice.fobpricestore', {
+Ext.define('GSmartApp.store.TimeSheetAbsence.TimeSheetAbsenceTypeStore', {
     extend: 'Ext.data.Store',
-	alias: 'store.fobpricestore',
-	storeId: 'fobpricestore',
+	alias: 'store.TimeSheetAbsenceTypeStore',
+	storeId: 'TimeSheetAbsenceTypeStore',
 	fields: [
-		{name: 'id'},
-		{name: 'name', type: 'string'},
-		{name: 'issystemfix', type:'boolean'},
-		{name: 'isdefault', type:'boolean'}
-	],
-	sorters: {
-        direction: 'ASC',
-        property: 'id'
-    },
-	loadStore:function(){
+    ],
+    loadStore:function(){
 		var me=this;
+		var params = new Object();
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -22,8 +15,10 @@ Ext.define('GSmartApp.store.fobprice.fobpricestore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/fobprice/getall',
+			// url: config.getAppBaseUrl()+'/api/v1/pcontract/getbypaging',
+			url: config.getAppBaseUrl()+'/api/v1/timesheetabsence/getAllTimeSheetAbsenceType',
 			paramsAsJson:true,
+			extraParams : params,
 			noCache: false,
 			headers :{
 				'Accept': "application/json", 
@@ -39,6 +34,7 @@ Ext.define('GSmartApp.store.fobprice.fobpricestore', {
 			callback: function(records, operation, success) {
 				if(!success){
 					 this.fireEvent('logout');
+				} else {
 				}
 			}
 		});

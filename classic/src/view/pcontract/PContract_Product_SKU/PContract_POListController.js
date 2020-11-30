@@ -19,6 +19,53 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             click: 'onDownloadTemplate'
         }
     },
+    onRender_poquantity: function (value, metaData, record, rowIdx, colIdx, stor) {
+        var viewmodel = this.getViewModel();
+        var cls = viewmodel.get('clspoquantity');
+        if(!record.data.checkamount)
+            cls = '<div style="color:red; font-weight: bold; align: right">';
+        return value == 0 ? "" : cls + Ext.util.Format.number(value, '0,000') +'</div>';
+    },
+    onSPFilterKeyup: function(){
+        var filterField = this.lookupReference('MaSPFilter'),
+        PContract_POList = this.getView();
+        store = PContract_POList.getStore(),
+        filters = store.getFilters();
+
+        if (filterField.value) {
+            this.spFilter = filters.add({
+                id: 'spFilter',
+                property: 'productbuyercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.spFilter) {
+            filters.remove(this.spFilter);
+            this.spFilter = null;
+        }
+    },
+    onPOFilterKeyup: function(){
+        var filterField = this.lookupReference('POFilter'),
+        PContract_POList = this.getView();
+        store = PContract_POList.getStore(),
+        filters = store.getFilters();
+
+        if (filterField.value) {
+            this.POFilter = filters.add({
+                id: 'POFilter',
+                property: 'po_buyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.POFilter) {
+            filters.remove(this.POFilter);
+            this.POFilter = null;
+        }
+    },
     onDownloadTemplate: function(){
         var me = this;
         var params = new Object();
