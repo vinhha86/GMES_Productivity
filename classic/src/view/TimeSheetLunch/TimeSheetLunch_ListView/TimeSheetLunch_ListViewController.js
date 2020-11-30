@@ -5,29 +5,38 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var viewModel = this.getViewModel();
     },
     control: {
-        // '#btnThemMoi_Personnel' : {
-        //     click: 'onThemMoi'
-        // }
+        '#btnConfirm' : {
+            click: 'onConfirm'
+        },
+        '#btnUnconfirm' : {
+            click: 'onUnconfirm'
+        }
     },
     onEditCheckBox: function(editor, context, e){},
-    onBeforecheckchange:function(column, rowIndex, checked, record, e, eOpts){
-        
-    },
+    onBeforecheckchange:function(column, rowIndex, checked, record, e, eOpts){},
     onCheckchange:function(column, rowIndex, checked, record, e, eOpts){
-        console.log(column);
-        console.log(record);
+        // console.log(column);
+        // console.log(record);
         var m = this;
         var viewModel = this.getViewModel();
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
 
         var dataIndex = column.dataIndex;
 
+        // neu ngay la hom qua thi khong duoc edit
         var isToday = viewModel.get('isToday');
         if(!isToday) {
             TimeSheetLunchStore.rejectChanges();
             return;
         }
 
+        // neu da xac nhan thi khong duoc edit
+        if(record.get('status') == 1){
+            TimeSheetLunchStore.rejectChanges();
+            return;
+        }
+
+        // neu chua check ca thi khong check an
         if(dataIndex == 'lunchShift1' && record.get('workingShift1') == false){
             TimeSheetLunchStore.rejectChanges();
             return;
@@ -41,6 +50,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             return;
         }
 
+        // neu check ca thi check an
         if(dataIndex == 'workingShift1'){
             record.set('lunchShift1', checked);
         }
@@ -51,6 +61,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             record.set('lunchShift3', checked);
         }
 
+        // neu check tu 2 ca tro len
         if(
             (dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3') 
             &&
@@ -87,8 +98,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // TimeSheetLunchStore.rejectChanges();
     },
     saveRecord: function(dataIndex, recData){
-        console.log(dataIndex);
-        console.log(recData);
+        // console.log(dataIndex);
+        // console.log(recData);
 
         var viewModel = this.getViewModel();
         var me=this.getView();
@@ -130,6 +141,67 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         }
                     });
                     TimeSheetLunchStore.rejectChanges();
+                    me.setLoading(false);
+                }
+        })
+    },
+    onConfirm: function(){
+        var status = 1;
+        this.updateStatus(status);
+    },
+    onUnconfirm: function(){
+        var status = 0;
+        this.updateStatus(status);
+    },
+    updateStatus: function(status){
+        var viewModel = this.getViewModel();
+        var me=this.getView();
+        var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+        var workingdate = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
+        var orgid_link = viewModel.get('orgid_link');
+
+        var params = new Object();
+        params.orgid_link = orgid_link;
+        params.workingdate = workingdate;
+        params.status = status;
+
+        GSmartApp.Ajax.post('/api/v1/timesheetlunch/updateStatus', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: 'Lưu thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
+                        TimeSheetLunchStore.load();
+
+                        // set hidden btnConfirm
+                        if(status == 1){
+                            viewModel.set('isBtnConfirmHidden', true);
+                            viewModel.set('isBtnUnconfirmHidden', false);
+                        }else{
+                            viewModel.set('isBtnConfirmHidden', false);
+                            viewModel.set('isBtnUnconfirmHidden', true);
+                        }
+                    }
+                    me.setLoading(false);
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
                     me.setLoading(false);
                 }
         })

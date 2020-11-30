@@ -10,18 +10,65 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
         
         var orgtypeid_link = viewModel.get('orgtypeid_link');
         var orgid_link = viewModel.get('orgid_link');
-        if(orgtypeid_link == 1 || orgtypeid_link == 13){
-            return;
-        }
+        // if(orgtypeid_link == 1 || orgtypeid_link == 13){
+        //     return;
+        // }
 
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
         TimeSheetLunchStore.loadStore(orgid_link, newValue);
 
         var today = new Date();
-        if(newValue.toDateString() == today.toDateString()){
+        if(newValue.toDateString() == today.toDateString() || newValue > today ){
             viewModel.set('isToday', true);
         }else{
             viewModel.set('isToday', false);
         }
-    }
+
+        // console.log(newValue);
+        // console.log(today);
+        // console.log(newValue > today);
+
+        this.checkStatus(orgid_link, newValue);
+    },
+    checkStatus: function(orgid_link, date){
+        var viewModel = this.getViewModel();
+        var params = new Object();
+        params.orgid_link = orgid_link;
+        params.date = date;
+
+        GSmartApp.Ajax.post('/api/v1/timesheetlunch/isconfirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    // set hidden and disabled btnConfirm...
+                    // console.log(response);
+                    var isConfirm = response.isConfirm;
+                    if(isConfirm){
+                        viewModel.set('isBtnConfirmHidden', true);
+                        viewModel.set('isBtnUnconfirmHidden', false);
+                    }else{
+                        viewModel.set('isBtnConfirmHidden', false);
+                        viewModel.set('isBtnUnconfirmHidden', true);
+                    }
+
+                    var isToday = viewModel.get('isToday');
+                    if(isToday){
+                        viewModel.set('isBtnUnconfirmHiddenDisabled', false);
+                    }else{
+                        viewModel.set('isBtnUnconfirmHiddenDisabled', true);
+                    }
+
+                } else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Lấy status thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+        })
+
+    },
 })

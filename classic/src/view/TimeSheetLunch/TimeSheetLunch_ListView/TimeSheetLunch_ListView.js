@@ -126,27 +126,32 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         ]
     }
     ],
-    // dockedItems: [{
-    //     dock: 'top',
-    //     xtype: 'toolbar',
-    //     border: false,
-    //     items: [{
-    //         xtype: 'button',
-    //         margin: 1,
-    //         text: 'Thêm mới',
-    //         iconCls: 'x-fa fa-plus',
-    //         itemId: 'btnThemMoi_Personnel',
-    //     },'->',{
-    //         xtype: 'checkbox',
-    //         margin: '1 5 1 1',
-    //         boxLabel: 'Xem tất cả',
-    //         labelAlign: 'right',
-    //         bind: {
-    //             value: '{isviewall}',
-    //             disabled: '{isdisabled}'
-    //         }
-    //     }]
-    // }
-    // ]
+    dockedItems: [{
+        dock: 'bottom',
+        layout: 'hbox',
+        border: false,
+        items: [{
+            xtype: 'button',
+            margin: 5,
+            text: 'Xác nhận',
+            width: 90,
+            itemId: 'btnConfirm',
+            bind: {
+                hidden: '{isBtnConfirmHidden}'
+            }
+        }, {
+            xtype: 'button',
+            margin: 5,
+            text: 'Huỷ',
+            width: 90,
+            itemId: 'btnUnconfirm',
+            bind: {
+                hidden: '{isBtnUnconfirmHidden}',
+                disabled: '{isBtnUnconfirmHiddenDisabled}'
+            }
+        }, {
+            flex: 1,
+        }]
+    }]
 });
 
