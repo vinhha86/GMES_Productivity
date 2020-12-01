@@ -155,7 +155,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         data.append('parentid_link', viewmodel.get('pcontract_po_parentid_link'));
 
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload('/api/v1/pcontract_po/upload_po', data,
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_po', data,2*60*1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
