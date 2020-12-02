@@ -192,6 +192,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 eventRecord.set('totalpackage',amount)
             }
            
+            var FilterBar = Ext.getCmp('FilterBar');
+            FilterBar.getController().onSearch();
 
             window.close();
         })

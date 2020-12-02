@@ -259,6 +259,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             fieldLabel: 'Sản phẩm',
             labelWidth: 70,
             itemId: 'productFilter',
+            hidden: true,
             bind: {
                 store: '{ProductFilterStore}',
                 value: '{IdProduct_filterPO}',

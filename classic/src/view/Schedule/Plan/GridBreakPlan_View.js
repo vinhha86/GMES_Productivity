@@ -20,9 +20,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             } 
         }
     },
+    // features: [{
+    //     ftype: 'summary',
+    //     groupHeaderTpl: 'Tổng',
+    //     dock: 'bottom'
+    // }],
     features: [{
-        ftype: 'summary',
-        groupHeaderTpl: 'Tổng',
+        id: 'group',
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '{name}',
+        hideGroupedHeader: true,
+        enableGroupingMenu: false,
         dock: 'bottom'
     }],
     bind: {
