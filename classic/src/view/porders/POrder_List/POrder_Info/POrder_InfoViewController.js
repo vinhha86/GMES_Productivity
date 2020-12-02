@@ -40,6 +40,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoViewController', {
                         if(golivedate == null) productiondate_plan = new Date(res.data.golivedate);
                         viewModel.set('productiondate_plan', productiondate_plan);  
                         viewModel.set('golivedate', golivedate);
+
+                        //Lay danh sach cac Po Line cua lenh sx
+                        var porderid_link = viewModel.get('porder.id');
+                        var pcontract_poid_link = viewModel.get('porder.pcontract_poid_link');
+                        var PContract_PO = viewModel.getStore('PContract_PO');
+                        PContract_PO.loadStoreForPOrderListPContractPO(porderid_link, pcontract_poid_link);
+                
                     }
                 } else {
                     Ext.Msg.show({

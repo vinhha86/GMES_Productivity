@@ -62,6 +62,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         grantSKUViewTabInfoTitle: 'Chi tiết màu, cỡ',
         //
         porderinfo: '',
-        amount: 0
+        amount: 0,
+        is_poline_hidden: false,
+        is_poline_sku_hidden: false,
+        is_addremovesku_hidden: false,
+        is_poline_skugranted_hidden: false,
     }
 })

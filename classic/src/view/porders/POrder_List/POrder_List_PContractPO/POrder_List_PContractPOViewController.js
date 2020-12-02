@@ -2,13 +2,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOViewContro
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_List_PContractPOViewController',
     init: function () {
-        var viewModel = this.getViewModel();
-        var porderid_link = viewModel.get('IdPOrder');
-        var pcontract_poid_link = viewModel.get('IdPContractPO');
-        // console.log(porderid_link);
-        // console.log(pcontract_poid_link);
-        var PContract_PO = viewModel.getStore('PContract_PO');
-        PContract_PO.loadStoreForPOrderListPContractPO(porderid_link, pcontract_poid_link);
+        // var viewModel = this.getViewModel();
+        // var porderid_link = viewModel.get('IdPOrder');
+        // // var pcontract_poid_link = viewModel.get('IdPContractPO');
+        // var pcontract_poid_link = viewModel.get('porder.pcontract_poid_link');
+        // // console.log(porderid_link);
+        // // console.log(pcontract_poid_link);
+        // var PContract_PO = viewModel.getStore('PContract_PO');
+        // PContract_PO.loadStoreForPOrderListPContractPO(porderid_link, pcontract_poid_link);
     },
     control: {
         '#POrder_List_PContractPOView': {

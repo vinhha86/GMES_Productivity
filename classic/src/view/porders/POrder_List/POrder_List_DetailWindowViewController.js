@@ -2,6 +2,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_List_DetailWindowViewController',
     init: function () {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('is_poline_hidden', false);
+        viewmodel.set('is_poline_sku_hidden', false);
+        viewmodel.set('is_addremovesku_hidden', false);
+        viewmodel.set('is_poline_skugranted_hidden', false);
+        
         this.onLoadData();
     },
     control: {
@@ -61,7 +67,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         var infoView = me.down('#POrder_InfoView');
         infoView.getController().loadInfo(IdPOrder);
 
-        var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
+        var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');
         storeGrantSKUTabInfo.loadStore(IdGrant);
 
         var listGrantView = me.down('#POrder_List_GrantView');

@@ -18,7 +18,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                 width: 150,
                 xtype: 'POrder_List_PContractPOView',
                 title: 'PO Line',
-                border: true
+                border: true,
+                bind: {
+                    hidden: '{is_poline_hidden}'
+                }
             },
             {
                 region: 'center',
@@ -29,10 +32,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                     {
                         // region: 'west',
                         xtype: 'POrder_ProductSKUView',
-                        title: 'Chi tiết lệnh',
-                        width: '55%',
+                        title: 'Chi tiết màu, cỡ',
+                        flex: 1,
                         height: '100%',
                         border: true,
+                        bind: {
+                            hidden: '{is_poline_sku_hidden}'
+                        }
                     },
                     {
                         xtype: 'container',
@@ -63,7 +69,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                                     }    
                                 ]
                             }
-                        ]
+                        ],
+                        bind: {
+                            hidden: '{is_addremovesku_hidden}'
+                        }
                     },               
                     {
                         xtype: 'POrder_List_GrantSKUView',
@@ -73,9 +82,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                             store: '{POrder_ListGrantSKUStoreForWindow}',
                             title: '{grantSKUViewTabInfoTitle}'
                         },
-                        flex: 1,
+                        width: '40%',
                         height: '100%',
                         border: true,
+                        bind: {
+                            hidden: '{is_poline_skugranted_hidden}'
+                        }
                     },
                 ]
         }]

@@ -2,7 +2,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_List_DetailViewController',
     init: function () {
-
+        var viewmodel = this.getViewModel();
+        viewmodel.set('is_poline_hidden', false);
+        viewmodel.set('is_poline_sku_hidden', false);
+        viewmodel.set('is_addremovesku_hidden', true);
+        viewmodel.set('is_poline_skugranted_hidden', true);
     },
     listen: {
         controller: {
@@ -69,13 +73,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         infoView.IdPOrder = id;
         infoView.getController().loadInfo(me.IdPOrder);
 
-        let productSkuView = me.down('#POrder_ProductSKUView');
-        productSkuView.IdPOrder = id;
-        productSkuView.getController().loadInfo(me.IdPOrder);
+        // let productSkuView = me.down('#POrder_ProductSKUView');
+        // productSkuView.IdPOrder = id;
+        // productSkuView.getController().loadInfo(me.IdPOrder);
 
-        let listGrantView = me.down('#POrder_List_GrantView');
-        listGrantView.IdPOrder = id;
-        listGrantView.getController().loadInfo(me.IdPOrder);
+        // let listGrantView = me.down('#POrder_List_GrantView');
+        // listGrantView.IdPOrder = id;
+        // listGrantView.getController().loadInfo(me.IdPOrder);
     },
     onQuayLai: function () {
         this.redirectTo('porderlistmain');
