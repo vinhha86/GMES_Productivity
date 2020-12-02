@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     direction: 'ASC'
                 }]
             });
-        var startDate = new Date(new Date().getTime() - 15*86400000);
+        var startDate = new Date(new Date().getTime() - 30*86400000);
         var cm = new Sch.data.CrudManager({
             autoLoad: false,
             resourceStore: resourceStore,

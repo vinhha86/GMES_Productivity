@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
     data: {
         schedule: {
             // startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
-            startDate: Ext.Date.add(new Date(), Ext.Date.DAY, -15),
+            startDate: Ext.Date.add(new Date(), Ext.Date.DAY, -30),
             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
             listid: '13,14',
             PO : '',
