@@ -22,36 +22,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
             },
             {
                 region: 'center',
-                layout: 'border',
-                margin: 1,
+                xtype: 'panel',
+                layout: 'hbox',
+                margin: '0 0 0 2',
                 items: [
                     {
-                        region: 'west',
+                        // region: 'west',
                         xtype: 'POrder_ProductSKUView',
                         title: 'Chi tiết lệnh',
                         width: '55%',
-                        border: true
-                    },
-                    {
-                        region: 'east',
-                        xtype: 'POrder_List_GrantSKUView',
-                        id: 'POrder_List_GrantSKUViewTabInfo',
-                        reference: 'POrder_List_GrantSKUViewTabInfo',
-                        bind: {
-                            store: '{POrder_ListGrantSKUStoreForWindow}',
-                            title: '{grantSKUViewTabInfoTitle}'
-                        },
-                        width: '40%',
+                        height: '100%',
                         border: true,
-                        hidden: true
                     },
                     {
-                        region: 'center',
-                        xtype: 'panel',
-                        id: 'POrder_List_TabInfo_Arrow',
-                        reference: 'POrder_List_TabInfo_Arrow',
+                        xtype: 'container',
+                        width: 40,
+                        height: '100%',
                         layout: 'center',
-                        hidden: true,
                         items:[
                             {
                                 xtype: 'container',
@@ -73,11 +60,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                                         iconCls: 'x-fa fa-arrow-left',
                                         weight: 30,
                                         // handler: 'onPorder_AddSKU'
-                                    }
+                                    }    
                                 ]
                             }
                         ]
-                    }
+                    },               
+                    {
+                        xtype: 'POrder_List_GrantSKUView',
+                        id: 'POrder_List_GrantSKUViewTabInfo',
+                        reference: 'POrder_List_GrantSKUViewTabInfo',
+                        bind: {
+                            store: '{POrder_ListGrantSKUStoreForWindow}',
+                            title: '{grantSKUViewTabInfoTitle}'
+                        },
+                        flex: 1,
+                        height: '100%',
+                        border: true,
+                    },
                 ]
         }]
     }]

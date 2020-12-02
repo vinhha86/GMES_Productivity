@@ -61,18 +61,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         var infoView = me.down('#POrder_InfoView');
         infoView.getController().loadInfo(IdPOrder);
 
-        // var productSkuView = me.down('#POrder_ProductSKUView');
-        // // var porderSKUStore = viewmodel.getStore('porderSKUStore');
-        // // porderSKUStore.loadByPorderID(IdPOrder, IdGrant);
-        // productSkuView.setWidth('47%');
-
-        var grantSKUViewTabInfo = me.down('#POrder_List_GrantSKUViewTabInfo');
-        grantSKUViewTabInfo.setHidden(false);
         var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
         storeGrantSKUTabInfo.loadStore(IdGrant);
-
-        var tabInfoArrow = me.down('#POrder_List_TabInfo_Arrow');
-        tabInfoArrow.setHidden(false);
 
         var listGrantView = me.down('#POrder_List_GrantView');
         listGrantView.getController().loadInfo(IdPOrder);
