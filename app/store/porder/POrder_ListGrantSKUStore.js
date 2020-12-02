@@ -10,7 +10,8 @@ Ext.define('GSmartApp.store.porder.POrder_ListGrantSKUStore', {
         {name: 'mauSanPham', type: 'string'},
 		{name: 'grantamount', type: 'int'},
 		{name: 'amount_break', type: 'int'},
-		{name: 'pcontractPo_PoBuyer', type: 'string'}
+		{name: 'pcontractPo_PoBuyer', type: 'string'},
+		{name: 'pcontract_poid_link', type: 'int'}
 	],
 	sorters: [{
         direction: 'ASC',
