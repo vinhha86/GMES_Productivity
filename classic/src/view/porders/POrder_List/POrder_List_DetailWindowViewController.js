@@ -28,86 +28,88 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         // this.getView().close();
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
-        let me = this.getView();
-        let viewmodel = this.getViewModel();
-        let IdPOrder = viewmodel.get('IdPOrder');
-        let IdGrant = viewmodel.get('IdGrant');
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var IdPOrder = viewmodel.get('IdPOrder');
+        var IdGrant = viewmodel.get('IdGrant');
 
         if (newCard.xtype == "POrder_Tab_Info") {
-            let infoView = me.down('#POrder_InfoView');
+            var infoView = me.down('#POrder_InfoView');
             infoView.getController().loadInfo(IdPOrder);
 
-            let productSkuView = me.down('#POrder_ProductSKUView');
-            let porderSKUStore = viewmodel.getStore('porderSKUStore');
+            var productSkuView = me.down('#POrder_ProductSKUView');
+            var porderSKUStore = viewmodel.getStore('porderSKUStore');
             porderSKUStore.loadByPorderID(IdPOrder,IdGrant);
 
-            let storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
+            var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
             storeGrantSKUTabInfo.loadStore(IdGrant);
         }
         if (newCard.xtype == "POrder_Tab_Grant") {
-            let listGrantView = me.down('#POrder_List_GrantView');
+            var listGrantView = me.down('#POrder_List_GrantView');
             listGrantView.getController().loadInfo(IdPOrder);
 
-            let storeGrantSKU = viewmodel.getStore('POrder_ListGrantSKUStore');
+            var storeGrantSKU = viewmodel.getStore('POrder_ListGrantSKUStore');
             storeGrantSKU.removeAll();
         }
     },
     onLoadData: function () {
-        let me = this.getView();
-        let viewmodel = this.getViewModel();
-        let IdPOrder = viewmodel.get('IdPOrder');
-        let IdGrant = viewmodel.get('IdGrant');
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var IdPOrder = viewmodel.get('IdPOrder');
+        var IdGrant = viewmodel.get('IdGrant');
 
-        let infoView = me.down('#POrder_InfoView');
+        var infoView = me.down('#POrder_InfoView');
         infoView.getController().loadInfo(IdPOrder);
 
-        let productSkuView = me.down('#POrder_ProductSKUView');
-        let porderSKUStore = viewmodel.getStore('porderSKUStore');
-        porderSKUStore.loadByPorderID(IdPOrder, IdGrant);
+        var productSkuView = me.down('#POrder_ProductSKUView');
+        // var porderSKUStore = viewmodel.getStore('porderSKUStore');
+        // porderSKUStore.loadByPorderID(IdPOrder, IdGrant);
         productSkuView.setWidth('47%');
 
-        let grantSKUViewTabInfo = me.down('#POrder_List_GrantSKUViewTabInfo');
+        var grantSKUViewTabInfo = me.down('#POrder_List_GrantSKUViewTabInfo');
         grantSKUViewTabInfo.setHidden(false);
-        let storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
+        var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStoreForWindow');
         storeGrantSKUTabInfo.loadStore(IdGrant);
 
-        let tabInfoArrow = me.down('#POrder_List_TabInfo_Arrow');
+        var tabInfoArrow = me.down('#POrder_List_TabInfo_Arrow');
         tabInfoArrow.setHidden(false);
 
-        let listGrantView = me.down('#POrder_List_GrantView');
+        var listGrantView = me.down('#POrder_List_GrantView');
         listGrantView.getController().loadInfo(IdPOrder);
 
         this.setTitleGrantSKUViewTabInfo(IdGrant);
     },
 
     onBtnAddToGrantSku: function(){
-        let me = this.getView();
+        var me = this.getView();
         me.setLoading(true);
-        let viewmodel = this.getViewModel();
-        let IdPOrder = viewmodel.get('IdPOrder');
-        let IdGrant = viewmodel.get('IdGrant');
+        var viewmodel = this.getViewModel();
+        var IdPOrder = viewmodel.get('IdPOrder');
+        var IdGrant = viewmodel.get('IdGrant');
+        var IdPcontractPo = viewmodel.get('IdPcontractPo');
 
-        let productSkuView = me.down('#POrder_ProductSKUView');
+        var productSkuView = me.down('#POrder_ProductSKUView');
 
-        let data = [];
-        let select = productSkuView.getSelectionModel().getSelection();
+        var data = [];
+        var select = productSkuView.getSelectionModel().getSelection();
 
         if(select.length == 0){
             me.setLoading(false);
             return;
         }
         // console.log(select);
-        for (let i = 0; i < select.length; i++) {
-            if(select[i].data.remainQuantity < 1){
+        for (var i = 0; i < select.length; i++) {
+            if(select[i].data.pquantity_ungranted < 1){
                 continue;
             }
             data.push(select[i].data.id);
         }
 
-        let params = new Object();
+        var params = new Object();
         params.idSkus = data;
         params.idGrant = IdGrant;
         params.idPOrder = IdPOrder;
+        params.idPcontractPo = IdPcontractPo;
 
         GSmartApp.Ajax.post('/api/v1/porderlist/addskutogrant', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -146,26 +148,26 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
 
     },
     onBtnRemoveFromGrantSku: function(){
-        let me = this.getView();
+        var me = this.getView();
         me.setLoading(true);
-        let viewmodel = this.getViewModel();
-        let IdPOrder = viewmodel.get('IdPOrder');
-        let IdGrant = viewmodel.get('IdGrant');
+        var viewmodel = this.getViewModel();
+        var IdPOrder = viewmodel.get('IdPOrder');
+        var IdGrant = viewmodel.get('IdGrant');
 
-        let GrantSKUView = me.down('#POrder_List_GrantSKUViewTabInfo');
+        var GrantSKUView = me.down('#POrder_List_GrantSKUViewTabInfo');
 
-        let data = [];
-        let select = GrantSKUView.getSelectionModel().getSelection();
+        var data = [];
+        var select = GrantSKUView.getSelectionModel().getSelection();
 
         if(select.length == 0){
             me.setLoading(false);
             return;
         }
-        for (let i = 0; i < select.length; i++) {
+        for (var i = 0; i < select.length; i++) {
             data.push(select[i].data.id);
         }
 
-        let params = new Object();
+        var params = new Object();
         params.idSkus = data;
         params.idGrant = IdGrant;
         params.idPOrder = IdPOrder;
@@ -207,17 +209,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
 
     },
     setTitleGrantSKUViewTabInfo: function(idgrant){
-        let viewModel = this.getViewModel();
+        var viewModel = this.getViewModel();
 
-        let params = new Object();
-        let idPorderGrant = idgrant;
+        var params = new Object();
+        var idPorderGrant = idgrant;
 
         params.idPorderGrant = idPorderGrant;
 
         GSmartApp.Ajax.post('/api/v1/porder_grant/findone', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
-                    let res = Ext.decode(response.responseText);
+                    var res = Ext.decode(response.responseText);
                     if (res.respcode == 200) {
                         viewModel.set('grantSKUViewTabInfoTitle', 'Chi tiết màu, cỡ - ' + res.data.granttoorgname);
                     }

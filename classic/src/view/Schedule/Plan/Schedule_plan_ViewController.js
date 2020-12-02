@@ -170,17 +170,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             })
     },
     Show_LenhSanXuat: function(eventRecord){
-        let window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
+        var window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
             // IdPOrder: eventRecord.data.id_origin,
             // IdGrant: eventRecord.data.porder_grantid_link,
             viewModel: {
                 data: {
                     IdPOrder: eventRecord.data.id_origin,
-                    IdGrant: eventRecord.data.porder_grantid_link
+                    IdGrant: eventRecord.data.porder_grantid_link,
+                    IdPContractPO: eventRecord.data.pcontract_poid_link
                 }
             }
         });
         window.show();
+
+        console.log(eventRecord.data);
 
         window.on('Thoat', function(porderinfo, amount){
             if(amount > 0){

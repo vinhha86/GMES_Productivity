@@ -26,6 +26,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         POrder_ListStatusStore: {
             type: 'POrder_ListStatusStore'
         },
+        PContract_PO: {
+            type: 'PContract_PO'
+        },
         porderSKUStore: {
             type: 'porderSKUStore'
         },
@@ -54,6 +57,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
     data:{
         IdPOrder: null,
         IdGrant: null,
+        IdPcontractPo: null,
         //
         grantSKUViewTabInfoTitle: 'Chi tiết màu, cỡ',
         //

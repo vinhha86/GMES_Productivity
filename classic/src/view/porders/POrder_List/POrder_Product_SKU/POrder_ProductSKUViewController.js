@@ -6,12 +6,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUViewController',
         // this.loadInfo(me.IdPOrder);
     },
     control: {
-        // '#POrder_ProductSKUView': {
-        //     activate: 'onActivate',
-        //     // itemdblclick: 'onitemdblclick',
-        //     itemclick: 'onItemClick',
-        //     celldblclick: 'onCellDblclick',
-        // }
+        '#POrder_ProductSKUView': {
+            // activate: 'onActivate',
+            // itemdblclick: 'onitemdblclick',
+            itemclick: 'onItemClick',
+            // celldblclick: 'onCellDblclick',
+        }
     },
     loadInfo: function (id) {
         let me = this.getView();
@@ -25,4 +25,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUViewController',
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     } ,
+    onItemClick: function(grid, record, item, index, e, eOpts){
+        console.log(record.data);
+    }
 })

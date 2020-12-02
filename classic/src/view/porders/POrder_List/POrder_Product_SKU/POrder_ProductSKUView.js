@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         align: 'center'
     }, {
         text: 'SKU',
-        dataIndex: 'skucode',
+        dataIndex: 'skuCode',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         align: 'end'
     }, {
         text: 'Đã phân chuyền',
-        dataIndex: 'inProductionQuantity',
+        dataIndex: 'pquantity_granted',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         align: 'end'
     }, {
         text: 'Chưa phân chuyền',
-        dataIndex: 'remainQuantity',
+        dataIndex: 'pquantity_ungranted',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },

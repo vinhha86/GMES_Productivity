@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.store.porder.POrder_ListGrantSKUStore', {
     extend: 'Ext.data.Store',
 	alias: 'store.POrder_ListGrantSKUStore',
+	groupField: 'pcontractPo_PoBuyer',
 	fields: [
         {name: 'id', type: 'int'},
         {name: 'skuname', type: 'string'},
@@ -8,9 +9,9 @@ Ext.define('GSmartApp.store.porder.POrder_ListGrantSKUStore', {
         {name: 'coSanPham', type: 'string'},
         {name: 'mauSanPham', type: 'string'},
 		{name: 'grantamount', type: 'int'},
-		{name: 'amount_break', type: 'int'}
+		{name: 'amount_break', type: 'int'},
+		{name: 'pcontractPo_PoBuyer', type: 'string'}
 	],
-	// groupField: 'ordercode',
 	sorters: [{
         direction: 'ASC',
         property: 'mauSanPham'

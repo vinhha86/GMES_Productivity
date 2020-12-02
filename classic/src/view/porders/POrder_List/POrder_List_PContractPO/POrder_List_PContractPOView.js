@@ -1,0 +1,34 @@
+Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOView', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'POrder_List_PContractPOView',
+    id: 'POrder_List_PContractPOView',
+    IdPOrder: 0,
+    // viewModel: {
+    //     type: 'SizesetViewModel'
+    // },
+    controller: 'POrder_List_PContractPOViewController',
+    reference: 'POrder_List_PContractPOView',
+    viewConfig: {
+        stripeRows: true,
+        columnLines: true,
+        rowLines: true
+    },
+    bind: {
+        store: '{PContract_PO}'
+    },
+    columns: [{
+        text: 'STT',
+        width: 50,
+        xtype: 'rownumberer',
+        align: 'center'
+    }, {
+        text: 'PO',
+        dataIndex: 'po_buyer',
+        flex: 1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    }]
+});
+

@@ -9,9 +9,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
         }
     },
     control: {
-        // '#POrder_List_GrantSKUViewTabInfo': {
-        //     itemclick: 'onItemClick',
-        // }
+        '#POrder_List_GrantSKUViewTabInfo': {
+            itemclick: 'onItemClick',
+        }
     },
     // loadInfo: function (id) {
     //     let me = this.getView();
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
     onItemClick: function(thisItem, record, item, index, e, eOpts){
-        // console.log(record);
+        console.log(record.data);
         let viewModel = this.getViewModel();
         viewModel.set('currentGrantSKURec', record.data);
         viewModel.set('oldGrantSKUAmount', record.data.grantamount);

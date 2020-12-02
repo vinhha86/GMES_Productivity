@@ -3,6 +3,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     xtype: 'POrder_List_GrantSKUView',
     id: 'POrder_List_GrantSKUView',
     IdPOrder: 0,
+    requires: [
+        'Ext.grid.feature.Grouping'
+    ],
     // viewModel: {
     //     type: 'SizesetViewModel'
     // },
@@ -29,6 +32,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
+    }, {
+        ftype: 'grouping',
+        groupHeaderTpl: '<b>{name}</b>',
+        hideGroupedHeader: false,
+        enableGroupingMenu: false
     }],
     bind: {
         store: '{POrder_ListGrantSKUStore}'
