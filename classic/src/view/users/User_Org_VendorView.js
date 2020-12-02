@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.users.User_OrgView', {
+Ext.define('GSmartApp.view.users.User_Org_VendorView', {
     extend: 'Ext.grid.Panel',
-    xtype: 'User_OrgView',
-    id:'User_OrgView',
+    xtype: 'User_Org_VendorView',
+    id:'User_Org_VendorView',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.users.User_OrgView', {
         mode: 'SINGLE'
     },
     bind:{
-        store:'{GpayUserOrg}'
+        store:'{GpayUserVendor}'
     },
     columns:[
         {
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.users.User_OrgView', {
             handler: 'onXoa_OrgView'
         },   
         {
-            text:'Phân xưởng',
+            text:'Vendor',
             dataIndex:'orgname',
             flex: 1
         }
@@ -41,15 +41,15 @@ Ext.define('GSmartApp.view.users.User_OrgView', {
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Phân xưởng quản lý'
+            value: 'Vendor quản lý'
         },
         '->'
         ,            
         {
-            tooltip: 'Thêm phân xưởng',
+            tooltip: 'Thêm Vendor',
             iconCls: 'x-fa fa-plus',
             weight: 30,
-            handler: 'onAdd_OrgView'
+            handler: 'onAdd_OrgVendorView'
         }
     ]
     }]

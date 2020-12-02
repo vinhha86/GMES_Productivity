@@ -13,9 +13,10 @@ Ext.define('GSmartApp.store.GpayUserOrg', {
         property: 'id',
         direction: 'ASC'
     }],
-	loadStore:function(userid_link){
+	loadStore:function(userid_link, orgtypeid_link){
 		var params = new Object();
 		params.id = userid_link;
+		params.orgtypeid_link = orgtypeid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

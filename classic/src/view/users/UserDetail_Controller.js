@@ -35,8 +35,14 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
         GroupUserStore.loadStore_byuser(id);
 
         viewModel.set('userid_link',id);
-        var GpayUserOrg = viewModel.getStore('GpayUserOrg');
-        GpayUserOrg.loadStore(id);
+        var GpayUserFactory = viewModel.getStore('GpayUserFactory');
+        GpayUserFactory.loadStore(id, 13);
+
+        var GpayUserVendor = viewModel.getStore('GpayUserVendor');
+        GpayUserVendor.loadStore(id, 11);
+
+        var GpayUserBuyer = viewModel.getStore('GpayUserBuyer');
+        GpayUserBuyer.loadStore(id, 12);
     },
     getInfo: function (id) {
         var viewModel = this.getViewModel();
@@ -142,7 +148,7 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
             }
         });
     },
-    onAdd_OrgView: function(){
+    onAdd_OrgFactoryView: function(){
         var viewmodel = this.getViewModel();
         if (null != viewmodel.get('userid_link')){
             var form = Ext.create('Ext.window.Window', {
@@ -165,6 +171,7 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
                     viewModel: {
                         data: {
                             userid_link: viewmodel.get('userid_link'),
+                            orgtypeid_link: 13
                         }
                     }
                 }]
@@ -172,7 +179,81 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
             form.show();
 
             form.down('#User_OrgView_Add').getController().on('AcceptSuccess', function () {
-                var store = viewmodel.getStore('GpayUserOrg');
+                var store = viewmodel.getStore('GpayUserFactory');
+                store.load();
+                form.close();
+            })
+        }
+    },
+    onAdd_OrgVendorView: function(){
+        var viewmodel = this.getViewModel();
+        if (null != viewmodel.get('userid_link')){
+            var form = Ext.create('Ext.window.Window', {
+                height: 400,
+                closable: true,
+                title: 'Thêm Vendor',
+                resizable: false,
+                modal: true,
+                border: false,
+                closeAction: 'destroy',
+                width: 400,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: 'User_OrgView_Add',
+                    viewModel: {
+                        data: {
+                            userid_link: viewmodel.get('userid_link'),
+                            orgtypeid_link: 11
+                        }
+                    }
+                }]
+            });
+            form.show();
+
+            form.down('#User_OrgView_Add').getController().on('AcceptSuccess', function () {
+                var store = viewmodel.getStore('GpayUserVendor');
+                store.load();
+                form.close();
+            })
+        }
+    },
+    onAdd_OrgBuyerView: function(){
+        var viewmodel = this.getViewModel();
+        if (null != viewmodel.get('userid_link')){
+            var form = Ext.create('Ext.window.Window', {
+                height: 400,
+                closable: true,
+                title: 'Thêm Buyer',
+                resizable: false,
+                modal: true,
+                border: false,
+                closeAction: 'destroy',
+                width: 400,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: 'User_OrgView_Add',
+                    viewModel: {
+                        data: {
+                            userid_link: viewmodel.get('userid_link'),
+                            orgtypeid_link: 12
+                        }
+                    }
+                }]
+            });
+            form.show();
+
+            form.down('#User_OrgView_Add').getController().on('AcceptSuccess', function () {
+                var store = viewmodel.getStore('GpayUserBuyer');
                 store.load();
                 form.close();
             })

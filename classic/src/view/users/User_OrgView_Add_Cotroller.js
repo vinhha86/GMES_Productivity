@@ -2,8 +2,9 @@ Ext.define('GSmartApp.view.product.User_OrgView_Add_Cotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.User_OrgView_Add_Cotroller',
     init: function () {
+        var viewmodel = this.getViewModel();
         var store = this.getViewModel().getStore('OrgStore');
-        store.loadStore(13,false);
+        store.loadStore(viewmodel.get('orgtypeid_link'),false);
     },
     control: {
         '#btnThoat': {

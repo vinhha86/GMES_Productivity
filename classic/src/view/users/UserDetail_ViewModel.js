@@ -31,7 +31,13 @@ Ext.define('GSmartApp.view.users.UserDetail_ViewModel', {
         FunctionStore: {
             type: 'GroupUser_Function_Store'
         },
-        GpayUserOrg: {
+        GpayUserFactory: {
+            type: 'GpayUserOrg'
+        },
+        GpayUserVendor: {
+            type: 'GpayUserOrg'
+        },
+        GpayUserBuyer: {
             type: 'GpayUserOrg'
         }
     },

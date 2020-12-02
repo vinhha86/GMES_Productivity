@@ -14,32 +14,46 @@ Ext.define('GSmartApp.view.users.UserDetail', {
 		height: 160,
 		margin: 1,
 		border: true
-	},{
-		region: 'west',
-		width: '30%',
-		xtype: 'UserGroup',
-		margin: 1,
-		border: true
-	},{
-		region: 'center',
-		xtype: 'UserGroup_Menu',
-		margin: 1,
-		border: true
 	},
 	{
-		region: 'east',
-		xtype: 'User_OrgView',
-		width: '30%',
-		margin: 1,
-		border: true
+		region: 'center',
+		layout: 'border',
+		items: [
+			{
+				region: 'west',
+				width: '30%',
+				xtype: 'UserGroup',
+				margin: 1,
+				border: true
+			},
+			{
+				region: 'center',
+				layout: 'border',
+				items: [
+					{
+						region: 'west',
+						xtype: 'User_Org_BuyerView',
+						margin: 1,
+						width: '33%',
+						border: true
+					},{
+						region: 'center',
+						xtype: 'User_Org_VendorView',
+						margin: 1,
+						border: true
+					},
+					{
+						region: 'east',
+						xtype: 'User_Org_FactoryView',
+						width: '33%',
+						margin: 1,
+						border: true
+					}
+				]
+			}
+		]
 	}
-	// {
-	// 	region: 'east',
-	// 	xtype: 'UserGroup_Function',
-	// 	width: '30%',
-	// 	margin: 1,
-	// 	border: true
-	// }
+
 	],
 	dockedItems:[{
         layout:'hbox',
