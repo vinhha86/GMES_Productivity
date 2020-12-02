@@ -33,8 +33,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
     }, {
-        ftype: 'grouping',
-        groupHeaderTpl: '<b>{name}</b>',
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '<b>PO: {name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
     }],
