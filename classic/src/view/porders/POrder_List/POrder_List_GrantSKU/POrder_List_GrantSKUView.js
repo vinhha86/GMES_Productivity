@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     }, {
         text: 'Màu',
         dataIndex: 'mauSanPham',
-        flex: 1,
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -70,9 +70,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     }, {
         text: 'Cỡ',
         dataIndex: 'coSanPham',
-        flex: 1
+        width: 60,
     }, {
-        text: 'Số lượng',
+        text: 'SL',
         dataIndex: 'grantamount',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
-        flex: 1,
+        width: 60,
         align: 'end'
     }]
 });

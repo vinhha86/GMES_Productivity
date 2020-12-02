@@ -64,14 +64,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         width: 60,
         align: 'end'
     }, {
-        text: 'Đã PT',
+        text: 'Đã phân chuyền',
         dataIndex: 'pquantity_granted',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
-        width: 60,
+        width: 90,
         align: 'end'
     }, {
         text: 'Còn lại',
