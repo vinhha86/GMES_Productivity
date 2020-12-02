@@ -30,12 +30,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     },
     features: [{
         ftype: 'summary',
-        // groupHeaderTpl: 'Tổng',
+        groupHeaderTpl: 'Tổng',
         dock: 'bottom'
     }, {
-        id: 'group',
-        ftype: 'grouping',
-        groupHeaderTpl: '<b>PO Line: {name}</b>',
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '<b>PO: {name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
     }],
@@ -45,7 +44,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     title: 'Chi tiết màu, cỡ',
     columns: [{
         text: 'STT',
-        width: 40,
+        width: 50,
         xtype: 'rownumberer',
         align: 'center'
     }, {
