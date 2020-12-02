@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
         items: [{
             region: 'west',
             layout: 'border',
-            width: '15%',
+            width: 150,
             margin: 1,
             items: [{
                 region: 'center',
@@ -27,7 +27,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
         },{
             region: 'center',
             layout: 'border',
-            width: '85%',
             margin: 1,
             items: [{
                 region: 'west',

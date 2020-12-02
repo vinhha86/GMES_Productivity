@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOView', {
     },
     columns: [{
         text: 'STT',
-        width: 50,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     }, {

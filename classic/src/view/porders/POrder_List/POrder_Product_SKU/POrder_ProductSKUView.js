@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     },
     columns: [{
         text: 'STT',
-        width: 50,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     }, {
@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'Màu',
         dataIndex: 'mauSanPham',
-        flex: 1,
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -52,32 +52,36 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'Cỡ',
         dataIndex: 'coSanPham',
-        flex: 1
+        width: 50
     }, {
-        text: 'Số lượng',
+        text: 'SL',
         dataIndex: 'pquantity_total',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
-        flex: 1,
+        width: 60,
         align: 'end'
     }, {
-        text: 'Đã phân chuyền',
+        text: 'Đã PT',
         dataIndex: 'pquantity_granted',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
-        flex: 1,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum',
+        width: 60,
         align: 'end'
     }, {
-        text: 'Chưa phân chuyền',
+        text: 'Còn lại',
         dataIndex: 'pquantity_ungranted',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
-        flex: 1,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum',
+        width: 65,
         align: 'end'
     }]
 });
