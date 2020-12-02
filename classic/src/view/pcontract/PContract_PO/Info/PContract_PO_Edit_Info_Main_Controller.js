@@ -2,11 +2,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_Info_Main_Controller',
     init: function(){
+        var main = this.getView();
         var viewmodel = this.getViewModel();
         var ctrsewtarget = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_percent');
         var ctrsewtarget_hidden = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_hidepanel');
         var ctrporderreqdel = Ext.getCmp('PContract_PO_Edit_Porder_Req_deletebutton');
         var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
+        var porder_req_view = main.down('#PContract_PO_Edit_Porder_Req');
         
         var productStore = viewmodel.getStore('ProductStore');
         if(productStore != null){
@@ -29,6 +31,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var PortStore = viewmodel.getStore('PortStore');
         PortStore.loadStore(null,null);
         
+        //An hien don vi
+        console.log(viewmodel.get('isHidden_req'))
+        porder_req_view.setHidden(viewmodel.get('isHidden_req'));
+
         //An/hien Sewtarget_percent
         if(viewmodel.get('isedit')){
             if (null!=ctrsewtarget && null!=ctrsewtarget_hidden && null!=ctrporderreqdel){

@@ -33,6 +33,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_ViewModel', {
         parentpoid_link: null,
         po: null,
         isedit: false,
-        productpairid_link: 0
+        productpairid_link: 0,
+        isHidden_req: false
     }
 })

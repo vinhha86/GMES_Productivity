@@ -280,7 +280,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 }
             });
     },
-    onEdit: function (rec) {
+    onEdit: function (rec, isHidden_req) {
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -303,7 +303,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     data: {
                         id: rec.data.id,
                         isedit: true,
-                        productpairid_link: rec.get('productid_link')
+                        productpairid_link: rec.get('productid_link'),
+                        isHidden_req: isHidden_req == null ? false: true
                     }
                 }
             }]
@@ -364,10 +365,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     iconCls: 'x-fa fas fa-pencil brownIcon',
                     handler: function () {
                         var record = this.parentMenu.record;
-                        me.onEdit(record);
+                        me.onEdit(record, true);
                     },
-                },
-                {
+                },{
                     text: 'Xóa PO',
                     itemId: 'btnDelPO_PContract_POList',
                     separator: true,
@@ -404,6 +404,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     handler: function () {
                         me.onThemPO(record);
                     }
+                },{
+                    text: 'Sửa PO',
+                    itemId: 'btnEditPO_Parent_PContract_POList',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-pencil brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onEdit(record);
+                    },
                 },
                 {
                     text: 'Upload File PO (Excel)',
@@ -437,6 +447,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     handler: function () {
                         me.onFOBPO(record.data);
                     }
+                },
+                {
+                    text: 'Đổi Merchandiser phụ trách',
+                    itemId: 'btnChange_Merchandiser',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-user greenIcon',
+                    handler: function () {
+                        me.onChangeMer(record);
+                    }
                 }
             ]
         });
@@ -446,6 +466,50 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
+    },
+    onChangeMer: function(rec){
+        console.log(rec);
+        var viewmodel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            height: 320,
+            closable: true,
+            title: 'Thay đổi Merchandiser',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 400,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'PContract_PO_FormAccept',
+                viewModel: {
+                    data: {
+                        po: {
+                            po_quantity: rec.get('po_quantity'),
+                            po_buyer: rec.get('po_buyer'),
+                            po_vendor: rec.get('po_vendor'),
+                            shipdate: rec.get('shipdate'),
+                            id: rec.get('id'),
+                            orgbuyerid_link: viewmodel.get('PContract.orgbuyerid_link'),
+                            orgid_link: rec.get('orgmerchandiseid_link'),
+                            userid_link: rec.get('merchandiserid_link'),
+                            po_quantity: rec.get('po_quantity'),
+                            amount_org: rec.get('amount_org')
+                        }
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#PContract_PO_FormAccept').getController().on('AcceptSuccess', function () {
+            form.close();
+        })
     },
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
