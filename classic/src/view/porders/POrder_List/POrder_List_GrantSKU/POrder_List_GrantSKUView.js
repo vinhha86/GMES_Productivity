@@ -28,23 +28,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         selType: 'checkboxmodel',
         mode: 'MULTI'
     },
-    features: [{
-        ftype: 'summary',
-        groupHeaderTpl: 'Tổng',
-        dock: 'bottom'
-    }, {
-        ftype: 'groupingsummary',
-        groupHeaderTpl: '<b>PO: {name}</b>',
-        hideGroupedHeader: false,
-        enableGroupingMenu: false
-    }],
+    features: [
+        {
+            id: 'group',
+            ftype: 'groupingsummary',
+            groupHeaderTpl: '<b>PO Line: {name}</b>',
+            hideGroupedHeader: false,
+            enableGroupingMenu: false
+        },
+        {
+            ftype: 'summary',
+            // groupHeaderTpl: 'Tổng',
+            dock: 'bottom'
+        }
+    ],
     bind: {
         store: '{POrder_ListGrantSKUStore}'
     },
     title: 'Chi tiết màu, cỡ',
     columns: [{
         text: 'STT',
-        width: 50,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     }, {
