@@ -113,7 +113,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                     var response = Ext.decode(response.responseText);
                     if(response.respcode == 200) {
                         viewmodel.getStore('porderSKUStore').load();
-                        viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
+                        viewmodel.getStore('POrder_ListGrantSKUStore').load();
                         viewmodel.set('porderinfo', response.porderinfo);
                         viewmodel.set('amount', response.amount);
 
@@ -174,7 +174,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                     var response = Ext.decode(response.responseText);
                     if(response.respcode == 200) {
                         viewmodel.getStore('porderSKUStore').load();
-                        viewmodel.getStore('POrder_ListGrantSKUStoreForWindow').load();
+                        viewmodel.getStore('POrder_ListGrantSKUStore').load();
                         viewmodel.set('porderinfo', response.porderinfo);
                         viewmodel.set('amount', response.amount);
 
