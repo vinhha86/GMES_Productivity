@@ -396,15 +396,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             minWidth: 150,
             items: [
                 {
-                    text: 'Thêm PO',
-                    itemId: 'btnInsert_PO',
-                    separator: true,
-                    margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-plus brownIcon',
-                    handler: function () {
-                        me.onThemPO(record);
-                    }
-                },{
                     text: 'Sửa PO',
                     itemId: 'btnEditPO_Parent_PContract_POList',
                     separator: true,
@@ -414,6 +405,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         var record = this.parentMenu.record;
                         me.onEdit(record);
                     },
+                },
+                {
+                    text: 'Chi tiết FOB',
+                    itemId: 'btnDetailFOB_PContract_POList',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-book greenIcon',
+                    handler: function () {
+                        me.onFOBPO(record.data);
+                    }
+                },
+                {
+                    text: 'Đổi Merchandiser phụ trách',
+                    itemId: 'btnChange_Merchandiser',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-user greenIcon',
+                    handler: function () {
+                        me.onChangeMer(record);
+                    }
+                },  
+                '-',                              
+                {
+                    text: 'Thêm PO Line',
+                    itemId: 'btnInsert_PO',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-plus brownIcon',
+                    handler: function () {
+                        me.onThemPO(record);
+                    }
                 },
                 {
                     text: 'Upload File PO Line(Excel)',
@@ -436,26 +458,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         else {
                             me.onUpload(record);
                         }
-                    }
-                },
-                {
-                    text: 'Chi tiết FOB',
-                    itemId: 'btnDetailFOB_PContract_POList',
-                    separator: true,
-                    margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-book greenIcon',
-                    handler: function () {
-                        me.onFOBPO(record.data);
-                    }
-                },
-                {
-                    text: 'Đổi Merchandiser phụ trách',
-                    itemId: 'btnChange_Merchandiser',
-                    separator: true,
-                    margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-user greenIcon',
-                    handler: function () {
-                        me.onChangeMer(record);
                     }
                 }
             ]
