@@ -416,7 +416,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     },
                 },
                 {
-                    text: 'Upload File PO (Excel)',
+                    text: 'Upload File PO Line(Excel)',
                     itemId: 'btnUpload_PO',
                     separator: true,
                     margin: '10 0 0',

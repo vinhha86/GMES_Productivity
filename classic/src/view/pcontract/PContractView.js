@@ -95,13 +95,15 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             bind: {
                 // disabled: '{disabledTab}'
             }
-        },{
-            title: 'Lệnh sản xuất',
-            xtype: 'PContract_POrder_Main',
-            bind: {
-                // disabled: '{disabledTab}'
-            }
-        }]
+        },
+        // {
+        //     title: 'Lệnh sản xuất',
+        //     xtype: 'PContract_POrder_Main',
+        //     bind: {
+        //         // disabled: '{disabledTab}'
+        //     }
+        // }
+        ]
     }],
     dockedItems: [{
         layout: 'hbox',
