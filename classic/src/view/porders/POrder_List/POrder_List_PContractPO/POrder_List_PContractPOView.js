@@ -29,6 +29,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
+    }, {
+        text: 'Ngày giao hàng',
+        dataIndex: 'shipdate',
+        width: 90,
+        renderer: Ext.util.Format.dateRenderer('d/m/Y')
     }]
 });
 

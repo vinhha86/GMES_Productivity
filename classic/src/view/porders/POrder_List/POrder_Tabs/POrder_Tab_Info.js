@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
         items: [
             {
                 region: 'west',
-                width: 150,
+                width: 230,
                 xtype: 'POrder_List_PContractPOView',
                 title: 'PO Line',
                 border: true,
@@ -79,15 +79,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                         id: 'POrder_List_GrantSKUViewTabInfo',
                         reference: 'POrder_List_GrantSKUViewTabInfo',
                         bind: {
-                            store: '{POrder_ListGrantSKUStoreForWindow}',
-                            title: '{grantSKUViewTabInfoTitle}'
+                            // store: '{POrder_ListGrantSKUStoreForWindow}',
+                            title: '{grantSKUViewTabInfoTitle}',
+                            hidden: '{is_poline_skugranted_hidden}'
                         },
                         width: '40%',
                         height: '100%',
-                        border: true,
-                        bind: {
-                            hidden: '{is_poline_skugranted_hidden}'
-                        }
+                        border: true
                     },
                 ]
         }]
