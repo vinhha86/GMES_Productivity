@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
-        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', flex: 1,
+        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', width: 100,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
             }
         },
 
-        { header: 'Buyer', dataIndex: 'buyername', width: 65,
+        { header: 'Buyer', dataIndex: 'buyername', width: 75,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -100,7 +100,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
                 return value;
             },
         },
-        { header: 'Vendor', dataIndex: 'vendorname', width: 65,
+        { header: 'Vendor', dataIndex: 'vendorname', width: 75,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -119,21 +119,21 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
             },
         },
 
-        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'po_Productiondate', 
-            // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-            renderer: function(value){
-                var date = Ext.Date.parse(value, 'c');
-                return Ext.Date.format(date, 'd/m/y');
-            },
-            width: 70
-        },
+        // { header: 'Vào chuyền', headerWrap: true, dataIndex: 'po_Productiondate', 
+        //     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        //     renderer: function(value){
+        //         var date = Ext.Date.parse(value, 'c');
+        //         return Ext.Date.format(date, 'd/m/y');
+        //     },
+        //     width: 70
+        // },
         { header: 'Giao hàng', headerWrap: true, dataIndex: 'shipdate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');
                 return Ext.Date.format(date, 'd/m/y');
             },
-            width: 70
+            width: 67
         },
         { header: 'Ngày cần xếp xong', headerWrap: true, dataIndex: 'plandate_required', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
@@ -141,9 +141,9 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
                 var date = Ext.Date.parse(value, 'c');
                 return Ext.Date.format(date, 'd/m/y');
             },
-            width: 70
+            width: 67
         },
-        { header: 'Số lượng', dataIndex: 'totalorder', width: 100,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+        { header: 'SL', dataIndex: 'totalorder', width: 60,  xtype: 'numbercolumn', format: '0,000', align: 'right',
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
                 return '<div style="color:black; font-weight: bold; align: right">'+'SL: ' + Ext.util.Format.number(value, '0,000')+'</div>';

@@ -113,7 +113,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return value;
             }
         },
-        { header: 'Mã&nbspSP&nbsp(Buyer)', dataIndex: 'buyercode', flex: 1,
+        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 100,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -135,7 +135,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
             },
         },
-        { header: 'Buyer', dataIndex: 'buyername', width: 65,
+        { header: 'Buyer', dataIndex: 'buyername', width: 75,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return value;
             },
         },
-        { header: 'Vendor', dataIndex: 'vendorname', width: 65,
+        { header: 'Vendor', dataIndex: 'vendorname', width: 75,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -171,16 +171,16 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return value;
             },
         },
-        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 70},
+        { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 67},
         { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){
                 var date = Ext.Date.parse(value, 'c');
                 return Ext.Date.format(date, 'd/m/y');
             },
-            width: 70
+            width: 67
         },
-        { header: 'SL', dataIndex: 'totalorder', width: 65,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+        { header: 'SL', dataIndex: 'totalorder', width: 60,  xtype: 'numbercolumn', format: '0,000', align: 'right',
 
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
