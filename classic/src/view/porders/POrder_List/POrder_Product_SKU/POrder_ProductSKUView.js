@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     },
     columns: [{
         text: 'STT',
-        width: 40,
+        width: 45,
         xtype: 'rownumberer',
         align: 'center'
     }, {

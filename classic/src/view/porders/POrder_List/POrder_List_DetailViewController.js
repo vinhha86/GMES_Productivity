@@ -38,9 +38,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             infoView.IdPOrder = me.IdPOrder;
             infoView.getController().loadInfo(me.IdPOrder);
 
-            let productSkuView = me.down('#POrder_ProductSKUView');
-            productSkuView.IdPOrder = me.IdPOrder;
-            productSkuView.getController().loadInfo(me.IdPOrder);
+            var porderSKUStore = viewmodel.getStore('porderSKUStore');
+            // porderSKUStore.load();
+            porderSKUStore.removeAll();
         }
         else if (newCard.xtype == "POrder_Tab_Grant") {
             let listGrantView = me.down('#POrder_List_GrantView');

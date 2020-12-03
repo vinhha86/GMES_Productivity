@@ -43,9 +43,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
             var infoView = me.down('#POrder_InfoView');
             infoView.getController().loadInfo(IdPOrder);
 
-            var productSkuView = me.down('#POrder_ProductSKUView');
             var porderSKUStore = viewmodel.getStore('porderSKUStore');
-            porderSKUStore.load();
+            // porderSKUStore.load();
+            porderSKUStore.removeAll();
 
             var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');
             storeGrantSKUTabInfo.loadStore(IdGrant);

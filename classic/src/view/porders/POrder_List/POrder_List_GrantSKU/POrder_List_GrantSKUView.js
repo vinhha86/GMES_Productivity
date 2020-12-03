@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     title: 'Chi tiết màu, cỡ',
     columns: [{
         text: 'STT',
-        width: 40,
+        width: 45,
         xtype: 'rownumberer',
         align: 'center'
     }, {
