@@ -105,9 +105,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var viewmodel = this.getViewModel();
         var mes = "";
 
-        if(viewmodel.get('po.parentpoid_link') == null){
-            mes = "Bạn chưa chọn chào giá !";
-        }
+        // if(viewmodel.get('po.parentpoid_link') == null){
+        //     mes = "Bạn chưa chọn chào giá !";
+        // }
 
         if(mes == ""){
             var params = new Object();
