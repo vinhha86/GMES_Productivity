@@ -32,6 +32,18 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnelCodeFilter',
+            width: 196,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPersonnelCodeFilterKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Họ và tên',
@@ -40,6 +52,18 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnelFullnameFilter',
+            width: 196,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPersonnelFullnameFilterKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Ca 1',

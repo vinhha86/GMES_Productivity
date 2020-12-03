@@ -205,5 +205,45 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     me.setLoading(false);
                 }
         })
+    },
+    onPersonnelCodeFilterKeyup: function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('personnelCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.personnelCodeFilter = filters.add({
+                id: 'personnelCodeFilter',
+                property: 'personnelCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.personnelCodeFilter) {
+            filters.remove(this.personnelCodeFilter);
+            this.personnelCodeFilter = null;
+        }
+    },
+    onPersonnelFullnameFilterKeyup: function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('personnelFullnameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.personnelFullnameFilter = filters.add({
+                id: 'personnelFullnameFilter',
+                property: 'personnelFullname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.personnelFullnameFilter) {
+            filters.remove(this.personnelFullnameFilter);
+            this.personnelFullnameFilter = null;
+        }
     }
 })
