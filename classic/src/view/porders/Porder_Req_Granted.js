@@ -81,6 +81,44 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
                 return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
             }
         },
+
+        { header: 'Buyer', dataIndex: 'buyername', width: 65,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'grantedReqBuyernameFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onGrantedReqBuyernameFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        { header: 'Vendor', dataIndex: 'vendorname', width: 65,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'grantedReqVendornameFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onGrantedReqVendornameFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+
         { header: 'Vào chuyền', headerWrap: true, dataIndex: 'po_Productiondate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){

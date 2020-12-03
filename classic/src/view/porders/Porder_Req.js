@@ -77,6 +77,36 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                 return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
             }
         },
+
+        { header: 'Buyer', dataIndex: 'buyername', width: 65,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedReqBuyernameFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedReqBuyernameFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
+        { header: 'Vendor', dataIndex: 'vendorname', width: 65,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedReqVendornameFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedReqVendornameFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
+
         { header: 'Vào chuyền', headerWrap: true, dataIndex: 'po_Productiondate', 
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),
             renderer: function(value){

@@ -274,4 +274,130 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         }
     },
     //
+    onUnGrantedBuyernameFilterKeyup: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrderUnGranted');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('unGrantedBuyernameFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.unGrantedBuyernameFilter = filters.add({
+                id: 'unGrantedBuyernameFilter',
+                property: 'buyername',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.unGrantedBuyernameFilter) {
+            filters.remove(this.unGrantedBuyernameFilter);
+            this.unGrantedBuyernameFilter = null;
+        }
+    },
+    onUnGrantedVendornameFilterKeyup: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrderUnGranted');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('unGrantedVendornameFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.unGrantedVendornameFilter = filters.add({
+                id: 'unGrantedVendornameFilter',
+                property: 'vendorname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.unGrantedVendornameFilter) {
+            filters.remove(this.unGrantedVendornameFilter);
+            this.unGrantedVendornameFilter = null;
+        }
+    },
+    onUnGrantedReqBuyernameFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('unGrantedReqBuyernameFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.unGrantedReqBuyernameFilter = filters.add({
+                id: 'unGrantedReqBuyernameFilter',
+                property: 'buyername',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.unGrantedReqBuyernameFilter) {
+            filters.remove(this.unGrantedReqBuyernameFilter);
+            this.unGrantedReqBuyernameFilter = null;
+        }
+    },
+    onUnGrantedReqVendornameFilterKeyup: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('unGrantedReqVendornameFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.unGrantedReqVendornameFilter = filters.add({
+                id: 'unGrantedReqVendornameFilter',
+                property: 'vendorname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.unGrantedReqVendornameFilter) {
+            filters.remove(this.unGrantedReqVendornameFilter);
+            this.unGrantedReqVendornameFilter = null;
+        }
+    },
+    onGrantedReqBuyernameFilterKeyup: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Granted_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('grantedReqBuyernameFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.grantedReqBuyernameFilter = filters.add({
+                id: 'grantedReqBuyernameFilter',
+                property: 'buyername',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.grantedReqBuyernameFilter) {
+            filters.remove(this.grantedReqBuyernameFilter);
+            this.grantedReqBuyernameFilter = null;
+        }
+    },
+    onGrantedReqVendornameFilterKeyup: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('Porder_Req_Granted_Store');
+        // Access the field using its "reference" property name.
+        filterField = this.lookupReference('grantedReqVendornameFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.grantedReqVendornameFilter = filters.add({
+                id: 'grantedReqVendornameFilter',
+                property: 'vendorname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.grantedReqVendornameFilter) {
+            filters.remove(this.grantedReqVendornameFilter);
+            this.grantedReqVendornameFilter = null;
+        }
+    }
 })
