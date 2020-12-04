@@ -111,6 +111,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // allowBlank: false,
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
+                maskRe: /[0-9]/,
+                fieldStyle: 'text-align:right;',
+                vtype: 'dollar',
                 bind: {
                     value: '{porder.totalorder_req}'
                 },
@@ -124,6 +127,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 allowBlank: false,
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
+                maskRe: /[0-9]/,
+                fieldStyle: 'text-align:right;',
+                vtype: 'dollar',
                 bind: {
                     value: '{porder.totalorder}'
                 },
