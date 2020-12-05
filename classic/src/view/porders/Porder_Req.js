@@ -134,7 +134,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
         { header: 'SL', dataIndex: 'totalorder', width: 60,  xtype: 'numbercolumn', format: '0,000', align: 'right',
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
-                return '<div style="color:black; font-weight: bold; align: right">'+'SL: ' + Ext.util.Format.number(value, '0,000')+'</div>';
+                return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000')+'</div>';
             }
         },
     ],

@@ -180,16 +180,16 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             },
             width: 67
         },
-        { header: 'SL', dataIndex: 'totalorder', width: 60,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+        { header: 'SL', dataIndex: 'totalorder', width: 65,  xtype: 'numbercolumn', format: '0,000', align: 'right',
 
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
-                return '<div style="color:black; font-weight: bold; align: right">'+'SL: ' + Ext.util.Format.number(value, '0,000')+'</div>';
+                return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000')+'</div>';
             },
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            },
+            // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            //     metaData.tdAttr = 'data-qtip="' + value + '"';
+            //     return value;
+            // },
         },
     ],
     dockedItems: [{

@@ -140,6 +140,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 },{
                     text:'PO Buyer',
                     dataIndex:'po_buyer',
+                    sortable: true,
                     flex: 1,
                     // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                     //     metaData.tdAttr = 'data-qtip="' + value + '"';
