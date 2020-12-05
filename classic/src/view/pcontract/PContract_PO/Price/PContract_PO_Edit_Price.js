@@ -161,14 +161,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             listeners: {
                 select: 'onCurrencyItemSelected'
             }
-        },       
+        },
         {
             xtype: 'textfield',
             labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
             fieldStyle: 'font-size:11px;text-align:right',
             width: 120,
             cls: 'inputBoxNarror',
-            // vtype: 'dollar',
+            vtype: 'dollar',
             fieldLabel: 'Tỷ giá:',
             labelWidth : 50,
             bind: {
@@ -177,7 +177,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             listeners: {
                 focusleave: 'onExchangeRateChange'
             }            
-        },             
+        },
 		{
             xtype:'button',
             width: 20,

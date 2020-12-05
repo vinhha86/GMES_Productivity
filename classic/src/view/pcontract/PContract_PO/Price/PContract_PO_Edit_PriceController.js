@@ -277,7 +277,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     },
     onCurrencyItemSelected: function (sender, record) {
         var viewmodel = this.getViewModel();
-        viewmodel.set('po.exchangerate',record.data.exchangerate);
+        
+        var exchangerate = record.data.exchangerate;
+        // var result = Ext.util.Format.number(exchangerate, '0,000.00');
+        var result = Math.round(exchangerate);
+        viewmodel.set('po.exchangerate',result);
         this.onExchangeRateChange();
     },
     onExchangeRateChange: function () {
