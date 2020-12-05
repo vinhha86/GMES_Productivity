@@ -5,7 +5,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_ViewModel', {
         'GSmartApp.store.porder.POrder_ListStatusStore',
         'GSmartApp.store.porder.POrder_ListVendorStore', 
         'GSmartApp.store.porder.POrder_ListBuyerStore', 
-        'GSmartApp.store.porder.POrder_ListStore'
+        'GSmartApp.store.porder.POrder_ListStore',
+        'GSmartApp.store.org.ListOrgStore'
     ],
     stores: {
         POrder_ListStore: {
@@ -19,6 +20,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_ViewModel', {
         },
         POrder_ListStatusStore: {
             type: 'POrder_ListStatusStore'
-        }
+        },
+        ListOrgStore: {
+            type: 'ListOrgStore'
+        },
     }
 })

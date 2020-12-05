@@ -4,10 +4,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     isActivate: false,
     init: function () {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('POrder_ListStore');
-        store.sort('orderdate','DESC');
-        store.loadStoreBySearch(null, null, null, null, null, null, null, [1, 2, 3, 0, -1], 25, 1);
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('POrder_ListStore');
+        // store.sort('orderdate','DESC');
+        store.loadStoreBySearch("", "", "", null, null, null, [1, 2, 3, 0, -1], 25, 1);
 
         this.onActivate();
     },
@@ -25,21 +25,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     },
     onActivate: function () {
         var me = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
 
-        var VendorStore = viewmodel.getStore('POrder_ListVendorStore');
+        var VendorStore = viewModel.getStore('POrder_ListVendorStore');
         VendorStore.loadStore();
         VendorStore.sort('vendorname','ASC');
-        var BuyerStore = viewmodel.getStore('POrder_ListBuyerStore');
+        var BuyerStore = viewModel.getStore('POrder_ListBuyerStore');
         BuyerStore.loadStore();
         BuyerStore.sort('buyername','ASC');
-        var ListStatusStore = viewmodel.getStore('POrder_ListStatusStore');
+        var ListStatusStore = viewModel.getStore('POrder_ListStatusStore');
         ListStatusStore.loadStore();
+        var ListOrgStore = viewModel.getStore('ListOrgStore');
+        ListOrgStore.loadStore(13, null);
 
-        var startField = this.lookupReference('startdate');
-        var endField = this.lookupReference('enddate');
-        startField.getPicker().monthYearFormat = 'm-Y';
-        endField.getPicker().monthYearFormat = 'm-Y';
+        // var startField = this.lookupReference('startdate');
+        // var endField = this.lookupReference('enddate');
+        // startField.getPicker().monthYearFormat = 'm-Y';
+        // endField.getPicker().monthYearFormat = 'm-Y';
 
         if (me.isActivate) {
             me.onloadPage();
@@ -49,8 +51,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     onSpecialkey: function (field, e) {
         var me = this;
         if (field.itemId == "limitpage") {
-            var viewmodel = this.getViewModel();
-            var store = viewmodel.getStore('POrder_ListStore');
+            var viewModel = this.getViewModel();
+            var store = viewModel.getStore('POrder_ListStore');
             store.currentPage = 1;
         }
         if (e.getKey() == e.ENTER) {
@@ -59,18 +61,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     },
     onloadPage: function () {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('POrder_ListStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('POrder_ListStore');
         //
-        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
-        if (me.down('#txtpobuyer').getValue() == "") {
-            pobuyer = null;
+        var pobuyer, povendor, style, buyerid, vendorid, factoryid,orderdatefrom, orderdateto, status;
+        if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
+            pobuyer = "";
         }else pobuyer = me.down('#txtpobuyer').getValue();
         if (null==me.down('#txtpovendor') || me.down('#txtpovendor').getValue() == "") {
-            povendor = null;
+            povendor = "";
         }else povendor = me.down('#txtpovendor').getValue();
-        if (me.down('#txtstyle').getValue() == "") {
-            style = null;
+        if (me.down('#txtstyle').getValue() == "" || me.down('#txtstyle').getValue() == null) {
+            style = "";
         }else style = me.down('#txtstyle').getValue();
         if (me.down('#txtbuyerid').getValue() == "") {
             buyerid = null;
@@ -78,12 +80,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtvendorid').getValue() == "") {
             vendorid = null;
         }else vendorid = me.down('#txtvendorid').getValue();
-        if (me.down('#txtdatefrom').getValue() == "") {
-            orderdatefrom = null;
-        }else orderdatefrom = me.down('#txtdatefrom').getValue();
-        if (me.down('#txtdateto').getValue() == "") {
-            orderdateto = null;
-        }else orderdateto = me.down('#txtdateto').getValue();
+        if (me.down('#txtfactoryid').getValue() == "") {
+            factoryid = null;
+        }else factoryid = me.down('#txtfactoryid').getValue();
+        // if (me.down('#txtdatefrom').getValue() == "") {
+        //     orderdatefrom = null;
+        // }else orderdatefrom = me.down('#txtdatefrom').getValue();
+        // if (me.down('#txtdateto').getValue() == "") {
+        //     orderdateto = null;
+        // }else orderdateto = me.down('#txtdateto').getValue();
         if(me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == ""){
             status = [];
         }else status = me.down('#txtstatus').getValue();
@@ -97,22 +102,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (page == null) {
             page = 1;
         }
-        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page);
+        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, factoryid, status, limit, page);
     },
     onBtnTimKiem: function () {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('POrder_ListStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('POrder_ListStore');
         //
         var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
-        if (me.down('#txtpobuyer').getValue() == "") {
-            pobuyer = null;
+        if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
+            pobuyer = "";
         }else pobuyer = me.down('#txtpobuyer').getValue();
         if (null==me.down('#txtpovendor') || me.down('#txtpovendor').getValue() == "") {
-            povendor = null;
+            povendor = "";
         }else povendor = me.down('#txtpovendor').getValue();
-        if (me.down('#txtstyle').getValue() == "") {
-            style = null;
+        if (me.down('#txtstyle').getValue() == "" || me.down('#txtstyle').getValue() == null) {
+            style = "";
         }else style = me.down('#txtstyle').getValue();
         if (me.down('#txtbuyerid').getValue() == "") {
             buyerid = null;
@@ -120,12 +125,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtvendorid').getValue() == "") {
             vendorid = null;
         }else vendorid = me.down('#txtvendorid').getValue();
-        if (me.down('#txtdatefrom').getValue() == "") {
-            orderdatefrom = null;
-        }else orderdatefrom = me.down('#txtdatefrom').getValue();
-        if (me.down('#txtdateto').getValue() == "") {
-            orderdateto = null;
-        }else orderdateto = me.down('#txtdateto').getValue();
+        if (me.down('#txtfactoryid').getValue() == "") {
+            factoryid = null;
+        }else factoryid = me.down('#txtfactoryid').getValue();
+        // if (me.down('#txtdatefrom').getValue() == "") {
+        //     orderdatefrom = null;
+        // }else orderdatefrom = me.down('#txtdatefrom').getValue();
+        // if (me.down('#txtdateto').getValue() == "") {
+        //     orderdateto = null;
+        // }else orderdateto = me.down('#txtdateto').getValue();
         if(me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == ""){
             status = [];
         }else status = me.down('#txtstatus').getValue();
@@ -139,7 +147,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // if (page == null) {
         //     page = 1;
         // }
-        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page);
+        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, factoryid, status, limit, page);
     },
     // onPOBuyerFilterKeyup:function(){
     //     var grid = this.getView(),
@@ -286,5 +294,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
                 }
                 me.setLoading(false);
             })
-    } 
+    },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
 })

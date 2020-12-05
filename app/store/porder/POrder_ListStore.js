@@ -14,7 +14,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
         {name: 'po_vendor', type: 'string'},
         {name: 'orderdate', type: 'date', dateFormat: 'c'},
         {name: 'golivedate', type: 'date', dateFormat: 'c'},
-        {name: 'totalorder', type: 'string'},
+        {name: 'totalorder', type: 'int'},
 		{name: 'productiondate_plan', type: 'date', dateFormat: 'c'},
 		{name: 'startDatePlan', type: 'date', dateFormat: 'c'},
 		// {
@@ -69,7 +69,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			}
 		});
 	},  	
-	loadStoreBySearch: function(pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status, limit, page){
+	loadStoreBySearch: function(pobuyer, povendor, style, buyerid, vendorid, factoryid, status, limit, page){
 		var me=this;
 		var params = new Object();
 		params.pobuyer = pobuyer;
@@ -77,8 +77,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		params.style = style;
 		params.buyerid = buyerid;
 		params.vendorid = vendorid;
-		params.orderdatefrom = orderdatefrom;
-		params.orderdateto = orderdateto;
+		params.factoryid = factoryid;
 		params.status = status;
 		me.pageSize = limit;
 

@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: 95,
+            width: 92,
             items:[
                 {
                     xtype: 'new_numberfield',
@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: 95,
+            width: 92,
             items:[
                 {
                     xtype: 'new_numberfield',
@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: 115,
+            width: 112,
             items:[
                 {
                     xtype: 'new_numberfield',
@@ -144,7 +144,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     fieldLabel: 'Target Sew:',
                     labelAlign: 'left',
                     labelWidth: 63,
-                    width: 126,
+                    width: 123,
                     margin: 1,
                     bind: {
                         value: '{po_price.price_sewingtarget}',
@@ -160,9 +160,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     fieldStyle: 'font-size:11px;text-align:right;background-color:white',
                     hideTrigger:true,
                     readOnly: false,
-                    fieldLabel: 'Buy:',
+                    fieldLabel: 'Target&nbspBuyer:',
                     labelAlign: 'left',
-                    labelWidth: 30,
+                    labelWidth: 70,
                     flex: 1,
                     margin: 1,
                     bind: {

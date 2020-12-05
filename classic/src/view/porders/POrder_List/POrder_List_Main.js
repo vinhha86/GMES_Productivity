@@ -19,12 +19,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     },
     bind: {
         store: '{POrder_ListStore}'
-    },features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: '<b>{name}</b>',
-        hideGroupedHeader: false,
-        enableGroupingMenu: false
-    }],
+    },
+    // features: [{
+    //     ftype: 'grouping',
+    //     groupHeaderTpl: '<b>{name}</b>',
+    //     hideGroupedHeader: false,
+    //     enableGroupingMenu: false
+    // }],
+    features: [
+        {
+            id: 'group',
+            ftype: 'groupingsummary',
+            groupHeaderTpl: '<b>Phân xưởng: {name}</b>',
+            hideGroupedHeader: false,
+            enableGroupingMenu: false,
+        },
+        // {
+        //     ftype: 'summary',
+        //     groupHeaderTpl: 'Tổng',
+        //     dock: 'bottom'
+        // }
+    ],
     columns: [
         {
             xtype: 'actioncolumn',
@@ -179,8 +194,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             },
             // flex: 1,
-            width: 75,
-            align: 'end'
+            width: 100,
+            align: 'end',
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum'
         }, {
             text: 'Trạng thái',
             dataIndex: 'statusName',
@@ -252,6 +269,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // flex: 1,
                 width: 130,
             },
+
+            {
+                xtype:'combobox',
+                itemId:'txtfactoryid',
+                bind:{
+                    store:'{ListOrgStore}'
+                },
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local',
+                editable: true,
+                allowBlank: true,
+                emptyText: 'Phân xưởng',
+                margin: 5,
+                // flex: 1,
+                width: 130,
+            },
             // {
             //     xtype:'textfield',
             //     itemId:'txtpovendor',
@@ -263,26 +297,28 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             //     blankText: 'PO vendor',
             //     emptyText: 'PO vendor'
             // },
-            {
-                xtype:'datefield',
-                itemId:'txtdatefrom',
-                reference: 'startdate',
-                format: 'd/m/Y',
-                margin: 5,
-                // flex: 1,
-                width: 125,
-                emptyText: 'Tạo lệnh từ'
-            },
-            {
-                xtype:'datefield',
-                itemId:'txtdateto',
-                reference: 'enddate',
-                format: 'd/m/Y',
-                margin: 5,
-                // flex: 1,
-                width: 135,
-                emptyText: 'Tạo lệnh đến'
-            },
+            // {
+            //     xtype:'datefield',
+            //     itemId:'txtdatefrom',
+            //     reference: 'startdate',
+            //     format: 'd/m/Y',
+            //     margin: 5,
+            //     // flex: 1,
+            //     width: 125,
+            //     emptyText: 'Tạo lệnh từ',
+            //     hidden: true
+            // },
+            // {
+            //     xtype:'datefield',
+            //     itemId:'txtdateto',
+            //     reference: 'enddate',
+            //     format: 'd/m/Y',
+            //     margin: 5,
+            //     // flex: 1,
+            //     width: 135,
+            //     emptyText: 'Tạo lệnh đến',
+            //     hidden: true
+            // },
             {
                 xtype:'combobox',
                 itemId:'txtstatus',
