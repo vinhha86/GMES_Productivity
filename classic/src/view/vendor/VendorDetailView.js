@@ -124,7 +124,24 @@ Ext.define('GSmartApp.view.vendor.VendorDetailView', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
-        editable: false
+        editable: false,
+        tpl: [
+            '<ul class="x-list-plain">',
+            '<tpl for=".">',
+            // '<div class="x-combo-list-item">',
+            // '<div style="height: 16px; width: 16px; border: 1px solid #777777; display: inline-block; background-color:{rgbvalue}"></div>',
+            // '&nbsp&nbsp{name}',
+            // '</div>',
+            '<li class="x-boundlist-item listItmes"',
+            // 'style="background-color: {rgbvalue}">',
+            '<div style="display: flex; align-items: center;">',
+            '<div style="height: 16px; width: 16px; border: 1px solid #777777; display: inline-block; background-color:{rgbvalue}"></div>',
+            '&nbsp&nbsp{name}',
+            '</div>',
+            '</li>',
+            '</tpl>',
+            '</ul>'
+        ],
     }],
     dockedItems:[{
         layout:'hbox',

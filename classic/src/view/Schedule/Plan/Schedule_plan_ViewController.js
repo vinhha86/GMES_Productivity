@@ -62,19 +62,40 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 text: 'Đơn hàng (PO)',
                 iconCls: 'x-fa fa-cart-plus',
                 handler: function () {
-                    // console.log(eventRecord.data.pcontract_poid_link);
-                    let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Window', {
-                        viewModel: {
-                            data: {
-                                id: eventRecord.data.pcontract_poid_link,
-                                isedit: true
+                    var form = Ext.create('Ext.window.Window', {
+                        closable: false,
+                        resizable: false,
+                        modal: true,
+                        border: false,
+                        title: 'Thông tin PO',
+                        closeAction: 'destroy',
+                        height: 400,
+                        width: 800,
+                        bodyStyle: 'background-color: transparent',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            xtype: 'PContract_PO_Edit_Info_Main',
+                            viewModel: {
+                                type: 'PContract_PO_Edit_Info_Main_ViewModel',
+                                data: {
+                                    id: eventRecord.data.pcontract_poid_link,
+                                    isedit: true,
+                                    // productpairid_link: rec.get('productid_link'),
+                                    isHidden_req: false
+                                }
                             }
-                        }
+                        }]
                     });
-                    console.log(eventRecord.data.pcontract_poid_link);
-                    window.show();
+                    form.show();
+
+                    form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+                        
+                        form.close();
+                    })
                 }
-                // eventRecord.data.pcontract_poid_link
             },
             {
                 text: 'Lệnh sản xuất',
