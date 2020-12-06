@@ -5,7 +5,7 @@ Ext.define('GSmartApp.store.LineChartRegisterCodeCountStore', {
 	
 	fields: [
 		{name: 'registerDate',   type: 'date', dateFormat: 'c'},
-		'registerCodeCount'
+		'dataDHA', 'dataNV', 'dataBN1', 'dataBN2', 'dataBN3'
 	],
     // data: [
 	// 	{ registerDate: '2020-10-18', registerCodeCount: 2477},

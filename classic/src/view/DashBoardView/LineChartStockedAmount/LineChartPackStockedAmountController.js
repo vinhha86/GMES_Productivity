@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.DashBoardView.LineChartPackStockedAmountController', 
 
     onSeriesTooltipRender: function(tooltip, record, item) {
         // xt.Date.format(label, 'd/m');
-        var date = record.get('processingDate');
+        var date = record.get('registerDate');
         var value = record.get(item.series.getYField()) == null ? 0 : record.get(item.series.getYField());
         tooltip.setHtml(Ext.Date.format(date, 'd/m') + ': ' + value);
     },

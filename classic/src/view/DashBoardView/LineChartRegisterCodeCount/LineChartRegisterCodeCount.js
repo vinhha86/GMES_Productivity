@@ -25,7 +25,8 @@ Ext.define('GSmartApp.view.DashBoardView.LineChartRegisterCodeCount', {
             },
             axes: [{
                 type: 'numeric',
-                fields: ['registerCodeCount'],
+                // fields: ['registerCodeCount'],
+                fields: ['dataDHA', 'dataNV', 'dataBN1', 'dataBN2', 'dataBN3' ],
                 position: 'left',
                 grid: true,
                 minimum: 0,
@@ -46,9 +47,9 @@ Ext.define('GSmartApp.view.DashBoardView.LineChartRegisterCodeCount', {
             }],
             series: [{
                 type: 'line',
-                title: 'Số lượng',
+                title: 'DHA',
                 xField: 'registerDate',
-                yField: 'registerCodeCount',
+                yField: 'dataDHA',
                 // marker: {
                 //     // type: 'square',
                 //     // animation: {
@@ -57,6 +58,86 @@ Ext.define('GSmartApp.view.DashBoardView.LineChartRegisterCodeCount', {
                 //     // }
                 //     radius: 4,
                 //     lineWidth: 2
+                // },
+                highlightCfg: {
+                    scaling: 2
+                },
+                tooltip: {
+                    trackMouse: true,
+                    renderer: 'onSeriesTooltipRender'
+                }
+            }, {
+                type: 'line',
+                title: 'NV',
+                xField: 'registerDate',
+                yField: 'dataNV',
+                // marker: {
+                //     // type: 'triangle',
+                //     // animation: {
+                //     //     duration: 200,
+                //     //     easing: 'backOut'
+                //     // }
+                //     radius: 4,
+                //     lineWidth: 2
+                // },
+                highlightCfg: {
+                    scaling: 2
+                },
+                tooltip: {
+                    trackMouse: true,
+                    renderer: 'onSeriesTooltipRender'
+                }
+            }, {
+                type: 'line',
+                title: 'BN1',
+                xField: 'registerDate',
+                yField: 'dataBN1',
+                // marker: {
+                //     // type: 'arrow',
+                //     // animation: {
+                //     //     duration: 200,
+                //     //     easing: 'backOut'
+                //     // }
+                //     radius: 4,
+                //     lineWidth: 2
+                // },
+                highlightCfg: {
+                    scaling: 2
+                },
+                tooltip: {
+                    trackMouse: true,
+                    renderer: 'onSeriesTooltipRender'
+                }
+            }, {
+                type: 'line',
+                title: 'BN2',
+                xField: 'registerDate',
+                yField: 'dataBN2',
+                // marker: {
+                //     type: 'cross',
+                //     animation: {
+                //         duration: 200,
+                //         easing: 'backOut'
+                //     }
+                // },
+                highlightCfg: {
+                    scaling: 2
+                },
+                tooltip: {
+                    trackMouse: true,
+                    renderer: 'onSeriesTooltipRender'
+                }
+            }, {
+                type: 'line',
+                title: 'BN3',
+                xField: 'registerDate',
+                yField: 'dataBN3',
+                // marker: {
+                //     type: 'cross',
+                //     animation: {
+                //         duration: 200,
+                //         easing: 'backOut'
+                //     }
                 // },
                 highlightCfg: {
                     scaling: 2
