@@ -168,9 +168,10 @@ Ext.define('GSmartApp.store.porder.porderSKUStore', {
 		});
 		this.load();
 	},
-	loadByPContractPOforPOrderDetail: function(pcontract_poid_link){
+	loadByPContractPOforPOrderDetail: function(pcontract_poid_link, porderid_link){
 		var params = new Object();
 		params.pcontract_poid_link = pcontract_poid_link;
+		params.porderid_link = porderid_link;
 
 		this.setProxy({
 			type: 'ajax',
