@@ -20,8 +20,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOViewContro
         console.log(record.data);
         var pcontract_poid_link = record.get('id');
         var viewModel = this.getViewModel();
+        var porderid_link = viewModel.get('IdPOrder');
         viewModel.set('IdPcontractPo', pcontract_poid_link);
         var porderSKUStore = viewModel.getStore('porderSKUStore');
-        porderSKUStore.loadByPContractPOforPOrderDetail(pcontract_poid_link);
+        porderSKUStore.loadByPContractPOforPOrderDetail(pcontract_poid_link, porderid_link);
     }
 })
