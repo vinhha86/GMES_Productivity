@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         'Robo.Manager'
     ],
     init: function () {
+        // common.Check_Object_Permission();
         var view = this.getView().down('#treeplan');
         var event = view.getCrudManager().getEventStore();
         var filter = Ext.getCmp('FilterBar');
@@ -43,6 +44,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Sản phẩm',
+                itemId: 'Schedule_ProductInfo',
                 iconCls: 'x-fa fa-shopping-bag',
                 handler: function () {
                     let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
@@ -60,6 +62,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Đơn hàng (PO)',
+                itemId: 'Schedule_EditPO',
                 iconCls: 'x-fa fa-cart-plus',
                 handler: function () {
                     var form = Ext.create('Ext.window.Window', {
@@ -99,6 +102,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Lệnh sản xuất',
+                itemId: 'Schedule_EditPOrderGrantSKU',
                 iconCls: 'x-fa fa-industry',
                 handler: function () {
                     me.Show_LenhSanXuat(eventRecord);
@@ -112,6 +116,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             // },
             {
                 text: 'Năng suất',
+                itemId: 'Schedule_EditProductivity',
                 iconCls: 'x-fa fa-angle-double-right',
                 handler: function () {
                     me.ShowNangSuat(eventRecord);
@@ -119,6 +124,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Tách lệnh',
+                itemId: 'Schedule_POrderDetach',
                 iconCls: 'x-fa fa-cut',
                 handler: function () {
                     me.ShowBreakPorder(eventRecord);
@@ -126,6 +132,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Xóa lệnh',
+                itemId: 'Schedule_POrderDelete',
                 iconCls: 'x-fa fa-trash',
                 hidden: ishidden_delete,
                 handler: function () {
@@ -134,6 +141,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Hủy phân chuyền',
+                itemId: 'Schedule_RemoveSchedule',
                 iconCls: 'x-fa fa-ban',
                 hidden: !ishidden_delete,
                 handler: function () {
@@ -142,6 +150,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             {
                 text: 'Bố trí công nhân',
+                itemId: 'Schedule_Personnel',
                 iconCls: 'x-fa fa-balance-scale',
                 handler: function () {
                     me.porderGrantBalance(eventRecord);
@@ -151,6 +160,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         })
         e.stopEvent();
         menu_grid.showAt(e.getXY());
+        common.Check_Menu_Permission(menu_grid);
     },
     cancel_pordergrant: function(rec){
         var grid = this.getView();

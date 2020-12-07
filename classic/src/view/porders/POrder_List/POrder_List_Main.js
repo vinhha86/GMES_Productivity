@@ -169,13 +169,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         //     dataIndex: 'po_vendor',
         //     flex: 1
         // }, 
+        // {
+        //     text: 'Tạo lệnh',
+        //     dataIndex: 'orderdate',
+        //     renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        //     // flex: 1,
+        //     width: 70,
+        // }, 
         {
-            text: 'Tạo lệnh',
-            dataIndex: 'orderdate',
-            renderer: Ext.util.Format.dateRenderer('d/m/y'),
-            // flex: 1,
-            width: 70,
-        }, {
             text: 'Vào chuyền',
             dataIndex: 'startDatePlan',
             renderer: Ext.util.Format.dateRenderer('d/m/y'),
