@@ -20,6 +20,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         store: '{TimeSheetLunchStore}'
     },
     enableColumnMove: false,
+    reserveScrollbar: true,
     columns: [{
         text: 'STT',
         width: 40,
@@ -37,7 +38,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'personnelCodeFilter',
-            width: 196,
+            width: 96,
             margin: 2,
             enableKeyEvents: true,
             listeners: {
@@ -48,6 +49,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
     }, {
         text: 'Họ và tên',
         dataIndex: 'personnelFullname',
+        // flex: 1,
         width: 200,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -57,6 +59,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'personnelFullnameFilter',
+            // flex: 1,
             width: 196,
             margin: 2,
             enableKeyEvents: true,
@@ -73,22 +76,26 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 xtype: 'checkcolumn',
                 text: 'Đi làm',
                 dataIndex: 'workingShift1',
-                headerCheckbox: false,
+                headerCheckbox: true,
                 flex: 1,
+                // width: 75,
                 listeners: {
                     beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange'
+                    checkchange: 'onCheckchange',
+                    headerclick: 'onHeaderClick'
                 }
             }, 
             { 
                 xtype: 'checkcolumn',
                 text: 'Ăn',
                 dataIndex: 'lunchShift1',
-                headerCheckbox: false,
+                // headerCheckbox: true,
                 flex: 1,
+                // width: 50,
                 listeners: {
                     beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange'
+                    checkchange: 'onCheckchange',
+                    // headerclick: 'onHeaderClick'
                 }
             }
         ]
@@ -101,22 +108,26 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 xtype: 'checkcolumn',
                 text: 'Đi làm',
                 dataIndex: 'workingShift2',
-                headerCheckbox: false,
+                headerCheckbox: true,
                 flex: 1,
+                // width: 75,
                 listeners: {
                     beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange'
+                    checkchange: 'onCheckchange',
+                    headerclick: 'onHeaderClick'
                 }
             }, 
             { 
                 xtype: 'checkcolumn',
                 text: 'Ăn',
                 dataIndex: 'lunchShift2',
-                headerCheckbox: false,
+                // headerCheckbox: true,
                 flex: 1,
+                // width: 50,
                 listeners: {
                     beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange'
+                    checkchange: 'onCheckchange',
+                    // headerclick: 'onHeaderClick'
                 }
             }
         ]
@@ -129,22 +140,26 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 xtype: 'checkcolumn',
                 text: 'Đi làm',
                 dataIndex: 'workingShift3',
-                headerCheckbox: false,
+                headerCheckbox: true,
                 flex: 1,
+                // width: 75,
                 listeners: {
                     beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange'
+                    checkchange: 'onCheckchange',
+                    headerclick: 'onHeaderClick'
                 }
             }, 
             { 
                 xtype: 'checkcolumn',
                 text: 'Ăn',
                 dataIndex: 'lunchShift3',
-                headerCheckbox: false,
+                // headerCheckbox: true,
                 flex: 1,
+                // width: 50,
                 listeners: {
                     beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange'
+                    checkchange: 'onCheckchange',
+                    // headerclick: 'onHeaderClick'
                 }
             }
         ]
@@ -171,7 +186,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             itemId: 'btnUnconfirm',
             bind: {
                 hidden: '{isBtnUnconfirmHidden}',
-                disabled: '{isBtnUnconfirmHiddenDisabled}'
+                // disabled: '{isBtnUnconfirmHiddenDisabled}'
             }
         }, {
             flex: 1,

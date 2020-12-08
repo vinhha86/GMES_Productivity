@@ -14,6 +14,120 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     },
     onEditCheckBox: function(editor, context, e){},
     onBeforecheckchange:function(column, rowIndex, checked, record, e, eOpts){},
+    onHeaderClick: function(grid, column, e, t, eOpts){
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var checked = column.allChecked;
+        var dataIndex = column.dataIndex;
+
+        var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
+        TimeSheetLunchStore.rejectChanges();
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn chọn tất cả nhân viên ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    m.onHeaderClickConfirm(column, checked, dataIndex);
+                }
+            }
+        });
+    },
+    onHeaderClickConfirm: function(column, checked, dataIndex){
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        console.log('Header:' + checked);
+
+        var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
+        // TimeSheetLunchStore.rejectChanges();
+
+        // store empty
+        if(TimeSheetLunchStore.getData().items.length == 0){
+            return;
+        }
+        // neu ngay la hom qua thi khong duoc edit
+        // var isToday = viewModel.get('isToday');
+        // if(!isToday) {
+        //     return;
+        // }
+        // neu da xac nhan thi khong duoc edit
+        var status = TimeSheetLunchStore.getData().items[0].data.status;
+        if(status == 1){
+            return;
+        }
+
+        // checked workingShift
+        if(dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3'){
+            var lunchShift = '';
+            switch(dataIndex){
+                case 'workingShift1':
+                    lunchShift = 'lunchShift1';
+                    break;
+                case 'workingShift2':
+                    lunchShift = 'lunchShift2';
+                    break;
+                case 'workingShift3':
+                    lunchShift = 'lunchShift3';
+                    break;
+            }
+            TimeSheetLunchStore.each(function(rec){
+                // console.log(rec);
+                rec.set(dataIndex, checked);
+                rec.set(lunchShift, checked);
+            });
+        }
+
+        // checked lunchShift
+        // if(dataIndex == 'lunchShift1' || dataIndex == 'lunchShift2' || dataIndex == 'lunchShift3'){
+        //     var workingShift = '';
+        //     switch(dataIndex){
+        //         case 'lunchShift1':
+        //             workingShift = 'workingShift1';
+        //             break;
+        //         case 'lunchShift2':
+        //             workingShift = 'workingShift2';
+        //             break;
+        //         case 'lunchShift3':
+        //             workingShift = 'workingShift3';
+        //             break;
+        //     }
+        //     TimeSheetLunchStore.each(function(rec){
+        //         // console.log(rec);
+        //         // chi edit lunch khi working == true
+        //         if(rec.get(workingShift)){
+        //             rec.set(dataIndex, checked);
+        //             // rec.set(workingShift, checked);
+        //         }
+        //     });
+        // }
+
+        var data = new Array();
+        TimeSheetLunchStore.each(function(rec){
+            var recData = rec.data;
+            var obj = new Object();
+            obj.lunchShift1 = recData.lunchShift1;
+            obj.lunchShift2 = recData.lunchShift2;
+            obj.lunchShift3 = recData.lunchShift3;
+            obj.personnelCode = recData.personnelCode;
+            obj.personnelFullname = recData.personnelFullname;
+            obj.personnelid_link = recData.personnelid_link;
+            obj.workingShift1 = recData.workingShift1;
+            obj.workingShift2 = recData.workingShift2;
+            obj.workingShift3 = recData.workingShift3;
+            obj.workingdate = recData.workingdate;
+            obj.dataIndex = dataIndex;
+            data.push(obj);
+        });
+        m.saveRecord(data);
+    },
     onCheckchange:function(column, rowIndex, checked, record, e, eOpts){
         // console.log(column);
         // console.log(record);
