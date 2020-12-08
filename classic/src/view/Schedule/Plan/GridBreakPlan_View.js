@@ -30,8 +30,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
         ftype: 'groupingsummary',
         groupHeaderTpl: '{name}',
         hideGroupedHeader: true,
-        enableGroupingMenu: false,
-        dock: 'bottom'
+        enableGroupingMenu: false
     }],
     bind: {
         store: '{POrder_ListGrantSKUStore}'
