@@ -7,13 +7,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('POrder_ListStore');
         // store.sort('orderdate','DESC');
-        store.loadStoreBySearch("", "", "", null, null, null, [1, 2, 3, 0, -1], 25, 1);
+        var golivedatefrom = new Date(new Date().getTime() - 30*86400000);
+        var golivedateto = new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1);
+        store.loadStoreBySearch("", "", "", null, null, null, 
+            golivedatefrom, golivedateto, [1, 2, 3, 0, -1], 50, 1);
 
         this.onActivate();
     },
     control: {
         '#porderlistmain': {
-            activate: 'onActivate',
+            // activate: 'onActivate',
             itemdblclick: 'onitemdblclick',
         },
         '#btnTimKiem': {
@@ -64,7 +67,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('POrder_ListStore');
         //
-        var pobuyer, povendor, style, buyerid, vendorid, factoryid,orderdatefrom, orderdateto, status;
+        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto;
+        var golivedatefrom, golivedateto, status;
         if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
             pobuyer = "";
         }else pobuyer = me.down('#txtpobuyer').getValue();
@@ -89,27 +93,35 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // if (me.down('#txtdateto').getValue() == "") {
         //     orderdateto = null;
         // }else orderdateto = me.down('#txtdateto').getValue();
+        if (me.down('#txtgolivedatefrom').getValue() == "") {
+            golivedatefrom = null;
+        }else golivedatefrom = me.down('#txtgolivedatefrom').getValue();
+        if (me.down('#txtgolivedateto').getValue() == "") {
+            golivedateto = null;
+        }else golivedateto = me.down('#txtgolivedateto').getValue();
         if(me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == ""){
             status = [];
         }else status = me.down('#txtstatus').getValue();
-
-
         var limit = me.down('#limitpage').getValue();
         var page = store.currentPage;
         if (limit == null) {
-            limit = 25;
+            limit = 50;
         }
         if (page == null) {
             page = 1;
         }
-        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, factoryid, status, limit, page);
+        store.loadStoreBySearch(pobuyer, povendor, style, 
+            buyerid, vendorid, factoryid, 
+            golivedatefrom, golivedateto, 
+            status, limit, page);
     },
     onBtnTimKiem: function () {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('POrder_ListStore');
         //
-        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto, status;
+        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto;
+        var golivedatefrom, golivedateto, status;
         if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
             pobuyer = "";
         }else pobuyer = me.down('#txtpobuyer').getValue();
@@ -134,6 +146,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // if (me.down('#txtdateto').getValue() == "") {
         //     orderdateto = null;
         // }else orderdateto = me.down('#txtdateto').getValue();
+        if (me.down('#txtgolivedatefrom').getValue() == "") {
+            golivedatefrom = null;
+        }else golivedatefrom = me.down('#txtgolivedatefrom').getValue();
+        if (me.down('#txtgolivedateto').getValue() == "") {
+            golivedateto = null;
+        }else golivedateto = me.down('#txtgolivedateto').getValue();
         if(me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == ""){
             status = [];
         }else status = me.down('#txtstatus').getValue();
@@ -142,12 +160,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var limit = me.down('#limitpage').getValue();
         var page = 1;
         if (limit == null) {
-            limit = 25;
+            limit = 50;
         }
         // if (page == null) {
         //     page = 1;
         // }
-        store.loadStoreBySearch(pobuyer, povendor, style, buyerid, vendorid, factoryid, status, limit, page);
+        store.loadStoreBySearch(pobuyer, povendor, style, 
+            buyerid, vendorid, factoryid, 
+            golivedatefrom, golivedateto,
+            status, limit, page);
+
+            me.down('#topDock').setCollapsed(true);
     },
     // onPOBuyerFilterKeyup:function(){
     //     var grid = this.getView(),
