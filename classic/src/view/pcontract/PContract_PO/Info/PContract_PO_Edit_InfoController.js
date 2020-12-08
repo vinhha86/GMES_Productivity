@@ -27,11 +27,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         // console.log(productiondate);
         var shipdate = Ext.Date.parse(po_data.shipdate, 'c');
         if (null == shipdate) shipdate = new Date(po_data.shipdate);
-        // console.log(shipdate);
-        var days = Ext.Date.diff(productiondate, shipdate, 'd');
-        // console.log(days);
-        viewmodel.set('po.productiondays',days);
-        me.onProductivityChange();
+
+        var params = new Object();
+        params.StartDate = dt;
+        params.EndDate = shipdate;
+
+        GSmartApp.Ajax.post('/api/v1/schedule/get_duration', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                   
+                    if(response.respcode == 200){
+                        viewmodel.set('po.productiondays',response.duration);
+                        me.onProductivityChange();
+                    }
+                }
+            })
     },
     recalProductionDays: function(){
         var me = this;
@@ -43,12 +54,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         // console.log(productiondate);
         var shipdate = Ext.Date.parse(po_data.shipdate, 'c');
         if (null == shipdate) shipdate = new Date(po_data.shipdate);
-        // console.log(shipdate);
 
-        var days = Ext.Date.diff(productiondate, shipdate, 'd');
-        // console.log(days);
-        viewmodel.set('po.productiondays',days);
-        me.onProductivityChange();
+        var params = new Object();
+        params.StartDate = productiondate;
+        params.EndDate = shipdate;
+
+        GSmartApp.Ajax.post('/api/v1/schedule/get_duration', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                   
+                    if(response.respcode == 200){
+                        viewmodel.set('po.productiondays',response.duration);
+                        me.onProductivityChange();
+                    }
+                }
+            })
     },
     onPOBuyerChange: function() {
         var viewmodel = this.getViewModel();
