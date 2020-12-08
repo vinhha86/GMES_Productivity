@@ -52,7 +52,8 @@ Ext.define('GSmartApp.view.salary.TimeSheet_Sum_D_WorkTable', {
         rowGrandTotalsPosition: 'none',
         colGrandTotalsPosition: 'none',
         textGrandTotalTpl: 'Tổng:',
-        textTotalTpl: 'Tổng ({name})',
+        textTotalTpl: 'Tổng công',
+        // textTotalTpl: 'Tổng ({name})',
         // Configure the aggregate dimensions. Multiple dimensions are supported.
         aggregate: [
             // {
