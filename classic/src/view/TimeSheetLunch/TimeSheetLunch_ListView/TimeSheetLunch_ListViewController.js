@@ -24,11 +24,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var dataIndex = column.dataIndex;
 
         // neu ngay la hom qua thi khong duoc edit
-        var isToday = viewModel.get('isToday');
-        if(!isToday) {
-            TimeSheetLunchStore.rejectChanges();
-            return;
-        }
+        // var isToday = viewModel.get('isToday');
+        // if(!isToday) {
+        //     TimeSheetLunchStore.rejectChanges();
+        //     return;
+        // }
 
         // neu da xac nhan thi khong duoc edit
         if(record.get('status') == 1){
@@ -88,16 +88,48 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             isOk = false;
                             return;
                         }else{
-                            m.saveRecord(dataIndex, record.data);
+                            var recData = record.data;
+                            var data = new Array();
+                            var obj = new Object();
+                            obj.lunchShift1 = recData.lunchShift1;
+                            obj.lunchShift2 = recData.lunchShift2;
+                            obj.lunchShift3 = recData.lunchShift3;
+                            obj.personnelCode = recData.personnelCode;
+                            obj.personnelFullname = recData.personnelFullname;
+                            obj.personnelid_link = recData.personnelid_link;
+                            obj.workingShift1 = recData.workingShift1;
+                            obj.workingShift2 = recData.workingShift2;
+                            obj.workingShift3 = recData.workingShift3;
+                            obj.workingdate = recData.workingdate;
+                            obj.dataIndex = dataIndex;
+                            data.push(obj);
+
+                            m.saveRecord(data);
                         }
                     }
                 });
         }else{
-            m.saveRecord(dataIndex, record.data);
+            var recData = record.data;
+            var data = new Array();
+            var obj = new Object();
+            obj.lunchShift1 = recData.lunchShift1;
+            obj.lunchShift2 = recData.lunchShift2;
+            obj.lunchShift3 = recData.lunchShift3;
+            obj.personnelCode = recData.personnelCode;
+            obj.personnelFullname = recData.personnelFullname;
+            obj.personnelid_link = recData.personnelid_link;
+            obj.workingShift1 = recData.workingShift1;
+            obj.workingShift2 = recData.workingShift2;
+            obj.workingShift3 = recData.workingShift3;
+            obj.workingdate = recData.workingdate;
+            obj.dataIndex = dataIndex;
+            data.push(obj);
+            
+            m.saveRecord(data);
         }
         // TimeSheetLunchStore.rejectChanges();
     },
-    saveRecord: function(dataIndex, recData){
+    saveRecord: function(data){
         // console.log(dataIndex);
         // console.log(recData);
 
@@ -106,20 +138,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
 
         var params = new Object();
-        var data = new Object();
-        data.lunchShift1 = recData.lunchShift1;
-        data.lunchShift2 = recData.lunchShift2;
-        data.lunchShift3 = recData.lunchShift3;
-        data.personnelCode = recData.personnelCode;
-        data.personnelFullname = recData.personnelFullname;
-        data.personnelid_link = recData.personnelid_link;
-        data.workingShift1 = recData.workingShift1;
-        data.workingShift2 = recData.workingShift2;
-        data.workingShift3 = recData.workingShift3;
-        data.workingdate = recData.workingdate;
-        
         params.data = data;
-        params.dataIndex = dataIndex;
+        // params.dataIndex = dataIndex;
         me.setLoading(true);
         GSmartApp.Ajax.post('/api/v1/timesheetlunch/save', Ext.JSON.encode(params),
             function (success, response, options) {
