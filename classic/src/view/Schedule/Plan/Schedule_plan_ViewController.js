@@ -85,6 +85,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                                 type: 'PContract_PO_Edit_Info_Main_ViewModel',
                                 data: {
                                     id: eventRecord.data.pcontract_poid_link,
+                                    productid_link: eventRecord.data.productid_link,
                                     isedit: true,
                                     // productpairid_link: rec.get('productid_link'),
                                     isHidden_req: false
@@ -92,6 +93,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             }
                         }]
                     });
+                    console.log(eventRecord.data);
                     form.show();
 
                     form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {

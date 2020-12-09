@@ -86,12 +86,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
 
                         //Lay danh sach POrder_Req
                         var porderReqStore = viewmodel.getStore('porderReqStore');
-                        porderReqStore.loadByPO(id);     
+                        porderReqStore.loadByPO(id);
                         
                         // //Lay danh sach ke hoach giao hang
                         // var POShippingStore = viewmodel.getStore('POShippingStore');
                         // POShippingStore.loadStore_bypo(id);
                         // console.log(POShippingStore);
+
+                        // Lay productivity
+                        var productid_link = viewmodel.get('productid_link');
+                        var pcontract_po_productivity = new Object();
+
+                        for (var i = 0; i < response.data.pcontract_po_productivity.length; i++) {
+                            if (response.data.pcontract_po_productivity[i].productid_link == productid_link) {
+                                pcontract_po_productivity = response.data.pcontract_po_productivity[i];
+                                break;
+                            }
+                        }
+
+                        viewmodel.set('pcontract_po_productivity', pcontract_po_productivity);
                     }
                 }
             })
