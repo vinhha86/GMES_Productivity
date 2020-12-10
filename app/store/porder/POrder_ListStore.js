@@ -105,10 +105,10 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			reader: {
 				type: 'json',
 				rootProperty: 'data',
-				totalProperty: 'totalCount'
+				// totalProperty: 'totalCount'
 			}
 		});
-		this.loadPage(page,{
+		this.loadPage(1,{
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){

@@ -399,5 +399,77 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             filters.remove(this.grantedReqVendornameFilter);
             this.grantedReqVendornameFilter = null;
         }
-    }
+    },
+    onMenuPorderReqList: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        console.log(record);
+        var menu_grid = new Ext.menu.Menu({
+            items: [
+            {
+                text: 'Sản phẩm',
+                itemId: 'PorderReqList_ProductInfo',
+                iconCls: 'x-fa fa-shopping-bag',
+                handler: function () {
+                    var window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
+                        IdPContract: record.data.pcontractid_link,
+                        IdProduct: record.data.productid_link,
+                        viewModel: {
+                            data: {
+                                IdPContract: record.data.pcontractid_link,
+                                IdProduct: record.data.productid_link,
+                                isWindow: true
+                            }
+                        }
+                    });
+                    window.show();
+                    // console.log(eventRecord);
+                }
+            },
+            {
+                text: 'Đơn hàng (PO)',
+                itemId: 'PorderReqList_EditPO',
+                iconCls: 'x-fa fa-cart-plus',
+                handler: function () {
+                    var form = Ext.create('Ext.window.Window', {
+                        closable: false,
+                        resizable: false,
+                        modal: true,
+                        border: false,
+                        title: 'Thông tin PO',
+                        closeAction: 'destroy',
+                        height: 400,
+                        width: 800,
+                        bodyStyle: 'background-color: transparent',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            xtype: 'PContract_PO_Edit_Info_Main',
+                            viewModel: {
+                                type: 'PContract_PO_Edit_Info_Main_ViewModel',
+                                data: {
+                                    id: record.data.pcontract_poid_link,
+                                    productid_link: record.data.productid_link,
+                                    isedit: true,
+                                    // productpairid_link: rec.get('productid_link'),
+                                    isHidden_req: false
+                                }
+                            }
+                        }]
+                    });
+                    form.show();
+
+                    form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+                        
+                        form.close();
+                    })
+                }
+            }]
+        })
+
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.showAt(position);
+    },
 })
