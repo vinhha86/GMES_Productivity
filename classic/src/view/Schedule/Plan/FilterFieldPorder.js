@@ -29,7 +29,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
 
     doHighlight : function (value) {
         var store = this.store;
-
         if (!value) {
             store.clearFilter();
             // store.each(function(task) {
@@ -37,12 +36,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
             // })
         } else {
             store.each(function(task) {
-                if (task.get('pordercode').indexOf(value) >= 0) {
-                    task.set('Cls', task.get('cls')+ ' match');
-                    Ext.getCmp('treeplan').getSchedulingView().scrollEventIntoView(task, true, true);
-                    Ext.getCmp('treeplan').getEventSelectionModel().select(task);
-                } else {
-                    task.set('Cls', task.get('cls'));
+                if(task.get('productbuyercode') != null){
+                    if (task.get('productbuyercode').indexOf(value) >= 0) {
+                        task.set('Cls', task.get('cls')+ ' match');
+                        Ext.getCmp('treeplan').getSchedulingView().scrollEventIntoView(task, true, true);
+                        Ext.getCmp('treeplan').getEventSelectionModel().select(task);
+                    } else {
+                        task.set('Cls', task.get('cls'));
+                    }
                 }
             });
         }
