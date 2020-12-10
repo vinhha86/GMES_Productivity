@@ -52,6 +52,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         IdProduct: eventRecord.data.productid_link,
                         viewModel: {
                             data: {
+                                IdPContract: eventRecord.data.pcontractid_link,
+                                IdProduct: eventRecord.data.productid_link,
                                 isWindow: true
                             }
                         }
