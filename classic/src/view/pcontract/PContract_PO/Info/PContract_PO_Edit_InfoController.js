@@ -18,27 +18,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         if (null == matdate) matdate = new Date(po_data.matdate);
         // var dt = Ext.Date.subtract(new Date(po_data.matdate), Ext.Date.DAY, -7);
         // var dt = Ext.Date.subtract(Ext.Date.parse(po_data.matdate, 'c'), Ext.Date.DAY, -7);
-        var dt = Ext.Date.subtract(matdate, Ext.Date.DAY, -7);
-        viewmodel.set('po.productiondate',dt);
-        // console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
+        // var dt = Ext.Date.subtract(matdate, Ext.Date.DAY, -7);
+        // viewmodel.set('po.productiondate',dt);
+        // // console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
         
-        var productiondate = Ext.Date.parse(po_data.productiondate, 'c');
-        if (null == productiondate) productiondate = new Date(po_data.productiondate);
+        // var productiondate = Ext.Date.parse(po_data.productiondate, 'c');
+        // if (null == productiondate) productiondate = new Date(po_data.productiondate);
         // console.log(productiondate);
         var shipdate = Ext.Date.parse(po_data.shipdate, 'c');
         if (null == shipdate) shipdate = new Date(po_data.shipdate);
 
         var params = new Object();
-        params.StartDate = dt;
+        params.MatDate = matdate;
         params.EndDate = shipdate;
 
-        GSmartApp.Ajax.post('/api/v1/schedule/get_duration', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/schedule/get_duration_from_matdate', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                    
                     if(response.respcode == 200){
                         viewmodel.set('po.productiondays',response.duration);
+                        viewmodel.set('po.productiondate',response.production_date);
                         me.onProductivityChange();
                     }
                 }
