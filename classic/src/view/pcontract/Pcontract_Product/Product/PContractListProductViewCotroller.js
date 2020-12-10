@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         var storeDoc = viewmodel.getStore('PContractDocumentStore');
 
         var me = this.getView();
-        var PContractId = me.IdPContract;
+        var PContractId = viewmodel.get('IdPContract');;
         var productid = record.data.productid_link;
         var productName = record.data.productName;
 
@@ -165,6 +165,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
     },
     onEditSoLuong: function (grid, rowIndex, colIndex) {
         var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var IdPContract = viewmodel.get('IdPContract');
         var data = grid.getStore().getAt(rowIndex);
         var productid_link = data.get('productid_link');
         var name = data.get('productName');
@@ -187,7 +189,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
             items: [{
                 xtype: 'PContractProductColorView',
                 IdProduct: productid_link,
-                IdPContract: me.IdPContract
+                IdPContract: IdPContract
             }]
         });
         form.show();

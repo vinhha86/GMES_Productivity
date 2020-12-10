@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_General_InfoViewController',
     init: function () {
-        let me = this.getView();
+        var me = this.getView();
 
         this.loadStoreForPopUpWindow();
         this.loadDataForPopUpWindow();
@@ -17,17 +17,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
 
 
     loadStoreForPopUpWindow: function(){
-        let me = this.getView();
-        let viewmodel = this.getViewModel();
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
 
-        let KHStore = viewmodel.getStore('CustomerStore');
-        let VenderStore = viewmodel.getStore('Vender');
-        let EndBuyerStore = viewmodel.getStore('EndBuyer');
-        let BranchStore = viewmodel.getStore('BranchStore');
-        let SeasonStore = viewmodel.getStore('SeasonStore');
-        let UnitStore = viewmodel.getStore('UnitStore');
-        let MarketStore = viewmodel.getStore('MarketStore');
-        let PContractTypeStore = viewmodel.getStore('ContractTypes');
+        var KHStore = viewmodel.getStore('CustomerStore');
+        var VenderStore = viewmodel.getStore('Vender');
+        var EndBuyerStore = viewmodel.getStore('EndBuyer');
+        var BranchStore = viewmodel.getStore('BranchStore');
+        var SeasonStore = viewmodel.getStore('SeasonStore');
+        var UnitStore = viewmodel.getStore('UnitStore');
+        var MarketStore = viewmodel.getStore('MarketStore');
+        var PContractTypeStore = viewmodel.getStore('ContractTypes');
 
         KHStore.loadStore(10, false);
         VenderStore.loadStore(11, false);
@@ -40,37 +40,38 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
     },
 
     loadDataForPopUpWindow: function(){
-        let me = this.getView();
-        let viewmodel = this.getViewModel();
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
 
-        // window.IdPContract = 34;
+        var IdPContract = viewmodel.get('IdPContract');
+        var IdProduct = viewmodel.get('IdProduct');
 
-        let infoView = me.down('#PContractInfoView');
+        var infoView = me.down('#PContractInfoView');
         infoView.IdPContract = me.IdPContract;
-        infoView.getController().loadInfo(me.IdPContract);
+        infoView.getController().loadInfo(IdPContract);
 
-        let listProducView = me.down('#PContractListProductView');
+        var listProducView = me.down('#PContractListProductView');
         listProducView.IdPContract = me.IdPContract;
 
-        let productpair = me.down('#PContractPairProductView');
+        var productpair = me.down('#PContractPairProductView');
         productpair.IdPcontract = me.IdPContract;
 
-        let storepair = viewmodel.getStore('PContractProductPairStore');
-        let store = viewmodel.getStore('PContractProductStore');
-        store.loadStore(me.IdPContract);
-        if(me.IdProduct){
+        var storepair = viewmodel.getStore('PContractProductPairStore');
+        var store = viewmodel.getStore('PContractProductStore');
+        store.loadStore(IdPContract);
+        if(IdProduct){
             store.getFilters().add({
                 property: 'productid_link',
                 value: me.IdProduct,
                 exactMatch: true
             });
         }
-        storepair.loadStore(me.IdPContract);
+        storepair.loadStore(IdPContract);
     },
 
     disableInfoViewBtn: function(){
-        let me = this.getView();
-        let infoView = me.down('#PContractInfoView');
+        var me = this.getView();
+        var infoView = me.down('#PContractInfoView');
         if (infoView.down('#contractcode') != null) infoView.down('#contractcode').setReadOnly(true);
         if (infoView.down('#contractdate') != null) infoView.down('#contractdate').setReadOnly(true);
         if (infoView.down('#confirmdate') != null) infoView.down('#confirmdate').setReadOnly(true);
@@ -84,34 +85,34 @@ Ext.define('GSmartApp.view.pcontract.PContract_General_InfoViewController', {
     },
 
     disableListProductViewBtn: function(){
-        let me = this.getView();
-        let listProductView = me.down('#PContractListProductView');
+        var me = this.getView();
+        var listProductView = me.down('#PContractListProductView');
         if(listProductView.down('#btnAddProduct_PContractListProductView') != null) listProductView.down('#btnAddProduct_PContractListProductView').setVisible(false);
-        let col = listProductView.getColumns()[5];
+        var col = listProductView.getColumns()[5];
         if (col) col.hide();
     },
 
     disablePairProductViewBtn: function(){
-        let me = this.getView();
-        let pairProductView = me.down('#PContractPairProductView');
+        var me = this.getView();
+        var pairProductView = me.down('#PContractPairProductView');
         if(pairProductView.down('#btnPair_PContractPairProductView') != null) pairProductView.down('#btnPair_PContractPairProductView').setVisible(false);
-        let col = pairProductView.getColumns()[2];
+        var col = pairProductView.getColumns()[2];
         col.hide();
-        let cellEditing = pairProductView.getPlugins()[0];
+        var cellEditing = pairProductView.getPlugins()[0];
         if (cellEditing) cellEditing.destroy();
     },
 
     disableDocumentViewBtn: function(){
-        let me = this.getView();
-        let listDocumentView = me.down('#PContractDocumentView');
+        var me = this.getView();
+        var listDocumentView = me.down('#PContractDocumentView');
         if(listDocumentView.down('#btnDoc_PContractDocumentView') != null) listDocumentView.down('#btnDoc_PContractDocumentView').setVisible(false);
     },
 
     disableAttributeViewBtn: function(){
-        let me = this.getView();
-        let attributeView = me.down('#PContractAttributeView');
+        var me = this.getView();
+        var attributeView = me.down('#PContractAttributeView');
         if(attributeView.down('#btnThemMoi') != null) attributeView.down('#btnThemMoi').setVisible(false);
-        let col = attributeView.getColumns()[2];
+        var col = attributeView.getColumns()[2];
         if (col) col.hide();
     },
 })

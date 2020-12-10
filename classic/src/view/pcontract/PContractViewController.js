@@ -109,12 +109,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 viewmodel.set('IdProduct_filterPO', strSplit[2]);
             }
         }
-
-        me.IdPContract = id;
+        viewmodel.set('IdPContract', id);
+        // me.IdPContract = id;
 
         var infoView = me.down('#PContractInfoView');
         infoView.IdPContract = id;
-        infoView.getController().loadInfo(me.IdPContract);
+        infoView.getController().loadInfo(id);
 
         var listProducView = me.down('#PContractListProductView');
         listProducView.IdPContract = id;
@@ -180,7 +180,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         var data = new Object();
 
         data = viewmodel.get('PContract');
-        data.id = me.IdPContract;
+        data.id = viewmodel.get('IdPContract');
         data.orgrootid_link = 0;
         data.status = 1;
         data.usercreatedid_link = 0;

@@ -402,12 +402,32 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onMenuPorderReqList: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
-        // console.log(record);
+        console.log(record);
         var menu_grid = new Ext.menu.Menu({
             items: [
             {
+                text: 'Sản phẩm',
+                itemId: 'PorderReqList_ProductInfo',
+                iconCls: 'x-fa fa-shopping-bag',
+                handler: function () {
+                    var window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
+                        IdPContract: record.data.pcontractid_link,
+                        IdProduct: record.data.productid_link,
+                        viewModel: {
+                            data: {
+                                IdPContract: record.data.pcontractid_link,
+                                IdProduct: record.data.productid_link,
+                                isWindow: true
+                            }
+                        }
+                    });
+                    window.show();
+                    // console.log(eventRecord);
+                }
+            },
+            {
                 text: 'Đơn hàng (PO)',
-                itemId: 'Schedule_EditPO',
+                itemId: 'PorderReqList_EditPO',
                 iconCls: 'x-fa fa-cart-plus',
                 handler: function () {
                     var form = Ext.create('Ext.window.Window', {

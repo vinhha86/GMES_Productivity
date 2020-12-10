@@ -8,8 +8,9 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
     },
     init: function () {
         var me = this.getView();
-
-        if (this.getView().IdPContract == 0) {
+        var viewmodel  = this.getViewModel();
+        var IdPContract = viewmodel.get('IdPContract');
+        if (IdPContract == 0) {
             this.getView().getForm().reset();
         }
 
