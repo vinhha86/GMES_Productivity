@@ -464,6 +464,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                         
                         form.close();
                     })
+
+                    form.down('#PContract_PO_Edit_Info_Main').getController().on('LuuThanhCong', function () {
+                        // console.log('ok');
+                        var viewmodel = me.getViewModel();
+                        var store_req = viewmodel.getStore('Porder_Req_Store');
+                        if(store_req != null){
+                            store_req.load();
+                        }
+                        // form.close();
+                    })
                 }
             }]
         })

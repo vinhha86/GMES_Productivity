@@ -174,6 +174,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                                 },
                                 fn: function(){
                                     me.getInfo(response.id);
+                                    me.fireEvent('LuuThanhCong');
                                 }
                             });
                         }
