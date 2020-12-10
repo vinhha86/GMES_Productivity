@@ -147,6 +147,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
     },
     onTTSanPham: function(){
         // pcontractid_link
+        console.log('here yet');
         var viewModel = this.getViewModel();
         var pcontractid_link = viewModel.get('porder').pcontractid_link;
         var productid_link = viewModel.get('porder').productid_link;
@@ -157,8 +158,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             IdProduct: productid_link,
             viewModel: {
                 data: {
-                    IdPContract: eventRecord.data.pcontractid_link,
-                    IdProduct: eventRecord.data.productid_link,
+                    IdPContract: pcontractid_link,
+                    IdProduct: productid_link,
                     isWindow: true
                 }
             }
