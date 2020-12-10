@@ -38,6 +38,19 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
         }        
      },
     columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenuPorderReqList'
+                },            
+            ]
+        },
         { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
         items: {
             xtype: 'textfield',
