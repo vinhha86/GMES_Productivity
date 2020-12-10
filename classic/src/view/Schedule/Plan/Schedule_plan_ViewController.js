@@ -98,7 +98,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     form.show();
 
                     form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function (productivity) {
-                        console.log(productivity)
                         eventRecord.data.productivity_po = productivity.plan_productivity;
                         form.close();
                     })
