@@ -481,5 +481,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
           var position = [e.getX()-10, e.getY()-10];
           e.stopEvent();
           menu_grid.showAt(position);
+          common.Check_Menu_Permission(menu_grid);
     },
 })
