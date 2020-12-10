@@ -7,55 +7,62 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
     items: [
         {
             xtype: 'button',
-            tooltip: 'Đơn hàng',
-            iconCls: 'x-fa fa-shopping-basket',
-            weight: 30,
-            bind : {
-                hidden: '{isHidden_KHGH}'
-            },
-            handler: 'onShowKHGH'
-        },
-        {
-            xtype: 'button',
-            tooltip: 'Tổng hợp CMP',
-            iconCls: 'x-fa fa-dollar',
-            weight: 30,
-            bind : {
-                hidden: '{isHidden_CMP}'
-            },
-            handler: 'onShowCMP'
-        },
-        {
-            xtype: 'button',
-            tooltip: 'Tổng hợp Salary Fund',
-            iconCls: 'x-fa fa-money',
-            weight: 30,
-            bind : {
-                hidden: '{isHidden_Salary}'
-            },
-            handler: 'onShowSalaryFund'
-        },
-        {
-            xtype: 'button',
-            itemId: 'btnGrantPorder_FilterBar',
-            tooltip: 'Phân lệnh vào tổ chuyền',
-            iconCls: 'x-fa fa-sliders',
-            weight: 30,
-            handler: 'onGrantToOrgTap',
-            bind : {
-                hidden: '{isHidden_Phanlenh}'
-            }
-        },
-        {
-            xtype: 'button',
-            itemId: 'btnGuessView_FilterBar',
-            tooltip: 'Khung nhìn khách',
-            iconCls: 'x-fa fa-user',
-            weight: 30,
-            handler: 'onGuessView',
-            bind : {
-                hidden: '{isHidden_GuestView}'
-            }
+            iconCls: 'x-fa fa-bars',
+            menu      : [
+                {
+                    itemId: 'btnExportPDF_FilterBar',
+                    iconCls: 'fa fa-file-pdf-o violetIcon',
+                    text: 'Xuất file PDF',
+                    handler: 'onExport'
+                },
+                {
+                    text: 'Đơn hàng',
+                    iconCls: 'x-fa fa-shopping-basket',
+                    weight: 30,
+                    bind : {
+                        hidden: '{isHidden_KHGH}'
+                    },
+                    handler: 'onShowKHGH'
+                },
+                {
+                    text: 'Tổng hợp CMP',
+                    iconCls: 'x-fa fa-dollar',
+                    weight: 30,
+                    bind : {
+                        hidden: '{isHidden_CMP}'
+                    },
+                    handler: 'onShowCMP'
+                },
+                {
+                    text: 'Tổng hợp Salary Fund',
+                    iconCls: 'x-fa fa-money',
+                    weight: 30,
+                    bind : {
+                        hidden: '{isHidden_Salary}'
+                    },
+                    handler: 'onShowSalaryFund'
+                },
+                {
+                    itemId: 'btnGrantPorder_FilterBar',
+                    text: 'Phân lệnh vào tổ chuyền',
+                    iconCls: 'x-fa fa-sliders violetIcon',
+                    weight: 30,
+                    handler: 'onGrantToOrgTap',
+                    bind : {
+                        hidden: '{isHidden_Phanlenh}'
+                    }
+                },
+                {
+                   itemId: 'btnGuessView_FilterBar',
+                    text: 'Khung nhìn khách',
+                    iconCls: 'x-fa fa-user violetIcon',
+                    weight: 30,
+                    handler: 'onGuessView',
+                    bind : {
+                        hidden: '{isHidden_GuestView}'
+                    }
+                },
+            ]
         },
         {
             xtype: 'datefield',
@@ -128,6 +135,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             handler: 'onSearch'
         },{
             xtype: 'checkbox',
+            hidden: true,
             fieldLabel: 'Y/C SX',
             width: 70,
             labelWidth: 50,
@@ -149,12 +157,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             }
         }
         ,{
-            xtype  : 'button',
-            itemId: 'btnExportPDF_FilterBar',
-            iconCls: 'fa fa-file-pdf-o',
-            tooltip: 'Xuất file PDF',
-            handler: 'onExport'
-        },{
             xtype: 'button',
             tooltip: 'Phóng to',
             // text: 'Zoom in',
@@ -173,11 +175,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'FilterFieldPorder',
             id: 'FilterFieldPorder',
-            emptyText: 'Mã lệnh',
+            emptyText: 'Mã sản phẩm',
             // fieldLabel: 'PO:',
             labelWidth: 30,
-            width: 110,
-            property   : 'pordercode'
+            width: 140,
+            property : 'productbuyercode'
         }
     ]
 })
