@@ -111,7 +111,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         }
     },
     onThoat: function(){
+        var viewmodel = this.getViewModel();
         this.fireEvent('Thoat');
+        this.fireEvent("ThoatAndUpdate",  viewmodel.get('pcontract_po_productivity'));
     },
     onSave: function(){
         var me = this;
