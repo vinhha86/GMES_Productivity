@@ -14,7 +14,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
     },
     onBeforeDropOrg: function (node, context, overModel, dropPosition, dropHandlers, eOpts) {
-        console.log(context);
         var viewmodel = this.getViewModel();
         //Chi cho phep keo phan xuong
         var pcontractid_link = viewmodel.get('po.pcontractid_link');
@@ -27,9 +26,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         if (context.records[0].get('parentId') == 'root') {
             orgId = context.records[0].get('id_origin');
             orgCode = context.records[0].get('code');
-
-            
-            
         } 
         else if (context.records[0].get('parentid_link') == 1){
             var porderReqStore = viewmodel.getStore('porderReqStore');
@@ -71,11 +67,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             // });
 
         }
-
         var porderReqStore = viewmodel.getStore('porderReqStore');
 
         var ProductStore = viewmodel.getStore('ProductStore');
-
+        // console.log(ProductStore);
 
         if (ProductStore.data.length == 1) {
             //San pham don chiec
@@ -94,7 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 list_product.push(obj);
             }
         }
-
+        // console.log(list_product);
         for (var j = 0; j < list_product.length; j++) {
             var data = list_product[j];
             data.pairamount = data.pairamount == null ? 1 : data.pairamount;

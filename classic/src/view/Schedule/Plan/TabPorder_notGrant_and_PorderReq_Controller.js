@@ -452,7 +452,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                                     id: record.data.pcontract_poid_link,
                                     productid_link: record.data.productid_link,
                                     isedit: true,
-                                    // productpairid_link: rec.get('productid_link'),
+                                    productpairid_link: record.data.productid_link,
                                     isHidden_req: false
                                 }
                             }

@@ -12,7 +12,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         
         var productStore = viewmodel.getStore('ProductStore');
         if(productStore != null){
-
             var productpairid_link = viewmodel.get('productpairid_link');
             if(productpairid_link > 0){
                 productStore.loadStore_bypairid_Async(productpairid_link);
@@ -32,7 +31,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         PortStore.loadStore(null,null);
         
         //An hien don vi
-        console.log(viewmodel.get('isHidden_req'))
         porder_req_view.setHidden(viewmodel.get('isHidden_req'));
 
         //An/hien Sewtarget_percent
