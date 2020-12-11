@@ -88,6 +88,8 @@ Ext.define('GSmartApp.Application', {
         // Check if session exists
         var data = GSmartApp.util.State.get('session'),
             session = data ? GSmartApp.model.Session.loadData(data) : null;
+
+            console.log(session);
         var storeMenu = Ext.getStore('NavigationTree');
         // If session valid --> Load main app
         if (session && session.isValid()) {
@@ -96,7 +98,7 @@ Ext.define('GSmartApp.Application', {
 			GSmartApp.util.State.set('dataFormatS','DD/MM/YYYY');
             //console.log('Session is valid --> Open main app', session);   
             config.setToken('Bearer ' + session.get('token'));
-            config.setFname(session.get('fname'));
+            config.setFname(session.get('fullname'));
             config.setAvatar(session.get('avatar'));
 
             Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });
