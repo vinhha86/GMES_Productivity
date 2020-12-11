@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimInfoView', {
                 margin: 2,
                 fieldLabel: "Mã phụ liệu (<span style = 'color: red'>*</span>)",
                 bind:{
-                    value : '{product.code}'
+                    value : '{product.buyercode}'
                 },
                 itemId:'code',
                 name:'code',

@@ -195,6 +195,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         form.show();
     },
     viewImg: function (grid, metadata, rowIndex) {
+        var viewmodel = this.getViewModel();
         var me = this.getView();
         var data = grid.getStore().getAt(rowIndex);
         var id = data.get('productid_link');
@@ -227,12 +228,18 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
                                 IdProduct: id,
                                 viewModel: {
                                     data: {
-                                        img: response.img
+                                        img: response.img,
+                                        productid_link: id
                                     }
                                 }
                             }]
                         });
                         form.show();
+
+                        form.down('#PContractImageView').on('Reload',function(){
+                            var store = viewmodel.getStore('PContractProductStore');
+                            store.load();
+                        })
                     }
                 } else {
                     Ext.Msg.show({

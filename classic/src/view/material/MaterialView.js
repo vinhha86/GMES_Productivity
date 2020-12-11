@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.material.MaterialView', {
         align: 'center'
     }, {
         text: 'Mã Nguyên liệu',
-        dataIndex: 'code',
+        dataIndex: 'buyercode',
         width: 150
     }, {
         text: 'Tên Nguyên liệu',

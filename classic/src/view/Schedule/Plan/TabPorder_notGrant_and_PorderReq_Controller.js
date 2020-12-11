@@ -10,6 +10,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         store_req.getSorters().add('po_Productiondate');
         Porder_Req_Granted_Store.getSorters().add('po_Productiondate');
     },
+    control : {
+        'TabPorder_notGrant_and_PorderReq' : {
+            'tabchange' : 'onTabChange'
+        }
+    },
+    onTabChange: function(tabPanel, newCard, oldCard, eOpts){
+        console.log(newCard);
+    },
     onSearchTap: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrderUnGranted');

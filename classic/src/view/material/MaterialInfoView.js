@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                 margin: 2,
                 fieldLabel: "Mã nguyên liệu (<span style = 'color: red'>*</span>)",
                 bind:{
-                    value : '{product.code}'
+                    value : '{product.buyercode}'
                 },
                 tooltip:'Nhập mã nguyên liệu',
                 itemId:'code',

@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimView', {
         align: 'center'
     }, {
         text: 'Mã phụ liệu may',
-        dataIndex: 'code',
+        dataIndex: 'buyercode',
         width: 150
     },{
         text: 'Tên phụ liệu may',

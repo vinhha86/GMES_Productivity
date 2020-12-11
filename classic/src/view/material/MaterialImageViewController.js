@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.material.MaterialImageViewController', {
     loadImg: function (img, filename) {
         var me = this.getView();
         var data = new Object();
-        data.product_type = 2;
+        data.product_type = 20;
         data.img = img;
         var str = filename.split('.');
         data.ext = str[str.length - 1];

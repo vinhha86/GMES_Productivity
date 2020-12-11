@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadInfoView', {
                 margin: 2,
                 fieldLabel: "Mã chỉ may (<span style = 'color: red'>*</span>)",
                 bind:{
-                    value : '{product.code}'
+                    value : '{product.buyercode}'
                 },
                 itemId:'code',
                 name:'code',

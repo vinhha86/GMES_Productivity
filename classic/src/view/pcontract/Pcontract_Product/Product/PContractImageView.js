@@ -4,9 +4,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
     id: 'PContractImageView',
     controller: 'PContractImageViewCotroller',
     viewModel: {
-        type: 'ProductDetailViewModel'
+        type: 'PContractImageViewModel'
     },
-    IdProduct: 0,
 	layout: {
         type: 'hbox',
         align: 'stretch'
@@ -18,6 +17,16 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             layout: 'hbox',
             border: false,
             items: [{
+                xtype: 'filefield',
+                buttonText: '...',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'btneditimg1',
+                accept: 'image/*',
+                width: 35,
+                height: 32,
+                margin: 1
+            },{
                 xtype: 'image',
                 itemId: 'img1',
                 id: 'imgproduct1',
@@ -32,7 +41,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                         img.getEl().dom.style.border = '1px solid black';
                     },
                     el: {
-                        click: 'onView'
+                        click: 'onView',
+                        dblclick: 'OpenFileDialog'
                     }
                 }
             }]
@@ -40,6 +50,16 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             layout: 'hbox',
             border: false,
             items: [{
+                xtype: 'filefield',
+                buttonText: '...',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'btneditimg2',
+                accept: 'image/*',
+                width: 35,
+                height: 32,
+                margin: 1
+            },{
                 xtype: 'image',
                 itemId: 'img2',
                 id: 'imgproduct2',
@@ -54,7 +74,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                         img.getEl().dom.style.border = '1px solid black';
                     },
                     el: {
-                        click: 'onView'
+                        click: 'onView',
+                        dblclick: 'OpenFileDialog'
                     }
                 }
             }]
@@ -62,6 +83,16 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             layout: 'hbox',
             border: false,
             items: [{
+                xtype: 'filefield',
+                buttonText: '...',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'btneditimg3',
+                accept: 'image/*',
+                width: 35,
+                height: 32,
+                margin: 1
+            },{
                 xtype: 'image',
                 itemId: 'img3',
                 id: 'imgproduct3',
@@ -76,7 +107,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                         img.getEl().dom.style.border = '1px solid black';
                     },
                     el: {
-                        click: 'onView'
+                        click: 'onView',
+                        dblclick: 'OpenFileDialog'
                     }
                 }
             }]
@@ -84,6 +116,16 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             layout: 'hbox',
             border: false,
             items: [{
+                xtype: 'filefield',
+                buttonText: '...',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'btneditimg4',
+                accept: 'image/*',
+                width: 35,
+                height: 32,
+                margin: 1
+            },{
                 xtype: 'image',
                 itemId: 'img4',
                 id: 'imgproduct4',
@@ -98,7 +140,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                         img.getEl().dom.style.border = '1px solid black';
                     },
                     el: {
-                        click: 'onView'
+                        click: 'onView',
+                        dblclick: 'OpenFileDialog'
                     }
                 }
             }]
@@ -106,6 +149,16 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             layout: 'hbox',
             border: false,
             items: [{
+                xtype: 'filefield',
+                buttonText: '...',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'btneditimg5',
+                accept: 'image/*',
+                width: 35,
+                height: 32,
+                margin: 1
+            },{
                 xtype: 'image',
                 itemId: 'img5',
                 id: 'imgproduct5',
@@ -120,7 +173,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                         img.getEl().dom.style.border = '1px solid black';
                     },
                     el: {
-                        click: 'onView'
+                        click: 'onView',
+                        dblclick: 'OpenFileDialog'
                     }
                 }
             }]

@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.packingtrim.PackingTrimView', {
         align: 'center'
     }, {
         text: 'Mã phụ liệu HT',
-        dataIndex: 'code',
+        dataIndex: 'buyercode',
         width: 150
     },{
         text: 'Tên phụ liệu HT',

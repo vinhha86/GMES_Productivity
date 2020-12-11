@@ -111,7 +111,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimImageViewController', {
     loadImg: function (img, filename) {
         var me = this.getView();
         var data = new Object();
-        data.product_type = 3;
+        data.product_type = 30;
         data.img = img;
         var str = filename.split('.');
         data.ext = str[str.length - 1];
