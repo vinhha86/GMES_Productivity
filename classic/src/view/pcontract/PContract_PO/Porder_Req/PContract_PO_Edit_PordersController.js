@@ -174,43 +174,56 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this;
         var viewmodel = this.getViewModel();
-        var objDel = grid.getStore().getAt(rowIndex);
-
-        Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
-            function (choice) {
-                if (choice === 'yes') {
-
-                    if (Ext.isNumber(objDel.data.id)) {
-                        var porderReqStore = viewmodel.getStore('porderReqStore');
-                        var params = new Object();
-                        params.id = objDel.data.id;
-                        GSmartApp.Ajax.post('/api/v1/porder_req/delete', Ext.JSON.encode(params),
-                            function (success, response, options) {
-                                var response = Ext.decode(response.responseText);
-                                if (!success) {
-                                    Ext.MessageBox.show({
-                                        title: "Yêu cầu SX",
-                                        msg: response.message,
-                                        buttons: Ext.MessageBox.YES,
-                                        buttonText: {
-                                            yes: 'Đóng',
-                                        }
-                                    });
-                                }
-                                else {
-                                    var storeDV = viewmodel.getStore('OrgStore');
-                                    storeDV.load();
-                                    grid.getStore().remove(objDel);
-                                    me.reCalculate();
-                                }
-                                // porderReqStore.reload();
-                            });
-                    } else {
-                        grid.getStore().remove(objDel);
-                        me.reCalculate();
-                    }
+        var store = grid.getStore();
+        if(store.data.length == 1){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn không được xóa hết phân xưởng !! Bạn hãy kéo phân xưởng mới vào trước khi xóa",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
             });
+        }
+        else {
+            var objDel = grid.getStore().getAt(rowIndex);
+
+            Ext.Msg.confirm('Yêu cầu SX', 'Bạn có thực sự muốn xóa Yêu cầu SX? chọn YES để thực hiện',
+                function (choice) {
+                    if (choice === 'yes') {
+
+                        if (Ext.isNumber(objDel.data.id)) {
+                            var porderReqStore = viewmodel.getStore('porderReqStore');
+                            var params = new Object();
+                            params.id = objDel.data.id;
+                            GSmartApp.Ajax.post('/api/v1/porder_req/delete', Ext.JSON.encode(params),
+                                function (success, response, options) {
+                                    var response = Ext.decode(response.responseText);
+                                    if (!success) {
+                                        Ext.MessageBox.show({
+                                            title: "Yêu cầu SX",
+                                            msg: response.message,
+                                            buttons: Ext.MessageBox.YES,
+                                            buttonText: {
+                                                yes: 'Đóng',
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        var storeDV = viewmodel.getStore('OrgStore');
+                                        storeDV.load();
+                                        grid.getStore().remove(objDel);
+                                        me.reCalculate();
+                                    }
+                                    // porderReqStore.reload();
+                                });
+                        } else {
+                            grid.getStore().remove(objDel);
+                            me.reCalculate();
+                        }
+                    }
+                });
+            }
     },
     reCalculate: function () {
         var viewmodel = this.getViewModel();
@@ -275,7 +288,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     else
                         count++;
                 }
-                console.log(amount_fix)
                 var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                 po_quantity = po_quantity * data.pairamount;
                 var amount = Math.round((po_quantity - amount_fix) / count);
