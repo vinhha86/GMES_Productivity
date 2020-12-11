@@ -163,7 +163,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         Product_pquantity: 0, // SL Tổng chi tiết màu, cỡ
         ProductSKUSummaryCssStyle: '<div style="color:black; font-weight: bold; align: right">', // màu tổng summary chi tiết màu, cỡ
         pcontract_po_parentid_link: 0,
-        clspoquantity: ''
+        clspoquantity: '',
+
+        // copy paste po info o sua chao gia
+        obj_copy: null,
     },
     formulas: {
         ishidden_addproduct : function(get){

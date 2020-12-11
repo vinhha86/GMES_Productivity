@@ -159,6 +159,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onAddPOTap: function () {
         var viewModel = this.getViewModel();
+        var obj_copy = viewModel.get('obj_copy');
         if (viewModel.get('productpairid_link') == 0) {
             Ext.Msg.show({
                 title: 'Đơn hàng',
@@ -202,7 +203,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                                 id: null,
                                 productpairid_link: viewModel.get('productpairid_link'),
                                 isproductpair: viewModel.get('isproductpair'),
-                                pcontractid_link: viewModel.get('PContract.id')
+                                pcontractid_link: viewModel.get('PContract.id'),
+                                obj_copy: obj_copy, // copy paste po info o sua chao gia,
+                                obj_paste_btn_hidden: false,
+                                obj_copy_btn_hidden: false
                             }
                         }
                     }]
@@ -245,6 +249,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     onPOPriceEdit: function (rec) {
         // var rec = grid.getStore().getAt(rowIndex);
         var viewModel = this.getViewModel();
+        var obj_copy = viewModel.get('obj_copy');
 
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -267,7 +272,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         id: rec.data.id,
                         productpairid_link: viewModel.get('productpairid_link'),
                         isproductpair: viewModel.get('isproductpair'),
-                        pcontractid_link: viewModel.get('PContract.id')
+                        pcontractid_link: viewModel.get('PContract.id'),
+                        obj_copy: obj_copy, // copy paste po info o sua chao gia
+                        obj_paste_btn_hidden: true,
+                        obj_copy_btn_hidden: false,
                     }
                 }
             }]
@@ -279,6 +287,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             if (null != storePO) storePO.load();
             form.close();
         });
+        form.down('#PContract_PO_Edit').getController().on('CopyPoInfo', function (obj_copy_from_event) {
+            viewModel.set('obj_copy', obj_copy_from_event)
+        })
     },
     onCancel_PO: function (rec) {
         var params = new Object();

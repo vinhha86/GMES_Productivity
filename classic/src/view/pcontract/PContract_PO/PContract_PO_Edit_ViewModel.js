@@ -98,6 +98,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         hidden_btnThemOrg: true,
         pcontract_po_productivity: {
 
-        }
+        },
+
+        // copy paste po info o sua chao gia
+        obj_copy: null,
+        obj_paste_btn_hidden: true,
+        obj_copy_btn_hidden: true,
     }
 })

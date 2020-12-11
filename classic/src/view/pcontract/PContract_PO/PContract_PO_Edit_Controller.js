@@ -49,6 +49,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         },
         '#cboProduct': {
             select: 'onProductSelect'
+        },
+        '#btnProductInfoCopy': {
+            click: 'onProductInfoCopy'
+        },
+        '#btnProductInfoPaste': {
+            click: 'onProductInfoPaste'
         }
     },
     getInfo: function (id) {
@@ -103,6 +109,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                             //Lay danh sach POrder_Req
                             var porderReqStore = viewmodel.getStore('porderReqStore');
                             porderReqStore.loadByPO(viewmodel.get('po.id'));
+
+                            // an nut paste thong tin vi la chao gia da toa
+                            viewmodel.set('obj_paste_btn_hidden', true);
                         }
                     }
                 })
@@ -380,6 +389,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             }
             viewmodel.set('pcontract_po_productivity', data);
         }
+
+        // neu la bo thi an nut paste thong tin
+        if(viewmodel.get('product_selected_typeid_link') == 5){
+            viewmodel.set('obj_paste_btn_hidden', true);
+        }
     },
     // onSewCostChange: function (sender, newValue, oldValue, eOpts) {
     //     var viewmodel = this.getViewModel();
@@ -454,5 +468,158 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     //         priceStore.clearFilter();
     //         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     //     }
-    // },    
+    // },
+    onProductInfoCopy: function(){
+        // console.log('copy product');
+        var me = this;
+        var viewModel = this.getViewModel();
+        var productid_link = viewModel.get('product_selected_id_link'); // sp dang chon
+        var product_typeid_link = viewModel.get('product_selected_typeid_link'); // sp don hay bo
+
+        // check sp la don hay bo
+        // console.log('product id: ' + productid_link);
+        // console.log('product type id: ' + product_typeid_link);
+
+        if(product_typeid_link == 5){ // sp bo
+            // console.log('đã chọn sp bộ');
+            Ext.toast('Thất bại. Sản phẩm đang chọn là bộ');
+        }else if(product_typeid_link == 10){ // sp don
+            // console.log('đã chọn sp đơn');
+            var obj_copy = new Object();
+            // copy thong tin po, pcontract_po_productivity
+            var po = viewModel.get('po');
+            var pcontract_po_productivity = viewModel.get('pcontract_po_productivity');
+            obj_copy.po = po;
+            obj_copy.productid_link = productid_link;
+            obj_copy.pcontract_po_productivity = pcontract_po_productivity;
+            // console.log(pcontract_po_productivity);
+            // console.log(obj_copy.pcontract_po_productivity);
+
+            // copy thong tin porder_req
+            var porderReqStore = viewModel.getStore('porderReqStore');
+            // var ProductStore = viewModel.getStore('ProductStore');
+
+            porderReqStoreDataItems = porderReqStore.getData().items;
+            var porderReqStoreData = new Array();
+            for(var i=0;i<porderReqStoreDataItems.length;i++){
+                porderReqStoreData.push(porderReqStoreDataItems[i].data);
+            }
+            obj_copy.porderReqStoreData = porderReqStoreData;
+
+            // copy thong tin sizeset price
+            var PriceStore = viewModel.getStore('PriceStore');
+
+            PriceStoreDataItems = PriceStore.getData().items;
+            var PriceStoreData = new Array();
+            for(var i=0;i<PriceStoreDataItems.length;i++){
+                PriceStoreData.push(PriceStoreDataItems[i].data);
+            }
+            obj_copy.PriceStoreData = PriceStoreData;
+
+            // luu thong tin copy
+            viewModel.set('obj_copy', obj_copy);
+            me.fireEvent('CopyPoInfo', obj_copy); // luu vao viewmodel o ngoai de co data khi dong cua so nay va mo cua so khac
+            Ext.toast('Data copied');
+        }
+    },
+    onProductInfoPaste: function(){
+        // console.log('paste product');
+        var viewModel = this.getViewModel();
+        var id = viewModel.get('id');
+        // console.log(id);
+        var productid_link = viewModel.get('product_selected_id_link'); // sp dang chon
+        var product_typeid_link = viewModel.get('product_selected_typeid_link'); // sp don hay bo
+        var obj_copy = viewModel.get('obj_copy');
+
+        console.log('paste obj_copy: ');
+        console.log(obj_copy);
+        console.log(obj_copy.pcontract_po_productivity);
+
+        if(id != null && id != 0){
+            Ext.toast('Thất bại. Không phải chào giá mới');
+        }else if(obj_copy == null){
+            Ext.toast('Thất bại. Chưa copy thông tin');
+        }else if(product_typeid_link == 5){ // sp bo
+            Ext.toast('Thất bại. Sản phẩm đang chọn là bộ');
+        }else if(product_typeid_link == 10){ // sp don
+            // set thong tin cho pcontract po info
+            if(obj_copy.po != null){
+                viewModel.set('po.packingnotice', obj_copy.po.packingnotice);
+                viewModel.set('po.is_tbd', obj_copy.po.is_tbd);
+                viewModel.set('po.sewtarget_percent', obj_copy.po.sewtarget_percent);
+                viewModel.set('po.po_buyer', obj_copy.po.po_buyer);
+                viewModel.set('po.po_quantity', obj_copy.po.po_quantity);
+                viewModel.set('po.qcorgname', obj_copy.po.qcorgname);
+                viewModel.set('po.shipmodeid_link', obj_copy.po.shipmodeid_link);
+                viewModel.set('po.po_vendor', obj_copy.po.po_vendor);
+                viewModel.set('po.shipdate', obj_copy.po.shipdate);
+                viewModel.set('po.matdate', obj_copy.po.matdate);
+                viewModel.set('po.productiondate', obj_copy.po.productiondate);
+                viewModel.set('po.productiondays', obj_copy.po.productiondays);
+                viewModel.set('po.portfromid_link', obj_copy.po.portfromid_link);
+                viewModel.set('po.porttoid_link', obj_copy.po.porttoid_link);
+            }
+
+            if(obj_copy.pcontract_po_productivity != null){
+                viewModel.set('pcontract_po_productivity.plan_productivity', obj_copy.pcontract_po_productivity.plan_productivity);
+                viewModel.set('pcontract_po_productivity.plan_linerequired', obj_copy.pcontract_po_productivity.plan_linerequired);
+            }
+
+            // set thong tin cho porder req
+            var porderReqStore = viewModel.getStore('porderReqStore');
+            var ProductStore = viewModel.getStore('ProductStore');
+
+            var product = ProductStore.getById(productid_link).data;
+
+            var porderReqStoreData = obj_copy.porderReqStoreData;
+            for(var i = 0; i < porderReqStoreData.length; i++){
+                var porderReq = porderReqStoreData[i];
+                porderReq.id = null;
+                porderReq.pcontractid_link = viewModel.get('po.pcontractid_link');
+                porderReq.pcontract_poid_link = viewModel.get('po.id');
+                porderReq.productid_link = product.id;
+                porderReq.product_code = product.code;
+                porderReq.amount_inset = product.pairamount == null ? 1 : product.pairamount;
+                porderReq.productinfo = product.code + " ("+Ext.util.Format.number(obj_copy.po.po_quantity * porderReq.amount_inset, '0,000') + ")";
+            }
+            console.log(porderReqStoreData);
+            porderReqStore.removeAll();
+            porderReqStore.add(porderReqStoreData);
+
+            // set thong tin cho price
+            var PriceStore = viewModel.getStore('PriceStore');
+
+            var PriceStoreData = obj_copy.PriceStoreData;
+            var PriceStoreDataToAdd = new Array();
+
+            for(var i = 0; i < PriceStoreData.length; i++){
+                var PriceStoreItem = PriceStoreData[i];
+                PriceStoreItem.productid_link = productid_link;
+                for(var j = 0; j < PriceStoreItem.pcontract_price_d.length; j++){
+                    PriceStoreItem.pcontract_price_d[j].productid_link = productid_link;
+                }
+
+                // var item = new Object();
+                // item.pcontract_price_d = PriceStoreItem.pcontract_price_d;
+                // item.productid_link = PriceStoreItem.productid_link;
+                // item.sizesetid_link = PriceStoreItem.sizesetid_link;
+                // item.price_cmp = PriceStoreItem.price_cmp;
+                // item.price_fob = PriceStoreItem.price_fob;
+                // item.price_sewingcost = PriceStoreItem.price_sewingcost;
+                // item.price_sewingtarget = PriceStoreItem.price_sewingtarget;
+                // item.price_vendortarget = PriceStoreItem.price_vendortarget;
+                // item.totalprice = PriceStoreItem.totalprice;
+                // item.salaryfund = PriceStoreItem.salaryfund;
+                // item.quantity = PriceStoreItem.quantity;
+                // item.is_fix = PriceStoreItem.is_fix;
+
+                // PriceStoreDataToAdd.push(item);
+            }
+            // console.log(PriceStoreData);
+            PriceStore.removeAll();
+            PriceStore.add(PriceStoreData);
+
+            Ext.toast('Data pasted');
+        }
+    },
 })

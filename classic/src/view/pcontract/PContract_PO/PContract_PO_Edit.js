@@ -40,18 +40,49 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                 {
                     region: 'north',
                     height: 30,
-                    xtype: 'combobox',
-                    fieldLabel: 'Sản phẩm/Bộ:',
-                    editable: false,
-                    itemId: 'cboProduct',
-                    margin: 1,
-                    bind: {
-                        store: '{ProductStore}',
-                        value: '{product_selected_id_link}'
-                    },
-                    displayField: 'code',
-                    valueField: 'id',
-                    queryMode : 'local'
+                    layout: 'hbox',
+                    items: [
+                        {
+                            xtype: 'combobox',
+                            fieldLabel: 'Sản phẩm/Bộ:',
+                            editable: false,
+                            itemId: 'cboProduct',
+                            margin: 1,
+                            bind: {
+                                store: '{ProductStore}',
+                                value: '{product_selected_id_link}'
+                            },
+                            displayField: 'code',
+                            valueField: 'id',
+                            queryMode : 'local',
+                            flex: 1
+                        },{
+                            xtype:'button',
+                            width: 20,
+                            itemId:'btnProductInfoCopy',
+                            ui: 'header',
+                            margin: '1 5 0 0',
+                            tooltip: 'Copy',
+                            iconCls: 'x-fa fa-copy',
+                            hidden: true,
+                            bind: {
+                                hidden: '{obj_copy_btn_hidden}'
+                            }
+                        },
+                        {
+                            xtype:'button',
+                            width: 20,
+                            itemId:'btnProductInfoPaste',
+                            ui: 'header',
+                            margin: '1 5 0 0',
+                            tooltip: 'Dán',
+                            iconCls: 'x-fa fa-paste',
+                            hidden: true,
+                            bind: {
+                                hidden: '{obj_paste_btn_hidden}'
+                            }
+                        }
+                    ]
                 },
                 {
                     region: 'north',
