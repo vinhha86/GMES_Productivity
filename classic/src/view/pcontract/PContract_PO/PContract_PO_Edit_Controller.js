@@ -561,6 +561,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             }
 
             if(obj_copy.pcontract_po_productivity != null){
+                var pcontract_po_productivity = obj_copy.pcontract_po_productivity;
+                pcontract_po_productivity.id = null;
+                pcontract_po_productivity.pcontract_poid_link = null;
+                pcontract_po_productivity.orgrootid_link = null;
+                pcontract_po_productivity.productid_link = null;
+                var newPcontract_po_productivity = new Array();
+                newPcontract_po_productivity.push(pcontract_po_productivity);
+
+                viewModel.set('po.pcontract_po_productivity', newPcontract_po_productivity);
                 viewModel.set('pcontract_po_productivity.plan_productivity', obj_copy.pcontract_po_productivity.plan_productivity);
                 viewModel.set('pcontract_po_productivity.plan_linerequired', obj_copy.pcontract_po_productivity.plan_linerequired);
             }
