@@ -44,7 +44,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             if (success) {
                 var response = Ext.decode(response.responseText);
                 if (response.respcode == 200) {
-                    me.saveByteArray("LenhSanXuat_"+viewmodel.get('porder.vendorname')+ ".xlsx", response.data);
+                    var vendor = viewmodel.get('porder.vendorname');
+                    var masp = viewmodel.get('porder.stylebuyer');
+                    me.saveByteArray("LenhSanXuat_"+vendor+"_"+masp+ ".xlsx", response.data);
                 }
                 else {
                     Ext.Msg.show({

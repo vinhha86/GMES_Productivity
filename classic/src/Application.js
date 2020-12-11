@@ -89,7 +89,6 @@ Ext.define('GSmartApp.Application', {
         var data = GSmartApp.util.State.get('session'),
             session = data ? GSmartApp.model.Session.loadData(data) : null;
 
-            console.log(session);
         var storeMenu = Ext.getStore('NavigationTree');
         // If session valid --> Load main app
         if (session && session.isValid()) {
