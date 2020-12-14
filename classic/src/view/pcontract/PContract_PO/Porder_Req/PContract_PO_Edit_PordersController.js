@@ -175,7 +175,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var me = this;
         var viewmodel = this.getViewModel();
         var store = grid.getStore();
-        if(store.data.length == 1){
+        if(store.data.length == 1 && viewmodel.get('po.parentpoid_link') != null){
             Ext.MessageBox.show({
                 title: "Thông báo",
                 msg: "Bạn không được xóa hết phân xưởng !! Bạn hãy kéo phân xưởng mới vào trước khi xóa",

@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porder_Req', {
             handler: 'onXoa'
         }]
     },{
-        header:'Phân xưởng',
+        header:'PX',
         dataIndex:'granttoorgcode',
         flex: 1,
         summaryType: 'count',
