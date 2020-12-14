@@ -210,10 +210,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                                         });
                                     }
                                     else {
-                                        var storeDV = viewmodel.getStore('OrgStore');
-                                        storeDV.load();
                                         grid.getStore().remove(objDel);
                                         me.reCalculate();
+                                        var storeDV = viewmodel.getStore('OrgStore');
+                                        if(storeDV!=null)
+                                            storeDV.load();
                                     }
                                     // porderReqStore.reload();
                                 });
