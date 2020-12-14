@@ -531,9 +531,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var product_typeid_link = viewModel.get('product_selected_typeid_link'); // sp don hay bo
         var obj_copy = viewModel.get('obj_copy');
 
-        console.log('paste obj_copy: ');
-        console.log(obj_copy);
-        console.log(obj_copy.pcontract_po_productivity);
+        // console.log('paste obj_copy: ');
+        // console.log(obj_copy);
+        // if(obj_copy.pcontract_po_productivity != null){
+        //     console.log(obj_copy.pcontract_po_productivity);
+        // }else{
+        //     console.log('obj_copy.pcontract_po_productivity is null');
+        // }
 
         if(id != null && id != 0){
             Ext.toast('Thất bại. Không phải chào giá mới');
@@ -591,7 +595,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 porderReq.amount_inset = product.pairamount == null ? 1 : product.pairamount;
                 porderReq.productinfo = product.code + " ("+Ext.util.Format.number(obj_copy.po.po_quantity * porderReq.amount_inset, '0,000') + ")";
             }
-            console.log(porderReqStoreData);
+            // console.log(porderReqStoreData);
             porderReqStore.removeAll();
             porderReqStore.add(porderReqStoreData);
 
