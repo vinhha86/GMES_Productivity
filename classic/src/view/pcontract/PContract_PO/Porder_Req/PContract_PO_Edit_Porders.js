@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Porders', {
         store:'{POrderStore}'
     },
     columns:[{
-        header:'Phân xưởng',
+        header:'PX',
         dataIndex:'granttoorgcode',
         width: 80
     },
