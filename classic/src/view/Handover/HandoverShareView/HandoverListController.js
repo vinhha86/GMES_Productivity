@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
         var orgtypestringfrom = '';
         var orgtypestringto = '';
 
-        // CUT TO LINE
+        // CUT TO LINE - tổ cắt xuất btp lên chuyền
         if(Ext.getCmp('handover_cut_tolinelist')) {
             // console.log('handover_cut_tolinelist');
             viewModel.set('viewId', 'handover_cut_toline');
@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             orgtypestringfrom = '17';
             orgtypestringto = '14';
         }
-        // LINE FROM CUT
+        // LINE FROM CUT - nhận btp vào chuyền
         if(Ext.getCmp('handover_line_fromcutlist')) {
             console.log('handover_line_fromcutlist');
             viewModel.set('viewId', 'handover_line_fromcut');
@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             orgtypestringfrom = '17';
             orgtypestringto = '14';
         }
-        // LINE TO PACK
+        // LINE TO PACK - xuất tp hoàn thiện
         if(Ext.getCmp('handover_line_topacklist')) {
             console.log('handover_line_topacklist');
             viewModel.set('viewId', 'handover_line_topack');
@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             orgtypestringfrom = '14';
             orgtypestringto = '9';
         }
-        // PACK FROM LINE
+        // PACK FROM LINE - nhận tp từ chuyền
         if(Ext.getCmp('handover_pack_fromlinelist')) {
             console.log('handover_pack_fromlinelist');
             viewModel.set('viewId', 'handover_pack_fromline');
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
                 orgtypestringfrom = '14';
                 orgtypestringto = '9';
         }
-        // LINE TO PRINT
+        // LINE TO PRINT - xuất tp in thêu
         if(Ext.getCmp('handover_line_toprintlist')) {
             console.log('handover_line_toprintlist');
             viewModel.set('viewId', 'handover_line_toprint');
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             orgtypestringfrom = '14';
             orgtypestringto = '20';
         }
-        // CUT TO PRINT
+        // CUT TO PRINT - xuất btp in thêu
         if(Ext.getCmp('handover_cut_toprintlist')) {
             console.log('handover_cut_toprintlist');
             viewModel.set('viewId', 'handover_cut_toprint');
@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             orgtypestringfrom = '17';
             orgtypestringto = '20';
         }
-        // PACK TO STOCK
+        // PACK TO STOCK - xuất tp xuống kho
         if(Ext.getCmp('handover_pack_tostocklist')) {
             console.log('handover_pack_tostocklist');
             viewModel.set('viewId', 'handover_pack_tostock');
@@ -97,13 +97,6 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             click: 'onSearch'
         }
     },
-    // onActivate: function () {
-    //     var me = this;
-    //     if (me.isActivate) {
-    //         this.onloadPage();
-    //     }
-    //     me.isActivate = true;
-    // },
     onSearch: function(){
         var me = this.getView();
         var viewModel = this.getViewModel();
