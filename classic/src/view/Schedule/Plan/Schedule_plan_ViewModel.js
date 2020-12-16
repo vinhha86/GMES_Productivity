@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Schedule_plan_ViewModel',
     requires: ['GSmartApp.store.org.ListOrgStore', 'GSmartApp.store.POrderFilter',
-        'GSmartApp.store.POrder_Req'],
+        'GSmartApp.store.POrder_Req','GSmartApp.store.POrder_Grant'],
     data: {
         schedule: {
             // startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
         isHidden_CMP: true,
         isHidden_Salary: true,
         isHidden_Phanlenh: false,
-        isHidden_GuestView: false,
+        isHidden_GuestView: false
     },
     stores: {
         EndBuyer : {
@@ -36,6 +36,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
         },
         Porder_Req_Granted_Store: {
             type: 'POrder_Req'
+        },
+        POrder_Change_Store: {
+            type: 'POrder_Grant'
         }
     }
 })

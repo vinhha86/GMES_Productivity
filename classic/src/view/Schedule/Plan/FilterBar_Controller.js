@@ -59,6 +59,110 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
             }
         }
     },   
+    setHiddenAllTab: function(){
+        var tabs = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        for(var i=0; i<tabs.items.length; i++){
+            var item = tabs.items[i];
+            console.log(item);
+            item.tab.hide();
+        }
+    },
+    onLenhThayDoi: function(){
+        var viewmodel = this.getViewModel();
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
+        var tab = panel_orderungranted.child('#PorderChange_Productivity');
+        tab.tab.show();
+        panel_orderungranted.setActiveTab(tab);
+
+        var Porder_Req_Granted_Store = viewmodel.getStore('POrder_Change_Store');
+        Porder_Req_Granted_Store.Load_Grant_Change();
+
+        if (null != panel_orderungranted){
+            if (panel_orderungranted.getHidden()){
+                
+                panel_orderungranted.setHidden(false);
+                panel_guessview.setHidden(true);
+            }
+            else{
+                tab.tab.hide();
+                panel_orderungranted.setHidden(true);
+            }
+        }
+    },
+    onDaXepKeHoach: function(){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
+        var tab = panel_orderungranted.child('#Porder_Req_Granted');
+        tab.tab.show();
+        panel_orderungranted.setActiveTab(tab);
+
+        var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
+        Porder_Req_Granted_Store.load_reqGranted();
+
+        if (null != panel_orderungranted){
+            if (panel_orderungranted.getHidden()){
+               
+                panel_orderungranted.setHidden(false);
+                panel_guessview.setHidden(true);
+            }
+            else{
+                // tab.tab.hide();
+                // panel_orderungranted.setHidden(true);
+            }
+        }
+    },
+    onLenhChuaPhanChuyen: function(){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
+        var tab = panel_orderungranted.child('#POrderUnGranted');
+        tab.tab.show();
+        panel_orderungranted.setActiveTab(tab);
+
+        var store = viewmodel.getStore('POrderUnGranted');
+        var golive_from = viewmodel.get('schedule.startDate');
+        var golive_to = viewmodel.get('schedule.endDate');
+        store.loadFree_bygolivedate(golive_from,golive_to);
+
+        if (null != panel_orderungranted){
+            if (panel_orderungranted.getHidden()){
+                
+
+                panel_orderungranted.setHidden(false);
+                panel_guessview.setHidden(true);
+            }
+            else{
+                // tab.tab.hide();
+                // panel_orderungranted.setHidden(true);
+            }
+        }
+    },
+    onYeuCauXepKeHoach: function(){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
+        var tab = panel_orderungranted.child('#Porder_Req');
+        tab.tab.show();
+        panel_orderungranted.setActiveTab(tab);
+
+        var store_req = viewmodel.getStore('Porder_Req_Store');
+        store_req.load_byOrg();
+
+        if (null != panel_orderungranted){
+            if (panel_orderungranted.getHidden()){
+                panel_orderungranted.setHidden(false);
+                panel_guessview.setHidden(true);
+            }
+            else{
+                // panel_orderungranted.setHidden(true);
+            }
+        }
+    },
     onGuessView: function(){
         var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');

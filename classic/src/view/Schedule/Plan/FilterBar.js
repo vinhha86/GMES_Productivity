@@ -43,11 +43,41 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     handler: 'onShowSalaryFund'
                 },
                 {
-                    itemId: 'btnGrantPorder_FilterBar',
-                    text: 'Phân lệnh vào tổ chuyền',
+                    itemId: 'btnLenhChuaPhanChuyen',
+                    text: 'Lệnh chưa phân chuyền',
                     iconCls: 'x-fa fa-sliders violetIcon',
                     weight: 30,
-                    handler: 'onGrantToOrgTap',
+                    handler: 'onLenhChuaPhanChuyen',
+                    bind : {
+                        hidden: '{isHidden_Phanlenh}'
+                    }
+                },
+                {
+                    itemId: 'btnYeuCauXepKeHoach',
+                    text: 'Yêu cầu xếp kế hoạch',
+                    iconCls: 'x-fa fa-sliders violetIcon',
+                    weight: 30,
+                    handler: 'onYeuCauXepKeHoach',
+                    bind : {
+                        hidden: '{isHidden_Phanlenh}'
+                    }
+                },
+                {
+                    itemId: 'btnDaXepKeHoach',
+                    text: 'Đã xếp kế hoạch',
+                    iconCls: 'x-fa fa-sliders violetIcon',
+                    weight: 30,
+                    handler: 'onDaXepKeHoach',
+                    bind : {
+                        hidden: '{isHidden_Phanlenh}'
+                    }
+                },
+                {
+                    itemId: 'btnLenhThayDoi',
+                    text: 'Lệnh bị thay đổi',
+                    iconCls: 'x-fa fa-sliders violetIcon',
+                    weight: 30,
+                    handler: 'onLenhThayDoi',
                     bind : {
                         hidden: '{isHidden_Phanlenh}'
                     }

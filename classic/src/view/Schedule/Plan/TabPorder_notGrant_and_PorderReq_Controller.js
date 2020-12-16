@@ -2,13 +2,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     extend: 'Ext.app.ViewController',
     alias: 'controller.TabPorder_notGrant_and_PorderReq_Controller',
     init: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('POrderUnGranted');
-        var store_req = viewmodel.getStore('Porder_Req_Store');
-        var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
-        store.getSorters().add('productiondate');
-        store_req.getSorters().add('po_Productiondate');
-        Porder_Req_Granted_Store.getSorters().add('po_Productiondate');
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.getStore('POrderUnGranted');
+        // var store_req = viewmodel.getStore('Porder_Req_Store');
+        // var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
+        // store.getSorters().add('productiondate');
+        // store_req.getSorters().add('po_Productiondate');
+        // Porder_Req_Granted_Store.getSorters().add('po_Productiondate');
     },
     control : {
         'TabPorder_notGrant_and_PorderReq' : {
@@ -16,7 +16,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         }
     },
     onTabChange: function(tabPanel, newCard, oldCard, eOpts){
-        console.log(newCard);
+    },
+    onSearchGrantChange: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrder_Change_Store');
+        store.load();
     },
     onSearchTap: function () {
         var viewmodel = this.getViewModel();

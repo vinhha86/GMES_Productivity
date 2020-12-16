@@ -68,9 +68,8 @@ Ext.define('GSmartApp.view.holiday.HolidayViewController', {
     onXoa: function (grid, rowIndex, colIndex) {
         let me = this;
         let rec = grid.getStore().getAt(rowIndex);
-        let id = rec.get('id');
         let data = [];
-        data.push({'id': id});
+        data.push(rec.data);
         Ext.Msg.show({
             title: 'Thông báo',
             msg: 'Bạn có chắc chắn xóa ?',
