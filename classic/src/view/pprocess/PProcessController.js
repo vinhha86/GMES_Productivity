@@ -105,7 +105,8 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
         var viewmodel = this.getViewModel();
         var POrderProcessingStore = viewmodel.get('POrderProcessingStore');        
         if (POrderProcessingStore) {
-            POrderProcessingStore.reload();
+            // POrderProcessingStore.reload();
+            POrderProcessingStore.load();
         }
     }, 
     

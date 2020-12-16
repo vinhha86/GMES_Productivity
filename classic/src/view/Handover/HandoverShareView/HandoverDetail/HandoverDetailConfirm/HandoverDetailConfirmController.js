@@ -117,24 +117,35 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        Ext.Msg.show({
-                            title: 'Thông báo',
-                            msg: 'Xác thực thành công',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
-                        //
-                        var viewId = viewModel.get('viewId');
-                        var mainView = Ext.getCmp(viewId);
-                        if(approver_userid_link != 0)
-                            mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
-                        if(receiver_userid_link != 0)
-                            mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
-                        mainView.getViewModel().set('currentRec.status', status);
-                        //
-                        m.onThoat();
+                        if(response.message == 'Không tồn tại POrderProcessing'){
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }else {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Xác thực thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            //
+                            var viewId = viewModel.get('viewId');
+                            var mainView = Ext.getCmp(viewId);
+                            if(approver_userid_link != 0)
+                                mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
+                            if(receiver_userid_link != 0)
+                                mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
+                            mainView.getViewModel().set('currentRec.status', status);
+                            //
+                            m.onThoat();
+                        }
                     }
                     else {
                         Ext.Msg.show({

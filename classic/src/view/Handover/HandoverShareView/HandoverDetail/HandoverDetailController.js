@@ -40,7 +40,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             viewModel.set('viewIdList', 'handover_line_topack');
             var orgtypestring_from = '14';
             ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
-            // cut to line chon porder de load ListOrgStore_To
+            var orgtypestring_to = '9';
+            ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
         }
 
         if(Ext.getCmp('handover_line_toprint_detail')){
@@ -70,6 +71,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             viewModel.set('viewIdList', 'handover_pack_fromline');
             var orgtypestring_from = '14';
             ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+            var orgtypestring_to = '9';
+            ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
         }
 
         if(Ext.getCmp('handover_pack_tostock_detail')){
@@ -149,6 +152,15 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     if(response.message == 'Phiếu chưa được xác nhận'){
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }else if(response.message == 'Không tồn tại POrderProcessing'){
                         Ext.MessageBox.show({
                             title: "Thông báo",
                             msg: response.message,
@@ -582,7 +594,10 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
                     var viewId = viewModel.get('viewId');
                     // console.log(viewId);
-                    if(viewId == 'handover_cut_toline_detail'){
+                    if(
+                        viewId == 'handover_cut_toline_detail' ||
+                        viewId == 'handover_line_fromcut_detail'
+                    ){
                         var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
                         ListOrgStore_To.loadStoreByPorderIdLink(data.porderid_link);
                     }
@@ -612,6 +627,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                         if (success) {
                             // console.log(response);
                             HandoverProductStore.setData(response.data);
+                            HandoverProductStore.commitChanges();
                         }
                     }); 
                 }
@@ -626,7 +642,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             viewId == 'handover_line_fromcut_detail' ||
             viewId == 'handover_pack_fromline_detail'
         ){
-            
+            console.log(viewId);
             HandoverProductStore.rejectChanges();
             return;
         }

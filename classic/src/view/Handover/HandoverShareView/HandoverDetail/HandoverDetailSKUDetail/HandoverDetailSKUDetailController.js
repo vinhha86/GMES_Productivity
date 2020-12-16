@@ -208,6 +208,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailSKUDetailController', {
                         if (success) {
                             // console.log(response);
                             HandoverSkuStore.setData(response.data);
+                            HandoverSkuStore.commitChanges();
                         }
                     }); 
                 }
