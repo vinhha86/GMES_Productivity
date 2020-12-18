@@ -53,6 +53,9 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
 
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('ProductStore');
+        store.getSorters().remove('product_type');
+        store.getSorters().remove('id');
+        store.getSorters().add('buyercode');
 
         var limit = me.down('#limitpage').getValue();
         var name = me.down('#name').getValue();
