@@ -311,20 +311,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             }
                         },
                         {
-                            xtype: 'numberfield',
-                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                            fieldStyle: 'font-size:11px;text-align:right',
-                            readOnly: true,
-                            fieldLabel: 'Số ngày SX:',
-                            hideTrigger:true,
-                            reference: 'poinfo_productiondays',
-                            labelAlign: 'left',
-                            labelWidth: 78,
-                            flex: 1,
-                            margin: 1,
-                            bind: {
-                                value: '{po.productiondays}'
-                            }
+                            xtype: 'container',
+                            layout: 'hbox',
+                            items:[
+                                {
+                                    xtype: 'numberfield',
+                                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                                    fieldStyle: 'font-size:11px;text-align:right',
+                                    readOnly: true,
+                                    fieldLabel: 'Ngày SX có:',
+                                    hideTrigger:true,
+                                    reference: 'poinfo_productiondays',
+                                    labelAlign: 'left',
+                                    labelWidth: 78,
+                                    width: '60%',
+                                    margin: 1,
+                                    bind: {
+                                        value: '{po.productiondays}'
+                                    }    
+                                },
+                                {
+                                    xtype: 'numberfield',
+                                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                                    fieldStyle: 'font-size:11px;text-align:right',
+                                    readOnly: true,
+                                    fieldLabel: 'cần:',
+                                    hideTrigger:true,
+                                    reference: 'poinfo_productiondays_ns',
+                                    labelAlign: 'left',
+                                    labelWidth: 20,
+                                    flex: 1,
+                                    margin: 1,
+                                    bind: {
+                                        value: '{po.productiondays_ns}'
+                                    }    
+                                }
+                            ]
                         }, 
                     ]
                 }
