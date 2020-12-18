@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             menu      : [
                 {
                     itemId: 'btnExportPDF_FilterBar',
-                    iconCls: 'fa fa-file-pdf-o violetIcon',
+                    iconCls: 'fa fa-file-pdf-o greenIcon',
                     text: 'Xuất file PDF',
                     handler: 'onExport'
                 },
@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                 {
                     itemId: 'btnYeuCauXepKeHoach',
                     text: 'Yêu cầu xếp kế hoạch',
-                    iconCls: 'x-fa fa-sliders violetIcon',
+                    iconCls: 'x-fa fa-bullhorn redIcon',
                     weight: 30,
                     handler: 'onYeuCauXepKeHoach',
                     bind : {
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                 {
                     itemId: 'btnDaXepKeHoach',
                     text: 'Đã xếp kế hoạch',
-                    iconCls: 'x-fa fa-sliders violetIcon',
+                    iconCls: 'x-fa fa-bell-slash-o blueIcon',
                     weight: 30,
                     handler: 'onDaXepKeHoach',
                     bind : {
@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                 {
                     itemId: 'btnLenhThayDoi',
                     text: 'Lệnh bị thay đổi',
-                    iconCls: 'x-fa fa-sliders violetIcon',
+                    iconCls: 'x-fa fa-exclamation-triangle brownIcon',
                     weight: 30,
                     handler: 'onLenhThayDoi',
                     bind : {
@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                 {
                    itemId: 'btnGuessView_FilterBar',
                     text: 'Khung nhìn khách',
-                    iconCls: 'x-fa fa-user violetIcon',
+                    iconCls: 'x-fa fa-user greenIcon',
                     weight: 30,
                     handler: 'onGuessView',
                     bind : {

@@ -99,13 +99,13 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 },            
             ]
         },                
-        { header: 'Mã lệnh', locked: true, dataIndex: 'pordercode', width: 100,
+        { header: 'Mã lệnh', locked: true, dataIndex: 'pordercode', width: 155,
             //editor: {xtype: 'textfield', readOnly: true},
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'porderFilterField',
-                width: 95,
+                width: 149,
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {
