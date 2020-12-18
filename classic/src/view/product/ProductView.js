@@ -40,8 +40,8 @@ Ext.define('GSmartApp.view.product.ProductView', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Mã SP',
-        dataIndex: 'code',
+        text: 'Mã SP (Buyer)',
+        dataIndex: 'buyercode',
         width: 150,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
