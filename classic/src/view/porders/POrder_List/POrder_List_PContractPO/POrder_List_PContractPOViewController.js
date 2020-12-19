@@ -24,5 +24,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOViewContro
         viewModel.set('IdPcontractPo', pcontract_poid_link);
         var porderSKUStore = viewModel.getStore('porderSKUStore');
         porderSKUStore.loadByPContractPOforPOrderDetail(pcontract_poid_link, porderid_link);
-    }
+    },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    } ,
 })
