@@ -32,6 +32,36 @@ Ext.define('GSmartApp.store.POrder_Grant', {
 		});
 		this.load();
 	},  	
+	Load_Grant_Change: function(){
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/porder_grant/get_grant_change',
+			paramsAsJson:true,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
 	loadByPOrderId: function(porderid_link){
 		var params = new Object();
 		params.porderid_link = porderid_link;
