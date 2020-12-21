@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         data.append('file', m.fileInputEl.dom.files[0]);
         data.append('pcontractid_link', viewmodel.get('PContract.id'));
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_template', data, 2*60*1000,
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_template', data, 3*60*1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
