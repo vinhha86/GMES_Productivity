@@ -28,6 +28,7 @@ Ext.define('GSmartApp.model.pcontract.PContractPO', {
 		{name: 'exchangerate',    type: 'number'},	
 		{name: 'productiondate',   type: 'date', dateFormat: 'c'},
 		{name: 'productiondays',   type: 'int'},	
+		{name: 'productiondays_ns',   type: 'int'},
 		{name: 'packingnotice',   type: 'string'},	
 		{name: 'qcorgid_link',   type: 'int'},
 		{name: 'qcorgname',   type: 'string'},

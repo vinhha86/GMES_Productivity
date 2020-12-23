@@ -93,8 +93,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                 viewmodel.set('pcontract_po_productivity.plan_linerequired', 0);
             }
             else {
-                var plan_linerequired = Math.round(((po_quantity/productiondays)/productivity) * 10) / 10;
-                viewmodel.set('pcontract_po_productivity.plan_linerequired', plan_linerequired);
+                //Tinh so ngay can san xuat
+                if (null!=productivity && productivity!=0){
+                    var productiondays_ns = Math.round(po_quantity/productivity);
+                    viewmodel.set('po.productiondays_ns',productiondays_ns);
+                } else {
+                    viewmodel.set('po.productiondays_ns',0);
+                }
+
+                console.log(productiondays_ns);
+                console.log(productiondays);
+                if (productiondays_ns < productiondays){
+                    viewmodel.set('pcontract_po_productivity.plan_linerequired', 1);
+                } else {
+                    if (null!=productiondays && productiondays !=0)
+                        viewmodel.set('pcontract_po_productivity.plan_linerequired', Math.round((productiondays_ns/productiondays)*10)/10);
+                    else
+                    viewmodel.set('pcontract_po_productivity.plan_linerequired', 0);
+                }
+
+                // var plan_linerequired = Math.round(((po_quantity/productiondays)/productivity) * 10) / 10;
+                // viewmodel.set('pcontract_po_productivity.plan_linerequired', plan_linerequired);
             }
 
             //Cap nhat lai trong po
