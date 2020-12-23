@@ -57,7 +57,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
     data:{
         IdPOrder: null,
         IdGrant: null,
-        IdPcontractPo: null,
+        IdPContractPO: null,
+        POrder_grant: null,
         //
         grantSKUViewTabInfoTitle: 'Chi tiết màu, cỡ',
         //

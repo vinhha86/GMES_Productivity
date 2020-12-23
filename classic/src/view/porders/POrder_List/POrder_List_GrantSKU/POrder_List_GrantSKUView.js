@@ -51,18 +51,20 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    }, {
-        text: 'SKU',
-        dataIndex: 'skucode',
-        flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    }, {
+    }, 
+    // {
+    //     text: 'SKU',
+    //     dataIndex: 'skucode',
+    //     flex: 1,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // }, 
+    {
         text: 'Màu',
         dataIndex: 'mauSanPham',
-        width: 100,
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;

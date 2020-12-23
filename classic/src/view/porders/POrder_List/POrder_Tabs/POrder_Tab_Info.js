@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
         items: [
             {
                 region: 'west',
-                width: 230,
+                width: 350,
                 xtype: 'POrder_List_PContractPOView',
                 title: 'PO Line',
                 border: true,
