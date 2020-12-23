@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_PContractPOView', {
     },
     {
         text: 'Tổ SX',
-        dataIndex: 'po_buyer',
+        dataIndex: 'productionlines',
         flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
