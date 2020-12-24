@@ -17,26 +17,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             click: 'onPricePaste'
         },
         '#PContract_PO_Edit_Price': {
-            beforecelldblclick: 'onBeforePriceCellDblClick',
+            // beforecelldblclick: 'onBeforePriceCellDblClick',
             celldblclick: 'onPriceCellDblClick'
         }
     },
-    onBeforePriceCellDblClick: function( thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
-        // 4: NPL, 2: NCC
-        if(rowIndex == 0){
-            return false;
-        }
-        if(cellIndex != 3 && cellIndex != 5){
-            return false;
-        }
-    },
+    // onBeforePriceCellDblClick: function( thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
+    //     // 4: NPL, 2: NCC
+    //     if(rowIndex == 0){
+    //         return false;
+    //     }
+    //     if(cellIndex != 3 && cellIndex != 5){
+    //         return false;
+    //     }
+    // },
     onPriceCellDblClick: function(thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ){
         var m = this;
-        if(cellIndex == 5){
+        if(cellIndex == 4){
             // NPL
             m.ThemMoiMaterialIdLink(record);
         }
-        if(cellIndex == 3){
+        if(cellIndex == 2){
             // NCC
             m.ThemMoiProvider(record);
         }
@@ -210,7 +210,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             // price_data.price_sewingtarget = Ext.Number.roundToPrecision((price_data.price_cmp*po_data.exchangerate)*(po_data.sewtarget_percent/100),0);
         } else {
             //Tinh gia theo dinh muc va gia don vi
-            if (e.colIdx == 2 || e.colIdx == 4)
+            if (e.colIdx == 5 || e.colIdx == 7)
                 priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
         }
         
@@ -435,27 +435,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             minWidth: 150,
             viewModel: {},
             items: [
-            {
-                text: 'Thêm chi tiết',
-                reference: 'addPriceDDetail',
-                separator: true,
-                margin: '0',
-                iconCls: 'x-fa fas fa-plus redIcon',
-                handler: function() {
-                    var record = this.parentMenu.record;
-                    // console.log(record);
-                    me.addPContractPriceDSKU(record);
-                }
-            },
+            // {
+            //     text: 'Thêm chi tiết',
+            //     reference: 'addPriceDDetail',
+            //     separator: true,
+            //     margin: '0',
+            //     iconCls: 'x-fa fas fa-plus redIcon',
+            //     handler: function() {
+            //         var record = this.parentMenu.record;
+            //         // console.log(record);
+            //         me.addPContractPriceDSKU(record);
+            //     }
+            // },
             {
                 text: 'Xoá chi tiết giá',
                 reference: 'deletePriceD',
                 separator: true,
-                margin: '10 0 0',
+                margin: '0 0 0',
                 iconCls: 'x-fa fas fa-trash violetIcon',
                 handler: function() {
                     // var record = this.parentMenu.record;
-                    me.onPriceD_Delete(grid, rowIndex, colIndex);
+                    if(rowIndex != 0){
+                        me.onPriceD_Delete(grid, rowIndex, colIndex);
+                    }
                 }
             }
         ]
@@ -492,17 +494,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         form.show();
 
         form.getController().on('AddMaterialIdLink', function (rec) {
-            
-            // var materialid_link = rec.get('id');
-            // var materialCode = rec.get('code');
-
-            // record.set('materialid_link', materialid_link);
-            // record.set('materialCode', materialCode);
-            // console.log(record);
-            console.log(rec);
 
             var pcontract_price_d_skus = record.get('pcontract_price_d_sku');
-            console.log(pcontract_price_d_skus);
 
             const found = pcontract_price_d_skus.some(item => item.materialid_link === rec.get('id'));
             if(!found){
@@ -536,7 +529,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         Ext.Msg.show({
             title: "Thông báo",
-            msg: 'bạn có chắc chắn muốn xóa dòng chi tiết giá?',
+            msg: 'Bạn có chắc chắn muốn xóa dòng chi tiết giá?',
             buttons: Ext.MessageBox.YESNO,
             buttonText: {
                 yes: 'Có',
