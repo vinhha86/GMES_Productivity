@@ -20,10 +20,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         Price_DStore: {
             type: 'PContract_PO_Price_D_Store'
-        }, 
+        },
         Price_DStore_Copy: {
             type: 'PContract_PO_Price_D_Store'
-        },               
+        },
+        Price_D_SKUStore: {
+            type: 'PContract_PO_Price_D_SKU_Store'
+        }, 
         ProductStore: {
             type: 'ProductStore'
         },
@@ -104,5 +107,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         obj_copy: null,
         obj_paste_btn_hidden: true,
         obj_copy_btn_hidden: true,
+
+        // dung cho view price_d_sku
+        price_d_record: null,
+        price_d_sku_record: null,
     }
 })

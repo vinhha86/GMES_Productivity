@@ -18,25 +18,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         },
         '#PContract_PO_Edit_Price': {
             // beforecelldblclick: 'onBeforePriceCellDblClick',
-            celldblclick: 'onPriceCellDblClick'
+            celldblclick: 'onPriceCellDblClick',
+            itemclick: 'onPriceDItemClick'
         }
     },
-    // onBeforePriceCellDblClick: function( thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
-    //     // 4: NPL, 2: NCC
-    //     if(rowIndex == 0){
-    //         return false;
-    //     }
-    //     if(cellIndex != 3 && cellIndex != 5){
-    //         return false;
-    //     }
-    // },
+    onPriceDItemClick: function(thisView, record, item, index, e, eOpts){
+        // Price_D_SKUStore
+        var viewModel = this.getViewModel();
+        var Price_D_SKUStore = viewModel.getStore('Price_D_SKUStore');
+        // console.log(record);
+        var pcontract_price_d_sku = record.get('pcontract_price_d_sku');
+        if(pcontract_price_d_sku != null){
+            Price_D_SKUStore.loadData(pcontract_price_d_sku);
+        }else{
+            Price_D_SKUStore.removeAll();
+        }
+        viewModel.set('price_d_record', record);
+        viewModel.set('price_d_sku_record', pcontract_price_d_sku);
+    },
     onPriceCellDblClick: function(thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ){
         var m = this;
-        if(cellIndex == 4){
+        if(cellIndex == 3 && rowIndex != 0){
             // NPL
             m.ThemMoiMaterialIdLink(record);
         }
-        if(cellIndex == 2){
+        if(cellIndex == 2 && rowIndex != 0){
             // NCC
             m.ThemMoiProvider(record);
         }
@@ -209,9 +215,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             price_data.price_sewingtarget = Math.round((price_data.price_cmp*po_data.exchangerate)*po_data.sewtarget_percent/100);
             // price_data.price_sewingtarget = Ext.Number.roundToPrecision((price_data.price_cmp*po_data.exchangerate)*(po_data.sewtarget_percent/100),0);
         } else {
-            //Tinh gia theo dinh muc va gia don vi
-            if (e.colIdx == 5 || e.colIdx == 7)
-                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
+            //Tinh gia theo dinh muc va gia don vi va tieu hao
+            if (e.colIdx == 4 || e.colIdx == 5 || e.colIdx == 7){
+                // console.log(priceD_data.lost_ratio);
+                // console.log(priceD_data.quota);
+                // console.log(priceD_data.unitprice);
+                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice*(priceD_data.lost_ratio/100+1),3);
+            }
+                
         }
         
         //SUM FOB Price
@@ -435,18 +446,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             minWidth: 150,
             viewModel: {},
             items: [
-            // {
-            //     text: 'Thêm chi tiết',
-            //     reference: 'addPriceDDetail',
-            //     separator: true,
-            //     margin: '0',
-            //     iconCls: 'x-fa fas fa-plus redIcon',
-            //     handler: function() {
-            //         var record = this.parentMenu.record;
-            //         // console.log(record);
-            //         me.addPContractPriceDSKU(record);
-            //     }
-            // },
+            {
+                text: 'Thêm chi tiết',
+                reference: 'addPriceDDetail',
+                separator: true,
+                margin: '0',
+                iconCls: 'x-fa fas fa-plus redIcon',
+                handler: function() {
+                    var record = this.parentMenu.record;
+                    // console.log(record);
+                    me.addPContractPriceDSKU(record);
+                }
+            },
             {
                 text: 'Xoá chi tiết giá',
                 reference: 'deletePriceD',
@@ -471,7 +482,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     addPContractPriceDSKU: function(record){
         var me = this.getView();
         var t = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
 
         var form = Ext.create({
             xtype: 'skusearchwindow',
@@ -483,7 +494,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 data: {
                     sourceview: 'PContract_PO_Edit_Price',
                     searchtype: 5,
-                    // pcontractid_link: viewmodel.get('PContract.id'),
+                    // pcontractid_link: viewModel.get('PContract.id'),
                     // productid_link_notsearch: productid_link,
                     isAddNPL: true,
                     isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
@@ -494,12 +505,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         form.show();
 
         form.getController().on('AddMaterialIdLink', function (rec) {
-
+            console.log(rec);
             var pcontract_price_d_skus = record.get('pcontract_price_d_sku');
-
-            const found = pcontract_price_d_skus.some(item => item.materialid_link === rec.get('id'));
+            var found;
+            if(pcontract_price_d_skus == null){
+                found = false;
+                pcontract_price_d_skus = new Array();
+            }else{
+                found = pcontract_price_d_skus.some(item => item.materialid_link === rec.get('id'));
+            }
             if(!found){
-                console.log('not found');
+                // console.log('not found');
                 var newPriceDSKU = new Object();
                 // newPriceDSKU.id = 0;
                 newPriceDSKU.amount = 0;
@@ -507,14 +523,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 newPriceDSKU.unitprice = 0
                 newPriceDSKU.materialid_link = rec.get('id');
                 newPriceDSKU.materialCode = rec.get('code');
+                newPriceDSKU.color_name = rec.get('color_name');
+                newPriceDSKU.size_name = rec.get('size_name');
                 pcontract_price_d_skus.push(newPriceDSKU);
 
                 record.set('pcontract_price_d_sku', []);
                 record.set('pcontract_price_d_sku', pcontract_price_d_skus);
-                console.log(record);
+                viewModel.getStore('Price_D_SKUStore').loadData(pcontract_price_d_skus);
+                // console.log(record);
                 // viewmodel.getStore('Price_DStore').load();
             }else{
-                console.log('found');
+                // console.log('found');
             }
 
             form.close();

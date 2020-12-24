@@ -36,6 +36,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.Provider.PContract_PO_Ed
         }
     }],
     dockedItems:[{
+        dock:'top',
+        layout:'hbox',
+        border: false,
+        items:[{
+            xtype: 'textfield',
+            margin: 3,
+            itemId: 'txtProviderName',
+            emptyText: 'Tên NCC',
+            flex: 1,
+            enableKeyEvents : true,
+            listeners: {
+                // keypress: 'onEnterAddAttributeValue'
+            }
+        },{
+            xtype: 'textfield',
+            margin: 3,
+            itemId: 'txtProviderCode',
+            emptyText: 'Mã NCC',
+            flex: 1,
+            enableKeyEvents : true,
+            listeners: {
+                // keypress: 'onEnterAddAttributeValue'
+            }
+        },{
+            xtype:'button',
+            text: 'Thêm',
+            margin: 3,
+            itemId:'btnAddProvider',
+            iconCls: 'x-fa fa-plus'
+        }]
+    },{
         layout:'hbox',
         border: false,
         dock:'bottom',
@@ -48,7 +79,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.Provider.PContract_PO_Ed
             formBind: false
         },{
             xtype:'button',
-            text: 'Thêm nhà cung cấp',
+            text: 'Lưu nhà cung cấp',
             margin: 3,
             itemId:'btnAdd',
             iconCls: 'x-fa fa-plus',

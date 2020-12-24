@@ -70,20 +70,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             return value;
         },
     },{
-        text: 'Tiêu hao',
-        dataIndex: 'lost_ratio',
-        // flex:1,
-        width: 50,
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9.]/,
-            selectOnFocus: true
-        },
-        renderer: function (value, metaData, record) {
-            if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.000')
-        }
-    },{
         text: 'Mã NPL',
         dataIndex: 'materialCode',
         flex:1,
@@ -114,9 +100,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         }
     },  
     {
+        text: 'Tiêu hao',
+        dataIndex: 'lost_ratio',
+        // flex:1,
+        width: 70,
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.000')
+        }
+    },{
         text: 'ĐVT',
         dataIndex: 'unitid_link',
-        width: 65,
+        width: 70,
         // width: 50,
         editor: {
             completeOnEnter: true,
@@ -135,7 +135,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             }
         },
         renderer: 'renderUnit'
-    },    
+    },
     {
         text: 'Đơn giá',
         align: 'end',
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             if(value ==0) return "";
             return Ext.util.Format.number(value, '0.000')
         }
-    },  
+    },
     {
         text: 'Giá chào',
         align: 'end',
