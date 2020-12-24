@@ -435,27 +435,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             minWidth: 150,
             viewModel: {},
             items: [
-            {
-                text: 'Thêm chi tiết',
-                reference: 'addPriceDDetail',
-                separator: true,
-                margin: '0',
-                iconCls: 'x-fa fas fa-plus redIcon',
-                handler: function() {
-                    var record = this.parentMenu.record;
-                    // console.log(record);
-                    me.addPContractPriceDSKU(record);
-                }
-            },
+            // {
+            //     text: 'Thêm chi tiết',
+            //     reference: 'addPriceDDetail',
+            //     separator: true,
+            //     margin: '0',
+            //     iconCls: 'x-fa fas fa-plus redIcon',
+            //     handler: function() {
+            //         var record = this.parentMenu.record;
+            //         // console.log(record);
+            //         me.addPContractPriceDSKU(record);
+            //     }
+            // },
             {
                 text: 'Xoá chi tiết giá',
                 reference: 'deletePriceD',
                 separator: true,
-                margin: '10 0 0',
+                margin: '0 0 0',
                 iconCls: 'x-fa fas fa-trash violetIcon',
                 handler: function() {
                     // var record = this.parentMenu.record;
-                    me.onPriceD_Delete(grid, rowIndex, colIndex);
+                    if(rowIndex != 0){
+                        me.onPriceD_Delete(grid, rowIndex, colIndex);
+                    }
                 }
             }
         ]
@@ -527,7 +529,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         Ext.Msg.show({
             title: "Thông báo",
-            msg: 'bạn có chắc chắn muốn xóa dòng chi tiết giá?',
+            msg: 'Bạn có chắc chắn muốn xóa dòng chi tiết giá?',
             buttons: Ext.MessageBox.YESNO,
             buttonText: {
                 yes: 'Có',
