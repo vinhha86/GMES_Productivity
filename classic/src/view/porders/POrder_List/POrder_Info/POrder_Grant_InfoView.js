@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Grant_InfoView', {
             width: '100%',
             items: [{
                 xtype: 'textfield',
-                labelStyle: "font-size:12px;padding: 5px 0px 0px 2px;",
+                labelStyle: "font-size:13px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:12px;text-align:right',
                 margin: 2,
                 fieldLabel: "Mã lệnh",
@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Grant_InfoView', {
                 // width: 250
             },{
                 xtype: 'textfield',
-                labelStyle: "font-size:12px;padding: 5px 0px 0px 2px;",
+                labelStyle: "font-size:13px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:12px;text-align:right',
                 margin: 2,
                 fieldLabel: "Mã SP (Buyer)",
@@ -47,18 +47,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Grant_InfoView', {
                 // width: 250
             },{
                 xtype: 'textfield',
-                labelStyle: "font-size:12px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:12px;text-align:right',
+                labelStyle: "font-size:13px;padding: 5px 0px 0px 2px;",
                 margin: 2,
                 fieldLabel: "Số lượng (kế hoạch)",
                 allowBlank: false,
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 maskRe: /[0-9]/,
-                fieldStyle: 'text-align:right;',
                 vtype: 'dollar',
                 bind: {
-                    value: '{POrder_grant.totalamount_tt}'
+                    value: '{POrder_grant.totalamount_tt}',
+                    fieldStyle: '{fieldstyle_sl}',
                 },
                 labelWidth: 130,
                 flex: 1,
@@ -66,7 +65,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Grant_InfoView', {
             },
             {
                 xtype: 'datefield',
-                labelStyle: "font-size:12px;padding: 5px 0px 0px 2px;",
+                labelStyle: "font-size:13px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:12px;text-align:right',
                 margin: 2,
                 reference: 'golivedate',
@@ -76,7 +75,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Grant_InfoView', {
                 allowBlank: false,
                 itemId: 'golivedate',
                 bind: {
-                    value: '{golivedate}'
+                    value: '{golivedate}',
+                    fieldStyle: '{fieldstyle_date}',
                 },
                 format: 'd/m/y',
                 labelWidth: 130,
@@ -85,17 +85,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Grant_InfoView', {
             },
             {
                 xtype: 'datefield',
-                labelStyle: "font-size:12px;padding: 5px 0px 0px 2px;",
+                labelStyle: "font-size:13px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:12px;text-align:right',
                 margin: 2,
-                reference: 'productiondate_plan',
+                reference: 'finish_date_plan',
                 readOnly: true,
                 hideTrigger:true,                
                 fieldLabel: "Ngày kết thúc sx",
                 allowBlank: false,
-                itemId: 'productiondate_plan',
+                itemId: 'finish_date_plan',
                 bind: {
-                    value: '{productiondate_plan}'
+                    value: '{finish_date_plan}'
                 },
                 format: 'd/m/y',
                 labelWidth: 110,

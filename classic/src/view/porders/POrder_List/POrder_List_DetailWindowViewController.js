@@ -61,10 +61,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
     onLoadData: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-        var IdPOrder = viewmodel.get('IdPOrder');
-        var IdGrant = viewmodel.get('IdGrant');
+        // var IdPOrder = viewmodel.get('IdPOrder');
         var IdPContractPO = viewmodel.get('IdPContractPO');
 
+        //Lay thong tin chung Porder_grant cho to chuyen
+        var IdGrant = viewmodel.get('IdGrant');
         var infoView = me.down('#POrder_Grant_InfoView');
         infoView.getController().loadInfo(IdGrant);
 
@@ -146,6 +147,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                     });
                 }
                 me.setLoading(false);
+                //Lay thong tin chung Porder_grant cho to chuyen
+                var IdGrant = viewmodel.get('IdGrant');
+                var infoView = me.down('#POrder_Grant_InfoView');
+                infoView.getController().loadInfo(IdGrant);
             })
 
     },
@@ -207,6 +212,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                     });
                 }
                 me.setLoading(false);
+                //Lay thong tin chung Porder_grant cho to chuyen
+                var IdGrant = viewmodel.get('IdGrant');
+                var infoView = me.down('#POrder_Grant_InfoView');
+                infoView.getController().loadInfo(IdGrant);                
             })
 
     },
