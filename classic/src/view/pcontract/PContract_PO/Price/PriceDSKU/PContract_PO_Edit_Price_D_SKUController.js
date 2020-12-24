@@ -4,19 +4,101 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
     init: function(){
     },
     control: {      
-        // '#btnThemMoiGia': {
-        //     click: 'onThemMoiGia'
-        // },
-        // '#btnPriceCopy': {
-        //     click: 'onPriceCopy'
-        // },
-        // '#btnPricePaste': {
-        //     click: 'onPricePaste'
-        // },
+        '#btnThemMoiGiaSKU': {
+            click: 'onThemMoiGiaSKU'
+        },
         // '#PContract_PO_Edit_Price': {
         //     // beforecelldblclick: 'onBeforePriceCellDblClick',
         //     celldblclick: 'onPriceCellDblClick'
         // }
+    },
+    onThemMoiGiaSKU: function(){
+        var me = this;
+        var viewModel = this.getViewModel();
+        price_d_record = viewModel.get('price_d_record');
+        console.log(price_d_record);
+        if(price_d_record == null){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: 'Bạn cần chọn một chi tiết giá',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }else if(price_d_record.get('isfob') == false){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: 'Không được thêm chi tiết giá SKU cho giá CMP',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }else {
+            me.addPContractPriceDSKU(price_d_record);
+        }
+    },
+    addPContractPriceDSKU: function(record){
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            width: 1200,
+            height: 500,       
+            reference: 'skusearchwindow',
+            closeAction: 'destroy',
+            viewModel: {
+                data: {
+                    sourceview: 'PContract_PO_Edit_Price',
+                    searchtype: 5,
+                    // pcontractid_link: viewModel.get('PContract.id'),
+                    // productid_link_notsearch: productid_link,
+                    isAddNPL: true,
+                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
+                }
+            }
+        });
+        form.show();
+
+        form.getController().on('AddMaterialIdLink', function (rec) {
+            console.log(rec);
+            var pcontract_price_d_skus = record.get('pcontract_price_d_sku');
+            var found;
+            if(pcontract_price_d_skus == null){
+                found = false;
+                pcontract_price_d_skus = new Array();
+            }else{
+                found = pcontract_price_d_skus.some(item => item.materialid_link === rec.get('id'));
+            }
+            if(!found){
+                // console.log('not found');
+                var newPriceDSKU = new Object();
+                // newPriceDSKU.id = 0;
+                newPriceDSKU.amount = 0;
+                newPriceDSKU.totalprice = 0;
+                newPriceDSKU.unitprice = 0
+                newPriceDSKU.materialid_link = rec.get('id');
+                newPriceDSKU.materialCode = rec.get('code');
+                newPriceDSKU.color_name = rec.get('color_name');
+                newPriceDSKU.size_name = rec.get('size_name');
+                pcontract_price_d_skus.push(newPriceDSKU);
+
+                record.set('pcontract_price_d_sku', []);
+                record.set('pcontract_price_d_sku', pcontract_price_d_skus);
+                viewModel.getStore('Price_D_SKUStore').loadData(pcontract_price_d_skus);
+                // console.log(record);
+                // viewmodel.getStore('Price_DStore').load();
+            }else{
+                // console.log('found');
+            }
+
+            form.close();
+        })
     },
     onPriceDSKUItemBeforeEdit:function(){},
     onPriceDSKUItemEdit:function(editor, context){

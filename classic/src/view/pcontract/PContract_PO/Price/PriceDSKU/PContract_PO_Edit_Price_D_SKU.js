@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
     id: 'PContract_PO_Edit_Price_D_SKU',
     controller: 'PContract_PO_Edit_Price_D_SKUController',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
         rowLines: true
@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
     },
     columns:[{
         xtype: 'actioncolumn',
-        width: 28,
+        width: 30,
         menuDisabled: true,
         sortable: false,
         align: 'center',
@@ -32,25 +32,44 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
         },
         items: [
             {
-                iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu_PriceDSKUList'
-            },            
-        ]
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: 'Xoá chi tiết giá SKU',
+                handler: 'onPriceDSKU_Delete'
+            },
+        ],
+        // items: [
+        //     {
+        //         iconCls: 'x-fa fas fa-bars violetIcon',
+        //         handler: 'onMenu_PriceDSKUList'
+        //     },            
+        // ]
     },{
         text:'Mã NPL',
         dataIndex:'materialCode',
         // width: 100,
-        flex: 1
+        flex: 1,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Màu',
         dataIndex:'color_name',
         // width: 100,
-        flex: 1
+        flex: 1,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'Size',
         dataIndex:'size_name',
         // width: 100,
-        flex: 1
+        flex: 1,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },{
         text:'SL',
         align: 'end',
@@ -62,7 +81,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
             selectOnFocus: true
         },
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            if(value ==0) return "";
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000') + '"';
+            return Ext.util.Format.number(value, '0,000')
         }
     },{
         text:'Đơn giá',
@@ -75,7 +96,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
             selectOnFocus: true
         },
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
+            if(value ==0) return "";
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
+            return Ext.util.Format.number(value, '0,000.000')
         }
     },{
         text:'Thành tiền',
@@ -83,8 +106,34 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
         dataIndex:'totalprice',
         width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
+            if(value ==0) return "";
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
+            return Ext.util.Format.number(value, '0,000.000')
         }
+    }],
+    dockedItems:[{
+        dock:'top',
+        xtype:'toolbar',
+        padding: '0 0 10 5',
+        height: 40,
+        items:[{
+            xtype:'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelWidth : 0,
+            value: 'Chi tiết giá SKU'
+        },
+		'->'
+        ,
+		{
+            xtype:'button',
+            width: 20,
+            itemId:'btnThemMoiGiaSKU',
+            ui: 'header',
+            margin: '5 5 0 0',
+			tooltip: 'Thêm chi tiết giá SKU',
+            iconCls: 'x-fa fa-plus'
+        },  
+        ]
     }]
 });
 

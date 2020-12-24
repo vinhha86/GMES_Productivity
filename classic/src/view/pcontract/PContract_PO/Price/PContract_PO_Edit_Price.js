@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     id: 'PContract_PO_Edit_Price',
     controller: 'PContract_PO_Edit_PriceController',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
         rowLines: true
@@ -25,31 +25,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },
     columns: [{
         xtype: 'actioncolumn',
-        width: 28,
+        width: 30,
         menuDisabled: true,
         sortable: false,
         align: 'center',
         bind:{
             hidden: '{ishiddenActionColumn}'
         },
-        // items: [
-        //     {
-        //         iconCls: 'x-fa fas fa-trash',
-        //         tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-        //         handler: 'onPriceD_Delete'
-        //     },
-        //     // {
-        //     //     iconCls: 'x-fa fas fa-dollar',
-        //     //     tooltip: 'Gợi ý giá',
-        //     //     handler: 'onPriceGuide'
-        //     // }
-        // ],
         items: [
             {
-                iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu_PriceList'
-            },            
-        ]
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: 'Xoá chi tiết giá',
+                handler: 'onPriceD_Delete'
+            },
+            // {
+            //     iconCls: 'x-fa fas fa-dollar',
+            //     tooltip: 'Gợi ý giá',
+            //     handler: 'onPriceGuide'
+            // }
+        ],
+        // items: [
+        //     {
+        //         iconCls: 'x-fa fas fa-bars violetIcon',
+        //         handler: 'onMenu_PriceList'
+        //     },            
+        // ]
     },{
         text: 'Tên giá',
         dataIndex: 'fobprice_name',
@@ -96,7 +96,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
-            return Ext.util.Format.number(value, '0.000')
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.000') + '"';
+            return Ext.util.Format.number(value, '0.000');
         }
     },  
     {
@@ -111,6 +112,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.000') + '"';
             return Ext.util.Format.number(value, '0.000')
         }
     },{
@@ -151,6 +153,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.000') + '"';
             return Ext.util.Format.number(value, '0.000')
         }
     },
@@ -169,6 +172,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         },
         renderer: function (value, metaData, record) {
             if(value ==0) return "";
+            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.000') + '"';
             return Ext.util.Format.number(value, '0.000')
         }
     },    
