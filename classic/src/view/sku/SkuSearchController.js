@@ -2,12 +2,20 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.skusearch',
     init: function(){
+        var me = this.getView();
         var viewModel = this.getViewModel();
         if (viewModel.get('sourceview') == 'PContractListProductView'){
             var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');        
             SkuAtributesStore.loadDefaultAttr(10);
             this.onSearchButton();
         }
+
+        if(viewModel.get('sourceview') == 'PContract_PO_Edit_Price'){
+            var grid_skusearch = me.items.get('grid_skusearch');
+            var selectionModel = grid_skusearch.getSelectionModel();
+            selectionModel.setSelectionMode('SINGLE');
+        }
+
         this.onActivate();
         common.Check_Object_Permission();
     },
@@ -167,6 +175,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
 
         if(viewModel.get('sourceview') == 'PContractProduct_Bom2_TabColorView'){
             this.InsertNPL_DinhMucKhachHang();
+        }
+
+        if(viewModel.get('sourceview') == 'PContract_PO_Edit_Price'){
+            this.InsertMaterialIdLinkToPriceD();
         }
     },
     createPContractProduct: function () {
@@ -535,6 +547,32 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         });
                     }
                 })
+        }
+    },
+    InsertMaterialIdLinkToPriceD: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var selectionModel = grid_skusearch.getSelectionModel();
+        var records = grid_skusearch.getSelection();
+        if(records.length > 0){
+            // console.log(records[0]);
+            // var materialid_link = records[0].get('id');
+            m.fireEvent("AddMaterialIdLink", records[0]);
+            // m.onThoat();
+        }else{
+            // Ext.Msg.alert({
+            //     title: "Thông báo",
+            //     msg: 'Bạn chưa chọn SKU',
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     },
+            //     fn: function (btn) {
+            //         me.down('#cmbSanPham').expand();
+            //     }
+            // });
+            // return;
         }
     },
     createStockoutForCheck: function () {

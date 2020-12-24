@@ -25,35 +25,82 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     },
     columns: [{
         xtype: 'actioncolumn',
-        width: 45,
+        width: 28,
         menuDisabled: true,
         sortable: false,
         align: 'center',
         bind:{
             hidden: '{ishiddenActionColumn}'
         },
+        // items: [
+        //     {
+        //         iconCls: 'x-fa fas fa-trash',
+        //         tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+        //         handler: 'onPriceD_Delete'
+        //     },
+        //     // {
+        //     //     iconCls: 'x-fa fas fa-dollar',
+        //     //     tooltip: 'Gợi ý giá',
+        //     //     handler: 'onPriceGuide'
+        //     // }
+        // ],
         items: [
             {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-                handler: 'onPriceD_Delete'
-            },
-            // {
-            //     iconCls: 'x-fa fas fa-dollar',
-            //     tooltip: 'Gợi ý giá',
-            //     handler: 'onPriceGuide'
-            // }
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu_PriceList'
+            },            
         ]
     },{
         text: 'Tên giá',
         dataIndex: 'fobprice_name',
-        flex:1
+        flex:1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        },
+    },{
+        text: 'NCC',
+        dataIndex: 'providerCode',
+        flex:1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            if(value == null){
+                return '';
+            }
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        },
+    },{
+        text: 'Tiêu hao',
+        dataIndex: 'lost_ratio',
+        // flex:1,
+        width: 50,
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            if(value ==0) return "";
+            return Ext.util.Format.number(value, '0.000')
+        }
+    },{
+        text: 'Mã NPL',
+        dataIndex: 'materialCode',
+        flex:1,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            if(value == null){
+                return '';
+            }
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        },
     },
     {
         text: 'ĐM',
         align: 'end',
         dataIndex: 'quota',
         width: 70,
+        // width: 50,
         xtype: 'numbercolumn',
         format: '0.000',
         editor:{
@@ -70,6 +117,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         text: 'ĐVT',
         dataIndex: 'unitid_link',
         width: 65,
+        // width: 50,
         editor: {
             completeOnEnter: true,
             field: {
@@ -93,6 +141,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         align: 'end',
         dataIndex: 'unitprice',
         width: 70,
+        // width: 50,
         xtype: 'numbercolumn',
         format: '0.000',
         editor:{
@@ -110,6 +159,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         align: 'end',
         dataIndex: 'price',
         width: 80,
+        // width: 50,
         xtype: 'numbercolumn',
         format: '0.000',
         editor:{
@@ -128,7 +178,76 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         disabled : true,
         dataIndex: 'isfob',
         width: 45
-    },],
+    }],
+    plugins: {
+        rowwidget: {
+            widget: 
+            {
+                xtype: 'grid',
+                viewConfig: {
+                    stripeRows: false
+                },                
+                bind: {
+                    store: '{record.pcontract_price_d_sku}',
+				},
+                columns:[{
+                    xtype: 'actioncolumn',
+                    width: 28,
+                    menuDisabled: true,
+                    sortable: false,
+                    align: 'center',
+                    bind:{
+                        hidden: '{ishiddenActionColumn}'
+                    },
+                    items: [
+                        {
+                            iconCls: 'x-fa fas fa-bars violetIcon',
+                            // handler: 'onMenu_PriceList'
+                        },            
+                    ]
+                },{
+                    text:'Mã NPL',
+                    dataIndex:'materialCode',
+                    // width: 100,
+                    flex: 1
+                },{
+                    text:'Màu',
+                    dataIndex:'color_name',
+                    // width: 100,
+                    flex: 1
+                },{
+                    text:'Size',
+                    dataIndex:'size_name',
+                    // width: 100,
+                    flex: 1
+                },{
+                    text:'SL',
+                    align: 'end',
+                    dataIndex:'amount',
+                    width: 80,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                    }
+                },{
+                    text:'Đơn giá',
+                    align: 'end',
+                    dataIndex:'unitprice',
+                    width: 80,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
+                    }
+                },{
+                    text:'Thành tiền',
+                    align: 'end',
+                    dataIndex:'totalprice',
+                    width: 80,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
+                    }
+                }   ]				
+			}
+		}
+	},
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',

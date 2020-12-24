@@ -243,6 +243,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             record.data.id = null;
             for (i = 0; i < record.data.pcontract_price_d.length; i++) {
                 record.data.pcontract_price_d[i].id = null;
+                var pcontract_price_d_sku = record.data.pcontract_price_d[i].pcontract_price_d_sku;
+                for(j = 0;j < pcontract_price_d_sku.length;j++){
+                    pcontract_price_d_sku[j].id = null;
+                }
             }
             arrPrice.push(record.data);
         });

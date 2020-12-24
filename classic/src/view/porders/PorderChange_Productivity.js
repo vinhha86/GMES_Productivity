@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.porders.PorderChange_Productivity', {
         items: {
             xtype: 'textfield',
             fieldStyle: "",
-            reference: 'poBuyerFilterField',
+            // reference: 'poBuyerFilterField',
             width: '99%',
             margin: 1,
             enableKeyEvents: true,
@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.porders.PorderChange_Productivity', {
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
-                reference: 'codeFilterField',
+                // reference: 'codeFilterField',
                 width: '99%',
                 margin: 1,
                 enableKeyEvents: true,
@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.porders.PorderChange_Productivity', {
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
-                reference: 'unGrantedReqBuyernameFilterField',
+                // reference: 'unGrantedReqBuyernameFilterField',
                 width: '99%',
                 margin: 1,
                 enableKeyEvents: true,
@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.porders.PorderChange_Productivity', {
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
-                reference: 'unGrantedReqVendornameFilterField',
+                // reference: 'unGrantedReqVendornameFilterField',
                 width: '99%',
                 margin: 1,
                 enableKeyEvents: true,
