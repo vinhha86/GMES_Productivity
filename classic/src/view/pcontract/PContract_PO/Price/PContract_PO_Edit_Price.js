@@ -179,75 +179,75 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         dataIndex: 'isfob',
         width: 45
     }],
-    plugins: {
-        rowwidget: {
-            widget: 
-            {
-                xtype: 'grid',
-                viewConfig: {
-                    stripeRows: false
-                },                
-                bind: {
-                    store: '{record.pcontract_price_d_sku}',
-				},
-                columns:[{
-                    xtype: 'actioncolumn',
-                    width: 28,
-                    menuDisabled: true,
-                    sortable: false,
-                    align: 'center',
-                    bind:{
-                        hidden: '{ishiddenActionColumn}'
-                    },
-                    items: [
-                        {
-                            iconCls: 'x-fa fas fa-bars violetIcon',
-                            // handler: 'onMenu_PriceList'
-                        },            
-                    ]
-                },{
-                    text:'Mã NPL',
-                    dataIndex:'materialCode',
-                    // width: 100,
-                    flex: 1
-                },{
-                    text:'Màu',
-                    dataIndex:'color_name',
-                    // width: 100,
-                    flex: 1
-                },{
-                    text:'Size',
-                    dataIndex:'size_name',
-                    // width: 100,
-                    flex: 1
-                },{
-                    text:'SL',
-                    align: 'end',
-                    dataIndex:'amount',
-                    width: 80,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                    }
-                },{
-                    text:'Đơn giá',
-                    align: 'end',
-                    dataIndex:'unitprice',
-                    width: 80,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
-                    }
-                },{
-                    text:'Thành tiền',
-                    align: 'end',
-                    dataIndex:'totalprice',
-                    width: 80,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
-                    }
-                }   ]				
-			}
-		}
-	},
+    // plugins: {
+    //     rowwidget: {
+    //         widget: 
+    //         {
+    //             xtype: 'grid',
+    //             viewConfig: {
+    //                 stripeRows: false
+    //             },                
+    //             bind: {
+    //                 store: '{record.pcontract_price_d_sku}',
+	// 			},
+    //             columns:[{
+    //                 xtype: 'actioncolumn',
+    //                 width: 28,
+    //                 menuDisabled: true,
+    //                 sortable: false,
+    //                 align: 'center',
+    //                 bind:{
+    //                     hidden: '{ishiddenActionColumn}'
+    //                 },
+    //                 items: [
+    //                     {
+    //                         iconCls: 'x-fa fas fa-bars violetIcon',
+    //                         // handler: 'onMenu_PriceList'
+    //                     },            
+    //                 ]
+    //             },{
+    //                 text:'Mã NPL',
+    //                 dataIndex:'materialCode',
+    //                 // width: 100,
+    //                 flex: 1
+    //             },{
+    //                 text:'Màu',
+    //                 dataIndex:'color_name',
+    //                 // width: 100,
+    //                 flex: 1
+    //             },{
+    //                 text:'Size',
+    //                 dataIndex:'size_name',
+    //                 // width: 100,
+    //                 flex: 1
+    //             },{
+    //                 text:'SL',
+    //                 align: 'end',
+    //                 dataIndex:'amount',
+    //                 width: 80,
+    //                 renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+    //                     return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+    //                 }
+    //             },{
+    //                 text:'Đơn giá',
+    //                 align: 'end',
+    //                 dataIndex:'unitprice',
+    //                 width: 80,
+    //                 renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+    //                     return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
+    //                 }
+    //             },{
+    //                 text:'Thành tiền',
+    //                 align: 'end',
+    //                 dataIndex:'totalprice',
+    //                 width: 80,
+    //                 renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+    //                     return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
+    //                 }
+    //             }   ]				
+	// 		}
+	// 	}
+	// },
     dockedItems:[{
         dock:'top',
         xtype:'toolbar',
