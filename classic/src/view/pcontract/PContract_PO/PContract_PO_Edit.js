@@ -67,10 +67,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                             items: [
                                 {
                                     xtype: 'combobox',
-                                    fieldLabel: 'Sản phẩm/Bộ:',
+                                    labelStyle: "font-weight: bold;font-size:13px;",
+                                    fieldStyle: "font-weight: bold;font-size:13px;",                                    
+                                    fieldLabel: 'Sản phẩm/Bộ SP',
+                                    labelWidth: 120,
                                     editable: false,
                                     itemId: 'cboProduct',
-                                    margin: '5 0 0 0',
+                                    margin: 5,
                                     bind: {
                                         store: '{ProductStore}',
                                         value: '{product_selected_id_link}'
