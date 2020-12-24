@@ -639,4 +639,52 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             Ext.toast('Data pasted');
         }
     },
+    onShowKHGH: function(){
+        var me = this.getView();
+        var panel_po = me.down('#panel_po');
+        var panel_cmp = me.down('#panel_cmp');
+        var panel_salaryfund = me.down('#panel_salaryfund');
+        var panel_schedule = me.down('#panel_schedule');
+
+        panel_po.setHidden(false);
+        panel_salaryfund.setHidden(true);
+        panel_cmp.setHidden(true);
+        panel_schedule.setHidden(true);
+    },
+    onShowCMP: function(){
+        var me = this.getView();
+        var panel_po = me.down('#panel_po');
+        var panel_cmp = me.down('#panel_cmp');
+        var panel_salaryfund = me.down('#panel_salaryfund');
+        var panel_schedule = me.down('#panel_schedule');
+
+        panel_po.setHidden(true);
+        panel_salaryfund.setHidden(true);
+        panel_cmp.setHidden(false);
+        panel_schedule.setHidden(true);
+    },
+    onShowSalaryFund: function(){
+        var me = this.getView();
+        var panel_po = me.down('#panel_po');
+        var panel_cmp = me.down('#panel_cmp');
+        var panel_salaryfund = me.down('#panel_salaryfund');
+        var panel_schedule = me.down('#panel_schedule');
+
+        panel_po.setHidden(true);
+        panel_salaryfund.setHidden(false);
+        panel_cmp.setHidden(true);
+        panel_schedule.setHidden(true);
+    },
+    onShowSchedule: function(){
+        var me = this.getView();
+        var panel_po = me.down('#panel_po');
+        var panel_cmp = me.down('#panel_cmp');
+        var panel_salaryfund = me.down('#panel_salaryfund');
+        var panel_schedule = me.down('#panel_schedule');
+
+        panel_po.setHidden(true);
+        panel_salaryfund.setHidden(true);
+        panel_cmp.setHidden(true);
+        panel_schedule.setHidden(false);
+    }   
 })
