@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             id: 'panel_po',
             // title: 'Giao hàng - Chào giá',
             layout: 'border',
-            width: '56%',
+            width: '60%',
             // border: true,
             // margin: 1,
             // collapsible: true,

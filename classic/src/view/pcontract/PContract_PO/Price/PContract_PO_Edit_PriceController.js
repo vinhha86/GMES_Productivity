@@ -15,8 +15,113 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         },
         '#btnPricePaste': {
             click: 'onPricePaste'
-        },                
-    },    
+        },
+        '#PContract_PO_Edit_Price': {
+            beforecelldblclick: 'onBeforePriceCellDblClick',
+            celldblclick: 'onPriceCellDblClick'
+        }
+    },
+    onBeforePriceCellDblClick: function( thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
+        // 4: NPL, 2: NCC
+        if(rowIndex == 0){
+            return false;
+        }
+        if(cellIndex != 3 && cellIndex != 5){
+            return false;
+        }
+    },
+    onPriceCellDblClick: function(thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ){
+        var m = this;
+        if(cellIndex == 5){
+            // NPL
+            m.ThemMoiMaterialIdLink(record);
+        }
+        if(cellIndex == 3){
+            // NCC
+            m.ThemMoiProvider(record);
+        }
+    },
+    ThemMoiMaterialIdLink: function(record){
+        var me = this.getView();
+        var t = this;
+        var viewmodel = this.getViewModel();
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            width: 1200,
+            height: 500,       
+            reference: 'skusearchwindow',
+            closeAction: 'destroy',
+            viewModel: {
+                data: {
+                    sourceview: 'PContract_PO_Edit_Price',
+                    searchtype: 5,
+                    // pcontractid_link: viewmodel.get('PContract.id'),
+                    // productid_link_notsearch: productid_link,
+                    isAddNPL: true,
+                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
+                }
+            }
+        });
+        form.show();
+
+        form.getController().on('AddMaterialIdLink', function (rec) {
+            
+            var materialid_link = rec.get('id');
+            var materialCode = rec.get('code');
+
+            record.set('materialid_link', materialid_link);
+            record.set('materialCode', materialCode);
+
+            form.close();
+        })
+    },
+    ThemMoiProvider: function(record){
+        var viewModel = this.getViewModel();
+        var me = this.getView();
+        var m = this;
+
+        var record = record;
+
+        var form = Ext.create('Ext.window.Window', {
+            height: 500,
+            width: 400,
+            closable: true,
+            title: 'Danh sách Provider',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'PContract_PO_Edit_Price_Provider',
+                viewModel: {
+                    type: 'PContract_PO_Edit_Price_ProviderViewModel',
+                    data: {
+                        record: record
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#PContract_PO_Edit_Price_Provider').getController().on('AddProvider', function (select) {
+            // console.log(select);
+            // console.log(record);
+            for(var i=0;i < select.length;i++){
+                // record.data.productid_link = select[i].data.id;
+                // record.data.providerCode = select[i].data.code;
+                record.set('providerid_link', select[i].data.id);
+                record.set('providerCode', select[i].data.code);
+            }
+        })
+    },
     onThemMoiGia : function(){
         var viewmodel = this.getViewModel();
 
@@ -321,7 +426,108 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             }
         }
      },
-     onPriceD_Delete: function(grid, rowIndex, colIndex){
+     onMenu_PriceList: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+            {
+                text: 'Thêm chi tiết',
+                reference: 'addPriceDDetail',
+                separator: true,
+                margin: '0',
+                iconCls: 'x-fa fas fa-plus redIcon',
+                handler: function() {
+                    var record = this.parentMenu.record;
+                    // console.log(record);
+                    me.addPContractPriceDSKU(record);
+                }
+            },
+            {
+                text: 'Xoá chi tiết giá',
+                reference: 'deletePriceD',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-trash violetIcon',
+                handler: function() {
+                    // var record = this.parentMenu.record;
+                    me.onPriceD_Delete(grid, rowIndex, colIndex);
+                }
+            }
+        ]
+        });
+          // HERE IS THE MAIN CHANGE
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.record = record;
+          menu_grid.showAt(position);
+    },
+    addPContractPriceDSKU: function(record){
+        var me = this.getView();
+        var t = this;
+        var viewmodel = this.getViewModel();
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            width: 1200,
+            height: 500,       
+            reference: 'skusearchwindow',
+            closeAction: 'destroy',
+            viewModel: {
+                data: {
+                    sourceview: 'PContract_PO_Edit_Price',
+                    searchtype: 5,
+                    // pcontractid_link: viewmodel.get('PContract.id'),
+                    // productid_link_notsearch: productid_link,
+                    isAddNPL: true,
+                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
+                }
+            }
+        });
+        form.show();
+
+        form.getController().on('AddMaterialIdLink', function (rec) {
+            
+            // var materialid_link = rec.get('id');
+            // var materialCode = rec.get('code');
+
+            // record.set('materialid_link', materialid_link);
+            // record.set('materialCode', materialCode);
+            // console.log(record);
+            console.log(rec);
+
+            var pcontract_price_d_skus = record.get('pcontract_price_d_sku');
+            console.log(pcontract_price_d_skus);
+
+            const found = pcontract_price_d_skus.some(item => item.materialid_link === rec.get('id'));
+            if(!found){
+                console.log('not found');
+                var newPriceDSKU = new Object();
+                // newPriceDSKU.id = 0;
+                newPriceDSKU.amount = 0;
+                newPriceDSKU.totalprice = 0;
+                newPriceDSKU.unitprice = 0
+                newPriceDSKU.materialid_link = rec.get('id');
+                newPriceDSKU.materialCode = rec.get('code');
+                pcontract_price_d_skus.push(newPriceDSKU);
+
+                record.set('pcontract_price_d_sku', []);
+                record.set('pcontract_price_d_sku', pcontract_price_d_skus);
+                console.log(record);
+                // viewmodel.getStore('Price_DStore').load();
+            }else{
+                console.log('found');
+            }
+
+            form.close();
+        })
+    },
+    onPriceD_Delete: function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
         var me=this;
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
