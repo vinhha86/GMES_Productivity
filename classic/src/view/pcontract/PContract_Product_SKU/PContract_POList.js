@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     stripeRows: false
                 },                
                 bind: {
-                    store: '{record.sub_po}'
+                    store: '{record.sub_po_confirm}'
                 },
                 columns:[{
                     xtype: 'actioncolumn',

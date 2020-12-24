@@ -69,9 +69,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         var infoView = me.down('#POrder_Grant_InfoView');
         infoView.getController().loadInfo(IdGrant);
 
-        //Lay danh sach PO Line
+        //Lay danh sach PO Line thuc te
         var PContract_PO = viewmodel.getStore('PContract_PO');
-        PContract_PO.loadPOLine(IdPContractPO);
+        PContract_PO.loadPOLine_Confirm(IdPContractPO);
 
         //Lay danh sach SKU cua POrder_Grant
         var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');

@@ -121,7 +121,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO', {
 		});
 		this.load();
 	},
-	loadPOLine: function(pcontract_poid_link){
+	loadPOLine_Confirm: function(pcontract_poid_link){
 		var params = new Object();
         params.pcontract_poid_link = pcontract_poid_link;
 
@@ -133,7 +133,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getPOLine',
+			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getPOLine_Confirm',
 			paramsAsJson:true,
 			noCache: false,
 			extraParams : params,

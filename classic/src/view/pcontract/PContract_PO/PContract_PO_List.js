@@ -154,7 +154,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     stripeRows: false
                 },                
                 bind: {
-                    store: '{record.sub_po}',
+                    store: '{record.sub_po_plan}',
                     // title: 'Danh sách hàng xuất'
 				},
                 columns:[{
