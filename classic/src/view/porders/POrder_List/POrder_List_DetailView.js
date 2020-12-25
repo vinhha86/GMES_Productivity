@@ -55,6 +55,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
             iconCls: 'x-fa fa-print'
         },{
             xtype: 'button',
+            text: 'Kế hoạch cắt',
+            margin: 1,
+            itemId: 'btnCutPlan',
+            iconCls: 'x-fa fa-cut'
+        },{
+            xtype: 'button',
             text: 'Thông tin sản phẩm',
             margin: 1,
             itemId: 'btnTTSanPham',

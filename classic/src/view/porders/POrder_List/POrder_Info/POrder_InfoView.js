@@ -23,7 +23,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.ordercode}'
+                    value: '{porder.ordercode}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -36,7 +37,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 allowBlank: false,
                 itemId: 'productiondate_plan',
                 bind: {
-                    value: '{productiondate_plan}'
+                    value: '{productiondate_plan}',
+                    readOnly: '{isReadOnly}'
                 },
                 format: 'd/m/Y',
                 labelWidth: 110,
@@ -50,7 +52,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 allowBlank: false,
                 itemId: 'golivedate',
                 bind: {
-                    value: '{golivedate}'
+                    value: '{golivedate}',
+                    readOnly: '{isReadOnly}'
                 },
                 format: 'd/m/Y',
                 labelWidth: 110,
@@ -61,7 +64,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId:'txtstatus',
                 bind:{
                     store:'{POrder_ListStatusStore}',
-                    value: '{porder.status}'
+                    value: '{porder.status}',
+                    readOnly: '{isReadOnly}'
                 },
                 fieldLabel: "Trạng thái",
                 displayField: 'name',
@@ -86,7 +90,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.stylebuyer}'
+                    value: '{porder.stylebuyer}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -99,7 +104,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.productname}'
+                    value: '{porder.productname}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -115,7 +121,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 fieldStyle: 'text-align:right;',
                 vtype: 'dollar',
                 bind: {
-                    value: '{porder.totalorder_req}'
+                    value: '{porder.totalorder_req}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -131,7 +138,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 fieldStyle: 'text-align:right;',
                 vtype: 'dollar',
                 bind: {
-                    value: '{porder.totalorder}'
+                    value: '{porder.totalorder}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -149,7 +157,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.po_buyer}'
+                    value: '{porder.po_buyer}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -162,7 +171,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.buyername}'
+                    value: '{porder.buyername}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -175,7 +185,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.po_vendor}'
+                    value: '{porder.po_vendor}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,
@@ -188,7 +199,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 // itemId: 'contractcode',
                 blankText: 'Không được để trống',
                 bind: {
-                    value: '{porder.vendorname}'
+                    value: '{porder.vendorname}',
+                    readOnly: '{isReadOnly}'
                 },
                 labelWidth: 110,
                 flex: 1,

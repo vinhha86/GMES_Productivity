@@ -154,7 +154,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     stripeRows: false
                 },                
                 bind: {
-                    store: '{record.sub_po_plan}',
+                    store: '{record.sub_po}',
                     // title: 'Danh sách hàng xuất'
 				},
                 columns:[{
@@ -169,6 +169,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                             handler: 'onMenu_SubPO'
                         }
                     ]
+                },{
+                    text: 'STT',
+                    width: 40,
+                    xtype: 'rownumberer',
+                    align: 'center'
                 },{
                     text:'PO Buyer',
                     dataIndex:'po_buyer',
@@ -191,7 +196,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text:'SL',
                     align: 'end',
                     dataIndex:'po_quantity',
-                    width: 60,
+                    width: 70,
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
                     }

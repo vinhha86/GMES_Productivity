@@ -30,13 +30,59 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         },
         '#btnPrintPorder' : {
             click: 'onPrintPorder'
+        },
+        '#btnCutPlan' : {
+            click: 'onCutPlan'
         }
+    },
+    onCutPlan: function(){
+        var viewmodel = this.getViewModel();
+        var porderid_link = viewmodel.get('porder.id');
+        var porder = viewmodel.get('porder');
+
+        var productiondate_plan = Ext.Date.parse(porder.productiondate_plan, 'c');
+        if(productiondate_plan == null) productiondate_plan = new Date(porder.productiondate_plan);
+        var golivedate = Ext.Date.parse(porder.golivedate, 'c');
+        if(golivedate == null) productiondate_plan = new Date(porder.golivedate);
+        console.log(productiondate_plan);
+        console.log(golivedate);
+        porder.productiondate_plan = productiondate_plan;  
+        porder.golivedate = golivedate;
+        
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch cắt',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'CutPlan_MainView',
+                viewModel: {
+                    data: {
+                        porderid_link : porderid_link,
+                        porder: porder
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#CutPlan_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
     },
     onPrintPorder:function () {
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
-        console.log(viewmodel);
         params.porderid_link = viewmodel.get('IdPOrder');
 
         GSmartApp.Ajax.post('/api/v1/porder_report/porder', Ext.JSON.encode(params),
