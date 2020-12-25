@@ -362,7 +362,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 fieldLabel: "Trạng thái",
                 labelWidth: 70,
                 margin: 2,
-                flex: 2
+                flex: 1
+            },
+            {
+                xtype:'textfield',
+                itemId:'txtcontractcode',
+                // fieldLabel: 'Chú thích',
+                margin: 2,
+                allowBlank: true,
+                // width: 230,
+                fieldLabel: "Đơn hàng",
+                labelWidth: 70,
+                flex: 1
             },
             {
                 xtype: 'button',

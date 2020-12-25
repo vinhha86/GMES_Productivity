@@ -58,6 +58,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_GuestView', {
                             startDate:  new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
                             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
                             PO_code: '',
+                            contractcode: '',
                             Buyer: 0,
                             Vendor: 0,
                             isReqPorder: false,

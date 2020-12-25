@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // store.sort('orderdate','DESC');
         var golivedatefrom = new Date(new Date().getTime() - 30*86400000);
         var golivedateto = new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1);
-        store.loadStoreBySearch("", "", "", null, null, null, 
+        store.loadStoreBySearch("", "", "", "", null, null, null, 
             golivedatefrom, golivedateto, [1, 2, 3, 0, -1], 50, 1);
 
         this.onActivate();
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('POrder_ListStore');
         //
-        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto;
+        var pobuyer, povendor, style, contractcode, buyerid, vendorid, orderdatefrom, orderdateto;
         var golivedatefrom, golivedateto, status;
         if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
             pobuyer = "";
@@ -78,6 +78,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtstyle').getValue() == "" || me.down('#txtstyle').getValue() == null) {
             style = "";
         }else style = me.down('#txtstyle').getValue();
+        if (me.down('#txtcontractcode').getValue() == "" || me.down('#txtcontractcode').getValue() == null) {
+            contractcode = "";
+        }else contractcode = me.down('#txtcontractcode').getValue();
         if (me.down('#txtbuyerid').getValue() == "") {
             buyerid = null;
         }else buyerid = me.down('#txtbuyerid').getValue();
@@ -110,7 +113,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (page == null) {
             page = 1;
         }
-        store.loadStoreBySearch(pobuyer, povendor, style, 
+        store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
             buyerid, vendorid, factoryid, 
             golivedatefrom, golivedateto, 
             status, limit, page);
@@ -120,7 +123,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('POrder_ListStore');
         //
-        var pobuyer, povendor, style, buyerid, vendorid, orderdatefrom, orderdateto;
+        var pobuyer, povendor, style, contractcode, buyerid, vendorid, orderdatefrom, orderdateto;
         var golivedatefrom, golivedateto, status;
         if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
             pobuyer = "";
@@ -131,6 +134,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (me.down('#txtstyle').getValue() == "" || me.down('#txtstyle').getValue() == null) {
             style = "";
         }else style = me.down('#txtstyle').getValue();
+        if (me.down('#txtcontractcode').getValue() == "" || me.down('#txtcontractcode').getValue() == null) {
+            contractcode = "";
+        }else contractcode = me.down('#txtcontractcode').getValue();
         if (me.down('#txtbuyerid').getValue() == "") {
             buyerid = null;
         }else buyerid = me.down('#txtbuyerid').getValue();
@@ -165,7 +171,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // if (page == null) {
         //     page = 1;
         // }
-        store.loadStoreBySearch(pobuyer, povendor, style, 
+        store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
             buyerid, vendorid, factoryid, 
             golivedatefrom, golivedateto,
             status, limit, page);

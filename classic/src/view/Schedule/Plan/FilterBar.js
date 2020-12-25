@@ -129,6 +129,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             }
         },
         {
+            xtype: 'textfield',
+            emptyText: 'Đơn hàng',
+            // fieldLabel: 'Đơn hàng:',
+            labelWidth: 30,
+            width: 110,
+            bind: {
+                value: '{schedule.contractcode}'
+            }
+        },
+        {
             xtype: 'combo',
             queryMode: 'local',
             valueField: 'id',

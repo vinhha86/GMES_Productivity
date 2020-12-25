@@ -10,6 +10,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
             endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
             listid: '13,14',
             PO : '',
+            contractcode: '',
             buyer: 0,
             vendor: 0,
             isReqPorder: true,

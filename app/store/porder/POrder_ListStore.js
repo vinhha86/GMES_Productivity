@@ -69,7 +69,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			}
 		});
 	},  	
-	loadStoreBySearch: function(pobuyer, povendor, style, 
+	loadStoreBySearch: function(pobuyer, povendor, style, contractcode,
 		buyerid, vendorid, factoryid, 
 		golivedatefrom, golivedateto,
 		status, limit, page){
@@ -78,6 +78,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		params.pobuyer = pobuyer;
 		params.povendor = povendor;
 		params.style = style;
+		params.contractcode = contractcode;
 		params.buyerid = buyerid;
 		params.vendorid = vendorid;
 		params.factoryid = factoryid;
