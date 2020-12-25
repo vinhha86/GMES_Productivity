@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             xtype: 'datefield',
             weight: 30,
             // fieldLabel: 'Bắt đầu',
-            format: 'd/m/Y',
+            format: 'd/m/y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             labelWidth: 60,
             width: 125,
@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             xtype: 'datefield',
             weight: 30,
             // fieldLabel: 'Kết thúc',
-            format: 'd/m/Y',
+            format: 'd/m/y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             labelWidth: 60,
             width: 125,
@@ -130,8 +130,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         },
         {
             xtype: 'textfield',
-            emptyText: 'Đơn hàng',
-            // fieldLabel: 'Đơn hàng:',
+            emptyText: 'Mã đơn hàng',
+            // fieldLabel: 'Mã đơn hàng:',
             labelWidth: 30,
             width: 110,
             bind: {

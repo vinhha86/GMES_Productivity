@@ -212,7 +212,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 itemId:'txtstyle',
                 // fieldLabel: 'Chú thích',
                 margin: 2,
-                width: 230,
+                width: 210,
                 fieldLabel: "Mã SP (Buyer)",
                 labelWidth: 90,
                 allowBlank: true
@@ -223,7 +223,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // fieldLabel: 'Chú thích',
                 margin: 2,
                 allowBlank: true,
-                width: 230,
+                width: 210,
                 fieldLabel: "PO Buyer",
                 labelWidth: 90,
             },
@@ -239,7 +239,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 editable: true,
                 allowBlank: true,
                 margin: 2,
-                // width: 215,
+                // width: 210,
                 flex: 1,
                 fieldLabel: "Buyer",
                 labelWidth: 70,
@@ -256,10 +256,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 editable: true,
                 allowBlank: true,
                 margin: 2,
-                // width: 215,
+                // width: 210,
                 flex: 1,
                 fieldLabel: "Vendor",
-                labelWidth: 70,
+                labelWidth: 90,
             },
             {
                 xtype:'combobox',
@@ -273,7 +273,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 editable: true,
                 allowBlank: true,
                 margin: 2,
-                // width: 215,
+                // width: 210,
                 flex: 1,
                 fieldLabel: "P/Xưởng",
                 labelWidth: 70,
@@ -311,6 +311,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             //     emptyText: 'Tạo lệnh đến',
             //     hidden: true
             // },
+            // {flex: 1}
             ]
         },
         {
@@ -321,10 +322,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 xtype:'datefield',
                 itemId:'txtgolivedatefrom',
                 reference: 'golivedatefrom',
-                format: 'd/m/Y',
+                format: 'd/m/y',
                 margin: 2,
                 // flex: 1,
-                width: 230,
+                width: 210,
                 emptyText: 'Ngày giao từ',
                 fieldLabel: "Ngày giao từ",
                 labelWidth: 90,
@@ -335,10 +336,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 xtype:'datefield',
                 itemId:'txtgolivedateto',
                 reference: 'golivedateto',
-                format: 'd/m/Y',
+                format: 'd/m/y',
                 margin: 2,
                 // flex: 1,
-                width: 230,
+                width: 210,
                 emptyText: 'Ngày giao đến',
                 fieldLabel: "Ngày giao đến",
                 labelWidth: 90,
@@ -362,6 +363,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 fieldLabel: "Trạng thái",
                 labelWidth: 70,
                 margin: 2,
+                // width: 210,
                 flex: 1
             },
             {
@@ -370,21 +372,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // fieldLabel: 'Chú thích',
                 margin: 2,
                 allowBlank: true,
-                // width: 230,
-                fieldLabel: "Đơn hàng",
-                labelWidth: 70,
+                // width: 210,
+                fieldLabel: "Mã đơn hàng",
+                labelWidth: 90,
                 flex: 1
             },
             {
                 xtype: 'button',
                 margin: 2,
                 text: '',
-                width: 35,
+                // width: 210,
                 iconCls: 'x-fa fa-search',
                 itemId: 'btnTimKiem',
                 tooltip: 'Tìm kiếm',
                 flex: 1
-            }]
+            },
+            // {flex: 1}
+        ]
         }]
     },
     {
