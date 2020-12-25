@@ -662,6 +662,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             viewModel: {},
             items: [
                 {
+                    text: 'Sửa chào giá',
+                    itemId: 'btnEditPrice_PContract_PO_List',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-dollar brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onPOLineEdit(record);
+                    },
+                },
+                {
                     text: 'Hủy PO',
                     itemId: 'btnPausePO_PContract_PO_List',
                     margin: '10 0 0',
@@ -680,6 +691,43 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
+    },
+    onPOLineEdit: function(rec, isHidden_req){
+        var viewModel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thông tin Line giao hàng',
+            closeAction: 'destroy',
+            height: 400,
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_PO_Edit_Info_Main',
+                viewModel: {
+                    type: 'PContract_PO_Edit_Info_Main_ViewModel',
+                    data: {
+                        id: rec.data.id,
+                        isedit: true,
+                        productpairid_link: rec.get('productid_link'),
+                        isHidden_req: isHidden_req == null ? false: true
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+            var storePO = viewModel.getStore('PContractProductPOStore');
+            storePO.load();
+            form.close();
+        })
     },
     onMenu_Shipping: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
