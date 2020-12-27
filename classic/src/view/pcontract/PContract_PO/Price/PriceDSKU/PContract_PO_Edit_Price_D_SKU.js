@@ -120,7 +120,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Chi tiết giá SKU'
+            value: 'Chi tiết giá theo màu, cỡ khổ nguyên phụ liệu'
         },
 		'->'
         ,

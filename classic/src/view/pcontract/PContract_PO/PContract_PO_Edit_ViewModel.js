@@ -54,6 +54,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
     },
     data: {
         id: null,
+        po_typeid_link: 0,
         parentId : 0,
         po_price: null,
         po_price_copy: null,

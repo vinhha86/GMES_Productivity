@@ -238,7 +238,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             viewModel.set('isproductleaf', false);
         // var storePO = Ext.data.StoreManager.lookup('PContract_PO'); 
         var storePO = viewModel.getStore('PContractProductPOStore');
-        storePO.loadStore(viewModel.get('PContract.id'), viewModel.get('productpairid_link'));
+        storePO.loadStoreByType(viewModel.get('PContract.id'), viewModel.get('productpairid_link'), 0);
     },
     onSelectPO: function (m, rec) {
         var viewModel = this.getViewModel();

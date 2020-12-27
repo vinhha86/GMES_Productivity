@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
         //     // summaryType: 'count', summaryRenderer: 'renderSum'                   
         // },
 
-        { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
+        { header: 'Số PO', dataIndex: 'po_buyer', flex: 1,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",

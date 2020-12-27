@@ -162,7 +162,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                             region: 'south',
                             border: true,
                             margin: 1,
-                            height: 150,
+                            height: 200,
                             xtype: 'PContract_PO_Edit_Price_D_SKU',
                         }
                     ]

@@ -5,15 +5,15 @@ Ext.define('GSmartApp.view.Schuedule.Plan.TabPorder_notGrant_and_PorderReq', {
     controller: 'TabPorder_notGrant_and_PorderReq_Controller',
     items: [{
         title: 'Lệnh chưa phân chuyền',
-        xtype: 'POrderUnGranted'
+        xtype: 'POrderUnGranted' //GSmartApp.view.porders.POrderUnGranted
     },{
         title: 'Yêu cầu xếp kế hoạch',
-        xtype: 'Porder_Req'
+        xtype: 'Porder_Req' //GSmartApp.view.porders.Porder_Req
     },{
         title: 'Đã xếp kế hoạch',
-        xtype: 'Porder_Req_Granted'
+        xtype: 'Porder_Req_Granted' //GSmartApp.view.porders.Porder_Req_Granted
     },{
         title: 'Lệnh thay đổi',
-        xtype: 'PorderChange_Productivity'
+        xtype: 'PorderChange_Productivity' //GSmartApp.view.porders.PorderChange_Productivity
     }]
 })

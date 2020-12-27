@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
         // }        
      },
     columns: [
-        { header: 'PO Buyer', dataIndex: 'po_buyer', flex: 1,
+        { header: 'Số PO', dataIndex: 'po_buyer', flex: 1,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
