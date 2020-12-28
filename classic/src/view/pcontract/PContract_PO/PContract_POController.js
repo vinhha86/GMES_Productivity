@@ -700,14 +700,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Line giao hàng? chọn YES để thực hiện',
             function (choice) {
                 if (choice === 'yes') {
-                    var PContractPOList = viewmodel.getStore('PContractPOList');
+                    var store = viewmodel.getStore('PContractProductPOStore');
                     var params = new Object();
                     params.id = rec.data.id;
                     GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
                         function (success, response, options) {
                             var response = Ext.decode(response.responseText);
                             if (success) {
-                                PContractPOList.reload();
+                                store.load();
                             } else {
                                 Ext.MessageBox.show({
                                     title: "Kế hoạch giao hàng",
