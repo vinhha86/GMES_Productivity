@@ -101,7 +101,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                                 break;
                             }
                         }
-
                         viewmodel.set('pcontract_po_productivity', pcontract_po_productivity);
                     }
                 }
@@ -134,16 +133,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
             
             params.data = viewmodel.get('po');
             
-    
             params.data.po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi,''));
             params.data.exchangerate = viewmodel.get('po.exchangerate') == null ? 0 : parseFloat(viewmodel.get('po.exchangerate').toString().replace(/,/gi,''));
             params.data.plan_productivity = viewmodel.get('po.plan_productivity') == null ? 0 : parseFloat(viewmodel.get('po.plan_productivity').toString().replace(/,/gi,''));
-    
+            
             if(params.data.pcontract_po_productivity != null){
                 for(var i = 0; i < params.data.pcontract_po_productivity.length; i++){
                     // console.log(params.data.pcontract_po_productivity[i]);
                     var plan_productivity = params.data.pcontract_po_productivity[i].plan_productivity;
-                    params.data.pcontract_po_productivity[i].plan_productivity = parseFloat(plan_productivity.toString().replace(/,/gi,''));
+                    params.data.pcontract_po_productivity[i].plan_productivity = parseFloat(("0"+plan_productivity).replace(/,/gi,''));
                 }
             }
             var arrPOrders = [];
