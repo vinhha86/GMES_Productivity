@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_Main', {
         {
             xtype: 'TabPorder_notGrant_and_PorderReq',
             id:'Schedule_plan_POrderUnGranted',
-            width: '50%',
+            width: '55%',
             region: 'east',
             hidden: true  
         },

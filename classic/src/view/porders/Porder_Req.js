@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
-        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', width: 100,
+        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', width: 130,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
             }
         },
 
-        { header: 'Buyer', dataIndex: 'buyername', width: 75,
+        { header: 'Buyer', dataIndex: 'buyername', width: 80,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -104,8 +104,12 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                     buffer: 500
                 }
             },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
-        { header: 'Vendor', dataIndex: 'vendorname', width: 75,
+        { header: 'Vendor', dataIndex: 'vendorname', width: 80,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -117,6 +121,10 @@ Ext.define('GSmartApp.view.porders.Porder_Req', {
                     keyup: 'onUnGrantedReqVendornameFilterKeyup',
                     buffer: 500
                 }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
             },
         },
 

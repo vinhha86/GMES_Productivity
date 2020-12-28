@@ -6,13 +6,13 @@ Ext.define('GSmartApp.store.POrder_Req', {
 	model: 'GSmartApp.model.POrder_Req',
 	groupField: 'granttoorgcode',
 	sorters: [
-		// {
-		// 	direction: 'DESC',
-		// 	property: 'is_calculate'
-		// },
 		{
 			direction: 'ASC',
-			property: 'granttoorgcode'
+			property: 'product_code'
+		},
+		{
+			direction: 'ASC',
+			property: 'shipdate'
 		}
 	],	
 	load_byOrg: function(){

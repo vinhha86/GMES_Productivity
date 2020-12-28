@@ -113,7 +113,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return value;
             }
         },
-        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 100,
+        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 130,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -135,7 +135,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
             },
         },
-        { header: 'Buyer', dataIndex: 'buyername', width: 75,
+        { header: 'Buyer', dataIndex: 'buyername', width: 80,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 return value;
             },
         },
-        { header: 'Vendor', dataIndex: 'vendorname', width: 75,
+        { header: 'Vendor', dataIndex: 'vendorname', width: 80,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",

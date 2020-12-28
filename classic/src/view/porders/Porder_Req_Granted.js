@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.porders.Porder_Req_Granted', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }},
-        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', width: 100,
+        { header: 'Mã SP (Buyer)', dataIndex: 'product_code', width: 130,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
