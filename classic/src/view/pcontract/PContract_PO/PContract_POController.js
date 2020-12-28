@@ -206,7 +206,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                                 pcontractid_link: viewModel.get('PContract.id'),
                                 obj_copy: obj_copy, // copy paste po info o sua chao gia,
                                 obj_paste_btn_hidden: false,
-                                obj_copy_btn_hidden: false
+                                obj_copy_btn_hidden: false,
+                                po: {
+                                    po_typeid_link: 0
+                                }
                             }
                         }
                     }]
@@ -590,17 +593,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         me.onPOPriceEdit(record);
                     },
                 },
-                // {
-                //     // text: 'Sửa đơn hàng',
-                //     // itemId: 'btnEditPO_PContract_PO_List',
-                //     // separator: true,
-                //     // margin: '10 0 0',
-                //     // iconCls: 'x-fa fas fa-pencil greenIcon',
-                //     // handler: function(){
-                //     //     var record = this.parentMenu.record;
-                //     //     me.onPOInfoEdit(record);
-                //     // }
-                // }, 
+                {
+                    text: 'Thêm line giao hàng',
+                    itemId: 'btnAdd_line_children',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-plus brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onAddPOLine(record);
+                    },
+                },
                 {
                     text: 'Xóa chào giá',
                     itemId: 'btnDeletePO_PContract_PO_List',
@@ -716,7 +719,66 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         id: rec.data.id,
                         isedit: true,
                         productpairid_link: rec.get('productid_link'),
+                        product_selected_id_link: rec.get('productid_link'),
+                        productid_link: rec.get('productid_link'),
                         isHidden_req: isHidden_req == null ? false: true
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+            var storePO = viewModel.getStore('PContractProductPOStore');
+            storePO.load();
+            form.close();
+        })
+    },
+    onAddPOLine: function(rec, isHidden_req){
+        var plan_productivity = [];
+        plan_productivity.push(rec.get('pcontract_po_productivity')[0].plan_productivity);
+
+        var viewModel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thêm mới Line giao hàng',
+            closeAction: 'destroy',
+            height: 400,
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_PO_Edit_Info_Main',
+                viewModel: {
+                    type: 'PContract_PO_Edit_Info_Main_ViewModel',
+                    data: {
+                        id: null,
+                        isedit: true,
+                        productpairid_link: rec.get('productid_link'),
+                        product_selected_id_link: rec.get('productid_link'),
+                        productid_link: rec.get('productid_link'),
+                        isHidden_req: isHidden_req == null ? false: true,
+                        po: {
+                            po_typeid_link : 10,
+                            po_buyer: rec.get('po_buyer'),
+                            po_vendor: rec.get('po_vendor'),
+                            matdate: rec.get('matdate'),
+                            pcontract_po_productivity: rec.get('pcontract_po_productivity'),
+                            parentpoid_link: rec.get('id'),
+                            id: null,
+                            pcontractid_link : rec.get('pcontractid_link'),
+                            productid_link: rec.get('productid_link'),
+                            status: rec.get('status')
+                        },
+                        pcontract_po_productivity: {
+                            plan_productivity : plan_productivity
+                        }
                     }
                 }
             }]
