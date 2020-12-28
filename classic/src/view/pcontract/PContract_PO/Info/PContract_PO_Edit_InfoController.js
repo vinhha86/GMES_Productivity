@@ -20,11 +20,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         // var dt = Ext.Date.subtract(Ext.Date.parse(po_data.matdate, 'c'), Ext.Date.DAY, -7);
         // var dt = Ext.Date.subtract(matdate, Ext.Date.DAY, -7);
         // viewmodel.set('po.productiondate',dt);
-        // // console.log(dt); // returns 'Tue Oct 24 2006 00:00:00'
         
         // var productiondate = Ext.Date.parse(po_data.productiondate, 'c');
         // if (null == productiondate) productiondate = new Date(po_data.productiondate);
-        // console.log(productiondate);
         var shipdate = Ext.Date.parse(po_data.shipdate, 'c');
         if (null == shipdate) shipdate = new Date(po_data.shipdate);
 
@@ -87,7 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         if (null != po_productivity){
             var po_quantity = po_data.po_quantity == null ? 0 : parseFloat(po_data.po_quantity.toString().replace(/,/gi,''));
             var productivity = po_productivity.plan_productivity == null ? 0 : parseFloat(po_productivity.plan_productivity.toString().replace(/,/gi,''));
-            var productiondays = po_data.productiondays;
+            var productiondays = po_data.productiondays == null ? 0 : po_data.productiondays;
 
             if(productiondays <= 0 || productivity == 0){
                 viewmodel.set('pcontract_po_productivity.plan_linerequired', 0);
@@ -101,8 +99,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                     viewmodel.set('po.productiondays_ns',0);
                 }
 
-                console.log(productiondays_ns);
-                console.log(productiondays);
                 if (productiondays_ns < productiondays){
                     viewmodel.set('pcontract_po_productivity.plan_linerequired', 1);
                 } else {
@@ -129,7 +125,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                     break;
                 }
             }
-
             if(data.productid_link == null){
                 data.productid_link = productid_link;
                 data.plan_productivity = productivity;
