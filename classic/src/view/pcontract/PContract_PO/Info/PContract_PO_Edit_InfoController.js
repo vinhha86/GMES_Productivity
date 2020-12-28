@@ -101,8 +101,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                     viewmodel.set('po.productiondays_ns',0);
                 }
 
-                console.log(productiondays_ns);
-                console.log(productiondays);
                 if (productiondays_ns < productiondays){
                     viewmodel.set('pcontract_po_productivity.plan_linerequired', 1);
                 } else {
