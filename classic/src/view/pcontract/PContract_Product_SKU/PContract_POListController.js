@@ -215,6 +215,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
 		});
     },
     onThemPO: function (rec) {
+        console.log(rec);
+        var plan_productivity = [];
+        plan_productivity.push(rec.get('pcontract_po_productivity')[0].plan_productivity);
+
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -237,10 +241,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     data: {
                         po: {
                             pcontractid_link: viewmodel.get('PContract.id'),
-                            parentpoid_link: rec == null ? 0 : rec.data.id
+                            parentpoid_link: rec == null ? 0 : rec.data.id,
+                            po_typeid_link : 11,
+                            pcontract_po_productivity: rec.get('pcontract_po_productivity'),
                         },
                         productid_link: viewmodel.get('IdProduct_filterPO'),
-
+                        pcontract_po_productivity: {
+                            plan_productivity : plan_productivity
+                        }
                     }
                 }
             }]
