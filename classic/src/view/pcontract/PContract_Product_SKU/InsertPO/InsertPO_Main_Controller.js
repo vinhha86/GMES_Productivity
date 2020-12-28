@@ -33,7 +33,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
             //Lay thong tin parent po
             var params = new Object();
             params.id = viewmodel.get('po.parentpoid_link');
-            console.log(params);
             GSmartApp.Ajax.post('/api/v1/pcontract_po/getone', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -53,6 +52,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
                         new_po.data.shipmodeid_link = parent_po.shipmodeid_link;
                         new_po.data.qcorgname = parent_po.qcorgname;
                         new_po.data.plan_productivity = parent_po.plan_productivity;
+                        new_po.data.pcontract_po_productivity = parent_po.pcontract_po_productivity;
+                        new_po.data.po_typeid_link = 11;
                         
                         var packing_str = response.data.packingnotice;
                         if(packing_str!=null){
