@@ -676,14 +676,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     },
                 },
                 {
-                    text: 'Hủy PO',
+                    text: 'Xóa Line giao hàng',
                     itemId: 'btnPausePO_PContract_PO_List',
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-ban violetIcon',
                     // hidden: ishidden_accept,
                     handler: function () {
                         var record = this.parentMenu.record;
-                        me.onCancel_PO(record);
+                        me.onXoaPOLine(record);
                     }
                 }
             ]
@@ -694,6 +694,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
+    },
+    onXoaPOLine: function (rec) {
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Line giao hàng? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var PContractPOList = viewmodel.getStore('PContractPOList');
+                    var params = new Object();
+                    params.id = rec.data.id;
+                    GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
+                            if (success) {
+                                PContractPOList.reload();
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Kế hoạch giao hàng",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        });
+                }
+            });
     },
     onPOLineEdit: function(rec, isHidden_req){
         var viewModel = this.getViewModel();
