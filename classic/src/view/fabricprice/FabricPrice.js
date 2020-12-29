@@ -22,13 +22,17 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
         }
     },
     features: [
+        // {
+        //     id: 'group',
+        //     ftype: 'groupingsummary',
+        //     groupHeaderTpl: '<b>{name}</b>',
+        //     hideGroupedHeader: false,
+        //     enableGroupingMenu: false,
+        // },
         {
-            id: 'group',
-            ftype: 'groupingsummary',
-            groupHeaderTpl: '<b>{name}</b>',
-            hideGroupedHeader: false,
-            enableGroupingMenu: false,
-        },
+            ftype: 'grouping',
+            groupHeaderTpl: '{name}'
+        }
     ],
     bind: {
         store: '{FabricPriceStore}'
