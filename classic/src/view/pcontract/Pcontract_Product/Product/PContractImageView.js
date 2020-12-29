@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             },{
                 xtype: 'image',
                 itemId: 'img1',
-                id: 'imgproduct1',
+                id: 'pcontract_imgproduct1',
                 width: 55,
                 height: 52,
                 margin: 1,
@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             },{
                 xtype: 'image',
                 itemId: 'img2',
-                id: 'imgproduct2',
+                id: 'pcontract_imgproduct2',
                 width: 55,
                 height: 52,
                 margin: 1,
@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             },{
                 xtype: 'image',
                 itemId: 'img3',
-                id: 'imgproduct3',
+                id: 'pcontract_imgproduct3',
                 width: 55,
                 height: 52,
                 margin: 1,
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             },{
                 xtype: 'image',
                 itemId: 'img4',
-                id: 'imgproduct4',
+                id: 'pcontract_imgproduct4',
                 width: 55,
                 height: 52,
                 margin: 1,
@@ -161,7 +161,7 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
             },{
                 xtype: 'image',
                 itemId: 'img5',
-                id: 'imgproduct5',
+                id: 'pcontract_imgproduct5',
                 width: 55,
                 height: 52,
                 margin: 1,

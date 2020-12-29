@@ -25,19 +25,19 @@ Ext.define('GSmartApp.view.PContract.PContractImageViewCotroller', {
         var me = this.getView();
         var src = "";
         switch (m.currentTarget.id) {
-            case "imgproduct1":
+            case "pcontract_imgproduct1":
                 src = me.down('#img1').getSrc();
                 break;
-            case "imgproduct2":
+            case "pcontract_imgproduct2":
                 src = me.down('#img2').getSrc();
                 break;
-            case "imgproduct3":
+            case "pcontract_imgproduct3":
                 src = me.down('#img3').getSrc();
                 break;
-            case "imgproduct4":
+            case "pcontract_imgproduct4":
                 src = me.down('#img4').getSrc();
                 break;
-            case "imgproduct5":
+            case "pcontract_imgproduct5":
                 src = me.down('#img5').getSrc();
                 break;
             default:
@@ -60,19 +60,19 @@ Ext.define('GSmartApp.view.PContract.PContractImageViewCotroller', {
             return;
         }
         switch (m.target.id) {
-            case "imgproduct1":
+            case "pcontract_imgproduct1":
                 me.down('#btneditimg1').fileInputEl.dom.click();
                 break;
-            case "imgproduct2":
+            case "pcontract_imgproduct2":
                 me.down('#btneditimg2').fileInputEl.dom.click();
                 break;
-            case "imgproduct3":
+            case "pcontract_imgproduct3":
                 me.down('#btneditimg3').fileInputEl.dom.click();
                 break;
-            case "imgproduct4":
+            case "pcontract_imgproduct4":
                 me.down('#btneditimg4').fileInputEl.dom.click();
                 break;
-            case "imgproduct5":
+            case "pcontract_imgproduct5":
                 me.down('#btneditimg5').fileInputEl.dom.click();
                 break;
             default:
