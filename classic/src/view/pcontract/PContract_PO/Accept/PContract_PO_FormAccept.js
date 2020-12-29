@@ -100,9 +100,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
                 store: '{UserStore}'
             },
             labelWidth: 90,
-            width: '100%',
-            allowBlank: false,
-            blankText: 'Bạn chưa chọn Merchandiser'
+            width: '100%'
         }]
     }],
     dockedItems: [{
