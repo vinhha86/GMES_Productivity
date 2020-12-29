@@ -17,7 +17,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
 
         this.onActivate();
-        common.Check_Object_Permission();
     },
     onActivate: function () {
         var viewModel = this.getViewModel();
@@ -147,6 +146,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     },
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
+        var sourceview = viewModel.get('sourceview');
         if (viewModel.get('sourceview') == 'stockoutforcheck') {
             this.createStockoutForCheck();
         }
@@ -176,8 +176,16 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             this.InsertNPL_DinhMucKhachHang();
         }
 
-        if(viewModel.get('sourceview') == 'PContract_PO_Edit_Price'){
+        if(sourceview == 'PContract_PO_Edit_Price'){
             this.InsertMaterialIdLinkToPriceD();
+        }
+
+        if(sourceview == 'PContract_PO_Edit_Price_D_SKU'){
+            this.InsertMaterialIdLinkToPriceDSKU();
+        }
+        
+        if(sourceview == 'FabricPrice'){
+            this.InsertToFabricPrice();
         }
     },
     createPContractProduct: function () {
@@ -570,6 +578,61 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             //     fn: function (btn) {
             //         me.down('#cmbSanPham').expand();
             //     }
+            // });
+            // return;
+        }
+    },
+    InsertMaterialIdLinkToPriceDSKU: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var selectionModel = grid_skusearch.getSelectionModel();
+        var records = grid_skusearch.getSelection();
+        if(records.length > 0){
+            var params = new Object();
+            var currencyid_link = viewModel.get('currencyid_link');
+            var unitid_link = viewModel.get('unitid_link');
+            var materialid_link_list = new Array();
+
+            for(var i = 0; i < records.length; i++){
+                materialid_link_list.push(records[i].data.id);
+            }
+
+            params.materialid_link_list = materialid_link_list;
+            params.currencyid_link = currencyid_link;
+            params.unitid_link = unitid_link;
+
+            GSmartApp.Ajax.post('/api/v1/fabricprice/getByMaterial', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        // FabricPriceStore.load();
+                        var response = Ext.decode(response.responseText);
+                        // console.log(response.data);
+                        m.fireEvent("AddMaterialIdLink", response.data);
+                    }
+                })
+        }else{
+        }
+    },
+    InsertToFabricPrice: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var selectionModel = grid_skusearch.getSelectionModel();
+        var records = grid_skusearch.getSelection();
+        if(records.length > 0){
+            // console.log(records[0]);
+            // var materialid_link = records[0].get('id');
+            m.fireEvent("AddMaterialIdLinkFabricPrice", records);
+            // m.onThoat();
+        }else{
+            // Ext.Msg.alert({
+            //     title: "Thông báo",
+            //     msg: 'Bạn chưa chọn nguyên phụ liệu',
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     },
             // });
             // return;
         }

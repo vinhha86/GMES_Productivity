@@ -53,13 +53,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
             closeAction: 'destroy',
             viewModel: {
                 data: {
-                    sourceview: 'PContract_PO_Edit_Price',
+                    sourceview: 'PContract_PO_Edit_Price_D_SKU',
                     searchtype: 5,
                     // pcontractid_link: viewModel.get('PContract.id'),
                     // productid_link_notsearch: productid_link,
                     isAddNPL: true,
                     isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
-                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true,
+                    
+                    currencyid_link: viewModel.get('po.currencyid_link'), // tính đơn giá cho price_sku_d
+                    unitid_link: record.get('unitid_link'), // tính đơn giá cho price_sku_d
                 }
             }
         });
@@ -68,34 +71,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
         form.getController().on('AddMaterialIdLink', function (rec) {
             console.log(rec);
             var pcontract_price_d_skus = record.get('pcontract_price_d_sku');
-            var found;
             if(pcontract_price_d_skus == null){
-                found = false;
+                // ko có pcontract_price_d_skus thì định nghĩa để ko bị null
                 pcontract_price_d_skus = new Array();
-            }else{
-                found = pcontract_price_d_skus.some(item => item.materialid_link === rec.get('id'));
             }
-            if(!found){
-                // console.log('not found');
-                var newPriceDSKU = new Object();
-                // newPriceDSKU.id = 0;
-                newPriceDSKU.amount = 0;
-                newPriceDSKU.totalprice = 0;
-                newPriceDSKU.unitprice = 0
-                newPriceDSKU.materialid_link = rec.get('id');
-                newPriceDSKU.materialCode = rec.get('code');
-                newPriceDSKU.color_name = rec.get('color_name');
-                newPriceDSKU.size_name = rec.get('size_name');
-                pcontract_price_d_skus.push(newPriceDSKU);
+            
+            for(var i = 0; i < rec.length;i++){
+                var found = pcontract_price_d_skus.some(item => item.materialid_link === rec[i].id);
 
-                record.set('pcontract_price_d_sku', []);
-                record.set('pcontract_price_d_sku', pcontract_price_d_skus);
-                viewModel.getStore('Price_D_SKUStore').loadData(pcontract_price_d_skus);
-                // console.log(record);
-                // viewmodel.getStore('Price_DStore').load();
-            }else{
-                // console.log('found');
+                if(!found){
+                    var newPriceDSKU = new Object();
+                    // newPriceDSKU.amount = 0;
+                    // newPriceDSKU.totalprice = 0;
+                    // newPriceDSKU.unitprice = 0
+                    // newPriceDSKU.materialid_link = rec[i].get('id');
+                    // newPriceDSKU.materialCode = rec[i].get('code');
+                    // newPriceDSKU.color_name = rec[i].get('color_name');
+                    // newPriceDSKU.size_name = rec[i].get('size_name');
+
+                    newPriceDSKU.amount = 0;
+                    newPriceDSKU.totalprice = 0;
+                    newPriceDSKU.unitprice = rec[i].unitPrice;
+                    newPriceDSKU.materialid_link = rec[i].id;
+                    newPriceDSKU.materialCode = rec[i].code;
+                    newPriceDSKU.color_name = rec[i].color_name;
+                    newPriceDSKU.size_name = rec[i].size_name;
+
+                    pcontract_price_d_skus.push(newPriceDSKU);
+                }
             }
+
+            record.set('pcontract_price_d_sku', []);
+            record.set('pcontract_price_d_sku', pcontract_price_d_skus);
+            viewModel.getStore('Price_D_SKUStore').loadData(pcontract_price_d_skus);
 
             form.close();
         })
