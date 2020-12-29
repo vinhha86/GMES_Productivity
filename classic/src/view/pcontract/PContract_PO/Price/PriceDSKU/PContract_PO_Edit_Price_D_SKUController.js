@@ -7,10 +7,78 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PContract_PO_E
         '#btnThemMoiGiaSKU': {
             click: 'onThemMoiGiaSKU'
         },
-        // '#PContract_PO_Edit_Price': {
-        //     // beforecelldblclick: 'onBeforePriceCellDblClick',
-        //     celldblclick: 'onPriceCellDblClick'
-        // }
+        '#PContract_PO_Edit_Price_D_SKU': {
+            // beforecelldblclick: 'onBeforePriceCellDblClick',
+            celldblclick: 'onPriceDSKUCellDblClick'
+        }
+    },
+    onPriceDSKUCellDblClick: function(thisView, td, cellIndex, record, tr, rowIndex, e, eOpts ){
+        var m = this;
+        if(cellIndex == 1 || cellIndex == 2 || cellIndex == 3){
+            // console.log(record);
+            m.updateFabricPrice(record);
+        }
+    },
+
+    updateFabricPrice: function(price_d_sku_record){
+        var viewModel = this.getViewModel();
+        var price_d_record = viewModel.get('price_d_record');
+        var po_currencyid_link = viewModel.get('po.currencyid_link');
+        var me = this.getView();
+        var m = this;
+
+        // console.log(price_d_sku_record);
+        // console.log(price_d_record);
+
+        var form = Ext.create('Ext.window.Window', {
+            // height: 500,
+            width: 300,
+            closable: true,
+            title: 'Chi tiết giá vải',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'PriceDSKUDetail',
+                viewModel: {
+                    type: 'PriceDSKUDetailViewModel',
+                    data: {
+                        price_d_sku_record: price_d_sku_record, // price d sku record
+                        price_d_record: price_d_record, // price d record
+                        po_currencyid_link: po_currencyid_link 
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#PriceDSKUDetail').getController().on('updateFabricPrice', function (select) {
+            // console.log(select);
+            // console.log(price_d_sku_record);
+            for(var i=0;i < select.length;i++){
+                var unitprice = select[i].unitPrice;
+                price_d_sku_record.set('unitprice', unitprice);
+
+                var amount = price_d_sku_record.get('amount');
+                if(unitprice != null && amount != null && amount > 0){
+                    var totalprice = amount * unitprice;
+                    totalprice = Math.round(amount * unitprice * 1000) / 1000;
+                    price_d_sku_record.set('totalprice', totalprice );
+
+                    // console.log(price_d_record);
+                    m.reCalculatePriceDUnitprice(price_d_record);
+                }
+            }
+
+            form.close();
+        })
     },
     onThemMoiGiaSKU: function(){
         var me = this;
