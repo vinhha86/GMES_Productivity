@@ -243,6 +243,67 @@ Ext.define('GSmartApp.view.fabricprice.FabricPriceController', {
                 return objUnit.data.code;
             }
         }
-     },
+    },
+
+    onMaterialCodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('materialCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.materialCodeFilter = filters.add({
+                id: 'materialCodeFilter',
+                property: 'materialCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.materialCodeFilter) {
+            filters.remove(this.materialCodeFilter);
+            this.materialCodeFilter = null;
+        }
+    },
+    onColorNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('colorNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.colorNameFilter = filters.add({
+                id: 'colorNameFilter',
+                property: 'color_name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.colorNameFilter) {
+            filters.remove(this.colorNameFilter);
+            this.colorNameFilter = null;
+        }
+    },
+    onSizeNameFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('sizeNameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.sizeNameFilter = filters.add({
+                id: 'sizeNameFilter',
+                property: 'size_name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.sizeNameFilter) {
+            filters.remove(this.sizeNameFilter);
+            this.sizeNameFilter = null;
+        }
+    }
 
 })

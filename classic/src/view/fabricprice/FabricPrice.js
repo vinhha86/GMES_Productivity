@@ -63,7 +63,20 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
         {
             text: 'Mã NPL',
             dataIndex: 'materialCode',
-            flex: 1,
+            width: 200,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'materialCodeFilter',
+                width: 196,
+                // flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onMaterialCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -71,8 +84,20 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
         },{
             text:'Màu',
             dataIndex:'color_name',
-            // width: 100,
-            flex: 1,
+            width: 200,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'colorNameFilter',
+                width: 196,
+                // flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onColorNameFilterKeyup',
+                    buffer: 500
+                }
+            },
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -80,8 +105,21 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
         },{
             text:'Size',
             dataIndex:'size_name',
-            width: 130,
+            width: 120,
             align: 'end',
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'sizeNameFilter',
+                width: 116,
+                // flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onSizeNameFilterKeyup',
+                    buffer: 500
+                }
+            },
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -91,14 +129,15 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
             text: 'Giá/KG',
             dataIndex: 'price_per_kg',
             renderer: function(value){
-                return Ext.util.Format.number(parseFloat(value), '0,000.00');
+                return Ext.util.Format.number(parseFloat(value), '0,000.000');
             },
             editor:{
                 xtype:'textfield',
                 maskRe: /[0-9.]/,
                 selectOnFocus: true
             },
-            width: 130,
+            // width: 130,
+            flex: 1,
             align: 'end',
             // summaryType: 'sum',
             // summaryRenderer: 'renderSum'
@@ -107,14 +146,15 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
             text: 'M/KG',
             dataIndex: 'm_per_kg',
             renderer: function(value){
-                return Ext.util.Format.number(parseFloat(value), '0,000.00');
+                return Ext.util.Format.number(parseFloat(value), '0,000.000');
             },
             editor:{
                 xtype:'textfield',
                 maskRe: /[0-9.]/,
                 selectOnFocus: true
             },
-            width: 130,
+            // width: 130,
+            flex: 1,
             align: 'end',
             // summaryType: 'sum',
             // summaryRenderer: 'renderSum'
@@ -123,14 +163,15 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
             text: 'Giá/M',
             dataIndex: 'price_per_m',
             renderer: function(value){
-                return Ext.util.Format.number(parseFloat(value), '0,000.00');
+                return Ext.util.Format.number(parseFloat(value), '0,000.000');
             },
             editor:{
                 xtype:'textfield',
                 maskRe: /[0-9.]/,
                 selectOnFocus: true
             },
-            width: 130,
+            // width: 130,
+            flex: 1,
             align: 'end',
             // summaryType: 'sum',
             // summaryRenderer: 'renderSum'
@@ -141,8 +182,8 @@ Ext.define('GSmartApp.view.fabricprice.FabricPrice', {
             // renderer: function(value){
             //     return Ext.util.Format.number(parseFloat(value), '0,000');
             // },
-            // flex: 1,
-            width: 130,
+            // width: 130,
+            flex: 1,
             align: 'end',
             editor: {
                 completeOnEnter: true,
