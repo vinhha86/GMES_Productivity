@@ -41,8 +41,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchModel', {
         invoiceid_link: 0 ,// để truyền xuống api trong invoice
         isHidden_sku: false,
         isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
-        isHiddenSkuSearchCriteria_Attr_btnThemMoi: false
+        isHiddenSkuSearchCriteria_Attr_btnThemMoi: false,
 
+        currencyid_link: null, // tính đơn giá cho price_sku_d
+        unitid_link: null, // tính đơn giá cho price_sku_d
     },
     formulas: {
         isVisible_btnChonSP: function(get){

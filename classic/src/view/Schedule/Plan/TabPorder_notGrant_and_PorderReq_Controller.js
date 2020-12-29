@@ -2,8 +2,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     extend: 'Ext.app.ViewController',
     alias: 'controller.TabPorder_notGrant_and_PorderReq_Controller',
     init: function () {
-        // var viewmodel = this.getViewModel();
-        // var store = viewmodel.getStore('POrderUnGranted');
+        var viewModel = this.getViewModel();
+        var POrderUnGranted = viewModel.getStore('POrderUnGranted');
+        POrderUnGranted.getSorters().add('buyercode');
+        POrderUnGranted.getSorters().add('golivedate');
         // var store_req = viewmodel.getStore('Porder_Req_Store');
         // var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
         // store.getSorters().add('productiondate');
