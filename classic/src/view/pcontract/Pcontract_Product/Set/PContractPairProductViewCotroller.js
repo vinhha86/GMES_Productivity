@@ -11,7 +11,6 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
         }
     },
     onThemMoi: function () {
-        var me = this.getView();
         var viewmodel = this.getViewModel();
         var pcontractid_link = viewmodel.get('PContract').id;
 
@@ -30,26 +29,36 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
         }
 
         var form = Ext.create('Ext.window.Window', {
-            height: 300,
-            closable: true,
+            height: 400,
+            closable: false,
             resizable: false,
             modal: true,
             border: false,
             title: 'Danh sách sản phẩm',
             closeAction: 'destroy',
-            width: 400,
+            width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
                 padding: 5
             },
             items: [{
-                xtype: 'PContractProductPairInsertView',
-                pcontractid_link: pcontractid_link,
-                productpairid_link: 0
+                xtype: 'PContract_Pair_insert_main',
+                viewModel: {
+                    data: {
+                        pcontractid_link: pcontractid_link,
+                        id: null
+                    }
+                }
             }]
         });
         form.show();
+
+        form.down('#PContract_Pair_insert_main').on('Chon', function(){
+            var store = viewmodel.getStore('PContractProductPairStore');
+            store.load();
+            form.close();
+        })
     },
     onEdit: function (grid, rowIndex, colIndex) {
         var me = this.getView();
@@ -58,26 +67,36 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
         var productpairid_link = grid.getStore().getAt(rowIndex).get('productpairid_link');
 
         var form = Ext.create('Ext.window.Window', {
-            height: 300,
-            closable: true,
+            height: 400,
+            closable: false,
             resizable: false,
             modal: true,
             border: false,
             title: 'Chi tiêt bộ sản phẩm',
             closeAction: 'destroy',
-            width: 400,
+            width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
                 padding: 5
             },
             items: [{
-                xtype: 'PContractProductPairInsertView',
-                pcontractid_link: pcontractid_link,
-                productpairid_link: productpairid_link
+                xtype: 'PContract_Pair_insert_main',
+                viewModel: {
+                    data: {
+                        pcontractid_link: pcontractid_link,
+                        id: productpairid_link
+                    }
+                }
             }]
         });
         form.show();
+
+        form.down('#PContract_Pair_insert_main').on('Chon', function(){
+            var store = viewmodel.getStore('PContractProductPairStore');
+            store.load();
+            form.close();
+        })
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this.getView();
@@ -181,7 +200,7 @@ Ext.define('GSmartApp.view.pcontract.PContractPairProductViewCotroller', {
         }
 
     },
-    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
-        return common.Check_ActionColum_Permission(item.itemId); 
-    }    
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) {
+        return common.Check_ActionColum_Permission(item.itemId);
+    }
 })

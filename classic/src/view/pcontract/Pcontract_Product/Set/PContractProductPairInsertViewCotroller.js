@@ -5,10 +5,13 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractProductPairStore');
-        if (me.productpairid_link == 0)
-            store.load_product_not_pair(me.pcontractid_link, me.productpairid_link);
-        else
-            store.load_product_pair_detail(me.pcontractid_link, me.productpairid_link);
+        var storeNotIn = viewmodel.getStore('PContractProductNotPairStore');
+        var pcontractid_link = viewmodel.get('pcontractid_link');
+
+        if (viewmodel.get('id') != 0)
+             store.load_product_pair_detail(pcontractid_link, viewmodel.get('id'));
+
+             storeNotIn.load_product_not_pair(pcontractid_link, viewmodel.get('id'));
     },
     control: {
         '#btnChon': {
@@ -24,14 +27,15 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
     },
     onChon: function () {
         var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractProductPairStore');
         var me = this.getView();
 
         var params = new Object();
-        params.pcontractid_link = me.pcontractid_link;
-        params.productpairid_link = me.productpairid_link;
+        params.pcontractid_link = viewmodel.get('pcontractid_link');
+        params.productpairid_link = viewmodel.get('id');
 
         var data = [];
-        var select = me.getStore().data.items;
+        var select = store.data.items;
         for (var i = 0; i < select.length; i++) {
             var obj = select[i].data
             if(obj.amount > 0)
@@ -65,10 +69,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
                             });
                         }
                         else{
-                            var main = Ext.getCmp('PContractPairProductView');
-                            var store = main.getStore();
-                            store.load();
-                            me.up('window').close();
+                           me.fireEvent('Chon')
                         }                    
                     } else {
                         Ext.Msg.show({
@@ -82,5 +83,44 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
                     }
                 })
         }
+    },
+    onBeforeDropAdd: function(node, context, overModel, dropPosition, dropHandlers, eOpts){
+        console.log(context);
+        var data = context.records[0].data;
+
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractProductPairStore');
+        var storeNotPair = viewmodel.getStore('PContractProductNotPairStore');
+
+        var recNew = new Object({
+            imgproduct: data.imgproduct,
+            productBuyerCode: data.productBuyerCode,
+            productName: data.productName,
+            amount: 1,
+            id: null,
+            pquantity: 0,
+            productid_link : data.productid_link
+        });
+        store.insert(store.length-1 , recNew);
+        storeNotPair.remove(context.records[0]);
+
+        dropHandlers.cancelDrop();
+    },
+    onXoa: function(grid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        var store = grid.getStore();
+        var rec = store.getAt(rowIndex);
+        var data = rec.data;
+
+        store.remove(rec);
+
+        var storeNotIn = viewmodel.getStore('PContractProductNotPairStore');
+        var recNew = new Object({
+            imgproduct: data.imgproduct,
+            productBuyerCode: data.productBuyerCode,
+            productName: data.productName,
+            productid_link : data.productid_link
+        });
+        storeNotIn.insert(0,recNew);
     }
 })

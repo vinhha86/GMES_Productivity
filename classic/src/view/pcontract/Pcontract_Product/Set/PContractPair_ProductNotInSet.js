@@ -1,25 +1,23 @@
-Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
+Ext.define('GSmartApp.view.pcontract.PContractPair_ProductNotInSet', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PContractProductPairInsertView',
-    id:'PContractProductPairInsertView',
+    xtype: 'PContractPair_ProductNotInSet',
+    id:'PContractPair_ProductNotInSet',
     // controller: 'PContractProductPairInsertViewCotroller',
     productpairid_link: 0,
     // viewModel: {
     //     type: 'PContractViewModel'
     // },
     viewConfig: {
-        enableTextSelection: true,
+        enableTextSelection: false,
         columnLines: true,
         rowLines: true,
         plugins: {
             ptype: 'gridviewdragdrop',
-            enableDrag: false,
+            enableDrag: true,
+            dragText: '{0} sản phẩm',
             dragGroup: 'ProductPairGroup',
-            dropGroup: 'ProductPairGroup'
-        },
-        listeners: {
-            beforedrop: 'onBeforeDropAdd'
-        }   
+            // dropGroup: 'ProductPairGroup'
+        } 
     },
     plugins: {
         cellediting: {
@@ -27,9 +25,9 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
         }
     },
     bind:{
-        store:'{PContractProductPairStore}'
+        store:'{PContractProductNotPairStore}'
     },
-    reference: 'PContractProductPairInsertView',
+    reference: 'PContractPair_ProductNotInSet',
     columns:[{
         text:'Ảnh',
         dataIndex:'imgproduct',
@@ -54,31 +52,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
-        text:'Số lượng',
-        dataIndex:'amount',
-        width: 90,
-        align: 'right',
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9.]/,
-            selectOnFocus: true
-        },
-        renderer: function(value, meta, record){
-            return Ext.util.Format.number(value, '0,000');
-        }
-    },{
-        xtype: 'actioncolumn',
-        width: 25,
-        menuDisabled: true,
-        sortable: false,
-        align: 'center',
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            itemId: 'btnXoa_sp',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
-        }]
     }]
 });
 
