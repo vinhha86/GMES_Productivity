@@ -48,9 +48,6 @@ Ext.define('GSmartApp.view.holiday.HolidayFormView', {
         border: false,
         dock:'bottom',
         items:[{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Thoát',
             margin: 3,
@@ -64,6 +61,9 @@ Ext.define('GSmartApp.view.holiday.HolidayFormView', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1,
+            border: false
+        },]
     }]
 })

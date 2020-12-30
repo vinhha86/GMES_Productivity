@@ -113,5 +113,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
         text: 'Tìm sản phẩm',
         iconCls: 'x-fa fa-search',
         handler: 'onSearchButton'
-    }],    
+    },
+    '->'],    
 });

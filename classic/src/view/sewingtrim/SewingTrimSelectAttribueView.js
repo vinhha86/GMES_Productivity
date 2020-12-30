@@ -35,8 +35,11 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimSelectAttribueView', {
         layout:'hbox',
         border: false,
         items:[{
-            border: false,
-            flex : 1
+            xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-backward'
         },{
             xtype:'button',
             text: 'Lưu',
@@ -44,12 +47,9 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimSelectAttribueView', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
         },{
-            xtype:'button',
-            text: 'Thoát',
-            margin: 3,
-            itemId:'btnThoat',
-            iconCls: 'x-fa fa-backward'
-        }]
+            border: false,
+            flex : 1
+        },]
     }]
 });
 

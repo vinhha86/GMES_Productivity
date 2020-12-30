@@ -35,9 +35,6 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeView', {
         layout:'hbox',
         border: false,
         items:[{
-            border: false,
-            flex : 1
-        },{
             xtype:'button',
             text: 'Thoát',
             margin: 3,
@@ -49,7 +46,10 @@ Ext.define('GSmartApp.view.sizeset.SizesetSelectAttributeView', {
             margin: 3,
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
-        }]
+        },{
+            border: false,
+            flex : 1
+        },]
     }]
 });
 

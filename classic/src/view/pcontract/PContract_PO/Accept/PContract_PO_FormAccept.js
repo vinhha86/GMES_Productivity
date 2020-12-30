@@ -107,8 +107,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
         dock: 'bottom',
         layout: 'hbox',
         items:[{
-            flex: 1,
-            border: false
+            xtype: 'button',
+            margin: 5,
+            text: 'Thoát',
+            iconCls: 'x-fa fa-window-close',
+            itemId: 'btnThoat'
         },{
             xtype: 'button',
             margin: 5,
@@ -117,11 +120,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
             itemId: 'btnXacNhan',
             formBind: true
         },{
-            xtype: 'button',
-            margin: 5,
-            text: 'Thoát',
-            iconCls: 'x-fa fa-window-close',
-            itemId: 'btnThoat'
+            flex: 1,
         }]
     }]
 })

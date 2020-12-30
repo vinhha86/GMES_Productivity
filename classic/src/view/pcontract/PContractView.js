@@ -116,9 +116,6 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             margin: 1,
             itemId: 'btnQuayLai',
             iconCls: 'x-fa fa-backward'
-        }, {
-            flex: 1,
-            border: false
         }, 
         // {
         //     xtype: 'button',
@@ -138,6 +135,9 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             bind: {
                 hidden: '{isHidden_btnLuu}'
             }
+        }, {
+            flex: 1,
+            border: false
         }]
     }]
 })

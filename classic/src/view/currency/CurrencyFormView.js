@@ -81,15 +81,15 @@ Ext.define('GSmartApp.view.currency.CurrencyFormView', {
             iconCls: 'x-fa fa-plus',
             formBind: false
         },{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1,
+            border: false
+        },]
     }]
 })

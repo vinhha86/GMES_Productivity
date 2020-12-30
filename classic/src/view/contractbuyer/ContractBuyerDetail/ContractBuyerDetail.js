@@ -190,9 +190,6 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
             itemId:'btnQuayLai',
             iconCls: 'x-fa fa-backward'
         },{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
@@ -206,6 +203,9 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
             itemId:'btnLuuVaTaoMoi',
             iconCls: 'x-fa fa-save',
             formBind: true
+        },{
+            flex:1,
+            border: false
         }]
     }]
 })

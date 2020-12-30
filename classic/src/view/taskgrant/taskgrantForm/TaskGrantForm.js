@@ -70,9 +70,6 @@ Ext.define('GSmartApp.view.taskgrant.TaskGrantForm', {
         border: false,
         dock:'bottom',
         items:[{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Thoát',
             margin: 3,
@@ -86,6 +83,9 @@ Ext.define('GSmartApp.view.taskgrant.TaskGrantForm', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1,
+            border: false
+        },]
     }]
 })

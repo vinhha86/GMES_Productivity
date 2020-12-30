@@ -91,6 +91,18 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         items: [
             {
                 xtype:'button',
+                text: 'Thoát',
+                margin: 3,
+                itemId:'btnThoat',
+                iconCls: 'x-fa fa-window-close'
+            },{
+                xtype:'button',
+                text: 'Chọn',
+                margin: 3,
+                itemId:'btnChon',
+                iconCls: 'x-fa fa-check'
+            },{
+                xtype:'button',
                 text: 'Thêm công đoạn',
                 margin: 3,
                 itemId:'btnThemMoi',
@@ -101,19 +113,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             },{
                 border: false,
                 flex : 1
-            },{
-                xtype:'button',
-                text: 'Chọn',
-                margin: 3,
-                itemId:'btnChon',
-                iconCls: 'x-fa fa-check'
-            },{
-                xtype:'button',
-                text: 'Thoát',
-                margin: 3,
-                itemId:'btnThoat',
-                iconCls: 'x-fa fa-window-close'
-            }
+            },
         ]
     },{
         dock: 'top',

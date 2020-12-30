@@ -31,9 +31,6 @@ Ext.define('GSmartApp.view.pcontract.Pcontract_Product.Set.PContract_Pair_insert
         border: false,
         layout:'hbox',
         items:[{
-            flex: 1,
-            border: false
-        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
@@ -45,6 +42,9 @@ Ext.define('GSmartApp.view.pcontract.Pcontract_Product.Set.PContract_Pair_insert
             margin: 3,
             itemId:'btnThoat',
             iconCls: 'x-fa fa-window-close'
-        }]
+        },{
+            flex: 1,
+            border: false
+        },]
     }]  
 })

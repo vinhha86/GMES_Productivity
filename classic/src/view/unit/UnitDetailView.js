@@ -68,9 +68,6 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
             itemId:'btnQuayLai',
             iconCls: 'x-fa fa-backward'
         },{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
@@ -84,6 +81,9 @@ Ext.define('GSmartApp.view.unit.UnitDetailView', {
             itemId:'btnLuuVaTaoMoi',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1,
+            border: false
+        },]
     }]
 })
