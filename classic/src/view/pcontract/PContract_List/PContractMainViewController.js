@@ -5,7 +5,13 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     init: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
+
         var PContractStore = viewmodel.getStore('PContractStore');
+        PContractStore.getSorters().remove('deliverydate');
+        PContractStore.getSorters().add('vendorname');
+        PContractStore.getSorters().add('buyername');
+        PContractStore.getSorters().add('contractcode');
+
         var d = new Date();
         var thisYear = d.getFullYear();
         PContractStore.loadStore("", "", 0, 0, "", thisYear-1, thisYear+1);
