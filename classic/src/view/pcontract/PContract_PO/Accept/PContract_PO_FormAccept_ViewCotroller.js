@@ -32,6 +32,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
         userStore.loadUserbyOrg_Buyer(record.get('id'), viewmodel.get('po.orgbuyerid_link'));
     },
     onAccept: function(grid, rowIndex, colIndex) {
+        var grid = this.getView();
+        grid.setLoading("Đang xử lý");
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
@@ -42,6 +44,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
         GSmartApp.Ajax.post('/api/v1/pcontract_po/accept', Ext.JSON.encode(params),
             function (success, response, options) {
                 var mes = "";
+                grid.setLoading(false);
                 var isSuccess = false;
                 if (success) {
                     var response = Ext.decode(response.responseText);
