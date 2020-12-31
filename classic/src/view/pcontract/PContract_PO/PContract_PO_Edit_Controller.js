@@ -102,9 +102,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                             store.clearFilter();
                             store.removeAll();
                             store.insert(0, response.data.pcontract_price);
-                            me.down('#PContract_PO_Edit_Sizeset').getSelectionModel().select(0);
-
                             store.filter('productid_link', productid_link);
+                            me.down('#PContract_PO_Edit_Sizeset').getSelectionModel().select(0);
 
                             //Lay danh sach POrder_Req
                             var porderReqStore = viewmodel.getStore('porderReqStore');
