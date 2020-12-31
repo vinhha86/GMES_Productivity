@@ -35,8 +35,11 @@ Ext.define('GSmartApp.view.product.ProductAddAttributeView', {
         layout:'hbox',
         border: false,
         items:[{
-            border: false,
-            flex : 1
+            xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-window-close'
         },{
             xtype:'button',
             text: 'Lưu',
@@ -44,12 +47,9 @@ Ext.define('GSmartApp.view.product.ProductAddAttributeView', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
         },{
-            xtype:'button',
-            text: 'Thoát',
-            margin: 3,
-            itemId:'btnThoat',
-            iconCls: 'x-fa fa-window-close'
-        }]
+            border: false,
+            flex : 1
+        },]
     }]
 });
 

@@ -60,7 +60,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
         dock:'bottom',
         layout: 'hbox',
         items:[{
-            flex:1
+            xtype: 'button',
+            text: 'Thoát',
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+            margin: 5
         },{
             xtype:'button',
             text: 'Lưu',
@@ -68,11 +72,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_porder_info', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
         },{
-            xtype: 'button',
-            text: 'Thoát',
-            itemId: 'btnThoat',
-            iconCls: 'x-fa fa-window-close',
-            margin: 5
-        }]
+            flex:1
+        },]
     }]
 })

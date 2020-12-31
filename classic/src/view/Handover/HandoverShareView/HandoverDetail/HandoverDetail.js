@@ -50,9 +50,6 @@ Ext.define('GSmartApp.view.handover.HandoverDetail', {
                 hidden: '{isBtnCancelConfirmHidden}'
             }
         },{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Người xuất xác nhận',
             margin: 3,
@@ -77,6 +74,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetail', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1,
+            border: false
+        },]
     }]
 })

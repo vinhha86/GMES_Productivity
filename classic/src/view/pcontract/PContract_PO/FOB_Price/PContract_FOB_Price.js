@@ -35,8 +35,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_FOB_Price', {
         dock:'bottom',
         layout: 'hbox',
         items:[{
-            flex:1,
-            border: false
+            xtype: 'button',
+            text: 'Thoát',
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+            margin: 5
         },{
             xtype: 'button',
             text: 'Chọn',
@@ -44,12 +47,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_FOB_Price', {
             iconCls: 'x-fa fa-check',
             margin: 5
         },{
-            xtype: 'button',
-            text: 'Thoát',
-            itemId: 'btnThoat',
-            iconCls: 'x-fa fa-window-close',
-            margin: 5
-        }]
+            flex:1
+        },]
     }]
 });
 

@@ -53,15 +53,15 @@ Ext.define('GSmartApp.view.devicegroup.DeviceGroupDetail', {
             //     disabled:'{btnThemState}'
             // }
         },{
-            flex:1,
-            border: false
-        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1,
+            border: false
+        },]
     }]
 })

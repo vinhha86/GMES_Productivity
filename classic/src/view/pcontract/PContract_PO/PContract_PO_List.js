@@ -200,15 +200,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
                     }
-                },{
-                    text:'YCSX',
-                    align: 'end',
-                    dataIndex:'amount_org',
-                    width: 70,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                    }
-                },{
+                },
+                // {
+                //     text:'YCSX',
+                //     align: 'end',
+                //     dataIndex:'amount_org',
+                //     width: 70,
+                //     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                //         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                //     }
+                // },
+                {
                     text:'Ngày giao',
                     dataIndex:'shipdate',
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),

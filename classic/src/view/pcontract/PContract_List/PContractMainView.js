@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     }, {
         text: 'Mã đơn hàng',
         dataIndex: 'contractcode',
-        width: 100,
+        width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     }, {
         text: 'Buyer',
         dataIndex: 'buyername',
-        width: 100,
+        width: 150,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },{
         text: 'Vendor',
         dataIndex: 'vendorname',
-        width: 100,
+        width: 150,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     {
         text: 'Loại hình',
         dataIndex: 'contractTypeName',
-        flex: 1,
+        width: 80,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;

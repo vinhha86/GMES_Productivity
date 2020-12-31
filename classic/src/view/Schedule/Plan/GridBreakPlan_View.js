@@ -92,7 +92,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
         dock:'bottom',
         layout: 'hbox',
         items:[{
-            flex:1
+            xtype: 'button',
+            text: 'Thoát',
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+            margin: 5
         },{
             xtype:'button',
             text: 'Xác nhận',
@@ -100,12 +104,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.GridBreakPlan_View', {
             itemId:'btnLuu',
             iconCls: 'x-fa fa-check'
         },{
-            xtype: 'button',
-            text: 'Thoát',
-            itemId: 'btnThoat',
-            iconCls: 'x-fa fa-window-close',
-            margin: 5
-        }]
+            flex:1
+        },]
     },{
         dock: 'top',
         layout: 'hbox',
