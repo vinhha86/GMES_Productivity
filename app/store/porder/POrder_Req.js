@@ -27,6 +27,7 @@ Ext.define('GSmartApp.store.POrder_Req', {
 			url: config.getAppBaseUrl()+'/api/v1/porder_req/getby_org',
 			paramsAsJson:true,
 			noCache: false,
+			timeout: 120000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
