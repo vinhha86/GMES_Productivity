@@ -703,7 +703,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
     onProductItemSelected: function (sender, record) {
-        console.log(record);
         var viewModel = this.getViewModel();
         var SkuStore = viewModel.getStore('SkuStore');
         if (record.get('id') > 0) {

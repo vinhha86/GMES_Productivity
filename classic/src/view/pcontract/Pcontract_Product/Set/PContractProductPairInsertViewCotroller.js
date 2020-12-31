@@ -85,7 +85,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
         }
     },
     onBeforeDropAdd: function(node, context, overModel, dropPosition, dropHandlers, eOpts){
-        console.log(context);
         var data = context.records[0].data;
 
         var viewmodel = this.getViewModel();
