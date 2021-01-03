@@ -124,6 +124,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
 
         var storepair = viewmodel.getStore('PContractProductPairStore');
         var store = viewmodel.getStore('PContractProductStore');
+        // sort PContractProductStore
+        store.getSorters().remove('productid_link');
+        store.getSorters().add('productBuyerCode');
+
         if (id > 0) {
             var productid_link_filter = viewmodel.get('productid_link_filter');
             store.loadStore(id, productid_link_filter);
