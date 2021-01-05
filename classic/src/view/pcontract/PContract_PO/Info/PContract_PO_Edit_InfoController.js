@@ -94,9 +94,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                 //Tinh so ngay can san xuat
                 if (null!=productivity && productivity!=0){
                     var productiondays_ns = Math.round(po_quantity/productivity);
-                    viewmodel.set('po.productiondays_ns',productiondays_ns);
+                    viewmodel.set('pcontract_po_productivity.productiondays_ns',productiondays_ns);
                 } else {
-                    viewmodel.set('po.productiondays_ns',0);
+                    viewmodel.set('pcontract_po_productivity.productiondays_ns',0);
                 }
 
                 if (productiondays_ns < productiondays){
@@ -125,9 +125,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                 if(data.productid_link == productid_link){
                     data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
                     data.plan_productivity = productivity;
+                    data.productiondays_ns = viewmodel.get('pcontract_po_productivity.productiondays_ns');
                 }
                 data.amount = po_quantity*(rec.data.pairamount == null ? 1: rec.data.pairamount);
-
             }
 
             //them moi thi them vao trong po
@@ -138,6 +138,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                     if(rec.productid_link == productid_link){
                         data.plan_productivity = productivity;
                         data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
+                        data.productiondays_ns = viewmodel.get('pcontract_po_productivity.productiondays_ns');
                     }
 
                     data.productid_link = rec.id;

@@ -356,7 +356,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     },
 
     enablePrice: function (record) {
-        console.log(record);
         var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
         var viewPriceSumUp = Ext.getCmp('PContract_PO_Edit_PriceSumUp');
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
@@ -389,7 +388,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var po = viewmodel.get('po');
 
         var data = new Object();
-        console.log(po.pcontract_po_productivity)
         if (po.pcontract_po_productivity != null) {
 
             for (var i = 0; i < po.pcontract_po_productivity.length; i++) {

@@ -344,7 +344,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                     flex: 1,
                                     margin: 1,
                                     bind: {
-                                        value: '{po.productiondays_ns}'
+                                        value: '{pcontract_po_productivity.productiondays_ns}'
                                     }    
                                 }
                             ]
