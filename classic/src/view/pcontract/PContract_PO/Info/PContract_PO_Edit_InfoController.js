@@ -116,21 +116,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
             var productid_link = viewmodel.get('product_selected_id_link');
             var data = new Object();
 
+            var productStore = viewmodel.getStore('ProductStore');
+
             for(var i=0; i<po_data.pcontract_po_productivity.length; i++){
-                if(po_data.pcontract_po_productivity[i].productid_link == productid_link){
-                    data = po_data.pcontract_po_productivity[i];
+                var rec = productStore.findRecord('id',po_data.pcontract_po_productivity[i].productid_link);
+                data = po_data.pcontract_po_productivity[i];
+
+                if(data.productid_link == productid_link){
                     data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
                     data.plan_productivity = productivity;
-
-                    break;
                 }
-            }
-            if(data.productid_link == null){
-                data.productid_link = productid_link;
-                data.plan_productivity = productivity;
-                data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
+                data.amount = po_quantity*(rec.data.pairamount == null ? 1: rec.data.pairamount);
 
-                po_data.pcontract_po_productivity.push(data);
+            }
+
+            //them moi thi them vao trong po
+            if(po_data.pcontract_po_productivity.length == 0){
+                for(var i =0; i<productStore.data.length; i++){
+                    var rec = productStore.data.items[i].data;
+                    var data = new Object();
+                    if(rec.productid_link == productid_link){
+                        data.plan_productivity = productivity;
+                        data.plan_linerequired = viewmodel.get('pcontract_po_productivity.plan_linerequired');
+                    }
+
+                    data.productid_link = rec.id;
+                    data.amount = po_quantity*(rec.pairamount == null ? 1: rec.pairamount);
+
+                    po_data.pcontract_po_productivity.push(data);
+                }
+                
             }
         }
     },
@@ -138,6 +153,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         var me = this;
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
+        // var pcontract_po_productivity = viewmodel.get('pcontract_po_productivity');
+        viewmodel.set('po.po_quantity',viewmodel.get('pcontract_po_productivity.amount'));
         //Update gia tri SizesetALl tai tat ca cac san pham
         var priceStore = viewmodel.getStore('PriceStore');
         if(priceStore!= null) {

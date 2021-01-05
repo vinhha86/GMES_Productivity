@@ -370,10 +370,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         if (record.get('product_type') == 5) {
             viewPrice.setDisabled(true);
             viewmodel.set('isSewPriceReadonly', true);
+            viewmodel.set('isEditQuantity', true);
         }
         else {
             viewPrice.setDisabled(false);
             viewmodel.set('isSewPriceReadonly', false);
+            viewmodel.set('isEditQuantity', false);
         }
 
         var priceStore = viewmodel.getStore('PriceStore');
@@ -387,6 +389,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var po = viewmodel.get('po');
 
         var data = new Object();
+        console.log(po.pcontract_po_productivity)
         if (po.pcontract_po_productivity != null) {
 
             for (var i = 0; i < po.pcontract_po_productivity.length; i++) {

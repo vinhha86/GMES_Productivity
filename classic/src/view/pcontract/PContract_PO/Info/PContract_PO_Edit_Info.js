@@ -120,7 +120,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             enforceMaxLength: true,
                             maxLength: 9,
                             bind: {
-                                value: '{po.po_quantity}'
+                                value: '{pcontract_po_productivity.amount}',
+                                editable: '{isEditQuantity}'
                             },
                             listeners: {
                                 focusleave: 'onPOQuantityChange'

@@ -230,7 +230,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         var fobSum = Price_DStore.sum('price');
         Price_DStore.clearFilter();
         price_data.price_fob = fobSum;
-        var totalprice = price_data.price_cmp + price_data.price_fob;
+        var totalprice = (price_data.price_cmp + price_data.price_fob);
         price_data.totalprice = totalprice;
         // console.log(totalprice);
         
