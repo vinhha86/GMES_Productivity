@@ -15,5 +15,8 @@ Ext.define('GSmartApp.view.Schuedule.Plan.TabPorder_notGrant_and_PorderReq', {
     },{
         title: 'Lệnh thay đổi',
         xtype: 'PorderChange_Productivity' //GSmartApp.view.porders.PorderChange_Productivity
+    },{
+        title: 'Yêu cầu xếp kế hoạch',
+        xtype: 'Schedule_POrderReq_View' //GSmartApp.view.porders.Porder_Req
     }]
 })

@@ -17,6 +17,41 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             'tabchange' : 'onTabChange'
         }
     },
+    onSelectOffer: function(rowNode, record, expandRow, eOpts){
+
+        var params = new Object();
+        params.pcontract_poid_link = record.get('pcontract_poid_link');
+        params.productid_link = record.get('productid_link');
+
+        GSmartApp.Ajax.post('/api/v1/porder_req/getby_offer_product', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        record.set('porder_req', response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
     onTabChange: function(tabPanel, newCard, oldCard, eOpts){
     },
     onSearchGrantChange: function(){
@@ -35,6 +70,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         var viewmodel = this.getViewModel();
         var store_req = viewmodel.getStore('Porder_Req_Store');
         store_req.load_byOrg();
+    },
+    onSearchPorderReqOffer: function () {
+        var viewmodel = this.getViewModel();
+        var store_req = viewmodel.getStore('PContractrPoductPOStore');
+        store_req.load();
     },
     onPOrderFilterKeyup: function () {
         var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');

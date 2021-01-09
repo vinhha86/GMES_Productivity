@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     text: 'Yêu cầu xếp kế hoạch',
                     iconCls: 'x-fa fa-bullhorn redIcon',
                     weight: 30,
-                    handler: 'onYeuCauXepKeHoach',
+                    handler: 'onYeuCauXepKeHoach_ChaoGia',
                     bind : {
                         hidden: '{isHidden_Phanlenh}'
                     }

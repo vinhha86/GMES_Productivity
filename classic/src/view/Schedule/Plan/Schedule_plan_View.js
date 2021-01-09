@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
 
         var sch = Ext.create('Sch.panel.SchedulerTree', {
             readOnly: me.readOnly,
-            rowHeight: 30,
+            rowHeight: 50,
             barMargin: 2,
             id: 'treeplan',
             useArrows: true,
@@ -127,6 +127,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 '</ul>'
             ),
             eventRenderer: function (flight, resource, meta) {
+                if(flight.get('grant_type') == 1)
+                    meta.cls = 'x-fa fa-exclamation-circle';
                 if (resource.data.type >=1) {
                     return flight.get('mahang');
                 } else {

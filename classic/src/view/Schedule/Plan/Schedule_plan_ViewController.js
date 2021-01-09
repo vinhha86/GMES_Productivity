@@ -604,6 +604,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 });
             } else {
                 var porder_data = data.records[0].data;
+                console.log(porder_data);
+                console.log(config);
                 if (destPos_Data.parentid_origin != porder_data.granttoorgid_link) {
                     Ext.Msg.show({
                         title: 'Thông báo',
@@ -626,6 +628,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         params.parentid_origin = destPos_Data.parentid_origin;
                         t.TaoLenhSanXuat(params);
                     }
+                    else if (config.id == "Porder_Req_Product_Event") {
+                        var params = new Object();
+                        params.pcontract_poid_link = porder.get('pcontract_poid_link');
+                        params.productid_link = porder.get('productid_link');
+                        params.resourceid = destPos_Data.Id;
+                        params.orggrantto = destPos_Data.id_origin;
+                        params.parentid_origin = destPos_Data.parentid_origin;
+
+                        console.log(params);
+                        t.TaoGrantTuChaoGia(params);
+                        //Tao nhieu grant 1 cho 1 san pham
+                        
+                    }
                     else if (config.id == "Porder_Req_Event") {
                         var params = new Object();
                         params.porder_reqid_link = porder.get('id');
@@ -634,7 +649,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         params.parentid_origin = destPos_Data.parentid_origin;
 
                         t.TaoLenhThu(params);
+                        
                     }
+
                 }
             }
         }
@@ -658,6 +675,52 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         var rec = store.getAt(0);
 
                         me.getSchedulingView().scrollEventIntoView(rec);
+                        var panel = Ext.getCmp('FilterBar').getController();
+                        panel.onGrantToOrgTap();
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    //tha tu yeu cau san xuat
+    TaoGrantTuChaoGia: function (params) {
+        var grid = this.getView();
+        grid.setLoading("Đang xử lý dữ liệu");
+        var me = this.getView().down('#treeplan');
+        GSmartApp.Ajax.post('/api/v1/schedule/create_many_pordergrant_test', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var list = response.data;
+                        var store = me.getCrudManager().getEventStore();
+                        for(var i =0; i<list.length; i++){
+                            var event = list[i];
+                            store.insert(0, event);
+                            var rec = store.getAt(0);
+    
+                            me.getSchedulingView().scrollEventIntoView(rec);
+                        }
+                       
                         var panel = Ext.getCmp('FilterBar').getController();
                         panel.onGrantToOrgTap();
                     }

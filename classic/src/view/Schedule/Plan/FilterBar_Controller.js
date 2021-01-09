@@ -163,6 +163,25 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
             }
         }
     },
+    onYeuCauXepKeHoach_ChaoGia: function(){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
+        var tab = panel_orderungranted.child('#Schedule_POrderReq_View');
+        tab.tab.show();
+        panel_orderungranted.setActiveTab(tab);
+
+        var store_req = viewmodel.getStore('PContractrPoductPOStore');
+        store_req.getOffers_byOrg();
+
+        if (null != panel_orderungranted){
+            if (panel_orderungranted.getHidden()){
+                panel_orderungranted.setHidden(false);
+                panel_guessview.setHidden(true);
+            }
+        }
+    },
     onGuessView: function(){
         var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');

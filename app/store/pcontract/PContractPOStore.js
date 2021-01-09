@@ -48,6 +48,33 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		// 	}
 		// });		
 	},
+	getOffers_byOrg(){
+		var params = new Object();
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/porder_req/getpoline_product_by_org',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			timeout: 240000,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	},
 	loadStoreByType: function(pcontractid_link, productid_link,potype){
 		var me=this;
 		var params = new Object();
