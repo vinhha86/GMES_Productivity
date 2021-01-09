@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.main.Toolbar', {
             handler: function () {
                 Ext.fireEvent('navigationback');
             },
-            // hidden: true
+            hidden: true
         },
         '->',
         {

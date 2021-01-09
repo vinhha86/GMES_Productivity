@@ -1,6 +1,6 @@
 Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     extend: 'Ext.form.Panel',
-    xtype: 'porderprocessing',
+    xtype: 'lsporderprocessing',
     controller: 'POrderProcessingController',
 	viewModel: {
         type: 'POrderProcessingViewModel'

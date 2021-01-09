@@ -18,6 +18,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         }
     },
     onSelectOffer: function(rowNode, record, expandRow, eOpts){
+        var grid = this.getView();
+        grid.setLoading('Đang tải dữ liệu');
 
         var params = new Object();
         params.pcontract_poid_link = record.get('pcontract_poid_link');
@@ -26,6 +28,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         GSmartApp.Ajax.post('/api/v1/porder_req/getby_offer_product', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
+                    grid.setLoading(false);
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         record.set('porder_req', response.data);
@@ -456,7 +459,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onMenuPorderReqList: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
-        console.log(record);
         var menu_grid = new Ext.menu.Menu({
             items: [
             {

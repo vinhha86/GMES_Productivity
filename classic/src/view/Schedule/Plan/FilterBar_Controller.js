@@ -171,9 +171,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var tab = panel_orderungranted.child('#Schedule_POrderReq_View');
         tab.tab.show();
         panel_orderungranted.setActiveTab(tab);
-
+        tab.setLoading("Đang tải dữ liệu");
         var store_req = viewmodel.getStore('PContractrPoductPOStore');
-        store_req.getOffers_byOrg();
+        store_req.getOffers_byOrg_noLoad();
+        store_req.load({
+            scope: this,
+            callback: function(){
+                tab.setLoading(false);
+            }
+        })
 
         if (null != panel_orderungranted){
             if (panel_orderungranted.getHidden()){
