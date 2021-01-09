@@ -635,6 +635,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         params.resourceid = destPos_Data.Id;
                         params.orggrantto = destPos_Data.id_origin;
                         params.parentid_origin = destPos_Data.parentid_origin;
+                        params.orgid_link = porder.get('granttoorgid_link');
 
                         console.log(params);
                         t.TaoGrantTuChaoGia(params);

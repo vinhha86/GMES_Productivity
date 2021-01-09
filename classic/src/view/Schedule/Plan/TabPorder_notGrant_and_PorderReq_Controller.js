@@ -19,11 +19,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onSelectOffer: function(rowNode, record, expandRow, eOpts){
         var grid = this.getView();
+        console.log(record);
         grid.setLoading('Đang tải dữ liệu');
 
         var params = new Object();
         params.pcontract_poid_link = record.get('pcontract_poid_link');
         params.productid_link = record.get('productid_link');
+        params.orgid_link = record.get('granttoorgid_link');
 
         GSmartApp.Ajax.post('/api/v1/porder_req/getby_offer_product', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -75,9 +77,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         store_req.load_byOrg();
     },
     onSearchPorderReqOffer: function () {
+        var grid = this.getView();
+        grid.setLoading("Đang tải dữ liệu");
         var viewmodel = this.getViewModel();
         var store_req = viewmodel.getStore('PContractrPoductPOStore');
-        store_req.load();
+        store_req.load({
+            callback: function(){
+                grid.setLoading(false);
+            }
+        });
     },
     onPOrderFilterKeyup: function () {
         var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');

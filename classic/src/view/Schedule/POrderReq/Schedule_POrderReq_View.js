@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.Schedule.POrderReq.Schedule_POrderReq_View', {
         // },
         width: 70
     },
-    { header: 'SL', dataIndex: 'quantity', width: 60,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+    { header: 'SL', dataIndex: 'quantity', width: 70,  xtype: 'numbercolumn', format: '0,000', align: 'right',
         summaryType: 'sum',
         summaryRenderer: function(value, summaryData, dataIndex) {
             return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000')+'</div>';
@@ -195,7 +195,7 @@ Ext.define('GSmartApp.view.Schedule.POrderReq.Schedule_POrderReq_View', {
                 },{
                     text:'SL',
                     align: 'end',
-                    dataIndex:'po_quantity',
+                    dataIndex:'totalorder',
                     width: 70,
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
