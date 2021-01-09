@@ -24,30 +24,31 @@ Ext.define('GSmartApp.view.main.MainController', {
 
     collapsedCls: 'main-nav-collapsed',
 
-    init: function (view) {
-        var me = this,
-            refs = me.getReferences();
-        //console.log(view);
-        me.callParent([ view ]);
+    // init: function (view) {
+    //     var me = this,
+    //         refs = me.getReferences();
+    //     //console.log(view);
+    //     me.callParent([ view ]);
 
-        me.nav = refs.navigation;
-        me.navigationTree = refs.navigationTree;
+    //     me.nav = refs.navigation;
+    //     me.navigationTree = refs.navigationTree;
 
-        if(''==window.location.hash) {
-             this.redirectTo('lsporderprocessing');
-        } else {
-            var hash = window.location.hash.substring(1);
-            console.log(' hash view: ', hash);
-            var listhast = hash.split('/');
-            if(listhast.length> 1)
-            this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
-            else
-            this.onRouteChange(hash);
-        }
+    //     if(''==window.location.hash) {
+    //         // this.redirectTo('lsporderprocessing');
+    //         // this.redirectTo('mobilemenu');
+    //     } else {
+    //         var hash = window.location.hash.substring(1);
+    //         console.log(' hash view: ', hash);
+    //         var listhast = hash.split('/');
+    //         if(listhast.length> 1)
+    //         this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+    //         else
+    //         this.onRouteChange(hash);
+    //     }
         
         
         
-    },
+    // },
     beforeRender: function() {
         //var tbname = this.lookup('tbname');
         //tbname.text = config.getFname();
@@ -69,57 +70,57 @@ Ext.define('GSmartApp.view.main.MainController', {
             this.redirectTo(to);
         }
     },
-    onRouteChange:function(id){
-        console.log('onRouteChange:' + id);
-        var me = this,
-        refs = me.getReferences();
-        backbutton = refs.backbutton;
-        backbutton.setHidden(true);
-        this.setCurrentView(id);
-    },
-	onRouteDataChange(hashTag,id,args){
-		args = Ext.Array.clean((args || '').split('/'));
-		hashTag = (hashTag || '').toLowerCase();
-		var session= GSmartApp.util.State.get('session');
-		if(!session){
-			 this.redirectTo("login");
-		}
-        var me = this,
-            refs = me.getReferences(),
-            mainCard = refs.mainCardPanel,
-            mainLayout = mainCard.getLayout(),
-            navigationList = refs.navigationTreeList,
-            store = navigationList.getStore(),
-            node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
+    // onRouteChange:function(id){
+    //     console.log('onRouteChange:' + id);
+    //     var me = this,
+    //     refs = me.getReferences();
+    //     backbutton = refs.backbutton;
+    //     backbutton.setHidden(true);
+    //     this.setCurrentView(id);
+    // },
+	// onRouteDataChange(hashTag,id,args){
+	// 	args = Ext.Array.clean((args || '').split('/'));
+	// 	hashTag = (hashTag || '').toLowerCase();
+	// 	var session= GSmartApp.util.State.get('session');
+	// 	if(!session){
+	// 		 this.redirectTo("login");
+	// 	}
+    //     var me = this,
+    //         refs = me.getReferences(),
+    //         mainCard = refs.mainCardPanel,
+    //         mainLayout = mainCard.getLayout(),
+    //         navigationList = refs.navigationTreeList,
+    //         store = navigationList.getStore(),
+    //         node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
 
-        var xtype_edit = (node && node.get('xtype_edit')) || 'page404';
+    //     var xtype_edit = (node && node.get('xtype_edit')) || 'page404';
 
-        backbutton = refs.backbutton;
-        backbutton.setHidden(false);
+    //     backbutton = refs.backbutton;
+    //     backbutton.setHidden(false);
 
-        // if (mainLayout.getActiveItem() && mainLayout.getActiveItem().xtype == xtype_edit){
-        //     mainLayout.getActiveItem().destroy();
-        // }
+    //     // if (mainLayout.getActiveItem() && mainLayout.getActiveItem().xtype == xtype_edit){
+    //     //     mainLayout.getActiveItem().destroy();
+    //     // }
 
-        if (mainCard.getActiveItem()){
-            mainCard.getActiveItem().destroy();
-        }
-        if (args == 'edit'){
-            item = mainCard.add({
-                xtype: xtype_edit,
-                routeId: xtype_edit
-            });
-            mainCard.setActiveItem(item);
-            me.fireEvent('loaddata', id,node);
-        } else {
-            item = mainCard.add({
-                xtype: xtype_edit,
-                routeId: xtype_edit
-            });
-            mainCard.setActiveItem(item);
-            me.fireEvent('newdata', node);
-        }
-	},
+    //     if (mainCard.getActiveItem()){
+    //         mainCard.getActiveItem().destroy();
+    //     }
+    //     if (args == 'edit'){
+    //         item = mainCard.add({
+    //             xtype: xtype_edit,
+    //             routeId: xtype_edit
+    //         });
+    //         mainCard.setActiveItem(item);
+    //         me.fireEvent('loaddata', id,node);
+    //     } else {
+    //         item = mainCard.add({
+    //             xtype: xtype_edit,
+    //             routeId: xtype_edit
+    //         });
+    //         mainCard.setActiveItem(item);
+    //         me.fireEvent('newdata', node);
+    //     }
+	// },
 
     onSwitchToClassic: function () {
         Ext.Msg.confirm('Switch to Classic', 'Are you sure you want to switch toolkits?',
@@ -143,38 +144,42 @@ Ext.define('GSmartApp.view.main.MainController', {
         this.setShowNavigation(!this.getShowNavigation());
     },
 
-    setCurrentView: function (hashTag) {
-        console.log('setCurrentView:' + hashTag);
-        hashTag = (hashTag || '').toLowerCase();
+    // setCurrentView: function (hashTag) {
+    //     console.log('setCurrentView:' + hashTag);
+    //     hashTag = (hashTag || '').toLowerCase();
 
-        if(''==hashTag){
-            hashTag = 'dashboard';
-        }
+    //     if(''==hashTag){
+    //         hashTag = 'dashboard';
+    //     }
 
-        var me = this,
-            refs = me.getReferences(),
-            mainCard = refs.mainCardPanel,
-            navigationTree = refs.navigationTreeList,
-            store = navigationTree.getStore(),
-            node = store.findNode('routeId', hashTag) ||
-                   store.findNode('viewType', hashTag),
-            item = mainCard.child('component[routeId=' + hashTag + ']');
+    //     var me = this,
+    //         refs = me.getReferences(),
+    //         mainCard = refs.mainCardPanel,
+    //         navigationTree = refs.navigationTreeList,
+    //         store = navigationTree.getStore(),
+    //         node = store.findNode('routeId', hashTag) ||
+    //                store.findNode('viewType', hashTag),
+    //         item = mainCard.child('component[routeId=' + hashTag + ']');
 
-        if (!item) {
-            item = mainCard.add({
-                xtype: node.get('viewType'),
-                routeId: hashTag
-            });
-        }
+    //     console.log(store);
+    //     console.log(node);
+    //     console.log(item);
 
-        mainCard.setActiveItem(item);
+    //     if (!item) {
+    //         item = mainCard.add({
+    //             xtype: node.get('viewType'),
+    //             routeId: hashTag
+    //         });
+    //     }
 
-        navigationTree.setSelection(node);
+    //     mainCard.setActiveItem(item);
 
-        //if (newView.isFocusable(true)) {
-        //    newView.focus();
-        //}
-    },
+    //     navigationTree.setSelection(node);
+
+    //     //if (newView.isFocusable(true)) {
+    //     //    newView.focus();
+    //     //}
+    // },
 
     updateShowNavigation: function (showNavigation, oldValue) {
         // Ignore the first update since our initial state is managed specially. This
@@ -254,4 +259,110 @@ Ext.define('GSmartApp.view.main.MainController', {
         Ext.util.History.back();
     },
     
+    //// new menu
+
+    init: function (view) {
+        var me = this,
+            refs = me.getReferences();
+        //console.log(view);
+        me.callParent([ view ]);
+
+        me.nav = refs.navigation;
+        me.navigationTree = refs.navigationTree;
+
+        var mainCardPanel = refs.mainCardPanel;
+        mainCardPanel.push({
+            xtype: 'MobileMenu'
+        });
+
+        if(''==window.location.hash) {
+            // this.redirectTo('lsporderprocessing');
+            // this.redirectTo('mobilemenu');
+        } else {
+            var hash = window.location.hash.substring(1);
+            console.log(' hash view: ', hash);
+            var listhast = hash.split('/');
+            if(listhast.length> 1)
+            this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+            else
+            this.onRouteChange(hash);
+        }
+    },
+    
+    onRouteChange:function(id){
+        console.log('onRouteChange:' + id);
+        var me = this,
+        refs = me.getReferences();
+        // backbutton = refs.backbutton;
+        // backbutton.setHidden(true);
+        this.setCurrentView(id);
+    },
+	// onRouteDataChange(hashTag,id,args){
+	// 	args = Ext.Array.clean((args || '').split('/'));
+	// 	hashTag = (hashTag || '').toLowerCase();
+	// 	var session= GSmartApp.util.State.get('session');
+	// 	if(!session){
+	// 		 this.redirectTo("login");
+	// 	}
+    //     var me = this,
+    //         refs = me.getReferences(),
+    //         mainCard = refs.mainCardPanel,
+    //         mainLayout = mainCard.getLayout(),
+    //         navigationList = refs.navigationTreeList,
+    //         store = navigationList.getStore(),
+    //         node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
+
+    //     var xtype_edit = (node && node.get('xtype_edit')) || 'page404';
+
+    //     backbutton = refs.backbutton;
+    //     backbutton.setHidden(false);
+
+    //     // if (mainLayout.getActiveItem() && mainLayout.getActiveItem().xtype == xtype_edit){
+    //     //     mainLayout.getActiveItem().destroy();
+    //     // }
+
+    //     if (mainCard.getActiveItem()){
+    //         mainCard.getActiveItem().destroy();
+    //     }
+    //     if (args == 'edit'){
+    //         item = mainCard.add({
+    //             xtype: xtype_edit,
+    //             routeId: xtype_edit
+    //         });
+    //         mainCard.setActiveItem(item);
+    //         me.fireEvent('loaddata', id,node);
+    //     } else {
+    //         item = mainCard.add({
+    //             xtype: xtype_edit,
+    //             routeId: xtype_edit
+    //         });
+    //         mainCard.setActiveItem(item);
+    //         me.fireEvent('newdata', node);
+    //     }
+    // },
+    
+    setCurrentView: function (hashTag) {
+        console.log('setCurrentView:' + hashTag);
+        hashTag = (hashTag || '').toLowerCase();
+
+        if(''==hashTag){
+            // hashTag = 'dashboard';
+        }
+
+        var me = this,
+            refs = me.getReferences(),
+            mainCard = refs.mainCardPanel,
+            item = mainCard.child('component[routeId=' + hashTag + ']');
+
+        // console.log(store);
+        // console.log(node);
+        // console.log(item);
+
+        if (!item) {
+            item = mainCard.push({
+                xtype: hashTag,
+                routeId: hashTag
+            });
+        }
+    },
 });

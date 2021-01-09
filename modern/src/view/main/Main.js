@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.main.Main', {
                         itemclick: 'onNavigationItemClick',
                         selectionchange: 'onNavigationTreeSelectionChange'
                     }
-                }
+                },
             ]
         },
         {
@@ -48,7 +48,8 @@ Ext.define('GSmartApp.view.main.Main', {
             flex: 1,
             reference: 'mainCardPanel',
             userCls: 'main-container',
-            navigationBar: false
+            navigationBar: false,
+            // hidden: true,
         },
     ]
 });

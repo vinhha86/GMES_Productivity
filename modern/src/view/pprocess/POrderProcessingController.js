@@ -25,7 +25,8 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingController', {
                     }
                 }
 			}
-		});
+        });
+        // console.log(FactoryStore);
     },
     onFactoryItemSelected: function (sender, record) {
         var viewmodel = this.getViewModel();
