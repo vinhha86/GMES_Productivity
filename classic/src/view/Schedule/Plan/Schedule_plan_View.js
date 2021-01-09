@@ -75,8 +75,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
 
         var sch = Ext.create('Sch.panel.SchedulerTree', {
             readOnly: me.readOnly,
-            rowHeight: 50,
-            barMargin: 2,
+            rowHeight: 40,
+            barMargin: 1,
             id: 'treeplan',
             useArrows: true,
             autoAdjustTimeAxis: false,

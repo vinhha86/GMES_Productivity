@@ -166,7 +166,7 @@ Ext.define('GSmartApp.view.Schedule.POrderReq.Schedule_POrderReq_View', {
                     items: [
                         {
                             iconCls: 'x-fa fas fa-bars violetIcon',
-                            handler: 'onMenu_SubPO'
+                            handler: 'onMenuPorderReqList'
                         }
                     ]
                 },{
