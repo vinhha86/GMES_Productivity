@@ -995,5 +995,83 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             }]
         });
         form.show();
+    },
+
+    // event Item Click
+    onItemClick: function(scheduler, eventRecord, e, eOpts){
+        console.log(eventRecord);
+        var productid_link = eventRecord.get('productid_link');
+
+        var params = new Object();
+        params.id = productid_link;
+        GSmartApp.Ajax.post('/api/v1/product/getone', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var form = Ext.create('Ext.window.Window', {
+                            height: 320,
+                            width: 800,
+                            closable: true,
+                            title: 'Thông tin chi tiết',
+                            resizable: false,
+                            modal: true,
+                            border: false,
+                            closeAction: 'destroy',
+                            bodyStyle: 'background-color: transparent',
+                            layout: {
+                                type: 'fit', // fit screen for window
+                                padding: 5
+                            },
+                            items: [{
+                                layout:'hbox',
+                                border:false,
+                                flex: 1,
+                                items:[{
+                                    xtype: 'ScheduleItemInfo',
+                                    border: false,
+                                    // width: '66%',
+                                    flex: 1,
+                                    viewModel: {
+                                        type: 'ScheduleItemInfoViewModel',
+                                        data: {
+                                            eventRecord: eventRecord // 
+                                        }
+                                    }
+                                },{
+                                    layout:'hbox',
+                                    border:false,
+                                    // width: '34%',
+                                    width: 260,
+                                    height: 270,
+                                    items:[{
+                                        xtype: 'PContractImageView',
+                                        border: false,
+                                        width: '100%',
+                                        height: '100%',
+                                        IdProduct: productid_link,
+                                        viewModel: {
+                                            data: {
+                                                img: response.img,
+                                                productid_link: productid_link
+                                            }
+                                        }
+                                    }]
+                                }]
+                            }],
+                        });
+                        form.show();
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lấy thông tin thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     }
 })

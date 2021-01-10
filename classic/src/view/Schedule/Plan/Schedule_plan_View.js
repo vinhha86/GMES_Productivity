@@ -111,21 +111,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             rowLines: true,
             cls: 'tree-scheduler',
             snapRelativeToEventStartDate : true,
-            tooltipTpl: new Ext.XTemplate(
-                '<ul class="eventTip">',
-                '<li>{mahang}</li>',  
-                '<li>Lệnh SX: {pordercode}</li>',  
-                '<li>Mã SP: {productbuyercode}</li>',               
-                '<li>Buyer: {buyername}</li>',
-                '<li>Vendor: {vendorname}</li>',
-                '<li>Vào chuyền: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
-                '<li>Kết thúc: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
-                '<li>Số ngày SX: {duration}</li>',
-                '<li>NS Target: {[Ext.util.Format.number(values.productivity_po, "0,000")]}</li>',
-                '<li>NS Xưởng: {[Ext.util.Format.number(values.productivity, "0,000")]}</li>',                
-                '<li>NS Tổ: {[Ext.util.Format.number(values.productivity_line, "0,000")]}</li>',
-                '</ul>'
-            ),
+            // tooltipTpl: new Ext.XTemplate(
+            //     '<ul class="eventTip">',
+            //     '<li>{mahang}</li>',  
+            //     '<li>Lệnh SX: {pordercode}</li>',  
+            //     '<li>Mã SP: {productbuyercode}</li>',               
+            //     '<li>Buyer: {buyername}</li>',
+            //     '<li>Vendor: {vendorname}</li>',
+            //     '<li>Vào chuyền: {[Ext.Date.format(values.StartDate, "d-m-Y")]}</li>',
+            //     '<li>Kết thúc: {[Ext.Date.format(values.EndDate, "d-m-Y")]}</li>',
+            //     '<li>Số ngày SX: {duration}</li>',
+            //     '<li>NS Target: {[Ext.util.Format.number(values.productivity_po, "0,000")]}</li>',
+            //     '<li>NS Xưởng: {[Ext.util.Format.number(values.productivity, "0,000")]}</li>',                
+            //     '<li>NS Tổ: {[Ext.util.Format.number(values.productivity_line, "0,000")]}</li>',
+            //     '</ul>'
+            // ),
             eventRenderer: function (flight, resource, meta) {
                 if(flight.get('grant_type') == 1)
                     meta.cls = 'x-fa fa-exclamation-circle';
@@ -215,7 +215,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 eventdrop: 'onEventDrop',
                 beforeeventdropfinalize: 'beforeDrop',
                 zoomchange: 'onZoomchange',
-                render : 'onSchedulerRender'
+                render : 'onSchedulerRender',
+                eventclick: 'onItemClick'
             }
         })
 
