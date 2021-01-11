@@ -71,5 +71,51 @@ Ext.define('GSmartApp.store.PContractPO_Product_Store', {
 				rootProperty: 'data'
 			}
 		});
+	},
+	loadFree_groupby_product: function(golivedate_from, golivedate_to){
+		var me=this;
+		var params = new Object();
+        params.golivedate_from = golivedate_from;
+		params.golivedate_to = golivedate_to;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/porder/getfree_groupby_product',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success){
+				if(!success){
+					Ext.Msg.show({
+						title: 'Thông báo',
+						msg: 'Phiên làm việc đã hết thời gian! Bạn hãy đăng nhập lại',
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						},
+						fn: function () {
+							this.fireEvent('logout');
+						}
+					});
+				}
+			}
+		});
 	}
 });
