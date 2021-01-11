@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
     selModel: 'rowmodel',
     features: [{
         ftype: 'grouping',
-        groupHeaderTpl: '<b>{name}</b>',
+        groupHeaderTpl: '<b style= "color:blue">{name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
     },{

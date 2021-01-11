@@ -125,11 +125,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         grid.setLoading("Đang tải dữ liệu");
         var viewmodel = this.getViewModel();
         var store_req = viewmodel.getStore('PContractrPoductPOStore');
+        store_req.getOffers_byOrg_noLoad();
         store_req.load({
+            scope: this,
             callback: function(){
                 grid.setLoading(false);
             }
-        });
+        })
     },
     onPOrderFilterKeyup: function () {
         var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');
