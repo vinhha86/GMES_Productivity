@@ -481,6 +481,34 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
+    onbeforeDrag: function(scheduler, record, e, eOpts){
+        var records = scheduler.getEventSelectionModel().selected;
+        var count = 1;
+        for(var i =0; i< records.items.length; i++){
+            var data_i = records.items[i].data;
+            for(var j=i+1; j<records.items.length; j++){
+                var data_j = records.items[j].data;
+                if(data_i.ResourceId != data_j.ResourceId)
+                    count++
+                if(count > 1) {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Bạn chỉ được chọn nhiều lệnh trong 1 tổ để di chuyển!',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        },
+                        fn: function(){
+                            scheduler.getEventSelectionModel().deselect(record);
+                        }
+                    });
+                    e.stopEvent();
+                    return false;
+                }
+                    
+            }
+        }
+    },
     newResource: null,
     beforeDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
@@ -521,57 +549,54 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 return false;
     
             }
-            else {
-                
-            }
         }
     },
     onEventDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
-        var record = dragContext[0];
+        var sch = this.getView().down('#treeplan');
+        var store = sch.getCrudManager().getEventStore();
+        var listEvent = store.getEventsForResource(me.newResource);
+        for(var a =0; a< dragContext.length; a++){
+            var record = dragContext[a];
 
-        console.log(dragContext);
-        // var params = new Object();
+            var params = new Object();
 
-        // //Kiểm tra nếu cùng sản phẩm, đơn hàng và trùng ngày thì hỏi xem có merger hay không
+            //Kiểm tra nếu cùng sản phẩm, đơn hàng và trùng ngày thì hỏi xem có merger hay không
+            var count = 0;
+            var grant_des = null;
+            for (var i = 0; i < listEvent.length; i++) {
+                var event = listEvent[i];
 
-        // var sch = this.getView().down('#treeplan');
-        // var store = sch.getCrudManager().getEventStore();
-        // var listEvent = store.getEventsForResource(me.newResource);
-        // var count = 0;
-        // var grant_des = null;
-        // for (var i = 0; i < listEvent.length; i++) {
-        //     var event = listEvent[i];
+                if (event.get('porderid_link') == record.get('porderid_link') &&
+                    ((record.get('StartDate') >= event.get('StartDate') && record.get('StartDate') <= event.get('EndDate')) ||
+                        (record.get('EndDate') >= event.get('StartDate') && record.get('EndDate') <= event.get('EndDate')))) {
+                    count++;
+                    if (event.get('porder_grantid_link') != record.get('porder_grantid_link'))
+                        grant_des = event;
 
-        //     if (event.get('porderid_link') == record.get('porderid_link') &&
-        //         ((record.get('StartDate') >= event.get('StartDate') && record.get('StartDate') <= event.get('EndDate')) ||
-        //             (record.get('EndDate') >= event.get('StartDate') && record.get('EndDate') <= event.get('EndDate')))) {
-        //         count++;
-        //         if (event.get('porder_grantid_link') != record.get('porder_grantid_link'))
-        //             grant_des = event;
+                    if (count > 1) {
+                        break;
+                    }
+                }
+            }
+            if (count > 1) {
+                params.pordergrantid_link_des = grant_des.get('porder_grantid_link');
+                params.pordergrantid_link_src = record.get('porder_grantid_link');
+                params.sch = record.data;
+                // console.log(params);
+                me.MergerLenh(params, record, grant_des);
+            }
+            else {
+                params.porderid_link = record.get('id_origin');
+                params.pordergrant_id_link = record.get('porder_grantid_link');
+                params.orggrant_toid_link = me.newResource.get('id_origin');
+                params.startdate = record.get('StartDate');
+                params.enddate = record.get('EndDate');
+                params.schedule = record.data;
 
-        //         if (count > 1) {
-        //             break;
-        //         }
-        //     }
-        // }
-        // if (count > 1) {
-        //     params.pordergrantid_link_des = grant_des.get('porder_grantid_link');
-        //     params.pordergrantid_link_src = record.get('porder_grantid_link');
-        //     params.sch = record.data;
-        //     // console.log(params);
-        //     me.MergerLenh(params, record, grant_des);
-        // }
-        // else {
-        //     params.porderid_link = record.get('id_origin');
-        //     params.pordergrant_id_link = record.get('porder_grantid_link');
-        //     params.orggrant_toid_link = me.newResource.get('id_origin');
-        //     params.startdate = record.get('StartDate');
-        //     params.enddate = record.get('EndDate');
-        //     params.schedule = record.data;
-
-        //     me.MoveLenh(params, dragContext[0]);
-        // }
+                me.MoveLenh(params, dragContext[a]);
+            }
+        }
     },
     //truoc khi tha tu panel ngoai vao
     onBeforeDrop: function (node, data, overModel, dropPosition, dropHandlers, eOpts) {

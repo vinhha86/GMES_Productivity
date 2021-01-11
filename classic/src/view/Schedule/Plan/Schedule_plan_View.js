@@ -219,7 +219,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 beforeeventdropfinalize: 'beforeDrop',
                 zoomchange: 'onZoomchange',
                 render : 'onSchedulerRender',
-                eventdblclick: 'onItemDblClick'
+                eventdblclick: 'onItemDblClick',
+                beforeeventdrag: 'onbeforeDrag'
             }
         })
 
