@@ -5,5 +5,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfoViewMo
 
     ],
     stores: {
+    },
+    data: {
+        eventRecord: null,
+        record: null, // eventRecord.data
     }
 })

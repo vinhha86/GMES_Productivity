@@ -999,6 +999,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
     // event Item Click
     onItemClick: function(scheduler, eventRecord, e, eOpts){
+        console.log('eventclick event fired');
         console.log(eventRecord);
         var productid_link = eventRecord.get('productid_link');
 
@@ -1012,16 +1013,28 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         var form = Ext.create('Ext.window.Window', {
                             height: 320,
                             width: 800,
+                            border: false,
                             closable: true,
                             title: 'Thông tin chi tiết',
                             resizable: false,
+
+                            floated: true,
+                            relative: true,
+                            focusable: true,
+                            tabIndex: 0,
                             modal: true,
-                            border: false,
+                            
                             closeAction: 'destroy',
                             bodyStyle: 'background-color: transparent',
                             layout: {
                                 type: 'fit', // fit screen for window
                                 padding: 5
+                            },
+                            listeners: {
+                                maskclick: function ( cmp, eOpts ) {
+                                    console.log('maskclick event fired');
+                                    cmp.close();
+                                }
                             },
                             items: [{
                                 layout:'hbox',
@@ -1073,5 +1086,5 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     });
                 }
             })
-    }
+    },
 })
