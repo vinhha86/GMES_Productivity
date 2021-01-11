@@ -216,8 +216,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         window.show();
 
-        console.log(eventRecord.data);
-
         window.on('Thoat', function(porderinfo, amount){
             if(amount > 0){
                 eventRecord.set('mahang', porderinfo);
@@ -603,8 +601,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 });
             } else {
                 var porder_data = data.records[0].data;
-                console.log(porder_data);
-                console.log(config);
                 if (destPos_Data.parentid_origin != porder_data.granttoorgid_link) {
                     Ext.Msg.show({
                         title: 'Thông báo',
@@ -947,7 +943,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
         var preset = Sch.preset.Manager.getPreset(preset_name);
         preset.displayDateFormat = 'd/m/Y';
-        console.log(level);
         switch (level) {
             case 1:
                 preset.headerConfig.middle.renderer = function (start, end, headerConfig, index) {
