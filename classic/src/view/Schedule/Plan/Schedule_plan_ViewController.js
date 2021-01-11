@@ -37,7 +37,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         if(schedule.readOnly) return;
 
         var ishidden_delete = true;
-        console.log(eventRecord);
         if(eventRecord.data.status == -1)
             ishidden_delete = false;
 
