@@ -312,7 +312,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         form.show();
 
         form.down('#GridBreakPlan_View').getController().on('BreakPorder', function (data) {
-            
+            console.log(data);
             rec.set('EndDate', data.old_data.EndDate);
             rec.set('duration', data.old_data.duration);
             rec.set('productivity', data.old_data.productivity);
@@ -320,9 +320,23 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             rec.set('mahang', data.old_data.mahang);
             rec.set('totalpackage', data.old_data.totalpackage);
 
+            if(data.old_data.grant_type == 1){
+                rec.set('Cls', data.old_data.Cls +" x-fa fa-exclamation-circle")
+            }
+            else {
+                rec.set('Cls', data.old_data.Cls.replace(' x-fa fa-exclamation-circle',''));
+            }
+
             var eventStore = me.getCrudManager().getEventStore();
             eventStore.insert(0, data.new_data);
             var reccord = eventStore.getAt(0);
+
+            if(data.new_data.grant_type == 1){
+                reccord.set('Cls', data.new_data.Cls +" x-fa fa-exclamation-circle")
+            }
+            else {
+                reccord.set('Cls', data.new_data.Cls.replace(' x-fa fa-exclamation-circle',''));
+            }
 
             me.getSchedulingView().scrollEventIntoView(reccord, true, true);
             me.getEventSelectionModel().select(reccord);
@@ -363,6 +377,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             rec.set('EndDate', data.endDate);
             rec.set('duration', data.duration);
             rec.set('productivity', data.productivity);
+
+            if(data.grant_type == 1){
+                rec.set('Cls', data.Cls +" x-fa fa-exclamation-circle")
+            }
+            else {
+                rec.set('Cls', data.Cls.replace(' x-fa fa-exclamation-circle',''));
+            }
 
             me.getSchedulingView().scrollEventIntoView(rec);
             form.close();
@@ -446,6 +467,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         var data = response.data;
                         record.set('duration', data.duration);
                         record.set('productivity', data.productivity);
+
+                        if(response.data.grant_type == 1){
+                            record.set('Cls', response.data.Cls +" x-fa fa-exclamation-circle")
+                        }
+                        else {
+                            record.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                        }
                     }
                     else {
                         Ext.Msg.show({
@@ -888,6 +916,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         rec.set('productivity', response.data.productivity);
                         rec.set('porder_grantid_link', response.data.porder_grantid_link);
                         rec.set('EndDate', response.data.EndDate);
+                        if(response.data.grant_type == 1){
+                            rec.set('Cls', response.data.Cls +" x-fa fa-exclamation-circle")
+                        }
+                        else {
+                            rec.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                        }
                     }
                     else {
                         Ext.Msg.show({
@@ -934,6 +968,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         event.set('Name', response.data.Name);
                         event.set('mahang', response.data.mahang);
                         event.set('totalpackage', response.data.totalpackage);
+
+                        if(response.data.grant_type == 1){
+                            event.set('Cls', response.data.Cls +" x-fa fa-exclamation-circle")
+                        }
+                        else {
+                            event.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                        }
 
                         var sch = me.getView().down('#treeplan');
                         var store = sch.getCrudManager().getEventStore();
