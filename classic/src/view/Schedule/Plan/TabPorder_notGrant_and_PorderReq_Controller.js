@@ -19,7 +19,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onSelectOffer_Porder: function(rowNode, record, expandRow, eOpts){
         var grid = this.getView();
-        console.log(record);
         grid.setLoading('Đang tải dữ liệu');
 
         var params = new Object();
@@ -59,7 +58,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onSelectOffer: function(rowNode, record, expandRow, eOpts){
         var grid = this.getView();
-        console.log(record);
         grid.setLoading('Đang tải dữ liệu');
 
         var params = new Object();
