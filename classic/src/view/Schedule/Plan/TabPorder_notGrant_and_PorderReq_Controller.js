@@ -17,6 +17,46 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             'tabchange' : 'onTabChange'
         }
     },
+    onSelectOffer_Porder: function(rowNode, record, expandRow, eOpts){
+        var grid = this.getView();
+        console.log(record);
+        grid.setLoading('Đang tải dữ liệu');
+
+        var params = new Object();
+        params.pcontract_poid_link = record.get('pcontract_poid_link');
+        params.productid_link = record.get('productid_link');
+        params.orgid_link = record.get('granttoorgid_link');
+
+        GSmartApp.Ajax.post('/api/v1/porder/getporder_by_offer', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    grid.setLoading(false);
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        record.set('porder', response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
     onSelectOffer: function(rowNode, record, expandRow, eOpts){
         var grid = this.getView();
         console.log(record);
@@ -69,12 +109,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         var store = viewmodel.getStore('POrderUnGranted');
         var golive_from = viewmodel.get('schedule.startDate');
         var golive_to = viewmodel.get('schedule.endDate');
-        store.loadFree_bygolivedate(golive_from, golive_to);
+        store.loadFree_groupby_product(golive_from, golive_to);
     },
     onSearchPorderReq: function () {
         var viewmodel = this.getViewModel();
         var store_req = viewmodel.getStore('Porder_Req_Store');
-        store_req.load_byOrg();
+        store_req.getOffers_byOrg_noLoad();
+        store_req.load({
+            scope: this,
+            callback: function(){
+                tab.setLoading(false);
+            }
+        });
     },
     onSearchPorderReqOffer: function () {
         var grid = this.getView();
@@ -156,7 +202,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     onCodeFilterKeyup: function () {
         var grid = Ext.getCmp('Porder_Req');
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Porder_Req_Store');
+        var store = viewmodel.getStore('PContractrPoductPOStore');
         // Access the field using its "reference" property name.
         filterField = this.lookupReference('codeFilterField'),
             filters = store.getFilters();
@@ -164,7 +210,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         if (filterField.value) {
             this.codeFilter = filters.add({
                 id: 'codeFilter',
-                property: 'product_code',
+                property: 'product_buyername',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false
@@ -178,7 +224,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     onPoBuyerFilterKeyup: function () {
         var grid = Ext.getCmp('Porder_Req');
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Porder_Req_Store');
+        var store = viewmodel.getStore('PContractrPoductPOStore');
         // Access the field using its "reference" property name.
         filterField = this.lookupReference('poBuyerFilterField'),
             filters = store.getFilters();
@@ -383,7 +429,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onUnGrantedReqBuyernameFilterKeyup: function () {
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Porder_Req_Store');
+        var store = viewmodel.getStore('PContractrPoductPOStore');
         // Access the field using its "reference" property name.
         filterField = this.lookupReference('unGrantedReqBuyernameFilterField'),
             filters = store.getFilters();
@@ -404,7 +450,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onUnGrantedReqVendornameFilterKeyup: function(){
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Porder_Req_Store');
+        var store = viewmodel.getStore('PContractrPoductPOStore');
         // Access the field using its "reference" property name.
         filterField = this.lookupReference('unGrantedReqVendornameFilterField'),
             filters = store.getFilters();

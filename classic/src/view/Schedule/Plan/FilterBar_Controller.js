@@ -126,7 +126,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var store = viewmodel.getStore('POrderUnGranted');
         var golive_from = viewmodel.get('schedule.startDate');
         var golive_to = viewmodel.get('schedule.endDate');
-        store.loadFree_bygolivedate(golive_from,golive_to);
+        store.loadFree_groupby_product(golive_from,golive_to);
 
         if (null != panel_orderungranted){
             if (panel_orderungranted.getHidden()){

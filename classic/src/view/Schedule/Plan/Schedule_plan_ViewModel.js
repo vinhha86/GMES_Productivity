@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewModel', {
             type : 'ListOrgStore'
         },
         POrderUnGranted: {
-            type: 'POrderFilter'
+            type: 'PContractPO_Product_Store'
         },
         Porder_Req_Store: {
             type: 'POrder_Req'

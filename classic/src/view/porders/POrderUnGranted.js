@@ -24,20 +24,24 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
     }], 
     viewConfig: {
         stripeRows: false,
+        enableTextSelection: false,
+        columnLines: true,
+        rowLines: true,   
         plugins: {
             ptype: 'gridviewdragdrop',
             enableDrag: true,
+            id: 'POrderOffer_event',
             copy: false,
-            id:'POrderUnGranted_event',
-            dragText: '{0} Phân chuyền',
+            dragText: '{0} sản phẩm',
             dragGroup: 'porderFreeDropGroup',
             dropGroup: 'porderGanttDropGroup'
-        },
+        },     
         listeners: {
+            expandbody : 'onSelectOffer_Porder',
             drop: 'onDrop',
             beforedrop: 'onBeforeDrop'
-        }        
-     },
+        }
+    },
     columns: [
         // { header: 'Mã lệnh', locked: false, dataIndex: 'ordercode', flex: 1,
         //     items: {
@@ -91,29 +95,9 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                     keyup: 'onUnGrantedPoBuyerFilterKeyup',
                     buffer: 500
                 }
-            },
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-                var c = record.get('status');
-                if (c == 1) {
-                    metaData.tdCls = 'process-granted';
-                } else if (c == 2) {
-                    metaData.tdCls =  'process-ready';
-                } else if (c == 3) {
-                    metaData.tdCls =  'process-running';
-                } else if (c == 4) {
-                    metaData.tdCls =  'process-done';
-                } else if (c == 5) {
-                    metaData.tdCls =  'process-finish';
-                } else if (c == 6) {
-                    metaData.tdCls =  'process-subprocess';
-                } else if (c == 0) {
-                    metaData.tdCls =  'process-free';
-                }              
-                return value;
             }
         },
-        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 130,
+        { header: 'Mã SP (Buyer)', dataIndex: 'product_buyername', width: 130,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -172,15 +156,15 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             },
         },
         { header: 'Vào chuyền', headerWrap: true, dataIndex: 'productiondate', renderer: Ext.util.Format.dateRenderer('d/m/y'), width: 67},
-        { header: 'Giao hàng', headerWrap: true, dataIndex: 'golivedate', 
-            // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-            renderer: function(value){
-                var date = Ext.Date.parse(value, 'c');
-                return Ext.Date.format(date, 'd/m/y');
-            },
+        { header: 'Giao hàng', headerWrap: true, dataIndex: 'shipdate', 
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            // renderer: function(value){
+            //     var date = Ext.Date.parse(value, 'c');
+            //     return Ext.Date.format(date, 'd/m/y');
+            // },
             width: 67
         },
-        { header: 'SL', dataIndex: 'totalorder', width: 65,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+        { header: 'SL', dataIndex: 'quantity', width: 65,  xtype: 'numbercolumn', format: '0,000', align: 'right',
 
             summaryType: 'sum',
             summaryRenderer: function(value, summaryData, dataIndex) {
@@ -192,6 +176,114 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             // },
         },
     ],
+    plugins: {
+        rowwidget: {
+            widget: 
+            {
+                xtype: 'grid',
+                viewConfig: {
+                    stripeRows: false,
+                    enableTextSelection: false,
+                    columnLines: true,
+                    rowLines: true,   
+                    plugins: {
+                        ptype: 'gridviewdragdrop',
+                        enableDrag: true,
+                        id: 'POrderUnGranted_event',
+                        copy: false,
+                        dragText: '{0} yêu cầu',
+                        dragGroup: 'porderFreeDropGroup',
+                        dropGroup: 'porderGanttDropGroup'
+                    }
+                },               
+                bind: {
+                    store: '{record.porder}',
+                    // title: 'Danh sách hàng xuất'
+                },	
+                columns:[{
+                    xtype: 'actioncolumn',
+                    width: 28,
+                    menuDisabled: true,
+                    sortable: false,
+                    align: 'center',
+                    items: [
+                        {
+                            iconCls: 'x-fa fas fa-bars violetIcon',
+                            handler: 'onMenuPorderReqList'
+                        }
+                    ]
+                },{
+                    text: 'STT',
+                    width: 40,
+                    xtype: 'rownumberer',
+                    align: 'center'
+                },{
+                    text:'PO Buyer',
+                    dataIndex:'po_buyer',
+                    width: 110,
+                    // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                    //     if (record.data.status == 0) {
+                    //         metaData.tdCls =  "po_accept";
+                    //     }
+                    //     else if (record.data.status == -3){
+                    //         metaData.tdCls =  "po_cancel";
+                    //         metaData.tdAttr = 'data-qtip="PO đã hủy"';
+                    //     }            
+                    //     return value;
+                    // }
+                },{
+                    text:'PO Vendor',
+                    dataIndex:'po_vendor',
+                    width: 100
+                },{
+                    text:'SL',
+                    align: 'end',
+                    dataIndex:'totalorder',
+                    width: 70,
+                    renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                    }
+                },
+                // {
+                //     text:'YCSX',
+                //     align: 'end',
+                //     dataIndex:'amount_org',
+                //     width: 70,
+                //     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+                //         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                //     }
+                // },
+                {
+                    text:'Ngày giao',
+                    dataIndex:'shipdate',
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
+                    },
+                    width: 70
+                },{
+                    text:'Ngày NPL',
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
+                    },
+                    dataIndex:'matdate',
+                    width: 70
+                },{
+                    text:'Ngày Ra chuyền',
+                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                    renderer: function(value){
+                        var date = Ext.Date.parse(value, 'c');
+                        return Ext.Date.format(date, 'd/m/y');
+                    },
+                    dataIndex:'po_Productiondate',
+                    width: 70
+                }]			
+			}
+		}
+    },
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
