@@ -201,18 +201,6 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                     // title: 'Danh sách hàng xuất'
                 },	
                 columns:[{
-                    xtype: 'actioncolumn',
-                    width: 28,
-                    menuDisabled: true,
-                    sortable: false,
-                    align: 'center',
-                    items: [
-                        {
-                            iconCls: 'x-fa fas fa-bars violetIcon',
-                            handler: 'onMenuPorderReqList'
-                        }
-                    ]
-                },{
                     text: 'STT',
                     width: 40,
                     xtype: 'rownumberer',
