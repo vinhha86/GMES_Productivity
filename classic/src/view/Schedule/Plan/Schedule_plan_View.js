@@ -209,6 +209,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     autoPrintAndClose   : false
                 }
             ],
+            l10n: {
+                loadingText : 'Đang tải dữ liệu!'
+            },
             listeners : {
                 eventcontextmenu: 'onContextMenu',
                 aftereventresize: 'onResizeSchedule',
