@@ -632,6 +632,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         var params = new Object();
                         params.pcontract_poid_link = porder.get('pcontract_poid_link');
                         params.productid_link = porder.get('productid_link');
+                        params.resourceid = destPos_Data.Id;
+                        params.orggrantto = destPos_Data.id_origin;
                         params.parentid_origin = destPos_Data.parentid_origin;
                         params.orgid_link = porder.get('granttoorgid_link');
 
