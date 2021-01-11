@@ -1054,8 +1054,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
     // event Item Click
     onItemClick: function(scheduler, eventRecord, e, eOpts){
-        console.log('eventclick event fired');
-        console.log(eventRecord);
         var productid_link = eventRecord.get('productid_link');
 
         var params = new Object();
@@ -1087,7 +1085,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             },
                             listeners: {
                                 maskclick: function ( cmp, eOpts ) {
-                                    console.log('maskclick event fired');
                                     cmp.close();
                                 }
                             },
