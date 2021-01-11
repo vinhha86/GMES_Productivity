@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.Schedule.POrderReq.Schedule_POrderReq_View', {
     },
     features: [{
         ftype: 'grouping',
-        groupHeaderTpl: '<b>{name}</b>',
+        groupHeaderTpl: '<b style= "color:blue">{name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
     },{
