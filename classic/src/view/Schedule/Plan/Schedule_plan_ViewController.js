@@ -1053,7 +1053,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
 
     // event Item Click
-    onItemClick: function(scheduler, eventRecord, e, eOpts){
+    onItemDblClick: function(scheduler, eventRecord, e, eOpts){
         var productid_link = eventRecord.get('productid_link');
 
         var params = new Object();
