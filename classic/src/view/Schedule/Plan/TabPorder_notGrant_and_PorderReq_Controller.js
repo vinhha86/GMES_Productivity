@@ -96,6 +96,23 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             })
     },
     onTabChange: function(tabPanel, newCard, oldCard, eOpts){
+        var viewmodel = this.getViewModel();
+        if(newCard.xtype == "Schedule_POrderReq_View"){
+            var store_req = viewmodel.getStore('PContractrPoductPOStore');
+            store_req.getOffers_byOrg_noLoad();
+            store_req.load({
+                scope: this,
+                callback: function(){
+                    grid.setLoading(false);
+                }
+            })
+        }
+        else if (newCard.xtype == "POrderUnGranted"){
+            var store = viewmodel.getStore('POrderUnGranted');
+            var golive_from = viewmodel.get('schedule.startDate');
+            var golive_to = viewmodel.get('schedule.endDate');
+            store.loadFree_groupby_product(golive_from, golive_to);
+        }
     },
     onSearchGrantChange: function(){
         var viewmodel = this.getViewModel();
