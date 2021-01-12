@@ -97,7 +97,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onTabChange: function(tabPanel, newCard, oldCard, eOpts){
         var viewmodel = this.getViewModel();
+        var grid = this.getView();
         if(newCard.xtype == "Schedule_POrderReq_View"){
+            grid.setLoading("Đang tải dữ liệu");
             var store_req = viewmodel.getStore('PContractrPoductPOStore');
             store_req.getOffers_byOrg_noLoad();
             store_req.load({
@@ -528,6 +530,88 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             this.grantedReqVendornameFilter = null;
         }
     },
+    onMenuPorderUnGrant: function(grid, rowIndex, colIndex, item, e, record){
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            items: [
+            {
+                text: 'Sản phẩm',
+                itemId: 'PorderReqList_ProductInfo',
+                iconCls: 'x-fa fa-shopping-bag',
+                handler: function () {
+                    var window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
+                        IdPContract: record.data.pcontractid_link,
+                        IdProduct: record.data.productid_link,
+                        viewModel: {
+                            data: {
+                                IdPContract: record.data.pcontractid_link,
+                                IdProduct: record.data.productid_link,
+                                isWindow: true
+                            }
+                        }
+                    });
+                    window.show();
+                    // console.log(eventRecord);
+                }
+            },
+            {
+                text: 'Đơn hàng (PO)',
+                itemId: 'PorderReqList_EditPO',
+                iconCls: 'x-fa fa-cart-plus',
+                handler: function () {
+                    var form = Ext.create('Ext.window.Window', {
+                        closable: false,
+                        resizable: false,
+                        modal: true,
+                        border: false,
+                        title: 'Thông tin PO',
+                        closeAction: 'destroy',
+                        height: 400,
+                        width: 800,
+                        bodyStyle: 'background-color: transparent',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            xtype: 'PContract_PO_Edit_Info_Main',
+                            viewModel: {
+                                type: 'PContract_PO_Edit_Info_Main_ViewModel',
+                                data: {
+                                    id: record.data.pcontract_poid_link,
+                                    productid_link: record.data.productid_link,
+                                    isedit: true,
+                                    productpairid_link: record.data.productid_link,
+                                    isHidden_req: false
+                                }
+                            }
+                        }]
+                    });
+                    form.show();
+
+                    form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+                        
+                        form.close();
+                    })
+
+                    form.down('#PContract_PO_Edit_Info_Main').getController().on('LuuThanhCong', function () {
+                        // console.log('ok');
+                        var viewmodel = me.getViewModel();
+                        var store_req = viewmodel.getStore('POrderUnGranted');
+                        if(store_req != null){
+                            store_req.load();
+                        }
+                        // form.close();
+                    })
+                }
+            }]
+        })
+
+          var position = [e.getX()-10, e.getY()-10];
+          e.stopEvent();
+          menu_grid.showAt(position);
+          common.Check_Menu_Permission(menu_grid);
+    },
     onMenuPorderReqList: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
         var menu_grid = new Ext.menu.Menu({
@@ -595,7 +679,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                     form.down('#PContract_PO_Edit_Info_Main').getController().on('LuuThanhCong', function () {
                         // console.log('ok');
                         var viewmodel = me.getViewModel();
-                        var store_req = viewmodel.getStore('Porder_Req_Store');
+                        var store_req = viewmodel.getStore('PContractrPoductPOStore');
                         if(store_req != null){
                             store_req.load();
                         }
