@@ -359,12 +359,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
         var viewPriceSumUp = Ext.getCmp('PContract_PO_Edit_PriceSumUp');
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
-
+        
 
         var viewmodel = this.getViewModel();
+        var po = viewmodel.get('po');
         viewmodel.set('product_selected_id_link', record.get('id'));
         viewmodel.set('product_selected_typeid_link', record.get('product_type'));
         // console.log(viewmodel.get('productpairid_link'));
+        var productStore = viewmodel.getStore('ProductStore');
+
+        console.log(productStore);
 
         if (record.get('product_type') == 5) {
             viewPrice.setDisabled(true);
@@ -374,7 +378,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         else {
             viewPrice.setDisabled(false);
             viewmodel.set('isSewPriceReadonly', false);
-            viewmodel.set('isEditQuantity', false);
+            if(productStore.data.items.length > 1)
+                viewmodel.set('isEditQuantity', false);
+            else 
+            viewmodel.set('isEditQuantity', true);
         }
 
         var priceStore = viewmodel.getStore('PriceStore');
@@ -385,7 +392,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
         //load lai nang suat theo san pham
         var productid_link = viewmodel.get('product_selected_id_link');
-        var po = viewmodel.get('po');
 
         var data = new Object();
         if (po.pcontract_po_productivity != null) {
