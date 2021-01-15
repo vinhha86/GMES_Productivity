@@ -8,6 +8,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineController', {
 
         this.loadData();
     },
+    control: {
+        '#btnThem': {
+            tap: 'onBtnThemTap'
+        }
+    },
     loadData: function(){
         var m = this;
         var viewModel = this.getViewModel();
@@ -18,5 +23,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineController', {
         HandoverStore.loadStoreBySearch(1, '', 
         fromDate, toDate, null, null, [], 1000, 1);
         HandoverStore.getSorters().add('handover_date');
+    },
+    onBtnThemTap: function ( btn, e, eOpts ){
+        var viewModel = this.getViewModel();
+        var viewId = viewModel.get('viewId');
+        this.redirectTo(viewId + "/" + 0 + "/edit");
+        // console.log(viewId + "/" + 0 + "/edit");
     }
 });

@@ -24,6 +24,7 @@ Ext.define('GSmartApp.view.main.MainController', {
 
     collapsedCls: 'main-nav-collapsed',
 
+    // comment here
     // init: function (view) {
     //     var me = this,
     //         refs = me.getReferences();
@@ -34,7 +35,7 @@ Ext.define('GSmartApp.view.main.MainController', {
     //     me.navigationTree = refs.navigationTree;
 
     //     if(''==window.location.hash) {
-    //         // this.redirectTo('lsporderprocessing');
+    //         this.redirectTo('lsporderprocessing');
     //         // this.redirectTo('mobilemenu');
     //     } else {
     //         var hash = window.location.hash.substring(1);
@@ -45,10 +46,8 @@ Ext.define('GSmartApp.view.main.MainController', {
     //         else
     //         this.onRouteChange(hash);
     //     }
-        
-        
-        
     // },
+
     beforeRender: function() {
         //var tbname = this.lookup('tbname');
         //tbname.text = config.getFname();
@@ -70,6 +69,8 @@ Ext.define('GSmartApp.view.main.MainController', {
             this.redirectTo(to);
         }
     },
+
+    // // comment here
     // onRouteChange:function(id){
     //     console.log('onRouteChange:' + id);
     //     var me = this,
@@ -78,6 +79,7 @@ Ext.define('GSmartApp.view.main.MainController', {
     //     backbutton.setHidden(true);
     //     this.setCurrentView(id);
     // },
+    // // comment here
 	// onRouteDataChange(hashTag,id,args){
 	// 	args = Ext.Array.clean((args || '').split('/'));
 	// 	hashTag = (hashTag || '').toLowerCase();
@@ -144,6 +146,7 @@ Ext.define('GSmartApp.view.main.MainController', {
         this.setShowNavigation(!this.getShowNavigation());
     },
 
+    // // comment here
     // setCurrentView: function (hashTag) {
     //     console.log('setCurrentView:' + hashTag);
     //     hashTag = (hashTag || '').toLowerCase();
@@ -256,6 +259,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             });
     },
     onNavigationBack: function() {
+        console.log('navigation back');
         Ext.util.History.back();
     },
     
@@ -272,7 +276,8 @@ Ext.define('GSmartApp.view.main.MainController', {
 
         var mainCardPanel = refs.mainCardPanel;
         mainCardPanel.push({
-            xtype: 'MobileMenu'
+            xtype: 'MobileMenu',
+            routeId: 'mobilemenu'
         });
 
         if(''==window.location.hash) {
@@ -297,72 +302,84 @@ Ext.define('GSmartApp.view.main.MainController', {
         // backbutton.setHidden(true);
         this.setCurrentView(id);
     },
-	// onRouteDataChange(hashTag,id,args){
-	// 	args = Ext.Array.clean((args || '').split('/'));
-	// 	hashTag = (hashTag || '').toLowerCase();
-	// 	var session= GSmartApp.util.State.get('session');
-	// 	if(!session){
-	// 		 this.redirectTo("login");
-	// 	}
-    //     var me = this,
-    //         refs = me.getReferences(),
-    //         mainCard = refs.mainCardPanel,
-    //         mainLayout = mainCard.getLayout(),
-    //         navigationList = refs.navigationTreeList,
-    //         store = navigationList.getStore(),
-    //         node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
 
-    //     var xtype_edit = (node && node.get('xtype_edit')) || 'page404';
+	onRouteDataChange(hashTag,id,args){
+        console.log('onRouteDataChange: ' + hashTag + ' ' + id + ' ' + args);
 
-    //     backbutton = refs.backbutton;
-    //     backbutton.setHidden(false);
+		args = Ext.Array.clean((args || '').split('/'));
+		hashTag = (hashTag || '').toLowerCase();
+		var session= GSmartApp.util.State.get('session');
+		if(!session){
+			 this.redirectTo("login");
+		}
+        var me = this,
+            refs = me.getReferences(),
+            mainCard = refs.mainCardPanel,
+            mainLayout = mainCard.getLayout();
 
-    //     // if (mainLayout.getActiveItem() && mainLayout.getActiveItem().xtype == xtype_edit){
-    //     //     mainLayout.getActiveItem().destroy();
-    //     // }
+        var activeItem = mainCard.getActiveItem();
+        var mobileMenu = mainCard.child('component[routeId=' + 'mobilemenu' + ']');
+        var mobileMenuStore = mobileMenu.getViewModel().getStore('MobileMenu');
+        var record = mobileMenuStore.findRecord('id', hashTag);
+        var xtype_edit = '';
+        if(record){
+            xtype_edit = record.get('edit');
+        }
 
-    //     if (mainCard.getActiveItem()){
-    //         mainCard.getActiveItem().destroy();
-    //     }
-    //     if (args == 'edit'){
-    //         item = mainCard.add({
-    //             xtype: xtype_edit,
-    //             routeId: xtype_edit
-    //         });
-    //         mainCard.setActiveItem(item);
-    //         me.fireEvent('loaddata', id,node);
-    //     } else {
-    //         item = mainCard.add({
-    //             xtype: xtype_edit,
-    //             routeId: xtype_edit
-    //         });
-    //         mainCard.setActiveItem(item);
-    //         me.fireEvent('newdata', node);
-    //     }
-    // },
+        if(activeItem){
+            mainCard.pop();
+        }
+
+        var item = mainCard.child('component[routeId=' + xtype_edit + ']');
+        if (!item) {
+            item = mainCard.push({
+                xtype: xtype_edit,
+                // xtype: 'handover_cut_toline_edit',
+                routeId: xtype_edit
+            });
+            me.fireEvent('loaddata', id);
+        }
+    },
     
     setCurrentView: function (hashTag) {
         console.log('setCurrentView:' + hashTag);
         hashTag = (hashTag || '').toLowerCase();
 
-        if(''==hashTag){
-            // hashTag = 'dashboard';
-        }
-
         var me = this,
             refs = me.getReferences(),
-            mainCard = refs.mainCardPanel,
+            mainCard = refs.mainCardPanel;
             item = mainCard.child('component[routeId=' + hashTag + ']');
 
-        // console.log(store);
-        // console.log(node);
-        // console.log(item);
+        
+        var activeItem = mainCard.getActiveItem();
+        var mobileMenu = mainCard.child('component[routeId=' + 'mobilemenu' + ']');
+        var mobileMenuStore = mobileMenu.getViewModel().getStore('MobileMenu');
+        var record = mobileMenuStore.findRecord('id', hashTag);
+        var xtype = '';
+        if(record){
+            xtype = record.get('xtype');
+        }
 
-        if (!item) {
-            item = mainCard.push({
-                xtype: hashTag,
-                routeId: hashTag
-            });
+        if(hashTag == null || hashTag == ''){
+            // neu chuyen ve menu, pop view hien tai
+            if(activeItem){
+                mainCard.pop();
+            }
+
+        }else{
+            // neu chuyen sang view khac
+            // check xem view hien tai co phai la menu hay khong, neu la menu thi ko pop, con khong thi pop
+            if(activeItem){
+                if(activeItem.xtype != 'MobileMenu'){
+                    mainCard.pop();
+                }
+                if (!item) {
+                    item = mainCard.push({
+                        xtype: xtype,
+                        routeId: hashTag
+                    });
+                }
+            }
         }
     },
 });

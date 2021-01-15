@@ -15,9 +15,7 @@ Ext.define('GSmartApp.view.mobilemenu.MobileMenuController', {
     },
     
     onItemTap: function( dataview, index, target, record, e, eOpts ) {
-        console.log(record);
-        // this.redirectTo("lsporderprocessing");
-        // this.redirectTo("handover_cut_toline");
+        // console.log(record);
         var viewId = record.get('id');
         if(viewId != null){
             this.redirectTo(viewId);

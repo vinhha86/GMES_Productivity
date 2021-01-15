@@ -19,7 +19,12 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
 
     plugins: {
         gridcellediting: {
-            selectOnEdit: true
+            selectOnEdit: true,
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit',
+                // beforeedit: 'onBeforeEdit'
+            }
         }
     },
 

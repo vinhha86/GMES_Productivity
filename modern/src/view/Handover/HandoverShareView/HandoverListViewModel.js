@@ -10,18 +10,9 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListViewModel', {
         },
     },
     data: {
-        // viewId: ''
+        viewId: null, // handover list view id
     },
     formulas: {
-        // isBtnThemMoiHidden : function (get) {
-        //     var viewId = get('viewId');
-        //     if (
-        //         viewId == 'handover_line_fromcut' ||
-        //         viewId == 'handover_pack_fromline'
-        //     ) {
-        //         return true;
-        //     }
-        //     return false;
-        // }
+        
     }
 })
