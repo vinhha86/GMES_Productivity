@@ -130,11 +130,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 if(flight.get('grant_type') == 1)
                     meta.cls = 'x-fa fa-exclamation-circle';
                 if (resource.data.type >=1) {
-                    return flight.get('mahang');
+                    var img = "";
+                    if(flight.get('img') != null)
+                        img = '<img style="margin: 0px; width: 39px; height: 31px; border: 1px solid black; left: 1px; top: 1px;" src="data:image/gif;base64,' + flight.get('img') +'">'
+                    return  img+" "+flight.get('mahang');
                 } else {
                     return '&nbsp;';
                 }
             },
+            // eventBodyTemplate : '<div> </div>',
             viewConfig: {
                 plugins: {
                     ptype: 'treeviewdragdrop',
