@@ -3,7 +3,11 @@ Ext.define('GSmartApp.view.cut_plan.CutPlan_MainView_Controller', {
     alias: 'controller.CutPlan_MainView_Controller',
     init: function () {
         var viewmodel = this.getViewModel();
+        var porder = viewmodel.get('porder');
+        console.log(porder);
         
+        var productStore = viewmodel.getStore('ProductStore');
+        productStore.load_by_type_and_pcontract(20, porder.pcontractid_link);
         
     },
     control: {

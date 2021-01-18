@@ -514,5 +514,5 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 				}
 			}
 		});
-    }
+	}
 });

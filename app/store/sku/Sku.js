@@ -49,7 +49,41 @@ Ext.define('GSmartApp.store.Sku', {
 			}
 		});
         this.load();
-    },      
+    },
+	load_by_type_and_pcontract(type, pcontractid_link){
+		var params = new Object();
+		params.producttypeid_link = type;
+		params.pcontractid_link = pcontractid_link;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/pcontractproductbom/getlist_npl_by_pcontract',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},      
     loadByCode:function(skucode){
         var param=new Object();
         param.skucode = skucode;

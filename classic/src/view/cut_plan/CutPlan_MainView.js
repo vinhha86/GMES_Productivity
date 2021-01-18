@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.cut_plan.CutPlan_MainView', {
         },
         {
             region: 'center',
-            title: 'center',
+            xtype: 'CutPlan_Detail_MainView',
             border: true,
             margin: 1
         },
