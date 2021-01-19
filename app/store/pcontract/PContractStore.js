@@ -75,6 +75,7 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl()+'/api/v1/pcontract/getbysearch',
+			timeout: 60000,
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,

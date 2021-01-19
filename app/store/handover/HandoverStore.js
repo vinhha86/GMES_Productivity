@@ -120,6 +120,7 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl()+'/api/v1/handover/getbysearch',
+			timeout: 60000,
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
