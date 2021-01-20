@@ -1175,7 +1175,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                                     layout:'hbox',
                                     border:false,
                                     // width: '34%',
-                                    width: 260,
+                                    width: 300,
                                     height: 270,
                                     items:[{
                                         xtype: 'PContractImageView',

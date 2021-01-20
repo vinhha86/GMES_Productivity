@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
         width: '100%',
         items: [{
             xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
             fieldLabel: 'Mã hàng',
             editable: false,
             readOnly: true,
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
         width: '100%',
         items: [{
             xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
             fieldLabel: 'Lệnh SX',
             editable: false,
             readOnly: true,
@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
             labelWidth: 90
         },{
             xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
             fieldLabel: 'Mã SP',
             editable: false,
             readOnly: true,
@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
         width: '100%',
         items: [{
             xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
             fieldLabel: 'Buyer',
             editable: false,
             readOnly: true,
@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
             labelWidth: 90
         },{
             xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
             fieldLabel: 'Vendor',
             editable: false,
             readOnly: true,
@@ -79,72 +79,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
         layout: 'hbox',
         width: '100%',
         items: [{
-            xtype:'datefield',
-            margin: 5,
-            fieldLabel: 'Vào chuyền',
-            editable: false,
-            readOnly: true,
-            format: 'd/m/y',
-            bind:{
-                value:'{record.StartDate}'
-            },
-            flex: 1,
-            labelWidth: 90
-        },{
-            xtype:'datefield',
-            margin: 5,
-            fieldLabel: 'Kết thúc',
-            editable: false,
-            readOnly: true,
-            format: 'd/m/y',
-            bind:{
-                value:'{record.EndDate}'
-            },
-            flex: 1,
-            labelWidth: 90
-        }]
-    },
-    {
-        layout: 'hbox',
-        width: '100%',
-        items: [{
             xtype:'textfield',
-            margin: 5,
-            fieldLabel: 'Số ngày SX',
-            editable: false,
-            readOnly: true,
-            bind:{
-                value :'{record.duration}'
-            },
-            flex: 1,
-            labelWidth: 90
-        },{
-            xtype:'textfield',
-            margin: 5,
-            fieldLabel: 'NS Target',
-            editable: false,
-            readOnly: true,
-            bind:{
-                value :'{record.productivity_po}'
-            },
-            flex: 1,
-            labelWidth: 90,
-            fieldStyle: 'font-size:11px;text-align:right',
-            textAlign: 'right',
-            vtype: 'dollar',
-            // renderer: function(value){
-            //     if(value == null) 
-            //         return 0;
-            //     return Ext.util.Format.number(value, '0,000');
-            // }
-        }]
-    },
-    {
-        layout: 'hbox',
-        width: '100%',
-        items: [{
-            xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
             fieldLabel: 'NS Xưởng',
             editable: false,
             readOnly: true,
@@ -162,8 +98,61 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
             //     return Ext.util.Format.number(value, '0,000');
             // }
         },{
+            xtype:'datefield',
+            margin: '2 5 2 5',
+            fieldLabel: 'Vào chuyền',
+            editable: false,
+            readOnly: true,
+            format: 'd/m/y',
+            bind:{
+                value:'{record.StartDate}'
+            },
+            flex: 1,
+            labelWidth: 90
+        },]
+    },
+    {
+        layout: 'hbox',
+        width: '100%',
+        items: [{
             xtype:'textfield',
-            margin: 5,
+            margin: '2 5 2 5',
+            fieldLabel: 'NS Target',
+            editable: false,
+            readOnly: true,
+            bind:{
+                value :'{record.productivity_po}'
+            },
+            flex: 1,
+            labelWidth: 90,
+            fieldStyle: 'font-size:11px;text-align:right',
+            textAlign: 'right',
+            vtype: 'dollar',
+            // renderer: function(value){
+            //     if(value == null) 
+            //         return 0;
+            //     return Ext.util.Format.number(value, '0,000');
+            // }
+        },{
+            xtype:'datefield',
+            margin: '2 5 2 5',
+            fieldLabel: 'Kết thúc',
+            editable: false,
+            readOnly: true,
+            format: 'd/m/y',
+            bind:{
+                value:'{record.EndDate}'
+            },
+            flex: 1,
+            labelWidth: 90
+        },]
+    },
+    {
+        layout: 'hbox',
+        width: '100%',
+        items: [{
+            xtype:'textfield',
+            margin: '2 5 2 5',
             fieldLabel: 'NS Tổ',
             editable: false,
             readOnly: true,
@@ -180,6 +169,39 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
             //         return 0;
             //     return Ext.util.Format.number(value, '0,000');
             // }
+        },{
+            xtype:'datefield',
+            margin: '2 5 2 5',
+            fieldLabel: 'Giao hàng',
+            editable: false,
+            readOnly: true,
+            format: 'd/m/y',
+            bind:{
+                value:'{shipdate}'
+            },
+            flex: 1,
+            labelWidth: 90
+        }]
+    },
+    {
+        layout: 'hbox',
+        width: '100%',
+        items: [{
+            xtype:'textfield',
+            margin: '2 5 2 5',
+            fieldLabel: 'Số ngày SX',
+            editable: false,
+            readOnly: true,
+            bind:{
+                value :'{record.duration}'
+            },
+            flex: 1,
+            labelWidth: 90,
+            fieldStyle: 'font-size:11px;text-align:right',
+            textAlign: 'right',
+        },{
+            flex: 1,
+            margin: '2 5 2 5',
         }]
     },
     ],

@@ -9,5 +9,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfoViewMo
     data: {
         eventRecord: null,
         record: null, // eventRecord.data
+        pcontract_po: null, // po ke hoach
+        shipdate: null, // shipdate cua pcontract_po
     }
 })
