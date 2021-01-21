@@ -127,13 +127,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             //     '</ul>'
             // ),
             eventRenderer: function (flight, resource, meta) {
-                if(flight.get('grant_type') == 1)
-                    meta.cls = 'x-fa fa-exclamation-circle ';
+                // if(flight.get('grant_type') == 1)
+                //     meta.cls = 'x-fa fa-exclamation-circle ';
                 if (resource.data.type >=1) {
                     var img = "";
                     if(null!=flight.get('icon')){
                         img = '<img style="margin: 0px; width: 31px; height: 31px; border: 1px solid black; left: 1px; top: 1px;" src="' + flight.get('icon') + '">';
-                        return  img+"&nbsp;"+flight.get('mahang');
+                        if(flight.get('grant_type') == 1)
+                            return  '<div class = "x-fa fa-exclamation-circle">'+"&nbsp;"+img+"&nbsp;"+flight.get('mahang')+'</div>';
+                        else 
+                            return  img+"&nbsp;"+flight.get('mahang');
                     } else {
                         return  flight.get('mahang');
                     }

@@ -9,6 +9,10 @@ Ext.define('GSmartApp.view.Customer.CutPlan_Main_ViewModel', {
     },
     data: {
         porder: null,
-        isReadOnly: true
+        isReadOnly: true,
+        isHiddenNPL: false,
+        npl: {
+            
+        }
     }
 })

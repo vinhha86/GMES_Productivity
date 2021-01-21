@@ -1,38 +1,76 @@
 Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Detail_MainView', {
-    extend: 'Ext.tab.Panel',
+    extend: 'Ext.form.Panel',
     xtype: 'CutPlan_Detail_MainView',
     id: 'CutPlan_Detail_MainView',
     itemId: 'CutPlan_Detail_MainView',
     controller: 'CutPlan_Detail_MainViewController',
+    layout: 'border',
+    items:[{
+        region: 'center',
+        title: 'center',
+        margin: 1,
+        border: true
+    },{
+        region: 'west',
+        xtype: 'CutPlan_NPL_View',
+        width: '30%',
+        margin: 1,
+        border: true,
+        collapseMode: 'mini',
+        hideCollapseTool: true
+        // collapsible: true
+    }],
     dockedItems: [{
         dock: 'top',
-        xtype: 'toolbar',
-        border: true,
-        height: 45,
-        style: "background-color : white",
-        items: [
-            {
-                xtype: 'button',
-                itemId: 'btnAddCutPlan',
-                text: 'Thêm kế hoạch',
-                margin: 3,
-                iconCls: 'x-fa fa-plus'
+        layout: 'hbox',
+        items:[{
+            xtype: 'button',
+            text: 'DS NPL',
+            iconCls: 'x-fa fa-forward',
+            itemId: 'btnShowNPL',
+            margin: 5,
+            bind: {
+                hidden: '{!isHiddenNPL}'
+            }
+        },{
+            flex: 1
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Mã NPL',
+            readOnly: true,
+            labelWidth: 60,
+            bind: {
+                value: '{npl.product_code}'
             },
-            {
-                xtype: 'combo',
-                width:400,
-                margin: 3,
-                bind: {
-                    store: '{ProductStore}',
-                    value: '{materialid_link}',
-                },
-                fieldLabel: 'Nguyên liệu',
-                labelWidth: 80,
-                itemId: 'cmbMaterial',
-                queryMode: 'local',
-                valueField: 'id',
-                displayField: 'product_code'
-            }            
-        ]
+            margin: 5
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'NPL',
+            readOnly: true,
+            labelWidth: 50,
+            bind: {
+                value: '{npl.product_name}'
+            },
+            margin: 5
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Màu NPL',
+            labelWidth: 70,
+            width: 300,
+            readOnly: true,
+            bind: {
+                value: '{npl.mauSanPham}'
+            },
+            margin: 5
+        },{
+            xtype: 'textfield',
+            fieldLabel: 'Cỡ khổ',            
+            labelWidth: 60,
+            readOnly: true,
+            bind: {
+                value: '{npl.coSanPham}'
+            },
+            margin: 5
+        }]
     }]
 })
