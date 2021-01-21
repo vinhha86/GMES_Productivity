@@ -724,6 +724,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
     },
     onPOLineEdit: function(rec, isHidden_req){
         var viewModel = this.getViewModel();
+
+        var list_plan_productivity = [];
+        list_plan_productivity = rec.get('pcontract_po_productivity');
+        var plan_productivity = new Object();
+        for(var i=0;i<list_plan_productivity.length;i++){
+            if(list_plan_productivity[i].productid_link == rec.get('productid_link')){
+                plan_productivity = list_plan_productivity[i];
+                break;
+            }
+        }
+
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
@@ -748,7 +759,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         productpairid_link: rec.get('productid_link'),
                         product_selected_id_link: rec.get('productid_link'),
                         productid_link: rec.get('productid_link'),
-                        isHidden_req: isHidden_req == null ? false: true
+                        isHidden_req: isHidden_req == null ? false: true,
+                        po: {
+                            po_typeid_link : 10,
+                            po_buyer: rec.get('po_buyer'),
+                            po_vendor: rec.get('po_vendor'),
+                            matdate: rec.get('matdate'),
+                            pcontract_po_productivity: rec.get('pcontract_po_productivity'),
+                            parentpoid_link: rec.get('id'),
+                            id: null,
+                            pcontractid_link : rec.get('pcontractid_link'),
+                            productid_link: rec.get('productid_link'),
+                            status: rec.get('status'),
+                            productiondate: rec.get('productiondate')
+                        },
+                        pcontract_po_productivity: plan_productivity
                     }
                 }
             }]
@@ -762,8 +787,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         })
     },
     onAddPOLine: function(rec, isHidden_req){
-        var plan_productivity = [];
-        plan_productivity.push(rec.get('pcontract_po_productivity')[0].plan_productivity);
+        var list_plan_productivity = [];
+        list_plan_productivity = rec.get('pcontract_po_productivity');
+        var plan_productivity = new Object();
+        for(var i=0;i<list_plan_productivity.length;i++){
+            list_plan_productivity[i].id = null;
+            if(list_plan_productivity[i].productid_link == rec.get('productid_link')){
+                plan_productivity = list_plan_productivity[i];
+            }
+        }
 
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
@@ -801,11 +833,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             id: null,
                             pcontractid_link : rec.get('pcontractid_link'),
                             productid_link: rec.get('productid_link'),
-                            status: rec.get('status')
+                            status: rec.get('status'),
+                            productiondate: rec.get('productiondate')
                         },
-                        pcontract_po_productivity: {
-                            plan_productivity : plan_productivity
-                        }
+                        pcontract_po_productivity: plan_productivity
                     }
                 }
             }]
