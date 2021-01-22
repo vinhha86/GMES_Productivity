@@ -11,14 +11,30 @@ Ext.define('GSmartApp.view.handover.HandoverDetail', {
     items: [
         {
             region: 'north',
+            margin: '0 1 1 0',
             height: 120,
             border: true,
             xtype: 'HandoverDetail_Info'
         },
         {
             region: 'center',
-            border: true,
-            xtype: 'HandoverDetail_ProductGrid'
+            layout: 'border',
+            items: [{
+                region: 'center',
+                margin: '0 1 1 0',
+                border: true,
+                xtype: 'HandoverDetail_ProductGrid',
+                flex: 1,
+            },{
+                region: 'east',
+                margin: '0 1 1 0',
+                border: true,
+                xtype: 'HandoverDetail_SkuGrid',
+                itemId: 'handOverSkuList',
+                hidden: true,
+                flex: 1,
+            }]
+            
         }
     ],
     dockedItems:[{

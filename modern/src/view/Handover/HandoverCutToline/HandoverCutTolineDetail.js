@@ -7,57 +7,301 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
         type: 'HandoverDetailViewModel'
     },
     controller: 'HandoverCutTolineDetailController',
-    title: 'Xuất BTP lên chuyền',
+    // title: 'Xuất BTP lên chuyền',
     layout: 'vbox',
+    // layout: 'fit',
+
+    requires: [
+        'Ext.Toast'
+    ],
+
     items: [{
         layout: 'hbox',
+        // docked : 'top',
         defaults: {
-            margin:'5 5 0 5'
+            margin:'2 2 0 2'
         },
         items: [{
             layout: 'vbox',
             flex: 1,
-            defaults: {
-                margin:'5 5 0 5'
-            },
             items: [{
-                xtype: 'textfield',
-                label: 'Mã lệnh:',
-                labelWidth: 100,
+                layout: 'hbox',
                 flex: 1,
-                textAlign: 'left',
-                bind: {
-                    value: '{pordercode}'
+                defaults: {
+                    margin: 1
                 },
-                listeners: {
-                    // change : 'loadData'
-                }
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Mã SP:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
             },{
-                xtype: 'combobox',
-                reference: 'cboorgto',
-                bind:{
-                    store:'{ListOrgStore_To}',
-                    value:'{currentRec.orgid_to_link}'
-                },
-                displayField: 'code',
-                valueField: 'id',
-                label: 'Nơi nhận:',
-                labelWidth: 100,
+                layout: 'hbox',
                 flex: 1,
-            }]
-        },{
-            xtype:'button',
-            text: 'Tạo phiếu/<br/>Lưu phiếu',
-            margin:'5 5 0 5',
-            itemId:'btnThem',
-            // iconCls: 'x-fa fa-plus',
-            formBind: false
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'combobox',
+                    // reference: 'cboorgto',
+                    editable: false,
+                    readOnly: true,
+                    bind:{
+                        store:'{ListOrgStore_To}',
+                        value:'{currentRec.orgid_to_link}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    label: 'Nơi nhận:',
+                    labelWidth: 100,
+                    flex: 1,
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'combobox',
+                    // reference: 'cboorgto',
+                    editable: false,
+                    readOnly: true,
+                    bind:{
+                        // store:'{ListOrgStore_To}',
+                        // value:'{currentRec.orgid_to_link}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    label: 'Nơi giao:',
+                    labelWidth: 100,
+                    flex: 1,
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Ng/nhận:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        // value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Ng/giao:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        // value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Số phiếu:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        // value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Ngày xuất:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        // value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'numberfield',
+                    // reference: 'cboorgto',
+                    // editable: false,
+                    // readOnly: true,
+                    bind:{
+                        value:'{handoverProduct.totalpackage}'
+                    },
+                    label: 'SL giao:',
+                    textAlign: 'right',
+                    hideTrigger:true,
+                    labelWidth: 100,
+                    flex: 1,
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'numberfield',
+                    // reference: 'cboorgto',
+                    // editable: false,
+                    // readOnly: true,
+                    bind:{
+                        value:'{handoverProduct.totalpackagecheck}'
+                    },
+                    label: 'SL nhận:',
+                    textAlign: 'right',
+                    hideTrigger:true,
+                    labelWidth: 100,
+                    flex: 1,
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Lý do:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        // value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Ghi chú:',
+                    labelWidth: 100,
+                    flex: 1,
+                    textAlign: 'left',
+                    editable: false,
+                    readOnly: true,
+                    bind: {
+                        // value: '{currentRec.handoverProductBuyercode}'
+                    }
+                }]
+            // },{
+            //     layout: 'hbox',
+            //     flex: 1,
+            //     defaults: {
+            //         margin: 1
+            //     },
+            //     items: [{
+            //         border: false,
+            //         xtype: 'HandoverDetail',
+            //         id: 'handover_cut_toline_detail',
+            //         flex: 1,
+            //     }]
+            },]
         }]
     },
     {
         // region: 'center',
         border: false,
+        height: '200px',
         xtype: 'HandoverDetail',
         id: 'handover_cut_toline_detail',
+    },
+    {
+        layout: 'hbox',
+        docked : 'bottom',
+        items: [{
+            // xtype:'button',
+            // text: 'Nơi nhận xác thực',
+            // itemId:'btn1',
+            // ui: 'action',
+            // // iconCls: 'x-fa fa-plus',
+            // formBind: false,
+            flex: 1,
+        },{
+            // xtype:'button',
+            // text: 'Huỷ xác thực nhận',
+            // itemId:'btn2',
+            // ui: 'action',
+            // // iconCls: 'x-fa fa-plus',
+            // formBind: false,
+            // flex: 1,
+        },{
+            xtype:'button',
+            text: 'Xác nhận xuất',
+            margin: 2,
+            itemId:'btnHandover',
+            ui: 'action',
+            iconCls: 'x-fa fa-check',
+            // bind: {
+            //     hidden: '{isBtnConfirmOutHidden}'
+            // }
+        },{
+            xtype:'button',
+            text: 'Xóa',
+            margin: 2,
+            itemId:'btnDelete',
+            ui: 'action',
+            iconCls: 'x-fa fa-trash',
+            // bind: {
+            //     hidden: '{isBtnDeleteHidden}'
+            // }
+        },{
+            xtype:'button',
+            text: 'Lưu',
+            margin: 2,
+            itemId:'btnSave',
+            ui: 'action',
+            iconCls: 'x-fa fa-save',
+            formBind: false,
+            // flex: 1,
+        }]
     }],
 });

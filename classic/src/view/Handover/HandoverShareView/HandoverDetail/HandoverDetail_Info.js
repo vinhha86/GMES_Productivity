@@ -57,32 +57,47 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_Info', {
                 bind: {
                     hidden: '{isPorderCodeFieldHidden}'
                 }
-            },
-            {
-                xtype: 'textfield',
-                margin: 2,
-                fieldLabel: 'Số phiếu',
-                // allowBlank: false,
-                blankText: 'Không được để trống',
-                bind: {
-                    value: '{currentRec.handover_code}'
+            },{
+                xtype:'combobox',
+                itemId:'orgid_to_link',
+                bind:{
+                    store:'{ListOrgStore_To}',
+                    value: '{currentRec.orgid_to_link}'
                 },
+                fieldLabel: 'Nơi nhận ('+ '<span style="color:red">*</span>' + ')',
+                displayField: 'nameParent',
+                valueField: 'id',
+                queryMode: 'local',
+                // editable: false,
+                allowBlank: false,
+                margin: 2,
                 labelWidth: 80,
                 flex: 1,
+                // bind: {
+                //     flex: '{isPackToStockOrgTo}'
+                // }
+                // width: 250
             },{
-                xtype: 'datefield',
-                margin: 2,
-                reference: 'golivedate',
-                fieldLabel: "Ngày xuất",
-                allowBlank: false,
-                itemId: 'golivedate',
-                bind: {
-                    value: '{currentRec.handover_date}'
+                xtype:'combobox',
+                itemId:'orgid_from_link',
+                bind:{
+                    store:'{ListOrgStore_From}',
+                    value: '{currentRec.orgid_from_link}'
                 },
-                format: 'd/m/Y',
+                fieldLabel: 'Nơi giao ('+ '<span style="color:red">*</span>' + ')',
+                displayField: 'nameParent',
+                valueField: 'id',
+                queryMode: 'local',
+                // editable: false,
+                allowBlank: false,
+                // readOnly: true,
+                margin: 2,
                 labelWidth: 80,
                 flex: 1,
                 // width: 250
+                listeners: {
+                    select: 'onOrgFromComboSelect'
+                }
             },{
                 xtype:'combobox',
                 // itemId:'txtstatus',
@@ -113,46 +128,30 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_Info', {
             border: false,
             width: '100%',
             items: [{
-                xtype:'combobox',
-                itemId:'orgid_from_link',
-                bind:{
-                    store:'{ListOrgStore_From}',
-                    value: '{currentRec.orgid_from_link}'
-                },
-                fieldLabel: 'Nơi giao ('+ '<span style="color:red">*</span>' + ')',
-                displayField: 'nameParent',
-                valueField: 'id',
-                queryMode: 'local',
-                // editable: false,
-                allowBlank: false,
-                // readOnly: true,
+                xtype: 'datefield',
                 margin: 2,
+                reference: 'golivedate',
+                fieldLabel: "Ngày xuất",
+                allowBlank: false,
+                itemId: 'golivedate',
+                bind: {
+                    value: '{currentRec.handover_date}'
+                },
+                format: 'd/m/Y',
                 labelWidth: 80,
                 flex: 1,
                 // width: 250
-                listeners: {
-                    select: 'onOrgFromComboSelect'
-                }
             },{
-                xtype:'combobox',
-                itemId:'orgid_to_link',
-                bind:{
-                    store:'{ListOrgStore_To}',
-                    value: '{currentRec.orgid_to_link}'
-                },
-                fieldLabel: 'Nơi nhận ('+ '<span style="color:red">*</span>' + ')',
-                displayField: 'nameParent',
-                valueField: 'id',
-                queryMode: 'local',
-                // editable: false,
-                allowBlank: false,
+                xtype: 'textfield',
                 margin: 2,
+                fieldLabel: 'Số phiếu',
+                // allowBlank: false,
+                blankText: 'Không được để trống',
+                bind: {
+                    value: '{currentRec.handover_code}'
+                },
                 labelWidth: 80,
                 flex: 2,
-                // bind: {
-                //     flex: '{isPackToStockOrgTo}'
-                // }
-                // width: 250
             },{
                 xtype:'combobox',
                 // itemId:'txtstatus',

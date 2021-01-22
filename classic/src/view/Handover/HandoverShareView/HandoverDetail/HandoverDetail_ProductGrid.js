@@ -41,8 +41,21 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
             return value;
         }
     }, {
-        text: 'Số lượng',
+        text: 'Số lượng giao',
         dataIndex: 'totalpackage',
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        flex: 1,
+        align: 'end'
+    }, {
+        text: 'Số lượng nhận',
+        dataIndex: 'totalpackagecheck',
         editor:{
             xtype:'textfield',
             maskRe: /[0-9.]/,

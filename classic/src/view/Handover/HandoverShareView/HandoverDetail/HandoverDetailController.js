@@ -19,7 +19,13 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             viewModel.set('viewIdList', 'handover_cut_toline');
             var orgtypestring_from = '17';
             ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
-            // cut to line chon porder de load ListOrgStore_To
+            // cut to line chon porder de load ListOrgStore_To, nhung van cho chon to chuyen
+            var orgtypestring_to = '14';
+            ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
+
+            // set handOverSkuList hidden false for
+            var handOverSkuList = m.getView().down('#handOverSkuList');
+            if(handOverSkuList) handOverSkuList.setHidden(false);
         }
 
         if(Ext.getCmp('handover_cut_toprint_detail')){
@@ -62,6 +68,10 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             viewModel.set('viewIdList', 'handover_line_fromcut');
             var orgtypestring_from = '17';
             ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+
+            // set handOverSkuList hidden false for
+            var handOverSkuList = m.getView().down('#handOverSkuList');
+            if(handOverSkuList) handOverSkuList.setHidden(false);
         }
 
         if(Ext.getCmp('handover_pack_fromline_detail')){
@@ -119,7 +129,10 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         },
         '#btnCancelConfirm': {
             click: 'onCancelConfirm'
-        }
+        },
+        '#orgid_to_link': {
+            select: 'onOrgToCboSelect'
+        },
     },
     onCancelConfirm: function (){
         var me = this;
@@ -333,17 +346,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewModel = this.getViewModel();
         var pordercode = viewModel.get('pordercode');
         var viewId = viewModel.get('viewId');
-        // if(pordercode.length < 1){
-        //     Ext.Msg.show({
-        //         title: 'Thông báo',
-        //         msg: 'Mã lệnh phải từ 1 ký tự trở lên',
-        //         buttons: Ext.MessageBox.YES,
-        //         buttonText: {
-        //             yes: 'Đóng',
-        //         }
-        //     });
-        //     return;
-        // }
+
         if(pordercode == null || pordercode.length == 0){
             Ext.Msg.show({
                 title: 'Thông báo',
@@ -1352,5 +1355,15 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             }]
         });
         form.show();
+    },
+
+    // change cbo org to
+    onOrgToCboSelect: function(combo, record, eOpts){
+        console.log('onOrgToCboSelect');
+        // xu ly chon to chuyen > tim ra cac lenh sx > neu co 1 lenh thi day vao ma lenh luon
+        // view xuat ban thanh pham len chuyen
+        if(condition){
+
+        }
     }
 })

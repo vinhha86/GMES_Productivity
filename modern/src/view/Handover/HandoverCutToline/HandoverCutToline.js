@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline', {
         type: 'HandoverListViewModel'
     },
     controller: 'HandoverCutTolineController',
-    title: 'Xuất BTP lên chuyền',
+    // title: 'Xuất BTP lên chuyền',
     layout: 'vbox',
     items: [{
         layout: 'hbox',
@@ -41,13 +41,13 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline', {
             listeners: {
                 change : 'loadData'
             }
-        },{
-            xtype:'button',
-            text: 'Thêm phiếu',
-            margin: 3,
-            itemId:'btnThem',
-            // iconCls: 'x-fa fa-plus',
-            formBind: false
+        // },{
+        //     xtype:'button',
+        //     text: 'Thêm phiếu',
+        //     margin: 3,
+        //     itemId:'btnThem',
+        //     // iconCls: 'x-fa fa-plus',
+        //     formBind: false
         }]
     },
     {
@@ -55,5 +55,20 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline', {
         border: false,
         xtype: 'HandoverList',
         id: 'handover_cut_tolinelist',
+    },{
+        layout: 'hbox',
+        docked : 'bottom',
+        items: [{
+            flex: 1
+        },{
+            xtype:'button',
+            text: 'Thêm phiếu',
+            margin: 2,
+            itemId:'btnThem',
+            ui: 'action',
+            iconCls: 'x-fa fa-plus',
+            formBind: false,
+            // flex: 1,
+        }]
     }],
 });

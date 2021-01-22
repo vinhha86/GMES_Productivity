@@ -17,16 +17,16 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     // rowNumbers: true,
     markDirty: true,
 
-    plugins: {
-        gridcellediting: {
-            selectOnEdit: true,
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit',
-                // beforeedit: 'onBeforeEdit'
-            }
-        }
-    },
+    // plugins: {
+    //     gridcellediting: {
+    //         selectOnEdit: true,
+    //         clicksToEdit: 1,
+    //         listeners: {
+    //             edit: 'onEdit',
+    //             // beforeedit: 'onBeforeEdit'
+    //         }
+    //     }
+    // },
 
     selectable: {
         rows: false,
@@ -62,12 +62,12 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
-        editor: {
-            allowBlur: false,
-            field: {
-                xtype: 'numberfield'
-            }
-        }
+        // editor: {
+        //     allowBlur: false,
+        //     field: {
+        //         xtype: 'numberfield'
+        //     }
+        // }
     }],
 
 });

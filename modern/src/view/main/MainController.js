@@ -339,6 +339,14 @@ Ext.define('GSmartApp.view.main.MainController', {
             });
             me.fireEvent('loaddata', id);
         }
+
+        if(hashTag != ''){
+            backbutton = refs.backbutton;
+            backbutton.setHidden(false);
+        }else{
+            backbutton = refs.backbutton;
+            backbutton.setHidden(true);
+        }
     },
     
     setCurrentView: function (hashTag) {
@@ -380,6 +388,14 @@ Ext.define('GSmartApp.view.main.MainController', {
                     });
                 }
             }
+        }
+
+        if(hashTag != ''){
+            backbutton = refs.backbutton;
+            backbutton.setHidden(false);
+        }else{
+            backbutton = refs.backbutton;
+            backbutton.setHidden(true);
         }
     },
 });

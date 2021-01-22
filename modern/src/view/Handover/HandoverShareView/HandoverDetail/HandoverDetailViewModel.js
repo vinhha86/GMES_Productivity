@@ -18,8 +18,16 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         handoverid_link: null,
 
         currentRec: null, // handover obj
+        handoverProduct: null, // handoverProduct
+        handoverSKUs: null, // handoverSKUs
         pordercode: '', // txtfield pordercode
     },
     formulas: {
+        isBtnConfirmOutHidden: function(get){ // btn xac nhan xuat
+
+        },
+        isBtnConfirmInHidden: function(get){ // btn xac nhan nhan
+        
+        }
     }
 })

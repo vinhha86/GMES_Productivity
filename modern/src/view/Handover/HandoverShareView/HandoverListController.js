@@ -6,17 +6,19 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
     },
     control: {
         '#handover_cut_tolinelist': {
-            itemdoubletap: 'onItemdoubletapCutToLine'
+            childtap: 'onChildTapCutToLine'
         }
-    },
-    onItemdoubletapCutToLine: function(dataView, index, target, record, e, eOpts){
-        // console.log(record);
-        var viewModel = this.getViewModel();
-        var viewId = viewModel.get('viewId');
-        var id = record.get('id');
-        this.redirectTo(viewId + "/" + id + "/edit");
     },
     onEdit: function(editor, context, eOpts ) {
         console.log(context);
+    },
+    onChildTapCutToLine: function ( dataView, location, eOpts ) {
+        // console.log('location:');
+        // console.log(location.record.data);
+
+        var viewModel = this.getViewModel();
+        var viewId = viewModel.get('viewId');
+        var id = location.record.get('id');
+        this.redirectTo(viewId + "/" + id + "/edit");
     }
 });

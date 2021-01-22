@@ -17,16 +17,17 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         }
 	},
     control: {
-        // '#btnThem': {
-        //     tap: 'onBtnThemTap'
-        // }
+        '#btnSave': {
+            tap: 'onSave'
+        },
     },
     onLoadData: function (id){
         var m = this;
         var viewModel = this.getViewModel();
         viewModel.set('handoverid_link', id);
         if(id == 0){
-            m.loadNewInfo();
+            console.log('tao moi');
+            // m.loadNewInfo();
         }else{
             m.loadInfo(id);
         }
@@ -62,6 +63,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                     var handoverProducts = data.handoverProducts;
                     if(handoverProducts != null && handoverProducts.length > 0){
                         var handoverProduct = handoverProducts[0];
+                        viewModel.set('handoverProduct',handoverProduct);
                         if(
                             handoverProduct != null && 
                             handoverProduct.handoverSKUs != null && 
@@ -71,11 +73,35 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                             var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
                             HandoverSkuStore.setData([]);
                             HandoverSkuStore.setData(handoverSKUs);
+                            viewModel.set('handoverSKUs',handoverSKUs);
+                            console.log(HandoverSkuStore);
+
                         }
                     }
                 }else{
                     console.log('function loadInfo: failed');
                 }
             })
-    }
+    },
+    onSave: function(btn, e, eOpts){
+        var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
+        // console.log(currentRec);
+
+        var params = new Object();
+        params.data = currentRec;
+
+        GSmartApp.Ajax.post('/api/v1/handover/createMobile', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    console.log(response);
+                    Ext.toast('Lưu thành công', 1000);
+                    // console.log('web success');
+                }else{
+                    Ext.toast('Lưu thất bại', 1000);
+                    // console.log('web fail');
+                }
+            })
+    },
 });

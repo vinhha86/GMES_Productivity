@@ -33,11 +33,11 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     },
 
     columns: [{
-        text: 'SKU',
-        flex: 1,
-        dataIndex: 'skuCode',
-        // editable: true
-    }, {
+    //     text: 'SKU',
+    //     flex: 1,
+    //     dataIndex: 'skuCode',
+    //     // editable: true
+    // }, {
         text: 'Màu',
         flex: 1,
         maxWidth: 150,
@@ -49,10 +49,24 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         dataIndex: 'skuSize',
         // editable: true
     }, {
-        text: 'Số lượng',
+        text: 'SL giao',
         flex: 1,
         maxWidth: 120,
         dataIndex: 'totalpackage',
+        renderer: function(value){
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        // editor: {
+        //     allowBlur: false,
+        //     field: {
+        //         xtype: 'numberfield'
+        //     }
+        // }
+    }, {
+        text: 'SL nhận',
+        flex: 1,
+        maxWidth: 120,
+        dataIndex: 'totalpackagecheck',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
