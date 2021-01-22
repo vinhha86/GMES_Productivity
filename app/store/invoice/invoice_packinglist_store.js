@@ -16,7 +16,7 @@ Ext.define('GSmartApp.store.invoice.invoice_packinglist_store', {
                     update : 'POST',
                     destroy: 'POST'
                 },
-                url: config.getAppBaseUrl()+'/api/v1/invoice/getpkl_bylotnumber',
+                url: config.getAppBaseUrl_Jitin()+'/api/v1/invoice/getpkl_bylotnumber',
                 paramsAsJson:true,
                 extraParams : params,
                 noCache: false,

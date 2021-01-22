@@ -15,7 +15,7 @@ Ext.define('GSmartApp.store.invoice.invoice_pkl_lotnumber_store', {
                     update : 'POST',
                     destroy: 'POST'
                 },
-                url: config.getAppBaseUrl()+'/api/v1/invoice/getlotnumber',
+                url: config.getAppBaseUrl_Jitin()+'/api/v1/invoice/getlotnumber',
                 paramsAsJson:true,
                 extraParams : params,
                 noCache: false,

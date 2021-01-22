@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
+Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
     extend: 'Ext.app.ViewModel',
-	alias: 'viewmodel.Stockin_P_Edit_ViewModel',
+	alias: 'viewmodel.Stockin_P_ViewModel',
 	requires: ['GSmartApp.store.DeviceInvStore', 'GSmartApp.store.OrgStore',
 	'GSmartApp.store.SkuStore','GSmartApp.store.stockin.Stockin_d_Store',
 	'GSmartApp.store.stockin.StockinDetailEpcStore',

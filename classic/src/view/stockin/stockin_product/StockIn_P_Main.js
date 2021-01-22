@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Main', {
     id:'StockIn_P_Main',
     controller: 'Stockin_P_List_ViewController',
     viewModel: {
-        type: 'Stockin_P_Edit_ViewModel'
+        type: 'Stockin_P_ViewModel'
     },
     layout: 'border',
     items: [{
