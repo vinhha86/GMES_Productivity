@@ -20,7 +20,7 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/stockin/stockin_list',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/stockin_list',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,

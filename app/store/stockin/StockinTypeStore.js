@@ -15,7 +15,7 @@ Ext.define('GSmartApp.store.stockin.StockinTypeStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/stockin/gettype',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/gettype',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{

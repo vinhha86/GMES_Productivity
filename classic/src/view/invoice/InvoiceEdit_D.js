@@ -21,15 +21,17 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 		store: '{invoice.invoice_d}'
 	},
 	columns: [
+		// {
+		// 	text: 'Loại', 
+		// 	dataIndex: 'skucode',
+		// 	width: 120,	
+		// 	summaryRenderer:function () {
+		// 		return "Tổng cộng";
+		// 	}
+		// },
 		{
-			text: 'Loại', 
-			dataIndex: 'skucode',
+			text: 'Mã NPL', 
 			width: 120,	
-			summaryRenderer:function () {
-				return "Tổng cộng";
-			}
-		},{
-			text: 'Mã SKU', 
 			dataIndex: 'skucode'
 		},{
 			text: 'Tên NPL', 

@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
             xtype: 'StockIn_M_Edit_M',
             id: 'StockIn_M_Edit_M',
             margin: '5 0 0 0',
-            height: 240
+            height: 140
         },
         {
             xtype: 'Stockin_M_Edit_D',
