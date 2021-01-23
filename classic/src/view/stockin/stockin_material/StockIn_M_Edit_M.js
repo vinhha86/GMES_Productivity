@@ -75,6 +75,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_M_Edit_M', {
 	}, {
 		layout: 'hbox',
 		xtype: 'container',
+		margin: '1 0 0 0',
 		items: [{
 			xtype: 'combo',
 			valueField: 'id',
@@ -114,6 +115,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_M_Edit_M', {
 	}, {
 		layout: 'hbox',
 		xtype: 'container',
+		margin: '1 0 0 0',
 		items: [{
 			margin: '0 5 0 5',
 			xtype: 'textfield',
@@ -137,16 +139,41 @@ Ext.define('GSmartApp.view.stockin.StockIn_M_Edit_M', {
 	{
 		layout: 'hbox',
 		xtype: 'container',
-		items: [{
-			margin: '0 5 0 5',
-			xtype: 'textfield',
-			bind: {
-				value: '{stockin.invoice_number}'
+		margin: '1 0 0 0',
+		items: [
+			{
+				layout: 'hbox',
+				xtype: 'container',
+				margin: '0 5 0 5',
+				border: false,
+				width: 375,
+				items:[
+					{
+						xtype: 'textfield',
+						bind: {
+							value: '{stockin.invoice_number}'
+						},
+						fieldLabel: 'Số Invoice',					
+						labelWidth: 80,
+						width: 310
+					},
+					{
+						xtype:'button',
+						margin: '0 0 0 2',
+						itemId:'btnInvoice_Plus',
+						iconCls: 'x-fa fa-plus',
+						width: 30
+					},
+					{
+						xtype:'button',
+						margin: '0 0 0 2',
+						itemId:'btnInvoice_Search',
+						iconCls: 'x-fa fa-search',
+						width: 30
+					}
+				]
 			},
-			fieldLabel: 'Số Invoice',					
-			labelWidth: 80,
-			width: 375
-		},{
+			{
 			margin: '0 5 0 5',
 			xtype: 'datefield',
 			format: GSmartApp.util.State.get('dataFormat'),

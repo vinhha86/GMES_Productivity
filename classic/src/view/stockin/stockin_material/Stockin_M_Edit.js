@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
         {
             xtype: 'StockIn_M_Edit_M',
             id: 'StockIn_M_Edit_M',
-            margin: '5 0 0 0',
+            margin: '2 0 0 0',
             height: 140
         },
         {
@@ -33,6 +33,20 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
             },
             {
                 flex:1
+            },
+            {
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  'In phiếu',
+                iconCls: 'x-fa fa-print',
+                itemId: 'btnStockin_Print'
+            },
+            {
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  'Đồng bộ kế toán',
+                iconCls: 'x-fa fa-refresh',
+                itemId: 'btnStockin_Sync'
             },
             {
                 margin: '0 5 5 0',
