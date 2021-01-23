@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     textAlign: 'left',
                     // editable: false,
                     // readOnly: true,
+                    cls: 'notEditable',
                     bind: {
                         value: '{currentRec.handover_code}'
                     },
@@ -50,9 +51,32 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     dateFormat : 'd/m/y',
                     // editable: false,
                     // readOnly: true,
+                    cls: 'notEditable',
                     bind: {
                         value: '{currentRec.handover_date}'
                     }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'combobox',
+                    // reference: 'cboorgto',
+                    // editable: false,
+                    // readOnly: true,
+                    cls: 'notEditable',
+                    bind:{
+                        // store:'{ListOrgStore_To}',
+                        // value:'{currentRec.orgid_to_link}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    label: 'Nơi giao:',
+                    labelWidth: 85,
+                    flex: 1,
                 }]
             },{
                 layout: 'hbox',
@@ -71,52 +95,20 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     bind: {
                         value: '{currentRec.handoverProductBuyercode}'
                     }
-                }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
-                    xtype: 'combobox',
-                    // reference: 'cboorgto',
-                    // editable: false,
-                    // readOnly: true,
-                    bind:{
-                        // store:'{ListOrgStore_To}',
-                        // value:'{currentRec.orgid_to_link}'
-                    },
-                    displayField: 'code',
-                    valueField: 'id',
-                    label: 'Nơi giao:',
-                    labelWidth: 85,
-                    flex: 1,
-                }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
-                    xtype:'button',
-                    text: 'Chọn lệnh',
-                    margin: '2 2 2 0',
-                    // itemId:'btnSave',
-                    // ui: 'action',
-                    iconCls: 'x-fa fa-plus',
-                    formBind: false,
-                    flex: 1,
                 },{
                     xtype:'button',
-                    text: 'Tìm lệnh',
-                    margin: '2 2 2 0',
-                    // itemId:'btnSave',
-                    // ui: 'action',
+                    // text: 'Xác nhận xuất',
+                    margin: 2,
+                    // itemId:'btnHandover',
+                    ui: 'action',
+                    iconCls: 'x-fa fa-plus',
+                },{
+                    xtype:'button',
+                    // text: 'Xác nhận xuất',
+                    margin: 2,
+                    // itemId:'btnHandover',
+                    ui: 'action',
                     iconCls: 'x-fa fa-search',
-                    formBind: false,
-                    flex: 1,
                 }]
             },{
                 layout: 'hbox',
