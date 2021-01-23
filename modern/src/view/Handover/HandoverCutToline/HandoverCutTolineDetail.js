@@ -32,12 +32,42 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                 },
                 items: [{
                     xtype: 'textfield',
-                    label: 'Mã SP:',
-                    labelWidth: 100,
+                    label: 'Số phiếu:',
+                    labelWidth: 85,
                     flex: 1,
                     textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
+                    // editable: false,
+                    // readOnly: true,
+                    bind: {
+                        value: '{currentRec.handover_code}'
+                    },
+                },{
+                    xtype: 'datefield',
+                    label: 'Ngày:',
+                    labelWidth: 55,
+                    flex: 1,
+                    textAlign: 'left',
+                    dateFormat : 'd/m/y',
+                    // editable: false,
+                    // readOnly: true,
+                    bind: {
+                        value: '{currentRec.handover_date}'
+                    }
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype: 'textfield',
+                    label: 'Mã lệnh:',
+                    labelWidth: 85,
+                    flex: 1,
+                    textAlign: 'left',
+                    // editable: false,
+                    // readOnly: true,
                     bind: {
                         value: '{currentRec.handoverProductBuyercode}'
                     }
@@ -51,16 +81,41 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                 items: [{
                     xtype: 'combobox',
                     // reference: 'cboorgto',
-                    editable: false,
-                    readOnly: true,
+                    // editable: false,
+                    // readOnly: true,
                     bind:{
-                        store:'{ListOrgStore_To}',
-                        value:'{currentRec.orgid_to_link}'
+                        // store:'{ListOrgStore_To}',
+                        // value:'{currentRec.orgid_to_link}'
                     },
                     displayField: 'code',
                     valueField: 'id',
-                    label: 'Nơi nhận:',
-                    labelWidth: 100,
+                    label: 'Nơi giao:',
+                    labelWidth: 85,
+                    flex: 1,
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
+                    xtype:'button',
+                    text: 'Chọn lệnh',
+                    margin: '2 2 2 0',
+                    // itemId:'btnSave',
+                    // ui: 'action',
+                    iconCls: 'x-fa fa-plus',
+                    formBind: false,
+                    flex: 1,
+                },{
+                    xtype:'button',
+                    text: 'Tìm lệnh',
+                    margin: '2 2 2 0',
+                    // itemId:'btnSave',
+                    // ui: 'action',
+                    iconCls: 'x-fa fa-search',
+                    formBind: false,
                     flex: 1,
                 }]
             },{
@@ -72,35 +127,17 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                 items: [{
                     xtype: 'combobox',
                     // reference: 'cboorgto',
-                    editable: false,
-                    readOnly: true,
+                    // editable: false,
+                    // readOnly: true,
                     bind:{
-                        // store:'{ListOrgStore_To}',
-                        // value:'{currentRec.orgid_to_link}'
+                        store:'{ListOrgStore_To}',
+                        value:'{currentRec.orgid_to_link}'
                     },
                     displayField: 'code',
                     valueField: 'id',
-                    label: 'Nơi giao:',
-                    labelWidth: 100,
+                    label: 'Nơi nhận:',
+                    labelWidth: 85,
                     flex: 1,
-                }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
-                    xtype: 'textfield',
-                    label: 'Ng/nhận:',
-                    labelWidth: 100,
-                    flex: 1,
-                    textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
-                    bind: {
-                        // value: '{currentRec.handoverProductBuyercode}'
-                    }
                 }]
             },{
                 layout: 'hbox',
@@ -111,47 +148,24 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                 items: [{
                     xtype: 'textfield',
                     label: 'Ng/giao:',
-                    labelWidth: 100,
+                    labelWidth: 85,
                     flex: 1,
                     textAlign: 'left',
                     editable: false,
                     readOnly: true,
+                    cls: 'notEditable',
                     bind: {
                         // value: '{currentRec.handoverProductBuyercode}'
                     }
-                }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
+                },{
                     xtype: 'textfield',
-                    label: 'Số phiếu:',
-                    labelWidth: 100,
+                    label: 'Ng/nhận:',
+                    labelWidth: 85,
                     flex: 1,
                     textAlign: 'left',
                     editable: false,
                     readOnly: true,
-                    bind: {
-                        // value: '{currentRec.handoverProductBuyercode}'
-                    }
-                }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
-                    xtype: 'textfield',
-                    label: 'Ngày xuất:',
-                    labelWidth: 100,
-                    flex: 1,
-                    textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
+                    cls: 'notEditable',
                     bind: {
                         // value: '{currentRec.handoverProductBuyercode}'
                     }
@@ -173,16 +187,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     label: 'SL giao:',
                     textAlign: 'right',
                     hideTrigger:true,
-                    labelWidth: 100,
+                    labelWidth: 85,
                     flex: 1,
-                }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
+                },{
                     xtype: 'numberfield',
                     // reference: 'cboorgto',
                     // editable: false,
@@ -193,7 +200,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     label: 'SL nhận:',
                     textAlign: 'right',
                     hideTrigger:true,
-                    labelWidth: 100,
+                    labelWidth: 85,
                     flex: 1,
                 }]
             },{
@@ -205,11 +212,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                 items: [{
                     xtype: 'textfield',
                     label: 'Lý do:',
-                    labelWidth: 100,
+                    labelWidth: 85,
                     flex: 1,
                     textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
+                    // editable: false,
+                    // readOnly: true,
                     bind: {
                         // value: '{currentRec.handoverProductBuyercode}'
                     }
@@ -223,27 +230,15 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                 items: [{
                     xtype: 'textfield',
                     label: 'Ghi chú:',
-                    labelWidth: 100,
+                    labelWidth: 85,
                     flex: 1,
                     textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
+                    // editable: false,
+                    // readOnly: true,
                     bind: {
                         // value: '{currentRec.handoverProductBuyercode}'
                     }
                 }]
-            // },{
-            //     layout: 'hbox',
-            //     flex: 1,
-            //     defaults: {
-            //         margin: 1
-            //     },
-            //     items: [{
-            //         border: false,
-            //         xtype: 'HandoverDetail',
-            //         id: 'handover_cut_toline_detail',
-            //         flex: 1,
-            //     }]
             },]
         }]
     },
