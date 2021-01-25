@@ -647,8 +647,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
     onEditSkuTotalPackage: function (editor, context, e) {
         var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
         var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
-        HandoverDetail_ProductGrid.setLoading(true);
-        HandoverDetail_SkuGrid.setLoading(true);
+        // HandoverDetail_ProductGrid.setLoading(true);
+        // HandoverDetail_SkuGrid.setLoading(true);
 
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');
@@ -687,8 +687,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             selection[0].set('totalpackagecheck', totalpackage);
         }
 
-        HandoverDetail_ProductGrid.setLoading(false);
-        HandoverDetail_SkuGrid.setLoading(false);
+        // HandoverDetail_ProductGrid.setLoading(false);
+        // HandoverDetail_SkuGrid.setLoading(false);
         var isCreateNew = viewModel.get('isCreateNew');
         if(!isCreateNew){
             var me = this;
