@@ -133,6 +133,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         '#orgid_to_link': {
             select: 'onOrgToCboSelect'
         },
+        '#HandoverDetail_ProductGrid': {
+            itemclick: 'onHandoverDetail_ProductGridItemClick'
+        },
     },
     onCancelConfirm: function (){
         var me = this;
@@ -391,31 +394,20 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
         var viewModel = this.getViewModel();
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+        var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
 
         var handoverProductsData = HandoverProductStore.getData().items;
         var handoverProducts = new Array();
-        // console.log(handoverProductsData);
         for(var i=0;i<handoverProductsData.length;i++){
-            // console.log(handoverProductsData[i].data.buyercode);
             handoverProducts.push(handoverProductsData[i].data);
         }
 
         var params = new Object();
         var data = new Object();
         data = viewModel.get('currentRec');
-
-        // if(viewModel.get('isCreateNew')){
-        //     data.handoverProducts = handoverProducts;
-        // }
-
         data.handoverProducts = handoverProducts;
 
-        // console.log(data);
-
         params.data = data;
-        // if(viewModel.get('isCreateNew')){
-        //     params.handoverProduct = HandoverProductStore.getById(0).data;
-        // }
         params.msgtype = "HANDOVER_CREATE";
         params.message = "Tạo handover";
 
@@ -424,14 +416,14 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     if (response.respcode == 200) {
-                        Ext.Msg.show({
-                            title: 'Thông báo',
-                            msg: 'Lưu thành công',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
+                        // Ext.Msg.show({
+                        //     title: 'Thông báo',
+                        //     msg: 'Lưu thành công',
+                        //     buttons: Ext.MessageBox.YES,
+                        //     buttonText: {
+                        //         yes: 'Đóng',
+                        //     }
+                        // });
                         viewModel.set('currentRec', response.data);
                         var handover_date = viewModel.get('currentRec.handover_date');
                         var date = Ext.Date.parse(handover_date, 'c');
@@ -440,7 +432,22 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
                         var viewIdList = viewModel.get('viewIdList');
                         m.redirectTo(viewIdList + "/" + response.data.id + "/edit");
-                        HandoverProductStore.load();
+                        // HandoverProductStore.load();
+                        HandoverProductStore.loadStore_Async(response.data.id);
+                        HandoverProductStore.load({
+                            scope: this,
+                            callback: function(records, operation, success) {
+                                if(!success){
+                                    this.fireEvent('logout');
+                                } else {
+                                    var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
+                                    var HandoverProductStoreData = HandoverProductStore.getData();
+                                    HandoverSkuStore.setData(HandoverProductStoreData.items[0].get('handoverSKUs'));
+                                    HandoverDetail_ProductGrid.getSelectionModel().select(0, true); 
+                                    // console.log(HandoverProductStoreData);
+                                }
+                            }
+                        });
                     }
                     else {
                         Ext.Msg.show({
@@ -637,7 +644,66 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             }
         });
     },
+    onEditSkuTotalPackage: function (editor, context, e) {
+        var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
+        var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
+        HandoverDetail_ProductGrid.setLoading(true);
+        HandoverDetail_SkuGrid.setLoading(true);
+
+        var viewModel = this.getViewModel();
+        var viewId = viewModel.get('viewId');
+        var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+
+        if(
+            viewId == 'handover_line_fromcut_detail' ||
+            viewId == 'handover_pack_fromline_detail'
+        ){
+            // console.log(viewId);
+            HandoverSkuStore.rejectChanges();
+            return;
+        }
+        if(context.value == context.originalValue){
+            return;
+        }
+        if(context.value < 0 || context.value == ''){
+            HandoverSkuStore.rejectChanges();
+            return;
+        }
+
+        // update product theo sku
+        var selection = HandoverDetail_ProductGrid.getSelectionModel().getSelection();
+        var HandoverSkuStoreData = HandoverSkuStore.getData().items;
+        var totalpackage = 0;
+        if(context.field == "totalpackage"){
+            for(var i = 0; i < HandoverSkuStoreData.length;i++){
+                totalpackage+=parseInt(HandoverSkuStoreData[i].get('totalpackage'));
+            }
+            selection[0].set('totalpackage', totalpackage);
+        }
+        if(context.field == "totalpackagecheck"){
+            for(var i = 0; i < HandoverSkuStoreData.length;i++){
+                totalpackage+=parseInt(HandoverSkuStoreData[i].get('totalpackagecheck'));
+            }
+            selection[0].set('totalpackagecheck', totalpackage);
+        }
+
+        HandoverDetail_ProductGrid.setLoading(false);
+        HandoverDetail_SkuGrid.setLoading(false);
+        var isCreateNew = viewModel.get('isCreateNew');
+        if(!isCreateNew){
+            var me = this;
+            if (context.field == "totalpackage" || context.field == "totalpackagecheck") {
+                // me.updateTotalpackage(context.record);
+                me.onLuu()
+            }
+        }
+    },
     onEditProductTotalPackage: function (editor, context, e) {
+        var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
+        var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
+        HandoverDetail_ProductGrid.setLoading(true);
+        HandoverDetail_SkuGrid.setLoading(true);
+
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
@@ -657,16 +723,18 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             return;
         }
 
+        HandoverDetail_ProductGrid.setLoading(false);
+        HandoverDetail_SkuGrid.setLoading(false);
         var isCreateNew = viewModel.get('isCreateNew');
         if(!isCreateNew){
             var me = this;
-            if (context.field == "totalpackage") {
-                me.updateTotalpackage(context.record);
+            if (context.field == "totalpackage" || context.field == "totalpackagecheck") {
+                // me.updateProductTotalpackage(context.record);
+                me.onLuu();
             }
-
         }
     },
-    updateTotalpackage: function(record){
+    updateProductTotalpackage: function(record){
         var grid = this.getView();
         // console.log(record.data);
         var me = this;
@@ -1362,8 +1430,79 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         console.log('onOrgToCboSelect');
         // xu ly chon to chuyen > tim ra cac lenh sx > neu co 1 lenh thi day vao ma lenh luon
         // view xuat ban thanh pham len chuyen
-        if(condition){
+        // if(condition){
 
+        // }
+    },
+
+    //
+    onHandoverDetail_ProductGridItemClick:function(grid, record, item, index, e, eOpts){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
+        // console.log(currentRec);
+        console.log(record);
+
+        if(currentRec.id == null || currentRec.id == 0){ // handover moi, chua co du lieu
+            
+            var handoverSKUs = record.get('handoverSKUs');
+            if(handoverSKUs == null || handoverSKUs.length == 0){
+                // lay sku theo porder
+                var porderid_link = currentRec.porderid_link;
+                var productid_link = record.get('productid_link');
+                var handoverid_link = currentRec.id;
+                m.getNewHandoverSKUs(record, handoverid_link, porderid_link, productid_link);
+            }else{
+                // set HandoverDetail_SkuGrid theo handoverSKUs
+                m.setOldHandoverSKUs(record);
+            }
+        }else{ // handover cu, da co du lieu
+            // lay sku theo handover
+            var handoverSKUs = record.get('handoverSKUs');
+            if(handoverSKUs == null || handoverSKUs.length == 0){
+                // neu chua co handoverSKUs
+            }else{
+                // neu co handoverSKUs
+                m.setOldHandoverSKUs(record);
+            }
         }
+    },
+
+    getNewHandoverSKUs:function(record, handoverid_link, porderid_link, productid_link){
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        params.handoverid_link = handoverid_link;
+        params.porderid_link = porderid_link;
+        params.productid_link = productid_link;
+
+        GSmartApp.Ajax.post('/api/v1/handoversku/getByHandoverProduct', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    var data = response.data;
+                    for(var i=0; i<data.length; i++) {
+                        data[i].skuCode = data[i].skuCodeString;
+                        data[i].skuColor = data[i].skuColorString;
+                        data[i].skuSize = data[i].skuSizeString;
+                        data[i].skuSizeSortVal = data[i].skuSizeSortValInt;
+                    }
+
+                    var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+                    HandoverSkuStore.setData(data);
+                    record.set('handoverSKUs', []);
+                    record.set('handoverSKUs', data);
+                }else{
+                    console.log('fail');
+                }
+            })
+    },
+    setOldHandoverSKUs: function (record){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+        HandoverSkuStore.setData(record.get('handoverSKUs'));
+        console.log(record.get('handoverSKUs'));
     }
 })

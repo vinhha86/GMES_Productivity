@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailViewModel', {
         'GSmartApp.store.org.ListOrgStore',
         'GSmartApp.store.porder.POrder_ListStore',
         'GSmartApp.store.pprocess.POrderGrantStore',
-        'GSmartApp.store.handover.HandoverProductStore'
+        'GSmartApp.store.handover.HandoverProductStore',
+        'GSmartApp.store.handover.HandoverSkuStore'
     ],
     stores: {
         UserListStore: {
@@ -23,7 +24,10 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailViewModel', {
         },
         HandoverProductStore:{
             type: 'HandoverProductStore'
-        }
+        },
+        HandoverSkuStore: {
+            type: 'HandoverSkuStore'
+        },
     },
     data: {
         id: 0,

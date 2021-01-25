@@ -41,11 +41,11 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
             return value;
         }
     }, {
-        text: 'Số lượng giao',
+        text: 'SL giao',
         dataIndex: 'totalpackage',
         editor:{
             xtype:'textfield',
-            maskRe: /[0-9.]/,
+            maskRe: /[0-9]/,
             selectOnFocus: true
         },
         renderer: function(value){
@@ -54,11 +54,11 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
         flex: 1,
         align: 'end'
     }, {
-        text: 'Số lượng nhận',
+        text: 'SL nhận',
         dataIndex: 'totalpackagecheck',
         editor:{
             xtype:'textfield',
-            maskRe: /[0-9.]/,
+            maskRe: /[0-9]/,
             selectOnFocus: true
         },
         renderer: function(value){
@@ -70,21 +70,21 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
         text: 'Đơn vị tính',
         dataIndex: 'unitName',
         flex: 1,
-    }, {
-        xtype: 'actioncolumn',
-        width: 28,
-        menuDisabled: true,
-        sortable: false,
-        align: 'center',
-        items: [
-            {
-                iconCls: 'x-fa fas fa-bars violetIcon',
-                handler: 'onMenu'
-            },            
-        ],
-        bind: {
-            hidden: '{isCreateNew}'
-        }
+    // }, {
+    //     xtype: 'actioncolumn',
+    //     width: 28,
+    //     menuDisabled: true,
+    //     sortable: false,
+    //     align: 'center',
+    //     items: [
+    //         {
+    //             iconCls: 'x-fa fas fa-bars violetIcon',
+    //             handler: 'onMenu'
+    //         },            
+    //     ],
+    //     bind: {
+    //         hidden: '{isCreateNew}'
+    //     }
     }],
     dockedItems:[{
         layout: 'vbox',

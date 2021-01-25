@@ -12,45 +12,45 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_SkuGrid', {
         cellediting: {
             clicksToEdit: 1,
             listeners: {
-                // edit: 'onEditProductTotalPackage'
+                edit: 'onEditSkuTotalPackage'
             } 
         }
     },
     bind: {
-        // store: '{HandoverProductStore}'
+        store: '{HandoverSkuStore}'
     },
     columns:[
-        { header: 'SKU', dataIndex: 'skuCode', flex: 1},
-        { header: 'Mã vạch', dataIndex: 'barcode', width: 150},
+        // { header: 'SKU', dataIndex: 'skuCode', flex: 1},
+        { header: 'Mã vạch', dataIndex: 'barcode', flex: 1},
         { header: 'Màu', dataIndex: 'skuColor', width: 100},
         { header: 'Cỡ', dataIndex: 'skuSize', width: 70},  
-        { header: 'Số lượng giao', dataIndex: 'totalpackage', width: 80, summaryType: 'sum', align: 'end', 
-            summaryRenderer: 'renderSum',
-            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return Ext.util.Format.number(value, '0,000');
-            },
+        { 
+            text: 'SL giao',
+            dataIndex: 'totalpackage',
             editor:{
                 xtype:'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true,
-                listeners: {
-                    // specialkey: 'onSpecialkey'
-                }
+                maskRe: /[0-9]/,
+                selectOnFocus: true
             },
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
+            flex: 1,
+            align: 'end'
         },
-        { header: 'Số lượng nhận', dataIndex: 'totalpackagecheck', width: 80, summaryType: 'sum', align: 'end', 
-            summaryRenderer: 'renderSum',
-            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return Ext.util.Format.number(value, '0,000');
-            },
+        { 
+            text: 'SL nhận',
+            dataIndex: 'totalpackagecheck',
             editor:{
                 xtype:'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true,
-                listeners: {
-                    // specialkey: 'onSpecialkey'
-                }
+                maskRe: /[0-9]/,
+                selectOnFocus: true
             },
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
+            flex: 1,
+            align: 'end'
         }
     ]
 });
