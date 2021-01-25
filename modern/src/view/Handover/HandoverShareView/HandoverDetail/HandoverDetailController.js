@@ -21,6 +21,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             xtype: 'dialog',
             itemId: 'dialog',
             // title: 'Số lượng',
+            header: false,
             closable: true,
             closeAction: 'destroy',
             maximizable: false,

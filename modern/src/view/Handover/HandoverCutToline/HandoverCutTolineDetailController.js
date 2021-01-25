@@ -5,7 +5,16 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var viewModel = this.getViewModel();
         viewModel.set('viewId', 'handover_cut_toline_edit');
 
-        // load cbo org_to
+        var UserListStore = viewModel.getStore('UserListStore');
+        UserListStore.loadUserbyOrg(1);
+
+        var ListOrgStore_From = viewModel.getStore('ListOrgStore_From');
+        var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
+        var orgtypestring_from = '17';
+        ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+        // cut to line chon porder de load ListOrgStore_To, nhung van cho chon to chuyen
+        var orgtypestring_to = '14';
+        ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
     },
     listen: {
         controller: {
@@ -20,11 +29,17 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         '#btnSave': {
             tap: 'onSave'
         },
+        '#btnPlus': {
+            tap: 'onBtnPlus'
+        },
+        '#btnSearch': {
+            tap: 'onBtnSearch'
+        },
     },
     onLoadData: function (id){
         var m = this;
         var viewModel = this.getViewModel();
-        viewModel.set('handoverid_link', id);
+        viewModel.set('id', id);
         if(id == 0){
             console.log('tao moi');
             // m.loadNewInfo();
@@ -32,12 +47,12 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
             m.loadInfo(id);
         }
     },
-    loadInfo: function(handoverid_link){
+    loadInfo: function(id){
         var viewModel = this.getViewModel();
-        var handoverid_link = viewModel.get('handoverid_link');
+        var id = viewModel.get('id');
 
         var params = new Object();
-        params.id = handoverid_link;
+        params.id = id;
 
         GSmartApp.Ajax.post('/api/v1/handover/getone', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -103,5 +118,67 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                     // console.log('web fail');
                 }
             })
+    },
+
+    onBtnPlus:function(){
+
+    },
+    onBtnSearch:function(){
+        var viewModel = this.getViewModel();
+        var pordercode = viewModel.get('pordercode');
+        var viewId = viewModel.get('viewId');
+
+        console.log(pordercode);
+        console.log(viewId);
+
+        if(pordercode == null || pordercode.length == 0){
+            Ext.toast('Mã lệnh không được bỏ trống', 1000);
+            return;
+        }
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            itemId: 'dialog',
+            // title: 'Số lượng',
+            width: 300,
+            height: 300,
+            header: false,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                }
+            },
+            bodyPadding: '1',
+            maxWidth: 300,
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'HandoverDetailPorderSearch',
+                viewModel: {
+                    data: {
+                        pordercode: pordercode,
+                        viewId: viewId
+                    }
+                }
+            }],
+        });
+        dialog.show();
+
+        // get event
+        // dialog.down('#HandoverDetailPorderSearch').getController().on('Luu', function () {
+
+        //     dialog.close();
+        // });
+
+        // dialog.down('#HandoverDetailPorderSearch').getController().on('Thoat', function () {
+        //     dialog.close();
+        // });
     },
 });

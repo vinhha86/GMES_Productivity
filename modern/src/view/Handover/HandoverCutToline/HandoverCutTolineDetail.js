@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     textAlign: 'left',
                     // editable: false,
                     // readOnly: true,
+                    clearable: false,
                     cls: 'notEditable',
                     bind: {
                         value: '{currentRec.handover_code}'
@@ -152,6 +153,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     textAlign: 'left',
                     // editable: false,
                     // readOnly: true,
+                    clearable: false,
                     bind: {
                         value: '{pordercode}'
                     }
@@ -223,6 +225,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     label: 'SL giao:',
                     textAlign: 'right',
                     hideTrigger:true,
+                    clearable: false,
                     labelWidth: 85,
                     flex: 1,
                 },{
@@ -236,6 +239,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     label: 'SL nhận:',
                     textAlign: 'right',
                     hideTrigger:true,
+                    clearable: false,
                     labelWidth: 85,
                     flex: 1,
                 }]
