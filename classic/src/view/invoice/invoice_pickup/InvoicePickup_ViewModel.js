@@ -1,7 +1,6 @@
-Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
+Ext.define('GSmartApp.view.invoice.InvoicePickup_ViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.InvoiceEdit_ViewModel',
-    requires: ['GSmartApp.store.org.ListOrgStore'],
+    alias: 'viewmodel.InvoicePickup_ViewModel',
     stores:{
         OrgProviderStore: {
             type: 'ListOrgStore'
@@ -9,15 +8,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
         OrgToStore: {
             type: 'ListOrgStore'
         },
-        PortFromStore: {
-            type: 'ListOrgStore'
-        },
-        PortToStore: {
-            type: 'ListOrgStore'
+        InvoiceList_Store: {
+            type: 'Invoice_Store'
         }
     },
 	data: {
-        IsformMaster: false,
         invoice: {
             id: null,
             invoicedate: '',

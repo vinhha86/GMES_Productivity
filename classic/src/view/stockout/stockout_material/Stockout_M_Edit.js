@@ -1,9 +1,8 @@
-Ext.define('GSmartApp.view.invoice.InvoiceEdit', {
+Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
     extend: 'Ext.container.Container',
-    xtype: 'InvoiceEdit',
-    id: 'InvoiceEdit',
-    controller: 'InvoiceEdit_Controller',
-    viewModel: 'InvoiceEdit_ViewModel',
+    xtype: 'Stockout_M_Edit',
+    controller: 'Stockout_M_EditController',
+    viewModel: 'Stockout_M_EditModel',
 	layout: {
         type: 'vbox',
         pack: 'start',
@@ -11,13 +10,14 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit', {
     },
     items: [
         {
-            xtype: 'InvoiceEdit_M',
-            id: 'InvoiceEdit_M',
+            xtype: 'Stockout_M_Edit_M',
+            id: 'Stockout_M_Edit_M',
             margin: '5 0 0 0',
-            height: 168
+            height: 100
         },
         {
-            xtype: 'InvoiceEdit_D',
+            xtype: 'Stockout_M_Edit_D',
+            reference: 'grd_stockoutd',
             margin: '0 5 5 0',
             flex: 1
         },
@@ -27,20 +27,25 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit', {
             layout:'hbox',
             items:[
             {
+                width:100,
                 xtype:'button',
                 text:  "Quay lại",
                 iconCls: 'x-fa fa-backward',
-                itemId: 'btnBack'
+                handler: 'onUrlBack'
             },
             {
                 flex:1
             },
             {
+                width:80,
                 margin: '0 5 5 0',
                 xtype:'button',
                 text:  'Lưu',
                 iconCls: 'x-fa fa-floppy-o',
-                itemId: 'btnLuu'
+                handler: 'onSave',
+                bind:{
+                    disabled: '{isStart}'
+                }
             }
         ]
         }        

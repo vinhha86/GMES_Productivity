@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.stockin.StockIn_M_Edit_M', {
+Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 	extend: 'Ext.container.Container',
-	xtype: 'StockIn_M_Edit_M',
-	controller: 'StockIn_M_Edit_M_Controller',
+	xtype: 'Stockin_M_Edit_M',
+	controller: 'Stockin_M_Edit_M_Controller',
 	requires: ['Ext.form.field.Hidden', 'Ext.form.field.Date'],
 	layout: {
 		type: 'vbox',

@@ -132,25 +132,23 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			xtype: 'button',
 			iconCls: 'x-fa fa-angle-double-up',
 			itemId: 'btnThuGon',
-			hidden: true,
-			// bind: {
-			// 	hidden: '{ishiddenMaster}'
-			// }
+			bind: {
+				hidden: '{IsformMaster}'
+			}
 		}, {
 			margin:'0 0 0 5',
 			xtype: 'button',
 			itemId: 'btnMoRong',
 			iconCls: 'x-fa fa-angle-double-down',
-			hidden: true,
-			// bind: {
-			// 	hidden: '{!ishiddenMaster}'
-			// }
+			bind: {
+				hidden: '{!IsformMaster}'
+			}
 		}, 
 		{
 			xtype: 'textfield',
 			margin: '0 5 0 5',
 			itemId:'skucode',
-			fieldLabel: 'Mã SKU',
+			fieldLabel: 'Mã NPL',
 			width: 250,
 			labelWidth: 60,
 			hideLabel: false,			
