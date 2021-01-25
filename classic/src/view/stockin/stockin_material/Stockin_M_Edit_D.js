@@ -60,24 +60,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			width: 70
 		},{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL Invoice', 
-			align:'right',
-			dataIndex: 'totalpackage_order',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 90
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL Nhập', 
-			align:'right',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage',
-			width: 85
-		},{
-			xtype: 'numbercolumn',
 			format:'0,000.00',
 			text: 'N.W', 
 			align:'right',
@@ -103,26 +85,46 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 70
-		},{
+		},
+		// {
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000',
+		// 	text: 'Đơn giá', 
+		// 	align:'right',
+		// 	dataIndex: 'unitprice',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/
+		// 	},
+		// 	width: 85
+		// },{
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000',
+		// 	text: 'Thành tiền', 
+		// 	align:'right',
+		// 	dataIndex: 'totalprice',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	width: 100
+		// },
+		{
 			xtype: 'numbercolumn',
 			format:'0,000',
-			text: 'Đơn giá', 
+			text: 'SL Invoice', 
 			align:'right',
-			dataIndex: 'unitprice',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/
-			},
-			width: 85
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Thành tiền', 
-			align:'right',
-			dataIndex: 'totalprice',
+			dataIndex: 'totalpackage_order',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 100
+			width: 90
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL Nhập', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalpackage',
+			width: 85
 		},
 		{ 
 			xtype: 'actioncolumn',
