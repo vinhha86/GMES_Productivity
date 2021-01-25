@@ -42,10 +42,17 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     bind: {
                         value: '{currentRec.handover_code}'
                     },
-                },{
+                }]
+            },{
+                layout: 'hbox',
+                flex: 1,
+                defaults: {
+                    margin: 1
+                },
+                items: [{
                     xtype: 'datefield',
                     label: 'Ngày:',
-                    labelWidth: 55,
+                    labelWidth: 85,
                     flex: 1,
                     textAlign: 'left',
                     dateFormat : 'd/m/y',
@@ -69,26 +76,30 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     // readOnly: true,
                     cls: 'notEditable',
                     bind:{
-                        // store:'{ListOrgStore_To}',
-                        // value:'{currentRec.orgid_to_link}'
+                        store:'{ListOrgStore_From}',
+                        value:'{currentRec.orgid_from_link}'
                     },
-                    displayField: 'code',
+                    displayField: 'nameParent',
                     valueField: 'id',
                     label: 'Nơi giao:',
                     labelWidth: 85,
                     flex: 1,
-                },{
-                    xtype: 'textfield',
-                    label: 'Ng/giao:',
-                    labelWidth: 85,
-                    flex: 1,
-                    textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
-                    cls: 'notEditable',
-                    bind: {
-                        // value: '{currentRec.handoverProductBuyercode}'
-                    }
+                // },{
+                //     xtype: 'combobox',
+                //     // reference: 'cboorgto',
+                //     editable: false,
+                //     hideTrigger: true,
+                //     readOnly: true,
+                //     cls: 'notEditable',
+                //     bind:{
+                //         store:'{UserListStore}',
+                //         value: '{currentRec.handover_userid_link}'
+                //     },
+                //     displayField: 'fullname',
+                //     valueField: 'id',
+                //     label: 'Ng/giao:',
+                //     labelWidth: 85,
+                //     flex: 1,
                 }]
             },{
                 layout: 'hbox',
@@ -105,23 +116,27 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                         store:'{ListOrgStore_To}',
                         value:'{currentRec.orgid_to_link}'
                     },
-                    displayField: 'code',
+                    displayField: 'nameParent',
                     valueField: 'id',
                     label: 'Nơi nhận:',
                     labelWidth: 85,
                     flex: 1,
-                },{
-                    xtype: 'textfield',
-                    label: 'Ng/nhận:',
-                    labelWidth: 85,
-                    flex: 1,
-                    textAlign: 'left',
-                    editable: false,
-                    readOnly: true,
-                    cls: 'notEditable',
-                    bind: {
-                        // value: '{currentRec.handoverProductBuyercode}'
-                    }
+                // },{
+                //     xtype: 'combobox',
+                //     // reference: 'cboorgto',
+                //     editable: false,
+                //     hideTrigger: true,
+                //     readOnly: true,
+                //     cls: 'notEditable',
+                //     bind:{
+                //         store:'{UserListStore}',
+                //         value: '{currentRec.receiver_userid_link}'
+                //     },
+                //     displayField: 'fullname',
+                //     valueField: 'id',
+                //     label: 'Ng/nhận:',
+                //     labelWidth: 85,
+                //     flex: 1,
                 }]
             },{
                 layout: 'hbox',
@@ -138,41 +153,41 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     // editable: false,
                     // readOnly: true,
                     bind: {
-                        value: '{currentRec.handoverProductBuyercode}'
+                        value: '{pordercode}'
                     }
                 },{
                     xtype:'button',
                     // text: 'Xác nhận xuất',
                     margin: 2,
-                    // itemId:'btnHandover',
+                    itemId:'btnPlus',
                     ui: 'action',
                     iconCls: 'x-fa fa-plus',
                 },{
                     xtype:'button',
                     // text: 'Xác nhận xuất',
                     margin: 2,
-                    // itemId:'btnHandover',
+                    itemId:'btnSearch',
                     ui: 'action',
                     iconCls: 'x-fa fa-search',
                 }]
-            },{
-                layout: 'hbox',
-                flex: 1,
-                defaults: {
-                    margin: 1
-                },
-                items: [{
-                    xtype: 'textfield',
-                    label: 'Lý do:',
-                    labelWidth: 85,
-                    flex: 1,
-                    textAlign: 'left',
-                    // editable: false,
-                    // readOnly: true,
-                    bind: {
-                        // value: '{currentRec.handoverProductBuyercode}'
-                    }
-                }]
+            // },{
+            //     layout: 'hbox',
+            //     flex: 1,
+            //     defaults: {
+            //         margin: 1
+            //     },
+            //     items: [{
+            //         xtype: 'textfield',
+            //         label: 'Lý do:',
+            //         labelWidth: 85,
+            //         flex: 1,
+            //         textAlign: 'left',
+            //         // editable: false,
+            //         // readOnly: true,
+            //         bind: {
+            //             // value: '{currentRec.handoverProductBuyercode}'
+            //         }
+            //     }]
             },{
                 layout: 'hbox',
                 flex: 1,
@@ -229,7 +244,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
     },
     {
         // region: 'center',
-        border: false,
+        // border:true,
+        margin: 3,
         height: '200px',
         xtype: 'HandoverDetail',
         id: 'handover_cut_toline_detail',
@@ -237,6 +253,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
     {
         layout: 'hbox',
         docked : 'bottom',
+        height: 100,
         items: [{
             // xtype:'button',
             // text: 'Nơi nhận xác thực',
@@ -257,6 +274,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
             xtype:'button',
             text: 'Xác nhận xuất',
             margin: 2,
+            height: 50,
             itemId:'btnHandover',
             ui: 'action',
             iconCls: 'x-fa fa-check',
@@ -267,6 +285,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
             xtype:'button',
             text: 'Xóa',
             margin: 2,
+            height: 50,
             itemId:'btnDelete',
             ui: 'action',
             iconCls: 'x-fa fa-trash',
@@ -277,6 +296,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
             xtype:'button',
             text: 'Lưu',
             margin: 2,
+            height: 50,
             itemId:'btnSave',
             ui: 'action',
             iconCls: 'x-fa fa-save',

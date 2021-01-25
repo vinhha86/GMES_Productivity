@@ -58,12 +58,14 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline', {
     },{
         layout: 'hbox',
         docked : 'bottom',
+        height: 100,
         items: [{
             flex: 1
         },{
             xtype:'button',
             text: 'Thêm phiếu',
             margin: 2,
+            height: 50,
             itemId:'btnThem',
             ui: 'action',
             iconCls: 'x-fa fa-plus',
