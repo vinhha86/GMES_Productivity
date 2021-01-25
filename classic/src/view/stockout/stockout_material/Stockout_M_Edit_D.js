@@ -27,52 +27,87 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         }                     
     },
     columns: [
-        // { header: 'Mã vải chính', dataIndex: 'mainskucode', width: 70},
-        {
-            header: 'Mã vạch', dataIndex: 'skucode', width: 150,
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'materialFilterField',
-            //     width: 75,
-            //     margin: 2,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onMaterialFilterKeyup',
-            //         buffer: 500
-            //     }
-            // },
-        },
-        { header: 'Mã sản phẩm', dataIndex: 'product_code', width: 150 },
-        { header: 'Tên sản phẩm', dataIndex: 'skuname', flex: 1 },
-        { header: 'Màu', dataIndex: 'color_name', width: 100 },
-        { header: 'Cỡ', dataIndex: 'size_name', width: 100 },
-        {
-            header: 'Số lượng', dataIndex: 'totalpackage', width: 80,
-            summaryType: 'sum', summaryRenderer: 'renderSum'
-        },
-        { header: 'ĐVT', dataIndex: 'unit_name', width: 80 },
-        {
-            header: 'Đơn giá', dataIndex: 'unitprice', width: 100
-        },
-        {
-            header: 'Thành tiền', dataIndex: 'totalprice', width: 100,
-            summaryType: 'sum', summaryRenderer: 'renderSum'
-        },
-        { 
-            xtype: 'actioncolumn',
-            reference: 'stockout_contextmenu',
+
+		{
+			text: 'Mã NPL', 
+			width: 120,
+			dataIndex: 'sku_product_code'
+		},{
+			text: 'Tên NPL', 
+			dataIndex: 'skuname',
+			flex: 1
+		},{
+			text: 'Màu', 
+			dataIndex: 'color_name',
+			width: 70
+		},{
+			text: 'Cỡ', 
+			dataIndex: 'size_name',
+			width: 50
+		},{
+			text: 'ĐVT', 
+			dataIndex: 'unit_name',
+			width: 70
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'N.W', 
+			align:'right',
+			dataIndex: 'netweight',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 70
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'G.W', 
+			align:'right',
+			dataIndex: 'grossweight',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 70
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'M3', 
+			align:'right',
+			dataIndex: 'm3',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 70
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'Y/C KT', 
+			align:'right',
+			dataIndex: 'totalpackage_order',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 90
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL xuất', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalpackage',
+			width: 85
+		},
+		{ 
+			xtype: 'actioncolumn',
+			reference: 'stockin_contextmenu',
 			width: 25,
 			menuDisabled: true,
 			sortable: false,
 			items: [
-            {
+			{
 				iconCls: 'x-fa fas fa-bars violetIcon',
-                tooltip:'Chi tiết chíp',
-                handler: 'onEPCDetail'
-            }
-        ]
-        }        
+				tooltip:'Chi tiết chíp',
+				handler: 'onEPCDetail'
+			}
+		]
+        }   	
     ],
     dockedItems: [{
         dock: 'top',
