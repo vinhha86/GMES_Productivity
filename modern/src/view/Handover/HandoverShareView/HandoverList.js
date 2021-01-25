@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     extend: 'Ext.grid.Grid',
     xtype: 'HandoverList',
     id: 'HandoverList',
+    border: true,
     // viewModel: {
     //     type: 'HandoverListViewModel'
     // },
@@ -12,8 +13,8 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         'Ext.grid.plugin.CellEditing'
     ],
 
-    height: '100%',
-    width: '100%',
+    // height: '100%',
+    // width: '100%',
     // rowNumbers: true,
     markDirty: true,
 
