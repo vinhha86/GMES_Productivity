@@ -9,10 +9,13 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
 	},
 	items: [{
         layout: 'hbox',
+        xtype: 'container',
+        margin: '1 0 0 0',
         items:[{
             xtype: 'textfield',
             fieldLabel: 'Số hóa đơn',
-            width: 280,
+            labelWidth: 95,
+            width: 335,
             margin: '0 5 0 5',
             readOnly: true,
             bind: {
@@ -25,7 +28,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             altFormats: "Y-m-d\\TH:i:s.uO",
             fieldLabel: 'Ngày hóa đơn',
             margin: '0 5 0 0',
-            width: 280,
+            labelWidth: 90,
+            width: 220,
             bind: {
                 value: '{invoice.invoicedate}'
             }
@@ -35,7 +39,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             fieldLabel: 'Ngày rời cảng',
-            margin: '0 5 0 0',
+            margin: '0 5 0 5',
             width: 280,
             bind: {
                 value: '{invoice.shipdatefrom}'
@@ -54,9 +58,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
         }]
     },{
         layout: 'hbox',
+        xtype: 'container',
+        margin: '1 0 0 0',
         items:[{
             xtype:'combo',
             fieldLabel: 'Nhà cung cấp',
+            labelWidth: 95,
             margin: '0 5 0 5',
             bind:{
                 store: '{OrgProviderStore}',
@@ -64,10 +71,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             },
             valueField: 'id',
             displayField: 'name',
-            width: 565,
+            width: 560,
             queryMode: 'local'
         },{
             xtype:'combo',
+            margin: '0 5 0 5',
             fieldLabel: 'Đơn vị nhập',
             bind:{
                 store: '{OrgToStore}',
@@ -80,16 +88,19 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
         }]
     },{
         layout: 'hbox',
+        xtype: 'container',
+        margin: '1 0 0 0',
         items:[{
             xtype:'combo',
             fieldLabel: 'Cảng xếp hàng',
+            labelWidth: 95,
             bind:{
                 store: '{PortFromStore}',
                 value: '{invoice.org_portfromid_link}'
             },
             valueField: 'id',
             displayField: 'name',
-            width: 565,
+            width: 560,
             margin: '0 5 0 5',
             queryMode: 'local'
         },{
@@ -102,51 +113,137 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             valueField: 'id',
             displayField: 'name',
             flex: 1,
-            margin:'0 5 0 0',
+            margin:'0 5 0 5',
             queryMode: 'local'
         }]
     },
     {
         layout: 'hbox',
-        items:[{
-            xtype: 'textfield',
-            fieldLabel: 'Số tờ khai',
-            margin: '0 5 0 5',
-            width: 280,
-            bind: {
-                value: '{invoice.custom_declaration}'
+        xtype: 'container',
+        margin: '1 0 0 0',
+        items:[
+            {
+                layout: 'hbox',
+                xtype: 'container',
+                margin: '0 5 0 5',
+                border: false,
+                width: 335,
+                items:[
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Số tờ khai',
+                        labelWidth: 95,
+                        width: 270,
+                        bind: {
+                            value: '{invoice.custom_declaration}'
+                        }
+                    },
+                    {
+                        xtype:'button',
+                        margin: '0 0 0 2',
+                        itemId:'btnInvoice_Plus',
+                        iconCls: 'x-fa fa-plus',
+                        width: 30
+                    },
+                    {
+                        xtype:'button',
+                        margin: '0 0 0 2',
+                        itemId:'btnInvoice_Search',
+                        iconCls: 'x-fa fa-search',
+                        width: 30
+                    }
+                ]
+            },
+            {
+                xtype: 'datefield',
+                editable: false,
+                format: 'd/m/Y',
+                altFormats: "Y-m-d\\TH:i:s.uO",
+                fieldLabel: 'Ngày tờ khai',
+                margin: '0 5 0 0',
+                labelWidth: 90,
+                width: 220,
+                bind: {
+                    value: '{invoice.declaration_date}'
+                }
+            },
+            {
+                xtype: 'textfield',
+                fieldLabel: 'Người giao',
+                margin:'0 5 0 5',
+                flex : 1,
+                bind: {
+                    value: '{invoice.shippersson}'
+                }
             }
-        },{
-            xtype: 'datefield',
-            editable: false,
-            format: 'd/m/Y',
-            altFormats: "Y-m-d\\TH:i:s.uO",
-            fieldLabel: 'Ngày tờ khai',
-            margin: '0 5 0 0',
-            width: 280,
-            bind: {
-                value: '{invoice.declaration_date}'
-            }
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Người giao',
-            margin:'0 5 0 0',
-            flex : 1,
-            bind: {
-                value: '{invoice.shippersson}'
-            }
-        }]
+        ]
     },{
         layout: 'hbox',
-        items:[{
-            xtype: 'textfield',
-            fieldLabel: 'Ghi chú',
-            margin: '0 5 0 5',
-            flex: 1,
-            bind: {
-                value: '{invoice.extrainfo}'
+        xtype: 'container',
+        margin: '1 0 0 0',
+        items:[
+            {
+                layout: 'hbox',
+                xtype: 'container',
+                margin: '1 0 0 0',
+                items: [
+                    {
+                        layout: 'hbox',
+                        xtype: 'container',
+                        margin: '0 5 0 5',
+                        border: false,
+                        width: 335,
+                        items:[
+                            {
+                                xtype: 'textfield',
+                                bind: {
+                                    value: '{invoice.pcontract_code}'
+                                },
+                                fieldLabel: 'Mã đơn hàng',					
+                                labelWidth: 95,
+                                width: 270
+                            },
+                            {
+                                xtype:'button',
+                                margin: '0 0 0 2',
+                                itemId:'btnPcontract_Plus',
+                                iconCls: 'x-fa fa-plus',
+                                width: 30
+                            },
+                            {
+                                xtype:'button',
+                                margin: '0 0 0 2',
+                                itemId:'btnPContract_Search',
+                                iconCls: 'x-fa fa-search',
+                                width: 30
+                            }
+                        ]
+                    },
+                    {
+                        margin: '0 5 0 0',
+                        xtype: 'datefield',
+                        format: GSmartApp.util.State.get('dataFormat'),
+                        altFormats: "Y-m-d\\TH:i:s.uO",
+                        bind: {
+                            value: '{stockin.invoice_date}'
+                        },
+                        editable: false,
+                        labelWidth: 90,
+                        width: 220,
+                        fieldLabel: "Ngày lập"
+                    }
+                ]
+            },            
+            {
+                xtype: 'textfield',
+                fieldLabel: 'Ghi chú',
+                margin: '0 5 0 5',
+                flex: 1,
+                bind: {
+                    value: '{invoice.extrainfo}'
+                }
             }
-        }]
+        ]
     }]
 });
 

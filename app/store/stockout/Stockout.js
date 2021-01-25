@@ -25,7 +25,7 @@ Ext.define('GSmartApp.store.Stockout', {
                 update : 'POST',
                 destroy: 'POST'
             },          
-			url: config.getAppBaseUrl()+'/api/v1/stockout/stockout_list',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockout/stockout_list',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{

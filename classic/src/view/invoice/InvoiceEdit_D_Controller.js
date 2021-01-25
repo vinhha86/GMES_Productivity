@@ -4,6 +4,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
 	init: function() {
     },
     control: {
+		'#btnThuGon': {
+			click: 'onhiddenMaster'
+		},
+		'#btnMoRong': {
+			click: 'onhiddenMaster'
+		},        
         '#btnTimNPL': {
             click: 'onSearch'
         },
@@ -92,5 +98,13 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
             me.down('#netweight').focus();
           }
         }
-      }
+    },
+    onhiddenMaster: function () {
+		var viewModel = this.getViewModel();
+		var formMaster = Ext.getCmp('InvoiceEdit_M');
+		var isHidden = formMaster.getHeight() > 0 ? false : true;
+		viewModel.set('IsformMaster', !isHidden);
+
+		formMaster.setHidden(!isHidden);
+	},
 })

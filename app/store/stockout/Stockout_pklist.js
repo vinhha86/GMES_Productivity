@@ -22,7 +22,7 @@ Ext.define('GSmartApp.store.Stockout_pklist', {
             startParam: false, //to remove param "start"
             limitParam: false, //to remove param "limit"            
             cors: true,
-			url: config.getAppBaseUrl()+'/api/v1/stockout/getbystockoutdid',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockout/getbystockoutdid',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
