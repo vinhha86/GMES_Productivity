@@ -339,14 +339,6 @@ Ext.define('GSmartApp.view.main.MainController', {
             });
             me.fireEvent('loaddata', id);
         }
-
-        if(hashTag != ''){
-            backbutton = refs.backbutton;
-            backbutton.setHidden(false);
-        }else{
-            backbutton = refs.backbutton;
-            backbutton.setHidden(true);
-        }
     },
     
     setCurrentView: function (hashTag) {
@@ -380,6 +372,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             if(activeItem){
                 if(activeItem.xtype != 'MobileMenu'){
                     mainCard.pop();
+                }else{
                 }
                 if (!item) {
                     item = mainCard.push({
@@ -390,12 +383,11 @@ Ext.define('GSmartApp.view.main.MainController', {
             }
         }
 
-        if(hashTag != ''){
-            backbutton = refs.backbutton;
-            backbutton.setHidden(false);
+        activeItem = mainCard.getActiveItem();
+        if(activeItem.xtype == 'MobileMenu'){
+            Ext.getCmp('maintoolbar').setHidden(false);
         }else{
-            backbutton = refs.backbutton;
-            backbutton.setHidden(true);
+            Ext.getCmp('maintoolbar').setHidden(true);
         }
     },
 });

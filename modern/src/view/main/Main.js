@@ -19,6 +19,7 @@ Ext.define('GSmartApp.view.main.Main', {
     items: [
         {
             xtype: 'maintoolbar',
+            id: 'maintoolbar',
             docked: 'top',
             userCls: 'main-toolbar shadow'
         },

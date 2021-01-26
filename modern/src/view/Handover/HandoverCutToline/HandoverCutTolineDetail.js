@@ -83,6 +83,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                     displayField: 'nameParent',
                     valueField: 'id',
                     label: 'Nơi giao:',
+                    disabled: true,
                     labelWidth: 85,
                     flex: 1,
                 // },{
@@ -250,62 +251,85 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
         // region: 'center',
         // border:true,
         margin: 3,
-        height: '200px',
+        // height: '200px',
+        flex: 1,
         xtype: 'HandoverDetail',
         id: 'handover_cut_toline_detail',
     },
-    {
-        layout: 'hbox',
-        docked : 'bottom',
-        height: 100,
-        items: [{
-            // xtype:'button',
-            // text: 'Nơi nhận xác thực',
-            // itemId:'btn1',
-            // ui: 'action',
-            // // iconCls: 'x-fa fa-plus',
-            // formBind: false,
-            flex: 1,
-        },{
-            // xtype:'button',
-            // text: 'Huỷ xác thực nhận',
-            // itemId:'btn2',
-            // ui: 'action',
-            // // iconCls: 'x-fa fa-plus',
-            // formBind: false,
-            // flex: 1,
-        },{
-            xtype:'button',
-            text: 'Xác nhận xuất',
-            margin: 2,
-            height: 50,
-            itemId:'btnHandover',
-            ui: 'action',
-            iconCls: 'x-fa fa-check',
-            // bind: {
-            //     hidden: '{isBtnConfirmOutHidden}'
-            // }
-        },{
-            xtype:'button',
-            text: 'Xóa',
-            margin: 2,
-            height: 50,
-            itemId:'btnDelete',
-            ui: 'action',
-            iconCls: 'x-fa fa-trash',
-            // bind: {
-            //     hidden: '{isBtnDeleteHidden}'
-            // }
-        },{
-            xtype:'button',
-            text: 'Lưu',
-            margin: 2,
-            height: 50,
-            itemId:'btnSave',
-            ui: 'action',
-            iconCls: 'x-fa fa-save',
-            formBind: false,
-            // flex: 1,
-        }]
-    }],
+    // {
+    //     layout: 'hbox',
+    //     docked : 'bottom',
+    //     height: 100,
+    //     items: [{
+    //         // xtype:'button',
+    //         // text: 'Nơi nhận xác thực',
+    //         // itemId:'btn1',
+    //         // ui: 'action',
+    //         // // iconCls: 'x-fa fa-plus',
+    //         // formBind: false,
+    //         flex: 1,
+    //     },{
+    //         // xtype:'button',
+    //         // text: 'Huỷ xác thực nhận',
+    //         // itemId:'btn2',
+    //         // ui: 'action',
+    //         // // iconCls: 'x-fa fa-plus',
+    //         // formBind: false,
+    //         // flex: 1,
+    //     },{
+    //         xtype:'button',
+    //         text: 'Xác nhận xuất',
+    //         margin: 2,
+    //         height: 50,
+    //         itemId:'btnHandover',
+    //         ui: 'action',
+    //         iconCls: 'x-fa fa-check',
+    //         // bind: {
+    //         //     hidden: '{isBtnConfirmOutHidden}'
+    //         // }
+    //     },{
+    //         xtype:'button',
+    //         text: 'Xóa',
+    //         margin: 2,
+    //         height: 50,
+    //         itemId:'btnDelete',
+    //         ui: 'action',
+    //         iconCls: 'x-fa fa-trash',
+    //         // bind: {
+    //         //     hidden: '{isBtnDeleteHidden}'
+    //         // }
+    //     },{
+    //         xtype:'button',
+    //         text: 'Lưu',
+    //         margin: 2,
+    //         height: 50,
+    //         itemId:'btnSave',
+    //         ui: 'action',
+    //         iconCls: 'x-fa fa-save',
+    //         formBind: false,
+    //         // flex: 1,
+    //     }]
+    // }
+],
+    tbar: [{
+        xtype:'button',
+        iconCls: 'x-fa fa-arrow-left',
+        itemId:'btnBack',
+        ui: 'action',
+    },{
+        xtype:'button',
+        iconCls: 'x-fa fa-check',
+        // itemId:'btnThem',
+        ui: 'action',
+    },{
+        xtype:'button',
+        iconCls: 'x-fa fa-trash',
+        // itemId:'btnBack',
+        ui: 'action',
+    },{
+        xtype:'button',
+        iconCls: 'x-fa fa-save',
+        // itemId:'btnThem',
+        ui: 'action',
+    }]
 });

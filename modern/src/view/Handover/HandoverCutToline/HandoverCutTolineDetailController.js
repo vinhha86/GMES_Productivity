@@ -35,6 +35,13 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         '#btnSearch': {
             tap: 'onBtnSearch'
         },
+        '#btnBack': {
+            tap: 'onBtnBackTap'
+        }
+    },
+
+    onBtnBackTap: function(){
+        Ext.util.History.back();
     },
     onLoadData: function (id){
         var m = this;

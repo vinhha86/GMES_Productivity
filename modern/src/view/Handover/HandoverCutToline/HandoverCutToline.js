@@ -80,12 +80,14 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline', {
         // }
     ],
     tbar: [{
-        iconCls: 'x-fa fa-list'
-    }, {
-        iconCls: 'x-fa fa-times'
-    }, {
-        iconCls: 'x-fa fa-file-alt'
-    }, {
-        iconCls: 'x-far fa-image'
+        xtype:'button',
+        iconCls: 'x-fa fa-arrow-left',
+        itemId:'btnBack',
+        ui: 'action',
+    },{
+        xtype:'button',
+        iconCls: 'x-fa fa-plus',
+        itemId:'btnThem',
+        ui: 'action',
     }]
 });

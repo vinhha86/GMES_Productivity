@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineController', {
     control: {
         '#btnThem': {
             tap: 'onBtnThemTap'
+        },
+        '#btnBack': {
+            tap: 'onBtnBackTap'
         }
     },
     loadData: function(){
@@ -29,5 +32,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineController', {
         var viewId = viewModel.get('viewId');
         this.redirectTo(viewId + "/" + 0 + "/edit");
         // console.log(viewId + "/" + 0 + "/edit");
+    },
+    onBtnBackTap: function(){
+        Ext.util.History.back();
     }
 });
