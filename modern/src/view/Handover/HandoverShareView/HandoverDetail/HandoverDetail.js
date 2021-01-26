@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     height: '100%',
     width: '100%',
     // rowNumbers: true,
-    markDirty: true,
+    // markDirty: true,
 
     plugins: {
         gridcellediting: {
@@ -54,6 +54,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         flex: 1,
         maxWidth: 120,
         dataIndex: 'totalpackage',
+        align: 'right',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
@@ -68,6 +69,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         flex: 1,
         maxWidth: 120,
         dataIndex: 'totalpackagecheck',
+        align: 'right',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },

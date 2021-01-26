@@ -40,7 +40,8 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     }, {
         text: 'Mã lệnh',
         dataIndex: 'ordercode',
-        width: 120,
+        // width: 120,
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             var status = record.data.status;
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -55,7 +56,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     }, {
         text: 'Số phiếu',
         dataIndex: 'handover_code',
-        width: 120,
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -68,15 +69,15 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         align: 'center',
         renderer: Ext.util.Format.dateRenderer('d/m/Y')
     },
-    {
-        text: 'Người giao',
-        dataIndex: 'handoverUserName',
-        width: 120,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },
+    // {
+    //     text: 'Người giao',
+    //     dataIndex: 'handoverUserName',
+    //     width: 120,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },
     {
         text: 'Nơi giao',
         dataIndex: 'orgFromNameParent',
@@ -88,23 +89,33 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     },
     {
         text: 'SL giao',
-        dataIndex: 'handoverTotal',
-        width: 60,
+        dataIndex: 'totalpackage',
+        width: 80,
         align: 'end',
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return Ext.util.Format.number(value, '0,000');;
+            return Ext.util.Format.number(value, '0,000');
         }
     },
     {
-        text: 'Người nhận',
-        dataIndex: 'receiverUserName',
-        width: 120,
+        text: 'SL nhận',
+        dataIndex: 'totalpackagecheck',
+        width: 80,
+        align: 'end',
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return Ext.util.Format.number(value, '0,000');
         }
     },
+    // {
+    //     text: 'Người nhận',
+    //     dataIndex: 'receiverUserName',
+    //     width: 120,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },
     {
         text: 'Nơi nhận',
         dataIndex: 'orgToNameParent',
@@ -117,7 +128,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     {
         text: 'Trạng thái',
         dataIndex: 'status',
-        flex: 1,
+        width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             var valueStr = '';
             switch(value){

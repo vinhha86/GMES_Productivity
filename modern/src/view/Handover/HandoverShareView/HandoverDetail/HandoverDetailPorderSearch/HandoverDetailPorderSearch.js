@@ -20,6 +20,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearch', {
         store:'{POrder_ListStore}'
     },
 
+    hideHeaders: true,
+
     columns: [{
         text: 'Mã lệnh',
         flex: 1,

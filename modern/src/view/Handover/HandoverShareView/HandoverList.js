@@ -56,10 +56,11 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         dataIndex: 'orgToName',
         // editable: true
     }, {
-        text: 'Số lượng',
+        text: 'SL giao',
         flex: 1,
         maxWidth: 120,
         dataIndex: 'totalpackage',
+        align: 'right',
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },

@@ -12,10 +12,20 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     onChildTapCutToLineDetail: function ( list, location, eOpts ) {
         var me = this;
         var viewModel = this.getViewModel();
-        
+        var columnIndex = location.columnIndex;
         var record = location.record;
-        // console.log(record);
-        var recordTotalpackage = record.get('totalpackage');
+
+        console.log(record);
+        var recordTotalpackage = 0;
+        if(columnIndex == 0 || columnIndex == 1){
+            return;
+        }
+        if(columnIndex == 2){
+            recordTotalpackage = record.get('totalpackage');
+        }
+        if(columnIndex == 3){
+            recordTotalpackage = record.get('totalpackagecheck');
+        }
 
         var dialog = Ext.create({
             xtype: 'dialog',
@@ -26,12 +36,11 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             closeAction: 'destroy',
             maximizable: false,
             maskTapHandler: function(){
-                // console.log('mask tapped');
                 if(dialog){
                     dialog.close();
                 }
             },
-            bodyPadding: '5 20 5 20',
+            bodyPadding: '10 20 10 20',
             maxWidth: 300,
             layout: {
                 type: 'fit', // fit screen for window
@@ -58,23 +67,38 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             if(recordTotalpackage == null){
                 recordTotalpackage == 0
             }
-            record.set('totalpackage', recordTotalpackage);
+            if(columnIndex == 2){
+                record.set('totalpackage', recordTotalpackage);
+            }
+            if(columnIndex == 3){
+                record.set('totalpackagecheck', recordTotalpackage);
+            }
             if(handoverProduct){
                 var handoverProductTotalPackage = 0;
+                var handoverProductTotalPackagecheck = 0;
                 var handoverSKUs = handoverProduct.handoverSKUs;
+                // console.log(handoverProduct);
+                // console.log(handoverSKUs);
+
                 if(handoverSKUs || handoverSKUs.length > 0){
                     for(var i = 0; i < handoverSKUs.length; i++){
                         var handoverSKU = handoverSKUs[i];
                         var handoverSKUTotalPackage = handoverSKU.totalpackage;
+                        var handoverSKUTotalPackagecheck = handoverSKU.totalpackagecheck;
                         if(handoverSKUTotalPackage == null){
                             handoverSKUTotalPackage = 0;
                         }
+                        if(handoverSKUTotalPackagecheck == null){
+                            handoverSKUTotalPackagecheck = 0;
+                        }
                         handoverProductTotalPackage+=handoverSKUTotalPackage;
+                        handoverProductTotalPackagecheck+=handoverSKUTotalPackagecheck;
                     }
                 }
                 // handoverProduct.totalpackage = null;
                 // handoverProduct.totalpackage = handoverProductTotalPackage;
                 viewModel.set('handoverProduct.totalpackage', handoverProductTotalPackage);
+                viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
                 // console.log(handoverProductTotalPackage);
             }
             

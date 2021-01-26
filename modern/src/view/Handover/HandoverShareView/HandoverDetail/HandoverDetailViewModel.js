@@ -37,10 +37,13 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             porderid_link: null,
             pordergrantid_link: null,
             status: null,
-            handoverProducts: [{
-                
-            }]
+            handoverProducts: []
         },
+
+        handoverProduct: {
+            handoverSKUs: []
+        },
+
         pordercode: '',
         isCreateNew: false,
         isIn: false, // view nhap
@@ -56,11 +59,35 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         ptsSkuCode: '',
     },
     formulas: {
-        isBtnConfirmOutHidden: function(get){ // btn xac nhan xuat
-
+        isBtnConfirmOutHidden : function (get) { // Xuat
+            if (get('isCreateNew')) {
+                return true;
+            }
+            if (get('currentRec.status') != 0) {
+                return true;
+            }
+            return false;
         },
-        isBtnConfirmInHidden: function(get){ // btn xac nhan nhan
-        
-        }
+        isBtnConfirmInHidden : function (get) { // Nhap
+            if (get('isCreateNew')) {
+                return true;
+            }
+            if (get('currentRec.status') != 1) {
+                return true;
+            }
+            return false;
+        },
+        isBtnDeleteHidden : function (get) { // Xoa
+            if (get('isCreateNew')) {
+                return true;
+            }
+            return false;
+        },
+        isBtnCancelConfirmHidden : function (get) { // Huy xac nhan
+            if (get('currentRec.status') != 2) {
+                return true;
+            }
+            return false;
+        },
     }
 })

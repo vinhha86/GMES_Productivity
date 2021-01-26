@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverSku
         label: 'Số lượng:',
         textAlign: 'right',
         hideTrigger:true,
+        clearable: false,
         labelWidth: 100,
         width: 220,
     }],

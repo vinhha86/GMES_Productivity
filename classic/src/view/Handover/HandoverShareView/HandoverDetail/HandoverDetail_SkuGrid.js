@@ -21,8 +21,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_SkuGrid', {
     },
     columns:[
         // { header: 'SKU', dataIndex: 'skuCode', flex: 1},
-        { header: 'Mã vạch', dataIndex: 'barcode', flex: 1},
-        { header: 'Màu', dataIndex: 'skuColor', width: 100},
+        // { header: 'Mã vạch', dataIndex: 'barcode', flex: 1},
+        { header: 'Màu', dataIndex: 'skuColor', flex: 1},
         { header: 'Cỡ', dataIndex: 'skuSize', width: 70},  
         { 
             text: 'SL giao',

@@ -701,8 +701,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
     onEditProductTotalPackage: function (editor, context, e) {
         var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
         var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
-        HandoverDetail_ProductGrid.setLoading(true);
-        HandoverDetail_SkuGrid.setLoading(true);
+        // HandoverDetail_ProductGrid.setLoading(true);
+        // HandoverDetail_SkuGrid.setLoading(true);
 
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');
@@ -723,8 +723,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             return;
         }
 
-        HandoverDetail_ProductGrid.setLoading(false);
-        HandoverDetail_SkuGrid.setLoading(false);
+        // HandoverDetail_ProductGrid.setLoading(false);
+        // HandoverDetail_SkuGrid.setLoading(false);
         var isCreateNew = viewModel.get('isCreateNew');
         if(!isCreateNew){
             var me = this;
