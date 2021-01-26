@@ -316,7 +316,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
         iconCls: 'x-fa fa-arrow-left',
         itemId:'btnBack',
         ui: 'action',
-    },{
+    },
+    '->'
+    ,{
         xtype:'button',
         iconCls: 'x-fa fa-check',
         // itemId:'btnThem',
