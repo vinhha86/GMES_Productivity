@@ -37,6 +37,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
                 flex:1
             },
             {
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  'In phiếu',
+                iconCls: 'x-fa fa-print',
+                itemId: 'btnStockout_Print'
+            },
+            {
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  'Đồng bộ kế toán',
+                iconCls: 'x-fa fa-refresh',
+                itemId: 'btnStockout_Sync'
+            },
+            {
                 width:80,
                 margin: '0 5 5 0',
                 xtype:'button',

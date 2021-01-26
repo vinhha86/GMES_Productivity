@@ -39,7 +39,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 	},
 	onInvoice_Search:function(){
 		var form = Ext.create('Ext.window.Window', {
-            height: 500,
             closable: true,
             resizable: false,
             modal: true,

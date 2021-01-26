@@ -357,6 +357,41 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         });
         form.show();
     },
+    onShowBalance: function (rec) {
+        console.log(rec);
+        var viewmodel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Bảng cân đối NPL',
+            closeAction: 'destroy',
+			height: Ext.getBody().getViewSize().height * .95,
+			width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Balance_Main',
+                viewModel: {
+                    data: {
+                        pcontract_poid_link: rec.data.id
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#InsertPO_Main').down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+            var storePO = viewmodel.getStore('PContractPOList');
+            storePO.load();
+            form.close();
+        })
+    },    
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
 
@@ -467,7 +502,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             me.onUpload(record);
                         }
                     }
-                }
+                },
+                '-',  
+                {
+                    text: 'Bảng cân đối NPL',
+                    itemId: 'btnBalance',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-balance-scale blueIcon',
+                    handler: function () {
+                        me.onShowBalance(record);
+                    }
+                },
             ]
         });
         // HERE IS THE MAIN CHANGE
