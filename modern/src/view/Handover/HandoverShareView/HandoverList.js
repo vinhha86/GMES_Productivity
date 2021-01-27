@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     // },
     controller: 'HandoverListController',
     reference: 'HandoverList',
+    cls: 'HandoverListModern',
 
     requires: [
         'Ext.grid.plugin.CellEditing'
@@ -42,6 +43,17 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         text: 'Mã SP',
         flex: 1,
         dataIndex: 'handoverProductBuyercode',
+        renderer: function (value, record, dataIndex, cell, column ) {
+            var c = record.data.status;
+            if (c == 0) {
+                cell.setCls('status0');
+            } else if (c == 1) {
+                cell.setCls('status1');
+            } else if (c == 2) {
+                cell.setCls('status2');
+            }
+            return value;
+        },
         // editable: true
     }, {
         text: 'Ngày giao',

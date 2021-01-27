@@ -20,6 +20,10 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirm', {
         width: 300,
         itemId: 'username',
         labelWidth: 105,
+        enableKeyEvents : true,
+        listeners: {
+            keypress: 'onEnterConfirm'
+        }
     }, {
         xtype:'textfield',
         margin: 5,
@@ -34,7 +38,11 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirm', {
         width: 300,
         itemId: 'password',
         labelWidth: 105,
-        inputType: 'password'
+        inputType: 'password',
+        enableKeyEvents : true,
+        listeners: {
+            keypress: 'onEnterConfirm'
+        }
     }],
     dockedItems:[{
         layout:'hbox',

@@ -655,10 +655,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
 
         if(
-            viewId == 'handover_line_fromcut_detail' ||
+            // viewId == 'handover_line_fromcut_detail' ||
             viewId == 'handover_pack_fromline_detail'
         ){
-            // console.log(viewId);
             HandoverSkuStore.rejectChanges();
             return;
         }
@@ -842,7 +841,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             resizable: false,
             modal: true,
             border: false,
-            title: 'Nơi nhận xác thực',
+            title: 'Xác thực',
             closeAction: 'destroy',
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -1441,7 +1440,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewModel = this.getViewModel();
         var currentRec = viewModel.get('currentRec');
         // console.log(currentRec);
-        console.log(record);
+        // console.log(record);
 
         if(currentRec.id == null || currentRec.id == 0){ // handover moi, chua co du lieu
             
@@ -1452,9 +1451,11 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                 var productid_link = record.get('productid_link');
                 var handoverid_link = currentRec.id;
                 m.getNewHandoverSKUs(record, handoverid_link, porderid_link, productid_link);
+                // console.log('getNewHandoverSKUs');
             }else{
                 // set HandoverDetail_SkuGrid theo handoverSKUs
                 m.setOldHandoverSKUs(record);
+                // console.log('setOldHandoverSKUs 1');
             }
         }else{ // handover cu, da co du lieu
             // lay sku theo handover
@@ -1464,6 +1465,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             }else{
                 // neu co handoverSKUs
                 m.setOldHandoverSKUs(record);
+                // console.log('setOldHandoverSKUs 2');
             }
         }
     },

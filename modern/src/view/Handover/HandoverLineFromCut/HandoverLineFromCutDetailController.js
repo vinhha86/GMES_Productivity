@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
+Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutTolineDetailController',
+    alias: 'controller.HandoverLineFromCutDetailController',
     init: function() {
         var viewModel = this.getViewModel();
-        viewModel.set('viewId', 'handover_cut_toline_edit');
+        viewModel.set('viewId', 'handover_line_fromcut_edit');
 
         var UserListStore = viewModel.getStore('UserListStore');
         UserListStore.loadUserbyOrg(1);
@@ -29,18 +29,18 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         '#btnLuu': {
             tap: 'onLuu'
         },
-        '#btnDelete': {
-            tap: 'onDelete'
-        },
+        // '#btnDelete': {
+        //     tap: 'onDelete'
+        // },
         '#btnHandover': {
             tap: 'onConfirm'
         },
-        '#btnPlus': {
-            tap: 'onBtnPlus'
-        },
-        '#btnSearch': {
-            tap: 'onBtnSearch'
-        },
+        // '#btnPlus': {
+        //     tap: 'onBtnPlus'
+        // },
+        // '#btnSearch': {
+        //     tap: 'onBtnSearch'
+        // },
         '#btnBack': {
             tap: 'onBtnBackTap'
         }
@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
 
     onBtnBackTap: function(){
         // Ext.util.History.back();
-        this.redirectTo("handover_cut_toline");
+        this.redirectTo("handover_line_fromcut");
     },
     onLoadData: function (id){
         var m = this;
@@ -162,7 +162,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                         if (null == date) date = new Date(handover_date);
                         viewModel.set('currentRec.handover_date',date);
 
-                        m.redirectTo("handover_cut_toline" + "/" + response.data.id + "/edit");
+                        m.redirectTo("handover_line_fromcut" + "/" + response.data.id + "/edit");
                     }
                     else {
                         Ext.toast('Lưu thất bại', 1000);
@@ -417,7 +417,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                         Ext.toast(response.message, 1000);
                     }else{
                         Ext.toast('Xóa thành công', 1000);
-                        m.redirectTo("handover_cut_toline");
+                        m.redirectTo("handover_line_fromcut");
                     }
                 } else {
                     Ext.toast('Xóa thất bại', 1000);

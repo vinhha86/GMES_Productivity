@@ -6,14 +6,14 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
     },
     control: {
         '#btnLuu': {
-            click: 'onLoginClick'
+            tap: 'onLoginClick'
         },
         '#btnThoat': {
-            click: 'onThoat'
+            tap: 'onThoat'
         },
     },
     onThoat: function(){
-        this.getView().up('window').close();
+        this.fireEvent('Thoat');
     },
     onLoginClick: function() {
         var m = this;
@@ -54,14 +54,15 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
                     //
 
                     //
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Xác nhận thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
+                    Ext.toast('Xác nhận thất bại', 1000);
+                    // Ext.Msg.show({
+                    //     title: 'Thông báo',
+                    //     msg: 'Xác nhận thất bại',
+                    //     buttons: Ext.MessageBox.YES,
+                    //     buttonText: {
+                    //         yes: 'Đóng',
+                    //     }
+                    // });
                 }
             });
         });
@@ -78,10 +79,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
         if(
             currentStatus == 0 &&
             (
-            viewId == 'handover_cut_toline_detail' ||
-            viewId == 'handover_cut_toprint_detail' ||
-            viewId == 'handover_line_topack_detail' ||
-            viewId == 'handover_line_toprint_detail'
+            viewId == 'handover_cut_toline_edit'
             )
         ) {
             status = 1;
@@ -90,10 +88,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
         if(
             currentStatus == 1 &&
             (
-            viewId == 'handover_line_fromcut_detail' ||
-            viewId == 'handover_pack_fromline_detail' ||
-            viewId == 'handover_cut_toprint_detail' ||
-            viewId == 'handover_line_toprint_detail'
+            viewId == 'handover_line_fromcut_edit'
             )
         ) {
             status = 2;
@@ -118,68 +113,69 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if(response.message == 'Không tồn tại POrderProcessing'){
-                            Ext.MessageBox.show({
-                                title: "Thông báo",
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
+                            Ext.toast(response.message, 1000);
+                            // Ext.MessageBox.show({
+                            //     title: "Thông báo",
+                            //     msg: response.message,
+                            //     buttons: Ext.MessageBox.YES,
+                            //     buttonText: {
+                            //         yes: 'Đóng',
+                            //     }
+                            // });
                         }else {
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Xác thực thành công',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
+                            Ext.toast('Xác thực thành công', 1000);
+                            // Ext.Msg.show({
+                            //     title: 'Thông báo',
+                            //     msg: 'Xác thực thành công',
+                            //     buttons: Ext.MessageBox.YES,
+                            //     buttonText: {
+                            //         yes: 'Đóng',
+                            //     }
+                            // });
                             //
-                            var viewId = viewModel.get('viewId');
-                            var mainView = Ext.getCmp(viewId);
-                            if(approver_userid_link != 0)
-                                mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
-                            if(receiver_userid_link != 0)
-                                mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
-                            mainView.getViewModel().set('currentRec.status', status);
-                            //
-                            m.onThoat();
+                            // var viewId = viewModel.get('viewId');
+                            // var mainView = Ext.getCmp(viewId);
+                            // if(approver_userid_link != 0)
+                            //     mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
+                            // if(receiver_userid_link != 0)
+                            //     mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
+                            // mainView.getViewModel().set('currentRec.status', status);
+                            // //
+                            // m.onThoat();
+
+                            var obj = new Object();
+                            obj.approver_userid_link = approver_userid_link;
+                            obj.receiver_userid_link = receiver_userid_link;
+                            obj.status = status;
+
+                            m.fireEvent('XacThuc', obj);
                         }
                     }
                     else {
-                        Ext.Msg.show({
-                            title: 'Xác thực thất bại',
-                            msg: response.message,
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
+                        Ext.toast('Xác thực thất bại', 1000);
+                        console.log(response.message);
+                        // Ext.Msg.show({
+                        //     title: 'Xác thực thất bại',
+                        //     msg: response.message,
+                        //     buttons: Ext.MessageBox.YES,
+                        //     buttonText: {
+                        //         yes: 'Đóng',
+                        //     }
+                        // });
                     }
 
                 } else {
-                    Ext.Msg.show({
-                        title: 'Xác thực thất bại',
-                        msg: null,
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
+                    Ext.toast('Xác thực thất bại', 1000);
+                    console.log(null);
+                    // Ext.Msg.show({
+                    //     title: 'Xác thực thất bại',
+                    //     msg: null,
+                    //     buttons: Ext.MessageBox.YES,
+                    //     buttonText: {
+                    //         yes: 'Đóng',
+                    //     }
+                    // });
                 }
             })
     },
-    onEnterConfirm: function(textfield, e, eOpts){
-        var m = this;
-        var viewModel = this.getViewModel();
-        if(e.getKey() == e.ENTER) {
-            console.log('here yet');
-            if(viewModel.get('username') == '' || viewModel.get('password') == ''){
-                return;
-            }else{
-                m.onLoginClick();
-            }
-        }
-    }
 })
