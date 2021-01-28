@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
 
     items: [
         {
+            xtype: 'container',
             layout: 'hbox',
             // docked : 'top',
             defaults: {
@@ -234,6 +235,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                                     clearable: false,
                                     labelWidth: 85,
                                     flex: 1,
+                                    anchor: '100%',
+                                    ui: 'light'
                                 },{
                                     xtype: 'numberfield',
                                     // reference: 'cboorgto',
