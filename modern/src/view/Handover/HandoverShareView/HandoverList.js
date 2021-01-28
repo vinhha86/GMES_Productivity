@@ -56,21 +56,21 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         },
         // editable: true
     }, {
-        text: 'Ngày giao',
+        text: 'Ngày GH',
         flex: 1,
-        maxWidth: 150,
+        maxWidth: 90,
         dataIndex: 'handover_date',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // editable: true
     }, {
         text: 'Nơi nhận',
-        flex: 1,
+        maxWidth: 90,
         dataIndex: 'orgToName',
         // editable: true
     }, {
         text: 'SL giao',
         flex: 1,
-        maxWidth: 120,
+        maxWidth: 80,
         dataIndex: 'totalpackage',
         align: 'right',
         renderer: function(value){

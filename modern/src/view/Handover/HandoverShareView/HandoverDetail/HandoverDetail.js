@@ -41,18 +41,17 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     // }, {
         text: 'Màu',
         flex: 1,
-        maxWidth: 150,
         dataIndex: 'skuColor',
         // editable: true
     }, {
         text: 'Cỡ',
-        flex: 1,
+        maxWidth: 80,
         dataIndex: 'skuSize',
         // editable: true
     }, {
         text: 'SL giao',
         flex: 1,
-        maxWidth: 120,
+        maxWidth: 80,
         dataIndex: 'totalpackage',
         align: 'right',
         renderer: function(value){
@@ -67,7 +66,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     }, {
         text: 'SL nhận',
         flex: 1,
-        maxWidth: 120,
+        maxWidth: 85,
         dataIndex: 'totalpackagecheck',
         align: 'right',
         renderer: function(value){
