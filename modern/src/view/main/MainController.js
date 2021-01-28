@@ -265,6 +265,134 @@ Ext.define('GSmartApp.view.main.MainController', {
     
     //// new menu
 
+    // init: function (view) {
+    //     var me = this,
+    //         refs = me.getReferences();
+    //     //console.log(view);
+    //     me.callParent([ view ]);
+
+    //     me.nav = refs.navigation;
+    //     me.navigationTree = refs.navigationTree;
+
+    //     var mainCardPanel = refs.mainCardPanel;
+    //     mainCardPanel.push({
+    //         xtype: 'MobileMenu',
+    //         routeId: 'mobilemenu'
+    //     });
+
+    //     if(''==window.location.hash) {
+    //         // this.redirectTo('lsporderprocessing');
+    //         // this.redirectTo('mobilemenu');
+    //     } else {
+    //         var hash = window.location.hash.substring(1);
+    //         console.log(' hash view: ', hash);
+    //         var listhast = hash.split('/');
+    //         if(listhast.length> 1)
+    //         this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+    //         else
+    //         this.onRouteChange(hash);
+    //     }
+    // },
+
+    // onRouteChange:function(id){
+    //     console.log('onRouteChange:' + id);
+    //     var me = this,
+    //     refs = me.getReferences();
+    //     // backbutton = refs.backbutton;
+    //     // backbutton.setHidden(true);
+    //     this.setCurrentView(id);
+    // },
+
+	// onRouteDataChange(hashTag,id,args){
+    //     console.log('onRouteDataChange: ' + hashTag + ' ' + id + ' ' + args);
+
+	// 	args = Ext.Array.clean((args || '').split('/'));
+	// 	hashTag = (hashTag || '').toLowerCase();
+	// 	var session= GSmartApp.util.State.get('session');
+	// 	if(!session){
+	// 		 this.redirectTo("login");
+	// 	}
+    //     var me = this,
+    //         refs = me.getReferences(),
+    //         mainCard = refs.mainCardPanel,
+    //         mainLayout = mainCard.getLayout();
+
+    //     var activeItem = mainCard.getActiveItem();
+    //     var mobileMenu = mainCard.child('component[routeId=' + 'mobilemenu' + ']');
+    //     var mobileMenuStore = mobileMenu.getViewModel().getStore('MobileMenu');
+    //     var record = mobileMenuStore.findRecord('id', hashTag);
+    //     var xtype_edit = '';
+    //     if(record){
+    //         xtype_edit = record.get('edit');
+    //     }
+
+    //     if(activeItem){
+    //         mainCard.pop();
+    //     }
+
+    //     var item = mainCard.child('component[routeId=' + xtype_edit + ']');
+    //     if (!item) {
+    //         item = mainCard.push({
+    //             xtype: xtype_edit,
+    //             // xtype: 'handover_cut_toline_edit',
+    //             routeId: xtype_edit
+    //         });
+    //         me.fireEvent('loaddata', id);
+    //     }
+    // },
+    
+    // setCurrentView: function (hashTag) {
+    //     console.log('setCurrentView:' + hashTag);
+    //     hashTag = (hashTag || '').toLowerCase();
+
+    //     var me = this,
+    //         refs = me.getReferences(),
+    //         mainCard = refs.mainCardPanel;
+    //         item = mainCard.child('component[routeId=' + hashTag + ']');
+
+        
+    //     var activeItem = mainCard.getActiveItem();
+    //     var mobileMenu = mainCard.child('component[routeId=' + 'mobilemenu' + ']');
+    //     var mobileMenuStore = mobileMenu.getViewModel().getStore('MobileMenu');
+    //     var record = mobileMenuStore.findRecord('id', hashTag);
+    //     var xtype = '';
+    //     if(record){
+    //         xtype = record.get('xtype');
+    //     }
+
+    //     if(hashTag == null || hashTag == ''){
+    //         // neu chuyen ve menu, pop view hien tai
+    //         if(activeItem){
+    //             mainCard.pop();
+    //         }
+
+    //     }else{
+    //         // neu chuyen sang view khac
+    //         // check xem view hien tai co phai la menu hay khong, neu la menu thi ko pop, con khong thi pop
+    //         if(activeItem){
+    //             if(activeItem.xtype != 'MobileMenu'){
+    //                 mainCard.pop();
+    //             }else{
+    //             }
+    //             if (!item) {
+    //                 item = mainCard.push({
+    //                     xtype: xtype,
+    //                     routeId: hashTag
+    //                 });
+    //             }
+    //         }
+    //     }
+
+    //     activeItem = mainCard.getActiveItem();
+    //     if(activeItem.xtype == 'MobileMenu'){
+    //         Ext.getCmp('maintoolbar').setHidden(false);
+    //     }else{
+    //         Ext.getCmp('maintoolbar').setHidden(true);
+    //     }
+    // },
+
+
+    //
     init: function (view) {
         var me = this,
             refs = me.getReferences();
@@ -274,26 +402,42 @@ Ext.define('GSmartApp.view.main.MainController', {
         me.nav = refs.navigation;
         me.navigationTree = refs.navigationTree;
 
-        var mainCardPanel = refs.mainCardPanel;
-        mainCardPanel.push({
-            xtype: 'MobileMenu',
-            routeId: 'mobilemenu'
-        });
-
         if(''==window.location.hash) {
-            // this.redirectTo('lsporderprocessing');
-            // this.redirectTo('mobilemenu');
+            me.redirectTo('mobilemenu');
         } else {
             var hash = window.location.hash.substring(1);
             console.log(' hash view: ', hash);
             var listhast = hash.split('/');
             if(listhast.length> 1)
-            this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+            me.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
             else
-            this.onRouteChange(hash);
+            me.onRouteChange(hash);
         }
+
+        // var MobileMenuStore = Ext.getStore('MobileMenu');
+        // MobileMenuStore.getSorters().add('index');
+        // MobileMenuStore.loadStoreAsync();
+        // MobileMenuStore.load({
+		// 	scope: this,
+		// 	callback: function(records, operation, success) {
+		// 		if(!success){
+		// 			 me.fireEvent('logout');
+		// 		} else {
+        //             if(''==window.location.hash) {
+        //                 me.redirectTo('mobilemenu');
+        //             } else {
+        //                 var hash = window.location.hash.substring(1);
+        //                 console.log(' hash view: ', hash);
+        //                 var listhast = hash.split('/');
+        //                 if(listhast.length> 1)
+        //                 me.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+        //                 else
+        //                 me.onRouteChange(hash);
+        //             }
+        //         }
+		// 	}
+        // });
     },
-    
     onRouteChange:function(id){
         console.log('onRouteChange:' + id);
         var me = this,
@@ -314,30 +458,35 @@ Ext.define('GSmartApp.view.main.MainController', {
 		}
         var me = this,
             refs = me.getReferences(),
-            mainCard = refs.mainCardPanel,
-            mainLayout = mainCard.getLayout();
+            mainCard = refs.mainCardPanel;
 
         var activeItem = mainCard.getActiveItem();
-        var mobileMenu = mainCard.child('component[routeId=' + 'mobilemenu' + ']');
-        var mobileMenuStore = mobileMenu.getViewModel().getStore('MobileMenu');
-        var record = mobileMenuStore.findRecord('id', hashTag);
+        var store = Ext.getStore('NavigationTree'); console.log(store.getData());
+        var node = store.findNode('routeId', hashTag); console.log(node);
         var xtype_edit = '';
-        if(record){
-            xtype_edit = record.get('edit');
-        }
 
+        if(node){
+            xtype_edit = node.get('xtype_edit');
+        }
         if(activeItem){
-            mainCard.pop();
+            mainCard.pop(); console.log('popped');
         }
 
         var item = mainCard.child('component[routeId=' + xtype_edit + ']');
         if (!item) {
             item = mainCard.push({
                 xtype: xtype_edit,
-                // xtype: 'handover_cut_toline_edit',
                 routeId: xtype_edit
             });
             me.fireEvent('loaddata', id);
+        }
+        // mainCard.setActiveItem(item);
+
+        activeItem = mainCard.getActiveItem();
+        if(activeItem.xtype == 'MobileMenu'){
+            Ext.getCmp('maintoolbar').setHidden(false);
+        }else{
+            Ext.getCmp('maintoolbar').setHidden(true);
         }
     },
     
@@ -348,40 +497,32 @@ Ext.define('GSmartApp.view.main.MainController', {
         var me = this,
             refs = me.getReferences(),
             mainCard = refs.mainCardPanel;
-            item = mainCard.child('component[routeId=' + hashTag + ']');
-
         
         var activeItem = mainCard.getActiveItem();
-        var mobileMenu = mainCard.child('component[routeId=' + 'mobilemenu' + ']');
-        var mobileMenuStore = mobileMenu.getViewModel().getStore('MobileMenu');
-        var record = mobileMenuStore.findRecord('id', hashTag);
+        var store = Ext.getStore('NavigationTree');
+        var node = store.findNode('routeId', hashTag);
         var xtype = '';
-        if(record){
-            xtype = record.get('xtype');
-        }
 
-        if(hashTag == null || hashTag == ''){
-            // neu chuyen ve menu, pop view hien tai
-            if(activeItem){
-                mainCard.pop();
-            }
-
-        }else{
-            // neu chuyen sang view khac
-            // check xem view hien tai co phai la menu hay khong, neu la menu thi ko pop, con khong thi pop
-            if(activeItem){
-                if(activeItem.xtype != 'MobileMenu'){
-                    mainCard.pop();
-                }else{
-                }
-                if (!item) {
-                    item = mainCard.push({
-                        xtype: xtype,
-                        routeId: hashTag
-                    });
-                }
-            }
+        if(node){
+            xtype = node.get('id');
         }
+        if(hashTag == 'mobilemenu'){
+            xtype = 'MobileMenu';
+        }
+        if(activeItem){
+            mainCard.pop();
+            // activeItem.destroy();
+        }
+        var item = mainCard.child('component[routeId=' + hashTag + ']');
+        if (!item) {
+            item = mainCard.push({
+                xtype: xtype,
+                routeId: hashTag
+            });
+            // console.log('here');
+            // console.log(item);
+        }
+        // mainCard.setActiveItem(item);
 
         activeItem = mainCard.getActiveItem();
         if(activeItem.xtype == 'MobileMenu'){

@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
-        console.log(session);
+        // console.log(session);
         viewModel.set('isCreateNew', true);
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
@@ -155,7 +155,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                 if (success) {
                     if (response.respcode == 200) {
                         Ext.toast('Lưu thành công', 1000);
-                        console.log(response.data);
+                        // console.log(response.data);
                         viewModel.set('currentRec', response.data);
                         var handover_date = viewModel.get('currentRec.handover_date');
                         var date = Ext.Date.parse(handover_date, 'c');
@@ -276,7 +276,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
 
         // get event
         dialog.down('#HandoverDetailPorderSearch').getController().on('selectPOrder', function (record) {
-            console.log(record);
+            // console.log(record);
 
             var porderid_link = record.get('id');
             var ordercode = record.get('ordercode');

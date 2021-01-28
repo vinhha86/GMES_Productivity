@@ -1,6 +1,12 @@
 Ext.define('GSmartApp.view.pprocess.POrderProcessingController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrderProcessingController',
+
+    control: {
+        '#btnBack': {
+            tap: 'onBtnBackTap'
+        }
+    },
     init: function() {
         var viewmodel = this.getViewModel();
         var FactoryStore = viewmodel.get('FactoryStore');
@@ -97,4 +103,9 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingController', {
             this.porderFilter = null;
         }
     },
+
+    onBtnBackTap: function(){
+        // Ext.util.History.back();
+        this.redirectTo("mobilemenu");
+    }
 });

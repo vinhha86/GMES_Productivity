@@ -50,6 +50,15 @@ Ext.define('GSmartApp.view.main.Main', {
             reference: 'mainCardPanel',
             userCls: 'main-container',
             navigationBar: false,
+            layout: {
+                type: 'card',
+                animation: {
+                    duration: 300,
+                    easing: 'ease-out',
+                    type: 'fade',
+                    direction: 'left'
+                }
+            }
             // hidden: true,
         },
     ]

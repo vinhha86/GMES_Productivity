@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.mobilemenu.MobileMenu', {
                 '<div class="contentImg {icon}"></div>' +
                 '<div class="contentText">{text_vi}</div>' +
             '</div>',
+        // store: 'MobileMenu',
         bind: {
             store: '{MobileMenu}'
         },

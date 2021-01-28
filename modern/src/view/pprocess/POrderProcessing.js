@@ -1,6 +1,6 @@
 Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     extend: 'Ext.form.Panel',
-    xtype: 'porderprocessing',
+    xtype: 'lsporderprocessing',
     controller: 'POrderProcessingController',
 	viewModel: {
         type: 'POrderProcessingViewModel'
@@ -118,5 +118,12 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     },{
         flex: 1,
         height: '70px'
+    }],
+
+    tbar: [{
+        xtype:'button',
+        iconCls: 'x-fa fa-arrow-left',
+        itemId:'btnBack',
+        ui: 'action',
     }]
 });

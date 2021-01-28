@@ -35,6 +35,6 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineController', {
     },
     onBtnBackTap: function(){
         // Ext.util.History.back();
-        this.redirectTo("");
+        this.redirectTo("mobilemenu");
     }
 });
