@@ -5,18 +5,18 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     // viewModel: {
     //     type: 'HandoverDetailViewModel'
     // },
+    cls: 'HandoverListModern',
     controller: 'HandoverDetailController',
     reference: 'HandoverDetail',
 
     requires: [
         'Ext.grid.plugin.CellEditing'
     ],
-
-    border: true,
     height: '100%',
     width: '100%',
-    // rowNumbers: true,
-    // markDirty: true,
+
+    columnLines: true,
+    striped: false,
 
     plugins: {
         gridcellediting: {

@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.pprocess.PProcessViewModel', {
+Ext.define('GSmartApp.view.pprocess.PackagingProcess_Model', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.PProcessViewModel',
+    alias: 'viewmodel.PackagingProcess_Model',
     stores: {
         POrderProcessingStore: {
             type: 'porderprocessing'
