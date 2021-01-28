@@ -12,6 +12,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
         },
         '#CutPlan_NPL_View' :{
             itemclick : 'onSelectNPL'
+        },
+        '#btnAdd_CutPlan' : {
+            click: 'onThemKeHoach'
         }
     },
     onHideNPL: function(){
@@ -24,5 +27,23 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
     onSelectNPL: function(grid, record, item, index, e, eOpts ){
         var viewmodel = this.getViewModel();
         viewmodel.set('npl', record.data);
+    },
+    onThemKeHoach: function(){
+        var viewmodel = this.getViewModel();
+        var npl = viewmodel.get('npl');
+
+        if(npl.id == null) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn nguyên liệu',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else {
+            
+        }
     }
 })

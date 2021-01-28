@@ -129,7 +129,6 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
     },
     createTab: function () {        
         newActiveItem = this.getView();
-        var grid = this.getView();
         var viewmodel = this.getViewModel();
         var productid_link = viewmodel.get('IdProduct');
         var pcontractid_link = viewmodel.get('PContract.id');

@@ -44,8 +44,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         if(productiondate_plan == null) productiondate_plan = new Date(porder.productiondate_plan);
         var golivedate = Ext.Date.parse(porder.golivedate, 'c');
         if(golivedate == null) productiondate_plan = new Date(porder.golivedate);
-        console.log(productiondate_plan);
-        console.log(golivedate);
         porder.productiondate_plan = productiondate_plan;  
         porder.golivedate = golivedate;
         
