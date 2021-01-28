@@ -17,11 +17,12 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearchController', {
 					 this.fireEvent('logout');
 				} else {
                     // console.log(records);
+                    var items = POrder_ListStore.getData().items;
                     if(viewId == 'handover_cut_toline_detail'){
-                        if(records.length == 0){
+                        if(items.length == 0){
                             m.fireEvent('found0Porder');
                         }
-                        if(records.length == 1){
+                        if(items.length == 1){
                             m.fireEvent('found1Porder', records);
                         }
                     }
