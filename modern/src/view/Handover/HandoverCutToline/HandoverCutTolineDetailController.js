@@ -70,7 +70,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         viewModel.set('isCreateNew', true);
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
-        viewModel.set('currentRec.handover_userid_link', session.id);
+        viewModel.set('currentRec.handover_userid_link', session.user);
         viewModel.set('currentRec.handover_date', new Date());
         viewModel.set('currentRec.handovertypeid_link', 1);
     },
@@ -227,11 +227,13 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var viewModel = this.getViewModel();
         var pordercode = viewModel.get('pordercode');
         var viewId = viewModel.get('viewId');
-
+        var currentRec = viewModel.get('currentRec');
+        var granttoorgid_link = currentRec.orgid_to_link;
+        // console.log(granttoorgid_link);
         // console.log(pordercode);
         // console.log(viewId);
 
-        if(pordercode == null || pordercode.length == 0){
+        if((pordercode == null || pordercode.length == 0) && granttoorgid_link == null){
             Ext.toast('Mã lệnh không được bỏ trống', 1000);
             return;
         }
@@ -264,6 +266,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                 viewModel: {
                     data: {
                         pordercode: pordercode,
+                        granttoorgid_link: granttoorgid_link,
                         viewId: viewId
                     }
                 }
@@ -283,6 +286,29 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
             ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
             me.down('#orgid_to_link').setValue(null);
             me.down('#orgid_to_link').focus();
+
+            viewModel.set('currentRec.porderid_link', porderid_link);
+            viewModel.set('pordercode', ordercode);
+            m.loadHandoverProductOnPorderSelect(porderid_link);
+
+            dialog.close();
+        });
+        dialog.down('#HandoverDetailPorderSearch').getController().on('found0Porder', function () {
+            Ext.toast('Không tìm thấy lệnh', 1000);
+            dialog.close();
+        });
+        dialog.down('#HandoverDetailPorderSearch').getController().on('found1Porder', function (record) {
+            Ext.toast('Tìm thấy 1 lệnh', 1000);
+            var record = record[0];
+
+            var porderid_link = record.get('id');
+            var ordercode = record.get('ordercode');
+
+            // cut to line, load store ListOrgStore_To
+            var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
+            ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
+            // me.down('#orgid_to_link').setValue(null);
+            // me.down('#orgid_to_link').focus();
 
             viewModel.set('currentRec.porderid_link', porderid_link);
             viewModel.set('pordercode', ordercode);

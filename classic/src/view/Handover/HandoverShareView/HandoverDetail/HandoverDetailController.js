@@ -346,11 +346,18 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             })
     },
     onBtnSearch: function(){
+        var m = this;
         var viewModel = this.getViewModel();
         var pordercode = viewModel.get('pordercode');
         var viewId = viewModel.get('viewId');
 
-        if(pordercode == null || pordercode.length == 0){
+        var currentRec = viewModel.get('currentRec');
+        var granttoorgid_link = null;
+        if(viewId == 'handover_cut_toline_detail'){
+            granttoorgid_link = currentRec.orgid_to_link
+        }
+
+        if((pordercode == null || pordercode.length == 0) && granttoorgid_link == null){
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Mã lệnh không được bỏ trống',
@@ -381,12 +388,51 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                     type: 'HandoverDetailPorderSearchViewModel',
                     data: {
                         pordercode: pordercode,
+                        granttoorgid_link: granttoorgid_link,
                         viewId: viewId
                     }
                 }
             }]
         });
         form.show();
+
+        form.down('#HandoverDetailPorderSearch').getController().on('found0Porder', function () {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Không tìm thấy lệnh",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            form.close();
+        });
+        form.down('#HandoverDetailPorderSearch').getController().on('found1Porder', function (record) {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Tìm thấy 1 lệnh",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            var record = record[0];
+
+            var porderid_link = record.get('id');
+            var ordercode = record.get('ordercode');
+
+            // cut to line, load store ListOrgStore_To
+            var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
+            ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
+            // me.down('#orgid_to_link').setValue(null);
+            // me.down('#orgid_to_link').focus();
+
+            viewModel.set('currentRec.porderid_link', porderid_link);
+            viewModel.set('pordercode', ordercode);
+            m.loadHandoverProductOnPorderSelect(porderid_link);
+
+            form.close();
+        });
     },
     onLuu: function () {
         var m = this;
@@ -490,6 +536,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
+        console.log(session);
         viewModel.set('isCreateNew', true);
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
@@ -710,7 +757,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             viewId == 'handover_line_fromcut_detail' ||
             viewId == 'handover_pack_fromline_detail'
         ){
-            console.log(viewId);
+            // console.log(viewId);
             HandoverProductStore.rejectChanges();
             return;
         }
@@ -1426,7 +1473,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
     // change cbo org to
     onOrgToCboSelect: function(combo, record, eOpts){
-        console.log('onOrgToCboSelect');
+        // console.log('onOrgToCboSelect');
         // xu ly chon to chuyen > tim ra cac lenh sx > neu co 1 lenh thi day vao ma lenh luon
         // view xuat ban thanh pham len chuyen
         // if(condition){
@@ -1505,6 +1552,6 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewModel = this.getViewModel();
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
         HandoverSkuStore.setData(record.get('handoverSKUs'));
-        console.log(record.get('handoverSKUs'));
+        // console.log(record.get('handoverSKUs'));
     }
 })
