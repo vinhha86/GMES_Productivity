@@ -225,6 +225,29 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             viewModel.set('fieldState', true);
                             viewModel.set('titleName', record.data.name);
                         },
+                    }, {
+                        text: 'Thêm Tổ cắt',
+                        itemId: 'btnAddCutLine_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 17);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
                     }
                 ]
                 });
