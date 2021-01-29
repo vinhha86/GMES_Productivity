@@ -97,7 +97,7 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 		});
 	},
 	loadStoreBySearch: function(handovertypeid_link, ordercode, handover_datefrom, 
-		handover_dateto, orgid_from_link, orgid_to_link, status, limit, page){
+		handover_dateto, orgid_from_link, orgid_to_link, status, limit, page, viewId){
 		var me=this;
 		var params = new Object();
 		params.handovertypeid_link = handovertypeid_link;
@@ -110,6 +110,7 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 		// params.limit = limit;
 		// params.page = page;
 		me.pageSize = limit;
+		params.viewId = viewId;
 
 		this.setProxy({
 			type: 'ajax',

@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             // console.log('handover_cut_tolinelist');
             viewModel.set('viewId', 'handover_cut_toline');
             HandoverStore.loadStoreBySearch(1, '', 
-            null, null, null, null, [], 25, 1);
+            null, null, null, null, [], 25, 1, 'handover_cut_toline');
             orgtypestringfrom = '17';
             orgtypestringto = '14';
         }
@@ -38,7 +38,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             console.log('handover_line_fromcutlist');
             viewModel.set('viewId', 'handover_line_fromcut');
             HandoverStore.loadStoreBySearch(1, '', 
-            null, null, null, null, [1], 25, 1);
+            null, null, null, null, [1], 25, 1, 'handover_line_fromcut');
             orgtypestringfrom = '17';
             orgtypestringto = '14';
         }
@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             console.log('handover_line_topacklist');
             viewModel.set('viewId', 'handover_line_topack');
             HandoverStore.loadStoreBySearch(4, '', 
-                null, null, null, null, [], 25, 1);
+                null, null, null, null, [], 25, 1, 'handover_line_topack');
             orgtypestringfrom = '14';
             orgtypestringto = '9';
         }
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             console.log('handover_pack_fromlinelist');
             viewModel.set('viewId', 'handover_pack_fromline');
             HandoverStore.loadStoreBySearch(4, '', 
-                null, null, null, null, [1], 25, 1);
+                null, null, null, null, [1], 25, 1, 'handover_pack_fromline');
                 orgtypestringfrom = '14';
                 orgtypestringto = '9';
         }
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             console.log('handover_line_toprintlist');
             viewModel.set('viewId', 'handover_line_toprint');
             HandoverStore.loadStoreBySearch(5, '', 
-                null, null, null, null, [], 25, 1);
+                null, null, null, null, [], 25, 1, 'handover_line_toprint');
             orgtypestringfrom = '14';
             orgtypestringto = '20';
         }
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             console.log('handover_cut_toprintlist');
             viewModel.set('viewId', 'handover_cut_toprint');
             HandoverStore.loadStoreBySearch(2, '', 
-                null, null, null, null, [], 25, 1);
+                null, null, null, null, [], 25, 1, 'handover_cut_toprint');
             orgtypestringfrom = '17';
             orgtypestringto = '20';
         }
@@ -83,7 +83,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             console.log('handover_pack_tostocklist');
             viewModel.set('viewId', 'handover_pack_tostock');
             HandoverStore.loadStoreBySearch(9, '', 
-                null, null, null, null, [], 25, 1);
+                null, null, null, null, [], 25, 1, 'handover_pack_tostock');
             orgtypestringfrom = '9';
             orgtypestringto = '8';
         }
@@ -156,7 +156,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
             page = 1;
         }
         store.loadStoreBySearch(handovertypeid_link, ordercode, 
-            handover_datefrom, handover_dateto, orgid_from_link, orgid_to_link, status, limit, page);
+            handover_datefrom, handover_dateto, orgid_from_link, orgid_to_link, status, limit, page, viewId);
     },
     onThemMoi: function (m, record) {
         // this.redirectTo("handover_cut_toline/" + 0 + "/edit");

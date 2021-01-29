@@ -98,6 +98,15 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
         }
     },
     {
+        text: 'Nơi nhận',
+        dataIndex: 'orgToNameParent',
+        width: 100,
+        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },
+    {
         text: 'SL nhận',
         dataIndex: 'totalpackagecheck',
         width: 80,
@@ -116,15 +125,6 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     //         return value;
     //     }
     // },
-    {
-        text: 'Nơi nhận',
-        dataIndex: 'orgToNameParent',
-        width: 100,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },
     {
         text: 'Trạng thái',
         dataIndex: 'status',
