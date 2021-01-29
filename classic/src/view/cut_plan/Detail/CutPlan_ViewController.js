@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             click: 'onThemSoDo'
         }
     },
+    onXoa: function(){
+
+    },
     onEdit: function(editor, context, e){
         if(context.colIdx >= 6){
             this.UpdateSizeAmount(context);            

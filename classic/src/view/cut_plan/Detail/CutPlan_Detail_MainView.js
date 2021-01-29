@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Detail_MainView', {
             margin: 5
         },{
             xtype: 'textfield',
-            fieldLabel: 'NPL',
+            fieldLabel: 'Tên NPL',
             readOnly: true,
             labelWidth: 50,
             bind: {
