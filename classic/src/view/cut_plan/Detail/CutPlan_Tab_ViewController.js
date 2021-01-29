@@ -52,7 +52,14 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
             })
     },
     onTabChange: function(tabPanel, newCard, oldCard, eOpts){
+        var viewmodel = this.getViewModel();
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
         gridsize.CreateColumns();
+        var store = viewmodel.getStore('CutPlanRowStore');
+        var colorid_link = newCard.colorid_link;
+        var porder = viewmodel.get('porder');
+        var npl = viewmodel.get('npl');
+
+        store.loadStore_bycolor(colorid_link, porder.id, npl.id, porder.productid_link, porder.pcontractid_link);
     }
 })

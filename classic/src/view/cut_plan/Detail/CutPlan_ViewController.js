@@ -51,16 +51,15 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             xtype: 'numbercolumn',
                             dataIndex: listid[i].toString(),
                             width: 65,
-                            format: '0.0000',
                             align: 'right',
                             editor: {
                                 xtype: 'textfield',
                                 selectOnFocus: true,
-                                maskRe: /[0-9.]/
+                                maskRe: /[-0-9.]/
                             },
                             renderer: function (value, metaData, record) {
                                 if (value == 0) return "";
-                                return Ext.util.Format.number(value, '0.0000')
+                                return value;
                             }
                         });
                         grid.headerCt.insert(grid.columns.length, column);
@@ -72,7 +71,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var model = storeBOM.getModel();
                     var fields = model.getFields();
                     for (var i = 0; i < fields.length; i++) {
-                        if (i > 7) {
+                        if (i > 8) {
                             model.removeFields(fields[i].name);
                         }
                     }

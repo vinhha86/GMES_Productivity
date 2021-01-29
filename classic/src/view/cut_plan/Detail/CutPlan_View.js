@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         }
     },
     bind:{
-        store:'{PContractBomColorStore}'
+        store:'{CutPlanRowStore}'
     },
     columns:[{
         text: 'Sơ đồ',
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     },{
         text: 'Lá vải',
@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     },{
         text: 'Dài sơ đồ',
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     },{
         text: 'SL vải',
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 80,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     },{
         text: 'Khổ',
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     },{
         text: 'Số cây',
@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     },{
         text: 'Ngày',
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            return value == 'null' ? '' : value;
         }
     }],
     dockedItems: [{

@@ -3,36 +3,37 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
     alias: 'controller.CutPlan_NPL_ViewCotroller',
     init: function () {
         var viewmodel = this.getViewModel();
-        
-        
+
+
     },
     control: {
-        '#btnHideNPL' : {
+        '#btnHideNPL': {
             click: 'onHideNPL'
         },
-        '#CutPlan_NPL_View' :{
-            itemclick : 'onSelectNPL'
+        '#CutPlan_NPL_View': {
+            itemclick: 'onSelectNPL'
         },
-        '#btnAdd_CutPlan' : {
+        '#btnAdd_CutPlan': {
             click: 'onThemKeHoach'
         }
     },
-    onHideNPL: function(){
+    onHideNPL: function () {
         var viewmodel = this.getViewModel();
         var form = this.getView();
-        form.collapse('left', 0);    
+        form.collapse('left', 0);
 
         viewmodel.set('isHiddenNPL', true);
     },
-    onSelectNPL: function(grid, record, item, index, e, eOpts ){
+    onSelectNPL: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         viewmodel.set('npl', record.data);
     },
-    onThemKeHoach: function(){
+    onThemKeHoach: function () {
         var viewmodel = this.getViewModel();
         var npl = viewmodel.get('npl');
+        var porder = viewmodel.get('porder');
 
-        if(npl.id == null) {
+        if (npl.id == null) {
             Ext.Msg.alert({
                 title: "Thông báo",
                 msg: 'Bạn chưa chọn nguyên liệu',
@@ -43,7 +44,32 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
             });
         }
         else {
-            
+            var params = new Object();
+            params.material_skuid_link = npl.id;
+            params.porderid_link = porder.id;
+            params.productid_link = porder.productid_link;
+            params.pcontractid_link = porder.pcontractid_link;
+
+            GSmartApp.Ajax.post('/api/v1/cutplan/create', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode != 200) {
+                            Ext.Msg.show({
+                                title: "Thông báo",
+                                msg: 'Lưu thất bại',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                        else {
+                            //Thanh cong thi commit de bo dau do trong grid
+                            
+                        }
+                    }
+                })
         }
     }
 })

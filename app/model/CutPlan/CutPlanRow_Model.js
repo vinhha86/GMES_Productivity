@@ -9,6 +9,7 @@ Ext.define('GSmartApp.model.CutPlan.CutPlanRow_Model', {
 		'sl_vai ',
         'kho',
         'so_cay',
-        'ngay'
+        'ngay',
+        'type'
     ]
 });
