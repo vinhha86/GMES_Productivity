@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
             return value;
         }
     },{
-        text: 'NPL',
+        text: 'Tên NPL',
         dataIndex: 'product_name',
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {

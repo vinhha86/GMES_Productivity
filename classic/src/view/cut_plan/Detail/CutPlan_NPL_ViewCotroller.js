@@ -27,6 +27,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
     onSelectNPL: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         viewmodel.set('npl', record.data);
+
+        var colorid_link = viewmodel.get('colorid_link_active');
+        var porder = viewmodel.get('porder');
+        var npl = viewmodel.get('npl');
+
+        var store = viewmodel.getStore('CutPlanRowStore');
+        store.loadStore_bycolor(colorid_link, porder.id, npl.id, porder.productid_link, porder.pcontractid_link);
     },
     onThemKeHoach: function () {
         var viewmodel = this.getViewModel();

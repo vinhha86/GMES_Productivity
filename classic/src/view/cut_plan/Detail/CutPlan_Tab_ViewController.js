@@ -48,6 +48,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
                         });
                     }
                     newActiveItem.setActiveTab(0);
+                    viewmodel.set('colorid_link_active', listid[0]);
                 }
             })
     },
@@ -55,11 +56,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
         var viewmodel = this.getViewModel();
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
         gridsize.CreateColumns();
-        var store = viewmodel.getStore('CutPlanRowStore');
         var colorid_link = newCard.colorid_link;
         var porder = viewmodel.get('porder');
         var npl = viewmodel.get('npl');
 
+        viewmodel.set('colorid_link_active', colorid_link);
+
+        var store = viewmodel.getStore('CutPlanRowStore');
         store.loadStore_bycolor(colorid_link, porder.id, npl.id, porder.productid_link, porder.pcontractid_link);
     }
 })

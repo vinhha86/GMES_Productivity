@@ -7,13 +7,97 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         
     },
     control: {
-        
+        '#btnThemSoDo' : {
+            click: 'onThemSoDo'
+        }
     },
-    
+    onEdit: function(editor, context, e){
+        if(context.colIdx >= 6){
+            this.UpdateSizeAmount(context);            
+        }
+        else {
+
+        }
+    },
+    UpdateSizeAmount: function(context){
+        var viewmodel = this.getViewModel();
+        var porder = viewmodel.get('porder');
+        var npl = viewmodel.get('npl');
+        var store = viewmodel.getStore('CutPlanRowStore');
+        
+        var params = new Object();
+        params.porderid_link = porder.id;
+        params.material_skuid_link = npl.id;
+        params.productid_link = porder.productid_link;
+        params.colorid_link = viewmodel.get('colorid_link_active');
+        params.sizeid_link = parseInt(context.field);
+        params.amount = parseInt(context.value);
+        params.name = context.record.get('name');
+
+        GSmartApp.Ajax.post('/api/v1/cutplan/update_size_amount', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if(response.respcode == 200) {
+                        var rec_catdu = store.getAt(1);
+                        rec_catdu.set(context.field, parseInt(rec_catdu.get(context.field)) +parseInt(context.value));
+                        store.commitChanges();
+                    }
+                    else {
+                        Ext.Msg.alert({
+                            title: "Thông báo",
+                            msg: 'Có lỗi trong quá trình xử lý dữ liệu! Bạn hãy thử lại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function(){
+                                store.rejectChanges();
+                            }
+                        }); 
+                    }
+                }
+            })
+    },
+    onThemSoDo: function(){
+        var viewmodel = this.getViewModel();
+        var npl = viewmodel.get('npl');
+
+        if (npl.id == null) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn nguyên liệu',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
+        else {
+            var params = new Object();
+            var porder = viewmodel.get('porder');
+            params.porderid_link = porder.id;
+            params.material_skuid_link = npl.id;
+            params.productid_link = porder.productid_link;
+            params.pcontractid_link = porder.pcontractid_link;
+            params.colorid_link = viewmodel.get('colorid_link_active');
+
+            GSmartApp.Ajax.post('/api/v1/cutplan/add_row', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if(response.respcode == 200) {
+                        var store = viewmodel.getStore('CutPlanRowStore');
+                        store.load();
+                    }
+                }
+            })
+        }
+    },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 6
+        var length = 7
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length -1 ) {
                 grid.headerCt.remove(i);
@@ -55,7 +139,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             editor: {
                                 xtype: 'textfield',
                                 selectOnFocus: true,
-                                maskRe: /[-0-9.]/
+                                maskRe: /[0-9]/
                             },
                             renderer: function (value, metaData, record) {
                                 if (value == 0) return "";

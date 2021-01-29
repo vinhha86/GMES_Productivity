@@ -1,6 +1,5 @@
 Ext.define('GSmartApp.model.CutPlan.CutPlanRow_Model', {
     extend: 'GSmartApp.model.Base',
-
     fields: [
 		'id',
 		'name',
@@ -9,7 +8,6 @@ Ext.define('GSmartApp.model.CutPlan.CutPlanRow_Model', {
 		'sl_vai ',
         'kho',
         'so_cay',
-        'ngay',
-        'type'
+        'ngay'
     ]
 });
