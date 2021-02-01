@@ -8,6 +8,12 @@ Ext.define('GSmartApp.model.CutPlan.CutPlanRow_Model', {
 		'sl_vai ',
         'kho',
         'so_cay',
-        'ngay'
+        'ngay',
+        {
+            name: 'sl_vai',
+            calculate: function(data) {
+                return data.la_vai * data.dai_so_do;
+            }
+        }, 
     ]
 });

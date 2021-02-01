@@ -3,34 +3,117 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     alias: 'controller.CutPlan_ViewController',
     init: function () {
         var viewmodel = this.getViewModel();
-        
-        
+
+
     },
     control: {
-        '#btnThemSoDo' : {
+        '#btnThemSoDo': {
             click: 'onThemSoDo'
         }
     },
-    onXoa: function(grid, rowIndex, colIndex){
+    onXoa: function (grid, rowIndex, colIndex) {
+        var viewmodel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
-        if(rec.get('type') == 0){
-            
+        if (rec.get('type') == 0) {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn có chắc chắn xóa sơ đồ ?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        var porder = viewmodel.get('porder');
+                        var npl = viewmodel.get('npl');
+
+                        var params = new Object();
+                        params.cutplanrowid_link = rec.get('id');
+                        params.porderid_link = porder.id;
+                        params.material_skuid_link = npl.id;
+
+                        GSmartApp.Ajax.post('/api/v1/cutplan/delete_row', Ext.JSON.encode(params),
+                            function (success, response, options) {
+                                if (success) {
+                                    var response = Ext.decode(response.responseText);
+                                    if (response.respcode == 200) {
+                                        var store = viewmodel.getStore('CutPlanRowStore');
+                                        store.load();
+                                    }
+                                    else {
+                                        Ext.Msg.alert({
+                                            title: "Thông báo",
+                                            msg: 'Có lỗi trong quá trình xử lý dữ liệu! Bạn hãy thử lại',
+                                            buttons: Ext.MessageBox.YES,
+                                            buttonText: {
+                                                yes: 'Đóng'
+                                            }
+                                        });
+                                    }
+                                }
+                            })
+                    }
+                }
+            });
         }
     },
-    onEdit: function(editor, context, e){
-        if(context.colIdx >= 7){
-            this.UpdateSizeAmount(context);            
+    onEdit: function (editor, context, e) {
+        if (context.originalValue == context.value) return;
+
+        if (context.colIdx >= 8) {
+            this.UpdateSizeAmount(context);
         }
         else {
-
+            this.UpdateRow(context);
         }
     },
-    UpdateSizeAmount: function(context){
+    UpdateRow: function(context){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('CutPlanRowStore');
+
+        var params = new Object();
+        params.data = context.record.data;
+
+        if(context.field != 'ngay'){
+            var arr = context.record.get('ngay').split('-');
+
+            var ngay = new Date(arr[2], parseInt(arr[1]) - 1, arr[0]);
+
+            params.data.ngay = ngay;
+        }
+        
+
+        GSmartApp.Ajax.post('/api/v1/cutplan/update_row', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        store.load();
+                    }
+                    else {
+                        Ext.Msg.alert({
+                            title: "Thông báo",
+                            msg: 'Có lỗi trong quá trình xử lý dữ liệu! Bạn hãy thử lại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            },
+                            fn: function () {
+                                store.rejectChanges();
+                            }
+                        });
+                    }
+                }
+            })
+    },
+    UpdateSizeAmount: function (context) {
         var viewmodel = this.getViewModel();
         var porder = viewmodel.get('porder');
         var npl = viewmodel.get('npl');
         var store = viewmodel.getStore('CutPlanRowStore');
-        
+
         var params = new Object();
         params.porderid_link = porder.id;
         params.material_skuid_link = npl.id;
@@ -38,15 +121,15 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.colorid_link = viewmodel.get('colorid_link_active');
         params.sizeid_link = parseInt(context.field);
         params.amount = parseInt(context.value);
-        params.name = context.record.get('name');
+        params.cutplanrowid_link = context.record.get('id');
 
         GSmartApp.Ajax.post('/api/v1/cutplan/update_size_amount', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200) {
+                    if (response.respcode == 200) {
                         var rec_catdu = store.getAt(1);
-                        rec_catdu.set(context.field, parseInt(rec_catdu.get(context.field)) +parseInt(context.value));
+                        rec_catdu.set(context.field, parseInt(rec_catdu.get(context.field)) + parseInt(context.value) - parseInt(context.originalValue));
                         store.commitChanges();
                     }
                     else {
@@ -57,17 +140,18 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             buttonText: {
                                 yes: 'Đóng'
                             },
-                            fn: function(){
+                            fn: function () {
                                 store.rejectChanges();
                             }
-                        }); 
+                        });
                     }
                 }
             })
     },
-    onThemSoDo: function(){
+    onThemSoDo: function () {
         var viewmodel = this.getViewModel();
         var npl = viewmodel.get('npl');
+        var store = viewmodel.getStore('CutPlanRowStore');
 
         if (npl.id == null) {
             Ext.Msg.alert({
@@ -78,38 +162,50 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     yes: 'Đóng'
                 }
             });
+            return;
         }
-        else {
-            var params = new Object();
-            var porder = viewmodel.get('porder');
-            params.porderid_link = porder.id;
-            params.material_skuid_link = npl.id;
-            params.productid_link = porder.productid_link;
-            params.pcontractid_link = porder.pcontractid_link;
-            params.colorid_link = viewmodel.get('colorid_link_active');
 
-            GSmartApp.Ajax.post('/api/v1/cutplan/add_row', Ext.JSON.encode(params),
+        if (store.data.items.length == 0) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Nguyên liệu chưa tạo kế hoạch cắt! Bạn phải tạo kế hoạch trước khi thêm sơ đồ',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }
+
+        var params = new Object();
+        var porder = viewmodel.get('porder');
+        params.porderid_link = porder.id;
+        params.material_skuid_link = npl.id;
+        params.productid_link = porder.productid_link;
+        params.pcontractid_link = porder.pcontractid_link;
+        params.colorid_link = viewmodel.get('colorid_link_active');
+
+        GSmartApp.Ajax.post('/api/v1/cutplan/add_row', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200) {
+                    if (response.respcode == 200) {
                         var store = viewmodel.getStore('CutPlanRowStore');
                         store.load();
                     }
                 }
             })
-        }
     },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
         var length = 8
         for (var i = 0; i < grid.headerCt.items.length; i++) {
-            if (i > length -1 ) {
+            if (i > length - 1) {
                 grid.headerCt.remove(i);
                 i--;
             }
-        }      
+        }
         var listtitle = [];
         var listid = [];
 
@@ -133,19 +229,25 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             listtitle.push(data.coSanPham);
                         }
                     }
-            
+
                     for (var i = 0; i < listtitle.length; i++) {
-            
+
                         var column = Ext.create('Ext.grid.column.Number', {
                             text: listtitle[i],
                             xtype: 'numbercolumn',
                             dataIndex: listid[i].toString(),
                             width: 65,
                             align: 'right',
-                            editor: {
-                                xtype: 'textfield',
-                                selectOnFocus: true,
-                                maskRe: /[0-9]/
+                            getEditor: function (record) {
+                                if (record.get('type') == 0) {
+                                    return Ext.create('Ext.grid.CellEditor', {
+                                        field: {
+                                            xtype: 'textfield',
+                                            selectOnFocus: true,
+                                            maskRe: /[0-9]/
+                                        }
+                                    })
+                                }
                             },
                             renderer: function (value, metaData, record) {
                                 if (value == 0) return "";
@@ -155,7 +257,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                         grid.headerCt.insert(grid.columns.length, column);
                         length++;
                     }
-            
+
                     var storeBOM = grid.getStore();
 
                     var model = storeBOM.getModel();
@@ -165,12 +267,12 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             model.removeFields(fields[i].name);
                         }
                     }
-            
+
                     var fieldnew = [];
                     for (var i = 0; i < listid.length; i++) {
                         fieldnew.push({ name: listid[i], type: 'number' });
                     }
-            
+
                     model.addFields(fieldnew);
                 }
             })

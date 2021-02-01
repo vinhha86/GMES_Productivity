@@ -62,7 +62,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
 
         viewmodel.set('colorid_link_active', colorid_link);
 
-        var store = viewmodel.getStore('CutPlanRowStore');
-        store.loadStore_bycolor(colorid_link, porder.id, npl.id, porder.productid_link, porder.pcontractid_link);
+        if(npl.id != null){
+            var store = viewmodel.getStore('CutPlanRowStore');
+            store.loadStore_bycolor(colorid_link, porder.id, npl.id, porder.productid_link, porder.pcontractid_link);
+        }
     }
 })

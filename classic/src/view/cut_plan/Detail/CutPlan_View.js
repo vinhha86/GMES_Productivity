@@ -53,6 +53,16 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Sơ đồ',
         dataIndex: 'name',
         width: 120,
+        getEditor: function (record) {
+            if (record.get('type') == 0) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'textfield',
+                        selectOnFocus: true
+                    }
+                })
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
@@ -61,17 +71,39 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Lá vải',
         dataIndex: 'la_vai',
         width: 120,
+        getEditor: function (record) {
+            if (record.get('type') == 0) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'textfield',
+                        selectOnFocus: true,
+                        maskRe: /[0-9]/
+                    }
+                })
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value == 'null' ? '' : value;
+            return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');;
         }
     }, {
         text: 'Dài sơ đồ',
         dataIndex: 'dai_so_do',
         width: 100,
+        getEditor: function (record) {
+            if (record.get('type') == 0) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'textfield',
+                        selectOnFocus: true,
+                        maskRe: /[0-9.]/
+                    }
+                })
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value == 'null' ? '' : value;
+            return parseFloat(value) == 0 ? '' : Ext.util.Format.number(value, '0,000.00');;
         }
     }, {
         text: 'SL vải',
@@ -79,12 +111,23 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value == 'null' ? '' : value;
+            return parseFloat(value) == 0 ? '' : Ext.util.Format.number(value, '0,000.00');
         }
     }, {
         text: 'Khổ',
         dataIndex: 'kho',
         width: 120,
+        getEditor: function (record) {
+            if (record.get('type') == 0) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'textfield',
+                        selectOnFocus: true,
+                        maskRe: /[0-9.,a-z']/
+                    }
+                })
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
@@ -93,14 +136,35 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Số cây',
         dataIndex: 'so_cay',
         width: 120,
+        getEditor: function (record) {
+            if (record.get('type') == 0) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'textfield',
+                        selectOnFocus: true,
+                        maskRe: /[0-9]/
+                    }
+                })
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value == 'null' ? '' : value;
+            return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
         }
     }, {
         text: 'Ngày',
         dataIndex: 'ngay',
         width: 100,
+        getEditor: function (record) {
+            if (record.get('type') == 0) {
+                return Ext.create('Ext.grid.CellEditor', {
+                    field: {
+                        xtype: 'datefield',
+                        format: 'd-m-y'
+                    }
+                })
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
