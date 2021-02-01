@@ -11,11 +11,14 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             click: 'onThemSoDo'
         }
     },
-    onXoa: function(){
-
+    onXoa: function(grid, rowIndex, colIndex){
+        var rec = grid.getStore().getAt(rowIndex);
+        if(rec.get('type') == 0){
+            
+        }
     },
     onEdit: function(editor, context, e){
-        if(context.colIdx >= 6){
+        if(context.colIdx >= 7){
             this.UpdateSizeAmount(context);            
         }
         else {
@@ -100,7 +103,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 7
+        var length = 8
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length -1 ) {
                 grid.headerCt.remove(i);
@@ -146,7 +149,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             },
                             renderer: function (value, metaData, record) {
                                 if (value == 0) return "";
-                                return value;
+                                return Ext.util.Format.number(value, '0,000')
                             }
                         });
                         grid.headerCt.insert(grid.columns.length, column);

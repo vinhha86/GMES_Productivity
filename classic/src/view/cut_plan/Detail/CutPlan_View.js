@@ -36,9 +36,17 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         align: 'center',
         items: [
             {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: 'Xóa',
-                handler: 'onXoa'
+                handler: 'onXoa',
+                getClass: function(v, meta, rec) {
+                    if (rec.get('type') == 0) {
+                        return 'x-fa fas fa-trash';
+                    }
+                },
+                getTip: function(value, metadata, record, row, col, store) {
+                    if(record.get('type') == 0){
+                        return 'Xóa';
+                    }
+                 }
             }
         ]
     },{

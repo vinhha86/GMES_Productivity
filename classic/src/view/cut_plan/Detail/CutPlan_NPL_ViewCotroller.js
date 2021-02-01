@@ -73,7 +73,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
                         }
                         else {
                             //Thanh cong thi commit de bo dau do trong grid
-                            
+                            var store = viewmodel.getStore('CutPlanRowStore');
+                            store.load();
                         }
                     }
                 })
