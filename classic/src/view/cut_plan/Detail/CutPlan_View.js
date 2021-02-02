@@ -165,10 +165,11 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
                 })
             }
         },
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value == 'null' ? '' : value;
-        }
+        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+        //     metaData.tdAttr = 'data-qtip="' + value + '"';
+        //     return value == 'null' ? '' : value;
+        // }
     }],
     dockedItems: [{
         dock: 'top',
