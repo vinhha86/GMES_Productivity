@@ -9,13 +9,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Detail_MainView', {
         region: 'center',
         // title: 'center',
         xtype: 'CutPlan_Tab_View',
-        margin: 1,
+        margin: '0 0 0 1',
         border: true
     },{
         region: 'west',
         xtype: 'CutPlan_NPL_View',
         // width: '30%',
-        margin: 1,
+        margin: '0 1 0 0',
         border: true,
         collapseMode: 'mini',
         hideCollapseTool: true,
