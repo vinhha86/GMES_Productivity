@@ -20,58 +20,5 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Detail_MainView', {
         collapseMode: 'mini',
         hideCollapseTool: true
         // collapsible: true
-    }],
-    dockedItems: [{
-        dock: 'top',
-        layout: 'hbox',
-        items:[{
-            xtype: 'button',
-            text: 'DS NPL',
-            iconCls: 'x-fa fa-forward',
-            itemId: 'btnShowNPL',
-            margin: 5,
-            bind: {
-                hidden: '{!isHiddenNPL}'
-            }
-        },{
-            flex: 1
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Mã NPL',
-            readOnly: true,
-            labelWidth: 60,
-            bind: {
-                value: '{npl.product_code}'
-            },
-            margin: 5
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Tên NPL',
-            readOnly: true,
-            labelWidth: 60,
-            bind: {
-                value: '{npl.product_name}'
-            },
-            margin: 5
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Màu NPL',
-            labelWidth: 70,
-            width: 300,
-            readOnly: true,
-            bind: {
-                value: '{npl.mauSanPham}'
-            },
-            margin: 5
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Cỡ khổ',            
-            labelWidth: 60,
-            readOnly: true,
-            bind: {
-                value: '{npl.coSanPham}'
-            },
-            margin: 5
-        }]
     }]
 })
