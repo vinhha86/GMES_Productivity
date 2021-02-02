@@ -185,7 +185,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             }
         },{
             xtype: 'button',
-            margin: 3,
+            margin: 5,
             text: 'Thêm sơ đồ',
             itemId: 'btnThemSoDo',
             iconCls: 'x-fa fa-plus'
@@ -196,6 +196,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             fieldLabel: 'Mã NPL',
             readOnly: true,
             labelWidth: 60,
+            width: 160,
             bind: {
                 value: '{npl.product_code}'
             },
@@ -224,6 +225,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             fieldLabel: 'Cỡ khổ',            
             labelWidth: 60,
             readOnly: true,
+            width: 150,
             bind: {
                 value: '{npl.coSanPham}'
             },

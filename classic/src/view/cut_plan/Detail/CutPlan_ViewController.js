@@ -9,7 +9,18 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     control: {
         '#btnThemSoDo': {
             click: 'onThemSoDo'
+        },
+        '#btnShowNPL' : {
+            click: 'onShowNPL'
         }
+    },
+    onShowNPL: function(){
+        var viewmodel = this.getViewModel();
+        var main = this.getView();
+        viewmodel.set('isHiddenNPL', false);
+        viewmodel.set('width_npl', "30%");
+        // var form_npl = main.down('#CutPlan_NPL_View');
+        // form_npl.expand();
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var viewmodel = this.getViewModel();

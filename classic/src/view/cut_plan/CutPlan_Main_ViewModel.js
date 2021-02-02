@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.Customer.CutPlan_Main_ViewModel', {
         npl: {
             
         },
-        colorid_link_active: 0
+        colorid_link_active: 0,
+        width_npl: '30%'
     }
 })

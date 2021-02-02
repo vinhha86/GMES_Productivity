@@ -19,8 +19,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
     },
     onHideNPL: function () {
         var viewmodel = this.getViewModel();
-        var form = this.getView();
-        form.collapse('left', 0);
+        viewmodel.set('width_npl', 0);
+        // var form = this.getView();
+        // form.collapse('left', 0);
 
         viewmodel.set('isHiddenNPL', true);
     },
