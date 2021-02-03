@@ -99,5 +99,43 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 				// }
 			}
 		});
+	},
+	findByContractcode: function(contractcode){
+		var me=this;
+		var params = new Object();
+		params.contractcode = contractcode;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/pcontract/findByContractcode',
+			timeout: 60000,
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+				// else{
+				// 	console.log(records);
+				// }
+			}
+		});
 	}
 });

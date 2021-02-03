@@ -2,6 +2,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.InvoiceEdit_Controller',
 	init: function() {
+		var viewModel = this.getViewModel();
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
     },
     listen: {
         controller: {
@@ -33,9 +36,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
         me.setLoading('Đang tải dữ liệu');
 
         var params = new Object();
-        params.id = id;
+        params.invoiceid = id;
 
-        GSmartApp.Ajax.post('/api/v1/invoice/invoice_getbyid',Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/invoice/getInvoiceByID',Ext.JSON.encode(params),
 			function(success,response,options ) {
 				me.setLoading(false);
 					if (success) {
@@ -62,11 +65,25 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
     onSave: function(){
         var viewmodel = this.getViewModel();
         var me = this.getView();
-        var params = new Object();
-        params.data = viewmodel.get('invoice');
+		var params = new Object();
+		// params.data = viewmodel.get('invoice');
+		var data = new Array();
+
+		var invoice = viewmodel.get('invoice');
+		var invoice_d = invoice.invoice_d;
+		if(invoice_d != null){
+			for(var i = 0; i < invoice_d.length; i++){
+				if(invoice_d[i].id == null){
+					invoice_d[i].id = 0;
+				}
+			}
+		}
+
+		data.push(viewmodel.get('invoice'));
+		params.data = data;
         me.setLoading("Đang lưu dữ liệu");
 
-        GSmartApp.Ajax.post('/api/v1/invoice/invoice_create',Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/invoice/invoice_create',Ext.JSON.encode(params),
 			function(success,response,options ) {
 				me.setLoading(false);
 					if (success) {

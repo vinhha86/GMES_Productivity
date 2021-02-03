@@ -76,6 +76,30 @@ Ext.define('GSmartApp.Ajax', {
 		//}
 		
 	},
+	postJitin: function(url,params,callback) {
+		var me =this;
+		Ext.Ajax.request({
+				url: config.getAppBaseUrl_Jitin()+url,
+				method:'POST',
+				cors: true,
+				headers :{
+					  'Content-Type':"application/json"
+				},
+				useDefaultXhrHeader: false,
+				params:params,
+				success : function(response,options ) {
+					 callback.call(me, true, response, options);
+				},
+				failure :function(response,options){
+					 callback.call(me, false, response, options);
+					 console.log(response,options);
+					 //me.fireEvent('logout');
+					
+				}
+		});
+		//}
+		
+	},
 	postUpload: function(url,rawdata,callback) {
 		var me =this;
 		Ext.Ajax.request({

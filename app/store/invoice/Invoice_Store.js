@@ -25,7 +25,8 @@ Ext.define('GSmartApp.store.invoice.Invoice_Store', {
                     update : 'POST',
                     destroy: 'POST'
                 },
-                url: config.getAppBaseUrl_Jitin()+'/api/v1/invoice/getlist_bypage',
+                // url: config.getAppBaseUrl_Jitin()+'/api/v1/invoice/getlist_bypage',
+                url: config.getAppBaseUrl_Jitin()+'/api/v1/invoice/getInvoice',
                 paramsAsJson:true,
                 extraParams : params,
                 noCache: false,

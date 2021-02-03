@@ -14,7 +14,10 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
         },
         PortToStore: {
             type: 'ListOrgStore'
-        }
+        },
+        UnitStore: {
+            type: 'UnitStore'
+        },
     },
 	data: {
         IsformMaster: false,
@@ -22,6 +25,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
             id: null,
             invoicedate: '',
             invoice_d: []
-        }
+        },
+        skucode: '',
     }
 })

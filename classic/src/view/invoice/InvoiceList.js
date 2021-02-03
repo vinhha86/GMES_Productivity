@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.invoice.InvoiceList', {
     extend: 'Ext.grid.Panel',
 	xtype: 'InvoiceList',
+	id: 'InvoiceList',
     controller: 'InvoiceListController',
 	viewModel: {
         type: 'InvoiceListViewModel'
@@ -65,7 +66,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
         }, {
             iconCls: 'x-fa fas fa-trash',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-            handler: 'onXoa'
+            handler: 'onDelete'
         }]
     }],
 	dockedItems: [{

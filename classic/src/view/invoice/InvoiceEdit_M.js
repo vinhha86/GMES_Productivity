@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             labelWidth: 95,
             width: 335,
             margin: '0 5 0 5',
-            readOnly: true,
+            // readOnly: true,
             bind: {
                 value: '{invoice.invoicenumber}'
             }
@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             labelWidth: 95,
             bind:{
                 store: '{PortFromStore}',
-                value: '{invoice.org_portfromid_link}'
+                value: '{invoice.port_from_link}'
             },
             valueField: 'id',
             displayField: 'name',
@@ -108,7 +108,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
             fieldLabel: 'Cảng dỡ hàng',
             bind:{
                 store: '{PortToStore}',
-                value: '{invoice.org_porttoid_link}'
+                value: '{invoice.port_to_link}'
             },
             valueField: 'id',
             displayField: 'name',
@@ -143,14 +143,16 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
                         margin: '0 0 0 2',
                         itemId:'btnInvoice_Plus',
                         iconCls: 'x-fa fa-plus',
-                        width: 30
+                        width: 30,
+                        tooltip: 'Thêm số tờ khai',
                     },
                     {
                         xtype:'button',
                         margin: '0 0 0 2',
                         itemId:'btnInvoice_Search',
                         iconCls: 'x-fa fa-search',
-                        width: 30
+                        width: 30,
+                        tooltip: 'Tìm số tờ khai',
                     }
                 ]
             },
@@ -197,25 +199,31 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
                             {
                                 xtype: 'textfield',
                                 bind: {
-                                    value: '{invoice.pcontract_code}'
+                                    value: '{invoice.pcontractcode}'
                                 },
                                 fieldLabel: 'Mã đơn hàng',					
                                 labelWidth: 95,
-                                width: 270
+                                width: 270,
+                                enableKeyEvents : true,
+                                listeners: {
+                                    keypress: 'onPressEnterBtnPContract_Search'
+                                }
                             },
                             {
                                 xtype:'button',
                                 margin: '0 0 0 2',
                                 itemId:'btnPcontract_Plus',
                                 iconCls: 'x-fa fa-plus',
-                                width: 30
+                                width: 30,
+                                tooltip: 'Thêm mã đơn hàng',
                             },
                             {
                                 xtype:'button',
                                 margin: '0 0 0 2',
                                 itemId:'btnPContract_Search',
                                 iconCls: 'x-fa fa-search',
-                                width: 30
+                                width: 30,
+                                tooltip: 'Tìm mã đơn hàng',
                             }
                         ]
                     },

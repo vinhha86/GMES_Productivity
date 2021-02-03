@@ -9,6 +9,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
 		this.onloadPage();
 	},
 	control: {
+		'#InvoiceList': {
+			itemdblclick: 'onItemdblclick'
+		},
 		'#btnThemMoi': {
 			click: 'onAddnew'
 		},
@@ -103,10 +106,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
 		var view =this.getView();
 		var viewModel = view.getViewModel();
 		var entry= viewModel.get('urlback');
-		this.redirectTo("invoice/"+id+"/edit");
+		this.redirectTo("lsinvoice/"+id+"/edit");
 	},
 	onDelete:function(grid, rowIndex, colIndex){
-		var gridInvoice = this.lookupReference('gridInvoice');
+		// var gridInvoice = this.lookupReference('gridInvoice');
+		var viewModel = view.getViewModel();
+		var Invoice_Store = viewModel.getStore('Invoice_Store');
 		Ext.Msg.show({
 			title:GSmartApp.Locales.title_thongbao[GSmartApp.Locales.currentLocale],
 			message:GSmartApp.Locales.title_xoa[GSmartApp.Locales.currentLocale],
@@ -114,16 +119,18 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
 			icon: Ext.Msg.QUESTION,
 			fn: function(btn) {
 				if (btn === 'yes') {
-					var record = grid.getStore().getAt(rowIndex);
+					// var record = grid.getStore().getAt(rowIndex);
+					var record = Invoice_Store.getAt(rowIndex);
 					var id = record.get('id');  
 					if(!isNaN(id)){
 					//	Ext.Viewport.setMasked({ xtype: 'loadmask' });
-						GSmartApp.Ajax.post('/api/v1/invoice/invoice_deletebyid','{"invoiceid": '+id+'}',
+						GSmartApp.Ajax.postJitin('/api/v1/invoice/invoice_deletebyid','{"invoiceid": '+id+'}',
 						function(success,response,options ) {
 						//	Ext.Viewport.setMasked(false);
 						})
 					}
-					gridInvoice.getStore().remove(record);
+					// gridInvoice.getStore().remove(record);
+					Invoice_Store.remove(record);
 				}
 			}
 		});
