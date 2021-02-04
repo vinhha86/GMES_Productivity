@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
         cellediting: {
             clicksToEdit: 1,
             listeners: {
-                // edit: 'onPriceDItemEdit',
+                edit: 'onInvoiceDItemEdit',
                 // beforeedit: 'onPriceDItemBeforeEdit'
             }             
         }
@@ -77,8 +77,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			format:'0,000.00',
 			text: 'SL Nhập', 
 			align:'right',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
+			// summaryType: 'sum',
+			// summaryRenderer: 'renderSum',
 			dataIndex: 'totalpackage',
 			editor:{
 				xtype:'textfield',
@@ -86,9 +86,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				selectOnFocus: true
 			},
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000') + '"';
-				return Ext.util.Format.number(value, '0,000');
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -96,8 +96,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			text: 'N.W', 
 			align:'right',
 			dataIndex: 'netweight',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
+			// summaryType: 'sum',
+			// summaryRenderer: 'renderSum',
 			width: 70,
 			editor:{
 				xtype:'textfield',
@@ -105,9 +105,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				selectOnFocus: true
 			},
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
-				return Ext.util.Format.number(value, '0,000.000');
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -115,8 +115,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			text: 'G.W', 
 			align:'right',
 			dataIndex: 'grossweight',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
+			// summaryType: 'sum',
+			// summaryRenderer: 'renderSum',
 			width: 70,
 			editor:{
 				xtype:'textfield',
@@ -124,9 +124,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				selectOnFocus: true
 			},
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
-				return Ext.util.Format.number(value, '0,000.000');
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -134,8 +134,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			text: 'M3', 
 			align:'right',
 			dataIndex: 'm3',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
+			// summaryType: 'sum',
+			// summaryRenderer: 'renderSum',
 			width: 70,
 			editor:{
 				xtype:'textfield',
@@ -143,9 +143,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				selectOnFocus: true
 			},
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
-				return Ext.util.Format.number(value, '0,000.000');
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -159,9 +159,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				selectOnFocus: true
 			},
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.000') + '"';
-				return Ext.util.Format.number(value, '0,000.000');
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -224,7 +224,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
             bind:{
 				// disabled: '{isEdit}',
 				value: '{skucode}'
-            }
+			},
+			enableKeyEvents : true,
+			listeners: {
+				keypress: 'onPressEnterBtnTimNPL'
+			}
 		},
 		{
 			tooltip: 'Thêm NPL',
@@ -234,7 +238,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			itemId: 'btnThemNPL'
 		},
 		{
-			tooltip: 'Tìm SKU',
+			tooltip: 'Tìm NPL',
 			margin: '0 5 0 5',
 			itemId: 'btnTimNPL',
 			iconCls: 'x-fa fa-search',

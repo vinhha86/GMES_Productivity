@@ -103,6 +103,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
                     invoicedObj.skuname = npl.get('name');
                     invoicedObj.color_name = npl.get('mauSanPham');
                     invoicedObj.size_name = npl.get('coSanPham');
+                    invoicedObj.totalpackage = 0;
+                    invoicedObj.netweight = 0;
+                    invoicedObj.grossweight = 0;
+                    invoicedObj.m3 = 0;
+                    invoicedObj.unitprice = 0;
+                    invoicedObj.totalamount = 0;
                     invoiced.push(invoicedObj);
                 }
             }
@@ -192,88 +198,33 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
 		formMaster.setHidden(!isHidden);
     },
     
-    // tìm đơn hàng > sản phẩm > nguyên phụ liệu > đẩy vào danh sách > điền thông tin ĐVT
-    // onBtnTimDonHang: function(){
-    //     var m = this;
-    //     var me = this.getView();
-    //     var viewModel = this.getViewModel();
-    //     var invoice = viewModel.get('invoice');
-    //     var pcontractSearch = viewModel.get('pcontractSearch');
-    //     // console.log(pcontractSearch);
+    onInvoiceDItemEdit: function (editor, context, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var store = me.getStore();
+        var invoiceD_data = context.record.data;
 
-    //     if(pcontractSearch == null || pcontractSearch.length == 0){
-    //         Ext.Msg.show({
-    //             title: 'Thông báo',
-    //             msg: 'Đơn hàng không được bỏ trống',
-    //             buttons: Ext.MessageBox.YES,
-    //             buttonText: {
-    //                 yes: 'Đóng',
-    //             }
-    //         });
-    //         return;
-    //     }
-    //     var form = Ext.create('Ext.window.Window', {
-    //         height: 400,
-    //         width: 1000,
-    //         closable: true,
-    //         resizable: false,
-    //         modal: true,
-    //         border: false,
-    //         // title: 'Danh sách lệnh',
-    //         closeAction: 'destroy',
-    //         bodyStyle: 'background-color: transparent',
-    //         layout: {
-    //             type: 'fit', // fit screen for window
-    //             padding: 5
-    //         },
-    //         items: [{
-    //             xtype: 'invoice_pcontractsearch',
-    //             viewModel: {
-    //                 type: 'invoice_pcontractsearch_ViewModel',
-    //                 data: {
-    //                     pcontractSearch: pcontractSearch
-    //                 }
-    //             }
-    //         }]
-    //     });
-    //     form.show();
+        if(context.value == "" || context.value == context.originalValue || isNaN(context.value)){
+            // store.rejectChanges(); //commitChanges()
+            return;
+        }
 
-    //     form.down('#invoice_pcontractsearch').getController().on('pcontractsearchThoat', function () {
-    //         form.close();
-    //     });
+        var invoice = viewModel.get('invoice');
+        // console.log(invoice);
+        // console.log(invoiceD_data);
 
-    //     form.down('#invoice_pcontractsearch').getController().on('pcontractsearchLuu', function (select) {
-    //         // console.log(select);
-    //         var invoiced = viewModel.get('invoice.invoice_d');
-    //         if(invoiced == null){
-    //             invoiced = new Array();
-    //         }
+        // if(context.field == 'quota' && (priceD_data.unitprice != null || priceD_data.unitprice != "")){
+        //     priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
+        // }
+        // if(context.field == 'unitprice' && (priceD_data.quota != null || priceD_data.quota != "")){
+        //     priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
+        // }
 
-    //         for(var i = 0; i < select.length; i++){
-    //             var npl = select[i];
-    //             var found = invoiced.some(item => item.skuid_link === npl.get('materialid_link'));
-    //             // skucode, skuname, color_name, size_name
-    //             // materialCode, materialName, tenMauNPL, coKho
-    //             if(!found){
-    //                 var invoicedObj = new Object();
-    //                 invoicedObj.skuid_link = npl.get('materialid_link');
-    //                 invoicedObj.skucode = npl.get('materialCode');
-    //                 invoicedObj.skuname = npl.get('materialName');
-    //                 invoicedObj.color_name = npl.get('tenMauNPL');
-    //                 invoicedObj.size_name = npl.get('coKho');
-    //                 invoiced.push(invoicedObj);
-    //             }
-    //         }
-
-    //         // invoice.set('invoiced', []);
-    //         // invoice.set('invoiced', invoiced);
-    //         // viewModel.getStore('Price_D_SKUStore').loadData(invoiced);
-    //         // console.log(invoiced);
-    //         me.getStore().loadData(invoiced);
-
-    //         form.close();
-    //     });
-    // },
+        // console.log(priceD_data);
+        // this.updatePriceD(priceD_data);
+        // FOBPricePODetailStore.commitChanges();
+    },
     renderUnit: function(val, meta, record, rindex, cindex, store) {
         if (null != val){
             var viewModel = this.getViewModel();
@@ -283,6 +234,13 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
                 // console.log(objUnit.data);
                 return objUnit.data.code;
             }
+        }
+    },
+    onPressEnterBtnTimNPL: function(textfield, e, eOpts){
+        var m = this;
+        if(e.getKey() == e.ENTER) {
+            // Ext.Msg.alert('Keys','You pressed the Enter key');
+            m.onBtnTimNPL();
         }
     },
 })

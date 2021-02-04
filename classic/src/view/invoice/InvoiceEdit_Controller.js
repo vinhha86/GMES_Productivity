@@ -70,11 +70,13 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var data = new Array();
 
 		var invoice = viewmodel.get('invoice');
+		// invoice_d
 		var invoice_d = invoice.invoice_d;
 		if(invoice_d != null){
 			for(var i = 0; i < invoice_d.length; i++){
-				if(invoice_d[i].id == null){
+				if(invoice_d[i].id == null || typeof invoice_d[i].id === 'string'){
 					invoice_d[i].id = 0;
+					// packinglist
 				}
 			}
 		}
@@ -96,7 +98,10 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 								buttonText: {
 									yes: 'Đóng',
 								}
-							});							
+							});
+							if(Ext.getCmp('InvoiceEdit_D').getStore()){
+								Ext.getCmp('InvoiceEdit_D').getStore().commitChanges();
+							}
 							this.redirectTo("lsinvoice/" + response.id + "/edit");
 						}
 					} else {
