@@ -38,7 +38,8 @@ Ext.define('GSmartApp.model.pcontract.PContractPO', {
 		{name: 'usercreatedid_link',   type: 'int'},
 		{name: 'datecreated',  type: 'date', dateFormat: 'c'},
 		{name: 'status',   type: 'int'},	
-		{name: 'factories',   type: 'string'},			
+		{name: 'factories',   type: 'string'},	
+		{name: 'productbuyercode', type: 'string'}		
 	],
 	hasMany : {model: 'PContractPO_Price', name: 'pcontract_price'},
 	hasMany : {model: 'PContractPO', name: 'sub_po'}

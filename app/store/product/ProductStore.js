@@ -62,6 +62,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 120000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"

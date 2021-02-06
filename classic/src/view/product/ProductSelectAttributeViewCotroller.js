@@ -217,6 +217,8 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
 
         GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_create_quick', Ext.JSON.encode(params),
             function (success, response, options) {
+                me.setLoading(false);
+                
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     if(response.message == 'Giá trị thuộc tính đã tồn tại'){

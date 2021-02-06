@@ -30,6 +30,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
         store:'{PO_Quotation_Store}'
     },
     columns:[{
+        text: 'STT',
+        width: 40,
+        xtype: 'rownumberer',
+        align: 'center'
+    },{
         text:'PO Buyer',
         dataIndex:'po_buyer',
         width: 140
@@ -37,6 +42,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
         text:'PO Vendor',
         dataIndex:'po_vendor',
         width: 140
+    },{
+        text:'SP',
+        dataIndex:'productbuyercode',
+        width: 80
     },{
         text:'SL',
         align: 'end',
@@ -59,16 +68,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Export_Quotation.SelectPO_Quot
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         dataIndex:'productiondate',
         width: 70
-    },
-    {
-        text:'Số ngày SX',
-        dataIndex:'productiondays',
-        width: 50
-    },
-    {
-        text:'Phân xưởng',
-        dataIndex:'factories',
-        flex: 1
     }],
     dockedItems:[{
         dock: 'bottom',
