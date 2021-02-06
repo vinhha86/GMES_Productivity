@@ -77,8 +77,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			format:'0,000.00',
 			text: 'SL Nhập', 
 			align:'right',
-			// summaryType: 'sum',
-			// summaryRenderer: 'renderSum',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSumInteger',
 			dataIndex: 'totalpackage',
 			editor:{
 				xtype:'textfield',
@@ -87,8 +87,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			},
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000') + '"';
+				return Ext.util.Format.number(value, '0,000');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -96,8 +96,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			text: 'N.W', 
 			align:'right',
 			dataIndex: 'netweight',
-			// summaryType: 'sum',
-			// summaryRenderer: 'renderSum',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			width: 70,
 			editor:{
 				xtype:'textfield',
@@ -112,11 +112,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'G.W', 
+			text: 'G.W',
 			align:'right',
 			dataIndex: 'grossweight',
-			// summaryType: 'sum',
-			// summaryRenderer: 'renderSum',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			width: 70,
 			editor:{
 				xtype:'textfield',
@@ -134,8 +134,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			text: 'M3', 
 			align:'right',
 			dataIndex: 'm3',
-			// summaryType: 'sum',
-			// summaryRenderer: 'renderSum',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			width: 70,
 			editor:{
 				xtype:'textfield',
@@ -171,7 +171,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			dataIndex: 'totalamount',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 120
+			width: 120,
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
 		},
 		{ 
 			xtype: 'actioncolumn',
@@ -191,7 +196,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				handler: 'onXoa'
 			}
 		]
-		}   	
+		}
 	],
 	dockedItems: [{
 		dock: 'top',

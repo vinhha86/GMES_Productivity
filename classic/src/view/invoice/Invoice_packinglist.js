@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist', {
     xtype: 'Invoice_packinglist',
     id: 'Invoice_packinglist',
     controller: 'Invoice_packinglist_Controller',
-    viewModel: 'Invoice_packinglist_ViewModel',
+    // viewModel: 'Invoice_packinglist_ViewModel',
 	layout: {
         type: 'vbox',
         pack: 'start',
@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist', {
                 {
                     region: 'west',
                     xtype: 'Invoice_packinglist_lotnumber',
-                    width: '40%',
+                    width: '30%',
                     margin: 1
                 },
                 {

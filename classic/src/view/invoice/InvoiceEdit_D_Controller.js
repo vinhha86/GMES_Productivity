@@ -31,6 +31,10 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
 		if (null == value) value = 0;
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
     },
+    renderSumInteger: function (value) {
+		if (null == value) value = 0;
+		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
     onBtnThemNPL: function(){
         console.log('onBtnThemNPL');
     },
@@ -148,38 +152,126 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
         var data = grid.getStore().getAt(rowIndex);
         var invoicedid_link = data.get('id');
 
-        var form = Ext.create('Ext.window.Window', {
-            height: 500,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
-            closeAction: 'destroy',
-            width: 800,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'Invoice_packinglist'
-            }],
-            viewModel: {
-                data: {
-                    packinglist: {
-                        invoicedid_link: invoicedid_link,
-                        invoiceid_link: viewmodel.get('invoice.id'),
-                        skuid_link: data.get('skuid_link')
+        // console.log(data);
+
+        if(isNaN(invoicedid_link)){
+            // not existed in db
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Cần lưu invoice trước khi thêm packing list cho ' + data.get('skucode'),
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }else{
+            var form = Ext.create('Ext.window.Window', {
+                height: 500,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
+                closeAction: 'destroy',
+                width: 900,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Invoice_packinglist'
+                }],
+                viewModel: {
+                    type: 'Invoice_packinglist_ViewModel',
+                    data: {
+                        packinglist: {
+                            invoicedid_link: invoicedid_link,
+                            invoiceid_link: viewmodel.get('invoice.id'),
+                            skuid_link: data.get('skuid_link')
+                        }
                     }
+                }
+            });
+            form.show();
+        }
+    },
+    onXoa: function(grid, rowIndex, colIndex){
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var invoice = viewmodel.get('invoice');
+        var store = grid.getStore();
+        var data = store.getAt(rowIndex);
+        var invoicedid_link = data.get('id');
+
+        // console.log(data);
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    me.Xoa(invoice, store, data, invoicedid_link);
                 }
             }
         });
-        form.show();
     },
-    onXoa: function(){
-        
+    Xoa: function (invoice, store, data, invoicedid_link){
+        var viewmodel = this.getViewModel();
+        var invoice = viewmodel.get('invoice');
+        var invoice_d = viewmodel.get('invoice.invoice_d');
+        var invoiced = store.getById(invoicedid_link);
+
+        if(isNaN(invoicedid_link)){
+            store.remove(invoiced);
+            for(var i = 0;i < invoice_d.length; i ++){
+                if(invoice_d[i].id == invoicedid_link){
+                    invoice_d.splice(i, 1);
+                    i--;
+                }
+            }
+            viewmodel.set('invoice.invoice_d', invoice_d);
+        }else{
+            
+            var params = new Object();
+            params.invoicedid_link = invoicedid_link;
+
+            GSmartApp.Ajax.postJitin('/api/v1/invoice/deleteInvoiceDById',Ext.JSON.encode(params),
+                function(success,response,options ) {
+                        if (success) {
+                            var response = Ext.decode(response.responseText);
+                            if (response.respcode == 200) {
+                                store.remove(invoiced);
+                                for(var i = 0;i < invoice_d.length; i ++){
+                                    if(invoice_d[i].id == invoicedid_link){
+                                        invoice_d.splice(i, 1);
+                                        i--;
+                                    }
+                                }
+                                viewmodel.set('invoice.invoice_d', invoice_d);
+                            }
+                        } else {
+                            var response = Ext.decode(response.responseText);
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: 'Có lỗi trong quá trình xoá dữ liệu',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                })
+        }
     },
+
     onSpecialkey: function (field, e) {
         var me = this.getView();
     
@@ -202,26 +294,40 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var invoice = viewModel.get('invoice');
         var store = me.getStore();
         var invoiceD_data = context.record.data;
 
         if(context.value == "" || context.value == context.originalValue || isNaN(context.value)){
-            // store.rejectChanges(); //commitChanges()
+            store.rejectChanges();
             return;
         }
 
-        var invoice = viewModel.get('invoice');
-        // console.log(invoice);
+        if(context.field == 'totalpackage'){
+            invoiceD_data.totalpackage = parseFloat(invoiceD_data.totalpackage);
+        }
+        if(context.field == 'netweight'){
+            invoiceD_data.netweight = parseFloat(invoiceD_data.netweight);
+        }
+        if(context.field == 'grossweight'){
+            invoiceD_data.grossweight = parseFloat(invoiceD_data.grossweight);
+        }
+        if(context.field == 'm3'){
+            invoiceD_data.m3 = parseFloat(invoiceD_data.m3);
+        }
+
+        if(context.field == 'totalpackage' && (invoiceD_data.unitprice != null || invoiceD_data.unitprice != "")){
+            console.log('totalpackage');
+            invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.totalpackage*invoiceD_data.unitprice,2);
+        }
+        if(context.field == 'unitprice' && (invoiceD_data.totalpackage != null || invoiceD_data.totalpackage != "")){
+            console.log('unitprice');
+            invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.totalpackage*invoiceD_data.unitprice,2);
+        }
+
         // console.log(invoiceD_data);
-
-        // if(context.field == 'quota' && (priceD_data.unitprice != null || priceD_data.unitprice != "")){
-        //     priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
-        // }
-        // if(context.field == 'unitprice' && (priceD_data.quota != null || priceD_data.quota != "")){
-        //     priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota*priceD_data.unitprice,3);
-        // }
-
-        // console.log(priceD_data);
+        // console.log(invoice);
+        store.loadData(invoice.invoice_d);
         // this.updatePriceD(priceD_data);
         // FOBPricePODetailStore.commitChanges();
     },

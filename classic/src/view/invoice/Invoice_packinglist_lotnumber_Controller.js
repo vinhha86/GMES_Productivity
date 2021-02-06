@@ -91,8 +91,13 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist_lotnumber_Controller', {
 
     var invoicedid_link = viewmodel.get('packinglist.invoicedid_link');
     var lotnumber = record.get('lotnumber');
-    
-    store.loadStore_bylotnumber(invoicedid_link, lotnumber);
-    
+
+    if(isNaN(invoicedid_link)){
+      // not existed in db
+      
+    }else{
+      // existed in db
+      store.loadStore_bylotnumber(invoicedid_link, lotnumber);
+    }
   }
 })

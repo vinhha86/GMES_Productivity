@@ -13,6 +13,15 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
+	plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onPackingListItemEdit',
+                // beforeedit: 'onPriceDItemBeforeEdit'
+            }             
+        }
+    },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false               
@@ -30,27 +39,100 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 		},{
 			text: 'N.W', 
             dataIndex: 'netweight',
+			align:'right',
             summaryType: 'sum',
-			summaryRenderer: 'renderSum'
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
         },
         {
 			text: 'G.W', 
             dataIndex: 'grossweight',
+			align:'right',
             summaryType: 'sum',
-			summaryRenderer: 'renderSum'
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
         },
         {
 			text: 'YDS', 
             dataIndex: 'ydsorigin',
+			align:'right',
             summaryType: 'sum',
-			summaryRenderer: 'renderSum'
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
         },
         {
 			text: 'M3', 
 			dataIndex: 'm3',
+			align:'right',
 			summaryType: 'sum',
-			summaryRenderer: 'renderSum'
-		}	
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+		},
+        {
+			text: 'Width', 
+			dataIndex: 'width',
+			align:'right',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+		},
+		{ 
+			xtype: 'actioncolumn',
+			reference: 'stockin_contextmenu',
+			width: 25,
+			menuDisabled: true,
+			sortable: false,
+			items: [
+			{
+				iconCls: 'x-fa fas fa-trash',
+				tooltip: 'Xóa',
+				handler: 'onXoa'
+			}
+		]
+		}   	
 	],
 	dockedItems: [{
 		dock: 'top',
@@ -115,6 +197,18 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			hideLabel: true,			
             bind:{
 				value: '{packinglist.m3}'
+            }
+        },
+		{
+			xtype: 'textfield',
+			margin: 1,
+			itemId:'width',
+			emptyText: 'Width',
+			flex: 1,
+			labelWidth: 0,
+			hideLabel: true,			
+            bind:{
+				value: '{packinglist.width}'
             }
         },
 		{

@@ -64,6 +64,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
     },
     onSave: function(){
         var viewmodel = this.getViewModel();
+		var m = this;
         var me = this.getView();
 		var params = new Object();
 		// params.data = viewmodel.get('invoice');
@@ -102,7 +103,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 							if(Ext.getCmp('InvoiceEdit_D').getStore()){
 								Ext.getCmp('InvoiceEdit_D').getStore().commitChanges();
 							}
-							this.redirectTo("lsinvoice/" + response.id + "/edit");
+							if(invoice.id == null || invoice.id == 0){
+								m.redirectTo("lsinvoice/" + response.id + "/edit");
+							}else{
+								m.getInfo(response.id);
+							}
 						}
 					} else {
 						var response = Ext.decode(response.responseText);

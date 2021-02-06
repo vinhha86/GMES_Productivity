@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
 	},
 	onDelete:function(grid, rowIndex, colIndex){
 		// var gridInvoice = this.lookupReference('gridInvoice');
-		var viewModel = view.getViewModel();
+		var viewModel = this.getViewModel();
 		var Invoice_Store = viewModel.getStore('Invoice_Store');
 		Ext.Msg.show({
 			title:GSmartApp.Locales.title_thongbao[GSmartApp.Locales.currentLocale],

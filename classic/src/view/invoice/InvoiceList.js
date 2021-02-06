@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
 		width: 120
 	},{
 		text: 'Nhà cung cấp',
-		dataIndex: 'orgfrom_name',
+		dataIndex: 'orgProviderName',
 		flex: 1
 	},{
 		text: 'Số tờ khai',
@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
 		width: 90
 	},{
 		text: 'Số lượng',
-		dataIndex: 'totalpackage',
+		dataIndex: 'invoiceDTotalPackage',
 		xtype: 'numbercolumn',
 		format: '0,000',
 		width: 100
