@@ -266,5 +266,28 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
-    }
+    },
+    onContractCodeFilterKeyup: function() {
+        var viewmodel = this.getViewModel();
+        var PContractStore = viewmodel.get('PContractStore');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('contractcodeFilterField'),
+            filters = PContractStore.getFilters();
+
+        if (filterField.value) {
+            this.contractcodeFilter = filters.add({
+                id: 'contractcodeFilter',
+                property: 'contractcode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.contractcodeFilter) {
+            filters.remove(this.contractcodeFilter);
+            this.contractcodeFilter = null;
+        }
+    },
+
 })

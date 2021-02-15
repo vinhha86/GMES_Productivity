@@ -1,8 +1,10 @@
-Ext.define('GSmartApp.view.stockout.Balance_Main', {
+Ext.define('GSmartApp.view.balance.Balance_Main', {
     extend: 'Ext.container.Container',
     xtype: 'Balance_Main',
-    controller: 'Balance_Main_ViewController',
-    viewModel: 'Balance_ViewModel',
+    controller: 'Balance_Main_Controller',
+    viewModel: {
+        type: 'Balance_ViewModel'
+    },    
 	layout: {
         type: 'border'
     },

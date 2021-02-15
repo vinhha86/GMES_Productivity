@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Balance_D', {
+Ext.define('GSmartApp.view.balance.Balance_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Balance_D',
 	id: 'Balance_D',
@@ -17,34 +17,34 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
         stripeRows: false                
     },
 	bind:{
-		store: '{Balance_D}'
+		store: '{SKUBalanceStore}'
 	},
 	columns: [
 		{
 			text: 'Mã NPL', 
-			width: 120,
-			dataIndex: 'sku_product_code'
+			width: 100,
+			dataIndex: 'mat_sku_code'
 		},{
 			text: 'Tên NPL', 
-			dataIndex: 'skuname',
+			dataIndex: 'mat_sku_name',
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'color_name',
-			width: 70
+			dataIndex: 'mat_sku_color_name',
+			width: 85
 		},{
 			text: 'Cỡ', 
-			dataIndex: 'size_name',
+			dataIndex: 'mat_sku_size_name',
 			width: 50
 		},{
 			text: 'ĐVT', 
-			dataIndex: 'unit_name',
+			dataIndex: 'mat_sku_unit_name',
 			width: 70
 		},
 		{
 			text: 'Định mức',
-			dataIndex: 'amount',
-			width: 55,
+			dataIndex: 'mat_sku_bom_amount',
+			width: 65,
 			xtype: 'numbercolumn',
 			format: '0.0000',
 			renderer: function (value, metaData, record) {
@@ -54,8 +54,8 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
 		},				
 		{
 			text: '%TH',
-			dataIndex: 'lost_ratio',
-			width: 50,
+			dataIndex: 'mat_sku_bom_lostratio',
+			width: 55,
 			xtype: 'numbercolumn',
 			format: '0.000',
 			renderer: function (value, metaData, record) {
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
 			format:'0,000',
 			text: 'Nhu cầu', 
 			align:'right',
-			dataIndex: 'totalpackage_require',
+			dataIndex: 'mat_sku_demand',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 80
@@ -79,12 +79,12 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage_order',
+			dataIndex: 'mat_sku_invoice',
 			width: 80
 		},
 		{
 			text:'Dự kiến về',
-			dataIndex:'shipdate',
+			dataIndex:'mat_sku_invoice_date',
 			renderer: Ext.util.Format.dateRenderer('d/m/y'),
 			width: 75
 		},
@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage_stockin',
+			dataIndex: 'mat_sku_stockin',
 			width: 80
 		},
 		{
@@ -105,7 +105,7 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage_dif',
+			dataIndex: 'mat_sku_dif',
 			width: 80
 		},
 		{
@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.stockin.Balance_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage_stockout',
+			dataIndex: 'mat_sku_stockout',
 			width: 80
 		},
 	],

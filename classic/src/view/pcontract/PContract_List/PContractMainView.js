@@ -39,6 +39,18 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'contractcodeFilterField',
+            width: 116,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onContractCodeFilterKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Buyer',

@@ -122,7 +122,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Danh sách PO Line'
+            value: 'Danh sách PO Line (Nhịp giao hàng)'
         },
 		// '->'
 		// ,

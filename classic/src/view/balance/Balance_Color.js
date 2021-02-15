@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Balance_Color', {
+Ext.define('GSmartApp.view.balance.Balance_Color', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Balance_Color',
 	id: 'Balance_Color',

@@ -1,18 +1,16 @@
-Ext.define('GSmartApp.view.stockin.Balance_ViewModel', {
+Ext.define('GSmartApp.view.balance.Balance_ViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Balance_ViewModel',
-	stores:{
-		Balance_Color:{
-			type :'Balance_Color'
-		},
-		Balance_POLine:{
-			type: 'Balance_POLine'
-		},
-		Balance_D:{
-			type: 'Balance_D'
-		},
+    requires: [
+			'GSmartApp.store.SKUBalanceStore'
+		],	
+	stores: {
+		SKUBalanceStore: {
+			type: 'SKUBalanceStore'
+		}
 	},
 	data: {
+		pcontractid_link: null,
 		pcontract_poid_link: null
 	}
 })

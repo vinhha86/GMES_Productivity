@@ -12,9 +12,9 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     requires: [
         'Ext.grid.plugin.CellEditing'
     ],
-    height: '100%',
-    width: '100%',
-
+    // height: '100%',
+    // width: '100%',
+    markDirty: true,
     columnLines: true,
     striped: false,
 

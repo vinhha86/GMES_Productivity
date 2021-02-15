@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Nhập', 
+			text: 'Số cây', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSumInteger',
@@ -89,6 +89,25 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000') + '"';
 				return Ext.util.Format.number(value, '0,000');
+			}
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'YDS', 
+			align:'right',
+			dataIndex: 'yds',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 70,
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',

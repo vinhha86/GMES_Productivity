@@ -8,8 +8,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
     },
     controller: 'HandoverCutTolineDetailController',
     // title: 'Xuất BTP lên chuyền',
-    layout: 'vbox',
-    // layout: 'fit',
+    // layout: 'vbox',
+    layout: {
+        type: 'vbox',
+        align: 'stretch'
+    },
 
     requires: [
         'Ext.Toast'

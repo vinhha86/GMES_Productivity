@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main', {
     items:[
         {
             region: 'north',
-            height: '50%',
+            height: '60%',
             xtype: 'PContractMainView',
             border: true,
             margin: 1

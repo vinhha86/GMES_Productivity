@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.pcontract.Balance_Group', {
+Ext.define('GSmartApp.view.balance.Balance_Group', {
     extend: 'Ext.form.Panel',
     xtype: 'Balance_Group',
     id: 'Balance_Group',

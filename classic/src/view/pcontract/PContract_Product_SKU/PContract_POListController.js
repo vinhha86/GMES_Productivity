@@ -379,18 +379,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 xtype: 'Balance_Main',
                 viewModel: {
                     data: {
+                        pcontractid_link: rec.data.pcontractid_link,
                         pcontract_poid_link: rec.data.id
                     }
                 }
             }]
         });
         form.show();
-
-        form.down('#InsertPO_Main').down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
-            var storePO = viewmodel.getStore('PContractPOList');
-            storePO.load();
-            form.close();
-        })
     },    
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Balance_POLine', {
+Ext.define('GSmartApp.view.balance.Balance_POLine', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Balance_POLine',
 	id: 'Balance_POLine',
