@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.balance.Balance_Color', {
+Ext.define('GSmartApp.view.balance.Balance_Product', {
 	extend: 'Ext.grid.Panel',
-	xtype: 'Balance_Color',
-	id: 'Balance_Color',
+	xtype: 'Balance_Product',
+	id: 'Balance_Product',
 	columnLines: true,
 	rowLines: true,
 	border: true,
@@ -23,23 +23,38 @@ Ext.define('GSmartApp.view.balance.Balance_Color', {
         // }                     
     },
 	bind:{
-		store: '{Balance_Color}'
+		store: '{BalanceProductStore}'
 	},
 	columns: [
+		{
+			text: 'SKU', 
+			width: 100,
+			dataIndex: 'product_code'
+		},
 		{
 			text: 'Màu', 
 			flex: 1,
 			dataIndex: 'color_name'
-		},{
+		},
+		{
 			xtype: 'numbercolumn',
 			format:'0,000',
 			text: 'SL', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage',
-			width: 80
+			dataIndex: 'amount',
+			width: 60
 		},
-	]
+	],
+	fbar: [
+        '->',
+        {
+            minWidth: 80,
+            text: 'Tính cân đối',
+            iconCls: 'x-fa fa-calculator',
+            handler: 'onCalBalance'
+        }
+    ],     
 });
 

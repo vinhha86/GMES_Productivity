@@ -36,7 +36,25 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
             flex: 1,
             summaryType: 'count',
 			summaryRenderer: 'renderCount'
-		},{
+		},
+		{
+			text: 'YDS', 
+            dataIndex: 'ydsorigin',
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+        },
+		{
 			text: 'N.W', 
             dataIndex: 'netweight',
 			align:'right',
@@ -56,23 +74,6 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
         {
 			text: 'G.W', 
             dataIndex: 'grossweight',
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-        {
-			text: 'YDS', 
-            dataIndex: 'ydsorigin',
 			align:'right',
             summaryType: 'sum',
 			summaryRenderer: 'renderSum',
@@ -151,6 +152,18 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 				value: '{packinglist.packageid}'
             }
 		},
+        {
+			xtype: 'textfield',
+			margin: 1,
+			itemId:'ydsorigin',
+			emptyText: 'YDS',
+			flex: 1,
+			labelWidth: 0,
+			hideLabel: true,			
+            bind:{
+				value: '{packinglist.ydsorigin}'
+            }
+		},		
 		{
 			xtype: 'textfield',
 			margin: 1,
@@ -173,18 +186,6 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			hideLabel: true,			
             bind:{
 				value: '{packinglist.grossweight}'
-            }
-		},
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'ydsorigin',
-			emptyText: 'YDS',
-			flex: 1,
-			labelWidth: 0,
-			hideLabel: true,			
-            bind:{
-				value: '{packinglist.ydsorigin}'
             }
 		},
 		{

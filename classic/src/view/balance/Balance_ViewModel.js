@@ -5,6 +5,9 @@ Ext.define('GSmartApp.view.balance.Balance_ViewModel', {
 			'GSmartApp.store.SKUBalanceStore'
 		],	
 	stores: {
+		BalanceProductStore: {
+			type: 'BalanceProductStore'
+		},
 		SKUBalanceStore: {
 			type: 'SKUBalanceStore'
 		}

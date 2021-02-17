@@ -11,9 +11,9 @@ Ext.define('GSmartApp.view.balance.Balance_Main', {
     items: [
         {
             region: 'west',
-            width: 200,
-            xtype: 'Balance_Group',
-            id: 'Balance_Group',
+            width: 250,
+            xtype: 'Balance_Product',
+            id: 'Balance_Product',
         },
         {
             region: 'center',

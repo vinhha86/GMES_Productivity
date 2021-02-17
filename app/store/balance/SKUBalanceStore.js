@@ -12,6 +12,7 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 		{name: 'mat_sku_color_name',   type: 'string'},
 		{name: 'mat_sku_size_name',   type: 'string'},
 		{name: 'mat_sku_unit_name',   type: 'string'},
+		{name: 'mat_sku_product_typename',   type: 'string'},
 		{name: 'mat_sku_bom_amount',   type: 'number'},
 		{name: 'mat_sku_bom_lostratio',   type: 'number'},
 		{name: 'mat_sku_demand',   type: 'number'},
@@ -21,6 +22,7 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 		{name: 'mat_sku_stockout',   type: 'number'},
 		{name: 'mat_sku_dif',   type: 'number'}
 	],
+	groupField: 'mat_sku_product_typename',
 	sorters: [{
         property: 'mat_sku_code',
         direction: 'ASC'

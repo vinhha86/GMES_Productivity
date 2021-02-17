@@ -74,12 +74,13 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			renderer: 'renderUnit'
 		},{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
+			format:'0,000',
 			text: 'Số cây', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSumInteger',
 			dataIndex: 'totalpackage',
+			width: 70,
 			editor:{
 				xtype:'textfield',
 				maskRe: /[0-9]/,
@@ -89,25 +90,6 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000') + '"';
 				return Ext.util.Format.number(value, '0,000');
-			}
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'YDS', 
-			align:'right',
-			dataIndex: 'yds',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 70,
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},{
 			xtype: 'numbercolumn',
@@ -168,8 +150,28 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			}
 		},{
 			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Nhập', 
+			align:'right',
+			dataIndex: 'yds',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 85,
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+		},{
+			xtype: 'numbercolumn',
 			format:'0,000',
 			text: 'Đơn giá', 
+			width: 75,
 			align:'right',
 			dataIndex: 'unitprice',
 			editor:{

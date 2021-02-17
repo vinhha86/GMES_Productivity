@@ -8,10 +8,12 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 	columnLines: true,
 	rowLines: true,
 	border: true,
-	// features: [{
-	// 	ftype: 'summary',
-	// 	dock: 'bottom'
-	// }],
+    features: [{
+        ftype:'grouping',
+        groupHeaderTpl: '{name}',
+        collapseTip: "",
+        expandTip:""
+    }],
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false                
@@ -44,7 +46,7 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 		{
 			text: 'Định mức',
 			dataIndex: 'mat_sku_bom_amount',
-			width: 65,
+			width: 70,
 			xtype: 'numbercolumn',
 			format: '0.0000',
 			renderer: function (value, metaData, record) {

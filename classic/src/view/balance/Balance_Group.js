@@ -11,10 +11,11 @@ Ext.define('GSmartApp.view.balance.Balance_Group', {
         margin: 1,
         xtype: 'tabpanel',
         items: [
+            // {
+            //     title: 'Mầu',
+            //     xtype: 'Balance_Color',
+            // }, 
             {
-                title: 'Mầu',
-                xtype: 'Balance_Color',
-            }, {
                 title: 'PO Line',
                 xtype: 'Balance_POLine',
             }
