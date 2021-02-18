@@ -29,6 +29,8 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist_ViewModel', {
             netweight: null,
             grossweight: null,
             width: null
-        }
+        },
+        invoice: null,
+        invoiceDRec: null 
     }
 })

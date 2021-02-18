@@ -82,22 +82,43 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist_lotnumber_Controller', {
       me.down('#lotnumber').focus();
     }
   },
-  onSelectlot: function(grid, record, item, index, e, eOpts){
-    var viewmodel = this.getViewModel();
-    viewmodel.set('packinglist.lotnumber', record.get('lotnumber'));
-    viewmodel.set('packinglist.sizenumber', record.get('sizenumber'));
+  // onSelectlot: function(grid, record, item, index, e, eOpts){
+  //   var viewmodel = this.getViewModel();
+  //   viewmodel.set('packinglist.lotnumber', record.get('lotnumber'));
+  //   viewmodel.set('packinglist.sizenumber', record.get('sizenumber'));
 
-    var store = viewmodel.getStore('PackingListStore');
+  //   var store = viewmodel.getStore('PackingListStore');
 
-    var invoicedid_link = viewmodel.get('packinglist.invoicedid_link');
-    var lotnumber = record.get('lotnumber');
+  //   var invoicedid_link = viewmodel.get('packinglist.invoicedid_link');
+  //   var lotnumber = record.get('lotnumber');
 
-    if(isNaN(invoicedid_link)){
-      // not existed in db
+  //   if(isNaN(invoicedid_link)){
+  //     // not existed in db
       
-    }else{
-      // existed in db
-      store.loadStore_bylotnumber(invoicedid_link, lotnumber);
+  //   }else{
+  //     // existed in db
+  //     store.loadStore_bylotnumber(invoicedid_link, lotnumber);
+  //   }
+  // },
+  onSelectlot: function(grid, record, item, index, e, eOpts){
+    var viewModel = this.getViewModel();
+    var lotnumber = record.get('lotnumber');
+    var sizenumber = record.get('sizenumber');
+    viewModel.set('packinglist.lotnumber', lotnumber);
+    viewModel.set('packinglist.sizenumber', sizenumber);
+
+    var PackingListStore = viewModel.getStore('PackingListStore');
+    
+    var invoiceDRec = viewModel.get('invoiceDRec');
+    var pklist = invoiceDRec.get('packinglist');
+
+    // console.log(pklist);
+    var pklistStoreArray = new Array();
+    for(var i=0; i < pklist.length; i++){
+      if(pklist[i].sizenumber == sizenumber && pklist[i].lotnumber == lotnumber){
+        pklistStoreArray.push(pklist[i]);
+      }
     }
+    PackingListStore.setData(pklistStoreArray);
   }
 })

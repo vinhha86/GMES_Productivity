@@ -38,23 +38,6 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			summaryRenderer: 'renderCount'
 		},
 		{
-			text: 'YDS', 
-            dataIndex: 'ydsorigin',
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-		{
 			text: 'N.W', 
             dataIndex: 'netweight',
 			align:'right',
@@ -120,6 +103,23 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},
+		{
+			text: 'SL Nhập', 
+            dataIndex: 'ydsorigin',
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+        },
 		{ 
 			xtype: 'actioncolumn',
 			reference: 'stockin_contextmenu',
@@ -146,24 +146,12 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			emptyText: 'Cây số',
 			width: 120,
 			labelWidth: 0,
-			hideLabel: true,	
+			hideLabel: true,
 			maskRe: /[0-9]/,		
             bind:{
 				value: '{packinglist.packageid}'
             }
 		},
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'ydsorigin',
-			emptyText: 'YDS',
-			flex: 1,
-			labelWidth: 0,
-			hideLabel: true,			
-            bind:{
-				value: '{packinglist.ydsorigin}'
-            }
-		},		
 		{
 			xtype: 'textfield',
 			margin: 1,
@@ -171,7 +159,8 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			emptyText: 'N.W',
 			flex: 1,
 			labelWidth: 0,
-			hideLabel: true,			
+			hideLabel: true,	
+			maskRe: /[0-9.]/,		
             bind:{
 				value: '{packinglist.netweight}'
             }
@@ -183,7 +172,8 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			emptyText: 'G.W',
 			flex: 1,
 			labelWidth: 0,
-			hideLabel: true,			
+			hideLabel: true,
+			maskRe: /[0-9.]/,
             bind:{
 				value: '{packinglist.grossweight}'
             }
@@ -195,7 +185,8 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			emptyText: 'M3',
 			flex: 1,
 			labelWidth: 0,
-			hideLabel: true,			
+			hideLabel: true,
+			maskRe: /[0-9.]/,
             bind:{
 				value: '{packinglist.m3}'
             }
@@ -207,11 +198,25 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			emptyText: 'Width',
 			flex: 1,
 			labelWidth: 0,
-			hideLabel: true,			
+			hideLabel: true,
+			maskRe: /[0-9.]/,
             bind:{
 				value: '{packinglist.width}'
             }
         },
+        {
+			xtype: 'textfield',
+			margin: 1,
+			itemId:'ydsorigin',
+			emptyText: 'SL Nhập',
+			flex: 1,
+			labelWidth: 0,
+			hideLabel: true,
+			maskRe: /[0-9.]/,
+            bind:{
+				value: '{packinglist.ydsorigin}'
+            }
+		},		
 		{
 			tooltip: 'Thêm',
 			margin: '0 5 0 5',
