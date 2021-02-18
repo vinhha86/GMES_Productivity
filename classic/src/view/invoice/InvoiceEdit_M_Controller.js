@@ -62,12 +62,14 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
                             });
                         }else{
                             var pcontract = response.data[0];
-                            // console.log(pcontract);
+                            // console.log(pcontract);  
                             var pcontractId = pcontract.id;
                             var pcontractCode = pcontract.contractcode;
+                            var pcontractDate = pcontract.get('contractdate');
 
                             viewModel.set('invoice.pcontractid_link', pcontractId);
                             viewModel.set('invoice.pcontractcode', pcontractCode);
+                            viewModel.set('invoice.contractdate', pcontractDate);
                         }
                     }
                     else {
@@ -148,9 +150,13 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
             var pcontract = select[0];
             var pcontractId = pcontract.get('id');
             var pcontractCode = pcontract.get('contractcode');
+            var pcontractDate = pcontract.get('contractdate');
 
             viewModel.set('invoice.pcontractid_link', pcontractId);
             viewModel.set('invoice.pcontractcode', pcontractCode);
+            viewModel.set('invoice.contractdate', pcontractDate);
+
+            // console.log(viewModel.get('invoice'));
 
             form.close();
         });

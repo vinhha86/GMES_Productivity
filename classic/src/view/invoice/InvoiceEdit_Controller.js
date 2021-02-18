@@ -23,7 +23,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
         }
     },
     onLoadData: function(id){
-        this.getInfo(id);
+		if(id == 0){
+			
+		}else{
+			this.getInfo(id);
+		}
 
     },
     onNewData: function(){
@@ -45,6 +49,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 						var response = Ext.decode(response.responseText);
 						if (response.respcode == 200) {
                             viewmodel.set('invoice', response.data);
+							console.log(response.data);
 						}
 					} else {
 						var response = Ext.decode(response.responseText);
@@ -76,7 +81,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var invoice_d = invoice.invoice_d;
 		if(invoice_d != null){
 			for(var i = 0; i < invoice_d.length; i++){
-				if(invoice_d[i].id == 0){
+				if(invoice_d[i].id == 0 || typeof invoice_d[i].id === 'string'){
 					invoice_d[i].id = null;
 					// packinglist
 				}

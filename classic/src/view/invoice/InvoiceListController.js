@@ -77,7 +77,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
         store.loadStore_byPage(invoicenumber, custom_declaration, invociedate_from, invociedate_to, org_prodviderid_link, status, page, limit);
     },
 	onAddnew:function(){
-		this.redirectTo("lsinvoice/create");
+		// this.redirectTo("lsinvoice/create");
+		this.redirectTo("lsinvoice/"+"0"+"/edit");
 	},
 	onSearch:function(){
 		var params = new Object();
