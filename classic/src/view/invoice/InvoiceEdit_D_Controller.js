@@ -101,30 +101,28 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
                 // skucode, skuname, color_name, size_name
                 // code, name, tenMauNPL, coKho
                 if(!found){
-                    var invoicedObj = new Object();
-                    invoicedObj.skuid_link = npl.get('id');
-                    invoicedObj.skucode = npl.get('code');
-                    invoicedObj.skuname = npl.get('name');
-                    invoicedObj.color_name = npl.get('mauSanPham');
-                    invoicedObj.size_name = npl.get('coSanPham');
-                    invoicedObj.totalpackage = 0;
-                    invoicedObj.netweight = 0;
-                    invoicedObj.grossweight = 0;
-                    invoicedObj.m3 = 0;
-                    invoicedObj.unitprice = 0;
-                    invoicedObj.totalamount = 0;
-                    invoiced.push(invoicedObj);
+                    var invoicedObj = new Object({
+                        id: 0,
+                        skuid_link: npl.get('id'),
+                        skucode: npl.get('code'),
+                        skuname: npl.get('name'),
+                        color_name: npl.get('mauSanPham'),
+                        size_name: npl.get('coSanPham'),
+                        totalpackage: 0,
+                        netweight: 0,
+                        grossweight: 0,
+                        m3: 0,
+                        unitprice: 0,
+                        totalamount: 0
+                    });
+                    invoice.invoice_d.push(invoicedObj);
+                    viewModel.set('invoice', invoice);
                 }
             }
-
-            // invoice.set('invoiced', []);
-            // invoice.set('invoiced', invoiced);
-            // viewModel.getStore('Price_D_SKUStore').loadData(invoiced);
-            // console.log(invoiced);
             me.getStore().loadData(invoiced);
 
             form.close();
-            console.log(invoice);
+            // console.log(viewModel.get('invoice'));
         });
 
         // var form = Ext.create({

@@ -71,18 +71,20 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var data = new Array();
 
 		var invoice = viewmodel.get('invoice');
+		console.log(invoice);
 		// invoice_d
 		var invoice_d = invoice.invoice_d;
 		if(invoice_d != null){
 			for(var i = 0; i < invoice_d.length; i++){
-				if(invoice_d[i].id == null || typeof invoice_d[i].id === 'string'){
-					invoice_d[i].id = 0;
+				if(invoice_d[i].id == 0){
+					invoice_d[i].id = null;
 					// packinglist
 				}
 			}
 		}
 
 		data.push(viewmodel.get('invoice'));
+		
 		params.data = data;
         me.setLoading("Đang lưu dữ liệu");
 
@@ -94,7 +96,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 						if (response.respcode == 200) {
 							Ext.MessageBox.show({
 								title: "Thông báo",
-								msg: 'Thành công',
+								msg: 'Lưu thành công',
 								buttons: Ext.MessageBox.YES,
 								buttonText: {
 									yes: 'Đóng',
