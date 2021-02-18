@@ -157,6 +157,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
             viewModel.set('invoice.contractdate', pcontractDate);
 
             // console.log(viewModel.get('invoice'));
+            m.get_Material_ByPcontract(pcontractId);
 
             form.close();
         });
@@ -179,5 +180,25 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
             // Ext.Msg.alert('Keys','You pressed the Enter key');
             m.onBtnPContract_Search();
         }
+    },
+    get_Material_ByPcontract: function(pcontractid_link){
+        var viewmodel = this.getViewModel();
+        var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
+        var BalanceProductStore = viewmodel.getStore('BalanceProductStore');
+
+        var params = new Object();
+        params.pcontractid_link = pcontractid_link;
+
+        GSmartApp.Ajax.post('/api/v1/balance/get_material_bypcontract', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    console.log(response);
+                    if (response.respcode == 200) {
+                        SKUBalanceStore.setData(response.data);
+                        BalanceProductStore.setData(response.product_data);
+                    }
+                }
+            })
     },
 })

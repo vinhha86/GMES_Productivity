@@ -131,7 +131,6 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
                     // viewModel.set('invoice', invoice);
                 }
             }
-            // me.getStore().load();
             me.getStore().loadData(invoiced);
             me.getStore().commitChanges();
             form.close();
