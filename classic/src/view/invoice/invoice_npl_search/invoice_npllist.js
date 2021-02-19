@@ -7,6 +7,12 @@ Ext.define('GSmartApp.view.invoice.invoice_npl_search.invoice_npllist', {
     viewModel:{
         // type:'HandoverDetailPorderSearchViewModel'
     },
+    features: [{
+        ftype:'grouping',
+        groupHeaderTpl: '{name}',
+        collapseTip: "",
+        expandTip:""
+    }],
     viewConfig: {
         stripeRows: false,
         enableTextSelection: false,
@@ -18,7 +24,7 @@ Ext.define('GSmartApp.view.invoice.invoice_npl_search.invoice_npllist', {
         mode: 'MULTI'
     },
     bind:{
-        store:'{SkuStore}'
+        // store:'{SkuStore}'
     },
     scrollable: true,
     border: true,
@@ -30,10 +36,10 @@ Ext.define('GSmartApp.view.invoice.invoice_npl_search.invoice_npllist', {
         xtype: 'rownumberer',
         align: 'center'
     },
-        { header: 'Mã NPL', dataIndex: 'code', flex: 1},
-        { header: 'Nguyên phụ liệu', dataIndex: 'producttype_name', flex: 1},
-        { header: 'Màu NPL', dataIndex: 'mauSanPham', flex: 1},
-        { header: 'Cỡ khổ', dataIndex: 'coSanPham', width: 70},
+        { header: 'Mã NPL', dataIndex: 'mat_sku_code', flex: 1},
+        { header: 'Nguyên phụ liệu', dataIndex: 'mat_sku_name', flex: 1},
+        { header: 'Màu NPL', dataIndex: 'mat_sku_color_name', flex: 1},
+        { header: 'Cỡ khổ', dataIndex: 'mat_sku_size_name', width: 70},
     ],
 });
 

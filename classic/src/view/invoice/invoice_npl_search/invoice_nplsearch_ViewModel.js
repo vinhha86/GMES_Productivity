@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.invoice.invoice_npl_search.invoice_nplsearch_ViewMode
 	data: {
         pcontractid_link: null,
         productid_link: null,
-        skucode: ''
+        skucode: '',
+        SKUBalanceStore: null
     }
 })

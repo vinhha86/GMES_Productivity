@@ -37,6 +37,11 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
   onSpecialkey: function (field, e) {
     var me = this.getView();
 
+    var store = me.getStore();
+    var storeItems = store.getData().items;
+
+    var found = storeItems.some(item => item.get('packageid') == me.down('#packageid').getValue());
+
     if (e.getKey() == e.ENTER) {
       if (field.itemId == "packageid") {
         me.down('#netweight').focus();
@@ -57,6 +62,21 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
         // console.log('enter');
         if(me.down('#packageid').getValue() == ''){
           me.down('#packageid').focus();
+        }else if(found){
+          // console.log('here yet');
+          Ext.Msg.show({
+              title: 'Thông báo',
+              msg: 'Số đã tồn tại',
+              buttons: Ext.MessageBox.YES,
+              buttonText: {
+                  yes: 'Đóng',
+              },
+              fn: function (btn) {
+                if (btn === 'yes') {
+                  me.down('#packageid').focus();
+                }
+              }
+          });
         }else{
           this.CreatePackingList();
         }
@@ -74,7 +94,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     var lotnumber = viewModel.get('packinglist.lotnumber');
     var sizenumber = viewModel.get('packinglist.sizenumber');
 
-    if(viewModel.get('packinglist.lotnumber') == '' == null || viewModel.get('packinglist.lotnumber') == ''){
+    if(viewModel.get('packinglist.lotnumber') == null || viewModel.get('packinglist.lotnumber') == ''){
       mes = "Bạn chưa chọn số lót";
       Ext.MessageBox.show({
         title: "Thông báo",

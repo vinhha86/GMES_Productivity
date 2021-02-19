@@ -40,6 +40,115 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
     },
     onBtnThemNPL: function(){
         // console.log('onBtnThemNPL');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var invoice = viewModel.get('invoice');
+        var skucode = viewModel.get('skucode');
+
+        // console.log(invoice);
+        if(invoice != null){
+            if(invoice.pcontractcode != null && invoice.pcontractid_link != null){
+                var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
+                var BalanceProductStore = viewModel.getStore('BalanceProductStore');
+                // console.log(SKUBalanceStore);
+                // console.log(BalanceProductStore);
+
+                var params = new Object();
+                params.pcontractid_link = invoice.pcontractid_link;
+
+                GSmartApp.Ajax.post('/api/v1/balance/get_material_bypcontract', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        if (success) {
+                            var response = Ext.decode(response.responseText);
+                            // console.log(response);
+                            if (response.respcode == 200) {
+                                SKUBalanceStore.setData(response.data);
+                                BalanceProductStore.setData(response.product_data);
+
+                                m.createWindowNpl(SKUBalanceStore, skucode);
+                            }
+                        }
+                    })
+
+                
+            }
+        }
+    },
+    createWindowNpl: function(SKUBalanceStore, skucode){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            height: 400,
+            width: 800,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            // title: 'Danh sách lệnh',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'invoice_nplsearch',
+                viewModel: {
+                    type: 'invoice_nplsearch_ViewModel',
+                    data: {
+                        SKUBalanceStore: SKUBalanceStore,
+                        skucode: skucode
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#invoice_nplsearch').getController().on('invoice_nplsearchThoat', function () {
+            form.close();
+        });
+
+        form.down('#invoice_nplsearch').getController().on('invoice_nplsearchLuu', function (records) {
+            console.log('invoice_nplsearchLuu');
+            var invoice = viewModel.get('invoice');
+            var invoiced = viewModel.get('invoice.invoice_d');
+            if(invoiced == null){
+                invoiced = new Array();
+            }
+
+            // console.log(records);
+
+            for(var i = 0; i < records.length; i++){
+                var npl = records[i];
+                var found = invoiced.some(item => item.skuid_link === npl.get('mat_skuid_link'));
+                // skucode, skuname, color_name, size_name
+                // code, name, tenMauNPL, coKho
+                if(!found){
+                    var invoicedObj = new Object();
+                    invoicedObj.skuid_link = npl.get('mat_skuid_link');
+                    invoicedObj.skucode = npl.get('mat_sku_code');
+                    invoicedObj.skuname = npl.get('mat_sku_name');
+                    invoicedObj.color_name = npl.get('mat_sku_color_name');
+                    invoicedObj.size_name = npl.get('mat_sku_size_name');
+                    invoicedObj.totalpackage = 0;
+                    invoicedObj.netweight = 0;
+                    invoicedObj.grossweight = 0;
+                    invoicedObj.m3 = 0;
+                    invoicedObj.unitprice = 0;
+                    invoicedObj.totalamount = 0;
+                    invoicedObj.yds = 0;
+
+                    invoiced.push(invoicedObj);
+                }
+            }
+            me.getStore().loadData(invoiced);
+            me.getStore().commitChanges();
+
+            form.close();
+        });
+
     },
     onBtnTimNPL: function(){
         var m = this;

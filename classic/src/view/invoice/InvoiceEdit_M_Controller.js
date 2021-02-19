@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
                             // console.log(pcontract);  
                             var pcontractId = pcontract.id;
                             var pcontractCode = pcontract.contractcode;
-                            var pcontractDate = pcontract.get('contractdate');
+                            var pcontractDate = pcontract.contractdate;
 
                             viewModel.set('invoice.pcontractid_link', pcontractId);
                             viewModel.set('invoice.pcontractcode', pcontractCode);
