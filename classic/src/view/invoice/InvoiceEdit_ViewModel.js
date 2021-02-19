@@ -18,6 +18,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
         UnitStore: {
             type: 'UnitStore'
         },
+        BalanceProductStore: {
+			type: 'BalanceProductStore'
+		},
+		SKUBalanceStore: {
+			type: 'SKUBalanceStore'
+		}
     },
 	data: {
         IsformMaster: false,

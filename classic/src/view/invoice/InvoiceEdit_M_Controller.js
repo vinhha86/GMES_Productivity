@@ -62,12 +62,14 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
                             });
                         }else{
                             var pcontract = response.data[0];
-                            // console.log(pcontract);
+                            // console.log(pcontract);  
                             var pcontractId = pcontract.id;
                             var pcontractCode = pcontract.contractcode;
+                            var pcontractDate = pcontract.get('contractdate');
 
                             viewModel.set('invoice.pcontractid_link', pcontractId);
                             viewModel.set('invoice.pcontractcode', pcontractCode);
+                            viewModel.set('invoice.contractdate', pcontractDate);
                         }
                     }
                     else {
@@ -148,9 +150,14 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
             var pcontract = select[0];
             var pcontractId = pcontract.get('id');
             var pcontractCode = pcontract.get('contractcode');
+            var pcontractDate = pcontract.get('contractdate');
 
             viewModel.set('invoice.pcontractid_link', pcontractId);
             viewModel.set('invoice.pcontractcode', pcontractCode);
+            viewModel.set('invoice.contractdate', pcontractDate);
+
+            // console.log(viewModel.get('invoice'));
+            m.get_Material_ByPcontract(pcontractId);
 
             form.close();
         });
@@ -173,5 +180,25 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
             // Ext.Msg.alert('Keys','You pressed the Enter key');
             m.onBtnPContract_Search();
         }
+    },
+    get_Material_ByPcontract: function(pcontractid_link){
+        var viewmodel = this.getViewModel();
+        var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
+        var BalanceProductStore = viewmodel.getStore('BalanceProductStore');
+
+        var params = new Object();
+        params.pcontractid_link = pcontractid_link;
+
+        GSmartApp.Ajax.post('/api/v1/balance/get_material_bypcontract', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    console.log(response);
+                    if (response.respcode == 200) {
+                        SKUBalanceStore.setData(response.data);
+                        BalanceProductStore.setData(response.product_data);
+                    }
+                }
+            })
     },
 })

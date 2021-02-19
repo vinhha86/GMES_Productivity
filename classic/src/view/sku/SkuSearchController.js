@@ -16,6 +16,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             selectionModel.setSelectionMode('SINGLE');
         }
 
+        if(viewModel.get('SKUCode') != null || viewModel.get('SKUCode') != ''){
+            viewModel.set('code', viewModel.get('SKUCode'));
+        }
+
         this.onActivate();
     },
     onActivate: function () {
@@ -164,9 +168,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         } 
         
         //Invoice 
-        if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
-            this.InsertSKU_to_invoice();
-        } 
+        // if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
+        //     this.InsertSKU_to_invoice();
+        // } 
 
         if(viewModel.get('sourceview') == 'PContractProduct_Bom_TabColorView'){
             this.InsertNPL_DinhMucHaiQuan();
@@ -187,6 +191,10 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         if(sourceview == 'FabricPrice'){
             this.InsertToFabricPrice();
         }
+
+        if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
+            this.InsertToInvoiceEdit_D();
+        } 
     },
     createPContractProduct: function () {
         var m = this;
@@ -632,6 +640,29 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             // console.log(records[0]);
             // var materialid_link = records[0].get('id');
             m.fireEvent("AddMaterialIdLinkFabricPrice", records);
+            // m.onThoat();
+        }else{
+            // Ext.Msg.alert({
+            //     title: "Thông báo",
+            //     msg: 'Bạn chưa chọn nguyên phụ liệu',
+            //     buttons: Ext.MessageBox.YES,
+            //     buttonText: {
+            //         yes: 'Đóng',
+            //     },
+            // });
+            // return;
+        }
+    },
+    InsertToInvoiceEdit_D: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var selectionModel = grid_skusearch.getSelectionModel();
+        var records = grid_skusearch.getSelection();
+        if(records.length > 0){
+            // console.log(records[0]);
+            // var materialid_link = records[0].get('id');
+            m.fireEvent("InsertToInvoiceEdit_D", records);
             // m.onThoat();
         }else{
             // Ext.Msg.alert({

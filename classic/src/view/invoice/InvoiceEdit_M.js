@@ -228,17 +228,18 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
                         ]
                     },
                     {
-                        margin: '0 5 0 0',
                         xtype: 'datefield',
-                        format: GSmartApp.util.State.get('dataFormat'),
-                        altFormats: "Y-m-d\\TH:i:s.uO",
-                        bind: {
-                            value: '{stockin.invoice_date}'
-                        },
                         editable: false,
+                        readOnly:true,
+                        format: 'd/m/Y',
+                        altFormats: "Y-m-d\\TH:i:s.uO",
+                        fieldLabel: 'Ngày lập',
+                        margin: '0 5 0 0',
                         labelWidth: 90,
                         width: 220,
-                        fieldLabel: "Ngày lập"
+                        bind: {
+                            value: '{invoice.contractdate}'
+                        }
                     }
                 ]
             },            

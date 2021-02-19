@@ -261,7 +261,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			margin: '0 0 0 5',
 			iconCls: 'x-fa fa-plus',
 			weight: 30,
-			itemId: 'btnThemNPL'
+			itemId: 'btnThemNPL',
+			hidden: true
 		},
 		{
 			tooltip: 'Tìm NPL',
