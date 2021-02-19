@@ -4,13 +4,13 @@ Ext.define('GSmartApp.store.invoice.Invoice_Store', {
     alias: 'store.Invoice_Store',
     model: 'GSmartApp.model.invoice.invoice_model',
     pageSize: 1,
-    loadStore_byPage: function(invoicenumber, custom_declaration, invociedate_from, invoicedate_to, org_prodviderid_link,
+    loadStore_byPage: function(invoicenumber, custom_declaration, invoicedate_from, invoicedate_to, org_prodviderid_link,
         status, page, limit){
             var me=this;
             var params = new Object();
             params.invoicenumber = invoicenumber;
             params.custom_declaration = custom_declaration;
-            params.invociedate_from = invociedate_from;
+            params.invoicedate_from = invoicedate_from;
             params.invoicedate_to = invoicedate_to;
             params.org_prodviderid_link = org_prodviderid_link;
             params.status = status;

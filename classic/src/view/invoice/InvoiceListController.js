@@ -2,11 +2,17 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.InvoiceListController',
 	init: function() {
+		var me = this.getView();
 		var viewmodel = this.getViewModel();
 		var OrgProviderStore = viewmodel.getStore('OrgProviderStore');
 		OrgProviderStore.loadStore(5, true);
+		
+		var today = new Date();
+		var priorDate = new Date().setDate(today.getDate()-30);
+		me.down('#invoicedate_from').setValue(new Date(priorDate));
 
 		this.onloadPage();
+		
 	},
 	control: {
 		'#InvoiceList': {
@@ -43,8 +49,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
         var limit = me.down('#limitpage').getValue();
         var invoicenumber = me.down('#invoicenumber').getValue();
 		var custom_declaration = me.down('#custom_declaration').getValue();
-		var invociedate_from = me.down('#invociedate_from').getValue();
-		var invociedate_to = me.down('#invociedate_to').getValue();
+		var invoicedate_from = me.down('#invoicedate_from').getValue();
+		var invoicedate_to = me.down('#invoicedate_to').getValue();
 		var org_prodviderid_link = me.down('#org_prodviderid_link').getValue();
 		var status = me.down('#status').getValue();
 
@@ -74,7 +80,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
             status = 0;
         }
 
-        store.loadStore_byPage(invoicenumber, custom_declaration, invociedate_from, invociedate_to, org_prodviderid_link, status, page, limit);
+        store.loadStore_byPage(invoicenumber, custom_declaration, invoicedate_from, invoicedate_to, org_prodviderid_link, status, page, limit);
     },
 	onAddnew:function(){
 		// this.redirectTo("lsinvoice/create");

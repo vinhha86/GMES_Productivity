@@ -111,6 +111,9 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist_lotnumber_Controller', {
     
     var invoiceDRec = viewModel.get('invoiceDRec');
     var pklist = invoiceDRec.get('packinglist');
+    if(pklist == null){
+      pklist = new Array();
+    }
 
     // console.log(pklist);
     var pklistStoreArray = new Array();

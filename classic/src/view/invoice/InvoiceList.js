@@ -97,17 +97,18 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
 			xtype:'datefield',
 			labelWidth: 0,
 			emptyText: 'Ngày HĐ từ',
-			itemId: 'invociedate_from',
+			itemId: 'invoicedate_from',
 			editable: false,
 			margin: '5 0 5 0',
 			value: new Date(),
+			// value: new Date().setDate(new Date().getDate()-30),
 			width: 125,
             format:'d/m/Y'
 		},{
 			xtype:'datefield',
 			labelWidth: 0,
 			emptyText: 'Ngày HĐ đến',
-			itemId: 'invociedate_to',
+			itemId: 'invoicedate_to',
 			editable: false,
 			margin: '5 0 5 0',
 			width: 125,
@@ -169,7 +170,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
             refreshText: 'Làm mới dữ liệu',
             border: false,
             bind: {
-                store: '{ProductStore}'
+                store: '{Invoice_Store}'
             },
             emptyMsg: 'Không có kết quả tìm kiếm',
             lastText: 'Trang cuối',

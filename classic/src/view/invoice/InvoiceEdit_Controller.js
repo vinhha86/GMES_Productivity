@@ -76,14 +76,22 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var data = new Array();
 
 		var invoice = viewmodel.get('invoice');
-		console.log(invoice);
+		// console.log(invoice);
 		// invoice_d
 		var invoice_d = invoice.invoice_d;
 		if(invoice_d != null){
 			for(var i = 0; i < invoice_d.length; i++){
 				if(invoice_d[i].id == 0 || typeof invoice_d[i].id === 'string'){
 					invoice_d[i].id = null;
-					// packinglist
+				}
+
+				var packinglist = invoice_d[i].packinglist;
+				if(packinglist != null){
+					for(var j = 0; j < packinglist.length; j++){
+						if(packinglist[j].id == 0 || typeof packinglist[j].id === 'string'){
+							packinglist[j].id = null;
+						}
+					}
 				}
 			}
 		}

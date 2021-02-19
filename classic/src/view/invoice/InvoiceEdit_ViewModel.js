@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
         IsformMaster: false,
         invoice: {
             id: null,
-            invoicedate: '',
+            invoicedate: new Date(),
             invoice_d: []
         },
         skucode: '',

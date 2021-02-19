@@ -55,7 +55,11 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       }
       else if (field.itemId == "ydsorigin") {
         // console.log('enter');
-        this.CreatePackingList();
+        if(me.down('#packageid').getValue() == ''){
+          me.down('#packageid').focus();
+        }else{
+          this.CreatePackingList();
+        }
       }
     }
   },
@@ -81,6 +85,8 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
         }
       });
       return;
+    }else if(me.down('#packageid').getValue() == ''){
+      me.down('#packageid').focus();
     }else{
       // console.log('here');
       var invoice = viewModel.get('invoice');
@@ -89,6 +95,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       var packinglist = invoiceDRec.get('packinglist');
       if(packinglist == null){
         packinglist = new Array();
+        invoiceDRec.set('packinglist', packinglist)
       }
 
       var packinglistObj = new Object();
@@ -124,15 +131,12 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       me.down('#width').setValue('');
       me.down('#packageid').focus();
 
-      // for(var){
-
-      // }
-
-      console.log(invoice);
-      console.log(invoiced);
-      console.log(invoiceDRec);
-      console.log(packinglist);
+      // console.log(invoice);
+      // console.log(invoiced);
+      // console.log(invoiceDRec);
+      // console.log(packinglist);
     }
+    this.reCalculateSkuGrid();
   },
   // CreatePackingList: function () {
   //   var me = this.getView();
@@ -193,58 +197,161 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
   //       })
   //   }
   // },
+
   onXoa: function(grid, rowIndex, colIndex){
     var me = this;
-    var viewmodel = this.getViewModel();
+    var viewModel = this.getViewModel();
+    var invoice = viewModel.get('invoice');
+    var invoiceDRec = viewModel.get('invoiceDRec');
     var store = grid.getStore();
     var data = store.getAt(rowIndex);
 
-    // console.log(data.get('id'));
+    // console.log(invoice);
+    // console.log(invoiceDRec);
+    // console.log(data);
 
     Ext.Msg.show({
-        title: 'Thông báo',
-        msg: 'Bạn có chắc chắn xóa ?',
-        buttons: Ext.Msg.YESNO,
-        icon: Ext.Msg.QUESTION,
-        buttonText: {
-            yes: 'Có',
-            no: 'Không'
-        },
-        fn: function (btn) {
-            if (btn === 'yes') {
-                me.Xoa(data.get('id'));
-            }
-        }
+      title: 'Thông báo',
+      msg: 'Bạn có chắc chắn xóa ?',
+      buttons: Ext.Msg.YESNO,
+      icon: Ext.Msg.QUESTION,
+      buttonText: {
+          yes: 'Có',
+          no: 'Không'
+      },
+      fn: function (btn) {
+          if (btn === 'yes') {
+              me.Xoa(data, store, rowIndex);
+          }
+      }
     });
-  },
-  Xoa: function (packinglistid_link){
-    var viewmodel = this.getViewModel();
 
-    var params = new Object();
-    params.packinglistid_link = packinglistid_link;
+    
 
-    GSmartApp.Ajax.postJitin('/api/v1/invoice/deletePackingListById',Ext.JSON.encode(params),
-        function(success,response,options ) {
-                if (success) {
-                  var viewInvoice = Ext.getCmp('InvoiceEdit');
-                  viewInvoice.getController().getInfo(viewmodel.get('packinglist.invoiceid_link'));
-    
-                  var store = viewmodel.getStore('PackingListStore');
-                  store.reload();
-                } else {
-                    var response = Ext.decode(response.responseText);
-                    Ext.MessageBox.show({
-                        title: "Thông báo",
-                        msg: 'Có lỗi trong quá trình xoá dữ liệu',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-        })
-    
+    // Ext.Msg.show({
+    //     title: 'Thông báo',
+    //     msg: 'Bạn có chắc chắn xóa ?',
+    //     buttons: Ext.Msg.YESNO,
+    //     icon: Ext.Msg.QUESTION,
+    //     buttonText: {
+    //         yes: 'Có',
+    //         no: 'Không'
+    //     },
+    //     fn: function (btn) {
+    //         if (btn === 'yes') {
+    //             me.Xoa(data.get('id'));
+    //         }
+    //     }
+    // });
   },
+  Xoa: function(data, store, rowIndex){
+    var me = this;
+    var viewModel = this.getViewModel();
+    var invoice = viewModel.get('invoice');
+    var invoiceDRec = viewModel.get('invoiceDRec');
+
+    var id = data.get('id');
+    if(id == 0){
+      // xoa tren grid
+      store.removeAt(rowIndex);
+
+      var packinglist = invoiceDRec.get('packinglist');
+      for(var i = 0; i < packinglist.length; i++){
+        if(packinglist[i].idx == data.get('idx')){
+          packinglist.splice(i, 1);
+          i--;
+        }
+      }
+    }else{
+      store.removeAt(rowIndex);
+
+      var packinglist = invoiceDRec.get('packinglist');
+      for(var i = 0; i < packinglist.length; i++){
+        if(packinglist[i].idx == data.get('idx')){
+          packinglist.splice(i, 1);
+          i--;
+        }
+      }
+      // xoa trong db
+      // var params = new Object();
+      // params.packinglistid_link = id;
+
+      // GSmartApp.Ajax.postJitin('/api/v1/invoice/deletePackingListById',Ext.JSON.encode(params),
+      //   function(success,response,options) {
+      //           if (success) {
+      //             var viewInvoice = Ext.getCmp('InvoiceEdit');
+      //             viewInvoice.getController().getInfo(viewmodel.get('packinglist.invoiceid_link'));
+    
+      //             var store = viewmodel.getStore('PackingListStore');
+      //             store.reload();
+      //           } else {
+      //               var response = Ext.decode(response.responseText);
+      //               Ext.MessageBox.show({
+      //                   title: "Thông báo",
+      //                   msg: 'Có lỗi trong quá trình xoá dữ liệu',
+      //                   buttons: Ext.MessageBox.YES,
+      //                   buttonText: {
+      //                       yes: 'Đóng',
+      //                   }
+      //               });
+      //           }
+      //   })
+    }
+    this.reCalculateSkuGrid();
+  },
+
+  // onXoa: function(grid, rowIndex, colIndex){
+  //   var me = this;
+  //   var viewmodel = this.getViewModel();
+  //   var store = grid.getStore();
+  //   var data = store.getAt(rowIndex);
+
+  //   // console.log(data.get('id'));
+
+  //   Ext.Msg.show({
+  //       title: 'Thông báo',
+  //       msg: 'Bạn có chắc chắn xóa ?',
+  //       buttons: Ext.Msg.YESNO,
+  //       icon: Ext.Msg.QUESTION,
+  //       buttonText: {
+  //           yes: 'Có',
+  //           no: 'Không'
+  //       },
+  //       fn: function (btn) {
+  //           if (btn === 'yes') {
+  //               me.Xoa(data.get('id'));
+  //           }
+  //       }
+  //   });
+  // },
+  // Xoa: function (packinglistid_link){
+  //   var viewmodel = this.getViewModel();
+
+  //   var params = new Object();
+  //   params.packinglistid_link = packinglistid_link;
+
+  //   GSmartApp.Ajax.postJitin('/api/v1/invoice/deletePackingListById',Ext.JSON.encode(params),
+  //       function(success,response,options ) {
+  //               if (success) {
+  //                 var viewInvoice = Ext.getCmp('InvoiceEdit');
+  //                 viewInvoice.getController().getInfo(viewmodel.get('packinglist.invoiceid_link'));
+    
+  //                 var store = viewmodel.getStore('PackingListStore');
+  //                 store.reload();
+  //               } else {
+  //                   var response = Ext.decode(response.responseText);
+  //                   Ext.MessageBox.show({
+  //                       title: "Thông báo",
+  //                       msg: 'Có lỗi trong quá trình xoá dữ liệu',
+  //                       buttons: Ext.MessageBox.YES,
+  //                       buttonText: {
+  //                           yes: 'Đóng',
+  //                       }
+  //                   });
+  //               }
+  //       })
+    
+  // },
   onPackingListItemEdit: function(editor, context, eOpts){
     // console.log('onPackingListItemEdit here');
     var m = this;
@@ -275,10 +382,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     }
 
     store.commitChanges();
-
-    // console.log(pkl_data.id);
-    // console.log(context.field);
-    // console.log(context.value);
+    this.reCalculateSkuGrid();
   },
   // onPackingListItemEdit: function(editor, context, eOpts){
   //   var m = this;
@@ -337,5 +441,39 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
   //                   });
   //               }
   //       })
-  // }
+  // },
+  reCalculateSkuGrid: function(){
+    var viewModel = this.getViewModel();
+    var invoice = viewModel.get('invoice');
+    var invoiceDRec = viewModel.get('invoiceDRec');
+
+    // console.log(invoice);
+    // console.log(invoiceDRec);
+
+    var packinglist = invoiceDRec.get('packinglist');
+    if(packinglist != null){
+      var totalpackage = 0;
+      var netweight = 0;
+      var grossweight = 0;
+      var m3 = 0;
+      var yds = 0;
+      
+      for(var i = 0; i < packinglist.length; i++){
+        totalpackage++;
+        netweight+=packinglist[i].netweight;
+        grossweight+=packinglist[i].grossweight;
+        m3+=packinglist[i].m3;
+        yds+=packinglist[i].ydsorigin;
+      }
+
+      invoiceDRec.set('totalpackage', totalpackage);
+      invoiceDRec.set('netweight', netweight);
+      invoiceDRec.set('grossweight', grossweight);
+      invoiceDRec.set('m3', m3);
+      invoiceDRec.set('yds', yds);
+      invoiceDRec.set('totalamount', yds*invoiceDRec.get('unitprice'));
+
+      Ext.getCmp('InvoiceEdit_D').getStore().commitChanges();
+    }
+  }
 })

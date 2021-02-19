@@ -176,7 +176,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			dataIndex: 'unitprice',
 			editor:{
 				xtype:'textfield',
-				maskRe: /[0-9]/,
+				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
 			renderer: function (value, metaData, record) {
