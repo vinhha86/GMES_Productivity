@@ -539,10 +539,18 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                             storebomcolor2.load();
                         }
 
-                        var mywin = Ext.WindowManager.getActive();
-                        if (mywin) {
-                            mywin.close();
-                        }
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                        // var mywin = Ext.WindowManager.getActive();
+                        // if (mywin) {
+                        //     mywin.close();
+                        // }
                     } else {
                         Ext.MessageBox.show({
                             title: "Thông báo",
