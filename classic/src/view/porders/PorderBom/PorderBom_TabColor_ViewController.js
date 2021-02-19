@@ -64,9 +64,10 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor_ViewController',
 
         //kiem tra mau co trong sku khong thi moi sinh tab 
         var params = new Object();
-        params.porderid_link = porderid_link;
+        params.pcontractid_link = viewmodel.get('porder.pcontractid_link');
+        params.productid_link = viewmodel.get('porder.productid_link');
 
-        GSmartApp.Ajax.post('/api/v1/porder/get_product_sku', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/pcontractsku/getbypcontract_product', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);

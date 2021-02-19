@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
         text: 'Mã NPL',
         dataIndex: 'product_code',
         width: 120,
+        locked: true,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -33,6 +34,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
         text: 'Tên NPL',
         dataIndex: 'product_name',
         width: 120,
+        locked: true,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -40,7 +42,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
     },{
         text: 'Màu NPL',
         dataIndex: 'mauSanPham',
-        width: 100,
+        width: 150,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -48,7 +50,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
     },{
         text: 'Cỡ khổ',
         dataIndex: 'coSanPham',
-        width: 80,
+        width: 60,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;

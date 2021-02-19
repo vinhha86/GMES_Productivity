@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                                 return Ext.util.Format.number(value, '0.0000')
                             }
                         });   
-                        grid.headerCt.insert(grid.columns.length, column);
+                        grid.headerCt.insert(length, column);
                         length++;
                     }
             

@@ -109,12 +109,12 @@ Ext.define('GSmartApp.Application', {
                         //console.log(operation.error);
                         if(operation.error == undefined) {
                             console.log(operation.error);
-                            Ext.Msg.alert('Warning', 'Can load resource data, Please check your network connection!',function(){
+                            Ext.Msg.alert('Thông báo', 'Không thể truy cập vào phần mềm. Bạn hãy kiểm tra kết nối mạng!',function(){
                                 window.location.reload();
                             });
                         } else {
                             if (403 == operation.error.status || 401 == operation.error.status) {
-                                Ext.Msg.alert('Warning', 'User token expire, Please re-login to continue', function(){
+                                Ext.Msg.alert('Thông báo', 'Phiên đăng nhập đã hết hạn. Bạn hãy đăng nhập lại để vào phần mềm!', function(){
                                     config.setToken(null);
                                     GSmartApp.util.State.set('session', null);
                                     Ext.Ajax.setDefaultHeaders({ authorization: '' });

@@ -24,6 +24,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var viewmodel = this.getViewModel();
+        var m = this.getView();
         var rec = grid.getStore().getAt(rowIndex);
         if (rec.get('type') == 0) {
             Ext.Msg.show({
@@ -51,6 +52,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                                     var response = Ext.decode(response.responseText);
                                     if (response.respcode == 200) {
                                         var store = viewmodel.getStore('CutPlanRowStore');
+                                        store.remove(rec);
                                         store.load();
                                     }
                                     else {
@@ -89,8 +91,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
 
         if(context.field != 'ngay'){
             var arr = context.record.get('ngay').split('-');
-
-            var ngay = new Date(arr[2], parseInt(arr[1]) - 1, arr[0]);
+            var ngay = new Date(arr[2], parseInt(arr[0]) - 1, arr[1]);
 
             params.data.ngay = ngay;
         }
@@ -139,9 +140,12 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        var rec_catdu = store.getAt(1);
-                        rec_catdu.set(context.field, parseInt(rec_catdu.get(context.field)) + parseInt(context.value) - parseInt(context.originalValue));
-                        store.commitChanges();
+                        if(response.catdu != null){
+                            var rec_catdu = store.getAt(1);
+
+                            rec_catdu.set(context.field, response.catdu);
+                            store.commitChanges();
+                        }
                     }
                     else {
                         Ext.Msg.alert({
