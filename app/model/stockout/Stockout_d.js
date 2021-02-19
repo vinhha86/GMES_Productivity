@@ -27,7 +27,7 @@ Ext.define('GSmartApp.model.Stockout_d', {
         'widthorder',
         'totalpackage',
         'listpackage',
-        'totalyds',
+        'totalydsorigin',
         'totalpackagecheck',
         'totalydscheck',
         'totalpackageprocessed',
@@ -47,7 +47,11 @@ Ext.define('GSmartApp.model.Stockout_d', {
         'usercreateid_link',
         {name: 'timecreate', type: 'date', dateFormat: 'c'},
         'lastuserupdateid_link',
-        {name: 'lasttimeupdate', type: 'date', dateFormat: 'c'}
+        {name: 'lasttimeupdate', type: 'date', dateFormat: 'c'},
+        'totalmet_origin',
+        'totalmet_check',
+        'totalmet_processed',
+        'totalmet_stockout',
     ],
     hasMany : {model: 'Stockout_pklist', name: 'stockoutpklist'}
 });

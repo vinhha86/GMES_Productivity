@@ -57,6 +57,9 @@ Ext.define('GSmartApp.model.Stockout_pklist', {
             calculate: function(data) {
                 return data.ydsprocessed - data.ydsorigin;
             }
-        }             
+        },
+        'met_origin',
+        'met_check',
+        'met_processed',             
     ]
 });

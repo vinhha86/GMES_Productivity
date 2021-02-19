@@ -30,6 +30,8 @@ Ext.define('GSmartApp.model.stockin.Stockin_pklist', {
         'skutypeid_link',
         'rssi',
         'status',
-        'extrainfo'
+        'extrainfo',
+        'met_origin',
+        'met_check'
     ]
 });

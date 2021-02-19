@@ -17,7 +17,7 @@ Ext.define('GSmartApp.model.stockin.Stockin_d', {
         'unit_name',
         'totalpackage_order',
         'totalpackage',
-        'yds',
+        'totalydsorigin',
         'foc',
         'totalpackagecheck',
         'totalydscheck',
@@ -36,7 +36,9 @@ Ext.define('GSmartApp.model.stockin.Stockin_d', {
                 return (null == data.unitprice ?'0':data.totalpackage * data.unitprice);
             }
         },
-        'status'
+        'status',
+        'totalmet_origin',
+        'totalmet_check'
     ],
     hasMany : {model: 'Stockin_pklist', name: 'stockin_packinglist'}
 });

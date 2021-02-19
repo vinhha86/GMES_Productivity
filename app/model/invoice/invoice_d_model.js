@@ -1,9 +1,9 @@
 Ext.define('GSmartApp.model.invoice.invoice_d_model', {
-    extend: 'Ext.data.Model',
+    extend: 'GSmartApp.model.Base',
     idProperty: 'idx',
     fields: [
-        'idx',
-		{name: 'id', type: 'int'},
+        {name: 'id', type: 'int'},
+        {name: 'idx'},
 		{name: 'orgrootid_link',  type: 'int'},
         {name: 'invoiceid_link',   type: 'int'},
         {name: 'skuid_link',   type: 'int'},
