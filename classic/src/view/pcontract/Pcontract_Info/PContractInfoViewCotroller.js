@@ -26,6 +26,7 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
         storeContractBuyer.loadStoreByBuyer(record.id);
 
         // list vendor
+        this.getView().down('#orgvenderid_link').setValue(null);
         var VenderStore = viewmodel.getStore('Vender');
         VenderStore.loadVendorStoreByBuyerId(record.id);
     },
