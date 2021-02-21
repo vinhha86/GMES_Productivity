@@ -20,9 +20,14 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
         var viewmodel  = this.getViewModel();
         viewmodel.set('PContract.contractcode', record.get('code'));
         // console.log(record);
+        // list h/dong gia cong
         this.getView().down('#contractbuyerid_link').setValue(null);
         var storeContractBuyer = viewmodel.getStore('ContractBuyerStore');
         storeContractBuyer.loadStoreByBuyer(record.id);
+
+        // list vendor
+        var VenderStore = viewmodel.getStore('Vender');
+        VenderStore.loadVendorStoreByBuyerId(record.id);
     },
     onSelectPayer: function(combo, record){
         // console.log(record);
@@ -36,8 +41,13 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewCotroller', {
     },
     loadInfo: function (id) {
         var me = this.getView();
+        var viewmodel  = this.getViewModel();
         if (id == 0) {
             me.getForm().reset();
+            viewmodel.set('PContract.contractdate', new Date());
+            viewmodel.set('PContract.contracttypeid_link', 1);
+            viewmodel.set('PContract.marketypeid_link', 2);
+            viewmodel.set('PContract.payer', 1);
             return;
         }
 
