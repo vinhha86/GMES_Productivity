@@ -115,18 +115,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         }
     },
     onLenhChuaPhanChuyen: function(){
-        var me = this;
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
         var tab = panel_orderungranted.child('#POrderUnGranted');
         tab.tab.show();
         panel_orderungranted.setActiveTab(tab);
+        panel_orderungranted.setLoading("Đang tải dữ liệu");
 
         var store = viewmodel.getStore('POrderUnGranted');
         var golive_from = viewmodel.get('schedule.startDate');
         var golive_to = viewmodel.get('schedule.endDate');
-        store.loadFree_groupby_product(golive_from,golive_to);
+        store.loadFree_groupby_product(golive_from,golive_to, function(records, operation, success){
+            panel_orderungranted.setLoading(false);
+        });
 
         if (null != panel_orderungranted){
             if (panel_orderungranted.getHidden()){

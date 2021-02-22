@@ -2,10 +2,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     extend: 'Ext.app.ViewController',
     alias: 'controller.TabPorder_notGrant_and_PorderReq_Controller',
     init: function () {
-        var viewModel = this.getViewModel();
-        var POrderUnGranted = viewModel.getStore('POrderUnGranted');
-        POrderUnGranted.getSorters().add('buyercode');
-        POrderUnGranted.getSorters().add('golivedate');
+        // var viewModel = this.getViewModel();
+        // var POrderUnGranted = viewModel.getStore('POrderUnGranted');
+        // POrderUnGranted.getSorters().add('buyercode');
+        // POrderUnGranted.getSorters().add('golivedate');
         // var store_req = viewmodel.getStore('Porder_Req_Store');
         // var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
         // store.getSorters().add('productiondate');
@@ -98,8 +98,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     onTabChange: function(tabPanel, newCard, oldCard, eOpts){
         var viewmodel = this.getViewModel();
         var grid = this.getView();
+        grid.setLoading("Đang tải dữ liệu");
+        console.log(newCard);
         if(newCard.xtype == "Schedule_POrderReq_View"){
-            grid.setLoading("Đang tải dữ liệu");
             var store_req = viewmodel.getStore('PContractrPoductPOStore');
             store_req.getOffers_byOrg_noLoad();
             store_req.load({
@@ -113,7 +114,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             var store = viewmodel.getStore('POrderUnGranted');
             var golive_from = viewmodel.get('schedule.startDate');
             var golive_to = viewmodel.get('schedule.endDate');
-            store.loadFree_groupby_product(golive_from, golive_to);
+
+            store.loadFree_groupby_product(golive_from, golive_to, function(records, operation, success){
+                grid.setLoading(false);
+            });
         }
     },
     onSearchGrantChange: function(){
@@ -123,10 +127,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
     },
     onSearchTap: function () {
         var viewmodel = this.getViewModel();
+        var grid = this.getView();
+        grid.setLoading("Đang tải dữ liệu");
         var store = viewmodel.getStore('POrderUnGranted');
         var golive_from = viewmodel.get('schedule.startDate');
         var golive_to = viewmodel.get('schedule.endDate');
-        store.loadFree_groupby_product(golive_from, golive_to);
+        store.loadFree_groupby_product(golive_from, golive_to, function(records, operation, success){
+            grid.setLoading(false);
+        });
     },
     onSearchPorderReq: function () {
         var viewmodel = this.getViewModel();
@@ -196,18 +204,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             this.poBuyerFilterUnGranted = null;
         }
     },
-    onUnGrantedBuyerCodeFilterKeyup: function () {
+    onUnGrantedProductCodeFilterKeyup: function () {
         var grid = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrderUnGranted');
         // Access the field using its "reference" property name.
-        filterField = this.lookupReference('unGrantedBuyerCodeFilterField'),
+        filterField = this.lookupReference('unGrantedProductCodeFilterField'),
             filters = store.getFilters();
 
         if (filterField.value) {
             this.codeFilterUnGranted = filters.add({
-                id: 'ungrantedBuyerCodeFilter',
-                property: 'buyercode',
+                id: 'unGrantedProductCodeFilterField',
+                property: 'product_buyername',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false

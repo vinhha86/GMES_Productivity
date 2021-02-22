@@ -101,12 +101,12 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
-                reference: 'unGrantedBuyerCodeFilterField',
+                reference: 'unGrantedProductCodeFilterField',
                 width: '99%',
                 margin: 1,
                 enableKeyEvents: true,
                 listeners: {
-                    keyup: 'onUnGrantedBuyerCodeFilterKeyup',
+                    keyup: 'onUnGrantedProductCodeFilterKeyup',
                     buffer: 500
                 }
             },
@@ -221,6 +221,10 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                     text:'PO Buyer',
                     dataIndex:'po_buyer',
                     width: 110,
+                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
                     // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                     //     if (record.data.status == 0) {
                     //         metaData.tdCls =  "po_accept";
@@ -234,7 +238,11 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
                 },{
                     text:'PO Vendor',
                     dataIndex:'po_vendor',
-                    width: 100
+                    width: 100,
+                    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                        metaData.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
                 },{
                     text:'SL',
                     align: 'end',

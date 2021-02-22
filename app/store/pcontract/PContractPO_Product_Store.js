@@ -72,7 +72,7 @@ Ext.define('GSmartApp.store.PContractPO_Product_Store', {
 			}
 		});
 	},
-	loadFree_groupby_product: function(golivedate_from, golivedate_to){
+	loadFree_groupby_product: function(golivedate_from, golivedate_to, back){
 		var me=this;
 		var params = new Object();
         params.golivedate_from = golivedate_from;
@@ -101,21 +101,27 @@ Ext.define('GSmartApp.store.PContractPO_Product_Store', {
 		});
 		this.load({
 			scope: this,
-			callback: function(records, operation, success){
-				if(!success){
-					Ext.Msg.show({
-						title: 'Thông báo',
-						msg: 'Phiên làm việc đã hết thời gian! Bạn hãy đăng nhập lại',
-						buttons: Ext.MessageBox.YES,
-						buttonText: {
-							yes: 'Đóng',
-						},
-						fn: function () {
-							this.fireEvent('logout');
-						}
-					});
-				}
+			callback: function(records, operation, success) {
+				back.call(records, operation, success);
 			}
 		});
+		// this.load({
+		// 	scope: this,
+		// 	callback: function(records, operation, success){
+		// 		if(!success){
+		// 			Ext.Msg.show({
+		// 				title: 'Thông báo',
+		// 				msg: 'Phiên làm việc đã hết thời gian! Bạn hãy đăng nhập lại',
+		// 				buttons: Ext.MessageBox.YES,
+		// 				buttonText: {
+		// 					yes: 'Đóng',
+		// 				},
+		// 				fn: function () {
+		// 					this.fireEvent('logout');
+		// 				}
+		// 			});
+		// 		}
+		// 	}
+		// });
 	}
 });
