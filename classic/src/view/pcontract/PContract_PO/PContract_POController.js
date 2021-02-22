@@ -685,6 +685,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         var record = this.parentMenu.record;
                         me.onXoaPOLine(record);
                     }
+                },
+                '-',
+                {
+                    text: 'Copy Line giao hàng',
+                    itemId: 'btnCopyPO_PContract_PO_List',
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-copy violetIcon',
+                    // hidden: ishidden_accept,
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onCopyLine(record);
+                    }
                 }
             ]
         });
@@ -694,6 +706,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
+    },
+    onCopyLine: function(rec){
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.pcontract_poid_Link = rec.get('id');
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/copyline', Ext.JSON.encode(params),
+        function (success, response, options) {
+            var response = Ext.decode(response.responseText);
+            if (success) {
+                var store = viewmodel.getStore('PContractProductPOStore');
+                store.load();
+            } else {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: response.message,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        });
     },
     onXoaPOLine: function (rec) {
         var viewmodel = this.getViewModel();
@@ -787,6 +822,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         })
     },
     onAddPOLine: function(rec, isHidden_req){
+        var me = this;
+
         var list_plan_productivity = [];
         list_plan_productivity = rec.get('pcontract_po_productivity');
         var plan_productivity = new Object();
