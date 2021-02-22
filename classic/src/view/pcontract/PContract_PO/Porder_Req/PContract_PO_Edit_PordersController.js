@@ -22,6 +22,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var orgCode = "";
         var list_product = [];
         
+        //cap nhat po_quantity tu po_productivity
+        viewmodel.set('po.po_quantity', viewmodel.get('pcontract_po_productivity.amount'));
 
         if (context.records[0].get('parentId') == 'root') {
             orgId = context.records[0].get('id_origin');

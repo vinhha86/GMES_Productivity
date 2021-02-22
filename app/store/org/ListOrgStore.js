@@ -31,10 +31,6 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
             }
         }
 	],
-	sorters: {
-        direction: 'ASC',
-        property: 'id'
-    },
 	loadStore:function(type, isAll){
 		var me=this;
 		if(isAll == null)
@@ -195,7 +191,7 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 			}
 		});
 	},
-	loadOrg_Request: function(pcontract_poid_link) {
+	loadOrg_Request: function(pcontract_poid_link, callback) {
 		var me=this;
 		var params = new Object();
 		params.pcontract_poid_link = pcontract_poid_link;
@@ -223,9 +219,7 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 		this.loadPage(1,{
 			scope: this,
 			callback: function(records, operation, success) {
-				if(!success){
-					 this.fireEvent('logout');
-				}
+				callback.call(records, operation, success);
 			}
 		});
 	},

@@ -3,12 +3,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept_ViewCotroller', {
     alias: 'controller.PContract_PO_FormAccept_ViewCotroller',
     init: function(){
         var viewmodel = this.getViewModel();
+        var userStore = viewmodel.getStore('UserStore');
 
 		var OrgStore = viewmodel.getStore('OrgStore');
-        OrgStore.loadOrg_Request(viewmodel.get('po.id'));
+        OrgStore.loadOrg_Request(viewmodel.get('po.id'), function(records, operation, success){
+            var po = viewmodel.get('po');
+            if(po.orgid_link == null || po.orgid_link == 0){
+                if(OrgStore.data.length > 0){
+                    viewmodel.set('po.orgid_link', OrgStore.getAt(0).get('id'));
+                    userStore.loadUserbyOrg_Buyer(OrgStore.getAt(0).get('id'), viewmodel.get('po.orgbuyerid_link'));
+                }
+                
+            }
+        });
 
         if(viewmodel.get('po.orgid_link') > 0){
-            var userStore = viewmodel.getStore('UserStore');
             userStore.loadUserbyOrg_Buyer(viewmodel.get('po.orgid_link'), viewmodel.get('po.orgbuyerid_link'));
         }
     },
