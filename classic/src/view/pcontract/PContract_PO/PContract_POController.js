@@ -871,7 +871,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             pcontractid_link : rec.get('pcontractid_link'),
                             productid_link: rec.get('productid_link'),
                             status: rec.get('status'),
-                            productiondate: rec.get('productiondate')
+                            productiondate: rec.get('productiondate'),
+                            packingnotice: rec.get('packingnotice'),
+                            shipmodeid_link: rec.get('shipmodeid_link'),
+                            sewtarget_percent: rec.get('sewtarget_percent'),
+                            shipdate: rec.get('shipdate'),
+                            portfromid_link: rec.get('portfromid_link'),
+                            porttoid_link: rec.get('porttoid_link'),
+                            is_tbd: rec.get('is_tbd')
                         },
                         pcontract_po_productivity: plan_productivity
                     }
