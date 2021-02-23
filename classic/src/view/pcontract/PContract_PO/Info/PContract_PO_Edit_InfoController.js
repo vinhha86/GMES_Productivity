@@ -12,6 +12,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     },
     recalProductionDate: function(){
         var me = this;
+        var grid = this.getView();
+        grid.setLoading('Đang xử lý!');
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
         var matdate = Ext.Date.parse(po_data.matdate, 'c');
@@ -36,6 +38,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
                     var response = Ext.decode(response.responseText);
                    
                     if(response.respcode == 200){
+                        grid.setLoading(false);
                         viewmodel.set('po.productiondays',response.duration);
                         viewmodel.set('po.productiondate',response.production_date);
                         me.onProductivityChange();
@@ -45,6 +48,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
     },
     recalProductionDays: function(){
         var me = this;
+        var grid = this.getView();
+        grid.setLoading('Đang xử lý!');
         var viewmodel = this.getViewModel();
         var po_data = viewmodel.get('po');
 
@@ -61,6 +66,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_InfoController', {
         GSmartApp.Ajax.post('/api/v1/schedule/get_duration', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
+                    grid.setLoading(false);
                     var response = Ext.decode(response.responseText);
                    
                     if(response.respcode == 200){
