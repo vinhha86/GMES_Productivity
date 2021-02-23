@@ -68,6 +68,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
+        var status = 0;
 
         var page = store.currentPage;
 
@@ -82,6 +83,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
     },
     onThemMoi: function(){
         this.redirectTo('stockin_m_main/create');
+    },
+    onNhapMuaMoi: function(){
+        this.redirectTo('stockin_m_main/1/create');
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         var id = record.data.id;

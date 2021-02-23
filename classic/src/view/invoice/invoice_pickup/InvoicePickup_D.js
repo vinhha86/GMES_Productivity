@@ -9,6 +9,10 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_D', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false               
@@ -101,14 +105,14 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_D', {
 		// 	summaryRenderer: 'renderSum',
 		// 	width: 120
 		// },
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockin_contextmenu',
-			width: 40,
-			iconCls: 'x-fa fas fa-bars violetIcon',
-			tooltip:'PackingList',
-			handler: 'onViewPackingList'
-		}   	
+		// { 
+		// 	xtype: 'actioncolumn',
+		// 	reference: 'stockin_contextmenu',
+		// 	width: 40,
+		// 	iconCls: 'x-fa fas fa-bars violetIcon',
+		// 	tooltip:'PackingList',
+		// 	handler: 'onViewPackingList'
+		// }   	
 	],
     fbar: [
 		{
@@ -118,11 +122,11 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_D', {
 			handler: 'onSelectButton'
 		},
 		{
-        minWidth: 80,
-        text: 'Đóng',
-        iconCls: 'x-fa fa-window-close',
-        handler: 'onCloseButton'
-    	}, 
+			minWidth: 80,
+			text: 'Đóng',
+			iconCls: 'x-fa fa-window-close',
+			handler: 'onCloseButton'
+		}, 
 	// , ,
 	// '->'
 	]	

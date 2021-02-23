@@ -13,7 +13,23 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
     },{
 		text: 'Số hóa đơn',
 		dataIndex: 'invoicenumber',
-		width: 100
+		width: 100,
+		items: {
+			xtype: 'textfield',
+			fieldStyle: "",
+			reference: 'invoicenumberFilter',
+			width: 1966,
+			flex: 1,
+			margin: 2,
+			enableKeyEvents: true,
+			listeners: {
+				keyup: 'onInvoicenumberFilterKeyup',
+				buffer: 500
+			},
+			bind:{
+				value: '{invoice_number}'
+			}
+		}
 	},{
 		text: 'Ngày hóa đơn',
 		xtype: 'datecolumn',
@@ -22,7 +38,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
 		width: 120
 	},{
 		text: 'Nhà cung cấp',
-		dataIndex: 'orgfrom_name',
+		dataIndex: 'orgProviderName',
 		flex: 1
 	}],
 	dockedItems: [{
@@ -32,7 +48,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
 			xtype:'datefield',
 			labelWidth: 0,
 			emptyText: 'Ngày HĐ từ',
-			itemId: 'invociedate_from',
+			itemId: 'invoicedate_from',
 			editable: false,
 			margin: '5 0 5 0',
 			value: new Date(),
@@ -42,7 +58,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
 			xtype:'datefield',
 			labelWidth: 0,
 			emptyText: 'Ngày HĐ đến',
-			itemId: 'invociedate_to',
+			itemId: 'invoicedate_to',
 			editable: false,
 			margin: '5 0 5 0',
 			width: 110,
