@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			}
 		},
         {
-			text: 'Width', 
+			text: 'Khổ', 
 			dataIndex: 'width',
 			align:'right',
 			editor:{
@@ -195,7 +195,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			xtype: 'textfield',
 			margin: 1,
 			itemId:'width',
-			emptyText: 'Width',
+			emptyText: 'Khổ',
 			flex: 1,
 			labelWidth: 0,
 			hideLabel: true,

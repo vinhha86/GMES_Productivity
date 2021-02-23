@@ -36,7 +36,21 @@ Ext.define('GSmartApp.view.invoice.invoice_npl_search.invoice_npllist', {
         xtype: 'rownumberer',
         align: 'center'
     },
-        { header: 'Mã NPL', dataIndex: 'mat_sku_code', flex: 1},
+        { header: 'Mã NPL', dataIndex: 'mat_sku_code', width: 200,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'maNPLFilter',
+                width: 1966,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onMaNPLFilterKeyup',
+                    buffer: 500
+                }
+            }
+        },
         { header: 'Nguyên phụ liệu', dataIndex: 'mat_sku_name', flex: 1},
         { header: 'Màu NPL', dataIndex: 'mat_sku_color_name', flex: 1},
         { header: 'Cỡ khổ', dataIndex: 'mat_sku_size_name', width: 70},

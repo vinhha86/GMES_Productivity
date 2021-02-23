@@ -253,7 +253,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 			},
 			enableKeyEvents : true,
 			listeners: {
-				keypress: 'onPressEnterBtnTimNPL'
+				keypress: 'onPressEnterBtnThemNPL'
 			}
 		},
 		{
