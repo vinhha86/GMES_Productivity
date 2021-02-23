@@ -174,15 +174,27 @@ Ext.define('GSmartApp.view.main.MainController', {
 
     onRouteChange:function(id){
         console.log('onRouteChange:' + id);
+        var window = Ext.WindowManager.getActive();
+        if(window){
+            window.close();
+        }
         this.setCurrentView(id);
     },
 	onRouteDataChange(hashTag,id,args){
+        
+
 		args = Ext.Array.clean((args || '').split('/'));
 		hashTag = (hashTag || '').toLowerCase();
 		var session= GSmartApp.util.State.get('session');
 		if(!session){
 			 this.redirectTo("login");
 		}
+        
+        var window = Ext.WindowManager.getActive();
+        if(window){
+            window.close();
+        }
+
         var me = this,
             refs = me.getReferences(),
             mainCard = refs.mainCardPanel,
