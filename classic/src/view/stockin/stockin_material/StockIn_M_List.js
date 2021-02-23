@@ -12,7 +12,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
     bind:{
         store: '{StockinStore}'
     },
-    columns: [
+    columns: [{
+            text: 'STT',
+            width: 50,
+            xtype: 'rownumberer',
+            align: 'center'
+        },
         {text: 'Số phiếu', dataIndex: 'stockincode', width: 150},
         {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 200},    
         {

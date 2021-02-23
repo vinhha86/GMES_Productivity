@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_D', {
 			width: 70
 		},{
 			text: 'ĐVT', 
-			dataIndex: 'unit_name',
+			dataIndex: 'unitname',
 			width: 70
 		},{
 			xtype: 'numbercolumn',

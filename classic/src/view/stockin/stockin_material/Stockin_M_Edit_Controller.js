@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         var params = new Object();
         params.id = id ;
-        GSmartApp.Ajax.post('/api/v1/stockin/stockin_getbyid',Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {

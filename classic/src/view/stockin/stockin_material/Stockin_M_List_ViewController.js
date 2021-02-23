@@ -27,10 +27,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         }
     },    
     control: {
-        '#StockIn_M_List': {
-            itemdblclick: 'onCapNhatdbl',
-            activate: 'onActivate'
-        },        
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
@@ -39,7 +35,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         },
         '#limitpage': {
             specialkey: 'onSpecialkey'
-        }
+        },
+        '#Stockin_M_List': {
+            itemdblclick: 'onCapNhatdbl',
+            activate: 'onActivate'
+        },        
     },
     onActivate: function () {
         this.onSearch();
@@ -88,6 +88,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         this.redirectTo('stockin_m_main/1/create');
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
+        console.log('yo');
+        console.log(this.getView());
         var id = record.data.id;
         this.redirectTo("stockin_m_main/" + id + "/edit");
     },
@@ -117,7 +119,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
                     me.setLoading("Đang xóa");
                     var params = new Object();
                     params.id = id;
-                    GSmartApp.Ajax.post('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
                         if (success) {
                             me.setLoading(false);

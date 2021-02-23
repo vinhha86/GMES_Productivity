@@ -49,11 +49,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			width: 70
+			width: 90
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
-			width: 50
+			width: 70
 		},{
 			text: 'ĐVT', 
 			dataIndex: 'unit_name',

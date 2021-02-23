@@ -76,6 +76,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
             // console.log(invoice_ds);
 
             viewModel.set('stockin.invoice_number', invoice.invoicenumber);
+            viewModel.set('stockin.invoice_date', invoice.invoicedate);
             viewModel.set('stockin.material_invoiceid_link', invoice.id);
             viewModel.set('stockin.stockin_d', null);
 
@@ -104,6 +105,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                     stockin_dObj.totalamount = invoice_d.get('totalamount');
                     stockin_dObj.totalydsorigin = invoice_d.get('yds');
                     stockin_dObj.totalydscheck = 0;
+                    stockin_dObj.unitid_link = invoice_d.get('unitid_link');
+                    stockin_dObj.unit_name = invoice_d.get('unitname');
 
                     //
                     var packinglist = invoice_d.get('packinglist');
@@ -137,8 +140,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 
             viewModel.set('stockin.stockin_d', stockin_d);
 
-            console.log(invoice_ds);
-            console.log(stockin);
+            // console.log(invoice_ds);
+            // console.log(stockin);
 
             form.close();
         });
