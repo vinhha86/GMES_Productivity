@@ -49,6 +49,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
         // console.log(invoice);
         if(invoice != null){
             if(invoice.pcontractcode != null && invoice.pcontractid_link != null){
+                me.setLoading(true);
                 var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
                 var BalanceProductStore = viewModel.getStore('BalanceProductStore');
                 // console.log(SKUBalanceStore);
@@ -68,6 +69,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
 
                                 m.createWindowNpl(SKUBalanceStore, skucode);
                             }
+                            me.setLoading(false);
+                        }else{
+                            me.setLoading(false);
                         }
                     })
 
@@ -533,11 +537,11 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
             }
         }
     },
-    onPressEnterBtnTimNPL: function(textfield, e, eOpts){
+    onPressEnterBtnThemNPL: function(textfield, e, eOpts){
         var m = this;
         if(e.getKey() == e.ENTER) {
             // Ext.Msg.alert('Keys','You pressed the Enter key');
-            m.onBtnTimNPL();
+            m.onBtnThemNPL();
         }
     },
 })
