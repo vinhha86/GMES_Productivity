@@ -372,9 +372,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         var data = grid.getStore().getAt(rowIndex);
         var stockindid_link = data.get('id');
 
-        console.log(stockin);
-        console.log(data);
-        console.log(stockindid_link);
+        // console.log(stockin);
+        // console.log(data);
+        // console.log(stockindid_link);
 
         // if(isNaN(invoicedid_link)){
         if(false){

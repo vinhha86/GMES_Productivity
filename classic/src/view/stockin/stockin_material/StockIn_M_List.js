@@ -18,7 +18,36 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             xtype: 'rownumberer',
             align: 'center'
         },
-        {text: 'Số phiếu', dataIndex: 'stockincode', width: 150},
+        {text: 'Số phiếu', dataIndex: 'stockincode', width: 150,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stockincodeFilter',
+                width: 146,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockincodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
+        {text: 'Số Invoice', dataIndex: 'invoice_number', width: 150,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'invoice_numberFilter',
+                width: 146,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onInvoice_numberFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
         {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 200},    
         {
             text: GSmartApp.Locales.ngaynhap[GSmartApp.Locales.currentLocale],
@@ -148,8 +177,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             queryMode: 'local',
             margin: 3,
             displayField: 'name',
-            valueField: 'id'
-        },{
+            valueField: 'id',
+            // flex: 1,
+        },      
+        // {
+        //     itemId: 'OrgToStore',
+        //     xtype: 'combobox',
+        //     emptyText: 'Nơi nhận',
+        //     bind:{
+        //         store: '{OrgToStore}'
+        //     },
+        //     queryMode: 'local',
+        //     margin: 3,
+        //     displayField: 'name',
+        //     valueField: 'id',
+        //     flex: 1,
+        // },
+        {
             itemId: 'stockintypeid_link',
             xtype: 'combobox',
             emptyText: 'Loại nhập kho',
@@ -159,7 +203,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             queryMode: 'local',
             margin: 3,
             displayField: 'name',
-            valueField: 'id'
+            valueField: 'id',
+            // flex: 1,
         }, 
         {
             // width: 100,
@@ -167,7 +212,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             margin: 3,
             // text: GSmartApp.Locales.btn_loc[GSmartApp.Locales.currentLocale],
             iconCls: 'x-fa fa-search',
-            itemId: 'btnTimKiem'
+            itemId: 'btnTimKiem',
+
         }]
     }, {
         dock: 'bottom',

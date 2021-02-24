@@ -9,15 +9,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         var stockintype = viewmodel.getStore('StockinTypeStore');
         stockintype.loadStore();
         
-        var listidtype = "4,8,9,11,12";
+        var listidtype = "13,4,8,9";
+        // var listidtype = "4,8,9,11,12";
         var orgtostore = this.getViewModel().getStore('OrgToStore');
         orgtostore.loadStore_allchildren_byorg(listidtype);
 
         var fromStore = this.getViewModel().getStore('OrgFromStore');
         fromStore.loadStore_byRoot(listidtype);
 
-        // var store = viewmodel.getStore('StockinStore');
-        // store.loadStore(0, null, new Date(), 0, 0, 25, 1);
+        var today = new Date();
+		var priorDate = new Date().setDate(today.getDate()-30);
+		me.down('#stockindate_from').setValue(new Date(priorDate));
+
+        this.onSearch();
     },
 	listen: {
         controller: {
@@ -42,7 +46,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         },        
     },
     onActivate: function () {
-        this.onSearch();
+        // this.onSearch();
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -132,5 +136,46 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
                 }
             }
         });
+    },
+
+    onStockincodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('stockincodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.stockincodeFilter = filters.add({
+                id: 'stockincodeFilter',
+                property: 'stockincode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.stockincodeFilter) {
+            filters.remove(this.stockincodeFilter);
+            this.stockincodeFilter = null;
+        }
+    },
+    onInvoice_numberFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('invoice_numberFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.invoice_numberFilter = filters.add({
+                id: 'invoice_numberFilter',
+                property: 'invoice_number',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.invoice_numberFilter) {
+            filters.remove(this.invoice_numberFilter);
+            this.invoice_numberFilter = null;
+        }
     }
 })
