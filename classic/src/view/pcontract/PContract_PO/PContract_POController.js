@@ -819,7 +819,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             var storePO = viewModel.getStore('PContractProductPOStore');
             storePO.load();
             form.close();
-        })
+        });
     },
     onAddPOLine: function(rec, isHidden_req){
         var me = this;

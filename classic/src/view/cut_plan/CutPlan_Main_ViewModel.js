@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.Customer.CutPlan_Main_ViewModel', {
+Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.CutPlan_Main_ViewModel',
     requires: ['GSmartApp.store.Sku', 'GSmartApp.store.cutplan.CutPlanRowStore'],

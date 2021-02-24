@@ -16,7 +16,6 @@ Ext.define('GSmartApp.Application', {
 		'OrgStore',
 		'OrgTypeStore',
 		'PortStore',
-		'WareHouseStore',
 		'BossStore',
 		'DeviceStore',
 		'DeviceInvStore',

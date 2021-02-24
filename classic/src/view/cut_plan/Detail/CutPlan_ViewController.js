@@ -22,9 +22,34 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         // var form_npl = main.down('#CutPlan_NPL_View');
         // form_npl.expand();
     },
+    onLock: function(grid, rowIndex, colIndex){
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Giữ cây vải cho sơ đồ ',
+            closeAction: 'destroy',
+            height: 400,            
+            width: 900,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Cutplan_Warehouse_MainView'
+            }]
+        });
+        form.show();
+
+        form.down('#Cutplan_Warehouse_MainView').getController().on('Thoat', function () {
+            
+            form.close();
+        });
+    },
     onXoa: function (grid, rowIndex, colIndex) {
         var viewmodel = this.getViewModel();
-        var m = this.getView();
         var rec = grid.getStore().getAt(rowIndex);
         if (rec.get('type') == 0) {
             Ext.Msg.show({
@@ -214,7 +239,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 8
+        var length = 9;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
@@ -278,7 +303,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var model = storeBOM.getModel();
                     var fields = model.getFields();
                     for (var i = 0; i < fields.length; i++) {
-                        if (i > 8) {
+                        if (i > 9) {
                             model.removeFields(fields[i].name);
                         }
                     }
