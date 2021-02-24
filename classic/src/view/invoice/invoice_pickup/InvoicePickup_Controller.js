@@ -2,48 +2,63 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.InvoicePickup_Controller',
 	init: function() {
+        var me = this.getView();
 		var viewmodel = this.getViewModel();
 		var OrgProviderStore = viewmodel.getStore('OrgProviderStore');
 		OrgProviderStore.loadStore(5, true);
+
+        var today = new Date();
+		var priorDate = new Date().setDate(today.getDate()-30);
+		me.down('#invoicedate_from').setValue(new Date(priorDate));
+
+        this.onloadPage();
 	},
 	control: {
+		'#InvoicePickup_Main': {
+            beforedestroy: 'onDestroy'
+        },
+        '#InvoicePickup_List': {
+            itemclick: 'onInvoiceClick'
+        },
         '#btnTimKiem': {
             click: 'onloadPage'
         }
 	},
+    onDestroy:function(){
+        var store = Ext.getCmp('InvoicePickup_List').getStore();
+        store.clearFilter();
+    },
+    onCloseButton:function(){
+        var store = Ext.getCmp('InvoicePickup_List').getStore();
+        store.clearFilter();
+        this.fireEvent('Thoat');
+    },
+    onSelectButton: function(){
+        var m = Ext.getCmp('InvoicePickup_D');
+        var me = this;
+        var viewModel = this.getViewModel();
+        var invoice = viewModel.get('invoice');
+        
+        var select = m.getSelectionModel().getSelection();
+        if(select.length > 0){
+            me.fireEvent('InvoicePickupSelect', invoice, select);
+        }
+    },
 	onloadPage: function () {
         var me = this.getView();
-        var t = this;
+        var viewModel = this.getViewModel();
+        var InvoiceList_Store = viewModel.getStore('InvoiceList_Store');
 
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Invoice_Store');
+        var invoicenumber = viewModel.get('invoice_number');
+        var invoicedate_from = me.down('#invoicedate_from').getValue();
+		var invoicedate_to = me.down('#invoicedate_to').getValue();
+        var org_prodviderid_link = me.down('#org_prodviderid_link').getValue();
 
-        var limit = me.down('#limitpage').getValue();
-        var invoicenumber = me.down('#invoicenumber').getValue();
-		var custom_declaration = me.down('#custom_declaration').getValue();
-		var invociedate_from = me.down('#invociedate_from').getValue();
-		var invociedate_to = me.down('#invociedate_to').getValue();
-		var org_prodviderid_link = me.down('#org_prodviderid_link').getValue();
-		var status = me.down('#status').getValue();
-
-        var page = store.currentPage;
-
-        if (limit == null) {
-            limit = 25;
-        }
-
-        if (page == null) {
-            page = 1;
-        }
-
+        
         if (invoicenumber == null) {
             invoicenumber = "";
         }
 
-        if (custom_declaration == null) {
-            custom_declaration = "";
-		}
-		
 		if (org_prodviderid_link == null) {
             org_prodviderid_link = 0;
 		}
@@ -52,53 +67,54 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_Controller', {
             status = 0;
         }
 
-        store.loadStore_byPage(invoicenumber, custom_declaration, invociedate_from, invociedate_to, org_prodviderid_link, status, page, limit);
-    },
-	onSearch:function(){
-		var params = new Object();
-		var view = this.getView();
-		var formInvoice = this.lookupReference('formInvoice');
-		var gridInvoice = this.lookupReference('gridInvoice');
-		var store = gridInvoice.getStore();
-		var values = formInvoice.getValues();
-		values.shipdateto_from =  new Date(values.shipdateto_from);
-		values.shipdateto_to =  new Date(values.shipdateto_to);
-		values.msgtype ="INVOICE_LIST_COMMING";
-		view.setLoading(true);
-		GSmartApp.Ajax.setProxy(store,'/api/v1/invoice/invoice_list_comming',values,function(records, operation, success) {view.setLoading(false);});
-	},
-    onViewPackingList: function(grid, rowIndex, colIndex){
-        var viewmodel = this.getViewModel();
-        var data = grid.getStore().getAt(rowIndex);
-        var invoicedid_link = data.get('id');
+        InvoiceList_Store.loadStore_byPage('', '', 
+            invoicedate_from, invoicedate_to, org_prodviderid_link, 
+            0, 1, 1000);
 
-        var form = Ext.create('Ext.window.Window', {
-            height: 500,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
-            closeAction: 'destroy',
-            width: 800,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'Invoice_packinglist'
-            }],
-            viewModel: {
-                data: {
-                    packinglist: {
-                        invoicedid_link: invoicedid_link,
-                        invoiceid_link: viewmodel.get('invoice.id'),
-                        skuid_link: data.get('skuid_link')
-                    }
-                }
-            }
-        });
-        form.show();
-    },	
+        // var filterField = this.lookupReference('invoicenumberFilter');
+        // filterField.setValue(invoicenumber);
+        // this.onInvoicenumberFilterKeyup();
+    },
+    renderSum: function (value) {
+		if (null == value) value = 0;
+		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+    },
+    renderSumInteger: function (value) {
+		if (null == value) value = 0;
+		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
+    onInvoicenumberFilterKeyup:function(){
+        var store = Ext.getCmp('InvoicePickup_List').getStore();
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('invoicenumberFilter'),
+            filters = store.getFilters();
+
+        // console.log(filterField);
+
+        if (filterField.value) {
+            this.invoicenumberFilter = filters.add({
+                id: 'invoicenumberFilter',
+                property: 'invoicenumber',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.invoicenumberFilter) {
+            filters.remove(this.invoicenumberFilter);
+            this.invoicenumberFilter = null;
+        }
+    },
+
+    //___________________________________________
+    onInvoiceClick: function(view, record, item, index, e, eOpts){
+        // console.log(record);
+        var viewModel = this.getViewModel();
+        var invoice = record.data;
+        var invoice_d = record.get('invoice_d');
+
+        viewModel.set('invoice', invoice);
+
+    }
 })

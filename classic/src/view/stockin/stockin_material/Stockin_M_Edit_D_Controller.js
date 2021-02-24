@@ -364,5 +364,62 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		var viewModel = form.getViewModel();
         viewModel.set('stockin_d',record);
         form.show();
-    }		
+	},
+
+    onViewPackingList: function(grid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        var stockin = viewmodel.get('stockin');
+        var data = grid.getStore().getAt(rowIndex);
+        var stockindid_link = data.get('id');
+
+        console.log(stockin);
+        console.log(data);
+        console.log(stockindid_link);
+
+        // if(isNaN(invoicedid_link)){
+        if(false){
+            // not existed in db
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Cần lưu invoice trước khi thêm packing list cho ' + data.get('skucode'),
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }else{
+            var form = Ext.create('Ext.window.Window', {
+                height: 500,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
+                closeAction: 'destroy',
+                width: 900,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_packinglist'
+                }],
+                viewModel: {
+                    type: 'Stockin_packinglist_ViewModel',
+                    data: {
+                        packinglist: {
+                            stockindid_link: stockindid_link,
+                            stockinid_link: viewmodel.get('stockin.id'),
+                            skuid_link: data.get('skuid_link')
+                        },
+                        stockin: stockin,
+                        stockinDRec: data
+                    }
+                }
+            });
+            form.show();
+        }
+    }
 })

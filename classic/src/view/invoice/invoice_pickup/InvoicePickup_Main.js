@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.invoice.InvoicePickup_Main', {
 	extend: 'Ext.container.Container',
 	xtype: 'InvoicePickup_Main',
+    itemId: 'InvoicePickup_Main',
     controller: 'InvoicePickup_Controller',
 	viewModel: {
         type: 'InvoicePickup_ViewModel'

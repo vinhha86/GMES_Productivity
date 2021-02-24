@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         }                     
     },
 	bind:{
-		store: '{StockinDetailStore}'
+		store: '{stockin.stockin_d}'
 	},
 	columns: [
 		// {
@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		{
 			text: 'Mã NPL', 
 			width: 120,
-			dataIndex: 'sku_product_code'
+			dataIndex: 'skucode'
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
@@ -49,11 +49,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			width: 70
+			width: 90
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
-			width: 50
+			width: 70
 		},{
 			text: 'ĐVT', 
 			dataIndex: 'unit_name',
@@ -112,7 +112,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			format:'0,000',
 			text: 'SL Invoice', 
 			align:'right',
-			dataIndex: 'totalpackage_order',
+			dataIndex: 'totalydsorigin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 90
@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage',
+			dataIndex: 'totalydscheck',
 			width: 85
 		},
 		{ 
@@ -133,11 +133,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			menuDisabled: true,
 			sortable: false,
 			items: [
+			// {
+			// 	iconCls: 'x-fa fas fa-bars violetIcon',
+			// 	tooltip:'Chi tiết chíp',
+			// 	handler: 'onEPCDetail'
+			// },
 			{
 				iconCls: 'x-fa fas fa-bars violetIcon',
-				tooltip:'Chi tiết chíp',
-				handler: 'onEPCDetail'
-			}
+				tooltip:'PackingList',
+				handler: 'onViewPackingList'
+			},
 		]
 		}   	
 	],

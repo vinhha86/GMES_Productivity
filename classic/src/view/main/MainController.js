@@ -224,7 +224,7 @@ Ext.define('GSmartApp.view.main.MainController', {
                 routeId: xtype_edit
             });
             mainLayout.setActiveItem(item);
-            me.fireEvent('newdata', node);
+            me.fireEvent('newdata', node, id);
         }
 	},
     onSearchRouteChange: function () {
