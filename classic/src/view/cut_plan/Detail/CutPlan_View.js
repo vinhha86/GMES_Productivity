@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         align: 'center',
         items: [
             {
-                handler: 'onLock'
+                handler: 'onLock',
                 getClass: function(v, meta, rec) {
                     if (rec.get('type') == 0) {
                         return 'x-fa fas fa-lock';
