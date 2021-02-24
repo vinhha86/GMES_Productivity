@@ -124,11 +124,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
         packinglistObj.ydsorigin = me.down('#ydsorigin').getValue() == '' ? 0 : parseFloat(me.down('#ydsorigin').getValue());
+        packinglistObj.ydscheck = 0;
+        packinglistObj.met_origin = packinglistObj.ydsorigin * 0.9144;
+        packinglistObj.met_check = 0;
         packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
         packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
         packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
         packinglistObj.width = me.down('#width').getValue() == '' ? 0 : parseFloat(me.down('#width').getValue());
-        packinglistObj.ydscheck = 0;
         packinglistObj.width_check = 0;
         packinglistObj.status = -1;
         packinglistObj.checked = 0;

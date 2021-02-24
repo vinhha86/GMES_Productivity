@@ -8,9 +8,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_lotnumber_Controller', {
       '#lotnumber': {
         specialkey: 'onSpecialkey'
       },
-      '#sizenumber': {
-        specialkey: 'onSpecialkey'
-      },
+      // '#sizenumber': {
+      //   specialkey: 'onSpecialkey'
+      // },
       '#btnThemLot': {
         click: 'CreateLotNumber'
       },
@@ -31,9 +31,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_lotnumber_Controller', {
       
       if (e.getKey() == e.ENTER) {
         if (field.itemId == "lotnumber") {
-          me.down('#sizenumber').focus();
-        }
-        else if (field.itemId == "sizenumber") {
+        //   me.down('#sizenumber').focus();
+        // }
+        // else if (field.itemId == "sizenumber") {
           this.CreateLotNumber();
         }
       }
