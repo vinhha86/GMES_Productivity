@@ -36,7 +36,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('stockin.orgid_to_link', session.orgid_link)
         viewModel.set('stockin.stockintypeid_link', id);
 
-        if(id == 1) {// mua moi va cap bu
+        // set store org from
+        if(id == 1) {// mua moi va cap bu thi là nha cung cap
             var orgfromstore = viewModel.getStore('OrgFromStore');
             orgfromstore.loadStore(5, false);
         }else{
@@ -72,7 +73,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
                 store.setData(response.data.stockin_d);
 
-                if(response.data.stockintypeid_link == 1) {// mua moi va cap bu
+                // set store org from
+                if(response.data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore(5, false);
                 }else{

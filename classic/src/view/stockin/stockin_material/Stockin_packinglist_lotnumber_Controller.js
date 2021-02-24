@@ -49,10 +49,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_lotnumber_Controller', {
         mes = "Bạn chưa nhập số lot";
         item = "#lotnumber";
       }
-      else if(viewmodel.get('lotnumber.size') == ""){
-        mes = "Bạn chưa nhập khổ vải";
-        item = "#sizenumber";
-      }
+      // else if(viewmodel.get('lotnumber.size') == ""){
+      //   mes = "Bạn chưa nhập khổ vải";
+      //   item = "#sizenumber";
+      // }
   
       if(mes != ""){
         Ext.Msg.show({
