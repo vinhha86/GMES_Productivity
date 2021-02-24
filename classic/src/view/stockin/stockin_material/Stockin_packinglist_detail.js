@@ -33,12 +33,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
         { 
             xtype: 'checkcolumn',
             // text: 'Đi làm',
-            dataIndex: 'workingShift1',
+            dataIndex: 'checked',
             headerCheckbox: false,
             width: 30,
             listeners: {
                 // beforecheckchange: 'onBeforecheckchange',
-                // checkchange: 'onCheckchange',
+                checkchange: 'onCheckchange',
                 // headerclick: 'onHeaderClick'
             }
         },
@@ -119,8 +119,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},
+        {
+			text: 'Khổ thực tế', 
+			dataIndex: 'width_check',
+            flex: 1,
+			align:'right',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+		},
 		{
-			text: 'SL Nhập', 
+			text: 'SL Invoice', 
             dataIndex: 'ydsorigin',
             flex: 1,
 			align:'right',
@@ -138,7 +154,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			}
         },
 		{
-			text: 'SL thực tế', 
+			text: 'SL nhập', 
             dataIndex: 'ydscheck',
             flex: 1,
 			align:'right',
@@ -155,20 +171,65 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
         },
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockin_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-			{
-				iconCls: 'x-fa fas fa-trash',
-				tooltip: 'Xóa',
-				handler: 'onXoa'
+		{
+			text: 'SL Invoice (m)', 
+            dataIndex: 'met_origin',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
 			}
-		]
-		}   	
+        },
+		{
+			text: 'SL nhập (m)', 
+            dataIndex: 'met_check',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+        },
+		{
+			text: 'Ghi chú', 
+            dataIndex: 'comment',
+            flex: 2,
+			editor:{
+				xtype:'textfield',
+				selectOnFocus: true
+			}
+        },
+		// { 
+		// 	xtype: 'actioncolumn',
+		// 	reference: 'stockin_contextmenu',
+		// 	width: 25,
+		// 	menuDisabled: true,
+		// 	sortable: false,
+		// 	items: [
+		// 	{
+		// 		iconCls: 'x-fa fas fa-trash',
+		// 		tooltip: 'Xóa',
+		// 		handler: 'onXoa'
+		// 	}
+		// ]
+		// }   	
 	],
 	dockedItems: [{
 		dock: 'top',

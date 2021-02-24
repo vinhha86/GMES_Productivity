@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_Edit_M_Controller',
 	init: function() {
+        var viewModel = this.getViewModel();
         var orgstore = this.getViewModel().getStore('OrgStore');
 		orgstore.loadStore(5);
 
@@ -10,8 +11,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 
 		var listidtype = "13,4,8,9";
         // var listidtype = "4,8,9,11,12";
-		var orgfromstore = this.getViewModel().getStore('OrgFromStore');
-		orgfromstore.loadStore_byRoot(listidtype);
+		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
+		// orgfromstore.loadStore_byRoot(listidtype);
 
 		var orgtostore = this.getViewModel().getStore('OrgToStore');
 		orgtostore.loadStore_allchildren_byorg(listidtype);
@@ -106,6 +107,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                     stockin_dObj.totalamount = invoice_d.get('totalamount');
                     stockin_dObj.totalydsorigin = invoice_d.get('yds');
                     stockin_dObj.totalydscheck = 0;
+                    stockin_dObj.totalmet_origin = invoice_d.get('yds') * 0.9144;
+                    stockin_dObj.totalmet_check = 0;
                     stockin_dObj.unitid_link = invoice_d.get('unitid_link');
                     stockin_dObj.unit_name = invoice_d.get('unitname');
 
@@ -120,6 +123,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                         stockin_packinglistObj.grossweight = pkl.grossweight;
                         stockin_packinglistObj.netweight = pkl.netweight;
                         stockin_packinglistObj.width = pkl.width;
+                        stockin_packinglistObj.width_check = 0;
                         stockin_packinglistObj.m3 = pkl.m3;
                         stockin_packinglistObj.sizenumber = pkl.sizenumber;
                         stockin_packinglistObj.skuid_link = pkl.skuid_link;
@@ -129,6 +133,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                         stockin_packinglistObj.packageid = pkl.packageid;
                         stockin_packinglistObj.ydsorigin = pkl.ydsorigin;
                         stockin_packinglistObj.ydscheck = 0;
+                        stockin_packinglistObj.met_origin = pkl.ydsorigin * 0.9144;
+                        stockin_packinglistObj.met_check = 0;
 
                         stockin_packinglist.push(stockin_packinglistObj);
                     }

@@ -25,8 +25,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         
     },
     onNewData:function(type, id){
-        // console.log(id);
-        // console.log(type);
+        
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
         // console.log(session);
@@ -36,10 +35,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('listepc', new Map());
         viewModel.set('stockin.orgid_to_link', session.orgid_link)
         viewModel.set('stockin.stockintypeid_link', id);
+
+        if(id == 1) {// mua moi va cap bu
+            var orgfromstore = viewModel.getStore('OrgFromStore');
+            orgfromstore.loadStore(5, false);
+        }else{
+            var listidtype = "13,4,8,9";
+            var orgfromstore = viewModel.getStore('OrgFromStore');
+            orgfromstore.loadStore_byRoot(listidtype);
+        }
     },
     onLoadData:function(id,type){
-        // console.log(id);
-        // console.log(type);
+        var viewModel = this.getViewModel();
+
         this.getInfo(id);
     },
     onBackPage: function(){
@@ -47,9 +55,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     },
     getInfo: function(id){
         var me = this;
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('StockinDetailStore');
-        var listepc = viewmodel.get('listepc');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('StockinDetailStore');
+        var listepc = viewModel.get('listepc');
 
         var params = new Object();
         params.id = id ;
@@ -58,11 +66,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
                 console.log(response.data);
-                viewmodel.set('stockin', response.data);
+                viewModel.set('stockin', response.data);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
                 }
                 store.setData(response.data.stockin_d);
+
+                if(response.data.stockintypeid_link == 1) {// mua moi va cap bu
+                    var orgfromstore = viewModel.getStore('OrgFromStore');
+                    orgfromstore.loadStore(5, false);
+                }else{
+                    var listidtype = "13,4,8,9";
+                    var orgfromstore = viewModel.getStore('OrgFromStore');
+                    orgfromstore.loadStore_byRoot(listidtype);
+                }
             }
 		})
     },
@@ -86,10 +103,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     onSave: function(){
         var me = this.getView();
 
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
         params.data = [];
-        var stockin = viewmodel.get('stockin');
+        var stockin = viewModel.get('stockin');
 
         var stockin_d = stockin.stockin_d;
         if(stockin_d != null){

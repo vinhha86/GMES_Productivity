@@ -24,7 +24,8 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
     },
     onLoadData: function(id){
 		if(id == 0){
-			
+			var viewmodel = this.getViewModel();
+			viewmodel.set('invoice.invoicedate', new Date());
 		}else{
 			this.getInfo(id);
 		}
@@ -32,7 +33,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
     },
     onNewData: function(){
         var viewmodel = this.getViewModel();
-        viewmodel.set('invoice.invoicedate', new Date())
+        viewmodel.set('invoice.invoicedate', new Date());
     },
     getInfo: function(id){        
         var me = this.getView();
@@ -76,7 +77,6 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var data = new Array();
 
 		var invoice = viewmodel.get('invoice');
-		// console.log(invoice);
 		// invoice_d
 		var invoice_d = invoice.invoice_d;
 		if(invoice_d != null){

@@ -397,7 +397,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                 border: false,
                 title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
                 closeAction: 'destroy',
-                width: 900,
+                width: 1200,
                 bodyStyle: 'background-color: transparent',
                 layout: {
                     type: 'fit', // fit screen for window

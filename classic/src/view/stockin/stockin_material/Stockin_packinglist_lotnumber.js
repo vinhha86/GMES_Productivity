@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_lotnumber', {
 			margin: 1,
 			itemId:'lotnumber',
 			emptyText: 'Số lót',
-			width: 120,
+			width: 100,
 			labelWidth: 0,
 			hideLabel: true,			
             bind:{
