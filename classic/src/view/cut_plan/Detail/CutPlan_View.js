@@ -49,6 +49,28 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
                  }
             }
         ]
+    },
+    {
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                handler: 'onLock'
+                getClass: function(v, meta, rec) {
+                    if (rec.get('type') == 0) {
+                        return 'x-fa fas fa-lock';
+                    }
+                },
+                getTip: function(value, metadata, record, row, col, store) {
+                    if(record.get('type') == 0){
+                        return 'Giữ cây vải';
+                    }
+                 }
+            }
+        ]
     },{
         text: 'Sơ đồ',
         dataIndex: 'name',
@@ -147,6 +169,15 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
                 })
             }
         },
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
+        }
+    },
+    {
+        text: 'Số cây giữ',
+        dataIndex: 'so_cay_giu',
+        width: 120,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
