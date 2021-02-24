@@ -184,7 +184,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                         itemId: 'btnAddNPLStore_ListOrgMenu',
                         separator: true,
                         // margin: '5 0 0',
-                        iconCls: 'x-fa fas fa-home',
+                        iconCls: 'x-fa fas fa-archive',
                         handler: function(){
                             console.log(record);
                             // var record = this.parentMenu.record;
