@@ -58,6 +58,8 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
                 metaData.iconCls = 'x-fa fa-bath'
             if(record.data.orgtypeid_link == 17)
                 metaData.iconCls = 'x-fa fa-scissors'
+            if(record.data.orgtypeid_link == 3)
+                metaData.iconCls = 'x-fa fa-archive'
             return value;
         }                     
     }],
