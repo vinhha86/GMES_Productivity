@@ -164,4 +164,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         })
         
     },
+    
+    onConfirm: function(){
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // mo cua so dang nhap
+
+        // 
+
+        // 
+        
+        // 
+    }
 })
