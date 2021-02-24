@@ -9,9 +9,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_Controller', {
         var stockin = viewModel.get('stockin');
         var stockinDRec = viewModel.get('stockinDRec');
 
-        console.log(packinglist);
-        console.log(stockin);
-        console.log(stockinDRec);
+        // console.log(packinglist);
+        // console.log(stockin);
+        // console.log(stockinDRec);
 
         this.setLotStore();
     },

@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         },
         '#btnLuu':{
             click: 'onSave'
+        },
+        '#btnConfirm':{
+            click: 'onConfirm'
         }
     },
     onUrlBack: function(type){
@@ -104,7 +107,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 	},
     onSave: function(){
         var me = this.getView();
-
+        var m = this;
         var viewModel = this.getViewModel();
         var params = new Object();
         params.data = [];
@@ -145,6 +148,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                             }
                         });				
                         this.redirectTo("stockin_m_main/" + response.id + "/edit");
+                        m.getInfo(response.id);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
@@ -159,5 +163,5 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
         })
         
-    }
+    },
 })

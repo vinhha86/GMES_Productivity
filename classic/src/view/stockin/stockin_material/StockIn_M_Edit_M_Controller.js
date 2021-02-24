@@ -135,6 +135,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                         stockin_packinglistObj.ydscheck = 0;
                         stockin_packinglistObj.met_origin = pkl.ydsorigin * 0.9144;
                         stockin_packinglistObj.met_check = 0;
+                        stockin_packinglistObj.status = -1;
+                        stockin_packinglistObj.checked = 0;
 
                         stockin_packinglist.push(stockin_packinglistObj);
                     }

@@ -295,8 +295,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         record.set('status', -1);
       }
 
-      console.log(record);
-      console.log(stockinDRec);
+      // console.log(record);
+      // console.log(stockinDRec);
 
       store.commitChanges();
     },
