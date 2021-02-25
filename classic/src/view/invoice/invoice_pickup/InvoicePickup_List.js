@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
 			emptyText: 'Ngày HĐ từ',
 			itemId: 'invoicedate_from',
 			editable: false,
-			margin: '5 0 5 0',
+			margin: '5 5 5 5',
 			value: new Date(),
 			width: 110,
             format:'d/m/y'
@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
 			emptyText: 'Ngày HĐ đến',
 			itemId: 'invoicedate_to',
 			editable: false,
-			margin: '5 0 5 0',
+			margin: '5 5 5 0',
 			width: 110,
 			value: new Date(),
             format:'d/m/y'

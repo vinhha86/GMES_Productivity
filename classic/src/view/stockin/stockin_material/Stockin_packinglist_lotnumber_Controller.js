@@ -2,7 +2,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_lotnumber_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_packinglist_lotnumber_Controller',
     init: function () {
-  
     },
     control: {
       '#lotnumber': {
