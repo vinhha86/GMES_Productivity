@@ -38,6 +38,13 @@ Ext.define('GSmartApp.view.cut_plan.CutPlan_MainView', {
             margin: 5,
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
+        },{
+            xtype:'button',
+            formBind: true,
+            text: 'Lưu',
+            margin: 5,
+            itemId:'btnLuu',
+            iconCls: 'x-fa fa-save'
         }]
     }]
 })

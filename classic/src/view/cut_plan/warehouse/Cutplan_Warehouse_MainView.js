@@ -33,13 +33,6 @@ Ext.define('GSmartApp.view.warehouse.cut_plan.Cutplan_Warehouse_MainView', {
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
             margin: 5
-        },{
-            xtype:'button',
-            formBind: true,
-            text: 'Lưu',
-            margin: 5,
-            itemId:'btnLuu',
-            iconCls: 'x-fa fa-save'
         }]
     }]
 })

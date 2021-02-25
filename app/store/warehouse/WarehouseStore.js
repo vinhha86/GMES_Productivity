@@ -7,8 +7,11 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
         direction: 'ASC',
         property: 'material_product_code'
     },
-    loadbyorg: function(callback){
+    loadbyorg: function(material_skuid_link, callback){
         var me=this;
+		var params = new Object();
+		params.material_skuid_link = material_skuid_link;
+
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -20,6 +23,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			url: config.getAppBaseUrl_Jitin()+'/api/v1/warehouse/getby_org',
 			paramsAsJson:true,
 			noCache: false,
+			extraParams: params,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -35,5 +39,38 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 				callback.call(records, operation, success);
 			}
 		});
-    }	
+    },
+	loadby_cutplan: function(cutplanrowid_link, callback){
+        var me=this;
+		var params = new Object();
+		params.cutplanrowid_link = cutplanrowid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/warehouse/getby_cutplan',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams: params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				callback.call(records, operation, success);
+			}
+		});
+    }		
 });

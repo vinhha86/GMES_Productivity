@@ -5,9 +5,16 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.WareHouse_View', {
     controller: 'WareHouse_ViewController',
     viewConfig: {
         stripeRows: false,
-        enableTextSelection: true,
+        enableTextSelection: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        plugins: {
+            ptype: 'gridviewdragdrop',
+            enableDrag: true,
+            dragText: '{0} cây vải',
+            dragGroup: 'WarehouseDropGroup',
+            dropGroup: 'WarehouseCutPlanDropGroup'
+        } 
     },
     bind: {
         store: '{WarehouseStore}'

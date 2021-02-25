@@ -5,9 +5,19 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_WareHouse_View', {
     controller: 'Cutplan_WareHouse_ViewController',
     viewConfig: {
         stripeRows: false,
-        enableTextSelection: true,
+        enableTextSelection: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        plugins: {
+            ptype: 'gridviewdragdrop',
+            enableDrag: true,
+            dragText: '{0} cây vải',
+            dragGroup: 'WarehouseCutPlanDropGroup',
+            dropGroup: 'WarehouseDropGroup'
+        },
+        listeners: {
+            beforedrop: 'onBeforeDropMaterial'
+        } 
     },
     bind: {
         store: '{WarehouseCutplanStore}'
@@ -18,6 +28,20 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_WareHouse_View', {
         xtype: 'rownumberer',
         align: 'center'
     },{
+        xtype: 'actioncolumn',
+        width: 25,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        locked: true,
+        items: [
+            {
+                iconCls: 'x-fa fas fa-unlock',
+                tooltip: "Bỏ giữ cây vải",
+                handler: 'onUnlock'
+            }
+        ]
+    }, {
         text:'Ảnh',
         locked: true,
         dataIndex:'imgproduct',
