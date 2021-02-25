@@ -2,6 +2,12 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.invoice_packinglist_detail_Controller',
   init: function () {
+    var viewModel = this.getViewModel();
+    var invoiceDRec = viewModel.get('invoiceDRec');
+    var size_name = invoiceDRec.get('size_name');
+    if(!isNaN(size_name) ){
+      viewModel.set('packinglist.width', size_name);
+    }
   },
   control: {
     '#packageid': {
@@ -19,9 +25,9 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     '#m3': {
       specialkey: 'onSpecialkey'
     },
-    '#width': {
-      specialkey: 'onSpecialkey'
-    },
+    // '#width': {
+    //   specialkey: 'onSpecialkey'
+    // },
     '#btnThemPKL': {
       click: 'CreatePackingList'
     }
@@ -53,11 +59,11 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
         me.down('#m3').focus();
       }
       else if (field.itemId == "m3") {
-        me.down('#width').focus();
-      }
-      else if (field.itemId == "width") {
         me.down('#ydsorigin').focus();
       }
+      // else if (field.itemId == "width") {
+      //   me.down('#ydsorigin').focus();
+      // }
       else if (field.itemId == "ydsorigin") {
         // console.log('enter');
         if(me.down('#packageid').getValue() == ''){
@@ -148,7 +154,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       me.down('#m3').setValue('');
       me.down('#netweight').setValue('');
       me.down('#grossweight').setValue('');
-      me.down('#width').setValue('');
+      // me.down('#width').setValue('');
       me.down('#packageid').focus();
 
       // console.log(invoice);

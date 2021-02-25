@@ -98,6 +98,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                     stockin_dObj.skucode = invoice_d.get('skucode');
                     stockin_dObj.skuname = invoice_d.get('skuname');
                     stockin_dObj.color_name = invoice_d.get('color_name');
+                    stockin_dObj.colorid_link = invoice_d.get('colorid_link');
                     stockin_dObj.size_name = invoice_d.get('size_name');
                     stockin_dObj.totalpackage = invoice_d.get('totalpackage');
                     stockin_dObj.netweight = invoice_d.get('netweight');
@@ -138,6 +139,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                         stockin_packinglistObj.status = -1;
                         stockin_packinglistObj.checked = 0;
                         stockin_packinglistObj.unitid_link = stockin_dObj.unitid_link;
+                        stockin_packinglistObj.colorid_link = stockin_dObj.colorid_link;
 
                         stockin_packinglist.push(stockin_packinglistObj);
                     }

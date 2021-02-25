@@ -202,7 +202,8 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			maskRe: /[0-9.]/,
             bind:{
 				value: '{packinglist.width}'
-            }
+            },
+			readOnly: true
         },
         {
 			xtype: 'textfield',
