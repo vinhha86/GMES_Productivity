@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('listepc', new Map());
         viewModel.set('stockin.orgid_to_link', session.orgid_link)
         viewModel.set('stockin.stockintypeid_link', id);
+        viewModel.set('stockin.status', -1);
 
         // set store org from
         if(id == 1) {// mua moi va cap bu thi là nha cung cap
@@ -166,14 +167,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     },
     
     onConfirm: function(){
-        var me = this.getView();
         var viewModel = this.getViewModel();
-        // mo cua so dang nhap
-
-        // 
-
-        // 
-        
-        // 
+        var stockin = viewModel.get('stockin');
+        var stockinId = stockin.id;
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Duyệt',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockin_M_Edit_Confirm',
+                viewModel: {
+                    type: 'HandoverDetailConfirmViewModel',
+                    data: {
+                        stockin: stockin,
+                        stockinId: stockinId
+                    }
+                }
+            }]
+        });
+        form.show();
     }
 })

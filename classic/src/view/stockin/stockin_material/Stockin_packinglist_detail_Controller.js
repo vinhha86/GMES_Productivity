@@ -299,6 +299,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       // console.log(stockinDRec);
 
       store.commitChanges();
+      this.reCalculateSkuGrid();
     },
     reCalculateSkuGrid: function(){
       var viewModel = this.getViewModel();

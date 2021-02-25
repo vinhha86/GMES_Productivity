@@ -137,6 +137,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                         stockin_packinglistObj.met_check = 0;
                         stockin_packinglistObj.status = -1;
                         stockin_packinglistObj.checked = 0;
+                        stockin_packinglistObj.unitid_link = stockin_dObj.unitid_link;
 
                         stockin_packinglist.push(stockin_packinglistObj);
                     }

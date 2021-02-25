@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
     extend: 'Ext.container.Container',
     xtype: 'Stockin_M_Edit',
+    id: 'Stockin_M_Edit',
     controller: 'Stockin_M_Edit_Controller',
     viewModel: 'Stockin_M_ViewModel',
 	layout: {
@@ -26,6 +27,7 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
             layout:'hbox',
             items:[
             {
+                margin: '0 5 5 0',
                 xtype:'button',
                 text:  "Quay lại",
                 iconCls: 'x-fa fa-backward',
@@ -36,7 +38,10 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                 xtype:'button',
                 text:  "Duyệt",
                 iconCls: 'x-fa fa-check',
-                itemId: 'btnConfirm'
+                itemId: 'btnConfirm',
+                bind: {
+                    hidden: '{isBtnConfirmHidden}'
+                }
             },
             {
                 flex:1
