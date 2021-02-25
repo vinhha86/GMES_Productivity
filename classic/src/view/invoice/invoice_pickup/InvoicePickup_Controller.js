@@ -46,6 +46,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_Controller', {
     },
 	onloadPage: function () {
         var me = this.getView();
+        var m = this;
         var viewModel = this.getViewModel();
         var InvoiceList_Store = viewModel.getStore('InvoiceList_Store');
 
@@ -67,9 +68,22 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_Controller', {
             status = 0;
         }
 
-        InvoiceList_Store.loadStore_byPage('', '', 
+        InvoiceList_Store.loadStore_byPage_async('', '', 
             invoicedate_from, invoicedate_to, org_prodviderid_link, 
             0, 1, 1000);
+
+            InvoiceList_Store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (!success) {
+                    this.fireEvent('logout');
+                } else {
+                    var filterField = m.lookupReference('invoicenumberFilter');
+                    filterField.setValue(invoicenumber);
+                    m.onInvoicenumberFilterKeyup();
+                }
+            }
+        });
 
         // var filterField = this.lookupReference('invoicenumberFilter');
         // filterField.setValue(invoicenumber);

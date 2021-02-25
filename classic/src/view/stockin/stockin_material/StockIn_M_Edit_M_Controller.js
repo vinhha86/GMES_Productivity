@@ -158,4 +158,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
             form.close();
         });
 	},
+
+    onPressEnterBtnInvoice_Search: function(textfield, e, eOpts){
+        var m = this;
+        if(e.getKey() == e.ENTER) {
+            // Ext.Msg.alert('Keys','You pressed the Enter key');
+            m.onInvoice_Search();
+        }
+    },
 })

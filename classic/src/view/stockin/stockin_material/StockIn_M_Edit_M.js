@@ -155,15 +155,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 						},
 						fieldLabel: 'Số Invoice',					
 						labelWidth: 80,
-						width: 310
+						width: 340,
+						enableKeyEvents : true,
+						listeners: {
+							keypress: 'onPressEnterBtnInvoice_Search'
+						}
 					},
-					{
-						xtype:'button',
-						margin: '0 0 0 2',
-						itemId:'btnInvoice_Plus',
-						iconCls: 'x-fa fa-plus',
-						width: 30
-					},
+					// {
+					// 	xtype:'button',
+					// 	margin: '0 0 0 2',
+					// 	itemId:'btnInvoice_Plus',
+					// 	iconCls: 'x-fa fa-plus',
+					// 	width: 30
+					// },
 					{
 						xtype:'button',
 						margin: '0 0 0 2',
