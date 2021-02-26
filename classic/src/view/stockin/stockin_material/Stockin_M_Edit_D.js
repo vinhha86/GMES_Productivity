@@ -110,25 +110,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Invoice', 
-			align:'right',
-			dataIndex: 'totalydsorigin',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 90
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'SL Nhập', 
-			align:'right',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			dataIndex: 'totalydscheck',
-			width: 85
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
 			text: 'SL Invoice (m)', 
 			align:'right',
 			dataIndex: 'totalmet_origin',
@@ -143,6 +124,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalmet_check',
+			width: 85
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Invoice (y)', 
+			align:'right',
+			dataIndex: 'totalydsorigin',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 90
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Nhập (y)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalydscheck',
 			width: 85
 		},
 		{ 

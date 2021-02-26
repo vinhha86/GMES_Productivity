@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     '#grossweight': {
       specialkey: 'onSpecialkey'
     },
-    '#ydsorigin': {
+    '#met_origin': {
       specialkey: 'onSpecialkey'
     },
     '#m3': {
@@ -59,12 +59,9 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
         me.down('#m3').focus();
       }
       else if (field.itemId == "m3") {
-        me.down('#ydsorigin').focus();
+        me.down('#met_origin').focus();
       }
-      // else if (field.itemId == "width") {
-      //   me.down('#ydsorigin').focus();
-      // }
-      else if (field.itemId == "ydsorigin") {
+      else if (field.itemId == "met_origin") {
         // console.log('enter');
         if(me.down('#packageid').getValue() == ''){
           me.down('#packageid').focus();
@@ -131,7 +128,8 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       packinglistObj.lotnumber = lotnumber;
       packinglistObj.sizenumber = sizenumber;
       packinglistObj.packageid = me.down('#packageid').getValue();
-      packinglistObj.ydsorigin = me.down('#ydsorigin').getValue() == '' ? 0 : parseFloat(me.down('#ydsorigin').getValue());
+      packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
+      packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144, 2);
       packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
       packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
       packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
@@ -150,7 +148,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       me.getStore().commitChanges();
 
       me.down('#packageid').setValue('');
-      me.down('#ydsorigin').setValue('');
+      me.down('#met_origin').setValue('');
       me.down('#m3').setValue('');
       me.down('#netweight').setValue('');
       me.down('#grossweight').setValue('');
@@ -164,65 +162,6 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     }
     this.reCalculateSkuGrid();
   },
-  // CreatePackingList: function () {
-  //   var me = this.getView();
-  //   var mes = "";
-  //   var item = "";
-  //   var viewmodel = this.getViewModel();
-  //   var invoiceid_link = viewmodel.get('packinglist.invoiceid_link');
-  //   var invoicedid_link = viewmodel.get('packinglist.invoicedid_link');
-  //   // console.log(invoiceid_link);
-  //   // console.log(invoicedid_link);
-
-  //   if(viewmodel.get('packinglist.lotnumber') == '' == null || viewmodel.get('packinglist.lotnumber') == ''){
-  //     mes = "Bạn chưa chọn số lót";
-  //     Ext.MessageBox.show({
-  //       title: "Thông báo",
-  //       msg: mes,
-  //       buttons: Ext.MessageBox.YES,
-  //       buttonText: {
-  //         yes: 'Đóng',
-  //       }
-  //     });
-  //     return;
-  //   }else{
-  //     var params = new Object();
-  //     var me = this.getView();
-  //     params.data = viewmodel.get('packinglist');
-
-  //     GSmartApp.Ajax.postJitin('/api/v1/invoice/invoice_insertpkl', Ext.JSON.encode(params),
-  //       function (success, response, options) {
-  //         if (success) {
-  //           var response = Ext.decode(response.responseText);
-  //           if (response.respcode == 200) {
-  //             var viewInvoice = Ext.getCmp('InvoiceEdit');
-  //             viewInvoice.getController().getInfo(viewmodel.get('packinglist.invoiceid_link'));
-
-  //             var store = viewmodel.getStore('PackingListStore');
-  //             store.reload();
-  //             viewmodel.set('packinglist.packageid', '');
-  //             viewmodel.set('packinglist.netweight', '');
-  //             viewmodel.set('packinglist.grossweight', '');
-  //             viewmodel.set('packinglist.ydsorigin', '');
-  //             viewmodel.set('packinglist.m3', '');
-  //             viewmodel.set('packinglist.width', '');
-
-  //             me.down('#packageid').focus();
-  //           }
-  //         } else {
-  //           var response = Ext.decode(response.responseText);
-  //           Ext.MessageBox.show({
-  //             title: "Thông báo",
-  //             msg: 'Có lỗi trong quá trình lưu dữ liệu',
-  //             buttons: Ext.MessageBox.YES,
-  //             buttonText: {
-  //               yes: 'Đóng',
-  //             }
-  //           });
-  //         }
-  //       })
-  //   }
-  // },
 
   onXoa: function(grid, rowIndex, colIndex){
     var me = this;
@@ -251,24 +190,6 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
           }
       }
     });
-
-    
-
-    // Ext.Msg.show({
-    //     title: 'Thông báo',
-    //     msg: 'Bạn có chắc chắn xóa ?',
-    //     buttons: Ext.Msg.YESNO,
-    //     icon: Ext.Msg.QUESTION,
-    //     buttonText: {
-    //         yes: 'Có',
-    //         no: 'Không'
-    //     },
-    //     fn: function (btn) {
-    //         if (btn === 'yes') {
-    //             me.Xoa(data.get('id'));
-    //         }
-    //     }
-    // });
   },
   Xoa: function(data, store, rowIndex){
     var me = this;
@@ -298,86 +219,9 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
           i--;
         }
       }
-      // xoa trong db
-      // var params = new Object();
-      // params.packinglistid_link = id;
-
-      // GSmartApp.Ajax.postJitin('/api/v1/invoice/deletePackingListById',Ext.JSON.encode(params),
-      //   function(success,response,options) {
-      //           if (success) {
-      //             var viewInvoice = Ext.getCmp('InvoiceEdit');
-      //             viewInvoice.getController().getInfo(viewmodel.get('packinglist.invoiceid_link'));
-    
-      //             var store = viewmodel.getStore('PackingListStore');
-      //             store.reload();
-      //           } else {
-      //               var response = Ext.decode(response.responseText);
-      //               Ext.MessageBox.show({
-      //                   title: "Thông báo",
-      //                   msg: 'Có lỗi trong quá trình xoá dữ liệu',
-      //                   buttons: Ext.MessageBox.YES,
-      //                   buttonText: {
-      //                       yes: 'Đóng',
-      //                   }
-      //               });
-      //           }
-      //   })
     }
     this.reCalculateSkuGrid();
   },
-
-  // onXoa: function(grid, rowIndex, colIndex){
-  //   var me = this;
-  //   var viewmodel = this.getViewModel();
-  //   var store = grid.getStore();
-  //   var data = store.getAt(rowIndex);
-
-  //   // console.log(data.get('id'));
-
-  //   Ext.Msg.show({
-  //       title: 'Thông báo',
-  //       msg: 'Bạn có chắc chắn xóa ?',
-  //       buttons: Ext.Msg.YESNO,
-  //       icon: Ext.Msg.QUESTION,
-  //       buttonText: {
-  //           yes: 'Có',
-  //           no: 'Không'
-  //       },
-  //       fn: function (btn) {
-  //           if (btn === 'yes') {
-  //               me.Xoa(data.get('id'));
-  //           }
-  //       }
-  //   });
-  // },
-  // Xoa: function (packinglistid_link){
-  //   var viewmodel = this.getViewModel();
-
-  //   var params = new Object();
-  //   params.packinglistid_link = packinglistid_link;
-
-  //   GSmartApp.Ajax.postJitin('/api/v1/invoice/deletePackingListById',Ext.JSON.encode(params),
-  //       function(success,response,options ) {
-  //               if (success) {
-  //                 var viewInvoice = Ext.getCmp('InvoiceEdit');
-  //                 viewInvoice.getController().getInfo(viewmodel.get('packinglist.invoiceid_link'));
-    
-  //                 var store = viewmodel.getStore('PackingListStore');
-  //                 store.reload();
-  //               } else {
-  //                   var response = Ext.decode(response.responseText);
-  //                   Ext.MessageBox.show({
-  //                       title: "Thông báo",
-  //                       msg: 'Có lỗi trong quá trình xoá dữ liệu',
-  //                       buttons: Ext.MessageBox.YES,
-  //                       buttonText: {
-  //                           yes: 'Đóng',
-  //                       }
-  //                   });
-  //               }
-  //       })
-    
-  // },
   onPackingListItemEdit: function(editor, context, eOpts){
     // console.log('onPackingListItemEdit here');
     var m = this;
@@ -399,6 +243,11 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     }
     if(context.field == 'ydsorigin'){
       pkl_data.ydsorigin = parseFloat(pkl_data.ydsorigin);
+      pkl_data.met_origin = Ext.Number.roundToPrecision(pkl_data.ydsorigin * 0.9144, 2);
+    }
+    if(context.field == 'met_origin'){
+      pkl_data.met_origin = parseFloat(pkl_data.met_origin);
+      pkl_data.ydsorigin = Ext.Number.roundToPrecision(pkl_data.met_origin / 0.9144, 2);
     }
     if(context.field == 'm3'){
       pkl_data.m3 = parseFloat(pkl_data.m3);
@@ -410,64 +259,6 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     store.commitChanges();
     this.reCalculateSkuGrid();
   },
-  // onPackingListItemEdit: function(editor, context, eOpts){
-  //   var m = this;
-  //   var me = this.getView();
-  //   var store = me.getStore();
-  //   var viewModel = this.getViewModel();
-  //   var pkl_data = context.record.data;
-
-  //   if(context.value == "" || context.value == context.originalValue || isNaN(context.value)){
-  //       store.rejectChanges();
-  //       return;
-  //   }
-
-  //   if(context.field == 'netweight'){
-  //     pkl_data.netweight = parseFloat(pkl_data.netweight);
-  //   }
-  //   if(context.field == 'grossweight'){
-  //     pkl_data.grossweight = parseFloat(pkl_data.grossweight);
-  //   }
-  //   if(context.field == 'ydsorigin'){
-  //     pkl_data.ydsorigin = parseFloat(pkl_data.ydsorigin);
-  //   }
-  //   if(context.field == 'm3'){
-  //     pkl_data.m3 = parseFloat(pkl_data.m3);
-  //   }
-  //   if(context.field == 'width'){
-  //     pkl_data.width = parseFloat(pkl_data.width);
-  //   }
-
-  //   // console.log(pkl_data.id);
-  //   // console.log(context.field);
-  //   // console.log(context.value);
-
-  //   var params = new Object();
-  //   params.packinglistid_link = pkl_data.id;
-  //   params.contextField = context.field;
-  //   params.value = context.value;
-
-  //   GSmartApp.Ajax.postJitin('/api/v1/invoice/updatePackingListById',Ext.JSON.encode(params),
-  //       function(success,response,options ) {
-  //               if (success) {
-  //                 var viewInvoice = Ext.getCmp('InvoiceEdit');
-  //                 viewInvoice.getController().getInfo(viewModel.get('packinglist.invoiceid_link'));
-    
-  //                 var store = viewModel.getStore('PackingListStore');
-  //                 store.reload();
-  //               } else {
-  //                   var response = Ext.decode(response.responseText);
-  //                   Ext.MessageBox.show({
-  //                       title: "Thông báo",
-  //                       msg: 'Có lỗi trong quá trình lưu dữ liệu',
-  //                       buttons: Ext.MessageBox.YES,
-  //                       buttonText: {
-  //                           yes: 'Đóng',
-  //                       }
-  //                   });
-  //               }
-  //       })
-  // },
   reCalculateSkuGrid: function(){
     var viewModel = this.getViewModel();
     var invoice = viewModel.get('invoice');
@@ -482,6 +273,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       var netweight = 0;
       var grossweight = 0;
       var m3 = 0;
+      var met = 0;
       var yds = 0;
       
       for(var i = 0; i < packinglist.length; i++){
@@ -489,6 +281,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
         netweight+=packinglist[i].netweight;
         grossweight+=packinglist[i].grossweight;
         m3+=packinglist[i].m3;
+        met+=packinglist[i].met_origin;
         yds+=packinglist[i].ydsorigin;
       }
 
@@ -496,8 +289,9 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
       invoiceDRec.set('netweight', netweight);
       invoiceDRec.set('grossweight', grossweight);
       invoiceDRec.set('m3', m3);
+      invoiceDRec.set('met', met);
       invoiceDRec.set('yds', yds);
-      invoiceDRec.set('totalamount', yds*invoiceDRec.get('unitprice'));
+      invoiceDRec.set('totalamount', Ext.Number.roundToPrecision(met*invoiceDRec.get('unitprice'), 2));
 
       Ext.getCmp('InvoiceEdit_D').getStore().commitChanges();
     }

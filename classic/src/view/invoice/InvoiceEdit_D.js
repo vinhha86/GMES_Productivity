@@ -151,9 +151,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Nhập', 
+			text: 'SL Nhập (m)', 
 			align:'right',
-			dataIndex: 'yds',
+			dataIndex: 'met',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 85,

@@ -127,6 +127,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                         if(stockin_packinglist[j].id == 0 || typeof stockin_packinglist[j].id === 'string'){
                             stockin_packinglist[j].id = null;
                         }
+                        if(stockin_packinglist[j].stockindid_link == 0 || typeof stockin_packinglist[j].stockindid_link === 'string'){
+                            stockin_packinglist[j].stockindid_link = null;
+                        }
                     }
                 }
             }

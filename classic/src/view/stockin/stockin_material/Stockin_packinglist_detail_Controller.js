@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       '#grossweight': {
         specialkey: 'onSpecialkey'
       },
-      '#ydsorigin': {
+      '#met_origin': {
         specialkey: 'onSpecialkey'
       },
       '#m3': {
@@ -56,9 +56,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
           me.down('#width').focus();
         }
         else if (field.itemId == "width") {
-          me.down('#ydsorigin').focus();
+          me.down('#met_origin').focus();
         }
-        else if (field.itemId == "ydsorigin") {
+        else if (field.itemId == "met_origin") {
           // console.log('enter');
           if(me.down('#packageid').getValue() == ''){
             me.down('#packageid').focus();
@@ -123,10 +123,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         packinglistObj.skuid_link = skuid_link;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
-        packinglistObj.ydsorigin = me.down('#ydsorigin').getValue() == '' ? 0 : parseFloat(me.down('#ydsorigin').getValue());
-        packinglistObj.ydscheck = 0;
-        packinglistObj.met_origin = packinglistObj.ydsorigin * 0.9144;
+        packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
         packinglistObj.met_check = 0;
+        packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
+        packinglistObj.ydscheck = 0;
         packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
         packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
         packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
@@ -148,7 +148,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         me.getStore().commitChanges();
   
         me.down('#packageid').setValue('');
-        me.down('#ydsorigin').setValue('');
+        me.down('#met_origin').setValue('');
         me.down('#m3').setValue('');
         me.down('#netweight').setValue('');
         me.down('#grossweight').setValue('');
@@ -248,19 +248,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       }
       if(context.field == 'ydsorigin'){
         pkl_data.ydsorigin = parseFloat(pkl_data.ydsorigin);
-        pkl_data.met_origin = pkl_data.ydsorigin * 0.9144;
+        pkl_data.met_origin = Ext.Number.roundToPrecision(pkl_data.ydsorigin * 0.9144,2);
       }
       if(context.field == 'ydscheck'){
         pkl_data.ydscheck = parseFloat(pkl_data.ydscheck);
-        pkl_data.met_check = pkl_data.ydscheck * 0.9144;
+        pkl_data.met_check = Ext.Number.roundToPrecision(pkl_data.ydscheck * 0.9144,2);
       }
       if(context.field == 'met_origin'){
         pkl_data.met_origin = parseFloat(pkl_data.met_origin);
-        pkl_data.ydsorigin = pkl_data.met_origin / 0.9144;
+        pkl_data.ydsorigin = Ext.Number.roundToPrecision(pkl_data.met_origin / 0.9144,2);
       }
       if(context.field == 'met_check'){
         pkl_data.met_check = parseFloat(pkl_data.met_check);
-        pkl_data.ydscheck = pkl_data.met_check / 0.9144;
+        pkl_data.ydscheck = Ext.Number.roundToPrecision(pkl_data.met_check / 0.9144,2);
       }
       if(context.field == 'm3'){
         pkl_data.m3 = parseFloat(pkl_data.m3);
@@ -292,6 +292,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         record.set('width_check', width);
         record.set('status', 0);
       }else{
+        record.set('ydscheck', 0);
+        record.set('met_check', 0);
+        record.set('width_check', 0);
         record.set('status', -1);
       }
 

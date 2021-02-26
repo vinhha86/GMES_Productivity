@@ -104,7 +104,24 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
 			}
 		},
 		{
-			text: 'SL Nhập', 
+			text: 'SL Nhập (m)', 
+            dataIndex: 'met_origin',
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+        },
+		{
+			text: 'SL Nhập (y)', 
             dataIndex: 'ydsorigin',
 			align:'right',
             summaryType: 'sum',
@@ -208,14 +225,14 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail', {
         {
 			xtype: 'textfield',
 			margin: 1,
-			itemId:'ydsorigin',
-			emptyText: 'SL Nhập',
+			itemId:'met_origin',
+			emptyText: 'SL Nhập (m)',
 			flex: 1,
 			labelWidth: 0,
 			hideLabel: true,
 			maskRe: /[0-9.]/,
             bind:{
-				value: '{packinglist.ydsorigin}'
+				value: '{packinglist.met_origin}'
             }
 		},		
 		{

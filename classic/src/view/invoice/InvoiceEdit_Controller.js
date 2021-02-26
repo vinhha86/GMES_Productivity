@@ -77,6 +77,22 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var data = new Array();
 
 		var invoice = viewmodel.get('invoice');
+		if(invoice.invoicenumber == null || invoice.invoicenumber == ''){
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: 'Số hoá đơn không được để trống',
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				},
+				fn: function (btn) {
+                    if (btn === 'yes') {
+						me.down('#invoicenumber').focus();
+					}
+				}
+			});
+			return;
+		}
 		// invoice_d
 		var invoice_d = invoice.invoice_d;
 		if(invoice_d != null){

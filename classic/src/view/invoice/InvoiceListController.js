@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceListController', {
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#invoicedate_from').setValue(new Date(priorDate));
 
+		var Invoice_Store = viewmodel.getStore('Invoice_Store');
+		Invoice_Store.getSorters().add('invoicenumber');
+
 		this.onloadPage();
 		
 	},

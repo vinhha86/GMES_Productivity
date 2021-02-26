@@ -106,10 +106,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                     stockin_dObj.m3 = invoice_d.get('m3');
                     stockin_dObj.unitprice = invoice_d.get('unitprice');
                     stockin_dObj.totalamount = invoice_d.get('totalamount');
+                    stockin_dObj.totalmet_origin = invoice_d.get('met');
+                    stockin_dObj.totalmet_check = 0;
                     stockin_dObj.totalydsorigin = invoice_d.get('yds');
                     stockin_dObj.totalydscheck = 0;
-                    stockin_dObj.totalmet_origin = invoice_d.get('yds') * 0.9144;
-                    stockin_dObj.totalmet_check = 0;
                     stockin_dObj.unitid_link = invoice_d.get('unitid_link');
                     stockin_dObj.unit_name = invoice_d.get('unitname');
 
@@ -134,7 +134,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                         stockin_packinglistObj.packageid = pkl.packageid;
                         stockin_packinglistObj.ydsorigin = pkl.ydsorigin;
                         stockin_packinglistObj.ydscheck = 0;
-                        stockin_packinglistObj.met_origin = pkl.ydsorigin * 0.9144;
+                        stockin_packinglistObj.met_origin = pkl.met_origin;
                         stockin_packinglistObj.met_check = 0;
                         stockin_packinglistObj.status = -1;
                         stockin_packinglistObj.checked = 0;

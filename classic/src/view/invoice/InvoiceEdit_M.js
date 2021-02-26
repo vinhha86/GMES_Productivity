@@ -13,7 +13,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
         margin: '1 0 0 0',
         items:[{
             xtype: 'textfield',
-            fieldLabel: 'Số hóa đơn',
+            fieldLabel: 'Số hóa đơn ('+ '<span style="color:red">*</span>' + ')',
+            itemId: 'invoicenumber',
+            allowBlank: false,
             labelWidth: 95,
             width: 335,
             margin: '0 5 0 5',

@@ -136,42 +136,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			}
 		},
 		{
-			text: 'SL Invoice', 
-            dataIndex: 'ydsorigin',
-            flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-		{
-			text: 'SL nhập', 
-            dataIndex: 'ydscheck',
-            flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-		{
 			text: 'SL Invoice (m)', 
             dataIndex: 'met_origin',
             flex: 1,
@@ -192,6 +156,42 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 		{
 			text: 'SL nhập (m)', 
             dataIndex: 'met_check',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+        },
+		{
+			text: 'SL Invoice (y)', 
+            dataIndex: 'ydsorigin',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+        },
+		{
+			text: 'SL nhập (y)', 
+            dataIndex: 'ydscheck',
             flex: 1,
 			align:'right',
             summaryType: 'sum',
@@ -303,14 +303,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
         {
 			xtype: 'textfield',
 			margin: 1,
-			itemId:'ydsorigin',
-			emptyText: 'SL Nhập',
+			itemId:'met_origin',
+			emptyText: 'SL Nhập (m)',
 			flex: 1,
 			labelWidth: 0,
 			hideLabel: true,
 			maskRe: /[0-9.]/,
             bind:{
-				value: '{packinglist.ydsorigin}'
+				value: '{packinglist.met_origin}'
             }
 		},		
 		{

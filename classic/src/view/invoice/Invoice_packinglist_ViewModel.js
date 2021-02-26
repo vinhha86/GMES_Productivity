@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist_ViewModel', {
             sizenumber: '',
             packageid: null,
             ydsorigin: null,
+            met_origin: null,
             m3: null,
             netweight: null,
             grossweight: null,
