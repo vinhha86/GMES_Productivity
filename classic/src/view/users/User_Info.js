@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.users.User_Info', {
             margin: '5 5 0 1',
             labelWidth: 100,
             flex: 1,
-            fieldLabel: 'Tổ chuyền'
+            fieldLabel: 'Đơn vị con'
         }]
     },
     {
