@@ -7,28 +7,67 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
     items: [
         {
             region: 'south',
-            xtype: 'tagfield',
-            margin: 1,
-            height: 50,
-            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-            fieldStyle: 'font-size:11px;',
-            labelWidth: 78,
-            labelAlign: 'left',
-            fieldLabel:'Đóng gói:',
-            bind: {
-                store: '{PackingTypeStore}',
-                value: '{po.packingnotice}'
-            },
-            // displayField: 'code',
-            displayField: 'codename',
-            valueField: 'id',
-            filterPickList: true,
-            queryMode: 'local',          
-            // publishes: 'po.packingnotice',   
-            style: {
-                background: 'white'
-            }
+            items: [{
+                xtype: 'tagfield',
+                margin: 1,
+                height: 50,
+                width: '100%',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                labelWidth: 78,
+                labelAlign: 'left',
+                fieldLabel:'Đóng gói:',
+                bind: {
+                    store: '{PackingTypeStore}',
+                    value: '{po.packingnotice}'
+                },
+                // displayField: 'code',
+                displayField: 'codename',
+                valueField: 'id',
+                filterPickList: true,
+                queryMode: 'local',          
+                // publishes: 'po.packingnotice',   
+                style: {
+                    background: 'white'
+                }
+            },{
+                xtype:'textfield',
+                margin: 1,
+                fieldLabel: 'Chú thích',
+                // allowBlank: false,
+                // blankText : 'Không được để trống',
+                maxLength: 200,
+                maxLengthText: 'Tối đa 200 ký tự',
+                bind:{
+                    value :'{po.comment}'
+                },
+                width: '100%',
+                itemId: 'comment',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                labelWidth: 78,
+                scrollable: true,
+            }]
         },
+        // {
+        //     region: 'south',
+        //     xtype:'textarea',
+        //     margin: 1,
+        //     height: 50,
+        //     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+        //     fieldStyle: 'font-size:11px;',
+        //     labelWidth: 78,
+        //     labelAlign: 'left',
+        //     fieldLabel:'Chú thích:',
+        //     bind:{
+        //         value:'{po.comment}'
+        //     },
+        //     style: {
+        //         background: 'white'
+        //     },
+        //     maxLength: 200,
+        //     maxLengthText: 'Tối đa 200 ký tự',
+        // },
         {
             region: 'center',
             layout: 'border',
