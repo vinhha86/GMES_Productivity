@@ -159,9 +159,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
             // var storeDPrice = viewPrice.getView().getStore();
             var Price_DStore = viewmodel.getStore('Price_DStore');
 
+            // console.log(select);
+            // console.log(Price_DStore);
+
             for(var i=0;i<select.length;i++){
                 var data = select[i].data;
-                var rec = Price_DStore.findRecord('fobpriceid_link', data.id);
+                var rec = Price_DStore.findRecord('fobpriceid_link', data.id, 0, false, false, true);
+                // console.log(data.id);
+                // console.log(rec);
                 if(rec == null) {
                     priceStore.clearFilter();
                     for(var k =0; k<priceStore.data.length; k++){

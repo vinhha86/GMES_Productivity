@@ -194,6 +194,53 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         });
         form.show();
     },
+
+    viewProductDetail: function(grid, metadata, rowIndex){
+        xtype = 'ProductDetailView';
+        title = 'Cập nhật sản phẩm';
+        var viewmodel = this.getViewModel();
+        var me = this;
+        var data = grid.getStore().getAt(rowIndex);
+        var id = data.get('productid_link');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: 500,
+            closable: true,
+            title: title,
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 1200,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: xtype,
+                viewModel: {
+                    data: {
+                        btnQuayLai: true,
+                        isWindow: true,
+                        product: {
+                            id : id,
+                            producttypeid_link: 10
+                        }
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ProductDetailView').on('CreateProduct', function (product) {
+            var PContractProductStore = viewmodel.getStore('PContractProductStore');
+            PContractProductStore.load();
+            form.close();
+        })
+    },
+
     viewImg: function (grid, metadata, rowIndex) {
         var viewmodel = this.getViewModel();
         var me = this.getView();
