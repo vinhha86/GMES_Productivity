@@ -544,11 +544,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
             form.close();
         })
     },
-	onPressEnterBtnThemNPL: function(textfield, e, eOpts){
+	onPressEnterBtnTimNPL: function(textfield, e, eOpts){
         var m = this;
         if(e.getKey() == e.ENTER) {
             // Ext.Msg.alert('Keys','You pressed the Enter key');
-            m.onBtnThemNPL();
+            m.onBtnTimNPL();
         }
     },
 })

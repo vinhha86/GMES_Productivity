@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
         });
 
         form.down('#invoice_nplsearch').getController().on('invoice_nplsearchLuu', function (records) {
-            console.log('invoice_nplsearchLuu');
+            // console.log(records);
             var invoice = viewModel.get('invoice');
             var invoiced = viewModel.get('invoice.invoice_d');
             if(invoiced == null){

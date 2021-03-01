@@ -233,7 +233,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			},
 			enableKeyEvents : true,
 			listeners: {
-				keypress: 'onPressEnterBtnThemNPL'
+				keypress: 'onPressEnterBtnTimNPL'
 			}
 		},
 		// {

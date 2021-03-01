@@ -92,6 +92,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       var stockindid_link = viewModel.get('packinglist.stockindid_link');
       var skuid_link = viewModel.get('packinglist.skuid_link');
       var lotnumber = viewModel.get('packinglist.lotnumber');
+      var stockinDRec = viewModel.get('stockinDRec');
+      var colorid_link = stockinDRec.get('colorid_link');
   
       if(viewModel.get('packinglist.lotnumber') == null || viewModel.get('packinglist.lotnumber') == ''){
         mes = "Bạn chưa chọn số lót";
@@ -121,6 +123,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         packinglistObj.stockinid_link = stockinid_link;
         packinglistObj.stockindid_link = stockindid_link;
         packinglistObj.skuid_link = skuid_link;
+        packinglistObj.colorid_link = colorid_link;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
         packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
