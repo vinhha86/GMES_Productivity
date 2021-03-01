@@ -184,40 +184,76 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			bind: {
 				hidden: '{!IsformMaster}'
 			}
-		}, {
-			labelWidth: 90,
-			margin:'0 5 5 5',
-			xtype: 'combobox',
-			reference: 'device',
-			fieldLabel: 'Thiết bị RFID',
-			bind: {
-				store: '{DeviceInvStore}'
-			},
-			width: 300,
-			displayField: 'name',
-			valueField: 'id',
-			listeners: {
-				change: 'onDeviceChange'
-			}
-		}, {
-			margin:'0 5 5 5',
-			text: "Start",
-			iconCls: 'x-fa fa-play',
-			xtype: 'button',
-			itemId: 'btnStart',
-			bind: {
-				disabled: '{isStart}',
-				userCls: '{clsbtnStart}'
-			}
-		}, {
-			margin:'0 5 5 5',
-			text: "Stop",
-			iconCls: 'x-fa fa-stop',
-			xtype: 'button',
-			itemId: 'btnStop',
-			userCls: 'red-button'
-		},
+		}, 
+		// {
+		// 	labelWidth: 90,
+		// 	margin:'0 5 5 5',
+		// 	xtype: 'combobox',
+		// 	reference: 'device',
+		// 	fieldLabel: 'Thiết bị RFID',
+		// 	bind: {
+		// 		store: '{DeviceInvStore}'
+		// 	},
+		// 	width: 300,
+		// 	displayField: 'name',
+		// 	valueField: 'id',
+		// 	listeners: {
+		// 		change: 'onDeviceChange'
+		// 	}
+		// }, {
+		// 	margin:'0 5 5 5',
+		// 	text: "Start",
+		// 	iconCls: 'x-fa fa-play',
+		// 	xtype: 'button',
+		// 	itemId: 'btnStart',
+		// 	bind: {
+		// 		disabled: '{isStart}',
+		// 		userCls: '{clsbtnStart}'
+		// 	}
+		// }, {
+		// 	margin:'0 5 5 5',
+		// 	text: "Stop",
+		// 	iconCls: 'x-fa fa-stop',
+		// 	xtype: 'button',
+		// 	itemId: 'btnStop',
+		// 	userCls: 'red-button'
+		// },
 		// ,'->',
+		{
+			xtype: 'textfield',
+			margin: '0 5 0 5',
+			itemId:'skucode',
+			fieldLabel: 'Mã NPL',
+			width: 250,
+			labelWidth: 60,
+			hideLabel: false,			
+            bind:{
+				// disabled: '{isEdit}',
+				value: '{skucode}'
+			},
+			enableKeyEvents : true,
+			listeners: {
+				keypress: 'onPressEnterBtnThemNPL'
+			}
+		},
+		// {
+		// 	tooltip: 'Thêm NPL',
+		// 	margin: '0 0 0 5',
+		// 	iconCls: 'x-fa fa-plus',
+		// 	weight: 30,
+		// 	itemId: 'btnThemNPL',
+		// 	// hidden: true
+		// },
+		{
+			tooltip: 'Tìm NPL',
+			margin: '0 5 0 5',
+			itemId: 'btnTimNPL',
+			iconCls: 'x-fa fa-search',
+			weight: 30,			
+            bind:{
+                // hidden: '{isEdit}'
+            }
+		},
 		// {
 		// 	xtype: 'textfield',
 		// 	margin: '0 5 0 5',

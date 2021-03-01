@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
     if(!isNaN(size_name) ){
       viewModel.set('packinglist.width', size_name);
     }
+
+    var PackingListStore = viewModel.getStore('PackingListStore');
+    PackingListStore.getSorters().add('packageid');
   },
   control: {
     '#packageid': {

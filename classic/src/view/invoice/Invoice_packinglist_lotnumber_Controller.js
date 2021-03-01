@@ -2,7 +2,9 @@ Ext.define('GSmartApp.view.invoice.Invoice_packinglist_lotnumber_Controller', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.Invoice_packinglist_lotnumber_Controller',
   init: function () {
-
+    var viewModel = this.getViewModel();
+    var LotStore = viewModel.getStore('LotStore');
+    LotStore.getSorters().add('lotnumber');
   },
   control: {
     '#lotnumber': {

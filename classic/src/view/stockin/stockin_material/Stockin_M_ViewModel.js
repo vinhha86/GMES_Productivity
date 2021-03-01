@@ -62,7 +62,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		listepc: new Map(),
 		deviceid: 0,
 		curencycode: '',
-		ordercode: ""
+		ordercode: "",
+		skucode: '',
 	},
 	formulas: {
         isEdit: function (get) {
