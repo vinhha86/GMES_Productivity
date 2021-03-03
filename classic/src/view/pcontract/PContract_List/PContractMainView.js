@@ -211,6 +211,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             emptyText: "Từ năm",
             maskRe: /[0-9]/,
             maxLength: 4,
+            value:  (new Date()).getFullYear() - 1,
             itemId: 'contractbuyer_yearfrom',
             width: 80
         },{
@@ -221,6 +222,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             maskRe: /[0-9]/,
             maxLength: 4,
             itemId: 'contractbuyer_yearto',
+            value:  (new Date()).getFullYear() + 1,
             width: 80
         },
         {
