@@ -1,18 +1,18 @@
-Ext.define('GSmartApp.view.invcheck.InvCheckList', {
+Ext.define('GSmartApp.view.invcheck.InvCheckList_M', {
 	extend: 'Ext.grid.Panel',
-	xtype:'invchecklist',
-	controller: 'invchecklist',
+	xtype:'InvCheckList_M',
+	controller: 'InvCheckList_M_Controller',
 	viewModel: {
-        type: 'invchecklist'
+        type: 'InvCheckList_M_ViewModel'
 	},
     viewConfig: {
         stripeRows: true,
         columnLines: true,
         rowLines: true
 	},
-	store: {
-        type: 'invcheckliststore'
-    },
+	bind:{
+		store: '{InvCheckListStore}'
+	},
 	columns: [{ 
 		text: GSmartApp.Locales.sophien[GSmartApp.Locales.currentLocale],
 		dataIndex: 'invcheckcode', 
@@ -93,7 +93,9 @@ Ext.define('GSmartApp.view.invcheck.InvCheckList', {
 				reference: 'orgfrom_code',
 				xtype: 'combobox',
 				emptyText: 'Kho kiểm',
-				store:'WareHouseStore',
+				bind:{
+					store: '{ListOrgStore}'
+				},				
 				queryMode: 'local',
 				displayField: 'name',
 				valueField: 'id'
@@ -102,7 +104,9 @@ Ext.define('GSmartApp.view.invcheck.InvCheckList', {
 				xtype: 'combobox',
 				reference: 'status',
 				emptyText: 'Trạng thái',
-				store:'GSmartApp.store.invcheck.InvCheckStatusStore',
+				bind:{
+					store: '{InvCheckStatusStore}'
+				},		
 				queryMode: 'local',
 				displayField: 'name',
 				valueField: 'id',

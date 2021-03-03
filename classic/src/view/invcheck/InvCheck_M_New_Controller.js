@@ -1,19 +1,14 @@
-Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
+Ext.define('GSmartApp.view.invcheck.InvCheck_M_New_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.invchecknew',
+    alias: 'controller.InvCheck_M_New_Controller',
 	packinglist:null,
     init: function() {
 		this.packinglist=new Array();
         this.callParent(arguments);
-		var productstore =  this.lookupReference('productcode').getStore();
-		productstore.load({
-			 params: {
-				type: 1
-			}
-		});
-		Ext.getStore('DeviceInvStore').loadStore(1);
-		Ext.getStore('BossStore').loadStore(6);
-		Ext.getStore('WareHouseStore').invCheckLoadStore(8);
+		var viewmodel = this.getViewModel();
+		var ListOrgStore = viewmodel.get('ListOrgStore');
+		ListOrgStore.loadStore(3,null);
+		console.log(ListOrgStore);
     },
 	listen: {
         controller: {
@@ -25,16 +20,9 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
         }
     },
 	onLoadData:function(id,type){
-		if(type.getId()=='invcheck'){
-			Ext.getStore('WareHouseStore').GetOrgDest('lsinvcheck');
-			var view =this.getView();
-			var viewModel = view.getViewModel();
-			viewModel.set('urlback',type);
-			viewModel.set('isEdit',true);
-			// this.onQrCode(id);
-			this.getById(id);
-			this.lookupReference('id').setValue(id);
-		}
+		var viewmodel = this.getViewModel();
+		viewmodel.set('isEdit',true);
+		this.getById(id);
 	},
 	onNewData: function(){
 		console.log('Create New Invcheck');
@@ -42,7 +30,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 		gridInvCheck.getStore().removeAll();
 	},
 	onUrlBack:function(){
-		this.redirectTo("invcheck");
+		this.redirectTo("lsinvcheck");
 	},
 	onBlack:function(){
 		var view =this.getView();
@@ -86,7 +74,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 			params.extrainfo = data.extrainfo;
 			
 			me.getView().setLoading(true);
-			GSmartApp.Ajax.post('/api/v1/invcheck/invcheck_create',Ext.JSON.encode(params),
+			GSmartApp.Ajax.postJitin('/api/v1/invcheck/invcheck_create',Ext.JSON.encode(params),
 			function(success,response,options ) {
 				if(success){
 					var response = Ext.decode(response.responseText);
@@ -102,7 +90,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 					}
 					if(response.data!=null && response.data.length>0){
 					//	me.getById(response.data[0].id);
-						me.redirectTo("invcheck/"+response.data[0].id+"/edit");
+						me.redirectTo("lsinvcheck/"+response.data[0].id+"/edit");
 					}
 				}
 				me.getView().setLoading(false);
@@ -123,7 +111,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 		var formInvCheck = this.lookupReference('formInvCheck').getForm();
 		var gridInvCheck = this.lookupReference('gridInvCheck');
 		me.getView().setLoading(true);
-		GSmartApp.Ajax.post('/api/v1/invcheck/invcheck_getbyid','{"id": '+invcheckid+'}',
+		GSmartApp.Ajax.postJitin('/api/v1/invcheck/invcheck_getbyid','{"id": '+invcheckid+'}',
 		function(success,response,options ) {
 			if(success){
 				var response = Ext.decode(response.responseText);
@@ -147,7 +135,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNewController', {
 		var record = info.record.data;
 		if(record.invcheckid_link && record.skuid_link){
 			me.getView().setLoading(true);
-			GSmartApp.Ajax.post('/api/v1/invcheck/invcheck_getepcbysku','{"invcheckid_link": '+record.invcheckid_link+',"skuid_link":'+record.skuid_link+'}',
+			GSmartApp.Ajax.postJitin('/api/v1/invcheck/invcheck_getepcbysku','{"invcheckid_link": '+record.invcheckid_link+',"skuid_link":'+record.skuid_link+'}',
 			function(success,response,options ) {
 				if(success){
 					var response = Ext.decode(response.responseText);

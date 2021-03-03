@@ -1,6 +1,6 @@
 Ext.define('GSmartApp.store.invcheck.InvCheckStatusStore', {
     extend: 'Ext.data.Store',
-    alias: 'store.invcheckstatusstore',
+    alias: 'store.InvCheckStatusStore',
     fields: [
 		{name: 'id', type: 'string'},
 		{name: 'name',   type: 'string'}

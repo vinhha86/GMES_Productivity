@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
+Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
     extend: 'Ext.form.Panel',
-	xtype:'invchecknew',
-	controller: 'invchecknew',
+	xtype:'InvCheck_M_New',
+	controller: 'InvCheck_M_New_Controller',
 	viewModel: {
-        type: 'invchecknew'
+        type: 'InvCheck_M_New_ViewModel'
     },
 	layout: {
         type: 'vbox',
@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 					 flex: 1,
 					 items:[
 						{
-							width: 370,
+							width: 350,
 							labelWidth:70,
 							xtype: 'textfield',
 							name:'invcheckcode',
@@ -74,47 +74,48 @@ Ext.define('GSmartApp.view.invcheck.InvCheckNew', {
 					 xtype: 'combobox',
 					 fieldLabel: 'Kho kiểm kê',
 					 queryMode: 'local',
-					 store:'WareHouseStore',
+					 bind:{
+						store: '{ListOrgStore}',
+						readOnly:'{isEdit}'
+					},			
 					 displayField: 'name',
 					 valueField: 'id',
 					 allowBlank: false,
-					 required: true,
-					 bind:{
-						 readOnly:'{isEdit}'
-					 }
+					 required: true
 				 }]
 			 },{
-				 layout:'hbox',
-				 margin:2,
-				 items:[{
-					 flex:1,
-					 labelWidth:70,
-					 name:'p_skuid_link',
-					 reference:'productcode',
-					 xtype: 'combobox',
-					 fieldLabel: 'Sản phẩm',
-					 queryMode: 'local',
-					 store:'SkuStore',
-					 displayField: 'name',
-					 valueField: 'id',
-					 bind:{
-						 readOnly:'{isEdit}'
-					 }
-				 }]
-			 },{
-				 layout:'hbox',
-				 margin:2,
-				 items:[{
-					 flex:1,
-					 name:'extrainfo',
-					 labelWidth:70,
-					 xtype: 'textfield',
-					 fieldLabel: 'Ghi chú',
-					 bind:{
-						 readOnly:'{isEdit}'
-					 }
-				 }]
-			 }]
+				layout:'hbox',
+				margin:2,
+				items:[
+					{
+						flex:1,
+						labelWidth:70,
+						name:'p_skuid_link',
+						reference:'productcode',
+						xtype: 'combobox',
+						fieldLabel: 'Sản phẩm',
+						queryMode: 'local',
+					//  store:'SkuStore',
+					//  displayField: 'name',
+					//  valueField: 'id',
+						bind:{
+							readOnly:'{isEdit}'
+						}
+					},
+					{
+						flex:1,
+						margin:'0 0 0 5',
+						name:'extrainfo',
+						labelWidth:90,
+						xtype: 'textfield',
+						fieldLabel: 'Ghi chú',
+						bind:{
+							readOnly:'{isEdit}'
+						}
+					}
+				]
+			}
+			]
 		 
 		 },
 		//  {
