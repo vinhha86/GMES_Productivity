@@ -405,7 +405,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             });
     },
     onAdd_SubPO: function (rec) {
-        console.log(rec);
         var viewModel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -880,7 +879,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             porttoid_link: rec.get('porttoid_link'),
                             is_tbd: rec.get('is_tbd'),
                             productiondays: rec.get('productiondays'),
-                            productiondate: rec.get('productiondate')
+                            productiondate: rec.get('productiondate'),
+                            packingnotice: rec.get('packingnotice'),
+                            comment: rec.get('comment'),
+                            portfromid_link: rec.get('portfromid_link'),
+                            porttoid_link: rec.get('porttoid_link')
                         },
                         pcontract_po_productivity: plan_productivity
                     }
