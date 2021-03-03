@@ -983,5 +983,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             this.textFilter = null;
         }
     },
+    onSelectOffer: function(rowNode, record, expandRow, eOpts){
+        var grid = this.getView();
+        grid.setLoading('Đang tải dữ liệu');
+
+        var params = new Object();
+        params.pcontract_poid_link = record.get('id');
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/get_poline_by_offer', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    grid.setLoading(false);
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        record.set('sub_po_plan', response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    }
 });
 

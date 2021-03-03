@@ -12,16 +12,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         enableTextSelection: true,
         columnLines: true,
         rowLines: true,
-        // getRowClass: function (record, index) {
-        //     if (record.data.status == 0) {
-        //         return "po_accept";
-        //     }
-        //     else {
-        //         if(record.get('po_quantity') != record.get('amount_org')){
-        //             return "po_wrongamount"
-        //         }
-        //     }
-        // }
+        listeners: {
+            expandbody : 'onSelectOffer'
+        }
     },
     selModel: {
         //selType: 'checkboxmodel',

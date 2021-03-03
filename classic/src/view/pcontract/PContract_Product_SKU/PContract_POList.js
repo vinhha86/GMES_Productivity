@@ -7,7 +7,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         stripeRows: false,
         enableTextSelection: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        listeners: {
+            expandbody : 'onSelectOffer'
+        }
     },
     bind:{
         store:'{PContractPOList}'

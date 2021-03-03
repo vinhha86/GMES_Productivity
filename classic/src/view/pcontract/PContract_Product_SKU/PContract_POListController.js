@@ -19,6 +19,43 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             click: 'onDownloadTemplate'
         }
     },
+    onSelectOffer: function(rowNode, record, expandRow, eOpts){
+        var grid = this.getView();
+        grid.setLoading('Đang tải dữ liệu');
+
+        var params = new Object();
+        params.pcontract_poid_link = record.get('id');
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/getPOLine_Confirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    grid.setLoading(false);
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        record.set('sub_po_confirm', response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
     onRender_poquantity: function (value, metaData, record, rowIdx, colIdx, stor) {
         var viewmodel = this.getViewModel();
         var cls = viewmodel.get('clspoquantity');
