@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
         var OrgProviderStore = viewmodel.getStore('OrgProviderStore');
         OrgProviderStore.loadStore(5, false);
         
-        var listidtype = "4,8,9,11,12";
+        var listidtype = "13";
         var orgtostore = viewmodel.getStore('OrgToStore');
         orgtostore.loadStore_allchildren_byorg(listidtype);
         
