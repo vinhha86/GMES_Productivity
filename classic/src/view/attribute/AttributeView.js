@@ -20,7 +20,13 @@ Ext.define('GSmartApp.view.attribute.AttributeView', {
         stripeRows: true,
         enableTextSelection: true,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        plugins: {
+            ptype: 'gridviewdragdrop'
+        },
+        listeners: {
+            drop: 'onDrop',
+        }     
     },    
     bind:{
         store:'{AttributeStore}'
@@ -29,7 +35,8 @@ Ext.define('GSmartApp.view.attribute.AttributeView', {
         text: 'STT',
         width: 50,
         xtype: 'rownumberer',
-        align: 'center'
+        align: 'center',
+        sortable: false
     },{
         text:'Tên thuộc tính',
         dataIndex:'name',
@@ -106,6 +113,24 @@ Ext.define('GSmartApp.view.attribute.AttributeView', {
             flex: 1,
             allowBlank: false,
             blankText: 'Nhập tên thuộc tính để thêm mới'
+        }, {
+            xtype: 'button',
+            margin: 5,
+            text: 'Sắp xếp A-Z',
+            width: 100,
+            itemId: 'btnSort',
+            // bind: {
+            //     hidden: '{isABCsortHidden}'
+            // }
+        }, {
+            xtype: 'button',
+            margin: 5,
+            text: 'Sắp xếp Z-A',
+            width: 100,
+            itemId: 'btnSortDesc',
+            // bind: {
+            //     hidden: '{isABCsortHidden}'
+            // }
         }]
     }]
 });

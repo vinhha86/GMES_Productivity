@@ -837,7 +837,15 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
 
+    onEditProductList: function(grid, rowIndex, colIndex){
+        var viewmodel = this.getViewModel();
+        var data = grid.getStore().getAt(rowIndex);
+        this.onEditProduct(grid, data);
+        // console.log(data);
+    },
+
     onEditProduct: function(grid, rec){
+        // console.log(rec);
         var viewmodel = this.getViewModel();
         var me = this;
         var xtype = '', title ='';

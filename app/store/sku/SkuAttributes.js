@@ -2,10 +2,10 @@ Ext.define('GSmartApp.store.SkuAttributes', {
     extend: 'Ext.data.Store',
     alias: 'store.skuattributes',
 	model: 'GSmartApp.model.Attribute',
-	sorters: {
-        direction: 'ASC',
-        property: 'name'
-    },
+	// sorters: {
+    //     direction: 'ASC',
+    //     property: 'name'
+    // },
 	loadDefaultAttr:function(producttypeid_link){
 		var params = new Object();
 		params.producttypeid_link = producttypeid_link;

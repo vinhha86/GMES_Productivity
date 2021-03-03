@@ -46,6 +46,19 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                 return value;
             }
         },
+		{ 
+			xtype: 'actioncolumn',
+			width: 30,
+			menuDisabled: true,
+			sortable: false,
+			items: [
+                {
+                    iconCls: 'x-fa fas fa-edit',
+                    tooltip: 'Sửa thông tin',
+                    handler: 'onEditProductList'
+                }
+            ]
+		}
     ],
     fbar: [{
         minWidth: 80,

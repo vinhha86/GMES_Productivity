@@ -2,10 +2,10 @@ Ext.define('GSmartApp.store.attribute.attributeStore', {
     extend: 'Ext.data.Store',
     alias: 'store.attributeStore',
 	model: 'GSmartApp.model.Attribute',
-	sorters: {
-        direction: 'ASC',
-        property: 'name'
-    },
+	// sorters: {
+    //     direction: 'ASC',
+    //     property: 'name'
+    // },
 	loadStore:function(){
 		var me=this;
 		this.setProxy({

@@ -4,8 +4,9 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
     oldValue: '', // Lưu giá trị cũ trước khi sửa . Nếu giá trị mới không validate thì trả về giá trị cũ
     init: function () {
         // var me = this.getView();
-        // var viewmodel = this.getViewModel();
-        // var store = viewmodel.getStore('AttributeStore');
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('AttributeStore');
+        store.getSorters().remove('name');
         // store.loadStore(); 
     },
     control: {
@@ -37,7 +38,13 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
         },
         '#checkthread' : {
             checkchange: 'oncheckchange'
-        }
+        },
+        '#btnSort': {
+            click: 'onSort'
+        },
+        '#btnSortDesc': {
+            click: 'onSortDesc'
+        },
     },
     onActivate: function(){
         var me = this.getView();
@@ -241,5 +248,109 @@ Ext.define('GSmartApp.view.attribute.attributeController', {
             }
         }
         return true;
-    }
+    },
+    onDrop: function(node, data, dropRec, dropPosition){
+        var store = this.getViewModel().getStore('AttributeStore');
+        var arrData = [];
+        store.each(function(rec,ind){
+            var temp = new Object();
+            temp.id = rec.get('id');
+            temp.sortvalue = ind+1;
+            arrData.push(temp);
+        });
+
+        var params = new Object();
+        params.msgtype = "ATTRIBUTE_REORDER";
+        params.message = "Sap xep thuoc tinh";
+        params.data = arrData;
+
+        GSmartApp.Ajax.post('/api/v1/attribute/attribute_reorder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    // store.reload();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
+    
+    onSort: function (){
+        var store = this.getViewModel().getStore('AttributeStore');
+        store.sort('name','ASC');
+
+        var arrData = [];
+
+        store.each(function(rec,ind){
+            var temp = new Object();
+            temp.id = rec.get('id');
+            temp.sortvalue = ind+1;
+            arrData.push(temp);
+        });
+        store.sorters.clear();
+
+        var params = new Object();
+        params.msgtype = "ATTRIBUTE_REORDER";
+        params.message = "Sap xep thuoc tinh";
+        params.data = arrData;
+
+        GSmartApp.Ajax.post('/api/v1/attribute/attribute_reorder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    store.load();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    store.load();
+                }
+            })
+    },
+    onSortDesc: function (){
+        var store = this.getViewModel().getStore('AttributeStore');
+        store.sort('name','DESC');
+
+        var arrData = [];
+
+        store.each(function(rec,ind){
+            var temp = new Object();
+            temp.id = rec.get('id');
+            temp.sortvalue = ind+1;
+            arrData.push(temp);
+        });
+        store.sorters.clear();
+
+        var params = new Object();
+        params.msgtype = "ATTRIBUTE_REORDER";
+        params.message = "Sap xep thuoc tinh";
+        params.data = arrData;
+
+        GSmartApp.Ajax.post('/api/v1/attribute/attribute_reorder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    store.load();
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    store.load();
+                }
+            })
+    },
 })

@@ -9,10 +9,10 @@ Ext.define('GSmartApp.store.product.ProductAttributeValueStore', {
 		{name: 'attributeName', type: 'string'},
 		{name: 'attributeValueName', type: 'string'}
 	],
-	sorters: {
-        direction: 'ASC',
-        property: 'attributeName'
-    },
+	// sorters: {
+    //     direction: 'ASC',
+    //     property: 'attributeName'
+    // },
 	loadStore:function(productid_link){
 		var me=this;
 		var params = new Object();
