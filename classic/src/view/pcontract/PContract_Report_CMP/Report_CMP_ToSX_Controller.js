@@ -1,15 +1,11 @@
-Ext.define('GSmartApp.view.pcontract.Report_SalaryFund_Controller', {
+Ext.define('GSmartApp.view.pcontract.Report_CMP_ToSX_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Report_SalaryFund_Controller',
+    alias: 'controller.Report_CMP_ToSX_Controller',
 
     init:function(){
-        // var viewmodel =  this.getViewModel();
-        // var CMPReportStore = viewmodel.get('CMPReportStore');
-        // CMPReportStore.loadStore(new Date(),6);
-        var cbo_cmpoption = Ext.getCmp('Report_SalaryFund_cmpoption');
-        cbo_cmpoption.setValue(6);
         this.onRefreshTap_ToSX();
     },
+   
     yearLabelRenderer: function(value) {
         return 'Year ' + value;
     },
@@ -64,52 +60,18 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund_Controller', {
         });
     },
 
-    onPivotGroupExpand: function(matrix, type, group) {
-        Ext.log((group ? 'Group "' + group.name + '" expanded on ' : 'All groups expanded on ') + type);
-    },
-
-    onPivotGroupCollapse: function(matrix, type, group) {
-        Ext.log((group ? 'Group "' + group.name + '" collapsed on ' : 'All groups collapsed on ') + type);
-    },
-    onRefreshTap: function(){
-        var me = this;
-        var viewmodel =  this.getViewModel();
-        var cbo_cmpoption = Ext.getCmp('Report_SalaryFund_cmpoption');
-
-        if (cbo_cmpoption != null && cbo_cmpoption.getValue() != null){
-            var reportStore = viewmodel.get('SalaryFundReportStore');
-            reportStore.loadStore(new Date(),cbo_cmpoption.getValue());
-            reportStore.load({
-                scope: this,
-                callback: function(records, operation, success) {
-                    if(!success){
-                        // this.fireEvent('logout');
-                    } else {
-                        setTimeout(function(){
-                            var thisMonth = new Date().getMonth() + 1;
-                            var view = me.getView();
-                            var viewPos = view.getPosition();
-                            var columns = view.getColumns();
-                            var columnPos = columns[thisMonth].getPosition();
-                            // console.log(viewPos);
-                            // console.log(columnPos);
-                            view.getScrollable().scrollBy(columnPos[0] - viewPos[0], null);
-                        }, 1000);
-                        
-                    }
-                }
-            });
-        }
-    },
     onRefreshTap_ToSX: function(){
         var me = this;
         var viewmodel =  this.getViewModel();
-        var cbo_cmpoption = Ext.getCmp('Report_SalaryFund_cmpoption');
+        var cmpoption = viewmodel.get('cmpoption');
+        var ord_code = viewmodel.get('ord_code');
+        console.log(ord_code);
+        console.log(cmpoption);
 
-        if (cbo_cmpoption != null && cbo_cmpoption.getValue() != null){
-            var reportStore = viewmodel.get('SalaryFundReportStore');
-            reportStore.loadStore_Async(new Date(),cbo_cmpoption.getValue());
-            reportStore.load({
+        if (ord_code != null && cmpoption != null){
+            var CMPReportStore = viewmodel.get('CMPReportStore');
+            CMPReportStore.loadStore_ToSX_ByParentCode(new Date(),cmpoption,ord_code);
+            CMPReportStore.load({
                 scope: this,
                 callback: function(records, operation, success) {
                     if(!success){
@@ -130,17 +92,17 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund_Controller', {
                 }
             });
         }
-    },    
+    },
     onExportExcel: function(){
         this.getView().saveDocumentAs({
             type: 'excel',
-            title: 'Bảng Tổng hợp quỹ lương (Salary Fund)',
-            fileName:'salaryfund.xls'
+            title: 'Bảng Tổng hợp giá gia công (CMP)',
+            fileName:'cmp.xls'
         });
     },
     onZoom: function(){
         var panel_po = Ext.getCmp('PContract_PO_Edit');
-        var west_salaryfund = panel_po.down('#panel_salaryfund');
-        west_salaryfund.setWidth(west_salaryfund.width == '100%'?'50%':'100%');
-    }      
+        var west_cmp = panel_po.down('#panel_cmp');
+        west_cmp.setWidth(west_cmp.width == '100%'?'50%':'100%');
+    }
 });

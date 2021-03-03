@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund_ToSX', {
     // Set this to false if multiple dimensions are configured on leftAxis and
     // you want to automatically expand the row groups when calculations are ready.
     enableLocking: true,
-    startRowGroupsCollapsed: false,
+    startRowGroupsCollapsed: true,
     startColGroupsCollapsed: false,
     matrix: {
         type: 'local',

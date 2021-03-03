@@ -6,7 +6,11 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
         // var viewmodel =  this.getViewModel();
         // var CMPReportStore = viewmodel.get('CMPReportStore');
         // CMPReportStore.loadStore(new Date(),6);
+        var cbo_cmpoption = Ext.getCmp('Report_CMP_cmpoption');
+        cbo_cmpoption.setValue(6);
+        this.onRefreshTap();
     },
+   
     yearLabelRenderer: function(value) {
         return 'Year ' + value;
     },
@@ -61,17 +65,59 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
         });
     },
 
-    onPivotGroupExpand: function(matrix, type, group) {
-        Ext.log((group ? 'Group "' + group.name + '" expanded on ' : 'All groups expanded on ') + type);
-    },
+    // onPivotGroupExpand: function(matrix, type, group) {
+    //     Ext.log((group ? 'Group "' + group.name + '" expanded on ' : 'All groups expanded on ') + type);
+    // },
 
-    onPivotGroupCollapse: function(matrix, type, group) {
-        Ext.log((group ? 'Group "' + group.name + '" collapsed on ' : 'All groups collapsed on ') + type);
+    // onPivotGroupCollapse: function(matrix, type, group) {
+    //     Ext.log((group ? 'Group "' + group.name + '" collapsed on ' : 'All groups collapsed on ') + type);
+    // },
+    onPivotgroupdblclick: function(v, td, cellIndex, record, tr, rowIndex, e) {
+        console.log(v);
+        console.log(td);
+        console.log(cellIndex);
+        console.log(record);
+        console.log(tr);
+        console.log(rowIndex);
+        console.log(e);
+    },
+    onPivotitemdblclick: function(params, e){
+        // console.log(params.leftItem.data.parentorgcode);
+        var cbo_cmpoption = Ext.getCmp('Report_CMP_cmpoption');
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Báo cáo CMP Phân xưởng - ' + params.leftItem.data.parentorgcode,
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Report_CMP_ToSX',
+                viewModel: {
+                    data: {
+                        ord_code: params.leftItem.data.parentorgcode,
+                        cmpoption: cbo_cmpoption.getValue(),
+                    }
+                }
+            }]
+        });
+        form.show();        
     },
     onRefreshTap: function(){
         var me = this;
         var viewmodel =  this.getViewModel();
         var cbo_cmpoption = Ext.getCmp('Report_CMP_cmpoption');
+
+        var myview = this.getView();
+        myview.setLoading("Đang tạo báo cáo...");
 
         if (cbo_cmpoption != null && cbo_cmpoption.getValue() != null){
             var CMPReportStore = viewmodel.get('CMPReportStore');
@@ -94,6 +140,7 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
                         }, 1000);
                         
                     }
+                    myview.setLoading(false);
                 }
             });
         }
@@ -102,6 +149,9 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
         var me = this;
         var viewmodel =  this.getViewModel();
         var cbo_cmpoption = Ext.getCmp('Report_CMP_cmpoption');
+
+        var myview = this.getView();
+        myview.setLoading("Đang tạo báo cáo...");
 
         if (cbo_cmpoption != null && cbo_cmpoption.getValue() != null){
             var CMPReportStore = viewmodel.get('CMPReportStore');
@@ -125,6 +175,7 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
                         }, 1000);
                         
                     }
+                    myview.setLoading(false);
                 }
             });
         }
@@ -140,5 +191,5 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_Controller', {
         var panel_po = Ext.getCmp('PContract_PO_Edit');
         var west_cmp = panel_po.down('#panel_cmp');
         west_cmp.setWidth(west_cmp.width == '100%'?'50%':'100%');
-    }      
+    }
 });

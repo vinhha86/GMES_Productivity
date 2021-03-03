@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.pcontract.Report_CMP_ToSX', {
+Ext.define('GSmartApp.view.pcontract.Report_CMP_ReqIncluded', {
     extend: 'Ext.pivot.Grid',
-    xtype: 'Report_CMP_ToSX',
-    controller: 'Report_CMP_ToSX_Controller',
+    xtype: 'Report_CMP_ReqIncluded',
+    controller: 'Report_CMP_Controller',
     viewModel: {
-        type: 'Report_CMP_ToSX_ViewModel'
+        type: 'Report_CMP_ViewModel'
     },    
     requires: [
         'Ext.pivot.plugin.Exporter',
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_ToSX', {
         // layout is "outline"
         viewLayoutType: 'compact',
         textRowLabels: 'Đơn vị',
-        compactViewColumnWidth: 120,
+        compactViewColumnWidth: 110,
         rowGrandTotalsPosition: 'last',
         colGrandTotalsPosition: 'none',
         textGrandTotalTpl: 'Tổng:',
@@ -63,15 +63,16 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_ToSX', {
         // the grid rows
         leftAxis: [
             {
+                id: 'parentorgcode',
                 dataIndex: 'parentorgname',
                 header: 'Phân xưởng',
-                width: 80
+                width: 65
             }, 
             {
                 dataIndex: 'orgname',
                 header: 'Tổ SX',
                 sortable: false,
-                width: 120
+                width: 65
             }
         ],
 
@@ -96,51 +97,54 @@ Ext.define('GSmartApp.view.pcontract.Report_CMP_ToSX', {
             }
         ]
     },
-    // dockedItems: [{
-    //     dock: 'top',
-    //     xtype: 'toolbar',
-    //     items: [
-    //     {
-    //         xtype:'displayfield',
-    //         fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-    //         labelWidth : 0,
-    //         value: 'Bảng Tổng hợp giá gia công (CMP)'
-    //     },
-    //     '->'
-    //     ,            
-    //     {
-    //         xtype: 'combobox',
-    //         id: 'Report_CMP_cmpoption',
-    //         width: 200,
-    //         editable: false,
-    //         //margin: '0 5 0 5',
-    //         fieldLabel: 'Nhìn trước:',
-    //         labelWidth : 70,
-    //         store: {
-    //             type: 'CMPOptionStore'
-    //         },
-    //         displayField: 'name',
-    //         valueField: 'id'
-    //     },{
-    //         tooltip: 'Tải lại bảng CMP',
-    //         iconCls: 'x-fa fa-refresh',
-    //         weight: 30,
-    //         handler: 'onRefreshTap_ToSX'
-    //     },{
-    //         tooltip: 'Xuất Excel',
-    //         iconCls: 'x-fa fa-file-excel-o',
-    //         weight: 30,
-    //         handler: 'onExportExcel'
-    //     },{
-    //         tooltip: 'Zoom',
-    //         iconCls: 'x-fa fa-arrows-h',
-    //         weight: 30,
-    //         handler: 'onZoom'
-    //     }
-    // ]
-    // }],
-    // listeners: {
-    //     pivotgroupexpand: 'onPivotGroupExpand',
-    //     pivotgroupcollapse: 'onPivotGroupCollapse'
-    // },
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        items: [
+        {
+            xtype:'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelWidth : 0,
+            value: 'Bảng Tổng hợp giá gia công (CMP)'
+        },
+        '->'
+        ,            
+        {
+            xtype: 'combobox',
+            id: 'Report_CMP_cmpoption',
+            width: 200,
+            editable: false,
+            //margin: '0 5 0 5',
+            fieldLabel: 'Nhìn trước:',
+            labelWidth : 70,
+            store: {
+                type: 'CMPOptionStore'
+            },
+            displayField: 'name',
+            valueField: 'id'
+        },{
+            tooltip: 'Tải lại bảng CMP',
+            iconCls: 'x-fa fa-refresh',
+            weight: 30,
+            handler: 'onRefreshTap'
+        },{
+            tooltip: 'Xuất Excel',
+            iconCls: 'x-fa fa-file-excel-o',
+            weight: 30,
+            handler: 'onExportExcel'
+        },
+        // {
+        //     tooltip: 'Zoom',
+        //     iconCls: 'x-fa fa-arrows-h',
+        //     weight: 30,
+        //     handler: 'onZoom'
+        // }
+    ]
+    }],
+    listeners: {
+        // pivotgroupexpand: 'onPivotGroupExpand',
+        // pivotgroupcollapse: 'onPivotGroupCollapse',
+        // celldblclick: 'onPivotgroupdblclick',
+        pivotitemdblclick: 'onPivotitemdblclick'
+    },
 });
