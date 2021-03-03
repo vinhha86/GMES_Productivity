@@ -531,6 +531,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             }
             obj_copy.PriceStoreData = PriceStoreData;
 
+            // //Lay thong tin nang suat
+            // obj_copy.pcontract_po_productivity = viewModel.get('pcontract_po_productivity');
             // luu thong tin copy
             viewModel.set('obj_copy', obj_copy);
             me.fireEvent('CopyPoInfo', obj_copy); // luu vao viewmodel o ngoai de co data khi dong cua so nay va mo cua so khac
@@ -577,27 +579,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 viewModel.set('po.productiondays', obj_copy.po.productiondays);
                 viewModel.set('po.portfromid_link', obj_copy.po.portfromid_link);
                 viewModel.set('po.porttoid_link', obj_copy.po.porttoid_link);
+                viewModel.set('po.comment', obj_copy.po.comment);
             }
+            
+            var ProductStore = viewModel.getStore('ProductStore');
+            var product = ProductStore.getById(productid_link).data;
 
             if(obj_copy.pcontract_po_productivity != null){
                 var pcontract_po_productivity = obj_copy.pcontract_po_productivity;
                 pcontract_po_productivity.id = null;
                 pcontract_po_productivity.pcontract_poid_link = null;
                 pcontract_po_productivity.orgrootid_link = null;
-                pcontract_po_productivity.productid_link = null;
+                pcontract_po_productivity.productid_link = productid_link;
                 var newPcontract_po_productivity = new Array();
                 newPcontract_po_productivity.push(pcontract_po_productivity);
 
                 viewModel.set('po.pcontract_po_productivity', newPcontract_po_productivity);
                 viewModel.set('pcontract_po_productivity.plan_productivity', obj_copy.pcontract_po_productivity.plan_productivity);
                 viewModel.set('pcontract_po_productivity.plan_linerequired', obj_copy.pcontract_po_productivity.plan_linerequired);
+                viewModel.set('pcontract_po_productivity.amount', obj_copy.pcontract_po_productivity.amount);
+                viewModel.set('pcontract_po_productivity.productiondays_ns', obj_copy.pcontract_po_productivity.productiondays_ns);
             }
 
             // set thong tin cho porder req
             var porderReqStore = viewModel.getStore('porderReqStore');
-            var ProductStore = viewModel.getStore('ProductStore');
-
-            var product = ProductStore.getById(productid_link).data;
 
             var porderReqStoreData = obj_copy.porderReqStoreData;
             for(var i = 0; i < porderReqStoreData.length; i++){
@@ -605,7 +610,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 porderReq.id = null;
                 porderReq.pcontractid_link = viewModel.get('po.pcontractid_link');
                 porderReq.pcontract_poid_link = viewModel.get('po.id');
-                porderReq.productid_link = product.id;
+                porderReq.productid_link = productid_link;
                 porderReq.product_code = product.code;
                 porderReq.amount_inset = product.pairamount == null ? 1 : product.pairamount;
                 porderReq.productinfo = product.code + " ("+Ext.util.Format.number(obj_copy.po.po_quantity * porderReq.amount_inset, '0,000') + ")";

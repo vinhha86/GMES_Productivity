@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         isSewCostPriceReadonly: true,
         po: {
             isauto_calculate: true,
+            id: null
         },
         schedule: {
             startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
