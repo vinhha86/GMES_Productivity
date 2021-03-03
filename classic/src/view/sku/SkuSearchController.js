@@ -848,11 +848,12 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         // console.log(rec);
         var viewmodel = this.getViewModel();
         var me = this;
-        var xtype = '', title ='';
+        var xtype = '', title ='', height = 500;
         if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
         {
             xtype = 'ProductDetailView';
             title = 'Cập nhật sản phẩm';
+            height = '95%';
         }
         else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
         {
@@ -876,7 +877,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
 
         var form = Ext.create('Ext.window.Window', {
-            height: 500,
+            height: height,
             closable: true,
             title: title,
             resizable: false,
@@ -910,5 +911,66 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             me.onSearchButton();
             form.close();
         })
-    }
+    },
+
+    onbuyercodeProductListFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('buyercodeProductListFilter'),
+            filters = this.getViewModel().getStore('ProductStore').getFilters();
+
+        if (filterField.value) {
+            this.buyercodeProductListFilter = filters.add({
+                id: 'buyercodeProductListFilter',
+                property: 'buyercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.buyercodeProductListFilter) {
+            filters.remove(this.buyercodeProductListFilter);
+            this.buyercodeProductListFilter = null;
+        }
+    },
+    partnercodeProductListFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('partnercodeProductListFilter'),
+            filters = this.getViewModel().getStore('ProductStore').getFilters();
+
+        if (filterField.value) {
+            this.partnercodeProductListFilter = filters.add({
+                id: 'partnercodeProductListFilter',
+                property: 'partnercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.partnercodeProductListFilter) {
+            filters.remove(this.partnercodeProductListFilter);
+            this.partnercodeProductListFilter = null;
+        }
+    },
+    onnameProductListFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('nameProductListFilter'),
+            filters = this.getViewModel().getStore('ProductStore').getFilters();
+
+        if (filterField.value) {
+            this.nameProductListFilter = filters.add({
+                id: 'nameProductListFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameProductListFilter) {
+            filters.remove(this.nameProductListFilter);
+            this.nameProductListFilter = null;
+        }
+    },
 });

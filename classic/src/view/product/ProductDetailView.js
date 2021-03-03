@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.product.ProductDetailView', {
     height: 500,
     items: [{
         region: 'north',
-        height: 180,
+        height: 250,
         xtype: 'ProductInfoView',
         border: true,
         margin: 1

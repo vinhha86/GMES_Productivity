@@ -204,7 +204,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         var id = data.get('productid_link');
 
         var form = Ext.create('Ext.window.Window', {
-            height: 500,
+            height: '90%',
             closable: true,
             title: title,
             resizable: false,

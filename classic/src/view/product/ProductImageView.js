@@ -176,8 +176,10 @@ Ext.define('GSmartApp.view.product.ProductImageView', {
         }]
     }, {
         xtype: 'image',
-        width: 175,
-        height: 168,
+        // width: 175,
+        // height: 168,
+        width: 245,
+        height: 238,
         margin: 1,
         itemId: 'imgView',
         bind: {

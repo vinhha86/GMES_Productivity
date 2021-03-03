@@ -32,19 +32,58 @@ Ext.define('GSmartApp.view.sku.ProductList', {
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'buyercodeProductListFilter',
+                width: 96,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onbuyercodeProductListFilterKeyup',
+                    buffer: 500
+                }
+            },
         },
         { header: 'Mã NCC', dataIndex: 'partnercode', width: 100,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'partnercodeProductListFilter',
+                width: 96,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'partnercodeProductListFilterKeyup',
+                    buffer: 500
+                }
+            },
         },
         { header: 'Tên', dataIndex: 'name', flex: 1,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'nameProductListFilter',
+                // width: 96,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onnameProductListFilterKeyup',
+                    buffer: 500
+                }
+            },
         },
 		{ 
 			xtype: 'actioncolumn',
