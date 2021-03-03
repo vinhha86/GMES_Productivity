@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 		var userStore = this.getViewModel().getStore('UserStore');
 		userStore.loadStore();
 
-		var listidtype = "13,4,8,9";
+		var listidtype = "13,3";
         // var listidtype = "4,8,9,11,12";
 		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		// orgfromstore.loadStore_byRoot(listidtype);
