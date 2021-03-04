@@ -108,6 +108,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_ConfirmController', {
                             var stockin = Ext.getCmp('Stockin_M_Edit').getViewModel().get('stockin');
                             stockin.approve_date = response.data.approve_date;
                             stockin.approverid_link = response.data.approverid_link;
+                            stockin.status = 1;
+                            stockin.statusString = 'Đã duyệt';
+                            Ext.getCmp('Stockin_M_Edit').down('#btnConfirm').setHidden(true);
+                            Ext.getCmp('Stockin_M_Edit').down('#statusString').setValue('Đã duyệt');
+                            // console.log(stockin);
                             m.onThoat();
                         }
                     }

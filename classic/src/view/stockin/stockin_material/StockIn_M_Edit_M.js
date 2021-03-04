@@ -178,18 +178,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				]
 			},
 			{
-			margin: '0 5 0 5',
-			xtype: 'datefield',
-			format: GSmartApp.util.State.get('dataFormat'),
-			altFormats: "Y-m-d\\TH:i:s.uO",
-			bind: {
-				value: '{stockin.invoice_date}'
+				margin: '0 5 0 5',
+				xtype: 'datefield',
+				format: GSmartApp.util.State.get('dataFormat'),
+				altFormats: "Y-m-d\\TH:i:s.uO",
+				bind: {
+					value: '{stockin.invoice_date}'
+				},
+				editable: false,
+				labelWidth: 85,
+				width: 235,
+				fieldLabel: "Ngày Invoice"
 			},
-			editable: false,
-			labelWidth: 85,
-			width: 215,
-			fieldLabel: "Ngày Invoice"
-		}]
+			{
+				margin: '0 5 0 5',
+				xtype: 'textfield',
+				itemId: 'statusString',
+				bind: {
+					value: '{stockin.statusString}'
+				},
+				readOnly: true,
+				fieldLabel: "Trạng thái",
+				width: 200,
+            	labelWidth: 70
+			}
+		]
 	}]
 });
 

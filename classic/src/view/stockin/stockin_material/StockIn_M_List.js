@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                 }
             },
         },
-        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 200},    
+        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 150},    
         {
             text: GSmartApp.Locales.ngaynhap[GSmartApp.Locales.currentLocale],
             xtype: 'datecolumn',
@@ -67,6 +67,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
         //     dataIndex: 'totalpackage',
         //     flex: 1
         // },
+        {
+            text: 'Trạng thái', dataIndex: 'statusString', width: 120,
+            // renderer: function(value, metaData, record){
+            //     switch(value){
+            //         case -1: return 'Chưa kiểm tra đủ';
+            //         case 0: return 'Đã kiểm tra đủ';
+            //         case 1: return 'Đã duyệt';
+            //     }
+            //     return '';
+            // }
+        },    
         {
             xtype: 'actioncolumn',
             width: 50,

@@ -41,7 +41,8 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                 itemId: 'btnConfirm',
                 bind: {
                     hidden: '{isBtnConfirmHidden}'
-                }
+                },
+                hidden: true
             },
             {
                 flex:1
