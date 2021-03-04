@@ -500,11 +500,12 @@ Ext.define('GSmartApp.view.main.MainController', {
         
         var activeItem = mainCard.getActiveItem();
         var store = Ext.getStore('NavigationTree');
-        var node = store.findNode('routeId', hashTag);
+        var node = store.findNode('routeId', hashTag); console.log(node);
         var xtype = '';
 
         if(node){
-            xtype = node.get('id');
+            // xtype = node.get('id');
+            xtype = node.get('viewType');
         }
         if(hashTag == 'mobilemenu'){
             xtype = 'MobileMenu';
