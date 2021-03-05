@@ -31,10 +31,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_MainController', {
     },
     onBtnThemTap: function ( btn, e, eOpts ){
         var viewModel = this.getViewModel();
-        var viewId = "stockin_m";
-        this.redirectTo(viewId + "/" + 0 + "/edit");
+        this.redirectTo('stockin_m_main/create');
     },
     onBtnBackTap: function(){
         this.redirectTo("mobilemenu");
-    }
+    },
+    onNhapMuaMoi: function(){
+        this.redirectTo('stockin_m_main/1/create');
+    },
 });

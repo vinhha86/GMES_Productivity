@@ -60,10 +60,59 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
         ui: 'action',
     },
     '->'
-    ,{
-        xtype:'button',
+    ,
+    // {
+    //     xtype:'button',
+    //     iconCls: 'x-fa fa-plus',
+    //     itemId:'btnThem',
+    //     ui: 'action',
+    // },
+    {
+        xtype: 'button',
+        // margin: 3,
+        // text: 'Lập phiếu mới',
         iconCls: 'x-fa fa-plus',
-        itemId:'btnThem',
         ui: 'action',
+        menu: [
+            {
+                itemId: 'btnNhapMuaMoi', // id:1
+                // iconCls: 'fa fa-file-pdf-o greenIcon',
+                text: 'Nhập mua mới',
+                handler: 'onNhapMuaMoi'
+            },
+            {
+                itemId: 'btnNhapDieuChuyen', // id:2
+                // iconCls: 'fa fa-file-pdf-o greenIcon',
+                text: 'Nhập điều chuyển',
+                // handler: 'onNhapMuaMoi'
+            },
+            {
+                itemId: 'btnNhapGiaCong', // id:4
+                // iconCls: 'fa fa-file-pdf-o greenIcon',
+                text: 'Nhập vải trả lại từ gia công',
+                // handler: 'onNhapMuaMoi'
+            },
+            {
+                itemId: 'btnNhapToCat', // id:3
+                // iconCls: 'fa fa-file-pdf-o greenIcon',
+                text: 'Nhập vải thừa từ tổ cắt',
+                // handler: 'onNhapMuaMoi'
+            },
+            {
+                itemId: 'btnNhapMau', // id:6
+                // iconCls: 'fa fa-file-pdf-o greenIcon',
+                text: 'Nhập mẫu',
+                // handler: 'onNhapMuaMoi'
+            },
+            {
+                itemId: 'btnNhapCungCap', // id:5
+                // iconCls: 'fa fa-file-pdf-o greenIcon',
+                text: 'Nhập cấp bù từ nhà cung cấp',
+                // handler: 'onNhapMuaMoi'
+            },
+        ],
+        // bind: {
+        //     hidden: '{isNhapmoi}'
+        // }
     }]
 });

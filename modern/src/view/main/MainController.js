@@ -259,7 +259,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             });
     },
     onNavigationBack: function() {
-        console.log('navigation back');
+        // console.log('navigation back');
         Ext.util.History.back();
     },
     
@@ -461,24 +461,38 @@ Ext.define('GSmartApp.view.main.MainController', {
             mainCard = refs.mainCardPanel;
 
         var activeItem = mainCard.getActiveItem();
-        var store = Ext.getStore('NavigationTree'); console.log(store.getData());
-        var node = store.findNode('routeId', hashTag); console.log(node);
+        var store = Ext.getStore('NavigationTree'); // console.log(store.getData());
+        // var node = store.findNode('routeId', hashTag); console.log(node);
+        var node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag); // console.log(node);
         var xtype_edit = '';
 
         if(node){
             xtype_edit = node.get('xtype_edit');
         }
         if(activeItem){
-            mainCard.pop(); console.log('popped');
+            mainCard.pop(); // console.log('popped');
         }
 
         var item = mainCard.child('component[routeId=' + xtype_edit + ']');
         if (!item) {
-            item = mainCard.push({
-                xtype: xtype_edit,
-                routeId: xtype_edit
-            });
-            me.fireEvent('loaddata', id);
+            // item = mainCard.push({
+            //     xtype: xtype_edit,
+            //     routeId: xtype_edit
+            // });
+            // me.fireEvent('loaddata', id);
+            if (args.toString().includes('edit')){
+                item = mainCard.add({
+                    xtype: xtype_edit,
+                    routeId: xtype_edit
+                });
+                me.fireEvent('loaddata', id,args);
+            } else {
+                item = mainCard.add({
+                    xtype: xtype_edit,
+                    routeId: xtype_edit
+                });
+                me.fireEvent('newdata', node, id);
+            }
         }
         // mainCard.setActiveItem(item);
 
@@ -500,7 +514,7 @@ Ext.define('GSmartApp.view.main.MainController', {
         
         var activeItem = mainCard.getActiveItem();
         var store = Ext.getStore('NavigationTree');
-        var node = store.findNode('routeId', hashTag); console.log(node);
+        var node = store.findNode('routeId', hashTag); // console.log(node);
         var xtype = '';
 
         if(node){
