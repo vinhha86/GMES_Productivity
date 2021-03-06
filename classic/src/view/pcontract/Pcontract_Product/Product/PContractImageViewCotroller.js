@@ -45,6 +45,100 @@ Ext.define('GSmartApp.view.PContract.PContractImageViewCotroller', {
         }
         me.down('#imgView').setSrc(src);
     },
+    onDelete: function(e){
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Xóa ảnh',
+                    itemId: 'btnDeleteImg',
+                    iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function(){
+                        me.onDeleteImg(e.target.id);
+                    }
+                }
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.pageX - 10, e.pageY - 10];
+        e.stopEvent();
+        menu_grid.showAt(position);
+    },
+    onDeleteImg: function(id){
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var img = 0;
+
+        switch (id) {
+            case "pcontract_imgproduct1":
+                img = 1;
+                break;
+            case "pcontract_imgproduct2":
+                img = 2;
+                break;
+            case "pcontract_imgproduct3":
+                img = 3;
+                break;
+            case "pcontract_imgproduct4":
+                img = 4;
+                break;
+            case "pcontract_imgproduct5":
+                img = 5;
+                break;
+            default:
+                break;
+        }
+
+        var params = new Object();
+        params.productid_link = viewmodel.get('productid_link');
+        params.img = img;
+
+        GSmartApp.Ajax.post('/api/v1/product/delete_img', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                       if(response.respcode == 200){
+                        me.fireEvent('Reload');
+                        switch (img) {
+                            case 1:
+                                me.down('#img1').setSrc('data:image/gif;base64,');
+                                break;
+                            case 2:
+                                me.down('#img2').setSrc('data:image/gif;base64,');
+                                break;
+                            case 3:
+                                me.down('#img3').setSrc('data:image/gif;base64,');
+                                break;
+                            case 4:
+                                me.down('#img4').setSrc('data:image/gif;base64,');
+                                break;
+                            case 5:
+                                me.down('#img5').setSrc('data:image/gif;base64,');
+                                break;
+                            default:
+                                break;
+                        }
+                        me.down('#imgView').setSrc("");
+                       }
+                       else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình xóa ảnh!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                       }
+                    }
+                })
+
+    },
     OpenFileDialog: function(m){
         var me = this.getView();
         var viewmodel = this.getViewModel();
@@ -80,9 +174,10 @@ Ext.define('GSmartApp.view.PContract.PContractImageViewCotroller', {
         }
     },
     onSelect: function (m, value, eOpts) {
+        var viewmodel = this.getViewModel();
         var me = this.getView();
         var th = this;
-        if (me.IdProduct == 0) {
+        if (viewmodel.get('productid_link') == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn phải tạo sản phẩm trước khi chọn thuộc tính',

@@ -42,7 +42,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -75,7 +76,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -108,7 +110,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -141,7 +144,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -174,7 +178,8 @@ Ext.define('GSmartApp.view.pcontract.PContractImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]

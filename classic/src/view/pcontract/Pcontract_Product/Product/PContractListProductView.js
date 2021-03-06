@@ -60,9 +60,6 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
         },
         listeners:{
             click: 'viewImg'
-        },
-        exportStyle: {
-            
         }
     },{
         text:'Mã SP (Buyer)',
