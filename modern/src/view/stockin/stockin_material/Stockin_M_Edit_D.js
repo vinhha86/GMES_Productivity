@@ -33,7 +33,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         store:'{stockin.stockin_d}'
     },
 
-    columns: [
+    columns: [{
+        text: '',
+        width: 30,
+        xtype: 'rownumberer',
+        align: 'center'
+    },
     {
         text: 'Mã NPL', 
         flex: 1,

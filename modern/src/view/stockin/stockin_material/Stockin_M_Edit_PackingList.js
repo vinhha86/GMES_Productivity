@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
+Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
     extend: 'Ext.form.Panel',
-    xtype: 'Stockin_M_Edit',
-    id: 'Stockin_M_Edit',
-    reference: 'Stockin_M_Edit',
+    xtype: 'Stockin_M_Edit_PackingList',
+    id: 'Stockin_M_Edit_PackingList',
+    reference: 'Stockin_M_Edit_PackingList',
     viewModel: {
-        type: 'Stockin_M_ViewModel'
+        type: 'Stockin_M_Edit_PackingListViewModel'
     },
-    controller: 'Stockin_M_Edit_Controller',
+    controller: 'Stockin_M_Edit_PackingListController',
     layout: {
         type: 'vbox',
         align: 'stretch'
@@ -42,8 +42,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     readOnly: true,
                                     cls: 'notEditable',
                                     bind:{
-                                        store:'{StockinTypeStore}',
-                                        value:'{stockin.stockintypeid_link}'
+                                        // store:'{StockinTypeStore}',
+                                        // value:'{stockin.stockintypeid_link}'
                                     },
                                     displayField: 'name',
                                     valueField: 'id',
@@ -106,8 +106,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     readOnly: true,
                                     cls: 'notEditable',
                                     bind:{
-                                        store:'{OrgFromStore}',
-                                        value:'{stockin.orgid_from_link}'
+                                        // store:'{OrgFromStore}',
+                                        // value:'{stockin.orgid_from_link}'
                                     },
                                     displayField: 'name',
                                     valueField: 'id',
@@ -146,8 +146,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     readOnly: true,
                                     cls: 'notEditable',
                                     bind:{
-                                        store:'{OrgToStore}',
-                                        value:'{stockin.orgid_to_link}'
+                                        // store:'{OrgToStore}',
+                                        // value:'{stockin.orgid_to_link}'
                                     },
                                     displayField: 'name',
                                     valueField: 'id',
@@ -222,12 +222,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                 }
             ]
         },
-        {
-            margin: 1,
-            flex: 1,
-            xtype: 'Stockin_M_Edit_D',
-            // id: 'handover_cut_toline_detail',
-        },
+        // {
+        //     margin: 1,
+        //     flex: 1,
+        //     xtype: 'Stockin_M_Edit_D',
+        //     // id: 'handover_cut_toline_detail',
+        // },
     ],
     tbar: [{
         xtype:'button',
@@ -254,10 +254,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
     //         hidden: '{isBtnDeleteHidden}'
     //     }
     // },
-    {
-        xtype:'button',
-        iconCls: 'x-fa fa-save',
-        itemId:'btnLuu',
-        ui: 'action',
-    }]
+    // {
+    //     xtype:'button',
+    //     iconCls: 'x-fa fa-save',
+    //     itemId:'btnLuu',
+    //     ui: 'action',
+    // }
+    ]
 });

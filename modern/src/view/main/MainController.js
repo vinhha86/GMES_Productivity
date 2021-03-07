@@ -463,11 +463,18 @@ Ext.define('GSmartApp.view.main.MainController', {
         var activeItem = mainCard.getActiveItem();
         var store = Ext.getStore('NavigationTree'); // console.log(store.getData());
         // var node = store.findNode('routeId', hashTag); console.log(node);
-        var node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag); // console.log(node);
+        var node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);  console.log(node);
         var xtype_edit = '';
 
+        // console.log('args: ' + args);
+
         if(node){
-            xtype_edit = node.get('xtype_edit');
+            if(args == 'edit'){
+                xtype_edit = node.get('xtype_edit');
+            }else if(args == 'edit_detail'){
+                xtype_edit = node.get('xtype_edit_detail');
+            }
+            
         }
         if(activeItem){
             mainCard.pop(); // console.log('popped');
@@ -514,7 +521,7 @@ Ext.define('GSmartApp.view.main.MainController', {
         
         var activeItem = mainCard.getActiveItem();
         var store = Ext.getStore('NavigationTree');
-        var node = store.findNode('routeId', hashTag); // console.log(node);
+        var node = store.findNode('routeId', hashTag);  // console.log(node);
         var xtype = '';
 
         if(node){

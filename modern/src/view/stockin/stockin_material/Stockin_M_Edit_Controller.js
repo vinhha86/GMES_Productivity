@@ -39,9 +39,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         '#btnBack':{
             tap: 'onBackPage'
         },
-        // '#btnLuu':{
-        //     tap: 'onSave'
-        // },
+        '#btnLuu':{
+            tap: 'onSave'
+        },
         // '#btnConfirm':{
         //     tap: 'onConfirm'
         // }
@@ -162,34 +162,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
         // console.log(stockin);
         params.data.push(stockin);
-        me.setLoading("Đang lưu dữ liệu");
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create_material', Ext.JSON.encode(params),
             function (success, response, options) {
-                me.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        Ext.MessageBox.show({
-                            title: "Thông báo",
-                            msg: 'Lập phiếu thành công',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });				
+                        Ext.toast('Lưu phiếu thành công', 1000);
                         this.redirectTo("stockin_m_main/" + response.id + "/edit");
                         m.getInfo(response.id);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
-                    Ext.MessageBox.show({
-                        title: "Thông báo",
-                        msg: 'Lỗi lập phiếu: ' + response.message,
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
+                    Ext.toast('Lỗi lập phiếu: ' + response.message, 1000);
                 }
         })
         
