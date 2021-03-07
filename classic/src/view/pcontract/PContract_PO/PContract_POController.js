@@ -20,21 +20,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         '#fileUpload': {
             change: 'onSelect'
         },
-        '#splbtn_Template' : {
+        '#splbtn_Template': {
             click: 'onDownloadTemplate'
         }
     },
-    onDownloadTemplate: function(){
+    onDownloadTemplate: function () {
         var me = this;
         var params = new Object();
         GSmartApp.Ajax.post('/api/v1/report/download_temp_chaogia', Ext.JSON.encode(params),
-        function (success, response, options) {
-            if (success) {
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    me.saveByteArray("Template_ChaoGia.xlsx", response.data);
-                }
-                else {
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_ChaoGia.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
                     Ext.Msg.show({
                         title: 'Thông báo',
                         msg: 'Lấy thông tin thất bại',
@@ -44,24 +55,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         }
                     });
                 }
-
-            } else {
-                Ext.Msg.show({
-                    title: 'Thông báo',
-                    msg: 'Lấy thông tin thất bại',
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng'
-                    }
-                });
-            }
-        })
+            })
     },
     saveByteArray: function (reportName, byte) {
         var me = this;
         byte = this.base64ToArrayBuffer(byte);
-        
-        var blob = new Blob([byte], {type: "application/xlsx"});
+
+        var blob = new Blob([byte], { type: "application/xlsx" });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         var fileName = reportName;
@@ -73,11 +73,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         var binaryLen = binaryString.length;
         var bytes = new Uint8Array(binaryLen);
         for (var i = 0; i < binaryLen; i++) {
-           var ascii = binaryString.charCodeAt(i);
-           bytes[i] = ascii;
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
         }
         return bytes;
-     },
+    },
     onUpload: function () {
         var me = this.getView();
         me.down('#fileUpload').fileInputEl.dom.click();
@@ -89,13 +89,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         data.append('file', m.fileInputEl.dom.files[0]);
         data.append('pcontractid_link', viewmodel.get('PContract.id'));
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload_timeout('/api/v1/upload/offers', data, 3*60*1000,
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/upload/offers', data, 3 * 60 * 1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200){
+                    if (response.respcode == 200) {
                         var storeProduct = viewmodel.getStore('PContractProductTreeStore');
                         storeProduct.load();
                         // var storePO = viewmodel.getStore('PContractProductPOStore');
@@ -579,7 +579,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             anchor: true,
             //padding: 10,
             minWidth: 150,
-            viewModel: {},
             items: [
                 {
                     text: 'Sửa chào giá',
@@ -624,27 +623,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         var record = this.parentMenu.record;
                         me.onAccept(record);
                     }
+                },
+                {
+                    text: 'Xóa Kế hoạch sản xuất',
+                    itemId: 'btnDeletePOrder_req',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-undo redIcon',
+                    hidden: record.get('status') >= 0 ? true : false,
+                    handler: function () {
+                        me.onDel_KHSX(record);
+                    }
                 }
-                // {
-                //     // text: 'Thêm đơn hàng con',
-                //     // itemId: 'btnSubPO_PContract_PO_List',
-                //     // margin: '10 0 0',
-                //     // iconCls: 'x-fa fas fa-child blueIcon',
-                //     // handler: function(){
-                //     //     var record = this.parentMenu.record;
-                //     //     me.onAdd_SubPO(record);
-                //     // }
-                // }, 
-                // {
-                //     text: 'Thêm KH giao hàng',
-                //     itemId: 'btnShipping_PContract_PO_List',
-                //     margin: '10 0 0',
-                //     iconCls: 'x-fa fas fa-ship greenIcon',
-                //     handler: function(){
-                //         var record = this.parentMenu.record;
-                //         me.onAdd_Shipping(record);
-                //     }
-                // }
             ]
         });
         // HERE IS THE MAIN CHANGE
@@ -706,28 +696,75 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    onCopyLine: function(rec){
+    onDel_KHSX: function (rec) {
+        var viewmodel = this.getViewModel();
+        Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa kế hoạch sản xuất của chào giá? chọn YES để thực hiện',
+            function (choice) {
+                if (choice === 'yes') {
+                    var store = viewmodel.getStore('PContractProductPOStore');
+                    var params = new Object();
+                    params.pcontract_poid_link = rec.data.id;
+                    GSmartApp.Ajax.post('/api/v1/pcontract_po/delete_plan_porder', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if(response.respcode == 200){
+                                    Ext.MessageBox.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thành công",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                    store.load();
+                                }
+                                else {
+                                    Ext.MessageBox.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Kế hoạch giao hàng",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        });
+                }
+            });
+    },
+    onCopyLine: function (rec) {
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.pcontract_poid_Link = rec.get('id');
 
         GSmartApp.Ajax.post('/api/v1/pcontract_po/copyline', Ext.JSON.encode(params),
-        function (success, response, options) {
-            var response = Ext.decode(response.responseText);
-            if (success) {
-                var store = viewmodel.getStore('PContractProductPOStore');
-                store.load();
-            } else {
-                Ext.MessageBox.show({
-                    title: "Thông báo",
-                    msg: response.message,
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng',
-                    }
-                });
-            }
-        });
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    var store = viewmodel.getStore('PContractProductPOStore');
+                    store.load();
+                } else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            });
     },
     onXoaPOLine: function (rec) {
         var viewmodel = this.getViewModel();
@@ -756,14 +793,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                 }
             });
     },
-    onPOLineEdit: function(rec, isHidden_req){
+    onPOLineEdit: function (rec, isHidden_req) {
         var viewModel = this.getViewModel();
 
         var list_plan_productivity = [];
         list_plan_productivity = rec.get('pcontract_po_productivity');
         var plan_productivity = new Object();
-        for(var i=0;i<list_plan_productivity.length;i++){
-            if(list_plan_productivity[i].productid_link == rec.get('productid_link')){
+        for (var i = 0; i < list_plan_productivity.length; i++) {
+            if (list_plan_productivity[i].productid_link == rec.get('productid_link')) {
                 plan_productivity = list_plan_productivity[i];
                 break;
             }
@@ -793,16 +830,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         productpairid_link: rec.get('productid_link'),
                         product_selected_id_link: rec.get('productid_link'),
                         productid_link: rec.get('productid_link'),
-                        isHidden_req: isHidden_req == null ? false: true,
+                        isHidden_req: isHidden_req == null ? false : true,
                         po: {
-                            po_typeid_link : 10,
+                            po_typeid_link: 10,
                             po_buyer: rec.get('po_buyer'),
                             po_vendor: rec.get('po_vendor'),
                             matdate: rec.get('matdate'),
                             pcontract_po_productivity: rec.get('pcontract_po_productivity'),
                             parentpoid_link: rec.get('id'),
                             id: null,
-                            pcontractid_link : rec.get('pcontractid_link'),
+                            pcontractid_link: rec.get('pcontractid_link'),
                             productid_link: rec.get('productid_link'),
                             status: rec.get('status'),
                             productiondate: rec.get('productiondate')
@@ -820,15 +857,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             form.close();
         });
     },
-    onAddPOLine: function(rec, isHidden_req){
+    onAddPOLine: function (rec, isHidden_req) {
         var me = this;
 
         var list_plan_productivity = [];
         list_plan_productivity = rec.get('pcontract_po_productivity');
         var plan_productivity = new Object();
-        for(var i=0;i<list_plan_productivity.length;i++){
+        for (var i = 0; i < list_plan_productivity.length; i++) {
             list_plan_productivity[i].id = null;
-            if(list_plan_productivity[i].productid_link == rec.get('productid_link')){
+            if (list_plan_productivity[i].productid_link == rec.get('productid_link')) {
                 plan_productivity = list_plan_productivity[i];
             }
         }
@@ -858,16 +895,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         productpairid_link: rec.get('productid_link'),
                         product_selected_id_link: rec.get('productid_link'),
                         productid_link: rec.get('productid_link'),
-                        isHidden_req: isHidden_req == null ? false: true,
+                        isHidden_req: isHidden_req == null ? false : true,
                         po: {
-                            po_typeid_link : 10,
+                            po_typeid_link: 10,
                             po_buyer: rec.get('po_buyer'),
                             po_vendor: rec.get('po_vendor'),
                             matdate: rec.get('matdate'),
                             pcontract_po_productivity: rec.get('pcontract_po_productivity'),
                             parentpoid_link: rec.get('id'),
                             id: null,
-                            pcontractid_link : rec.get('pcontractid_link'),
+                            pcontractid_link: rec.get('pcontractid_link'),
                             productid_link: rec.get('productid_link'),
                             status: rec.get('status'),
                             productiondate: rec.get('productiondate'),
@@ -983,7 +1020,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             this.textFilter = null;
         }
     },
-    onSelectOffer: function(rowNode, record, expandRow, eOpts){
+    onSelectOffer: function (rowNode, record, expandRow, eOpts) {
         var grid = this.getView();
         grid.setLoading('Đang tải dữ liệu');
 
