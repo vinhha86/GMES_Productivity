@@ -7,19 +7,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
     },
 	control: {
         '#Stockin_M_List': {
-            childtap: 'onChildTap'
+            itemsingletap: 'onChildTap'
         },
     },
     onEdit: function(editor, context, eOpts ) {
-        console.log(context);
+        // console.log(context);
     },
-    onChildTap: function ( dataView, location, eOpts ) {
-        // console.log('location:');
-        // console.log(location.record.data);
-
-        // var viewModel = this.getViewModel();
-        // var viewId = viewModel.get('viewId');
-        // var id = location.record.get('id');
-        // this.redirectTo(viewId + "/" + id + "/edit");
+    onChildTap: function ( dataView, index, target, record, e, eOpts ) {
+        // console.log(record);
+        var id = record.data.id;
+        this.redirectTo("stockin_m_main/" + id + "/edit");
     }
 })

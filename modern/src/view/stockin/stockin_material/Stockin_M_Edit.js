@@ -65,8 +65,8 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                                     labelWidth: 85,
                                     flex: 1,
                                     textAlign: 'left',
-                                    // editable: false,
-                                    // readOnly: true,
+                                    editable: false,
+                                    readOnly: true,
                                     clearable: false,
                                     cls: 'notEditable',
                                     bind: {
@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                                 },
                                 items: [{
                                     xtype: 'datefield',
-                                    label: 'Ngày:',
+                                    label: 'Ngày nhập:',
                                     labelWidth: 85,
                                     flex: 1,
                                     textAlign: 'left',
@@ -188,13 +188,13 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                                     bind: {
                                         value: '{stockin.invoice_number}'
                                     }
-                                },{
-                                    xtype:'button',
-                                    // text: 'Xác nhận xuất',
-                                    margin: 2,
-                                    itemId:'btnInvoice_Search',
-                                    ui: 'action',
-                                    iconCls: 'x-fa fa-search',
+                                // },{
+                                //     xtype:'button',
+                                //     // text: 'Xác nhận xuất',
+                                //     margin: 2,
+                                //     itemId:'btnInvoice_Search',
+                                //     ui: 'action',
+                                //     iconCls: 'x-fa fa-search',
                                 }]
                             },{
                                 layout: 'hbox',
@@ -220,12 +220,12 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                 }
             ]
         },
-        // {
-        //     margin: 1,
-        //     flex: 1,
-        //     xtype: 'HandoverDetail',
-        //     id: 'handover_cut_toline_detail',
-        // },
+        {
+            margin: 1,
+            flex: 1,
+            xtype: 'Stockin_M_Edit_D',
+            // id: 'handover_cut_toline_detail',
+        },
     ],
     tbar: [{
         xtype:'button',
@@ -240,17 +240,17 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
         itemId:'btnHandover',
         ui: 'action',
         bind: {
-            hidden: '{isBtnConfirmOutHidden}'
+            hidden: '{isBtnConfirmHidden}'
         }
     },{
-        xtype:'button',
-        iconCls: 'x-fa fa-trash',
-        itemId:'btnDelete',
-        ui: 'action',
-        bind: {
-            hidden: '{isBtnDeleteHidden}'
-        }
-    },{
+    //     xtype:'button',
+    //     iconCls: 'x-fa fa-trash',
+    //     itemId:'btnDelete',
+    //     ui: 'action',
+    //     bind: {
+    //         hidden: '{isBtnDeleteHidden}'
+    //     }
+    // },{
         xtype:'button',
         iconCls: 'x-fa fa-save',
         itemId:'btnLuu',

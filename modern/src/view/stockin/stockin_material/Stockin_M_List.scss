@@ -1,24 +1,50 @@
-#Stockin_M_List{
-    .status0{
-        background-color: white;
-    }
-    .status1{
-        background-color: yellow;
-    }
-    .status2{
-        background-color: lightgreen;
-    }
+// #Stockin_M_List{
+//     .status0{
+//         background-color: white;
+//     }
+//     .status1{
+//         background-color: yellow;
+//     }
+//     .status2{
+//         background-color: lightgreen;
+//     }
 
-    // .color-box{
-    //     display: flex; 
-    //     align-items: center;
-    //     font-size: 12px;
-    // }
-    // .color-square{
-    //     display: inline-block; 
-    //     width: 14px; 
-    //     height: 14px; 
-    //     // border: 1px solid lightgray;
-    // }
-    border: 1px solid lightblue;
+//     // .color-box{
+//     //     display: flex; 
+//     //     align-items: center;
+//     //     font-size: 12px;
+//     // }
+//     // .color-square{
+//     //     display: inline-block; 
+//     //     width: 14px; 
+//     //     height: 14px; 
+//     //     // border: 1px solid lightgray;
+//     // }
+//     border: 1px solid lightblue;
+// }
+
+#Stockin_M_List{
+    //
+    font-size: 11px;
+    .content{
+        //
+        border-bottom: 1px solid lightgray;
+        padding: 1px;
+        margin: 1px 0;
+        .content1{
+            //
+            
+            .content1-sub1{
+                display: inline-block;
+                width: 50%;
+            }
+            .content1-sub2{
+                display: inline-block;
+                width: 50%;
+            }
+        }
+        .content2{
+            //
+        }
+    }
 }
