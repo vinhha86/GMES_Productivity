@@ -119,6 +119,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                 grid.setLoading(false);
             });
         }
+        grid.setLoading(false);
     },
     onSearchGrantChange: function(){
         var viewmodel = this.getViewModel();

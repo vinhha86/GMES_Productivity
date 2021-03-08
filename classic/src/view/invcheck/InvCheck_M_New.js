@@ -206,12 +206,12 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
 				text: 'Số sổ sách', 
 				columns:[{
 					xtype: 'numbercolumn',
-					format:'0,000',
+					format:'0,000.00',
 					text: 'Số lượng', 
 					dataIndex: 'ydsorigin',
 					width:85,
 					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
+					summaryType: 'sum', summaryRenderer: 'renderSumFloat'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
@@ -233,12 +233,12 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
 				text: 'Số lượng thực tế', 
 				columns:[{
 					xtype: 'numbercolumn',
-					format:'0,000',
+					format:'0,000.00',
 					text: 'Số lượng', 
 					dataIndex: 'ydscheck',
 					width:85,
 					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
+					summaryType: 'sum', summaryRenderer: 'renderSumFloat'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',
@@ -260,12 +260,12 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
 				text:'Chênh lệch', 
 				columns:[{
 					xtype: 'numbercolumn',
-					format:'0,000',
+					format:'0,000.00',
 					text: 'Số lượng', 
 					dataIndex: 'ydsdiff',
 					width:85,
 					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
+					summaryType: 'sum', summaryRenderer: 'renderSumFloat'
 				},{
 					xtype: 'numbercolumn',
 					format:'0,000',

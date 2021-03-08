@@ -173,6 +173,10 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New_Controller', {
 	renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },  	
+	renderSumFloat: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
     }  	
 	// onQrCode:function(){
 	// 	var view  = this.getView();

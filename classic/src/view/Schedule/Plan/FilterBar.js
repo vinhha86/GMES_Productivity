@@ -62,16 +62,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                         hidden: '{isHidden_Phanlenh}'
                     }
                 },
-                {
-                    itemId: 'btnDaXepKeHoach',
-                    text: 'Đã xếp kế hoạch',
-                    iconCls: 'x-fa fa-bell-slash-o blueIcon',
-                    weight: 30,
-                    handler: 'onDaXepKeHoach',
-                    bind : {
-                        hidden: '{isHidden_Phanlenh}'
-                    }
-                },
+                // {
+                //     itemId: 'btnDaXepKeHoach',
+                //     text: 'Đã xếp kế hoạch',
+                //     iconCls: 'x-fa fa-bell-slash-o blueIcon',
+                //     weight: 30,
+                //     handler: 'onDaXepKeHoach',
+                //     bind : {
+                //         hidden: '{isHidden_Phanlenh}'
+                //     }
+                // },
                 {
                     itemId: 'btnLenhThayDoi',
                     text: 'Lệnh bị thay đổi',
