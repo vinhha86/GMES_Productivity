@@ -7,6 +7,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
 		// },
 	},
 	data: {
+		stockin: null,
+		stockinD: null,
 	},
 	formulas: {
     }

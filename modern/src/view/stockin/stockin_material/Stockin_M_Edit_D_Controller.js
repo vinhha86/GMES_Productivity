@@ -17,8 +17,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		var stockin = viewModel.get('stockin');
 		var id = record.data.id;
 
-		console.log(stockin);
-		console.log(record);
+		// console.log(stockin);
+		// console.log(record);
 		
 		this.redirectTo("stockin_m_main/" + id + "/edit_detail");
 	}

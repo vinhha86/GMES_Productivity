@@ -1,0 +1,36 @@
+#Stockin_M_Edit_PackingList{
+    //
+    .content{
+        //
+        border-bottom: 1px solid lightgray;
+        padding: 3px 3px 10px ;
+        margin: 1px 0;
+        font-size: 12px;
+        .content1{
+            //
+            
+            .content1-sub1{
+                display: inline-block;
+                width: 50%;
+            }
+            .content1-sub2{
+                display: inline-block;
+                width: 50%;
+            }
+        }
+        .content2{
+            //
+        }
+    }
+
+    .tittle-bottom{
+        width:150px;
+        margin: auto;
+        margin-top:-10px;
+        // margin-left:5px;
+        background:white;
+        color: #33bbf7;
+        font-size: 12px;
+        text-align: center;
+    }
+}

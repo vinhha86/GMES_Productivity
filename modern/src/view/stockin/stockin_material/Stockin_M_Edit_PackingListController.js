@@ -32,41 +32,42 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         console.log('onLoadData: ' + id + ' ' + type);
         var viewModel = this.getViewModel();
 
-        // this.getInfo(id);
+        this.getInfo(id);
     },
     onBackPage: function(){
         // console.log('onBackPage');
         var viewModel = this.getViewModel();
-        // this.redirectTo('stockin_m');
+        var stockinD = viewModel.get('stockinD');
+        var stockinId = stockinD.stockinid_link;
+        if(stockinId != null)
+            this.redirectTo('stockin_m_main/'+stockinId+'/edit');
     },
     getInfo: function(id){
         var me = this;
         var viewModel = this.getViewModel();
-        var store = viewModel.getStore('StockinDetailStore');
-        var listepc = viewModel.get('listepc');
 
         var params = new Object();
         params.id = id ;
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_getbyid',Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockind_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
                 console.log(response.data);
-                viewModel.set('stockin', response.data);
-                for(var i=0; i<response.listepc.length; i++){
-                    listepc.set(response.listepc[i].epc, response.listepc[i].epc);
-                }
-                store.setData(response.data.stockin_d);
+                viewModel.set('stockinD', response.data);
+                // for(var i=0; i<response.listepc.length; i++){
+                //     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
+                // }
+                // store.setData(response.data.stockin_d);
 
-                // set store org from
-                if(response.data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
-                    var orgfromstore = viewModel.getStore('OrgFromStore');
-                    orgfromstore.loadStore(5, false);
-                }else{
-                    var listidtype = "13,4,8,9";
-                    var orgfromstore = viewModel.getStore('OrgFromStore');
-                    orgfromstore.loadStore_byRoot(listidtype);
-                }
+                // // set store org from
+                // if(response.data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
+                //     var orgfromstore = viewModel.getStore('OrgFromStore');
+                //     orgfromstore.loadStore(5, false);
+                // }else{
+                //     var listidtype = "13,4,8,9";
+                //     var orgfromstore = viewModel.getStore('OrgFromStore');
+                //     orgfromstore.loadStore_byRoot(listidtype);
+                // }
             }
 		})
     },
