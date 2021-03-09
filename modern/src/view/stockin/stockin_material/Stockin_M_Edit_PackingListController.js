@@ -152,18 +152,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
                     item.set('warning', 'warning1');
                 }
 
-                viewModel.set('lotnumberTxt', '');
-                viewModel.set('packageidTxt', '');
-                viewModel.set('yTxt', '');
-
-                m.getView().down('#lotnumberTxt').focus();
-
-                m.setDataStockin();
-
                 // console.log(stockin);
                 // console.log(stockinD);
             }
         }
+
+        var totalpackagecheck = 0;
+        for(var i = 0; i < items.length; i++){
+            var item = items[i];
+            if(item.get('ydscheck') != 0 && item.get('ydscheck') != null){
+                totalpackagecheck++;
+            }
+        }
+
+        viewModel.set('stockinD.totalpackagecheck', totalpackagecheck);
+
+        viewModel.set('lotnumberTxt', '');
+        viewModel.set('packageidTxt', '');
+        viewModel.set('yTxt', '');
+
+        m.getView().down('#lotnumberTxt').focus();
+
+        m.setDataStockin();
 
     },
     setDataStockin: function(){
@@ -177,7 +187,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         for(var i = 0; i < stockin_d.length; i++){
         var stockinD = viewModel.get('stockinD');
             if(stockin_d[i].id == stockinD.id){
-                stockin_d[i].stockin_packinglist = stockinD.stockin_packinglist;
+                stockin_d[i] = stockinD;
             }
         }
 
