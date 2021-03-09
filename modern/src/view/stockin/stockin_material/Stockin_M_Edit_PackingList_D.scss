@@ -11,7 +11,14 @@
             display: inline-block;
             width: 50%;
 
-            
+            .warning1{
+                background-color: yellow;
+                color: red;
+            }
+            .warning0{
+                background-color: white;
+                color: black;
+            }
         }
     }
 }

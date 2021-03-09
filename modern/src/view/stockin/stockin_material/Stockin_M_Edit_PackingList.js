@@ -17,175 +17,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
     ],
 
     items: [
-        // {
-        //     xtype: 'container',
-        //     layout: 'hbox',
-        //     // docked : 'top',
-        //     defaults: {
-        //         margin:'2 2 0 2'
-        //     },
-        //     items: [
-        //             {
-        //                 layout: 'vbox',
-        //                 flex: 1,
-        //                 items: [
-        //                     {
-        //                         layout: 'hbox',
-        //                         flex: 1,
-        //                         defaults: {
-        //                             margin: 1
-        //                         },
-        //                         items: [{
-        //                             xtype: 'textfield',
-        //                             label: 'Mã hàng:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.skucode}'
-        //                             },
-        //                         },{
-        //                             xtype: 'textfield',
-        //                             label: 'Màu:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.color_name}'
-        //                             },
-        //                         }]
-        //                     },{
-        //                         layout: 'hbox',
-        //                         flex: 1,
-        //                         defaults: {
-        //                             margin: 1
-        //                         },
-        //                         items: [{
-        //                             xtype: 'textfield',
-        //                             label: 'Tên hàng:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.skuname}'
-        //                             },
-        //                         }]
-        //                     },{
-        //                         layout: 'hbox',
-        //                         flex: 1,
-        //                         defaults: {
-        //                             margin: 1
-        //                         },
-        //                         items: [{
-        //                             xtype: 'textfield',
-        //                             label: 'SL nhập:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.totalpackage}'
-        //                             },
-        //                         },{
-        //                             xtype: 'textfield',
-        //                             label: 'SL kiểm:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.totalpackagecheck}'
-        //                             },
-        //                         }]
-        //                     },{
-        //                         layout: 'hbox',
-        //                         flex: 1,
-        //                         defaults: {
-        //                             margin: 1
-        //                         },
-        //                         items: [{
-        //                             xtype: 'textfield',
-        //                             label: 'Met nhập:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.totalmet_origin}'
-        //                             },
-        //                         },{
-        //                             xtype: 'textfield',
-        //                             label: 'Met kiểm:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.totalmet_check}'
-        //                             },
-        //                         }]
-        //                     },{
-        //                         layout: 'hbox',
-        //                         flex: 1,
-        //                         defaults: {
-        //                             margin: 1
-        //                         },
-        //                         items: [{
-        //                             xtype: 'textfield',
-        //                             label: 'YDS nhập:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.totalydsorigin}'
-        //                             },
-        //                         },{
-        //                             xtype: 'textfield',
-        //                             label: 'YDS kiểm:',
-        //                             labelWidth: 85,
-        //                             flex: 1,
-        //                             textAlign: 'left',
-        //                             editable: false,
-        //                             readOnly: true,
-        //                             clearable: false,
-        //                             cls: 'notEditable',
-        //                             bind: {
-        //                                 value: '{stockinD.totalydscheck}'
-        //                             },
-        //                         }]
-        //                     },
-        //             ]
-        //         }
-        //     ]
-        // },
         {
             xtype: 'container',
             bind:{
@@ -247,16 +78,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
     //         hidden: '{isBtnDeleteHidden}'
     //     }
     // },
-    // {
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-save',
-    //     itemId:'btnLuu',
-    //     ui: 'action',
-    // }
+    {
+        xtype:'button',
+        iconCls: 'x-fa fa-save',
+        itemId:'btnLuu',
+        ui: 'action',
+    }
     ],
     bbar: [
         {
             xtype: 'textfield',
+            itemId: 'lotnumberTxt',
             // label: 'Màu:',
             // labelWidth: 85,
             flex: 1,
@@ -269,11 +101,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             clearable: false,
             // cls: 'notEditable',
             bind: {
-                // value: '{stockinD.color_name}'
+                value: '{lotnumberTxt}'
             },
+            listeners: {
+                keyup: 'onlotnumberTxtKeyup',
+                buffer: 1000
+            }
         },
         {
             xtype: 'textfield',
+            itemId: 'packageidTxt',
             // label: 'Màu:',
             // labelWidth: 85,
             flex: 1,
@@ -286,11 +123,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             clearable: false,
             // cls: 'notEditable',
             bind: {
-                // value: '{stockinD.color_name}'
+                value: '{packageidTxt}'
             },
+            listeners: {
+                keyup: 'onpackageidTxtKeyup',
+                buffer: 1000
+            }
         },
         {
             xtype: 'textfield',
+            itemId: 'yTxt',
             // label: 'Màu:',
             // labelWidth: 85,
             flex: 1,
@@ -303,14 +145,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             clearable: false,
             // cls: 'notEditable',
             bind: {
-                // value: '{stockinD.color_name}'
+                value: '{yTxt}'
             },
         },
         '->',
         {
             xtype:'button',
-            iconCls: 'x-fa fa-save',
-            itemId:'btnSave',
+            iconCls: 'x-fa fa-check',
+            itemId:'btnCheck',
             ui: 'action',
         },
     ]

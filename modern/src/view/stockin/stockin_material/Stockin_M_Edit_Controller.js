@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         console.log(viewModel.get('stockin'));
     },
     onLoadData:function(id,type){
-        console.log('onLoadData');
+        // console.log('onLoadData: ' + id + ' ' + type);
         var viewModel = this.getViewModel();
 
         this.getInfo(id);
@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
-                console.log(response.data);
+                // console.log(response.data);
                 viewModel.set('stockin', response.data);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
@@ -209,5 +209,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }]
         });
         form.show();
+    },
+
+    onmaNPLFilterKeyup: function (){
+        var grid = Ext.getCmp('Stockin_M_Edit_D'),
+            // Access the field using its "reference" property name.
+            filterField = this.getView().down('#maNPLFilter'),
+            filters = grid.store.getFilters();
+
+        if (filterField.getValue()) {
+            this.maNPLFilter = filters.add({
+                id: 'maNPLFilter',
+                property: 'skucode',
+                value: filterField.getValue(),
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.maNPLFilter) {
+            filters.remove(this.maNPLFilter);
+            this.maNPLFilter = null;
+        }
     }
+
 })

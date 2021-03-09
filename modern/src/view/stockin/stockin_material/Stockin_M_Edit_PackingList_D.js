@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList_D', {
     itemTpl:
             '<div class="content">' +
                 '<div class="content1">' +
-                    '<div>Số Lô(Lot): <b>{lotnumber}</b></div>' +
+                    '<div class="{warning}">Số Lô(Lot): <b>{lotnumber}</b></div>' +
                     '<div>Khổ nhập: {width}</div>' +
                     '<div>Met nhập: {met_origin}</div>' +
                     '<div>YDS nhập: {ydsorigin}</div>' +
