@@ -28,6 +28,13 @@ Ext.define('GSmartApp.store.invcheck.InvCheckDetailStore', {
 			}
 		 },
 		 {
+			name: 'packagediff',
+            type: 'number',
+            calculate: function(data) {
+                return data.totalpackage - data.totalpackagecheck;
+			}
+		 },
+		 {
 			name: 'totalamountdiff',
             type: 'number',
             calculate: function(data) {

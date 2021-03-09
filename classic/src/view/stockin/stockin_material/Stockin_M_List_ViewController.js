@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#stockindate_from').setValue(new Date(priorDate));
 
-        this.onSearch();
+        // this.onSearch();
     },
 	listen: {
         controller: {
@@ -67,23 +67,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('StockinStore');
 
-        var limit = me.down('#limitpage').getValue();
+        // var limit = me.down('#limitpage').getValue();
         var orgid_from_link = me.down('#OrgFromStore').getValue();
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
         var status = 0;
 
-        var page = store.currentPage;
+        // var page = store.currentPage;
 
-        if (limit == null) {
-            limit = 25;
-        }
+        // if (limit == null) {
+        //     limit = 25;
+        // }
 
-        if (page == null) {
-            page = 1;
-        }
-        store.loadStore(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page);
+        // if (page == null) {
+        //     page = 1;
+        // }
+        // store.loadStore(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page);
+        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null);
     },
     onThemMoi: function(){
         this.redirectTo('stockin_m_main/create');

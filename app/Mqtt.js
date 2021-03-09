@@ -6,8 +6,8 @@ Ext.define('GSmartApp.Mqtt', {
 	requiredScripts: ['lib/mqttws31.js'],
 
 	singleton: true,
-
-	connect: function(host, port, clientId, topic, onMessageArrived, onConnectOk,onConnectLost) {
+	deviceid_link: 0,
+	connect: function(host, port, clientId, topic, deviceid_link, onMessageArrived, onConnectOk,onConnectLost) {
 		if (!this.client) {
 			this.client = new Paho.Client(host, Number(port), clientId);  //hosted HiveMQ config
 
@@ -18,7 +18,9 @@ Ext.define('GSmartApp.Mqtt', {
 			this.client.onConnectionLost = this.onConnectionLost;
 			this.client.onMessageArrived = this.onMessageArrived;
 			this.client.onMessageDelivered = this.onMessageDelivered;
+			this.deviceid_link = deviceid_link;
 
+			console.log(this.client);
 			this.client.connect({
 				onSuccess:this.onConnect,
 				//reconnect: true,

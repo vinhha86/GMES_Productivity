@@ -226,41 +226,43 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             itemId: 'btnTimKiem',
 
         }]
-    }, {
-        dock: 'bottom',
-        layout: 'hbox',
-        xtype: 'toolbar',
-        border: false,
-        height: 50,
-        items: [{
-            xtype: 'textfield',
-            value: 25,
-            itemId: 'limitpage',
-            maskRe: /[0-9]/,
-            width: 180,
-            selectOnFocus: true,
-            margin: 5,
-            fieldLabel: 'Số bản ghi/ Trang',
-            labelWidth: 120
-        }, '-', {
-            xtype: 'pagingtoolbar',
-            displayInfo: true,
-            flex: 1,
-            nextText: 'Trang tiếp',
-            prevText: 'Trang trước',
-            afterPageText: '/ {0}',
-            beforePageText: 'Trang',
-            itemId: 'page',
-            refreshText: 'Làm mới dữ liệu',
-            border: false,
-            bind: {
-                store: '{StockinStore}'
-            },
-            emptyMsg: 'Không có kết quả tìm kiếm',
-            lastText: 'Trang cuối',
-            firstText: 'Trang đầu',
-            displayMsg: 'Hiển thị {0} - {1} của {2}'
-        }]
-    }]
+    }, 
+    // {
+    //     dock: 'bottom',
+    //     layout: 'hbox',
+    //     xtype: 'toolbar',
+    //     border: false,
+    //     height: 50,
+    //     items: [{
+    //         xtype: 'textfield',
+    //         value: 25,
+    //         itemId: 'limitpage',
+    //         maskRe: /[0-9]/,
+    //         width: 180,
+    //         selectOnFocus: true,
+    //         margin: 5,
+    //         fieldLabel: 'Số bản ghi/ Trang',
+    //         labelWidth: 120
+    //     }, '-', {
+    //         xtype: 'pagingtoolbar',
+    //         displayInfo: true,
+    //         flex: 1,
+    //         nextText: 'Trang tiếp',
+    //         prevText: 'Trang trước',
+    //         afterPageText: '/ {0}',
+    //         beforePageText: 'Trang',
+    //         itemId: 'page',
+    //         refreshText: 'Làm mới dữ liệu',
+    //         border: false,
+    //         bind: {
+    //             store: '{StockinStore}'
+    //         },
+    //         emptyMsg: 'Không có kết quả tìm kiếm',
+    //         lastText: 'Trang cuối',
+    //         firstText: 'Trang đầu',
+    //         displayMsg: 'Hiển thị {0} - {1} của {2}'
+    //     }]
+    // }
+]
 });
 

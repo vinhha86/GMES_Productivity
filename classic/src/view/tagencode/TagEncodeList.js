@@ -1,6 +1,6 @@
 Ext.define('GSmartApp.view.tagencode.TagEncodeList', {
 	extend: 'Ext.Panel',
-	xtype:'tagencodelist',
+	xtype:'TagEncodeList',
     controller: 'tagencodelist',
 	viewModel: {
         type: 'tagencodelist'
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.tagencode.TagEncodeList', {
 					 xtype: 'textfield',
 					 fieldLabel: 'Ngày encode',
 					 value:new Date().toLocaleDateString(),
-					 dateFormat:GSmartApp.util.State.get('dataFormat'),
+					 format:'d/m/Y',
 					 readOnly:true
 				 }]
 			},{
@@ -84,7 +84,9 @@ Ext.define('GSmartApp.view.tagencode.TagEncodeList', {
 		flex:1,
 		margin:'10 2 2 2',
 		xtype:'grid',
-		store:'TagEncodeListStore',
+		bind: {
+			store: '{TagEncodeListStore}'
+		},
 		reference:'gridTagEncode',
 		columnLines:true,
 		rowLines:true,

@@ -1,6 +1,12 @@
 Ext.define('GSmartApp.view.tagencode.TagEncodeListViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.tagencodelist',
+	alias: 'viewmodel.tagencodelist',
+	requires:['GSmartApp.store.TagEncodeListStore'],
+	stores: {
+        TagEncodeListStore: {
+            type: 'tagencodeliststore'
+        }
+    },
 	data: {
         type: 1,
 		urlback:'',
@@ -9,5 +15,5 @@ Ext.define('GSmartApp.view.tagencode.TagEncodeListViewModel', {
 		clsbtnStop:'',
 		isStart:false,
 		tagnumber:0
-    },
+    }
 })
