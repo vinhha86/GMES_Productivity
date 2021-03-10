@@ -154,7 +154,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             })
     },
     UpdateSizeAmount: function (context) {
-        console.log(context);
+        if(context.value == context.originalValue) return;
+        
         var viewmodel = this.getViewModel();
         var porder = viewmodel.get('porder');
         var npl = viewmodel.get('npl');
@@ -176,11 +177,12 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if(response.catdu != null){
-                            var rec_catdu = store.getAt(1);
+                            // var rec_catdu = store.getAt(1);
 
-                            rec_catdu.set(context.field, response.catdu);
-                            context.record.set('la_vai', response.lavai);
-                            store.commitChanges();
+                            // rec_catdu.set(context.field, response.catdu);
+                            // context.record.set('la_vai', response.lavai);
+                            // store.commitChanges();
+                            store.load();
                         }
                     }
                     else {
