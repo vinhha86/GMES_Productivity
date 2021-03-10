@@ -168,6 +168,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             var porderid_link = viewmodel.get('IdPOrder');
             POrderGrantStore.loadStoreByPOrderId(porderid_link);
         }
+        else if(newCard.xtype == "Stockout_order_MainView"){
+            var POrderGrantStore = viewmodel.getStore('Stockout_order_Store');
+            var porderid_link = viewmodel.get('IdPOrder');
+            POrderGrantStore.GetByPorder(porderid_link);
+        }
     },
     onLoadData: function (id) {
         var me = this.getView();

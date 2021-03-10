@@ -68,6 +68,39 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 			}
 		});
 	},
+	GetOrg_By_type:function(type){
+		var params = new Object();
+		params.list_type_id = type;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/org/getby_listtype',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
 	loadStore_Async:function(type, isAll){
 		var me=this;
 		if(isAll == null)
