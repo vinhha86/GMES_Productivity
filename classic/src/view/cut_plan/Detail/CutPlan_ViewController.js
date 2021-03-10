@@ -154,6 +154,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             })
     },
     UpdateSizeAmount: function (context) {
+        console.log(context);
         var viewmodel = this.getViewModel();
         var porder = viewmodel.get('porder');
         var npl = viewmodel.get('npl');
@@ -167,6 +168,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.sizeid_link = parseInt(context.field);
         params.amount = parseInt(context.value);
         params.cutplanrowid_link = context.record.get('id');
+        params.amount_old = parseInt(context.originalValue);
 
         GSmartApp.Ajax.post('/api/v1/cutplan/update_size_amount', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -177,6 +179,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             var rec_catdu = store.getAt(1);
 
                             rec_catdu.set(context.field, response.catdu);
+                            context.record.set('la_vai', response.lavai);
                             store.commitChanges();
                         }
                     }

@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
             width: 45,
             textAlign: 'center',
             renderer: function(value, meta, record){
-                return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
+                return '<img style="width:40px; height:30px" src="data:image/gif;base64,'+ value +'">';
             },
             listeners:{
                 click: 'viewImg'
