@@ -145,7 +145,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             clearable: false,
             // cls: 'notEditable',
             bind: {
-                value: '{yTxt}'
+                value: '{yTxt}',
+                cls: '{yTxtCls}',
             },
         },
         '->',

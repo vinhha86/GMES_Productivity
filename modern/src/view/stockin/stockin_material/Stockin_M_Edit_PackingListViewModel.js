@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
 		// textfield
 		lotnumberTxt: '',
 		packageidTxt: '',
-		yTxt: ''
+		yTxt: '',
+		yTxtCls: 'yTxtClsWhiteBG', // yTxtClsYellowBG
 	},
 	formulas: {
     }

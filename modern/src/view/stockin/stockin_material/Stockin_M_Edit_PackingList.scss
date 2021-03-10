@@ -33,4 +33,17 @@
         font-size: 12px;
         text-align: center;
     }
+
+    .yTxtClsWhiteBG{
+        .x-input-el{
+            background-color: white;
+            color:black;
+        }
+    }
+    .yTxtClsYellowBG{
+        .x-input-el{
+            background-color: yellow;
+            color:red;
+        }
+    }
 }

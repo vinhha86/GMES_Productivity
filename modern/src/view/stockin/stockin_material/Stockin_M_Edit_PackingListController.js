@@ -118,14 +118,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             }
         }
 
-        // if(!isExist){
-        //     // fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
-        //     console.log('!isExist');
-        //     m.getView().down('#yTxt').setStyle('background:yellow');
-        // }else{
-        //     console.log('isExist');
-        //     m.getView().down('#yTxt').setStyle('background:white');
-        // }
+        if(!isExist){
+            viewModel.set('yTxtCls', 'yTxtClsYellowBG');
+        }else{
+            viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
+        }
     },
     onCheck: function(){
         var m = this;
@@ -220,6 +217,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         viewModel.set('lotnumberTxt', '');
         viewModel.set('packageidTxt', '');
         viewModel.set('yTxt', '');
+        viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
 
         m.getView().down('#lotnumberTxt').focus();
 
