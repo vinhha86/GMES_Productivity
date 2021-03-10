@@ -257,7 +257,19 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                     var record = this.parentMenu.record;
                     // me.onPOInfoEdit(record);
                 }
-            },             
+            },  
+            '-',  
+            {
+                text: 'Bảng cân đối NPL',
+                itemId: 'btnBalance',
+                separator: true,
+                margin: '10 0 0',
+                iconCls: 'x-fa fas fa-balance-scale blueIcon',
+                handler: function () {
+                    var record = this.parentMenu.record;
+                    me.onShowBalance(record);
+                }
+            },           
         ]
         });
         // HERE IS THE MAIN CHANGE
@@ -289,5 +301,34 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             this.contractcodeFilter = null;
         }
     },
+    onShowBalance: function (rec) {
+        console.log(rec);
+        var viewmodel = this.getViewModel();
 
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Bảng cân đối NPL',
+            closeAction: 'destroy',
+			height: Ext.getBody().getViewSize().height * .95,
+			width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Balance_Main',
+                viewModel: {
+                    data: {
+                        pcontractid_link: rec.data.id,
+                        pcontract_poid_link: null
+                    }
+                }
+            }]
+        });
+        form.show();
+    },   
 })
