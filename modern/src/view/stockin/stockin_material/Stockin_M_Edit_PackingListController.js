@@ -109,12 +109,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var stockin = viewModel.get('stockin');
         var stockinD = viewModel.get('stockinD');
 
+        var isExist = false;
         for(var i = 0; i < stockinD.stockin_packinglist.length; i++){
             var stockin_packinglist = stockinD.stockin_packinglist[i];
             if(stockin_packinglist.lotnumber == lotnumberTxt && stockin_packinglist.packageid == packageidTxt){
                 viewModel.set('yTxt', stockin_packinglist.ydsorigin);
+                isExist = true;
             }
         }
+
+        // if(!isExist){
+        //     // fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
+        //     console.log('!isExist');
+        //     m.getView().down('#yTxt').setStyle('background:yellow');
+        // }else{
+        //     console.log('isExist');
+        //     m.getView().down('#yTxt').setStyle('background:white');
+        // }
     },
     onCheck: function(){
         var m = this;
@@ -126,21 +137,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var packageidTxt = viewModel.get('packageidTxt');
         var yTxt = viewModel.get('yTxt');
 
+        if(lotnumberTxt == '' || packageidTxt == '' || yTxt == ''){
+            Ext.toast('Thông tin không được bỏ trống', 1000);
+            return;
+        }
+
         if(isNaN(yTxt)){
             Ext.toast('Số Y phải là số', 1000);
             return;
         }
 
-        // console.log(stockin);
-        // console.log(stockinD);
-
         var view = Ext.getCmp('Stockin_M_Edit_PackingList_D');
         var store = view.getStore(); // console.log(store);
-        var items = store.getData().items;  console.log(items);
+        var items = store.getData().items; // console.log(items);
 
+        var isExist = false;
+        // lặp qua danh sách để tìm cây vải tương ứng
         for(var i = 0; i < items.length; i++){
             var item = items[i];
             if(item.get('lotnumber') == lotnumberTxt && item.get('packageid') == packageidTxt){
+                isExist = true;
                 var ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
                 var met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
                 item.set('ydscheck', ydscheck);
@@ -151,10 +167,44 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
                 }else{
                     item.set('warning', 'warning1');
                 }
-
-                // console.log(stockin);
-                // console.log(stockinD);
             }
+        }
+
+        // nếu ko có trong danh sách, thêm cây vải
+        if(!isExist){
+            var ydsorigin = Ext.util.Format.number(parseFloat(yTxt), '0.00');
+            var met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
+
+            var newObj = new Object();
+            newObj.checked = 0;
+            newObj.colorid_link = stockinD.colorid_link;
+            newObj.comment = '';
+            newObj.grossweight = 0;
+            newObj.lotnumber = lotnumberTxt;
+            newObj.m3 = 0;
+            newObj.met_check = 0;
+            newObj.met_origin = met_origin;
+            newObj.netweight = 0;
+            newObj.orgrootid_link = stockinD.orgrootid_link;
+            newObj.packageid = packageidTxt;
+            newObj.skucode = stockinD.skucode;
+            newObj.skuid_link = stockinD.skuid_link;
+            newObj.unitid_link = stockinD.unitid_link;
+            newObj.unitname = stockinD.unit_name;
+            newObj.warning = 'warning1';
+            newObj.width = 0;
+            newObj.width_check = 0;
+            newObj.ydscheck = 0;
+            newObj.ydsorigin = ydsorigin;
+
+            // store.insert(0, newObj);
+            stockinD.stockin_packinglist.push(newObj);
+            stockinD.totalpackage++;
+            viewModel.set('stockinD', stockinD);
+            
+            // console.log(store);
+            // console.log(items);
+            // console.log(stockinD);
         }
 
         var totalpackagecheck = 0;

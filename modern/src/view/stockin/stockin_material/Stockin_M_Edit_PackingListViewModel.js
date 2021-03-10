@@ -11,9 +11,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
 		stockinD: null,
 
 		// textfield
-		lotnumberTxt: null,
-		packageidTxt: null,
-		yTxt: null
+		lotnumberTxt: '',
+		packageidTxt: '',
+		yTxt: ''
 	},
 	formulas: {
     }

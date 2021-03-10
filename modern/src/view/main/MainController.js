@@ -477,7 +477,8 @@ Ext.define('GSmartApp.view.main.MainController', {
             
         }
         if(activeItem){
-            mainCard.pop(); // console.log('popped');
+            // mainCard.pop(); // console.log('popped');
+            activeItem.destroy();
         }
 
         var item = mainCard.child('component[routeId=' + xtype_edit + ']');
@@ -532,8 +533,8 @@ Ext.define('GSmartApp.view.main.MainController', {
             xtype = 'MobileMenu';
         }
         if(activeItem){
-            mainCard.pop();
-            // activeItem.destroy();
+            // mainCard.pop();
+            activeItem.destroy();
         }
         var item = mainCard.child('component[routeId=' + hashTag + ']');
         if (!item) {
