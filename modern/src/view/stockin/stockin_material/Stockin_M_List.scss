@@ -36,15 +36,34 @@
             
             .content1-sub1{
                 display: inline-block;
-                width: 50%;
-            }
-            .content1-sub2{
-                display: inline-block;
-                width: 50%;
+                width: 25%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
             }
         }
         .content2{
             //
+            .content2-sub1{
+                display: inline-block;
+                width: 25%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+            }
+            .content2-sub2{
+                display: inline-block;
+                width: 75%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+            }
         }
     }
 }
