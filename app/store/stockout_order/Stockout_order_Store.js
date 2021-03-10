@@ -5,7 +5,6 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_Store', {
 
     model: 'GSmartApp.model.stockout.Stockout_Order',
     GetByPorder: function(porderid_link){
-		var me=this;
 		var params = new Object();
         params.porderid_link = porderid_link;
 

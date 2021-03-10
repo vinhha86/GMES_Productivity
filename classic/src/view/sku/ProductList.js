@@ -27,6 +27,18 @@ Ext.define('GSmartApp.view.sku.ProductList', {
         stripeRows: false,
     },                  
     columns: [
+        {
+            text:'Ảnh',
+            dataIndex:'urlimage',
+            width: 45,
+            textAlign: 'center',
+            renderer: function(value, meta, record){
+                return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
+            },
+            listeners:{
+                click: 'viewImg'
+            }
+        },
         { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 100,
             summaryType: 'count',
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
