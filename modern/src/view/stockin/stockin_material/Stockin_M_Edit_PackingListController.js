@@ -146,7 +146,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
 
         var view = Ext.getCmp('Stockin_M_Edit_PackingList_D');
         var store = view.getStore(); // console.log(store);
-        var items = store.getData().items; // console.log(items);
+        var items = store.getData().items; console.log(items);
 
         var isExist = false;
         // lặp qua danh sách để tìm cây vải tương ứng
@@ -158,9 +158,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
                 var met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
                 item.set('ydscheck', ydscheck);
                 item.set('met_check', met_check);
+                item.set('checked', 1);
+                item.set('status', 0);
 
                 if(item.get('ydscheck') == item.get('ydsorigin')){
-                    item.set('warning', 'warning0');
+                    item.set('warning', 'warning2');
                 }else{
                     item.set('warning', 'warning1');
                 }
@@ -184,11 +186,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             newObj.netweight = 0;
             newObj.orgrootid_link = stockinD.orgrootid_link;
             newObj.packageid = packageidTxt;
+            newObj.status = -1;
             newObj.skucode = stockinD.skucode;
             newObj.skuid_link = stockinD.skuid_link;
             newObj.unitid_link = stockinD.unitid_link;
             newObj.unitname = stockinD.unit_name;
-            newObj.warning = 'warning1';
+            newObj.warning = 'warning0';
             newObj.width = 0;
             newObj.width_check = 0;
             newObj.ydscheck = 0;

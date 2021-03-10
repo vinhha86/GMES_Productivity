@@ -87,7 +87,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
     ],
     bbar: [
         {
-            xtype: 'textfield',
+            xtype: 'numberfield',
             itemId: 'lotnumberTxt',
             // label: 'Màu:',
             // labelWidth: 85,
@@ -109,7 +109,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             }
         },
         {
-            xtype: 'textfield',
+            xtype: 'numberfield',
             itemId: 'packageidTxt',
             // label: 'Màu:',
             // labelWidth: 85,
@@ -131,7 +131,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             }
         },
         {
-            xtype: 'textfield',
+            xtype: 'numberfield',
             itemId: 'yTxt',
             // label: 'Màu:',
             // labelWidth: 85,
