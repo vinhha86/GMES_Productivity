@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         'GSmartApp.store.porder.PorderSewingCostStore',
         'GSmartApp.store.pprocess.POrderGrantStore',
         'GSmartApp.store.stockout_order.Stockout_order_d_store',
-        'GSmartApp.store.stockout_order.Stockout_order_Store'
+        'GSmartApp.store.stockout_order.Stockout_order_Store',
+        'GSmartApp.store.pcontract.PContractSKUStore',
     ],
     stores: {
         POrder_ListStore: {
@@ -60,6 +61,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         },
         Stockout_order_d_Store: {
             type: 'Stockout_order_d_store'
+        },
+        POLineSKU_Store: {
+            type: 'PContractSKUStore'
         }
     },
     data:{
@@ -77,6 +81,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         is_addremovesku_hidden: false,
         is_poline_skugranted_hidden: false,
         fieldstyle_sl: 'font-size:12px;text-align:right;background-color:white;color:black',
-        fieldstyle_date: 'font-size:12px;text-align:right;background-color:white;color:black'
+        fieldstyle_date: 'font-size:12px;text-align:right;background-color:white;color:black',
+        width_sku_poline: '50%'
     }
 })

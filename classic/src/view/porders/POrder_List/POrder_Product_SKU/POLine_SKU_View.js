@@ -1,13 +1,8 @@
-Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
+Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_View', {
     extend: 'Ext.grid.Panel',
-    xtype: 'POrder_ProductSKUView',
-    id: 'POrder_ProductSKUView',
-    IdPOrder: 0,
-    // viewModel: {
-    //     type: 'SizesetViewModel'
-    // },
-    controller: 'POrder_ProductSKUViewController',
-    reference: 'POrder_ProductSKUView',
+    xtype: 'POLine_SKU_View',
+    id: 'POLine_SKU_View',
+    controller: 'POLine_SKU_ViewController',
     viewConfig: {
         stripeRows: true,
         columnLines: true,
@@ -26,28 +21,19 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         dock: 'bottom'
     }],
     bind: {
-        store: '{porderSKUStore}'
+        store: '{POLineSKU_Store}'
     },
     columns: [{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    }, 
-    // {
-    //     text: 'SKU',
-    //     dataIndex: 'skuCode',
-    //     flex: 1,
-    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-    //         metaData.tdAttr = 'data-qtip="' + value + '"';
-    //         return value;
-    //     }
-    // }, 
+    },
     {
         text: 'Màu',
         dataIndex: 'mauSanPham',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -58,7 +44,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'SL',
         dataIndex: 'pquantity_total',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
@@ -66,19 +52,19 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         width: 60,
         align: 'end'
     }, {
-        text: 'Đã phân chuyền',
+        text: 'Đã phân lệnh',
         dataIndex: 'pquantity_granted',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
-        width: 125,
+        width: 120,
         align: 'end'
     }, {
         text: 'Còn lại',
         dataIndex: 'pquantity_ungranted',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
@@ -86,26 +72,54 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         width: 65,
         align: 'end'
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 35,
-        items:[{
-            xtype:'displayfield',
+        items: [{
+            xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
-            labelWidth : 0,
-            value: 'Chi tiết màu cỡ'
+            labelWidth: 0,
+            value: 'Chi tiết màu cỡ PO Line'
         },
-		'->'
-		,{
-            xtype:'button',
-            itemId:'btnThemSKU',
+            '->'
+            , {
+            xtype: 'button',
+            itemId: 'btnHideSKUPO',
             ui: 'header',
-            margin: '10 5 0 0',
-			tooltip: 'Thêm màu, cỡ',
-            iconCls: 'x-fa fa-plus'
+            margin: '10 35 0 0',
+            tooltip: 'Ẩn',
+            iconCls: 'x-fa fa-eye'
         }]
+    },
+    {
+        dock: 'right',
+        layout: 'vbox',
+        items:
+        [
+            {
+                flex: 1
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Thêm vào lệnh',
+                iconCls: 'x-fa fa-arrow-right',
+                weight: 30,
+                // handler: 'onPorder_AddSKU'
+            },
+            {height: 10},
+            {
+                xtype: 'button',
+                tooltip: 'Xoá khỏi lệnh',
+                iconCls: 'x-fa fa-arrow-left',
+                weight: 30,
+                // handler: 'onPorder_AddSKU'
+            },
+            {
+                flex: 1
+            }    
+        ]
     }]
 });
 

@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
     xtype: 'POrder_Tab_Info',
     id: 'POrder_Tab_Info',
     layout: 'border',
+    border: true,
     items: [
         {
             region: 'north',
@@ -16,12 +17,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
             items: [
                 {
                     region: 'west',
-                    width: 350,
-                    xtype: 'POrder_List_PContractPOView',
-                    title: 'PO Line',
+                    xtype: 'POLine_SKU_View',
+                    width: '50%',
                     border: true,
                     bind: {
-                        hidden: '{is_poline_hidden}'
+                        hidden: '{is_poline_hidden}',
+                        width: '{width_sku_poline}'
                     }
                 },
                 {
@@ -33,7 +34,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                         {
                             // region: 'west',
                             xtype: 'POrder_ProductSKUView',
-                            title: 'Chi tiết màu, cỡ',
                             flex: 1,
                             height: '100%',
                             border: true,
