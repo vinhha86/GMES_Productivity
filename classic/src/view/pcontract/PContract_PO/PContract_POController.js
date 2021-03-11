@@ -414,7 +414,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 350,
+            height: 405,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -547,7 +547,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 350,
+            height: 405,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -813,7 +813,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin Line giao hàng',
             closeAction: 'destroy',
-            height: 450,
+            height: 405,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -878,7 +878,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thêm mới Line giao hàng',
             closeAction: 'destroy',
-            height: 400,
+            height: 405,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {

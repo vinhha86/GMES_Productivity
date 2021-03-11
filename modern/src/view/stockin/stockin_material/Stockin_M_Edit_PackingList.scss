@@ -11,15 +11,43 @@
             
             .content1-sub1{
                 display: inline-block;
-                width: 50%;
+                width: 20%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
             }
             .content1-sub2{
                 display: inline-block;
-                width: 50%;
+                width: 30%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
             }
         }
         .content2{
             //
+            .content2-sub1{
+                display: inline-block;
+                width: 20%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+            }
+            .content2-sub2{
+                display: inline-block;
+                width: 80%;
+                height: 100%;
+                vertical-align:top;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+            }
         }
     }
 
