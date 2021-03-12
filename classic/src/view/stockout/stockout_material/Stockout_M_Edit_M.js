@@ -14,32 +14,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 {
                     xtype: 'combobox',
                     reference: 'cbostockouttype',
-                    width: 370,
+                    width: 375,
                     labelWidth: 80,
-                    fieldLabel: 'Loại phiếu:',
+                    fieldLabel: 'Loại xuất:',
                     editable: false,
                     displayField: 'name',
                     valueField: 'id',
                     bind: {
                         store: '{StockoutTypeStore}',
                         value: '{stockout.stockouttypeid_link}'
-                    }
+                    },
+                    queryMode: 'local',
+                    margin: '5 5 0 5',
                 },
                 {
                     xtype: 'textfield',
-                    margin: '0 0 0 5',
+                    margin: '5 5 0 5',
                     reference: 'txtstockoutcode',
-                    width: 225,
-                    labelWidth: 75,
+                    width: 235,
+                    labelWidth: 85,
                     fieldLabel: 'Số phiếu:',
                     readOnly: true,
-                    bind: {value:'{stockout.stockoutcode}'}
+                    bind: {
+                        value:'{stockout.stockoutcode}'
+                    }
                 },
                 {
                     xtype: 'datefield',
-                    margin: '0 0 0 5',
+                    margin: '5 5 0 5',
                     reference: 'txtstockoutdate',
-                    width: 220,
+                    width: 200,
                     labelWidth: 70,
                     fieldLabel: 'Ngày xuất:',
                     editable: false,
@@ -51,7 +55,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 },
                 {
                     xtype: 'combo',
-                    margin: '0 5 0 5',
+                    margin: '5 5 0 5',
                     reference: 'stockout_usercreateid_link',
                     flex: 1,
                     labelWidth: 85,
@@ -69,11 +73,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
         {
             xtype: 'container',
             layout: 'hbox',
+            margin: '1 0 0 0',
             items: [
                 {
                     xtype: 'combobox',
                     reference: 'stockout_orgid_from_link',
-                    width: 370,
+                    width: 375,
                     labelWidth: 80,
                     fieldLabel: 'Nơi xuất:',
                     editable: false,
@@ -81,17 +86,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         store: '{OrgFromStore}',
                         value: '{stockout.orgid_from_link}'
                     },
+                    queryMode: 'local',
+                    margin: '0 5 0 5',
                     displayField: 'name',
                     valueField: 'id'
                 },
                 {
                     xtype: 'combobox',
                     reference: 'stockout_orgid_to_link',
-                    width: 450,
-                    labelWidth: 75,
+                    width: 445,
+                    labelWidth: 85,
                     fieldLabel: 'Nơi nhận:',
                     editable: false,
-                    margin: '0 0 0 5',
+                    margin: '0 5 0 5',
                     bind: {
                         store: '{OrgToStore}',
                         value: '{stockout.orgid_to_link}'
@@ -107,18 +114,22 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     labelWidth: 85,
                     fieldLabel: 'Người nhận:',
                     hideLabel: false,
-                    bind: {value:'{stockout.shipperson}'}
+                    bind: {
+                        value:'{stockout.shipperson}'
+                    }
                 }
             ]
         },
         {
             xtype: 'container',
             layout: 'hbox',
+            margin: '1 0 0 0',
             items: [
                 {
                     xtype: 'textfield',
+                    margin: '0 5 0 5',
                     reference: 'stockout_reason',
-                    width: 370,
+                    width: 375,
                     labelWidth: 80,
                     fieldLabel: 'Lý do xuất:',
                     hideLabel: false,
@@ -129,12 +140,82 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     margin: '0 5 0 5',
                     reference: 'stockout_extrainfo',
                     flex: 1,
-                    labelWidth: 75,
+                    labelWidth: 85,
                     fieldLabel: 'Kèm theo:',
                     hideLabel: false,
-                    bind: {value:'{stockout.extrainfo}'}
+                    bind: {
+                        value:'{stockout.extrainfo}'
+                    }
                 }
             ]
         },
+        {
+            layout: 'hbox',
+            xtype: 'container',
+            margin: '1 0 0 0',
+            items: [
+                {
+                    layout: 'hbox',
+                    xtype: 'container',
+                    margin: '0 5 0 5',
+                    border: false,
+                    width: 375,
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            bind: {
+                                value: '{stockout.invoice_number}'
+                            },
+                            fieldLabel: 'Số yêu cầu',					
+                            labelWidth: 80,
+                            width: 340,
+                            enableKeyEvents : true,
+                            listeners: {
+                                // keypress: 'onPressEnterBtnInvoice_Search'
+                            }
+                        },
+                        // {
+                        // 	xtype:'button',
+                        // 	margin: '0 0 0 2',
+                        // 	itemId:'btnInvoice_Plus',
+                        // 	iconCls: 'x-fa fa-plus',
+                        // 	width: 30
+                        // },
+                        {
+                            xtype:'button',
+                            margin: '0 0 0 2',
+                            itemId:'btnInvoice_Search',
+                            iconCls: 'x-fa fa-search',
+                            width: 30
+                        }
+                    ]
+                },
+                {
+                    margin: '0 5 0 5',
+                    xtype: 'datefield',
+                    format: GSmartApp.util.State.get('dataFormat'),
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{stockout.invoice_date}'
+                    },
+                    editable: false,
+                    labelWidth: 85,
+                    width: 235,
+                    fieldLabel: "Ngày yêu cầu"
+                },
+                {
+                    margin: '0 5 0 5',
+                    xtype: 'textfield',
+                    itemId: 'statusString',
+                    bind: {
+                        value: '{stockout.statusString}'
+                    },
+                    readOnly: true,
+                    fieldLabel: "Trạng thái",
+                    width: 200,
+                    labelWidth: 70
+                }
+            ]
+        }
     ]
 });

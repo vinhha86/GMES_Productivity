@@ -15,15 +15,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
         StockoutType.loadStore();
+
+        var today = new Date();
+		var priorDate = new Date().setDate(today.getDate()-300);
+		me.down('#stockoutdate_from').setValue(new Date(priorDate));
+
+        this.onSearch();
         
-        var store_stockout = this.getViewModel().getStore('Stockout');
-        if (store_stockout) {
-            var page = store_stockout.currentPage;
-            if (page == null) {
-                page = 1;
-            }
-             store_stockout.loadByDate(0,'', new Date(),new Date(), page, 25, 0 ,0);
-        }  
+        // var store_stockout = this.getViewModel().getStore('Stockout');
+        // if (store_stockout) {
+        //     var page = store_stockout.currentPage;
+        //     if (page == null) {
+        //         page = 1;
+        //     }
+        //      store_stockout.loadByDate(0,'', new Date(),new Date(), page, 25, 0 ,0);
+        // }
     },
     onActivate: function () {
         this.onSearch();
