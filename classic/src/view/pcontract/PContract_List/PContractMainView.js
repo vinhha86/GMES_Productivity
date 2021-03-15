@@ -225,8 +225,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             maskRe: /[0-9]/,
             maxLength: 4,
             itemId: 'contractbuyer_yearfrom',
-            width: 80,
-            width: 120,
+            width: 65,
             bind: {
                 value: '{value.contractbuyer_yearfrom}'
             }
@@ -238,8 +237,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             maskRe: /[0-9]/,
             maxLength: 4,
             itemId: 'contractbuyer_yearto',
-            width: 80,
-            width: 120,
+            width: 65,
             bind: {
                 value: '{value.contractbuyer_yearto}'
             }
