@@ -70,7 +70,6 @@ Ext.define('GSmartApp.view.main.MainController', {
         var view = (node && node.get('viewType')) || 'page404';
         
         //Hien thong tin menu dc chon
-        console.log(node);
         if (node){
             var viewmodel =  this.getViewModel();
             if (null != node.data.parent_name)

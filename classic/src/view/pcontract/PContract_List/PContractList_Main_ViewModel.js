@@ -25,5 +25,16 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main_ViewModel', {
         Vendor:{
             type : 'ListOrgStore'
         }
+    },
+    data: {
+        value: {
+            productbuyer_code: '',
+            po_code: '',
+            orgbuyerid_link: 0,
+            orgvendorid_link: 0,
+            contractbuyer_code: '',
+            contractbuyer_yearfrom: (new Date()).getFullYear() - 1,
+            contractbuyer_yearto: (new Date()).getFullYear() + 1
+        }
     }
 })

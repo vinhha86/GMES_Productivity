@@ -157,27 +157,35 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             text: 'Thêm đơn hàng',
             width: 135,
             iconCls: 'x-fa fa-plus',
-            itemId: 'btnThemMoi_PContractMainView',
+            itemId: 'btnThemMoi_PContractMainView'
         },{
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
             emptyText: "Mã SP(Buyer)",
             itemId: 'productbuyer_code',
-            width: 120
+            width: 120,
+            bind: {
+                value: '{value.productbuyer_code}'
+            }
         },{
             xtype:'textfield',
             labelWidth: 0,
             margin: '5 1 5 0',
             emptyText: "PO Buyer",
             itemId: 'po_code',
-            width: 120
+            width: 120,
+            width: 120,
+            bind: {
+                value: '{value.po_code}'
+            }
         },{
             xtype: 'combo',
             labelWidth: 0,
             emptyText:'Buyer',
             bind: {
-                store : '{EndBuyer}'
+                store : '{EndBuyer}',
+                value: '{value.orgbuyerid_link}'
             },
             valueField: 'id',
             displayField: 'code',
@@ -190,7 +198,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             labelWidth: 0,
             emptyText:'Vendor',
             bind: {
-                store : '{Vendor}'
+                store : '{Vendor}',
+                value: '{value.orgvendorid_link}'
             },
             valueField: 'id',
             displayField: 'name',
@@ -203,7 +212,11 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             margin: '5 1 5 0',
             emptyText: "Số HĐ",
             itemId: 'contractbuyer_code',
-            width: 120
+            width: 120,
+            width: 120,
+            bind: {
+                value: '{value.contractbuyer_code}'
+            }
         },{
             xtype:'textfield',
             labelWidth: 0,
@@ -211,9 +224,12 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             emptyText: "Từ năm",
             maskRe: /[0-9]/,
             maxLength: 4,
-            value:  (new Date()).getFullYear() - 1,
             itemId: 'contractbuyer_yearfrom',
-            width: 80
+            width: 80,
+            width: 120,
+            bind: {
+                value: '{value.contractbuyer_yearfrom}'
+            }
         },{
             xtype:'textfield',
             labelWidth: 0,
@@ -222,8 +238,11 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             maskRe: /[0-9]/,
             maxLength: 4,
             itemId: 'contractbuyer_yearto',
-            value:  (new Date()).getFullYear() + 1,
-            width: 80
+            width: 80,
+            width: 120,
+            bind: {
+                value: '{value.contractbuyer_yearto}'
+            }
         },
         {
             xtype: 'button',

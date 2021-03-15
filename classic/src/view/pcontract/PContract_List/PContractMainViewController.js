@@ -12,9 +12,18 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         PContractStore.getSorters().add('buyername');
         PContractStore.getSorters().add('contractcode');
 
-        var d = new Date();
-        var thisYear = d.getFullYear();
-        PContractStore.loadStore("", "", 0, 0, "", thisYear-1, thisYear+1);
+        var search = new Object();
+        var po = GSmartApp.util.State.get('po');
+        if(po == null){
+            search = viewmodel.get('value');
+        }
+        else {
+            search = po;
+            viewmodel.set('value', search);
+        }
+        PContractStore.loadStore(search.productbuyer_code, search.po_code, search.orgbuyerid_link, 
+            search.orgvendorid_link,search.contractbuyer_code, search.contractbuyer_yearfrom, search.contractbuyer_yearto);
+        
 
         this.onActivate();
         common.Check_Object_Permission();
@@ -133,11 +142,33 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         this.redirectTo("lspcontract/" + idpcontract + "/edit");
     },
     onEdit: function(rec){
-        // var rec = grid.getStore().getAt(rowIndex);
+        var viewmodel = this.getViewModel();
+        var data = new Object();
+        data.productbuyer_code = viewmodel.get('value.productbuyer_code');
+        data.po_code = viewmodel.get('value.po_code');
+        data.orgbuyerid_link = viewmodel.get('value.orgbuyerid_link');
+        data.orgvendorid_link = viewmodel.get('value.orgvendorid_link');
+        data.contractbuyer_code = viewmodel.get('value.contractbuyer_code');
+        data.contractbuyer_yearfrom = viewmodel.get('value.contractbuyer_yearfrom');
+        data.contractbuyer_yearto = viewmodel.get('value.contractbuyer_yearto');
+        
+        GSmartApp.util.State.set('po',data);
+
         var id = rec.get('id');
         this.redirectTo("lspcontract/" + id + "/edit");
     },
     ondblClick: function (m, record, item, index, e, eOpts) {
+        var viewmodel = this.getViewModel();
+        var data = new Object();
+        data.productbuyer_code = viewmodel.get('value.productbuyer_code');
+        data.po_code = viewmodel.get('value.po_code');
+        data.orgbuyerid_link = viewmodel.get('value.orgbuyerid_link');
+        data.orgvendorid_link = viewmodel.get('value.orgvendorid_link');
+        data.contractbuyer_code = viewmodel.get('value.contractbuyer_code');
+        data.contractbuyer_yearfrom = viewmodel.get('value.contractbuyer_yearfrom');
+        data.contractbuyer_yearto = viewmodel.get('value.contractbuyer_yearto');
+        
+        GSmartApp.util.State.set('po',data);
         var id = record.data.id;
         this.redirectTo("lspcontract/" + id + "/edit");
     },
