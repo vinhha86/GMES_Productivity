@@ -2,7 +2,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_M_Controller',
     init: function() {
-        this.callParent(arguments);
+        // this.callParent(arguments);
+        var me = this.getView();
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
         StockoutType.loadStore();
 
@@ -17,7 +18,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         StockoutType.loadStore();
 
         var today = new Date();
-		var priorDate = new Date().setDate(today.getDate()-300);
+		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#stockoutdate_from').setValue(new Date(priorDate));
 
         this.onSearch();
@@ -45,12 +46,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         '#btnThemMoi':{
             click: 'onStockoutNew'
         },
-		'#stockout_m_list':{
+		'#Stockout_M_List':{
             itemdblclick: 'onCapNhat'
         },
         '#limitpage': {
             specialkey: 'onSpecialkey'
         }
+    },
+    onXuatTo: function(){
+        this.redirectTo('stockout_m_main/2/create');
+    },
+    onXuatCat: function(){
+        this.redirectTo('stockout_m_main/1/create');
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -74,7 +81,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         var stockouttypeid = me.down('#stockouttypeid').getValue();
         var stockindate_from = me.down('#stockoutdate_from').getValue();
         var stockindate_to = me.down('#stockoutdate_to').getValue();
-        var OrgToStore = me.down('#OrgToStore').getValue();
+        // var OrgToStore = me.down('#OrgToStore').getValue();
         // var OrgFromStore = me.down('#OrgFromStore').getValue();
         var stockoutcode = '';
 
@@ -87,7 +94,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         if (page == null) {
             page = 1;
         }
-        store.loadByDate(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,null,OrgToStore);
+        store.loadByDate(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,null,null);
     },
     renderCell: function(value, record) {
         if (null == value) value = 0;
@@ -128,7 +135,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
                     params.id = id;
                     params.status = 1;
 
-                    GSmartApp.Ajax.post('/api/v1/stockout/stockout_deleteid', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
                         me.setLoading(false);
                         if (success) {

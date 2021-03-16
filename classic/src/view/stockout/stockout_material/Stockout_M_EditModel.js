@@ -55,10 +55,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
         clsbtnSkuError:'',        
         IsformMaster: false
 	},
-	// formulas: {
-    //     // We'll explain formulas in more detail soon.
-    //     stockoutd: function (get) {
-	// 		return get('stockout').get('stockoutd');
-    //     }
-    // }
+	formulas: {
+        isEdit: function (get) {
+            if (get('stockout.id') == 0 || get('stockout.id') == null) {
+                return false
+            }
+            else {
+                return true;
+            }
+        },
+		isBtnConfirmHidden: function (get) {
+            if (get('stockout.status') == 1) {
+                return true;
+            }else if (get('stockout.status') == 0) {
+                return false;
+            }else if (get('stockout.status') == 2) {
+                return true;
+            }else {
+                return true;
+            }
+        }
+    }
 });

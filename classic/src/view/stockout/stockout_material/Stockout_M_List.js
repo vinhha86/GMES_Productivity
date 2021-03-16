@@ -24,6 +24,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         stripeRows: false
     },
     columns: [
+        {
+            text: 'STT',
+            width: 50,
+            xtype: 'rownumberer',
+            align: 'center'
+        },
         { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
         { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
         { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
@@ -40,13 +46,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             items: [
                 {
                     // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
+                    iconCls: 'x-fa fas fa-pencil-square-o',
                     tooltip: 'Sửa phiếu',
                     handler: 'onStockoutEdit'
                 },
                 {
                     // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-trash-o redIcon',
+                    iconCls: 'x-fa fas fa-trash-o',
                     tooltip: 'Xóa phiếu',
                     handler: 'onStockoutItemDelete'
                 },
@@ -57,12 +63,71 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         dock: 'top',
         xtype: 'toolbar',
         items: [
+            // {
+            //     tooltip: 'Lập phiếu xuất kho mới',
+            //     text: 'Lập phiếu mới',
+            //     iconCls: 'x-fa fa-plus',
+            //     margin: 3,
+            //     itemId: 'btnThemMoi'
+            // },
             {
-                tooltip: 'Lập phiếu xuất kho mới',
-                text: 'Lập phiếu mới',
-                iconCls: 'x-fa fa-plus',
+                xtype: 'button',
                 margin: 3,
-                itemId: 'btnThemMoi'
+                text: 'Lập phiếu mới',
+                iconCls: 'x-fa fa-bars',
+                menu: [
+                    {
+                        itemId: 'btnXuatTo', // id:2
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất tổ sản xuất',
+                        handler: 'onXuatTo'
+                    },
+                    {
+                        itemId: 'btnXuatCat', // id:1
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất NPL cho nhà cắt',
+                        handler: 'onXuatCat'
+                    },
+                    {
+                        // itemId: 'btnNhapGiaCong', // id:4
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất gia công',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                    {
+                        // itemId: 'btnNhapToCat', // id:6
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất mẫu',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                    {
+                        // itemId: 'btnNhapMau', // id:5
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất trả nhà cung cấp',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                    {
+                        // itemId: 'btnNhapCungCap', // id:7
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất tiêu huỷ',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                    {
+                        // itemId: 'btnNhapCungCap', // id:8
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất thành phẩm',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                    {
+                        // itemId: 'btnNhapCungCap', // id:3
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất điều chuyển nội bộ (đơn khác)',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                ],
+                // bind: {
+                //     hidden: '{isNhapmoi}'
+                // }
             },
             {
                 xtype: 'datefield',
@@ -85,18 +150,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 itemId: 'stockoutdate_to',
                 value: new Date(),  // defaults to today
             },
-            {
-                itemId: 'OrgToStore',
-                xtype: 'combobox',
-                emptyText: 'Nơi nhận',
-                bind: {
-                    store: '{OrgToStore}'
-                },
-                queryMode: 'local',
-                margin: 3,
-                displayField: 'name',
-                valueField: 'id'
-            },
+            // {
+            //     itemId: 'OrgToStore',
+            //     xtype: 'combobox',
+            //     emptyText: 'Nơi nhận',
+            //     bind: {
+            //         store: '{OrgToStore}'
+            //     },
+            //     queryMode: 'local',
+            //     margin: 3,
+            //     displayField: 'name',
+            //     valueField: 'id'
+            // },
             // {
             //     itemId: 'OrgFromStore',
             //     xtype: 'combobox',

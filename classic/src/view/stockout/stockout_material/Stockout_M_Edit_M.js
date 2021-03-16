@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     width: 375,
                     labelWidth: 80,
                     fieldLabel: 'Loại xuất:',
+                    readOnly: true,
                     editable: false,
                     displayField: 'name',
                     valueField: 'id',
@@ -113,6 +114,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     flex: 1,
                     labelWidth: 85,
                     fieldLabel: 'Người nhận:',
+                    readOnly: true,
                     hideLabel: false,
                     bind: {
                         value:'{stockout.shipperson}'
@@ -164,14 +166,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{stockout.invoice_number}'
+                                value: '{stockout.stockout_order_code}'
                             },
                             fieldLabel: 'Số yêu cầu',					
                             labelWidth: 80,
                             width: 340,
                             enableKeyEvents : true,
                             listeners: {
-                                // keypress: 'onPressEnterBtnInvoice_Search'
+                                keypress: 'onPressEnterBtnStockoutOrder_Search'
                             }
                         },
                         // {
@@ -184,25 +186,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         {
                             xtype:'button',
                             margin: '0 0 0 2',
-                            itemId:'btnInvoice_Search',
+                            itemId:'btnStockoutOrder_Search',
                             iconCls: 'x-fa fa-search',
                             width: 30
                         }
                     ]
                 },
-                {
-                    margin: '0 5 0 5',
-                    xtype: 'datefield',
-                    format: GSmartApp.util.State.get('dataFormat'),
-                    altFormats: "Y-m-d\\TH:i:s.uO",
-                    bind: {
-                        value: '{stockout.invoice_date}'
-                    },
-                    editable: false,
-                    labelWidth: 85,
-                    width: 235,
-                    fieldLabel: "Ngày yêu cầu"
-                },
+                // {
+                //     margin: '0 5 0 5',
+                //     xtype: 'datefield',
+                //     format: GSmartApp.util.State.get('dataFormat'),
+                //     altFormats: "Y-m-d\\TH:i:s.uO",
+                //     bind: {
+                //         value: '{stockout.invoice_date}'
+                //     },
+                //     editable: false,
+                //     labelWidth: 85,
+                //     width: 235,
+                //     fieldLabel: "Ngày yêu cầu"
+                // },
                 {
                     margin: '0 5 0 5',
                     xtype: 'textfield',
@@ -212,8 +214,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     },
                     readOnly: true,
                     fieldLabel: "Trạng thái",
-                    width: 200,
-                    labelWidth: 70
+                    width: 235,
+                    labelWidth: 85
                 }
             ]
         }
