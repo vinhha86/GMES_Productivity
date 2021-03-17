@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_List', {
 			xtype: 'textfield',
 			fieldStyle: "",
 			reference: 'stockout_orderFilter',
-			width: 1966,
+			width: 96,
 			flex: 1,
 			margin: 2,
 			enableKeyEvents: true,
@@ -37,8 +37,14 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_List', {
 		dataIndex: 'timecreate',
 		width: 120
 	},{
-		text: 'Nhà cung cấp',
-		dataIndex: 'orgProviderName',
+		text: 'Nơi xuất',
+		// dataIndex: 'org_from_name',
+		dataIndex: 'orgid_from_link',
+		flex: 1
+	},{
+		text: 'Nơi nhận',
+		// dataIndex: 'org_to_name',
+		dataIndex: 'orgid_to_link',
 		flex: 1
 	}],
 	dockedItems: [{
@@ -64,7 +70,8 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_List', {
 			width: 110,
 			value: new Date(),
             format:'d/m/y'
-		},{
+		},
+		{
             xtype: 'combobox',
 			emptyText: 'Nơi xuất',
 			itemId: 'orgid_from_link',
@@ -74,8 +81,10 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_List', {
             queryMode: 'local',
             margin: '5 0 5 0',
             displayField: 'name',
-            valueField: 'id'
-        },{
+            valueField: 'id',
+			hidden: true
+        },
+		{
             xtype: 'button',
             margin: 5,
             iconCls: 'x-fa fa-search',

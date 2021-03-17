@@ -32,16 +32,13 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_Store', {
 		this.load();
 	},  	
 
-	loadStore_byPage_async: function(invoicenumber, custom_declaration, invoicedate_from, invoicedate_to, org_prodviderid_link,
-        status, page, limit){
+	loadStore_byPage_async: function(stockoutorderdate_from, stockoutorderdate_to, page, limit){
             var me=this;
             var params = new Object();
-            params.invoicenumber = invoicenumber;
-            params.custom_declaration = custom_declaration;
-            params.invoicedate_from = invoicedate_from;
-            params.invoicedate_to = invoicedate_to;
-            params.org_prodviderid_link = org_prodviderid_link;
-            params.status = status;
+            params.stockoutorderdate_from = stockoutorderdate_from;
+            params.stockoutorderdate_to = stockoutorderdate_to;
+            params.page = page;
+            params.limit = limit;
 
             me.pageSize = limit;
 

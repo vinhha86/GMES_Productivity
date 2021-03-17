@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_ViewModel', {
             id: null,
             timecreate: '',
             stockout_order_d: []
-        }
+        },
+        // stockout_order_code: '',
+        // orgid_from_link: null,
+        // orgid_to_link: null
     }
 })

@@ -98,11 +98,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var session = GSmartApp.util.State.get('session');
         viewModel.set('stockout.stockoutdate',new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
-		viewModel.set('stockout.orgid_from_link', session.orgid_link);
+		viewModel.set('stockout.orgid_from_link', session.org_grant_id_link);
 		viewModel.set('listepc', new Map());
         viewModel.set('stockout.stockouttypeid_link', id);
         viewModel.set('stockout.status', -1);
 
+		// console.log(session);
 		// set store org from
         if(id == 1) { // xuat den cat
             var OrgToStore = viewModel.getStore('OrgToStore');

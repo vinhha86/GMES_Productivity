@@ -7,7 +7,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
 		var userStore = this.getViewModel().getStore('UserStore');
 		userStore.loadStore();
 
-		var listidtype = "4,8,9,11,12";
+		// var listidtype = "4,8,9,11,12";
+        var listidtype = "3";
 		var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		orgfromstore.loadStore_allchildren_byorg(listidtype);
 		// var orgtostore = this.getViewModel().getStore('OrgToStore');
@@ -37,7 +38,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var stockout_order_code = viewModel.get('stockout.invoice_number');
+
+        var stockout_order_code = viewModel.get('stockout.stockout_order_code') == null ? '' : viewModel.get('stockout.stockout_order_code');
+        var orgid_from_link = viewModel.get('stockout.orgid_from_link');
+        var orgid_to_link = viewModel.get('stockout.orgid_to_link');
+
+        // console.log(stockout_order_code);
+        // console.log(orgid_from_link);
+        // console.log(orgid_to_link);
+
 		var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -56,8 +65,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
                 xtype: 'StockoutOrderPickup_Main'
             }],
             viewModel: {
+                // type: 'StockoutOrderPickup_ViewModel',
                 data: {
                     stockout_order_code: stockout_order_code,
+                    orgid_from_link: orgid_from_link,
+                    orgid_to_link: orgid_to_link
                 }
             }
         });
@@ -76,6 +88,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
             // viewModel.set('stockout.invoice_date', stockout_order.timecreate);
             viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
             viewModel.set('stockout.stockout_d', null);
+            viewModel.set('stockout.orgid_from_link', stockout_order.orgid_from_link);
+            viewModel.set('stockout.orgid_to_link', stockout_order.orgid_to_link);
 
             var stockout = viewModel.get('stockout');
             var stockout_d = viewModel.get('stockout.stockout_d');
