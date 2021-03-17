@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
             layout:'hbox',
             items:[
             {
+                margin: '0 5 5 0',
                 width:100,
                 xtype:'button',
                 text:  "Quay lại",
