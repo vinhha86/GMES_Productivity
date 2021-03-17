@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 iconCls: 'x-fa fa-bars',
                 menu: [
                     {
-                        itemId: 'btnXuatTo', // id:2
+                        itemId: 'btnXuatTo', // id:11
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
                         text: 'Xuất tổ sản xuất',
                         handler: 'onXuatTo'

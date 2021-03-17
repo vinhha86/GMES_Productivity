@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         }
     },
     onXuatTo: function(){
-        this.redirectTo('stockout_m_main/2/create');
+        this.redirectTo('stockout_m_main/11/create');
     },
     onXuatCat: function(){
         this.redirectTo('stockout_m_main/1/create');
