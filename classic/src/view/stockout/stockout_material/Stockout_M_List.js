@@ -76,12 +76,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 text: 'Lập phiếu mới',
                 iconCls: 'x-fa fa-bars',
                 menu: [
-                    {
-                        itemId: 'btnXuatTo', // id:11
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất tổ sản xuất',
-                        handler: 'onXuatTo'
-                    },
+                    // {
+                    //     itemId: 'btnXuatTo', // id:11
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất tổ sản xuất',
+                    //     handler: 'onXuatTo'
+                    // },
                     {
                         itemId: 'btnXuatCat', // id:1
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
@@ -89,19 +89,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                         handler: 'onXuatCat'
                     },
                     {
-                        // itemId: 'btnNhapGiaCong', // id:4
+                        // itemId: 'btnNhapGiaCong', // id:3
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
                         text: 'Xuất gia công',
                         // handler: 'onNhapMuaMoi'
                     },
                     {
-                        // itemId: 'btnNhapToCat', // id:6
+                        // itemId: 'btnNhapToCat', // id:5
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
                         text: 'Xuất mẫu',
                         // handler: 'onNhapMuaMoi'
                     },
                     {
-                        // itemId: 'btnNhapMau', // id:5
+                        // itemId: 'btnNhapMau', // id:4
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
                         text: 'Xuất trả nhà cung cấp',
                         // handler: 'onNhapMuaMoi'
@@ -113,13 +113,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                         // handler: 'onNhapMuaMoi'
                     },
                     {
-                        // itemId: 'btnNhapCungCap', // id:8
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất thành phẩm',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapCungCap', // id:3
+                        // itemId: 'btnNhapCungCap', // id:2
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
                         text: 'Xuất điều chuyển nội bộ (đơn khác)',
                         // handler: 'onNhapMuaMoi'
