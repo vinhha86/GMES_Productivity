@@ -23,7 +23,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		},
 		'#loaitien':{
 			select: 'onSelectCurency'
-		}
+		},
+        '#btnConfirm':{
+            click: 'onConfirm'
+        }
 	},
 	channel: { cmd: null, dta: null },
     renderCell: function(value, record) {
@@ -474,4 +477,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             form.show();
         }
     },
+
+	onConfirm: function(){
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+        var stockoutId = stockout.id;
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Duyệt',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_M_Edit_Confirm',
+                viewModel: {
+                    type: 'HandoverDetailConfirmViewModel',
+                    data: {
+                        stockout: stockout,
+                        stockoutId: stockoutId
+                    }
+                }
+            }]
+        });
+        form.show();
+    }
 });
