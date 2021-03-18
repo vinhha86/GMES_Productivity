@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit', {
     extend: 'Ext.container.Container',
-    xtype: 'Stockout_M_Edit',
-    id: 'Stockout_M_Edit',
-    controller: 'Stockout_M_EditController',
-    viewModel: 'Stockout_M_EditModel',
+    xtype: 'handover_kho_tocut_edit',
+    id: 'Handover_kho_tocut_Edit',
+    controller: 'Handover_kho_tocut_EditController',
+    viewModel: 'Handover_kho_tocut_EditModel',
 	layout: {
         type: 'vbox',
         pack: 'start',
@@ -11,13 +11,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
     },
     items: [
         {
-            xtype: 'Stockout_M_Edit_M',
-            id: 'Stockout_M_Edit_M',
+            xtype: 'Handover_kho_tocut_Edit_M',
+            id: 'Handover_kho_tocut_Edit_M',
             margin: '5 0 0 0',
             height: 140
         },
         {
-            xtype: 'Stockout_M_Edit_D',
+            xtype: 'Handover_kho_tocut_Edit_D',
             reference: 'grd_stockoutd',
             margin: '0 5 5 0',
             flex: 1

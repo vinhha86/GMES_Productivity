@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('stockin.stockindate',new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
         viewModel.set('listepc', new Map());
-        viewModel.set('stockin.orgid_to_link', session.orgid_link)
+        viewModel.set('stockin.orgid_to_link', session.orgid_link);
         viewModel.set('stockin.stockintypeid_link', id);
         viewModel.set('stockin.status', -1);
 

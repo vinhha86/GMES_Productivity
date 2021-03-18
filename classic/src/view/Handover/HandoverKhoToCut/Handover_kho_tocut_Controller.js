@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_M_Controller',
+    alias: 'controller.Handover_kho_tocut_Controller',
     init: function() {
         // this.callParent(arguments);
         var me = this.getView();
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#stockoutdate_from').setValue(new Date(priorDate));
 
-        this.onSearch();
+        // this.onSearch();
         
         // var store_stockout = this.getViewModel().getStore('Stockout');
         // if (store_stockout) {
@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         // }
     },
     onActivate: function () {
-        this.onSearch();
+        // this.onSearch();
     },
 	listen: {
         controller: {
@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         '#btnThemMoi':{
             click: 'onStockoutNew'
         },
-		'#Stockout_M_List':{
+		'#Handover_kho_tocut_List':{
             itemdblclick: 'onCapNhat'
         },
         '#limitpage': {
@@ -54,10 +54,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         }
     },
     onXuatTo: function(){
-        this.redirectTo('stockout_m_main/11/create');
+        this.redirectTo('handover_kho_tocut/11/create');
     },
     onXuatCat: function(){
-        this.redirectTo('stockout_m_main/1/create');
+        this.redirectTo('handover_kho_tocut/1/create');
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -74,8 +74,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         var me = this.getView();
         var t = this;
 
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Stockout');
+        var viewmodel = this.getViewModel(); console.log(viewmodel);
+        var store = viewmodel.getStore('Stockout'); console.log(store);
 
         var limit = me.down('#limitpage').getValue();
         var stockouttypeid = me.down('#stockouttypeid').getValue();
@@ -112,11 +112,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
     onStockoutEdit: function(grid, rowIndex, colIndex){
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        this.redirectTo("stockout_m_main/"+id+"/edit");
+        this.redirectTo("handover_kho_tocut/"+id+"/edit");
     },
     onCapNhat: function(m, record, item, index, e, eOpts){
         var id = record.data.id;
-        this.redirectTo("stockout_m_main/" + id + "/edit");
+        this.redirectTo("handover_kho_tocut/" + id + "/edit");
     },
     onStockoutItemDelete: function(grid, rowIndex, colIndex){
         var me = this.getView();
@@ -163,6 +163,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         });
     },
     onStockoutNew: function(){
-        this.redirectTo("stockout_m_main/create");
+        this.redirectTo("handover_kho_tocut/create");
     }
 });

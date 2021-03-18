@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_M_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_M_Edit_M_Controller',
+    alias: 'controller.Handover_kho_tocut_Edit_M_Controller',
 	init: function() {
         var orgstore = this.getViewModel().getStore('OrgStore');
 		orgstore.loadStore(5);

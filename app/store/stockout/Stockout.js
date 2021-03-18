@@ -5,7 +5,8 @@ Ext.define('GSmartApp.store.Stockout', {
 
     model: 'GSmartApp.model.Stockout',
  
-    loadByDate:function(stockouttypeid,stockoutcode, stockoutdate_from, stockoutdate_to, page, limit,orgid_from_link, orgid_to_link){
+    loadByDate:function(stockouttypeid,stockoutcode, stockoutdate_from, stockoutdate_to, page, limit,
+        orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto){
         var me = this;
         var param=new Object();
         param.stockoutdate_from = stockoutdate_from;
@@ -14,6 +15,8 @@ Ext.define('GSmartApp.store.Stockout', {
         param.stockoutcode = stockoutcode;
         param.orgid_from_link = orgid_from_link;
         param.orgid_to_link = orgid_to_link;
+        param.stockouttypefrom = stockouttypefrom;
+        param.stockouttypeto = stockouttypeto;
         
         me.pageSize = limit;
 

@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.Stockout_M_EditModel',
+    alias: 'viewmodel.Handover_kho_tocut_EditModel',
     requires: ['GSmartApp.store.DeviceInvStore', 'GSmartApp.store.OrgStore',
 	'GSmartApp.store.SkuStore','GSmartApp.store.stockout.Stockout_d',
 	'GSmartApp.store.stockout.StockoutTypeStore',
@@ -66,9 +66,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
         },
 		isBtnConfirmHidden: function (get) {
             if (get('stockout.status') == 1) {
-                return true;
-            }else if (get('stockout.status') == 0) {
                 return false;
+            }else if (get('stockout.status') == 0) {
+                return true;
             }else if (get('stockout.status') == 2) {
                 return true;
             }else {

@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_List', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Stockout_M_List',
-    id: 'Stockout_M_List',
-    reference: 'Stockout_M_List',
-    controller: 'Stockout_M_Controller',
+    xtype: 'Handover_kho_tocut_List',
+    id: 'Handover_kho_tocut_List',
+    reference: 'Handover_kho_tocut_List',
+    controller: 'Handover_kho_tocut_Controller',
     viewModel: {
-        type: 'Stockout_M_EditModel'
+        type: 'Handover_kho_tocut_EditModel'
     },
     requires: [
         'GSmartApp.store.Stockout',
@@ -50,12 +50,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                     tooltip: 'Sửa phiếu',
                     handler: 'onStockoutEdit'
                 },
-                {
-                    // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-trash-o',
-                    tooltip: 'Xóa phiếu',
-                    handler: 'onStockoutItemDelete'
-                },
+                // {
+                //     // iconCls: 'x-fa fas fa-bars violetIcon',
+                //     iconCls: 'x-fa fas fa-trash-o',
+                //     tooltip: 'Xóa phiếu',
+                //     handler: 'onStockoutItemDelete'
+                // },
             ]
         }
     ],
@@ -70,59 +70,59 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             //     margin: 3,
             //     itemId: 'btnThemMoi'
             // },
-            {
-                xtype: 'button',
-                margin: 3,
-                text: 'Lập phiếu mới',
-                iconCls: 'x-fa fa-bars',
-                menu: [
-                    // {
-                    //     itemId: 'btnXuatTo', // id:11
-                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
-                    //     text: 'Xuất tổ sản xuất',
-                    //     handler: 'onXuatTo'
-                    // },
-                    {
-                        itemId: 'btnXuatCat', // id:1
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất NPL cho nhà cắt',
-                        handler: 'onXuatCat'
-                    },
-                    {
-                        // itemId: 'btnNhapGiaCong', // id:3
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất gia công',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapToCat', // id:5
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất mẫu',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapMau', // id:4
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất trả nhà cung cấp',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapCungCap', // id:7
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất tiêu huỷ',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapCungCap', // id:2
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất điều chuyển nội bộ (đơn khác)',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                ],
-                // bind: {
-                //     hidden: '{isNhapmoi}'
-                // }
-            },
+            // {
+            //     xtype: 'button',
+            //     margin: 3,
+            //     text: 'Lập phiếu mới',
+            //     iconCls: 'x-fa fa-bars',
+            //     menu: [
+            //         // {
+            //         //     itemId: 'btnXuatTo', // id:11
+            //         //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //         //     text: 'Xuất tổ sản xuất',
+            //         //     handler: 'onXuatTo'
+            //         // },
+            //         {
+            //             itemId: 'btnXuatCat', // id:1
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Xuất NPL cho nhà cắt',
+            //             handler: 'onXuatCat'
+            //         },
+            //         {
+            //             // itemId: 'btnNhapGiaCong', // id:3
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Xuất gia công',
+            //             // handler: 'onNhapMuaMoi'
+            //         },
+            //         {
+            //             // itemId: 'btnNhapToCat', // id:5
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Xuất mẫu',
+            //             // handler: 'onNhapMuaMoi'
+            //         },
+            //         {
+            //             // itemId: 'btnNhapMau', // id:4
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Xuất trả nhà cung cấp',
+            //             // handler: 'onNhapMuaMoi'
+            //         },
+            //         {
+            //             // itemId: 'btnNhapCungCap', // id:7
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Xuất tiêu huỷ',
+            //             // handler: 'onNhapMuaMoi'
+            //         },
+            //         {
+            //             // itemId: 'btnNhapCungCap', // id:2
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Xuất điều chuyển nội bộ (đơn khác)',
+            //             // handler: 'onNhapMuaMoi'
+            //         },
+            //     ],
+            //     // bind: {
+            //     //     hidden: '{isNhapmoi}'
+            //     // }
+            // },
             {
                 xtype: 'datefield',
                 margin: 3,

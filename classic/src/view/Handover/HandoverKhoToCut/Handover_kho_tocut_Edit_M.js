@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_M', {
     extend: 'Ext.container.Container',
-    xtype: 'Stockout_M_Edit_M',
-    controller: 'Stockout_M_Edit_M_Controller',
+    xtype: 'Handover_kho_tocut_Edit_M',
+    controller: 'Handover_kho_tocut_Edit_M_Controller',
     layout: {
         type: 'vbox',
         align: 'stretch'
@@ -36,6 +36,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     labelWidth: 85,
                     fieldLabel: 'Số phiếu:',
                     readOnly: true,
+                    editable: false,
                     bind: {
                         value:'{stockout.stockoutcode}'
                     }
@@ -47,6 +48,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     width: 200,
                     labelWidth: 70,
                     fieldLabel: 'Ngày xuất:',
+                    readOnly: true,
                     editable: false,
                     format:'d/m/Y',
 			        altFormats: "Y-m-d\\TH:i:s.uO",
@@ -64,6 +66,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
 			        displayField: 'fullName',
                     fieldLabel: 'Người xuất:',
                     readOnly: true,
+                    editable: false,
                     bind: {
                         value: '{stockout.usercreateid_link}',
                         store: '{UserStore}'
@@ -82,11 +85,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     width: 375,
                     labelWidth: 80,
                     fieldLabel: 'Nơi xuất:',
-                    editable: false,
                     bind: {
                         store: '{OrgFromStore}',
                         value: '{stockout.orgid_from_link}'
                     },
+                    readOnly: true,
+                    editable: false,
                     queryMode: 'local',
                     margin: '0 5 0 5',
                     displayField: 'name',
@@ -98,12 +102,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     width: 445,
                     labelWidth: 85,
                     fieldLabel: 'Nơi nhận:',
-                    editable: false,
                     margin: '0 5 0 5',
                     bind: {
                         store: '{OrgToStore}',
                         value: '{stockout.orgid_to_link}'
                     },
+                    readOnly: true,
+                    editable: false,
                     displayField: 'name',
                     valueField: 'id'
                 },
@@ -115,6 +120,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     labelWidth: 85,
                     fieldLabel: 'Người nhận:',
                     readOnly: true,
+                    editable: false,
                     hideLabel: false,
                     bind: {
                         value:'{stockout.shipperson}'
@@ -134,6 +140,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     width: 375,
                     labelWidth: 80,
                     fieldLabel: 'Lý do xuất:',
+                    readOnly: true,
+                    editable: false,
                     hideLabel: false,
                     bind: {value:'{stockout.reason}'}
                 },
@@ -144,6 +152,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     flex: 1,
                     labelWidth: 85,
                     fieldLabel: 'Kèm theo:',
+                    readOnly: true,
+                    editable: false,
                     hideLabel: false,
                     bind: {
                         value:'{stockout.extrainfo}'
@@ -170,8 +180,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                             },
                             fieldLabel: 'Số yêu cầu',					
                             labelWidth: 80,
-                            width: 340,
+                            width: 375,
                             enableKeyEvents : true,
+                            readOnly: true,
+                            editable: false,
                             listeners: {
                                 keypress: 'onPressEnterBtnStockoutOrder_Search'
                             }
@@ -183,13 +195,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         // 	iconCls: 'x-fa fa-plus',
                         // 	width: 30
                         // },
-                        {
-                            xtype:'button',
-                            margin: '0 0 0 2',
-                            itemId:'btnStockoutOrder_Search',
-                            iconCls: 'x-fa fa-search',
-                            width: 30
-                        }
+                        // {
+                        //     xtype:'button',
+                        //     margin: '0 0 0 2',
+                        //     itemId:'btnStockoutOrder_Search',
+                        //     iconCls: 'x-fa fa-search',
+                        //     width: 30
+                        // }
                     ]
                 },
                 // {
