@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         var me = this.getView();
         var viewmodel = this.getViewModel();
         // var IdPOrder = viewmodel.get('IdPOrder');
-        var IdPContractPO = viewmodel.get('IdPContractPO');
+        // var IdPContractPO = viewmodel.get('IdPContractPO');
 
         //Lay thong tin chung Porder_grant cho to chuyen
         var IdGrant = viewmodel.get('IdGrant');
@@ -70,8 +70,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         infoView.getController().loadInfo(IdGrant);
 
         //Lay danh sach PO Line thuc te
-        var PContract_PO = viewmodel.getStore('PContract_PO');
-        PContract_PO.loadPOLine_Confirm(IdPContractPO);
+        // var PContract_PO = viewmodel.getStore('PContract_PO');
+        // PContract_PO.loadPOLine_Confirm(IdPContractPO);
+
+        var storePOrder = viewmodel.getStore('porderSKUStore');
+        storePOrder.loadByPorderID(viewmodel.get('porder.id'));
 
         //Lay danh sach SKU cua POrder_Grant
         var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');

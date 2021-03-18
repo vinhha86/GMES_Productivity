@@ -30,16 +30,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
             // border: false,
             items: [
                 {
-                    region: 'west',
-                    width: 350,
-                    xtype: 'POrder_List_PContractPOView',
-                    title: 'PO Line',
-                    border: true,
-                    bind: {
-                        hidden: '{is_poline_hidden}'
-                    }
-                },
-                {
                     region: 'center',
                     xtype: 'panel',
                     layout: 'hbox',
@@ -48,7 +38,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
                         {
                             // region: 'west',
                             xtype: 'POrder_ProductSKUView',
-                            title: 'Chi tiết màu, cỡ - PO Line',
                             flex: 1,
                             height: '100%',
                             border: true,
@@ -96,7 +85,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
                             reference: 'POrder_List_GrantSKUViewTabInfo',
                             bind: {
                                 // store: '{POrder_ListGrantSKUStoreForWindow}',
-                                title: '{grantSKUViewTabInfoTitle}',
+                                // title: '{grantSKUViewTabInfoTitle}',
                                 hidden: '{is_poline_skugranted_hidden}'
                             },
                             width: '40%',

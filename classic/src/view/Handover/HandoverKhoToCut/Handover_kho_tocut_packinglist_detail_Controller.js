@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_detail_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_packinglist_detail_Controller',
+    alias: 'controller.Handover_kho_tocut_packinglist_detail_Controller',
     init: function () {
     },
     control: {
@@ -322,9 +322,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         // var netweight = 0;
         // var grossweight = 0;
         // var m3 = 0;
-        var yds = 0;
+        // var yds = 0;
         var ydscheck = 0;
-        var met = 0;
+        // var met = 0;
         var metcheck = 0;
         
         for(var i = 0; i < packinglist.length; i++){
@@ -332,9 +332,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         //   netweight+=packinglist[i].netweight;
         //   grossweight+=packinglist[i].grossweight;
         //   m3+=packinglist[i].m3;
-          yds+=packinglist[i].ydsorigin;
+          // yds+=packinglist[i].ydsorigin;
           ydscheck+=packinglist[i].ydscheck;
-          met+=packinglist[i].met_origin;
+          // met+=packinglist[i].met_origin;
           metcheck+=packinglist[i].met_check;
         }
   
@@ -342,12 +342,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         // stockoutDRec.set('netweight', netweight);
         // stockoutDRec.set('grossweight', grossweight);
         // stockoutDRec.set('m3', m3);
-        stockoutDRec.set('totalydsorigin', yds);
+        // stockoutDRec.set('totalydsorigin', yds);
         stockoutDRec.set('totalydscheck', ydscheck);
-        stockoutDRec.set('totalmet_origin', met);
+        // stockoutDRec.set('totalmet_origin', met);
         stockoutDRec.set('totalmet_check', metcheck);
   
-        Ext.getCmp('Stockout_M_Edit_D').getStore().commitChanges();
+        Ext.getCmp('Handover_kho_tocut_Edit_D').getStore().commitChanges();
       }
     }
   })

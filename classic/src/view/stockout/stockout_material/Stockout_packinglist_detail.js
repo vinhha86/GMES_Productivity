@@ -30,18 +30,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		store: '{PackingListStore}'
 	},
 	columns: [
-        { 
-            xtype: 'checkcolumn',
-            // text: 'Đi làm',
-            dataIndex: 'checked',
-            headerCheckbox: false,
-            width: 30,
-            listeners: {
-                // beforecheckchange: 'onBeforecheckchange',
-                checkchange: 'onCheckchange',
-                // headerclick: 'onHeaderClick'
-            }
-        },
+        // { 
+        //     xtype: 'checkcolumn',
+        //     // text: 'Đi làm',
+        //     dataIndex: 'checked',
+        //     headerCheckbox: false,
+        //     width: 30,
+        //     listeners: {
+        //         // beforecheckchange: 'onBeforecheckchange',
+        //         checkchange: 'onCheckchange',
+        //         // headerclick: 'onHeaderClick'
+        //     }
+        // },
 		{
 			text: 'Cây số', 
 			dataIndex: 'packageid',
@@ -119,24 +119,24 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},
-        {
-			text: 'Khổ thực tế', 
-			dataIndex: 'widthcheck',
-            flex: 1,
-			align:'right',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-		},
+        // {
+		// 	text: 'Khổ thực tế', 
+		// 	dataIndex: 'widthcheck',
+        //     flex: 1,
+		// 	align:'right',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/,
+		// 		selectOnFocus: true
+		// 	},
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+		// },
 		{
-			text: 'SL Order (m)', 
+			text: 'SL xuất (m)', 
             dataIndex: 'met_origin',
             flex: 1,
 			align:'right',
@@ -153,26 +153,26 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
         },
+		// {
+		// 	text: 'SL xuất (m)', 
+        //     dataIndex: 'met_check',
+        //     flex: 1,
+		// 	align:'right',
+        //     summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/,
+		// 		selectOnFocus: true
+		// 	},
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+        // },
 		{
-			text: 'SL xuất (m)', 
-            dataIndex: 'met_check',
-            flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-		{
-			text: 'SL Order (y)', 
+			text: 'SL xuất (y)', 
             dataIndex: 'ydsorigin',
             flex: 1,
 			align:'right',
@@ -189,33 +189,33 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
         },
-		{
-			text: 'SL xuất (y)', 
-            dataIndex: 'ydscheck',
-            flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-		{
-			text: 'Ghi chú', 
-            dataIndex: 'extrainfo',
-            flex: 2,
-			editor:{
-				xtype:'textfield',
-				selectOnFocus: true
-			}
-        },
+		// {
+		// 	text: 'SL xuất (y)', 
+        //     dataIndex: 'ydscheck',
+        //     flex: 1,
+		// 	align:'right',
+        //     summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/,
+		// 		selectOnFocus: true
+		// 	},
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+        // },
+		// {
+		// 	text: 'Ghi chú', 
+        //     dataIndex: 'extrainfo',
+        //     flex: 2,
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		selectOnFocus: true
+		// 	}
+        // },
 		{ 
 			xtype: 'actioncolumn',
 			reference: 'stockout_contextmenu',
@@ -304,7 +304,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			xtype: 'textfield',
 			margin: 1,
 			itemId:'met_origin',
-			emptyText: 'SL Nhập (m)',
+			emptyText: 'SL xuất (m)',
 			flex: 1,
 			labelWidth: 0,
 			hideLabel: true,

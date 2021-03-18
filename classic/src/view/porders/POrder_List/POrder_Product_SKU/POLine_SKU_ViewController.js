@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
     alias: 'controller.POLine_SKU_ViewController',
     init: function () {
         var viewmodel = this.getViewModel();
-        
     },
     control: {
         '#btnAddToPorder': {
