@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     bind: {
         store: '{POrder_ListGrantSKUStore}'
     },
-    title: 'Chi tiết màu, cỡ',
+    // title: 'Chi tiết màu, cỡ',
     columns: [{
         text: 'STT',
         width: 45,
@@ -93,6 +93,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         summaryRenderer: 'renderSum',
         width: 60,
         align: 'end'
+    }],
+    dockedItems:[{
+        dock:'top',
+        xtype:'toolbar',
+        padding: '0 0 10 5',
+        height: 35,
+        items:[{
+            xtype:'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black",
+            labelWidth : 0,
+            value: 'Chi tiết màu cỡ tổ chuyền '
+        },
+		'->'
+		,{
+            xtype:'button',
+            itemId:'btnThemSKU',
+            ui: 'header',
+            margin: '10 5 0 0',
+			tooltip: 'Thêm màu, cỡ',
+            iconCls: 'x-fa fa-plus'
+        }]
     }]
 });
 

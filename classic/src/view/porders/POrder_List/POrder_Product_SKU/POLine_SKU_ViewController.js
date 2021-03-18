@@ -3,11 +3,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
     alias: 'controller.POLine_SKU_ViewController',
     init: function () {
         var viewmodel = this.getViewModel();
-        var storeSku = viewmodel.getStore('POLineSKU_Store');
-        var porder =viewmodel.get('porder');
-        console.log(porder);
-
-        // storeSku.loadStoreByPO_and_Product(porder.productid_link, porder.pcontract_poid_link);
     },
     control: {
         
