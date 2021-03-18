@@ -96,6 +96,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
     {
         dock: 'right',
         layout: 'vbox',
+        border: true,
         items:
         [
             {
@@ -106,6 +107,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
                 tooltip: 'Thêm vào lệnh',
                 iconCls: 'x-fa fa-arrow-right',
                 weight: 30,
+                itemId: 'btnAddToPorder'
                 // handler: 'onPorder_AddSKU'
             },
             {height: 10},

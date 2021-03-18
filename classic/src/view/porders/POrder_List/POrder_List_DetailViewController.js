@@ -179,6 +179,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         var viewmodel = this.getViewModel();
         viewmodel.set('IdPOrder', id);
 
+        var storeSku = viewmodel.getStore('POLineSKU_Store');
+        storeSku.loadByPOrderStore(id);
+
+        var storePOrder = viewmodel.getStore('porderSKUStore');
+        storePOrder.loadByPorderID(id);
+
         me.IdPOrder = id;
 
         var infoView = me.down('#POrder_InfoView');
