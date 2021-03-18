@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditController', {
     extend: 'Ext.app.ViewController',
-	alias: 'controller.Stockout_M_EditController',
+	alias: 'controller.Handover_kho_tocut_EditController',
 	init: function(){
 		var devicestore = this.getViewModel().getStore('DeviceInvStore');
 		devicestore.loadStore(3);
@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		
 	},
     onUrlBack:function(type){ 
-        this.redirectTo("stockout_m_main");
+        this.redirectTo("handover_kho_tocut");
     },
     onLoadData:function(id,type){
         this.getInfo(id);
@@ -181,7 +181,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 								yes: 'Đóng',
 							}
 						});							
-						this.redirectTo("stockout_m_main/" + response.id + "/edit");
+						this.redirectTo("handover_kho_tocut/" + response.id + "/edit");
 						m.getInfo(response.id);
 					}
 				} else {
@@ -459,10 +459,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                     padding: 5
                 },
                 items: [{
-                    xtype: 'Stockout_packinglist'
+                    xtype: 'Handover_kho_tocut_packinglist'
                 }],
                 viewModel: {
-                    type: 'Stockout_packinglist_ViewModel',
+                    type: 'Handover_kho_tocut_packinglist_ViewModel',
                     data: {
                         packinglist: {
                             stockoutdid_link: stockoutdid_link,
@@ -497,9 +497,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 padding: 5
             },
             items: [{
-                xtype: 'Stockout_M_Edit_Confirm',
+                xtype: 'Handover_kho_tocut_Edit_Confirm',
                 viewModel: {
-                    type: 'Stockout_M_Edit_ConfirmViewModel',
+                    type: 'Handover_kho_tocut_Edit_ConfirmViewModel',
                     data: {
                         stockout: stockout,
                         stockoutId: stockoutId

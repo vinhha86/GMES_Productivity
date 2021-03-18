@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_ConfirmController', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_ConfirmController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_M_Edit_ConfirmController',
+    alias: 'controller.Handover_kho_tocut_Edit_ConfirmController',
     isActivate: false,
     init: function () {
     },
@@ -70,17 +70,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_ConfirmController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var stockoutId = viewModel.get('stockoutId');
-        var approver_userid_link = userid_link;
-        m.confirmStockout(stockoutId, approver_userid_link);
+        var receiver_userid_link = userid_link;
+        m.confirmStockout(stockoutId, receiver_userid_link);
     },
-    confirmStockout: function(stockoutId, approver_userid_link){
+    confirmStockout: function(stockoutId, receiver_userid_link){
         var m = this;
         var viewModel = this.getViewModel();
         var params = new Object();
         params.stockoutId = stockoutId;
-        params.approver_userid_link = approver_userid_link;
+        params.approver_userid_link = receiver_userid_link;
 
-        GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_approve_material', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_receive_material', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
@@ -95,13 +95,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_ConfirmController', {
                             }
                         });
                         
-                        var stockout = Ext.getCmp('Stockout_M_Edit').getViewModel().get('stockout');
-                        stockout.approve_date = response.data.approve_date;
-                        stockout.approver_userid_link = response.data.approver_userid_link;
-                        stockout.status = 1;
-                        stockout.statusString = 'Đã duyệt';
-                        Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
-                        Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+                        var stockout = Ext.getCmp('Handover_kho_tocut_Edit').getViewModel().get('stockout');
+                        stockout.receive_date = response.data.receive_date;
+                        stockout.receiver_userid_link = response.data.receiver_userid_link;
+                        stockout.status = 2;
+                        stockout.statusString = 'Đã nhận';
+                        Ext.getCmp('Handover_kho_tocut_Edit').down('#btnConfirm').setHidden(true);
+                        Ext.getCmp('Handover_kho_tocut_Edit').down('#statusString').setValue('Đã nhận');
                         // console.log(stockout);
                         m.onThoat();
                     }

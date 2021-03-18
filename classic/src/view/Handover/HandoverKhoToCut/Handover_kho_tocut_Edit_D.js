@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
+Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_D', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Stockout_M_Edit_D',
-    id: 'Stockout_M_Edit_D',
+    xtype: 'Handover_kho_tocut_Edit_D',
+    id: 'Handover_kho_tocut_Edit_D',
     requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
@@ -110,16 +110,16 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			summaryRenderer: 'renderSum',
 			width: 90
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'SL Xuất (m)', 
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'totalmet_check',
-		// 	width: 85
-		// },
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL nhận (m)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalmet_check',
+			width: 85
+		},
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -130,16 +130,16 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			summaryRenderer: 'renderSum',
 			width: 90
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'SL Xuất (y)', 
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'totalydscheck',
-		// 	width: 85
-		// },
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL nhận (y)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalydscheck',
+			width: 85
+		},
 		{ 
 			xtype: 'actioncolumn',
 			reference: 'stockout_contextmenu',
