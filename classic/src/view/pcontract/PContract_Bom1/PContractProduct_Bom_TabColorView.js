@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorView', {
     id: 'PContractProduct_Bom_TabColorView',
     itemId: 'PContractProduct_Bom_TabColorView',
     controller: 'PContractProduct_Bom_TabColorViewController',
-    tabPosition: 'right',
+    // tabPosition: 'right',
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',

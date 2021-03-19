@@ -115,6 +115,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
                 xtype: 'button',
                 tooltip: 'Xoá khỏi lệnh',
                 iconCls: 'x-fa fa-arrow-left',
+                itemId: 'btnDeleteFromPOrder',
                 weight: 30,
                 // handler: 'onPorder_AddSKU'
             },

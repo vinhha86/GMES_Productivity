@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor', {
     xtype: 'PorderBom_TabColor',
     id: 'PorderBom_TabColor',
     controller: 'PorderBom_TabColor_ViewController',
-    tabPosition: 'right',
+    // tabPosition: 'right',
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',

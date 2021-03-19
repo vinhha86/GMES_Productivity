@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         // PContract_PO.loadPOLine_Confirm(IdPContractPO);
 
         var storePOrder = viewmodel.getStore('porderSKUStore');
-        storePOrder.loadByPorderID(viewmodel.get('porder.id'));
+        storePOrder.loadByPorderID(viewmodel.get('IdPOrder'));
 
         //Lay danh sach SKU cua POrder_Grant
         var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');
@@ -115,7 +115,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         params.idSkus = data;
         params.idGrant = IdGrant;
         params.idPOrder = IdPOrder;
-        params.idPcontractPo = IdPcontractPo;
 
         GSmartApp.Ajax.post('/api/v1/porderlist/addskutogrant', Ext.JSON.encode(params),
             function (success, response, options) {

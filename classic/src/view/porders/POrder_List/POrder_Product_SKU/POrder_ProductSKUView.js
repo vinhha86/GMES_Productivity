@@ -13,6 +13,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         columnLines: true,
         rowLines: true
     },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
     selModel: {
         selType: 'checkboxmodel',
         mode: 'MULTI',
@@ -64,7 +72,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         width: 60,
-        align: 'end'
+        align: 'end',
+        getEditor: function (record) {
+            return Ext.create('Ext.grid.CellEditor', {
+                field: {
+                    xtype: 'textfield',
+                    selectOnFocus: true,
+                    bind: {
+                        editable: '{isEditSL}'
+                    }
+                }
+            })
+        },
     }, {
         text: 'Đã phân chuyền',
         dataIndex: 'pquantity_granted',

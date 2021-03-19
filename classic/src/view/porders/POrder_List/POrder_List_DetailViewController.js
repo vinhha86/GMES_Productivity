@@ -7,6 +7,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         viewmodel.set('is_poline_sku_hidden', false);
         viewmodel.set('is_addremovesku_hidden', true);
         viewmodel.set('is_poline_skugranted_hidden', true);
+        viewmodel.set('isEditSL', true);
     },
     listen: {
         controller: {
