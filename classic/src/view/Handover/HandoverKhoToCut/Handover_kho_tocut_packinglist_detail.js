@@ -43,48 +43,58 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_detail', {
             }
         },
 		{
-			text: 'Cây số', 
-			dataIndex: 'packageid',
-            width: 50,
+			text: 'Số Lot', 
+			dataIndex: 'lotnumber',
+			flex: 1,
             summaryType: 'count',
 			summaryRenderer: 'renderCount'
 		},
 		{
-			text: 'N.W', 
-            dataIndex: 'netweight',
+			text: 'Cây số', 
+			dataIndex: 'packageid',
+            width: 50,
+		},
+		{
+			text: 'Màu', 
+			dataIndex: 'color_name',
             flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9.]/,
-			// 	selectOnFocus: true
-			// },
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-        {
-			text: 'G.W', 
-            dataIndex: 'grossweight',
-            flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9.]/,
-			// 	selectOnFocus: true
-			// },
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
+		},
+		// {
+		// 	text: 'N.W', 
+        //     dataIndex: 'netweight',
+        //     flex: 1,
+		// 	align:'right',
+        //     summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	// editor:{
+		// 	// 	xtype:'textfield',
+		// 	// 	maskRe: /[0-9.]/,
+		// 	// 	selectOnFocus: true
+		// 	// },
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+        // },
+        // {
+		// 	text: 'G.W', 
+        //     dataIndex: 'grossweight',
+        //     flex: 1,
+		// 	align:'right',
+        //     summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	// editor:{
+		// 	// 	xtype:'textfield',
+		// 	// 	maskRe: /[0-9.]/,
+		// 	// 	selectOnFocus: true
+		// 	// },
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+        // },
         // {
 		// 	text: 'M3', 
 		// 	dataIndex: 'm3',
@@ -119,22 +129,22 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_detail', {
 				return Ext.util.Format.number(value, '0,000.00');
 			}
 		},
-        {
-			text: 'Khổ thực tế', 
-			dataIndex: 'widthcheck',
-            flex: 1,
-			align:'right',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-		},
+        // {
+		// 	text: 'Khổ thực tế', 
+		// 	dataIndex: 'widthcheck',
+        //     flex: 1,
+		// 	align:'right',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/,
+		// 		selectOnFocus: true
+		// 	},
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+		// },
 		{
 			text: 'SL xuất (m)', 
             dataIndex: 'met_origin',

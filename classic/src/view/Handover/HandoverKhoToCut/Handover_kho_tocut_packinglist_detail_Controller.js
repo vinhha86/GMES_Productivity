@@ -4,27 +4,27 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_detail_Contro
     init: function () {
     },
     control: {
-      '#packageid': {
-        specialkey: 'onSpecialkey'
-      },
-      '#netweight': {
-        specialkey: 'onSpecialkey'
-      },
-      '#grossweight': {
-        specialkey: 'onSpecialkey'
-      },
-      '#met_origin': {
-        specialkey: 'onSpecialkey'
-      },
-    //   '#m3': {
+    //   '#packageid': {
     //     specialkey: 'onSpecialkey'
     //   },
-      '#widthorigin': {
-        specialkey: 'onSpecialkey'
-      },
-      '#btnThemPKL': {
-        click: 'CreatePackingList'
-      }
+    //   '#netweight': {
+    //     specialkey: 'onSpecialkey'
+    //   },
+    //   '#grossweight': {
+    //     specialkey: 'onSpecialkey'
+    //   },
+    //   '#met_origin': {
+    //     specialkey: 'onSpecialkey'
+    //   },
+    // //   '#m3': {
+    // //     specialkey: 'onSpecialkey'
+    // //   },
+    //   '#widthorigin': {
+    //     specialkey: 'onSpecialkey'
+    //   },
+    //   '#btnThemPKL': {
+    //     click: 'CreatePackingList'
+    //   }
     },
     renderSum: function (value) {
       if (null == value) value = 0;
@@ -94,6 +94,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_detail_Contro
       var lotnumber = viewModel.get('packinglist.lotnumber');
       var stockoutDRec = viewModel.get('stockoutDRec');
       var colorid_link = stockoutDRec.get('colorid_link');
+      var color_name = stockoutDRec.get('color_name');
   
       if(viewModel.get('packinglist.lotnumber') == null || viewModel.get('packinglist.lotnumber') == ''){
         mes = "Bạn chưa chọn số lót";
@@ -124,6 +125,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_detail_Contro
         packinglistObj.stockoutdid_link = stockoutdid_link;
         packinglistObj.skuid_link = skuid_link;
         packinglistObj.colorid_link = colorid_link;
+        packinglistObj.color_name = color_name;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
         packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());

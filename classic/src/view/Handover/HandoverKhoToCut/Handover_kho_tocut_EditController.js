@@ -479,6 +479,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditController', {
     },
 
 	onConfirm: function(){
+		var me = this;
         var viewModel = this.getViewModel();
         var stockout = viewModel.get('stockout');
         var stockoutId = stockout.id;
@@ -508,5 +509,19 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditController', {
             }]
         });
         form.show();
+
+		form.down('#Handover_kho_tocut_Edit_Confirm').getController().on('Confirmed', function (receiver_userid_link) {
+
+			viewModel.set('stockout.receiver_userid_link', receiver_userid_link);
+			viewModel.set('stockout.receive_date', new Date());
+			viewModel.set('stockout.status', 2);
+			viewModel.set('stockout.statusString', 'Đã nhận');
+
+			Ext.getCmp('Handover_kho_tocut_Edit').down('#btnConfirm').setHidden(true);
+            Ext.getCmp('Handover_kho_tocut_Edit').down('#statusString').setValue('Đã nhận');
+			me.onSave();
+			
+            form.close();
+        })
     }
 });

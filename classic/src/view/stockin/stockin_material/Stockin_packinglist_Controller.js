@@ -13,13 +13,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_Controller', {
         // console.log(stockin);
         // console.log(stockinDRec);
 
-        var LotStore = viewModel.get('LotStore');
-        LotStore.getSorters().add('lotnumber');
+        // var LotStore = viewModel.get('LotStore');
+        // LotStore.getSorters().add('lotnumber');
 
         var PackingListStore = viewModel.get('PackingListStore');
+        var stockinDRec = viewModel.get('stockinDRec');
+        var pklist = stockinDRec.get('stockin_packinglist');
+        if(pklist == null){
+            pklist = new Array();
+        }
+        var pklistStoreArray = new Array();
+        for(var i=0; i < pklist.length; i++){
+            pklistStoreArray.push(pklist[i]);
+        }
+        PackingListStore.setData(pklistStoreArray);
+
+        PackingListStore.getSorters().add('lotnumber');
         PackingListStore.getSorters().add('packageid');
 
-        this.setLotStore();
+        // this.setLotStore();
     },
     control: {
         '#btnThoat': {

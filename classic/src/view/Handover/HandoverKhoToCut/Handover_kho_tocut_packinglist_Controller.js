@@ -13,13 +13,25 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist_Controller', 
         // console.log(stockin);
         // console.log(stockinDRec);
 
-        var LotStore = viewModel.get('LotStore');
-        LotStore.getSorters().add('lotnumber');
+        // var LotStore = viewModel.get('LotStore');
+        // LotStore.getSorters().add('lotnumber');
 
         var PackingListStore = viewModel.get('PackingListStore');
+        var stockinDRec = viewModel.get('stockoutDRec');
+        var pklist = stockinDRec.get('stockout_packinglist');
+        if(pklist == null){
+            pklist = new Array();
+        }
+        var pklistStoreArray = new Array();
+        for(var i=0; i < pklist.length; i++){
+            pklistStoreArray.push(pklist[i]);
+        }
+        PackingListStore.setData(pklistStoreArray);
+
+        PackingListStore.getSorters().add('lotnumber');
         PackingListStore.getSorters().add('packageid');
 
-        this.setLotStore();
+        // this.setLotStore();
     },
     control: {
         '#btnThoat': {
