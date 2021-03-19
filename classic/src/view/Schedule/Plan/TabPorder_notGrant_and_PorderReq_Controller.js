@@ -575,7 +575,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                         border: false,
                         title: 'Thông tin PO',
                         closeAction: 'destroy',
-                        height: 405,
+                        height: 440,
                         width: 800,
                         bodyStyle: 'background-color: transparent',
                         layout: {
@@ -657,7 +657,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
                         border: false,
                         title: 'Thông tin PO',
                         closeAction: 'destroy',
-                        height: 405,
+                        height: 440,
                         width: 800,
                         bodyStyle: 'background-color: transparent',
                         layout: {

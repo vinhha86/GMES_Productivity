@@ -7,12 +7,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
     items: [
         {
             region: 'south',
+            height: 110,
             // : 100,
             // flex: 1,
             items: [{
                 xtype: 'tagfield',
                 margin: 1,
-                height: 35,
+                height: 65,
+                growMax: 49,
                 width: '100%',
                 labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:11px;',
@@ -35,6 +37,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
             },{
                 xtype:'textfield',
                 margin: 1,
+                width: '100%',
                 fieldLabel: 'Chú thích',
                 // allowBlank: false,
                 // blankText : 'Không được để trống',
@@ -43,7 +46,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                 bind:{
                     value :'{po.comment}'
                 },
-                width: '100%',
                 itemId: 'comment',
                 labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:11px;',
@@ -336,7 +338,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             // allowBlank: false,
                             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                             fieldStyle: 'font-size:11px;',
-                            fieldLabel: 'Ngày RC:',
+                            fieldLabel: 'Ngày VC:',
                             // readOnly: true,
                             reference: 'poinfo_productiondate',
                             labelAlign: 'left',

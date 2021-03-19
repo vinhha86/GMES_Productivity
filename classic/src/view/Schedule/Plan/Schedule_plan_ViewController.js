@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         border: false,
                         title: 'Thông tin PO',
                         closeAction: 'destroy',
-                        height: 405,
+                        height: 440,
                         width: 800,
                         bodyStyle: 'background-color: transparent',
                         layout: {

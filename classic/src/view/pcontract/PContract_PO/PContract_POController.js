@@ -189,7 +189,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     border: false,
                     title: 'Đơn hàng (PO)',
                     closeAction: 'destroy',
-                    height: Ext.getBody().getViewSize().height * .95,
+                    height: Ext.getBody().getViewSize().height * .99,
                     width: Ext.getBody().getViewSize().width * .95,
                     bodyStyle: 'background-color: transparent',
                     layout: {
@@ -414,7 +414,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 405,
+            height: 440,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -547,7 +547,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin đơn hàng',
             closeAction: 'destroy',
-            height: 405,
+            height: 440,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -813,7 +813,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thông tin Line giao hàng',
             closeAction: 'destroy',
-            height: 405,
+            height: 440,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -878,7 +878,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             border: false,
             title: 'Thêm mới Line giao hàng',
             closeAction: 'destroy',
-            height: 405,
+            height: 440,
             width: 800,
             bodyStyle: 'background-color: transparent',
             layout: {
