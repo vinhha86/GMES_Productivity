@@ -177,17 +177,23 @@ Ext.define('GSmartApp.view.main.MainController', {
         if(window){
             window.close();
         }
+        if(id!='lspcontract'){
+            GSmartApp.util.State.set('po',null);
+        }
         this.setCurrentView(id);
     },
 	onRouteDataChange(hashTag,id,args){
-        
-
-		args = Ext.Array.clean((args || '').split('/'));
+        args = Ext.Array.clean((args || '').split('/'));
 		hashTag = (hashTag || '').toLowerCase();
 		var session= GSmartApp.util.State.get('session');
 		if(!session){
 			 this.redirectTo("login");
 		}
+        
+        if(hashTag!='lspcontract'){
+            GSmartApp.util.State.set('po',null);
+        }
+        
         
         var window = Ext.WindowManager.getActive();
         if(window){

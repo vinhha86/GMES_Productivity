@@ -136,10 +136,19 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         me.getSelectionModel().deselectAll();
     },
     onThemMoi: function () {
-        var me = this.getView();
-        var idpcontract = 0;
+        var viewmodel = this.getViewModel();
+        var data = new Object();
+        data.productbuyer_code = viewmodel.get('value.productbuyer_code');
+        data.po_code = viewmodel.get('value.po_code');
+        data.orgbuyerid_link = viewmodel.get('value.orgbuyerid_link');
+        data.orgvendorid_link = viewmodel.get('value.orgvendorid_link');
+        data.contractbuyer_code = viewmodel.get('value.contractbuyer_code');
+        data.contractbuyer_yearfrom = viewmodel.get('value.contractbuyer_yearfrom');
+        data.contractbuyer_yearto = viewmodel.get('value.contractbuyer_yearto');
+        
+        GSmartApp.util.State.set('po',data);
 
-        this.redirectTo("lspcontract/" + idpcontract + "/edit");
+        this.redirectTo("lspcontract/0/edit");
     },
     onEdit: function(rec){
         var viewmodel = this.getViewModel();
