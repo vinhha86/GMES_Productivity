@@ -2,7 +2,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrderCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_P_Edit_POrderCotroller',
 	init: function() {
-
+        var viewmodel = this.getViewModel();
+        if(viewmodel.get('ordercode') != ''){
+            this.onTimKiem();
+        }
 	},
 	control:{
 		'#btnThoat': {
@@ -32,7 +35,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrderCotroller', {
         var viewmodel = this.getViewModel();
 
         var store = viewmodel.getStore('porderStore');
-        var ordercode = grid.down('#ordercode').getValue();
+        var ordercode = viewmodel.get('ordercode');
 
         if(ordercode == ""){
             Ext.MessageBox.show({
@@ -44,7 +47,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrderCotroller', {
                 }
             });
         } else {
-            store.loadStore(ordercode);
+            store.loadStoreBySearch(ordercode, '','','',null,null,null,null,null,[0,1,2,3,4,5,6],1000,1);
         }
     },
     onChon: function(){

@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 	'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 	'GSmartApp.store.VatTypeStore', 'GSmartApp.store.CurrencyStore', 
 	'GSmartApp.store.stockin.StockinStatusStore', 'GSmartApp.store.stockin.StockinStore',
-	'GSmartApp.store.porder.POrder_ListStore'],
+	'GSmartApp.store.porder.POrder_ListStore','GSmartApp.store.stockin.StockinGroupStore'],
 	stores:{
 		DeviceInvStore:{
 			type :'DeviceInvStore'
@@ -51,6 +51,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		},
 		porderStore: {
 			type: 'POrder_ListStore'
+		},
+		StockinGroupStore: {
+			type: 'StockinGroupStore'
 		}
 	},
 	data: {
@@ -60,7 +63,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		isNhapMoi:true,
 		clsbtn:'red-button',
 		clsbtnStart:'blue-button',
-		clsbtnStop:'',
+		clsbtnStop:'red-button',
 		clsbtnSkuError:'',
 		isStart:false,
 		stockin: {
@@ -70,7 +73,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		listepc: new Map(),
 		deviceid: 0,
 		curencycode: '',
-		ordercode: ""
+		ordercode: "",
+		groupstockin: 1,
+		isHidden: false
 	},
 	formulas: {
         isEdit: function (get) {

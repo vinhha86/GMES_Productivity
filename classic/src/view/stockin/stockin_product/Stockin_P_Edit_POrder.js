@@ -1,10 +1,10 @@
 Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrder', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_P_Edit_POrder',
-    id:'Stockin_P_Edit_POrder',
+    id: 'Stockin_P_Edit_POrder',
     controller: 'Stockin_P_Edit_POrderCotroller',
     viewModel: {
-        type: 'Stockin_P_Edit_ViewModel'
+        type: 'Stockin_P_ViewModel'
     },
     viewConfig: {
         enableTextSelection: true,
@@ -15,71 +15,77 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrder', {
         selType: 'checkboxmodel',
         mode: 'SINGLE'
     },
-    bind:{
-        store:'{porderStore}'
+    bind: {
+        store: '{porderStore}'
     },
     reference: 'Stockin_P_Edit_POrder',
-    columns:[{
-        text:'Mã lệnh',
-        dataIndex:'ordercode',
-        width: 90
-    },{
-        text:'Tên SP',
-        dataIndex:'productcode',
+    columns: [{
+        text: 'STT',
+        width: 40,
+        xtype: 'rownumberer',
+        align: 'center'
+    }, {
+        text: 'Mã lệnh',
+        dataIndex: 'ordercode',
         flex: 1
-    },{
-        text:'Ngày SX',
+    }, {
+        text: 'Tên SP',
+        dataIndex: 'productcode',
+        width: 150
+    }, {
+        text: 'PO Buyer',
+        dataIndex: 'po_buyer',
+        flex: 1
+    }, {
+        text: 'Ngày giao hàng',
         xtype: 'datecolumn',
-        format: 'd/m/Y',
-        dataIndex:'orderdate',
+        format: 'd/m/y',
+        dataIndex: 'orderdate',
         width: 120
-    },{
-        text:'Năm SX',
-        dataIndex:'productionyear',
-        width: 90
-    },{
-        text:'Mùa',
-        dataIndex:'season',
-        width: 90
-    },{
-        text:'SL',
-        dataIndex:'totalorder',
-        width: 60
+    }, {
+        xtype: 'numbercolumn',
+        format: '0,000',
+        text: 'SL',
+        dataIndex: 'totalorder',
+        width: 60,
+        align: 'right'
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
         border: true,
-        style:"background-color : white;",
-        items:[{
-            xtype:'textfield',
-            fieldLabel: 'Mã lệnh',
+        style: "background-color : white;",
+        items: [{
+            xtype: 'textfield',
+            fieldLabel: 'PO Buyer',
             margin: 5,
-            itemId: 'ordercode'
-        },{
-            xtype:'button',
+            bind: {
+                value: '{ordercode}'
+            }
+        }, {
+            xtype: 'button',
             itemId: 'btnTimKiem',
             tooltip: 'Tìm kiếm',
             iconCls: 'x-fa fa-search',
             margin: 5
         }]
-    },{
+    }, {
         dock: 'bottom',
         layout: 'hbox',
-        items:[{
-            flex:1,
+        items: [{
+            flex: 1,
             border: false
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             text: 'Chọn',
             margin: 3,
-            itemId:'btnLuu',
+            itemId: 'btnLuu',
             iconCls: 'x-fa fa-save'
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             text: 'Thoát',
             margin: 3,
-            itemId:'btnThoat',
+            itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close'
         }]
     }]

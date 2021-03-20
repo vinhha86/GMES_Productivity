@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			bind: {
 				hidden: '{IsformMaster}'
 			}
-		}, {
+		},{
 			margin:'0 0 0 5',
 			xtype: 'button',
 			itemId: 'btnMoRong',
@@ -131,14 +131,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			bind: {
 				hidden: '{!IsformMaster}'
 			}
-		}, {
+		},{
+			labelWidth: 90,
+			margin:'0 5 5 5',
+			xtype: 'combobox',
+			fieldLabel: 'Cách nhập',
+			bind: {
+				store: '{StockinGroupStore}',
+				value: '{groupstockin}'
+			},
+			width: 300,
+			displayField: 'name',
+			valueField: 'id',
+			itemId: 'cmbStockinGroup'
+		},  {
 			labelWidth: 90,
 			margin:'0 5 5 5',
 			xtype: 'combobox',
 			reference: 'device',
 			fieldLabel: 'Thiết bị RFID',
 			bind: {
-				store: '{DeviceInvStore}'
+				store: '{DeviceInvStore}',
+				hidden: '{isHidden}'
 			},
 			width: 300,
 			displayField: 'name',
@@ -154,7 +168,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			itemId: 'btnStart',
 			bind: {
 				disabled: '{isStart}',
-				userCls: '{clsbtnStart}'
+				userCls: '{clsbtnStart}',
+				hidden: '{isHidden}'
 			}
 		}, {
 			margin:'0 5 5 5',
@@ -162,15 +177,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			iconCls: 'x-fa fa-stop',
 			xtype: 'button',
 			itemId: 'btnStop',
-			userCls: 'red-button'
+			bind: {
+				userCls: 'clsbtnStop',
+				hidden: '{isHidden}'
+			}
 		},
 		,'->',
 		{
 			xtype: 'textfield',
 			margin: '0 5 0 5',
 			itemId:'ordercode',
-			fieldLabel: 'Mã lệnh SX:',
-			width: 200,
+			fieldLabel: 'Tìm lệnh SX:',
+			width: 300,
 			labelWidth: 80,
 			hideLabel: false,			
             bind:{

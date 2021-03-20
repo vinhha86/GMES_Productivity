@@ -27,6 +27,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		},
 		'#ordercode': {
 			specialkey: 'onSpecialkey'
+		},
+		'#cmbStockinGroup': {
+			select: 'onSelectGroupStockin'
+		}
+	},
+	onSelectGroupStockin: function(combo, record, eOpts){
+		var viewmodel = this.getViewModel();
+		if(record.get('id') == 1){
+			viewmodel.set('isHidden', false);
+		}
+		else {
+			viewmodel.set('isHidden', true);
 		}
 	},
 	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
@@ -285,7 +297,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				padding: 5
 			},
 			items: [{
-				xtype: 'Stockin_P_Edit_POrder'
+				xtype: 'Stockin_P_Edit_POrder',
+				viewModel: {
+					data: {
+						ordercode: grid.down('#ordercode').getValue()
+					}
+				}
 			}]
 		});
 		form.show();
@@ -297,6 +314,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		})
 	},
 	onTaiSanPham: function () {
+		var me = this;
 		var grid = this.getView();
 		var viewmodel = this.getViewModel();
 		var stockin = viewmodel.get('stockin');
@@ -321,7 +339,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					if (success) {
 						var resp = Ext.decode(resp.responseText);
 						if (resp.respcode == 200) {
-							if (resp.data.length > 0) {
+							if (resp.size == 1) {
 								var store = viewmodel.getStore('StockinDetailStore');
 								store.removeAll();
 								store.setData(resp.data);
@@ -330,14 +348,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 								viewmodel.set('listepc', new Map());
 							}
 							else {
-								Ext.MessageBox.show({
-									title: "Thông báo",
-									msg: "Mã lệnh sản xuất không đúng bạn vui lòng tìm kiếm lại!",
-									buttons: Ext.MessageBox.YES,
-									buttonText: {
-										yes: 'Đóng',
-									}
-								});
+								if(resp.size == 0){
+									Ext.MessageBox.show({
+										title: "Thông báo",
+										msg: "Mã lệnh sản xuất không đúng bạn vui lòng tìm kiếm lại!",
+										buttons: Ext.MessageBox.YES,
+										buttonText: {
+											yes: 'Đóng',
+										}
+									});
+								}
+								else {
+									me.onTimLenh();
+								}
+								
 							}
 						}
 						else {
