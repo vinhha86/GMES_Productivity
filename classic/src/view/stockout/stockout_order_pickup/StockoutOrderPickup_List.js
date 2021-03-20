@@ -43,8 +43,8 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_List', {
 		flex: 1
 	},{
 		text: 'Nơi nhận',
-		// dataIndex: 'org_to_name',
-		dataIndex: 'orgid_to_link',
+		dataIndex: 'org_to_name',
+		// dataIndex: 'orgid_to_link',
 		flex: 1
 	}],
 	dockedItems: [{
