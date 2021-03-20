@@ -104,11 +104,6 @@ Ext.define('GSmartApp.view.sku.SkuList', {
     // }],
     fbar: [{
         minWidth: 80,
-        text: 'Đóng',
-        iconCls: 'x-fa fa-window-close',
-        handler: 'onCloseButton'
-    }, {
-        minWidth: 80,
         text: 'Chọn SKU',
         iconCls: 'x-fa fa-check',
         handler: 'onSelectButton'

@@ -110,9 +110,14 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteria', {
     ],
     fbar: [{
         minWidth: 80,
+        text: 'Đóng',
+        iconCls: 'x-fa fa-window-close',
+        handler: 'onCloseButton'
+    }, 
+    '->',{
+        minWidth: 80,
         text: 'Tìm sản phẩm',
         iconCls: 'x-fa fa-search',
         handler: 'onSearchButton'
-    },
-    '->'],    
+    }],    
 });

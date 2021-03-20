@@ -37,20 +37,17 @@ Ext.define('GSmartApp.view.sewingtrim.SewingThreadSelectAttributeValueView', {
         layout:'hbox',
         border: false,
         items:[{
-            border: false,
-            flex : 1
+            xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-window-close'
         },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuu',
             iconCls: 'x-fa fa-save'
-        },{
-            xtype:'button',
-            text: 'Thoát',
-            margin: 3,
-            itemId:'btnThoat',
-            iconCls: 'x-fa fa-window-close'
         }]
     }]
 });

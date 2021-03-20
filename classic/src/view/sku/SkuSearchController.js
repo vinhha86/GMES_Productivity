@@ -142,12 +142,6 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         )
    
     },
-    onCloseButton: function () {
-        var mywin = Ext.WindowManager.getActive();
-        if (mywin) {
-            mywin.close();
-        }
-    },
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
         var sourceview = viewModel.get('sourceview');
@@ -742,6 +736,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
     onProductItemSelected: function (sender, record) {
+        console.log(record);
         var viewModel = this.getViewModel();
         var SkuStore = viewModel.getStore('SkuStore');
         if (record.get('id') > 0) {
@@ -749,7 +744,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             if(viewModel.get('searchtype') == 1){
                 viewModel.set('productid_link_notsearch', record.data.id);
             }
-            if (record.data.producttypeid_link == 30 || record.data.producttypeid_link == 40 || record.data.producttypeid_link == 50)
+            if (record.data.product_type >= 20 && record.data.product_type < 60)
                 SkuStore.loadByProduct(record.get('id'), false);//Hien ca ALL
             else
                 SkuStore.loadByProduct(record.get('id'), true);

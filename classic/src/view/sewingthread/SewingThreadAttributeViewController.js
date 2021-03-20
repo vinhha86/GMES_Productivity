@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.sewingtrim.SewingTrimAttributeViewController', {
+Ext.define('GSmartApp.view.sewingtrim.SewingThreadAttributeViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SewingThreadAttributeViewController',
     init: function () {
         var me = this.getView();
     },
     control:{
-        '#SewingTrimAttributeView':{
+        '#SewingThreadAttributeView':{
             itemdblclick :'onitemdblclick'
         },
         '#btnThemMoi':{
@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimAttributeViewController', {
             },
             items: [{
                 border: false,
-                xtype: 'SewingTrimSelectAttributeValueView',
+                xtype: 'SewingThreadSelectAttributeValueView',
                 IdAttribute: record.data.attributeid_link,
                 IdProduct: me.IdProduct
             }]
@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimAttributeViewController', {
             },
             items: [{
                 border: false,
-                xtype: 'SewingTrimSelectAttributeValueView',
+                xtype: 'SewingThreadSelectAttributeValueView',
                 IdAttribute: record.data.attributeid_link,
                 IdProduct: me.IdProduct
             }]
@@ -133,7 +133,6 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimAttributeViewController', {
             return;
         }
 
-        var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             height: 400,
             closable: true,
@@ -150,7 +149,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimAttributeViewController', {
             },
             items: [{
                 border: false,
-                xtype: 'SewingTrimSelectAttribueView',
+                xtype: 'SewingThreadSelectAttribueView',
                 IdProduct: me.IdProduct
             }]
         });

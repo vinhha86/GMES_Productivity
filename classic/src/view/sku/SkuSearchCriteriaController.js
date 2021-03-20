@@ -27,6 +27,12 @@ Ext.define('GSmartApp.view.sku.SkuSearchCriteriaController', {
         '#btnXoa':{
             click: 'onXoa'
         }
+    },    
+    onCloseButton: function () {
+        var mywin = Ext.WindowManager.getActive();
+        if (mywin) {
+            mywin.close();
+        }
     },
     onXoa: function(grid, row, col){
         var viewmodel = this.getViewModel();
