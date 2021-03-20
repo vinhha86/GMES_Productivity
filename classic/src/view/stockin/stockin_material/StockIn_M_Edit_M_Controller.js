@@ -74,13 +74,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
         });
 
         form.down('#InvoicePickup_Main').getController().on('InvoicePickupSelect', function (invoice, invoice_ds) {
-            // console.log(invoice);
-            // console.log(invoice_ds);
+            console.log(invoice);
+            console.log(invoice_ds);
 
             viewModel.set('stockin.invoice_number', invoice.invoicenumber);
             viewModel.set('stockin.invoice_date', invoice.invoicedate);
             viewModel.set('stockin.material_invoiceid_link', invoice.id);
-            viewModel.set('stockin.stockin_d', null);
+            if(viewModel.get('stockin.stockin_d') == null){
+                viewModel.set('stockin.stockin_d', new Array());
+            }
+            // viewModel.set('stockin.stockin_d', null);
 
             var stockin = viewModel.get('stockin');
             var stockin_d = viewModel.get('stockin.stockin_d');
@@ -90,8 +93,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 
             for(var i = 0; i < invoice_ds.length; i++){
                 var invoice_d = invoice_ds[i];
-                // var found = stockin_d.some(item => item.skuid_link === npl.get('id'));
-                var found = false;
+                var found = stockin_d.some(item => item.skuid_link === invoice_d.get('skuid_link'));
+                console.log(found);
+                // var found = false;
                 if(!found){
                     var stockin_dObj = new Object();
                     stockin_dObj.skuid_link = invoice_d.get('skuid_link');
@@ -150,6 +154,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
                 }
             }
 
+            console.log(stockin_d);
+            viewModel.set('stockin.stockin_d', []);
             viewModel.set('stockin.stockin_d', stockin_d);
 
             // console.log(invoice_ds);

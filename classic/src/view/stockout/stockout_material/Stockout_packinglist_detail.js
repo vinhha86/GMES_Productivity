@@ -43,48 +43,58 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
         //     }
         // },
 		{
-			text: 'Cây số', 
-			dataIndex: 'packageid',
-            width: 50,
+			text: 'Số Lot', 
+			dataIndex: 'lotnumber',
+			flex: 1,
             summaryType: 'count',
 			summaryRenderer: 'renderCount'
 		},
 		{
-			text: 'N.W', 
-            dataIndex: 'netweight',
+			text: 'Cây số', 
+			dataIndex: 'packageid',
+            width: 50,
+		},
+		{
+			text: 'Màu', 
+			dataIndex: 'color_name',
             flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
-        {
-			text: 'G.W', 
-            dataIndex: 'grossweight',
-            flex: 1,
-			align:'right',
-            summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			}
-        },
+		},
+		// {
+		// 	text: 'N.W', 
+        //     dataIndex: 'netweight',
+        //     flex: 1,
+		// 	align:'right',
+        //     summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/,
+		// 		selectOnFocus: true
+		// 	},
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+        // },
+        // {
+		// 	text: 'G.W', 
+        //     dataIndex: 'grossweight',
+        //     flex: 1,
+		// 	align:'right',
+        //     summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/,
+		// 		selectOnFocus: true
+		// 	},
+		// 	renderer: function (value, metaData, record) {
+		// 		// if(value ==0) return "";
+		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+		// 		return Ext.util.Format.number(value, '0,000.00');
+		// 	}
+        // },
         // {
 		// 	text: 'M3', 
 		// 	dataIndex: 'm3',
@@ -235,7 +245,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		dock: 'top',
         xtype: 'toolbar',
 		items: [
-            {
+        {
+			xtype: 'textfield',
+			margin: 1,
+			itemId:'lotnumber',
+			emptyText: 'Số lot',
+			width: 120,
+			labelWidth: 0,
+			hideLabel: true,
+			// maskRe: /[0-9]/,		
+            bind:{
+				value: '{packinglist.lotnumber}'
+            }
+		},
+        {
 			xtype: 'textfield',
 			margin: 1,
 			itemId:'packageid',
@@ -248,32 +271,32 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 				value: '{packinglist.packageid}'
             }
 		},
-		{
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'netweight',
-			emptyText: 'N.W',
-			flex: 1,
-			labelWidth: 0,
-			hideLabel: true,	
-			maskRe: /[0-9.]/,		
-            bind:{
-				value: '{packinglist.netweight}'
-            }
-        },
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'grossweight',
-			emptyText: 'G.W',
-			flex: 1,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.grossweight}'
-            }
-		},
+		// {
+		// 	xtype: 'textfield',
+		// 	margin: 1,
+		// 	itemId:'netweight',
+		// 	emptyText: 'N.W',
+		// 	flex: 1,
+		// 	labelWidth: 0,
+		// 	hideLabel: true,	
+		// 	maskRe: /[0-9.]/,		
+        //     bind:{
+		// 		value: '{packinglist.netweight}'
+        //     }
+        // },
+        // {
+		// 	xtype: 'textfield',
+		// 	margin: 1,
+		// 	itemId:'grossweight',
+		// 	emptyText: 'G.W',
+		// 	flex: 1,
+		// 	labelWidth: 0,
+		// 	hideLabel: true,
+		// 	maskRe: /[0-9.]/,
+        //     bind:{
+		// 		value: '{packinglist.grossweight}'
+        //     }
+		// },
 		// {
 		// 	xtype: 'textfield',
 		// 	margin: 1,
@@ -292,7 +315,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			margin: 1,
 			itemId:'widthorigin',
 			emptyText: 'Khổ',
-			flex: 1,
+			width: 120,
 			labelWidth: 0,
 			hideLabel: true,
 			maskRe: /[0-9.]/,
@@ -302,10 +325,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
         },
         {
 			xtype: 'textfield',
-			margin: 1,
 			itemId:'met_origin',
 			emptyText: 'SL xuất (m)',
-			flex: 1,
+			width: 120,
 			labelWidth: 0,
 			hideLabel: true,
 			maskRe: /[0-9.]/,

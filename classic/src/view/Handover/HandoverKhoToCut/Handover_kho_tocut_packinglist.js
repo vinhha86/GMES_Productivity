@@ -15,12 +15,12 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_packinglist', {
             flex: 1,
             layout: 'border',
             items: [
-                {
-                    region: 'west',
-                    xtype: 'Handover_kho_tocut_packinglist_lotnumber',
-                    width: '15%',
-                    margin: 1
-                },
+                // {
+                //     region: 'west',
+                //     xtype: 'Handover_kho_tocut_packinglist_lotnumber',
+                //     width: '15%',
+                //     margin: 1
+                // },
                 {
                     region: 'center',
                     xtype: 'Handover_kho_tocut_packinglist_detail',

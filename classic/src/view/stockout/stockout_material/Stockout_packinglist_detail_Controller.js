@@ -4,15 +4,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
     init: function () {
     },
     control: {
+      '#lotnumber': {
+        specialkey: 'onSpecialkey'
+      },
       '#packageid': {
         specialkey: 'onSpecialkey'
       },
-      '#netweight': {
-        specialkey: 'onSpecialkey'
-      },
-      '#grossweight': {
-        specialkey: 'onSpecialkey'
-      },
+      // '#netweight': {
+      //   specialkey: 'onSpecialkey'
+      // },
+      // '#grossweight': {
+      //   specialkey: 'onSpecialkey'
+      // },
       '#met_origin': {
         specialkey: 'onSpecialkey'
       },
@@ -40,18 +43,24 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
       var store = me.getStore();
       var storeItems = store.getData().items;
   
-      var found = storeItems.some(item => item.get('packageid') == me.down('#packageid').getValue());
+      var found = storeItems.some(
+        item => item.get('packageid') == me.down('#packageid').getValue() 
+        && item.get('lotnumber') == me.down('#lotnumber').getValue()
+        );
   
       if (e.getKey() == e.ENTER) {
-        if (field.itemId == "packageid") {
-          me.down('#netweight').focus();
+        if (field.itemId == "lotnumber") {
+          me.down('#packageid').focus();
         }
-        else if (field.itemId == "netweight") {
-          me.down('#grossweight').focus();
-        }
-        else if (field.itemId == "grossweight") {
+        else if (field.itemId == "packageid") {
           me.down('#widthorigin').focus();
         }
+        // else if (field.itemId == "netweight") {
+        //   me.down('#grossweight').focus();
+        // }
+        // else if (field.itemId == "grossweight") {
+        //   me.down('#widthorigin').focus();
+        // }
         // else if (field.itemId == "m3") {
         //   me.down('#width').focus();
         // }
@@ -60,7 +69,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         }
         else if (field.itemId == "met_origin") {
           // console.log('enter');
-          if(me.down('#packageid').getValue() == ''){
+          if(me.down('#lotnumber').getValue() == ''){
+            me.down('#lotnumber').focus();
+          }else if(me.down('#packageid').getValue() == ''){
             me.down('#packageid').focus();
           }else if(found){
             // console.log('here yet');
@@ -94,6 +105,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
       var lotnumber = viewModel.get('packinglist.lotnumber');
       var stockoutDRec = viewModel.get('stockoutDRec');
       var colorid_link = stockoutDRec.get('colorid_link');
+      var color_name = stockoutDRec.get('color_name');
   
       if(viewModel.get('packinglist.lotnumber') == null || viewModel.get('packinglist.lotnumber') == ''){
         mes = "Bạn chưa chọn số lót";
@@ -124,40 +136,42 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         packinglistObj.stockoutdid_link = stockoutdid_link;
         packinglistObj.skuid_link = skuid_link;
         packinglistObj.colorid_link = colorid_link;
+        packinglistObj.color_name = color_name;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
         packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
-        packinglistObj.met_check = 0;
+        packinglistObj.met_check = packinglistObj.met_origin;
         packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
-        packinglistObj.ydscheck = 0;
+        packinglistObj.ydscheck = packinglistObj.ydsorigin;
         // packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
-        packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
-        packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
+        // packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
+        // packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
         packinglistObj.widthorigin = me.down('#widthorigin').getValue() == '' ? 0 : parseFloat(me.down('#widthorigin').getValue());
-        packinglistObj.widthcheck = 0;
+        packinglistObj.widthcheck = packinglistObj.widthorigin;
         // packinglistObj.status = -1;
         packinglistObj.status = 0;
-        packinglistObj.checked = 0;
+        packinglistObj.checked = 1;
   
         packinglist.push(packinglistObj);
   
-        packinglistStoreData = new Array();
-        for(var i = 0; i < packinglist.length; i++){
-          if(packinglist[i].lotnumber == lotnumber){
-            packinglistStoreData.push(packinglist[i]);
-          }
-        } 
+        // packinglistStoreData = new Array();
+        // for(var i = 0; i < packinglist.length; i++){
+        //   if(packinglist[i].lotnumber == lotnumber){
+        //     packinglistStoreData.push(packinglist[i]);
+        //   }
+        // } 
   
-        me.getStore().loadData(packinglistStoreData);
+        me.getStore().loadData(packinglist);
         me.getStore().commitChanges();
   
+        me.down('#lotnumber').setValue('');
         me.down('#packageid').setValue('');
         me.down('#met_origin').setValue('');
         // me.down('#m3').setValue('');
-        me.down('#netweight').setValue('');
-        me.down('#grossweight').setValue('');
+        // me.down('#netweight').setValue('');
+        // me.down('#grossweight').setValue('');
         me.down('#widthorigin').setValue('');
-        me.down('#packageid').focus();
+        me.down('#lotnumber').focus();
       }
       this.reCalculateSkuGrid();
     },
@@ -252,6 +266,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
       }
       if(context.field == 'ydsorigin'){
         pkl_data.ydsorigin = parseFloat(pkl_data.ydsorigin);
+        pkl_data.ydscheck = pkl_data.ydsorigin;
         pkl_data.met_origin = Ext.Number.roundToPrecision(pkl_data.ydsorigin * 0.9144,2);
       }
       if(context.field == 'ydscheck'){
@@ -260,6 +275,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
       }
       if(context.field == 'met_origin'){
         pkl_data.met_origin = parseFloat(pkl_data.met_origin);
+        pkl_data.met_check = pkl_data.met_origin;
         pkl_data.ydsorigin = Ext.Number.roundToPrecision(pkl_data.met_origin / 0.9144,2);
       }
       if(context.field == 'met_check'){

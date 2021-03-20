@@ -267,7 +267,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         xtype:'button',
                                         text: 'Thêm',
                                         margin: 2,
-                                        itemId:'btnPlus',
+                                        itemId:'btnAdd',
                                         ui: 'action',
                                         // iconCls: 'x-fa fa-plus',
                                     }]

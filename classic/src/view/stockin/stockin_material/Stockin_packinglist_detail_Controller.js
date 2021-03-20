@@ -2,17 +2,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_packinglist_detail_Controller',
     init: function () {
+      var viewModel = this.getViewModel();
+      var PackingListStore = viewModel.getStore('PackingListStore');
+      // var stockinDRec = viewModel.get('stockinDRec');
+      // var pklist = stockinDRec.get('stockin_packinglist');
+      // if(pklist == null){
+      //   pklist = new Array();
+      // }
+  
+      // // console.log(pklist);
+      // var pklistStoreArray = new Array();
+      // for(var i=0; i < pklist.length; i++){
+      //     pklistStoreArray.push(pklist[i]);
+      // }
+      // PackingListStore.setData(pklistStoreArray);
     },
     control: {
+      '#lotnumber': {
+        specialkey: 'onSpecialkey'
+      },
       '#packageid': {
         specialkey: 'onSpecialkey'
       },
-      '#netweight': {
-        specialkey: 'onSpecialkey'
-      },
-      '#grossweight': {
-        specialkey: 'onSpecialkey'
-      },
+      // '#netweight': {
+      //   specialkey: 'onSpecialkey'
+      // },
+      // '#grossweight': {
+      //   specialkey: 'onSpecialkey'
+      // },
       '#met_origin': {
         specialkey: 'onSpecialkey'
       },
@@ -40,19 +57,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       var store = me.getStore();
       var storeItems = store.getData().items;
   
-      var found = storeItems.some(item => item.get('packageid') == me.down('#packageid').getValue());
+      var found = storeItems.some(
+        item => item.get('packageid') == me.down('#packageid').getValue() 
+        && item.get('lotnumber') == me.down('#lotnumber').getValue()
+        );
   
       if (e.getKey() == e.ENTER) {
-        if (field.itemId == "packageid") {
-          me.down('#netweight').focus();
+        if (field.itemId == "lotnumber") {
+          me.down('#packageid').focus();
         }
-        else if (field.itemId == "netweight") {
-          me.down('#grossweight').focus();
-        }
-        else if (field.itemId == "grossweight") {
-          me.down('#m3').focus();
-        }
-        else if (field.itemId == "m3") {
+        else if (field.itemId == "packageid") {
           me.down('#width').focus();
         }
         else if (field.itemId == "width") {
@@ -60,7 +74,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         }
         else if (field.itemId == "met_origin") {
           // console.log('enter');
-          if(me.down('#packageid').getValue() == ''){
+          if(me.down('#lotnumber').getValue() == ''){
+            me.down('#lotnumber').focus();
+          }else if(me.down('#packageid').getValue() == ''){
             me.down('#packageid').focus();
           }else if(found){
             // console.log('here yet');
@@ -94,6 +110,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       var lotnumber = viewModel.get('packinglist.lotnumber');
       var stockinDRec = viewModel.get('stockinDRec');
       var colorid_link = stockinDRec.get('colorid_link');
+      var color_name = stockinDRec.get('color_name');
   
       if(viewModel.get('packinglist.lotnumber') == null || viewModel.get('packinglist.lotnumber') == ''){
         mes = "Bạn chưa chọn số lót";
@@ -124,39 +141,39 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         packinglistObj.stockindid_link = stockindid_link;
         packinglistObj.skuid_link = skuid_link;
         packinglistObj.colorid_link = colorid_link;
+        packinglistObj.color_name = color_name;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
         packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
-        packinglistObj.met_check = 0;
+        packinglistObj.met_check = packinglistObj.met_origin;
         packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
-        packinglistObj.ydscheck = 0;
-        packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
-        packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
-        packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
+        packinglistObj.ydscheck = packinglistObj.ydsorigin;
+        // packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
+        // packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
+        // packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
         packinglistObj.width = me.down('#width').getValue() == '' ? 0 : parseFloat(me.down('#width').getValue());
-        packinglistObj.width_check = 0;
-        packinglistObj.status = -1;
-        packinglistObj.checked = 0;
+        packinglistObj.width_check = packinglistObj.width;
+        packinglistObj.status = 0;
+        packinglistObj.checked = 1;
   
         packinglist.push(packinglistObj);
   
-        packinglistStoreData = new Array();
-        for(var i = 0; i < packinglist.length; i++){
-          if(packinglist[i].lotnumber == lotnumber){
-            packinglistStoreData.push(packinglist[i]);
-          }
-        } 
+        // packinglistStoreData = new Array();
+        // for(var i = 0; i < packinglist.length; i++){
+        //   packinglistStoreData.push(packinglist[i]);
+        // } 
   
-        me.getStore().loadData(packinglistStoreData);
+        me.getStore().loadData(packinglist);
         me.getStore().commitChanges();
   
+        me.down('#lotnumber').setValue('');
         me.down('#packageid').setValue('');
         me.down('#met_origin').setValue('');
-        me.down('#m3').setValue('');
-        me.down('#netweight').setValue('');
-        me.down('#grossweight').setValue('');
+        // me.down('#m3').setValue('');
+        // me.down('#netweight').setValue('');
+        // me.down('#grossweight').setValue('');
         me.down('#width').setValue('');
-        me.down('#packageid').focus();
+        me.down('#lotnumber').focus();
       }
       this.reCalculateSkuGrid();
     },
@@ -318,9 +335,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       var packinglist = stockinDRec.get('stockin_packinglist');
       if(packinglist != null){
         var totalpackage = 0;
-        var netweight = 0;
-        var grossweight = 0;
-        var m3 = 0;
+        // var netweight = 0;
+        // var grossweight = 0;
+        // var m3 = 0;
         var yds = 0;
         var ydscheck = 0;
         var met = 0;
@@ -328,9 +345,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         
         for(var i = 0; i < packinglist.length; i++){
           totalpackage++;
-          netweight+=packinglist[i].netweight;
-          grossweight+=packinglist[i].grossweight;
-          m3+=packinglist[i].m3;
+          // netweight+=packinglist[i].netweight;
+          // grossweight+=packinglist[i].grossweight;
+          // m3+=packinglist[i].m3;
           yds+=packinglist[i].ydsorigin;
           ydscheck+=packinglist[i].ydscheck;
           met+=packinglist[i].met_origin;
@@ -338,9 +355,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         }
   
         stockinDRec.set('totalpackage', totalpackage);
-        stockinDRec.set('netweight', netweight);
-        stockinDRec.set('grossweight', grossweight);
-        stockinDRec.set('m3', m3);
+        // stockinDRec.set('netweight', netweight);
+        // stockinDRec.set('grossweight', grossweight);
+        // stockinDRec.set('m3', m3);
         stockinDRec.set('totalydsorigin', yds);
         stockinDRec.set('totalydscheck', ydscheck);
         stockinDRec.set('totalmet_origin', met);

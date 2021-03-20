@@ -15,12 +15,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist', {
             flex: 1,
             layout: 'border',
             items: [
-                {
-                    region: 'west',
-                    xtype: 'Stockin_packinglist_lotnumber',
-                    width: '15%',
-                    margin: 1
-                },
+                // {
+                //     region: 'west',
+                //     xtype: 'Stockin_packinglist_lotnumber',
+                //     width: '15%',
+                //     margin: 1
+                // },
                 {
                     region: 'center',
                     xtype: 'Stockin_packinglist_detail',
