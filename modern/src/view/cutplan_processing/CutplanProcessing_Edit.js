@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     readOnly: true,
                                     // cls: 'notEditable',
                                     bind: {
-                                        // value: '{stockin.stockindate}'
+                                        value: '{cutplanProcessing.processingdate}'
                                     }
                                 },{
                                     xtype: 'combobox',
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     // cls: 'notEditable',
                                     bind:{
                                         store:'{OrgStore}',
-                                        // value:'{stockin.stockintypeid_link}'
+                                        value:'{cutplanProcessing.cutorgid_link}'
                                     },
                                     displayField: 'name',
                                     valueField: 'id',
@@ -83,7 +83,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     clearable: false,
                                     // cls: 'notEditable',
                                     bind: {
-                                        // value: '{stockin.invoice_number}'
+                                        value: '{cutplanProcessing.pordercode}'
                                     }
                                 },{
                                     xtype:'button',
@@ -114,10 +114,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     readOnly: true,
                                     // cls: 'notEditable',
                                     bind:{
-                                        store:'{OrgStore}',
-                                        // value:'{stockin.stockintypeid_link}'
+                                        store:'{CutPlanRowStore}',
                                     },
-                                    displayField: 'name',
+                                    displayField: 'code',
                                     valueField: 'id',
                                     label: 'Sơ đồ cắt:',
                                     // disabled: true,
