@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                     //     '<div class="content1-sub2">Met kiểm: {stockinD.totalmet_check}</div>' +
                     // '</div>' +
 
-                    '<div class="content1">' +
+                    '<div class="content1 unitid_link1{stockin.unitid_link}">' +
                         '<div class="content1-sub1">Met nhập: </div>'+
                         '<div class="content1-sub2">{stockinD.totalmet_origin}</div>' +
                         '<div class="content1-sub1">Met kiểm: </div>'+
@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                     //     '<div class="content1-sub2">YDS kiểm: {stockinD.totalydscheck}</div>' +
                     // '</div>' +
 
-                    '<div class="content1">' +
+                    '<div class="content1 unitid_link3{stockin.unitid_link}">' +
                         '<div class="content1-sub1">YDS nhập: </div>'+
                         '<div class="content1-sub2">{stockinD.totalydsorigin}</div>' +
                         '<div class="content1-sub1">YDS kiểm: </div>'+
@@ -114,7 +114,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
     ],
     bbar: [
         {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             itemId: 'lotnumberTxt',
             // label: 'Màu:',
             // labelWidth: 85,
@@ -157,6 +157,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                 buffer: 1000
             }
         },
+
+        {
+            xtype: 'numberfield',
+            itemId: 'mTxt',
+            // label: 'Màu:',
+            // labelWidth: 85,
+            flex: 1,
+            minWidth: 80,
+            maxWidth: 130,
+            textAlign: 'left',
+            placeholder: 'Số M',
+            // editable: false,
+            // readOnly: true,
+            clearable: false,
+            // cls: 'notEditable',
+            bind: {
+                value: '{mTxt}',
+                cls: '{yTxtCls}',
+                hidden: '{isMetColumnHidden}',
+            },
+        },
         {
             xtype: 'numberfield',
             itemId: 'yTxt',
@@ -174,6 +195,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             bind: {
                 value: '{yTxt}',
                 cls: '{yTxtCls}',
+                hidden: '{isYdsColumnHidden}',
             },
         },
         '->',

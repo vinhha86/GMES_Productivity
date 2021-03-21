@@ -53,6 +53,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         flex: 1,
+        bind: {
+            hidden: '{isMetColumnHidden}',
+        },
     },{
         xtype: 'numbercolumn',
         format:'0,000.00',
@@ -62,6 +65,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         summaryRenderer: 'renderSum',
         dataIndex: 'totalmet_check',
         flex: 1,
+        bind: {
+            hidden: '{isMetColumnHidden}',
+        },
+    },
+    {
+        xtype: 'numbercolumn',
+        format:'0,000.00',
+        text: 'SL nhập (y)', 
+        align:'right',
+        dataIndex: 'totalydsorigin',
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum',
+        flex: 1,
+        bind: {
+            hidden: '{isYdsColumnHidden}',
+        },
+    },{
+        xtype: 'numbercolumn',
+        format:'0,000.00',
+        text: 'SL kiểm (y)', 
+        align:'right',
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum',
+        dataIndex: 'totalydscheck',
+        flex: 1,
+        bind: {
+            hidden: '{isYdsColumnHidden}',
+        },
     },
     ],
 

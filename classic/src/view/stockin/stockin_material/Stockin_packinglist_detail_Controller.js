@@ -152,6 +152,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         packinglistObj.color_name = color_name;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
+        packinglistObj.unitid_link = stockin.unitid_link;
 
         if(!viewModel.get('isMetColumnHidden')){
           packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());

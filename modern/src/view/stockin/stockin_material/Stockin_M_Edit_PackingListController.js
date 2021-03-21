@@ -133,15 +133,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var lotnumberTxt = viewModel.get('lotnumberTxt');
         var packageidTxt = viewModel.get('packageidTxt');
         var yTxt = viewModel.get('yTxt');
+        var mTxt = viewModel.get('mTxt');
 
         if(lotnumberTxt == '' || packageidTxt == '' || yTxt == ''){
             Ext.toast('Thông tin không được bỏ trống', 1000);
             return;
         }
 
-        if(isNaN(yTxt)){
-            Ext.toast('Số Y phải là số', 1000);
-            return;
+        if(stockin.unitid_link == 3){
+            if(isNaN(yTxt)){
+                Ext.toast('Số Y phải là số', 1000);
+                return;
+            }
+        }
+        if(stockin.unitid_link == 1){
+            if(isNaN(mTxt)){
+                Ext.toast('Số M phải là số', 1000);
+                return;
+            }
         }
 
         var view = Ext.getCmp('Stockin_M_Edit_PackingList_D');
@@ -154,14 +163,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             var item = items[i];
             if(item.get('lotnumber') == lotnumberTxt && item.get('packageid') == packageidTxt){
                 isExist = true;
-                var ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
-                var met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
+
+                var ydscheck = 0;
+                var met_check = 0;
+                if(stockin.unitid_link == 3){
+                    ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
+                    met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
+                }
+                if(stockin.unitid_link == 1){
+                    met_check = Ext.util.Format.number(parseFloat(mTxt), '0.00');
+                    ydscheck = Ext.util.Format.number(met_check / 0.9144, '0.00');
+                }
+                
                 item.set('ydscheck', ydscheck);
                 item.set('met_check', met_check);
                 item.set('checked', 1);
                 item.set('status', 0);
 
                 if(item.get('ydscheck') == item.get('ydsorigin')){
+                    item.set('warning', 'warning2');
+                }else if(item.get('met_check') == item.get('met_origin')){
                     item.set('warning', 'warning2');
                 }else{
                     item.set('warning', 'warning1');
@@ -171,8 +192,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
 
         // nếu ko có trong danh sách, thêm cây vải
         if(!isExist){
-            var ydsorigin = Ext.util.Format.number(parseFloat(yTxt), '0.00');
-            var met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
+            var ydsorigin = 0;
+            var met_origin = 0;
+            if(stockin.unitid_link == 3){
+                ydsorigin = Ext.util.Format.number(parseFloat(yTxt), '0.00');
+                met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
+            }
+            if(stockin.unitid_link == 1){
+                met_origin = Ext.util.Format.number(parseFloat(mTxt), '0.00');
+                ydsorigin = Ext.util.Format.number(met_origin / 0.9144, '0.00');
+            }
 
             var newObj = new Object();
             newObj.checked = 0;
@@ -189,7 +218,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             newObj.status = -1;
             newObj.skucode = stockinD.skucode;
             newObj.skuid_link = stockinD.skuid_link;
-            newObj.unitid_link = stockinD.unitid_link;
+            newObj.unitid_link = stockin.unitid_link;
             newObj.unitname = stockinD.unit_name;
             newObj.warning = 'warning0';
             newObj.width = 0;
@@ -220,6 +249,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         viewModel.set('lotnumberTxt', '');
         viewModel.set('packageidTxt', '');
         viewModel.set('yTxt', '');
+        viewModel.set('mTxt', '');
         viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
 
         m.getView().down('#lotnumberTxt').focus();
