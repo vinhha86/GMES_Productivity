@@ -33,6 +33,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_ViewModel', {
             width: null
         },
         invoice: null,
-        invoiceDRec: null 
+        invoiceDRec: null,
+        // stockin: null,
+        // stockinDRec: null,
+    },
+    formulas: {
+		isMetColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+        isYdsColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
     }
 })

@@ -80,6 +80,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
             viewModel.set('stockin.invoice_number', invoice.invoicenumber);
             viewModel.set('stockin.invoice_date', invoice.invoicedate);
             viewModel.set('stockin.material_invoiceid_link', invoice.id);
+            viewModel.set('stockin.unitid_link', invoice.unitid_link);
             if(viewModel.get('stockin.stockin_d') == null){
                 viewModel.set('stockin.stockin_d', new Array());
             }
@@ -172,4 +173,29 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
             m.onInvoice_Search();
         }
     },
+
+    onSelectUnit: function(combo, record, eOpts){
+        // console.log('onSelectUnit');
+        // console.log(record);
+        var viewmodel = this.getViewModel();
+        var stockin = viewmodel.get('stockin'); // stockin_d // stockin_packinglist
+        var unitid_link = record.get('id');
+
+        var stockin_d = stockin.stockin_d;
+		if(stockin_d != null){
+			for(var i = 0; i < stockin_d.length; i++){
+                var stockinD_data = stockin_d[i];
+				stockin_d[i].unitid_link = unitid_link;
+
+                if(stockin.unitid_link == 1){
+                    stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met*stockinD_data.unitprice,2);
+                }else if(stockin.unitid_link == 3){
+                    stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds*stockinD_data.unitprice,2);
+                }
+
+			}
+		}
+        // console.log(stockin);
+        viewmodel.set('stockin', stockin);
+    }
 })

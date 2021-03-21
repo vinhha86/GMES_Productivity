@@ -206,6 +206,23 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 //     fieldLabel: "Ngày yêu cầu"
                 // },
                 {
+                    xtype:'combo',
+                    fieldLabel: 'Đ/vị tính',
+                    bind:{
+                        store: '{UnitStore}',
+                        value: '{stockout.unitid_link}'
+                    },
+                    valueField: 'id',
+                    displayField: 'name',
+                    margin: '0 5 0 0',
+                    labelWidth: 90,
+                    width: 220,
+                    queryMode: 'local',
+                    listeners: {
+                        select: 'onSelectUnit'
+                    },
+                },
+                {
                     margin: '0 5 0 5',
                     xtype: 'textfield',
                     itemId: 'statusString',

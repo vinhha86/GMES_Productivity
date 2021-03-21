@@ -161,7 +161,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
         },
 		{
 			text: 'SL nhập (m)', 
@@ -179,7 +182,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
         },
 		{
 			text: 'SL Invoice (y)', 
@@ -197,7 +203,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
         },
 		{
 			text: 'SL nhập (y)', 
@@ -215,7 +224,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
         },
 		{
 			text: 'Ghi chú', 
@@ -333,7 +345,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			hideLabel: true,
 			maskRe: /[0-9.]/,
             bind:{
-				value: '{packinglist.met_origin}'
+				value: '{packinglist.met_origin}',
+				hidden: '{isMetColumnHidden}',
+            }
+		},
+
+        {
+			xtype: 'textfield',
+			margin: 1,
+			itemId:'ydsorigin',
+			emptyText: 'SL Nhập (y)',
+			width: 120,
+			labelWidth: 0,
+			hideLabel: true,
+			maskRe: /[0-9.]/,
+            bind:{
+				value: '{packinglist.ydsorigin}',
+				hidden: '{isYdsColumnHidden}',
             }
 		},		
 		{

@@ -43,7 +43,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		},
 		porderStore: {
 			type: 'POrder_ListStore'
-		}
+		},
+        UnitStore: {
+            type: 'UnitStore'
+        },
 	},
 	data: {
 		urlback:'',
@@ -82,6 +85,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
             }else {
                 return true;
             }
-        }
+        },
+		isMetColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+        isYdsColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
     }
 })

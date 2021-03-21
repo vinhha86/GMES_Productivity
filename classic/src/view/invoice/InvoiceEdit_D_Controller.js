@@ -144,6 +144,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
                     invoicedObj.totalamount = 0;
                     invoicedObj.yds = 0;
                     invoicedObj.met = 0;
+                    invoicedObj.unitid_link = invoice.unitid_link;
 
                     invoiced.push(invoicedObj);
                 }
@@ -224,6 +225,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
                     invoicedObj.totalamount = 0;
                     invoicedObj.yds = 0;
                     invoicedObj.met = 0;
+                    invoicedObj.unitid_link = invoice.unitid_link;
 
                     invoiced.push(invoicedObj);
                 }
@@ -408,14 +410,26 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
             invoiceD_data.m3 = parseFloat(invoiceD_data.m3);
         }
 
-        if(context.field == 'met' && (invoiceD_data.unitprice != null || invoiceD_data.unitprice != "")){
-            // console.log('yds');
-            invoiceD_data.yds = Ext.Number.roundToPrecision(invoiceD_data.met / 0.9144,2);
-            invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.met*invoiceD_data.unitprice,2);
-        }
-        if(context.field == 'unitprice' && (invoiceD_data.met != null || invoiceD_data.met != "")){
-            // console.log('unitprice');
-            invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.met*invoiceD_data.unitprice,2);
+        if(invoice.unitid_link == 1){
+            if(context.field == 'met' && (invoiceD_data.unitprice != null || invoiceD_data.unitprice != "")){
+                // console.log('yds');
+                invoiceD_data.yds = Ext.Number.roundToPrecision(invoiceD_data.met / 0.9144,2);
+                invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.met*invoiceD_data.unitprice,2);
+            }
+            if(context.field == 'unitprice' && (invoiceD_data.met != null || invoiceD_data.met != "")){
+                // console.log('unitprice');
+                invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.met*invoiceD_data.unitprice,2);
+            }
+        }else if(invoice.unitid_link == 3){
+            if(context.field == 'yds' && (invoiceD_data.unitprice != null || invoiceD_data.unitprice != "")){
+                // console.log('yds');
+                invoiceD_data.met = Ext.Number.roundToPrecision(invoiceD_data.yds * 0.9144,2);
+                invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.yds*invoiceD_data.unitprice,2);
+            }
+            if(context.field == 'unitprice' && (invoiceD_data.yds != null || invoiceD_data.yds != "")){
+                // console.log('unitprice');
+                invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.yds*invoiceD_data.unitprice,2);
+            }
         }
 
         store.commitChanges();

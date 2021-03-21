@@ -45,6 +45,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
   },
   onSpecialkey: function (field, e) {
     var me = this.getView();
+    var viewModel = this.getViewModel();
 
     var store = me.getStore();
     var storeItems = store.getData().items;
@@ -288,7 +289,7 @@ Ext.define('GSmartApp.view.invoice.invoice_packinglist_detail_Controller', {
         yds+=packinglist[i].ydsorigin;
       }
 
-      invoiceDRec.set('totalpackage', totalpackage);
+      // invoiceDRec.set('totalpackage', totalpackage);
       invoiceDRec.set('netweight', netweight);
       invoiceDRec.set('grossweight', grossweight);
       invoiceDRec.set('m3', m3);

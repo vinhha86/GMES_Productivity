@@ -68,7 +68,9 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 					},
 					displayField: 'code',
 					valueField: 'id',
-					queryMode : 'local'                
+					queryMode : 'local',
+					editable: false,
+					readOnly: true
 				}
 			},
 			renderer: 'renderUnit'
@@ -166,7 +168,32 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
+		},{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Nhập (y)', 
+			align:'right',
+			dataIndex: 'yds',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 85,
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000',
@@ -202,15 +229,15 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D', {
 		{ 
 			xtype: 'actioncolumn',
 			reference: 'stockin_contextmenu',
-			width: 45,
+			width: 30,
 			menuDisabled: true,
 			sortable: false,
 			items: [
-			{
-				iconCls: 'x-fa fas fa-bars violetIcon',
-				tooltip:'PackingList',
-				handler: 'onViewPackingList'
-			},
+			// {
+			// 	iconCls: 'x-fa fas fa-bars violetIcon',
+			// 	tooltip:'PackingList',
+			// 	handler: 'onViewPackingList'
+			// },
 			{
 				iconCls: 'x-fa fas fa-trash',
 				tooltip: 'Xóa',

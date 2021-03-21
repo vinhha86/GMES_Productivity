@@ -47,8 +47,27 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			flex: 1
 		},{
 			text: 'ĐVT', 
-			dataIndex: 'unit_name',
-			flex: 1
+			dataIndex: 'unitid_link',
+			width: 70,
+			editor: {
+				completeOnEnter: true,
+				field: {
+					xtype: 'combo',
+					typeAhead: true,
+					triggerAction: 'all',
+					selectOnFocus: false,
+					bind: {
+						store: '{UnitStore}',
+						// value: '{unitid_link}'
+					},
+					displayField: 'code',
+					valueField: 'id',
+					queryMode : 'local',
+					editable: false,
+					readOnly: true
+				}
+			},
+			renderer: 'renderUnit'
 		},
         // {
 		// 	xtype: 'numbercolumn',
@@ -108,7 +127,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90
+			width: 90,
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
 		},
 		// {
 		// 	xtype: 'numbercolumn',
@@ -128,7 +150,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			dataIndex: 'totalydsorigin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90
+			width: 90,
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
 		},
 		// {
 		// 	xtype: 'numbercolumn',

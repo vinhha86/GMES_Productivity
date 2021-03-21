@@ -33,6 +33,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       '#met_origin': {
         specialkey: 'onSpecialkey'
       },
+      '#ydsorigin': {
+        specialkey: 'onSpecialkey'
+      },
       '#m3': {
         specialkey: 'onSpecialkey'
       },
@@ -52,6 +55,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + value + '</div>';
     },
     onSpecialkey: function (field, e) {
+      var viewModel = this.getViewModel();
       var me = this.getView();
   
       var store = me.getStore();
@@ -70,9 +74,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
           me.down('#width').focus();
         }
         else if (field.itemId == "width") {
-          me.down('#met_origin').focus();
+          if(!viewModel.get('isMetColumnHidden')){
+            me.down('#met_origin').focus();
+          }else if(!viewModel.get('isYdsColumnHidden')){
+            me.down('#ydsorigin').focus();
+          }
         }
-        else if (field.itemId == "met_origin") {
+        else if (field.itemId == "met_origin" || field.itemId == "ydsorigin") {
           // console.log('enter');
           if(me.down('#lotnumber').getValue() == ''){
             me.down('#lotnumber').focus();
@@ -144,10 +152,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         packinglistObj.color_name = color_name;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
-        packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
-        packinglistObj.met_check = packinglistObj.met_origin;
-        packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
-        packinglistObj.ydscheck = packinglistObj.ydsorigin;
+
+        if(!viewModel.get('isMetColumnHidden')){
+          packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
+          packinglistObj.met_check = packinglistObj.met_origin;
+          packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
+          packinglistObj.ydscheck = packinglistObj.ydsorigin;
+        }else if(!viewModel.get('isYdsColumnHidden')){
+          packinglistObj.ydsorigin = me.down('#ydsorigin').getValue() == '' ? 0 : parseFloat(me.down('#ydsorigin').getValue());
+          packinglistObj.ydscheck = packinglistObj.ydsorigin;
+          packinglistObj.met_origin = Ext.Number.roundToPrecision(packinglistObj.ydsorigin * 0.9144,2);
+          packinglistObj.met_check = packinglistObj.met_origin;
+        }
+
         // packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
         // packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
         // packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
@@ -169,6 +186,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         me.down('#lotnumber').setValue('');
         me.down('#packageid').setValue('');
         me.down('#met_origin').setValue('');
+        me.down('#ydsorigin').setValue('');
         // me.down('#m3').setValue('');
         // me.down('#netweight').setValue('');
         // me.down('#grossweight').setValue('');

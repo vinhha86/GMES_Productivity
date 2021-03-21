@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
       '#met_origin': {
         specialkey: 'onSpecialkey'
       },
+      '#ydsorigin': {
+        specialkey: 'onSpecialkey'
+      },
     //   '#m3': {
     //     specialkey: 'onSpecialkey'
     //   },
@@ -39,6 +42,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
     },
     onSpecialkey: function (field, e) {
       var me = this.getView();
+      var viewModel = this.getViewModel();
   
       var store = me.getStore();
       var storeItems = store.getData().items;
@@ -55,19 +59,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         else if (field.itemId == "packageid") {
           me.down('#widthorigin').focus();
         }
-        // else if (field.itemId == "netweight") {
-        //   me.down('#grossweight').focus();
-        // }
-        // else if (field.itemId == "grossweight") {
-        //   me.down('#widthorigin').focus();
-        // }
-        // else if (field.itemId == "m3") {
-        //   me.down('#width').focus();
-        // }
         else if (field.itemId == "widthorigin") {
-          me.down('#met_origin').focus();
+          if(!viewModel.get('isMetColumnHidden')){
+            me.down('#met_origin').focus();
+          }else if(!viewModel.get('isYdsColumnHidden')){
+            me.down('#ydsorigin').focus();
+          }
         }
-        else if (field.itemId == "met_origin") {
+        else if (field.itemId == "met_origin" || field.itemId == "ydsorigin") {
           // console.log('enter');
           if(me.down('#lotnumber').getValue() == ''){
             me.down('#lotnumber').focus();
@@ -139,13 +138,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         packinglistObj.color_name = color_name;
         packinglistObj.lotnumber = lotnumber;
         packinglistObj.packageid = me.down('#packageid').getValue();
-        packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
-        packinglistObj.met_check = packinglistObj.met_origin;
-        packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
-        packinglistObj.ydscheck = packinglistObj.ydsorigin;
-        // packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
-        // packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
-        // packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
+
+        if(!viewModel.get('isMetColumnHidden')){
+          packinglistObj.met_origin = me.down('#met_origin').getValue() == '' ? 0 : parseFloat(me.down('#met_origin').getValue());
+          packinglistObj.met_check = packinglistObj.met_origin;
+          packinglistObj.ydsorigin = Ext.Number.roundToPrecision(packinglistObj.met_origin / 0.9144,2);
+          packinglistObj.ydscheck = packinglistObj.ydsorigin;
+        }else if(!viewModel.get('isYdsColumnHidden')){
+          packinglistObj.ydsorigin = me.down('#ydsorigin').getValue() == '' ? 0 : parseFloat(me.down('#ydsorigin').getValue());
+          packinglistObj.ydscheck = packinglistObj.ydsorigin;
+          packinglistObj.met_origin = Ext.Number.roundToPrecision(packinglistObj.ydsorigin * 0.9144,2);
+          packinglistObj.met_check = packinglistObj.met_origin;
+        }
+
         packinglistObj.widthorigin = me.down('#widthorigin').getValue() == '' ? 0 : parseFloat(me.down('#widthorigin').getValue());
         packinglistObj.widthcheck = packinglistObj.widthorigin;
         // packinglistObj.status = -1;

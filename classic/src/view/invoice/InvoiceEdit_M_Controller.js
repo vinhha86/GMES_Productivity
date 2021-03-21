@@ -15,6 +15,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
 
         var porttostore = viewmodel.getStore('PortToStore');
         porttostore.loadStore(15, false);
+
     },
     control: {
 		'#btnPContract_Search': {
@@ -201,4 +202,28 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M_Controller', {
                 }
             })
     },
+    onSelectUnit: function(combo, record, eOpts){
+        // console.log('onSelectUnit');
+        // console.log(record);
+        var viewmodel = this.getViewModel();
+        var invoice = viewmodel.get('invoice'); // invoice_d // packinglist
+        var unitid_link = record.get('id');
+
+        var invoice_d = invoice.invoice_d;
+		if(invoice_d != null){
+			for(var i = 0; i < invoice_d.length; i++){
+                var invoiceD_data = invoice_d[i];
+				invoice_d[i].unitid_link = unitid_link;
+
+                if(invoice.unitid_link == 1){
+                    invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.met*invoiceD_data.unitprice,2);
+                }else if(invoice.unitid_link == 3){
+                    invoiceD_data.totalamount = Ext.Number.roundToPrecision(invoiceD_data.yds*invoiceD_data.unitprice,2);
+                }
+
+			}
+		}
+        // console.log(invoice);
+        viewmodel.set('invoice', invoice);
+    }
 })

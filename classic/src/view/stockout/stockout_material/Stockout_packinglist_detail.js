@@ -161,7 +161,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
         },
 		// {
 		// 	text: 'SL xuất (m)', 
@@ -197,7 +200,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
         },
 		// {
 		// 	text: 'SL xuất (y)', 
@@ -332,7 +338,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			hideLabel: true,
 			maskRe: /[0-9.]/,
             bind:{
-				value: '{packinglist.met_origin}'
+				value: '{packinglist.met_origin}',
+				hidden: '{isMetColumnHidden}',
+            }
+		},		
+        {
+			xtype: 'textfield',
+			itemId:'ydsorigin',
+			emptyText: 'SL xuất (y)',
+			width: 120,
+			labelWidth: 0,
+			hideLabel: true,
+			maskRe: /[0-9.]/,
+            bind:{
+				value: '{packinglist.ydsorigin}',
+				hidden: '{isYdsColumnHidden}',
             }
 		},		
 		{

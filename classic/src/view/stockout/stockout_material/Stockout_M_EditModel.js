@@ -40,7 +40,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		},
 		CurrencyStore: {
 			type : 'CurrencyStore'
-		}
+		},
+        UnitStore: {
+            type: 'UnitStore'
+        },
 	},
 	data: {
         stockout: {
@@ -74,6 +77,26 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
             }else {
                 return true;
             }
-        }
+        },
+		isMetColumnHidden: function (get) {
+            var unitid_link = get('stockout.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+        isYdsColumnHidden: function (get) {
+            var unitid_link = get('stockout.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
     }
 });

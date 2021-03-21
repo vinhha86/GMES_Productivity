@@ -372,6 +372,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         form.show();
 	},
 
+	renderUnit: function(val, meta, record, rindex, cindex, store) {
+        if (null != val){
+            var viewModel = this.getViewModel();
+            var UnitStore = viewModel.getStore('UnitStore');
+            if (null!=UnitStore){
+                var objUnit = UnitStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.code;
+            }
+        }
+    },
+
     onViewPackingList: function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
         var stockin = viewmodel.get('stockin');
@@ -527,6 +539,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                     stockin_dObj.unitprice = 0;
                     stockin_dObj.totalamount = 0;
                     stockin_dObj.yds = 0;
+					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
 
 					stockin_dObj.totalmet_origin = 0;
                     stockin_dObj.totalmet_check = 0;

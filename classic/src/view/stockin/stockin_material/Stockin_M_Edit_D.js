@@ -49,15 +49,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			width: 90
+			flex: 1
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
 			width: 70
 		},{
 			text: 'ĐVT', 
-			dataIndex: 'unit_name',
-			width: 70
+			dataIndex: 'unitid_link',
+			width: 70,
+			editor: {
+				completeOnEnter: true,
+				field: {
+					xtype: 'combo',
+					typeAhead: true,
+					triggerAction: 'all',
+					selectOnFocus: false,
+					bind: {
+						store: '{UnitStore}',
+						// value: '{unitid_link}'
+					},
+					displayField: 'code',
+					valueField: 'id',
+					queryMode : 'local',
+					editable: false,
+					readOnly: true
+				}
+			},
+			renderer: 'renderUnit'
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -115,7 +134,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90
+			width: 90,
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -124,7 +146,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalmet_check',
-			width: 85
+			width: 85,
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
 		},
 		{
 			xtype: 'numbercolumn',
@@ -134,7 +159,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			dataIndex: 'totalydsorigin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90
+			width: 90,
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -143,7 +171,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalydscheck',
-			width: 85
+			width: 85,
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
 		},
 		{ 
 			xtype: 'actioncolumn',

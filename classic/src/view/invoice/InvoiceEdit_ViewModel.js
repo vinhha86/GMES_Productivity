@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
 		},
 		SKUBalanceStore: {
 			type: 'SKUBalanceStore'
-		}
+		},
     },
 	data: {
         IsformMaster: false,
@@ -33,5 +33,27 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_ViewModel', {
             invoice_d: []
         },
         skucode: '',
+    },
+    formulas: {
+        isMetColumnHidden: function (get) {
+            var unitid_link = get('invoice.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+        isYdsColumnHidden: function (get) {
+            var unitid_link = get('invoice.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
     }
 })

@@ -2,7 +2,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_Edit_Controller',
 	init: function() {
-        
+        var viewModel = this.getViewModel();
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
+		var UnitStoreFilters = UnitStore.getFilters();
+		if (!this.UnitStoreFilters) {
+            this.UnitStoreFilters = UnitStoreFilters.add({
+                id: 'UnitStoreFilters',
+                property: 'unittype',
+                value: 0,
+                exactMatch: true,
+            });
+        }
     },
     listen: {
         controller: {
@@ -38,6 +49,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('listepc', new Map());
         viewModel.set('stockin.orgid_to_link', session.orgid_link);
         viewModel.set('stockin.stockintypeid_link', id);
+        viewModel.set('stockin.unitid_link', 1);
         viewModel.set('stockin.status', -1);
 
         // set store org from

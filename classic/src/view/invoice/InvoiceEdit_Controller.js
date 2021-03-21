@@ -5,6 +5,15 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		var viewModel = this.getViewModel();
 		var UnitStore = viewModel.getStore('UnitStore');
 		UnitStore.loadStore();
+		var UnitStoreFilters = UnitStore.getFilters();
+		if (!this.UnitStoreFilters) {
+            this.UnitStoreFilters = UnitStoreFilters.add({
+                id: 'UnitStoreFilters',
+                property: 'unittype',
+                value: 0,
+                exactMatch: true,
+            });
+        }
     },
     listen: {
         controller: {
@@ -26,6 +35,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
 		if(id == 0){
 			var viewmodel = this.getViewModel();
 			viewmodel.set('invoice.invoicedate', new Date());
+			viewmodel.set('invoice.unitid_link', 1);
 		}else{
 			this.getInfo(id);
 		}
@@ -34,6 +44,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_Controller', {
     onNewData: function(){
         var viewmodel = this.getViewModel();
         viewmodel.set('invoice.invoicedate', new Date());
+		viewmodel.set('invoice.unitid_link', 1);
     },
     getInfo: function(id){        
         var me = this.getView();

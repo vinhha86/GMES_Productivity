@@ -191,6 +191,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				fieldLabel: "Ngày Invoice"
 			},
 			{
+				xtype:'combo',
+				fieldLabel: 'Đ/vị tính',
+				bind:{
+					store: '{UnitStore}',
+					value: '{stockin.unitid_link}'
+				},
+				valueField: 'id',
+				displayField: 'name',
+				margin: '0 5 0 5',
+				width: 200,
+            	labelWidth: 70,
+				queryMode: 'local',
+				listeners: {
+					select: 'onSelectUnit'
+				},
+			},
+			{
 				margin: '0 5 0 5',
 				xtype: 'textfield',
 				itemId: 'statusString',
@@ -199,8 +216,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				},
 				readOnly: true,
 				fieldLabel: "Trạng thái",
-				width: 200,
-            	labelWidth: 70
+				labelWidth: 85,
+				flex: 1
 			}
 		]
 	}]

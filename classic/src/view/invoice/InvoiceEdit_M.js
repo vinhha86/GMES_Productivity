@@ -241,8 +241,26 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
                         width: 220,
                         bind: {
                             value: '{invoice.contractdate}'
-                        }
-                    }
+                        },
+                        hidden: true
+                    },
+                    {
+                        xtype:'combo',
+                        fieldLabel: 'Đ/vị tính',
+                        bind:{
+                            store: '{UnitStore}',
+                            value: '{invoice.unitid_link}'
+                        },
+                        valueField: 'id',
+                        displayField: 'name',
+                        margin: '0 5 0 0',
+                        labelWidth: 90,
+                        width: 220,
+                        queryMode: 'local',
+                        listeners: {
+                            select: 'onSelectUnit'
+                        },
+                    },
                 ]
             },            
             {

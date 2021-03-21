@@ -4,6 +4,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	init: function(){
 		var devicestore = this.getViewModel().getStore('DeviceInvStore');
 		devicestore.loadStore(3);
+
+		var viewModel = this.getViewModel();
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
+		var UnitStoreFilters = UnitStore.getFilters();
+		if (!this.UnitStoreFilters) {
+            this.UnitStoreFilters = UnitStoreFilters.add({
+                id: 'UnitStoreFilters',
+                property: 'unittype',
+                value: 0,
+                exactMatch: true,
+            });
+        }
 	},
 	listen: {
         controller: {
@@ -37,6 +50,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
 	},
+	renderUnit: function(val, meta, record, rindex, cindex, store) {
+        if (null != val){
+            var viewModel = this.getViewModel();
+            var UnitStore = viewModel.getStore('UnitStore');
+            if (null!=UnitStore){
+                var objUnit = UnitStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.code;
+            }
+        }
+    },
 	onhiddenMaster: function(){
 		var view =this.getView();
 		var viewModel = this.getViewModel();
@@ -104,6 +128,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		viewModel.set('stockout.orgid_from_link', session.org_grant_id_link);
 		viewModel.set('listepc', new Map());
         viewModel.set('stockout.stockouttypeid_link', id);
+        viewModel.set('stockout.unitid_link', 1);
         viewModel.set('stockout.status', 0);
 
 		// console.log(session);
