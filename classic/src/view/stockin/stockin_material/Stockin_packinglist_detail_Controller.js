@@ -376,9 +376,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         // stockinDRec.set('netweight', netweight);
         // stockinDRec.set('grossweight', grossweight);
         // stockinDRec.set('m3', m3);
-        stockinDRec.set('totalydsorigin', yds);
+        // stockinDRec.set('totalydsorigin', yds);
         stockinDRec.set('totalydscheck', ydscheck);
-        stockinDRec.set('totalmet_origin', met);
+        // stockinDRec.set('totalmet_origin', met);
         stockinDRec.set('totalmet_check', metcheck);
   
         Ext.getCmp('Stockin_M_Edit_D').getStore().commitChanges();

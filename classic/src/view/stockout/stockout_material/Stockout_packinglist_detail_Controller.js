@@ -363,9 +363,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         // stockoutDRec.set('netweight', netweight);
         // stockoutDRec.set('grossweight', grossweight);
         // stockoutDRec.set('m3', m3);
-        stockoutDRec.set('totalydsorigin', yds);
+        // stockoutDRec.set('totalydsorigin', yds);
         stockoutDRec.set('totalydscheck', ydscheck);
-        stockoutDRec.set('totalmet_origin', met);
+        // stockoutDRec.set('totalmet_origin', met);
         stockoutDRec.set('totalmet_check', metcheck);
   
         Ext.getCmp('Stockout_M_Edit_D').getStore().commitChanges();
