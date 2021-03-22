@@ -42,12 +42,33 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
-        // console.log(session);
 
+
+        //Lay thong tin chi tiet nguoi dung Login
+        var session = GSmartApp.util.State.get('session');
+        var GpayUserOrg = viewModel.getStore('GpayUserOrg');
+        GpayUserOrg.loadUserInfo(session.id);
+        GpayUserOrg.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+                    // console.log(records[0].data);
+                    if (null!=records[0].data){
+                        viewModel.set('stockin.orgid_to_link', records[0].data.org_grant_id_link);
+                    } else {
+                        viewModel.set('stockin.orgid_to_link', session.orgid_link);
+                    }
+                    
+                }
+			}
+		}); 
+        
         viewModel.set('stockin.stockindate',new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
         viewModel.set('listepc', new Map());
-        viewModel.set('stockin.orgid_to_link', session.orgid_link);
+
         viewModel.set('stockin.stockintypeid_link', id);
         viewModel.set('stockin.unitid_link', 1);
         viewModel.set('stockin.status', -1);

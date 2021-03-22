@@ -47,6 +47,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         UnitStore: {
             type: 'UnitStore'
         },
+		GpayUserOrg: {
+            type: 'GpayUserOrg'
+        },
 	},
 	data: {
 		urlback:'',
