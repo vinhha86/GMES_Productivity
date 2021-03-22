@@ -37,7 +37,8 @@ Ext.define('GSmartApp.view.product.ProductImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -70,7 +71,8 @@ Ext.define('GSmartApp.view.product.ProductImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -103,7 +105,8 @@ Ext.define('GSmartApp.view.product.ProductImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -136,7 +139,8 @@ Ext.define('GSmartApp.view.product.ProductImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
@@ -169,7 +173,8 @@ Ext.define('GSmartApp.view.product.ProductImageView', {
                     },
                     el: {
                         click: 'onView',
-                        dblclick: 'OpenFileDialog'
+                        dblclick: 'OpenFileDialog',
+                        contextmenu: 'onDelete'
                     }
                 }
             }]
