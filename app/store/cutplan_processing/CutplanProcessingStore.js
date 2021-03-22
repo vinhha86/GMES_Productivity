@@ -19,7 +19,7 @@ Ext.define('GSmartApp.store.cutplan_processing.CutplanProcessingStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/cutplan_processing/cutplan_processing_list',
+			url: config.getAppBaseUrl()+'/api/v1/cutplan_processing/cutplan_processing_list',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,

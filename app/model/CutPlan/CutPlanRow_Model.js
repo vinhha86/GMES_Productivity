@@ -10,6 +10,7 @@ Ext.define('GSmartApp.model.CutPlan.CutPlanRow_Model', {
         'so_cay',
         'so_cay_giu',
         'ngay',
+        'type',
         {
             name: 'sl_vai',
             calculate: function(data) {

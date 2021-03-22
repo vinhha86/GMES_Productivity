@@ -28,24 +28,25 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         rows: false,
         cells: true
     },
+    
 
     bind: {
         // store:'{cutplanProcessing.cutplanProcessingD}',  
-        store: '{OrgStore}'
+        store: '{CutplanProcessingDStore}'
     },
 
     columns: [
     {
         text: 'Số cây',
         flex: 1,
-        // dataIndex: 'skucode'
+        dataIndex: 'packageid'
     },
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
         text: 'Số M', 
         align:'right',
-        // dataIndex: 'totalmet_origin',
+        dataIndex: 'met',
         // summaryType: 'sum',
         // summaryRenderer: 'renderSum',
         flex: 1,
@@ -56,7 +57,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         align:'right',
         // summaryType: 'sum',
         // summaryRenderer: 'renderSum',
-        // dataIndex: 'totalmet_check',
+        dataIndex: 'la_vai',
         flex: 1,
     },
     {
@@ -64,7 +65,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         format:'0,000.00',
         text: 'Tiêu hao', 
         align:'right',
-        // dataIndex: 'totalmet_origin',
+        dataIndex: 'tieu_hao',
         // summaryType: 'sum',
         // summaryRenderer: 'renderSum',
         flex: 1,
@@ -76,7 +77,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         align:'right',
         // summaryType: 'sum',
         // summaryRenderer: 'renderSum',
-        // dataIndex: 'totalmet_check',
+        dataIndex: 'con_lai',
         flex: 1,
     },
     {
@@ -84,7 +85,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         format:'0,000.00',
         text: 'P/S', 
         align:'right',
-        // dataIndex: 'totalmet_origin',
+        dataIndex: 'ps',
         // summaryType: 'sum',
         // summaryRenderer: 'renderSum',
         flex: 1,

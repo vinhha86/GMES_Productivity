@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
     columns: [{
         text: 'Mã SP',
         flex: 1,
-        // dataIndex: 'stockincode',
+        dataIndex: 'maSP',
         // renderer: function (value, record, dataIndex, cell, column ) {
         //     var c = record.data.status;
         //     if (c == -1) {
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
         text: 'Lệnh SX',
         flex: 1,
         // maxWidth: 90,
-        // dataIndex: 'invoice_number',
+        dataIndex: 'pordercode',
     }, {
         text: 'Số Lot',
         flex: 1,
