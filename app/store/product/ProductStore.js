@@ -244,6 +244,9 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 				if(!success){
 					 this.fireEvent('logout');
 				}
+				else{
+					GSmartApp.util.State.clear('product');
+				}
 			}
 		});
 	},

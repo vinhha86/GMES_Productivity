@@ -3,6 +3,11 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
     alias: 'controller.ProductViewCotroller',
     isActivate: false,
     init: function () {
+        var viewmodel = this.getViewModel();
+        var product = GSmartApp.util.State.get('product');
+        if(product != null){
+            viewmodel.set('search', product);
+        }
         this.onloadPage();
     },
     control: {
@@ -58,8 +63,8 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
         store.getSorters().add('buyercode');
 
         var limit = me.down('#limitpage').getValue();
-        var name = me.down('#name').getValue();
-        var code = me.down('#code').getValue();
+        var name = viewmodel.get('search.name');
+        var code = viewmodel.get('search.code');
         var page = store.currentPage;
 
         if (limit == null) {
@@ -106,16 +111,33 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
         form.show();
     },
     onThemMoi: function (m, record) {
-        var me = this.getView();
-        var idProduct = 0;
+        var viewmodel = this.getViewModel();
+        var data = new Object();
+        data.name = viewmodel.get('search.name');
+        data.code = viewmodel.get('search.code');
+        
+        GSmartApp.util.State.set('product',data);
 
-        this.redirectTo("lsproduct/" + idProduct + "/edit");
+        this.redirectTo("lsproduct/0/edit");
     },
     onCapNhatdbl: function (m, record, item, index, e, eOpts) {
+        var viewmodel = this.getViewModel();
+        var data = new Object();
+        data.name = viewmodel.get('search.name');
+        data.code = viewmodel.get('search.code');
+        
+        GSmartApp.util.State.set('product',data);
         var id = record.data.id;
         this.redirectTo("lsproduct/" + id + "/edit");
     },
     onCapNhat: function (grid, rowIndex, colIndex) {
+        var viewmodel = this.getViewModel();
+        var data = new Object();
+        data.name = viewmodel.get('search.name');
+        data.code = viewmodel.get('search.code');
+        console.log(data);
+        GSmartApp.util.State.set('product',data);
+
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
         this.redirectTo("lsproduct/" + id + "/edit");

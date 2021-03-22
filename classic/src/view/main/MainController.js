@@ -194,6 +194,9 @@ Ext.define('GSmartApp.view.main.MainController', {
             GSmartApp.util.State.set('po',null);
         }
         
+        if(hashTag!='lsproduct'){
+            GSmartApp.util.State.set('product',null);
+        }
         
         var window = Ext.WindowManager.getActive();
         if(window){

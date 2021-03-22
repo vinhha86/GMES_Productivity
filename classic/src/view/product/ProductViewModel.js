@@ -16,5 +16,10 @@ Ext.define('GSmartApp.view.product.ProductViewModel', {
         AttributeValueStore: {
             type: 'attributeValueStore'
         }
+    },
+    data: {
+        search: {
+            
+        }
     }
 })
