@@ -168,7 +168,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                             bind: {
                                 value: '{stockout.stockout_order_code}'
                             },
-                            fieldLabel: 'Số yêu cầu',					
+                            fieldLabel: 'Số yêu cầu',					
                             labelWidth: 80,
                             width: 340,
                             enableKeyEvents : true,

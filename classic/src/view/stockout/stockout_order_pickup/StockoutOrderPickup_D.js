@@ -48,21 +48,23 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_D', {
 			dataIndex: 'coKho',
 			flex: 1
 			// width: 70
-		},{
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL yêu cầu (m)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalyds'
+		},
+		{
 			text: 'ĐVT', 
 			dataIndex: 'unitName',
 			flex: 1
 			// width: 70
 		},
 		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'SL Nhập', 
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'totalpackage'
-		// },{
 		// 	xtype: 'numbercolumn',
 		// 	format:'0,000.00',
 		// 	text: 'N.W', 

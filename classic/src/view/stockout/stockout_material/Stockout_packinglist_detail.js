@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockout_packinglist_detail',
+	id: 'Stockout_packinglist_detail',
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],

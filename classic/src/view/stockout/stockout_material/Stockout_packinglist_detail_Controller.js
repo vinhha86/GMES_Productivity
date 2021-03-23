@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         // console.log('here');
         var stockout = viewModel.get('stockout');
         var stockout_d = viewModel.get('stockout.stockout_d');
-        var stockoutDRec = viewModel.get('stockoutDRec');
+        // var stockoutDRec = viewModel.get('stockoutDRec');
         var packinglist = stockoutDRec.get('stockout_packinglist');
         if(packinglist == null){
           packinglist = new Array();
@@ -159,15 +159,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
   
         packinglist.push(packinglistObj);
   
-        // packinglistStoreData = new Array();
-        // for(var i = 0; i < packinglist.length; i++){
-        //   if(packinglist[i].lotnumber == lotnumber){
-        //     packinglistStoreData.push(packinglist[i]);
-        //   }
-        // } 
-  
-        me.getStore().loadData(packinglist);
-        me.getStore().commitChanges();
+        for(var i=0; i<stockout.stockout_d.length; i++){
+          if(stockoutDRec.get('id') == stockout.stockout_d[i].id){
+            stockout.stockout_d[i].stockout_packinglist = stockoutDRec.get('stockout_packinglist');
+          }
+        }
+
+        // console.log(stockout);
+        // console.log(stockoutDRec);
+
+        // me.getStore().loadData(packinglist);
+        // me.getStore().commitChanges();
   
         me.down('#lotnumber').setValue('');
         me.down('#packageid').setValue('');
