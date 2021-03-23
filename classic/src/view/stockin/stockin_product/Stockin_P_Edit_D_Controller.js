@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 	onSpecialkey: function (field, e) {
 		var me = this;
 		if (e.getKey() == e.ENTER) {
-			me.onTaiSanPham();
+			me.onTimLenh();
 		}
 	},
 	renderSum: function (value) {
@@ -250,7 +250,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 	UpdateInfoSKU: function (listcode, store) {
 		var params = new Object();
 		params.listcode = listcode;
-		GSmartApp.Ajax.post('/api/v1/sku/getinfolist_bycode', Ext.JSON.encode(params),
+		GSmartApp.Ajax.postJitin('/api/v1/sku/getinfolist_bycode', Ext.JSON.encode(params),
 			function (success, resp, options) {
 				if (success) {
 					var resp = Ext.decode(resp.responseText);
@@ -307,62 +307,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		});
 		form.show();
 
-		form.down('#Stockin_P_Edit_POrder').getController().on('Chon', function (ordercode) {
-			grid.down('#ordercode').setValue(ordercode);
-			me.onTaiSanPham();
+		form.down('#Stockin_P_Edit_POrder').getController().on('Chon', function (data) {
+			grid.down('#ordercode').setValue(data.po_buyer);
+			me.onTaiSanPham(data.id);
 			form.close();
 		})
 	},
-	onTaiSanPham: function () {
-		var me = this;
-		var grid = this.getView();
+	onTaiSanPham: function (porderid_link) {
 		var viewmodel = this.getViewModel();
 		var stockin = viewmodel.get('stockin');
 
 		var params = new Object();
-		var ordercode = grid.down('#ordercode').getValue();
-
-		if (ordercode == "") {
-			Ext.MessageBox.show({
-				title: "Thông báo",
-				msg: "Bạn chưa nhập mã lệnh sản xuất!",
-				buttons: Ext.MessageBox.YES,
-				buttonText: {
-					yes: 'Đóng',
-				}
-			});
-		}
-		else {
-			params.ordercode = ordercode;
-			GSmartApp.Ajax.post('/api/v1/porder/get_porder_stockin', Ext.JSON.encode(params),
+		params.porderid_link = porderid_link;
+			GSmartApp.Ajax.postJitin('/api/v1/porder/get_porder_sku_stockin', Ext.JSON.encode(params),
 				function (success, resp, options) {
 					if (success) {
 						var resp = Ext.decode(resp.responseText);
 						if (resp.respcode == 200) {
-							if (resp.size == 1) {
-								var store = viewmodel.getStore('StockinDetailStore');
+							var store = viewmodel.getStore('StockinDetailStore');
 								store.removeAll();
 								store.setData(resp.data);
 								stockin.stockind = resp.data;
+								stockin.stockin_d = resp.data;
 								viewmodel.set('stockin', stockin);
 								viewmodel.set('listepc', new Map());
-							}
-							else {
-								if(resp.size == 0){
-									Ext.MessageBox.show({
-										title: "Thông báo",
-										msg: "Mã lệnh sản xuất không đúng bạn vui lòng tìm kiếm lại!",
-										buttons: Ext.MessageBox.YES,
-										buttonText: {
-											yes: 'Đóng',
-										}
-									});
-								}
-								else {
-									me.onTimLenh();
-								}
-								
-							}
 						}
 						else {
 							Ext.MessageBox.show({
@@ -376,7 +344,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 						}
 					}
 				})
-		}
 
 	},
     onEPCDetail: function(grid, rowIndex, colIndex){

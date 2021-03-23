@@ -54,8 +54,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrderCotroller', {
         var select = this.getView().getSelectionModel().getSelection();
         console.log(select);
         if(select.length > 0){
-            var ordercode = select[0].data.ordercode;
-            this.fireEvent("Chon", ordercode);
+            this.fireEvent("Chon", select[0].data);
         }
         else{
             Ext.MessageBox.show({
