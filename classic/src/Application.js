@@ -99,6 +99,9 @@ Ext.define('GSmartApp.Application', {
             config.setFname(session.get('fullname'));
             config.setAvatar(session.get('avatar'));
 
+            config.setClientid('web#'+Math.floor(Math.random() * 1000));
+            config.setTermid(session.get('user')+Math.floor(Math.random() * 10000));
+
             Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });
             //console.log(config.getEnableSSO());
             if(!config.getEnableSSO()) {
@@ -113,7 +116,7 @@ Ext.define('GSmartApp.Application', {
                             });
                         } else {
                             if (403 == operation.error.status || 401 == operation.error.status) {
-                                Ext.Msg.alert('Thông báo', 'Phiên đăng nhập đã hết hạn. Bạn hãy đăng nhập lại để vào phần mềm!', function(){
+                                Ext.Msg.alert('Thông báo', 'Phiên đăng nhập đã hết hạn. Bạn hãy đăng nhập lại!', function(){
                                     config.setToken(null);
                                     GSmartApp.util.State.set('session', null);
                                     Ext.Ajax.setDefaultHeaders({ authorization: '' });
