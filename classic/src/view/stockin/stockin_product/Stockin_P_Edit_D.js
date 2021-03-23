@@ -13,6 +13,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
+	plugins: {
+        cellediting: {
+            clicksToEdit: 1
+        }
+    },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false,
@@ -63,7 +68,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage'
+			dataIndex: 'totalpackage',
+			getEditor: function (record) {
+				return Ext.create('Ext.grid.CellEditor', {
+					field: {
+						xtype: 'textfield',
+						selectOnFocus: true,
+						bind: {
+							editable: '{iseditSL}'
+						}
+					}
+				})
+			}
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000',
@@ -216,7 +232,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			weight: 30,
 			itemId: 'btnTaiSP',			
             bind:{
-                hidden: '{isEdit}'
+                hidden: true
             }
 			// handler: 'onAddItemTap'
 		},

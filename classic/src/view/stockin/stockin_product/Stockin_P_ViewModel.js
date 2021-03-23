@@ -85,6 +85,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
             else {
                 return true;
             }
-        }
+        },
+		iseditSL: function(get){
+			if(get('groupstockin') == 2) return true;
+			return false;
+		}
     }
 })
