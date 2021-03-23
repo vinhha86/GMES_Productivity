@@ -387,46 +387,21 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
 
                     // set data cho store cbbox
                     viewModel.set('listcolorData',listcolorData);
-                    // me.down('#cbboxcolor').getStore().setData(listcolorData); 
-                    // me.down('#cbboxcolor').getStore().loadData(listcolorData);
-
-
                     // console.log(viewModel.get('cutplanProcessing'));
                     // console.log(me.down('#cbboxcolor').getStore().getData());
                     // console.log(me.down('#cbboxcolor').getValue());
                     // console.log(viewModel.get('cutplanProcessing.colorid_link') == me.down('#cbboxcolor').getValue());
-
-                    // me.down('#cbboxcolor').setValue(viewModel.get('cutplanProcessing.colorid_link'));
-
                 }
             })
     },
 
     onSelectSku: function( cbbox, newValue, oldValue, eOpts){
-        var viewModel = this.getViewModel();
-        var porder = viewModel.get('porder');
-        var porderid_link = viewModel.get('cutplanProcessing.porderid_link');
-        var pcontractid_link = viewModel.get('cutplanProcessing.pcontractid_link');
-        var productid_link = viewModel.get('cutplanProcessing.productid_link');
-        var material_skuid_link = viewModel.get('cutplanProcessing.material_skuid_link');
-        var colorid_link = viewModel.get('cutplanProcessing.colorid_link');
-
-        if(material_skuid_link != null && colorid_link != null){
-            var CutPlanRowStore = viewModel.getStore('CutPlanRowStore');
-            CutPlanRowStore.loadStore_bycolor(
-                colorid_link, porderid_link, material_skuid_link, 
-                productid_link, pcontractid_link
-                );
-        }
-        
-        // console.log(colorid_link);
-        // console.log(porderid_link);
-        // console.log(material_skuid_link);
-        // console.log(productid_link);
-        // console.log(pcontractid_link);
-
+        this.loadCutPlanRowStore();
     },
     onSelectMauSP: function(cbbox, newValue, oldValue, eOpts){
+        this.loadCutPlanRowStore();
+    },
+    loadCutPlanRowStore: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -443,15 +418,34 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                 colorid_link, porderid_link, material_skuid_link, 
                 productid_link, pcontractid_link
                 );
-                
-        }
 
-        console.log(me.down('#cbboxcolor').getValue());
-        // console.log(colorid_link);
-        // console.log(porderid_link);
-        // console.log(material_skuid_link);
-        // console.log(productid_link);
-        // console.log(pcontractid_link);
+            // CutPlanRowStore.loadStore_bycolor_async(
+            //     colorid_link, porderid_link, material_skuid_link, 
+            //     productid_link, pcontractid_link
+            //     );
+            //     CutPlanRowStore.load({
+            //     scope: this,
+            //     callback: function(records, operation, success) {
+            //         if(!success){
+            //                 this.fireEvent('logout');
+            //         } else {
+            //             var CutPlanRowStoreFilter = CutPlanRowStore.getFilters();
+
+            //             if (!m.CutPlanRowStoreFilter) {
+            //                 console.log('in here');
+            //                 m.CutPlanRowStoreFilter = CutPlanRowStoreFilter.add({
+            //                     id: 'CutPlanRowStoreFilter',
+            //                     property: 'type',
+            //                     value: '0',
+            //                     exactMatch: true
+            //                 });
+
+            //                 console.log(m.CutPlanRowStoreFilter);
+            //             }
+            //         }
+            //     }
+            // });
+        }
     },
 
     onSelectCutPlanRow:function(cbbox, newValue, oldValue, eOpts){

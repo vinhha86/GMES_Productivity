@@ -207,7 +207,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             label: 'Dài:',
                                             labelWidth: 70,
                                             flex: 1,
-                                            textAlign: 'left',
+                                            textAlign: 'right',
                                             // editable: false,
                                             // readOnly: true,
                                             clearable: false,
@@ -367,7 +367,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     },{
                                         xtype: 'numberfield',
                                         itemId: 'ps',
-                                        label: 'P/S:',
+                                        label: 'P/Sinh:',
                                         labelWidth: 70,
                                         flex: 1,
                                         textAlign: 'left',

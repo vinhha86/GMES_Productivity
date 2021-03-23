@@ -37,7 +37,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
 
     columns: [
     {
+        text: 'Số lot',
+        align:'right',
+        flex: 1,
+        dataIndex: 'lotnumber'
+    },
+    {
         text: 'Số cây',
+        align:'right',
         flex: 1,
         dataIndex: 'packageid'
     },
@@ -63,7 +70,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'Tiêu hao', 
+        text: 'T/hao', 
         align:'right',
         dataIndex: 'tieu_hao',
         // summaryType: 'sum',
@@ -83,7 +90,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'P/S', 
+        text: 'P/Sinh', 
         align:'right',
         dataIndex: 'ps',
         // summaryType: 'sum',

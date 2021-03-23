@@ -3,8 +3,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D_Controlle
 	alias: 'controller.CutplanProcessing_Edit_D_Controller',
 	channel: { cmd: null, dta: null },
 	init: function () {
-		// var devicestore = this.getViewModel().getStore('DeviceInvStore');
-		// devicestore.loadStore(3);
 	},
 	control: {
 		'#CutplanProcessing_Edit_D': {
@@ -23,26 +21,26 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D_Controlle
         console.log(record);
         var recordValue = 0;
 		var label = '';
-        if(columnIndex == 0){
+        if(columnIndex == 0 || columnIndex == 1){
             return;
         }
-        if(columnIndex == 1){
+        if(columnIndex == 2){
             recordValue = record.get('met');
 			label = 'Số M';
         }
-        if(columnIndex == 2){
+        if(columnIndex == 3){
             recordValue = record.get('la_vai');
 			label = 'Số lá';
         }
-        if(columnIndex == 3){
+        if(columnIndex == 4){
             recordValue = record.get('tieu_hao');
 			label = 'Tiêu hao';
         }
-        if(columnIndex == 4){
+        if(columnIndex == 5){
             recordValue = record.get('10');
 			label = 'Còn';
         }
-        if(columnIndex == 5){
+        if(columnIndex == 6){
             recordValue = record.get('ps');
 			label = 'P/S';
         }
@@ -85,19 +83,19 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D_Controlle
         // get event
         dialog.down('#CutplanProcessingDAmount').getController().on('Luu', function (value) {
             
-			if(columnIndex == 1){
+			if(columnIndex == 2){
 				record.set('met', value);
 			}
-			if(columnIndex == 2){
+			if(columnIndex == 3){
 				record.set('la_vai', value);
 			}
-			if(columnIndex == 3){
+			if(columnIndex == 4){
 				record.set('tieu_hao', value);
 			}
-			if(columnIndex == 4){
+			if(columnIndex == 5){
 				record.set('con_lai', value);
 			}
-			if(columnIndex == 5){
+			if(columnIndex == 6){
 				record.set('ps', value);
 			}
 
