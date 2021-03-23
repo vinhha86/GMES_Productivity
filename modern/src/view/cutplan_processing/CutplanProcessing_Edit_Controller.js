@@ -414,37 +414,48 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
 
         if(material_skuid_link != null && colorid_link != null){
             var CutPlanRowStore = viewModel.getStore('CutPlanRowStore');
-            CutPlanRowStore.loadStore_bycolor(
-                colorid_link, porderid_link, material_skuid_link, 
-                productid_link, pcontractid_link
-                );
-
-            // CutPlanRowStore.loadStore_bycolor_async(
+            // CutPlanRowStore.loadStore_bycolor(
             //     colorid_link, porderid_link, material_skuid_link, 
             //     productid_link, pcontractid_link
             //     );
-            //     CutPlanRowStore.load({
-            //     scope: this,
-            //     callback: function(records, operation, success) {
-            //         if(!success){
-            //                 this.fireEvent('logout');
-            //         } else {
-            //             var CutPlanRowStoreFilter = CutPlanRowStore.getFilters();
 
-            //             if (!m.CutPlanRowStoreFilter) {
-            //                 console.log('in here');
-            //                 m.CutPlanRowStoreFilter = CutPlanRowStoreFilter.add({
-            //                     id: 'CutPlanRowStoreFilter',
-            //                     property: 'type',
-            //                     value: '0',
-            //                     exactMatch: true
-            //                 });
+            CutPlanRowStore.loadStore_bycolor_async(
+                colorid_link, porderid_link, material_skuid_link, 
+                productid_link, pcontractid_link
+                );
+            CutPlanRowStore.load({
+                scope: this,
+                callback: function(records, operation, success) {
+                    if(!success){
+                            this.fireEvent('logout');
+                    } else {
+                        // filter
+                        // var CutPlanRowStoreFilter = CutPlanRowStore.getFilters();
+                        // if (!m.CutPlanRowStoreFilter) {
+                        //     console.log('in here');
+                        //     m.CutPlanRowStoreFilter = CutPlanRowStoreFilter.add({
+                        //         id: 'CutPlanRowStoreFilter',
+                        //         property: 'type',
+                        //         value: '0',
+                        //         exactMatch: true
+                        //     });
+                        // }
 
-            //                 console.log(m.CutPlanRowStoreFilter);
-            //             }
-            //         }
-            //     }
-            // });
+                        // loop
+                        var newArray = new Array();
+                        var CutPlanRowStoreData = CutPlanRowStore.getData().items;
+                        console.log(CutPlanRowStoreData);
+
+                        for(var i=0;i<CutPlanRowStoreData.length;i++){
+                            if(CutPlanRowStoreData[i].get('type') == 0){
+                                newArray.push(CutPlanRowStoreData[i].data);
+                            }
+                        }
+                        CutPlanRowStore.loadData(newArray);
+
+                    }
+                }
+            });
         }
     },
 
