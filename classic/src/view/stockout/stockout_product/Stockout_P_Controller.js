@@ -85,11 +85,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
     },
     renderCell: function(value, record) {
         if (null == value) value = 0;
-        return '<div style="font-size: 11px;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+        return '<div style="font-size: 11px;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
     onStockoutEdit: function(grid, rowIndex, colIndex){
         var rec = grid.getStore().getAt(rowIndex);
@@ -122,7 +122,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
                     params.id = id;
                     params.status = 1;
 
-                    GSmartApp.Ajax.post('/api/v1/stockout/stockout_deleteid', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
                         me.setLoading(false);
                         if (success) {

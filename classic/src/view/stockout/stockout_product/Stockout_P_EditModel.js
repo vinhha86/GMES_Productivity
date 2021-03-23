@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
 	'GSmartApp.store.stockout.StockoutTypeStore',
 	'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 	'GSmartApp.store.VatTypeStore', 'GSmartApp.store.CurrencyStore',
-	'GSmartApp.store.Stockout'],
+	'GSmartApp.store.Stockout','GSmartApp.store.stockout.StockoutGroupStore'],
     stores: {
         DeviceInvStore:{
 			type :'DeviceInvStore'
@@ -40,6 +40,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
 		},
 		CurrencyStore: {
 			type : 'CurrencyStore'
+		},
+		StockoutGroupStore: {
+			type: 'StockoutGroupStore'
 		}
 	},
 	data: {
@@ -51,14 +54,24 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
         isStart:false,
 		clsbtn:'red-button',
 		clsbtnStart:'blue-button',
-		clsbtnStop:'',
+		clsbtnStop:'red-button',
         clsbtnSkuError:'',        
-        IsformMaster: false
+        IsformMaster: false,
+		groupstockout: 2,
+		isHidden: true
 	},
-	// formulas: {
-    //     // We'll explain formulas in more detail soon.
-    //     stockoutd: function (get) {
-	// 		return get('stockout').get('stockoutd');
-    //     }
-    // }
+	formulas: {
+		isEdit: function (get) {
+            if (get('stockout.id') == 0 || get('stockout.id') == null) {
+                return false
+            }
+            else {
+                return true;
+            }
+        },
+		iseditSL: function(get){
+			if(get('groupstockout') == 2) return true;
+			return false;
+		}
+    }
 });

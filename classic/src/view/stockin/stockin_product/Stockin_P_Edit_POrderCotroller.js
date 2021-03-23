@@ -52,7 +52,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrderCotroller', {
     },
     onChon: function(){
         var select = this.getView().getSelectionModel().getSelection();
-        console.log(select);
         if(select.length > 0){
             this.fireEvent("Chon", select[0].data);
         }
