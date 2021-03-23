@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     ],
     // height: '100%',
     // width: '100%',
-    markDirty: true,
+    markDirty: false,
     columnLines: true,
     striped: false,
 
@@ -31,13 +31,20 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     
 
     bind: {
-        // store:'{cutplanProcessing.cutplanProcessingD}',  
-        store: '{CutplanProcessingDStore}'
+        store:'{cutplanProcessing.cutplanProcessingD}',  
+        // store: '{CutplanProcessingDStore}'
     },
 
     columns: [
     {
+        text: 'Số lot',
+        align:'right',
+        flex: 1,
+        dataIndex: 'lotnumber'
+    },
+    {
         text: 'Số cây',
+        align:'right',
         flex: 1,
         dataIndex: 'packageid'
     },
@@ -52,7 +59,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         flex: 1,
     },{
         xtype: 'numbercolumn',
-        format:'0,000.00',
+        format:'0,000',
         text: 'Số lá', 
         align:'right',
         // summaryType: 'sum',
@@ -63,7 +70,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'Tiêu hao', 
+        text: 'T/hao', 
         align:'right',
         dataIndex: 'tieu_hao',
         // summaryType: 'sum',
@@ -83,7 +90,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'P/S', 
+        text: 'P/Sinh', 
         align:'right',
         dataIndex: 'ps',
         // summaryType: 'sum',

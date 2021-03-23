@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing', {
                     flex: 1,
                     enableKeyEvents: true,
                     listeners: {
-                        // change : 'loadData'
+                        change : 'loadData'
                     }
                 },
                 {
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing', {
                     flex: 1,
                     enableKeyEvents: true,
                     listeners: {
-                        // change : 'loadData'
+                        change : 'loadData'
                     }
                 }
             ]

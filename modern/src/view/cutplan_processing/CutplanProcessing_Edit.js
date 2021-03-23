@@ -136,7 +136,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             // cls: 'notEditable',
                                             bind:{
                                                 store:'{Sku}',
-                                                value: '{material_skuid_link}'
+                                                value: '{cutplanProcessing.material_skuid_link}'
                                             },
                                             displayField: 'code',
                                             valueField: 'id',
@@ -159,12 +159,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             xtype: 'combobox',
                                             // reference: 'cboorgto',
                                             itemId: 'cbboxcolor',
-                                            editable: false,
-                                            readOnly: true,
+                                            // editable: false,
+                                            // readOnly: true,
                                             // cls: 'notEditable',
                                             bind:{
-                                                store:'{ColorStore}',
-                                                value: '{colorid_link}'
+                                                store:'{listcolorData}',
+                                                value: '{cutplanProcessing.colorid_link}'
                                             },
                                             displayField: 'name',
                                             valueField: 'id',
@@ -207,7 +207,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             label: 'Dài:',
                                             labelWidth: 70,
                                             flex: 1,
-                                            textAlign: 'left',
+                                            textAlign: 'right',
                                             // editable: false,
                                             // readOnly: true,
                                             clearable: false,
@@ -216,6 +216,29 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             }
                                         }]
                                     },
+
+                                    // {
+                                    //     layout: 'hbox',
+                                    //     // flex: 1,
+                                    //     defaults: {
+                                    //         margin: 1
+                                    //     },
+                                    //     items: [{
+                                    //         xtype: 'textfield',
+                                    //         itemId: 'testFilter',
+                                    //         label: 'filter:',
+                                    //         labelWidth: 70,
+                                    //         flex: 1,
+                                    //         textAlign: 'left',
+                                    //         // editable: false,
+                                    //         // readOnly: true,
+                                    //         clearable: false,
+                                    //         listeners: {
+                                    //             keyup: 'onTestFilterKeyup',
+                                    //             buffer: 500
+                                    //         }
+                                    //     }]
+                                    // },
                                 ]
                             }
                         ]
@@ -237,6 +260,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                 },
                                 items: [{
                                     xtype: 'textfield',
+                                    itemId: 'lotnumber',
                                     label: 'Số Lot:',
                                     labelWidth: 70,
                                     flex: 1,
@@ -249,7 +273,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         value: '{cutplanProcessingDObj.lotnumber}'
                                     }
                                 },{
-                                    xtype: 'textfield',
+                                    xtype: 'numberfield',
+                                    itemId: 'packageid',
                                     label: 'Số cây:',
                                     labelWidth: 70,
                                     flex: 1,
@@ -262,7 +287,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         value: '{cutplanProcessingDObj.packageid}'
                                     }
                                 },{
-                                    xtype: 'textfield',
+                                    xtype: 'numberfield',
+                                    itemId: 'met',
                                     label: 'Số M:',
                                     labelWidth: 70,
                                     flex: 1,
@@ -290,7 +316,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         margin: '1 1 0 1',
                                     },
                                     items: [{
-                                        xtype: 'textfield',
+                                        xtype: 'numberfield',
+                                        itemId: 'la_vai',
                                         label: 'Số lá:',
                                         labelWidth: 70,
                                         flex: 1,
@@ -303,7 +330,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             value: '{cutplanProcessingDObj.la_vai}'
                                         }
                                     },{
-                                        xtype: 'textfield',
+                                        xtype: 'numberfield',
+                                        itemId: 'con_lai',
                                         label: 'Còn:',
                                         labelWidth: 70,
                                         flex: 1,
@@ -323,7 +351,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         margin: '1 1 0 1',
                                     },
                                     items: [{
-                                        xtype: 'textfield',
+                                        xtype: 'numberfield',
+                                        itemId: 'tieu_hao',
                                         label: 'Tiêu hao:',
                                         labelWidth: 70,
                                         flex: 1,
@@ -336,8 +365,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             value: '{cutplanProcessingDObj.tieu_hao}'
                                         }
                                     },{
-                                        xtype: 'textfield',
-                                        label: 'P/S:',
+                                        xtype: 'numberfield',
+                                        itemId: 'ps',
+                                        label: 'P/Sinh:',
                                         labelWidth: 70,
                                         flex: 1,
                                         textAlign: 'left',

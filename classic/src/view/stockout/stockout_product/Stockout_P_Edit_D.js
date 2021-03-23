@@ -12,6 +12,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
         ftype: 'summary',
         dock: 'bottom'
     }],
+	plugins: {
+        cellediting: {
+            clicksToEdit: 1
+        }
+    },
     columnLines: true,
     viewConfig: {
         enableTextSelection: true,
@@ -28,28 +33,31 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
     },
     columns: [
         // { header: 'Mã vải chính', dataIndex: 'mainskucode', width: 70},
-        {
-            header: 'Mã vạch', dataIndex: 'skucode', width: 150,
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'materialFilterField',
-            //     width: 75,
-            //     margin: 2,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onMaterialFilterKeyup',
-            //         buffer: 500
-            //     }
-            // },
-        },
-        { header: 'Mã sản phẩm', dataIndex: 'product_code', width: 150 },
-        { header: 'Tên sản phẩm', dataIndex: 'skuname', flex: 1 },
-        { header: 'Màu', dataIndex: 'color_name', width: 100 },
+        // {
+        //     header: 'Mã vạch', dataIndex: 'skucode', width: 150,
+        // },
+        // { header: 'Mã sản phẩm', dataIndex: 'product_code', width: 150 },
+        { header: 'Tên sản phẩm', dataIndex: 'product_code', flex: 1 },
+        { header: 'Màu', dataIndex: 'color_name', flex: 1 },
         { header: 'Cỡ', dataIndex: 'size_name', width: 100 },
         {
-            header: 'Số lượng', dataIndex: 'totalpackage', width: 80,
+            header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
+            xtype: 'numbercolumn',
+            format: '0,000',
             summaryType: 'sum', summaryRenderer: 'renderSum'
+        },{
+            header: 'Số lượng xuất', dataIndex: 'totalpackage', width: 80,
+            summaryType: 'sum', summaryRenderer: 'renderSum',
+            // xtype: 'numbercolumn',
+            // format: '0,000',
+            editor:{
+                xtype:'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true,
+                bind: {
+                    editable: '{iseditSL}'
+                }
+            }
         },
         { header: 'ĐVT', dataIndex: 'unit_name', width: 80 },
         {
@@ -94,6 +102,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 bind: {
                     hidden: '{!IsformMaster}'
                 }
+            },{
+                labelWidth: 90,
+                margin:'0 5 5 5',
+                xtype: 'combobox',
+                fieldLabel: 'Cách xuất',
+                bind: {
+                    store: '{StockoutGroupStore}',
+                    value: '{groupstockout}'
+                },
+                width: 300,
+                displayField: 'name',
+                valueField: 'id',
+                itemId: 'cmbGroupStockout'
             }, {
                 labelWidth: 90,
                 width: 300,
@@ -101,7 +122,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 xtype: 'combobox',
                 fieldLabel: 'Thiết bị RFID:',
                 bind: {
-                    store: '{DeviceInvStore}'
+                    store: '{DeviceInvStore}',
+				    hidden: '{isHidden}'
                 },
                 displayField: 'name',
                 valueField: 'id',
@@ -119,7 +141,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 handler: 'onStart',
                 bind: {
                     disabled: '{isStart}',
-                    userCls: '{clsbtnStart}'
+                    userCls: '{clsbtnStart}',
+				    hidden: '{isHidden}'
                 }
             },
             {
@@ -128,8 +151,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 iconCls: 'x-fa fa-stop',
                 xtype: 'button',
                 handler: 'onStop',
-                userCls: 'red-button'
-            }
+                bind: {
+                    userCls: '{clsbtnSt}',
+				    hidden: '{isHidden}'
+                }
+            },'->',
+            {
+                xtype: 'textfield',
+                margin: '0 5 0 5',
+                itemId:'ordercode',
+                fieldLabel: 'Tìm PO line',
+                width: 300,
+                labelWidth: 80,
+                hideLabel: false,			
+                bind:{
+                    hidden: '{isEdit}',
+                    value: '{stockin.po_buyer}'
+                }  
+            },
+            {
+                tooltip: 'Tìm lệnh',
+                margin: '0 5 0 5',
+                itemId: 'btnTimLenh',
+                //text: 'Thêm thẻ vải',
+                iconCls: 'x-fa fa-search',
+                weight: 30,			
+                bind:{
+                    hidden: '{isEdit}'
+                }
+                // handler: 'onSkuSearchTap'
+            } 
         ]
     }]
 });

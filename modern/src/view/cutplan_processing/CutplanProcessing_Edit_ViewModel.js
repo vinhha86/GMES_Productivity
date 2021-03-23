@@ -24,10 +24,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 			cutplanProcessingD: [],
 		},
 		porder: null,
-		material_skuid_link: null,
-		colorid_link: null,
 		listcolorData: null,
 		cutPlanRow: null,
+
+		porderid_link: null,
+		pcontractid_link: null,
+		productid_link: null,
+
 		cutplanProcessingDObj: {
 			lotnumber: null,
 			packageid: null,
