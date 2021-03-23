@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			flex: 1
+			width: 150
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
@@ -77,34 +77,35 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 				}
 			},
 			renderer: 'renderUnit'
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'N.W', 
-			align:'right',
-			dataIndex: 'netweight',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 70
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'G.W', 
-			align:'right',
-			dataIndex: 'grossweight',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 70
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'M3', 
-			align:'right',
-			dataIndex: 'm3',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 70
 		},
+		// {
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000.00',
+		// 	text: 'N.W', 
+		// 	align:'right',
+		// 	dataIndex: 'netweight',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	width: 70
+		// },{
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000.00',
+		// 	text: 'G.W', 
+		// 	align:'right',
+		// 	dataIndex: 'grossweight',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	width: 70
+		// },{
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000.00',
+		// 	text: 'M3', 
+		// 	align:'right',
+		// 	dataIndex: 'm3',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	width: 70
+		// },
 		// {
 		// 	xtype: 'numbercolumn',
 		// 	format:'0,000',
@@ -128,25 +129,35 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		// },
 		{
 			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'Số cây', 
+			align:'right',
+			dataIndex: 'totalpackage',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 80
+		},
+		{
+			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Invoice (m)', 
+			text: 'SL Y/C (M)', 
 			align:'right',
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 105,
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Nhập (m)', 
+			text: 'SL Nhập (M)', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalmet_check',
-			width: 85,
+			width: 105,
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
@@ -154,24 +165,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Invoice (y)', 
+			text: 'SL Y/C (Y)', 
 			align:'right',
 			dataIndex: 'totalydsorigin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 105,
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Nhập (y)', 
+			text: 'SL Nhập (Y)', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalydscheck',
-			width: 85,
+			width: 105,
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},

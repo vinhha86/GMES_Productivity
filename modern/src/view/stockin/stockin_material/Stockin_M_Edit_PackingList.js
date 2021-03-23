@@ -7,15 +7,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
         type: 'Stockin_M_Edit_PackingListViewModel'
     },
     controller: 'Stockin_M_Edit_PackingListController',
-    layout: {
-        type: 'vbox',
-        align: 'stretch'
-    },
+    // layout: {
+    //     type: 'vbox',
+    //     align: 'stretch'
+    // },
+    height: '100%',
+    width: '100%',
+    layout: 'vbox',
 
+    scrollable:'vertical',
     requires: [
         'Ext.Toast'
     ],
-
     items: [
         {
             xtype: 'container',
@@ -39,9 +42,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                     // '</div>' +
 
                     '<div class="content1">' +
-                        '<div class="content1-sub1">SL nhập: </div>'+
+                        '<div class="content1-sub1">Cây nhập: </div>'+
                         '<div class="content1-sub2">{stockinD.totalpackage}</div>' +
-                        '<div class="content1-sub1">SL kiểm: </div>'+
+                        '<div class="content1-sub1">Cây kiểm: </div>'+
                         '<div class="content1-sub2">{stockinD.totalpackagecheck}</div>' +
                     '</div>' +
 
@@ -51,9 +54,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                     // '</div>' +
 
                     '<div class="content1 unitid_link1{stockin.unitid_link}">' +
-                        '<div class="content1-sub1">Met nhập: </div>'+
+                        '<div class="content1-sub1">Dài nhập: </div>'+
                         '<div class="content1-sub2">{stockinD.totalmet_origin}</div>' +
-                        '<div class="content1-sub1">Met kiểm: </div>'+
+                        '<div class="content1-sub1">Dài kiểm: </div>'+
                         '<div class="content1-sub2">{stockinD.totalmet_check}</div>' +
                     '</div>' +
 
@@ -63,9 +66,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                     // '</div>' +
 
                     '<div class="content1 unitid_link3{stockin.unitid_link}">' +
-                        '<div class="content1-sub1">YDS nhập: </div>'+
+                        '<div class="content1-sub1">Dài nhập: </div>'+
                         '<div class="content1-sub2">{stockinD.totalydsorigin}</div>' +
-                        '<div class="content1-sub1">YDS kiểm: </div>'+
+                        '<div class="content1-sub1">Dài kiểm: </div>'+
                         '<div class="content1-sub2">{stockinD.totalydscheck}</div>' +
                     '</div>' +
 
@@ -76,134 +79,207 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
         },
         {
             margin: 1,
+            height: '100%',
             flex: 1,
             xtype: 'Stockin_M_Edit_PackingList_D',
         },
-    ],
-    tbar: [{
-        xtype:'button',
-        iconCls: 'x-fa fa-arrow-left',
-        itemId:'btnBack',
-        ui: 'action',
-    },
-    '->',
-    // {
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-check',
-    //     itemId:'btnHandover',
-    //     ui: 'action',
-    //     bind: {
-    //         hidden: '{isBtnConfirmHidden}'
-    //     }
-    // },
-    // {
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-trash',
-    //     itemId:'btnDelete',
-    //     ui: 'action',
-    //     bind: {
-    //         hidden: '{isBtnDeleteHidden}'
-    //     }
-    // },
-    {
-        xtype:'button',
-        iconCls: 'x-fa fa-save',
-        itemId:'btnLuu',
-        ui: 'action',
-    }
-    ],
-    bbar: [
-        {
-            xtype: 'textfield',
-            itemId: 'lotnumberTxt',
-            // label: 'Màu:',
-            // labelWidth: 85,
-            flex: 1,
-            minWidth: 80,
-            maxWidth: 130,
-            textAlign: 'left',
-            placeholder: 'Số LOT',
-            // editable: false,
-            // readOnly: true,
-            clearable: false,
-            // cls: 'notEditable',
-            bind: {
-                value: '{lotnumberTxt}'
-            },
-            listeners: {
-                keyup: 'onlotnumberTxtKeyup',
-                buffer: 1000
-            }
-        },
-        {
-            xtype: 'numberfield',
-            itemId: 'packageidTxt',
-            // label: 'Màu:',
-            // labelWidth: 85,
-            flex: 1,
-            minWidth: 80,
-            maxWidth: 130,
-            textAlign: 'left',
-            placeholder: 'Số cây',
-            // editable: false,
-            // readOnly: true,
-            clearable: false,
-            // cls: 'notEditable',
-            bind: {
-                value: '{packageidTxt}'
-            },
-            listeners: {
-                keyup: 'onpackageidTxtKeyup',
-                buffer: 1000
-            }
-        },
 
+    ],
+    tbar: [
         {
-            xtype: 'numberfield',
-            itemId: 'mTxt',
-            // label: 'Màu:',
-            // labelWidth: 85,
-            flex: 1,
-            minWidth: 80,
-            maxWidth: 130,
-            textAlign: 'left',
-            placeholder: 'Số M',
-            // editable: false,
-            // readOnly: true,
-            clearable: false,
-            // cls: 'notEditable',
-            bind: {
-                value: '{mTxt}',
-                cls: '{yTxtCls}',
-                hidden: '{isMetColumnHidden}',
-            },
+            xtype:'button',
+            iconCls: 'x-fa fa-arrow-left',
+            itemId:'btnBack',
+            ui: 'action',
         },
         {
-            xtype: 'numberfield',
-            itemId: 'yTxt',
-            // label: 'Màu:',
-            // labelWidth: 85,
-            flex: 1,
-            minWidth: 80,
-            maxWidth: 130,
-            textAlign: 'left',
-            placeholder: 'Số Y',
-            // editable: false,
-            // readOnly: true,
-            clearable: false,
-            // cls: 'notEditable',
-            bind: {
-                value: '{yTxt}',
-                cls: '{yTxtCls}',
-                hidden: '{isYdsColumnHidden}',
-            },
-        },
+            xtype:'button',
+            iconCls: 'x-fa fa-home',
+            itemId:'btnHome',
+            ui: 'action',
+        },        
         '->',
         {
             xtype:'button',
-            iconCls: 'x-fa fa-check',
-            itemId:'btnCheck',
+            iconCls: 'x-fa fa-save',
+            itemId:'btnLuu',
             ui: 'action',
-        },
+        }
+    ],
+    bbar:[
+        {
+            xtype: 'container',
+            flex:1,
+            // height: 100,
+            // docked: 'bottom',
+            layout: 'vbox',
+            items:[
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lotnumberTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số LOT',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{lotnumberTxt}'
+                            },
+                            listeners: {
+                                keyup: 'onlotnumberTxtKeyup',
+                                buffer: 1000
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'packageidTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số cây',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{packageidTxt}'
+                            },
+                            listeners: {
+                                keyup: 'onpackageidTxtKeyup',
+                                buffer: 1000
+                            }
+                        },
+        
+                        {
+                            xtype: 'textfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'colorTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Mã màu',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{colorTxt}',
+                            },
+                        },
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'numberfield',
+                            border: true,
+                            cls: 'my-textfield',
+                            margin: 1,
+                            itemId: 'widthTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Khổ',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{widthTxt}'
+                            },
+                            listeners: {
+                                keyup: 'onlotnumberTxtKeyup',
+                                buffer: 1000
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'mTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số M',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{mTxt}',
+                                // cls: '{yTxtCls}',
+                                hidden: '{isMetColumnHidden}',
+                            },
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'yTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số Y',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{yTxt}',
+                                // cls: '{yTxtCls}',
+                                hidden: '{isYdsColumnHidden}',
+                            },
+                        },
+                        {
+                            xtype:'button',
+                            // text: 'Xác nhận',
+                            flex: 1,
+                            margin: 1,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
+                            ui: 'action',
+                        },   
+                    ]
+                }             
+            ]
+        }
     ]
 });

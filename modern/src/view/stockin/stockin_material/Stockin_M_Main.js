@@ -1,5 +1,5 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.Container',
     xtype: 'Stockin_M_Main',
     id: 'Stockin_M_Main',
     reference: 'Stockin_M_Main',
@@ -7,113 +7,68 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
         type: 'Stockin_M_ViewModel'
     },
     controller: 'Stockin_M_MainController',
-
-    layout: 'vbox',
-    items: [
+    height: '100%',
+    layout: 'fit',
+    width: '100%',
+    items:[
         {
-            layout: 'hbox',
-            defaults: {
-                margin:'5 5 0 5'
-            },
+            xtype: 'panel',
+            height: '100%',
+            layout: 'vbox',
             items: [
                 {
-                    xtype: 'datefield',
-                    reference: 'fromDate',
-                    itemId: 'fromDate',
-                    label: 'Từ:',
-                    labelWidth: 'auto',
-                    value: new Date(),
-                    // value: new Date(2020, 1, 1),
-                    dateFormat : 'd/m/y',
-                    flex: 1,
-                    enableKeyEvents: true,
-                    listeners: {
-                        change : 'loadData'
-                    }
+                    layout: 'hbox',
+                    defaults: {
+                        margin: 5
+                    },
+                    items: [
+                        {
+                            xtype: 'datefield',
+                            reference: 'fromDate',
+                            itemId: 'fromDate',
+                            label: 'Từ:',
+                            labelWidth: 'auto',
+                            value: new Date(),
+                            // value: new Date(2020, 1, 1),
+                            dateFormat : 'd/m/y',
+                            flex: 1,
+                            enableKeyEvents: true,
+                            listeners: {
+                                change : 'loadData'
+                            }
+                        },
+                        {
+                            xtype: 'datefield',
+                            reference: 'toDate',
+                            itemId: 'toDate',
+                            label: 'Đến:',
+                            labelWidth: 'auto',
+                            value: new Date(),
+                            dateFormat : 'd/m/y',
+                            flex: 1,
+                            enableKeyEvents: true,
+                            listeners: {
+                                change : 'loadData'
+                            }
+                        }
+                    ]
                 },
                 {
-                    xtype: 'datefield',
-                    reference: 'toDate',
-                    itemId: 'toDate',
-                    label: 'Đến:',
-                    labelWidth: 'auto',
-                    value: new Date(),
-                    dateFormat : 'd/m/y',
+                    margin: 1,
                     flex: 1,
-                    enableKeyEvents: true,
-                    listeners: {
-                        change : 'loadData'
-                    }
-                }
-            ]
-        },
-        {
-            margin: 1,
-            flex: 1,
-            xtype: 'Stockin_M_List',
-        },
-    ],
-    tbar: [{
-        xtype:'button',
-        iconCls: 'x-fa fa-arrow-left',
-        itemId:'btnBack',
-        ui: 'action',
-    },
-    '->'
-    ,
-    // {
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-plus',
-    //     itemId:'btnThem',
-    //     ui: 'action',
-    // },
-    // {
-    //     xtype: 'button',
-    //     // margin: 3,
-    //     // text: 'Lập phiếu mới',
-    //     iconCls: 'x-fa fa-plus',
-    //     ui: 'action',
-    //     menu: [
-    //         {
-    //             itemId: 'btnNhapMuaMoi', // id:1
-    //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-    //             text: 'Nhập mua mới',
-    //             handler: 'onNhapMuaMoi'
-    //         },
-    //         {
-    //             itemId: 'btnNhapDieuChuyen', // id:2
-    //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-    //             text: 'Nhập điều chuyển',
-    //             // handler: 'onNhapMuaMoi'
-    //         },
-    //         {
-    //             itemId: 'btnNhapGiaCong', // id:4
-    //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-    //             text: 'Nhập vải trả lại từ gia công',
-    //             // handler: 'onNhapMuaMoi'
-    //         },
-    //         {
-    //             itemId: 'btnNhapToCat', // id:3
-    //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-    //             text: 'Nhập vải thừa từ tổ cắt',
-    //             // handler: 'onNhapMuaMoi'
-    //         },
-    //         {
-    //             itemId: 'btnNhapMau', // id:6
-    //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-    //             text: 'Nhập mẫu',
-    //             // handler: 'onNhapMuaMoi'
-    //         },
-    //         {
-    //             itemId: 'btnNhapCungCap', // id:5
-    //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-    //             text: 'Nhập cấp bù từ nhà cung cấp',
-    //             // handler: 'onNhapMuaMoi'
-    //         },
-    //     ],
-    //     // bind: {
-    //     //     hidden: '{isNhapmoi}'
-    //     // }
-    // }
-]
+                    xtype: 'Stockin_M_List',
+                },
+            ],
+            tbar: [
+                {
+                    xtype:'button',
+                    iconCls: 'x-fa fa-arrow-left',
+                    itemId:'btnBack',
+                    ui: 'action',
+                },
+                '->'
+                ,
+            ]            
+        }
+    ]
 });

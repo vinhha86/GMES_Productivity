@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         '#btnBack':{
             tap: 'onBackPage'
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
         '#btnCheck':{
             tap: 'onCheck'
         },
@@ -40,6 +43,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var stockinId = stockinD.stockinid_link;
         if(stockinId != null)
             this.redirectTo('stockin_m_main/'+stockinId+'/edit');
+    },
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
     },
     getInfo: function(id){
         var me = this;
@@ -134,19 +140,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var packageidTxt = viewModel.get('packageidTxt');
         var yTxt = viewModel.get('yTxt');
         var mTxt = viewModel.get('mTxt');
-
-        if(lotnumberTxt == '' || packageidTxt == '' || yTxt == ''){
-            Ext.toast('Thông tin không được bỏ trống', 1000);
-            return;
-        }
+        var colorTxt = viewModel.get('colorTxt');
+        var widthTxt = viewModel.get('widthTxt');
 
         if(stockin.unitid_link == 3){
+            if(widthTxt == '' || packageidTxt == '' || yTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, Khổ hoặc độ dài', 1000);
+                return;
+            }
             if(isNaN(yTxt)){
                 Ext.toast('Số Y phải là số', 1000);
                 return;
             }
         }
         if(stockin.unitid_link == 1){
+            if(widthTxt == '' || packageidTxt == '' || mTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, Khổ hoặc độ dài', 1000);
+                return;
+            }
             if(isNaN(mTxt)){
                 Ext.toast('Số M phải là số', 1000);
                 return;
@@ -192,16 +203,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
 
         // nếu ko có trong danh sách, thêm cây vải
         if(!isExist){
-            var ydsorigin = 0;
-            var met_origin = 0;
+            var ydscheck = 0;
+            var met_check = 0;
             if(stockin.unitid_link == 3){
-                ydsorigin = Ext.util.Format.number(parseFloat(yTxt), '0.00');
-                met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
+                ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
+                met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
             }
             if(stockin.unitid_link == 1){
-                met_origin = Ext.util.Format.number(parseFloat(mTxt), '0.00');
-                ydsorigin = Ext.util.Format.number(met_origin / 0.9144, '0.00');
+                met_check = Ext.util.Format.number(parseFloat(mTxt), '0.00');
+                ydscheck = Ext.util.Format.number(met_check / 0.9144, '0.00');
             }
+
+            width_check = Ext.util.Format.number(parseFloat(widthTxt), '0.00');
 
             var newObj = new Object();
             newObj.checked = 0;
@@ -210,8 +223,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             newObj.grossweight = 0;
             newObj.lotnumber = lotnumberTxt;
             newObj.m3 = 0;
-            newObj.met_check = 0;
-            newObj.met_origin = met_origin;
+            newObj.met_check = met_check;
+            newObj.met_origin = 0;
             newObj.netweight = 0;
             newObj.orgrootid_link = stockinD.orgrootid_link;
             newObj.packageid = packageidTxt;
@@ -222,9 +235,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             newObj.unitname = stockinD.unit_name;
             newObj.warning = 'warning0';
             newObj.width = 0;
-            newObj.width_check = 0;
-            newObj.ydscheck = 0;
-            newObj.ydsorigin = ydsorigin;
+            newObj.width_check =width_check;
+            newObj.ydscheck = ydscheck;
+            newObj.ydsorigin = 0;
 
             // store.insert(0, newObj);
             stockinD.stockin_packinglist.push(newObj);
@@ -250,6 +263,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         viewModel.set('packageidTxt', '');
         viewModel.set('yTxt', '');
         viewModel.set('mTxt', '');
+        viewModel.set('colorTxt', '');
+        viewModel.set('widthTxt', '');
         viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
 
         m.getView().down('#lotnumberTxt').focus();

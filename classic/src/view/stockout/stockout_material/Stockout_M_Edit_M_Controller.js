@@ -115,13 +115,22 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
                     
                     stockout_dObj.totalpackage = stockout_order_d.get('totalpackage') == null ? 0 : stockout_order_d.get('totalpackage');
                     stockout_dObj.totalpackagecheck = 0;
-                    stockout_dObj.totalmet_origin = stockout_order_d.get('totalyds') == null ? 0 : stockout_order_d.get('totalyds') * 0.9144;
-                    stockout_dObj.totalmet_check = 0;
-                    stockout_dObj.totalydsorigin = stockout_order_d.get('totalyds') == null ? 0 : stockout_order_d.get('totalyds');
-                    stockout_dObj.totalydscheck = 0;
-                    // stockout_dObj.unitid_link = stockout_order_d.get('unitid_link');
+
                     stockout_dObj.unitid_link = stockout.unitid_link;
                     stockout_dObj.unit_name = stockout_order_d.get('unitname');
+                    if (stockout_dObj.unitid_link == 3){ //YDS
+                        stockout_dObj.totalmet_origin = stockout_order_d.get('totalyds') == null ? 0 : stockout_order_d.get('totalyds') * 0.9144;
+                        stockout_dObj.totalmet_check = 0;
+                        stockout_dObj.totalydsorigin = stockout_order_d.get('totalyds') == null ? 0 : stockout_order_d.get('totalyds');
+                        stockout_dObj.totalydscheck = 0;
+                    } else {
+                        if (stockout_dObj.unitid_link == 1){ //Mét
+                            stockout_dObj.totalmet_origin = stockout_order_d.get('totalyds') == null ? 0 : stockout_order_d.get('totalyds');
+                            stockout_dObj.totalmet_check = 0;
+                            stockout_dObj.totalydsorigin = stockout_order_d.get('totalyds') == null ? 0 : stockout_order_d.get('totalyds') * 1.09361;
+                            stockout_dObj.totalydscheck = 0;
+                        }
+                    }
 
                     stockout_d.push(stockout_dObj);
                 }

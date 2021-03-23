@@ -39,12 +39,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         '#btnBack':{
             tap: 'onBackPage'
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
         '#btnLuu':{
             tap: 'onSave'
         },
         // '#btnConfirm':{
         //     tap: 'onConfirm'
         // }
+    },
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
     },
     onUrlBack: function(type){
         

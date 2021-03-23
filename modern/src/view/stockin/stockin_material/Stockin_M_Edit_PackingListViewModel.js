@@ -15,6 +15,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
 		packageidTxt: '',
 		yTxt: '',
 		mTxt: '',
+        colorTxt: '',
+        widthTxt: '',
 		yTxtCls: 'yTxtClsWhiteBG', // yTxtClsYellowBG
 	},
 	formulas: {

@@ -40,14 +40,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         align: 'center'
     },
     {
-        text: 'Mã NPL', 
+        text: 'Mã hàng', 
         flex: 1,
         dataIndex: 'skucode'
     },
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'SL nhập (m)', 
+        text: 'SL Y/C (M)', 
         align:'right',
         dataIndex: 'totalmet_origin',
         summaryType: 'sum',
@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
     },{
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'SL kiểm (m)', 
+        text: 'SL Nhập (M)', 
         align:'right',
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'SL nhập (y)', 
+        text: 'SL Y/C (Y)', 
         align:'right',
         dataIndex: 'totalydsorigin',
         summaryType: 'sum',
@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
     },{
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'SL kiểm (y)', 
+        text: 'SL Nhập (Y)', 
         align:'right',
         summaryType: 'sum',
         summaryRenderer: 'renderSum',

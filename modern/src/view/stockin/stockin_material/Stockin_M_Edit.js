@@ -240,6 +240,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
         itemId:'btnBack',
         ui: 'action',
     },
+    {
+        xtype:'button',
+        iconCls: 'x-fa fa-home',
+        itemId:'btnHome',
+        ui: 'action',
+    },    
     '->',
     // {
     //     xtype:'button',
