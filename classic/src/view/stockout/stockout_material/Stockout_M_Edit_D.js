@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',
-			flex: 1
+			width: 150,
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
@@ -40,11 +40,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			flex: 1
+			width: 120,
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
-			flex: 1
+			width: 70,
 		},{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',

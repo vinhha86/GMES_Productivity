@@ -72,5 +72,42 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 				callback.call(records, operation, success);
 			}
 		});
+    },
+	loadby_pcontract: function(pcontractid_link, stockid_link, skuid_link){
+        var me=this;
+		var params = new Object();
+		params.pcontractid_link = pcontractid_link;
+		params.stockid_link = stockid_link;
+		params.skuid_link = skuid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/warehouse/getMaterialListByPContract',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams: params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
     }		
 });

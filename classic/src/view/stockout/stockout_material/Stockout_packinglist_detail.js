@@ -1,7 +1,6 @@
 Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockout_packinglist_detail',
-	id: 'Stockout_packinglist_detail',
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
@@ -13,6 +12,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
+	selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
 	plugins: {
         cellediting: {
             clicksToEdit: 1,
@@ -27,7 +30,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
         stripeRows: false               
     },
 	bind:{
-		store: '{PackingListStore}'
+		store: '{stockoutDRec.stockout_packinglist}'
 	},
 	columns: [
         // { 
@@ -52,7 +55,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		{
 			text: 'Cây số', 
 			dataIndex: 'packageid',
-            width: 50,
+            flex: 1,
 		},
 		{
 			text: 'Màu', 
@@ -115,7 +118,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		// },
         {
 			text: 'Khổ', 
-			dataIndex: 'widthorigin',
+			dataIndex: 'widthcheck',
             flex: 1,
 			align:'right',
 			editor:{
@@ -146,8 +149,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		// 	}
 		// },
 		{
-			text: 'SL xuất (m)', 
-            dataIndex: 'met_origin',
+			text: 'SL xuất (M)', 
+            dataIndex: 'met_check',
             flex: 1,
 			align:'right',
             summaryType: 'sum',

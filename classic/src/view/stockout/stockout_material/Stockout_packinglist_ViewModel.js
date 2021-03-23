@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_ViewModel', {
         },
         PackingListStore: {
             // type: 'invoice_packinglist_store'
+        },
+        WarehouseStore: {
+            type: 'WarehouseStore'
         }
     },
 	data: {
@@ -30,8 +33,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_ViewModel', {
             grossweight: null,
             width: null
         },
-        invoice: null,
-        invoiceDRec: null 
+        stockout: null,
+        stockoutDRec: null 
     },
     formulas: {
 		isMetColumnHidden: function (get) {

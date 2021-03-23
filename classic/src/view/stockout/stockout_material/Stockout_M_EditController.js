@@ -449,6 +449,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	onViewPackingList: function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
         var stockout = viewmodel.get('stockout');
+		console.log(stockout);
         var data = grid.getStore().getAt(rowIndex);
         var stockoutdid_link = data.get('id');
 
@@ -484,20 +485,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                     padding: 5
                 },
                 items: [{
-                    xtype: 'Stockout_packinglist'
+                    xtype: 'Stockout_packinglist',
+					viewModel: {
+						// type: 'Stockout_packinglist_ViewModel',
+						data: {
+							packinglist: {
+								stockoutdid_link: stockoutdid_link,
+								stockoutid_link: viewmodel.get('stockout.id'),
+								skuid_link: data.get('skuid_link')
+							},
+							stockout: stockout,
+							stockoutDRec: data
+						}
+					}					
                 }],
-                viewModel: {
-                    type: 'Stockout_packinglist_ViewModel',
-                    data: {
-                        packinglist: {
-                            stockoutdid_link: stockoutdid_link,
-                            stockoutid_link: viewmodel.get('stockout.id'),
-                            skuid_link: data.get('skuid_link')
-                        },
-                        stockout: stockout,
-                        stockoutDRec: data
-                    }
-                }
             });
             form.show();
         }

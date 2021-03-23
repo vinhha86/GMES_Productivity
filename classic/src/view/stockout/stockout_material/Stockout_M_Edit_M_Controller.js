@@ -85,6 +85,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
 
             viewModel.set('stockout.stockout_order_code', stockout_order.stockout_order_code);
             viewModel.set('stockout.porderid_link', stockout_order.porderid_link);
+            viewModel.set('stockout.pcontractid_link', stockout_order.pcontractid_link);
             // viewModel.set('stockout.invoice_date', stockout_order.timecreate);
             viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
             viewModel.set('stockout.stockout_d', null);
@@ -108,9 +109,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
                     stockout_dObj.porderid_link = stockout_order.porderid_link;
                     stockout_dObj.skucode = stockout_order_d.get('skucode');
                     stockout_dObj.skuname = stockout_order_d.get('skuname');
-                    stockout_dObj.color_name = stockout_order_d.get('color_name');
+                    stockout_dObj.color_name = stockout_order_d.get('tenMauNPL');
                     stockout_dObj.colorid_link = stockout_order_d.get('colorid_link');
-                    stockout_dObj.size_name = stockout_order_d.get('size_name');
+                    stockout_dObj.size_name = stockout_order_d.get('coKho');
                     stockout_dObj.unitprice = stockout_order_d.get('unitprice');
                     
                     stockout_dObj.totalpackage = stockout_order_d.get('totalpackage') == null ? 0 : stockout_order_d.get('totalpackage');

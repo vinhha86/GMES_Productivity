@@ -24,6 +24,7 @@ Ext.define('GSmartApp.model.stockout.Stockout_Order', {
         'lastuserupdateid_link',
         {name: 'lasttimeupdate', type: 'date', dateFormat: 'c'},
         'porderid_link',
+        'pcontractid_link',
         'stockout_order_code',
         {
             name: 'statusName',

@@ -40,17 +40,17 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_D', {
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'color_name',
+			dataIndex: 'tenMauNPL',
 			flex: 1
 			// width: 90
 		},{
 			text: 'Cỡ', 
-			dataIndex: 'size_name',
+			dataIndex: 'coKho',
 			flex: 1
 			// width: 70
 		},{
 			text: 'ĐVT', 
-			dataIndex: 'unitname',
+			dataIndex: 'unitName',
 			flex: 1
 			// width: 70
 		},
