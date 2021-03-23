@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     ],
     // height: '100%',
     // width: '100%',
-    markDirty: true,
+    markDirty: false,
     columnLines: true,
     striped: false,
 
@@ -31,8 +31,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     
 
     bind: {
-        // store:'{cutplanProcessing.cutplanProcessingD}',  
-        store: '{CutplanProcessingDStore}'
+        store:'{cutplanProcessing.cutplanProcessingD}',  
+        // store: '{CutplanProcessingDStore}'
     },
 
     columns: [
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
         flex: 1,
     },{
         xtype: 'numbercolumn',
-        format:'0,000.00',
+        format:'0,000',
         text: 'Số lá', 
         align:'right',
         // summaryType: 'sum',
