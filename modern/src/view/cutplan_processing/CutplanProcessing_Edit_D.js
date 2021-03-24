@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'Dài', 
+        text: 'Dài cây', 
         align:'right',
         dataIndex: 'met',
         // summaryType: 'sum',
@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'Còn', 
+        text: 'Đầu tấm', 
         align:'right',
         // summaryType: 'sum',
         // summaryRenderer: 'renderSum',

@@ -61,8 +61,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
             dataIndex: 'cutorg_name',
         }, 
         {
-            text: 'BTP',
+            text: 'SL cắt',
             width: 90,
+            dataIndex: 'amountcut',
             // maxWidth: 80,
             // dataIndex: 'stockindate',
             // renderer: Ext.util.Format.dateRenderer('d/m/y'),

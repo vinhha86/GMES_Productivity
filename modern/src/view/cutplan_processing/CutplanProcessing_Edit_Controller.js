@@ -464,7 +464,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         var cutPlanRow = newValue.data;
         viewModel.set('cutPlanRow', cutPlanRow);
         viewModel.set('cutplanProcessing.cutplanrowid_link', cutPlanRow.id)
-        // console.log(cutPlanRow);
+        console.log(cutPlanRow);
     },
 
     onBtnAdd: function(){
@@ -542,6 +542,19 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         // console.log(cutplanProcessing);
         // console.log(cutplanProcessingD);
         // console.log(store);
+    },
+    onla_vai_change: function(sender, value, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        var dai_so_do = viewModel.get('cutPlanRow.dai_so_do');
+        var tieu_hao = value*dai_so_do;
+        viewModel.set('cutplanProcessingDObj.tieu_hao',tieu_hao);
+    },
+    ondau_tam_change: function(sender, value, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        var dai_cay = viewModel.get('cutplanProcessingDObj.met');
+        var tieu_hao = viewModel.get('cutplanProcessingDObj.tieu_hao');
+        var con_lai = dai_cay - tieu_hao;
+        var PS = value - con_lai;
+        viewModel.set('cutplanProcessingDObj.ps',PS);
     }
-
 })

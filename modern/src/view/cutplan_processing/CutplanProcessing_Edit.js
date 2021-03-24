@@ -204,12 +204,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             }
                                         },{
                                             xtype: 'textfield',
-                                            label: 'Dài:',
-                                            labelWidth: 50,
+                                            label: 'Dài bàn:',
+                                            labelWidth: 60,
                                             flex: 1,
                                             textAlign: 'right',
-                                            // editable: false,
-                                            // readOnly: true,
+                                            editable: false,
+                                            readOnly: true,
                                             clearable: false,
                                             bind: {
                                                 value: '{cutPlanRow.dai_so_do}'
@@ -262,7 +262,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     xtype: 'textfield',
                                     itemId: 'lotnumber',
                                     label: 'Số Lot:',
-                                    labelWidth: 60,
+                                    labelWidth: 55,
                                     flex: 1,
                                     textAlign: 'left',
                                     // editable: false,
@@ -276,7 +276,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     xtype: 'numberfield',
                                     itemId: 'packageid',
                                     label: 'Số cây:',
-                                    labelWidth: 60,
+                                    labelWidth: 55,
                                     flex: 1,
                                     textAlign: 'left',
                                     // editable: false,
@@ -289,7 +289,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                 },{
                                     xtype: 'numberfield',
                                     itemId: 'met',
-                                    label: 'Dài:',
+                                    label: 'Dài cây:',
                                     labelWidth: 60,
                                     flex: 1,
                                     textAlign: 'left',
@@ -319,7 +319,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         xtype: 'numberfield',
                                         itemId: 'la_vai',
                                         label: 'Số lá:',
-                                        labelWidth: 60,
+                                        labelWidth: 55,
                                         flex: 1,
                                         textAlign: 'left',
                                         // editable: false,
@@ -328,57 +328,69 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         // cls: 'notEditable',
                                         bind: {
                                             value: '{cutplanProcessingDObj.la_vai}'
+                                        },
+                                        listeners: {
+                                            change : 'onla_vai_change'
                                         }
-                                    },{
+                                    },
+                                    {
                                         xtype: 'numberfield',
-                                        itemId: 'con_lai',
-                                        label: 'Còn:',
-                                        labelWidth: 60,
+                                        itemId: 'tieu_hao',
+                                        label: 'T/Hao:',
+                                        labelWidth: 55,
                                         flex: 1,
                                         textAlign: 'left',
-                                        // editable: false,
-                                        // readOnly: true,
+                                        editable: false,
+                                        readOnly: true,
                                         clearable: false,
                                         // cls: 'notEditable',
                                         bind: {
-                                            value: '{cutplanProcessingDObj.con_lai}'
+                                            value: '{cutplanProcessingDObj.tieu_hao}'
                                         }
-                                    }]
+                                    },                                    
+
+                                ]
                                 },{
                                     layout: 'vbox',
                                     flex: 1,
                                     defaults: {
                                         margin: '1 1 0 1',
                                     },
-                                    items: [{
-                                        xtype: 'numberfield',
-                                        itemId: 'tieu_hao',
-                                        label: 'T/Hao:',
-                                        labelWidth: 60,
-                                        flex: 1,
-                                        textAlign: 'left',
-                                        // editable: false,
-                                        // readOnly: true,
-                                        clearable: false,
-                                        // cls: 'notEditable',
-                                        bind: {
-                                            value: '{cutplanProcessingDObj.tieu_hao}'
+                                    items: [
+                                        {
+                                            xtype: 'numberfield',
+                                            itemId: 'con_lai',
+                                            label: 'Đ/tấm:',
+                                            labelWidth: 55,
+                                            flex: 1,
+                                            textAlign: 'left',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            // cls: 'notEditable',
+                                            bind: {
+                                                value: '{cutplanProcessingDObj.con_lai}'
+                                            },
+                                            listeners: {
+                                                change : 'ondau_tam_change'
+                                            }                                            
+                                        },
+                                        {
+                                            xtype: 'numberfield',
+                                            itemId: 'ps',
+                                            label: 'P/S:',
+                                            labelWidth: 55,
+                                            flex: 1,
+                                            textAlign: 'left',
+                                            editable: false,
+                                            readOnly: true,
+                                            clearable: false,
+                                            // cls: 'notEditable',
+                                            bind: {
+                                                value: '{cutplanProcessingDObj.ps}'
+                                            }
                                         }
-                                    },{
-                                        xtype: 'numberfield',
-                                        itemId: 'ps',
-                                        label: 'P/S:',
-                                        labelWidth: 60,
-                                        flex: 1,
-                                        textAlign: 'left',
-                                        // editable: false,
-                                        // readOnly: true,
-                                        clearable: false,
-                                        // cls: 'notEditable',
-                                        bind: {
-                                            value: '{cutplanProcessingDObj.ps}'
-                                        }
-                                    }]
+                                    ]
                                 },{
                                     layout: 'vbox',
                                     flex     : 1,
