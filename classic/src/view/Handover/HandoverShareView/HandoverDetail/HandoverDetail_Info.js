@@ -105,10 +105,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_Info', {
                 margin: 2,
                 labelWidth: 80,
                 flex: 1,
-                // bind: {
-                //     flex: '{isPackToStockOrgTo}'
-                // }
-                // width: 250
+                listeners: {
+                    select: 'onOrgToComboSelect'
+                }
             },{
                 layout: 'hbox',
                 border: false,

@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearchController', {
 
         mainView.getViewModel().set('currentRec.porderid_link', porderid_link);
         mainView.getViewModel().set('pordercode', ordercode);
-        mainView.getController().loadHandoverProductOnPorderSelect(porderid_link);
+        // mainView.getController().loadHandoverProductOnPorderSelect(porderid_link);
 
         this.onQuayLai();
     },

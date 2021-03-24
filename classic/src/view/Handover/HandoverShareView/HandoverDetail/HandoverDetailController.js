@@ -130,9 +130,6 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         '#btnCancelConfirm': {
             click: 'onCancelConfirm'
         },
-        '#orgid_to_link': {
-            select: 'onOrgToCboSelect'
-        },
         '#HandoverDetail_ProductGrid': {
             itemclick: 'onHandoverDetail_ProductGridItemClick'
         },
@@ -422,14 +419,16 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             var ordercode = record.get('ordercode');
 
             // cut to line, load store ListOrgStore_To
-            var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
-            ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
+
+            // var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
+            // ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
+            
             // me.down('#orgid_to_link').setValue(null);
             // me.down('#orgid_to_link').focus();
 
             viewModel.set('currentRec.porderid_link', porderid_link);
             viewModel.set('pordercode', ordercode);
-            m.loadHandoverProductOnPorderSelect(porderid_link);
+            // m.loadHandoverProductOnPorderSelect(porderid_link);
 
             form.close();
         });
@@ -489,8 +488,11 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                                     var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
                                     var HandoverProductStoreData = HandoverProductStore.getData();
                                     HandoverSkuStore.setData(HandoverProductStoreData.items[0].get('handoverSKUs'));
-                                    HandoverDetail_ProductGrid.getSelectionModel().select(0, true); 
+                                    HandoverDetail_ProductGrid.getSelectionModel().select(0, true);
                                     // console.log(HandoverProductStoreData);
+
+                                    HandoverProductStore.commitChanges();
+                                    HandoverSkuStore.commitChanges();
                                 }
                             }
                         });
@@ -537,6 +539,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
         console.log(session);
+        if(session.org_grant_id_link != null){
+            viewModel.set('currentRec.orgid_from_link', session.org_grant_id_link);
+        }
         viewModel.set('isCreateNew', true);
         viewModel.set('currentRec.id', 0);
         viewModel.set('currentRec.status', 0);
@@ -691,7 +696,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             }
         });
     },
-    onEditSkuTotalPackage: function (editor, context, e) { console.log('here yet');
+    onEditSkuTotalPackage: function (editor, context, e) { console.log(context);
         var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
         var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
         // HandoverDetail_ProductGrid.setLoading(true);
@@ -701,27 +706,27 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewId = viewModel.get('viewId');
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
 
-        // if(
-        //     viewId == 'handover_line_fromcut_detail' ||
-        //     viewId == 'handover_pack_fromline_detail'
-        // ){
-        //     if(context.colIdx == 2){
-        //         HandoverSkuStore.rejectChanges();
-        //         return;
-        //     }
-        // }
-        // if(
-        //     viewId == 'handover_cut_toline_detail' ||
-        //     viewId == 'handover_cut_toprint_detail' ||
-        //     viewId == 'handover_line_topack_detail' ||
-        //     viewId == 'handover_line_topack_detail' ||
-        //     viewId == 'handover_pack_tostock_detail'
-        // ){
-        //     if(context.colIdx == 3){
-        //         HandoverSkuStore.rejectChanges();
-        //         return;
-        //     }
-        // }
+        if(
+            viewId == 'handover_line_fromcut_detail' ||
+            viewId == 'handover_pack_fromline_detail'
+        ){
+            if(context.colIdx == 2){
+                HandoverSkuStore.rejectChanges();
+                return;
+            }
+        }
+        if(
+            viewId == 'handover_cut_toline_detail' ||
+            viewId == 'handover_cut_toprint_detail' ||
+            viewId == 'handover_line_topack_detail' ||
+            viewId == 'handover_line_topack_detail' ||
+            viewId == 'handover_pack_tostock_detail'
+        ){
+            if(context.colIdx == 3){
+                HandoverSkuStore.rejectChanges();
+                return;
+            }
+        }
         
         if(context.value == context.originalValue){
             return;
@@ -755,8 +760,10 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             var me = this;
             if (context.field == "totalpackage" || context.field == "totalpackagecheck") {
                 // me.updateTotalpackage(context.record);
-                me.onLuu()
+                me.onLuu();
             }
+        }else{
+            HandoverSkuStore.commitChanges();
         }
     },
     onEditProductTotalPackage: function (editor, context, e) {
@@ -770,27 +777,27 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewId = viewModel.get('viewId');
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
 
-        // if(
-        //     viewId == 'handover_line_fromcut_detail' ||
-        //     viewId == 'handover_pack_fromline_detail'
-        // ){
-        //     if(context.colIdx == 3){
-        //         HandoverProductStore.rejectChanges();
-        //         return;
-        //     }
-        // }
-        // if(
-        //     viewId == 'handover_cut_toline_detail' ||
-        //     viewId == 'handover_cut_toprint_detail' ||
-        //     viewId == 'handover_line_topack_detail' ||
-        //     viewId == 'handover_line_topack_detail' ||
-        //     viewId == 'handover_pack_tostock_detail'
-        // ){
-        //     if(context.colIdx == 4){
-        //         HandoverProductStore.rejectChanges();
-        //         return;
-        //     }
-        // }
+        if(
+            viewId == 'handover_line_fromcut_detail' ||
+            viewId == 'handover_pack_fromline_detail'
+        ){
+            if(context.colIdx == 3){
+                HandoverProductStore.rejectChanges();
+                return;
+            }
+        }
+        if(
+            viewId == 'handover_cut_toline_detail' ||
+            viewId == 'handover_cut_toprint_detail' ||
+            viewId == 'handover_line_topack_detail' ||
+            viewId == 'handover_line_topack_detail' ||
+            viewId == 'handover_pack_tostock_detail'
+        ){
+            if(context.colIdx == 4){
+                HandoverProductStore.rejectChanges();
+                return;
+            }
+        }
         if(context.value == context.originalValue){
             return;
         }
@@ -808,6 +815,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
                 // me.updateProductTotalpackage(context.record);
                 me.onLuu();
             }
+        }else{
+            HandoverProductStore.commitChanges();
         }
     },
     updateProductTotalpackage: function(record){
@@ -981,6 +990,19 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             me.down('#orgid_to_link').setValue(null);
         }
     },
+    onOrgToComboSelect: function(cbo, record, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var parentid_link = record.data.parentid_link;
+        var viewId = viewModel.get('viewId');
+
+        if(viewId == 'handover_cut_toline_detail'){
+            var porderid_link = viewModel.get('currentRec.porderid_link');
+            m.loadHandoverProductOnPorderSelect(porderid_link);
+        }
+    },
+
     loadListOrgStore_To: function(parentid_link, orgtypestring){
         var viewModel = this.getViewModel();
         var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
@@ -1503,29 +1525,24 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
     },
 
     // change cbo org to
-    onOrgToCboSelect: function(combo, record, eOpts){
-        // console.log('onOrgToCboSelect');
-        // xu ly chon to chuyen > tim ra cac lenh sx > neu co 1 lenh thi day vao ma lenh luon
-        // view xuat ban thanh pham len chuyen
-        // if(condition){
-
-        // }
-    },
+    onOrgToCboSelect:function(){},
 
     //
     onHandoverDetail_ProductGridItemClick:function(grid, record, item, index, e, eOpts){
+        console.log('onHandoverDetail_ProductGridItemClick');
         var m = this;
         var viewModel = this.getViewModel();
         var currentRec = viewModel.get('currentRec');
         // console.log(currentRec);
         // console.log(record);
 
-        if(currentRec.id == null || currentRec.id == 0){ // handover moi, chua co du lieu
-            
+        if(currentRec.id == null || currentRec.id == 0){ // handover moi, chua co du lieu 
+            console.log(1);
             var handoverSKUs = record.get('handoverSKUs');
             if(handoverSKUs == null || handoverSKUs.length == 0){
                 // lay sku theo porder
-                var porderid_link = currentRec.porderid_link;
+                console.log(1);
+                var porderid_link = viewModel.get('currentRec.porderid_link');
                 var productid_link = record.get('productid_link');
                 var handoverid_link = currentRec.id;
                 m.getNewHandoverSKUs(record, handoverid_link, porderid_link, productid_link);
@@ -1551,11 +1568,13 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
     getNewHandoverSKUs:function(record, handoverid_link, porderid_link, productid_link){
         var m = this;
         var viewModel = this.getViewModel();
+        var orgid_to_link = viewModel.get('currentRec.orgid_to_link');
 
         var params = new Object();
         params.handoverid_link = handoverid_link;
         params.porderid_link = porderid_link;
         params.productid_link = productid_link;
+        params.orgid_to_link = orgid_to_link; // org grant
 
         GSmartApp.Ajax.post('/api/v1/handoversku/getByHandoverProduct', Ext.JSON.encode(params),
             function (success, response, options) {
