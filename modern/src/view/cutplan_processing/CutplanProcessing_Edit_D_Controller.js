@@ -21,26 +21,26 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D_Controlle
         console.log(record);
         var recordValue = 0;
 		var label = '';
-        if(columnIndex == 0 || columnIndex == 1){
-            return;
-        }
-        if(columnIndex == 2){
+        // if(columnIndex == 0 || columnIndex == 1){
+        //     return;
+        // }
+        if(columnIndex == 0){
             recordValue = record.get('met');
-			label = 'Số M';
+			label = 'Dài cây';
         }
-        if(columnIndex == 3){
+        if(columnIndex == 1){
             recordValue = record.get('la_vai');
 			label = 'Số lá';
         }
-        if(columnIndex == 4){
+        if(columnIndex == 2){
             recordValue = record.get('tieu_hao');
 			label = 'Tiêu hao';
         }
-        if(columnIndex == 5){
-            recordValue = record.get('10');
-			label = 'Còn';
+        if(columnIndex == 3){
+            recordValue = record.get('con_lai');
+			label = 'Đầu tấm';
         }
-        if(columnIndex == 6){
+        if(columnIndex == 4){
             recordValue = record.get('ps');
 			label = 'P/S';
         }
@@ -83,19 +83,19 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D_Controlle
         // get event
         dialog.down('#CutplanProcessingDAmount').getController().on('Luu', function (value) {
             
-			if(columnIndex == 2){
+			if(columnIndex == 0){
 				record.set('met', value);
 			}
-			if(columnIndex == 3){
+			if(columnIndex == 1){
 				record.set('la_vai', value);
 			}
-			if(columnIndex == 4){
+			if(columnIndex == 2){
 				record.set('tieu_hao', value);
 			}
-			if(columnIndex == 5){
+			if(columnIndex == 3){
 				record.set('con_lai', value);
 			}
-			if(columnIndex == 6){
+			if(columnIndex == 4){
 				record.set('ps', value);
 			}
 
