@@ -654,7 +654,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             viewModel: {},
             items: [
                 {
-                    text: 'Sửa chào giá',
+                    text: 'Sửa line giao hàng',
                     itemId: 'btnEditPrice_PContract_PO_List',
                     separator: true,
                     margin: '10 0 0',
