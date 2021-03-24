@@ -16,7 +16,7 @@ Ext.define('GSmartApp.model.stockin.Stockin_d', {
         'unitid_link',
         'unit_name',
         'totalpackage_order',
-        'totalpackage',
+        {name: 'totalpackage', type: 'int'},
         'totalydsorigin',
         'foc',
         'totalpackagecheck',
