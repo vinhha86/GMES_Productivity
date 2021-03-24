@@ -328,4 +328,70 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
+    onOrderCodeFilterKeyup: function() {
+        var viewmodel = this.getViewModel();
+        var POrder_ListStore = viewmodel.get('POrder_ListStore');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('ordercodeFilterField'),
+            filters = POrder_ListStore.getFilters();
+
+        if (filterField.value) {
+            this.ordercodeFilter = filters.add({
+                id: 'ordercodeFilter',
+                property: 'ordercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ordercodeFilter) {
+            filters.remove(this.ordercodeFilter);
+            this.ordercodeFilter = null;
+        }
+    },
+    onStyleBuyerFilterKeyup: function() {
+        var viewmodel = this.getViewModel();
+        var POrder_ListStore = viewmodel.get('POrder_ListStore');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('stylebuyerFilterField'),
+            filters = POrder_ListStore.getFilters();
+
+        if (filterField.value) {
+            this.stylebuyerFilter = filters.add({
+                id: 'stylebuyerFilter',
+                property: 'stylebuyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.stylebuyerFilter) {
+            filters.remove(this.stylebuyerFilter);
+            this.stylebuyerFilter = null;
+        }
+    },
+    onPo_BuyerFilterKeyup: function() {
+        var viewmodel = this.getViewModel();
+        var POrder_ListStore = viewmodel.get('POrder_ListStore');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('po_buyerFilterField'),
+            filters = POrder_ListStore.getFilters();
+
+        if (filterField.value) {
+            this.po_buyerFilter = filters.add({
+                id: 'po_buyerFilter',
+                property: 'po_buyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.po_buyerFilter) {
+            filters.remove(this.po_buyerFilter);
+            this.po_buyerFilter = null;
+        }
+    },
 })

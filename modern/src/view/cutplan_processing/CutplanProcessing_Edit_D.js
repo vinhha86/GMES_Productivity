@@ -36,22 +36,22 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     },
 
     columns: [
-    {
-        text: 'Số lot',
-        align:'right',
-        flex: 1,
-        dataIndex: 'lotnumber'
-    },
-    {
-        text: 'Số cây',
-        align:'right',
-        flex: 1,
-        dataIndex: 'packageid'
-    },
+    // {
+    //     text: 'Số lot',
+    //     align:'right',
+    //     flex: 1,
+    //     dataIndex: 'lotnumber'
+    // },
+    // {
+    //     text: 'Số cây',
+    //     align:'right',
+    //     flex: 1,
+    //     dataIndex: 'packageid'
+    // },
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'Số M', 
+        text: 'Dài', 
         align:'right',
         dataIndex: 'met',
         // summaryType: 'sum',
@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     {
         xtype: 'numbercolumn',
         format:'0,000.00',
-        text: 'P/Sinh', 
+        text: 'P/S', 
         align:'right',
         dataIndex: 'ps',
         // summaryType: 'sum',

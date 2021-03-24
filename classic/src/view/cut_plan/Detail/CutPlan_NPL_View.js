@@ -30,16 +30,18 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
-        text: 'Tên NPL',
-        dataIndex: 'product_name',
-        width: 120,
-        locked: true,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },{
+    },
+    // {
+    //     text: 'Tên NPL',
+    //     dataIndex: 'product_name',
+    //     width: 120,
+    //     locked: true,
+    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },
+    {
         text: 'Màu NPL',
         dataIndex: 'mauSanPham',
         width: 150,

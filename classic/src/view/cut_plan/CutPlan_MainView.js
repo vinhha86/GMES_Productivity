@@ -8,13 +8,13 @@ Ext.define('GSmartApp.view.cut_plan.CutPlan_MainView', {
         type: 'CutPlan_Main_ViewModel'
     },
     items: [
-        {
-            region: 'north',
-            xtype: 'POrder_InfoView',
-            id: 'POrder_InfoView_cutplan',
-            border: true,
-            margin: 1
-        },
+        // {
+        //     region: 'north',
+        //     xtype: 'POrder_InfoView',
+        //     id: 'POrder_InfoView_cutplan',
+        //     border: true,
+        //     margin: 1
+        // },
         {
             region: 'center',
             xtype: 'CutPlan_Detail_MainView',

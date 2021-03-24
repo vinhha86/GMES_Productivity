@@ -90,9 +90,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             return value == 'null' ? '' : value;
         }
     }, {
-        text: 'Lá vải',
+        text: 'Số lá trải',
         dataIndex: 'la_vai',
-        width: 120,
+        width: 70,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -111,7 +111,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
     }, {
         text: 'Dài sơ đồ',
         dataIndex: 'dai_so_do',
-        width: 100,
+        width: 80,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             return parseFloat(value) == 0 ? '' : Ext.util.Format.number(value, '0,000.00');;
         }
     }, {
-        text: 'SL vải',
+        text: 'Tiêu hao',
         dataIndex: 'sl_vai',
         width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -138,7 +138,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
     }, {
         text: 'Khổ',
         dataIndex: 'kho',
-        width: 120,
+        width: 60,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -155,9 +155,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             return value == 'null' ? '' : value;
         }
     }, {
-        text: 'Số cây',
+        text: 'SL Cây',
         dataIndex: 'so_cay',
-        width: 120,
+        width: 60,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -174,34 +174,36 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
         }
     },
+    // {
+    //     text: 'Số cây giữ',
+    //     dataIndex: 'so_cay_giu',
+    //     width: 120,
+    //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
+    //     }
+    // }, 
     {
-        text: 'Số cây giữ',
-        dataIndex: 'so_cay_giu',
-        width: 120,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
-        }
-    }, {
         text: 'Ngày',
         dataIndex: 'ngay',
-        width: 100,
+        width: 80,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
                     field: {
                         xtype: 'datefield',
-                        format: 'd-m-y'
+                        format: 'd/m/y'
                     }
                 })
             }
         },
-        renderer: Ext.util.Format.dateRenderer('d-m-Y'),
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
         //     metaData.tdAttr = 'data-qtip="' + value + '"';
         //     return value == 'null' ? '' : value;
         // }
-    }],
+    }
+    ],
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',
@@ -210,13 +212,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             text: 'DS NPL',
             iconCls: 'x-fa fa-forward',
             itemId: 'btnShowNPL',
-            margin: 5,
+            margin: 2,
             bind: {
                 hidden: '{!isHiddenNPL}'
             }
         },{
             xtype: 'button',
-            margin: 5,
+            margin: 2,
             text: 'Thêm sơ đồ',
             itemId: 'btnThemSoDo',
             iconCls: 'x-fa fa-plus'
@@ -231,7 +233,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             bind: {
                 value: '{npl.product_code}'
             },
-            margin: 5
+            margin: 2
         },{
             xtype: 'textfield',
             fieldLabel: 'Tên NPL',
@@ -240,17 +242,17 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             bind: {
                 value: '{npl.product_name}'
             },
-            margin: 5
+            margin: 2
         },{
             xtype: 'textfield',
             fieldLabel: 'Màu NPL',
             labelWidth: 70,
-            width: 300,
+            width: 200,
             readOnly: true,
             bind: {
                 value: '{npl.mauSanPham}'
             },
-            margin: 5
+            margin: 2
         },{
             xtype: 'textfield',
             fieldLabel: 'Cỡ khổ',            
@@ -260,7 +262,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             bind: {
                 value: '{npl.coSanPham}'
             },
-            margin: 5
+            margin: 2
         }]
     }]
 });

@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Controller', {
 
         var CutplanProcessingStore = viewModel.getStore('CutplanProcessingStore');
         CutplanProcessingStore.loadStore(fromDate, toDate, 100, 1);
+        console.log(CutplanProcessingStore);
         // CutplanProcessingStore.getSorters().add('stockindate');
     },
     onBtnThemTap: function ( btn, e, eOpts ){
