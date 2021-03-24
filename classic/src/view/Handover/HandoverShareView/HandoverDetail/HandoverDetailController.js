@@ -691,7 +691,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
             }
         });
     },
-    onEditSkuTotalPackage: function (editor, context, e) {
+    onEditSkuTotalPackage: function (editor, context, e) { console.log('here yet');
         var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
         var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
         // HandoverDetail_ProductGrid.setLoading(true);
@@ -701,13 +701,28 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewId = viewModel.get('viewId');
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
 
-        if(
-            // viewId == 'handover_line_fromcut_detail' ||
-            viewId == 'handover_pack_fromline_detail'
-        ){
-            HandoverSkuStore.rejectChanges();
-            return;
-        }
+        // if(
+        //     viewId == 'handover_line_fromcut_detail' ||
+        //     viewId == 'handover_pack_fromline_detail'
+        // ){
+        //     if(context.colIdx == 2){
+        //         HandoverSkuStore.rejectChanges();
+        //         return;
+        //     }
+        // }
+        // if(
+        //     viewId == 'handover_cut_toline_detail' ||
+        //     viewId == 'handover_cut_toprint_detail' ||
+        //     viewId == 'handover_line_topack_detail' ||
+        //     viewId == 'handover_line_topack_detail' ||
+        //     viewId == 'handover_pack_tostock_detail'
+        // ){
+        //     if(context.colIdx == 3){
+        //         HandoverSkuStore.rejectChanges();
+        //         return;
+        //     }
+        // }
+        
         if(context.value == context.originalValue){
             return;
         }
@@ -745,6 +760,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         }
     },
     onEditProductTotalPackage: function (editor, context, e) {
+        console.log(context);
         var HandoverDetail_ProductGrid = Ext.getCmp('HandoverDetail_ProductGrid');
         var HandoverDetail_SkuGrid = Ext.getCmp('HandoverDetail_SkuGrid');
         // HandoverDetail_ProductGrid.setLoading(true);
@@ -753,14 +769,28 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
-        if(
-            viewId == 'handover_line_fromcut_detail' ||
-            viewId == 'handover_pack_fromline_detail'
-        ){
-            // console.log(viewId);
-            HandoverProductStore.rejectChanges();
-            return;
-        }
+
+        // if(
+        //     viewId == 'handover_line_fromcut_detail' ||
+        //     viewId == 'handover_pack_fromline_detail'
+        // ){
+        //     if(context.colIdx == 3){
+        //         HandoverProductStore.rejectChanges();
+        //         return;
+        //     }
+        // }
+        // if(
+        //     viewId == 'handover_cut_toline_detail' ||
+        //     viewId == 'handover_cut_toprint_detail' ||
+        //     viewId == 'handover_line_topack_detail' ||
+        //     viewId == 'handover_line_topack_detail' ||
+        //     viewId == 'handover_pack_tostock_detail'
+        // ){
+        //     if(context.colIdx == 4){
+        //         HandoverProductStore.rejectChanges();
+        //         return;
+        //     }
+        // }
         if(context.value == context.originalValue){
             return;
         }
@@ -928,6 +958,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
                         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
                         HandoverProductStore.setData(data);
+                        HandoverProductStore.commitChanges();
                     }
                 }
             })
@@ -1540,6 +1571,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
                     var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
                     HandoverSkuStore.setData(data);
+                    HandoverSkuStore.commitChanges();
                     record.set('handoverSKUs', []);
                     record.set('handoverSKUs', data);
                 }else{
@@ -1552,6 +1584,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
         var viewModel = this.getViewModel();
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
         HandoverSkuStore.setData(record.get('handoverSKUs'));
+        HandoverSkuStore.commitChanges();
         // console.log(record.get('handoverSKUs'));
     }
 })
