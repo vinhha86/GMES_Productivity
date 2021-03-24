@@ -146,14 +146,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             infoView.IdPOrder = me.IdPOrder;
             infoView.getController().loadInfo(me.IdPOrder);
 
-            var porderSKUStore = viewmodel.getStore('porderSKUStore');
-            // porderSKUStore.load();
-            porderSKUStore.removeAll();
+            var store_porder = viewmodel.getStore('porderSKUStore');
+            store_porder.load();
+
+            var store_line = viewmodel.getStore('POLineSKU_Store');
+            store_line.load();
         }
         else if (newCard.xtype == "POrder_Tab_Grant") {
             var listGrantView = me.down('#POrder_List_GrantView');
             listGrantView.IdPOrder = me.IdPOrder;
             listGrantView.getController().loadInfo(me.IdPOrder);
+
+            
         }
         else if(newCard.xtype == "PorderBom_TabColor"){
             var tab = Ext.getCmp('PorderBom_TabColor').getController();
