@@ -21,6 +21,11 @@ Ext.define('GSmartApp.QRCode', {
                 correctLevel: QRCode.CorrectLevel.H
             });
         }
+        else {
+            console.log(me.text);
+            me.qrcode.clear();
+            me.qrcode.makeCode(me.text);
+        }
     },
  
     onDestroy: function () {
@@ -33,8 +38,7 @@ Ext.define('GSmartApp.QRCode', {
         console.log(text);
         var me= this;
         var qrcode = this.qrcode;
-        qrcode.clear();
-        qrcode.makeCode(text);
+        
     },
     onGenBase64: function(){
         var qrcodjs = this.qrcode;

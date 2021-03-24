@@ -44,10 +44,13 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
   i: 0,
   onQRShow: function () {
     var me = this;
+    var viewmodel = this.getViewModel();
+
     var grid = this.getView();
     var qrcode = grid.down('#qrcode');
     qrcode.onGenBase64();
-    qrcode.onMakeCode(me.i++);
+    qrcode.text = viewmodel.get('personnel.fullname');
+    qrcode.onRender();
     qrcode.onGenBase64();
   },
   onUploadImage: function () {
