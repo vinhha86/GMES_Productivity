@@ -23,6 +23,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             hideGroupedHeader: false,
             enableGroupingMenu: false,
         },
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        }
     ],
     columns: [
         {
@@ -68,6 +72,20 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum',
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'ordercodeFilterField',
+                width: 116,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrderCodeFilterKeyup',
+                    buffer: 500
+                }
+            }
         },     
         // {
         //     text: 'Mã Buyer',
@@ -105,34 +123,45 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stylebuyerFilterField',
+                width: 136,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStyleBuyerFilterKeyup',
+                    buffer: 500
+                }
+            }            
         },       
         {
             text: 'PO Buyer',
             dataIndex: 'po_buyer',
-            flex: 1,
+            width: 120,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'POBuyerFilter',
-            //     width: '98%',
-            //     flex: 1,
-            //     margin: 2,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onPOBuyerFilterKeyup',
-            //         buffer: 500
-            //     }
-            // },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'po_buyerFilterField',
+                width: 116,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onPo_BuyerFilterKeyup',
+                    buffer: 500
+                }
+            }    
         },     
         {
             text: 'Buyer',
             dataIndex: 'buyername',
-            width: 120,
+            flex: 1,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
