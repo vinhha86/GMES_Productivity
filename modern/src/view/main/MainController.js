@@ -509,6 +509,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             Ext.getCmp('maintoolbar').setHidden(false);
         }else{
             Ext.getCmp('maintoolbar').setHidden(true);
+            Ext.getCmp('mainCardPanel').setHeight('100vh');
         }
     },
     
@@ -552,6 +553,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             Ext.getCmp('maintoolbar').setHidden(false);
         }else{
             Ext.getCmp('maintoolbar').setHidden(true);
+            Ext.getCmp('mainCardPanel').setHeight('100vh');
         }
     },
 });

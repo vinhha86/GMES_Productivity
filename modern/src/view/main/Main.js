@@ -47,6 +47,7 @@ Ext.define('GSmartApp.view.main.Main', {
         {
             xtype: 'navigationview',
             flex: 1,
+            id: 'mainCardPanel',
             reference: 'mainCardPanel',
             userCls: 'main-container',
             navigationBar: false,
