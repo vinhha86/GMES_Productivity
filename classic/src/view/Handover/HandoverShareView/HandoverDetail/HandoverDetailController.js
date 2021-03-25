@@ -428,7 +428,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailController', {
 
             viewModel.set('currentRec.porderid_link', porderid_link);
             viewModel.set('pordercode', ordercode);
-            // m.loadHandoverProductOnPorderSelect(porderid_link);
+            m.loadHandoverProductOnPorderSelect(porderid_link);
 
             form.close();
         });
