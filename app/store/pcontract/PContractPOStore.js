@@ -1,5 +1,5 @@
 Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
-    extend: 'Ext.data.Store',
+	extend: 'Ext.data.Store',
 	alias: 'store.PContractPOStore',
 	storeId: 'PContractPOStore',
 	model: 'GSmartApp.model.pcontract.PContractPO',
@@ -13,27 +13,27 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			property: 'productbuyercode'
 		}
 	],
-	getall_by_pobuyer: function(po_buyer){
-		var me=this;
+	getall_by_pobuyer: function (po_buyer) {
+		var me = this;
 		var params = new Object();
-        params.po_buyer = po_buyer;
+		params.po_buyer = po_buyer;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getall_bycode',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getall_bycode',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -41,28 +41,28 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadStore: function(pcontractid_link, productid_link){
-		var me=this;
+	loadStore: function (pcontractid_link, productid_link) {
+		var me = this;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
-        params.productid_link = productid_link;
+		params.pcontractid_link = pcontractid_link;
+		params.productid_link = productid_link;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getbycontractproduct',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getbycontractproduct',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -76,26 +76,26 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		// 	}
 		// });		
 	},
-	getOffers_byOrg(){
+	getOffers_byOrg() {
 		var params = new Object();
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/porder_req/getpoline_product_by_org',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/porder_req/getpoline_product_by_org',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
+			extraParams: params,
 			timeout: 240000,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -103,29 +103,29 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadStoreByType: function(pcontractid_link, productid_link,potype){
-		var me=this;
+	loadStoreByType: function (pcontractid_link, productid_link, potype) {
+		var me = this;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
+		params.pcontractid_link = pcontractid_link;
 		params.productid_link = productid_link;
 		params.potype = potype;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getbycontractproduct',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getbycontractproduct',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -139,59 +139,65 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		// 	}
 		// });		
 	},
-	loadLeafOnly_ByContract: function(pcontractid_link, productid_link, pcontractpo_id_link){
-		var me=this;
-		pcontractpo_id_link = pcontractpo_id_link ==null ? 0 : pcontractpo_id_link;
+	loadByPContractAndType: function (pcontractid_link, potype) {
+		var me = this;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
-		params.productid_link = productid_link;
-		params.pcontractpo_id_link = pcontractpo_id_link;
-		
+		params.pcontractid_link = pcontractid_link;
+		params.potype = potype;
+
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getleafonly_bycontract',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getbycontract_type',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
 		this.load();
-	},	
-	loadAccept_ByContract: function(pcontractid_link,productid_link){
-		var me=this;
+		// this.load({
+		// 	scope: this,
+		// 	callback: function(records, operation, success) {
+		// 		console.log(records);
+		// 	}
+		// });		
+	},
+	loadLeafOnly_ByContract: function (pcontractid_link, productid_link, pcontractpo_id_link) {
+		var me = this;
+		pcontractpo_id_link = pcontractpo_id_link == null ? 0 : pcontractpo_id_link;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
+		params.pcontractid_link = pcontractid_link;
 		params.productid_link = productid_link;
+		params.pcontractpo_id_link = pcontractpo_id_link;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getpo_offer_accept',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getleafonly_bycontract',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -199,54 +205,83 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadAccept_ByContract_Async: function(pcontractid_link,productid_link){
-		var me=this;
+	loadAccept_ByContract: function (pcontractid_link, productid_link) {
+		var me = this;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
+		params.pcontractid_link = pcontractid_link;
 		params.productid_link = productid_link;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getpo_offer_accept',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getpo_offer_accept',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-	},		
-	loadStore_bypairid:function(id){
-		var me=this;
+		this.load();
+	},
+	loadAccept_ByContract_Async: function (pcontractid_link, productid_link) {
+		var me = this;
+		var params = new Object();
+		params.pcontractid_link = pcontractid_link;
+		params.productid_link = productid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getpo_offer_accept',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},
+	loadStore_bypairid: function (id) {
+		var me = this;
 		var params = new Object();
 		params.product_pairid_link = id;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/product/get_by_pairid',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/product/get_by_pairid',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -254,28 +289,28 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadStoreByContract: function(pcontractid_link){
-		var me=this;
+	loadStoreByContract: function (pcontractid_link) {
+		var me = this;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
-        params.productid_link = 0;
+		params.pcontractid_link = pcontractid_link;
+		params.productid_link = 0;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getbycontract',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getbycontract',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -283,29 +318,29 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadStoreBySearch: function(pcontractid_link, buyercode, po_buyer){
-		var me=this;
+	loadStoreBySearch: function (pcontractid_link, buyercode, po_buyer) {
+		var me = this;
 		var params = new Object();
-        params.pcontractid_link = pcontractid_link;
-        params.buyercode = buyercode;
-        params.po_buyer = po_buyer;
+		params.pcontractid_link = pcontractid_link;
+		params.buyercode = buyercode;
+		params.po_buyer = po_buyer;
 
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getByContractAndProductBuyerCodeAndPOBuyer',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getByContractAndProductBuyerCodeAndPOBuyer',
+			paramsAsJson: true,
 			noCache: false,
-			extraParams : params,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'

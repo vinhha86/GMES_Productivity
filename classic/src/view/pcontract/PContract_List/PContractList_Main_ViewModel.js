@@ -2,28 +2,28 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContractList_Main_ViewModel',
     requires: ['GSmartApp.store.pcontract.PContractStore', 'GSmartApp.store.org.ListOrgStore',
-            'GSmartApp.branch.BranchStore','GSmartApp.season.SeasonStore'],
+        'GSmartApp.branch.BranchStore', 'GSmartApp.season.SeasonStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
         },
         PContractPOList: {
             type: 'PContractPOStore'
-        },        
-        CustomerStore:{
-            type : 'ListOrgStore'
         },
-        BranchStore:{
-            type :'BranchStore'
+        CustomerStore: {
+            type: 'ListOrgStore'
         },
-        SeasonStore:{
-            type :'SeasonStore'
+        BranchStore: {
+            type: 'BranchStore'
         },
-        EndBuyer:{
-            type : 'ListOrgStore'
+        SeasonStore: {
+            type: 'SeasonStore'
         },
-        Vendor:{
-            type : 'ListOrgStore'
+        EndBuyer: {
+            type: 'ListOrgStore'
+        },
+        Vendor: {
+            type: 'ListOrgStore'
         }
     },
     data: {
@@ -35,6 +35,15 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main_ViewModel', {
             contractbuyer_code: '',
             contractbuyer_yearfrom: (new Date()).getFullYear() - 1,
             contractbuyer_yearto: (new Date()).getFullYear() + 1
+        },
+        pcontractid_link: 0
+    },
+    formulas: {
+        isHiddenEditAll: function (get) {
+            if (get('pcontractid_link') == 0) {
+                return true;
+            }
+            return false;
         }
     }
 })

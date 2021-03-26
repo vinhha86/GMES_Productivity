@@ -14,16 +14,16 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 
         var search = new Object();
         var po = GSmartApp.util.State.get('po');
-        if(po == null){
+        if (po == null) {
             search = viewmodel.get('value');
         }
         else {
             search = po;
             viewmodel.set('value', search);
         }
-        PContractStore.loadStore(search.productbuyer_code, search.po_code, search.orgbuyerid_link, 
-            search.orgvendorid_link,search.contractbuyer_code, search.contractbuyer_yearfrom, search.contractbuyer_yearto);
-        
+        PContractStore.loadStore(search.productbuyer_code, search.po_code, search.orgbuyerid_link,
+            search.orgvendorid_link, search.contractbuyer_code, search.contractbuyer_yearfrom, search.contractbuyer_yearto);
+
 
         this.onActivate();
         common.Check_Object_Permission();
@@ -65,9 +65,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         var EndBuyer = viewmodel.getStore('EndBuyer');
         var Vendor = viewmodel.getStore('Vendor');
         EndBuyer.loadStore(12);
-        EndBuyer.sort('name','ASC');
+        EndBuyer.sort('name', 'ASC');
         Vendor.loadStore(11);
-        Vendor.sort('name','ASC');
+        Vendor.sort('name', 'ASC');
 
         if (me.isActivate) {
             me.onloadPage();
@@ -128,8 +128,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             contractbuyer_yearto = "";
         }
 
-        PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link, 
-            orgvendorid_link, contractbuyer_code, 
+        PContractStore.loadStore(productbuyer_code, po_code, orgbuyerid_link,
+            orgvendorid_link, contractbuyer_code,
             contractbuyer_yearfrom, contractbuyer_yearto);
         var PContractPOList = viewmodel.getStore('PContractPOList');
         PContractPOList.removeAll();
@@ -145,12 +145,12 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         data.contractbuyer_code = viewmodel.get('value.contractbuyer_code');
         data.contractbuyer_yearfrom = viewmodel.get('value.contractbuyer_yearfrom');
         data.contractbuyer_yearto = viewmodel.get('value.contractbuyer_yearto');
-        
-        GSmartApp.util.State.set('po',data);
+
+        GSmartApp.util.State.set('po', data);
 
         this.redirectTo("lspcontract/0/edit");
     },
-    onEdit: function(rec){
+    onEdit: function (rec) {
         var viewmodel = this.getViewModel();
         var data = new Object();
         data.productbuyer_code = viewmodel.get('value.productbuyer_code');
@@ -160,8 +160,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         data.contractbuyer_code = viewmodel.get('value.contractbuyer_code');
         data.contractbuyer_yearfrom = viewmodel.get('value.contractbuyer_yearfrom');
         data.contractbuyer_yearto = viewmodel.get('value.contractbuyer_yearto');
-        
-        GSmartApp.util.State.set('po',data);
+
+        GSmartApp.util.State.set('po', data);
 
         var id = rec.get('id');
         this.redirectTo("lspcontract/" + id + "/edit");
@@ -176,8 +176,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         data.contractbuyer_code = viewmodel.get('value.contractbuyer_code');
         data.contractbuyer_yearfrom = viewmodel.get('value.contractbuyer_yearfrom');
         data.contractbuyer_yearto = viewmodel.get('value.contractbuyer_yearto');
-        
-        GSmartApp.util.State.set('po',data);
+
+        GSmartApp.util.State.set('po', data);
         var id = record.data.id;
         this.redirectTo("lspcontract/" + id + "/edit");
     },
@@ -199,55 +199,56 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     GSmartApp.Ajax.post('/api/v1/pcontract/delete', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        if (success) {
-                            var response = Ext.decode(response.responseText);
-                            var store = grid.getStore();
-                            if (response.respcode != 200) {
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                var store = grid.getStore();
+                                if (response.respcode != 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                                else {
+                                    store.removeAt(rowIndex);
+                                }
+                            } else {
+                                var response = Ext.decode(response.responseText);
                                 Ext.Msg.show({
-                                    title: "Thông báo",
-                                    msg: 'Xóa thất bại',
+                                    title: 'Xóa hợp đồng',
+                                    msg: response.message,
                                     buttons: Ext.MessageBox.YES,
                                     buttonText: {
                                         yes: 'Đóng',
                                     }
                                 });
                             }
-                            else {
-                                store.removeAt(rowIndex);
-                            }
-                        } else {
-                            var response = Ext.decode(response.responseText);
-                            Ext.Msg.show({
-                                title: 'Xóa hợp đồng',
-                                msg: response.message,
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
-                    })
+                        })
                 }
             }
         });
     },
-    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
-        return common.Check_ActionColum_Permission(item.itemId); 
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) {
+        return common.Check_ActionColum_Permission(item.itemId);
     },
-    onPContractSelect: function(e, selected, eOpts){
-        if (null != selected){
+    onPContractSelect: function (e, selected, eOpts) {
+        if (null != selected) {
             var me = this.getView();
             var viewmodel = this.getViewModel();
             var store = viewmodel.getStore('PContractPOList');
 
+            viewmodel.set('pcontractid_link', selected.data.id);
             var productbuyer_code = me.down('#productbuyer_code').getValue();
             var po_code = me.down('#po_code').getValue();
 
             if (productbuyer_code == null) {
                 productbuyer_code = "";
             }
-    
+
             if (po_code == null) {
                 po_code = "";
             }
@@ -256,7 +257,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             store.loadStoreBySearch(selected.id, productbuyer_code, po_code);
         }
     },
-    onMenu_ContractList: function(grid, rowIndex, colIndex, item, e, record){
+    onMenu_ContractList: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
@@ -265,61 +266,61 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             minWidth: 150,
             viewModel: {},
             items: [
-            {
-                text: 'Chi tiết đơn hàng',
-                itemId: 'btnEditPContract_PContract_PO_List',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-edit brownIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onEdit(record);
+                {
+                    text: 'Chi tiết đơn hàng',
+                    itemId: 'btnEditPContract_PContract_PO_List',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-edit brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onEdit(record);
+                    },
                 },
-            }, 
-            {
-                text: 'Xóa đơn hàng',
-                itemId: 'btnDeletePO_PContract_PO_List',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-trash redIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    me.onXoa(record);
-                }
-            }, 
-            {
-                text: 'Quyết toán đơn hàng',
-                itemId: 'btnEditPO_PContract_PO_List',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-calculator greenIcon',
-                handler: function(){
-                    var record = this.parentMenu.record;
-                    // me.onPOInfoEdit(record);
-                }
-            },  
-            '-',  
-            {
-                text: 'Bảng cân đối NPL',
-                itemId: 'btnBalance',
-                separator: true,
-                margin: '10 0 0',
-                iconCls: 'x-fa fas fa-balance-scale blueIcon',
-                handler: function () {
-                    var record = this.parentMenu.record;
-                    me.onShowBalance(record);
-                }
-            },           
-        ]
+                {
+                    text: 'Xóa đơn hàng',
+                    itemId: 'btnDeletePO_PContract_PO_List',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onXoa(record);
+                    }
+                },
+                {
+                    text: 'Quyết toán đơn hàng',
+                    itemId: 'btnEditPO_PContract_PO_List',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-calculator greenIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        // me.onPOInfoEdit(record);
+                    }
+                },
+                '-',
+                {
+                    text: 'Bảng cân đối NPL',
+                    itemId: 'btnBalance',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-balance-scale blueIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onShowBalance(record);
+                    }
+                },
+            ]
         });
         // HERE IS THE MAIN CHANGE
-        var position = [e.getX()-10, e.getY()-10];
+        var position = [e.getX() - 10, e.getY() - 10];
         e.stopEvent();
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    onContractCodeFilterKeyup: function() {
+    onContractCodeFilterKeyup: function () {
         var viewmodel = this.getViewModel();
         var PContractStore = viewmodel.get('PContractStore');
         var grid = this.getView(),
@@ -342,7 +343,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         }
     },
     onShowBalance: function (rec) {
-        console.log(rec);
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -352,23 +352,22 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             border: false,
             title: 'Bảng cân đối NPL',
             closeAction: 'destroy',
-			height: Ext.getBody().getViewSize().height * .95,
-			width: Ext.getBody().getViewSize().width * .95,
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
                 padding: 5
             },
             items: [{
-                xtype: 'Balance_Main',
+                xtype: 'All_line_Edit_View',
                 viewModel: {
                     data: {
-                        pcontractid_link: rec.data.id,
-                        pcontract_poid_link: null
+                        pcontractid_link: viewmodel.get('pcontractid_link')
                     }
                 }
             }]
         });
         form.show();
-    },   
+    },
 })

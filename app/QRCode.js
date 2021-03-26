@@ -22,7 +22,6 @@ Ext.define('GSmartApp.QRCode', {
             });
         }
         else {
-            console.log(me.text);
             me.qrcode.clear();
             me.qrcode.makeCode(me.text);
         }
