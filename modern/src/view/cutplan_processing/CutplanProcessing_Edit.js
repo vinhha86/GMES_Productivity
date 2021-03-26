@@ -193,7 +193,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                                 store:'{CutPlanRowStore}',
                                                 value:'{cutplanProcessing.cutplanrowid_link}'
                                             },
-                                            displayField: 'code',
+                                            displayField: 'name',
                                             valueField: 'id',
                                             label: 'Sơ đồ cắt:',
                                             // disabled: true,

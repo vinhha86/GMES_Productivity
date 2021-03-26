@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_ViewController', {
         }
     },
     onEdit: function (editor, context, e) {
-        var me = this.getView();
+        // var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.data = context.record.data;
@@ -33,16 +33,20 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_ViewController', {
                             }
                         });
                     }
-                    else {
-                        var store = viewmodel.getStore('PContractProductPOStore');
-                        store.commitChanges();
-                        me.fireEvent('Reload');
-                    }
+                    // else {
+                    //     var store = viewmodel.getStore('PContractProductPOStore');
+                    //     store.commitChanges();
+                    //     // me.fireEvent('Reload');
+                    // }
                 }
             })
     },
     onThoat: function () {
-        this.getView().up('window').close();
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.getStore('PContractProductPOStore');
+        // store.commitChanges();
+        this.fireEvent('Reload');
+        // this.getView().up('window').close();
     },
     onMenu: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
