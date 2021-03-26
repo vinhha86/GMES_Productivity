@@ -102,7 +102,6 @@ Ext.define('GSmartApp.view.main.MainController', {
     onNavigationTreeSelectionChange: function (tree, node) {
         var to = node && (node.get('routeId') || node.get('viewType'));
         var hash = window.location.hash.substring(1);
-        console.log(to.substring(2))
         if (to.substring(2) == hash.split('/')[0]) {
             this.redirectTo(hash);
         }
@@ -179,6 +178,9 @@ Ext.define('GSmartApp.view.main.MainController', {
         }
         if(id!='lspcontract'){
             GSmartApp.util.State.set('po',null);
+        }
+        if(id!='lsproduct'){
+            GSmartApp.util.State.set('product',null);
         }
         this.setCurrentView(id);
     },
