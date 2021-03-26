@@ -368,8 +368,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         // console.log(viewmodel.get('productpairid_link'));
         var productStore = viewmodel.getStore('ProductStore');
 
-        console.log(productStore);
-
         if (record.get('product_type') == 5) {
             viewPrice.setDisabled(true);
             viewmodel.set('isSewPriceReadonly', true);

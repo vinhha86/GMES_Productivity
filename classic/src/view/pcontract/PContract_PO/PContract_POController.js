@@ -634,6 +634,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                     handler: function () {
                         me.onDel_KHSX(record);
                     }
+                },
+                {
+                    text: 'Hủy chốt chào giá',
+                    itemId: 'btnCancelOffer',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-undo redIcon',
+                    hidden: record.get('status') >= 0 ? false : true,
+                    handler: function () {
+                        me.onCancelOffer(record);
+                    }
                 }
             ]
         });
@@ -695,6 +706,49 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
+    },
+    onCancelOffer: function(rec){
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.pcontract_poid_link = rec.get('id');
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/cancel_po_offer', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                var store = viewmodel.getStore('PContractProductPOStore');
+                                if(response.respcode == 200){
+                                    Ext.MessageBox.show({
+                                        title: "Thông báo",
+                                        msg: "Hủy thành công",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                    store.load();
+                                }
+                                else {
+                                    Ext.MessageBox.show({
+                                        title: "Thông báo",
+                                        msg: "Hủy thất bại",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: "Hủy thất bại",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        });
     },
     onDel_KHSX: function (rec) {
         var viewmodel = this.getViewModel();
