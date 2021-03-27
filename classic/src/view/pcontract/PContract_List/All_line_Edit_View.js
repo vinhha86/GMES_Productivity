@@ -73,7 +73,10 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_View', {
         },
         editor: {
             xtype: 'textfield',
-            selectOnFocus: true
+            selectOnFocus: true,
+            listeners: {
+                focus: 'onFocus'
+            }
         }
     }, {
         text: 'PO Vendor',
@@ -85,7 +88,10 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_View', {
         },
         editor: {
             xtype: 'textfield',
-            selectOnFocus: true
+            selectOnFocus: true,
+            listeners: {
+                focus: 'onFocus'
+            }
         }
     }, {
         text: 'SL',
@@ -94,7 +100,10 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_View', {
         width: 70, editor: {
             xtype: 'textfield',
             selectOnFocus: true,
-            maskRe: /[0-9.]/
+            maskRe: /[0-9.]/,
+            listeners: {
+                focus: 'onFocus'
+            }
         },
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -119,7 +128,10 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_View', {
             margin: '5 1 5 1',
             text: 'Thoát',
             iconCls: 'x-fa fa-window-close',
-            itemId: 'btnThoat'
+            itemId: 'btnThoat',
+            bind: {
+                disabled: '{isEdit}'
+            }
         }]
     }
     ]

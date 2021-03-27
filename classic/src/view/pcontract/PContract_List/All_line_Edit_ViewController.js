@@ -34,12 +34,18 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_ViewController', {
                         });
                     }
                     else {
+                        viewmodel.set('isEdit', false);
                         var store = viewmodel.getStore('PContractProductPOStore');
-                        store.commitChanges();
+                        if (store)
+                            store.commitChanges();
                         me.fireEvent('Reload');
                     }
                 }
             })
+    },
+    onFocus: function () {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('isEdit', true);
     },
     onThoat: function () {
         this.getView().up('window').close();
