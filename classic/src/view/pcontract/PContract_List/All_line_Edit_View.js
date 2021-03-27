@@ -117,7 +117,10 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_View', {
             xtype: 'datefield',
             format: 'd/m/y',
             selectOnFocus: true,
-            editable: false
+            editable: false,
+            listeners: {
+                focus: 'onFocus'
+            }
         }
     }
     ],

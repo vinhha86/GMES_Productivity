@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_ViewController', {
         }
     },
     onEdit: function (editor, context, e) {
-        // var me = this;
+        var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.data = context.record.data;
