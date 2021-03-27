@@ -121,6 +121,14 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
                             viewModel.set('handoverSKUs',handoverSKUs);
                             // console.log(HandoverSkuStore);
 
+                            //Update mac dinh so nhan = so giao
+                            var handoverProductTotalPackagecheck =0;
+                            for(var i=0; i<HandoverSkuStore.data.items.length;i++){
+                                var data = HandoverSkuStore.data.items[i];
+                                data.set('totalpackagecheck', data.get('totalpackage'));
+                                handoverProductTotalPackagecheck = handoverProductTotalPackagecheck + data.get('totalpackage');
+                            }
+                            viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
                         }
                     }
                 }else{

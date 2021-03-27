@@ -112,9 +112,10 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_View', {
         text: 'Ngày giao',
         dataIndex: 'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 100,
+        width: 110,
         editor: {
             xtype: 'datefield',
+            format: 'd/m/y',
             selectOnFocus: true,
             editable: false
         }

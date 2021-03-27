@@ -21,7 +21,6 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
     },
     onEditLine: function () {
         var viewmodel = this.getViewModel();
-
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -47,9 +46,10 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
         });
         form.show();
 
-        form.down('#All_line_Edit_View').on('Reload', function () {
+        form.down('#All_line_Edit_View').getController().on('Reload', function () {
             var storePO = viewmodel.getStore('PContractPOList');
-            storePO.load();
+            storePO.reload();
+            form.close();
         })
     }
 })

@@ -254,7 +254,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             }
 
             // store.loadLeafOnly_ByContract(selected.id, 0);
-            store.loadStoreBySearch(selected.id, productbuyer_code, po_code);
+            // store.loadStoreBySearch(selected.id, productbuyer_code, po_code);
+            store.loadByPContractAndType(selected.id, 10);
         }
     },
     onMenu_ContractList: function (grid, rowIndex, colIndex, item, e, record) {
