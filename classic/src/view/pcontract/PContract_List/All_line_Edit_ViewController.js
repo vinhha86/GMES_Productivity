@@ -48,11 +48,7 @@ Ext.define('GSmartApp.view.pcontract.All_line_Edit_ViewController', {
         viewmodel.set('isEdit', true);
     },
     onThoat: function () {
-        // var viewmodel = this.getViewModel();
-        // var store = viewmodel.getStore('PContractProductPOStore');
-        // store.commitChanges();
-        this.fireEvent('Reload');
-        // this.getView().up('window').close();
+        this.getView().up('window').close();
     },
     onMenu: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
