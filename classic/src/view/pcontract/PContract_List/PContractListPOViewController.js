@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
         form.down('#All_line_Edit_View').getController().on('Reload', function () {
             var storePO = viewmodel.getStore('PContractPOList');
             storePO.reload();
-            form.close();
+            // form.close();
         })
     }
 })
