@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToline_ListController', {
+Ext.define('GSmartApp.view.handover.HandoverLineFromCut_ListController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutToline_ListController',
+    alias: 'controller.HandoverLineFromCut_ListController',
     init: function () {
         var m = this;
         var viewModel = this.getViewModel();
@@ -25,11 +25,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_ListController', {
         var orgtypestringfrom = '';
         var orgtypestringto = '';
 
-        // CUT TO LINE - tổ cắt xuất btp lên chuyền
-        // console.log('handover_cut_tolinelist');
-        viewModel.set('viewId', 'handover_cut_toline');
+        // LINE FROM CUT - nhận btp vào chuyền
+        // console.log('handover_line_fromcutlist');
+        viewModel.set('viewId', 'handover_line_fromcut');
         HandoverStore.loadStoreBySearch(1, '', 
-        null, null, null, null, [], 25, 1, 'handover_cut_toline');
+        null, null, null, null, [1, 2], 25, 1, 'handover_line_fromcut');
         orgtypestringfrom = '17';
         orgtypestringto = '14';
 
@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_ListController', {
             orgid_to_link = null;
         }else orgid_to_link = me.down('#orgid_to_link').getValue();
         if(me.down('#status').getValue() == null || me.down('#status').getValue() == ""){
-            status = [];
+            status = [1, 2];
         }else status = me.down('#status').getValue();
 
         var limit = me.down('#limitpage').getValue();

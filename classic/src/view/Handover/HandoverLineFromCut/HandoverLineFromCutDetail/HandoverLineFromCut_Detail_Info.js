@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Info', {
+Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_Info', {
     extend: 'Ext.form.Panel',
-    xtype: 'HandoverCutToline_Detail_Info',
-    id: 'HandoverCutToline_Detail_Info',
+    xtype: 'HandoverLineFromCut_Detail_Info',
+    id: 'HandoverLineFromCut_Detail_Info',
     // controller: 'POrder_InfoViewController',
-    reference: 'HandoverCutToline_Detail_Info',
+    reference: 'HandoverLineFromCut_Detail_Info',
     bodyPadding: 5,
     border: false,
     IdPOrder: 0,
@@ -133,13 +133,14 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Info', {
                     flex: 1,
                     enableKeyEvents : true,
                     listeners: {
-                        keypress: 'onPressEnterPordercode'
+                        // keypress: 'onPressEnterPordercode'
                     }
                 },{
                     xtype:'button',
                     margin: '0 0 0 2',
                     itemId:'btnPlus',
                     iconCls: 'x-fa fa-plus',
+                    hidden: true,
                     bind: {
                         visible: '{isCreateNew}'
                     }
@@ -148,13 +149,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Info', {
                     margin: '0 0 0 2',
                     itemId:'btnSearch',
                     iconCls: 'x-fa fa-search',
+                    hidden: true,
                     bind: {
                         visible: '{isCreateNew}'
                     }
                 }],
-                bind: {
-                    hidden: '{isPorderCodeFieldHidden}'
-                }
             },{
                 xtype:'combobox',
                 // itemId:'txtstatus',

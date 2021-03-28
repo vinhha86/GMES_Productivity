@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut', {
     {
         region: 'center',
         border: false,
-        xtype: 'HandoverList',
+        xtype: 'HandoverLineFromCut_List',
         id: 'handover_line_fromcutlist'
     }],
 });

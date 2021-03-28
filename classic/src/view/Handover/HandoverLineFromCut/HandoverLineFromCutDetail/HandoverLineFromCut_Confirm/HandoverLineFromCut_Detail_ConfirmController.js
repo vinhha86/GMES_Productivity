@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ConfirmController', {
+Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_ConfirmController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutToline_Detail_ConfirmController',
+    alias: 'controller.HandoverLineFromCut_Detail_ConfirmController',
     isActivate: false,
     init: function () {
     },
@@ -63,17 +63,17 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ConfirmController',
         var viewModel = this.getViewModel();
         var handoverid_link = viewModel.get('handoverid_link');
         var viewId = viewModel.get('viewId');
-        var status = 0;
+        var status = 1;
         var approver_userid_link = 0;
         var receiver_userid_link = 0;
         if(
-            currentStatus == 0 &&
+            currentStatus == 1 &&
             (
-            viewId == 'handover_cut_toline_detail'
+            viewId == 'handover_line_fromcut_detail'
             )
         ) {
-            status = 1;
-            approver_userid_link = userid_link;
+            status = 2;
+            receiver_userid_link = userid_link;
         }
         // m.setStatus(status, handoverid_link, approver_userid_link, receiver_userid_link);
         var obj = new Object();

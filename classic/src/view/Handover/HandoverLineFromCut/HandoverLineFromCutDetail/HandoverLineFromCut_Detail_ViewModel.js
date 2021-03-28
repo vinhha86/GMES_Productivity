@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ViewModel', {
+Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_ViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.HandoverCutToline_Detail_ViewModel',
+    alias: 'viewmodel.HandoverLineFromCut_Detail_ViewModel',
     requires: [
         'GSmartApp.store.UserListStore',
         'GSmartApp.store.org.ListOrgStore',
@@ -84,15 +84,21 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_ViewModel', {
             return false;
         },
         isBtnCancelConfirmHidden : function (get) { // Huy xac nhan
-            return true;
+            if (get('isCreateNew')) {
+                return true;
+            }
+            if (get('currentRec.status') != 2) {
+                return true;
+            }
+            return false;
         },
-        isEditable : function (get) { // Huy xac nhan
+        isEditable : function (get) {
             if (get('isCreateNew')) {
                 return true;
             }
             return false;
         },
-        isReadOnly : function (get) { // Huy xac nhan
+        isReadOnly : function (get) {
             if (get('isCreateNew')) {
                 return false;
             }
