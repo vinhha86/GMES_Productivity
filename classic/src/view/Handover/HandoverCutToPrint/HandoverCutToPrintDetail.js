@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrintDetail', {
     {
         region: 'center',
         border: false,
-        xtype: 'HandoverDetail',
+        xtype: 'HandoverCutToPrint_Detail',
         id: 'handover_cut_toprint_detail'
     }],
 });

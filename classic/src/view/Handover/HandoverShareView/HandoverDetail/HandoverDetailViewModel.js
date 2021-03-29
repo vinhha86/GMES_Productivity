@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailViewModel', {
+Ext.define('GSmartApp.view.handover.HandoverDetailViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.HandoverDetailViewModel',
     requires: [
