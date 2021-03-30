@@ -588,6 +588,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         // HandoverDetail_SkuGrid.setLoading(true);
 
         var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
         var viewId = viewModel.get('viewId');
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
@@ -609,21 +610,37 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
             return;
         }
 
+        context.value = parseInt(context.value);
+        if(context.field == "totalpackage"){
+            context.record.set('totalpackage', context.value);
+            if(currentRec.status == 0){
+                context.record.set('totalpackagecheck', context.value);
+            }
+        }
+        if(context.field == "totalpackagecheck"){
+            context.record.set('totalpackagecheck', context.value);
+        }
+
         // update product theo sku
         var selection = HandoverDetail_ProductGrid.getSelectionModel().getSelection();
         var HandoverSkuStoreData = HandoverSkuStore.getData().items;
         var totalpackage = 0;
+        var totalpackagecheck = 0;
         if(context.field == "totalpackage"){
             for(var i = 0; i < HandoverSkuStoreData.length;i++){
                 totalpackage+=parseInt(HandoverSkuStoreData[i].get('totalpackage'));
+                totalpackagecheck+=parseInt(HandoverSkuStoreData[i].get('totalpackagecheck'));
             }
             selection[0].set('totalpackage', totalpackage);
+            if(currentRec.status == 0){
+                selection[0].set('totalpackagecheck', totalpackagecheck);
+            }
         }
         if(context.field == "totalpackagecheck"){
             for(var i = 0; i < HandoverSkuStoreData.length;i++){
-                totalpackage+=parseInt(HandoverSkuStoreData[i].get('totalpackagecheck'));
+                totalpackagecheck+=parseInt(HandoverSkuStoreData[i].get('totalpackagecheck'));
             }
-            selection[0].set('totalpackagecheck', totalpackage);
+            selection[0].set('totalpackagecheck', totalpackagecheck);
         }
         HandoverProductStore.commitChanges();
 
@@ -647,6 +664,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         // HandoverDetail_SkuGrid.setLoading(true);
 
         var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
         var viewId = viewModel.get('viewId');
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
 
@@ -666,18 +684,27 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
             return;
         }
 
-        // HandoverDetail_ProductGrid.setLoading(false);
-        // HandoverDetail_SkuGrid.setLoading(false);
+        //
+        context.value = parseInt(context.value);
+        if(context.field == "totalpackage"){
+            context.record.set('totalpackage', context.value);
+            if(currentRec.status == 0){
+                context.record.set('totalpackagecheck', context.value);
+            }
+        }
+        if(context.field == "totalpackagecheck"){
+            context.record.set('totalpackagecheck', context.value);
+        }
+
         var isCreateNew = viewModel.get('isCreateNew');
         if(!isCreateNew){
             var me = this;
-            if (context.field == "totalpackage" || context.field == "totalpackagecheck") {
-                // me.updateProductTotalpackage(context.record);
-                me.onLuu();
-            }
+            me.onLuu();
         }else{
             HandoverProductStore.commitChanges();
         }
+
+        // console.log(currentRec); console.log(context); 
     },
     updateProductTotalpackage: function(record){
         var grid = this.getView();
@@ -975,5 +1002,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         HandoverSkuStore.setData(record.get('handoverSKUs'));
         HandoverSkuStore.commitChanges();
         // console.log(record.get('handoverSKUs'));
-    }
+    },
+
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+	},
 })

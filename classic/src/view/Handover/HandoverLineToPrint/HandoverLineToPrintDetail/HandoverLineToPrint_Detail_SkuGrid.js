@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_SkuGrid', {
+Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_SkuGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'HandoverCutToPrint_Detail_SkuGrid',
-    id: 'HandoverCutToPrint_Detail_SkuGrid',
-    reference: 'HandoverCutToPrint_Detail_SkuGrid',
+    xtype: 'HandoverLineToPrint_Detail_SkuGrid',
+    id: 'HandoverLineToPrint_Detail_SkuGrid',
+    reference: 'HandoverLineToPrint_Detail_SkuGrid',
     viewConfig: {
         stripeRows: true,
         columnLines: true,

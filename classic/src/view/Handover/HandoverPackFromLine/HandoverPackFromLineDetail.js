@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetail', {
     {
         region: 'center',
         border: false,
-        xtype: 'HandoverDetail',
+        xtype: 'HandoverPackFromLine_Detail',
         id: 'handover_pack_fromline_detail'
     }],
 });

@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
+Ext.define('GSmartApp.view.handover.HandoverPackFromLine_ListController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverLineToPack_ListController',
+    alias: 'controller.HandoverPackFromLine_ListController',
     init: function () {
         var m = this;
         var viewModel = this.getViewModel();
@@ -25,11 +25,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
         var orgtypestringfrom = '';
         var orgtypestringto = '';
 
-        // LINE TO PACK - xuất tp hoàn thiện
-        // console.log('handover_line_topacklist');
-        viewModel.set('viewId', 'handover_line_topack');
+        // PACK FROM LINE - nhập tp hoàn thiện
+        // console.log('handover_pack_fromline');
+        viewModel.set('viewId', 'handover_pack_fromline');
         HandoverStore.loadStoreBySearch(4, '', 
-            null, null, null, null, [], 25, 1, 'handover_line_topack');
+            null, null, null, null, [1], 25, 1, 'handover_pack_fromline');
         orgtypestringfrom = '14';
         orgtypestringto = '9';
 

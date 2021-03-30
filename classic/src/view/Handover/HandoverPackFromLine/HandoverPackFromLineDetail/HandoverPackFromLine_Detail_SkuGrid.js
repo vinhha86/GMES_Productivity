@@ -1,17 +1,13 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_SkuGrid', {
+Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_SkuGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'HandoverCutToPrint_Detail_SkuGrid',
-    id: 'HandoverCutToPrint_Detail_SkuGrid',
-    reference: 'HandoverCutToPrint_Detail_SkuGrid',
+    xtype: 'HandoverPackFromLine_Detail_SkuGrid',
+    id: 'HandoverPackFromLine_Detail_SkuGrid',
+    reference: 'HandoverPackFromLine_Detail_SkuGrid',
     viewConfig: {
         stripeRows: true,
         columnLines: true,
         rowLines: true
     },
-    features: [{
-        ftype: 'summary',
-        dock: 'bottom'
-    }], 
     plugins: {
         cellediting: {
             clicksToEdit: 1,
@@ -31,21 +27,6 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_SkuGrid', {
         { 
             text: 'SL giao',
             dataIndex: 'totalpackage',
-            editor:{
-                xtype:'textfield',
-                maskRe: /[0-9]/,
-                selectOnFocus: true
-            },
-            renderer: function(value){
-                return Ext.util.Format.number(parseFloat(value), '0,000');
-            },
-            flex: 1,
-            align: 'end',
-            summaryType: 'sum', summaryRenderer: 'renderSum'
-        },
-        { 
-            text: 'SL nhận',
-            dataIndex: 'totalpackagecheck',
             // editor:{
             //     xtype:'textfield',
             //     maskRe: /[0-9]/,
@@ -55,8 +36,21 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_SkuGrid', {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             },
             flex: 1,
-            align: 'end',
-            summaryType: 'sum', summaryRenderer: 'renderSum'
+            align: 'end'
+        },
+        { 
+            text: 'SL nhận',
+            dataIndex: 'totalpackagecheck',
+            editor:{
+                xtype:'textfield',
+                maskRe: /[0-9]/,
+                selectOnFocus: true
+            },
+            renderer: function(value){
+                return Ext.util.Format.number(parseFloat(value), '0,000');
+            },
+            flex: 1,
+            align: 'end'
         }
     ]
 });

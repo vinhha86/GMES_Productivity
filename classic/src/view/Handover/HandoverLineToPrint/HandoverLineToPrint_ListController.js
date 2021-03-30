@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
+Ext.define('GSmartApp.view.handover.HandoverLineToPrint_ListController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverLineToPack_ListController',
+    alias: 'controller.HandoverLineToPrint_ListController',
     init: function () {
         var m = this;
         var viewModel = this.getViewModel();
@@ -25,13 +25,12 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
         var orgtypestringfrom = '';
         var orgtypestringto = '';
 
-        // LINE TO PACK - xuất tp hoàn thiện
-        // console.log('handover_line_topacklist');
-        viewModel.set('viewId', 'handover_line_topack');
-        HandoverStore.loadStoreBySearch(4, '', 
-            null, null, null, null, [], 25, 1, 'handover_line_topack');
+        // LINE TO PRINT - xuất btp in thêu
+        viewModel.set('viewId', 'handover_line_toprint');
+        HandoverStore.loadStoreBySearch(5, '', 
+        null, null, null, null, [], 25, 1, 'handover_line_toprint');
         orgtypestringfrom = '14';
-        orgtypestringto = '9';
+        orgtypestringto = '20';
 
         if(session.orgid_link == 1){
             // lấy hết nếu orgid_link == 1
@@ -40,8 +39,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
         }else{ 
             // lấy của px nếu orgid_link là px
             ListOrgStoreFrom.getbyParentandType(session.orgid_link, orgtypestringfrom);
-            ListOrgStoreTo.getbyParentandType(session.orgid_link, orgtypestringto);
+            ListOrgStoreTo.loadStoreByOrgTypeString(orgtypestringto);
         }
+
+        // ListOrgStoreFrom.loadStoreByOrgTypeString(orgtypestringfrom);
+        // ListOrgStoreTo.loadStoreByOrgTypeString(orgtypestringto);
     },
     control: {
         '#btnThemMoi': {
@@ -55,7 +57,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('HandoverStore');
-        var handovertypeid_link = 4;
+        var handovertypeid_link = 5;
         //
         var viewId = viewModel.get('viewId');
         //

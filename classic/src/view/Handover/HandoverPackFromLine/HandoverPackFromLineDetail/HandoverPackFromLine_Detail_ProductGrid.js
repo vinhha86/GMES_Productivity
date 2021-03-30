@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_ProductGrid', {
+Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_ProductGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'HandoverLineToPack_Detail_ProductGrid',
-    id: 'HandoverLineToPack_Detail_ProductGrid',
-    reference: 'HandoverLineToPack_Detail_ProductGrid',
+    xtype: 'HandoverPackFromLine_Detail_ProductGrid',
+    id: 'HandoverPackFromLine_Detail_ProductGrid',
+    reference: 'HandoverPackFromLine_Detail_ProductGrid',
     viewConfig: {
         stripeRows: true,
         columnLines: true,
@@ -43,11 +43,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_ProductGrid', {
     }, {
         text: 'SL giao',
         dataIndex: 'totalpackage',
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9]/,
-            selectOnFocus: true
-        },
+        // editor:{
+        //     xtype:'textfield',
+        //     maskRe: /[0-9]/,
+        //     selectOnFocus: true
+        // },
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
@@ -56,11 +56,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_ProductGrid', {
     }, {
         text: 'SL nhận',
         dataIndex: 'totalpackagecheck',
-        // editor:{
-        //     xtype:'textfield',
-        //     maskRe: /[0-9]/,
-        //     selectOnFocus: true
-        // },
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9]/,
+            selectOnFocus: true
+        },
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },

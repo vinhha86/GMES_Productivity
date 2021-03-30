@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_ProductGrid', {
+Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_ProductGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'HandoverLineToPack_Detail_ProductGrid',
-    id: 'HandoverLineToPack_Detail_ProductGrid',
-    reference: 'HandoverLineToPack_Detail_ProductGrid',
+    xtype: 'HandoverLineToPrint_Detail_ProductGrid',
+    id: 'HandoverLineToPrint_Detail_ProductGrid',
+    reference: 'HandoverLineToPrint_Detail_ProductGrid',
     viewConfig: {
         stripeRows: true,
         columnLines: true,

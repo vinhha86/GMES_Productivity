@@ -43,11 +43,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_ProductGrid', {
     }, {
         text: 'SL giao',
         dataIndex: 'totalpackage',
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9]/,
-            selectOnFocus: true
-        },
+        // editor:{
+        //     xtype:'textfield',
+        //     maskRe: /[0-9]/,
+        //     selectOnFocus: true
+        // },
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },

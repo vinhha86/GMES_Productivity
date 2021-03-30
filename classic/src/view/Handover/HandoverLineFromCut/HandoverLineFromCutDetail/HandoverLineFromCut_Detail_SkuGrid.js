@@ -8,6 +8,10 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_SkuGrid', {
         columnLines: true,
         rowLines: true
     },
+    features: [{
+        ftype: 'summary',
+        dock: 'bottom'
+    }], 
     plugins: {
         cellediting: {
             clicksToEdit: 1,
@@ -27,16 +31,17 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_SkuGrid', {
         { 
             text: 'SL giao',
             dataIndex: 'totalpackage',
-            editor:{
-                xtype:'textfield',
-                maskRe: /[0-9]/,
-                selectOnFocus: true
-            },
+            // editor:{
+            //     xtype:'textfield',
+            //     maskRe: /[0-9]/,
+            //     selectOnFocus: true
+            // },
             renderer: function(value){
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             },
             flex: 1,
-            align: 'end'
+            align: 'end',
+            summaryType: 'sum', summaryRenderer: 'renderSum'
         },
         { 
             text: 'SL nhận',
@@ -50,7 +55,8 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail_SkuGrid', {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             },
             flex: 1,
-            align: 'end'
+            align: 'end',
+            summaryType: 'sum', summaryRenderer: 'renderSum'
         }
     ]
 });

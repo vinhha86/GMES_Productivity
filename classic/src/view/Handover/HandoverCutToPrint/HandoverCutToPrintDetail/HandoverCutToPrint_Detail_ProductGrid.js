@@ -56,11 +56,11 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_ProductGrid', {
     }, {
         text: 'SL nhận',
         dataIndex: 'totalpackagecheck',
-        editor:{
-            xtype:'textfield',
-            maskRe: /[0-9]/,
-            selectOnFocus: true
-        },
+        // editor:{
+        //     xtype:'textfield',
+        //     maskRe: /[0-9]/,
+        //     selectOnFocus: true
+        // },
         renderer: function(value){
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },

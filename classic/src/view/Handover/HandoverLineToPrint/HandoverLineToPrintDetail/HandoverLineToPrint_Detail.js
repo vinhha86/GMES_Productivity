@@ -1,10 +1,10 @@
-Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail', {
+Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail', {
     extend: 'Ext.form.Panel',
-    xtype: 'HandoverLineFromCut_Detail',
-    id:'HandoverLineFromCut_Detail',
-    controller: 'HandoverLineFromCut_Detail_Controller',
+    xtype: 'HandoverLineToPrint_Detail',
+    id:'HandoverLineToPrint_Detail',
+    controller: 'HandoverLineToPrint_Detail_Controller',
     viewModel:{
-        type:'HandoverLineFromCut_Detail_ViewModel'
+        type:'HandoverLineToPrint_Detail_ViewModel'
     },
     layout: 'border',
     title: '',
@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail', {
             margin: '0 1 1 0',
             height: 120,
             border: true,
-            xtype: 'HandoverLineFromCut_Detail_Info'
+            xtype: 'HandoverLineToPrint_Detail_Info'
         },
         {
             region: 'center',
@@ -23,13 +23,13 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail', {
                 region: 'center',
                 margin: '0 1 1 0',
                 border: true,
-                xtype: 'HandoverLineFromCut_Detail_ProductGrid',
+                xtype: 'HandoverLineToPrint_Detail_ProductGrid',
                 flex: 1,
             },{
                 region: 'east',
                 margin: '0 1 1 0',
                 border: true,
-                xtype: 'HandoverLineFromCut_Detail_SkuGrid',
+                xtype: 'HandoverLineToPrint_Detail_SkuGrid',
                 itemId: 'handOverSkuList',
                 hidden: true,
                 flex: 1,
@@ -47,38 +47,25 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail', {
             margin: 3,
             itemId:'btnQuayLai',
             iconCls: 'x-fa fa-backward'
-        },
-        {
+        },{
             xtype:'button',
-            text: 'Nơi nhận xác thực',
+            text: 'Người xuất xác nhận',
             margin: 3,
-            itemId:'btnConfirm',
+            itemId:'btnHandover',
             iconCls: 'x-fa fa-check',
             bind: {
-                hidden: '{isBtnConfirmInHidden}'
+                hidden: '{isBtnConfirmOutHidden}'
             }
-        },
-        {
+        },{
             xtype:'button',
-            text: 'Huỷ xác thực nhận',
+            text: 'Xóa',
             margin: 3,
-            itemId:'btnCancelConfirm',
-            iconCls: 'x-fa fa-times-circle',
+            itemId:'btnDelete',
+            iconCls: 'x-fa fa-trash',
             bind: {
-                hidden: '{isBtnCancelConfirmHidden}'
+                hidden: '{isBtnDeleteHidden}'
             }
-        },
-        // {
-        //     xtype:'button',
-        //     text: 'Xóa',
-        //     margin: 3,
-        //     itemId:'btnDelete',
-        //     iconCls: 'x-fa fa-trash',
-        //     bind: {
-        //         hidden: '{isBtnDeleteHidden}'
-        //     }
-        // },
-        {
+        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,
