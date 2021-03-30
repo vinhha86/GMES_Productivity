@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
+Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutToPrint_Detail_Controller',
+    alias: 'controller.HandoverLineToPack_Detail_Controller',
     init: function () {
         var session = GSmartApp.util.State.get('session');
         console.log(session);
@@ -12,22 +12,24 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         var ListOrgStore_From = viewModel.getStore('ListOrgStore_From');
         var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
 
-        if(Ext.getCmp('handover_cut_toprint_detail')){
-            m.getView().setTitle('Xuất bán thành phẩm đến in thêu');
-            viewModel.set('viewId', 'handover_cut_toprint_detail');
-            viewModel.set('viewIdParent', 'handover_cut_toprint_edit');
-            viewModel.set('viewIdList', 'handover_cut_toprint');
-            var orgtypestring_from = '17';
+        if(Ext.getCmp('handover_line_topack_detail')){
+            m.getView().setTitle('Xuất thành phẩm đến tổ hoàn thiện');
+            viewModel.set('viewId', 'handover_line_topack_detail');
+            viewModel.set('viewIdParent', 'handover_line_topack_edit');
+            viewModel.set('viewIdList', 'handover_line_topack');
+            var orgtypestring_from = '14';
+            var orgtypestring_to = '9';
             if(session.orgid_link == 1){
                 // lấy hết nếu orgid_link == 1
                 ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+                ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
             }else{ 
                 // lấy của px nếu orgid_link là px
                 ListOrgStore_From.getbyParentandType(session.orgid_link, orgtypestring_from);
+                ListOrgStore_To.getbyParentandType(session.orgid_link, orgtypestring_to);
             }
-            var orgtypestring_to = '20';
-            ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
         }
+
 
     },
     listen: {
@@ -62,7 +64,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         '#btnCancelConfirm': {
             click: 'onCancelConfirm'
         },
-        '#HandoverCutToPrint_Detail_ProductGrid': {
+        '#HandoverLineToPack_Detail_ProductGrid': {
             // itemclick: 'onHandoverDetail_ProductGridItemClick'
         },
     },
@@ -241,7 +243,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
                             var porderid_link = response.data[0].id;
                             viewModel.set('currentRec.porderid_link', porderid_link);
 
-                            // if(viewId == 'handover_cut_toprint_detail'){
+                            // if(viewId == 'handover_cut_toline_detail'){
                             //     var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
                             //     ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
                             //     me.getView().down('#orgid_to_link').setValue(null);
@@ -314,9 +316,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
                 padding: 5
             },
             items: [{
-                xtype: 'HandoverCutToPrint_Detail_PorderSearch',
+                xtype: 'HandoverLineToPack_Detail_PorderSearch',
                 viewModel: {
-                    type: 'HandoverCutToPrint_Detail_PorderSearchViewModel',
+                    type: 'HandoverLineToPack_Detail_PorderSearchViewModel',
                     data: {
                         pordercode: pordercode,
                         granttoorgid_link: granttoorgid_link,
@@ -327,7 +329,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         });
         form.show();
 
-        form.down('#HandoverCutToPrint_Detail_PorderSearch').getController().on('found0Porder', function () {
+        form.down('#HandoverLineToPack_Detail_PorderSearch').getController().on('found0Porder', function () {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: "Không tìm thấy lệnh",
@@ -338,7 +340,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
             });
             form.close();
         });
-        form.down('#HandoverCutToPrint_Detail_PorderSearch').getController().on('found1Porder', function (record) {
+        form.down('#HandoverLineToPack_Detail_PorderSearch').getController().on('found1Porder', function (record) {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: "Tìm thấy 1 lệnh",
@@ -371,7 +373,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
             form.close();
         });
 
-        form.down('#HandoverCutToPrint_Detail_PorderSearch').getController().on('foundManyPorder', function (select) {
+        form.down('#HandoverLineToPack_Detail_PorderSearch').getController().on('foundManyPorder', function (select) {
             if(select.length == 0){
                 Ext.Msg.show({
                     title: "Thông báo",
@@ -449,7 +451,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
                                 if(!success){
                                     this.fireEvent('logout');
                                 } else {
-                                    var HandoverDetail_ProductGrid = Ext.getCmp('HandoverCutToPrint_Detail_ProductGrid');
+                                    var HandoverDetail_ProductGrid = Ext.getCmp('HandoverCutToline_Detail_ProductGrid');
                                     var HandoverProductStoreData = HandoverProductStore.getData();
                                     HandoverSkuStore.setData(HandoverProductStoreData.items[0].get('handoverSKUs'));
                                     HandoverDetail_ProductGrid.getSelectionModel().select(0, true);
@@ -513,8 +515,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         viewModel.set('currentRec.handover_date', new Date());
 
         var viewId = viewModel.get('viewId');
-        if(viewId == 'handover_cut_toprint_detail'){
-            viewModel.set('currentRec.handovertypeid_link', 2);
+        if(viewId == 'handover_line_topack_detail'){
+            viewModel.set('currentRec.handovertypeid_link', 4);
         }
 
         var viewId = viewModel.get('viewId');
@@ -543,7 +545,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
                     var viewId = viewModel.get('viewId');
                     // console.log(viewId);
                     // if(
-                    //     viewId == 'handover_cut_toprint_detail'
+                    //     viewId == 'handover_line_topack_detail'
                     // ){
                     //     var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
                     //     ListOrgStore_To.loadStoreByPorderIdLink(data.porderid_link);
@@ -582,8 +584,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         });
     },
     onEditSkuTotalPackage: function (editor, context, e) { console.log(context);
-        var HandoverDetail_ProductGrid = Ext.getCmp('HandoverCutToPrint_Detail_ProductGrid');
-        var HandoverDetail_SkuGrid = Ext.getCmp('HandoverCutToPrint_Detail_SkuGrid');
+        var HandoverDetail_ProductGrid = Ext.getCmp('HandoverLineToPack_Detail_ProductGrid');
+        var HandoverDetail_SkuGrid = Ext.getCmp('HandoverLineToPack_Detail_SkuGrid');
         // HandoverDetail_ProductGrid.setLoading(true);
         // HandoverDetail_SkuGrid.setLoading(true);
 
@@ -593,7 +595,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
 
         if(
-            viewId == 'handover_cut_toprint_detail'
+            viewId == 'handover_line_topack_detail'
         ){
             if(context.colIdx == 3){
                 HandoverSkuStore.rejectChanges();
@@ -641,8 +643,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         }
     },
     onEditProductTotalPackage: function (editor, context, e) {
-        var HandoverDetail_ProductGrid = Ext.getCmp('HandoverCutToPrint_Detail_ProductGrid');
-        var HandoverDetail_SkuGrid = Ext.getCmp('HandoverCutToPrint_Detail_SkuGrid');
+        var HandoverDetail_ProductGrid = Ext.getCmp('HandoverLineToPack_Detail_ProductGrid');
+        var HandoverDetail_SkuGrid = Ext.getCmp('HandoverLineToPack_Detail_SkuGrid');
         // HandoverDetail_ProductGrid.setLoading(true);
         // HandoverDetail_SkuGrid.setLoading(true);
 
@@ -651,7 +653,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
 
         if(
-            viewId == 'handover_cut_toprint_detail'
+            viewId == 'handover_line_topack_detail'
         ){
             if(context.colIdx == 4){
                 HandoverProductStore.rejectChanges();
@@ -731,9 +733,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
                 padding: 5
             },
             items: [{
-                xtype: 'HandoverCutToPrint_Detail_Confirm',
+                xtype: 'HandoverLineToPack_Detail_Confirm',
                 viewModel: {
-                    type: 'HandoverCutToPrint_Detail_ConfirmViewModel',
+                    type: 'HandoverLineToPack_Detail_ConfirmViewModel',
                     data: {
                         handoverid_link: handoverid_link,
                         viewId: viewId,
@@ -744,7 +746,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         });
         form.show();
 
-        form.down('#HandoverCutToPrint_Detail_Confirm').getController().on('updateStatus', function (obj) {
+        form.down('#HandoverLineToPack_Detail_Confirm').getController().on('updateStatus', function (obj) {
             me.updateStatus(obj);
             form.close();
         });
@@ -891,7 +893,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_Controller', {
         var parentid_link = record.data.parentid_link;
         var viewId = viewModel.get('viewId');
 
-        // if(viewId == 'handover_cut_toprint_detail'){
+        // if(viewId == 'handover_line_topack_detail'){
         //     var porderid_link = viewModel.get('currentRec.porderid_link');
         //     m.loadHandoverProductOnPorderSelect(porderid_link);
         // }

@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_PorderSearchController', {
+Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_PorderSearchController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.HandoverCutToPrint_Detail_PorderSearchController',
+    alias: 'controller.HandoverLineToPack_Detail_PorderSearchController',
     init: function () {
         var m = this;
         var viewModel = this.getViewModel();
@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToPrint_Detail_PorderSearchContro
 				} else {
                     // console.log(records);
                     var items = POrder_ListStore.getData().items;
-                    if(viewId == 'handover_cut_toprint_detail'){
+                    if(viewId == 'handover_line_topack_detail'){
                         if(items.length == 0){
                             m.fireEvent('found0Porder');
                         }
