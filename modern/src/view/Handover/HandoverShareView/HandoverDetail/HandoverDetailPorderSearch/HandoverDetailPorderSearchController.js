@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearchController', {
                         m.fireEvent('found0Porder');
                     }
                     if(items.length == 1){
-                        m.fireEvent('found1Porder', records);
+                        // m.fireEvent('found1Porder', records);
                     }
 				}
 			}

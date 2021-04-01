@@ -2,8 +2,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.HandoverCutTolineDetailController',
     init: function() {
+        var session = GSmartApp.util.State.get('session'); // console.log(session);
         var viewModel = this.getViewModel();
         viewModel.set('viewId', 'handover_cut_toline_edit');
+        viewModel.set('viewIdList', 'handover_cut_toline');
 
         var UserListStore = viewModel.getStore('UserListStore');
         UserListStore.loadUserbyOrg(1);
@@ -13,8 +15,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var orgtypestring_from = '17';
         ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
         // cut to line chon porder de load ListOrgStore_To, nhung van cho chon to chuyen
-        var orgtypestring_to = '14';
-        ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
+        // var orgtypestring_to = '14';
+        // ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
     },
     listen: {
         controller: {
@@ -43,6 +45,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         },
         '#btnBack': {
             tap: 'onBtnBackTap'
+        },
+        '#orgid_to_link': {
+            // select: 'onOrgToComboSelect',
+            change: 'onOrgToComboSelect'
         }
     },
 
@@ -108,7 +114,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                     var handoverProducts = data.handoverProducts;
                     if(handoverProducts != null && handoverProducts.length > 0){
                         var handoverProduct = handoverProducts[0];
-                        viewModel.set('handoverProduct',handoverProduct);
+                        // viewModel.set('handoverProduct',handoverProduct);
                         if(
                             handoverProduct != null && 
                             handoverProduct.handoverSKUs != null && 
@@ -120,6 +126,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                             HandoverSkuStore.setData(handoverSKUs);
                             viewModel.set('handoverSKUs',handoverSKUs);
                             // console.log(HandoverSkuStore);
+                            console.log(viewModel.get('handoverProduct'));
 
                         }
                     }
@@ -144,6 +151,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var data = new Object();
         data = viewModel.get('currentRec');
         data.handoverProducts = handoverProducts;
+
+        console.log(data);
 
         params.data = data;
         params.msgtype = "HANDOVER_CREATE";
@@ -233,6 +242,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         // console.log(pordercode);
         // console.log(viewId);
 
+        var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+        var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+
         if((pordercode == null || pordercode.length == 0) && granttoorgid_link == null){
             Ext.toast('Mã lệnh không được bỏ trống', 1000);
             return;
@@ -289,7 +301,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
 
             viewModel.set('currentRec.porderid_link', porderid_link);
             viewModel.set('pordercode', ordercode);
-            m.loadHandoverProductOnPorderSelect(porderid_link);
+            // m.loadHandoverProductOnPorderSelect(porderid_link);
+
+            HandoverProductStore.setData([]);
+            HandoverSkuStore.setData([]);
 
             dialog.close();
         });
@@ -307,19 +322,35 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
             // cut to line, load store ListOrgStore_To
             var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
             ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
-            // me.down('#orgid_to_link').setValue(null);
-            // me.down('#orgid_to_link').focus();
+            me.down('#orgid_to_link').setValue(null);
+            me.down('#orgid_to_link').focus();
 
             viewModel.set('currentRec.porderid_link', porderid_link);
             viewModel.set('pordercode', ordercode);
-            m.loadHandoverProductOnPorderSelect(porderid_link);
+            // m.loadHandoverProductOnPorderSelect(porderid_link);
+
+            HandoverProductStore.setData([]);
+            HandoverSkuStore.setData([]);
 
             dialog.close();
         });
     },
+    onOrgToComboSelect: function(cbbox, newValue, oldValue, eOpts){
+        console.log(newValue);
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        // var parentid_link = newValue.data.parentid_link;
+        var viewId = viewModel.get('viewId');
+
+        if(viewId == 'handover_cut_toline_edit' && newValue != null){
+            var porderid_link = viewModel.get('currentRec.porderid_link');
+            m.loadHandoverProductOnPorderSelect(porderid_link);
+        }
+    },
 
     // product
-    loadHandoverProductOnPorderSelect: function(porderid_link){
+    loadHandoverProductOnPorderSelect: function(porderid_link){ // console.log('loadHandoverProductOnPorderSelect');
         var m = this;
         var viewModel = this.getViewModel();
         var params = new Object();
@@ -335,16 +366,57 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                         response.data.unitName = response.unitName;
                         // response.data.totalpackage = 1;
                         // response.data.totalpackagecheck = 1;
+
+                        var data = new Array();
+                        data.push(response.data);
+
+                        var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+                        HandoverProductStore.setData(data);
+                        HandoverProductStore.commitChanges();
                         
                         viewModel.set('handoverProduct', response.data);
-                        m.loadHandoverSku();
-                        // console.log(response.data);
+                        // m.loadHandoverSku();
+                        console.log(response.data);
+
+                        var record = HandoverProductStore.getData().items[0];
+                        // console.log(record);
+                        m.onHandoverDetail_ProductGridItemClick(record);
                     }
                 }
             })
     },
-
     // sku
+    onHandoverDetail_ProductGridItemClick:function(record){
+        // console.log('onHandoverDetail_ProductGridItemClick');
+        var m = this;
+        var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
+        // console.log(currentRec);
+        // console.log(record);
+
+        if(currentRec.id == null || currentRec.id == 0){ // handover moi, chua co du lieu 
+            var handoverSKUs = record.get('handoverSKUs');
+            if(handoverSKUs == null || handoverSKUs.length == 0){
+                // lay sku theo porder
+                var porderid_link = viewModel.get('currentRec.porderid_link');
+                var productid_link = record.get('productid_link');
+                var handoverid_link = currentRec.id;
+                m.getNewHandoverSKUs(record, handoverid_link, porderid_link, productid_link);
+            }else{
+                // set HandoverDetail_SkuGrid theo handoverSKUs
+                m.setOldHandoverSKUs(record);
+            }
+        }else{ // handover cu, da co du lieu
+            // lay sku theo handover
+            var handoverSKUs = record.get('handoverSKUs');
+            if(handoverSKUs == null || handoverSKUs.length == 0){
+                // neu chua co handoverSKUs
+            }else{
+                // neu co handoverSKUs
+                m.setOldHandoverSKUs(record);
+            }
+        }
+    },
     loadHandoverSku:function(){
         var m = this;
         var viewModel = this.getViewModel();
@@ -377,19 +449,22 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
     },
 
     getNewHandoverSKUs:function(handoverProduct, handoverid_link, porderid_link, productid_link){
+        // console.log('getNewHandoverSKUs')
         var m = this;
         var viewModel = this.getViewModel();
+        var orgid_to_link = viewModel.get('currentRec.orgid_to_link');
 
         var params = new Object();
         params.handoverid_link = handoverid_link;
         params.porderid_link = porderid_link;
         params.productid_link = productid_link;
+        params.orgid_to_link = orgid_to_link; // org grant
 
         GSmartApp.Ajax.post('/api/v1/handoversku/getByHandoverProduct', Ext.JSON.encode(params),
             function (success, response, options) {
                 var response = Ext.decode(response.responseText);
                 if (success) {
-                    var data = response.data;
+                    var data = response.data; console.log(data);
                     for(var i=0; i<data.length; i++) {
                         data[i].skuCode = data[i].skuCodeString;
                         data[i].skuColor = data[i].skuColorString;
@@ -400,8 +475,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                     var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
                     // record.set('handoverSKUs', []);
                     // record.set('handoverSKUs', data);
-                    handoverProduct.handoverSKUs = data;
-                    HandoverSkuStore.setData(handoverProduct.handoverSKUs);
+                    viewModel.set('handoverProduct.handoverSKUs', data)
+                    // handoverProduct.handoverSKUs = data;
+                    HandoverSkuStore.setData(data);
                 }else{
                     console.log('fail');
                 }
@@ -494,20 +570,92 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         });
         dialog.show();
 
-        dialog.down('#HandoverDetailConfirm').getController().on('XacThuc', function (obj) {
-            if(obj.approver_userid_link != 0){
-                viewModel.set('currentRec.approver_userid_link', obj.approver_userid_link);
-            }
-            if(obj.receiver_userid_link != 0){
-                viewModel.set('currentRec.receiver_userid_link', obj.receiver_userid_link);
-            }
-            viewModel.set('currentRec.status', obj.status);
-
+        dialog.down('#HandoverDetailConfirm').getController().on('updateStatus', function (obj) {
+            me.updateStatus(obj);
             dialog.close();
         });
+
+        // dialog.down('#HandoverDetailConfirm').getController().on('XacThuc', function (obj) {
+        //     if(obj.approver_userid_link != 0){
+        //         viewModel.set('currentRec.approver_userid_link', obj.approver_userid_link);
+        //     }
+        //     if(obj.receiver_userid_link != 0){
+        //         viewModel.set('currentRec.receiver_userid_link', obj.receiver_userid_link);
+        //     }
+        //     viewModel.set('currentRec.status', obj.status);
+
+        //     dialog.close();
+        // });
 
         dialog.down('#HandoverDetailConfirm').getController().on('Thoat', function () {
             dialog.close();
         });
+    },
+
+    updateStatus: function(obj){
+        var me = this;
+        var viewModel = this.getViewModel();
+
+        // update status params
+        var status = obj.status;
+        var handoverid_link = obj.handoverid_link;
+        var approver_userid_link = obj.approver_userid_link;
+        var receiver_userid_link = obj.receiver_userid_link;
+
+        var currentRec = viewModel.get('currentRec');
+        console.log(obj);
+        console.log(currentRec);
+
+        // handover obj params
+        // var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+        // var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+
+        // var handoverProductsData = HandoverProductStore.getData().items;
+        // var handoverProducts = new Array();
+        // for(var i=0;i<handoverProductsData.length;i++){
+        //     handoverProducts.push(handoverProductsData[i].data);
+        // }
+
+        var params = new Object();
+        var data = new Object();
+        data = viewModel.get('currentRec');
+        // data.handoverProducts = handoverProducts;
+        
+        params.data = data;
+        params.status = status;
+        params.handoverid_link = handoverid_link;
+        params.approver_userid_link = approver_userid_link;
+        params.receiver_userid_link = receiver_userid_link;
+        params.msgtype = "HANDOVER_SETSTATUS";
+        params.message = "Set status";
+
+        GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        if(response.message == 'Không tồn tại POrderProcessing'){
+                            Ext.toast(response.message, 1000);
+                        }else {
+                            Ext.toast('Xác thực thành công', 1000);
+
+                            viewModel.set('currentRec', response.data);
+                            var handover_date = viewModel.get('currentRec.handover_date');
+                            var date = Ext.Date.parse(handover_date, 'c');
+                            if (null == date) date = new Date(handover_date);
+                            viewModel.set('currentRec.handover_date',date);
+
+                            var viewIdList = viewModel.get('viewIdList');
+                            me.redirectTo(viewIdList + "/" + response.data.id + "/edit");
+                        }
+                    }
+                    else {
+                        Ext.toast('Xác thực thất bại', 1000);
+                    }
+
+                } else {
+                    Ext.toast('Xác thực thất bại (no network)', 1000);
+                }
+            })
     },
 });

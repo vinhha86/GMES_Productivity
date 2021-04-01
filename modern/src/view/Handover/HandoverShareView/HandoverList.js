@@ -31,9 +31,9 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverList', {
     },
 
     columns: [{
-        text: 'Mã SP',
+        text: 'Mã lệnh',
         flex: 1,
-        dataIndex: 'handoverProductBuyercode',
+        dataIndex: 'ordercode',
         renderer: function (value, record, dataIndex, cell, column ) {
             var c = record.data.status;
             if (c == 0) {

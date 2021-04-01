@@ -19,6 +19,8 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         var columnIndex = location.columnIndex;
         var record = location.record;
 
+        var currentRec = viewModel.get('currentRec');
+
         // console.log(record);
         var recordTotalpackage = 0;
         if(columnIndex == 0 || columnIndex == 1){
@@ -73,12 +75,15 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
 
         // get event
         dialog.down('#HandoverSkuAmount').getController().on('Luu', function (recordTotalpackage) {
-            var handoverProduct = viewModel.get('handoverProduct');
+            var handoverProduct = viewModel.get('handoverProduct');  console.log(handoverProduct);
             if(recordTotalpackage == null){
                 recordTotalpackage == 0
             }
             if(columnIndex == 2){
                 record.set('totalpackage', recordTotalpackage);
+                if(currentRec.status == 0){
+                    record.set('totalpackagecheck', recordTotalpackage);
+                }
             }
             if(columnIndex == 3){
                 record.set('totalpackagecheck', recordTotalpackage);
@@ -107,13 +112,14 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
                 }
                 // handoverProduct.totalpackage = null;
                 // handoverProduct.totalpackage = handoverProductTotalPackage;
-                if(columnIndex == 2){
+                // if(columnIndex == 2){
                     viewModel.set('handoverProduct.totalpackage', handoverProductTotalPackage);
-                }
-                if(columnIndex == 3){
+                // }
+                // if(columnIndex == 3){
                     viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
-                }
-                // console.log(handoverProductTotalPackage);
+                // }
+                console.log(handoverProductTotalPackage);
+                console.log(handoverProductTotalPackagecheck);
             }
             
             dialog.close();

@@ -131,6 +131,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                                     label: 'Nơi nhận:',
                                     labelWidth: 85,
                                     flex: 1,
+                                    forceSelection: true
                                 // },{
                                 //     xtype: 'combobox',
                                 //     // reference: 'cboorgto',
@@ -166,14 +167,16 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                                     bind: {
                                         value: '{pordercode}'
                                     }
-                                },{
-                                    xtype:'button',
-                                    // text: 'Xác nhận xuất',
-                                    margin: 2,
-                                    itemId:'btnPlus',
-                                    ui: 'action',
-                                    iconCls: 'x-fa fa-plus',
-                                },{
+                                },
+                                // {
+                                //     xtype:'button',
+                                //     // text: 'Xác nhận xuất',
+                                //     margin: 2,
+                                //     itemId:'btnPlus',
+                                //     ui: 'action',
+                                //     iconCls: 'x-fa fa-plus',
+                                // },
+                                {
                                     xtype:'button',
                                     // text: 'Xác nhận xuất',
                                     margin: 2,
