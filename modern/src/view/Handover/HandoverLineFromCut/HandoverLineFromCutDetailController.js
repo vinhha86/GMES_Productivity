@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
     init: function() {
         var viewModel = this.getViewModel();
         viewModel.set('viewId', 'handover_line_fromcut_edit');
+        viewModel.set('viewIdList', 'handover_line_fromcut');
 
         var UserListStore = viewModel.getStore('UserListStore');
         UserListStore.loadUserbyOrg(1);
@@ -34,6 +35,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
         // },
         '#btnHandover': {
             tap: 'onConfirm'
+        },
+        '#btnCancelConfirm': {
+            tap: 'onCancelConfirm'
         },
         // '#btnPlus': {
         //     tap: 'onBtnPlus'
@@ -122,13 +126,13 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
                             // console.log(HandoverSkuStore);
 
                             //Update mac dinh so nhan = so giao
-                            var handoverProductTotalPackagecheck =0;
-                            for(var i=0; i<HandoverSkuStore.data.items.length;i++){
-                                var data = HandoverSkuStore.data.items[i];
-                                data.set('totalpackagecheck', data.get('totalpackage'));
-                                handoverProductTotalPackagecheck = handoverProductTotalPackagecheck + data.get('totalpackage');
-                            }
-                            viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
+                            // var handoverProductTotalPackagecheck =0;
+                            // for(var i=0; i<HandoverSkuStore.data.items.length;i++){
+                            //     var data = HandoverSkuStore.data.items[i];
+                            //     data.set('totalpackagecheck', data.get('totalpackage'));
+                            //     handoverProductTotalPackagecheck = handoverProductTotalPackagecheck + data.get('totalpackage');
+                            // }
+                            // viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
                         }
                     }
                 }else{
@@ -436,6 +440,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
     // confirm
     onConfirm: function(){
         // nhận
+        var me = this;
         var viewModel = this.getViewModel();
         var handoverid_link = viewModel.get('currentRec.id');
         var status = viewModel.get('currentRec.status');
@@ -476,20 +481,124 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
         });
         dialog.show();
 
-        dialog.down('#HandoverDetailConfirm').getController().on('XacThuc', function (obj) {
-            if(obj.approver_userid_link != 0){
-                viewModel.set('currentRec.approver_userid_link', obj.approver_userid_link);
-            }
-            if(obj.receiver_userid_link != 0){
-                viewModel.set('currentRec.receiver_userid_link', obj.receiver_userid_link);
-            }
-            viewModel.set('currentRec.status', obj.status);
-
+        dialog.down('#HandoverDetailConfirm').getController().on('updateStatus', function (obj) {
+            me.updateStatus(obj);
             dialog.close();
         });
+
+        // dialog.down('#HandoverDetailConfirm').getController().on('XacThuc', function (obj) {
+        //     if(obj.approver_userid_link != 0){
+        //         viewModel.set('currentRec.approver_userid_link', obj.approver_userid_link);
+        //     }
+        //     if(obj.receiver_userid_link != 0){
+        //         viewModel.set('currentRec.receiver_userid_link', obj.receiver_userid_link);
+        //     }
+        //     viewModel.set('currentRec.status', obj.status);
+
+        //     dialog.close();
+        // });
 
         dialog.down('#HandoverDetailConfirm').getController().on('Thoat', function () {
             dialog.close();
         });
+        
+    },
+
+    updateStatus: function(obj){
+        var me = this;
+        var viewModel = this.getViewModel();
+
+        // update status params
+        var status = obj.status;
+        var handoverid_link = obj.handoverid_link;
+        var approver_userid_link = obj.approver_userid_link;
+        var receiver_userid_link = obj.receiver_userid_link;
+
+        var currentRec = viewModel.get('currentRec');
+        console.log(obj);
+        console.log(currentRec);
+
+        // handover obj params
+        // var HandoverProductStore = viewModel.getStore('HandoverProductStore');
+        // var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+
+        // var handoverProductsData = HandoverProductStore.getData().items;
+        // var handoverProducts = new Array();
+        // for(var i=0;i<handoverProductsData.length;i++){
+        //     handoverProducts.push(handoverProductsData[i].data);
+        // }
+
+        var params = new Object();
+        var data = new Object();
+        data = viewModel.get('currentRec');
+        // data.handoverProducts = handoverProducts;
+        
+        params.data = data;
+        params.status = status;
+        params.handoverid_link = handoverid_link;
+        params.approver_userid_link = approver_userid_link;
+        params.receiver_userid_link = receiver_userid_link;
+        params.msgtype = "HANDOVER_SETSTATUS";
+        params.message = "Set status";
+
+        GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        if(response.message == 'Không tồn tại POrderProcessing'){
+                            Ext.toast(response.message, 1000);
+                        }else {
+                            Ext.toast('Xác thực thành công', 1000);
+
+                            viewModel.set('currentRec', response.data);
+                            var handover_date = viewModel.get('currentRec.handover_date');
+                            var date = Ext.Date.parse(handover_date, 'c');
+                            if (null == date) date = new Date(handover_date);
+                            viewModel.set('currentRec.handover_date',date);
+
+                            var viewIdList = viewModel.get('viewIdList');
+                            me.redirectTo(viewIdList + "/" + response.data.id + "/edit");
+                        }
+                    }
+                    else {
+                        Ext.toast('Xác thực thất bại', 1000);
+                    }
+
+                } else {
+                    Ext.toast('Xác thực thất bại (no network)', 1000);
+                }
+            })
+    },
+
+    onCancelConfirm: function (){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var id = viewModel.get('currentRec.id');
+        me.CancelConfirm(id);
+    },
+    CancelConfirm: function(id){
+        var m = this;
+        var me = this.getView();
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/handover/cancelconfirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if(response.message == 'Phiếu chưa được xác nhận'){
+                        Ext.toast(response.message, 1000);
+                    }else if(response.message == 'Không tồn tại POrderProcessing'){
+                        Ext.toast(response.message, 1000);
+                    }else{
+                        Ext.toast('Huỷ xác nhận thành công', 1000);
+                        m.getViewModel().set('currentRec.status', 1);
+                        m.getViewModel().set('currentRec.receiver_userid_link', null);
+                    }
+                } else {
+                    Ext.toast('Huỷ xác nhận thất bại', 1000);
+                }
+            })
     },
 });

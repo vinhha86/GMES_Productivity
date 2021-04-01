@@ -6,13 +6,13 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     },
     control: {
         '#handover_cut_toline_detail': {
-            childtap: 'onChildTapCutToLineDetail'
+            childtap: 'onChildTapDetail'
         },
         '#handover_line_fromcut_detail': {
-            childtap: 'onChildTapCutToLineDetail'
+            childtap: 'onChildTapDetail'
         }
     },
-    onChildTapCutToLineDetail: function ( list, location, eOpts ) {
+    onChildTapDetail: function ( list, location, eOpts ) {
         var me = this;
         var viewModel = this.getViewModel();
         var viewId = viewModel.get('viewId');

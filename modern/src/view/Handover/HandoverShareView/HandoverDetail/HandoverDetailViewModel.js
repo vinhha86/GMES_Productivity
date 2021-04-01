@@ -84,6 +84,9 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             return false;
         },
         isBtnCancelConfirmHidden : function (get) { // Huy xac nhan
+            if (get('isCreateNew')) {
+                return true;
+            }
             if (get('currentRec.status') != 2) {
                 return true;
             }

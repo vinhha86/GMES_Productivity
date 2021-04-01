@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
     ],
     // height: '100%',
     // width: '100%',
-    markDirty: true,
+    markDirty: false,
     columnLines: true,
     striped: false,
 

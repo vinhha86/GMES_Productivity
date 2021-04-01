@@ -409,6 +409,12 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_D_Controller', {
         if(context.field == 'm3'){
             invoiceD_data.m3 = parseFloat(invoiceD_data.m3);
         }
+        if(context.field == 'met'){
+            invoiceD_data.met = parseFloat(invoiceD_data.met);
+        }
+        if(context.field == 'yds'){
+            invoiceD_data.yds = parseFloat(invoiceD_data.yds);
+        }
 
         if(invoice.unitid_link == 1){
             if(context.field == 'met' && (invoiceD_data.unitprice != null || invoiceD_data.unitprice != "")){

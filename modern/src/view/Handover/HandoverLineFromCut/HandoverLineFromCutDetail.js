@@ -272,7 +272,8 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetail', {
         ui: 'action',
     },
     '->'
-    ,{
+    ,
+    {
         xtype:'button',
         iconCls: 'x-fa fa-check',
         itemId:'btnHandover',
@@ -280,15 +281,17 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetail', {
         bind: {
             hidden: '{isBtnConfirmInHidden}'
         }
-    // },{
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-trash',
-    //     itemId:'btnDelete',
-    //     ui: 'action',
-    //     bind: {
-    //         hidden: '{isBtnDeleteHidden}'
-    //     }
-    },{
+    },
+    {
+        xtype:'button',
+        iconCls: 'x-fa fa-times-circle',
+        itemId:'btnCancelConfirm',
+        ui: 'action',
+        bind: {
+            hidden: '{isBtnCancelConfirmHidden}'
+        }
+    },
+    {
         xtype:'button',
         iconCls: 'x-fa fa-save',
         itemId:'btnLuu',

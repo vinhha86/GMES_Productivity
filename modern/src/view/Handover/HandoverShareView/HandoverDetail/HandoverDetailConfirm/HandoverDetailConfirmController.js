@@ -94,7 +94,15 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
             status = 2;
             receiver_userid_link = userid_link;
         }
-        m.setStatus(status, handoverid_link, approver_userid_link, receiver_userid_link);
+
+        var obj = new Object();
+        obj.status = status;
+        obj.handoverid_link = handoverid_link;
+        obj.approver_userid_link = approver_userid_link;
+        obj.receiver_userid_link = receiver_userid_link;
+
+        m.fireEvent('updateStatus', obj);
+        // m.setStatus(status, handoverid_link, approver_userid_link, receiver_userid_link);
     },
     setStatus: function(status, handoverid_link, approver_userid_link, receiver_userid_link){
         var m = this;
