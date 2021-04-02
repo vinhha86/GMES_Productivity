@@ -176,14 +176,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        if(response.catdu != null){
-                            // var rec_catdu = store.getAt(1);
-
-                            // rec_catdu.set(context.field, response.catdu);
-                            // context.record.set('la_vai', response.lavai);
-                            // store.commitChanges();
-                            store.load();
-                        }
+                        store.load();
                     }
                     else {
                         Ext.Msg.alert({
@@ -198,6 +191,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             }
                         });
                     }
+                }
+                else{
+                    store.rejectChanges();
                 }
             })
     },

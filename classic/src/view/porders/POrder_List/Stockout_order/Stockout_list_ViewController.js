@@ -91,6 +91,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
         form.show();
 
         form.down('#Stockout_Detail_View').getController().on('Thoat', function () {
+            var store = viewmodel.getStore('Stockout_order_Store');
+            store.load();
             form.close();
         });
     },

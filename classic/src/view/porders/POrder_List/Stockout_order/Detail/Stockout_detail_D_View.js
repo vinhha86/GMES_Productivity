@@ -56,6 +56,19 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             renderer: function (value, metaData, record) {
                 return value+" m";
             }
+        },
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onShowPKL'
+                }
+            ]
         }
     ],
     dockedItems:[{

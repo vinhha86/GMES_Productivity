@@ -8,6 +8,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             click: 'onThemMoiNPL'
         }
     },
+    onShowPKL: function(grid, rowIndex, colIndex, item, e, record){
+        console.log(record);
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách cây vải',
+            closeAction: 'destroy',
+            height: 600,
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_order_pkl_MainView',
+                viewModel: {
+                    data: {
+                        material_skuid_link: record.get('material_skuid_link')
+                    }
+                }
+            }]
+        });
+        form.show();
+    },
     onThemMoiNPL: function(){
         var grid = this.getView();
         var viewmodel = this.getViewModel();

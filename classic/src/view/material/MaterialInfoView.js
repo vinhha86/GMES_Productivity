@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.material.MaterialInfoView', {
                 allowBlank: false,
                 blankText: 'Không được để trống',
                 bind:{
-                    value : '{product.name}'
+                    value : '{product.buyername}'
                 },
                 name:'name',
                 labelWidth: 125
