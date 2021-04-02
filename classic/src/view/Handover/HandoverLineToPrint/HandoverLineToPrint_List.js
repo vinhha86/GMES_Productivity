@@ -127,18 +127,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_List', {
     // },
     {
         text: 'Trạng thái',
-        dataIndex: 'status',
-        width: 120,
+        dataIndex: 'statusAndTimeToReceive',
+        flex: 1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            var valueStr = '';
-            switch(value){
-                case 0: valueStr = 'Chưa duyệt'; break;
-                case 1: valueStr = 'Đã duyệt'; break;
-                case 2: valueStr = 'Đã nhận'; break;
-                default: valueStr = ''; break;
-            }
-            metaData.tdAttr = 'data-qtip="' + valueStr + '"';
-            return valueStr;
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
         }
     }],
     dockedItems: [{

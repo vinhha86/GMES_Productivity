@@ -63,7 +63,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
             click: 'onCancelConfirm'
         },
         '#HandoverLineToPrint_Detail_ProductGrid': {
-            // itemclick: 'onHandoverDetail_ProductGridItemClick'
+            // select: 'onHandoverDetail_ProductGridItemClick'
         },
     },
     onCancelConfirm: function (){
@@ -575,6 +575,10 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
                             // console.log(response);
                             HandoverProductStore.setData(response.data);
                             HandoverProductStore.commitChanges();
+
+                            if(Ext.getCmp('HandoverLineToPrint_Detail_ProductGrid')){
+                                Ext.getCmp('HandoverLineToPrint_Detail_ProductGrid').getSelectionModel().select(0, true);
+                            }
                         }
                     }); 
                 }
@@ -892,6 +896,10 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
                         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
                         HandoverProductStore.setData(data);
                         HandoverProductStore.commitChanges();
+
+                        if(Ext.getCmp('HandoverLineToPrint_Detail_ProductGrid')){
+                            Ext.getCmp('HandoverLineToPrint_Detail_ProductGrid').getSelectionModel().select(0, true);
+                        }
                     }
                 }
             })
@@ -930,7 +938,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
         ListOrgStore_To.getbyParentandType(parentid_link,orgtypestring);
     },
     //
-    onHandoverDetail_ProductGridItemClick:function(grid, record, item, index, e, eOpts){
+    onHandoverDetail_ProductGridItemClick:function(selectionModel, record, index, eOpts){
         console.log('onHandoverDetail_ProductGridItemClick');
         var m = this;
         var viewModel = this.getViewModel();

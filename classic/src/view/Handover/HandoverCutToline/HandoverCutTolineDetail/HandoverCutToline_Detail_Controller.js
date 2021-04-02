@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
             click: 'onCancelConfirm'
         },
         '#HandoverCutToline_Detail_ProductGrid': {
-            itemclick: 'onHandoverDetail_ProductGridItemClick'
+            select: 'onHandoverDetail_ProductGridItemClick'
         },
     },
     onCancelConfirm: function (){
@@ -575,6 +575,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
                             // console.log(response);
                             HandoverProductStore.setData(response.data);
                             HandoverProductStore.commitChanges();
+
+                            if(Ext.getCmp('HandoverCutToline_Detail_ProductGrid')){
+                                Ext.getCmp('HandoverCutToline_Detail_ProductGrid').getSelectionModel().select(0, true);
+                            }
                         }
                     }); 
                 }
@@ -614,9 +618,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
         context.value = parseInt(context.value);
         if(context.field == "totalpackage"){
             context.record.set('totalpackage', context.value);
-            if(currentRec.status == 0){
-                context.record.set('totalpackagecheck', context.value);
-            }
+            // if(currentRec.status == 0){
+            //     context.record.set('totalpackagecheck', context.value);
+            // }
         }
         if(context.field == "totalpackagecheck"){
             context.record.set('totalpackagecheck', context.value);
@@ -633,9 +637,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
                 totalpackagecheck+=parseInt(HandoverSkuStoreData[i].get('totalpackagecheck'));
             }
             selection[0].set('totalpackage', totalpackage);
-            if(currentRec.status == 0){
-                selection[0].set('totalpackagecheck', totalpackagecheck);
-            }
+            // if(currentRec.status == 0){
+            //     selection[0].set('totalpackagecheck', totalpackagecheck);
+            // }
         }
         if(context.field == "totalpackagecheck"){
             for(var i = 0; i < HandoverSkuStoreData.length;i++){
@@ -689,9 +693,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
         context.value = parseInt(context.value);
         if(context.field == "totalpackage"){
             context.record.set('totalpackage', context.value);
-            if(currentRec.status == 0){
-                context.record.set('totalpackagecheck', context.value);
-            }
+            // if(currentRec.status == 0){
+            //     context.record.set('totalpackagecheck', context.value);
+            // }
         }
         if(context.field == "totalpackagecheck"){
             context.record.set('totalpackagecheck', context.value);
@@ -893,6 +897,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
                         var HandoverProductStore = viewModel.getStore('HandoverProductStore');
                         HandoverProductStore.setData(data);
                         HandoverProductStore.commitChanges();
+
+                        if(Ext.getCmp('HandoverCutToline_Detail_ProductGrid')){
+                            Ext.getCmp('HandoverCutToline_Detail_ProductGrid').getSelectionModel().select(0, true);
+                        }
                     }
                 }
             })
@@ -931,7 +939,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
         ListOrgStore_To.getbyParentandType(parentid_link,orgtypestring);
     },
     //
-    onHandoverDetail_ProductGridItemClick:function(grid, record, item, index, e, eOpts){
+    // onHandoverDetail_ProductGridItemClick:function(grid, record, item, index, e, eOpts){
+    onHandoverDetail_ProductGridItemClick:function(selectionModel, record, index, eOpts){
         console.log('onHandoverDetail_ProductGridItemClick');
         var m = this;
         var viewModel = this.getViewModel();
