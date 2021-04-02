@@ -28,6 +28,22 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 				}
                	return rec.get('orgToParentcode') + ' - ' + rec.get('orgToName');
             }
+        },
+		{
+            name    : 'statusAndTimeToReceive', 
+            convert : function (value, rec) {
+				var result = rec.get('status')
+				switch(result){
+					case 0: result = 'Chưa duyệt'; break;
+					case 1: result = 'Đã duyệt'; break;
+					case 2: result = 'Đã nhận'; break;
+					default: result = ''; break;
+				}
+				if(rec.get('amountTimeToReceiveString') != ''){
+					result=result + ' (' + rec.get('amountTimeToReceiveString') + ')';
+				}
+               	return result;
+            }
         }
 	],
 	loadStore:function(){
