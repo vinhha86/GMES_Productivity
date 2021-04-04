@@ -13,7 +13,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var ListOrgStore_From = viewModel.getStore('ListOrgStore_From');
         var ListOrgStore_To = viewModel.getStore('ListOrgStore_To');
         var orgtypestring_from = '17';
-        ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+        // ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+        this.loadStoreFromInfo(orgtypestring_from, session.user);
+
+        
         // cut to line chon porder de load ListOrgStore_To, nhung van cho chon to chuyen
         // var orgtypestring_to = '14';
         // ListOrgStore_To.loadStoreByOrgTypeString(orgtypestring_to);
@@ -47,8 +50,10 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
             tap: 'onBtnBackTap'
         },
         '#orgid_to_link': {
-            // select: 'onOrgToComboSelect',
             change: 'onOrgToComboSelect'
+        },
+        '#orgid_from_link': {
+            change: 'onOrgFromComboSelect'
         }
     },
 
@@ -79,6 +84,57 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         viewModel.set('currentRec.handover_userid_link', session.user);
         viewModel.set('currentRec.handover_date', new Date());
         viewModel.set('currentRec.handovertypeid_link', 1);
+
+        this.loadUserInfo(session.user);
+    },
+    loadUserInfo: function(userid_link){
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        params.id = userid_link;
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    data = response.data;
+                    // console.log('function loadInfo: success');
+                    console.log(data);
+                    if(data.org_grant_id_link != null){
+                        viewModel.set('currentRec.orgid_from_link', data.org_grant_id_link);
+                    }
+                    
+                }else{
+                    console.log('function loadUserInfo: failed');
+                }
+            })
+    },
+    loadStoreFromInfo: function(orgtypestring_from, userid_link){
+        var viewModel = this.getViewModel();
+        var ListOrgStore_From = viewModel.getStore('ListOrgStore_From');
+
+        var params = new Object();
+        params.id = userid_link;
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    data = response.data;
+                    // console.log('function loadInfo: success');
+                    console.log(data);
+                    
+                    if(data.orgid_link == 1){
+                        // lấy hết nếu orgid_link == 1
+                        ListOrgStore_From.loadStoreByOrgTypeString(orgtypestring_from);
+                    }else{ 
+                        // lấy của px nếu orgid_link là px
+                        ListOrgStore_From.getbyParentandType(data.orgid_link, orgtypestring_from);
+                    }
+                }else{
+                    console.log('function loadUserInfo: failed');
+                }
+            })
     },
     loadInfo: function(id){
         var viewModel = this.getViewModel();
@@ -94,7 +150,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                     data = response.data;
 
                     // console.log('function loadInfo: success');
-                    // console.log(data);
+                    console.log(data);
 
                     var date = Ext.Date.parse(data.handover_date, 'c');
                     if(date == null) date = new Date(data.handover_date);
@@ -103,6 +159,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
                     // set data
                     viewModel.set('isCreateNew', false);
                     viewModel.set('currentRec', data);
+                    viewModel.set('handoverProduct', data.handoverProducts[0]);
 
                     var pordercode = data.ordercode.toString();
                     viewModel.set('pordercode',pordercode);
@@ -340,13 +397,20 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
+        
         // var parentid_link = newValue.data.parentid_link;
         var viewId = viewModel.get('viewId');
 
-        if(viewId == 'handover_cut_toline_edit' && newValue != null){
-            var porderid_link = viewModel.get('currentRec.porderid_link');
-            m.loadHandoverProductOnPorderSelect(porderid_link);
+        var id = viewModel.get('currentRec.id');
+        if(id == 0 || id == null){
+            if(viewId == 'handover_cut_toline_edit' && newValue != null){
+                var porderid_link = viewModel.get('currentRec.porderid_link');
+                m.loadHandoverProductOnPorderSelect(porderid_link);
+            }
         }
+    },
+    onOrgFromComboSelect: function(){
+
     },
 
     // product
@@ -531,6 +595,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
     onConfirm: function(){
         // nhận
         var viewModel = this.getViewModel();
+        var me = this;
         var handoverid_link = viewModel.get('currentRec.id');
         var status = viewModel.get('currentRec.status');
         var viewId = viewModel.get('viewId');

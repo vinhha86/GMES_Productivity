@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_ListController', {
         // console.log('handover_line_fromcutlist');
         viewModel.set('viewId', 'handover_line_fromcut');
         HandoverStore.loadStoreBySearch(1, '', 
-        null, null, null, null, [1, 2], 25, 1, 'handover_line_fromcut');
+        null, null, null, null, [1], 25, 1, 'handover_line_fromcut');
         orgtypestringfrom = '17';
         orgtypestringto = '14';
 

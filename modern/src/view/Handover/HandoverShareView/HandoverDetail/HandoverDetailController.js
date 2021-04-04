@@ -81,9 +81,9 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             }
             if(columnIndex == 2){
                 record.set('totalpackage', recordTotalpackage);
-                if(currentRec.status == 0){
-                    record.set('totalpackagecheck', recordTotalpackage);
-                }
+                // if(currentRec.status == 0){
+                //     record.set('totalpackagecheck', recordTotalpackage);
+                // }
             }
             if(columnIndex == 3){
                 record.set('totalpackagecheck', recordTotalpackage);

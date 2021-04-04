@@ -63,7 +63,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
             click: 'onCancelConfirm'
         },
         '#HandoverLineToPrint_Detail_ProductGrid': {
-            // select: 'onHandoverDetail_ProductGridItemClick'
+            select: 'onHandoverDetail_ProductGridItemClick'
         },
     },
     onCancelConfirm: function (){
@@ -617,9 +617,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
         context.value = parseInt(context.value);
         if(context.field == "totalpackage"){
             context.record.set('totalpackage', context.value);
-            if(currentRec.status == 0){
-                context.record.set('totalpackagecheck', context.value);
-            }
+            // if(currentRec.status == 0){
+            //     context.record.set('totalpackagecheck', context.value);
+            // }
         }
         if(context.field == "totalpackagecheck"){
             context.record.set('totalpackagecheck', context.value);
@@ -636,9 +636,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
                 totalpackagecheck+=parseInt(HandoverSkuStoreData[i].get('totalpackagecheck'));
             }
             selection[0].set('totalpackage', totalpackage);
-            if(currentRec.status == 0){
-                selection[0].set('totalpackagecheck', totalpackagecheck);
-            }
+            // if(currentRec.status == 0){
+            //     selection[0].set('totalpackagecheck', totalpackagecheck);
+            // }
         }
         if(context.field == "totalpackagecheck"){
             for(var i = 0; i < HandoverSkuStoreData.length;i++){
@@ -692,9 +692,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
         context.value = parseInt(context.value);
         if(context.field == "totalpackage"){
             context.record.set('totalpackage', context.value);
-            if(currentRec.status == 0){
-                context.record.set('totalpackagecheck', context.value);
-            }
+            // if(currentRec.status == 0){
+            //     context.record.set('totalpackagecheck', context.value);
+            // }
         }
         if(context.field == "totalpackagecheck"){
             context.record.set('totalpackagecheck', context.value);
@@ -973,13 +973,13 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Controller', {
     getNewHandoverSKUs:function(record, handoverid_link, porderid_link, productid_link){
         var m = this;
         var viewModel = this.getViewModel();
-        var orgid_to_link = viewModel.get('currentRec.orgid_to_link');
+        var orgid_from_link = viewModel.get('currentRec.orgid_from_link');
 
         var params = new Object();
         params.handoverid_link = handoverid_link;
         params.porderid_link = porderid_link;
         params.productid_link = productid_link;
-        params.orgid_to_link = orgid_to_link; // org grant
+        params.orgid_from_link = orgid_from_link; // org grant
 
         GSmartApp.Ajax.post('/api/v1/handoversku/getByHandoverProduct', Ext.JSON.encode(params),
             function (success, response, options) {

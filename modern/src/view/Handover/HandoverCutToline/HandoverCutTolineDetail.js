@@ -85,7 +85,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                                     cls: 'notEditable',
                                     bind:{
                                         store:'{ListOrgStore_From}',
-                                        value:'{currentRec.orgid_from_link}'
+                                        value:'{currentRec.orgid_from_link}',
+                                        disabled: '{!isCreateNew}',
                                     },
                                     displayField: 'nameParent',
                                     valueField: 'id',
@@ -124,7 +125,8 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                                     // readOnly: true,
                                     bind:{
                                         store:'{ListOrgStore_To}',
-                                        value:'{currentRec.orgid_to_link}'
+                                        value:'{currentRec.orgid_to_link}',
+                                        disabled: '{!isCreateNew}',
                                     },
                                     displayField: 'nameParent',
                                     valueField: 'id',
@@ -183,6 +185,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
                                     itemId:'btnSearch',
                                     ui: 'action',
                                     iconCls: 'x-fa fa-search',
+                                    bind: {
+                                        hidden: '{!isCreateNew}'
+                                    }
                                 }]
                             // },{
                             //     layout: 'hbox',

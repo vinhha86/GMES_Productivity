@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
             click: 'onCancelConfirm'
         },
         '#HandoverPackFromLine_Detail_ProductGrid': {
-            // select: 'onHandoverDetail_ProductGridItemClick'
+            select: 'onHandoverDetail_ProductGridItemClick'
         },
     },
     onCancelConfirm: function (){
@@ -452,10 +452,22 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
                                     this.fireEvent('logout');
                                 } else {
                                     var HandoverDetail_ProductGrid = Ext.getCmp('HandoverPackFromLine_Detail_ProductGrid');
-                                    var HandoverProductStoreData = HandoverProductStore.getData();
-                                    HandoverSkuStore.setData(HandoverProductStoreData.items[0].get('handoverSKUs'));
+                                    // var HandoverProductStoreData = HandoverProductStore.getData();
+                                    // HandoverSkuStore.setData(HandoverProductStoreData.items[0].get('handoverSKUs'));
+
                                     HandoverDetail_ProductGrid.getSelectionModel().select(0, true);
                                     // console.log(HandoverProductStoreData);
+
+                                    // loop set totalpackagecheck = totalpackage
+                                    var status = viewModel.get('currentRec.status');
+                                    if(status == 1){
+                                        var selection = HandoverDetail_ProductGrid.getSelectionModel().getSelection();
+                                        console.log(selection);
+                                        console.log(HandoverDetail_ProductGrid);
+                                        for(var i=0;i<selection.length;i++){
+                                            selection[i].set('totalpackagecheck', selection[i].get('totalpackage'));
+                                        }
+                                    }
 
                                     HandoverProductStore.commitChanges();
                                     HandoverSkuStore.commitChanges();
@@ -575,6 +587,15 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
                         var response = Ext.decode(response.responseText);
                         if (success) {
                             // console.log(response);
+
+                            // loop set totalpackagecheck = totalpackage
+                            var status = viewModel.get('currentRec.status');
+                            if(status == 1){
+                                for(var i = 0; i < response.data.length; i++) {
+                                    response.data[i].totalpackagecheck = response.data[i].totalpackage;
+                                }
+                            }
+
                             HandoverProductStore.setData(response.data);
                             HandoverProductStore.commitChanges();
 
@@ -657,7 +678,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
             var me = this;
             if (context.field == "totalpackage" || context.field == "totalpackagecheck") {
                 // me.updateTotalpackage(context.record);
-                me.onLuu();
+                // me.onLuu();
+                HandoverSkuStore.commitChanges();
             }
         }else{
             HandoverSkuStore.commitChanges();
@@ -704,7 +726,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
         var isCreateNew = viewModel.get('isCreateNew');
         if(!isCreateNew){
             var me = this;
-            me.onLuu();
+            // me.onLuu();
+            HandoverProductStore.commitChanges();
         }else{
             HandoverProductStore.commitChanges();
         }
@@ -1008,6 +1031,18 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
         var m = this;
         var viewModel = this.getViewModel();
         var HandoverSkuStore = viewModel.getStore('HandoverSkuStore');
+
+        var handoverSKUs = record.get('handoverSKUs');
+        console.log(handoverSKUs);
+
+        // loop set totalpackagecheck = totalpackage
+        var status = viewModel.get('currentRec.status');
+        if(status == 1){
+            for(var i = 0; i < handoverSKUs.length; i++) {
+                handoverSKUs[i].totalpackagecheck = handoverSKUs[i].totalpackage;
+            }
+        }
+
         HandoverSkuStore.setData(record.get('handoverSKUs'));
         HandoverSkuStore.commitChanges();
         // console.log(record.get('handoverSKUs'));

@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail', {
                 border: true,
                 xtype: 'HandoverPackFromLine_Detail_SkuGrid',
                 itemId: 'handOverSkuList',
-                hidden: true,
+                // hidden: true,
                 flex: 1,
             }]
             
