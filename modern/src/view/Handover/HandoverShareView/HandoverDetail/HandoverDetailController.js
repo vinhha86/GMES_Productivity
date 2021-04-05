@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         },
         '#handover_cut_toprint_detail': {
             childtap: 'onChildTapDetail'
+        },
+        '#handover_line_toprint_detail': {
+            childtap: 'onChildTapDetail'
         }
     },
     onChildTapDetail: function ( list, location, eOpts ) {
@@ -39,6 +42,7 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             if(
                 viewId != 'handover_cut_toline_edit' && 
                 viewId != 'handover_line_topack_edit' &&
+                viewId != 'handover_line_toprint_edit' &&
                 viewId != 'handover_cut_toprint_edit'
             ){
                 return;

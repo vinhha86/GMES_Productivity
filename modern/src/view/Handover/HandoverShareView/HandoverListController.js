@@ -6,25 +6,28 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
     },
     control: {
         '#handover_cut_tolinelist': {
-            childtap: 'onChildTapCutToLine'
+            childtap: 'onChildTap'
         },
         '#handover_line_fromcutlist': {
-            childtap: 'onChildTapCutToLine'
+            childtap: 'onChildTap'
         },
         '#handover_line_topacklist': {
-            childtap: 'onChildTapCutToLine'
+            childtap: 'onChildTap'
         },
         '#handover_pack_fromlinelist': {
-            childtap: 'onChildTapCutToLine'
+            childtap: 'onChildTap'
         },
         '#handover_cut_toprintlist': {
-            childtap: 'onChildTapCutToLine'
-        }
+            childtap: 'onChildTap'
+        },
+        '#handover_line_toprintlist': {
+            childtap: 'onChildTap'
+        },
     },
     onEdit: function(editor, context, eOpts ) {
         console.log(context);
     },
-    onChildTapCutToLine: function ( dataView, location, eOpts ) {
+    onChildTap: function ( dataView, location, eOpts ) {
         // console.log('location:');
         // console.log(location.record.data);
 
