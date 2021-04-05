@@ -10,6 +10,15 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverListController', {
         },
         '#handover_line_fromcutlist': {
             childtap: 'onChildTapCutToLine'
+        },
+        '#handover_line_topacklist': {
+            childtap: 'onChildTapCutToLine'
+        },
+        '#handover_pack_fromlinelist': {
+            childtap: 'onChildTapCutToLine'
+        },
+        '#handover_cut_toprintlist': {
+            childtap: 'onChildTapCutToLine'
         }
     },
     onEdit: function(editor, context, eOpts ) {

@@ -10,6 +10,15 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
         },
         '#handover_line_fromcut_detail': {
             childtap: 'onChildTapDetail'
+        },
+        '#handover_line_topack_detail': {
+            childtap: 'onChildTapDetail'
+        },
+        '#handover_pack_fromline_detail': {
+            childtap: 'onChildTapDetail'
+        },
+        '#handover_cut_toprint_detail': {
+            childtap: 'onChildTapDetail'
         }
     },
     onChildTapDetail: function ( list, location, eOpts ) {
@@ -27,13 +36,17 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
             return;
         }
         if(columnIndex == 2){
-            if(viewId != 'handover_cut_toline_edit'){
+            if(
+                viewId != 'handover_cut_toline_edit' && 
+                viewId != 'handover_line_topack_edit' &&
+                viewId != 'handover_cut_toprint_edit'
+            ){
                 return;
             }
             recordTotalpackage = record.get('totalpackage');
         }
         if(columnIndex == 3){
-            if(viewId != 'handover_line_fromcut_edit'){
+            if(viewId != 'handover_line_fromcut_edit' && viewId != 'handover_pack_fromline_edit'){
                 return;
             }
             recordTotalpackage = record.get('totalpackagecheck');
@@ -75,7 +88,8 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
 
         // get event
         dialog.down('#HandoverSkuAmount').getController().on('Luu', function (recordTotalpackage) {
-            var handoverProduct = viewModel.get('handoverProduct');  console.log(handoverProduct);
+            var handoverProduct = viewModel.get('handoverProduct');  
+            // console.log(handoverProduct);
             if(recordTotalpackage == null){
                 recordTotalpackage == 0
             }
@@ -118,8 +132,8 @@ Ext.define('GSmartApp.view.handover.HandoverShareView.HandoverDetail.HandoverDet
                 // if(columnIndex == 3){
                     viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
                 // }
-                console.log(handoverProductTotalPackage);
-                console.log(handoverProductTotalPackagecheck);
+                // console.log(handoverProductTotalPackage);
+                // console.log(handoverProductTotalPackagecheck);
             }
             
             dialog.close();
