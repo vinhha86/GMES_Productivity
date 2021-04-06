@@ -46,6 +46,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetailController', {
         '#btnBack': {
             tap: 'onBtnBackTap'
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
         '#orgid_to_link': {
             change: 'onOrgToComboSelect'
         },
@@ -53,7 +56,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetailController', {
             change: 'onOrgFromComboSelect'
         }
     },
-
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
+    },
     onBtnBackTap: function(){
         // Ext.util.History.back();
         this.redirectTo("handover_pack_fromline");
@@ -185,6 +190,17 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetailController', {
                             // console.log(HandoverSkuStore);
                             console.log(viewModel.get('handoverProduct'));
 
+                            // Update mac dinh so nhan = so giao
+                            var status = viewModel.get('currentRec.status');
+                            if(status == 1){
+                                var handoverProductTotalPackagecheck =0;
+                                for(var i=0; i<HandoverSkuStore.data.items.length;i++){
+                                    var data = HandoverSkuStore.data.items[i];
+                                    data.set('totalpackagecheck', data.get('totalpackage'));
+                                    handoverProductTotalPackagecheck = handoverProductTotalPackagecheck + data.get('totalpackage');
+                                }
+                                viewModel.set('handoverProduct.totalpackagecheck', handoverProductTotalPackagecheck);
+                            }
                         }
                     }
                 }else{
@@ -717,8 +733,12 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetailController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        if(response.message == 'Không tồn tại POrderProcessing'){
-                            Ext.toast(response.message, 1000);
+                        if(
+                            response.message == 'Không tồn tại POrderProcessing' || 
+                            response.message == 'Tổng SL vào chuyền không được vượt quá SL đơn' || 
+                            response.message == 'Tổng SL nhập hoàn thiện không được vượt quá tổng SL vào chuyền'
+                            ){
+                            Ext.toast(response.message, 3000);
                         }else {
                             Ext.toast('Xác thực thành công', 1000);
 
@@ -738,6 +758,37 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetailController', {
 
                 } else {
                     Ext.toast('Xác thực thất bại (no network)', 1000);
+                }
+            })
+    },
+
+    onCancelConfirm: function (){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var id = viewModel.get('currentRec.id');
+        me.CancelConfirm(id);
+    },
+    CancelConfirm: function(id){
+        var m = this;
+        var me = this.getView();
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/handover/cancelconfirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if(response.message == 'Phiếu chưa được xác nhận'){
+                        Ext.toast(response.message, 1000);
+                    }else if(response.message == 'Không tồn tại POrderProcessing'){
+                        Ext.toast(response.message, 1000);
+                    }else{
+                        Ext.toast('Huỷ xác nhận thành công', 1000);
+                        m.getViewModel().set('currentRec.status', 1);
+                        m.getViewModel().set('currentRec.receiver_userid_link', null);
+                    }
+                } else {
+                    Ext.toast('Huỷ xác nhận thất bại', 1000);
                 }
             })
     },

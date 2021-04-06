@@ -842,7 +842,11 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail_Controller', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        if(response.message == 'Không tồn tại POrderProcessing'){
+                        if(
+                            response.message == 'Không tồn tại POrderProcessing' || 
+                            response.message == 'Tổng SL vào chuyền không được vượt quá SL đơn' || 
+                            response.message == 'Tổng SL nhập hoàn thiện không được vượt quá tổng SL vào chuyền'
+                            ){
                             Ext.MessageBox.show({
                                 title: "Thông báo",
                                 msg: response.message,

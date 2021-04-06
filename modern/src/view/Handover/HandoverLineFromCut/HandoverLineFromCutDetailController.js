@@ -45,11 +45,16 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
         // '#btnSearch': {
         //     tap: 'onBtnSearch'
         // },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
         '#btnBack': {
             tap: 'onBtnBackTap'
         }
     },
-
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
+    },
     onBtnBackTap: function(){
         // Ext.util.History.back();
         this.redirectTo("handover_line_fromcut");
@@ -549,8 +554,12 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutDetailController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        if(response.message == 'Không tồn tại POrderProcessing'){
-                            Ext.toast(response.message, 1000);
+                        if(
+                            response.message == 'Không tồn tại POrderProcessing' || 
+                            response.message == 'Tổng SL vào chuyền không được vượt quá SL đơn' || 
+                            response.message == 'Tổng SL nhập hoàn thiện không được vượt quá tổng SL vào chuyền'
+                            ){
+                            Ext.toast(response.message, 3000);
                         }else {
                             Ext.toast('Xác thực thành công', 1000);
 

@@ -272,6 +272,12 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLineDetail', {
         itemId:'btnBack',
         ui: 'action',
     },
+    {
+        xtype:'button',
+        iconCls: 'x-fa fa-home',
+        itemId:'btnHome',
+        ui: 'action',
+    },    
     '->'
     ,
     {

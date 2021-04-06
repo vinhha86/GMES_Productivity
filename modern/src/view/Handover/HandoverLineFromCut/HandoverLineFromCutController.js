@@ -26,7 +26,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCutController', {
         var HandoverStore = viewModel.getStore('HandoverStore');
         HandoverStore.loadStoreBySearch(1, '', 
         fromDate, toDate, null, null, [1], 100, 1, viewId);
-        HandoverStore.getSorters().add('handover_date');
+        // HandoverStore.getSorters().add('handover_date');
+        HandoverStore.getSorters().add({
+            property: 'handover_date',
+            direction: 'DESC'
+        });
     },
     onBtnThemTap: function ( btn, e, eOpts ){
         var viewModel = this.getViewModel();

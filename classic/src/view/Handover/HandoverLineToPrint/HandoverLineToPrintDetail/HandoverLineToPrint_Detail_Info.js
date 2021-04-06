@@ -94,27 +94,6 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Info', {
             width: '100%',
             items: [
             {
-                xtype:'combobox',
-                itemId:'orgid_to_link',
-                bind:{
-                    store:'{ListOrgStore_To}',
-                    value: '{currentRec.orgid_to_link}',
-                    editable: '{isEditable}',
-                    readOnly: '{isReadOnly}',
-                },
-                fieldLabel: 'Nơi nhận ('+ '<span style="color:red">*</span>' + ')',
-                displayField: 'nameParent',
-                valueField: 'id',
-                queryMode: 'local',
-                // editable: false,
-                allowBlank: false,
-                margin: 2,
-                labelWidth: 80,
-                flex: 1,
-                listeners: {
-                    select: 'onOrgToComboSelect'
-                }
-            },{
                 layout: 'hbox',
                 border: false,
                 margin: 2,
@@ -154,6 +133,27 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_Info', {
                 }],
                 bind: {
                     hidden: '{isPorderCodeFieldHidden}'
+                }
+            },{
+                xtype:'combobox',
+                itemId:'orgid_to_link',
+                bind:{
+                    store:'{ListOrgStore_To}',
+                    value: '{currentRec.orgid_to_link}',
+                    editable: '{isEditable}',
+                    readOnly: '{isReadOnly}',
+                },
+                fieldLabel: 'Nơi nhận ('+ '<span style="color:red">*</span>' + ')',
+                displayField: 'nameParent',
+                valueField: 'id',
+                queryMode: 'local',
+                // editable: false,
+                allowBlank: false,
+                margin: 2,
+                labelWidth: 80,
+                flex: 1,
+                listeners: {
+                    select: 'onOrgToComboSelect'
                 }
             },{
                 xtype:'combobox',

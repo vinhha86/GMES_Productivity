@@ -46,6 +46,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrintDetailController', {
         '#btnBack': {
             tap: 'onBtnBackTap'
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
         '#orgid_to_link': {
             change: 'onOrgToComboSelect'
         },
@@ -53,7 +56,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrintDetailController', {
             change: 'onOrgFromComboSelect'
         }
     },
-
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
+    },
     onBtnBackTap: function(){
         // Ext.util.History.back();
         this.redirectTo("handover_line_toprint");

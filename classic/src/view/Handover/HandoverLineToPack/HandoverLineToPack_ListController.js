@@ -11,7 +11,11 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_ListController', {
         var ListOrgStoreTo = viewModel.getStore('ListOrgStoreTo');
 
         // SORTERS
-        HandoverStore.getSorters().add('handover_date');
+        // HandoverStore.getSorters().add('handover_date');
+        HandoverStore.getSorters().add({
+            property: 'handover_date',
+            direction: 'DESC'
+        });
 
         ListOrgStoreFrom.getSorters().remove('id');
         ListOrgStoreFrom.getSorters().add('parentid_link');

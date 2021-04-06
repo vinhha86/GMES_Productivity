@@ -49,6 +49,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
         '#btnBack': {
             tap: 'onBtnBackTap'
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
         '#orgid_to_link': {
             change: 'onOrgToComboSelect'
         },
@@ -56,7 +59,9 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetailController', {
             change: 'onOrgFromComboSelect'
         }
     },
-
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
+    },
     onBtnBackTap: function(){
         // Ext.util.History.back();
         this.redirectTo("handover_cut_toline");
