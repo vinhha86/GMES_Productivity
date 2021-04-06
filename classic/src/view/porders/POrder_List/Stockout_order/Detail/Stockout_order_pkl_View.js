@@ -7,20 +7,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         stripeRows: false,
         enableTextSelection: false,
         columnLines: true,
-        rowLines: true,
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            enableDrag: true,
-            dragText: '{0} cây vải',
-            dragGroup: 'Stockout_order_DropGroup',
-            dropGroup: 'WarehouseDropGroup'
-        },
-        listeners: {
-            beforedrop: 'onBeforeDropMaterial'
-        } 
+        rowLines: true
     },
     bind: {
-        store: '{WarehouseCutplanStore}'
+        store: '{Stockout_order_pkl_Store}'
     },
     columns: [{
         text: 'STT',
@@ -37,7 +27,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         items: [
             {
                 iconCls: 'x-fa fas fa-unlock',
-                tooltip: "Bỏ giữ cây vải",
+                tooltip: "Bỏ chọn cây vải",
                 handler: 'onUnlock'
             }
         ]
@@ -61,6 +51,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
+        },
+        summaryRenderer: function(){
+            return '<div style="font-weight: bold; color:red;"> Tổng</div>';
         }
     }, {
         text: 'Màu NPL',
@@ -93,7 +86,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
-        }
+        },
+        summaryType: 'count',
+        summaryRenderer: 'renderCount'
+    },{
+        text: 'Chiều dài',
+        dataIndex: 'met',
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
     }, {
         text: 'ĐVT',
         dataIndex: 'unit_name',
@@ -108,7 +112,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
             xtype:'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth : 0,
-            value: 'Cây vải đang giữ'
+            value: 'Cây vải đang chọn'
         },
 		'->'
 		,

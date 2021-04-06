@@ -200,7 +200,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     onThemSoDo: function () {
         var viewmodel = this.getViewModel();
         var npl = viewmodel.get('npl');
-        var store = viewmodel.getStore('CutPlanRowStore');
 
         if (npl.id == null) {
             Ext.Msg.alert({
@@ -213,18 +212,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             });
             return;
         }
-
-        // if (store.data.items.length == 0) {
-        //     Ext.Msg.alert({
-        //         title: "Thông báo",
-        //         msg: 'Nguyên liệu chưa tạo kế hoạch cắt! Bạn phải tạo kế hoạch trước khi thêm sơ đồ',
-        //         buttons: Ext.MessageBox.YES,
-        //         buttonText: {
-        //             yes: 'Đóng'
-        //         }
-        //     });
-        //     return;
-        // }
 
         var params = new Object();
         var porder = viewmodel.get('porder');

@@ -7,36 +7,41 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         stripeRows: false,
         enableTextSelection: false,
         columnLines: true,
-        rowLines: true,
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            enableDrag: true,
-            dragText: '{0} cây vải',
-            dragGroup: 'WarehouseDropGroup',
-            dropGroup: 'Stockout_order_DropGroup'
-        } 
+        rowLines: true
+    },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+        checkOnly: true
     },
     bind: {
         store: '{WarehouseStore}'
     },
+    features: [{
+        id: 'group',
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '<b>{name}</b>',
+        hideGroupedHeader: false,
+        enableGroupingMenu: false
+    },{
+        ftype: 'summary',
+        dock: 'bottom'
+    }], 
     columns: [{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    },{
-        text:'Ảnh',
+    }, {
+        text: 'Ảnh',
         locked: true,
-        dataIndex:'imgproduct',
+        dataIndex: 'imgproduct',
         width: 45,
         textAlign: 'center',
-        renderer: function(value, meta, record){
-            return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
-        },
-        listeners:{
-            click: 'viewImg'
+        renderer: function (value, meta, record) {
+            return '<img style="width:16px; height:14px" src="data:image/gif;base64,' + value + '">';
         }
-    },{
+    }, {
         locked: true,
         text: 'Mã NPL',
         dataIndex: 'material_product_code',
@@ -44,6 +49,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
+        },
+        summaryRenderer: function(){
+            return '<div style="font-weight: bold; color:red;"> Tổng</div>';
         }
     }, {
         text: 'Màu NPL',
@@ -76,33 +84,76 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
-        }
+        },
+        summaryType: 'count',
+        summaryRenderer: 'renderCount'
+    },{
+        text: 'Chiều dài',
+        dataIndex: 'met',
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
     }, {
         text: 'ĐVT',
         dataIndex: 'unit_name',
         width: 100
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 35,
-        items:[{
-            xtype:'displayfield',
+        items: [{
+            xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth : 0,
+            labelWidth: 0,
             value: 'Cây vải trong kho'
         },
-        '->',
         {
-            xtype:'button',
-            itemId:'btnHideWarehouse',
+            xtype: 'radiogroup',
+            itemId: 'radiofilter',
+            bind: {
+                value: '{type}'
+            },
+            items: [
+                { boxLabel: 'Tồn theo đơn', name: 'type', inputValue: '1', checked: true , width: 120},
+                { boxLabel: 'Tồn theo Buyer',name: 'type', inputValue: '2', width: 120 },
+                { boxLabel: 'Tồn toàn kho',name: 'type',  inputValue: '3' }]
+        },
+            '->',
+        {
+            xtype: 'button',
+            itemId: 'btnHideWarehouse',
             ui: 'header',
             margin: '10 5 0 0',
-			text: 'Ẩn',
+            text: 'Ẩn',
             iconCls: 'x-fa fa-eye'
         }
         ]
+    }, {
+        dock: 'left',
+        layout: 'vbox',
+        border: true,
+        items:
+            [
+                {
+                    flex: 1
+                },
+                { height: 10 },
+                {
+                    xtype: 'button',
+                    tooltip: 'Thêm vào yêu cầu',
+                    iconCls: 'x-fa fa-arrow-left',
+                    itemId: 'btnAddmat',
+                    weight: 30
+                },
+                {
+                    flex: 1
+                }
+            ]
     }]
 });
 
