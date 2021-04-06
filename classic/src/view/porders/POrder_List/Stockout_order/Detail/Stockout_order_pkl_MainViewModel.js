@@ -19,6 +19,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         porderid_link: 0,
         type: {
             type: 1
-        }
+        },
+        stockout_orderid_link: 0
     }
 })

@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             click: 'onThemMoiNPL'
         }
     },
-    onShowPKL: function(grid, rowIndex, colIndex, item, e, record){
+    onShowPKL: function (grid, rowIndex, colIndex, item, e, record) {
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -31,19 +31,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
                     data: {
                         material_skuid_link: record.get('material_skuid_link'),
                         org_from_id_link: viewmodel.get('order.orgid_from_link'),
-                        porderid_link: viewmodel.get('porderid_link')
+                        porderid_link: viewmodel.get('porderid_link'),
+                        stockout_order_pkl: record.get('stockout_order_pkl'),
+                        stockout_orderid_link: viewmodel.get('order.id')
                     }
                 }
             }]
         });
         form.show();
 
-        form.down('#Stockout_order_pkl_MainView').getController().on('Thoat', function(data){
-            console.log(data);
+        form.down('#Stockout_order_pkl_MainView').getController().on('Thoat', function (data) {
+            record.set('stockout_order_pkl', {});
+            record.set('stockout_order_pkl', data);
             form.close();
         })
     },
-    onThemMoiNPL: function(){
+    onThemMoiNPL: function () {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var type = viewmodel.get('order.stockouttypeid_link');
@@ -66,9 +69,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
                 xtype: 'Warehouse_View',
                 viewModel: {
                     data: {
-                       type_from: type == 1 ? 20: 30,
-                       type_to: type == 1 ? 29: 59,
-                       porderid_link: viewmodel.get('porderid_link')
+                        type_from: type == 1 ? 20 : 30,
+                        type_to: type == 1 ? 29 : 59,
+                        porderid_link: viewmodel.get('porderid_link')
                     }
                 }
             }]
@@ -83,16 +86,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
 
             var check = false;
 
-            for(var i =0; i< data.length; i++){
+            for (var i = 0; i < data.length; i++) {
                 check = false;
 
-                for(var j=0; j<store.data.length;j++){
-                    if(store.data.items[j].get('material_skuid_link') == data[i].get('materialid_link')){
+                for (var j = 0; j < store.data.length; j++) {
+                    if (store.data.items[j].get('material_skuid_link') == data[i].get('materialid_link')) {
                         check = true;
                         break;
                     }
                 }
-                if(!check){
+                if (!check) {
                     var rec = new Object();
                     rec.id = null;
                     rec.material_skuid_link = data[i].get('materialid_link');

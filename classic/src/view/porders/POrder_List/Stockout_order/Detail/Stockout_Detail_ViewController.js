@@ -13,27 +13,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
             click: 'onLuu'
         }
     },
-    onThoat: function(){
+    onThoat: function () {
         this.fireEvent('Thoat');
     },
-    getInfo: function(id){
-        if(id!=null){
+    getInfo: function (id) {
+        if (id != null) {
             var params = new Object();
             var viewmodel = this.getViewModel();
             params.id = viewmodel.get('order.id');
 
             GSmartApp.Ajax.post('/api/v1/stockoutorder/getby_id', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var res = Ext.decode(response.responseText);
-                    viewmodel.set('order', res.data);
-                    var store = viewmodel.getStore('Stockout_order_d_Store');
-                    store.setData(res.detail);
-                }
-            })
+                function (success, response, options) {
+                    if (success) {
+                        var res = Ext.decode(response.responseText);
+                        viewmodel.set('order', res.data);
+                        var store = viewmodel.getStore('Stockout_order_d_Store');
+                        store.setData(res.detail);
+                    }
+                })
         }
     },
-    onLuu: function(){
+    onLuu: function () {
         var grid = this.getView();
         grid.setLoading('Đang lưu dữ liệu');
 
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
         var store = viewmodel.getStore('Stockout_order_d_Store');
         var params = new Object();
         var list_d = [];
-        for(var i =0; i< store.data.length;i++){
+        for (var i = 0; i < store.data.length; i++) {
             var data = store.data.items[i].data;
             list_d.push(data);
         }
@@ -51,8 +51,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/create', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
-                    grid.setLoading(false);
 
                     var res = Ext.decode(response.responseText);
                     if (res.respcode == 200) {
