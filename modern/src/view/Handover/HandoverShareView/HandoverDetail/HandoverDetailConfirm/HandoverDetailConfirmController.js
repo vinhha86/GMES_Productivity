@@ -79,7 +79,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
         if(
             currentStatus == 0 &&
             (
-            viewId == 'handover_cut_toline_edit'
+            viewId == 'handover_cut_toline_edit' ||
+            viewId == 'handover_line_topack_edit' ||
+            viewId == 'handover_cut_toprint_edit'
             )
         ) {
             status = 1;
@@ -88,7 +90,8 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
         if(
             currentStatus == 1 &&
             (
-            viewId == 'handover_line_fromcut_edit'
+            viewId == 'handover_line_fromcut_edit' ||
+            viewId == 'handover_pack_fromline_edit'
             )
         ) {
             status = 2;
@@ -104,86 +107,86 @@ Ext.define('GSmartApp.view.handover.HandoverDetailConfirmController', {
         m.fireEvent('updateStatus', obj);
         // m.setStatus(status, handoverid_link, approver_userid_link, receiver_userid_link);
     },
-    setStatus: function(status, handoverid_link, approver_userid_link, receiver_userid_link){
-        var m = this;
-        var viewModel = this.getViewModel();
-        var params = new Object();
-        params.status = status;
-        params.handoverid_link = handoverid_link;
-        params.approver_userid_link = approver_userid_link;
-        params.receiver_userid_link = receiver_userid_link;
-        params.msgtype = "HANDOVER_SETSTATUS";
-        params.message = "Set status";
+    // setStatus: function(status, handoverid_link, approver_userid_link, receiver_userid_link){
+    //     var m = this;
+    //     var viewModel = this.getViewModel();
+    //     var params = new Object();
+    //     params.status = status;
+    //     params.handoverid_link = handoverid_link;
+    //     params.approver_userid_link = approver_userid_link;
+    //     params.receiver_userid_link = receiver_userid_link;
+    //     params.msgtype = "HANDOVER_SETSTATUS";
+    //     params.message = "Set status";
 
-        GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        if(response.message == 'Không tồn tại POrderProcessing'){
-                            Ext.toast(response.message, 1000);
-                            // Ext.MessageBox.show({
-                            //     title: "Thông báo",
-                            //     msg: response.message,
-                            //     buttons: Ext.MessageBox.YES,
-                            //     buttonText: {
-                            //         yes: 'Đóng',
-                            //     }
-                            // });
-                        }else {
-                            Ext.toast('Xác thực thành công', 1000);
-                            // Ext.Msg.show({
-                            //     title: 'Thông báo',
-                            //     msg: 'Xác thực thành công',
-                            //     buttons: Ext.MessageBox.YES,
-                            //     buttonText: {
-                            //         yes: 'Đóng',
-                            //     }
-                            // });
-                            //
-                            // var viewId = viewModel.get('viewId');
-                            // var mainView = Ext.getCmp(viewId);
-                            // if(approver_userid_link != 0)
-                            //     mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
-                            // if(receiver_userid_link != 0)
-                            //     mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
-                            // mainView.getViewModel().set('currentRec.status', status);
-                            // //
-                            // m.onThoat();
+    //     GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
+    //         function (success, response, options) {
+    //             if (success) {
+    //                 var response = Ext.decode(response.responseText);
+    //                 if (response.respcode == 200) {
+    //                     if(response.message == 'Không tồn tại POrderProcessing'){
+    //                         Ext.toast(response.message, 1000);
+    //                         // Ext.MessageBox.show({
+    //                         //     title: "Thông báo",
+    //                         //     msg: response.message,
+    //                         //     buttons: Ext.MessageBox.YES,
+    //                         //     buttonText: {
+    //                         //         yes: 'Đóng',
+    //                         //     }
+    //                         // });
+    //                     }else {
+    //                         Ext.toast('Xác thực thành công', 1000);
+    //                         // Ext.Msg.show({
+    //                         //     title: 'Thông báo',
+    //                         //     msg: 'Xác thực thành công',
+    //                         //     buttons: Ext.MessageBox.YES,
+    //                         //     buttonText: {
+    //                         //         yes: 'Đóng',
+    //                         //     }
+    //                         // });
+    //                         //
+    //                         // var viewId = viewModel.get('viewId');
+    //                         // var mainView = Ext.getCmp(viewId);
+    //                         // if(approver_userid_link != 0)
+    //                         //     mainView.getViewModel().set('currentRec.approver_userid_link', approver_userid_link);
+    //                         // if(receiver_userid_link != 0)
+    //                         //     mainView.getViewModel().set('currentRec.receiver_userid_link', receiver_userid_link);
+    //                         // mainView.getViewModel().set('currentRec.status', status);
+    //                         // //
+    //                         // m.onThoat();
 
-                            var obj = new Object();
-                            obj.approver_userid_link = approver_userid_link;
-                            obj.receiver_userid_link = receiver_userid_link;
-                            obj.status = status;
+    //                         var obj = new Object();
+    //                         obj.approver_userid_link = approver_userid_link;
+    //                         obj.receiver_userid_link = receiver_userid_link;
+    //                         obj.status = status;
 
-                            m.fireEvent('XacThuc', obj);
-                        }
-                    }
-                    else {
-                        Ext.toast('Xác thực thất bại', 1000);
-                        console.log(response.message);
-                        // Ext.Msg.show({
-                        //     title: 'Xác thực thất bại',
-                        //     msg: response.message,
-                        //     buttons: Ext.MessageBox.YES,
-                        //     buttonText: {
-                        //         yes: 'Đóng',
-                        //     }
-                        // });
-                    }
+    //                         m.fireEvent('XacThuc', obj);
+    //                     }
+    //                 }
+    //                 else {
+    //                     Ext.toast('Xác thực thất bại', 1000);
+    //                     console.log(response.message);
+    //                     // Ext.Msg.show({
+    //                     //     title: 'Xác thực thất bại',
+    //                     //     msg: response.message,
+    //                     //     buttons: Ext.MessageBox.YES,
+    //                     //     buttonText: {
+    //                     //         yes: 'Đóng',
+    //                     //     }
+    //                     // });
+    //                 }
 
-                } else {
-                    Ext.toast('Xác thực thất bại', 1000);
-                    console.log(null);
-                    // Ext.Msg.show({
-                    //     title: 'Xác thực thất bại',
-                    //     msg: null,
-                    //     buttons: Ext.MessageBox.YES,
-                    //     buttonText: {
-                    //         yes: 'Đóng',
-                    //     }
-                    // });
-                }
-            })
-    },
+    //             } else {
+    //                 Ext.toast('Xác thực thất bại', 1000);
+    //                 console.log(null);
+    //                 // Ext.Msg.show({
+    //                 //     title: 'Xác thực thất bại',
+    //                 //     msg: null,
+    //                 //     buttons: Ext.MessageBox.YES,
+    //                 //     buttonText: {
+    //                 //         yes: 'Đóng',
+    //                 //     }
+    //                 // });
+    //             }
+    //         })
+    // },
 })
