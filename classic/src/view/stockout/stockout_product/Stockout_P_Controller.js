@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_P_Controller',
     init: function() {
+        var me = this.getView();
         this.callParent(arguments);
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
         StockoutType.loadStore();
@@ -22,8 +23,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
             if (page == null) {
                 page = 1;
             }
-             store_stockout.loadByDate(0,'', new Date(),new Date(), page, 25, 0 ,0);
+             store_stockout.loadByDate_Product(0,'', new Date(),new Date(), page, 25, 0 ,0);
         }  
+
+        var today = new Date();
+		var priorDate = new Date().setDate(today.getDate()-30);
+		me.down('#stockoutdate_from').setValue(new Date(priorDate));
+
     },
     onActivate: function () {
         this.onSearch();
@@ -36,8 +42,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
         }
     },        
     control:{
-        '#btnThemMoi':{
-            click: 'onStockoutNew'
+        '#btnThemMoi_ByPOLine':{
+            click: 'onStockoutNew_ByPOLine'
+        },
+        '#btnThemMoi_Move':{
+            click: 'onStockoutNew_Move'
         },
 		'#stockout_p_list':{
             itemdblclick: 'onCapNhat'
@@ -81,7 +90,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
         if (page == null) {
             page = 1;
         }
-        store.loadByDate(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,null,OrgToStore);
+        store.loadByDate_Product(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,null,OrgToStore);
     },
     renderCell: function(value, record) {
         if (null == value) value = 0;
@@ -146,5 +155,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
     },
     onStockoutNew: function(){
         this.redirectTo("stockout_p_main/create");
+    },
+    onStockoutNew_ByPOLine: function(){
+        this.redirectTo("stockout_p_main/21/create");
+    },
+    onStockoutNew_Move: function(){
+        this.redirectTo("stockout_p_main/22/create");
     }
 });

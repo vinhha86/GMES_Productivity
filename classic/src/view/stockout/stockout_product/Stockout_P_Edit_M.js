@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
                     width: 370,
                     labelWidth: 80,
                     fieldLabel: 'Loại phiếu:',
+                    readOnly: true,
                     editable: false,
                     displayField: 'name',
                     valueField: 'id',

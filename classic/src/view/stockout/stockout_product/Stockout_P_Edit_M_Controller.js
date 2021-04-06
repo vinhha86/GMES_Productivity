@@ -10,8 +10,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M_Controller', {
 		var listidtype = "13,4,8,9";
 		var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		orgfromstore.loadStore_allchildren_byorg(listidtype);
-		var orgtostore = this.getViewModel().getStore('OrgToStore');
-		orgtostore.loadStore_byRoot(listidtype);
+		// var orgtostore = this.getViewModel().getStore('OrgToStore');
+		// orgtostore.loadStore_byRoot(listidtype);
 
 		var currencyStore = this.getViewModel().getStore('CurrencyStore');
 		currencyStore.loadStore();

@@ -189,6 +189,11 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
             this.InsertToInvoiceEdit_D();
         } 
+        if (viewModel.get('sourceview') == 'Stockout_P_EditController') {
+            var grid_skusearch = this.getView().items.get('grid_skusearch');
+            var records = grid_skusearch.getSelection();
+            this.fireEvent('product_sku_selected', records);
+        } 
     },
     createPContractProduct: function () {
         var m = this;

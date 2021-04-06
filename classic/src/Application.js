@@ -99,7 +99,7 @@ Ext.define('GSmartApp.Application', {
             config.setFname(session.get('fullname'));
             config.setAvatar(session.get('avatar'));
 
-            config.setClientid('web#'+Math.floor(Math.random() * 1000));
+            config.setClientid('webterm#'+Math.floor(Math.random() * 1000));
             config.setTermid(session.get('user')+Math.floor(Math.random() * 10000));
 
             Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });

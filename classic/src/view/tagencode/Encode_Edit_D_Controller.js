@@ -46,7 +46,8 @@ Ext.define('GSmartApp.view.tagencode.Encode_Edit_D_Controller', {
 		var port = config.getMqttport();
 		var txtDevice = me.lookupReference('device');
 		var deviceId = viewModel.get('warehouse_encode.deviceid_link');
-		var device = txtDevice.getStore().getById(deviceId);
+		var device = txtDevice.lastSelection[0].data;
+		console.log(device);
 		if (deviceId == null || deviceId == 0) {
 			Ext.Msg.show({
 				title: GSmartApp.Locales.title_chonthietbi[GSmartApp.Locales.currentLocale],
@@ -67,7 +68,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_Edit_D_Controller', {
 		me.stoken = Ext.Number.randomInt(100000, 999999);
 		me.channelEncode.cmd = 'gsm5/term/' + termid + '/cmd';
 		GSmartApp.Mqtt.connect(host, port, clientid, me.channelEncode, deviceId, function (topic, message) {
-			//console.log('data-msg:' + message);
+			console.log('data-msg:' + message);
 			if (topic.includes("cmd")) {
 				var jsonObj = Ext.JSON.decode(message);
 				console.log(jsonObj);
@@ -94,16 +95,20 @@ Ext.define('GSmartApp.view.tagencode.Encode_Edit_D_Controller', {
 			}
 
 		},
-			function () {
-				var sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
-				console.log('send cmd: ' + sendChannel);
-				var cmd = { ct: 0, cid: "CMD_START_ENCODE", srcid: termid, reqdata: { timeout: 20000, token: "", funcid: me.funcid, orgid_link: orgid_link } };
-				var message = new Paho.Message(Ext.JSON.encode(cmd));
-				message.destinationName = sendChannel;
-				message.qos = 0;
-				GSmartApp.Mqtt.client.send(message);
-
-			}, function () {
+		function () {
+				if (null!=device){
+					var sendChannel = 'gsm5/device/' + device.code + '/cmd';
+					console.log('send cmd: ' + sendChannel);
+						var cmd = { ct: 0, cid: "CMD_START_ENCODE", srcid: termid, reqdata: { timeout: 20000, token: "", funcid: me.funcid, orgid_link: orgid_link } };
+						var message = new Paho.Message(Ext.JSON.encode(cmd));
+						message.destinationName = sendChannel;
+						message.qos = 0;
+						GSmartApp.Mqtt.client.send(message);
+				} else {
+					Ext.Msg.alert('Mã hóa chíp','Bạn chưa chọn thiết bị RFID');
+				}
+			}, 
+		function () {
 				viewModel.set('clsbtnStart', "blue-button");
 				viewModel.set('clsbtnStop', "");
 				viewModel.set('isStart', false);

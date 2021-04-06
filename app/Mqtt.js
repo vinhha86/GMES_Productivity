@@ -24,7 +24,7 @@ Ext.define('GSmartApp.Mqtt', {
 			this.client.connect({
 				onSuccess:this.onConnect,
 				//reconnect: true,
-				invocationContext: this, 
+				invocationContext: this,
 				mqttVersion: 3
 			});
 		}else{
@@ -91,7 +91,7 @@ Ext.define('GSmartApp.Mqtt', {
 	// called when the client loses its connection
 	onConnectionLost: function(responseObject) {
 	  if (responseObject.errorCode !== 0) {
-	    console.log("onConnectionLost:"+responseObject.errorMessage);
+	   console.log("onConnectionLost:"+responseObject.errorMessage);
 	  }
 		var me = this.connectOptions.invocationContext;
 		me.client = null;

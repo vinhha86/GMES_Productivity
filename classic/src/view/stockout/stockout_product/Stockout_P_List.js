@@ -25,8 +25,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
     },
     columns: [
         { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
-        { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
-        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
+        { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 200 },
+        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
         { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
         // { header: 'Tổng tiền', dataIndex: 'totalprice', width: 110},   
@@ -57,13 +57,42 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
         dock: 'top',
         xtype: 'toolbar',
         items: [
+            // {
+            //     tooltip: 'Lập phiếu xuất kho mới',
+            //     text: 'Lập phiếu mới',
+            //     iconCls: 'x-fa fa-plus',
+            //     margin: 3,
+            //     itemId: 'btnThemMoi'
+            // },
             {
-                tooltip: 'Lập phiếu xuất kho mới',
-                text: 'Lập phiếu mới',
-                iconCls: 'x-fa fa-plus',
+                xtype: 'button',
                 margin: 3,
-                itemId: 'btnThemMoi'
-            },
+                text: 'Lập phiếu mới',
+                iconCls: 'x-fa fa-bars',
+                menu: [
+                    // {
+                    //     itemId: 'btnXuatTo', // id:11
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất tổ sản xuất',
+                    //     handler: 'onXuatTo'
+                    // },
+                    {
+                        itemId: 'btnThemMoi_ByPOLine', // id:1
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất thành phẩm theo đơn hàng',
+                        handler: 'onXuatCat'
+                    },
+                    {
+                        itemId: 'btnThemMoi_Move', // id:3
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Xuất điều chuyển',
+                        // handler: 'onNhapMuaMoi'
+                    },
+                ],
+                // bind: {
+                //     hidden: '{isNhapmoi}'
+                // }
+            },            
             {
                 xtype: 'datefield',
                 margin: 3,

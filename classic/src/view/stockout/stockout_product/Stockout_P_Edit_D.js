@@ -41,12 +41,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
         { header: 'Màu', dataIndex: 'color_name', flex: 1 },
         { header: 'Cỡ', dataIndex: 'size_name', width: 100 },
         {
-            header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
+            // header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
+            header: 'Số lượng YC', dataIndex: 'totalpackage', width: 80,
             xtype: 'numbercolumn',
             format: '0,000',
-            summaryType: 'sum', summaryRenderer: 'renderSum'
+            summaryType: 'sum', summaryRenderer: 'renderSum',
+            editor:{
+                xtype:'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true,
+                bind: {
+                    editable: '{iseditSL_YC}'
+                }
+            }            
         },{
-            header: 'Số lượng xuất', dataIndex: 'totalpackage', width: 80,
+            header: 'Số lượng xuất', dataIndex: 'totalpackage_check', width: 80,
             summaryType: 'sum', summaryRenderer: 'renderSum',
             // xtype: 'numbercolumn',
             // format: '0,000',
@@ -103,15 +112,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                     hidden: '{!IsformMaster}'
                 }
             },{
-                labelWidth: 90,
+                labelWidth: 120,
                 margin:'0 5 5 5',
                 xtype: 'combobox',
-                fieldLabel: 'Cách xuất',
+                fieldLabel: 'Phương pháp xuất',
                 bind: {
                     store: '{StockoutGroupStore}',
                     value: '{groupstockout}'
                 },
-                width: 300,
+                width: 270,
                 displayField: 'name',
                 valueField: 'id',
                 itemId: 'cmbGroupStockout'
@@ -123,7 +132,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 fieldLabel: 'Thiết bị RFID:',
                 bind: {
                     store: '{DeviceInvStore}',
-				    hidden: '{isHidden}'
+				    hidden: '{isRFIDHidden}'
                 },
                 displayField: 'name',
                 valueField: 'id',
@@ -142,7 +151,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 bind: {
                     disabled: '{isStart}',
                     userCls: '{clsbtnStart}',
-				    hidden: '{isHidden}'
+				    hidden: '{isRFIDHidden}'
                 }
             },
             {
@@ -153,16 +162,54 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 handler: 'onStop',
                 bind: {
                     userCls: '{clsbtnSt}',
-				    hidden: '{isHidden}'
+				    hidden: '{isRFIDHidden}'
                 }
-            },'->',
+            },
             {
                 xtype: 'textfield',
                 margin: '0 5 0 5',
+                itemId:'skucode',
+                fieldLabel: 'Mã SP',
+                width: 200,
+                labelWidth: 50,
+                hideLabel: false,			
+                bind:{
+                    hidden: '{isBarcodeHidden}',
+                    value: '{skucode}'
+                },
+                // enableKeyEvents : true,
+                // listeners: {
+                //     keypress: 'onPressEnterBtnThemNPL'
+                // }
+            },
+            {
+                tooltip: 'Thêm SP',
+                margin: '0 0 0 5',
+                iconCls: 'x-fa fa-plus',
+                weight: 30,
+                itemId: 'btnThemSP',
+                bind:{
+                    hidden: '{isBarcodeHidden}',
+                },
+            },
+            {
+                tooltip: 'Tìm SP',
+                margin: '0 5 0 5',
+                itemId: 'btnTimSP',
+                iconCls: 'x-fa fa-search',
+                weight: 30,			
+                bind:{
+                    hidden: '{isManualHidden}',
+                },
+            },
+            '->',
+            {
+                xtype: 'textfield',
+                margin: '0 5 0 0',
                 itemId:'ordercode',
-                fieldLabel: 'Tìm PO line',
-                width: 300,
-                labelWidth: 80,
+                fieldLabel: 'Đợt giao',
+                width: 200,
+                labelWidth: 70,
                 hideLabel: false,			
                 bind:{
                     hidden: '{isEdit}',
@@ -171,7 +218,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
             },
             {
                 tooltip: 'Tìm lệnh',
-                margin: '0 5 0 5',
+                margin: '0 2 0 2',
                 itemId: 'btnTimLenh',
                 //text: 'Thêm thẻ vải',
                 iconCls: 'x-fa fa-search',

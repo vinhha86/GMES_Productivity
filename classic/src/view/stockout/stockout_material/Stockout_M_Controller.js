@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         if (page == null) {
             page = 1;
         }
-        store.loadByDate(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,
+        store.loadByDate_Material(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,
             orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto);
     },
     renderCell: function(value, record) {

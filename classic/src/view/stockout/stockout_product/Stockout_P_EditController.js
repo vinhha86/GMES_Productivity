@@ -18,6 +18,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 		'#btnThuGon': {
 			click: 'onhiddenMaster'
 		},
+		'#btnTimSP': {
+			click: 'onTimSP'
+		},
 		'#btnMoRong': {
 			click: 'onhiddenMaster'
 		},
@@ -33,6 +36,67 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 		'#ordercode': {
 			specialkey: 'onSpecialkey'
 		}
+	},
+	onTimSP: function(){
+		var me = this;
+		var form = Ext.create({
+			xtype: 'skusearchwindow',
+			width: 1200,
+			height: 500,
+			reference: 'skusearchwindow',
+			viewModel: {
+				data: {
+					sourceview: 'Stockout_P_EditController',
+					searchtype: 1,
+					pcontractid_link: null,
+					type: 10,                        
+					orgcustomerid_link: null,
+					isHidden_sku: false,
+					isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
+					isHiddenSkuSearchCriteria_Attr_btnThemMoi: false
+				}
+			}
+		});
+		form.show();
+
+		form.getController().on('product_sku_selected', function (select) {
+			console.log(select);
+			me.onAdd_Stockout_D(select);
+			form.close();
+		});
+	},
+	onAdd_Stockout_D: function(select){
+		var viewmodel = this.getViewModel();
+		var list = viewmodel.get('stockout.stockout_d');
+		if (list == null){
+			list = [];
+		}
+		for(var i=0; i<select.length; i++){
+			var data = select[i].data;
+
+			var stockoutd_new = new Object();
+			stockoutd_new.id = null;
+			stockoutd_new.skucode = data.code;
+			stockoutd_new.product_code = data.product_code;
+			stockoutd_new.product_name = data.product_name;
+			stockoutd_new.p_skuid_link = data.productid_link;
+			stockoutd_new.color_name = data.color_name;
+			stockoutd_new.size_name = data.size_name;
+			// stockoutd_new.totalpackage_req = data.pquantity_total;
+			stockoutd_new.unitid_link = data.unitid_link;
+			stockoutd_new.unit_name = data.unit_name;
+			// stockoutd_new.stockoutid_link = null;
+			stockoutd_new.colorid_link = data.color_id;
+			stockoutd_new.skuid_link = data.id;
+			stockoutd_new.sizeid_link = data.size_id;
+			console.log(stockoutd_new);
+			list.push(stockoutd_new);
+		}
+
+		viewmodel.set('stockout.stockout_d', list);
+		var store = viewmodel.getStore('StockoutD_Store');
+		store.removeAll();
+		store.setData(viewmodel.get('stockout.stockout_d'));
 	},
 	onSpecialkey: function (field, e) {
 		var me = this;
@@ -95,7 +159,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 						stockoutd_new.p_skuid_link = data.productid_link;
 						stockoutd_new.color_name = data.mauSanPham;
 						stockoutd_new.size_name = data.coSanPham;
-						stockoutd_new.totalpackage_req = data.pquantity_total;
+						stockoutd_new.totalpackage = data.pquantity_total;
 						stockoutd_new.unitid_link = data.unitid_link;
 						stockoutd_new.unit_name = data.unitname;
 						stockoutd_new.stockoutid_link = null;
@@ -169,16 +233,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 					}
 					store.removeAll();
 					store.setData(response.data.stockout_d);
+
+					console.log(response.data.stockouttypeid_link);
+					if(response.data.stockouttypeid_link == 21) { // xuat theo don cho Vendor
+						var OrgToStore = viewmodel.getStore('OrgToStore');
+						OrgToStore.loadStore(11, false);
+					}
+					if(response.data.stockouttypeid_link == 22) { // xuat dieu chuyen den px khac
+						var OrgToStore = viewmodel.getStore('OrgToStore');
+						OrgToStore.loadStore(8, false);
+					}
 				}
 			})
 	},
-	onNewData: function (type) {
+	onNewData: function (type, id) {
 		var viewModel = this.getViewModel();
 		var session = GSmartApp.util.State.get('session');
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
 		viewModel.set('stockout.orgid_from_link', session.orgid_link);
 		viewModel.set('listepc', new Map());
+		viewModel.set('stockout.stockouttypeid_link', id);
+
+		if(id == 21) { // xuat theo don cho Vendor
+            var OrgToStore = viewModel.getStore('OrgToStore');
+            OrgToStore.loadStore(11, false);
+        }
+		if(id == 22) { // xuat dieu chuyen den px khac
+			var OrgToStore = viewModel.getStore('OrgToStore');
+            OrgToStore.loadStore(8, false);
+		}
 	},
 	CheckValidate: function () {
 		var mes = "";
@@ -481,10 +565,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 	onSelectGroupStockout: function (combo, record, eOpts) {
 		var viewmodel = this.getViewModel();
 		if (record.get('id') == 1) {
-			viewmodel.set('isHidden', false);
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', false);
 		}
-		else {
-			viewmodel.set('isHidden', true);
+		if (record.get('id') == 2) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', false);
+			viewmodel.set('isManualHidden', true);
+		}
+		if (record.get('id') == 3) {
+			viewmodel.set('isRFIDHidden', false);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', true);
 		}
 	},
 });

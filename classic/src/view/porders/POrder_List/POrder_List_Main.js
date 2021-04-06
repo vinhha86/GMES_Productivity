@@ -231,7 +231,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
         title: 'Điều kiện lọc',
         ui: 'light',
         collapsible: true,
-        collapsed: true,
+        collapsed: false,
         items: [{
             layout: 'hbox',
             border: false,

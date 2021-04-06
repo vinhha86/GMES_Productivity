@@ -5,8 +5,10 @@ Ext.define('GSmartApp.store.stockout.StockoutGroupStore', {
 		'id', 'name'
 	],
     data: [{
-        id: 1, name: 'Xuất bằng RFID'
+        id: 1, name: 'Thủ công'
     },{
-        id: 2, name: 'Xuất bằng tay'
+        id: 2, name: 'Mã vạch'
+    },{
+        id: 3, name: 'Ống đọc RFID'
     }]
 });

@@ -176,7 +176,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
             golivedatefrom, golivedateto,
             status, limit, page);
 
-            me.down('#topDock').setCollapsed(true);
+            // me.down('#topDock').setCollapsed(true);
     },
     // onPOBuyerFilterKeyup:function(){
     //     var grid = this.getView(),

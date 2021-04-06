@@ -57,8 +57,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
 		clsbtnStop:'red-button',
         clsbtnSkuError:'',        
         IsformMaster: false,
-		groupstockout: 2,
-		isHidden: true
+		groupstockout: 1,
+		isRFIDHidden: true,
+		isBarcodeHidden: true,
+		isManualHidden: false
 	},
 	formulas: {
 		isEdit: function (get) {
@@ -70,8 +72,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
             }
         },
 		iseditSL: function(get){
-			if(get('groupstockout') == 2) return true;
+			if(get('groupstockout') == 1) return true;
 			return false;
+		},
+		iseditSL_YC: function(get){
+			//Neu la xuat theo PO thi ko cho sua SL YC
+			if(get('stockout.stockouttypeid_link') == 21) 
+				return false;
+			else
+				return true;
 		}
     }
 });
