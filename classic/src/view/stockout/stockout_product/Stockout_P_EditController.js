@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 		'#cmbGroupStockout': {
 			select: 'onSelectGroupStockout'
 		},
-		'#btnTimLenh': {
+		'#btnTimPOLine': {
 			click: 'onTimLine'
 		},
 		'#ordercode': {
@@ -158,6 +158,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 						var stockoutd_new = new Object();
 						stockoutd_new.id = null;
 						stockoutd_new.skucode = data.skuCode;
+						stockoutd_new.skuname = data.skuName;
 						stockoutd_new.product_code = data.productcode;
 						stockoutd_new.product_name = data.productname;
 						stockoutd_new.p_skuid_link = data.productid_link;
@@ -603,15 +604,59 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
                 padding: 5
             },
             items: [{
-                xtype: 'Stockout_P_Edit_Confirm',
-                viewModel: {
-                    type: 'HandoverDetailConfirmViewModel',
-                    data: {
-                        stockinId: stockoutId
-                    }
-                }
+                xtype: 'Authen_Confirm',
             }]
         });
         form.show();
+
+		form.down('#Authen_Confirm').getController().on('AuthenOK', function (approver_userid_link) {
+            form.close();
+
+			console.log(approver_userid_link);
+
+			var params = new Object();
+			params.stockoutId = stockoutId;
+			params.approver_userid_link = approver_userid_link;
+	
+			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_approve', Ext.JSON.encode(params),
+				function (success, response, options) {
+					if (success) {
+						var response = Ext.decode(response.responseText);
+						// console.log(response);
+						if (response.respcode == 200) {
+							Ext.Msg.show({
+								title: 'Thông báo',
+								msg: 'Duyệt thành công',
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});
+							
+							m.onThoat();
+						}
+						else {
+							Ext.Msg.show({
+								title: 'Duyệt thất bại',
+								msg: response.message,
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});
+						}
+	
+					} else {
+						Ext.Msg.show({
+							title: 'Duyệt thất bại',
+							msg: "Liên hệ IT để được hỗ trợ",
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+					}
+				})
+        })
     }
 });

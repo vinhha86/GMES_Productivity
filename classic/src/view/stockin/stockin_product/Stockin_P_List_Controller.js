@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.Stockin_P_List_ViewController', {
+Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_P_List_ViewController',
+    alias: 'controller.Stockin_P_List_Controller',
     isActivate: false,
     init: function () {
         var me = this.getView();
@@ -34,8 +34,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_ViewController', {
         '#StockIn_P_List': {
             itemdblclick: 'onCapNhatdbl'
         },        
-        '#btnThemMoi': {
-            click: 'onThemMoi'
+        '#btnThemMoi_ByPOLine':{
+            click: 'onStockinNew_ByPOLine'
+        },
+        '#btnThemMoi_Move':{
+            click: 'onStockinNew_Move'
         },
         '#btnTimKiem': {
             click: 'onSearch'
@@ -129,5 +132,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_ViewController', {
                 }
             }
         });
+    },
+    onStockinNew_ByPOLine: function(){
+        this.redirectTo("stockin_p_main/21/create");
+    },
+    onStockinNew_Move: function(){
+        this.redirectTo("stockin_p_main/22/create");
     }
+
 })

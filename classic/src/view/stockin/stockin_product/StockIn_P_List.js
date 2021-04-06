@@ -54,67 +54,77 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
         layout: 'hbox',
         xtype: 'toolbar',
         border: false,
-        items: [{
-            xtype: 'button',
-            margin: 3,
-            text: 'Lập phiếu mới',
-            iconCls: 'x-fa fa-plus',
-            itemId: 'btnThemMoi',
-            bind: {
-                hidden: '{isNhapmoi}'
+        items: [
+            {
+                xtype: 'button',
+                margin: 3,
+                text: 'Lập phiếu mới',
+                iconCls: 'x-fa fa-bars',
+                menu: [
+                    {
+                        itemId: 'btnThemMoi_ByPOLine', // id:1
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Nhập từ sản xuất',
+                    },
+                    {
+                        itemId: 'btnThemMoi_Move', // id:3
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Nhập điều chuyển',
+                    },
+                ],
+            },  
+            {
+                margin: 3,
+                itemId: 'stockindate_from',
+                xtype: 'datefield',
+                value: new Date(),
+                format:'d/m/Y',
+                fieldLabel: 'Nhập từ ngày:',
+                labelWidth: 86,
+                width: 215,
+            }, 
+            {
+                itemId: 'stockindate_to',
+                xtype: 'datefield',
+                value: new Date(),
+                margin: 3,
+                format:'d/m/Y',
+                fieldLabel: 'đến ngày:',
+                labelWidth: 65,
+                width: 195,
+            },        
+            {
+                itemId: 'OrgFromStore',
+                xtype: 'combobox',
+                emptyText: 'Nơi xuất',
+                bind:{
+                    store: '{OrgFromStore}'
+                },
+                queryMode: 'local',
+                margin: 3,
+                displayField: 'name',
+                valueField: 'id'
+            },{
+                itemId: 'stockintypeid_link',
+                xtype: 'combobox',
+                emptyText: 'Loại nhập kho',
+                bind:{
+                    store: '{StockinTypeStore}'
+                },
+                queryMode: 'local',
+                margin: 3,
+                displayField: 'name',
+                valueField: 'id'
+            }, 
+            {
+                // width: 100,
+                xtype: 'button',
+                margin: 3,
+                // text: GSmartApp.Locales.btn_loc[GSmartApp.Locales.currentLocale],
+                iconCls: 'x-fa fa-search',
+                itemId: 'btnTimKiem'
             }
-        }, 
-        {
-            margin: 3,
-            itemId: 'stockindate_from',
-            xtype: 'datefield',
-            value: new Date(),
-            format:'d/m/Y',
-            fieldLabel: 'Nhập từ ngày:',
-            labelWidth: 86,
-            width: 215,
-        }, 
-        {
-            itemId: 'stockindate_to',
-            xtype: 'datefield',
-            value: new Date(),
-            margin: 3,
-            format:'d/m/Y',
-            fieldLabel: 'đến ngày:',
-            labelWidth: 65,
-            width: 195,
-        },        
-        {
-            itemId: 'OrgFromStore',
-            xtype: 'combobox',
-            emptyText: 'Nơi xuất',
-            bind:{
-                store: '{OrgFromStore}'
-            },
-            queryMode: 'local',
-            margin: 3,
-            displayField: 'name',
-            valueField: 'id'
-        },{
-            itemId: 'stockintypeid_link',
-            xtype: 'combobox',
-            emptyText: 'Loại nhập kho',
-            bind:{
-                store: '{StockinTypeStore}'
-            },
-            queryMode: 'local',
-            margin: 3,
-            displayField: 'name',
-            valueField: 'id'
-        }, 
-        {
-            // width: 100,
-            xtype: 'button',
-            margin: 3,
-            // text: GSmartApp.Locales.btn_loc[GSmartApp.Locales.currentLocale],
-            iconCls: 'x-fa fa-search',
-            itemId: 'btnTimKiem'
-        }]
+        ]
     }, 
     // {
     //     dock: 'bottom',

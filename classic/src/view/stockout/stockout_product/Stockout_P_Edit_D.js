@@ -32,17 +32,28 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
         }                     
     },
     columns: [
-        // { header: 'Mã vải chính', dataIndex: 'mainskucode', width: 70},
-        // {
-        //     header: 'Mã vạch', dataIndex: 'skucode', width: 150,
-        // },
-        // { header: 'Mã sản phẩm', dataIndex: 'product_code', width: 150 },
-        { header: 'Tên sản phẩm', dataIndex: 'product_code', flex: 1 },
-        { header: 'Màu', dataIndex: 'color_name', flex: 1 },
-        { header: 'Cỡ', dataIndex: 'size_name', width: 100 },
+        {
+			header: 'Mã vạch', 
+			dataIndex: 'skucode',
+			width: 120,	
+			summaryRenderer:function (grid, context) {
+				return "Tổng cộng";
+			}
+		},{
+			header: 'Mã SP', 
+			dataIndex: 'product_code',
+            width: 120,
+		},{
+			header: 'Tên sản phẩm', 
+			dataIndex: 'skuname',
+			flex: 1
+		},
+        { header: 'Màu', dataIndex: 'color_name', width: 100},
+        { header: 'Cỡ', dataIndex: 'size_name', width: 50 },
         {
             // header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
-            header: 'Số lượng YC', dataIndex: 'totalpackage', width: 80,
+            header: 'SL Y/C', dataIndex: 'totalpackage', width: 80,
+            align:'right',
             xtype: 'numbercolumn',
             format: '0,000',
             summaryType: 'sum', summaryRenderer: 'renderSum',
@@ -55,7 +66,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 }
             }            
         },{
-            header: 'Số lượng xuất', dataIndex: 'totalpackagecheck', width: 80,
+            header: 'SL xuất', dataIndex: 'totalpackagecheck', width: 80,
+            align:'right',
             summaryType: 'sum', summaryRenderer: 'renderSum',
             // xtype: 'numbercolumn',
             // format: '0,000',
@@ -69,9 +81,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
             }
         },
         { header: 'ĐVT', dataIndex: 'unit_name', width: 80 },
-        {
-            header: 'Đơn giá', dataIndex: 'unitprice', width: 100
-        },
+        { header: 'Đơn giá', dataIndex: 'unitprice', width: 100},
         {
             header: 'Thành tiền', dataIndex: 'totalprice', width: 100,
             summaryType: 'sum', summaryRenderer: 'renderSum'
@@ -115,6 +125,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 labelWidth: 120,
                 margin:'0 5 5 5',
                 xtype: 'combobox',
+                editable: false,
                 fieldLabel: 'Phương pháp xuất',
                 bind: {
                     store: '{StockoutGroupStore}',

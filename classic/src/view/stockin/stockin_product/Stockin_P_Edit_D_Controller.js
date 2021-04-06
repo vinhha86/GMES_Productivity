@@ -30,15 +30,85 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		},
 		'#cmbStockinGroup': {
 			select: 'onSelectGroupStockin'
-		}
+		},
+		'#btnTimSP': {
+			click: 'onTimSP'
+		},
 	},
+	onTimSP: function(){
+		var me = this;
+		var form = Ext.create({
+			xtype: 'skusearchwindow',
+			width: 1200,
+			height: 500,
+			reference: 'skusearchwindow',
+			viewModel: {
+				data: {
+					sourceview: 'Stockout_P_EditController',
+					searchtype: 1,
+					pcontractid_link: null,
+					type: 10,                        
+					orgcustomerid_link: null,
+					isHidden_sku: false,
+					isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
+					isHiddenSkuSearchCriteria_Attr_btnThemMoi: false
+				}
+			}
+		});
+		form.show();
+
+		form.getController().on('product_sku_selected', function (select) {
+			console.log(select);
+			me.onAdd_Stockin_D(select);
+			form.close();
+		});
+	},
+	onAdd_Stockin_D: function(select){
+		var viewmodel = this.getViewModel();
+		var list = viewmodel.get('stockin.stockin_d');
+		if (list == null){
+			list = [];
+		}
+		for(var i=0; i<select.length; i++){
+			var data = select[i].data;
+
+			var stockind_new = new Object();
+			stockind_new.id = null;
+			stockind_new.skucode = data.code;
+			stockind_new.product_code = data.product_code;
+			stockind_new.product_name = data.product_name;
+			stockind_new.p_skuid_link = data.productid_link;
+			stockind_new.color_name = data.color_name;
+			stockind_new.size_name = data.size_name;
+			stockind_new.unitid_link = data.unitid_link;
+			stockind_new.unit_name = data.unit_name;
+			stockind_new.colorid_link = data.color_id;
+			stockind_new.skuid_link = data.id;
+			stockind_new.sizeid_link = data.size_id;
+			list.push(stockind_new);
+		}
+
+		viewmodel.set('stockin.stockin_d', list);
+		var store = viewmodel.getStore('StockinD_Store');
+		store.removeAll();
+		store.setData(viewmodel.get('stockin.stockin_d'));
+	},	
 	onSelectGroupStockin: function(combo, record, eOpts){
 		var viewmodel = this.getViewModel();
-		if(record.get('id') == 1){
-			viewmodel.set('isHidden', false);
+		if (record.get('id') == 1) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', false);
 		}
-		else {
-			viewmodel.set('isHidden', true);
+		if (record.get('id') == 2) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', false);
+			viewmodel.set('isManualHidden', true);
+		}
+		if (record.get('id') == 3) {
+			viewmodel.set('isRFIDHidden', false);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', true);
 		}
 	},
 	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
@@ -72,7 +142,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 	onStart: function () {
 		var me = this;
 		var viewModel = this.getViewModel();
-		var store = viewModel.getStore('StockinDetailStore');
+		var store = viewModel.getStore('StockinD_Store');
 		var stockin = viewModel.get('stockin');
 		var session = GSmartApp.util.State.get('session');
 
@@ -324,7 +394,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					if (success) {
 						var resp = Ext.decode(resp.responseText);
 						if (resp.respcode == 200) {
-							var store = viewmodel.getStore('StockinDetailStore');
+							var store = viewmodel.getStore('StockinD_Store');
 								store.removeAll();
 								store.setData(resp.data);
 								stockin.stockind = resp.data;

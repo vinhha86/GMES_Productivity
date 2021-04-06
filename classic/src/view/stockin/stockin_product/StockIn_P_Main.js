@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Main', {
     extend: 'Ext.container.Container',
     xtype: 'StockIn_P_Main',
     id:'StockIn_P_Main',
-    controller: 'Stockin_P_List_ViewController',
+    controller: 'Stockin_P_List_Controller',
     viewModel: {
         type: 'Stockin_P_ViewModel'
     },

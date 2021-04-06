@@ -39,9 +39,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit', {
                 text:  "Duyệt",
                 iconCls: 'x-fa fa-check',
                 itemId: 'btnConfirm',
-                // bind: {
-                //     hidden: '{isBtnConfirmHidden}'
-                // },
+                bind: {
+                    hidden: '{isBtnConfirmHidden}'
+                },
                 // hidden: true
             },
             {

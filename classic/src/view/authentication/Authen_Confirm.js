@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.stockin.Stockout_P_Edit_Confirm', {
+Ext.define('GSmartApp.view.authentication.Authen_Confirm', {
     extend: 'Ext.form.Panel',
-    xtype: 'Stockout_P_Edit_Confirm',
-    id:'Stockout_P_Edit_Confirm',
-    controller: 'Stockout_P_Edit_ConfirmController',
+    xtype: 'Authen_Confirm',
+    id:'Authen_Confirm',
+    controller: 'Authen_ConfirmController',
     layout: 'vbox',
     width: '100%',
     items: [

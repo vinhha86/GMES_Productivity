@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		SkuStore:{
 			type: 'skustore'
 		},
-		StockinDetailStore:{
+		StockinD_Store:{
 			type: 'Stockin_d_Store'
 		},
 		StockinDetailEpcStore:{
@@ -75,7 +75,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		curencycode: '',
 		ordercode: "",
 		groupstockin: 1,
-		isHidden: false
+		isHidden: false,
+		isRFIDHidden: true,
+		isBarcodeHidden: true,
+		isManualHidden: false		
 	},
 	formulas: {
         isEdit: function (get) {
@@ -87,8 +90,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
             }
         },
 		iseditSL: function(get){
-			if(get('groupstockin') == 2) return true;
+			if(get('groupstockin') == 1) return true;
 			return false;
-		}
+		},
+		iseditSL_YC: function(get){
+			//Neu la nhap theo PO thi ko cho sua SL YC
+			if(get('stockin.stockintypeid_link') == 21) 
+				return false;
+			else
+				return true;
+		},
     }
 })

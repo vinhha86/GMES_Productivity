@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
     onUrlBack: function(type){
         
     },
-    onNewData:function(type){
+    onNewData:function(type, id){
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
@@ -32,6 +32,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         viewModel.set('stockin.usercreateid_link', session.id);
         viewModel.set('listepc', new Map());
         viewModel.set('stockin.orgid_to_link', session.orgid_link)
+        viewModel.set('stockin.stockintypeid_link', id);
+
+        if(id == 21) { // Nhap tu san xuat
+            var OrgFromStore = viewModel.getStore('OrgFromStore');
+            OrgFromStore.loadStore(9, false);
+        }
+		if(id == 22) { // Nhap dieu chuyen
+			var OrgFromStore = viewModel.getStore('OrgFromStore');
+            OrgFromStore.loadStore(8, false);
+		}
     },
     onLoadData:function(id,type){
         this.getInfo(id);
@@ -42,7 +52,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
     getInfo: function(id){
         var me = this;
         var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('StockinDetailStore');
+        var store = viewmodel.getStore('StockinD_Store');
         var listepc = viewmodel.get('listepc');
 
         var params = new Object();

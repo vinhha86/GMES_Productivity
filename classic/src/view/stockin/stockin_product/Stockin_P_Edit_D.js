@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
         }                     
     },
 	bind:{
-		store: '{StockinDetailStore}'
+		store: '{StockinD_Store}'
 	},
 	columns: [
 		{
@@ -44,7 +44,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			}
 		},{
 			text: 'Mã SP', 
-			dataIndex: 'sku_product_code'
+			dataIndex: 'sku_product_code',
+			width: 120,
 		},{
 			text: 'Tên sản phẩm', 
 			dataIndex: 'skuname',
@@ -52,23 +53,44 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			width: 70
+			width: 100
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
 			width: 50
-		},{
-			text: 'Năm SX', 
-			dataIndex: 'porder_year',
-			width: 70
-		},{
+		},
+		// {
+		// 	text: 'Năm SX', 
+		// 	dataIndex: 'porder_year',
+		// 	width: 70
+		// },
+		{
 			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL Y/C', 
+			align:'right',
+			dataIndex: 'totalpackage',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 80,
+            editor:{
+                xtype:'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true,
+                bind: {
+                    editable: '{iseditSL_YC}'
+                }
+            }    			
+		},		
+		{
+			xtype: 'numbercolumn',
+			width: 90,
 			format:'0,000',
 			text: 'SL Nhập', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalpackage',
+			dataIndex: 'totalpackagecheck',
 			getEditor: function (record) {
 				return Ext.create('Ext.grid.CellEditor', {
 					field: {
@@ -80,21 +102,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 					}
 				})
 			}
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL theo lệnh', 
-			align:'right',
-			dataIndex: 'totalpackage_order',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 120
-		},{
+		},
+		{
 			text: 'ĐVT', 
 			dataIndex: 'unit_name',
-			width: 70
+			width: 80
 		},{
 			xtype: 'numbercolumn',
+			width: 90,
 			format:'0,000',
 			text: 'Đơn giá', 
 			align:'right',
@@ -105,6 +120,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			}
 		},{
 			xtype: 'numbercolumn',
+			width: 100,
 			format:'0,000',
 			text: 'Thành tiền', 
 			align:'right',
@@ -148,10 +164,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 				hidden: '{!IsformMaster}'
 			}
 		},{
-			labelWidth: 90,
+			labelWidth: 120,
 			margin:'0 5 5 5',
 			xtype: 'combobox',
-			fieldLabel: 'Cách nhập',
+			editable: false,
+			fieldLabel: 'Phương pháp nhập',
 			bind: {
 				store: '{StockinGroupStore}',
 				value: '{groupstockin}'
@@ -168,7 +185,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			fieldLabel: 'Thiết bị RFID',
 			bind: {
 				store: '{DeviceInvStore}',
-				hidden: '{isHidden}'
+				hidden: '{isRFIDHidden}'
 			},
 			width: 300,
 			displayField: 'name',
@@ -185,7 +202,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			bind: {
 				disabled: '{isStart}',
 				userCls: '{clsbtnStart}',
-				hidden: '{isHidden}'
+				hidden: '{isRFIDHidden}'
 			}
 		}, {
 			margin:'0 5 5 5',
@@ -195,59 +212,96 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			itemId: 'btnStop',
 			bind: {
 				userCls: 'clsbtnStop',
-				hidden: '{isHidden}'
+				hidden: '{isRFIDHidden}'
 			}
 		},
-		,'->',
 		{
 			xtype: 'textfield',
 			margin: '0 5 0 5',
-			itemId:'ordercode',
-			fieldLabel: 'Tìm lệnh SX:',
-			width: 300,
-			labelWidth: 80,
+			itemId:'skucode',
+			fieldLabel: 'Mã SP',
+			width: 200,
+			labelWidth: 50,
 			hideLabel: false,			
-            bind:{
-				disabled: '{isEdit}',
-				value: '{stockin.pordercode}'
-            }
-			// fieldStyle: {
-			// 	textTransform: "uppercase"
-			// },
-			// enableKeyEvents: true,
+			bind:{
+				hidden: '{isBarcodeHidden}',
+				value: '{skucode}'
+			},
+			// enableKeyEvents : true,
 			// listeners: {
-			// 	// change: function (obj, newValue) {
-			// 	//     //console.log(newValue);
-			// 	//     obj.setRawValue(newValue.toUpperCase());
-			// 	// },
-			// 	keyup: 'onSkuCodeKeyup',
-			// 	buffer: 100
-			// }    
+			//     keypress: 'onPressEnterBtnThemNPL'
+			// }
 		},
 		{
-			tooltip: 'Tải danh sách sản phẩm',
+			tooltip: 'Thêm SP',
 			margin: '0 0 0 5',
-			//text: 'Thêm thẻ vải',
 			iconCls: 'x-fa fa-plus',
 			weight: 30,
-			itemId: 'btnTaiSP',			
-            bind:{
-                hidden: true
-            }
-			// handler: 'onAddItemTap'
+			itemId: 'btnThemSP',
+			bind:{
+				hidden: '{isBarcodeHidden}',
+			},
 		},
 		{
-			tooltip: 'Tìm lệnh',
+			tooltip: 'Tìm SP',
 			margin: '0 5 0 5',
-			itemId: 'btnTimLenh',
-			//text: 'Thêm thẻ vải',
+			itemId: 'btnTimSP',
 			iconCls: 'x-fa fa-search',
 			weight: 30,			
-            bind:{
-                hidden: '{isEdit}'
-            }
-			// handler: 'onSkuSearchTap'
-		} 		
+			bind:{
+				hidden: '{isManualHidden}',
+			},
+		},		
+		// ,'->',
+		// {
+		// 	xtype: 'textfield',
+		// 	margin: '0 5 0 5',
+		// 	itemId:'ordercode',
+		// 	fieldLabel: 'Tìm lệnh SX:',
+		// 	width: 300,
+		// 	labelWidth: 80,
+		// 	hideLabel: false,			
+        //     bind:{
+		// 		disabled: '{isEdit}',
+		// 		value: '{stockin.pordercode}'
+        //     }
+		// 	// fieldStyle: {
+		// 	// 	textTransform: "uppercase"
+		// 	// },
+		// 	// enableKeyEvents: true,
+		// 	// listeners: {
+		// 	// 	// change: function (obj, newValue) {
+		// 	// 	//     //console.log(newValue);
+		// 	// 	//     obj.setRawValue(newValue.toUpperCase());
+		// 	// 	// },
+		// 	// 	keyup: 'onSkuCodeKeyup',
+		// 	// 	buffer: 100
+		// 	// }    
+		// },
+		// {
+		// 	tooltip: 'Tải danh sách sản phẩm',
+		// 	margin: '0 0 0 5',
+		// 	//text: 'Thêm thẻ vải',
+		// 	iconCls: 'x-fa fa-plus',
+		// 	weight: 30,
+		// 	itemId: 'btnTaiSP',			
+        //     bind:{
+        //         hidden: true
+        //     }
+		// 	// handler: 'onAddItemTap'
+		// },
+		// {
+		// 	tooltip: 'Tìm lệnh',
+		// 	margin: '0 5 0 5',
+		// 	itemId: 'btnTimLenh',
+		// 	//text: 'Thêm thẻ vải',
+		// 	iconCls: 'x-fa fa-search',
+		// 	weight: 30,			
+        //     bind:{
+        //         hidden: '{isEdit}'
+        //     }
+		// 	// handler: 'onSkuSearchTap'
+		// } 		
 	]
 	}]
 });

@@ -156,9 +156,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
                 },
                 {
                     xtype: 'button',
-                    tooltip: 'Tìm lệnh',
+                    tooltip: 'Tìm PO Line',
                     margin: '0 0 0 2',
-                    itemId: 'btnTimLenh',
+                    itemId: 'btnTimPOLine',
                     //text: 'Thêm thẻ vải',
                     iconCls: 'x-fa fa-search',
                     weight: 30,			
