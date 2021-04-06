@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit', {
             xtype: 'stockout_p_edit_m',
             id: 'stockout_p_edit_m',
             margin: '5 0 0 0',
-            height: 165
+            height: 130
         },
         {
             xtype: 'stockout_p_edit_d',
@@ -32,6 +32,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit', {
                 text:  "Quay lại",
                 iconCls: 'x-fa fa-backward',
                 handler: 'onUrlBack'
+            },
+            {
+                margin: '0 5 5 5',
+                xtype:'button',
+                text:  "Duyệt",
+                iconCls: 'x-fa fa-check',
+                itemId: 'btnConfirm',
+                // bind: {
+                //     hidden: '{isBtnConfirmHidden}'
+                // },
+                // hidden: true
             },
             {
                 flex:1

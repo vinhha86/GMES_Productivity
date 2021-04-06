@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
                     {
                         itemId: 'btnThemMoi_ByPOLine', // id:1
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất thành phẩm theo đơn hàng',
+                        text: 'Xuất theo đơn hàng',
                         handler: 'onXuatCat'
                     },
                     {

@@ -35,7 +35,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 		},
 		'#ordercode': {
 			specialkey: 'onSpecialkey'
-		}
+		},
+		'#btnConfirm':{
+            click: 'onConfirm'
+        }
 	},
 	onTimSP: function(){
 		var me = this;
@@ -140,6 +143,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 	onTaiSanPham: function(data){
 		var viewmodel = this.getViewModel();
 		viewmodel.set('stockout.pcontract_poid_link', data.id);
+		viewmodel.set('stockout.contract_number', data.po_buyer);
 		var params = new Object();
 		params.pcontract_poid_link = data.id;
 
@@ -554,8 +558,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 	onEPCDetail: function (grid, rowIndex, colIndex) {
 		var record = grid.store.getAt(rowIndex);
 		var form = Ext.create({
-			xtype: 'stockout_epc_indow',
-			reference: 'stockout_epc_indow'
+			xtype: 'Stockout_EPC_Window',
+			reference: 'Stockout_EPC_Window'
 		});
 		var viewModel = form.getViewModel();
 		viewModel.set('stockout_d', record);
@@ -580,4 +584,34 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 			viewmodel.set('isManualHidden', true);
 		}
 	},
+	onConfirm: function(){
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+        var stockoutId = stockout.id;
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Duyệt',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_P_Edit_Confirm',
+                viewModel: {
+                    type: 'HandoverDetailConfirmViewModel',
+                    data: {
+                        stockinId: stockoutId
+                    }
+                }
+            }]
+        });
+        form.show();
+    }
 });

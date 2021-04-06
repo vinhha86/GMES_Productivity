@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 }
             }            
         },{
-            header: 'Số lượng xuất', dataIndex: 'totalpackage_check', width: 80,
+            header: 'Số lượng xuất', dataIndex: 'totalpackagecheck', width: 80,
             summaryType: 'sum', summaryRenderer: 'renderSum',
             // xtype: 'numbercolumn',
             // format: '0,000',
@@ -202,32 +202,32 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                     hidden: '{isManualHidden}',
                 },
             },
-            '->',
-            {
-                xtype: 'textfield',
-                margin: '0 5 0 0',
-                itemId:'ordercode',
-                fieldLabel: 'Đợt giao',
-                width: 200,
-                labelWidth: 70,
-                hideLabel: false,			
-                bind:{
-                    hidden: '{isEdit}',
-                    value: '{stockin.po_buyer}'
-                }  
-            },
-            {
-                tooltip: 'Tìm lệnh',
-                margin: '0 2 0 2',
-                itemId: 'btnTimLenh',
-                //text: 'Thêm thẻ vải',
-                iconCls: 'x-fa fa-search',
-                weight: 30,			
-                bind:{
-                    hidden: '{isEdit}'
-                }
-                // handler: 'onSkuSearchTap'
-            } 
+            // '->',
+            // {
+            //     xtype: 'textfield',
+            //     margin: '0 5 0 0',
+            //     itemId:'ordercode',
+            //     fieldLabel: 'Đợt giao',
+            //     width: 200,
+            //     labelWidth: 70,
+            //     hideLabel: false,			
+            //     bind:{
+            //         hidden: '{isEdit}',
+            //         value: '{stockin.po_buyer}'
+            //     }  
+            // },
+            // {
+            //     tooltip: 'Tìm lệnh',
+            //     margin: '0 2 0 2',
+            //     itemId: 'btnTimLenh',
+            //     //text: 'Thêm thẻ vải',
+            //     iconCls: 'x-fa fa-search',
+            //     weight: 30,			
+            //     bind:{
+            //         hidden: '{isEdit}'
+            //     }
+            //     // handler: 'onSkuSearchTap'
+            // } 
         ]
     }]
 });

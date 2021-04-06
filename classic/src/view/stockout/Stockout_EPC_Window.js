@@ -1,6 +1,6 @@
 Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
     extend: 'Ext.window.Window',
-    xtype: 'stockout_epc_indow',
+    xtype: 'Stockout_EPC_Window',
     requires: [
         'Ext.grid.Panel'
     ],
@@ -11,10 +11,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
     width: 500,
     height: 500,
     margin:10,
+    layout: 'fit',
     items:[
         {
             xtype: 'grid',
-            bind: '{stockout_d.stockoutpklist}',
+            bind: '{stockout_d.stockout_packinglist}',
             columnLines: true,
             viewConfig: {
                 enableTextSelection: true,

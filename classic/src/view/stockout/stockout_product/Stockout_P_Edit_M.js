@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
                     xtype: 'combobox',
                     reference: 'cbostockouttype',
                     width: 370,
-                    labelWidth: 80,
+                    labelWidth: 95,
                     fieldLabel: 'Loại phiếu:',
                     readOnly: true,
                     editable: false,
@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
                     xtype: 'combobox',
                     reference: 'stockout_orgid_from_link',
                     width: 370,
-                    labelWidth: 80,
+                    labelWidth: 95,
                     fieldLabel: 'Nơi xuất:',
                     editable: false,
                     bind: {
@@ -120,7 +120,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
                     xtype: 'textfield',
                     reference: 'stockout_reason',
                     width: 370,
-                    labelWidth: 80,
+                    labelWidth: 95,
                     fieldLabel: 'Lý do xuất:',
                     hideLabel: false,
                     bind: {value:'{stockout.reason}'}
@@ -143,129 +143,155 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
             items: [
                 {
                     xtype: 'textfield',
-                    reference: 'stockout_contract_number',
-                    width: 370,
-                    labelWidth: 80,
-                    fieldLabel: 'Số hợp đồng:',
-                    hideLabel: false,
-                    bind: {value:'{stockout.contract_number}'}
-                },
-                {
-                    xtype: 'textfield',
-                    margin: '0 0 0 5',
-                    reference: 'stockout_invoice_number',
-                    width: 225,
-                    labelWidth: 75,
-                    fieldLabel: 'Số Invoice:',
-                    hideLabel: false,
-                    bind: {value:'{stockout.invoice_number}'}
-                },
-                {
-                    xtype: 'datefield',
-                    margin: '0 5 0 5',
-                    width: 220,
-                    labelWidth: 85,
-                    fieldLabel: 'Ngày Invoice:',
-                    format:'d/m/Y',
-			        altFormats: "Y-m-d\\TH:i:s.uO",
-                    editable: false,
-                    bind: {
-                        value: '{stockout.invoice_date}'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    reference: 'stockout_vat_typeid_link',
-                    margin: '0 5 0 0',
-                    flex: 1,
-                    labelWidth: 85,
-                    fieldLabel: 'Loại HĐ:',
-                    editable: false,
+                    margin: '0 0 0 0',
+                    itemId:'ordercode',
+                    fieldLabel: 'Line giao hàng',
+                    width: 335,
+                    labelWidth: 95,
+                    hideLabel: false,			
                     bind:{
-                        store: '{VatTypeStore}',
-                        value: '{stockout.vat_typeid_link}'
-                    },
-                    displayField: 'name',
-                    valueField: 'id'
-                }
+                        disabled: '{isEdit}',
+                        value: '{stockout.contract_number}'
+                    }  
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Tìm lệnh',
+                    margin: '0 0 0 2',
+                    itemId: 'btnTimLenh',
+                    //text: 'Thêm thẻ vải',
+                    iconCls: 'x-fa fa-search',
+                    weight: 30,			
+                    bind:{
+                        disabled: '{isEdit}'
+                    }
+                    // handler: 'onSkuSearchTap'
+                }                 
+                // {
+                //     xtype: 'textfield',
+                //     reference: 'stockout_contract_number',
+                //     width: 370,
+                //     labelWidth: 95,
+                //     fieldLabel: 'Line giao hàng:',
+                //     hideLabel: false,
+                //     bind: {value:'{stockout.contract_number}'}
+                // },
+                // {
+                //     xtype: 'textfield',
+                //     margin: '0 0 0 5',
+                //     reference: 'stockout_invoice_number',
+                //     width: 225,
+                //     labelWidth: 75,
+                //     fieldLabel: 'Số Invoice:',
+                //     hideLabel: false,
+                //     bind: {value:'{stockout.invoice_number}'}
+                // },
+                // {
+                //     xtype: 'datefield',
+                //     margin: '0 5 0 5',
+                //     width: 220,
+                //     labelWidth: 85,
+                //     fieldLabel: 'Ngày Invoice:',
+                //     format:'d/m/Y',
+			    //     altFormats: "Y-m-d\\TH:i:s.uO",
+                //     editable: false,
+                //     bind: {
+                //         value: '{stockout.invoice_date}'
+                //     }
+                // },
+                // {
+                //     xtype: 'combobox',
+                //     reference: 'stockout_vat_typeid_link',
+                //     margin: '0 5 0 0',
+                //     flex: 1,
+                //     labelWidth: 85,
+                //     fieldLabel: 'Loại HĐ:',
+                //     editable: false,
+                //     bind:{
+                //         store: '{VatTypeStore}',
+                //         value: '{stockout.vat_typeid_link}'
+                //     },
+                //     displayField: 'name',
+                //     valueField: 'id'
+                // }
             ]
         },
-        {
-            xtype: 'container',
-            layout: 'hbox',
-            items: [
-                {
-                    xtype: 'textfield',
-                    reference: 'stockout_vat_sample',
-                    width: 185,
-                    labelWidth: 80,
-                    fieldLabel: 'Mẫu HĐ:',
-                    hideLabel: false,
-                    bind: {value:'{stockout.vat_sample}'}
-                },
-                {
-                    xtype: 'textfield',
-                    margin: '0 0 0 5',
-                    reference: 'stockout_vat_symbol',
-                    width: 180,
-                    labelWidth: 75,
-                    fieldLabel: 'Ký hiệu HĐ:',
-                    hideLabel: false,
-                    bind: {value:'{stockout.vat_symbol}'}
-                },
-                {
-                    xtype: 'textfield',
-                    margin: '0 0 0 5',
-                    reference: 'stockout_vat_number',
-                    width: 225,
-                    labelWidth: 75,
-                    fieldLabel: 'Số HĐ:',
-                    hideLabel: false,
-                    bind: {value:'{stockout.vat_number}'}
-                },
-                {
-                    xtype: 'datefield',
-                    margin: '0 0 0 5',
-                    reference: 'txtstockout_vatdate',
-                    width: 220,
-                    labelWidth: 85,
-                    fieldLabel: 'Ngày HĐ:',
-                    format: 'd/m/Y',
-                    editable: false,
-                    bind: {
-                        value: '{stockout.vat_date}'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    margin: '0 0 0 5',
-                    reference: 'stockout_vat_currencyid_link',
-                    width: 170,
-                    labelWidth: 85,
-                    fieldLabel: 'Loại tiền:',
-                    editable: false,
-                    itemId: 'loaitien',
-                    bind:{
-                        store: '{CurrencyStore}',
-                        value: '{stockout.vat_currencyid_link}'
-                    },
-                    displayField: 'code',
-                    valueField: 'id'
-                },
-                {
-                    xtype: 'textfield',
-                    margin: '0 5 0 5',
-                    reference: 'stockout_vat_exchangerate',
-                    flex: 1,
-                    labelWidth: 45,
-                    fieldLabel: 'Tỷ giá:',
-                    readOnly: true,
-                    hideLabel: false,
-                    bind: {
-                        value:'{stockout.vat_exchangerate}'
-                    }
-                }
-            ]
-        }
+        // {
+        //     xtype: 'container',
+        //     layout: 'hbox',
+        //     items: [
+        //         {
+        //             xtype: 'textfield',
+        //             reference: 'stockout_vat_sample',
+        //             width: 185,
+        //             labelWidth: 80,
+        //             fieldLabel: 'Mẫu HĐ:',
+        //             hideLabel: false,
+        //             bind: {value:'{stockout.vat_sample}'}
+        //         },
+        //         {
+        //             xtype: 'textfield',
+        //             margin: '0 0 0 5',
+        //             reference: 'stockout_vat_symbol',
+        //             width: 180,
+        //             labelWidth: 75,
+        //             fieldLabel: 'Ký hiệu HĐ:',
+        //             hideLabel: false,
+        //             bind: {value:'{stockout.vat_symbol}'}
+        //         },
+        //         {
+        //             xtype: 'textfield',
+        //             margin: '0 0 0 5',
+        //             reference: 'stockout_vat_number',
+        //             width: 225,
+        //             labelWidth: 75,
+        //             fieldLabel: 'Số HĐ:',
+        //             hideLabel: false,
+        //             bind: {value:'{stockout.vat_number}'}
+        //         },
+        //         {
+        //             xtype: 'datefield',
+        //             margin: '0 0 0 5',
+        //             reference: 'txtstockout_vatdate',
+        //             width: 220,
+        //             labelWidth: 85,
+        //             fieldLabel: 'Ngày HĐ:',
+        //             format: 'd/m/Y',
+        //             editable: false,
+        //             bind: {
+        //                 value: '{stockout.vat_date}'
+        //             }
+        //         },
+        //         {
+        //             xtype: 'combobox',
+        //             margin: '0 0 0 5',
+        //             reference: 'stockout_vat_currencyid_link',
+        //             width: 170,
+        //             labelWidth: 85,
+        //             fieldLabel: 'Loại tiền:',
+        //             editable: false,
+        //             itemId: 'loaitien',
+        //             bind:{
+        //                 store: '{CurrencyStore}',
+        //                 value: '{stockout.vat_currencyid_link}'
+        //             },
+        //             displayField: 'code',
+        //             valueField: 'id'
+        //         },
+        //         {
+        //             xtype: 'textfield',
+        //             margin: '0 5 0 5',
+        //             reference: 'stockout_vat_exchangerate',
+        //             flex: 1,
+        //             labelWidth: 45,
+        //             fieldLabel: 'Tỷ giá:',
+        //             readOnly: true,
+        //             hideLabel: false,
+        //             bind: {
+        //                 value:'{stockout.vat_exchangerate}'
+        //             }
+        //         }
+        //     ]
+        // }
     ]
 });
