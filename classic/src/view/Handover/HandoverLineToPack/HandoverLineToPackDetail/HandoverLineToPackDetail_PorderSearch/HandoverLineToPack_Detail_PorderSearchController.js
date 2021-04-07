@@ -23,9 +23,9 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_Detail_PorderSearchContro
                         if(items.length == 0){
                             m.fireEvent('found0Porder');
                         }
-                        // if(items.length == 1){
-                        //     m.fireEvent('found1Porder', records);
-                        // }
+                        if(items.length == 1){
+                            m.fireEvent('found1Porder', records);
+                        }
                     }
 				}
 			}
