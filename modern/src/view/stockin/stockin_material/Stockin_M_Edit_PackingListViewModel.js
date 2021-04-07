@@ -2,9 +2,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockin_M_Edit_PackingListViewModel',
 	stores:{
-		// DeviceInvStore:{
-		// 	type :'DeviceInvStore'
-		// },
+		attributeValueStore:{
+			type :'attributeValueStore'
+		},
 	},
 	data: {
 		stockin: null,
@@ -15,6 +15,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
 		packageidTxt: '',
 		yTxt: '',
 		mTxt: '',
+        mOriginTxt: '',
+        yOriginTxt: '',
+        sampleCheckTxt: '',
         colorTxt: '',
         widthTxt: '',
 		yTxtCls: 'yTxtClsWhiteBG', // yTxtClsYellowBG
