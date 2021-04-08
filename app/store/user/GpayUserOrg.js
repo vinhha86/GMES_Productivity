@@ -6,6 +6,7 @@ Ext.define('GSmartApp.store.GpayUserOrg', {
 		{name: 'id', type: 'int'},
 		{name: 'userid_link',   type: 'int'},
 		{name: 'orgid_link',   type: 'int'},
+		{name: 'org_grant_id_link',   type: 'int'},
 		{name: 'orgcode',   type: 'string'},
 		{name: 'orgname',   type: 'string'},
 	],
@@ -83,6 +84,31 @@ Ext.define('GSmartApp.store.GpayUserOrg', {
 				} else {
 					// console.log(records);
 				}
+			}
+		});
+	},
+	loadUserInfo_Async:function(){
+		var params = new Object();
+		params.id = null;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/users/user_getinfo',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
 			}
 		});
 	},

@@ -54,7 +54,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		},
 		StockinGroupStore: {
 			type: 'StockinGroupStore'
-		}
+		},
+		GpayUser: {
+			type: 'GpayUserOrg'
+		},
 	},
 	data: {
 		urlback:'',
@@ -78,7 +81,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		isHidden: false,
 		isRFIDHidden: true,
 		isBarcodeHidden: true,
-		isManualHidden: false		
+		isManualHidden: false,
 	},
 	formulas: {
         isEdit: function (get) {
@@ -96,6 +99,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		iseditSL_YC: function(get){
 			//Neu la nhap theo PO thi ko cho sua SL YC
 			if(get('stockin.stockintypeid_link') == 21) 
+				return false;
+			else
+				return true;
+		},
+		isPOLineHidden: function(get){
+			if(get('stockin.stockintypeid_link') == 21) 
+				return false;
+			else
+				return true;
+		},
+		isStockoutHidden: function(get){
+			if(get('stockin.stockintypeid_link') == 22) 
 				return false;
 			else
 				return true;

@@ -145,7 +145,44 @@ Ext.define('GSmartApp.store.Stockout', {
 				}
 			}
 		});
-    },         
+    },     
+    loadByOrgTo:function(stockouttypeid_link, orgid_to_link, status){
+        var param=new Object();
+        param.stockouttypeid_link = stockouttypeid_link;
+        param.orgid_to_link = orgid_to_link;
+        param.status = status;
+		this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create : 'POST',
+                read   : 'POST',
+                update : 'POST',
+                destroy: 'POST'
+            },          
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockout/stockout_listbyorgto',
+			paramsAsJson:true,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			},
+            useDefaultXhrHeader: false,
+			extraParams: param,
+			reader: {
+				type: 'json',
+                rootProperty: 'data',
+                totalProperty: 'totalCount'
+            }
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+    },          
     sorters: [{
         property: 'stockoutdate',
         direction: 'DESC'

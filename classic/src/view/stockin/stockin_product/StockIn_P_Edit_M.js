@@ -143,16 +143,32 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 		layout: 'hbox',
 		xtype: 'container',
 		items: [
-			// {
-			// 	margin: '0 5 0 5',
-			// 	xtype: 'textfield',
-			// 	bind: {
-			// 		value: '{stockin.contract_number}'
-			// 	},
-			// 	fieldLabel: 'Số hợp đồng',					
-			// 	labelWidth: 80,
-			// 	width: 375
-			// },
+			{
+				xtype: 'textfield',
+				margin: '0 0 0 5',
+				itemId:'stockoutcode',
+				fieldLabel: 'Phiếu XK',
+				width: 335,
+				labelWidth: 95,
+				hideLabel: false,			
+				bind:{
+					disabled: '{isEdit}',
+					value: '{stockin.stockout_code}',
+					hidden: '{isStockoutHidden}'
+				}  
+			},
+			{
+				xtype: 'button',
+				tooltip: 'Tìm Phiếu XK',
+				margin: '0 5 0 3',
+				itemId: 'btnTimStockout',
+				iconCls: 'x-fa fa-search',
+				weight: 30,			
+				bind:{
+					disabled: '{isEdit}',
+					hidden: '{isStockoutHidden}'
+				}
+			}, 	
 			{
 				xtype: 'textfield',
 				margin: '0 0 0 5',
@@ -163,7 +179,8 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 				hideLabel: false,			
 				bind:{
 					disabled: '{isEdit}',
-					value: '{stockin.contract_number}'
+					value: '{stockin.contract_number}',
+					hidden: '{isPOLineHidden}'
 				}  
 			},
 			{
@@ -175,7 +192,8 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 				iconCls: 'x-fa fa-search',
 				weight: 30,			
 				bind:{
-					disabled: '{isEdit}'
+					disabled: '{isEdit}',
+					hidden: '{isPOLineHidden}'
 				}
 				// handler: 'onSkuSearchTap'
 			}, 			

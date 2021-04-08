@@ -30,6 +30,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
         },
 		'#btnTimPOLine': {
 			click: 'onTimLine'
+		},
+		'#btnTimStockout': {
+			click: 'onTimStockout'
 		}
     },
 	onSpecialkey: function (field, e) {
@@ -38,6 +41,74 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			me.onTimLine();
 		}
 	},
+	onTimStockout: function () {
+		var me = this;
+		var grid = this.getView();
+		var form = Ext.create('Ext.window.Window', {
+			height: 600,
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách phiếu xuất kho',
+			closeAction: 'destroy',
+			width: 1100,
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockout_P_Select',
+				viewModel: {
+					data: {
+						status: 1 //Da duyet
+					}
+				}				
+			}]
+		});
+		form.show();
+
+		form.down('#Stockout_P_Select').on('Chon', function (data) {
+			console.log(data);
+			me.onLoadStockoutData(data);
+			form.close();
+		})
+	},	
+	onLoadStockoutData: function(data){
+		var viewmodel = this.getViewModel();
+		viewmodel.set('stockin.stockoutid_link', data.id);
+		viewmodel.set('stockin.stockout_code', data.stockoutcode);
+		var list = [];
+		for(var i=0; i<data.stockout_d.length; i++){
+			var data_stockout = data.stockout_d[i];
+			var stockind_new = new Object();
+			stockind_new.id = null;
+			stockind_new.skucode = data_stockout.skucode;
+			stockind_new.skuname = data_stockout.skuname;
+			stockind_new.sku_product_code = data_stockout.product_code;
+			// stockind_new.product_name = data.productname;
+			stockind_new.p_skuid_link = data_stockout.productid_link;
+			stockind_new.color_name = data_stockout.color_name;
+			stockind_new.size_name = data_stockout.size_name;
+			stockind_new.totalpackage = data_stockout.totalpackagecheck;
+			stockind_new.unitid_link = data_stockout.unitid_link;
+			stockind_new.unit_name = data_stockout.unitname;
+			stockind_new.stockoutid_link = data_stockout.id;
+			stockind_new.colorid_link = data_stockout.color_id;
+			stockind_new.skuid_link = data_stockout.skuid_link;
+			stockind_new.sizeid_link = data_stockout.sizeid_link;
+
+			stockind_new.stockin_packinglist = data_stockout.stockout_packinglist;
+
+			list.push(stockind_new);
+		}
+
+		viewmodel.set('stockin.stockin_d', list);
+		var store = viewmodel.getStore('StockinD_Store');
+		store.removeAll();
+		store.setData(list);
+	},		
 	onTimLine: function () {
 		var me = this;
 		var grid = this.getView();
@@ -67,11 +138,11 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		form.show();
 
 		form.down('#Stockout_POLINE').on('Chon', function (data) {
-			me.onTaiSanPham(data);
+			me.onLoadPOLineData(data);
 			form.close();
 		})
 	},	
-	onTaiSanPham: function(data){
+	onLoadPOLineData: function(data){
 		var viewmodel = this.getViewModel();
 		viewmodel.set('stockin.pcontract_poid_link', data.id);
 		viewmodel.set('stockin.contract_number', data.po_buyer);

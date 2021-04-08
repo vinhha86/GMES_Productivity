@@ -31,8 +31,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         viewModel.set('stockin.stockindate',new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
         viewModel.set('listepc', new Map());
-        viewModel.set('stockin.orgid_to_link', session.orgid_link)
+        // viewModel.set('stockin.orgid_to_link', session.orgid_link)
         viewModel.set('stockin.stockintypeid_link', id);
+
+        var GpayUser = viewModel.getStore('GpayUser');
+		GpayUser.loadUserInfo_Async();
+		GpayUser.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+					if (null!=records[0].data.org_grant_id_link)
+                        viewModel.set('stockin.orgid_to_link', records[0].data.org_grant_id_link)
+					else
+                        viewModel.set('stockin.orgid_to_link', records[0].data.orgid_link)
+				}
+			}
+		});
 
         if(id == 21) { // Nhap tu san xuat
             var OrgFromStore = viewModel.getStore('OrgFromStore');
@@ -89,7 +105,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 		return mes;
 	},
     onSave: function(){
-        var me = this.getView();
+        var me=this;
+        var myview = this.getView();
 
         var mes = this.CheckValidate();
         if(mes == ""){
@@ -100,12 +117,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             // for(var i =0; i<stockin.stockin_d.length;i++){
             //     delete stockin.stockind[i].sku;
             // }
-            console.log(stockin);
             params.data.push(stockin);
-            me.setLoading("Đang lưu dữ liệu");
+            myview.setLoading("Đang lưu dữ liệu");
             GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
                 function (success, response, options) {
-                    me.setLoading(false);
+                    myview.setLoading(false);
                     if (success) {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
@@ -116,8 +132,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 								buttonText: {
 									yes: 'Đóng',
 								}
-							});				
-                            this.redirectTo("stockin_p_main/" + response.id + "/edit");
+							});		
+                            me.getInfo(response.id);
+                            // this.redirectTo("stockin_p_main/" + response.id + "/edit");
                         }
                     } else {
                         var response = Ext.decode(response.responseText);

@@ -288,6 +288,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 	},
 	onSave: function () {
 		var mes = this.CheckValidate();
+		var me=this;
 		if (mes == "") {
 			var viewmodel = this.getViewModel();
 
@@ -297,11 +298,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 			params.data = [];
 			params.data.push(stockout);
 
-			var me = this.getView();
-			me.setLoading("Đang lưu dữ liệu");
+			var myview = this.getView();
+			myview.setLoading("Đang lưu dữ liệu");
 			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_create', Ext.JSON.encode(params),
 				function (success, response, options) {
-					me.setLoading(false);
+					myview.setLoading(false);
 					if (success) {
 						var response = Ext.decode(response.responseText);
 						if (response.respcode == 200) {
@@ -313,12 +314,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 									yes: 'Đóng',
 								}
 							});
-							if(stockout.id ==null)
-								this.redirectTo("stockout_p_main/" + response.id + "/edit");
-							else {
-								var store = viewmodel.getStore('StockoutD_Store');
-								store.commitChanges();
-							}
+							me.getInfo(response.id);
+							// if(stockout.id ==null)
+							// 	this.redirectTo("stockout_p_main/" + response.id + "/edit");
+							// else {
+							// 	var store = viewmodel.getStore('StockoutD_Store');
+							// 	store.commitChanges();
+							// }
 						}
 					} else {
 						var response = Ext.decode(response.responseText);
