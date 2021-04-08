@@ -19,16 +19,29 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_WareHouse_ViewController',
         }
     },
     onAddMaterial: function () {
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         viewmodel.set('width_npl', '50%');
-        var warehouse_grid = Ext.getCmp('WareHouse_View');
+        var warehouse_grid = grid.up('Cutplan_Warehouse_MainView').down('Stockout_order_warehouse_View');
         warehouse_grid.setLoading("Đang tải dữ liệu");
+
         var material_skuid_link = viewmodel.get('material_skuid_link');
+        var org_from_id_link = null;
+        var porderid_link = viewmodel.get('porderid_link');
+        var type = viewmodel.get('type.type');
+        var stockout_orderid_link = null;
 
         var warehouseStore = viewmodel.getStore('WarehouseStore');
-        warehouseStore.loadbyorg(material_skuid_link, function (records, operation, success) {
+        warehouseStore.setGroupField('');
+
+        warehouseStore.loadbyorg(material_skuid_link, org_from_id_link, porderid_link, type, stockout_orderid_link, function (records, operation, success) {
             warehouse_grid.setLoading(false);
         })
+
+        // var warehouseStore = viewmodel.getStore('WarehouseStore');
+        // warehouseStore.loadbyorg(material_skuid_link, function (records, operation, success) {
+        //     warehouse_grid.setLoading(false);
+        // })
     },
     viewImg: function (grid, metadata, rowIndex) {
         var viewmodel = this.getViewModel();

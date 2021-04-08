@@ -7,6 +7,11 @@ Ext.define('GSmartApp.view.main.MainController', {
             '#' : {
                 unmatchedroute : 'onRouteChange'
             }
+        },
+        store: {
+            '*' : {
+                'logout' : 'onLogout'
+            }
         }
     },
     routes: {

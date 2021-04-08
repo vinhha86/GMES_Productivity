@@ -11,6 +11,6 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.WareHouse_ViewController', {
     },
     onHideWarehouse: function(){
         var viewmodel = this.getViewModel();
-        viewmodel.set('width_npl', 900);
+        viewmodel.set('width_npl', '100%');
     }
 })

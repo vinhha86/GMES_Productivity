@@ -54,6 +54,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' Cây</div>';
     },
     onAddMat: function () {
+        var me = this;
         var grid = this.getView();
         var select = grid.getSelectionModel().getSelection();
         if (select.length == 0) {
@@ -68,7 +69,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
         }
         else {
             var viewmodel = this.getViewModel();
-            var store_pkl = viewmodel.getStore('Stockout_order_pkl_Store');
             var store_wh = viewmodel.getStore('WarehouseStore');
             var list_data = [];
             for (var i = 0; i < select.length; i++) {
@@ -76,9 +76,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
                 data.idx = null;
                 data.id = null;
                 list_data.push(data);
-                store_pkl.insert(0, data);
             }
-            grid.up('Stockout_order_pkl_MainView').fireEvent('AddMat', list_data);
+            me.fireEvent('AddMat', list_data);
             store_wh.remove(select);
         }
     }

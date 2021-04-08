@@ -11,6 +11,10 @@ Ext.define('GSmartApp.view.cutplan.warehouse.Cutplan_WareHouse_ViewModel', {
         }
     },
     data: {
-        width_npl: 900
+        width_npl: '100%',
+        type: {
+            type: 1
+        },
+        porderid_link : 0
     }
 })

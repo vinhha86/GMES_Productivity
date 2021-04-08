@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
         this.fireEvent('Thoat');
     },
     getInfo: function (id) {
+        var me = this;
         if (id != null) {
             var params = new Object();
             var viewmodel = this.getViewModel();
@@ -35,11 +36,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                         var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
                         store_amout.removeAll();
                         store_amout.insert(0, res.color);
+                        
+                        me.fireEvent('Reload');
                     }
                 })
         }
     },
     onLuu: function () {
+        var me = this;
         var grid = this.getView();
         grid.setLoading('Đang lưu dữ liệu');
 

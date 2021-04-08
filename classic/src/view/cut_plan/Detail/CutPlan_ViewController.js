@@ -24,7 +24,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     },
     onLock: function(grid, rowIndex, colIndex){
         var rec = grid.getStore().getAt(rowIndex);
-
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
@@ -32,8 +31,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             border: false,
             title: 'Giữ cây vải cho sơ đồ ',
             closeAction: 'destroy',
-            height: 600,            
-            width: 900,
+            height: Ext.getBody().getViewSize().height * .99,
+            width: Ext.getBody().getViewSize().width * .95,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -44,7 +43,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                 viewModel : {
                     data: {
                         cutplanrowid_link : rec.get('id'),
-                        material_skuid_link: rec.get('material_skuid_link')
+                        material_skuid_link: rec.get('material_skuid_link'),
+                        porderid_link: rec.get('porderid_link')
                     }
                 }
             }]

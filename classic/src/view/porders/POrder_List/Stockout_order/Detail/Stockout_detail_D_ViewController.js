@@ -66,6 +66,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             })
     },
     onShowPKL: function (record) {
+        var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -91,7 +92,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
                         org_from_id_link: viewmodel.get('order.orgid_from_link'),
                         porderid_link: viewmodel.get('porderid_link'),
                         stockout_order_pkl: record.get('stockout_order_pkl'),
-                        stockout_orderid_link: viewmodel.get('order.id')
+                        stockout_orderid_link: viewmodel.get('order.id'),
+                        stockoutorderdid_link: record.get('id')
                     }
                 }
             }]
@@ -103,15 +105,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         });
 
         form.down('#Stockout_order_pkl_MainView').on('AddMat', function (data) {
-            record.set('stockout_order_pkl', data);
-            grid.up('Stockout_Detail_View').getController().onLuu();
+            me.onAddMat(record, data);
         });
 
         form.down('Stockout_order_pkl_MainView').on('XoaPKL', function () {
             grid.up('Stockout_Detail_View').getController().getInfo(viewmodel.get('order.id'));
         })
     },
+    onAddMat: function(record, data){
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.stockoutorderid_link = viewmodel.get('order.id');
+        params.stockoutorderdid_link = record.get('id');
+        params.data = data;
+
+        GSmartApp.Ajax.post('/api/v1/stockoutorder/add_pkl', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
+                        grid.up('Stockout_Detail_View').getController().getInfo(viewmodel.get('order.id'));
+                    }
+                }
+            })
+    },
     onCalculate: function () {
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         if (viewmodel.get('order.id') == null) {
             Ext.Msg.show({
@@ -124,7 +144,26 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             });
         }
         else {
+            var params = new Object();
+            params.id = viewmodel.get('order.id');
 
+            GSmartApp.Ajax.post('/api/v1/stockoutorder/calculate', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Tính số lượng yêu cầu thành công!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        grid.up('Stockout_Detail_View').getController().getInfo(params.id);
+                    }
+                }
+            })
         }
     },
     onThemMoiNPL: function () {

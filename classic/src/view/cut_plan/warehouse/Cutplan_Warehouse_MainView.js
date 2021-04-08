@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.warehouse.cut_plan.Cutplan_Warehouse_MainView', {
         },
         {
             region: 'center',
-            xtype: 'WareHouse_View',
+            xtype: 'Stockout_order_warehouse_View',//'GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_order_warehouse_View',
             border: true,
             margin: 1
         },
