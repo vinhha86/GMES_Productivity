@@ -73,8 +73,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
             var list_data = [];
             for (var i = 0; i < select.length; i++) {
                 var data = select[i].data;
-                data.idx = null;
-                data.id = null;
                 list_data.push(data);
             }
             me.fireEvent('AddMat', list_data);
