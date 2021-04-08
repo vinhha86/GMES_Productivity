@@ -5,7 +5,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         'GSmartApp.store.org.ListOrgStore',
         'GSmartApp.store.stockout_order.Stockout_order_type_Store',
         'GSmartApp.store.stockout_order.Stockout_order_d_store',
-        'GSmartApp.store.UserListStore'
+        'GSmartApp.store.UserListStore',
+        'GSmartApp.store.stockout_order.Stockout_order_color_amount_Store'
     ],
     stores: {
         Stockout_order_type_Store: {
@@ -25,6 +26,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         },
         Stockout_order_d_Store: {
             type: 'Stockout_order_d_store'
+        },
+        Stockout_order_color_amount_Store: {
+            type: 'Stockout_order_color_amount_Store'
         }
     },
     data: {
@@ -32,5 +36,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
             id: null
         },
         porderid_link: 0
+    },
+    formulas: {
+        isCreate: function (get) {
+            if (get('order.id') != null) return true;
+            return false;
+        }
     }
 })

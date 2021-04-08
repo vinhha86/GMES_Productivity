@@ -4,8 +4,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
     init: function () {
         var viewmodel = this.getViewModel();
         var store_pkl = viewmodel.getStore('Stockout_order_pkl_Store');
-        console.log(viewmodel.get('stockout_order_pkl'));
-        store_pkl.setData(viewmodel.get('stockout_order_pkl'));
+        store_pkl.insert(0, viewmodel.get('stockout_order_pkl'));
     },
     control: {
         '#btnThoat': {

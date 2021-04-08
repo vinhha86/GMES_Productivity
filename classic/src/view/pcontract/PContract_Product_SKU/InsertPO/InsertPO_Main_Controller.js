@@ -2,42 +2,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
     extend: 'Ext.app.ViewController',
     alias: 'controller.InsertPO_Main_Controller',
     init: function () {
-        // var grid = this.getView();
-        // var viewmodel = this.getViewModel();
-        // var store = viewmodel.getStore('PContractProductPOStore');
-        // var pcontractid_link = viewmodel.get('po.pcontractid_link');
-        // var productid_link = viewmodel.get('productid_link');
-        // store.loadAccept_ByContract_Async(pcontractid_link,productid_link);
-        // store.load({
-        //     scope: this,
-        //     callback: function(){
-        //         var rec = store.findRecord('id',viewmodel.get('po.parentpoid_link'));
-        //         console.log(rec);
-        //         if(rec!=null)
-        //             grid.getSelectionModel().select(rec);
-        //     }
-        // });
 
         this.loadPO();
     },
-    // control:{
-    //     'ListPO_Offer' : {
-    //         select: 'onSelectOffer'
-    //     }
-    // },
-    loadPO:function(){
+    loadPO: function () {
         var viewmodel = this.getViewModel();
         var new_po = new GSmartApp.model.pcontract.PContractPO();
-            new_po.data.id = null;
+        new_po.data.id = null;
 
-            //Lay thong tin parent po
-            var params = new Object();
-            params.id = viewmodel.get('po.parentpoid_link');
-            GSmartApp.Ajax.post('/api/v1/pcontract_po/getone', Ext.JSON.encode(params),
+        //Lay thong tin parent po
+        var params = new Object();
+        params.id = viewmodel.get('po.parentpoid_link');
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/getone', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200){
+                    if (response.respcode == 200) {
                         var parent_po = response.data;
                         new_po.data.pcontractid_link = parent_po.pcontractid_link;
                         new_po.data.productid_link = parent_po.productid_link;
@@ -54,48 +34,62 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
                         new_po.data.plan_productivity = parent_po.plan_productivity;
                         new_po.data.pcontract_po_productivity = parent_po.pcontract_po_productivity;
                         new_po.data.po_typeid_link = 11;
-                        
+
                         var packing_str = response.data.packingnotice;
-                        if(packing_str!=null){
+                        if (packing_str != null) {
                             new_po.data.packingnotice = packing_str.split(';');
                         }
-                        viewmodel.set('po',  new_po.data);
+                        viewmodel.set('po', new_po.data);
+
+
                         // viewmodel.set('po.po_buyer', record.get('po_buyer'));
                         // viewmodel.set('po.po_vendor', record.get('po_vendor'));
                         // viewmodel.set('po.productid_link', record.get('productid_link'));
 
                         //Lay danh sach POrder_Req
                         // console.log(viewmodel.get('parentpoid_link'));
-                        var porderReqStore = viewmodel.getStore('porderReqStore');
-                        porderReqStore.loadByPO_Async(viewmodel.get('po.parentpoid_link'));
-                        porderReqStore.load({
-                            scope: this,
-                            callback: function(records, operation, success) {
-                                if(!success){
-                                    //  this.fireEvent('logout');
-                                } else {
-                                    porderReqStore.each(function (record) {
-                                        record.data.id = null
-                                    });
-                                }
-                            }
-                        });                                
-                        
-                        
+                        // var porderReqStore = viewmodel.getStore('porderReqStore');
+                        // porderReqStore.loadByPO_Async(viewmodel.get('po.parentpoid_link'));
+                        // porderReqStore.load({
+                        //     scope: this,
+                        //     callback: function (records, operation, success) {
+                        //         if (!success) {
+                        //             //  this.fireEvent('logout');
+                        //         } else {
+                        //             porderReqStore.each(function (record) {
+                        //                 record.data.id = null
+                        //             });
+                        //         }
+                        //     }
+                        // });
+
+
                         var productStore = viewmodel.getStore('ProductStore');
-                        if(productStore != null){
-                            if(viewmodel.get('po.productid_link') > 0)
+                        if (productStore != null) {
+                            if (viewmodel.get('po.productid_link') > 0)
                                 productStore.loadStore_bypairid_Async(viewmodel.get('po.productid_link'));
-                                productStore.load();
+                            productStore.load();
                         }
+
+                        var productid_link = viewmodel.get('po.productid_link');
+                        console.log(productid_link);
+                        var pcontract_po_productivity = new Object();
+
+                        for (var i = 0; i < response.data.pcontract_po_productivity.length; i++) {
+                            if (response.data.pcontract_po_productivity[i].productid_link == productid_link) {
+                                pcontract_po_productivity = response.data.pcontract_po_productivity[i];
+                                break;
+                            }
+                        }
+                        viewmodel.set('pcontract_po_productivity', pcontract_po_productivity);
                     }
                 }
             })
     },
-    onSelectOffer: function( grid, record, index, eOpts){
+    onSelectOffer: function (grid, record, index, eOpts) {
         var viewmodel = this.getViewModel();
         viewmodel.set('po.parentpoid_link', record.get('id'));
 
-  
+
     }
 })

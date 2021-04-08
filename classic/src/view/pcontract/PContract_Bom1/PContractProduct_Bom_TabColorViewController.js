@@ -14,11 +14,11 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         '#btnAddMaterial_Bom': {
             click: 'onThemNPL'
         },
-        '#btnConfirmBOM1' : {
+        '#btnConfirmBOM1': {
             click: 'onConfirmBOM1'
         }
     },
-    onConfirmBOM1: function(){
+    onConfirmBOM1: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -45,22 +45,22 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
             params.productid_link = viewmodel.get('IdProduct');
 
             GSmartApp.Ajax.post('/api/v1/pcontractproductbom/confim_bom1', Ext.JSON.encode(params),
-            function (success, response, options) {
-                me.setLoading(false);
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200){
-                        Ext.Msg.alert({
-                            title: "Thông báo",
-                            msg: 'Thành công',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
+                function (success, response, options) {
+                    me.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.Msg.alert({
+                                title: "Thông báo",
+                                msg: 'Thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
                     }
-                }
-            })
+                })
         }
 
     },
@@ -99,7 +99,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         var form = Ext.create({
             xtype: 'skusearchwindow',
             width: Ext.getBody().getViewSize().width * .99,
-            height: Ext.getBody().getViewSize().height * .99,                   
+            height: Ext.getBody().getViewSize().height * .99,
             reference: 'skusearchwindow',
             viewModel: {
                 data: {
@@ -125,9 +125,9 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom_TabColorViewController
         storeBOM.removeAll();
         storeBOM.loadStoreColor(pcontractid_link, productid_link, colorid_link);
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
-        gridsize.CreateColumns();
+        // gridsize.CreateColumns();
     },
-    createTab: function () {        
+    createTab: function () {
         newActiveItem = this.getView();
         var viewmodel = this.getViewModel();
         var productid_link = viewmodel.get('IdProduct');

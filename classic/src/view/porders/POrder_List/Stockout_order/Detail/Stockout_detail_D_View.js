@@ -22,39 +22,47 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             width: 40,
             xtype: 'rownumberer',
             align: 'center'
-        }, 
+        },
         {
             text: 'Mã NPL',
             dataIndex: 'materialCode',
             width: 120
-        },   
+        },
         {
             text: 'Tên NPL',
             dataIndex: 'materialName',
             width: 150
-        },{
+        }, {
             text: 'Màu NPL',
             dataIndex: 'tenMauNPL',
             flex: 1
-        },{
+        }, {
             text: 'Cỡ khổ',
             dataIndex: 'coKho',
             width: 80
-        },{
+        }, {
             text: 'ĐVT',
             dataIndex: 'unitName',
             width: 70
-        },{
+        }, {
+            text: 'SL giữ',
+            dataIndex: 'totalyds_lock',
+            width: 100,
+            renderer: function (value, metaData, record) {
+                return value + " m";
+            }
+        },
+        {
             text: 'SL yêu cầu',
             dataIndex: 'totalyds',
             width: 100,
-            editor:{
-                xtype:'textfield',
+            editor: {
+                xtype: 'textfield',
                 maskRe: /[0-9.]/,
                 selectOnFocus: true
             },
             renderer: function (value, metaData, record) {
-                return value+" m";
+                return value + " m";
             }
         },
         {
@@ -66,19 +74,24 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             items: [
                 {
                     iconCls: 'x-fa fas fa-bars violetIcon',
-                    handler: 'onShowPKL'
+                    handler: 'onMenu'
                 }
             ]
         }
     ],
-    dockedItems:[{
+    dockedItems: [{
         dock: 'top',
-		xtype: 'toolbar',
-        items:[{
+        xtype: 'toolbar',
+        items: [{
             xtype: 'button',
             tooltip: 'Thêm NPL',
             iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi_NPL'
+        }, {
+            xtype: 'button',
+            tooltip: 'Tính SL tự động',
+            iconCls: 'x-fa fa-calculator',
+            itemId: 'btnCalculate'
         }]
     }]
 });

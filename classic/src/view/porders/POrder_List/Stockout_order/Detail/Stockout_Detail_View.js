@@ -13,28 +13,41 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         height: 135,
         margin: 1,
         border: true
-    },{
+    }, {
         region: 'center',
-        xtype: 'Stockout_detail_D_View',
         margin: 1,
-        border: true
+        border: true,
+        layout: 'border',
+        items: [{
+            region: 'west',
+            xtype: 'Stockout_order_coloramount_View',
+            width: 200,
+            border: true
+        }, {
+            region: 'center',
+            xtype: 'Stockout_detail_D_View',
+            border: true
+        }]
     }],
-    dockedItems:[{
+    dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
-        items:[{
+        items: [{
             xtype: 'button',
             text: 'Thoát',
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
             margin: 5
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             formBind: true,
-            text: 'Lưu',
+            text: 'Tạo phiếu YCX',
             margin: 5,
-            itemId:'btnLuu',
-            iconCls: 'x-fa fa-save'
+            itemId: 'btnLuu',
+            iconCls: 'x-fa fa-save',
+            bind: {
+                hidden: '{isCreate}'
+            }
         }]
     }]
 })

@@ -27,8 +27,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                     if (success) {
                         var res = Ext.decode(response.responseText);
                         viewmodel.set('order', res.data);
+
                         var store = viewmodel.getStore('Stockout_order_d_Store');
-                        store.setData(res.detail);
+                        store.removeAll();
+                        store.insert(0, res.detail);
+
+                        var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
+                        store_amout.removeAll();
+                        store_amout.insert(0, res.color);
                     }
                 })
         }
@@ -64,6 +70,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                                 yes: 'Đóng',
                             }
                         });
+                        viewmodel.set('order.id', res.id);
                         me.getInfo(res.id);
                     }
                 } else {

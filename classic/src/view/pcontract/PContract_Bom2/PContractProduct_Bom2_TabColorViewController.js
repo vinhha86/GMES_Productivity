@@ -11,14 +11,14 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
-        '#btnAddMaterial_Bom2' : {
+        '#btnAddMaterial_Bom2': {
             click: 'onThemMoiNPL'
         },
-        '#btnConfirmBOM2' : {
+        '#btnConfirmBOM2': {
             click: 'onConfirmBOM2'
         }
     },
-    onConfirmBOM2: function(){
+    onConfirmBOM2: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -45,22 +45,22 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
             params.productid_link = viewmodel.get('IdProduct');
 
             GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/confim_bom2', Ext.JSON.encode(params),
-            function (success, response, options) {
-                me.setLoading(false);
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200){
-                        Ext.Msg.alert({
-                            title: "Thông báo",
-                            msg: 'Thành công',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
+                function (success, response, options) {
+                    me.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.Msg.alert({
+                                title: "Thông báo",
+                                msg: 'Thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
                     }
-                }
-            })
+                })
         }
 
     },
@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         var pcontractid_link = viewmodel.get('PContract.id');
 
         storeBOM.loadStore(pcontractid_link, viewmodel.get('IdProduct'));
-        
+
         th.createTab();
         common.Check_Object_Permission();
     },
@@ -85,9 +85,9 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         storeBOM.removeAll();
         storeBOM.loadStoreColor(pcontractid_link, productid_link, colorid_link);
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
-        gridsize.CreateColumns();
+        // gridsize.CreateColumns();
     },
-    onThemMoiNPL: function(){
+    onThemMoiNPL: function () {
         var me = this.getView();
         var t = this;
         var viewmodel = this.getViewModel();
@@ -112,7 +112,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         var form = Ext.create({
             xtype: 'skusearchwindow',
             width: Ext.getBody().getViewSize().width * .99,
-            height: Ext.getBody().getViewSize().height * .99,          
+            height: Ext.getBody().getViewSize().height * .99,
             reference: 'skusearchwindow',
             viewModel: {
                 data: {
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         });
         form.show();
     },
-    createTab: function () {        
+    createTab: function () {
         newActiveItem = this.getView();
         var grid = this.getView();
         var viewmodel = this.getViewModel();

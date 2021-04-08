@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor_ViewController',
             click: 'onDongBo'
         }
     },
-    onDongBo: function(){
+    onDongBo: function () {
         var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
@@ -19,21 +19,21 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor_ViewController',
 
         var params = new Object();
         params.porderid_link = viewmodel.get('porder.id');
-        
+
         GSmartApp.Ajax.post('/api/v1/porderbom/sync', Ext.JSON.encode(params),
             function (success, response, options) {
                 var mes = "Đồng bộ thành công";
                 grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode != 200){
-                        mes ="Đồng bộ thất bại";
+                    if (response.respcode != 200) {
+                        mes = "Đồng bộ thất bại";
                     }
                     else {
                         me.createTab();
                     }
-                } else{ 
-                    mes ="Đồng bộ thất bại";
+                } else {
+                    mes = "Đồng bộ thất bại";
                 }
                 Ext.Msg.show({
                     title: "Thông báo",
@@ -53,10 +53,10 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor_ViewController',
         var colorid_link = newCard.colorid_link;
         storeBOM.removeAll();
         storeBOM.loadStoreColor(porderid_link, colorid_link);
-        var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
-        gridsize.CreateColumns();
+        // var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
+        // gridsize.CreateColumns();
     },
-    createTab: function () {        
+    createTab: function () {
         newActiveItem = this.getView();
         var grid = this.getView();
         var viewmodel = this.getViewModel();

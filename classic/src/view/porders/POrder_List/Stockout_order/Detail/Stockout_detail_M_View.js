@@ -11,30 +11,32 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 		layout: 'hbox',
 		xtype: 'container',
 		items: [{
-            xtype: 'combo',
-            valueField: 'id',
-            displayField: 'name',
-            bind: {
-                store: '{Stockout_order_type_Store}',
-				value: '{order.stockouttypeid_link}'
-            },			
+			xtype: 'combo',
+			valueField: 'id',
+			displayField: 'name',
+			bind: {
+				store: '{Stockout_order_type_Store}',
+				value: '{order.stockouttypeid_link}',
+				disabled: '{isCreate}'
+			},
 			// readOnly: true,
-            labelWidth: 80,				
-			width: 375,		
-            margin: '0 5 0 5',
+			labelWidth: 80,
+			width: 375,
+			margin: '0 5 0 5',
 			queryMode: 'local',
-            fieldLabel: 'Loại nhập'
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Số YCX',
-            margin: '0 5 0 5',
-            labelWidth: 85,				
-            bind: {
-                value: '{order.stockout_order_code}'
-            },			
+			fieldLabel: 'Loại nhập'
+		}, {
+			xtype: 'textfield',
+			fieldLabel: 'Số YCX',
+			margin: '0 5 0 5',
+			labelWidth: 85,
+			bind: {
+				value: '{order.stockout_order_code}',
+				disabled: '{isCreate}'
+			},
 			// editable: false,
 			flex: 1
-        }]
+		}]
 	}, {
 		layout: 'hbox',
 		xtype: 'container',
@@ -44,16 +46,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			displayField: 'name',
 			bind: {
 				value: '{order.orgid_from_link}',
-				store: '{OrgFromStore}'
+				store: '{OrgFromStore}',
+				disabled: '{isCreate}'
 			},
 			queryMode: 'local',
 			margin: '0 5 0 5',
-			fieldLabel: "Nơi giao (<span style = 'color: red'>*</span>)",					
-			labelWidth: 80,					
+			fieldLabel: "Nơi giao (<span style = 'color: red'>*</span>)",
+			labelWidth: 80,
 			width: 375,
 			allowBlank: false,
 			blankText: 'Trường phải nhập',
-		},{
+		}, {
 			xtype: 'combo',
 			valueField: 'id',
 			displayField: 'name',
@@ -69,10 +72,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			blankText: 'Trường phải nhập',
 			fieldLabel: "Nơi nhận (<span style = 'color: red'>*</span>)"
 		}]
-	},{
-        layout: 'hbox',
-        xtype: 'container',
-        items:[{
+	}, {
+		layout: 'hbox',
+		xtype: 'container',
+		items: [{
 			margin: '0 5 0 5',
 			xtype: 'combo',
 			bind: {
@@ -85,7 +88,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			labelWidth: 80,
 			readOnly: true,
 			width: 375
-		},{
+		}, {
 			margin: '0 5 0 5',
 			xtype: 'datefield',
 			format: GSmartApp.util.State.get('dataFormat'),
@@ -98,7 +101,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			flex: 1,
 			fieldLabel: "Ngày lập"
 		}]
-    }, {
+	}, {
 		layout: 'hbox',
 		xtype: 'container',
 		items: [{
@@ -109,7 +112,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			},
 			fieldLabel: 'Ghi chú',
 			flex: 1,
-            labelWidth: 80
+			labelWidth: 80
 		},]
 	}]
 });

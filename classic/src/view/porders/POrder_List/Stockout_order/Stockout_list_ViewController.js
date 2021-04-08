@@ -4,10 +4,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
     init: function () {
     },
     control: {
-        '#btnThemMoi_Stockout_order_NL' : {
+        '#btnThemMoi_Stockout_order_NL': {
             click: 'onThemMoiNL'
         },
-        '#btnThemMoi_Stockout_order_PL' : {
+        '#btnThemMoi_Stockout_order_PL': {
             click: 'onThemMoiPL'
         },
         'Stockout_list_View': {
@@ -15,12 +15,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             itemdblclick: 'onEdit'
         }
     },
-    onItemClick: function(grid, record, item, index, e, eOpts){
+    onItemClick: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         var storeDetail = viewmodel.getStore('Stockout_order_d_Store');
         storeDetail.GetByStockoutOrder(record.get('id'));
     },
-    onEdit: function(grid, record, item, index, e, eOpts){
+    onEdit: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -30,8 +30,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             border: false,
             title: 'Phiếu yêu cầu xuất phụ liệu cho sản xuất',
             closeAction: 'destroy',
-            height: 600,
-            width: 900,
+            height: 700,
+            width: 1000,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             form.close();
         });
     },
-    onThemMoiPL: function(){
+    onThemMoiPL: function () {
         var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
@@ -96,9 +96,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             form.close();
         });
     },
-    onThemMoiNL: function(){
+    onThemMoiNL: function () {
         var viewmodel = this.getViewModel();
-        
+
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,

@@ -9,17 +9,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             select: 'onFilterProduct',
             change: 'onChangeProduct'
         },
-        '#PO_ChildList':{
+        '#PO_ChildList': {
             itemclick: 'onSelectPO'
         },
-        '#PContract_POList':{
+        '#PContract_POList': {
             itemclick: 'onSelectParentPO'
         },
-        '#btnUploadTemplate' : {
+        '#btnUploadTemplate': {
             click: 'onDownloadTemplate'
         }
     },
-    onSelectOffer: function(rowNode, record, expandRow, eOpts){
+    onSelectOffer: function (rowNode, record, expandRow, eOpts) {
         var grid = this.getView();
         grid.setLoading('Đang tải dữ liệu');
 
@@ -59,15 +59,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     onRender_poquantity: function (value, metaData, record, rowIdx, colIdx, stor) {
         var viewmodel = this.getViewModel();
         var cls = viewmodel.get('clspoquantity');
-        if(!record.data.checkamount)
+        if (!record.data.checkamount)
             cls = '<div style="color:red; font-weight: bold; align: right">';
-        return value == 0 ? "" : cls + Ext.util.Format.number(value, '0,000') +'</div>';
+        return value == 0 ? "" : cls + Ext.util.Format.number(value, '0,000') + '</div>';
     },
-    onSPFilterKeyup: function(){
+    onSPFilterKeyup: function () {
         var filterField = this.lookupReference('MaSPFilter'),
-        PContract_POList = this.getView();
+            PContract_POList = this.getView();
         store = PContract_POList.getStore(),
-        filters = store.getFilters();
+            filters = store.getFilters();
 
         if (filterField.value) {
             this.spFilter = filters.add({
@@ -83,11 +83,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             this.spFilter = null;
         }
     },
-    onPOFilterKeyup: function(){
+    onPOFilterKeyup: function () {
         var filterField = this.lookupReference('POFilter'),
-        PContract_POList = this.getView();
+            PContract_POList = this.getView();
         store = PContract_POList.getStore(),
-        filters = store.getFilters();
+            filters = store.getFilters();
 
         if (filterField.value) {
             this.POFilter = filters.add({
@@ -103,17 +103,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             this.POFilter = null;
         }
     },
-    onDownloadTemplate: function(){
+    onDownloadTemplate: function () {
         var me = this;
         var params = new Object();
         GSmartApp.Ajax.post('/api/v1/report/download_temp_po', Ext.JSON.encode(params),
-        function (success, response, options) {
-            if (success) {
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    me.saveByteArray("Template_Upload_PO_Line.xlsx", response.data);
-                }
-                else {
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_Upload_PO_Line.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
                     Ext.Msg.show({
                         title: 'Thông báo',
                         msg: 'Lấy thông tin thất bại',
@@ -123,24 +134,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         }
                     });
                 }
-
-            } else {
-                Ext.Msg.show({
-                    title: 'Thông báo',
-                    msg: 'Lấy thông tin thất bại',
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng'
-                    }
-                });
-            }
-        })
+            })
     },
     saveByteArray: function (reportName, byte) {
         var me = this;
         byte = this.base64ToArrayBuffer(byte);
-        
-        var blob = new Blob([byte], {type: "application/xlsx"});
+
+        var blob = new Blob([byte], { type: "application/xlsx" });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         var fileName = reportName;
@@ -152,30 +152,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var binaryLen = binaryString.length;
         var bytes = new Uint8Array(binaryLen);
         for (var i = 0; i < binaryLen; i++) {
-           var ascii = binaryString.charCodeAt(i);
-           bytes[i] = ascii;
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
         }
         return bytes;
-     },
-    onFilterProduct: function(combo, record, eOpts ){
+    },
+    onFilterProduct: function (combo, record, eOpts) {
         // console.log(record);
-        var viewmodel =  this.getViewModel();
+        var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractPOList');
         var productid_link = record.get('productid_link');
         var pcontractid_link = viewmodel.get('PContract.id');
 
-        store.loadAccept_ByContract(pcontractid_link , productid_link);
+        store.loadAccept_ByContract(pcontractid_link, productid_link);
     },
-    onChangeProduct: function(m, newValue, oldValue){
-        if(newValue == "" || newValue == null){
-            var viewmodel =  this.getViewModel();
-            var store = viewmodel.getStore('PContractPOList');            
-            
+    onChangeProduct: function (m, newValue, oldValue) {
+        if (newValue == "" || newValue == null) {
+            var viewmodel = this.getViewModel();
+            var store = viewmodel.getStore('PContractPOList');
+
             var pcontractid_link = viewmodel.get('PContract.id');
-    
-            store.loadAccept_ByContract(pcontractid_link , 0);
+
+            store.loadAccept_ByContract(pcontractid_link, 0);
         }
-        
+
     },
     onUpload: function (record) {
         var viewmodel = this.getViewModel();
@@ -192,13 +192,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         data.append('parentid_link', viewmodel.get('pcontract_po_parentid_link'));
 
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_po', data,2*60*1000,
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_po', data, 2 * 60 * 1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode != 200){
+                    if (response.respcode != 200) {
                         Ext.MessageBox.show({
                             title: "Có lỗi trong quá trình tải PO",
                             msg: response.message,
@@ -213,7 +213,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 }
             })
     },
-    onSelectParentPO: function(m, rec){
+    onSelectParentPO: function (m, rec) {
         var viewModel = this.getViewModel();
         var productStore = viewModel.getStore('PContractProduct_PO_Store');
         productStore.removeAll();
@@ -222,37 +222,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var skuView = Ext.getCmp('PContractSKUView');
         var cmbSanPham = skuView.down('#cmbSanPham');
         cmbSanPham.clearValue();
-        viewModel.set('isDisable_btnThemSKU',true);
-        viewModel.set('isDisable_btnConfirmSKU',true);
+        viewModel.set('isDisable_btnThemSKU', true);
+        viewModel.set('isDisable_btnConfirmSKU', true);
     },
-    onSelectPO: function(m, rec){
+    onSelectPO: function (m, rec) {
         var viewModel = this.getViewModel();
-        viewModel.set('isDisable_btnThemSKU',false);
-        viewModel.set('isDisable_btnConfirmSKU',false);        
+        viewModel.set('isDisable_btnThemSKU', false);
+        viewModel.set('isDisable_btnConfirmSKU', false);
         viewModel.set('pcontract_poid_link', rec.data.id);
         var productid_link = rec.data.productid_link;
 
         var productStore = viewModel.getStore('PContractProduct_PO_Store');
         productStore.loadStore_bypairid_Async(productid_link, rec.data.po_quantity, true);
         productStore.load({
-			scope: this,
-			callback: function(records, operation, success) {
-				var record = productStore.getAt(0);
+            scope: this,
+            callback: function (records, operation, success) {
+                var record = productStore.getAt(0);
                 var skuView = Ext.getCmp('PContractSKUView');
                 var cmbSanPham = skuView.down('#cmbSanPham');
                 cmbSanPham.select(record);
                 viewModel.set('IdProduct', record.get('id'));
-                viewModel.set('Product_pquantity', record.data.pquantity); 
+                viewModel.set('Product_pquantity', record.data.pquantity);
                 // console.log(record);
                 //clear sku list
                 var storeSku = viewModel.getStore('PContractSKUStore');
                 storeSku.removeAll();
                 storeSku.loadStoreByPO_and_Product(record.get('id'), rec.data.id);
-			}
-		});
+            }
+        });
     },
     onThemPO: function (rec) {
-        console.log(rec);
         var plan_productivity = [];
         plan_productivity.push(rec.get('pcontract_po_productivity')[0].plan_productivity);
 
@@ -279,12 +278,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         po: {
                             pcontractid_link: viewmodel.get('PContract.id'),
                             parentpoid_link: rec == null ? 0 : rec.data.id,
-                            po_typeid_link : 11,
+                            po_typeid_link: 11,
                             pcontract_po_productivity: rec.get('pcontract_po_productivity'),
                         },
                         productid_link: viewmodel.get('IdProduct_filterPO'),
                         pcontract_po_productivity: {
-                            plan_productivity : plan_productivity
+                            plan_productivity: plan_productivity
                         }
                     }
                 }
@@ -349,7 +348,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         id: rec.data.id,
                         isedit: true,
                         productpairid_link: rec.get('productid_link'),
-                        isHidden_req: isHidden_req == null ? false: true
+                        isHidden_req: isHidden_req == null ? false : true,
+                        productid_link: rec.get('productid_link')
                     }
                 }
             }]
@@ -405,8 +405,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             border: false,
             title: 'Bảng cân đối NPL',
             closeAction: 'destroy',
-			height: Ext.getBody().getViewSize().height * .95,
-			width: Ext.getBody().getViewSize().width * .95,
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -423,7 +423,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             }]
         });
         form.show();
-    },    
+    },
     onMenu_PO: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
 
@@ -442,7 +442,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         var record = this.parentMenu.record;
                         me.onEdit(record, true);
                     },
-                },{
+                }, {
                     text: 'Xóa PO',
                     itemId: 'btnDelPO_PContract_POList',
                     separator: true,
@@ -462,7 +462,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    onMenu_PO_Parent: function(grid, rowIndex, colIndex, item, e, record){
+    onMenu_PO_Parent: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
 
         var menu_grid = new Ext.menu.Menu({
@@ -500,8 +500,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     handler: function () {
                         me.onChangeMer(record);
                     }
-                },  
-                '-',                              
+                },
+                '-',
                 {
                     text: 'Thêm PO Line',
                     itemId: 'btnInsert_PO',
@@ -520,7 +520,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     iconCls: 'x-fa fas fa-upload brownIcon',
                     handler: function () {
                         var record = this.parentMenu.record;
-                        if(record.get('po_buyer') == 'TBD'){
+                        if (record.get('po_buyer') == 'TBD') {
                             Ext.MessageBox.show({
                                 title: "Thông báo",
                                 msg: "Bạn không được upload cho PO có mã TBD! Bạn phải cập nhật số PO trước khi upload",
@@ -535,7 +535,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         }
                     }
                 },
-                '-',  
+                '-',
                 {
                     text: 'Bảng cân đối NPL',
                     itemId: 'btnBalance',
@@ -555,7 +555,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    onChangeMer: function(rec){
+    onChangeMer: function (rec) {
         console.log(rec);
         var viewmodel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
@@ -599,44 +599,44 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             form.close();
         })
     },
-    renderSum: function(value, summaryData, dataIndex) {
+    renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
-    renderShipping: function(val, meta, record, rindex, cindex, store) {
-        if (null != val){
+    renderShipping: function (val, meta, record, rindex, cindex, store) {
+        if (null != val) {
             var viewmodel = this.getViewModel();
             var ShipModeStore = viewmodel.getStore('ShipModeStore');
-            if (null!=ShipModeStore){
+            if (null != ShipModeStore) {
                 var objUnit = ShipModeStore.data.find('id', val);
                 // console.log(objUnit.data);
                 return objUnit.data.name;
             }
         }
-     },
-     onPOListEdit: function(editor, e){
-        if (e.originalValue != e.value){
+    },
+    onPOListEdit: function (editor, e) {
+        if (e.originalValue != e.value) {
             e.record.data[e.field] = e.value;
-            var params=new Object();
+            var params = new Object();
             params.data = e.record.data;
             console.log(params);
             GSmartApp.Ajax.post('/api/v1/pcontract_po/update', Ext.JSON.encode(params),
-			function (success, response, options) {
-                var response = Ext.decode(response.responseText);
-                if (success){
-                    e.record.commit();
-                } 
-                else {
-                    Ext.MessageBox.show({
-                        title: "PO",
-                        msg: response.message,
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-            });                        
+                function (success, response, options) {
+                    var response = Ext.decode(response.responseText);
+                    if (success) {
+                        e.record.commit();
+                    }
+                    else {
+                        Ext.MessageBox.show({
+                            title: "PO",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                });
         }
     }
 })
