@@ -78,14 +78,15 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_Detail', {
         //         hidden: '{isBtnDeleteHidden}'
         //     }
         // },
+        // {
+        //     xtype:'button',
+        //     text: 'Lưu',
+        //     margin: 3,
+        //     itemId:'btnLuu',
+        //     iconCls: 'x-fa fa-save',
+        //     formBind: true
+        // },
         {
-            xtype:'button',
-            text: 'Lưu',
-            margin: 3,
-            itemId:'btnLuu',
-            iconCls: 'x-fa fa-save',
-            formBind: true
-        },{
             flex:1,
             border: false
         },]

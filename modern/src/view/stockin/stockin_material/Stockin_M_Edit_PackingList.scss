@@ -50,6 +50,9 @@
             }
         }
 
+        // unitid_link1{stockin.unitid_link}
+        // nếu unitid_link == 1 -> hiện class unitid_link11, ẩn class unitid_link31
+        // nếu unitid_link == 3 -> hiện class unitid_link33, ẩn class unitid_link13
         .unitid_link13{
             display:none;
         }

@@ -223,7 +223,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_List', {
             },
             displayField: 'name',
             valueField: 'id',
-            value: [0,1,2],
+            value: [1],
             queryMode: 'local',
             editable: true,
             allowBlank: true,

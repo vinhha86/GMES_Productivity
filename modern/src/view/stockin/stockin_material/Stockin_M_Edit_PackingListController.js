@@ -60,6 +60,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
                 // console.log(response);
                 viewModel.set('stockinD', response.data);
                 viewModel.set('stockin', response.stockin);
+
+                var attributeValueStore = viewModel.getStore('attributeValueStore');
+                attributeValueStore.loadStore_colorForStockin(response.stockin.id);
                 
                 // for(var i=0; i<response.listepc.length; i++){
                 //     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
@@ -140,8 +143,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var packageidTxt = viewModel.get('packageidTxt');
         var yTxt = viewModel.get('yTxt');
         var mTxt = viewModel.get('mTxt');
-        var colorTxt = viewModel.get('colorTxt');
+        var yOriginTxt = viewModel.get('yOriginTxt');
+        var mOriginTxt = viewModel.get('mOriginTxt');
+        // var colorTxt = viewModel.get('colorTxt');
         var widthTxt = viewModel.get('widthTxt');
+        var sampleCheckTxt = viewModel.get('sampleCheckTxt');
 
         if(stockin.unitid_link == 3){
             if(widthTxt == '' || packageidTxt == '' || yTxt == ''){
@@ -164,6 +170,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             }
         }
 
+        if(yTxt == null || yTxt == '') yTxt = 0;
+        if(mTxt == null || mTxt == '') mTxt = 0;
+        if(yOriginTxt == null || yOriginTxt == '') yOriginTxt = 0;
+        if(mOriginTxt == null || mOriginTxt == '') mOriginTxt = 0;
+        if(sampleCheckTxt == null || sampleCheckTxt == '') sampleCheckTxt = 0;
+
         var view = Ext.getCmp('Stockin_M_Edit_PackingList_D');
         var store = view.getStore(); // console.log(store);
         var items = store.getData().items; console.log(items);
@@ -177,17 +189,29 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
 
                 var ydscheck = 0;
                 var met_check = 0;
+                var ydsorigin = 0;
+                var met_origin = 0;
+                var sample_check = 0;
                 if(stockin.unitid_link == 3){
                     ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
                     met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
+                    ydsorigin = Ext.util.Format.number(parseFloat(yOriginTxt), '0.00');
+                    met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
                 }
                 if(stockin.unitid_link == 1){
                     met_check = Ext.util.Format.number(parseFloat(mTxt), '0.00');
                     ydscheck = Ext.util.Format.number(met_check / 0.9144, '0.00');
+                    met_origin = Ext.util.Format.number(parseFloat(mOriginTxt), '0.00');
+                    ydsorigin = Ext.util.Format.number(met_origin / 0.9144, '0.00');
                 }
+
+                sample_check = Ext.util.Format.number(parseFloat(sampleCheckTxt), '0.00');
                 
                 item.set('ydscheck', ydscheck);
                 item.set('met_check', met_check);
+                item.set('ydsorigin', ydsorigin);
+                item.set('met_origin', met_origin);
+                item.set('sample_check', sample_check);
                 item.set('checked', 1);
                 item.set('status', 0);
 
@@ -205,16 +229,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         if(!isExist){
             var ydscheck = 0;
             var met_check = 0;
+            var ydsorigin = 0;
+            var met_origin = 0;
+            var sample_check = 0;
             if(stockin.unitid_link == 3){
                 ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
                 met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');
+                ydsorigin = Ext.util.Format.number(parseFloat(yOriginTxt), '0.00');
+                met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
             }
             if(stockin.unitid_link == 1){
                 met_check = Ext.util.Format.number(parseFloat(mTxt), '0.00');
                 ydscheck = Ext.util.Format.number(met_check / 0.9144, '0.00');
+                met_origin = Ext.util.Format.number(parseFloat(mOriginTxt), '0.00');
+                ydsorigin = Ext.util.Format.number(met_origin / 0.9144, '0.00');
             }
 
             width_check = Ext.util.Format.number(parseFloat(widthTxt), '0.00');
+            sample_check = Ext.util.Format.number(parseFloat(sampleCheckTxt), '0.00');
 
             var newObj = new Object();
             newObj.checked = 0;
@@ -224,7 +256,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             newObj.lotnumber = lotnumberTxt;
             newObj.m3 = 0;
             newObj.met_check = met_check;
-            newObj.met_origin = 0;
+            newObj.met_origin = met_origin;
             newObj.netweight = 0;
             newObj.orgrootid_link = stockinD.orgrootid_link;
             newObj.packageid = packageidTxt;
@@ -237,11 +269,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             newObj.width = 0;
             newObj.width_check =width_check;
             newObj.ydscheck = ydscheck;
-            newObj.ydsorigin = 0;
+            newObj.ydsorigin = ydsorigin;
+            newObj.sample_check = sample_check;
 
             // store.insert(0, newObj);
             stockinD.stockin_packinglist.push(newObj);
-            stockinD.totalpackage++;
+            // stockinD.totalpackage++;
             viewModel.set('stockinD', stockinD);
             
             // console.log(store);
@@ -263,6 +296,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         viewModel.set('packageidTxt', '');
         viewModel.set('yTxt', '');
         viewModel.set('mTxt', '');
+        viewModel.set('yOriginTxt', '');
+        viewModel.set('mOriginTxt', '');
+        viewModel.set('sampleCheckTxt', '');
         viewModel.set('colorTxt', '');
         viewModel.set('widthTxt', '');
         viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
@@ -281,7 +317,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var stockin_d = stockin.stockin_d;
 
         for(var i = 0; i < stockin_d.length; i++){
-        var stockinD = viewModel.get('stockinD');
             if(stockin_d[i].id == stockinD.id){
                 stockin_d[i] = stockinD;
             }

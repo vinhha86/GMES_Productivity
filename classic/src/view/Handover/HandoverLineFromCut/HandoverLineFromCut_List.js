@@ -223,14 +223,15 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_List', {
             },
             displayField: 'name',
             valueField: 'id',
-            value: [0,1,2],
+            value: [1],
             queryMode: 'local',
             editable: true,
             allowBlank: true,
             multiSelect: true,
             emptyText: 'Trạng thái',
             margin: '5 1 5 0',
-            width: 130
+            width: 130,
+            hidden: true
         },{
             xtype: 'button',
             margin: '5 1 5 1',

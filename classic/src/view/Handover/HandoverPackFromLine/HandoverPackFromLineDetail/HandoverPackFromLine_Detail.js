@@ -78,23 +78,25 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail', {
                 hidden: '{isBtnCancelConfirmHidden}'
             }
         },
+        // {
+        //     xtype:'button',
+        //     text: 'Xóa',
+        //     margin: 3,
+        //     itemId:'btnDelete',
+        //     iconCls: 'x-fa fa-trash',
+        //     bind: {
+        //         hidden: '{isBtnDeleteHidden}'
+        //     }
+        // },
+        // {
+        //     xtype:'button',
+        //     text: 'Lưu',
+        //     margin: 3,
+        //     itemId:'btnLuu',
+        //     iconCls: 'x-fa fa-save',
+        //     formBind: true
+        // },
         {
-            xtype:'button',
-            text: 'Xóa',
-            margin: 3,
-            itemId:'btnDelete',
-            iconCls: 'x-fa fa-trash',
-            bind: {
-                hidden: '{isBtnDeleteHidden}'
-            }
-        },{
-            xtype:'button',
-            text: 'Lưu',
-            margin: 3,
-            itemId:'btnLuu',
-            iconCls: 'x-fa fa-save',
-            formBind: true
-        },{
             flex:1,
             border: false
         },]

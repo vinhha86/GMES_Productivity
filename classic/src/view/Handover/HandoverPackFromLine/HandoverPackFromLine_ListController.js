@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackFromLine_ListController', {
             orgid_to_link = null;
         }else orgid_to_link = me.down('#orgid_to_link').getValue();
         if(me.down('#status').getValue() == null || me.down('#status').getValue() == ""){
-            status = [];
+            status = [1];
         }else status = me.down('#status').getValue();
 
         var limit = me.down('#limitpage').getValue();
