@@ -17,7 +17,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
 
     scrollable:'vertical',
     requires: [
-        'Ext.Toast'
+        'Ext.Toast',
+        'Ext.Dialog'
     ],
     items: [
         {
@@ -82,6 +83,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
             height: '100%',
             flex: 1,
             xtype: 'Stockin_M_Edit_PackingList_D',
+            itemId: 'Stockin_M_Edit_PackingList_D'
         },
 
     ],
@@ -179,10 +181,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                             flex: 1,
                             minWidth: 80,
                             maxWidth: 130,
+                            editable: false,
+                            readOnly: true,
                             displayField: 'value',
                             valueField: 'id',
                             bind:{
                                 store:'{attributeValueStore}',
+                                value: '{colorTxt}'
                             },
                         },
                     ]
@@ -262,29 +267,40 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                                 hidden: '{isYdsColumnHidden}',
                             },
                         },
+                        // {
+                        //     // xtype: 'numberfield',
+                        //     margin: 1,
+                        //     padding: 1,
+                        //     border: true,
+                        //     // cls: 'my-textfield',
+                        //     // itemId: 'yTxt',
+                        //     // label: 'Màu:',
+                        //     // labelWidth: 85,
+                        //     flex: 1,
+                        //     minWidth: 80,
+                        //     maxWidth: 130,
+                        //     // textAlign: 'left',
+                        //     // placeholder: 'Số Y',
+                        //     // editable: false,
+                        //     // readOnly: true,
+                        //     // clearable: false,
+                        //     // cls: 'notEditable',
+                        //     // bind: {
+                                
+                        //     // },
+                        //     // hidden: true,
+                        // },
                         {
-                            // xtype: 'numberfield',
-                            margin: 1,
-                            padding: 1,
-                            border: true,
-                            // cls: 'my-textfield',
-                            // itemId: 'yTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
+                            xtype:'button',
+                            text: 'Nhập lại',
                             flex: 1,
                             minWidth: 80,
                             maxWidth: 130,
-                            // textAlign: 'left',
-                            // placeholder: 'Số Y',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            // bind: {
-                                
-                            // },
-                            // hidden: true,
-                        }
+                            margin: 1,
+                            iconCls: 'x-fa fa-file',
+                            itemId:'btnResetForm',
+                            ui: 'action',
+                        },   
                     ]
                 },
                 {
@@ -357,7 +373,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                         },
                         {
                             xtype:'button',
-                            // text: 'Xác nhận',
+                            text: 'Xác nhận',
                             flex: 1,
                             minWidth: 80,
                             maxWidth: 130,

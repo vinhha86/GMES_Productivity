@@ -42,12 +42,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         '#btnHome':{
             tap: 'onBtnHomeTap'
         },
+        '#btnPrint':{
+            tap: 'onPrint'
+        },
         '#btnLuu':{
             tap: 'onSave'
         },
         // '#btnConfirm':{
         //     tap: 'onConfirm'
         // }
+    },
+    onPrint: function(){
+        console.log('print btn');
     },
     onBtnHomeTap: function(){
         this.redirectTo("mobilemenu");

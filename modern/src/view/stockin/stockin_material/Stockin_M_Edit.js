@@ -267,6 +267,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
     // },
     {
         xtype:'button',
+        iconCls: 'x-fa fa-print',
+        itemId:'btnPrint',
+        ui: 'action',
+    },    
+    {
+        xtype:'button',
         iconCls: 'x-fa fa-save',
         itemId:'btnLuu',
         ui: 'action',
