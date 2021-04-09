@@ -290,6 +290,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 if(!success){
                     this.fireEvent('logout');
                 } else {
+                    m.resetForm();
                     viewModel.set('colorTxt', viewModel.get('stockinD.colorid_link'));
                 }
             }
