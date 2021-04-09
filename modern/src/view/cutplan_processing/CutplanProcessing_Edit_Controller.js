@@ -44,6 +44,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         '#btnAdd': {
             tap: 'onBtnAdd'
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap'
+        },
+    },
+    onBtnHomeTap: function(){
+        this.redirectTo("mobilemenu");
     },
     onTestFilterKeyup: function(){
         var viewModel = this.getViewModel();

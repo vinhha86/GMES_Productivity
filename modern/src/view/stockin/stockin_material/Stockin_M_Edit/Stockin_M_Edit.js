@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
     },
 
     requires: [
-        'Ext.Toast'
+        'Ext.Toast',
+        'Ext.Responsive'
     ],
 
     items: [
@@ -227,11 +228,75 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                 }
             ]
         },
+        // {
+        //     margin: 1,
+        //     flex: 1,
+        //     xtype: 'Stockin_M_Edit_D',
+        //     // id: 'handover_cut_toline_detail',
+        // },
         {
-            margin: 1,
+            layout: 'hbox',
             flex: 1,
-            xtype: 'Stockin_M_Edit_D',
-            // id: 'handover_cut_toline_detail',
+            items:[
+                {
+                    layout: 'vbox',
+                    flex: 1,
+                    items:[
+                        {
+                            margin: 1,
+                            flex: 1,
+                            xtype: 'Stockin_M_Edit_D',
+                            // id: 'handover_cut_toline_detail',
+                        },
+                        {
+                            xtype: 'textfield',
+                            itemId: 'maNPLFilter',
+                            label: 'Mã NPL:',
+                            labelWidth: 85,
+                            margin: 6,
+                            // padding: 6,
+                            // flex: 1,
+                            minWidth: 80,
+                            maxWidth: 200,
+                            textAlign: 'left',
+                            // placeholder: 'Số cây',
+                            // editable: false,
+                            // readOnly: true,
+                            clearable: false,
+                            // cls: 'notEditable',
+                            // bind: {
+                            //     value: '{maNPLFilter}'
+                            // },
+                            listeners: {
+                                keyup: 'onmaNPLFilterKeyup',
+                                buffer: 500
+                            }
+                        },
+                    ]
+                },
+                {
+                    responsiveConfig: {
+                        'width <= 768': {
+                            flex: 0
+                        },
+                        'width > 768': {
+                            flex: 1,
+                            items: [
+                                {
+                                    // itemId: 'testHtml',
+                                    // html: 'More than 768',
+                                    margin: 1,
+                                    flex: 1,
+                                    xtype: 'Stockin_M_Edit_P',
+                                    bind: {
+                                        hidden: '{isStockin_M_Edit_PHidden}'
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                },
+            ]
         },
     ],
     tbar: [{
@@ -277,28 +342,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
         itemId:'btnLuu',
         ui: 'action',
     }],
-    bbar: [
-        {
-            xtype: 'textfield',
-            itemId: 'maNPLFilter',
-            label: 'Mã NPL:',
-            labelWidth: 85,
-            flex: 1,
-            minWidth: 80,
-            maxWidth: 200,
-            textAlign: 'left',
-            // placeholder: 'Số cây',
-            // editable: false,
-            // readOnly: true,
-            clearable: false,
-            // cls: 'notEditable',
-            // bind: {
-            //     value: '{maNPLFilter}'
-            // },
-            listeners: {
-                keyup: 'onmaNPLFilterKeyup',
-                buffer: 500
-            }
-        },
-    ]
+    // bbar: [
+    //     {
+    //         xtype: 'textfield',
+    //         itemId: 'maNPLFilter',
+    //         label: 'Mã NPL:',
+    //         labelWidth: 85,
+    //         flex: 1,
+    //         minWidth: 80,
+    //         maxWidth: 200,
+    //         textAlign: 'left',
+    //         // placeholder: 'Số cây',
+    //         // editable: false,
+    //         // readOnly: true,
+    //         clearable: false,
+    //         // cls: 'notEditable',
+    //         // bind: {
+    //         //     value: '{maNPLFilter}'
+    //         // },
+    //         listeners: {
+    //             keyup: 'onmaNPLFilterKeyup',
+    //             buffer: 500
+    //         }
+    //     },
+    // ]
 });

@@ -1,12 +1,12 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
     extend: 'Ext.grid.Grid',
     xtype: 'Stockin_M_Edit_D',
-    id: 'Stockin_M_Edit_D',
+    itemId: 'Stockin_M_Edit_D',
     // viewModel: {
     //     type: 'HandoverDetailViewModel'
     // },
     // cls: 'HandoverListModern',
-    controller: 'Stockin_M_Edit_D_Controller',
+    // controller: 'Stockin_M_Edit_D_Controller',
     reference: 'Stockin_M_Edit_D',
 
     requires: [
@@ -95,5 +95,4 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         },
     },
     ],
-
 });

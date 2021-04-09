@@ -22,6 +22,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
         itemId:'btnBack',
         ui: 'action',
     },
+    {
+        xtype:'button',
+        iconCls: 'x-fa fa-home',
+        itemId:'btnHome',
+        ui: 'action',
+    },    
     '->',
     {
         xtype:'button',

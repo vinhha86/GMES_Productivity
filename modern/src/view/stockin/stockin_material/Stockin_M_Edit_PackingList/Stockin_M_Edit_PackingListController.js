@@ -192,7 +192,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         objData.sampleCheckTxt = sampleCheckTxt;
 
         //
-        var view = Ext.getCmp('Stockin_M_Edit_PackingList_D');
+        // var view = Ext.getCmp('Stockin_M_Edit_PackingList_D');
+        var view = this.getView().down('#Stockin_M_Edit_PackingList_D');
         var store = view.getStore(); // console.log(store);
         var items = store.getData().items; // console.log(items);
         var isExist = false;
@@ -379,21 +380,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         }
         return isSaving;
     },
-    resetForm: function(){
-        var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-        var stockinD = viewModel.get('stockinD');
-        viewModel.set('lotnumberTxt', '');
-        viewModel.set('packageidTxt', '');
-        viewModel.set('yTxt', '');
-        viewModel.set('mTxt', '');
-        viewModel.set('yOriginTxt', '');
-        viewModel.set('mOriginTxt', '');
-        viewModel.set('sampleCheckTxt', '');
-        viewModel.set('colorTxt', stockinD.colorid_link);
-        viewModel.set('widthTxt', '');
-        viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
-    },
     setDataStockin: function(){
         var m = this;
         var viewModel = this.getViewModel();
@@ -558,6 +544,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         viewModel.set('colorTxt', stockinD.colorid_link);
         viewModel.set('widthTxt', '');
         viewModel.set('sampleCheckTxt', '');
+        viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
         m.getView().down('#lotnumberTxt').focus();
     }
 })

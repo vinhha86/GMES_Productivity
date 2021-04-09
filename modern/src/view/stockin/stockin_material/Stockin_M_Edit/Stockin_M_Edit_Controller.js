@@ -48,10 +48,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         '#btnLuu':{
             tap: 'onSave'
         },
-        // '#btnConfirm':{
-        //     tap: 'onConfirm'
-        // }
+        '#Stockin_M_Edit_D': {
+			itemtap: 'onItemTap'
+		},
     },
+    onItemTap: function(grid, index, target, record, e, eOpts){
+        var me = this.getView();
+        var m = this;
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
+		var id = record.data.id;
+
+		// console.log(stockin);
+		// console.log(record);
+		var size = Ext.getBody().getViewSize();
+        var width = size.width;
+
+        if(width > 768){
+            m.itemStockinDTap(record);
+        }else{
+            m.redirectTo("stockin_m_main/" + id + "/edit_detail");
+        }
+	},
     onPrint: function(){
         console.log('print btn');
     },
@@ -87,7 +105,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         console.log(viewModel.get('stockin'));
     },
     onLoadData:function(id,type){
-        // console.log('onLoadData: ' + id + ' ' + type);
+        console.log('onLoadData: ' + id + ' ' + type);
         var viewModel = this.getViewModel();
 
         this.getInfo(id);
@@ -222,9 +240,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         });
         form.show();
     },
-
     onmaNPLFilterKeyup: function (){
-        var grid = Ext.getCmp('Stockin_M_Edit_D'),
+        var grid = this.getView().down('#Stockin_M_Edit_D'),
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maNPLFilter'),
             filters = grid.store.getFilters();
@@ -242,6 +259,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             filters.remove(this.maNPLFilter);
             this.maNPLFilter = null;
         }
-    }
+    },
+
+    // Stockin_M_Edit_P
+    itemStockinDTap: function(record){
+        var me = this.getView();
+        var m = this;
+		var viewModel = this.getViewModel();
+        viewModel.set('stockinD', record.data);
+		var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+
+        // console.log(stockin);
+        // console.log(stockinD);
+
+        var attributeValueStore = viewModel.getStore('attributeValueStore');
+        attributeValueStore.loadStore_colorForStockin(stockin.id);
+        attributeValueStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    viewModel.set('colorTxt', viewModel.get('stockinD.colorid_link'));
+                }
+            }
+        });
+    },
+
+    
 
 })
