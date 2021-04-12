@@ -1,10 +1,10 @@
 Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.CutplanProcessing_Edit_Controller',
-	init: function() {
+    init: function () {
         var viewModel = this.getViewModel();
         var OrgStore = viewModel.getStore('OrgStore');
-		OrgStore.loadStore(28);
+        OrgStore.loadStore(28);
 
         var SkuStore = viewModel.getStore('Sku');
         SkuStore.getSorters().add('product_code');
@@ -24,15 +24,15 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             '*': {
                 loaddata: 'onLoadData',
                 newdata: 'onNewData',
-				// urlBack:'onUrlBack'
+                // urlBack:'onUrlBack'
             }
         }
-	},
-    control:{
-        '#btnBack':{
+    },
+    control: {
+        '#btnBack': {
             tap: 'onBackPage'
         },
-        '#btnLuu':{
+        '#btnLuu': {
             tap: 'onSave'
         },
         '#btnPlus': {
@@ -44,14 +44,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         '#btnAdd': {
             tap: 'onBtnAdd'
         },
-        '#btnHome':{
+        '#btnHome': {
             tap: 'onBtnHomeTap'
         },
     },
-    onBtnHomeTap: function(){
+    onBtnHomeTap: function () {
         this.redirectTo("mobilemenu");
     },
-    onTestFilterKeyup: function(){
+    onTestFilterKeyup: function () {
         var viewModel = this.getViewModel();
         var filterField = this.getView().down('#testFilter'),
             filters = viewModel.getStore('CutPlanRowStore').getFilters();
@@ -70,10 +70,10 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             this.testFilter = null;
         }
     },
-    onUrlBack: function(type){
-        
+    onUrlBack: function (type) {
+
     },
-    onNewData:function(type, id){
+    onNewData: function (type, id) {
         // console.log('onNewData');
         // var viewModel = this.getViewModel();
         // var session = GSmartApp.util.State.get('session');
@@ -98,66 +98,66 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
 
         // console.log(viewModel.get('stockin'));
     },
-    onLoadData:function(id,type){
+    onLoadData: function (id, type) {
         // console.log('onLoadData: ' + id + ' ' + type);
         var me = this;
         var viewModel = this.getViewModel();
-        if(id == 0){
+        if (id == 0) {
             viewModel.set('cutplanProcessing.processingdate', new Date());
             // viewModel.set('cutplanProcessing.pordercode', 'VCTK-203621-14/05/21_1');
-        }else{
+        } else {
             me.getInfo(id);
         }
     },
-    onBackPage: function(){
+    onBackPage: function () {
         // console.log('onBackPage');
         this.redirectTo('cutplan_processing');
     },
-    getInfo: function(id){
+    getInfo: function (id) {
         var m = this;
         var viewModel = this.getViewModel();
         // var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
 
         var params = new Object();
-        params.id = id ;
-        GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_getbyid',Ext.JSON.encode(params),
-		function(success,response,options ) {
-            var response = Ext.decode(response.responseText);
-            if(response.respcode == 200) {
-                // console.log(response.data);
-                viewModel.set('cutplanProcessing', response.data);
+        params.id = id;
+        GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_getbyid', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (response.respcode == 200) {
+                    // console.log(response.data);
+                    viewModel.set('cutplanProcessing', response.data);
 
-                var date = Ext.Date.parse(response.data.processingdate, 'c');
-                if(date == null) date = new Date(response.data.processingdate);
-                viewModel.set('cutplanProcessing.processingdate', date);
+                    var date = Ext.Date.parse(response.data.processingdate, 'c');
+                    if (date == null) date = new Date(response.data.processingdate);
+                    viewModel.set('cutplanProcessing.processingdate', date);
 
-                // dựa vào thông tin cutplan_processing để load store sku và color
-                if(response.data.porderId != null || response.data.porderId != 0){
-                    var porderid_link = response.data.porderid_link;
-                    var pcontractid_link = response.data.pcontractid_link;
-                    var productid_link = response.data.productid_link;
-                    var producttypeid_link = 20;
+                    // dựa vào thông tin cutplan_processing để load store sku và color
+                    if (response.data.porderId != null || response.data.porderId != 0) {
+                        var porderid_link = response.data.porderid_link;
+                        var pcontractid_link = response.data.pcontractid_link;
+                        var productid_link = response.data.productid_link;
+                        var producttypeid_link = 20;
+                        viewModel.set('porderid_link', porderid_link);
+                        // load sku store (npl)
+                        if (pcontractid_link != null) {
+                            var SkuStore = viewModel.getStore('Sku');
+                            SkuStore.load_by_type_and_pcontract(producttypeid_link, pcontractid_link);
+                        }
 
-                    // load sku store (npl)
-                    if(pcontractid_link != null){
-                        var SkuStore = viewModel.getStore('Sku');
-                        SkuStore.load_by_type_and_pcontract(producttypeid_link, pcontractid_link);
+                        // load color store
+                        if (pcontractid_link != null && productid_link != null) {
+                            m.loadColorStore(pcontractid_link, productid_link);
+                        }
+
+
                     }
 
-                    // load color store
-                    if(pcontractid_link != null && productid_link != null){
-                        m.loadColorStore(pcontractid_link, productid_link);
-                    }
-
+                    // CutplanProcessingDStore.setData(response.data.cutplanProcessingD);
 
                 }
-                
-                // CutplanProcessingDStore.setData(response.data.cutplanProcessingD);
-
-            }
-		})
+            })
     },
-    onSave: function(){
+    onSave: function () {
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
@@ -166,15 +166,19 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         var cutplanProcessing = viewModel.get('cutplanProcessing');
 
         var cutplanProcessingD = cutplanProcessing.cutplanProcessingD;
-        if(cutplanProcessingD != null){
-            for(var i = 0; i < cutplanProcessingD.length; i++){
-                if(cutplanProcessingD[i].id == 0 || typeof cutplanProcessingD[i].id === 'string'){
+        if (cutplanProcessingD != null) {
+            for (var i = 0; i < cutplanProcessingD.length; i++) {
+                if (cutplanProcessingD[i].id == 0 || typeof cutplanProcessingD[i].id === 'string') {
                     cutplanProcessingD[i].id = null;
                 }
             }
         }
         // console.log(stockin);
         params.data.push(cutplanProcessing);
+        params.porderid_link = viewModel.get('porderid_link');
+        params.material_skuid_link = viewModel.get('cutplanProcessing.material_skuid_link');
+        params.colorid_link = viewModel.get('cutplanProcessing.colorid_link');
+
         GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -188,18 +192,18 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lỗi ' + response.message, 1000);
                 }
-        })
-        
+            })
+
     },
-    
-    onBtnPlus: function(){
+
+    onBtnPlus: function () {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
         var cutplanProcessing = viewModel.get('cutplanProcessing');
         var pordercode = viewModel.get('cutplanProcessing.pordercode');
 
-        if(pordercode == null || pordercode.length == 0){
+        if (pordercode == null || pordercode.length == 0) {
             Ext.toast('Mã lệnh không được bỏ trống', 1000);
             return;
         }
@@ -213,9 +217,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         // console.log(response);
-                        if(response.message == 'Mã lệnh không tồn tại'){
+                        if (response.message == 'Mã lệnh không tồn tại') {
                             Ext.toast(response.message, 1000);
-                        }else{
+                        } else {
                             Ext.toast('Tìm lệnh thành công', 1000);
                             // load bản ghi đầu tiên trả vê, cần sửa lại nếu có nhiều lệnh trùng ordercode
                             viewModel.set('porder', response.data[0]); // VCTK-203621-14/05/21_1
@@ -224,18 +228,19 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                             viewModel.set('cutplanProcessing.productid_link', response.data[0].productid_link);
 
                             var porderid_link = response.data[0].id;
+                            viewModel.set('porderid_link', porderid_link);
                             var pcontractid_link = response.data[0].pcontractid_link;
                             var productid_link = response.data[0].productid_link;
                             var producttypeid_link = 20;
 
                             // load sku store (npl)
-                            if(pcontractid_link != null){
+                            if (pcontractid_link != null) {
                                 var SkuStore = viewModel.getStore('Sku');
                                 SkuStore.load_by_type_and_pcontract(producttypeid_link, pcontractid_link);
                             }
 
                             // load color store
-                            if(pcontractid_link != null && productid_link != null){
+                            if (pcontractid_link != null && productid_link != null) {
                                 m.loadColorStore(pcontractid_link, productid_link);
                             }
 
@@ -252,7 +257,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                 }
             })
     },
-    onBtnSearch:function(){
+    onBtnSearch: function () {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -261,7 +266,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         var cutplanProcessing = viewModel.get('cutplanProcessing');
         var granttoorgid_link = null;
 
-        if((pordercode == null || pordercode.length == 0) && granttoorgid_link == null){
+        if ((pordercode == null || pordercode.length == 0) && granttoorgid_link == null) {
             Ext.toast('Mã lệnh không được bỏ trống', 1000);
             return;
         }
@@ -276,9 +281,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
-            maskTapHandler: function(){
+            maskTapHandler: function () {
                 // console.log('mask tapped');
-                if(dialog){
+                if (dialog) {
                     dialog.close();
                 }
             },
@@ -318,13 +323,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             var producttypeid_link = 20;
 
             // load sku store (npl)
-            if(pcontractid_link != null){
+            if (pcontractid_link != null) {
                 var SkuStore = viewModel.getStore('Sku');
                 SkuStore.load_by_type_and_pcontract(producttypeid_link, pcontractid_link);
             }
 
             // load color store
-            if(pcontractid_link != null && productid_link != null){
+            if (pcontractid_link != null && productid_link != null) {
                 m.loadColorStore(pcontractid_link, productid_link);
             }
 
@@ -350,13 +355,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             var producttypeid_link = 20;
 
             // load sku store (npl)
-            if(pcontractid_link != null){
+            if (pcontractid_link != null) {
                 var SkuStore = viewModel.getStore('Sku');
                 SkuStore.load_by_type_and_pcontract(producttypeid_link, pcontractid_link);
             }
 
             // load color store
-            if(pcontractid_link != null && productid_link != null){
+            if (pcontractid_link != null && productid_link != null) {
                 m.loadColorStore(pcontractid_link, productid_link);
             }
 
@@ -364,7 +369,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         });
     },
 
-    loadColorStore: function(pcontractid_link, productid_link){
+    loadColorStore: function (pcontractid_link, productid_link) {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -392,7 +397,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                     }
 
                     // set data cho store cbbox
-                    viewModel.set('listcolorData',listcolorData);
+                    viewModel.set('listcolorData', listcolorData);
                     // console.log(viewModel.get('cutplanProcessing'));
                     // console.log(me.down('#cbboxcolor').getStore().getData());
                     // console.log(me.down('#cbboxcolor').getValue());
@@ -401,13 +406,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             })
     },
 
-    onSelectSku: function( cbbox, newValue, oldValue, eOpts){
+    onSelectSku: function (cbbox, newValue, oldValue, eOpts) {
         this.loadCutPlanRowStore();
     },
-    onSelectMauSP: function(cbbox, newValue, oldValue, eOpts){
+    onSelectMauSP: function (cbbox, newValue, oldValue, eOpts) {
         this.loadCutPlanRowStore();
     },
-    loadCutPlanRowStore: function(){
+    loadCutPlanRowStore: function () {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -418,7 +423,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         var material_skuid_link = viewModel.get('cutplanProcessing.material_skuid_link');
         var colorid_link = viewModel.get('cutplanProcessing.colorid_link');
 
-        if(material_skuid_link != null && colorid_link != null){
+        if (material_skuid_link != null && colorid_link != null) {
             var CutPlanRowStore = viewModel.getStore('CutPlanRowStore');
             // CutPlanRowStore.loadStore_bycolor(
             //     colorid_link, porderid_link, material_skuid_link, 
@@ -426,14 +431,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             //     );
 
             CutPlanRowStore.loadStore_bycolor_async(
-                colorid_link, porderid_link, material_skuid_link, 
+                colorid_link, porderid_link, material_skuid_link,
                 productid_link, pcontractid_link
-                );
+            );
             CutPlanRowStore.load({
                 scope: this,
-                callback: function(records, operation, success) {
-                    if(!success){
-                            this.fireEvent('logout');
+                callback: function (records, operation, success) {
+                    if (!success) {
+                        this.fireEvent('logout');
                     } else {
                         // filter
                         // var CutPlanRowStoreFilter = CutPlanRowStore.getFilters();
@@ -452,8 +457,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                         var CutPlanRowStoreData = CutPlanRowStore.getData().items;
                         console.log(CutPlanRowStoreData);
 
-                        for(var i=0;i<CutPlanRowStoreData.length;i++){
-                            if(CutPlanRowStoreData[i].get('type') == 0){
+                        for (var i = 0; i < CutPlanRowStoreData.length; i++) {
+                            if (CutPlanRowStoreData[i].get('type') == 0) {
                                 newArray.push(CutPlanRowStoreData[i].data);
                             }
                         }
@@ -465,7 +470,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         }
     },
 
-    onSelectCutPlanRow:function(cbbox, newValue, oldValue, eOpts){
+    onSelectCutPlanRow: function (cbbox, newValue, oldValue, eOpts) {
         var viewModel = this.getViewModel();
         var cutPlanRow = newValue.data;
         viewModel.set('cutPlanRow', cutPlanRow);
@@ -473,7 +478,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         console.log(cutPlanRow);
     },
 
-    onBtnAdd: function(){
+    onBtnAdd: function () {
         var me = this.getView();
         var viewModel = this.getViewModel();
         // var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
@@ -491,51 +496,52 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         cutplanProcessingDObj.ps = viewModel.get('cutplanProcessingDObj.ps');
         cutplanProcessingDObj.met = viewModel.get('cutplanProcessingDObj.met');
 
-        if(
-            viewModel.get('cutplanProcessingDObj.lotnumber') == null || 
-            viewModel.get('cutplanProcessingDObj.lotnumber') == ''){
-                me.down('#lotnumber').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.lotnumber') == null ||
+            viewModel.get('cutplanProcessingDObj.lotnumber') == '') {
+            me.down('#lotnumber').focus();
+            return;
         }
-        if(
-            viewModel.get('cutplanProcessingDObj.packageid') == null || 
-            viewModel.get('cutplanProcessingDObj.packageid') == ''){
-                me.down('#packageid').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.packageid') == null ||
+            viewModel.get('cutplanProcessingDObj.packageid') == '') {
+            me.down('#packageid').focus();
+            return;
         }
-        if(
-            viewModel.get('cutplanProcessingDObj.met') == null || 
-            viewModel.get('cutplanProcessingDObj.met') == ''){
-                me.down('#met').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.met') == null ||
+            viewModel.get('cutplanProcessingDObj.met') == '') {
+            me.down('#met').focus();
+            return;
         }
-        if(
-            viewModel.get('cutplanProcessingDObj.la_vai') == null || 
-            viewModel.get('cutplanProcessingDObj.la_vai') == ''){
-                me.down('#la_vai').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.la_vai') == null ||
+            viewModel.get('cutplanProcessingDObj.la_vai') == '') {
+            me.down('#la_vai').focus();
+            return;
         }
-        if(
-            viewModel.get('cutplanProcessingDObj.tieu_hao') == null || 
-            viewModel.get('cutplanProcessingDObj.tieu_hao') == ''){
-                me.down('#tieu_hao').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.tieu_hao') == null ||
+            viewModel.get('cutplanProcessingDObj.tieu_hao') == '') {
+            me.down('#tieu_hao').focus();
+            return;
         }
-        if(
-            viewModel.get('cutplanProcessingDObj.con_lai') == null || 
-            viewModel.get('cutplanProcessingDObj.con_lai') == ''){
-                me.down('#con_lai').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.con_lai') == null ||
+            viewModel.get('cutplanProcessingDObj.con_lai') == '') {
+            me.down('#con_lai').focus();
+            return;
         }
-        if(
-            viewModel.get('cutplanProcessingDObj.ps') == null || 
-            viewModel.get('cutplanProcessingDObj.ps') == ''){
-                me.down('#ps').focus();
-                return;
+        if (
+            viewModel.get('cutplanProcessingDObj.ps') == null ||
+            viewModel.get('cutplanProcessingDObj.ps') == '') {
+            me.down('#ps').focus();
+            return;
         }
-
+        console.log(1234);
         cutplanProcessingD.push(cutplanProcessingDObj);
-        store.loadData(cutplanProcessingD);
+        store.removeAll();
+        store.insert(0, cutplanProcessingD);
 
         viewModel.set('cutplanProcessingDObj.lotnumber', '');
         viewModel.set('cutplanProcessingDObj.packageid', '');
@@ -549,18 +555,18 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         // console.log(cutplanProcessingD);
         // console.log(store);
     },
-    onla_vai_change: function(sender, value, oldValue, eOpts){
+    onla_vai_change: function (sender, value, oldValue, eOpts) {
         var viewModel = this.getViewModel();
         var dai_so_do = viewModel.get('cutPlanRow.dai_so_do');
-        var tieu_hao = value*dai_so_do;
-        viewModel.set('cutplanProcessingDObj.tieu_hao',tieu_hao);
+        var tieu_hao = value * dai_so_do;
+        viewModel.set('cutplanProcessingDObj.tieu_hao', tieu_hao);
     },
-    ondau_tam_change: function(sender, value, oldValue, eOpts){
+    ondau_tam_change: function (sender, value, oldValue, eOpts) {
         var viewModel = this.getViewModel();
         var dai_cay = viewModel.get('cutplanProcessingDObj.met');
         var tieu_hao = viewModel.get('cutplanProcessingDObj.tieu_hao');
         var con_lai = dai_cay - tieu_hao;
         var PS = value - con_lai;
-        viewModel.set('cutplanProcessingDObj.ps',PS);
+        viewModel.set('cutplanProcessingDObj.ps', PS);
     }
 })
