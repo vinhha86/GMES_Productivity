@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         },
         '#btnLuu':{
             click: 'onSave'
+        },
+        '#btnConfirm':{
+            click: 'onConfirm'
         }
     },
     onUrlBack: function(type){
@@ -159,5 +162,79 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                 }
             });
         }
-    }
+    },
+	onConfirm: function(){
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinId = stockin.id;
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Duyệt',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Authen_Confirm',
+            }]
+        });
+        form.show();
+
+		form.down('#Authen_Confirm').getController().on('AuthenOK', function (approver_userid_link) {
+            form.close();
+
+			console.log(approver_userid_link);
+
+			var params = new Object();
+			params.stockinId = stockinId;
+			params.approver_userid_link = approver_userid_link;
+	
+			GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve', Ext.JSON.encode(params),
+				function (success, response, options) {
+					if (success) {
+						var response = Ext.decode(response.responseText);
+						// console.log(response);
+						if (response.respcode == 200) {
+							Ext.Msg.show({
+								title: 'Thông báo',
+								msg: 'Duyệt thành công',
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});
+							
+							m.onThoat();
+						}
+						else {
+							Ext.Msg.show({
+								title: 'Duyệt thất bại',
+								msg: response.message,
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});
+						}
+	
+					} else {
+						Ext.Msg.show({
+							title: 'Duyệt thất bại',
+							msg: "Liên hệ IT để được hỗ trợ",
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+					}
+				})
+        })
+    }    
 })

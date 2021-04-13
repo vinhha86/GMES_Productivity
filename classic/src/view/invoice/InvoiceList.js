@@ -14,17 +14,25 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
         width: 50,
         xtype: 'rownumberer',
         align: 'center'
-    },{
+    },
+	{
+		text: 'Mã đơn hàng',
+		dataIndex: 'pcontractcode',
+		width: 120
+	},	
+	{
 		text: 'Số hóa đơn',
 		dataIndex: 'invoicenumber',
 		width: 100
-	},{
-		text: 'Ngày hóa đơn',
-		xtype: 'datecolumn',
-		format: 'd/m/Y',
-		dataIndex: 'invoicedate',
-		width: 120
-	},{
+	},
+	// {
+	// 	text: 'Ngày hóa đơn',
+	// 	xtype: 'datecolumn',
+	// 	format: 'd/m/Y',
+	// 	dataIndex: 'invoicedate',
+	// 	width: 120
+	// },
+	{
 		text: 'Dự kiến về',
 		dataIndex: 'shipdateto',
 		xtype: 'datecolumn',

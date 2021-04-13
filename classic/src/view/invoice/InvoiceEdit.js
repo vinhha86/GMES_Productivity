@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit', {
             xtype: 'InvoiceEdit_M',
             id: 'InvoiceEdit_M',
             margin: '5 0 0 0',
-            height: 168
+            height: 135
         },
         {
             xtype: 'InvoiceEdit_D',

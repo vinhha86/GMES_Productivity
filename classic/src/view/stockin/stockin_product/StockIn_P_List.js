@@ -12,42 +12,28 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
         store: '{StockinStore}'
     },
     columns: [
-        {text: 'Số phiếu', dataIndex: 'stockincode', width: 150},
-        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 200},    
-        {
-            text: GSmartApp.Locales.ngaynhap[GSmartApp.Locales.currentLocale],
-            xtype: 'datecolumn',
-            format: 'd/m/Y',
-            dataIndex: 'stockindate',
-            width: 120
-        },
-        {text: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
-        {text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
-        {text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120},    
-        // {
-        //     text: 'Số lượng',
-        //     xtype: 'numbercolumn',
-        //     format: '0,000',
-        //     align: 'right',
-        //     dataIndex: 'totalpackage',
-        //     flex: 1
-        // },
         {
             xtype: 'actioncolumn',
-            width: 50,
+            width: 45,
             menuDisabled: true,
             sortable: false,
-
             items: [{
-                iconCls: 'x-fa fas fa-edit',
-                tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
+                iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
+                tooltip: 'Sửa phiếu',
                 handler: 'onEdit'
             }, {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+                iconCls: 'x-fa fas fa-trash-o redIcon',
+                tooltip: 'Xóa phiếu',
                 handler: 'onDelete'
             }]
-        }
+        },        
+        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
+        {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
+        {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
+        {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
+        {header: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
+        {header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 
+        {header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120},    
     ],
     dockedItems: [{
         dock: 'top',

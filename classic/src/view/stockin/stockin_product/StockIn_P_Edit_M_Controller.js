@@ -99,7 +99,38 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			stockind_new.skuid_link = data_stockout.skuid_link;
 			stockind_new.sizeid_link = data_stockout.sizeid_link;
 
-			stockind_new.stockin_packinglist = data_stockout.stockout_packinglist;
+			var list_epc = [];
+			for(var k=0; k<data_stockout.stockout_packinglist.length; k++){
+				var stockout_pklist = data_stockout.stockout_packinglist[k];
+				var epc_new = new Object();
+
+				epc_new.id = null;
+				epc_new.skuid_link = stockout_pklist.skuid_link;
+				epc_new.skutypeid_link = stockout_pklist.skutypeid_link;
+				epc_new.colorid_link = stockout_pklist.colorid_link;
+				epc_new.unitid_link = stockout_pklist.unitid_link;
+				epc_new.lotnumber = stockout_pklist.lotnumber;
+				epc_new.packageid = stockout_pklist.packageid;
+
+				epc_new.ydsorigin = stockout_pklist.ydsorigin;
+				epc_new.met_origin = stockout_pklist.met_origin;
+				epc_new.width = stockout_pklist.width;
+				epc_new.ydscheck = null;
+				epc_new.met_check = null;
+				epc_new.width_check = null;
+
+				epc_new.netweight = stockout_pklist.netweight;
+				epc_new.grossweight = stockout_pklist.grossweight;
+				epc_new.m3 = stockout_pklist.m3;
+				epc_new.epc = stockout_pklist.epc;
+				epc_new.barcode = stockout_pklist.barcode;
+
+				epc_new.rssi = 0;
+				epc_new.status = -1;
+
+				list_epc.push(epc_new);
+			}
+			stockind_new.stockin_packinglist = list_epc;
 
 			list.push(stockind_new);
 		}

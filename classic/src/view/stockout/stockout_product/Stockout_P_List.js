@@ -24,13 +24,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
         stripeRows: false
     },
     columns: [
-        { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
-        { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
-        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
-        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
-        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
-        { header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 
-        { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
         {
             xtype: 'actioncolumn',
             reference: 'stockout_contextmenu',
@@ -39,19 +32,24 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
             sortable: false,
             items: [
                 {
-                    // iconCls: 'x-fa fas fa-bars violetIcon',
                     iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
                     tooltip: 'Sửa phiếu',
                     handler: 'onStockoutEdit'
                 },
                 {
-                    // iconCls: 'x-fa fas fa-bars violetIcon',
                     iconCls: 'x-fa fas fa-trash-o redIcon',
                     tooltip: 'Xóa phiếu',
                     handler: 'onStockoutItemDelete'
                 },
             ]
-        }
+        },      
+        { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
+        { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
+        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
+        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
+        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
+        { header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 
+        { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
     ],
     dockedItems: [{
         dock: 'top',

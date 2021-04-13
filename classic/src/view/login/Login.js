@@ -79,14 +79,14 @@ Ext.define('GSmartApp.view.login.Login', {
                 }             
             ]
         },
-        {
-            xtype: 'button',
-            text: 'Đăng ký nhận demo',
-            iconCls: 'x-fa fa-bullhorn',
-            cls: 'reg-btn',
-            handler: 'onRegisterDemoClick',
-            margin: '20 0 0 0'
-        }     
+        // {
+        //     xtype: 'button',
+        //     text: 'Đăng ký nhận demo',
+        //     iconCls: 'x-fa fa-bullhorn',
+        //     cls: 'reg-btn',
+        //     handler: 'onRegisterDemoClick',
+        //     margin: '20 0 0 0'
+        // }     
         ]
     }],
     listeners: {
