@@ -538,7 +538,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             me.down('#ps').focus();
             return;
         }
-        console.log(1234);
+
         cutplanProcessingD.push(cutplanProcessingDObj);
         store.removeAll();
         store.insert(0, cutplanProcessingD);

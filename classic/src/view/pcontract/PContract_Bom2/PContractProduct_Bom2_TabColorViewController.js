@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
         storeBOM.removeAll();
         storeBOM.loadStoreColor(pcontractid_link, productid_link, colorid_link);
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
-        // gridsize.CreateColumns();
+        gridsize.CreateColumns();
     },
     onThemMoiNPL: function () {
         var me = this.getView();
