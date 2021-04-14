@@ -11,100 +11,104 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
     layout: 'border',
     height: 500,
     items: [
-    {
-        region: 'center',
-        border: true,
-        margin: 1,
-        xtype: 'tabpanel',
-        itemId:'tabmain',
-        items: [{
-            title: 'Thông tin chung',
-            layout: 'border',
+        {
+            region: 'center',
+            border: true,
+            margin: 1,
+            xtype: 'tabpanel',
+            itemId: 'tabmain',
             items: [{
-                region: 'north',
-                height: 80,
-                border: true,
-                xtype: 'PContractInfoView',
-                margin: 1
-            }, {
-                region: 'center',
-                margin: 1,
-                // border: true,
+                title: 'Thông tin chung',
                 layout: 'border',
                 items: [{
-                    region: 'center',
-                    xtype: 'PContractAttributeView',
-                    margin: 1,
-                    border: true
+                    region: 'north',
+                    height: 80,
+                    border: true,
+                    xtype: 'PContractInfoView',
+                    margin: 1
                 }, {
-                    region: 'west',
-                    width: '65%',
+                    region: 'center',
+                    margin: 1,
+                    // border: true,
                     layout: 'border',
-                    items:[
-                        {
-                            region: 'center',
-                            margin: 1,
-                            border: true,
-                            xtype: 'PContractListProductView',
-                        },
-                        {
-                            region: 'south',
-                            margin: 1,
-                            height: 200,
-                            layout: 'border',
-                            items: [{
+                    items: [{
+                        region: 'center',
+                        xtype: 'PContractAttributeView',
+                        margin: 1,
+                        border: true
+                    }, {
+                        region: 'west',
+                        width: '65%',
+                        layout: 'border',
+                        items: [
+                            {
                                 region: 'center',
-                                xtype: 'PContractDocumentView',
-                                border: true,
-                                margin: 1
-                            }, {
-                                region: 'east',
-                                width: '50%',
                                 margin: 1,
                                 border: true,
-                                xtype: 'PContractPairProductView'
-                            }]
-                        }         
-                    ]
+                                xtype: 'PContractListProductView',
+                            },
+                            {
+                                region: 'south',
+                                margin: 1,
+                                height: 200,
+                                layout: 'border',
+                                items: [{
+                                    region: 'center',
+                                    xtype: 'PContractDocumentView',
+                                    border: true,
+                                    margin: 1
+                                }, {
+                                    region: 'east',
+                                    width: '50%',
+                                    margin: 1,
+                                    border: true,
+                                    xtype: 'PContractPairProductView'
+                                }]
+                            }
+                        ]
 
+                    }]
                 }]
-            }]
-        }, {
-            title: 'Chào giá',
-            xtype: 'PContract_PO_Main',
-        },{
-            title: 'Chi tiết PO',
-            xtype: 'PContractSKUMainView',
-            bind: {
-                // disabled: '{disabledTab}'
+            }, {
+                title: 'Chào giá',
+                xtype: 'PContract_PO_Main',
+            }, {
+                title: 'Chi tiết PO',
+                xtype: 'PContractSKUMainView',
+                bind: {
+                    // disabled: '{disabledTab}'
+                }
+            },
+            // {
+            //     title: 'Nguyên phụ liệu',
+            //     xtype: 'PContractProductBomView'
+            // }, 
+            {
+                title: 'Định mức hải quan',
+                xtype: 'PContractProduct_Bom_TabColorView',
+                bind: {
+                    // disabled: '{disabledTab}'
+                }
+            }, {
+                title: 'Định mức cân đối',
+                xtype: 'PContractProduct_Bom2_TabColorView',
+                bind: {
+                    // disabled: '{disabledTab}'
+                }
+            },
+            {
+                title: 'Định mức cân đối New',
+                xtype: 'PContract_Bom_View'
             }
-        },
-        // {
-        //     title: 'Nguyên phụ liệu',
-        //     xtype: 'PContractProductBomView'
-        // }, 
-        {
-            title: 'Định mức hải quan',
-            xtype: 'PContractProduct_Bom_TabColorView',
-            bind: {
-                // disabled: '{disabledTab}'
-            }
-        }, {
-            title: 'Định mức cân đối',
-            xtype: 'PContractProduct_Bom2_TabColorView',
-            bind: {
-                // disabled: '{disabledTab}'
-            }
-        },
-        // {
-        //     title: 'Lệnh sản xuất',
-        //     xtype: 'PContract_POrder_Main',
-        //     bind: {
-        //         // disabled: '{disabledTab}'
-        //     }
-        // }
-        ]
-    }],
+                // {
+                //     title: 'Lệnh sản xuất',
+                //     xtype: 'PContract_POrder_Main',
+                //     bind: {
+                //         // disabled: '{disabledTab}'
+                //     }
+                // }
+            ]
+        }],
     dockedItems: [{
         layout: 'hbox',
         reference: 'dockBottomBar',
@@ -116,7 +120,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             margin: 1,
             itemId: 'btnQuayLai',
             iconCls: 'x-fa fa-backward'
-        }, 
+        },
         // {
         //     xtype: 'button',
         //     text: 'Chốt đơn',

@@ -1,74 +1,77 @@
 Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContractViewModel',
-    requires: ['GSmartApp.store.pcontract.PContractStore', 
-            'GSmartApp.store.org.ListOrgStore',
-            'GSmartApp.branch.BranchStore',
-            'GSmartApp.season.SeasonStore',
-            'GSmartApp.store.pcontract.PContractProductStore',
-            'GSmartApp.store.pcontract.PContractAttributeValueStore',
-            'GSmartApp.store.pcontract.PContractProductColorStore',
-            'GSmartApp.store.pcontract.PContractDocumentStore',
-            'GSmartApp.store.pcontract.PContractSKUStore',
-            'GSmartApp.store.pcontract.PContractProductBomStore', 
-            'GSmartApp.store.pcontract.PContractProductBom2Store',
-            'GSmartApp.store.product.ProductStore',
-            'GSmartApp.store.product.ProductTypeStore',
-            'GSmartApp.store.unit.UnitStore',
-            'GSmartApp.store.pcontract.PContractProductPairStore',
-            'GSmartApp.store.pcontract.PContractBomColorStore',
-            'GSmartApp.store.org.ListOrgStore',
-            'GSmartApp.store.pcontract.PContractProductTreeStore',
-            'GSmartApp.store.pcontract.PContractBom2ColorStore',
-            'GSmartApp.store.market.MarketStore',
-            'GSmartApp.store.PayerStore'],
+    requires: ['GSmartApp.store.pcontract.PContractStore',
+        'GSmartApp.store.org.ListOrgStore',
+        'GSmartApp.branch.BranchStore',
+        'GSmartApp.season.SeasonStore',
+        'GSmartApp.store.pcontract.PContractProductStore',
+        'GSmartApp.store.pcontract.PContractAttributeValueStore',
+        'GSmartApp.store.pcontract.PContractProductColorStore',
+        'GSmartApp.store.pcontract.PContractDocumentStore',
+        'GSmartApp.store.pcontract.PContractSKUStore',
+        'GSmartApp.store.pcontract.PContractProductBomStore',
+        'GSmartApp.store.pcontract.PContractProductBom2Store',
+        'GSmartApp.store.product.ProductStore',
+        'GSmartApp.store.product.ProductTypeStore',
+        'GSmartApp.store.unit.UnitStore',
+        'GSmartApp.store.pcontract.PContractProductPairStore',
+        'GSmartApp.store.pcontract.PContractBomColorStore',
+        'GSmartApp.store.org.ListOrgStore',
+        'GSmartApp.store.pcontract.PContractProductTreeStore',
+        'GSmartApp.store.pcontract.PContractBom2ColorStore',
+        'GSmartApp.store.market.MarketStore',
+        'GSmartApp.store.PayerStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
         },
-        CustomerStore:{
-            type : 'ListOrgStore'
+        CustomerStore: {
+            type: 'ListOrgStore'
         },
-        BranchStore:{
-            type :'BranchStore'
+        BranchStore: {
+            type: 'BranchStore'
         },
-        SeasonStore:{
-            type :'SeasonStore'
+        SeasonStore: {
+            type: 'SeasonStore'
         },
-        Vender:{
-            type : 'ListOrgStore'
+        Vender: {
+            type: 'ListOrgStore'
         },
-        EndBuyer:{
-            type : 'ListOrgStore'
+        EndBuyer: {
+            type: 'ListOrgStore'
         },
-        ContractTypes:{
-            type : 'ContractTypeStore'
+        ContractTypes: {
+            type: 'ContractTypeStore'
         },
-        PContractProductStore:{
-            type :'PContractProductStore'
+        PContractProductStore: {
+            type: 'PContractProductStore'
         },
-        PContractProduct_PO_Store:{
-            type :'PContractProductStore'
+        PContractProduct_PO_Store: {
+            type: 'PContractProductStore'
         },
-        PContractAttValueStore:{
-            type :'PContractAttributeValueStore'
+        PContractAttValueStore: {
+            type: 'PContractAttributeValueStore'
         },
-        PContractProductColorStore:{
-            type :'PContractProductColorStore'
+        PContractProductColorStore: {
+            type: 'PContractProductColorStore'
         },
-        PContractDocumentStore:{
-            type : 'PContractDocumentStore'
+        PContractDocumentStore: {
+            type: 'PContractDocumentStore'
         },
-        PContractSKUStore:{
+        PContractSKUStore: {
             type: 'PContractSKUStore'
         },
-        PContractSKUPorderStore:{
+        PContractSKUPorderStore: {
             type: 'PContractSKUStore'
         },
         PContractProductBomStore: {
             type: 'PContractProductBomStore'
         },
         PContractProductBom2Store: {
+            type: 'PContractProductBom2Store'
+        },
+        PContractProductBom2Store_New: {
             type: 'PContractProductBom2Store'
         },
         productStore: {
@@ -80,13 +83,13 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         ProductTypeStore: {
             type: 'ProductTypeStore'
         },
-        UnitStore:{
-            type:'UnitStore'
+        UnitStore: {
+            type: 'UnitStore'
         },
-        PContractProductPairStore:{
+        PContractProductPairStore: {
             type: 'PContractProductPairStore'
         },
-        PContractBomColorStore:{
+        PContractBomColorStore: {
             type: 'PContractBomColorStore'
         },
         ListOrgStore: {
@@ -99,7 +102,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
             type: 'PContractProductTreeStore'
         },
         PContractPOList: {
-            type: 'PContractPOStore' 
+            type: 'PContractPOStore'
         },
         PContractProductPOStore: {
             type: 'PContractPOStore'
@@ -110,12 +113,15 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         PContractBom2ColorStore: {
             type: 'PContractBom2ColorStore'
         },
+        PContractBom2Store_New: {
+            type: 'PContractBom2ColorStore'
+        },
         porderStore: {
             type: 'POrderFilter'
         },
         porderSKUStore: {
             type: 'porderSKUStore'
-        },    
+        },
         porderReqStore: {
             type: 'POrder_Req'
         },
@@ -132,12 +138,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
             type: 'ShipModeStore'
         }
     },
-    data:{
+    data: {
         titleAttvalue: 'Thuộc tính ',
         titleDoccument: 'Tài liệu ',
         titleDeliveryPlan: 'Kế hoạch giao hàng ',
-        titleSKU : 'Phân loại ',
-        IdProduct: 0 ,
+        titleSKU: 'Phân loại ',
+        IdProduct: 0,
         IdProduct_filterPO: 0,
         PContract: {
             id: 0
@@ -159,7 +165,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         isDisable_btnConfirmSKU: false,
         tabActivate: 0,
         pcontract_poid_link_filter: 0, // dung de filter chi theo po 
-        productid_link_filter : 0, // dung de filter theo product
+        productid_link_filter: 0, // dung de filter theo product
         Product_pquantity: 0, // SL Tổng chi tiết màu, cỡ
         ProductSKUSummaryCssStyle: '<div style="color:black; font-weight: bold; align: right">', // màu tổng summary chi tiết màu, cỡ
         pcontract_po_parentid_link: 0,
@@ -169,12 +175,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         obj_copy: null,
     },
     formulas: {
-        ishidden_addproduct : function(get){
-            if(get('productid_link_filter') > 0 || get('isWindow')) return true;
+        ishidden_addproduct: function (get) {
+            if (get('productid_link_filter') > 0 || get('isWindow')) return true;
             return false;
         },
-        disabledTab: function(get){
-            if(get('PContract.id') == null || get('PContract.id') == 0) return true;
+        disabledTab: function (get) {
+            if (get('PContract.id') == null || get('PContract.id') == 0) return true;
             return false;
         }
     }

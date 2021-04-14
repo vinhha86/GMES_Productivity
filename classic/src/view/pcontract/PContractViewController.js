@@ -4,16 +4,16 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
     init: function () {
         this.onActivate();
         common.Check_Object_Permission();
-        
-        if (this.getView().IdPContract > 0){
-           this.onLoadData(this.getView().IdPContract,null);
-           dockBottomBar = this.lookupReference('dockBottomBar');
-           dockBottomBar.setHidden(true);
+
+        if (this.getView().IdPContract > 0) {
+            this.onLoadData(this.getView().IdPContract, null);
+            dockBottomBar = this.lookupReference('dockBottomBar');
+            dockBottomBar.setHidden(true);
         }
 
         var viewModel = this.getViewModel();
         var ShipModeStore = viewModel.getStore('ShipModeStore');
-        if (null != ShipModeStore){
+        if (null != ShipModeStore) {
             ShipModeStore.loadStore();
             ShipModeStore.getSorters().add('name');
         }
@@ -48,22 +48,22 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         else {
             viewmodel.set('ishiddenActionColumn', false);
             viewmodel.set('isHidden_btnLuu', false);
-            if(newCard.xtype == 'PContract_PO_Main'){
+            if (newCard.xtype == 'PContract_PO_Main') {
                 viewmodel.set('isHidden_btnLuu', true);
                 var storeproduct = viewmodel.getStore('PContractProductTreeStore');
                 storeproduct.loadStore(viewmodel.get('PContract.id'), viewmodel.get('productid_link_filter'));
             } else {
-                if(newCard.xtype == 'PContractSKUMainView'){
+                if (newCard.xtype == 'PContractSKUMainView') {
                     viewmodel.set('isHidden_btnLuu', true);
                     var productFilterStore = viewmodel.getStore('ProductFilterStore');
                     productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
 
                     // var PContractPOList = viewmodel.getStore('PContractPOList');
                     // PContractPOList.loadLeafOnly_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'), viewmodel.get('pcontract_poid_link_filter'));
-                    
+
                     var poStore = viewmodel.getStore('PContractPOList');
                     poStore.loadAccept_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
-                } 
+                }
                 else if (newCard.xtype == 'PContract_POrder_Main') {
                     viewmodel.set('isHidden_btnLuu', true);
                     viewmodel.set('po_selected', null);
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
 
                     var PContractPOList = viewmodel.getStore('PContractPOList');
                     PContractPOList.loadAccept_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));
-                } 
+                }
                 else if (newCard.xtype == 'PContractProduct_Bom2_TabColorView') {
                     viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('PContractProduct_Bom2_TabColorView');
@@ -80,11 +80,21 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
 
                     var UnitStore = viewmodel.getStore('UnitStore');
                     UnitStore.loadStore();
-                } 
+                }
                 else if (newCard.xtype == 'PContractProduct_Bom_TabColorView') {
                     viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
                     tab.getController().onChangeProduct();
+
+                    var UnitStore = viewmodel.getStore('UnitStore');
+                    UnitStore.loadStore();
+                }
+                else if (newCard.xtype == 'PContract_Bom_View') {
+                    viewmodel.set('isHidden_btnLuu', true);
+                    var productid_link = viewmodel.get('IdProduct');
+                    if (productid_link != 0) {
+                        Ext.getCmp('PContract_Bom_View').getController().onChangeProduct();
+                    }
 
                     var UnitStore = viewmodel.getStore('UnitStore');
                     UnitStore.loadStore();
@@ -101,9 +111,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
     onLoadData: function (id, type) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-        if(type!= "" && type!= null){
+        if (type != "" && type != null) {
             var strSplit = type.toString().split('_');
-            if(strSplit.length > 2){
+            if (strSplit.length > 2) {
                 viewmodel.set('pcontract_poid_link_filter', strSplit[1]);
                 viewmodel.set('productid_link_filter', strSplit[2]);
                 viewmodel.set('IdProduct_filterPO', strSplit[2]);
@@ -137,7 +147,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
             store.removeAll();
         }
 
-        
+
     },
     onQuayLai: function () {
         this.redirectTo('lspcontract');
@@ -154,7 +164,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         var PContractTypeStore = viewmodel.getStore('ContractTypes');
 
         KHStore.loadStore(10, false);
-        VenderStore.loadStore(11, false);        
+        VenderStore.loadStore(11, false);
         VenderStore.sort('code', 'ASC');
 
         EndBuyerStore.loadStore(12, false);
@@ -167,7 +177,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         MarketStore.sort('name', 'ASC');
         PContractTypeStore.loadStore();
 
-        if(viewmodel.get('PContract.id') > 0 && viewmodel.get('isWindow')){
+        if (viewmodel.get('PContract.id') > 0 && viewmodel.get('isWindow')) {
             th.onLoadData(viewmodel.get('PContract.id'));
             var tab = me.down('#tabmain');
             tab.setActiveTab(viewmodel.get('tabActivate'));
@@ -190,11 +200,11 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         data.usercreatedid_link = 0;
         data.datecreated = '';
 
-        if(data.payer == 1){
+        if (data.payer == 1) {
             data.orgpayerid_link = data.orgvendorid_link;
             // data.orgshowid_link = data.orgvendorid_link;
-        }            
-        else{
+        }
+        else {
             data.orgpayerid_link = data.orgbuyerid_link;
             // data.orgshowid_link = data.orgbuyerid_link;
         }
@@ -254,5 +264,5 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 }
                 me.setLoading(false);
             })
-    }     
+    }
 })
