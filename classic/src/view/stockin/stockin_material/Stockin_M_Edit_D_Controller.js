@@ -564,4 +564,61 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
             m.onBtnTimNPL();
         }
     },
+    onDItemEdit: function (editor, context, eOpts){
+        // console.log('onInvoiceDItemEdit');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var invoice = viewModel.get('stockin');
+        var store = me.getStore();
+        var stockinD_data = context.record.data;
+
+        if(context.value == "" || context.value == context.originalValue || isNaN(context.value)){
+            store.rejectChanges();
+            return;
+        }
+
+        if(context.field == 'totalpackage'){
+            stockinD_data.totalpackage = parseFloat(stockinD_data.totalpackage);
+        }
+        if(context.field == 'netweight'){
+            stockinD_data.netweight = parseFloat(stockinD_data.netweight);
+        }
+        if(context.field == 'grossweight'){
+            stockinD_data.grossweight = parseFloat(stockinD_data.grossweight);
+        }
+        if(context.field == 'm3'){
+            stockinD_data.m3 = parseFloat(stockinD_data.m3);
+        }
+        if(context.field == 'met'){
+            stockinD_data.met = parseFloat(stockinD_data.met);
+        }
+        if(context.field == 'yds'){
+            stockinD_data.yds = parseFloat(stockinD_data.yds);
+        }
+
+        if(invoice.unitid_link == 1){
+            if(context.field == 'met' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")){
+                // console.log('yds');
+                stockinD_data.yds = Ext.Number.roundToPrecision(stockinD_data.met / 0.9144,2);
+                stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met*stockinD_data.unitprice,2);
+            }
+            if(context.field == 'unitprice' && (stockinD_data.met != null || stockinD_data.met != "")){
+                // console.log('unitprice');
+                stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met*stockinD_data.unitprice,2);
+            }
+        }else if(invoice.unitid_link == 3){
+            if(context.field == 'yds' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")){
+                // console.log('yds');
+                stockinD_data.met = Ext.Number.roundToPrecision(stockinD_data.yds * 0.9144,2);
+                stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds*stockinD_data.unitprice,2);
+            }
+            if(context.field == 'unitprice' && (stockinD_data.yds != null || stockinD_data.yds != "")){
+                // console.log('unitprice');
+                stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds*stockinD_data.unitprice,2);
+            }
+        }
+
+        store.commitChanges();
+    },	
 })

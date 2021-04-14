@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
-	controller: 'Stockin_M_Edit_D_Controller',
+	// controller: 'Stockin_M_Edit_D_Controller',
 	columnLines: true,
 	rowLines: true,
 	border: true,
@@ -26,6 +26,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
             }
         }                     
     },
+	plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onDItemEdit',
+                // beforeedit: 'onPriceDItemBeforeEdit'
+            }             
+        }
+    },
 	bind:{
 		store: '{stockin.stockin_d}'
 	},
@@ -38,20 +47,43 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		// 		return "Tổng cộng";
 		// 	}
 		// },
+		{ 
+			xtype: 'actioncolumn',
+			reference: 'stockin_contextmenu',
+			width: 25,
+			menuDisabled: true,
+			sortable: false,
+			items: [
+			// {
+			// 	iconCls: 'x-fa fas fa-bars violetIcon',
+			// 	tooltip:'Chi tiết chíp',
+			// 	handler: 'onEPCDetail'
+			// },
+			{
+				iconCls: 'x-fa fas fa-bars violetIcon',
+				tooltip:'PackingList',
+				handler: 'onViewPackingList'
+			},
+		]
+		},  			
 		{
 			text: 'Mã NPL', 
-			width: 120,
+			width: 100,
 			dataIndex: 'skucode'
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
+			width: 100,
+		},{
+			text: 'Mô tả', 
+			dataIndex: 'sku_product_desc',
 			flex: 1
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			width: 150
+			width: 120
 		},{
-			text: 'Cỡ', 
+			text: 'Cỡ khổ', 
 			dataIndex: 'size_name',
 			width: 70
 		},{
@@ -129,37 +161,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		// },
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Số cây', 
-			align:'right',
-			dataIndex: 'totalpackage',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 80
-		},
-		{
-			xtype: 'numbercolumn',
 			format:'0,000.00',
 			text: 'SL Y/C (M)', 
 			align:'right',
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 105,
+			width: 80,
 			bind: {
 				hidden: '{isMetColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9]/,
+				selectOnFocus: true
 			},
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Nhập (M)', 
+			text: 'SL kiểm (M)', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalmet_check',
-			width: 105,
+			width: 85,
 			bind: {
 				hidden: '{isMetColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9]/,
+				selectOnFocus: true
 			},
 		},
 		{
@@ -170,69 +202,77 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			dataIndex: 'totalydsorigin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 105,
+			width: 80,
 			bind: {
 				hidden: '{isYdsColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9]/,
+				selectOnFocus: true
 			},
 		},
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL Nhập (Y)', 
+			text: 'SL kiểm (Y)', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalydscheck',
-			width: 105,
+			width: 85,
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9]/,
+				selectOnFocus: true
+			},
 		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL cây', 
+			align:'right',
+			dataIndex: 'totalpackage',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 60,
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9]/,
+				selectOnFocus: true
+			},
+		},		
 		{
 			text: 'Danh sách LOT', 
 			dataIndex: 'lot_list',
 			width: 150
-		},
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockin_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-			// {
-			// 	iconCls: 'x-fa fas fa-bars violetIcon',
-			// 	tooltip:'Chi tiết chíp',
-			// 	handler: 'onEPCDetail'
-			// },
-			{
-				iconCls: 'x-fa fas fa-bars violetIcon',
-				tooltip:'PackingList',
-				handler: 'onViewPackingList'
-			},
-		]
-		}   	
+		}
 	],
 	dockedItems: [{
 		dock: 'top',
 		xtype: 'toolbar',
-		items: [{
-			margin:'0 0 0 5',
-			xtype: 'button',
-			iconCls: 'x-fa fa-angle-double-up',
-			itemId: 'btnThuGon',
-			bind: {
-				hidden: '{IsformMaster}'
-			}
-		}, {
-			margin:'0 0 0 5',
-			xtype: 'button',
-			itemId: 'btnMoRong',
-			iconCls: 'x-fa fa-angle-double-down',
-			bind: {
-				hidden: '{!IsformMaster}'
-			}
-		}, 
+		items: [
+			{
+				margin:'0 0 0 5',
+				xtype: 'button',
+				iconCls: 'x-fa fa-angle-double-up',
+				itemId: 'btnThuGon',
+				bind: {
+					hidden: '{IsformMaster}'
+				}
+			}, 
+			{
+				margin:'0 0 0 5',
+				xtype: 'button',
+				itemId: 'btnMoRong',
+				iconCls: 'x-fa fa-angle-double-down',
+				bind: {
+					hidden: '{!IsformMaster}'
+				}
+			}, 
 		// {
 		// 	labelWidth: 90,
 		// 	margin:'0 5 5 5',
