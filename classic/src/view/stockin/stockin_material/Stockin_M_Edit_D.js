@@ -174,7 +174,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
-		},{
+		},
+		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
 			text: 'SL Nhập (Y)', 
@@ -186,6 +187,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
+		},
+		{
+			text: 'Danh sách LOT', 
+			dataIndex: 'lot_list',
+			width: 150
 		},
 		{ 
 			xtype: 'actioncolumn',

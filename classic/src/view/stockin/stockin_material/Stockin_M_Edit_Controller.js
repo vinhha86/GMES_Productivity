@@ -170,7 +170,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // console.log(stockin);
         params.data.push(stockin);
         me.setLoading("Đang lưu dữ liệu");
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create_material', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 me.setLoading(false);
                 if (success) {
