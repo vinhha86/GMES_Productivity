@@ -119,15 +119,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 editable: false,
                 valueField: 'productid_link',
                 displayField: 'productBuyerCode'
-            },
-            {
-                xtype: 'button',
-                text: 'Chốt định mức',
-                itemId: 'btnConfirmBOM1',
-                // ui: 'header',
-                tooltip: 'Chốt định mức hải quan',
-                iconCls: 'x-fa fa-check greenIcon',
-                // handler: 'onFactoriesTap',
             }
         ]
     }]
