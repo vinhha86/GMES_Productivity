@@ -50,7 +50,6 @@ Ext.define('GSmartApp.store.pcontract.PContractBom2ColorStore', {
 		});
 	},
 	load_bom_by_product: function (pcontractid_link, productid_link) {
-		var me = this;
 		var params = new Object();
 		params.productid_link = productid_link;
 		params.pcontractid_link = pcontractid_link;
@@ -76,7 +75,7 @@ Ext.define('GSmartApp.store.pcontract.PContractBom2ColorStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1, {
+		this.load({
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {

@@ -1,6 +1,8 @@
 Ext.define('GSmartApp.model.pcontract.PContractBOMColorModel', {
     extend: 'Ext.data.Model',
+    idProperty: 'idx',
     fields: [
+        'idx',
         { name: 'id', type: 'int' },
         { name: 'colorid_link', type: 'int' },
         { name: 'productid_link', type: 'int' },
@@ -21,7 +23,9 @@ Ext.define('GSmartApp.model.pcontract.PContractBOMColorModel', {
         { name: 'coKho', type: 'string' },
         { name: 'productType', type: 'int' },
         { name: 'product_typename', type: 'string' },
-        'unitName', 'materialCode', 'forothercontract_name',
+        'unitName',
+        'materialCode',
+        'forothercontract_name',
         {
             name: 'forothercontract',
             calculate: function (data) {

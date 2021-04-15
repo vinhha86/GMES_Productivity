@@ -7,14 +7,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     init: function () {
-        var me = this;
     },
     onChangeProduct: function (combo, rec, eOpts) {
         if (rec != null) {
             var me = this;
-            console.log(123);
             me.CreateColumns();
-            common.Check_Object_Permission();
+            // common.Check_Object_Permission();
         }
 
     },
@@ -36,10 +34,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     CreateColumns: function () {
-        var me = this;
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 11;
+        var length = 10;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
@@ -98,7 +95,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     var model = storeBOM.getModel();
                     var fields = model.getFields();
                     for (var i = 0; i < fields.length; i++) {
-                        if (i > 20) {
+                        if (i > 24) {
                             model.removeFields(fields[i].name);
                         }
                     }
@@ -109,11 +106,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     }
 
                     model.addFields(fieldnew);
+                    storeBOM.removeFilter();
 
-                    var storeBOM = viewmodel.getStore('PContractBom2Store_New');
-                    var pcontractid_link = viewmodel.get('PContract.id');
-
-                    storeBOM.load_bom_by_product(pcontractid_link, viewmodel.get('IdProduct'));
+                    storeBOM.load_bom_by_product(pcontractid_link, productid_link);
                 }
             })
     }
