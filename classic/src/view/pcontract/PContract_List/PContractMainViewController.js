@@ -344,8 +344,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         }
     },
     onShowBalance: function (rec) {
-        var viewmodel = this.getViewModel();
-
+        var id = rec.get('id');
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -361,10 +360,10 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 padding: 5
             },
             items: [{
-                xtype: 'All_line_Edit_View',
+                xtype: 'Balance_Main',
                 viewModel: {
                     data: {
-                        pcontractid_link: viewmodel.get('pcontractid_link')
+                        pcontractid_link: id
                     }
                 }
             }]

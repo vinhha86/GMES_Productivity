@@ -10,29 +10,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Product_Controller', {
 		var me = this.getView();
         var viewmodel = this.getViewModel();
 
-		var form = Ext.create({
-			xtype: 'skusearchwindow',
+		var form = Ext.create('Ext.window.Window', {
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Chọn sản phẩm đơn hàng',
+			closeAction: 'destroy',
+			height: Ext.getBody().getViewSize().height * .95,
 			width: 800,
-			height: 500,
-            reference: 'skusearchwindow',
-            closeAction: 'destroy',
-			viewModel: {
-				data: {
-					isHidden_Select_Products: false,
-					searchtype: 1,
-					pcontractid_link: null,
-					type: 10,                        
-					orgcustomerid_link: null,
-					isHidden_sku: true,
-					isHidden_newProduct: true,
-					isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
-					isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'PContract_Product_Select',
+				viewModel: {
+					type: 'PContract_Product_Select_ViewModel',
+					data: {
+						pcontractid_link: viewmodel.get('pcontractid_link'),
+					}
 				}
-			}
-		});
+			}]
+		});  
 		form.show();
-		form.getController().on('onSelect_Products', function (records) {
-            var stockin_product = viewmodel.get('stockin.stockin_product');
+		form.down('#PContract_Product_Select').getController().on('onSelect_Products', function (records) {
+            console.log(records);
+			var stockin_product = viewmodel.get('stockin.stockin_product');
             if(stockin_product == null){
                 stockin_product = new Array();
             }	
@@ -42,10 +47,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Product_Controller', {
                 if(!found){
                     var stockin_productObj = new Object();
 					stockin_productObj.id =  null;
-                    stockin_productObj.productid_link = theProduct.get('id');
-					stockin_productObj.product_code = theProduct.get('buyercode');
-					stockin_productObj.product_name = theProduct.get('name');
-					stockin_productObj.product_desc = theProduct.get('name');
+                    stockin_productObj.productid_link = theProduct.get('productid_link');
+					stockin_productObj.product_code = theProduct.get('productBuyerCode');
+					stockin_productObj.product_name = theProduct.get('productName');
+					stockin_productObj.product_desc = theProduct.get('productinfo');
 
 					stockin_product.push(stockin_productObj);
                 }

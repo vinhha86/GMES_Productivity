@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
         }
     },
 	bind:{
-		store: '{stockin.stockin_d}'
+		store: '{StockinD_Store}'
 	},
 	columns: [
 		// {
@@ -273,75 +273,95 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 					hidden: '{!IsformMaster}'
 				}
 			}, 
-		// {
-		// 	labelWidth: 90,
-		// 	margin:'0 5 5 5',
-		// 	xtype: 'combobox',
-		// 	reference: 'device',
-		// 	fieldLabel: 'Thiết bị RFID',
-		// 	bind: {
-		// 		store: '{DeviceInvStore}'
-		// 	},
-		// 	width: 300,
-		// 	displayField: 'name',
-		// 	valueField: 'id',
-		// 	listeners: {
-		// 		change: 'onDeviceChange'
-		// 	}
-		// }, {
-		// 	margin:'0 5 5 5',
-		// 	text: "Start",
-		// 	iconCls: 'x-fa fa-play',
-		// 	xtype: 'button',
-		// 	itemId: 'btnStart',
-		// 	bind: {
-		// 		disabled: '{isStart}',
-		// 		userCls: '{clsbtnStart}'
-		// 	}
-		// }, {
-		// 	margin:'0 5 5 5',
-		// 	text: "Stop",
-		// 	iconCls: 'x-fa fa-stop',
-		// 	xtype: 'button',
-		// 	itemId: 'btnStop',
-		// 	userCls: 'red-button'
-		// },
-		// ,'->',
-		{
-			xtype: 'textfield',
-			margin: '0 5 0 5',
-			itemId:'skucode',
-			fieldLabel: 'Mã NPL',
-			width: 250,
-			labelWidth: 60,
-			hideLabel: false,			
-            bind:{
-				// disabled: '{isEdit}',
-				value: '{skucode}'
+			{
+				labelWidth: 120,
+				margin:'0 5 5 5',
+				xtype: 'combobox',
+				editable: false,
+				fieldLabel: 'Phương pháp nhập',
+				bind: {
+					store: '{StockinGroupStore}',
+					value: '{groupstockin}'
+				},
+				width: 300,
+				displayField: 'name',
+				valueField: 'id',
+				itemId: 'cmbStockinGroup'
+			},  {
+				labelWidth: 90,
+				margin:'0 5 5 5',
+				xtype: 'combobox',
+				reference: 'device',
+				fieldLabel: 'Thiết bị RFID',
+				bind: {
+					store: '{DeviceInvStore}',
+					hidden: '{isRFIDHidden}'
+				},
+				width: 300,
+				displayField: 'name',
+				valueField: 'id',
+				listeners: {
+					change: 'onDeviceChange'
+				}
+			}, {
+				margin:'0 5 5 5',
+				text: "Start",
+				iconCls: 'x-fa fa-play',
+				xtype: 'button',
+				itemId: 'btnStart',
+				bind: {
+					disabled: '{isStart}',
+					userCls: '{clsbtnStart}',
+					hidden: '{isRFIDHidden}'
+				}
+			}, {
+				margin:'0 5 5 5',
+				text: "Stop",
+				iconCls: 'x-fa fa-stop',
+				xtype: 'button',
+				itemId: 'btnStop',
+				bind: {
+					userCls: 'clsbtnStop',
+					hidden: '{isRFIDHidden}'
+				}
 			},
-			enableKeyEvents : true,
-			listeners: {
-				keypress: 'onPressEnterBtnTimNPL'
-			}
-		},
-		// {
-		// 	tooltip: 'Thêm NPL',
-		// 	margin: '0 0 0 5',
-		// 	iconCls: 'x-fa fa-plus',
-		// 	weight: 30,
-		// 	itemId: 'btnThemNPL',
-		// 	// hidden: true
-		// },
-		{
-			tooltip: 'Tìm NPL',
-			margin: '0 5 0 5',
-			itemId: 'btnTimNPL',
-			iconCls: 'x-fa fa-search',
-			weight: 30,			
-            bind:{
-                // hidden: '{isEdit}'
-            }
-		},
+			{
+				xtype: 'textfield',
+				margin: '0 5 0 5',
+				itemId:'skucode',
+				fieldLabel: 'Mã SP',
+				width: 200,
+				labelWidth: 50,
+				hideLabel: false,			
+				bind:{
+					hidden: '{isBarcodeHidden}',
+					value: '{skucode}'
+				},
+				// enableKeyEvents : true,
+				// listeners: {
+				//     keypress: 'onPressEnterBtnThemNPL'
+				// }
+			},
+			{
+				tooltip: 'Thêm SP',
+				margin: '0 0 0 5',
+				iconCls: 'x-fa fa-plus',
+				weight: 30,
+				itemId: 'btnThemSP',
+				bind:{
+					hidden: '{isBarcodeHidden}',
+				},
+			},
+			{
+				tooltip: 'Tìm nguyên phụ liệu',
+				margin: '0 5 0 5',
+				itemId: 'btnTimNPL',
+				iconCls: 'x-fa fa-search',
+				weight: 30,			
+				bind:{
+					hidden: '{isManualHidden}',
+				},
+			},
 		// {
 		// 	xtype: 'textfield',
 		// 	margin: '0 5 0 5',

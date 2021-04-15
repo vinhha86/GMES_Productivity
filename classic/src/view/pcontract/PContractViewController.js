@@ -100,6 +100,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     UnitStore.loadStore();
                 }
                 else if (newCard.xtype == 'Stockin_M_Main') {
+                    viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('Stockin_M_Main');
                     tab.getController().onPContract_Stockin(viewmodel.get('IdPContract'));
                 }

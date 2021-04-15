@@ -16,7 +16,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
 
         if (viewModel.get('isAdd_Pcontract_Stockin')){
-            this.getInfo(viewModel.get('stockinid_link'));
+            if (viewModel.get('isNewStockin'))
+                this.onNewData(null,viewModel.get('stockintypeid_link'));
+            else
+                this.getInfo(viewModel.get('stockinid_link'));
         }
     },
     listen: {
@@ -37,10 +40,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         },
         '#btnConfirm':{
             click: 'onConfirm'
-        }
+        },
+        '#btnClose':{
+            click: 'onCloseButton'
+        },
+        
     },
     onUrlBack: function(type){
         
+    },
+    onCloseButton: function(){
+        var mywin = Ext.WindowManager.getActive();
+        if (mywin) {
+            mywin.close();
+        }
     },
     onNewData:function(type, id){
         
@@ -98,7 +111,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     getInfo: function(id){
         var me = this;
         var viewModel = this.getViewModel();
-        var store = viewModel.getStore('StockinDetailStore');
+        var store = viewModel.getStore('StockinD_Store');
         var listepc = viewModel.get('listepc');
 
         var params = new Object();
@@ -187,9 +200,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                             buttonText: {
                                 yes: 'Đóng',
                             }
-                        });				
-                        this.redirectTo("stockin_m_main/" + response.id + "/edit");
-                        m.getInfo(response.id);
+                        });		
+                        if (!viewModel.get('isAdd_Pcontract_Stockin')){	
+                            this.redirectTo("stockin_m_main/" + response.id + "/edit");
+                            m.getInfo(response.id);
+                        }
                     }
                 } else {
                     var response = Ext.decode(response.responseText);

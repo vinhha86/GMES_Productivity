@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Controller', {
         // if (null!=SKUBalanceStore){
         //     SKUBalanceStore.loadBalanceByPo(viewmodel.get('pcontractid_link'), viewmodel.get('pcontract_poid_link'));
         // }
+        console.log(viewmodel.get('pcontractid_link'));
 
         var params = new Object();
         params.pcontractid_link = viewmodel.get('pcontractid_link');

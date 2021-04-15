@@ -11,6 +11,12 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
     bind:{
         store: '{StockinStore}'
     },
+    features: [
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        }
+    ],
     columns: [
         {
             xtype: 'actioncolumn',
@@ -27,7 +33,10 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                 handler: 'onDelete'
             }]
         },        
-        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
+        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150,
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
+        },
         {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    

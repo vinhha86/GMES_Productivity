@@ -163,7 +163,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			bind: {
 				hidden: '{!IsformMaster}'
 			}
-		},{
+		},
+		{
 			labelWidth: 120,
 			margin:'0 5 5 5',
 			xtype: 'combobox',

@@ -33,7 +33,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         // },
         '#btnTimNPL': {
             click: 'onBtnTimNPL'
-        }
+        },
+		'#cmbStockinGroup': {
+			select: 'onSelectGroupStockin'
+		},
+	},
+	onSelectGroupStockin: function(combo, record, eOpts){
+		var viewmodel = this.getViewModel();
+		if (record.get('id') == 1) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', false);
+		}
+		if (record.get('id') == 2) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', false);
+			viewmodel.set('isManualHidden', true);
+		}
+		if (record.get('id') == 3) {
+			viewmodel.set('isRFIDHidden', false);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', true);
+		}
 	},
 	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
 		var me = this;
@@ -66,7 +87,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 	onStart: function () {
 		var me = this;
 		var viewModel = this.getViewModel();
-		var store = viewModel.getStore('StockinDetailStore');
+		var store = viewModel.getStore('StockinD_Store');
 		var stockin = viewModel.get('stockin');
 		var session = GSmartApp.util.State.get('session');
 
@@ -328,7 +349,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 						var resp = Ext.decode(resp.responseText);
 						if (resp.respcode == 200) {
 							if (resp.data.length > 0) {
-								var store = viewmodel.getStore('StockinDetailStore');
+								var store = viewmodel.getStore('StockinD_Store');
 								store.removeAll();
 								store.setData(resp.data);
 								stockin.stockind = resp.data;
@@ -552,70 +573,79 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         var viewModel = this.getViewModel();
         var skucode = viewModel.get('skucode');
 
-        var form = Ext.create({
-            xtype: 'skusearchwindow',
-            width: 1200,
-            height: 500,       
-            reference: 'skusearchwindow',
-            closeAction: 'destroy',
-            viewModel: {
-                data: {
-                    sourceview: 'InvoiceEdit_D',
-                    searchtype: 5,
-                    // pcontractid_link: viewModel.get('PContract.id'),
-                    // productid_link_notsearch: productid_link,
-                    isAddNPL: true,
-                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
-                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true,
-                    SKUCode: skucode
-                }
-            }
-        });
-        form.show();
+		//Neu pcontractid_link != null --> Them tu don hàng
+		if (null != viewModel.get('pcontractid_link')){
+			//Neu co danh sach SP --> Lay cac SPL cua SP only
 
-        form.getController().on('InsertToInvoiceEdit_D', function (records) {
-            var stockin = viewModel.get('stockin');
-            var stockin_d = viewModel.get('stockin.stockin_d');
-            if(stockin_d == null){
-                stockin_d = new Array();
-            }
+			//Neu khong co danh sach SP --> Lay het cac NPL trong BOM
 
-            for(var i = 0; i < records.length; i++){
-                var npl = records[i];
-                var found = stockin_d.some(item => item.skuid_link === npl.get('id'));
-                // skucode, skuname, color_name, size_name
-                // code, name, tenMauNPL, coKho
-                if(!found){
-                    var stockin_dObj = new Object();
-                    stockin_dObj.skuid_link = npl.get('id');
-                    stockin_dObj.skucode = npl.get('code');
-                    stockin_dObj.skuname = npl.get('name');
-                    stockin_dObj.colorid_link = npl.get('color_id');
-                    stockin_dObj.color_name = npl.get('mauSanPham');
-                    stockin_dObj.size_name = npl.get('coSanPham');
-                    stockin_dObj.totalpackage = 0;
-                    stockin_dObj.netweight = 0;
-                    stockin_dObj.grossweight = 0;
-                    stockin_dObj.m3 = 0;
-                    stockin_dObj.unitprice = 0;
-                    stockin_dObj.totalamount = 0;
-                    stockin_dObj.yds = 0;
-					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+		} else {
+		//Neu pcontractid_link is null --> Them Phieu NK le
+			var form = Ext.create({
+				xtype: 'skusearchwindow',
+				width: 1200,
+				height: 500,       
+				reference: 'skusearchwindow',
+				closeAction: 'destroy',
+				viewModel: {
+					data: {
+						sourceview: 'InvoiceEdit_D',
+						searchtype: 5,
+						// pcontractid_link: viewModel.get('PContract.id'),
+						// productid_link_notsearch: productid_link,
+						isAddNPL: true,
+						isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+						isHiddenSkuSearchCriteria_Attr_btnThemMoi: true,
+						SKUCode: skucode
+					}
+				}
+			});
+			form.show();
 
-					stockin_dObj.totalmet_origin = 0;
-                    stockin_dObj.totalmet_check = 0;
-                    stockin_dObj.totalydsorigin = 0;
-                    stockin_dObj.totalydscheck = 0;
+			form.getController().on('InsertToInvoiceEdit_D', function (records) {
+				var stockin = viewModel.get('stockin');
+				var stockin_d = viewModel.get('stockin.stockin_d');
+				if(stockin_d == null){
+					stockin_d = new Array();
+				}
 
-                    // stockin_dObj.unitid_link = invoice_d.get('unitid_link');
-                    // stockin_dObj.unit_name = invoice_d.get('unitname');
+				for(var i = 0; i < records.length; i++){
+					var npl = records[i];
+					var found = stockin_d.some(item => item.skuid_link === npl.get('id'));
+					// skucode, skuname, color_name, size_name
+					// code, name, tenMauNPL, coKho
+					if(!found){
+						var stockin_dObj = new Object();
+						stockin_dObj.skuid_link = npl.get('id');
+						stockin_dObj.skucode = npl.get('code');
+						stockin_dObj.skuname = npl.get('name');
+						stockin_dObj.colorid_link = npl.get('color_id');
+						stockin_dObj.color_name = npl.get('mauSanPham');
+						stockin_dObj.size_name = npl.get('coSanPham');
+						stockin_dObj.totalpackage = 0;
+						stockin_dObj.netweight = 0;
+						stockin_dObj.grossweight = 0;
+						stockin_dObj.m3 = 0;
+						stockin_dObj.unitprice = 0;
+						stockin_dObj.totalamount = 0;
+						stockin_dObj.yds = 0;
+						stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
 
-                    stockin_d.push(stockin_dObj);
-                }
-            }
-            me.getStore().loadData(stockin_d);
-            me.getStore().commitChanges();
-            form.close();
-        })
+						stockin_dObj.totalmet_origin = 0;
+						stockin_dObj.totalmet_check = 0;
+						stockin_dObj.totalydsorigin = 0;
+						stockin_dObj.totalydscheck = 0;
+
+						// stockin_dObj.unitid_link = invoice_d.get('unitid_link');
+						// stockin_dObj.unit_name = invoice_d.get('unitname');
+
+						stockin_d.push(stockin_dObj);
+					}
+				}
+				me.getStore().loadData(stockin_d);
+				me.getStore().commitChanges();
+				form.close();
+			})
+		}
     }
 })

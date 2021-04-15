@@ -12,18 +12,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
     bind:{
         store: '{StockinStore}'
     },
-    columns: [{
-            text: 'STT',
-            width: 50,
-            xtype: 'rownumberer',
-            align: 'center'
-        },
-        {text: 'Số phiếu', dataIndex: 'stockincode', width: 150,
+    features: [
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        }
+    ],
+    columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 45,
+            menuDisabled: true,
+            sortable: false,
+            items: [{
+                iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
+                tooltip: 'Sửa phiếu',
+                handler: 'onEdit'
+            }, {
+                iconCls: 'x-fa fas fa-trash-o redIcon',
+                tooltip: 'Xóa phiếu',
+                handler: 'onDelete'
+            }]
+        },             
+        {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'stockincodeFilter',
-                width: 146,
+                width: 115,
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
@@ -32,13 +48,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                     buffer: 500
                 }
             },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
         },
-        {text: 'Số Invoice', dataIndex: 'invoice_number', width: 150,
+        {text: 'Số Invoice', dataIndex: 'invoice_number', width: 120,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'invoice_numberFilter',
-                width: 146,
+                width: 115,
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
@@ -48,14 +66,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                 }
             },
         },
-        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 150},    
         {
             text: GSmartApp.Locales.ngaynhap[GSmartApp.Locales.currentLocale],
             xtype: 'datecolumn',
             format: 'd/m/Y',
             dataIndex: 'stockindate',
-            width: 120
+            width: 90
         },
+        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 100},    
         {text: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
         {text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
         {text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120},    
@@ -78,22 +96,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             //     return '';
             // }
         },    
-        {
-            xtype: 'actioncolumn',
-            width: 50,
-            menuDisabled: true,
-            sortable: false,
-
-            items: [{
-                iconCls: 'x-fa fas fa-edit',
-                tooltip: GSmartApp.Locales.btn_sua[GSmartApp.Locales.currentLocale],
-                handler: 'onEdit'
-            }, {
-                iconCls: 'x-fa fas fa-trash',
-                tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
-                handler: 'onDelete'
-            }]
-        }
     ],
     dockedItems: [{
         dock: 'top',
@@ -107,6 +109,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             text: 'Lập phiếu mới',
             iconCls: 'x-fa fa-plus',
             itemId: 'btnAdd_Pcontract_Stockin',
+            handler: 'onNhapMuaMoi',
             bind: {
                 hidden: '{!isAdd_Pcontract_Stockin}'
             }

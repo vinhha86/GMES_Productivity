@@ -31,7 +31,20 @@ Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
                 xtype:'button',
                 text:  "Quay lại",
                 iconCls: 'x-fa fa-backward',
-                itemId: 'btnBack'
+                itemId: 'btnBack',
+                bind: {
+                    hidden: '{isAdd_Pcontract_Stockin}'
+                }
+            },
+            {
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  "Đóng",
+                iconCls: 'x-fa fa-window-close',
+                itemId: 'btnClose',
+                bind: {
+                    hidden: '{!isAdd_Pcontract_Stockin}'
+                }
             },
             {
                 margin: '0 5 5 0',

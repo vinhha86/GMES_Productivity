@@ -22,6 +22,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 			},
 		}, {
 			xtype: 'combo',
+			readOnly: true,
+			editable: false,				
 			valueField: 'id',
 			displayField: 'name',
 			bind: {

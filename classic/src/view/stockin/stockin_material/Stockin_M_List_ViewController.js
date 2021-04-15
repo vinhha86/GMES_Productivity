@@ -91,13 +91,75 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         this.redirectTo('stockin_m_main/create');
     },
     onNhapMuaMoi: function(){
-        this.redirectTo('stockin_m_main/1/create');
+        var viewmodel = this.getViewModel();
+        if (viewmodel.get('isAdd_Pcontract_Stockin')){
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu nhập kho',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .99,
+                width: Ext.getBody().getViewSize().width * .95,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_M_Edit',
+                    viewModel: {
+                        type: 'Stockin_M_ViewModel',
+                        data: {
+                            isNewStockin: true,
+                            isAdd_Pcontract_Stockin: true,
+                            pcontractid_link: viewmodel.get('pcontractid_link'),
+                            stockintypeid_link: 1,
+                        }
+                    }
+                }]
+            });            
+            form.show();
+        } else {
+            this.redirectTo('stockin_m_main/1/create');
+        }        
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
-        console.log('yo');
-        console.log(this.getView());
+        var viewmodel = this.getViewModel();
         var id = record.data.id;
-        this.redirectTo("stockin_m_main/" + id + "/edit");
+        if (viewmodel.get('isAdd_Pcontract_Stockin')){
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu nhập kho',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .99,
+                width: Ext.getBody().getViewSize().width * .95,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_M_Edit',
+                    viewModel: {
+                        type: 'Stockin_M_ViewModel',
+                        data: {
+                            isNewStockin: false,
+                            isAdd_Pcontract_Stockin: true,
+                            stockinid_link: id,
+                            pcontractid_link: viewmodel.get('pcontractid_link'),                
+                        }
+                    }
+                }]
+            });            
+            form.show();
+        } else {
+            this.redirectTo("stockin_m_main/" + id + "/edit");
+        }
     },
     onEdit: function(grid, rowIndex){
         var viewmodel = this.getViewModel();
@@ -124,7 +186,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
                         type: 'Stockin_M_ViewModel',
                         data: {
                             isAdd_Pcontract_Stockin: true,
-                            stockinid_link: id                    
+                            stockinid_link: id,
+                            pcontractid_link: viewmodel.get('pcontractid_link'),                   
                         }
                     }
                 }]
@@ -209,5 +272,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
             filters.remove(this.invoice_numberFilter);
             this.invoice_numberFilter = null;
         }
-    }
+    },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
 })

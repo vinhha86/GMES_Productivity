@@ -11,9 +11,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		SkuStore:{
 			type: 'skustore'
 		},
-		StockinDetailStore:{
-			type: 'Stockin_d_Store'
-		},
+		// StockinDetailStore:{
+		// 	type: 'Stockin_d_Store'
+		// },
 		StockinDetailEpcStore:{
 			type : 'stockindetailepcstore'
 		},
@@ -56,6 +56,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		GpayUserOrg: {
             type: 'GpayUserOrg'
         },
+		StockinGroupStore: {
+			type: 'StockinGroupStore'
+		},
 	},
 	data: {
 		urlback:'',
@@ -76,10 +79,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		curencycode: '',
 		ordercode: "",
 		skucode: '',
-		//Hien rieng danh sach cho 1 Don hang
+		groupstockin: 1,
+		isHidden: false,
+		isRFIDHidden: true,
+		isBarcodeHidden: true,
+		isManualHidden: false,
+		//Chi dung cho View trong PContract
 		pcontractid_link: null,
 		stockinid_link: null,
+		stockintypeid_link: 1,
 		isAdd_Pcontract_Stockin: false,
+		isNewStockin: false,
 	},
 	formulas: {
         isEdit: function (get) {
