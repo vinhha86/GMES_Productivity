@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     init: function(){
         var me = this.getView();
         var viewModel = this.getViewModel();
+        if (viewModel.get('sourceview') == 'PContractListProductView' 
         || viewModel.get('isHidden_Select_Products') == false){
             var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');        
             SkuAtributesStore.loadDefaultAttr(10);
@@ -63,6 +64,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     control: {
         'ProductList': {
             itemdblclick: 'onEditProduct'
+        },
+    },
+    onCloseButton: function(){
         var mywin = Ext.WindowManager.getActive();
         if (mywin) {
             mywin.close();
