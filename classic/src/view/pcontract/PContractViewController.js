@@ -99,6 +99,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     var UnitStore = viewmodel.getStore('UnitStore');
                     UnitStore.loadStore();
                 }
+                else if (newCard.xtype == 'Stockin_M_Main') {
+                    var tab = Ext.getCmp('Stockin_M_Main');
+                    tab.getController().onPContract_Stockin(viewmodel.get('IdPContract'));
+                }
                 else {
                     var storeproductlist = viewmodel.getStore('PContractProductStore');
                     storeproductlist.load();

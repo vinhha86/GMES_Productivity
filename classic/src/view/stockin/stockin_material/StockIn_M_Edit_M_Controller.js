@@ -3,8 +3,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
     alias: 'controller.Stockin_M_Edit_M_Controller',
 	init: function() {
         var viewModel = this.getViewModel();
-        var orgstore = this.getViewModel().getStore('OrgStore');
-		orgstore.loadStore(5);
+        var orgstore = viewModel.getStore('OrgStore');
+        if (null!=orgstore) orgstore.loadStore(5);
 
 		var userStore = this.getViewModel().getStore('UserStore');
 		userStore.loadStore();
@@ -14,16 +14,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		// orgfromstore.loadStore_byRoot(listidtype);
 
-		var orgtostore = this.getViewModel().getStore('OrgToStore');
+		var orgtostore = viewModel.getStore('OrgToStore');
 		orgtostore.loadStore_allchildren_byorg(listidtype);
 
-		var currencyStore = this.getViewModel().getStore('CurrencyStore');
+		var currencyStore = viewModel.getStore('CurrencyStore');
 		currencyStore.loadStore();
 
-		var vattypeStore = this.getViewModel().getStore('VatTypeStore');
+		var vattypeStore = viewModel.getStore('VatTypeStore');
 		vattypeStore.loadStore();
 		
-		var stockintype = this.getViewModel().getStore('StockinTypeStore');
+		var stockintype = viewModel.getStore('StockinTypeStore');
 		stockintype.loadStore();
 	},
 	control:{

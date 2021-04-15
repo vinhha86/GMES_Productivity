@@ -117,12 +117,26 @@ Ext.define('GSmartApp.view.sku.ProductList', {
         bind: {
             hidden: '{!isVisible_btnChonSP}'
         }
-    },{
+    },
+    {
+        minWidth: 80,
+        text: 'Chọn SP',
+        iconCls: 'x-fa fa-check',
+        handler: 'onSelect_Products',
+        itemId: 'btnSelect_Products',
+        bind: {
+            hidden: '{isHidden_Select_Products}'
+        }
+    },
+    {
         minWidth: 80,
         itemID: 'btnAddProduct_ProductList',
         text: 'Tạo mới',
         iconCls: 'x-fa fa-magic',
-        handler: 'onCreateProduct'
+        handler: 'onCreateProduct',
+        bind: {
+            hidden: '{isHidden_newProduct}'
+        }
     },
     '->'
     ],    

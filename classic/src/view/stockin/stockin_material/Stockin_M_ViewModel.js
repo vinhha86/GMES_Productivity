@@ -41,6 +41,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		StockinStore: {
 			type: 'StockinStore'
 		},
+		StockinD_Store:{
+			type: 'Stockin_d_Store'
+		},
+		StockinProduct_Store:{
+			type: 'Stockin_product_Store'
+		},
 		porderStore: {
 			type: 'POrder_ListStore'
 		},
@@ -70,6 +76,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		curencycode: '',
 		ordercode: "",
 		skucode: '',
+		//Hien rieng danh sach cho 1 Don hang
+		pcontractid_link: null,
+		stockinid_link: null,
+		isAdd_Pcontract_Stockin: false,
 	},
 	formulas: {
         isEdit: function (get) {

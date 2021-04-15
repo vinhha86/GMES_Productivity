@@ -6,15 +6,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
+
         var stockintype = viewmodel.getStore('StockinTypeStore');
         stockintype.loadStore();
         
         var listidtype = "13";
         // var listidtype = "4,8,9,11,12";
-        var orgtostore = this.getViewModel().getStore('OrgToStore');
+        var orgtostore = viewmodel.getStore('OrgToStore');
         orgtostore.loadStore_allchildren_byorg(listidtype);
 
-        var fromStore = this.getViewModel().getStore('OrgFromStore');
+        var fromStore = viewmodel.getStore('OrgFromStore');
         fromStore.loadStore_byRoot(listidtype);
 
         var today = new Date();
@@ -46,7 +47,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         },        
     },
     onActivate: function () {
-        // this.onSearch();
+        // console.log('hehe' + viewmodel.get('IdPContract'));
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -84,7 +85,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         //     page = 1;
         // }
         // store.loadStore(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page);
-        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null);
+        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null, null);
     },
     onThemMoi: function(){
         this.redirectTo('stockin_m_main/create');
@@ -99,9 +100,39 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         this.redirectTo("stockin_m_main/" + id + "/edit");
     },
     onEdit: function(grid, rowIndex){
+        var viewmodel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        this.redirectTo("stockin_m_main/" + id + "/edit");
+        if (viewmodel.get('isAdd_Pcontract_Stockin')){
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu nhập kho',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .99,
+                width: Ext.getBody().getViewSize().width * .95,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_M_Edit',
+                    viewModel: {
+                        type: 'Stockin_M_ViewModel',
+                        data: {
+                            isAdd_Pcontract_Stockin: true,
+                            stockinid_link: id                    
+                        }
+                    }
+                }]
+            });            
+            form.show();
+        } else {
+            this.redirectTo("stockin_m_main/" + id + "/edit");
+        }
     },
     onDelete: function(grid, rowIndex){
         var me = this.getView();

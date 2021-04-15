@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
-	// controller: 'Stockin_M_Edit_D_Controller',
+	controller: 'Stockin_M_Edit_D_Controller',
 	columnLines: true,
 	rowLines: true,
 	border: true,

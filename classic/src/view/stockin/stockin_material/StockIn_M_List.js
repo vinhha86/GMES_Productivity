@@ -101,16 +101,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
         xtype: 'toolbar',
         border: false,
         items: [
-        // {
-        //     xtype: 'button',
-        //     margin: 3,
-        //     text: 'Lập phiếu mới',
-        //     iconCls: 'x-fa fa-plus',
-        //     itemId: 'btnThemMoi',
-        //     bind: {
-        //         hidden: '{isNhapmoi}'
-        //     }
-        // },
+        {
+            xtype: 'button',
+            margin: 3,
+            text: 'Lập phiếu mới',
+            iconCls: 'x-fa fa-plus',
+            itemId: 'btnAdd_Pcontract_Stockin',
+            bind: {
+                hidden: '{!isAdd_Pcontract_Stockin}'
+            }
+        },
         {
             xtype: 'button',
             margin: 3,
@@ -155,7 +155,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                 },
             ],
             bind: {
-                hidden: '{isNhapmoi}'
+                hidden: '{isAdd_Pcontract_Stockin}'
             }
         },
         {
@@ -167,6 +167,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             fieldLabel: 'Nhập từ ngày:',
             labelWidth: 86,
             width: 215,
+            bind: {
+                hidden: '{isAdd_Pcontract_Stockin}'
+            }
         }, 
         {
             itemId: 'stockindate_to',
@@ -177,6 +180,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             fieldLabel: 'đến ngày:',
             labelWidth: 65,
             width: 195,
+            bind: {
+                hidden: '{isAdd_Pcontract_Stockin}'
+            }
         },        
         {
             itemId: 'OrgFromStore',
@@ -189,6 +195,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             margin: 3,
             displayField: 'name',
             valueField: 'id',
+            bind: {
+                hidden: '{isAdd_Pcontract_Stockin}'
+            }
             // flex: 1,
         },      
         // {
@@ -215,6 +224,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             margin: 3,
             displayField: 'name',
             valueField: 'id',
+            bind: {
+                hidden: '{isAdd_Pcontract_Stockin}'
+            }
             // flex: 1,
         }, 
         {
@@ -224,7 +236,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             // text: GSmartApp.Locales.btn_loc[GSmartApp.Locales.currentLocale],
             iconCls: 'x-fa fa-search',
             itemId: 'btnTimKiem',
-
+            bind: {
+                hidden: '{isAdd_Pcontract_Stockin}'
+            }
         }]
     }, 
     // {
@@ -263,6 +277,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
     //         displayMsg: 'Hiển thị {0} - {1} của {2}'
     //     }]
     // }
-]
+],
+ 
 });
 

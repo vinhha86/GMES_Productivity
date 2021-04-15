@@ -29,6 +29,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchWindow', {
         },        
         {
             title:'Danh sách Sản phẩm/ Nguyên phụ liệu', 
+            // id: 'grid_productsearch',
             flex: 1,  
             margin: 2,
             xtype: 'ProductList'

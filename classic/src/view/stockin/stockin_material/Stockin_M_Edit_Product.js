@@ -2,77 +2,45 @@ Ext.define('GSmartApp.view.pcontract.Stockin_M_Edit_Product', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_M_Edit_Product',
     id:'Stockin_M_Edit_Product',
+    controller: 'Stockin_M_Edit_Product_Controller',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
         rowLines: true
     },
-    selModel: {
-        //selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
-    plugins: {
-        cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            } 
-        },
-        gridexporter: true
-    },
     bind:{
-        store:'{PContractProductStore}'
+        store:'{StockinProduct_Store}'
     },
-    reference: 'PContractListProductView',
     columns:[{
         xtype: 'actioncolumn',
         width: 30,
         menuDisabled: true,
         sortable: false,
         align: 'center',
-        bind: {
-            hidden: '{isWindow}',
-        },
         items: [
-            // {
-            // iconCls: 'x-fa fas fa-edit',
-            // tooltip: "Số lượng",
-            // handler: 'onEditSoLuong'
-            // },
             {
                 iconCls: 'x-fa fas fa-trash',
                 itemId: 'btn_XoaSP',
-                isActionDisabled: 'checkActionColumnPermission',
+                // isActionDisabled: 'checkActionColumnPermission',
                 tooltip: 'Hủy',
                 handler: 'onXoa',
             }
         ]
     },{
-        text:'Ảnh',
-        dataIndex:'imgproduct',
-        width: 45,
-        textAlign: 'center',
-        renderer: function(value, meta, record){
-            return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
-        },
-        listeners:{
-            click: 'viewImg'
-        }
-    },{
         text:'Mã SP (Buyer)',
-        dataIndex:'productBuyerCode',
+        dataIndex:'product_code',
         width: 120,
         listeners:{
             dblclick: 'viewProductDetail'
         },
     },{
         text:'Tên SP (Buyer)',
-        dataIndex:'productName',
+        dataIndex:'product_name',
         width: 200
     },{
         text:'Mô tả',
-        dataIndex:'productinfo',
+        dataIndex:'product_desc',
         flex: 1
     },
     ],
@@ -107,9 +75,9 @@ Ext.define('GSmartApp.view.pcontract.Stockin_M_Edit_Product', {
                 labelWidth: 90,
                 hideLabel: false,			
                 enableKeyEvents : true,
-                listeners: {
-                    keypress: 'onPressEnterBtnTimNPL'
-                }
+                // listeners: {
+                //     keypress: 'onPressEnterBtnTimNPL'
+                // }
             },   
             {
                 tooltip: 'Tìm sản phẩm',

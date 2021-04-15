@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         // },
         '#btnTimNPL': {
             click: 'onBtnTimNPL'
-        },
+        }
 	},
 	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
 		var me = this;
@@ -482,81 +482,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
     //         }
     //     }
     // },
-	onBtnTimNPL: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var skucode = viewModel.get('skucode');
-
-		console.log(viewModel.get('stockin'));
-
-        var form = Ext.create({
-            xtype: 'skusearchwindow',
-            width: 1200,
-            height: 500,       
-            reference: 'skusearchwindow',
-            closeAction: 'destroy',
-            viewModel: {
-                data: {
-                    sourceview: 'InvoiceEdit_D',
-                    searchtype: 5,
-                    // pcontractid_link: viewModel.get('PContract.id'),
-                    // productid_link_notsearch: productid_link,
-                    isAddNPL: true,
-                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
-                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true,
-                    SKUCode: skucode
-                }
-            }
-        });
-        form.show();
-
-        form.getController().on('InsertToInvoiceEdit_D', function (records) {
-            console.log(records);
-            var stockin = viewModel.get('stockin');
-            var stockin_d = viewModel.get('stockin.stockin_d');
-            if(stockin_d == null){
-                stockin_d = new Array();
-            }
-
-            for(var i = 0; i < records.length; i++){
-                var npl = records[i];
-                var found = stockin_d.some(item => item.skuid_link === npl.get('id'));
-                // skucode, skuname, color_name, size_name
-                // code, name, tenMauNPL, coKho
-                if(!found){
-                    var stockin_dObj = new Object();
-                    stockin_dObj.skuid_link = npl.get('id');
-                    stockin_dObj.skucode = npl.get('code');
-                    stockin_dObj.skuname = npl.get('name');
-                    stockin_dObj.colorid_link = npl.get('color_id');
-                    stockin_dObj.color_name = npl.get('mauSanPham');
-                    stockin_dObj.size_name = npl.get('coSanPham');
-                    stockin_dObj.totalpackage = 0;
-                    stockin_dObj.netweight = 0;
-                    stockin_dObj.grossweight = 0;
-                    stockin_dObj.m3 = 0;
-                    stockin_dObj.unitprice = 0;
-                    stockin_dObj.totalamount = 0;
-                    stockin_dObj.yds = 0;
-					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
-
-					stockin_dObj.totalmet_origin = 0;
-                    stockin_dObj.totalmet_check = 0;
-                    stockin_dObj.totalydsorigin = 0;
-                    stockin_dObj.totalydscheck = 0;
-
-                    // stockin_dObj.unitid_link = invoice_d.get('unitid_link');
-                    // stockin_dObj.unit_name = invoice_d.get('unitname');
-
-                    stockin_d.push(stockin_dObj);
-                }
-            }
-            me.getStore().loadData(stockin_d);
-            me.getStore().commitChanges();
-            form.close();
-        })
-    },
 	onPressEnterBtnTimNPL: function(textfield, e, eOpts){
         var m = this;
         if(e.getKey() == e.ENTER) {
@@ -621,4 +546,76 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 
         store.commitChanges();
     },	
+	onBtnTimNPL: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var skucode = viewModel.get('skucode');
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            width: 1200,
+            height: 500,       
+            reference: 'skusearchwindow',
+            closeAction: 'destroy',
+            viewModel: {
+                data: {
+                    sourceview: 'InvoiceEdit_D',
+                    searchtype: 5,
+                    // pcontractid_link: viewModel.get('PContract.id'),
+                    // productid_link_notsearch: productid_link,
+                    isAddNPL: true,
+                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true,
+                    SKUCode: skucode
+                }
+            }
+        });
+        form.show();
+
+        form.getController().on('InsertToInvoiceEdit_D', function (records) {
+            var stockin = viewModel.get('stockin');
+            var stockin_d = viewModel.get('stockin.stockin_d');
+            if(stockin_d == null){
+                stockin_d = new Array();
+            }
+
+            for(var i = 0; i < records.length; i++){
+                var npl = records[i];
+                var found = stockin_d.some(item => item.skuid_link === npl.get('id'));
+                // skucode, skuname, color_name, size_name
+                // code, name, tenMauNPL, coKho
+                if(!found){
+                    var stockin_dObj = new Object();
+                    stockin_dObj.skuid_link = npl.get('id');
+                    stockin_dObj.skucode = npl.get('code');
+                    stockin_dObj.skuname = npl.get('name');
+                    stockin_dObj.colorid_link = npl.get('color_id');
+                    stockin_dObj.color_name = npl.get('mauSanPham');
+                    stockin_dObj.size_name = npl.get('coSanPham');
+                    stockin_dObj.totalpackage = 0;
+                    stockin_dObj.netweight = 0;
+                    stockin_dObj.grossweight = 0;
+                    stockin_dObj.m3 = 0;
+                    stockin_dObj.unitprice = 0;
+                    stockin_dObj.totalamount = 0;
+                    stockin_dObj.yds = 0;
+					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+
+					stockin_dObj.totalmet_origin = 0;
+                    stockin_dObj.totalmet_check = 0;
+                    stockin_dObj.totalydsorigin = 0;
+                    stockin_dObj.totalydscheck = 0;
+
+                    // stockin_dObj.unitid_link = invoice_d.get('unitid_link');
+                    // stockin_dObj.unit_name = invoice_d.get('unitname');
+
+                    stockin_d.push(stockin_dObj);
+                }
+            }
+            me.getStore().loadData(stockin_d);
+            me.getStore().commitChanges();
+            form.close();
+        })
+    }
 })

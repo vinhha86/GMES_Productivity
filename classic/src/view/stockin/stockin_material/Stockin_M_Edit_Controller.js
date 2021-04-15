@@ -14,6 +14,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 exactMatch: true,
             });
         }
+
+        if (viewModel.get('isAdd_Pcontract_Stockin')){
+            this.getInfo(viewModel.get('stockinid_link'));
+        }
     },
     listen: {
         controller: {

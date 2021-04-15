@@ -99,6 +99,15 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             {
                 title: 'Định mức cân đối New',
                 xtype: 'PContract_Bom_View'
+            },
+            {
+                title: 'Nguyên phụ liệu về',
+                xtype: 'Stockin_M_Main',
+                viewModel: {
+                    data: {
+                        isAdd_Pcontract_Stockin: true,
+                    }
+                }
             }
                 // {
                 //     title: 'Lệnh sản xuất',

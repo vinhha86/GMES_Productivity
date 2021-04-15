@@ -42,5 +42,6 @@ Ext.define('GSmartApp.model.stockin.Stockin', {
         { name: 'lastuserupdateid_link', type: 'number' },
         { name: 'lasttimeupdate', type: 'date' , dateFormat: 'c'}
     ],
-    hasMany : {model: 'Stockin_d', name: 'stockin_d'}
+    hasMany : {model: 'Stockin_d', name: 'stockin_d'},
+    hasMany : {model: 'Stockin_product', name: 'stockin_product'}
 });

@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     init: function(){
         var me = this.getView();
         var viewModel = this.getViewModel();
-        if (viewModel.get('sourceview') == 'PContractListProductView'){
+        || viewModel.get('isHidden_Select_Products') == false){
             var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');        
             SkuAtributesStore.loadDefaultAttr(10);
             this.onSearchButton();
@@ -63,6 +63,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     control: {
         'ProductList': {
             itemdblclick: 'onEditProduct'
+        var mywin = Ext.WindowManager.getActive();
+        if (mywin) {
+            mywin.close();
         }
     },
     onCreateSKU: function(){
@@ -145,6 +148,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
         var sourceview = viewModel.get('sourceview');
+
         if (viewModel.get('sourceview') == 'stockoutforcheck') {
             this.createStockoutForCheck();
         }
@@ -652,27 +656,19 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             // return;
         }
     },
+    onSelect_Products: function(){
+        var me = this.getView().down('#ProductList');
+        var records = me.getSelectionModel().getSelection();
+
+        if(records.length > 0){
+            this.fireEvent("onSelect_Products", records);
+        }
+    },
     InsertToInvoiceEdit_D: function(){
-        var m = this;
-        var viewModel = this.getViewModel();
         var grid_skusearch = this.getView().items.get('grid_skusearch');
-        var selectionModel = grid_skusearch.getSelectionModel();
         var records = grid_skusearch.getSelection();
         if(records.length > 0){
-            // console.log(records[0]);
-            // var materialid_link = records[0].get('id');
-            m.fireEvent("InsertToInvoiceEdit_D", records);
-            // m.onThoat();
-        }else{
-            // Ext.Msg.alert({
-            //     title: "Thông báo",
-            //     msg: 'Bạn chưa chọn nguyên phụ liệu',
-            //     buttons: Ext.MessageBox.YES,
-            //     buttonText: {
-            //         yes: 'Đóng',
-            //     },
-            // });
-            // return;
+            this.fireEvent("InsertToInvoiceEdit_D", records);
         }
     },
     createStockoutForCheck: function () {
