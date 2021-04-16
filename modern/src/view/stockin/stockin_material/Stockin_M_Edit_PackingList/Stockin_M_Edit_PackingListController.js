@@ -31,6 +31,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         },
         '#Stockin_M_Edit_PackingList_D':{
             itemtap: 'onItemTap'
+        },
+        '#Stockin_M_Edit_Lot': {
+            childtap: 'onLotTap'
         }
     },
     onUrlBack: function(type){
@@ -65,12 +68,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
                 // console.log(response);
-                viewModel.set('stockinD', response.data);
-                viewModel.set('stockin', response.stockin);
+                var stockin = response.stockin;
+                var data = response.data;
+
+                viewModel.set('stockinD', data);
+                viewModel.set('stockin', stockin);
+
+                // set lot
+                me.setLotStore();
 
                 // load cbbox color theo stockin
                 var attributeValueStore = viewModel.getStore('attributeValueStore');
-                attributeValueStore.loadStore_colorForStockin(response.stockin.id);
+                attributeValueStore.loadStore_colorForStockin(stockin.id);
                 attributeValueStore.load({
                     scope: this,
                     callback: function(records, operation, success) {
@@ -84,7 +93,42 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
             }
 		})
     },
+    setLotStore: function(){
+        var me = this;
+        var m = this.getView();
+        var viewModel = this.getViewModel();
 
+        var stockinD = viewModel.get('stockinD');
+        var stockin = viewModel.get('stockin');
+        var stockin_lot = stockin.stockin_lot;
+        var storeData = new Array();
+
+        var stockinDtotalpackagecheck = 0;
+        for(var i = 0; i < stockin_lot.length; i++){
+            if(stockin_lot[i].materialid_link == stockinD.skuid_link){
+                var storeObj = new Object();
+                storeObj.lot_number = stockin_lot[i].lot_number;
+                storeObj.materialid_link = stockin_lot[i].materialid_link;
+                storeObj.orgrootid_link = stockin_lot[i].orgrootid_link;
+                storeObj.space = stockin_lot[i].space;
+                storeObj.stockinid_link = stockin_lot[i].stockinid_link;
+                storeObj.totalpackage = stockin_lot[i].totalpackage;
+
+                if(stockinD.status == -1 && (stockin_lot[i].totalpackagecheck == null || stockin_lot[i].totalpackage == 0)){
+                    storeObj.totalpackagecheck = storeObj.totalpackage;
+                }else{
+                    storeObj.totalpackagecheck = stockin_lot[i].totalpackagecheck;
+                }
+                stockinDtotalpackagecheck += storeObj.totalpackagecheck;
+                storeData.push(storeObj);
+            }
+        }
+
+        viewModel.set('stockinD.totalpackagecheck', stockinDtotalpackagecheck);
+        viewModel.set('stockin_lot', storeData);
+
+        // console.log(stockin);
+    },
     onlotnumberTxtKeyup: function(){
         var m = this;
         var viewModel = this.getViewModel();
@@ -546,5 +590,92 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         viewModel.set('sampleCheckTxt', '');
         viewModel.set('yTxtCls', 'yTxtClsWhiteBG');
         m.getView().down('#lotnumberTxt').focus();
-    }
+    },
+
+    onLotTap: function(grid, location, eOpts ){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+        
+        console.log(location);
+
+        // set filter
+        var pklview = me.down('#Stockin_M_Edit_PackingList_D');
+            var store = pklview.getStore();
+            var filters = store.getFilters();
+
+            if (m.pklistFilter) {
+                filters.remove(m.pklistFilter);
+                m.pklistFilter = null;
+            }
+
+            if (location.record.get('lot_number') != null || location.record.get('lot_number') != '') {
+                m.pklistFilter = filters.add({
+                    id: 'pklistFilter',
+                    property: 'lotnumber',
+                    value: location.record.get('lot_number'),
+                    exactMatch: true
+                    // anyMatch: true,
+                    // caseSensitive: false
+                });
+            }
+
+        if(location.columnIndex == 3){ // sl cay kiem, hien cua so de nhap sua
+            var dialog = Ext.create({
+                xtype: 'dialog',
+                itemId: 'dialog',
+                // title: 'Số lượng',
+                header: false,
+                closable: true,
+                closeAction: 'destroy',
+                maximizable: false,
+                maskTapHandler: function(){
+                    if(dialog){
+                        dialog.close();
+                    }
+                },
+                bodyPadding: '10 20 10 20',
+                maxWidth: 300,
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: 'Stockin_M_Edit_LotAmount',
+                    viewModel: {
+                        data: {
+                            value: 0,
+                            label: 'SL cây kiểm'
+                        }
+                    }
+                }],
+                listeners: {
+                    
+                }
+            });
+            dialog.show();
+
+            dialog.down('#Stockin_M_Edit_LotAmount').getController().on('Luu', function (value) {
+                // console.log(value);
+                var stockin_lot = viewModel.get('stockin_lot');
+                location.record.set('totalpackagecheck', value)
+
+                // console.log(stockin_lot);
+                var stockinDTotalpackagecheck = 0;
+                for(var i=0; i<stockin_lot.length; i++){
+                    stockinDTotalpackagecheck+=stockin_lot[i].totalpackagecheck;
+                }
+                viewModel.set('stockinD.totalpackagecheck', stockinDTotalpackagecheck);
+
+                dialog.close();
+            });
+    
+            dialog.down('#Stockin_M_Edit_LotAmount').getController().on('Thoat', function () {
+                dialog.close();
+            });
+        }
+    },
 })

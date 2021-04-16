@@ -80,10 +80,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
         },
         {
             margin: 1,
-            height: '100%',
+            // height: '100%',
             flex: 1,
-            xtype: 'Stockin_M_Edit_PackingList_D',
-            itemId: 'Stockin_M_Edit_PackingList_D'
+            xtype: 'Stockin_M_Edit_Lot',
+        },
+        {
+            margin: 1,
+            // height: '100%',
+            flex: 1,
+            xtype: 'Stockin_M_Edit_PackingList_D'
         },
 
     ],
@@ -169,7 +174,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                             listeners: {
                                 keyup: 'onpackageidTxtKeyup',
                                 buffer: 1000
-                            }
+                            },
+                            stepValue: 0.1,
                         },
         
                         {
@@ -219,7 +225,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                             listeners: {
                                 keyup: 'onlotnumberTxtKeyup',
                                 buffer: 1000
-                            }
+                            },
+                            stepValue: 0.1,
                         },
                         {
                             xtype: 'numberfield',
@@ -243,6 +250,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                                 // cls: '{yTxtCls}',
                                 hidden: '{isMetColumnHidden}',
                             },
+                            stepValue: 0.1,
                         },
                         {
                             xtype: 'numberfield',
@@ -266,6 +274,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                                 // cls: '{yTxtCls}',
                                 hidden: '{isYdsColumnHidden}',
                             },
+                            stepValue: 0.1,
                         },
                         // {
                         //     // xtype: 'numberfield',
@@ -328,6 +337,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                                 value: '{mOriginTxt}',
                                 hidden: '{isMetColumnHidden}',
                             },
+                            stepValue: 0.1,
                         },
                         {
                             xtype: 'numberfield',
@@ -349,6 +359,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                                 value: '{yOriginTxt}',
                                 hidden: '{isYdsColumnHidden}',
                             },
+                            stepValue: 0.1,
                         },
                         {
                             xtype: 'numberfield',
@@ -370,6 +381,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList', {
                             bind: {
                                 value: '{sampleCheckTxt}',
                             },
+                            stepValue: 0.1,
                         },
                         {
                             xtype:'button',

@@ -27,7 +27,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
                             reference: 'fromDate',
                             itemId: 'fromDate',
                             label: 'Từ:',
-                            labelWidth: 'auto',
+                            // labelWidth: 'auto',
+                            labelWidth: 60,
                             value: new Date(),
                             // value: new Date(2020, 1, 1),
                             dateFormat : 'd/m/y',
@@ -42,7 +43,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
                             reference: 'toDate',
                             itemId: 'toDate',
                             label: 'Đến:',
-                            labelWidth: 'auto',
+                            // labelWidth: 'auto',
+                            labelWidth: 60,
                             value: new Date(),
                             dateFormat : 'd/m/y',
                             flex: 1,
@@ -51,6 +53,40 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
                                 change : 'loadData'
                             }
                         }
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    defaults: {
+                        margin: 5
+                    },
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            itemId: 'invoiceFilter',
+                            label: 'Invoice:',
+                            labelWidth: 60,
+                            // margin: 1,
+                            // padding: 6,
+                            flex: 1,
+                            // width: '100%',
+                            // minWidth: 80,
+                            // maxWidth: 200,
+                            textAlign: 'left',
+                            // placeholder: 'Số cây',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            // bind: {
+                            //     value: '{maNPLFilter}'
+                            // },
+                            listeners: {
+                                change: 'oninvoiceFilterKeyup',
+                                keyup: 'oninvoiceFilterKeyup',
+                                buffer: 500
+                            }
+                        },
                     ]
                 },
                 {

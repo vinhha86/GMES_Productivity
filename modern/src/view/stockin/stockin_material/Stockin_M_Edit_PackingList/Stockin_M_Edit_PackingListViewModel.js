@@ -7,8 +7,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListViewModel', {
 		},
 	},
 	data: {
-		stockin: null,
-		stockinD: null,
+		stockin: {
+            stockin_lot:[]
+        },
+		stockinD: {
+            stockin_packinglist:[]
+        },
+        stockin_lot: [],
 
 		// textfield
 		lotnumberTxt: '',

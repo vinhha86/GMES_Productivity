@@ -60,6 +60,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		isStart:false,
 		stockin: {
 			stockin_d: [],
+			stockin_product: [],
+			stockin_lot: [],
 			id: null
 		},
 		listepc: new Map(),
@@ -80,6 +82,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         colorTxt: null,
         widthTxt: '',
 		yTxtCls: 'yTxtClsWhiteBG', // yTxtClsYellowBG
+
+		// Stockin_M_Edit_D
+		selectedDRecord: null,
+		lotNumberTxt: '',
+		cayNumberTxt: '',
+		yNumberTxt: '',
 	},
 	formulas: {
         isEdit: function (get) {

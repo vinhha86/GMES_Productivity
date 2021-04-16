@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingList_D', {
     extend: 'Ext.dataview.DataView',
     xtype: 'Stockin_M_Edit_PackingList_D',
-    id: 'Stockin_M_Edit_PackingList_D',
+    itemId: 'Stockin_M_Edit_PackingList_D',
+    cls: 'Stockin_M_Edit_PackingList_D',
     // viewModel: {
     //     type: 'HandoverListViewModel'
     // },

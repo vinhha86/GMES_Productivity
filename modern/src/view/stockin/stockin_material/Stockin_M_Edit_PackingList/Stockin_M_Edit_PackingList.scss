@@ -1,5 +1,13 @@
 #Stockin_M_Edit_PackingList{
     //
+
+    .Stockin_M_Edit_Lot{
+        border-bottom: 1px solid #33bbf7;
+    }
+    .Stockin_M_Edit_PackingList_D{
+        border-bottom: 1px solid #33bbf7;
+    }
+
     .content{
         //
         border-bottom: 1px solid lightgray;
@@ -8,7 +16,8 @@
         font-size: 12px;
         .content1{
             //
-            
+            // display: inline-block;
+            // width: 50%;
             .content1-sub1{
                 display: inline-block;
                 width: 20%;
@@ -32,6 +41,9 @@
         }
         .content2{
             //
+            // display: inline-block;
+            // width: 50%;
+
             .content2-sub1{
                 display: inline-block;
                 width: 20%;

@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_MainController', {
 
         var StockinStore = viewModel.getStore('StockinStore');
         // StockinStore.loadStore(null, fromDate, toDate, null, -1, 100, 1);
-        StockinStore.loadStore_Material(null, fromDate, toDate, null, -1, 100, 1);
+        StockinStore.loadStore_Material(null, fromDate, toDate, null, -1, null, 100, 1);
         StockinStore.getSorters().add('stockindate');
     },
     onBtnThemTap: function ( btn, e, eOpts ){
@@ -39,5 +39,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_MainController', {
     },
     onNhapMuaMoi: function(){
         this.redirectTo('stockin_m_main/1/create');
+    },
+    oninvoiceFilterKeyup: function (){
+        var grid = this.getView().down('#Stockin_M_List'),
+            // Access the field using its "reference" property name.
+            filterField = this.getView().down('#invoiceFilter'),
+            filters = grid.store.getFilters();
+
+        if (filterField.getValue()) {
+            this.invoiceFilter = filters.add({
+                id: 'invoiceFilter',
+                property: 'invoice_number',
+                value: filterField.getValue(),
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.invoiceFilter) {
+            filters.remove(this.invoiceFilter);
+            this.invoiceFilter = null;
+        }
     },
 });
