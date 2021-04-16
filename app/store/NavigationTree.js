@@ -3,12 +3,13 @@ Ext.define('GSmartApp.store.NavigationTree', {
     storeId: 'NavigationTree',
 
     fields: [
-        {name: 'id', type: 'string'},
-        {name: 'text',   type: 'string'},
-        {name: 'rowCls',   type: 'string'},
-        {name: 'iconCls',  type: 'string',
+        { name: 'id', type: 'string' },
+        { name: 'text', type: 'string' },
+        { name: 'rowCls', type: 'string' },
+        {
+            name: 'iconCls', type: 'string',
             convert: function (value) {
-                switch(value){
+                switch (value) {
                     case 'daisize':
                     case 'chinhanh':
                     case 'chimay':
@@ -33,72 +34,73 @@ Ext.define('GSmartApp.store.NavigationTree', {
                     case 'donvitinh':
                     case 'soluong':
                     case 'khsanxuat':
-                        return 'myIcon icon-'+value;
+                        return 'myIcon icon-' + value;
                 }
-                return 'x-fa fa-'+value;
+                return 'x-fa fa-' + value;
             }
         },
-        {name: 'routeId',   type: 'string'},
-        {name: 'viewType',   type: 'string'},
-        {name: 'leaf'},
-        {name: 'action',   type: 'string'},
-        {name: 'type', type:'number'},
-        {name: 'index', type:'number'}
+        { name: 'routeId', type: 'string' },
+        { name: 'viewType', type: 'string' },
+        { name: 'leaf' },
+        { name: 'action', type: 'string' },
+        { name: 'type', type: 'number' },
+        { name: 'index', type: 'number' }
     ],
     sorters: [{
         property: 'index',
         direction: 'DESC'
     }],
-    loadMenu:function(callback){
+    loadMenu: function (callback) {
         this.setProxy({
             type: 'ajax',
             //url: config.getBack() + 'menuperm',
-            url: config.getAppBaseUrl()+'/api/v1/menu/menu_tree',
+            url: config.getAppBaseUrl() + '/api/v1/menu/menu_tree',
             actionMethods: {
-                read   : 'POST'
+                read: 'POST'
             },
-            paramsAsJson:true,
+            paramsAsJson: true,
             noCache: false,
-            headers :{
-                'Accept': "application/json", 
-                'Content-Type':"application/json",
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': "application/json",
                 'authorization': config.getToken()
             },
             timeout: 60000,
             reader: {
                 type: 'json',
                 rootProperty: 'children',
-                processRawResponse:function(response) {     
-                    var session = GSmartApp.util.State.get('session');                
+                processRawResponse: function (response) {
+                    var session = GSmartApp.util.State.get('session');
                     var _token = session.token;
                     var _expires = session.expires;
-                    if(response.responseJson!=null) {
+                    if (response.responseJson != null) {
                         response.responseJson.data.token = _token;
                         response.responseJson.data.expires = _expires;
                         response.responseJson.data.avatar = session.avatar;
 
                         GSmartApp.util.State.set('session', response.responseJson.data);
+                        config.setFname(response.responseJson.data.fullName);
                     }
                 }
             }
         });
         this.load();
-        
+
         this.on({
-            load:function(tree, records, successful, operation, node, eOpts){
+            load: function (tree, records, successful, operation, node, eOpts) {
                 //console.log(records);
-                if(callback!=null){
+                if (callback != null) {
                     //console.log(records);
-                    if(records != null){
-                        if(records.length==0) {
+                    if (records != null) {
+                        if (records.length == 0) {
                             successful = false;
                         }
                     }
-                    else{
+                    else {
                         successful = false;
                     }
-                    
-                        
+
+
                     callback.call(this, successful, records, operation);
                 }
             }
