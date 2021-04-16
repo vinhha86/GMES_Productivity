@@ -575,9 +575,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 
 		//Neu pcontractid_link != null --> Them tu don hàng
 		if (null != viewModel.get('pcontractid_link')){
-			//Neu co danh sach SP --> Lay cac SPL cua SP only
-
-			//Neu khong co danh sach SP --> Lay het cac NPL trong BOM
+			this.selectNPL_FromBalance();
 
 		} else {
 		//Neu pcontractid_link is null --> Them Phieu NK le
@@ -647,5 +645,83 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 				form.close();
 			})
 		}
-    }
+    },
+	selectNPL_FromBalance: function(){
+		var m = this;
+        var me = this.getView();
+		var viewModel = this.getViewModel();
+		var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Chọn nguyên liệu nhập kho',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Balance_Main',
+                viewModel: {
+                    data: {
+                        pcontractid_link: viewModel.get('pcontractid_link')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+		form.down('#Balance_Main').getController().on('onSelect_Materials', function (records) {
+			console.log(records);
+			var stockin = viewModel.get('stockin');
+			var stockin_d = viewModel.get('stockin.stockin_d');
+			if(stockin_d == null){
+				stockin_d = new Array();
+			}
+
+			for(var i = 0; i < records.length; i++){
+				var npl = records[i];
+				var found = stockin_d.some(item => item.skuid_link === npl.get('mat_skuid_link'));
+				// skucode, skuname, color_name, size_name
+				// code, name, tenMauNPL, coKho
+				if(!found){
+					var stockin_dObj = new Object();
+					stockin_dObj.skuid_link = npl.get('mat_skuid_link');
+					stockin_dObj.skucode = npl.get('mat_sku_code');
+					stockin_dObj.skuname = npl.get('mat_sku_name');
+					stockin_dObj.sku_product_desc = npl.get('setMat_sku_desc');
+
+					stockin_dObj.colorid_link = npl.get('mat_sku_color_id');
+					stockin_dObj.color_name = npl.get('mat_sku_color_name');
+					stockin_dObj.size_name = npl.get('mat_sku_size_name');
+					
+					stockin_dObj.totalpackage = 0;
+					stockin_dObj.netweight = 0;
+					stockin_dObj.grossweight = 0;
+					stockin_dObj.m3 = 0;
+					stockin_dObj.unitprice = 0;
+					stockin_dObj.totalamount = 0;
+					stockin_dObj.yds = 0;
+					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+
+					stockin_dObj.totalmet_origin = 0;
+					stockin_dObj.totalmet_check = 0;
+					stockin_dObj.totalydsorigin = 0;
+					stockin_dObj.totalydscheck = 0;
+
+					// stockin_dObj.unitid_link = invoice_d.get('unitid_link');
+					// stockin_dObj.unit_name = invoice_d.get('unitname');
+
+					stockin_d.push(stockin_dObj);
+				}
+			}
+			me.getStore().loadData(stockin_d);
+			me.getStore().commitChanges();
+			form.close();
+		})
+	}
 })

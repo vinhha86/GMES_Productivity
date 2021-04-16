@@ -89,6 +89,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('stockin.stockintypeid_link', id);
         viewModel.set('stockin.unitid_link', 1);
         viewModel.set('stockin.status', -1);
+        viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 
         // set store org from
         if(id == 1) {// mua moi va cap bu thi là nha cung cap

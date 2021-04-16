@@ -18,6 +18,9 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
         enableTextSelection: true,
         stripeRows: false                
     },
+	selModel: {
+        selType: 'checkboxmodel',
+    },
 	bind:{
 		store: '{SKUBalanceStore}'
 	},
@@ -74,22 +77,22 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 			summaryRenderer: 'renderSum',
 			width: 80
 		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Đặt hàng', 
-			align:'right',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			dataIndex: 'mat_sku_invoice',
-			width: 80
-		},
-		{
-			text:'Dự kiến về',
-			dataIndex:'mat_sku_invoice_date',
-			renderer: Ext.util.Format.dateRenderer('d/m/y'),
-			width: 75
-		},
+		// {
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000',
+		// 	text: 'Đặt hàng', 
+		// 	align:'right',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	dataIndex: 'mat_sku_invoice',
+		// 	width: 80
+		// },
+		// {
+		// 	text:'Dự kiến về',
+		// 	dataIndex:'mat_sku_invoice_date',
+		// 	renderer: Ext.util.Format.dateRenderer('d/m/y'),
+		// 	width: 75
+		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
@@ -121,5 +124,14 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 			width: 80
 		},
 	],
+	fbar: [
+        '->',
+        {
+            minWidth: 80,
+            text: 'Chọn',
+            iconCls: 'x-fa fa-check',
+            handler: 'onMaterialSelect'
+        }
+    ],    
 });
 

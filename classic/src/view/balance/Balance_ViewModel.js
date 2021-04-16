@@ -10,10 +10,14 @@ Ext.define('GSmartApp.view.balance.Balance_ViewModel', {
 		},
 		SKUBalanceStore: {
 			type: 'SKUBalanceStore'
-		}
+		},
+        PContractProductStore: {
+            type: 'PContractProductStore'
+        },		
 	},
 	data: {
 		pcontractid_link: null,
-		pcontract_poid_link: null
+		pcontract_poid_link: null,
+		isAdd_Pcontract_Stockin: false,
 	}
 })

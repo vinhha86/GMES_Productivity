@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.balance.Balance_Main', {
     extend: 'Ext.container.Container',
     xtype: 'Balance_Main',
+    id: 'Balance_Main',
     controller: 'Balance_Main_Controller',
     viewModel: {
         type: 'Balance_ViewModel'
@@ -11,8 +12,8 @@ Ext.define('GSmartApp.view.balance.Balance_Main', {
     items: [
         {
             region: 'west',
-            width: 250,
-            xtype: 'Balance_Product',
+            width: 300,
+            xtype: 'Balance_Product_Select',
             id: 'Balance_Product',
         },
         {

@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.balance.Balance_Product', {
+Ext.define('GSmartApp.view.balance.Balance_Sku', {
 	extend: 'Ext.grid.Panel',
-	xtype: 'Balance_Product',
-	id: 'Balance_Product',
+	xtype: 'Balance_Sku',
+	id: 'Balance_Sku',
 	columnLines: true,
 	rowLines: true,
 	border: true,
@@ -9,18 +9,12 @@ Ext.define('GSmartApp.view.balance.Balance_Product', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
+	selModel: {
+        selType: 'checkboxmodel',
+    },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false,
-        // getRowClass: function(record, index) {
-        //     var c = record.get('status');
-        //     if (c == -1) {
-        //         return 'epc-error';
-        //     }
-        //     else {
-        //         return 'epc-ok';
-        //     }
-        // }                     
     },
 	bind:{
 		store: '{BalanceProductStore}'
@@ -47,14 +41,14 @@ Ext.define('GSmartApp.view.balance.Balance_Product', {
 			width: 60
 		},
 	],
-	fbar: [
-        '->',
-        {
-            minWidth: 80,
-            text: 'Tính cân đối',
-            iconCls: 'x-fa fa-calculator',
-            handler: 'onCalBalance'
-        }
-    ],     
+	// fbar: [
+    //     '->',
+    //     {
+    //         minWidth: 80,
+    //         text: 'Tính cân đối',
+    //         iconCls: 'x-fa fa-calculator',
+    //         handler: 'onCalBalance'
+    //     }
+    // ],     
 });
 
