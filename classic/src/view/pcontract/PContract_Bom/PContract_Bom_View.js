@@ -10,12 +10,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         ftype: 'grouping',
         groupHeaderTpl: '{name}'
     }],
+    viewConfig: {
+        stripeRows: false,
+        columnLines: true,
+        rowLines: true
+    },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
     columns: [{
-        text: 'STT',
-        width: 45,
-        xtype: 'rownumberer',
-        align: 'center'
-    }, {
         xtype: 'actioncolumn',
         width: 30,
         menuDisabled: true,
@@ -37,25 +45,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         dataIndex: 'materialName',
         width: 150
     }, {
-        text: 'Màu NPL',
-        dataIndex: 'tenMauNPL',
-        width: 120
-    }, {
-        text: 'Cỡ khổ',
-        dataIndex: 'coKho',
-        width: 80
-    }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
-        flex: 1,
+        width: 200,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    }, {
-        text: 'Màu SP',
-        dataIndex: 'color_name',
-        width: 150
     }, {
         text: 'ĐVT',
         dataIndex: 'unitid_link',
@@ -88,6 +84,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         renderer: function (value, metaData, record) {
             return value + " %";
         }
+    }, {
+        text: 'Màu SP',
+        dataIndex: 'color_name',
+        width: 150
     }],
     dockedItems: [{
         dock: 'top',
@@ -119,6 +119,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 editable: false,
                 valueField: 'productid_link',
                 displayField: 'productBuyerCode'
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Tải file mẫu (Định mức)',
+                margin: 3,
+                // text: 'Mẫu file PO',
+                iconCls: 'x-fa fa-download',
+                itemId: 'btnDownTempBom',
+                bind: {
+                    hidden: '{!allowUploadBom}'
+                }
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Upload định mức',
+                // margin: 3,
+                iconCls: 'x-fa fa-upload',
+                itemId: 'btn_UploadBom',
+                bind: {
+                    hidden: '{!allowUploadBom}'
+                }
             }
         ]
     }]

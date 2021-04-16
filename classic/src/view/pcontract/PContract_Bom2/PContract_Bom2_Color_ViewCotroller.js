@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                 grid.headerCt.remove(i);
                 i--;
             }
-        }      
+        }
         var listtitle = [];
         var listid = [];
 
@@ -38,9 +38,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                             listtitle.push(data.coSanPham);
                         }
                     }
-            
+
                     for (var i = 0; i < listtitle.length; i++) {
-            
+
                         var column = Ext.create('Ext.grid.column.Number', {
                             text: listtitle[i],
                             xtype: 'numbercolumn',
@@ -57,11 +57,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                                 if (value == 0) return "";
                                 return Ext.util.Format.number(value, '0.0000')
                             }
-                        });   
+                        });
                         grid.headerCt.insert(length, column);
                         length++;
                     }
-            
+
                     var storeBOM = grid.getStore();
 
                     var model = storeBOM.getModel();
@@ -71,12 +71,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                             model.removeFields(fields[i].name);
                         }
                     }
-            
+
                     var fieldnew = [];
                     for (var i = 0; i < listid.length; i++) {
                         fieldnew.push({ name: listid[i], type: 'number' });
                     }
-            
+
                     model.addFields(fieldnew);
                 }
             })
@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
     onEdit: function (editor, context, e) {
         var viewmodel = this.getViewModel();
 
-        if(context.value == context.originalValue){
+        if (context.value == context.originalValue) {
             var store = viewmodel.getStore('PContractBom2ColorStore');
             store.rejectChanges();
             return;
@@ -99,9 +99,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
             me.updateColor(context.record);
         }
         else if (context.field == "unitid_link" || context.field == "lost_ratio") {
-           me.updateMaterial(context);
+            me.updateMaterial(context);
         }
-        else{ 
+        else {
             me.updateSKU(context);
         }
     },
@@ -163,7 +163,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
             }
         }
     },
-    renderUnit: function(value, metaData, record, rowIdx, colIdx, store) {
+    renderUnit: function (value, metaData, record, rowIdx, colIdx, store) {
         var me = this;
         var storeUnit = me.getViewModel().getStore('UnitStore');
         if (value != null) {
@@ -269,7 +269,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
             })
     },
     updateSKU: function (record) {
-        var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var params = new Object();
@@ -303,7 +302,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                 }
             })
     },
-    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
-        return common.Check_ActionColum_Permission(item.itemId); 
-    }    
+    checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) {
+        return common.Check_ActionColum_Permission(item.itemId);
+    }
 })

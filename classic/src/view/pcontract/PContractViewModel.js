@@ -182,6 +182,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         disabledTab: function (get) {
             if (get('PContract.id') == null || get('PContract.id') == 0) return true;
             return false;
+        },
+        allowUploadBom: function (get) {
+            if (get('IdProduct') > 0) return true;
+            return false;
         }
     }
 })
