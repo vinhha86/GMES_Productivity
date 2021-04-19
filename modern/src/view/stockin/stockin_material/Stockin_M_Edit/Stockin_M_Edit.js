@@ -69,13 +69,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     bind: {
                                         value: '{stockin.invoice_number}'
                                     }
-                                // },{
-                                //     xtype:'button',
-                                //     // text: 'Xác nhận xuất',
-                                //     margin: 2,
-                                //     itemId:'btnInvoice_Search',
-                                //     ui: 'action',
-                                //     iconCls: 'x-fa fa-search',
+                                },{
+                                    xtype: 'textfield',
+                                    label: 'Đ/vị tính:',
+                                    labelWidth: 85,
+                                    flex: 1,
+                                    textAlign: 'left',
+                                    editable: false,
+                                    readOnly: true,
+                                    clearable: false,
+                                    cls: 'notEditable',
+                                    bind: {
+                                        value: '{stockin.unitName}'
+                                    }
                                 }]
                             },
                     ]
@@ -95,27 +101,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
             flex: 1,
             items: 
             [
+                // {
+                //     title: 'Danh sách SP',
+                //     layout: 'hbox',
+                //     flex: 1,
+                //     items:[
+                //         {
+                //             layout: 'vbox',
+                //             flex: 1,
+                //             items:[
+                //                 {
+                //                     margin: 1,
+                //                     flex: 1,
+                //                     xtype: 'Stockin_M_Edit_Product',
+                //                     // id: 'handover_cut_toline_detail',
+                //                 },
+                //             ]
+                //         },
+                //     ]
+                // },
                 {
-                    title: 'Danh sách SP',
-                    layout: 'hbox',
-                    flex: 1,
-                    items:[
-                        {
-                            layout: 'vbox',
-                            flex: 1,
-                            items:[
-                                {
-                                    margin: 1,
-                                    flex: 1,
-                                    xtype: 'Stockin_M_Edit_Product',
-                                    // id: 'handover_cut_toline_detail',
-                                },
-                            ]
-                        },
-                    ]
-                },
-                {
-                    title: 'Danh sách vải',
+                    title: 'DS vải',
                     layout: 'hbox',
                     flex: 1,
                     items:[
@@ -126,20 +132,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                 {
                                     xtype: 'textfield',
                                     itemId: 'maNPLFilter',
-                                    label: 'Mã hàng:',
-                                    labelWidth: 85,
-                                    margin: 1,
+                                    // label: 'Mã hàng:',
+                                    // labelWidth: 85,
+                                    margin: '5 5 1 5',
                                     // padding: 6,
                                     // flex: 1,
                                     // width: '100%',
                                     // minWidth: 80,
                                     // maxWidth: 200,
                                     textAlign: 'left',
-                                    // placeholder: 'Số cây',
+                                    placeholder: 'Tìm kiếm nhanh ...',
                                     // editable: false,
                                     // readOnly: true,
                                     clearable: false,
-                                    // cls: 'notEditable',
+                                    cls: 'searchField',
                                     // bind: {
                                     //     value: '{maNPLFilter}'
                                     // },
@@ -256,6 +262,138 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                         //         }
                         //     },
                         // },
+                    ]
+                },
+                {
+                    title: 'Kiểm lot',
+                    layout: 'hbox',
+                    flex: 1,
+                    items:[
+                        {
+                            layout: 'vbox',
+                            flex: 1,
+                            items:[
+                                {
+                                    xtype: 'textfield',
+                                    itemId: 'maLotFilter',
+                                    // label: 'Mã hàng:',
+                                    // labelWidth: 85,
+                                    margin: '5 5 1 5',
+                                    // padding: 6,
+                                    // flex: 1,
+                                    // width: '100%',
+                                    // minWidth: 80,
+                                    // maxWidth: 200,
+                                    textAlign: 'left',
+                                    placeholder: 'Tìm kiếm nhanh ...',
+                                    // editable: false,
+                                    // readOnly: true,
+                                    clearable: false,
+                                    cls: 'searchField',
+                                    // bind: {
+                                    //     value: '{maNPLFilter}'
+                                    // },
+                                    listeners: {
+                                        keyup: 'onmaLotFilterKeyup',
+                                        buffer: 500
+                                    }
+                                },
+                                {
+                                    margin: 1,
+                                    flex: 1,
+                                    xtype: 'Stockin_M_Edit_Lot',
+                                    // id: 'handover_cut_toline_detail',
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    title: 'Kiểm cây',
+                    layout: 'hbox',
+                    flex: 1,
+                    items:[
+                        {
+                            layout: 'vbox',
+                            flex: 1,
+                            items:[
+                                {
+                                    xtype: 'textfield',
+                                    // itemId: 'maNPLFilter',
+                                    // label: 'Mã hàng:',
+                                    // labelWidth: 85,
+                                    margin: '5 5 1 5',
+                                    // padding: 6,
+                                    // flex: 1,
+                                    // width: '100%',
+                                    // minWidth: 80,
+                                    // maxWidth: 200,
+                                    textAlign: 'left',
+                                    placeholder: 'Tìm kiếm nhanh ...',
+                                    // editable: false,
+                                    // readOnly: true,
+                                    clearable: false,
+                                    cls: 'searchField',
+                                    // bind: {
+                                    //     value: '{maNPLFilter}'
+                                    // },
+                                    listeners: {
+                                        // keyup: 'onmaNPLFilterKeyup',
+                                        // buffer: 500
+                                    }
+                                },
+                                {
+                                    margin: 1,
+                                    flex: 1,
+                                    xtype: 'Stockin_M_Edit_Product',
+                                    // id: 'handover_cut_toline_detail',
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    title: 'Kiểm 10%',
+                    layout: 'hbox',
+                    flex: 1,
+                    items:[
+                        {
+                            layout: 'vbox',
+                            flex: 1,
+                            items:[
+                                {
+                                    xtype: 'textfield',
+                                    // itemId: 'maNPLFilter',
+                                    // label: 'Mã hàng:',
+                                    // labelWidth: 85,
+                                    margin: '5 5 1 5',
+                                    // padding: 6,
+                                    // flex: 1,
+                                    // width: '100%',
+                                    // minWidth: 80,
+                                    // maxWidth: 200,
+                                    textAlign: 'left',
+                                    placeholder: 'Tìm kiếm nhanh ...',
+                                    // editable: false,
+                                    // readOnly: true,
+                                    clearable: false,
+                                    cls: 'searchField',
+                                    // bind: {
+                                    //     value: '{maNPLFilter}'
+                                    // },
+                                    listeners: {
+                                        // keyup: 'onmaNPLFilterKeyup',
+                                        // buffer: 500
+                                    }
+                                },
+                                {
+                                    margin: 1,
+                                    flex: 1,
+                                    xtype: 'Stockin_M_Edit_Product',
+                                    // id: 'handover_cut_toline_detail',
+                                },
+                            ]
+                        },
                     ]
                 },
             ]

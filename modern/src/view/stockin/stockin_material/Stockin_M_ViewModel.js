@@ -88,6 +88,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		lotNumberTxt: '',
 		cayNumberTxt: '',
 		yNumberTxt: '',
+
+		// Stockin_M_Edit_Lot
 	},
 	formulas: {
         isEdit: function (get) {

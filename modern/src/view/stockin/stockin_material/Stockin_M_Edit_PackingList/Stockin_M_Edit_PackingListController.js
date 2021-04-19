@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         '#Stockin_M_Edit_PackingList_D':{
             itemtap: 'onItemTap'
         },
-        '#Stockin_M_Edit_Lot': {
+        '#Stockin_M_Edit_PackingList_Lot': {
             childtap: 'onLotTap'
         }
     },
@@ -599,7 +599,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
         var stockin = viewModel.get('stockin');
         var stockinD = viewModel.get('stockinD');
         
-        console.log(location);
+        // console.log(location);
 
         // set filter
         var pklview = me.down('#Stockin_M_Edit_PackingList_D');
@@ -622,60 +622,60 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
                 });
             }
 
-        if(location.columnIndex == 3){ // sl cay kiem, hien cua so de nhap sua
-            var dialog = Ext.create({
-                xtype: 'dialog',
-                itemId: 'dialog',
-                // title: 'Số lượng',
-                header: false,
-                closable: true,
-                closeAction: 'destroy',
-                maximizable: false,
-                maskTapHandler: function(){
-                    if(dialog){
-                        dialog.close();
-                    }
-                },
-                bodyPadding: '10 20 10 20',
-                maxWidth: 300,
-                layout: {
-                    type: 'fit', // fit screen for window
-                    padding: 5
-                },
-                items: [{
-                    border: false,
-                    xtype: 'Stockin_M_Edit_LotAmount',
-                    viewModel: {
-                        data: {
-                            value: 0,
-                            label: 'SL cây kiểm'
-                        }
-                    }
-                }],
-                listeners: {
+        // if(location.columnIndex == 3){ // sl cay kiem, hien cua so de nhap sua
+        //     var dialog = Ext.create({
+        //         xtype: 'dialog',
+        //         itemId: 'dialog',
+        //         // title: 'Số lượng',
+        //         header: false,
+        //         closable: true,
+        //         closeAction: 'destroy',
+        //         maximizable: false,
+        //         maskTapHandler: function(){
+        //             if(dialog){
+        //                 dialog.close();
+        //             }
+        //         },
+        //         bodyPadding: '10 20 10 20',
+        //         maxWidth: 300,
+        //         layout: {
+        //             type: 'fit', // fit screen for window
+        //             padding: 5
+        //         },
+        //         items: [{
+        //             border: false,
+        //             xtype: 'Stockin_M_Edit_PackingList_LotAmount',
+        //             viewModel: {
+        //                 data: {
+        //                     value: 0,
+        //                     label: 'SL cây kiểm'
+        //                 }
+        //             }
+        //         }],
+        //         listeners: {
                     
-                }
-            });
-            dialog.show();
+        //         }
+        //     });
+        //     dialog.show();
 
-            dialog.down('#Stockin_M_Edit_LotAmount').getController().on('Luu', function (value) {
-                // console.log(value);
-                var stockin_lot = viewModel.get('stockin_lot');
-                location.record.set('totalpackagecheck', value)
+        //     dialog.down('#Stockin_M_Edit_PackingList_LotAmount').getController().on('Luu', function (value) {
+        //         // console.log(value);
+        //         var stockin_lot = viewModel.get('stockin_lot');
+        //         location.record.set('totalpackagecheck', value)
 
-                // console.log(stockin_lot);
-                var stockinDTotalpackagecheck = 0;
-                for(var i=0; i<stockin_lot.length; i++){
-                    stockinDTotalpackagecheck+=stockin_lot[i].totalpackagecheck;
-                }
-                viewModel.set('stockinD.totalpackagecheck', stockinDTotalpackagecheck);
+        //         // console.log(stockin_lot);
+        //         var stockinDTotalpackagecheck = 0;
+        //         for(var i=0; i<stockin_lot.length; i++){
+        //             stockinDTotalpackagecheck+=stockin_lot[i].totalpackagecheck;
+        //         }
+        //         viewModel.set('stockinD.totalpackagecheck', stockinDTotalpackagecheck);
 
-                dialog.close();
-            });
+        //         dialog.close();
+        //     });
     
-            dialog.down('#Stockin_M_Edit_LotAmount').getController().on('Thoat', function () {
-                dialog.close();
-            });
-        }
+        //     dialog.down('#Stockin_M_Edit_PackingList_LotAmount').getController().on('Thoat', function () {
+        //         dialog.close();
+        //     });
+        // }
     },
 })

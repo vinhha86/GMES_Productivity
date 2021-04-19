@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.cutplan_processing.Stockin_M_Edit_LotAmountViewModel', {
+Ext.define('GSmartApp.view.cutplan_processing.Stockin_M_Edit_PackingList_LotAmountViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.Stockin_M_Edit_LotAmountViewModel',
+    alias: 'viewmodel.Stockin_M_Edit_PackingList_LotAmountViewModel',
     requires: [
         
     ],

@@ -61,9 +61,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 			// itemtap: 'onItemTap',
             itemsingletap: 'onStockin_M_Edit_DItemTap'
 		},
-        '#Stockin_M_Edit_PackingList_D':{
-            itemtap: 'onItemPklTap'
-        }
+        // '#Stockin_M_Edit_PackingList_D':{
+        //     itemtap: 'onItemPklTap'
+        // }
     },
     onStockin_M_Edit_DItemTap: function(dataView, index, target, record, e, eOpts){
         var me = this.getView();
@@ -116,31 +116,35 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // thêm vào stockin_lot
         var newLotObj = new Object();
         newLotObj.lot_number = lotNumberTxt;
-        newLotObj.totalpakage = cayNumberTxt;
+        newLotObj.totalpackage = cayNumberTxt;
+        newLotObj.totalpackagecheck = 0;
         newLotObj.materialid_link = selectedDRecord.get('skuid_link');
         stockin_lot.push(newLotObj);
         viewModel.set('stockin.stockin_lot', stockin_lot);
 
+        //
+        me.down('#Stockin_M_Edit_Lot').getStore().insert(0, newLotObj);
+
         // thêm sl yêu cầu
         if(stockin.unitid_link == 3){
-            // var ydsorigin = Ext.util.Format.number(parseFloat(yNumberTxt), '0.00');
-            // var met_origin = Ext.util.Format.number(ydsorigin * 0.9144, '0.00');
             var ydsorigin = parseFloat(yNumberTxt);
             var met_origin = ydsorigin * 0.9144;
-            if(selectedDRecord.get('totalydsorigin') == null) selectedDRecord.set('totalydsorigin',0) ;
-            if(selectedDRecord.get('totalmet_origin') == null) selectedDRecord.set('totalmet_origin',0);
-            selectedDRecord.set('totalydsorigin', selectedDRecord.get('totalydsorigin')+ydsorigin);
-            selectedDRecord.set('totalmet_origin', selectedDRecord.get('totalmet_origin')+met_origin);
+            newLotObj.totalyds = ydsorigin;
+            newLotObj.totalmet = met_origin;
+            // if(selectedDRecord.get('totalydsorigin') == null) selectedDRecord.set('totalydsorigin',0) ;
+            // if(selectedDRecord.get('totalmet_origin') == null) selectedDRecord.set('totalmet_origin',0);
+            // selectedDRecord.set('totalydsorigin', selectedDRecord.get('totalydsorigin')+ydsorigin);
+            // selectedDRecord.set('totalmet_origin', selectedDRecord.get('totalmet_origin')+met_origin);
         }
         if(stockin.unitid_link == 1){
-            // var met_origin = Ext.util.Format.number(parseFloat(yNumberTxt), '0.00');
-            // var ydsorigin = Ext.util.Format.number(met_origin / 0.9144, '0.00');
             var met_origin = parseFloat(yNumberTxt);
             var ydsorigin = met_origin / 0.9144;
-            if(selectedDRecord.get('totalydsorigin') == null) selectedDRecord.set('totalydsorigin',0);
-            if(selectedDRecord.get('totalmet_origin') == null) selectedDRecord.set('totalmet_origin',0);
-            selectedDRecord.set('totalydsorigin', selectedDRecord.get('totalydsorigin')+ydsorigin);
-            selectedDRecord.set('totalmet_origin', selectedDRecord.get('totalmet_origin')+met_origin);
+            newLotObj.totalyds = ydsorigin;
+            newLotObj.totalmet = met_origin;
+            // if(selectedDRecord.get('totalydsorigin') == null) selectedDRecord.set('totalydsorigin',0);
+            // if(selectedDRecord.get('totalmet_origin') == null) selectedDRecord.set('totalmet_origin',0);
+            // selectedDRecord.set('totalydsorigin', selectedDRecord.get('totalydsorigin')+ydsorigin);
+            // selectedDRecord.set('totalmet_origin', selectedDRecord.get('totalmet_origin')+met_origin);
         }
 
         // set giá trị dataview
@@ -160,9 +164,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // log result
         console.log(stockin);
         console.log(selectedDRecord);
-        console.log(lotNumberTxt);
-        console.log(cayNumberTxt);
-        console.log(yNumberTxt);
+        // console.log(lotNumberTxt);
+        // console.log(cayNumberTxt);
+        // console.log(yNumberTxt);
     },
     onItemTap: function(grid, index, target, record, e, eOpts){
         var me = this.getView();
@@ -285,7 +289,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     var stockinLot = stockin.stockin_lot[j];
                     var result = '';
                     result+= stockinLot.lot_number == null ? '' : stockinLot.lot_number;
-					result+= stockinLot.totalpakage == null ? '' : ' ' +  stockinLot.totalpakage;
+					result+= stockinLot.totalpackage == null ? '' : ' ' +  stockinLot.totalpackage;
 					result+= stockinLot.space == null ? '' : ' ' + stockinLot.space;
 					
 					if(stockinLot.materialid_link == materialid_link) {
@@ -415,6 +419,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         else if (this.maNPLFilter) {
             filters.remove(this.maNPLFilter);
             this.maNPLFilter = null;
+        }
+    },
+    onmaLotFilterKeyup: function (){
+        var grid = this.getView().down('#Stockin_M_Edit_Lot'),
+            // Access the field using its "reference" property name.
+            filterField = this.getView().down('#maLotFilter'),
+            filters = grid.store.getFilters();
+
+        if (filterField.getValue()) {
+            this.maLotFilter = filters.add({
+                id: 'maLotFilter',
+                property: 'lot_number',
+                value: filterField.getValue(),
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.maLotFilter) {
+            filters.remove(this.maLotFilter);
+            this.maLotFilter = null;
         }
     },
 
@@ -901,6 +925,117 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('widthTxt', '');
         viewModel.set('sampleCheckTxt', '');
         m.getView().down('#lotnumberTxt').focus();
-    }
+    },
 
+    // Stockin_M_Edit_Lot
+    onLotCheck: function(grid, info){
+        console.log(info);
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            itemId: 'dialog',
+            title: 'Xác nhận',
+            width: 300,
+            // height: 300,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                }
+            },
+            bodyPadding: '1',
+            maxWidth: 300,
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'Stockin_M_Confirm',
+                viewModel: {
+                    data: {
+                    }
+                }
+            }],
+        });
+        dialog.show();
+
+        dialog.down('#Stockin_M_Confirm').getController().on('XacNhan', function () {
+            var record = info.record;
+            var totalpackage = record.get('totalpackage');
+            record.set('totalpackagecheck', totalpackage);
+            record.set('status', 0);
+            dialog.close();
+        });
+
+        dialog.down('#Stockin_M_Confirm').getController().on('Thoat', function () {
+            dialog.close();
+        });
+
+    },
+    onLotEdit: function(grid, info){
+        console.log(info);
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            itemId: 'dialog',
+            title: 'Xác nhận',
+            width: 300,
+            // height: 300,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                }
+            },
+            bodyPadding: '1',
+            maxWidth: 300,
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'Stockin_M_InputAmount',
+                viewModel: {
+                    data: {
+                        totalpackagecheck: info.record.get('totalpackagecheck'),
+                    }
+                }
+            }],
+        });
+        dialog.show();
+
+        dialog.down('#Stockin_M_InputAmount').getController().on('Luu', function (totalpackagecheck) {
+            var record = info.record;
+            var totalpackage = record.get('totalpackage');
+            record.set('totalpackagecheck', totalpackagecheck);
+            if(totalpackagecheck >= totalpackage){
+                record.set('status', 0);
+            }else{
+                record.set('status', -1);
+            }
+            dialog.close();
+        });
+
+        dialog.down('#Stockin_M_InputAmount').getController().on('Thoat', function () {
+            dialog.close();
+        });
+    },
 })

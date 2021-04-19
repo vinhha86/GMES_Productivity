@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.cutplan_processing.Stockin_M_Edit_LotAmountController', {
+Ext.define('GSmartApp.view.cutplan_processing.Stockin_M_Edit_PackingList_LotAmountController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_M_Edit_LotAmountController',
+    alias: 'controller.Stockin_M_Edit_PackingList_LotAmountController',
     init: function() {
         var viewModel = this.getViewModel();
         var value = viewModel.get('value');

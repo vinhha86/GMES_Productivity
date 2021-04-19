@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
                     '<div class="content1-sub1"><b>Mã:</b></div>'+
                     '<div class="content1-sub2"><b>{skucode}</b></div>' +
                     '<div class="content1-sub1">'+
-                        '<button class="button" type="button">Chi tiết</button>'+
+                        '<button class="button" type="button">C.tiết</button>'+
                     '</div>' +
                 '</div>' +
 
@@ -189,18 +189,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 //             hidden: '{isYdsColumnHidden}',
 //         },
 //     },
-//     {
-//         width: 40,
-//         hideable: false,
+    // {
+    //     width: 40,
+    //     hideable: false,
 
-//         cell: {
-//             tools: {
-//                 approve: {
-//                     iconCls: 'x-fa fa-edit',
-//                     handler: 'onPklDetail'
-//                 },
-//             }
-//         }
-//     }
+    //     cell: {
+    //         tools: {
+    //             approve: {
+    //                 iconCls: 'x-fa fa-edit',
+    //                 handler: 'onPklDetail'
+    //             },
+    //         }
+    //     }
+    // }
 //     ],
 // });

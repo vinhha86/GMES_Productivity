@@ -1,6 +1,6 @@
 #Stockin_M_Main{
     .x-input-el{
-        padding: 5px 5px;
+        // padding: 5px 5px;
         font-size: 13px;
     }
     .x-header-el{
@@ -17,5 +17,16 @@
     }
     .x-gridcell-body-el {
         padding: 12px 5px;
+    }
+
+    // search field
+    .searchField{
+        .x-input-wrap-el{
+            border-radius: 5px;
+        }
+        .x-input-el{
+            padding: 5px 5px;
+            // font-size: 13px;
+        }
     }
 }

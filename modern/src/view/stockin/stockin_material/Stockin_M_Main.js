@@ -64,8 +64,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
                         {
                             xtype: 'textfield',
                             itemId: 'invoiceFilter',
-                            label: 'Invoice:',
-                            labelWidth: 60,
+                            // label: 'Invoice:',
+                            // labelWidth: 60,
                             // margin: 1,
                             // padding: 6,
                             flex: 1,
@@ -73,11 +73,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
                             // minWidth: 80,
                             // maxWidth: 200,
                             textAlign: 'left',
-                            // placeholder: 'Số cây',
+                            placeholder: 'Tìm kiếm nhanh ...',
                             // editable: false,
                             // readOnly: true,
                             // clearable: false,
-                            // cls: 'notEditable',
+                            cls: 'searchField',
                             // bind: {
                             //     value: '{maNPLFilter}'
                             // },

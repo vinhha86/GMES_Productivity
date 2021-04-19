@@ -2,11 +2,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     extend: 'Ext.grid.Grid',
     xtype: 'Stockin_M_Edit_Lot',
     itemId: 'Stockin_M_Edit_Lot',
-    cls: 'Stockin_M_Edit_Lot',
     // viewModel: {
     //     type: 'HandoverDetailViewModel'
     // },
-    // cls: 'HandoverListModern',
+    cls: 'Stockin_M_Edit_Lot',
     // controller: 'Stockin_M_Edit_D_Controller',
     reference: 'Stockin_M_Edit_Lot',
 
@@ -15,7 +14,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     ],
     // height: '100%',
     // width: '100%',
-    // markDirty: true,
+    markDirty: false,
     columnLines: true,
     striped: false,
 
@@ -31,8 +30,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     },
 
     bind: {
-        // store:'{stockin.stockin_lot}',
-        store:'{stockin_lot}'
+        store:'{stockin.stockin_lot}'
     },
 
     columns: [{
@@ -47,28 +45,39 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         dataIndex: 'lot_number'
     },
     {
-        text: 'SL cây', 
+        text: 'SL cây/kiểm', 
         flex: 1,
-        dataIndex: 'totalpackage'
-    },
-    {
-        text: 'SL cây kiểm', 
-        flex: 1,
-        dataIndex: 'totalpackagecheck',
+        dataIndex: 'totalpackage',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
-            if (record.get('totalpackage') == record.get('totalpackagecheck')) {
+            var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
+            var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
+            var status = record.get('status') == null ? -1 : record.get('status');
+            if (status == 0) {
                 cell.setCls('cellWhite');
-            } else {
+            } else if (status == -1) {
                 cell.setCls('cellYellow');
             }
-            return value;
+            
+            return totalpackage + ' / ' + totalpackagecheck;
         },
     },
-    // {
-    //     text: 'Tổng số Y', 
-    //     flex: 1,
-    //     // dataIndex: 'productBuyercode'
-    // },
+    {
+        width: 80,
+        hideable: false,
+
+        cell: {
+            tools: {
+                approve: {
+                    iconCls: 'x-fa fa-check',
+                    handler: 'onLotCheck'
+                },
+                edit: {
+                    iconCls: 'x-fa fa-edit',
+                    handler: 'onLotEdit'
+                },
+            }
+        }
+    }
     ],
 });

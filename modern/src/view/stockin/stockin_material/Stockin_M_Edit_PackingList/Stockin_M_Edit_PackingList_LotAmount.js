@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.cutplan_processing.Stockin_M_Edit_LotAmount', {
+Ext.define('GSmartApp.view.cutplan_processing.Stockin_M_Edit_PackingList_LotAmount', {
     extend: 'Ext.form.Panel',
-    xtype: 'Stockin_M_Edit_LotAmount',
-    id:'Stockin_M_Edit_LotAmount',
-    reference: 'Stockin_M_Edit_LotAmount',
+    xtype: 'Stockin_M_Edit_PackingList_LotAmount',
+    id:'Stockin_M_Edit_PackingList_LotAmount',
+    reference: 'Stockin_M_Edit_PackingList_LotAmount',
     viewModel: {
-        type: 'Stockin_M_Edit_LotAmountViewModel'
+        type: 'Stockin_M_Edit_PackingList_LotAmountViewModel'
     },
-    controller: 'Stockin_M_Edit_LotAmountController',
+    controller: 'Stockin_M_Edit_PackingList_LotAmountController',
     // title: 'Login',
 
     // bodyPadding: 20,
