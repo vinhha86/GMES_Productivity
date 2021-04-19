@@ -78,6 +78,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
                 },
             }
         }
+    },
+    {
+        width: 40,
+        hideable: false,
+
+        cell: {
+            tools: {
+                approve: {
+                    iconCls: 'x-fa fa-plus',
+                    handler: 'onLotAddSpace'
+                },
+            }
+        }
     }
     ],
 });

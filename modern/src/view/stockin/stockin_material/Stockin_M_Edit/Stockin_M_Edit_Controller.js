@@ -61,6 +61,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 			// itemtap: 'onItemTap',
             itemsingletap: 'onStockin_M_Edit_DItemTap'
 		},
+        '#Stockin_M_Edit_Lot': {
+            childtap: 'onStockin_M_Edit_LotItemTap'
+		},
         // '#Stockin_M_Edit_PackingList_D':{
         //     itemtap: 'onItemPklTap'
         // }
@@ -303,7 +306,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
             stockInD.stockinDLot = stockinDLot;
         }
-        console.log(data);
+        // console.log(data);
         return data;
     },
     CheckValidate: function(){
@@ -747,7 +750,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     );
                     if(!isPklistExist){
                         stockin_packinglist.push(newObj);
-                        console.log(stockin_dlist);
+                        // console.log(stockin_dlist);
                     }else{
                         Ext.toast('Đã tồn tại pklist với số lot và số cây này', 3000);
                         isSaving = false;
@@ -928,8 +931,40 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     },
 
     // Stockin_M_Edit_Lot
+    onStockin_M_Edit_LotItemTap: function(grid, location, eOpts){
+        // console.log(location);
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+
+        if(location.record.get('space') == null) location.record.set('space', '');
+        var lotSpace = location.record.get('space');
+        m.setSpaceStore(lotSpace);
+    },
+    setSpaceStore: function(lotSpace){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+        var lotSpaceArr = lotSpace.split(';');
+        var lotSpaceArrStore = new Array();
+        for(var i = 0; i < lotSpaceArr.length; i++){
+            if(lotSpaceArr[i] != null && lotSpaceArr[i] != ''){
+                lotSpaceObj = new Object();
+                lotSpaceObj.space = lotSpaceArr[i];
+                lotSpaceArrStore.push(lotSpaceObj);
+            }
+        }
+        //Stockin_M_Edit_Space
+        me.down('#Stockin_M_Edit_Space').getStore().setData([]);
+        me.down('#Stockin_M_Edit_Space').getStore().insert(0, lotSpaceArrStore);
+        // console.log(res);
+    },
     onLotCheck: function(grid, info){
-        console.log(info);
+        // console.log(info);
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
@@ -982,7 +1017,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
     },
     onLotEdit: function(grid, info){
-        console.log(info);
+        // console.log(info);
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
@@ -1035,6 +1070,66 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         });
 
         dialog.down('#Stockin_M_InputAmount').getController().on('Thoat', function () {
+            dialog.close();
+        });
+    },
+    onLotAddSpace: function(grid, info){
+        // console.log(info);
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockinD = viewModel.get('stockinD');
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            itemId: 'dialog',
+            title: 'Xếp vào khoang',
+            width: 300,
+            // height: 300,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                }
+            },
+            bodyPadding: '1',
+            maxWidth: 300,
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'Stockin_M_AddSpace',
+                viewModel: {
+                    data: {
+
+                    }
+                }
+            }],
+        });
+        dialog.show();
+
+        dialog.down('#Stockin_M_AddSpace').getController().on('Luu', function (obj) {
+            var record = info.record;
+            // console.log(record);
+            // console.log(obj);
+            var lotSpace = record.get('space') == null ? '' : record.get('space'); // D1H5T2
+            if(lotSpace == ''){
+                lotSpace+= 'D' + obj.row + 'H' + obj.space + 'T' + obj.floor;
+            }else{
+                lotSpace+= ';D' + obj.row + 'H' + obj.space + 'T' + obj.floor;
+            }
+            record.set('space', lotSpace); // console.log(lotSpace);
+            m.setSpaceStore(lotSpace);
+            dialog.close();
+        });
+
+        dialog.down('#Stockin_M_AddSpace').getController().on('Thoat', function () {
             dialog.close();
         });
     },
