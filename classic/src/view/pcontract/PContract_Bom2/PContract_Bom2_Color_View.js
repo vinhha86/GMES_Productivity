@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            return value+" %";
+            return Ext.util.Format.number(value, '0.00') + " %";
         }
     },{
         text: 'Chung',

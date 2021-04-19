@@ -543,7 +543,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
             stockinD_data.yds = parseFloat(stockinD_data.yds);
         }
 
-        if(invoice.unitid_link == 1){
+        if(stockin.unitid_link == 1){
             if(context.field == 'met' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")){
                 // console.log('yds');
                 stockinD_data.yds = Ext.Number.roundToPrecision(stockinD_data.met / 0.9144,2);
@@ -553,7 +553,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                 // console.log('unitprice');
                 stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met*stockinD_data.unitprice,2);
             }
-        }else if(invoice.unitid_link == 3){
+        }else if(stockin.unitid_link == 3){
             if(context.field == 'yds' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")){
                 // console.log('yds');
                 stockinD_data.met = Ext.Number.roundToPrecision(stockinD_data.yds * 0.9144,2);

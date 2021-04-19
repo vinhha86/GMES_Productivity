@@ -116,11 +116,21 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
-			text: 'Đã xuất', 
+			text: 'Xuất kho', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockout',
+			width: 80
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'Tồn', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'in_stock',
 			width: 80
 		},
 	],
