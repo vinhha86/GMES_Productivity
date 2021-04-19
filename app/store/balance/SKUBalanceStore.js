@@ -20,7 +20,13 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 		{name: 'mat_sku_invoice_date',   type: 'date'},
 		{name: 'mat_sku_stockin',   type: 'number'},
 		{name: 'mat_sku_stockout',   type: 'number'},
-		{name: 'mat_sku_dif',   type: 'number'}
+		{name: 'mat_sku_dif',   type: 'number'},
+		{
+            name: 'in_stock',
+            calculate: function(data) {
+                return (data.mat_sku_stockin - data.mat_sku_stockout);
+            }
+        },
 	],
 	groupField: 'mat_sku_product_typename',
 	sorters: [{
