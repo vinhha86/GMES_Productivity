@@ -14,5 +14,8 @@ Ext.application({
     //
     requires: [
         'GSmartApp.*'
-    ]
+    ],
+    viewport: {
+        autoMaximize: Ext.os.is.iOS && Ext.browser.is.webview
+    },
 });

@@ -28,7 +28,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_MainController', {
         var StockinStore = viewModel.getStore('StockinStore');
         // StockinStore.loadStore(null, fromDate, toDate, null, -1, 100, 1);
         StockinStore.loadStore_Material(null, fromDate, toDate, null, -1, null, 100, 1);
-        StockinStore.getSorters().add('stockindate');
+        StockinStore.getSorters().add({
+            property: 'stockindate',
+            direction: 'DESC'
+        });
     },
     onBtnThemTap: function ( btn, e, eOpts ){
         var viewModel = this.getViewModel();

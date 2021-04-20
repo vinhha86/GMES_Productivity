@@ -219,7 +219,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             // minWidth: 80,
                                             // maxWidth: 200,
                                             textAlign: 'left',
-                                            placeholder: 'Tổng số Y',
+                                            placeholder: 'Tổng độ dài',
                                             // editable: false,
                                             // readOnly: true,
                                             clearable: false,
@@ -231,7 +231,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                         },
                                         {
                                             xtype:'button',
-                                            iconCls: 'x-fa fa-check',
+                                            iconCls: 'x-fa fa-plus',
                                             itemId:'btnAddLot',
                                             ui: 'action',
                                             margin: 1,
@@ -300,7 +300,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                 },
                                 {
                                     margin: 1,
-                                    flex: 1,
+                                    flex: 2,
                                     xtype: 'Stockin_M_Edit_Lot',
                                 },
                                 {
@@ -308,6 +308,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     flex: 1,
                                     xtype: 'Stockin_M_Edit_Space',
                                 },
+                                {
+                                    layout: 'hbox',
+                                    defaults: {
+                                        margin: 1
+                                    },
+                                    items: [
+                                        {
+                                            flex: 1
+                                        },
+                                        {
+                                            xtype:'button',
+                                            iconCls: 'x-fa fa-plus',
+                                            itemId:'btnLotAddSpace',
+                                            ui: 'action',
+                                        }
+                                    ]
+                                }
                             ]
                         },
                     ]
@@ -349,7 +366,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                 {
                                     margin: 1,
                                     flex: 1,
-                                    xtype: 'Stockin_M_Edit_Product',
+                                    // xtype: 'Stockin_M_Edit_Product',
                                 },
                             ]
                         },
@@ -392,7 +409,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                 {
                                     margin: 1,
                                     flex: 1,
-                                    xtype: 'Stockin_M_Edit_Product',
+                                    // xtype: 'Stockin_M_Edit_Product',
                                 },
                             ]
                         },

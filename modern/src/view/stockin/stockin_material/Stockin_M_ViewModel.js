@@ -90,6 +90,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		yNumberTxt: '',
 
 		// Stockin_M_Edit_Lot
+		selectedLotRecord: null,
 		spaces: [],
 	},
 	formulas: {
