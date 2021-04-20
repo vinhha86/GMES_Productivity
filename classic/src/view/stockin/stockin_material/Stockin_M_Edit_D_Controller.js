@@ -515,7 +515,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var invoice = viewModel.get('stockin');
+        var stockin = viewModel.get('stockin');
         var store = me.getStore();
         var stockinD_data = context.record.data;
 
