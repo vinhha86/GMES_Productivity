@@ -7,10 +7,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
         type: 'Stockin_M_ViewModel'
     },
     layout: 'border',
-    items: [{
-        region: 'center',
-        xtype: 'Stockin_M_List'
-    }],
+    items: [
+        {
+            region: 'center',
+            border: true,
+            margin: 1,
+            xtype: 'Stockin_M_List'
+        },
+        {
+            region: 'south',
+            margin: 1,
+            height: '50%',
+            xtype: 'Stockin_M_Main_D'
+        },
+    ],
     // listeners: {
     //     activate: 'onActivate'
     // }        

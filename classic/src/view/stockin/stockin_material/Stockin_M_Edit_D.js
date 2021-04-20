@@ -173,7 +173,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			},
 			editor:{
 				xtype:'textfield',
-				maskRe: /[0-9]/,
+				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
 		},{
@@ -190,7 +190,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			},
 			editor:{
 				xtype:'textfield',
-				maskRe: /[0-9]/,
+				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
 		},
@@ -208,7 +208,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			},
 			editor:{
 				xtype:'textfield',
-				maskRe: /[0-9]/,
+				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
 		},
@@ -226,7 +226,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			},
 			editor:{
 				xtype:'textfield',
-				maskRe: /[0-9]/,
+				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
 		},
@@ -241,7 +241,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			width: 60,
 			editor:{
 				xtype:'textfield',
-				maskRe: /[0-9]/,
+				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
 		},		
