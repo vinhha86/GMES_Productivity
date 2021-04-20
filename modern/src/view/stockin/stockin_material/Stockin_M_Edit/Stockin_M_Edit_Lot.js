@@ -21,10 +21,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
 
                 '<div class="content1">' +
                     '<div class="content1-sub1">SL cây/kiểm:</div>'+
-                    '<div class="content1-sub2" style={[this.getWarning(values)]}>{totalpackage}/{totalpackagecheck}</div>' +
-                    '<div class="content1-sub3" style={[this.getDisplayM(values)]}>M/kiểm: {totalmet}/{totalmetcheck}</div>'+
+                    '<div class="content1-sub2" style={[this.getWarningT(values)]}>{totalpackage}/{totalpackagecheck}</div>' +
+                    '<div class="content1-sub3" style={[this.getDisplayM(values)]}>M/kiểm: ' +
+                        '<span style={[this.getWarningM(values)]}>{totalmet}/{totalmetcheck}</span>'+
+                    '</div>' +
                     // '<div class="content1-sub2" style={[this.getDisplayM(values)]}>{totalmet}/{totalmetcheck}</div>' +
-                    '<div class="content1-sub3" style={[this.getDisplayY(values)]}>Y/kiểm: {totalyds}/{totalydscheck}</div>'+
+                    '<div class="content1-sub3" style={[this.getDisplayY(values)]}>Y/kiểm: ' +
+                        '<span style={[this.getWarningY(values)]}>{totalyds}/{totalydscheck}</span>' +
+                    '</div>' +
                     // '<div class="content1-sub2" style={[this.getDisplayY(values)]}>{totalyds}/{totalydscheck}</div>' +
                 '</div>' +
 
@@ -41,8 +45,22 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         '</tpl>'
         , 
         {
-            getWarning: function (values) {
+            getWarningT: function (values) {
                 if (values.totalpackage > values.totalpackagecheck) { // không phải met, ẩn
+                    return 'background-color:yellow;color:red;';
+                }else{
+                    return 'background-color:transparent;color:black;';
+                }
+            },
+            getWarningM: function (values) {
+                if (values.totalmet > values.totalmetcheck) { // không phải met, ẩn
+                    return 'background-color:yellow;color:red;';
+                }else{
+                    return 'background-color:transparent;color:black;';
+                }
+            },
+            getWarningY: function (values) {
+                if (values.totalyds > values.totalydscheck) { // không phải met, ẩn
                     return 'background-color:yellow;color:red;';
                 }else{
                     return 'background-color:transparent;color:black;';
