@@ -253,7 +253,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_PackingListController', {
                 var ydsorigin = 0;
                 var met_origin = 0;
                 var sample_check = 0;
-                var colorTxt
                 if(stockin.unitid_link == 3){
                     ydscheck = Ext.util.Format.number(parseFloat(yTxt), '0.00');
                     met_check = Ext.util.Format.number(ydscheck * 0.9144, '0.00');

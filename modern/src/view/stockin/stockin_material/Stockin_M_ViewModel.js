@@ -92,6 +92,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		// Stockin_M_Edit_Lot
 		selectedLotRecord: null,
 		spaces: [],
+		row: null,
+		space: null,
+		floor: null,
+
+		// Stockin_M_Edit_Pkl
+		storePackinglistArr: [],
+
+		// textfield
+		lotnumberTxt: '',
+		packageidTxt: '',
+		yTxt: '',
+		mTxt: '',
+        mOriginTxt: '',
+        yOriginTxt: '',
+        sampleCheckTxt: '',
+        colorTxt: null,
+        widthTxt: '',
 	},
 	formulas: {
         isEdit: function (get) {
@@ -132,26 +149,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
             return true;
         },
 
-		isMetColumnHidden: function (get) {
-            var unitid_link = get('stockin.unitid_link');
-            if(unitid_link == null){
-                return true;
-            }else 
-            if(unitid_link == 1){
-                return false;
-            }
-            return true;
-        },
-        isYdsColumnHidden: function (get) {
-            var unitid_link = get('stockin.unitid_link');
-            if(unitid_link == null){
-                return true;
-            }else 
-            if(unitid_link == 3){
-                return false;
-            }
-            return true;
-        },
 		isStockin_M_Edit_PHidden: function (get) {
 			var stockinD = get('stockinD');
 			if(stockinD != null){

@@ -310,21 +310,82 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                 },
                                 {
                                     layout: 'hbox',
-                                    defaults: {
-                                        margin: 1
-                                    },
-                                    items: [
+                                    // flex: 1,
+                                    items:[
                                         {
-                                            flex: 1
+                                            xtype: 'numberfield',
+                                            // itemId: 'maNPLFilter',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: 1,
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Dãy',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            // cls: 'notEditable',
+                                            bind: {
+                                                value:'{row}'
+                                            },
+                                        },
+                                        {
+                                            xtype: 'numberfield',
+                                            // itemId: 'maNPLFilter',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: 1,
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Hàng',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            // cls: 'notEditable',
+                                            bind: {
+                                                value:'{space}'
+                                            },
+                                            // stepValue: 0.1,
+                                        },
+                                        {
+                                            xtype: 'numberfield',
+                                            // itemId: 'maNPLFilter',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: 1,
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Tầng',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            // cls: 'notEditable',
+                                            bind: {
+                                                value:'{floor}'
+                                            },
+                                            // stepValue: 0.1,
                                         },
                                         {
                                             xtype:'button',
                                             iconCls: 'x-fa fa-plus',
                                             itemId:'btnLotAddSpace',
                                             ui: 'action',
-                                        }
+                                            margin: 1,
+                                        },    
                                     ]
-                                }
+                                },
                             ]
                         },
                     ]
@@ -340,7 +401,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                             items:[
                                 {
                                     xtype: 'textfield',
-                                    // itemId: 'maNPLFilter',
+                                    itemId: 'maPklFilter',
                                     // label: 'Mã hàng:',
                                     // labelWidth: 85,
                                     margin: '5 5 1 5',
@@ -350,7 +411,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     // minWidth: 80,
                                     // maxWidth: 200,
                                     textAlign: 'left',
-                                    placeholder: 'Tìm kiếm nhanh ... (chưa có)',
+                                    placeholder: 'Tìm kiếm nhanh ... (theo số lot)',
                                     // editable: false,
                                     // readOnly: true,
                                     clearable: false,
@@ -359,15 +420,295 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     //     value: '{maNPLFilter}'
                                     // },
                                     listeners: {
-                                        // keyup: 'onmaNPLFilterKeyup',
-                                        // buffer: 500
+                                        keyup: 'onmaPklFilterKeyup',
+                                        buffer: 500
                                     }
                                 },
                                 {
                                     margin: 1,
                                     flex: 1,
-                                    // xtype: 'Stockin_M_Edit_Product',
+                                    xtype: 'Stockin_M_Edit_Pkl',
                                 },
+                                {
+                                    xtype: 'container',
+                                    // flex:1,
+                                    // height: 100,
+                                    // docked: 'bottom',
+                                    layout: 'vbox',
+                                    items:[
+                                        {
+                                            layout: 'hbox',
+                                            border: false,
+                                            width: '100%',
+                                            items:[
+                                                {
+                                                    xtype: 'textfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'lotnumberTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số LOT',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{lotnumberTxt}'
+                                                    },
+                                                    // listeners: {
+                                                    //     keyup: 'onlotnumberTxtKeyup',
+                                                    //     buffer: 1000
+                                                    // }
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'packageidTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số cây',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{packageidTxt}'
+                                                    },
+                                                    // listeners: {
+                                                    //     keyup: 'onpackageidTxtKeyup',
+                                                    //     buffer: 1000
+                                                    // },
+                                                    stepValue: 0.1,
+                                                },
+                                
+                                                {
+                                                    xtype: 'combobox',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'colorTxt',
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    editable: false,
+                                                    readOnly: true,
+                                                    displayField: 'value',
+                                                    valueField: 'id',
+                                                    bind:{
+                                                        store:'{attributeValueStore}',
+                                                        value: '{colorTxt}'
+                                                    },
+                                                },
+                                            ]
+                                        },
+                                        {
+                                            layout: 'hbox',
+                                            border: false,
+                                            width: '100%',
+                                            items:[
+                                                {
+                                                    xtype: 'numberfield',
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    margin: 1,
+                                                    itemId: 'widthTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Khổ',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{widthTxt}'
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'mTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số M',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{mTxt}',
+                                                        // cls: '{yTxtCls}',
+                                                        hidden: '{isMetColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'yTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số Y',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{yTxt}',
+                                                        // cls: '{yTxtCls}',
+                                                        hidden: '{isYdsColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                // {
+                                                //     // xtype: 'numberfield',
+                                                //     margin: 1,
+                                                //     padding: 1,
+                                                //     border: true,
+                                                //     // cls: 'my-textfield',
+                                                //     // itemId: 'yTxt',
+                                                //     // label: 'Màu:',
+                                                //     // labelWidth: 85,
+                                                //     flex: 1,
+                                                //     minWidth: 80,
+                                                //     maxWidth: 130,
+                                                //     // textAlign: 'left',
+                                                //     // placeholder: 'Số Y',
+                                                //     // editable: false,
+                                                //     // readOnly: true,
+                                                //     // clearable: false,
+                                                //     // cls: 'notEditable',
+                                                //     // bind: {
+                                                        
+                                                //     // },
+                                                //     // hidden: true,
+                                                // },
+                                                {
+                                                    xtype:'button',
+                                                    text: 'Nhập lại',
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    margin: 1,
+                                                    iconCls: 'x-fa fa-file',
+                                                    itemId:'btnResetForm',
+                                                    ui: 'action',
+                                                },   
+                                            ]
+                                        },
+                                        {
+                                            layout: 'hbox',
+                                            border: false,
+                                            width: '100%',
+                                            items:[
+                                                {
+                                                    xtype: 'numberfield',
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    margin: 1,
+                                                    itemId: 'mOriginTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Dài phiếu (M)',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{mOriginTxt}',
+                                                        hidden: '{isMetColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    margin: 1,
+                                                    itemId: 'yOriginTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Dài phiếu (Y)',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{yOriginTxt}',
+                                                        hidden: '{isYdsColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'sampleCheckTxt',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Cắt mẫu',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{sampleCheckTxt}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype:'button',
+                                                    text: 'Xác nhận',
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    margin: 1,
+                                                    iconCls: 'x-fa fa-check',
+                                                    itemId:'btnCheck',
+                                                    ui: 'action',
+                                                },   
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                     ]

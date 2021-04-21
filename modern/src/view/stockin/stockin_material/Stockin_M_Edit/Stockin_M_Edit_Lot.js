@@ -1,96 +1,36 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
-    extend: 'Ext.dataview.List',
+    extend: 'Ext.grid.Grid',
     xtype: 'Stockin_M_Edit_Lot',
     itemId: 'Stockin_M_Edit_Lot',
-    reference: 'Stockin_M_Edit_Lot',
+    // viewModel: {
+    //     type: 'HandoverDetailViewModel'
+    // },
     cls: 'Stockin_M_Edit_Lot',
+    // controller: 'Stockin_M_Edit_D_Controller',
+    reference: 'Stockin_M_Edit_Lot',
 
     requires: [
-        'Ext.dataview.listswiper.ListSwiper'
+        'Ext.grid.plugin.CellEditing'
     ],
+    // height: '100%',
+    // width: '100%',
+    markDirty: false,
+    columnLines: true,
+    striped: false,
 
-    // itemTpl: '{lot_number} {totalpackage}/{totalpackagecheck}',
-
-    itemTpl: new Ext.XTemplate(
-        '<tpl for=".">',
-            '<div class="content">' +
-                '<div class="content1">' +
-                    '<div class="content1-sub1">Số lot:</div>'+
-                    '<div class="content1-sub2"><b>{lot_number}</b></div>' +
-                '</div>' +
-
-                '<div class="content1">' +
-                    '<div class="content1-sub1">SL cây/kiểm:</div>'+
-                    '<div class="content1-sub2" style={[this.getWarningT(values)]}>{totalpackage}/{totalpackagecheck}</div>' +
-                    '<div class="content1-sub3" style={[this.getDisplayM(values)]}>M/kiểm: ' +
-                        '<span style={[this.getWarningM(values)]}>{totalmet}/{totalmetcheck}</span>'+
-                    '</div>' +
-                    // '<div class="content1-sub2" style={[this.getDisplayM(values)]}>{totalmet}/{totalmetcheck}</div>' +
-                    '<div class="content1-sub3" style={[this.getDisplayY(values)]}>Y/kiểm: ' +
-                        '<span style={[this.getWarningY(values)]}>{totalyds}/{totalydscheck}</span>' +
-                    '</div>' +
-                    // '<div class="content1-sub2" style={[this.getDisplayY(values)]}>{totalyds}/{totalydscheck}</div>' +
-                '</div>' +
-
-                // '<div class="content1" style={[this.getDisplayM(values)]}>' +
-                //     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>SL M/kiểm:</div>'+
-                //     '<div class="content1-sub2" style={[this.getDisplayM(values)]}>{totalmet}/{totalmetcheck}</div>' +
-                // '</div>' +
-
-                // '<div class="content1" style={[this.getDisplayY(values)]}>' +
-                //     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>SL Y/kiểm:</div>'+
-                //     '<div class="content1-sub2" style={[this.getDisplayY(values)]}>{totalyds}/{totalydscheck}</div>' +
-                // '</div>' +
-            '</div>',
-        '</tpl>'
-        , 
-        {
-            getWarningT: function (values) {
-                if (values.totalpackage > values.totalpackagecheck) { // không phải met, ẩn
-                    return 'background-color:yellow;color:red;';
-                }else{
-                    return 'background-color:transparent;color:black;';
-                }
-            },
-            getWarningM: function (values) {
-                if (values.totalmet > values.totalmetcheck) { // không phải met, ẩn
-                    return 'background-color:yellow;color:red;';
-                }else{
-                    return 'background-color:transparent;color:black;';
-                }
-            },
-            getWarningY: function (values) {
-                if (values.totalyds > values.totalydscheck) { // không phải met, ẩn
-                    return 'background-color:yellow;color:red;';
-                }else{
-                    return 'background-color:transparent;color:black;';
-                }
-            },
-            getDisplayM: function (values) {
-                var viewModel = Ext.getCmp('Stockin_M_Edit').getViewModel();
-                var stockin = viewModel.get('stockin');
-                var unitid_link = stockin.unitid_link;
-                if (unitid_link != 1) { // không phải met, ẩn
-                    return 'display:none;padding-bottom:0px;';
-                }
-            },
-            getDisplayY: function (values) {
-                var viewModel = Ext.getCmp('Stockin_M_Edit').getViewModel();
-                var stockin = viewModel.get('stockin');
-                var unitid_link = stockin.unitid_link;
-                if (unitid_link != 3) { // không phải yds, ẩn
-                    return 'display:none;padding-bottom:0px;';
-                }
-            },
+    plugins: {
+        gridcellediting: {
+            selectOnEdit: true
         }
-    ),
+    },
+
+    selectable: {
+        rows: false,
+        cells: true
+    },
 
     bind: {
         store:'{stockin.stockin_lot}'
-    },
-    grouped: false,
-    itemConfig: {
-        // height: 50
     },
 
     plugins: {
@@ -109,102 +49,75 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
                 commit: 'onLotCheck'
             }]
         }
-    }
-});
+    },
 
-// Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
-//     extend: 'Ext.grid.Grid',
-//     xtype: 'Stockin_M_Edit_Lot',
-//     itemId: 'Stockin_M_Edit_Lot',
-//     // viewModel: {
-//     //     type: 'HandoverDetailViewModel'
-//     // },
-//     cls: 'Stockin_M_Edit_Lot',
-//     // controller: 'Stockin_M_Edit_D_Controller',
-//     reference: 'Stockin_M_Edit_Lot',
-
-//     requires: [
-//         'Ext.grid.plugin.CellEditing'
-//     ],
-//     // height: '100%',
-//     // width: '100%',
-//     markDirty: false,
-//     columnLines: true,
-//     striped: false,
-
-//     plugins: {
-//         gridcellediting: {
-//             selectOnEdit: true
-//         }
-//     },
-
-//     selectable: {
-//         rows: false,
-//         cells: true
-//     },
-
-//     bind: {
-//         store:'{stockin.stockin_lot}'
-//     },
-
-//     columns: [{
-//         text: '',
-//         width: 30,
-//         xtype: 'rownumberer',
-//         align: 'center'
-//     },
-//     {
-//         text: 'Số lot', 
-//         flex: 1,
-//         dataIndex: 'lot_number'
-//     },
-//     {
-//         text: 'SL cây/kiểm', 
-//         flex: 1,
-//         dataIndex: 'totalpackage',
-//         renderer: function(value, record, dataIndex, cell, column) {
-//             if(value == null) value = 0;
-//             var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
-//             var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
-//             var status = record.get('status') == null ? -1 : record.get('status');
-//             if (status == 0) {
-//                 cell.setCls('cellWhite');
-//             } else if (status == -1) {
-//                 cell.setCls('cellYellow');
-//             }
+    columns: [{
+        text: '',
+        width: 30,
+        xtype: 'rownumberer',
+        align: 'center'
+    },
+    {
+        text: 'Số lot', 
+        flex: 1,
+        dataIndex: 'lot_number'
+    },
+    {
+        text: 'SL cây/kiểm', 
+        flex: 1,
+        dataIndex: 'totalpackage',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
+            var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
+            if (totalpackage <= totalpackagecheck) {
+                cell.setCls('cellWhite');
+            } else {
+                cell.setCls('cellYellow');
+            }
             
-//             return totalpackage + ' / ' + totalpackagecheck;
-//         },
-//     },
-//     {
-//         width: 80,
-//         hideable: false,
-
-//         cell: {
-//             tools: {
-//                 approve: {
-//                     iconCls: 'x-fa fa-check',
-//                     handler: 'onLotCheck'
-//                 },
-//                 edit: {
-//                     iconCls: 'x-fa fa-edit',
-//                     handler: 'onLotEdit'
-//                 },
-//             }
-//         }
-//     },
-//     {
-//         width: 40,
-//         hideable: false,
-
-//         cell: {
-//             tools: {
-//                 approve: {
-//                     iconCls: 'x-fa fa-plus',
-//                     handler: 'onLotAddSpace'
-//                 },
-//             }
-//         }
-//     }
-//     ],
-// });
+            return totalpackage + ' / ' + totalpackagecheck;
+        },
+    },
+    {
+        text: 'SL M/kiểm', 
+        flex: 1,
+        dataIndex: 'totalmet',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            var totalmetcheck = record.get('totalmetcheck') == null ? 0 : record.get('totalmetcheck');
+            var totalmet = record.get('totalmet') == null ? 0 : record.get('totalmet');
+            if (totalmet <= totalmetcheck) {
+                cell.setCls('cellWhite');
+            } else {
+                cell.setCls('cellYellow');
+            }
+            
+            return totalmet + ' / ' + totalmetcheck;
+        },
+        bind: {
+            hidden: '{isMetColumnHidden}',
+        },
+    },
+    {
+        text: 'SL Y/kiểm', 
+        flex: 1,
+        dataIndex: 'totalyds',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
+            var totalyds = record.get('totalyds') == null ? 0 : record.get('totalyds');
+            if (totalyds <= totalydscheck) {
+                cell.setCls('cellWhite');
+            } else {
+                cell.setCls('cellYellow');
+            }
+            
+            return totalyds + ' / ' + totalydscheck;
+        },
+        bind: {
+            hidden: '{isYdsColumnHidden}',
+        },
+    },
+    ],
+});
