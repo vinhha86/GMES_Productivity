@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             border: false,
             title: 'Phiếu yêu cầu xuất phụ liệu cho sản xuất',
             closeAction: 'destroy',
-            height: 700,
+            height: Ext.getBody().getViewSize().height * .99,
             width: 1000,
             bodyStyle: 'background-color: transparent',
             layout: {
