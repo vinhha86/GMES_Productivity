@@ -338,10 +338,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // console.log(storePackinglistArr);
         // console.log(storePkl);
 
-        // set pklist recheck store (hiển thị tất cả pkl của các stockin D co status = -1)
+        // set pklist recheck store (hiển thị tất cả pkl của các stockin D co status = 1)
         var storePackinglistRecheckArr = new Array();
         for(var i = 0; i<storePackinglistArr.length; i++){
-            if(storePackinglistArr[i].status == -1){
+            if(storePackinglistArr[i].status == 1){
                 storePackinglistRecheckArr.push(storePackinglistArr[i]);
             }
         }
@@ -605,8 +605,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         // check textfield
         if(stockin.unitid_link == 3){
-            if(widthTxt == '' || packageidTxt == '' || yTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, Khổ hoặc độ dài', 3000);
+            if(packageidTxt == '' || yTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 3000);
                 return;
             }
             if(isNaN(yTxt)){
@@ -615,8 +615,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
         if(stockin.unitid_link == 1){
-            if(widthTxt == '' || packageidTxt == '' || mTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, Khổ hoặc độ dài', 3000);
+            if(packageidTxt == '' || mTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 3000);
                 return;
             }
             if(isNaN(mTxt)){
@@ -700,6 +700,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
+        var stockin_d = viewModel.get('stockin.stockin_d');
         var stockin_lot = viewModel.get('stockin.stockin_lot');
 
         var lotnumberTxt = viewModel.get('lotnumberTxt');
@@ -714,8 +715,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         // check textfield
         if(stockin.unitid_link == 3){
-            if(widthTxt == '' || packageidTxt == '' || yTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, Khổ hoặc độ dài', 3000);
+            if(packageidTxt == '' || yTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 3000);
                 return;
             }
             if(isNaN(yTxt)){
@@ -724,8 +725,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
         if(stockin.unitid_link == 1){
-            if(widthTxt == '' || packageidTxt == '' || mTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, Khổ hoặc độ dài', 3000);
+            if(packageidTxt == '' || mTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 3000);
                 return;
             }
             if(isNaN(mTxt)){
@@ -826,6 +827,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         // nếu ko có trong danh sách, thêm cây vải
         if(!isExist){
+            // set color
+            for(var i = 0;i < stockin_lot.length; i++){
+                if(stockin_lot[i].lot_number == lotnumberTxt){
+                    for(var j = 0; j < stockin_d.length; j++){
+                        if(stockin_lot[i].materialid_link == stockin_d[j].skuid_link){
+                            objData.colorTxt = stockin_d[j].colorid_link;
+                        }
+                    }
+                }
+            }
             isSaving = m.themCayVaiMoi(objData);
         }
 
@@ -1331,7 +1342,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     stockin_packinglist[j].packageid == packageid &&
                     stockin_packinglist[j].skuid_link == skuid_link
                 ){
-                    stockin_packinglist[j].status = -1;
+                    stockin_packinglist[j].status = 1;
                 }
             }
         }
