@@ -47,20 +47,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_MainController', {
         var grid = this.getView().down('#Stockin_M_List'),
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#invoiceFilter'),
+            store = grid.store,
             filters = grid.store.getFilters();
+        
+        var value = filterField.getValue() == null ? '' : filterField.getValue().toLowerCase();
+        store.clearFilter();
+        store.filterBy(function(rec) { //toLowerCase() // includes()
+            if(
+                rec.get('invoice_number').toLowerCase().includes(value) ||
+                rec.get('orgfrom_name').toLowerCase().includes(value) ||
+                rec.get('stockintype_name').toLowerCase().includes(value) ||
+                rec.get('stockinProductString').toLowerCase().includes(value) || 
+                Ext.Date.format(rec.get('invoice_date'),'d/m/y').toLowerCase().includes(value)
+                
+            ){
+                return true;
+            }
+            return false;
+        });
 
-        if (filterField.getValue()) {
-            this.invoiceFilter = filters.add({
-                id: 'invoiceFilter',
-                property: 'invoice_number',
-                value: filterField.getValue(),
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.invoiceFilter) {
-            filters.remove(this.invoiceFilter);
-            this.invoiceFilter = null;
-        }
+        // if (filterField.getValue()) {
+        //     this.invoiceFilter = filters.add({
+        //         id: 'invoiceFilter',
+        //         property: 'invoice_number',
+        //         value: filterField.getValue(),
+        //         anyMatch: true,
+        //         caseSensitive: false
+        //     });
+        // }
+        // else if (this.invoiceFilter) {
+        //     filters.remove(this.invoiceFilter);
+        //     this.invoiceFilter = null;
+        // }
     },
 });
