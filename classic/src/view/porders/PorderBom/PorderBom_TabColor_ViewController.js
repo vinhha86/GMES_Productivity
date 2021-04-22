@@ -53,8 +53,8 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor_ViewController',
         var colorid_link = newCard.colorid_link;
         storeBOM.removeAll();
         storeBOM.loadStoreColor(porderid_link, colorid_link);
-        // var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
-        // gridsize.CreateColumns();
+        var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).getController();
+        gridsize.CreateColumns();
     },
     createTab: function () {
         newActiveItem = this.getView();
