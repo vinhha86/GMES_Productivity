@@ -24,12 +24,6 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
         store: '{POLineSKU_Store}'
     },
     columns: [{
-        text: 'STT',
-        width: 45,
-        xtype: 'rownumberer',
-        align: 'center'
-    },
-    {
         text: 'Màu',
         dataIndex: 'mauSanPham',
         flex: 1,

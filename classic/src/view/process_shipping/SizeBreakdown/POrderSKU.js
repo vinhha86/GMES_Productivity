@@ -65,16 +65,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
                 }
             })
         },
-    }, {
-        text: 'Còn lại',
-        dataIndex: 'pquantity_ungranted',
-        renderer: function (value) {
-            return Ext.util.Format.number(parseFloat(value), '0,000');
-        },
-        summaryType: 'sum',
-        summaryRenderer: 'renderSum',
-        width: 65,
-        align: 'end'
     }],
     dockedItems: [{
         dock: 'top',
