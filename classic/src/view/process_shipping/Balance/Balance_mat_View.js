@@ -13,11 +13,6 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_mat_View', {
         store: '{POLineStore}'
     },
     columns: [{
-        text: 'STT',
-        width: 40,
-        xtype: 'rownumberer',
-        align: 'center'
-    }, {
         text: 'Mã vải',
         dataIndex: 'po_buyer',
         flex: 1

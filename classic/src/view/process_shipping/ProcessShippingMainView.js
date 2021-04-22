@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
         {
             region: 'north',
             xtype: 'POLineView',
-            height: 350,
+            height: '50%',
             margin: 1,
             border: true
         },

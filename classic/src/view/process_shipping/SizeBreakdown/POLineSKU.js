@@ -52,16 +52,6 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
         width: 60,
         align: 'end'
     }, {
-        text: 'Đã phân lệnh',
-        dataIndex: 'pquantity_granted',
-        renderer: function (value) {
-            return Ext.util.Format.number(parseFloat(value), '0,000');
-        },
-        summaryType: 'sum',
-        summaryRenderer: 'renderSum',
-        width: 120,
-        align: 'end'
-    }, {
         text: 'Còn lại',
         dataIndex: 'pquantity_ungranted',
         renderer: function (value) {

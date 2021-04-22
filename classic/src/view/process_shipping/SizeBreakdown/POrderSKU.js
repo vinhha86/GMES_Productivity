@@ -33,21 +33,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
         store: '{porderSKUStore}'
     },
     columns: [{
-        text: 'STT',
-        width: 45,
-        xtype: 'rownumberer',
-        align: 'center'
-    },
-    // {
-    //     text: 'SKU',
-    //     dataIndex: 'skuCode',
-    //     flex: 1,
-    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-    //         metaData.tdAttr = 'data-qtip="' + value + '"';
-    //         return value;
-    //     }
-    // }, 
-    {
         text: 'Màu',
         dataIndex: 'mauSanPham',
         flex: 1,
@@ -80,16 +65,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
                 }
             })
         },
-    }, {
-        text: 'Đã phân chuyền',
-        dataIndex: 'pquantity_granted',
-        renderer: function (value) {
-            return Ext.util.Format.number(parseFloat(value), '0,000');
-        },
-        summaryType: 'sum',
-        summaryRenderer: 'renderSum',
-        width: 125,
-        align: 'end'
     }, {
         text: 'Còn lại',
         dataIndex: 'pquantity_ungranted',
