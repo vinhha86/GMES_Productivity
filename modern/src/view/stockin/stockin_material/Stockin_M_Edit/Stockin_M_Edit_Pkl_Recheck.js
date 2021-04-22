@@ -1,13 +1,13 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
+Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
     extend: 'Ext.grid.Grid',
-    xtype: 'Stockin_M_Edit_Pkl',
-    itemId: 'Stockin_M_Edit_Pkl',
-    cls: 'Stockin_M_Edit_Pkl',
+    xtype: 'Stockin_M_Edit_Pkl_Recheck',
+    itemId: 'Stockin_M_Edit_Pkl_Recheck',
+    cls: 'Stockin_M_Edit_Pkl_Recheck',
     // viewModel: {
     //     type: 'HandoverDetailViewModel'
     // },
     // controller: 'Stockin_M_Edit_D_Controller',
-    reference: 'Stockin_M_Edit_Pkl',
+    reference: 'Stockin_M_Edit_Pkl_Recheck',
 
     requires: [
         'Ext.grid.plugin.CellEditing'
@@ -26,12 +26,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
             defaults: {
                 width: 96
             },
-
-            right: [
+            left: [
                 {
-                    iconCls: 'x-fa fa-arrow-right',
+                    iconCls: 'x-fa fa-arrow-left',
                     ui: 'alt action',
-                    commit: 'onAddPklRecheck'
+                    commit: 'onRemovePklRecheck'
                 },
             ]
         }
@@ -43,7 +42,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
     },
 
     bind: {
-        store:'{storePackinglistArr}'
+        store:'{storePackinglistRecheckArr}'
     },
 
     columns: [{

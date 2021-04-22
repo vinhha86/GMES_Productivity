@@ -724,7 +724,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                             items:[
                                 {
                                     xtype: 'textfield',
-                                    // itemId: 'maNPLFilter',
+                                    itemId: 'maPklRecheckFilter',
                                     // label: 'Mã hàng:',
                                     // labelWidth: 85,
                                     margin: '5 5 1 5',
@@ -734,7 +734,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     // minWidth: 80,
                                     // maxWidth: 200,
                                     textAlign: 'left',
-                                    placeholder: 'Tìm kiếm nhanh ... (chưa có)',
+                                    placeholder: 'Tìm kiếm nhanh ... (theo số lot)',
                                     // editable: false,
                                     // readOnly: true,
                                     clearable: false,
@@ -743,15 +743,295 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     //     value: '{maNPLFilter}'
                                     // },
                                     listeners: {
-                                        // keyup: 'onmaNPLFilterKeyup',
-                                        // buffer: 500
+                                        keyup: 'onmaPklRecheckFilterKeyup',
+                                        buffer: 500
                                     }
                                 },
                                 {
                                     margin: 1,
                                     flex: 1,
-                                    // xtype: 'Stockin_M_Edit_Product',
+                                    xtype: 'Stockin_M_Edit_Pkl_Recheck',
                                 },
+                                {
+                                    xtype: 'container',
+                                    // flex:1,
+                                    // height: 100,
+                                    // docked: 'bottom',
+                                    layout: 'vbox',
+                                    items:[
+                                        {
+                                            layout: 'hbox',
+                                            border: false,
+                                            width: '100%',
+                                            items:[
+                                                {
+                                                    xtype: 'textfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'lotnumberTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số LOT',
+                                                    editable: false,
+                                                    readOnly: true,
+                                                    clearable: false,
+                                                    cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{lotnumberTxtRecheck}'
+                                                    },
+                                                    // listeners: {
+                                                    //     keyup: 'onlotnumberTxtKeyup',
+                                                    //     buffer: 1000
+                                                    // }
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'packageidTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số cây',
+                                                    editable: false,
+                                                    readOnly: true,
+                                                    clearable: false,
+                                                    cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{packageidTxtRecheck}'
+                                                    },
+                                                    // listeners: {
+                                                    //     keyup: 'onpackageidTxtKeyup',
+                                                    //     buffer: 1000
+                                                    // },
+                                                    stepValue: 0.1,
+                                                },
+                                
+                                                {
+                                                    xtype: 'combobox',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'colorTxtRecheck',
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    editable: false,
+                                                    readOnly: true,
+                                                    displayField: 'value',
+                                                    valueField: 'id',
+                                                    bind:{
+                                                        store:'{attributeValueStore}',
+                                                        value: '{colorTxtRecheck}'
+                                                    },
+                                                },
+                                            ]
+                                        },
+                                        {
+                                            layout: 'hbox',
+                                            border: false,
+                                            width: '100%',
+                                            items:[
+                                                {
+                                                    xtype: 'numberfield',
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    margin: 1,
+                                                    itemId: 'widthTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Khổ',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{widthTxtRecheck}'
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'mTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số M',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{mTxtRecheck}',
+                                                        // cls: '{yTxtCls}',
+                                                        hidden: '{isMetColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'yTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Số Y',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{yTxtRecheck}',
+                                                        // cls: '{yTxtCls}',
+                                                        hidden: '{isYdsColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                // {
+                                                //     // xtype: 'numberfield',
+                                                //     margin: 1,
+                                                //     padding: 1,
+                                                //     border: true,
+                                                //     // cls: 'my-textfield',
+                                                //     // itemId: 'yTxt',
+                                                //     // label: 'Màu:',
+                                                //     // labelWidth: 85,
+                                                //     flex: 1,
+                                                //     minWidth: 80,
+                                                //     maxWidth: 130,
+                                                //     // textAlign: 'left',
+                                                //     // placeholder: 'Số Y',
+                                                //     // editable: false,
+                                                //     // readOnly: true,
+                                                //     // clearable: false,
+                                                //     // cls: 'notEditable',
+                                                //     // bind: {
+                                                        
+                                                //     // },
+                                                //     // hidden: true,
+                                                // },
+                                                {
+                                                    xtype:'button',
+                                                    text: 'Nhập lại',
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    margin: 1,
+                                                    iconCls: 'x-fa fa-file',
+                                                    itemId:'btnResetFormRecheck',
+                                                    ui: 'action',
+                                                },   
+                                            ]
+                                        },
+                                        {
+                                            layout: 'hbox',
+                                            border: false,
+                                            width: '100%',
+                                            items:[
+                                                {
+                                                    xtype: 'numberfield',
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    margin: 1,
+                                                    itemId: 'mOriginTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Dài phiếu (M)',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{mOriginTxtRecheck}',
+                                                        hidden: '{isMetColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    margin: 1,
+                                                    itemId: 'yOriginTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Dài phiếu (Y)',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{yOriginTxtRecheck}',
+                                                        hidden: '{isYdsColumnHidden}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    margin: 1,
+                                                    border: true,
+                                                    cls: 'my-textfield',
+                                                    itemId: 'sampleCheckTxtRecheck',
+                                                    // label: 'Màu:',
+                                                    // labelWidth: 85,
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    textAlign: 'left',
+                                                    placeholder: 'Cắt mẫu',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    clearable: false,
+                                                    // cls: 'notEditable',
+                                                    bind: {
+                                                        value: '{sampleCheckTxtRecheck}',
+                                                    },
+                                                    stepValue: 0.1,
+                                                },
+                                                {
+                                                    xtype:'button',
+                                                    text: 'Xác nhận',
+                                                    flex: 1,
+                                                    minWidth: 80,
+                                                    maxWidth: 130,
+                                                    margin: 1,
+                                                    iconCls: 'x-fa fa-check',
+                                                    itemId:'btnCheckRecheck',
+                                                    ui: 'action',
+                                                },   
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                     ]
@@ -802,28 +1082,4 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
         itemId:'btnLuu',
         ui: 'action',
     }],
-    // bbar: [
-    //     {
-    //         xtype: 'textfield',
-    //         itemId: 'maNPLFilter',
-    //         label: 'Mã NPL:',
-    //         labelWidth: 85,
-    //         flex: 1,
-    //         minWidth: 80,
-    //         maxWidth: 200,
-    //         textAlign: 'left',
-    //         // placeholder: 'Số cây',
-    //         // editable: false,
-    //         // readOnly: true,
-    //         clearable: false,
-    //         // cls: 'notEditable',
-    //         // bind: {
-    //         //     value: '{maNPLFilter}'
-    //         // },
-    //         listeners: {
-    //             keyup: 'onmaNPLFilterKeyup',
-    //             buffer: 500
-    //         }
-    //     },
-    // ]
 });

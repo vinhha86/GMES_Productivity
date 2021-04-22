@@ -109,6 +109,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         sampleCheckTxt: '',
         colorTxt: null,
         widthTxt: '',
+
+		// Stockin_M_Edit_Pkl_Recheck
+		storePackinglistRecheckArr: [],
+		selectedPklRecheckRecord: null,
+
+		// textfield
+		lotnumberTxtRecheck: '',
+		packageidTxtRecheck: '',
+		yTxtRecheck: '',
+		mTxtRecheck: '',
+        mOriginTxtRecheck: '',
+        yOriginTxtRecheck: '',
+        sampleCheckTxtRecheck: '',
+        colorTxtRecheck: null,
+        widthTxtRecheck: '',
 	},
 	formulas: {
         isEdit: function (get) {

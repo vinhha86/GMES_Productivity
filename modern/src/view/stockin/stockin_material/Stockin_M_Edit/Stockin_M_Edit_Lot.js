@@ -21,19 +21,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     plugins: {
         gridcellediting: {
             selectOnEdit: true
-        }
-    },
-
-    selectable: {
-        rows: false,
-        cells: true
-    },
-
-    bind: {
-        store:'{stockin.stockin_lot}'
-    },
-
-    plugins: {
+        },
         listswiper: {
             defaults: {
                 width: 48
@@ -49,6 +37,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
                 commit: 'onLotCheck'
             }]
         }
+    },
+
+    selectable: {
+        rows: false,
+        cells: true
+    },
+
+    bind: {
+        store:'{stockin.stockin_lot}'
     },
 
     columns: [{
