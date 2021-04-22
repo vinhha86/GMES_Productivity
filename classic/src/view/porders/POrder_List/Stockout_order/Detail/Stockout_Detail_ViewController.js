@@ -36,10 +36,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                         var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
                         store_amout.removeAll();
                         store_amout.insert(0, res.color);
-                        
+
                         me.fireEvent('Reload');
                     }
                 })
+        }
+        else {
+            var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
+
         }
     },
     onLuu: function () {
