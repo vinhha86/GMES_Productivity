@@ -20,7 +20,14 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    }, {
+    }, 
+    {
+        text: 'Ngày giao',
+        dataIndex: 'shipdate',
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        width: 80
+    },
+    {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
         flex: 1,
@@ -87,12 +94,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
-    }, {
-        text: 'Ngày giao',
-        dataIndex: 'shipdate',
-        renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 80
-    }
+    }, 
     ],
     dockedItems: [{
         dock: 'top',

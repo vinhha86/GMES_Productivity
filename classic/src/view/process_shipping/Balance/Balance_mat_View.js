@@ -59,15 +59,21 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_mat_View', {
         }
     },
     {
-        xtype: 'actioncolumn',
-        width: 60,
-        menuDisabled: true,
-        sortable: false,
-        align: 'center',
-        text: 'Lệnh xuất vải',
-        iconCls: 'x-fa fas fa-bars violetIcon',
-        handler: 'onMenu_POrderList'
-    }
+        text: 'DS Lệnh xuất',
+        align: 'right',
+        dataIndex: 'stockout_list',
+        width: 120,
+    },    
+    // {
+    //     xtype: 'actioncolumn',
+    //     width: 60,
+    //     menuDisabled: true,
+    //     sortable: false,
+    //     align: 'center',
+    //     text: 'Lệnh xuất vải',
+    //     iconCls: 'x-fa fas fa-bars violetIcon',
+    //     handler: 'onMenu_POrderList'
+    // }
     ]
 });
 

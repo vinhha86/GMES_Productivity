@@ -37,29 +37,29 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
-            items: {
-                xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'ordercodeFilterField',
-                width: '99%',
-                margin: 2,
-                enableKeyEvents: true,
-                listeners: {
-                    keyup: 'onOrderCodeFilterKeyup',
-                    buffer: 500
-                }
-            }
+            // items: {
+            //     xtype: 'textfield',
+            //     fieldStyle: "",
+            //     reference: 'ordercodeFilterField',
+            //     width: '99%',
+            //     margin: 2,
+            //     enableKeyEvents: true,
+            //     listeners: {
+            //         keyup: 'onOrderCodeFilterKeyup',
+            //         buffer: 500
+            //     }
+            // }
         },
         {
             text: 'Phân xưởng',
-            width: 80
+            width: 90
         },
         {
             text: 'Tổ chuyền',
-            width: 80
+            width: 90
         },
         {
-            text: 'SL SX',
+            text: 'SL',
             dataIndex: 'totalorder',
             renderer: function (value) {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
@@ -68,6 +68,40 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
             width: 60,
             align: 'end'
         }
-    ]
+    ],
+    dockedItems:[{
+        dock:'top',
+        xtype:'toolbar',
+        padding: '0 0 10 5',
+        height: 40,
+        items:[{
+            xtype:'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelWidth : 0,
+            value: 'Lệnh sản xuất'
+        },
+		'->'
+		,
+		{
+            xtype:'button',
+            itemId:'btnAddPOrder_POrderList',
+            ui: 'header',
+            margin: '10 5 0 0',
+			tooltip: 'Thêm Lệnh SX',
+            iconCls: 'x-fa fa-plus',
+            // bind: {
+            //     hidden: '{ishidden_addproduct}'
+            // }
+        },
+        // {
+        //     xtype:'button',
+        //     itemId:'btnExcel',
+        //     ui: 'header',
+        //     margin: '10 5 0 0',
+		// 	tooltip: 'Export Excel',
+        //     iconCls: 'x-fa fa-file-excel'
+        // }
+        ]
+    }]    
 });
 
