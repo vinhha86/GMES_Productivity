@@ -132,6 +132,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 }
             },
             {
+                xtype: 'filefield',
+                buttonText: 'Tải báo giá',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'fileUploadBom'
+            },
+            {
                 xtype: 'button',
                 tooltip: 'Upload định mức',
                 // margin: 3,

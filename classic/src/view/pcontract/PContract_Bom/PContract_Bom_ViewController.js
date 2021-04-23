@@ -2,14 +2,54 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_Bom_ViewController',
     control: {
+        '#fileUploadBom': {
+            change: 'onSelectFile'
+        },
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
         '#btnDownTempBom': {
             click: 'onDownTemp'
+        },
+        '#btn_UploadBom': {
+            click: 'onUpload'
         }
     },
     init: function () {
+    },
+    onUpload: function (record) {
+        var me = this.getView();
+        me.down('#fileUploadBom').fileInputEl.dom.click();
+    },
+    onSelectFile: function(m, value){
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractid_link', viewmodel.get('PContract.id'));
+        data.append('productid_link', viewmodel.get('IdProduct'));
+
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi', data, 2 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.MessageBox.show({
+                            title: "Có lỗi trong quá trình tải định mức",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    store.load();
+                }
+            })
     },
     onDownTemp: function () {
         var me = this;
