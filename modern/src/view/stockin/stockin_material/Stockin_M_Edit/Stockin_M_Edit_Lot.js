@@ -43,8 +43,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     },
 
     selectable: {
-        rows: false,
-        cells: true
+        rows: true,
+        cells: false
     },
 
     bind: {
