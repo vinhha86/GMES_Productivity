@@ -10,56 +10,56 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_mat_View', {
         rowLines: true
     },
     bind: {
-        store: '{POLineStore}'
+        store: '{SKUBalanceStore_Mat}'
     },
     columns: [{
         text: 'Mã vải',
-        dataIndex: 'po_buyer',
+        dataIndex: 'mat_sku_code',
         flex: 1
     },
     {
         text: 'SL Y/C',
         align: 'right',
-        dataIndex: 'po_quantity',
+        dataIndex: 'mat_sku_demand',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }, {
         text: 'Dự kiến về',
-        dataIndex: 'shipdate',
+        dataIndex: 'mat_sku_invoice_date',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 80
     },
     {
         text: 'Thực nhập',
         align: 'right',
-        dataIndex: 'po_quantity',
+        dataIndex: 'mat_sku_stockin',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
         }
     },
     {
         text: 'Thực xuất',
         align: 'right',
-        dataIndex: 'po_quantity',
+        dataIndex: 'mat_sku_stockout',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
         }
     },
     {
         text: 'Tồn',
         align: 'right',
-        dataIndex: 'po_quantity',
+        dataIndex: 'in_stock',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000.00');
         }
     },
     {
-        text: 'DS Lệnh xuất',
+        text: 'Lệnh xuất vải',
         align: 'right',
         dataIndex: 'stockout_list',
         width: 120,

@@ -28,6 +28,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
             }, {
                 region: 'center',
                 xtype: 'tabpanel',
+                itemId: 'tabDetail',
                 margin: 1,
                 border: true,
                 items: [{

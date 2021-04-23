@@ -24,18 +24,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
         listswiper: {
             defaults: {
-                width: 48
+                width: 96
             },
 
-            right: [{
-                iconCls: 'x-fa fa-edit',
-                ui: 'alt confirm',
-                commit: 'onLotEdit'
-            },{
-                iconCls: 'x-fa fa-check',
-                ui: 'alt action',
-                commit: 'onLotCheck'
-            }]
+            right: [
+                {
+                    iconCls: 'x-fa fa-edit',
+                    ui: 'alt confirm',
+                    commit: 'onLotEdit'
+                },
+                // {
+                //     iconCls: 'x-fa fa-check',
+                //     ui: 'alt action',
+                //     commit: 'onLotCheck'
+                // }
+            ]
         }
     },
 
@@ -48,21 +51,36 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         store:'{stockin.stockin_lot}'
     },
 
-    columns: [{
+    columns: [
+    {
         text: '',
-        width: 30,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     },
     {
-        text: 'Số lot', 
-        flex: 1,
-        dataIndex: 'lot_number'
+        text: 'Số Lot', 
+        // flex: 1,
+        width: 100,
+        dataIndex: 'lot_number',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = '';
+            var status = record.get('status') == null ? -1 : record.get('status');
+            if (status == 0) {
+                cell.setCls('cellGreen');
+            } else {
+                cell.setCls('cellYellow');
+            }
+            
+            return value;
+        },
     },
     {
-        text: 'SL cây/kiểm', 
-        flex: 1,
+        text: 'Cây/kiểm', 
+        // flex: 1,
+        width: 100,
         dataIndex: 'totalpackage',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
@@ -77,9 +95,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'SL M/kiểm', 
+        text: 'M/kiểm', 
         flex: 1,
         dataIndex: 'totalmet',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalmetcheck = record.get('totalmetcheck') == null ? 0 : record.get('totalmetcheck');
@@ -97,9 +116,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'SL Y/kiểm', 
+        text: 'Y/kiểm', 
         flex: 1,
         dataIndex: 'totalyds',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
@@ -116,5 +136,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             hidden: '{isYdsColumnHidden}',
         },
     },
+    {
+        width: 50,
+        hideable: false,
+        align: 'center',
+
+        cell: {
+            tools: {
+                approve: {
+                    iconCls: 'x-fa fa-check',
+                    handler: 'onLotCheck'
+                },
+            }
+        }
+    }
     ],
 });

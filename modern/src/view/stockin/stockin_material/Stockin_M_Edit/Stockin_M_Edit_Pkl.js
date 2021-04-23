@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
     extend: 'Ext.grid.Grid',
     xtype: 'Stockin_M_Edit_Pkl',
     itemId: 'Stockin_M_Edit_Pkl',
+    id:'Stockin_M_Edit_Pkl',
     cls: 'Stockin_M_Edit_Pkl',
     // viewModel: {
     //     type: 'HandoverDetailViewModel'
@@ -17,6 +18,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
     markDirty: true,
     columnLines: true,
     striped: false,
+    infinite: false,
+    width: '100%',
 
     plugins: {
         gridcellediting: {
@@ -48,7 +51,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
 
     columns: [{
         text: '',
-        width: 30,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     },
@@ -60,12 +63,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
     {
         text: 'Số cây', 
         flex: 1,
-        dataIndex: 'packageid'
+        dataIndex: 'packageid',
+        align: 'right',
     },
     {
         text: 'Số M/kiểm', 
         flex: 1,
         dataIndex: 'met_check',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
@@ -86,6 +91,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         text: 'Số Y/kiểm', 
         flex: 1,
         dataIndex: 'ydscheck',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
