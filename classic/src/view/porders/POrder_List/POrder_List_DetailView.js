@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
             title: 'Tiến độ sản xuất',
             xtype: 'PorderProcessingDetail'
         },{
-            title: 'Lệnh cấp vải',
+            title: 'Yêu cầu xuất NPL',
             xtype: 'Stockout_order_MainView'
         }]
     }],

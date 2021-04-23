@@ -19,5 +19,6 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         }
     },
     data: {
+        porderid_link: 1379
     }
 })
