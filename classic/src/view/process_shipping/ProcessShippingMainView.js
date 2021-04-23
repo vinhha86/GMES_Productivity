@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
                 margin: 1,
                 border: true,
                 items: [{
-                    title: 'Chi tiết màu cỡ',
+                    title: 'Chi tiết lệnh',
                     xtype: 'form',
                     layout: 'border',
                     items: [{
@@ -46,6 +46,10 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
                         xtype: 'POrderSKU',
                         border: true
                     }]
+                }, {
+                    title: 'Chi tiết tổ'
+                }, {
+                    title: 'Định mức'
                 }, {
                     title: 'Nguyên liệu',
                     xtype: 'Balance_mat_View'

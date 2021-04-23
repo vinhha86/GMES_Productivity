@@ -10,12 +10,11 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewController', 
         }
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
-        console.log(newCard);
         if (newCard.xtype == "Balance_mat_View") {
             this.onCalBalance();
         }
     },
-    onCalBalance: function(){
+    onCalBalance: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var SKUBalanceStore_Mat = viewmodel.getStore('SKUBalanceStore_Mat');
@@ -25,14 +24,14 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewController', 
 
         me.setLoading("Đang tính cân đối");
         GSmartApp.Ajax.post('/api/v1/balance/cal_balance_byporder', Ext.JSON.encode(params),
-        function (success, response, options) {
-            me.setLoading(false);
-            if (success) {
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    SKUBalanceStore_Mat.setData(response.data);
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        SKUBalanceStore_Mat.setData(response.data);
+                    }
                 }
-            }
-        })
-    },      
+            })
+    },
 })
