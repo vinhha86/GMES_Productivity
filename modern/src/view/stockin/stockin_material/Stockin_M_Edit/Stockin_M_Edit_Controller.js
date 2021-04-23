@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             childtap: 'onStockin_M_Edit_LotItemTap'
 		},
         '#Stockin_M_Edit_Pkl':{
-            itemtap: 'onItemPklTap'
+            childtap: 'onItemPklTap'
         },
         '#Stockin_M_Edit_Pkl_Recheck':{
             itemtap: 'onItemPklRecheckTap'
@@ -286,7 +286,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
                 store.setData(data.stockin_d);
 
-                me.setStorePkl(data);
+                me.setStorePklAndPklReCheck(data);
 
                 // load cbbox color pkl theo stockin
                 var attributeValueStore = viewModel.getStore('attributeValueStore');
@@ -314,7 +314,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
 		})
     },
-    setStorePkl: function(stockin){
+    setStorePklAndPklReCheck: function(stockin){
         var me = this;
         var viewModel = this.getViewModel();
         var data = stockin;
@@ -333,7 +333,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
         viewModel.set('storePackinglistArr', storePackinglistArr);
-        storePkl.setData([]);
+        // storePkl.setData([]);
+        // me.setStorePkl(storePackinglistArr);
+        storePkl.removeAll();
         storePkl.insert(0, storePackinglistArr);
         // console.log(storePackinglistArr);
         // console.log(storePkl);
@@ -346,10 +348,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
         viewModel.set('storePackinglistRecheckArr', storePackinglistRecheckArr);
-        storePklRecheck.setData([]);
+        // storePklRecheck.setData([]);
+        storePklRecheck.removeAll();
         storePklRecheck.insert(0, storePackinglistRecheckArr);
-        // console.log(storePackinglistRecheckArr);
-        // console.log(storePklRecheck);
+
+        console.log();
     },
     setStockinLotForStockinD: function(stockin){
         var data = stockin;
@@ -520,6 +523,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             filterField = this.getView().down('#maPklFilter'),
             filters = grid.store.getFilters();
 
+        // console.log(filterField);
+        console.log(grid);
+        // grid.getSelectionModel().deselectAll();
+        // grid.getSelectionModel().clearSelections();
+
         if (filterField.getValue()) {
             this.maPklFilter = filters.add({
                 id: 'maPklFilter',
@@ -675,7 +683,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 // item.status = 0;
 
                 viewModel.set('storePackinglistRecheckArr', items);
-                storePklRecheck.setData([]);
+                // storePklRecheck.setData([]);
+                storePklRecheck.removeAll();
                 storePklRecheck.insert(0, items);
 
                 // update storePackinglistArr
@@ -685,7 +694,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     }
                 }
                 viewModel.set('storePackinglistArr', storePackinglistArr);
-                storePkl.setData([]);
+                // storePkl.setData([]);
+                storePkl.removeAll();
                 storePkl.insert(0, storePackinglistArr);
             }
         }
@@ -712,6 +722,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var colorTxt = viewModel.get('colorTxt');
         var widthTxt = viewModel.get('widthTxt');
         var sampleCheckTxt = viewModel.get('sampleCheckTxt');
+        var grossweightTxt = viewModel.get('grossweightTxt');
 
         // check textfield
         if(stockin.unitid_link == 3){
@@ -744,6 +755,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             return;
         }
 
+        // set khổ width
+        for(var i = 0; i < stockin_lot.length; i++){
+            if(stockin_lot[i].lot_number == lotnumberTxt){
+                for(var j = 0; j < stockin_d.length; j++){
+                    if(stockin_lot[i].materialid_link == stockin_d[j].skuid_link){
+                        widthTxt=stockin_d[j].size_name == null ? 0 : stockin_d[j].size_name;
+                    }
+                }
+            }
+        }
+
         // tạo obj
         if(yTxt == null || yTxt == '') yTxt = 0;
         if(mTxt == null || mTxt == '') mTxt = 0;
@@ -761,6 +783,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         objData.colorTxt = colorTxt;
         objData.widthTxt = widthTxt;
         objData.sampleCheckTxt = sampleCheckTxt;
+        objData.grossweightTxt = grossweightTxt;
 
         var viewPklRecheck = this.getView().down('#Stockin_M_Edit_Pkl_Recheck');
         var storePklRecheck = viewPklRecheck.getStore();
@@ -799,6 +822,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
                 width_check = Ext.util.Format.number(parseFloat(widthTxt), '0.00');
                 sample_check = Ext.util.Format.number(parseFloat(sampleCheckTxt), '0.00');
+                grossweight = Ext.util.Format.number(parseFloat(grossweightTxt), '0.00');
                 
                 item.ydscheck = parseFloat(ydscheck);
                 item.met_check = parseFloat(met_check);
@@ -806,11 +830,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 item.met_origin = parseFloat(met_origin);
                 item.sample_check = parseFloat(sample_check);
                 item.width_check = parseFloat(width_check);
+                item.grossweight = parseFloat(grossweight);
                 item.checked = 1;
                 // item.status = 0;
 
                 viewModel.set('storePackinglistArr', items);
-                storePkl.setData([]);
+                // storePkl.setData([]);
+                storePkl.removeAll();
                 storePkl.insert(0, items);
 
                 // update storePackinglistArr
@@ -820,7 +846,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     }
                 }
                 viewModel.set('storePackinglistRecheckArr', storePackinglistRecheckArr);
-                storePklRecheck.setData([]);
+                // storePklRecheck.setData([]);
+                storePklRecheck.removeAll();
                 storePklRecheck.insert(0, storePackinglistRecheckArr);
             }
         }
@@ -866,6 +893,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var colorTxt = objData.colorTxt;
         var widthTxt = objData.widthTxt;
         var sampleCheckTxt = objData.sampleCheckTxt;
+        var grossweightTxt = objData.grossweightTxt;
 
         var ydscheck = 0;
         var met_check = 0;
@@ -886,12 +914,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
         width_check = Ext.util.Format.number(parseFloat(widthTxt), '0.00');
         sample_check = Ext.util.Format.number(parseFloat(sampleCheckTxt), '0.00');
+        grossweight = Ext.util.Format.number(parseFloat(grossweightTxt), '0.00');
 
         var newObj = new Object();
         newObj.checked = 0;
         newObj.colorid_link = colorTxt;
         newObj.comment = '';
-        newObj.grossweight = 0;
+        newObj.grossweight = grossweight;
         newObj.lotnumber = lotnumberTxt;
         newObj.m3 = 0;
         newObj.met_check = parseFloat(met_check);
@@ -916,7 +945,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         storePackinglistArr.push(newObj);
         viewModel.set('storePackinglistArr', storePackinglistArr);
-        store.setData([]);
+        // store.setData([]);
+        store.removeAll();
         store.insert(0, storePackinglistArr);
 
         return isSaving;
@@ -946,7 +976,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             stockin_lot[i].totalydscheck = totalydscheck;
         }
         viewModel.set('stockin.stockin_lot', stockin_lot);
-        storeLot.setData([]);
+        // storeLot.setData([]);
+        storeLot.removeAll();
         storeLot.insert(0, stockin_lot);
 
         // StockinD data
@@ -968,7 +999,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             stockin_d[i].totalydscheck = totalydscheck;
         }
         viewModel.set('stockin.stockin_d', stockin_d);
-        storeD.setData([]);
+        // storeD.setData([]);
+        storeD.removeAll();
         storeD.insert(0, stockin_d);
 
         // console.log(stockin);
@@ -1024,11 +1056,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // })
     },
 
-    onItemPklTap: function(dataview, index, target, record, e, eOpts ){
+    onItemPklTap: function(list, location, eOpts ){
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockinD = viewModel.get('stockinD');
+
+        // console.log(location);
+        var record = location.record;
         
         viewModel.set('lotnumberTxt', record.get('lotnumber'));
         viewModel.set('packageidTxt', record.get('packageid'));
@@ -1038,6 +1073,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('mOriginTxt', record.get('met_origin'));
         viewModel.set('colorTxt', record.get('colorid_link'));
         viewModel.set('widthTxt', record.get('width_check'));
+        viewModel.set('grossweightTxt', record.get('grossweight'));
         viewModel.set('sampleCheckTxt', record.get('sample_check'));
     },
     onItemPklRecheckTap: function(dataview, index, target, record, e, eOpts ){
@@ -1054,6 +1090,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('mOriginTxtRecheck', record.get('met_origin'));
         viewModel.set('colorTxtRecheck', record.get('colorid_link'));
         viewModel.set('widthTxtRecheck', record.get('width_check'));
+        viewModel.set('grossweightTxtRecheck', record.get('grossweight'));
         viewModel.set('sampleCheckTxtRecheck', record.get('sample_check'));
 
         viewModel.set('selectedPklRecheckRecord', record);
@@ -1148,6 +1185,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('mOriginTxt', '');
         // viewModel.set('colorTxt', stockinD.colorid_link);
         viewModel.set('widthTxt', '');
+        viewModel.set('grossweightTxt', '');
         viewModel.set('sampleCheckTxt', '');
         m.getView().down('#packageidTxt').focus();
     },
@@ -1165,6 +1203,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('mOriginTxtRecheck', '');
         // viewModel.set('colorTxt', stockinD.colorid_link);
         viewModel.set('widthTxtRecheck', '');
+        viewModel.set('grossweightTxtRecheck', '');
         viewModel.set('sampleCheckTxtRecheck', '');
         // m.getView().down('#lotnumberTxtRecheck').focus();
     },
@@ -1201,7 +1240,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         //Stockin_M_Edit_Space
         me.down('#Stockin_M_Edit_Space').getStore().setData([]);
         me.down('#Stockin_M_Edit_Space').getStore().insert(0, lotSpaceArrStore);
-        // console.log(res);
+        // console.log(lotSpaceArrStore);
+        var spacesString = '';
+        for(var i = 0; i < lotSpaceArrStore.length; i++){
+            if(spacesString == ''){
+                spacesString+=lotSpaceArrStore[i].space;
+            }else{
+                spacesString+='; '+lotSpaceArrStore[i].space;
+            }
+        }
+        viewModel.set('spacesString', spacesString);
     },
     onLotCheck: function(grid, info){
         // console.log(info);
@@ -1210,7 +1258,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var stockin = viewModel.get('stockin');
         var stockinD = viewModel.get('stockinD');
 
-        //
+        
         var record = info.record;
         if(record.get('status') == -1){
             var totalpackage = record.get('totalpackage');
@@ -1220,6 +1268,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             record.set('totalpackagecheck', 0);
             record.set('status', -1);
         }
+        console.log(info);
     },
     onLotEdit: function(grid, info){
         // console.log(info);
@@ -1347,7 +1396,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
         viewModel.set('stockin.stockin_d', stockin_d);
-        m.setStorePkl(stockin);
+        m.setStorePklAndPklReCheck(stockin);
 
         // console.log(info);
         // console.log(stockin);
@@ -1376,6 +1425,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
         viewModel.set('stockin.stockin_d', stockin_d);
         viewModel.set('selectedPklRecheckRecord', null);
-        m.setStorePkl(stockin);
+        m.setStorePklAndPklReCheck(stockin);
+    },
+
+    setStoreLot: function(dataArr){
+
+    },
+    setStorePkl: function(dataArr){
+        var me = this;
+        var viewModel = this.getViewModel();
+        var viewPkl = this.getView().down('#Stockin_M_Edit_Pkl');
+        var storePkl = viewPkl.getStore();
+
+        var filters = storePkl.getFilters();
+        console.log(filters);
+        
+        // storePkl.clearFilter();
+        storePkl.removeAll();
+        storePkl.insert(0, dataArr);
+
+        // console.log(filters);
+    },
+    setStorePklRecheck: function(dataArr){
+
     },
 })

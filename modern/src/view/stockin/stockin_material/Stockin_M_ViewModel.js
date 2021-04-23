@@ -92,6 +92,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		// Stockin_M_Edit_Lot
 		selectedLotRecord: null,
 		spaces: [],
+		spacesString: '',
 		row: null,
 		space: null,
 		floor: null,
@@ -109,6 +110,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         sampleCheckTxt: '',
         colorTxt: null,
         widthTxt: '',
+		grossweightTxt: '',
 
 		// Stockin_M_Edit_Pkl_Recheck
 		storePackinglistRecheckArr: [],
@@ -124,6 +126,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         sampleCheckTxtRecheck: '',
         colorTxtRecheck: null,
         widthTxtRecheck: '',
+		grossweightTxtRecheck: '',
 	},
 	formulas: {
         isEdit: function (get) {
