@@ -7,8 +7,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
     items: [
         {
             xtype: 'button',
+            iconCls: 'x-fa fa-forward',
+            itemId: 'hideView',
+            tooltip: 'Tiến độ giao hàng'
+        },
+        {
+            xtype: 'button',
             iconCls: 'x-fa fa-bars',
-            menu      : [
+            menu: [
                 {
                     itemId: 'btnExportPDF_FilterBar',
                     iconCls: 'fa fa-file-pdf-o greenIcon',
@@ -19,7 +25,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     text: 'Đơn hàng',
                     iconCls: 'x-fa fa-shopping-basket',
                     weight: 30,
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_KHGH}'
                     },
                     handler: 'onShowKHGH'
@@ -28,7 +34,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     text: 'Tổng hợp CMP',
                     iconCls: 'x-fa fa-dollar',
                     weight: 30,
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_CMP}'
                     },
                     handler: 'onShowCMP'
@@ -37,7 +43,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     text: 'Tổng hợp Salary Fund',
                     iconCls: 'x-fa fa-money',
                     weight: 30,
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_Salary}'
                     },
                     handler: 'onShowSalaryFund'
@@ -48,7 +54,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     iconCls: 'x-fa fa-sliders violetIcon',
                     weight: 30,
                     handler: 'onLenhChuaPhanChuyen',
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_Phanlenh}'
                     }
                 },
@@ -58,7 +64,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     iconCls: 'x-fa fa-bullhorn redIcon',
                     weight: 30,
                     handler: 'onYeuCauXepKeHoach_ChaoGia',
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_Phanlenh}'
                     }
                 },
@@ -78,17 +84,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                     iconCls: 'x-fa fa-exclamation-triangle brownIcon',
                     weight: 30,
                     handler: 'onLenhThayDoi',
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_Phanlenh}'
                     }
                 },
                 {
-                   itemId: 'btnGuessView_FilterBar',
+                    itemId: 'btnGuessView_FilterBar',
                     text: 'Khung nhìn khách',
                     iconCls: 'x-fa fa-user greenIcon',
                     weight: 30,
                     handler: 'onGuessView',
-                    bind : {
+                    bind: {
                         hidden: '{isHidden_GuestView}'
                     }
                 },
@@ -173,7 +179,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             iconCls: 'x-fa fa-search',
             weight: 30,
             handler: 'onSearch'
-        },{
+        }, {
             xtype: 'checkbox',
             hidden: true,
             fieldLabel: 'Y/C SX',
@@ -184,7 +190,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             bind: {
                 value: '{schedule.isReqPorder}'
             }
-        },{
+        }, {
             xtype: 'checkbox',
             fieldLabel: 'Tất cả tổ SX',
             width: 100,
@@ -196,7 +202,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                 value: '{schedule.isAllgrant}'
             }
         }
-        ,{
+        , {
             xtype: 'button',
             tooltip: 'Phóng to',
             // text: 'Zoom in',
@@ -219,7 +225,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             // fieldLabel: 'PO:',
             labelWidth: 30,
             width: 140,
-            property : 'productbuyercode'
+            property: 'productbuyercode'
         }
     ]
 })

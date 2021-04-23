@@ -1,9 +1,9 @@
 Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.FilterBar_Controller',
-    init: function(){
+    init: function () {
         var viewmodel = this.getViewModel();
-        
+
         var VendorStore = viewmodel.getStore('Vender');
         var EndBuyerStore = viewmodel.getStore('EndBuyer');
 
@@ -12,14 +12,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         common.Check_Object_Permission();
     },
     control: {
-        '#checkYCSX' : {
+        '#checkYCSX': {
             change: 'onSearch'
         },
-        // '#checkAllGrant' : {
-        //     change: 'onSearch'
-        // }
+        '#hideView': {
+            click: 'onHideView'
+        }
     },
-    onZoomIn : function () {
+    onHideView: function () {
+        var grid = this.getView();
+        var main = grid.up('Schedule_Plan_Porder_MainView');
+        main.getLayout().setActiveItem(1);
+    },
+    onZoomIn: function () {
         var viewmodel = this.getViewModel();
         var panel_plan = Ext.getCmp('treeplan');
         panel_plan.zoomIn();
@@ -33,17 +38,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         panel_plan.zoomOut();
         panel_plan.setStartDate(viewmodel.get('schedule.startDate'));
         panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
-    },   
-    onGrantToOrgTap: function(){
+    },
+    onGrantToOrgTap: function () {
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden()){
+        if (null != panel_orderungranted) {
+            if (panel_orderungranted.getHidden()) {
                 var store = viewmodel.getStore('POrderUnGranted');
                 var golive_from = viewmodel.get('schedule.startDate');
                 var golive_to = viewmodel.get('schedule.endDate');
-                store.loadFree_bygolivedate(golive_from,golive_to);
+                store.loadFree_bygolivedate(golive_from, golive_to);
 
                 var store_req = viewmodel.getStore('Porder_Req_Store');
                 store_req.load_byOrg();
@@ -54,20 +59,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }
-            else{
+            else {
                 panel_orderungranted.setHidden(true);
             }
         }
-    },   
-    setHiddenAllTab: function(){
+    },
+    setHiddenAllTab: function () {
         var tabs = Ext.getCmp('Schedule_plan_POrderUnGranted');
-        for(var i=0; i<tabs.items.length; i++){
+        for (var i = 0; i < tabs.items.length; i++) {
             var item = tabs.items[i];
             console.log(item);
             item.tab.hide();
         }
     },
-    onLenhThayDoi: function(){
+    onLenhThayDoi: function () {
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
         var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
@@ -78,19 +83,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var Porder_Req_Granted_Store = viewmodel.getStore('POrder_Change_Store');
         Porder_Req_Granted_Store.Load_Grant_Change();
 
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden()){
-                
+        if (null != panel_orderungranted) {
+            if (panel_orderungranted.getHidden()) {
+
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }
-            else{
+            else {
                 tab.tab.hide();
                 panel_orderungranted.setHidden(true);
             }
         }
     },
-    onDaXepKeHoach: function(){
+    onDaXepKeHoach: function () {
         var me = this;
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
@@ -102,19 +107,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var Porder_Req_Granted_Store = viewmodel.getStore('Porder_Req_Granted_Store');
         Porder_Req_Granted_Store.load_reqGranted();
 
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden()){
-               
+        if (null != panel_orderungranted) {
+            if (panel_orderungranted.getHidden()) {
+
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }
-            else{
+            else {
                 // tab.tab.hide();
                 // panel_orderungranted.setHidden(true);
             }
         }
     },
-    onLenhChuaPhanChuyen: function(){
+    onLenhChuaPhanChuyen: function () {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
@@ -127,24 +132,24 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var store = viewmodel.getStore('POrderUnGranted');
         var golive_from = viewmodel.get('schedule.startDate');
         var golive_to = viewmodel.get('schedule.endDate');
-        store.loadFree_groupby_product(golive_from,golive_to, function(records, operation, success){
+        store.loadFree_groupby_product(golive_from, golive_to, function (records, operation, success) {
             panel_orderungranted.setLoading(false);
         });
 
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden()){
-                
+        if (null != panel_orderungranted) {
+            if (panel_orderungranted.getHidden()) {
+
 
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }
-            else{
+            else {
                 // tab.tab.hide();
                 // panel_orderungranted.setHidden(true);
             }
         }
     },
-    onYeuCauXepKeHoach: function(){
+    onYeuCauXepKeHoach: function () {
         var me = this;
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
@@ -156,17 +161,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         // var store_req = viewmodel.getStore('Porder_Req_Store');
         // store_req.load_byOrg();
 
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden()){
+        if (null != panel_orderungranted) {
+            if (panel_orderungranted.getHidden()) {
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }
-            else{
+            else {
                 // panel_orderungranted.setHidden(true);
             }
         }
     },
-    onYeuCauXepKeHoach_ChaoGia: function(){
+    onYeuCauXepKeHoach_ChaoGia: function () {
         var me = this;
         var viewmodel = this.getViewModel();
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
@@ -184,18 +189,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         //     }
         // })
 
-        if (null != panel_orderungranted){
-            if (panel_orderungranted.getHidden()){
+        if (null != panel_orderungranted) {
+            if (panel_orderungranted.getHidden()) {
                 panel_orderungranted.setHidden(false);
                 panel_guessview.setHidden(true);
             }
         }
     },
-    onGuessView: function(){
+    onGuessView: function () {
         var panel_guessview = Ext.getCmp('Schedule_plan_Schedule_plan_GuestView');
         var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
         if (null != panel_guessview) {
-            if (panel_guessview.getHidden()){
+            if (panel_guessview.getHidden()) {
                 panel_guessview.setHidden(false);
                 panel_orderungranted.setHidden(true);
 
@@ -205,12 +210,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
             else
                 panel_guessview.setHidden(true);
         }
-    },   
-    onExport: function(){
+    },
+    onExport: function () {
         var me = Ext.getCmp('treeplan');
         me.print();
     },
-    onSearch: function(){
+    onSearch: function () {
         var sch = Ext.getCmp('treeplan');
         var crud = sch.getCrudManager();
 
@@ -219,7 +224,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var end = viewmodel.get('schedule.endDate');
 
         sch.setEndDate(Sch.util.Date.add(end, 'd', 1));
-        
+
         var params = new Object();
         params.listid = viewmodel.get('schedule.listid');
         params.startDate = viewmodel.get('schedule.startDate');
@@ -234,7 +239,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         crud.transport.load.requestConfig.params = params;
         crud.load();
     },
-    onShowKHGH: function(){
+    onShowKHGH: function () {
         var panel_po = Ext.getCmp('PContract_PO_Edit');
         var west_cmp = panel_po.down('#panel_cmp');
         west_cmp.setHidden(true);
@@ -244,7 +249,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var west_po = panel_po.down('#panel_po');
         west_po.setHidden(!west_po.getHidden());
     },
-    onShowCMP: function(){
+    onShowCMP: function () {
         var panel_po = Ext.getCmp('PContract_PO_Edit');
         var west_po = panel_po.down('#panel_po');
         west_po.setHidden(true);
@@ -254,7 +259,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var west_cmp = panel_po.down('#panel_cmp');
         west_cmp.setHidden(!west_cmp.getHidden());
     },
-    onShowSalaryFund: function(){
+    onShowSalaryFund: function () {
         var panel_po = Ext.getCmp('PContract_PO_Edit');
         var west_po = panel_po.down('#panel_po');
         west_po.setHidden(true);

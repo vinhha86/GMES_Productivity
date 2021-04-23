@@ -15,12 +15,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     columns: [{
         text: 'Mã SP (Buyer)',
         dataIndex: 'productbuyercode',
-        flex: 1,
+        width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    }, 
+    },
     {
         text: 'Ngày giao',
         dataIndex: 'shipdate',
@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
-        flex: 1,
+        width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -38,11 +38,13 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     },
     {
         text: 'Đóng gói',
-        width: 100
+        flex: 1,
+        dataIndex: 'packing_method'
     },
     {
         text: 'Cảng xếp hàng',
-        width: 100
+        width: 100,
+        dataIndex: 'portFrom'
     },
     {
         text: 'SL Y/C',
@@ -55,7 +57,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'Cắt',
         align: 'right',
-        dataIndex: 'po_quantity',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -63,7 +64,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'VC',
         align: 'right',
-        dataIndex: 'po_quantity',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -71,7 +71,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'RC',
         align: 'right',
-        dataIndex: 'po_quantity',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -80,7 +79,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     {
         text: 'Đóng gói',
         align: 'right',
-        dataIndex: 'po_quantity',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -89,24 +87,41 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     {
         text: 'Giao hàng',
         align: 'right',
-        dataIndex: 'po_quantity',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
-    }, 
+    },
     ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
-        padding: '0 0 5 5',
-        height: 30,
-        items: [{
-            xtype: 'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth: 0,
-            value: 'Danh sách PO Line (Nhịp giao hàng)'
-        }
+        // padding: '0 0 5 5',
+        // height: 40,
+        layout: 'hbox',
+        items: [
+            {
+                xtype: 'button',
+                iconCls: 'x-fa fa-backward',
+                itemId: 'hideView',
+                tooltip: 'Kế hoạch sản xuất'
+            },
+            {
+                xtype: 'datefield',
+                fieldLabel: "Danh sách PO Line (Nhịp giao hàng) đến ngày",
+                fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                labelStyle: "font-weight: bold; font-size: 14px; color: black;",
+                bind: {
+                    value: '{shipdate_to}'
+                },
+                format: 'd/m/Y',
+                altFormats: "Y-m-d\\TH:i:s.uO",
+                itemId: 'shipdate',
+                width: 470,
+                margin: 2,
+                editable: false,
+                labelWidth: 330
+            }
         ]
     }
     ]
