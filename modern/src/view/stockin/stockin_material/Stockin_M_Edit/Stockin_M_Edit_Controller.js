@@ -352,7 +352,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         storePklRecheck.removeAll();
         storePklRecheck.insert(0, storePackinglistRecheckArr);
 
-        console.log();
     },
     setStockinLotForStockinD: function(stockin){
         var data = stockin;
@@ -482,6 +481,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maNPLFilter'),
             filters = grid.store.getFilters();
+        
+        var viewModel = this.getViewModel();
+        viewModel.set('selectedDRecord', null);
+        grid.getSelectable().deselectAll();
 
         if (filterField.getValue()) {
             this.maNPLFilter = filters.add({
@@ -496,12 +499,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             filters.remove(this.maNPLFilter);
             this.maNPLFilter = null;
         }
+
+        var viewModel = this.getViewModel();
+        viewModel
     },
     onmaLotFilterKeyup: function (){
         var grid = this.getView().down('#Stockin_M_Edit_Lot'),
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maLotFilter'),
             filters = grid.store.getFilters();
+
+        var viewModel = this.getViewModel();
+        viewModel.set('selectedLotRecord', null);
+        grid.getSelectable().deselectAll();
 
         if (filterField.getValue()) {
             this.maLotFilter = filters.add({
@@ -523,10 +533,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             filterField = this.getView().down('#maPklFilter'),
             filters = grid.store.getFilters();
 
-        // console.log(filterField);
-        console.log(grid);
-        // grid.getSelectionModel().deselectAll();
-        // grid.getSelectionModel().clearSelections();
+        var viewModel = this.getViewModel();
+        grid.getSelectable().deselectAll();
+        viewModel.set('lotnumberTxt', '');
+        this.resetForm();
+        this.getView().down('#lotnumberTxt').focus();
 
         if (filterField.getValue()) {
             this.maPklFilter = filters.add({
@@ -547,6 +558,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maPklRecheckFilter'),
             filters = grid.store.getFilters();
+
+        grid.getSelectable().deselectAll();
+        this.resetFormRecheck();
 
         if (filterField.getValue()) {
             this.maPklRecheckFilter = filters.add({
@@ -1397,7 +1411,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
         viewModel.set('stockin.stockin_d', stockin_d);
         m.setStorePklAndPklReCheck(stockin);
-
         // console.log(info);
         // console.log(stockin);
     },
@@ -1428,25 +1441,4 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         m.setStorePklAndPklReCheck(stockin);
     },
 
-    setStoreLot: function(dataArr){
-
-    },
-    setStorePkl: function(dataArr){
-        var me = this;
-        var viewModel = this.getViewModel();
-        var viewPkl = this.getView().down('#Stockin_M_Edit_Pkl');
-        var storePkl = viewPkl.getStore();
-
-        var filters = storePkl.getFilters();
-        console.log(filters);
-        
-        // storePkl.clearFilter();
-        storePkl.removeAll();
-        storePkl.insert(0, dataArr);
-
-        // console.log(filters);
-    },
-    setStorePklRecheck: function(dataArr){
-
-    },
 })

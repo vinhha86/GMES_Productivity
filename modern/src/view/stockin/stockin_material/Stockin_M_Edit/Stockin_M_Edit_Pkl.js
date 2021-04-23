@@ -19,6 +19,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
     columnLines: true,
     striped: false,
     infinite: false,
+    width: '100%',
 
     plugins: {
         gridcellediting: {
