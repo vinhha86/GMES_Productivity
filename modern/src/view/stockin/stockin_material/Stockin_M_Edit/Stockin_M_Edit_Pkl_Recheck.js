@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
     markDirty: true,
     columnLines: true,
     striped: false,
+    infinite: false,
 
     plugins: {
         gridcellediting: {
@@ -47,7 +48,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
 
     columns: [{
         text: '',
-        width: 30,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     },
@@ -59,12 +60,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
     {
         text: 'Số cây', 
         flex: 1,
-        dataIndex: 'packageid'
+        dataIndex: 'packageid',
+        align: 'right'
     },
     {
         text: 'Số M/kiểm', 
         flex: 1,
         dataIndex: 'met_check',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
@@ -85,6 +88,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
         text: 'Số Y/kiểm', 
         flex: 1,
         dataIndex: 'ydscheck',
+        align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
