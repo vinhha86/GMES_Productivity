@@ -5,12 +5,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
     controller: 'FilterBar_Controller',
     layout: 'hbox',
     items: [
-        {
-            xtype: 'button',
-            iconCls: 'x-fa fa-forward',
-            itemId: 'hideView',
-            tooltip: 'Tiến độ giao hàng'
-        },
+        // {
+        //     xtype: 'button',
+        //     iconCls: 'x-fa fa-ship',
+        //     itemId: 'hideView',
+        //     tooltip: 'Tiến độ giao hàng'
+        // },
         {
             xtype: 'button',
             iconCls: 'x-fa fa-bars',
