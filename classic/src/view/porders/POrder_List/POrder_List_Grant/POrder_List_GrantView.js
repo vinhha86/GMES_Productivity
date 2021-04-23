@@ -21,7 +21,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
     bind: {
         store: '{POrder_ListGrantStore}'
     },
-    title: 'Danh sách tổ chuyền',
     columns: [{
         text: 'STT',
         width: 50,
@@ -32,25 +31,38 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
         dataIndex: 'granttoorgname',
         flex: 1,
     }, {
-        text: 'Ngày vào chuyền',
+        text: 'Ngày VC',
         dataIndex: 'start_date_plan',
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         // flex: 1,
     }, {
-        text: 'Ngày ra chuyền',
+        text: 'Ngày RC',
         dataIndex: 'finish_date_plan',
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         // flex: 1
     }, {
         text: 'Số lượng',
         dataIndex: 'grantamount',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         flex: 1,
         align: 'end'
+    }],
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        padding: '0 0 10 5',
+        height: 35,
+        items: [{
+            xtype: 'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelWidth: 0,
+            value: 'Danh sách tổ chuyền'
+        }
+        ]
     }]
 });
 

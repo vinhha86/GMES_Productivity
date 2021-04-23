@@ -47,7 +47,8 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
                         border: true
                     }]
                 }, {
-                    title: 'Chi tiết tổ'
+                    title: 'Chi tiết tổ',
+                    xtype: 'SizeBreakdown_Grant_MainView'
                 }, {
                     title: 'Định mức'
                 }, {

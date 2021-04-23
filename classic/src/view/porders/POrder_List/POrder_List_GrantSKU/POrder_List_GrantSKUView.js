@@ -24,10 +24,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
             }
         }
     },
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
     features: [
         {
             ftype: 'summary',
@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    }, 
+    },
     // {
     //     text: 'SKU',
     //     dataIndex: 'skucode',
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         text: 'Màu',
         dataIndex: 'mauSanPham',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     }, {
         text: 'SL',
         dataIndex: 'grantamount',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         editor: {
@@ -77,8 +77,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
             field: {
                 xtype: 'textfield',
                 allowBlank: false,
-                blankText:'Không được để trống số lượng',
-                itemId:'txtgrantamount',
+                blankText: 'Không được để trống số lượng',
+                itemId: 'txtgrantamount',
                 maskRe: /[0-9]/,
             }
         },
@@ -87,24 +87,24 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
         width: 60,
         align: 'end'
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 35,
-        items:[{
-            xtype:'displayfield',
+        items: [{
+            xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
-            labelWidth : 0,
+            labelWidth: 0,
             value: 'Chi tiết màu cỡ tổ chuyền '
         },
-		'->'
-		,{
-            xtype:'button',
-            itemId:'btnThemSKU',
+            '->'
+            , {
+            xtype: 'button',
+            itemId: 'btnThemSKU',
             ui: 'header',
             margin: '10 5 0 0',
-			tooltip: 'Thêm màu, cỡ',
+            tooltip: 'Thêm màu, cỡ',
             iconCls: 'x-fa fa-plus'
         }]
     }]
