@@ -25,24 +25,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         gridcellediting: {
             selectOnEdit: true
         },
-        listswiper: {
-            defaults: {
-                width: 96
-            },
+        // listswiper: {
+        //     defaults: {
+        //         width: 96
+        //     },
 
-            right: [
-                {
-                    iconCls: 'x-fa fa-arrow-right',
-                    ui: 'alt action',
-                    commit: 'onAddPklRecheck'
-                },
-            ]
-        }
+        //     right: [
+        //         {
+        //             iconCls: 'x-fa fa-arrow-right',
+        //             ui: 'alt action',
+        //             commit: 'onAddPklRecheck'
+        //         },
+        //     ]
+        // }
     },
 
     selectable: {
-        rows: false,
-        cells: true
+        rows: true,
+        cells: false
     },
 
     bind: {

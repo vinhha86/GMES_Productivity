@@ -180,7 +180,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             placeholder: 'Số lot',
                                             // editable: false,
                                             // readOnly: true,
-                                            clearable: false,
+                                            // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
                                                 value: '{lotNumberTxt}'
@@ -201,7 +201,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             placeholder: 'Số lượng cây',
                                             // editable: false,
                                             // readOnly: true,
-                                            clearable: false,
+                                            // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
                                                 value: '{cayNumberTxt}'
@@ -223,7 +223,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             placeholder: 'Tổng độ dài',
                                             // editable: false,
                                             // readOnly: true,
-                                            clearable: false,
+                                            // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
                                                 value: '{yNumberTxt}'
@@ -356,7 +356,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             placeholder: 'Dãy',
                                             // editable: false,
                                             // readOnly: true,
-                                            clearable: false,
+                                            // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
                                                 value:'{row}'
@@ -377,7 +377,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             placeholder: 'Hàng',
                                             // editable: false,
                                             // readOnly: true,
-                                            clearable: false,
+                                            // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
                                                 value:'{space}'
@@ -399,7 +399,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             placeholder: 'Tầng',
                                             // editable: false,
                                             // readOnly: true,
-                                            clearable: false,
+                                            // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
                                                 value:'{floor}'
@@ -485,7 +485,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Số LOT',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{lotnumberTxt}'
@@ -510,7 +510,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Số cây',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{packageidTxt}'
@@ -647,7 +647,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Số M kiểm',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{mTxt}',
@@ -671,7 +671,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Số Y kiểm',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{yTxt}',
@@ -694,7 +694,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Dài phiếu (M)',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{mOriginTxt}',
@@ -716,7 +716,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Dài phiếu (Y)',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{yOriginTxt}',
@@ -836,10 +836,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     // maxWidth: 130,
                                                     textAlign: 'left',
                                                     placeholder: 'Số LOT',
-                                                    editable: false,
-                                                    readOnly: true,
-                                                    clearable: false,
-                                                    cls: 'notEditable',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    // clearable: false,
+                                                    // cls: 'notEditable',
                                                     bind: {
                                                         value: '{lotnumberTxtRecheck}'
                                                     },
@@ -861,10 +861,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     // maxWidth: 130,
                                                     textAlign: 'left',
                                                     placeholder: 'Số cây',
-                                                    editable: false,
-                                                    readOnly: true,
-                                                    clearable: false,
-                                                    cls: 'notEditable',
+                                                    // editable: false,
+                                                    // readOnly: true,
+                                                    // clearable: false,
+                                                    // cls: 'notEditable',
                                                     bind: {
                                                         value: '{packageidTxtRecheck}'
                                                     },
@@ -927,7 +927,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Số M kiểm',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{mTxtRecheck}',
@@ -951,7 +951,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Số Y kiểm',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{yTxtRecheck}',
@@ -974,7 +974,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Dài phiếu (M)',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{mOriginTxtRecheck}',
@@ -996,7 +996,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Dài phiếu (Y)',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{yOriginTxtRecheck}',
@@ -1054,7 +1054,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Khổ',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{widthTxtRecheck}'
@@ -1075,7 +1075,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     placeholder: 'Cân nặng',
                                                     // editable: false,
                                                     // readOnly: true,
-                                                    clearable: false,
+                                                    // clearable: false,
                                                     // cls: 'notEditable',
                                                     bind: {
                                                         value: '{grossweightTxtRecheck}'
@@ -1145,24 +1145,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
         ui: 'action',
     },    
     '->',
-    // {
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-check',
-    //     itemId:'btnHandover',
-    //     ui: 'action',
-    //     bind: {
-    //         hidden: '{isBtnConfirmHidden}'
-    //     }
-    // },
-    // {
-    //     xtype:'button',
-    //     iconCls: 'x-fa fa-trash',
-    //     itemId:'btnDelete',
-    //     ui: 'action',
-    //     bind: {
-    //         hidden: '{isBtnDeleteHidden}'
-    //     }
-    // },
     {
         xtype:'button',
         iconCls: 'x-fa fa-print',

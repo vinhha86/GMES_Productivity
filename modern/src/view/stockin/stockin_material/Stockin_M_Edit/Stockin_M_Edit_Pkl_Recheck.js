@@ -24,23 +24,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
         gridcellediting: {
             selectOnEdit: true
         },
-        listswiper: {
-            defaults: {
-                width: 96
-            },
-            left: [
-                {
-                    iconCls: 'x-fa fa-arrow-left',
-                    ui: 'alt action',
-                    commit: 'onRemovePklRecheck'
-                },
-            ]
-        }
+        // listswiper: {
+        //     defaults: {
+        //         width: 96
+        //     },
+        //     left: [
+        //         {
+        //             iconCls: 'x-fa fa-arrow-left',
+        //             ui: 'alt action',
+        //             commit: 'onRemovePklRecheck'
+        //         },
+        //     ]
+        // }
     },
 
     selectable: {
-        rows: false,
-        cells: true
+        rows: true,
+        cells: false
     },
 
     bind: {
