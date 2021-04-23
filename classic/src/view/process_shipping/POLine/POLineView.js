@@ -100,12 +100,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         // height: 40,
         layout: 'hbox',
         items: [
-            {
-                xtype: 'button',
-                iconCls: 'x-fa fa-backward',
-                itemId: 'hideView',
-                tooltip: 'Kế hoạch sản xuất'
-            },
+            // {
+            //     xtype: 'button',
+            //     iconCls: 'x-fa fa-tasks',
+            //     itemId: 'hideView',
+            //     tooltip: 'Kế hoạch sản xuất'
+            // },
             {
                 xtype: 'datefield',
                 fieldLabel: "Danh sách PO Line (Nhịp giao hàng) đến ngày",
