@@ -99,6 +99,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 
 		// Stockin_M_Edit_Pkl
 		storePackinglistArr: [],
+		maPklFilterByMaVai: '',
+		maPklFilter: '',
 
 		// textfield
 		lotnumberTxt: '',
@@ -115,6 +117,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		// Stockin_M_Edit_Pkl_Recheck
 		storePackinglistRecheckArr: [],
 		selectedPklRecheckRecord: null,
+		maPklRecheckFilterByMaVai: '',
+		maPklRecheckFilter: '',
 
 		// textfield
 		lotnumberTxtRecheck: '',

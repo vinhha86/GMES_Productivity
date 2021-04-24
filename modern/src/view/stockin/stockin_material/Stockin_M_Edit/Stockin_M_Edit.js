@@ -286,7 +286,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     // minWidth: 80,
                                     // maxWidth: 200,
                                     textAlign: 'left',
-                                    placeholder: 'Tìm kiếm nhanh ... (theo số lot)',
+                                    placeholder: 'Tìm kiếm nhanh ... (theo lot)',
                                     // editable: false,
                                     // readOnly: true,
                                     clearable: false,
@@ -429,29 +429,63 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                             flex: 1,
                             items:[
                                 {
-                                    xtype: 'textfield',
-                                    itemId: 'maPklFilter',
-                                    // label: 'Mã hàng:',
-                                    // labelWidth: 85,
-                                    margin: '5 5 1 5',
-                                    // padding: 6,
-                                    // flex: 1,
-                                    // width: '100%',
-                                    // minWidth: 80,
-                                    // maxWidth: 200,
-                                    textAlign: 'left',
-                                    placeholder: 'Tìm kiếm nhanh ... (theo số lot)',
-                                    // editable: false,
-                                    // readOnly: true,
-                                    clearable: false,
-                                    cls: 'searchField',
-                                    // bind: {
-                                    //     value: '{maNPLFilter}'
-                                    // },
-                                    listeners: {
-                                        keyup: 'onmaPklFilterKeyup',
-                                        buffer: 500
-                                    }
+                                    xtype: 'container',
+                                    // flex:1,
+                                    // height: 100,
+                                    // docked: 'bottom',
+                                    layout: 'hbox',
+                                    items:[
+                                        {
+                                            xtype: 'textfield',
+                                            itemId: 'maPklFilterByMaVai',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: '5 5 1 5',
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Mã vải',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            cls: 'searchField',
+                                            bind: {
+                                                value: '{maPklFilterByMaVai}'
+                                            },
+                                            listeners: {
+                                                keyup: 'onmaPklFilterKeyup',
+                                                buffer: 500
+                                            }
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            itemId: 'maPklFilter',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: '5 5 1 5',
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Tìm kiếm nhanh ... (theo lot)',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            cls: 'searchField',
+                                            bind: {
+                                                value: '{maPklFilter}'
+                                            },
+                                            listeners: {
+                                                keyup: 'onmaPklFilterKeyup',
+                                                buffer: 500
+                                            }
+                                        },
+                                    ]
                                 },
                                 {
                                     margin: 1,
@@ -782,30 +816,65 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                             flex: 1,
                             items:[
                                 {
-                                    xtype: 'textfield',
-                                    itemId: 'maPklRecheckFilter',
-                                    // label: 'Mã hàng:',
-                                    // labelWidth: 85,
-                                    margin: '5 5 1 5',
-                                    // padding: 6,
-                                    // flex: 1,
-                                    // width: '100%',
-                                    // minWidth: 80,
-                                    // maxWidth: 200,
-                                    textAlign: 'left',
-                                    placeholder: 'Tìm kiếm nhanh ... (theo số lot)',
-                                    // editable: false,
-                                    // readOnly: true,
-                                    clearable: false,
-                                    cls: 'searchField',
-                                    // bind: {
-                                    //     value: '{maNPLFilter}'
-                                    // },
-                                    listeners: {
-                                        keyup: 'onmaPklRecheckFilterKeyup',
-                                        buffer: 500
-                                    }
+                                    xtype: 'container',
+                                    // flex:1,
+                                    // height: 100,
+                                    // docked: 'bottom',
+                                    layout: 'hbox',
+                                    items:[
+                                        {
+                                            xtype: 'textfield',
+                                            itemId: 'maPklRecheckFilterByMaVai',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: '5 5 1 5',
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Mã vải',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            cls: 'searchField',
+                                            bind: {
+                                                value: '{maPklRecheckFilterByMaVai}'
+                                            },
+                                            listeners: {
+                                                keyup: 'onmaPklRecheckFilterKeyup',
+                                                buffer: 500
+                                            }
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            itemId: 'maPklRecheckFilter',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: '5 5 1 5',
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'Tìm kiếm nhanh ... (theo lot)',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            clearable: false,
+                                            cls: 'searchField',
+                                            bind: {
+                                                value: '{maPklRecheckFilter}'
+                                            },
+                                            listeners: {
+                                                keyup: 'onmaPklRecheckFilterKeyup',
+                                                buffer: 500
+                                            }
+                                        },
+                                    ]
                                 },
+                                
                                 {
                                     margin: 1,
                                     flex: 1,

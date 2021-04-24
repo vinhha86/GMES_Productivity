@@ -94,6 +94,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             // console.log(dataView);
             // console.log(target);
             viewModel.set('selectedDRecord', record);
+
+            // thêm filter mã vải cho pkl và pkl_recheck
+            viewModel.set('maPklFilterByMaVai', record.get('skucode'));
+            viewModel.set('maPklRecheckFilterByMaVai', record.get('skucode'));
+
+            m.onmaPklFilterKeyup();
+            m.onmaPklRecheckFilterKeyup();
         }
     },
     onAddLot: function(){
@@ -521,50 +528,109 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var grid = this.getView().down('#Stockin_M_Edit_Pkl'),
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maPklFilter'),
+            store = grid.store,
             filters = grid.store.getFilters();
 
         var viewModel = this.getViewModel();
+        var stockin_d = viewModel.get('stockin.stockin_d');
+
         grid.getSelectable().deselectAll();
         viewModel.set('lotnumberTxt', '');
         this.resetForm();
         this.getView().down('#lotnumberTxt').focus();
 
-        if (filterField.getValue()) {
-            this.maPklFilter = filters.add({
-                id: 'maPklFilter',
-                property: 'lotnumber',
-                value: filterField.getValue(),
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.maPklFilter) {
-            filters.remove(this.maPklFilter);
-            this.maPklFilter = null;
-        }
+        var maPklFilterByMaVai = viewModel.get('maPklFilterByMaVai') == null ? '' : viewModel.get('maPklFilterByMaVai').toLowerCase();
+        var maPklFilter = viewModel.get('maPklFilter') == null ? '' : viewModel.get('maPklFilter').toLowerCase();
+        store.clearFilter();
+        store.filterBy(function(rec) { //toLowerCase() // includes()
+            var isByMaVaiOK = false;
+            var isByLotOK = false;
+            if(
+                rec.get('lotnumber').toLowerCase().includes(maPklFilter)
+            ){
+                isByLotOK = true;
+            }
+            for(var i=0; i<stockin_d.length; i++){
+                if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
+                    if(stockin_d[i].skuid_link == rec.get('skuid_link')){
+                        isByMaVaiOK = true;
+                    }
+                }
+            }
+            if(isByMaVaiOK && isByLotOK){
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        // if (filterField.getValue()) {
+        //     this.maPklFilter = filters.add({
+        //         id: 'maPklFilter',
+        //         property: 'lotnumber',
+        //         value: filterField.getValue(),
+        //         anyMatch: true,
+        //         caseSensitive: false
+        //     });
+        // }
+        // else if (this.maPklFilter) {
+        //     filters.remove(this.maPklFilter);
+        //     this.maPklFilter = null;
+        // }
     },
     onmaPklRecheckFilterKeyup: function (){
         var grid = this.getView().down('#Stockin_M_Edit_Pkl_Recheck'),
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maPklRecheckFilter'),
+            store = grid.store,
             filters = grid.store.getFilters();
 
-        grid.getSelectable().deselectAll();
-        this.resetFormRecheck();
+        var viewModel = this.getViewModel();
+        var stockin_d = viewModel.get('stockin.stockin_d');
 
-        if (filterField.getValue()) {
-            this.maPklRecheckFilter = filters.add({
-                id: 'maPklRecheckFilter',
-                property: 'lotnumber',
-                value: filterField.getValue(),
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.maPklRecheckFilter) {
-            filters.remove(this.maPklRecheckFilter);
-            this.maPklRecheckFilter = null;
-        }
+        grid.getSelectable().deselectAll();
+        viewModel.set('lotnumberTxtRecheck', '');
+        this.resetForm();
+        this.getView().down('#lotnumberTxtRecheck').focus();
+
+        var maPklFilterByMaVai = viewModel.get('maPklRecheckFilterByMaVai') == null ? '' : viewModel.get('maPklRecheckFilterByMaVai').toLowerCase();
+        var maPklFilter = viewModel.get('maPklRecheckFilter') == null ? '' : viewModel.get('maPklRecheckFilter').toLowerCase();
+        store.clearFilter();
+        store.filterBy(function(rec) { //toLowerCase() // includes()
+            var isByMaVaiOK = false;
+            var isByLotOK = false;
+            if(
+                rec.get('lotnumber').toLowerCase().includes(maPklFilter)
+            ){
+                isByLotOK = true;
+            }
+            for(var i=0; i<stockin_d.length; i++){
+                if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
+                    if(stockin_d[i].skuid_link == rec.get('skuid_link')){
+                        isByMaVaiOK = true;
+                    }
+                }
+            }
+            if(isByMaVaiOK && isByLotOK){
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        // if (filterField.getValue()) {
+        //     this.maPklRecheckFilter = filters.add({
+        //         id: 'maPklRecheckFilter',
+        //         property: 'lotnumber',
+        //         value: filterField.getValue(),
+        //         anyMatch: true,
+        //         caseSensitive: false
+        //     });
+        // }
+        // else if (this.maPklRecheckFilter) {
+        //     filters.remove(this.maPklRecheckFilter);
+        //     this.maPklRecheckFilter = null;
+        // }
     },
 
     // Stockin_M_Edit_P
