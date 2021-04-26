@@ -63,6 +63,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         '#btnAddLot':{
             tap: 'onAddLot'
         },
+        '#btnLotEditSpace':{
+            tap: 'onLotEditSpace'
+        },
         '#btnLotAddSpace':{
             tap: 'onLotAddSpace'
         },
@@ -1554,9 +1557,64 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             dialog.close();
         });
     },
-    btnLotEditSpace: function(){
+    onLotEditSpace: function(){
         // popup danh sách các khaong của lot này
         // từ string space tách ra thành các record
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        // thông báo nếu chưa chọn lot
+        var selectedLotRecord = viewModel.get('selectedLotRecord');
+        if(selectedLotRecord == null){
+            Ext.toast('Chưa chọn lot', 1000);
+            return;
+        }
+
+        // taọ popup và chuyền thông tin record vào
+        // console.log(selectedLotRecord);
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            itemId: 'dialog',
+            title: 'Danh sách khoang',
+            width: 300,
+            height: 450,
+            maxWidth: 300,
+            maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'Stockin_M_Edit_LotSpace_Edit',
+                viewModel: {
+                    data: {
+                        selectedLotRecord: selectedLotRecord,
+                    }
+                }
+            }],
+        });
+        dialog.show();
+
+        dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Luu', function () {
+            dialog.close();
+        });
+
+        dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Thoat', function () {
+            dialog.close();
+        });
     },
     onLotAddSpace: function(){
         // console.log(info);
@@ -1601,7 +1659,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         spaceInfo.lotAmount = lotAmount;
 
         var record = selectedLotRecord;
-        // var space = record.get('space') == null ? '' : record.get('space');
         // D1H5T2C1
         // kiểm tra danh sách khoang đã có khoang này hay chưa
         // update thông tin thuộc tính cho lot
@@ -1617,6 +1674,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('lotSpace', null);
         viewModel.set('lotFloor', null);
         viewModel.set('lotAmount', null);
+
+        // console.log(stockin);
+        // console.log(selectedLotRecord);
     },
     updateLotRecord: function(record, spaceInfo){
         // record: lot đang chọn
@@ -1648,8 +1708,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
         record.set('space', newLotSpaceString);
-
-        console.log(newLotSpaceString);
         return record;
     },
     updateLotGridRecord: function(record){
