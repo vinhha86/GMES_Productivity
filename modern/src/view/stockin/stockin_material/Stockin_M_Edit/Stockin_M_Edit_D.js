@@ -38,21 +38,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 
                 '<div class="content2">'+
                     '<div class="content2-sub1">Lot:</div>'+
-                    '<div class="content2-sub2">{stockinDLot}</div>' +
+                    '<div class="content2-sub2">{[this.getStockinDLotUpperCase(values)]}</div>' +
+                    // '<div class="content2-sub2">{stockinDLot}</div>' +
                 '</div>' +
             '</div>',
         '</tpl>'
         , {
-           getDisplayM: function (values) {
-              if (values.unitid_link != 1) { // không phải met, ẩn
-                  return 'display:none;padding-bottom:0px;';
-              }
-           },
-           getDisplayY: function (values) {
-            if (values.unitid_link != 3) { // không phải yds, ẩn
-                return 'display:none;padding-bottom:0px;';
-            }
-         },
+            getDisplayM: function (values) {
+                if (values.unitid_link != 1) { // không phải met, ẩn
+                    return 'display:none;padding-bottom:0px;';
+                }
+            },
+            getDisplayY: function (values) {
+                if (values.unitid_link != 3) { // không phải yds, ẩn
+                    return 'display:none;padding-bottom:0px;';
+                }
+            },
+            getStockinDLotUpperCase: function (values) {
+                var result = values.stockinDLot == null ? '' : values.stockinDLot.toUpperCase();
+                return result;
+            },
         }
     ),
    

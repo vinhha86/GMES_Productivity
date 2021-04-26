@@ -56,7 +56,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
     {
         text: 'Số Lot', 
         flex: 1,
-        dataIndex: 'lotnumber'
+        dataIndex: 'lotnumber',
+        renderer: function(value, record, dataIndex, cell, column) {
+            return value.toUpperCase();
+        },
     },
     {
         text: 'Số cây', 

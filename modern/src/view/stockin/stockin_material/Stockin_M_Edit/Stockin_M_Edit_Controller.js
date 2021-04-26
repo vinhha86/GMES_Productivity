@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // check stockin_lot
         for(var i = 0; i < stockin_lot.length; i++){
             var stockin_lotRec = stockin_lot[i];
-            if(stockin_lotRec.lot_number == lotNumberTxt && stockin_lotRec.materialid_link == selectedDRecord.get('skuid_link')){
+            if(stockin_lotRec.lot_number.toUpperCase() == lotNumberTxt.toUpperCase() && stockin_lotRec.materialid_link == selectedDRecord.get('skuid_link')){
                 // lot cho sku đã tồn tại, ko Thêm
                 Ext.toast('Đã tồn tại lot của mã vải', 1000);
                 return;
@@ -167,9 +167,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // set giá trị dataview
         var stockinDLot = selectedDRecord.get('stockinDLot');
         if(stockinDLot == ''){
-            stockinDLot+=lotNumberTxt+' '+cayNumberTxt;
+            stockinDLot+=lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
         }else{
-            stockinDLot+= '; ' + lotNumberTxt+' '+cayNumberTxt;
+            stockinDLot+= '; ' + lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
         }
         selectedDRecord.set('stockinDLot', stockinDLot);
 
@@ -283,6 +283,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
                 store.setData(data.stockin_d);
 
+                // set store kiểm cây và 10%
                 me.setStorePklAndPklReCheck(data);
 
                 // load cbbox color pkl theo stockin
@@ -702,7 +703,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         // check lotnumber tồn tại
         var isLotnumberExist = stockin_lot.some(
-            item => item.lot_number == lotnumberTxt
+            item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
         );
         if(!isLotnumberExist){
             Ext.toast('Số lot ko tồn tại', 3000);
@@ -740,7 +741,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         for(var i = 0; i < items.length; i++){
             var item = items[i];
             // nếu tìm thấy cây vải
-            if(item.lotnumber == lotnumberTxt && item.packageid == packageidTxt){
+            if(item.lotnumber.toUpperCase() == lotnumberTxt.toUpperCase() && item.packageid == packageidTxt){
                 isExist = true;
 
                 // thay đổi thông tin storePackinglistArr (danh sách hiển thị pkl)
@@ -787,7 +788,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 // update storePackinglistArr
                 var isExistInStorePackinglistRecheckArr = false;
                 for(var j = 0; j < storePackinglistRecheckArr.length; j++){
-                    if(storePackinglistRecheckArr[j].lotnumber == item.lotnumber && storePackinglistRecheckArr[j].packageid == item.packageid){
+                    if(storePackinglistRecheckArr[j].lotnumber.toUpperCase() == item.lotnumber.toUpperCase() && storePackinglistRecheckArr[j].packageid == item.packageid){
                         storePackinglistRecheckArr[j] = item;
                         isExistInStorePackinglistRecheckArr = true;
                     }
@@ -973,7 +974,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         // check lotnumber tồn tại
         var isLotnumberExist = stockin_lot.some(
-            item => item.lot_number == lotnumberTxt
+            item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
         );
         if(!isLotnumberExist){
             Ext.toast('Số lot ko tồn tại', 3000);
@@ -982,7 +983,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
         // set khổ width
         for(var i = 0; i < stockin_lot.length; i++){
-            if(stockin_lot[i].lot_number == lotnumberTxt){
+            if(stockin_lot[i].lot_number.toUpperCase() == lotnumberTxt.toUpperCase()){
                 for(var j = 0; j < stockin_d.length; j++){
                     if(stockin_lot[i].materialid_link == stockin_d[j].skuid_link){
                         widthTxt=stockin_d[j].size_name == null ? 0 : stockin_d[j].size_name;
@@ -1022,7 +1023,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         for(var i = 0; i < items.length; i++){
             var item = items[i];
             // nếu tìm thấy cây vải
-            if(item.lotnumber == lotnumberTxt && item.packageid == packageidTxt){
+            if(item.lotnumber.toUpperCase() == lotnumberTxt.toUpperCase() && item.packageid == packageidTxt){
                 isExist = true;
 
                 // thay đổi thông tin storePackinglistArr (danh sách hiển thị pkl)
@@ -1066,7 +1067,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 
                 // update storePackinglistArr
                 for(var j = 0; j < storePackinglistRecheckArr.length; j++){
-                    if(storePackinglistRecheckArr[j].lotnumber == item.lotnumber && storePackinglistRecheckArr[j].packageid == item.packageid){
+                    if(storePackinglistRecheckArr[j].lotnumber.toUpperCase() == item.lotnumber.toUpperCase() && storePackinglistRecheckArr[j].packageid == item.packageid){
                         storePackinglistRecheckArr[j] = item;
                     }
                 }
@@ -1081,7 +1082,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         if(!isExist){
             // set color
             for(var i = 0;i < stockin_lot.length; i++){
-                if(stockin_lot[i].lot_number == lotnumberTxt){
+                if(stockin_lot[i].lot_number.toUpperCase() == lotnumberTxt.toUpperCase()){
                     for(var j = 0; j < stockin_d.length; j++){
                         if(stockin_lot[i].materialid_link == stockin_d[j].skuid_link){
                             objData.colorTxt = stockin_d[j].colorid_link;
@@ -1163,7 +1164,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         newObj.status = 0;
 
         for(var i = 0; i < stockin_lot.length; i++){
-            if(stockin_lot[i].lot_number == newObj.lotnumber){
+            if(stockin_lot[i].lot_number.toUpperCase() == newObj.lotnumber.toUpperCase()){
                 newObj.skuid_link = stockin_lot[i].materialid_link;
             }
         }
@@ -1192,7 +1193,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var totalydscheck = 0;
             for(var j = 0; j < storePackinglistArr.length; j++){
                 var pkl = storePackinglistArr[j];
-                if(stockin_lot[i].lot_number == pkl.lotnumber){
+                if(stockin_lot[i].lot_number.toUpperCase() == pkl.lotnumber.toUpperCase()){
                     totalmetcheck+=pkl.met_check;
                     totalydscheck+=pkl.ydscheck;
                 }
@@ -1446,15 +1447,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var lotSpace = location.record.get('space');
         m.setSpaceStore(lotSpace);
         viewModel.set('selectedLotRecord', location.record);
-
         grid.getSelectable().select(location.record);
     },
     setSpaceStore: function(lotSpace){
+        // update space textfield
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-        var stockinD = viewModel.get('stockinD');
         var lotSpaceArr = lotSpace.split(';');
         var lotSpaceArrStore = new Array();
         for(var i = 0; i < lotSpaceArr.length; i++){
@@ -1473,7 +1472,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             if(spacesString == ''){
                 spacesString+=lotSpaceArrStore[i].space;
             }else{
-                spacesString+='; '+lotSpaceArrStore[i].space;
+                spacesString+=';'+lotSpaceArrStore[i].space;
             }
         }
         viewModel.set('spacesString', spacesString);
@@ -1555,49 +1554,123 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             dialog.close();
         });
     },
-    onLotAddSpace: function(grid, info){
+    btnLotEditSpace: function(){
+        // popup danh sách các khaong của lot này
+        // từ string space tách ra thành các record
+    },
+    onLotAddSpace: function(){
         // console.log(info);
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockinD = viewModel.get('stockinD');
 
+        // thông báo nếu chưa chọn lot
         var selectedLotRecord = viewModel.get('selectedLotRecord');
         if(selectedLotRecord == null){
             Ext.toast('Chưa chọn lot', 1000);
             return;
         }
 
-        var row = viewModel.get('row');
-        var space = viewModel.get('space');
-        var floor = viewModel.get('floor');
-
-        if(row == null || row == ''){
+        // check thông tin
+        var lotRow = viewModel.get('lotRow');
+        var lotSpace = viewModel.get('lotSpace');
+        var lotFloor = viewModel.get('lotFloor');
+        var lotAmount = viewModel.get('lotAmount');
+        if(lotRow == null || lotRow == ''){
             Ext.toast('Chưa nhập dãy', 1000);
             return;
         }
-        if(space == null || space == ''){
+        if(lotSpace == null || lotSpace == ''){
             Ext.toast('Chưa nhập hàng', 1000);
             return;
         }
-        if(floor == null || floor == ''){
+        if(lotFloor == null || lotFloor == ''){
             Ext.toast('Chưa nhập tầng', 1000);
             return;
         }
+        if(lotAmount == null || lotAmount == ''){
+            lotAmount = 0;
+            return;
+        }
+
+        var spaceInfo = new Object();
+        spaceInfo.lotRow = lotRow;
+        spaceInfo.lotSpace = lotSpace;
+        spaceInfo.lotFloor = lotFloor;
+        spaceInfo.lotAmount = lotAmount;
 
         var record = selectedLotRecord;
-        var lotSpace = record.get('space') == null ? '' : record.get('space'); // D1H5T2
-        if(lotSpace == ''){
-            lotSpace+= 'D' + row + 'H' + space + 'T' + floor;
-        }else{
-            lotSpace+= ';D' + row + 'H' + space + 'T' + floor;
-        }
-        record.set('space', lotSpace); // console.log(lotSpace);
-        m.setSpaceStore(lotSpace);
+        // var space = record.get('space') == null ? '' : record.get('space');
+        // D1H5T2C1
+        // kiểm tra danh sách khoang đã có khoang này hay chưa
+        // update thông tin thuộc tính cho lot
+        record = m.updateLotRecord(record, spaceInfo);
+       
+        // update textfield
+        m.setSpaceStore(record.get('space'));
+        // update lot grid
+        m.updateLotGridRecord(record);
 
-        viewModel.set('row', null);
-        viewModel.set('space', null);
-        viewModel.set('floor', null);
+        // reset form
+        viewModel.set('lotRow', null);
+        viewModel.set('lotSpace', null);
+        viewModel.set('lotFloor', null);
+        viewModel.set('lotAmount', null);
+    },
+    updateLotRecord: function(record, spaceInfo){
+        // record: lot đang chọn
+        // spaceInfo: lotRow, lotSpace, lotFloor, lotAmount
+        var space = record.get('space') == null ? '' : record.get('space');
+        var spaceInfoString = 'D' + spaceInfo.lotRow + 'H' + spaceInfo.lotSpace + 'T' + spaceInfo.lotFloor + 'C';
+        var spaceStringArr = space.split(';'); // D1H1T1C1
+        var isSpaceExist = false; // chưa tồn tại khoang trong danh sách khoang của lot
+        
+        var newLotSpaceString = '';
+        for(var i = 0; i < spaceStringArr.length; i++){
+            if(spaceStringArr[i].includes(spaceInfoString)){ // đã tồn tại trong danh sách khoang
+                isSpaceExist = true;
+                var amount = parseInt(spaceStringArr[i].split('C')[1]) + spaceInfo.lotAmount;
+                spaceStringArr[i] = spaceStringArr[i].split('C')[0] + 'C' +amount;
+            }
+            if(newLotSpaceString == ''){
+                newLotSpaceString+=spaceStringArr[i];
+            }else{
+                newLotSpaceString+=';' + spaceStringArr[i];
+            }
+        }
+
+        if(!isSpaceExist){
+            if(newLotSpaceString == ''){
+                newLotSpaceString+= spaceInfoString + spaceInfo.lotAmount;
+            }else{
+                newLotSpaceString+= ';' + spaceInfoString + spaceInfo.lotAmount;
+            }
+        }
+        record.set('space', newLotSpaceString);
+
+        console.log(newLotSpaceString);
+        return record;
+    },
+    updateLotGridRecord: function(record){
+        // update số cây kiểm theo space
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var space = record.get('space');
+        var spaceStringArr = space.split(';'); // D1H1T1C1
+        var totalpackagecheck = 0;
+        for(var i=0; i<spaceStringArr.length; i++){
+            if(spaceStringArr[i] != null && spaceStringArr[i] != ''){
+                var lotString = spaceStringArr[i];
+                totalpackagecheck += parseInt(lotString.split('C')[1]);
+            }
+        }
+        record.set('totalpackagecheck', totalpackagecheck);
+        record.set('status', 0);
+        // console.log(spaceStringArr);
     },
 
     onAddPklRecheck: function(grid, info){
@@ -1614,7 +1687,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var stockin_packinglist = stockin_d[i].stockin_packinglist == null ? [] : stockin_d[i].stockin_packinglist;
             for(j = 0; j < stockin_packinglist.length; j++){
                 if(
-                    stockin_packinglist[j].lotnumber == lotnumber &&
+                    stockin_packinglist[j].lotnumber.toUpperCase() == lotnumber.toUpperCase() &&
                     stockin_packinglist[j].packageid == packageid &&
                     stockin_packinglist[j].skuid_link == skuid_link
                 ){
@@ -1641,7 +1714,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var stockin_packinglist = stockin_d[i].stockin_packinglist == null ? [] : stockin_d[i].stockin_packinglist;
             for(j = 0; j < stockin_packinglist.length; j++){
                 if(
-                    stockin_packinglist[j].lotnumber == lotnumber &&
+                    stockin_packinglist[j].lotnumber.toUpperCase() == lotnumber.toUpperCase() &&
                     stockin_packinglist[j].packageid == packageid &&
                     stockin_packinglist[j].skuid_link == skuid_link
                 ){
@@ -1654,4 +1727,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         m.setStorePklAndPklReCheck(stockin);
     },
 
+    onlotNumberTxtType: function(field, newValue, oldValue, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        // console.log(newValue.toUpperCase());
+        viewModel.set('lotNumberTxt', newValue.toUpperCase());
+        field.setValue(newValue.toUpperCase());
+    },
+    onlotnumberTxtType: function(field, newValue, oldValue, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        // console.log(newValue.toUpperCase());
+        viewModel.set('lotnumberTxt', newValue.toUpperCase());
+        field.setValue(newValue.toUpperCase());
+    },
+    onlotnumberTxtRecheckType: function(field, newValue, oldValue, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        // console.log(newValue.toUpperCase());
+        viewModel.set('lotnumberTxtRecheck', newValue.toUpperCase());
+        field.setValue(newValue.toUpperCase());
+    },
 })

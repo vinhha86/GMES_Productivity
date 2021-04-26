@@ -93,9 +93,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		selectedLotRecord: null,
 		spaces: [],
 		spacesString: '',
-		row: null,
-		space: null,
-		floor: null,
+		lotRow: null, // dãy
+		lotSpace: null, // hàng
+		lotFloor: null, // tầng
+		lotAmount: null, // sl cây
 
 		// Stockin_M_Edit_Pkl
 		storePackinglistArr: [],

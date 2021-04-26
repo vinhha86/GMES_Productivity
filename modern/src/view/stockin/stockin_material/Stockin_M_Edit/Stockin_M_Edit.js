@@ -167,7 +167,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                     items:[
                                         {
                                             xtype: 'textfield',
-                                            // itemId: 'maNPLFilter',
+                                            itemId: 'lotNumberTxt',
                                             // label: 'Mã hàng:',
                                             // labelWidth: 85,
                                             margin: 1,
@@ -185,6 +185,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             bind: {
                                                 value: '{lotNumberTxt}'
                                             },
+                                            listeners: {
+                                                change: 'onlotNumberTxtType'
+                                            }
                                         },
                                         {
                                             xtype: 'numberfield',
@@ -335,6 +338,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                 value:'{spacesString}'
                                             },
                                         },
+                                        {
+                                            xtype:'button',
+                                            iconCls: 'x-fa fa-edit',
+                                            itemId:'btnLotEditSpace',
+                                            ui: 'action',
+                                            margin: 1,
+                                        },    
                                     ]
                                 },
                                 {
@@ -359,7 +369,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
-                                                value:'{row}'
+                                                value:'{lotRow}'
                                             },
                                         },
                                         {
@@ -380,7 +390,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
-                                                value:'{space}'
+                                                value:'{lotSpace}'
                                             },
                                             // stepValue: 0.1,
                                         },
@@ -402,7 +412,29 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             // clearable: false,
                                             // cls: 'notEditable',
                                             bind: {
-                                                value:'{floor}'
+                                                value:'{lotFloor}'
+                                            },
+                                            // stepValue: 0.1,
+                                        },
+                                        {
+                                            xtype: 'numberfield',
+                                            // itemId: 'maNPLFilter',
+                                            // label: 'Mã hàng:',
+                                            // labelWidth: 85,
+                                            margin: 1,
+                                            // padding: 6,
+                                            flex: 1,
+                                            // width: '100%',
+                                            // minWidth: 80,
+                                            // maxWidth: 200,
+                                            textAlign: 'left',
+                                            placeholder: 'SL Cây',
+                                            // editable: false,
+                                            // readOnly: true,
+                                            // clearable: false,
+                                            // cls: 'notEditable',
+                                            bind: {
+                                                value:'{lotAmount}'
                                             },
                                             // stepValue: 0.1,
                                         },
@@ -524,10 +556,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     bind: {
                                                         value: '{lotnumberTxt}'
                                                     },
-                                                    // listeners: {
-                                                    //     keyup: 'onlotnumberTxtKeyup',
-                                                    //     buffer: 1000
-                                                    // }
+                                                    listeners: {
+                                                        change: 'onlotnumberTxtType'
+                                                    }
                                                 },
                                                 {
                                                     xtype: 'numberfield',
@@ -912,10 +943,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     bind: {
                                                         value: '{lotnumberTxtRecheck}'
                                                     },
-                                                    // listeners: {
-                                                    //     keyup: 'onlotnumberTxtKeyup',
-                                                    //     buffer: 1000
-                                                    // }
+                                                    listeners: {
+                                                        change: 'onlotnumberTxtRecheckType'
+                                                    }
                                                 },
                                                 {
                                                     xtype: 'numberfield',

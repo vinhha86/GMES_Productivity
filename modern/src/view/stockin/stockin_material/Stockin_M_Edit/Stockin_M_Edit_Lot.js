@@ -22,24 +22,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         gridcellediting: {
             selectOnEdit: true
         },
-        listswiper: {
-            defaults: {
-                width: 96
-            },
+        // listswiper: {
+        //     defaults: {
+        //         width: 96
+        //     },
 
-            right: [
-                {
-                    iconCls: 'x-fa fa-edit',
-                    ui: 'alt confirm',
-                    commit: 'onLotEdit'
-                },
-                // {
-                //     iconCls: 'x-fa fa-check',
-                //     ui: 'alt action',
-                //     commit: 'onLotCheck'
-                // }
-            ]
-        }
+        //     right: [
+        //         {
+        //             iconCls: 'x-fa fa-edit',
+        //             ui: 'alt confirm',
+        //             commit: 'onLotEdit'
+        //         },
+        //         // {
+        //         //     iconCls: 'x-fa fa-check',
+        //         //     ui: 'alt action',
+        //         //     commit: 'onLotCheck'
+        //         // }
+        //     ]
+        // }
     },
 
     selectable: {
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
                 cell.setCls('cellYellow');
             }
             
-            return value;
+            return value.toUpperCase();
         },
     },
     {
@@ -85,9 +85,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if(value == null) value = 0;
             var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
             var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
-            if (totalpackage <= totalpackagecheck) {
-                cell.setCls('cellWhite');
-            } else {
+            if (totalpackage == totalpackagecheck) {
+                cell.setCls('cellGreen');
+            } else if (totalpackage < totalpackagecheck) {
+                cell.setCls('cellRed');
+            } else{
                 cell.setCls('cellYellow');
             }
             
@@ -103,9 +105,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if(value == null) value = 0;
             var totalmetcheck = record.get('totalmetcheck') == null ? 0 : record.get('totalmetcheck');
             var totalmet = record.get('totalmet') == null ? 0 : record.get('totalmet');
-            if (totalmet <= totalmetcheck) {
-                cell.setCls('cellWhite');
-            } else {
+            if (totalmet == totalmetcheck) {
+                cell.setCls('cellGreen');
+            } else if (totalmet < totalmetcheck) {
+                cell.setCls('cellRed');
+            } else{
                 cell.setCls('cellYellow');
             }
             
@@ -124,9 +128,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if(value == null) value = 0;
             var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
             var totalyds = record.get('totalyds') == null ? 0 : record.get('totalyds');
-            if (totalyds <= totalydscheck) {
+            if (totalyds == totalydscheck) {
                 cell.setCls('cellWhite');
-            } else {
+            } else if (totalyds < totalydscheck) {
+                cell.setCls('cellRed');
+            } else{
                 cell.setCls('cellYellow');
             }
             
@@ -136,19 +142,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             hidden: '{isYdsColumnHidden}',
         },
     },
-    {
-        width: 50,
-        hideable: false,
-        align: 'center',
+    // {
+    //     width: 50,
+    //     hideable: false,
+    //     align: 'center',
 
-        cell: {
-            tools: {
-                approve: {
-                    iconCls: 'x-fa fa-check',
-                    handler: 'onLotCheck'
-                },
-            }
-        }
-    }
+    //     cell: {
+    //         tools: {
+    //             approve: {
+    //                 iconCls: 'x-fa fa-check',
+    //                 handler: 'onLotCheck'
+    //             },
+    //         }
+    //     }
+    // }
     ],
 });
