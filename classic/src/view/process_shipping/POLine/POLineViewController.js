@@ -15,6 +15,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         },
         '#hideView': {
             click: 'onHideView'
+        },
+        '#POLineView': {
+            itemclick: 'onSelect'
         }
     },
     onReload: function () {
@@ -27,5 +30,14 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var grid = this.getView();
         var main = grid.up('#ProcessShippingMainView').up('#Schedule_Plan_Porder_MainView').getLayout();
         main.setActiveItem(0);
+    },
+    onSelect: function (grid, record, item, index, e, eOpts) {
+        console.log(record);
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POLineSKU_Store');
+        var pcontractid_link = record.get('pcontractid_link');
+        var pcontractpoid_link = record.get('id');
+        console.log(pcontractpoid_link);
+        store.loadStoreByPO(pcontractid_link, pcontractpoid_link);
     }
 })

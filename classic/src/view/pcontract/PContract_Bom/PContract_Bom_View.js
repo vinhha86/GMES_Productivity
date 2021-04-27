@@ -53,6 +53,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             return value;
         }
     }, {
+        text: 'PO',
+        dataIndex: 'po_line',
+        width: 150,
+        renderer: function (value, metaData, record) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    }, {
         text: 'ĐVT',
         dataIndex: 'unitid_link',
         width: 70,
@@ -129,7 +137,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 itemId: 'btnDownTempBom',
                 bind: {
                     hidden: '{!allowUploadBom}'
-                }
+                },
+                menu: [{
+                    itemId: 'btndownloadsize',
+                    text: 'Tải file mẫu theo cỡ',
+                    iconCls: 'x-fa fa-download',
+                    weight: 30
+                },
+                {
+                    itemId: 'btndownloadsizeset',
+                    text: 'Tải file mẫu theo dải cỡ',
+                    iconCls: 'x-fa fa-download',
+                    weight: 30
+                }]
             },
             {
                 xtype: 'filefield',
