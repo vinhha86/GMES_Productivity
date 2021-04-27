@@ -70,11 +70,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
         },
 ],
 
-    buttons: [{
-        text: 'Thoát',
-        itemId: 'btnThoat'
-    },{
-        text: 'Lưu',
-        itemId: 'btnLuu'
-    }]
+    buttons: [
+        {
+            text: 'Thoát',
+            itemId: 'btnThoat'
+        },
+        {
+            text: 'Lưu',
+            itemId: 'btnLuu'
+        }
+]
 });

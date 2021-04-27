@@ -1609,12 +1609,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         dialog.show();
 
         dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Luu', function () {
-            dialog.close();
+            // update textfield
+            m.setSpaceStore(selectedLotRecord.get('space'));
+            // update lot grid
+            m.updateLotGridRecord(selectedLotRecord);
+            // dialog.close();
+        });
+
+        dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Delete', function () {
+            // update textfield
+            m.setSpaceStore(selectedLotRecord.get('space'));
+            // update lot grid
+            m.updateLotGridRecord(selectedLotRecord);
+            // dialog.close();
         });
 
         dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Thoat', function () {
             dialog.close();
         });
+
+        console.log(stockin);
     },
     onLotAddSpace: function(){
         // console.log(info);

@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditViewModel', {
         
     },
     data: {
+        selectedLotRecord: null, // lot truyen vao
         spaces: [], // list
 		lotSpace: null, // khoang
 		lotSpaceAmount: null, // sl cây khoang

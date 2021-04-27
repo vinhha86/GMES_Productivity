@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         var selectedLotRecord = viewModel.get('selectedLotRecord');
         var space = selectedLotRecord.get('space');
         this.setSpaceStore(space);
-        console.log(selectedLotRecord);
+        // console.log(selectedLotRecord);
     },
     control: {
         '#btnLuu': {
@@ -21,8 +21,47 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
     },
     onLuu: function(){
         var viewModel = this.getViewModel();
-        // var totalpackagecheck = viewModel.get('totalpackagecheck');
-        this.fireEvent('Luu');
+        var selectedLotRecord = viewModel.get('selectedLotRecord');
+        var lotSpace = viewModel.get('lotSpace');
+        var lotSpaceAmount = viewModel.get('lotSpaceAmount');
+
+        // check form
+        if(lotSpace == null){
+            Ext.toast('Chưa chọn khoang', 1000);
+            return;
+        }
+        if(lotSpaceAmount == null || lotSpaceAmount == ''){
+            Ext.toast('Chưa nhập số cây', 1000);
+            return;
+        }
+
+        // updateLotRecord
+        var space = selectedLotRecord.get('space');
+        var spaceStringArr = space.split(';'); // D1H1T1C1
+        var newLotSpaceString = ''; 
+        for(var i = 0; i < spaceStringArr.length; i++){
+            if(spaceStringArr[i].includes(lotSpace+'C')){
+                spaceStringArr[i] = lotSpace + 'C' + lotSpaceAmount;
+            }
+            if(newLotSpaceString == ''){
+                newLotSpaceString+=spaceStringArr[i];
+            }else{
+                newLotSpaceString+=';' + spaceStringArr[i];
+            }
+        }
+        selectedLotRecord.set('space', newLotSpaceString);
+
+        // update grid
+        this.setSpaceStore(newLotSpaceString);
+
+        // reset form
+        viewModel.set('lotSpace', null);
+        viewModel.set('lotSpaceAmount', null);
+
+        // fire event
+        this.fireEvent('Luu', selectedLotRecord);
+        Ext.toast('Lưu thành công', 1000);
+        // console.log(selectedLotRecord);
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -60,13 +99,36 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         viewModel.set('lotSpaceAmount', lotSpaceAmount);
         viewModel.set('lotSpace', lotSpace);
 
-        console.log(lotSpace);
-        console.log(lotSpaceAmount);
+        // console.log(lotSpace);
+        // console.log(lotSpaceAmount);
     },
     onLotSpaceDelete: function(grid, info){
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
-        // console.log(info.record);
+        var selectedLotRecord = viewModel.get('selectedLotRecord');
+        var spaceRecord = info.record;
+
+        // updateLotRecord
+        var space = selectedLotRecord.get('space');
+        var spaceStringArr = space.split(';'); // D1H1T1C1
+        var newLotSpaceString = ''; 
+        for(var i = 0; i < spaceStringArr.length; i++){
+            if(!spaceStringArr[i].includes(info.record.get('space'))){
+                if(newLotSpaceString == ''){
+                    newLotSpaceString+=spaceStringArr[i];
+                }else{
+                    newLotSpaceString+=';' + spaceStringArr[i];
+                }
+            }
+        }
+        selectedLotRecord.set('space', newLotSpaceString);
+        // update grid
+        this.setSpaceStore(newLotSpaceString);
+        // fire event
+        this.fireEvent('Delete', selectedLotRecord);
+        Ext.toast('Xoá thành công', 1000);
+        // console.log(spaceRecord);
+        // console.log(selectedLotRecord);
     }
 });
