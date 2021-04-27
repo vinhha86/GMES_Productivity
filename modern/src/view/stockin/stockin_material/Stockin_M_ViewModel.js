@@ -72,22 +72,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 
 		// Stockin_M_Edit_P
 		stockinD: null,
-		lotnumberTxt: '',
-		packageidTxt: '',
-		yTxt: '',
-		mTxt: '',
-        mOriginTxt: '',
-        yOriginTxt: '',
-        sampleCheckTxt: '',
-        colorTxt: null,
-        widthTxt: '',
-		yTxtCls: 'yTxtClsWhiteBG', // yTxtClsYellowBG
 
 		// Stockin_M_Edit_D
 		selectedDRecord: null,
 		lotNumberTxt: '',
 		cayNumberTxt: '',
 		yNumberTxt: '',
+		canNumberTxt: '',
 
 		// Stockin_M_Edit_Lot
 		selectedLotRecord: null,
@@ -112,8 +103,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         yOriginTxt: '',
         sampleCheckTxt: '',
         colorTxt: null,
-        widthTxt: '',
+        // widthTxt: '',
 		grossweightTxt: '',
+		grossweightCheckTxt: '',
+		widthYdsCheckTxt: '',
+		widthYdsTxt: '',
+		widthMetCheckTxt: '',
+		widthMetTxt: '',
 
 		// Stockin_M_Edit_Pkl_Recheck
 		storePackinglistRecheckArr: [],
@@ -130,8 +126,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
         yOriginTxtRecheck: '',
         sampleCheckTxtRecheck: '',
         colorTxtRecheck: null,
-        widthTxtRecheck: '',
+        // widthTxtRecheck: '',
 		grossweightTxtRecheck: '',
+		grossweightCheckTxtRecheck: '',
+		widthYdsCheckTxtRecheck: '',
+		widthYdsTxtRecheck: '',
+		widthMetCheckTxtRecheck: '',
+		widthMetTxtRecheck: '',
 	},
 	formulas: {
         isEdit: function (get) {

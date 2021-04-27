@@ -54,14 +54,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     columns: [
     {
         text: '',
-        width: 40,
+        width: 30,
         xtype: 'rownumberer',
         align: 'center'
     },
     {
         text: 'Số Lot', 
         // flex: 1,
-        width: 100,
+        width: 90,
         dataIndex: 'lot_number',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = '';
@@ -142,6 +142,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             hidden: '{isYdsColumnHidden}',
         },
     },
+    // {
+    //     text: 'Cân/kiểm', 
+    //     flex: 1,
+    //     dataIndex: 'grossweight',
+    //     align: 'right',
+    //     renderer: function(value, record, dataIndex, cell, column) {
+    //         if(value == null) value = 0;
+    //         var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
+    //         var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+    //         if (grossweight == grossweight_check) {
+    //             cell.setCls('cellWhite');
+    //         } else if (grossweight < grossweight_check) {
+    //             cell.setCls('cellRed');
+    //         } else{
+    //             cell.setCls('cellYellow');
+    //         }
+            
+    //         return grossweight + ' / ' + grossweight_check;
+    //     },
+    // },
     // {
     //     width: 50,
     //     hideable: false,
