@@ -16,6 +16,9 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         },
         SKUBalanceStore_Trim: {
             type: 'SKUBalanceStore'
+        },
+        POLineSKU_Store: {
+            type: 'PContractSKUStore'
         }
     },
     data: {
