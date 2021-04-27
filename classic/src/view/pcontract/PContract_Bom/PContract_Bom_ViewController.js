@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
-        '#btnDownTempBom': {
+        '#btndownloadsize': {
             click: 'onDownTemp'
         },
         '#btn_UploadBom': {
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var me = this.getView();
         me.down('#fileUploadBom').fileInputEl.dom.click();
     },
-    onSelectFile: function(m, value){
+    onSelectFile: function (m, value) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var data = new FormData();
