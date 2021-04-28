@@ -173,6 +173,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         isEditQuantity: true,
         // copy paste po info o sua chao gia
         obj_copy: null,
+        text_chotdinhmuc: 'Chốt định mức',
+        hidden_chotdinhmuc: true,
+        disabled_chotdinhmuc: true
     },
     formulas: {
         ishidden_addproduct: function (get) {

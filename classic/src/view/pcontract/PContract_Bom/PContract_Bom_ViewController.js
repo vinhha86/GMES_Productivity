@@ -11,8 +11,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#btndownloadsize': {
             click: 'onDownTemp'
         },
-        '#btn_UploadBom': {
+        '#btn_UploadBomSize': {
             click: 'onUpload'
+        },
+        '#btnConfirmBOM': {
+            click: 'onConfirmBOM2'
+        }
+    },
+    listen: {
+        store: {
+            'PContractBom2ColorStore': {
+                'loaddone': 'onLoadBomDone'
+            }
         }
     },
     init: function () {
@@ -114,7 +124,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         if (viewmodel.get('IdProduct') > 0) {
             var me = this;
             me.CreateColumns();
-            // common.Check_Object_Permission();
+            viewmodel.set('hidden_chotdinhmuc', false);
+            viewmodel.set('disabled_chotdinhmuc', true);
         }
 
     },
@@ -209,10 +220,47 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
 
                     model.addFields(fieldnew);
                     storeBOM.removeFilter();
-
-                    storeBOM.load_bom_by_product(pcontractid_link, productid_link);
+                    storeBOM.load_bom_by_product_withcallback(pcontractid_link, productid_link);
                 }
             })
+    },
+    onConfirmBOM2: function () {
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var productid_link = viewmodel.get('IdProduct');
+        me.setLoading('Đang xử lý dữ liệu');
+        var params = new Object();
+        params.pcontractid_link = viewmodel.get('PContract.id');
+        params.productid_link = productid_link;
+
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/confim_bom2', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.alert({
+                            title: "Thông báo",
+                            msg: 'Thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        viewmodel.set('disabled_chotdinhmuc', true);
+                        viewmodel.set('text_chotdinhmuc', 'Định mức đã chốt');
+                    }
+                }
+            })
+    },
+    onLoadBomDone: function (isbomdone) {
+        var viewmodel = this.getViewModel();
+        if (!isbomdone)
+            viewmodel.set('text_chotdinhmuc', 'Chốt định mức');
+        else
+            viewmodel.set('text_chotdinhmuc', 'Định mức đã chốt');
+        viewmodel.set('disabled_chotdinhmuc', isbomdone);
     },
     onEdit: function (editor, context, e) {
         var viewmodel = this.getViewModel();

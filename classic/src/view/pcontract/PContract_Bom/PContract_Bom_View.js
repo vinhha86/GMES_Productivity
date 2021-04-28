@@ -166,6 +166,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 itemId: 'btn_UploadBom',
                 bind: {
                     hidden: '{!allowUploadBom}'
+                },
+                menu: [{
+                    itemId: 'btn_UploadBomSize',
+                    text: 'Upload file theo cỡ',
+                    iconCls: 'x-fa fa-upload',
+                    weight: 30
+                },
+                {
+                    itemId: 'btn_UploadBomSizeSet',
+                    text: 'Upload file theo dải cỡ',
+                    iconCls: 'x-fa fa-upload',
+                    weight: 30
+                }]
+            },
+            {
+                xtype: 'button',
+                itemId: 'btnConfirmBOM',
+                tooltip: 'Chốt định mức cân đối',
+                iconCls: 'x-fa fa-check greenIcon',
+                bind: {
+                    text: '{text_chotdinhmuc}',
+                    disabled: '{disabled_chotdinhmuc}',
+                    hidden: '{hidden_chotdinhmuc}'
                 }
             }
         ]
