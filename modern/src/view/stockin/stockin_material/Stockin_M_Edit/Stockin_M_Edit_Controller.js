@@ -309,7 +309,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var stockin_packinglist = stockin_d.stockin_packinglist == null ? [] : stockin_d.stockin_packinglist;
             for(var j = 0; j<stockin_packinglist.length; j++){
                 // console.log(stockin_packinglist[j]);
-                if(storePackinglistArr[i].status >= 1){
+                if(stockin_packinglist[j].status >= 1){
                     storePackinglistArr.push(stockin_packinglist[j]);
                 }
             }
