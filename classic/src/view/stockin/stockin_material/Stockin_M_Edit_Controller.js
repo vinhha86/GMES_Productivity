@@ -121,15 +121,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
-                console.log(response.data);
-                viewModel.set('stockin', response.data);
+                // console.log(response.data);
+                var data = response.data;
+
+                // set stockin lot cho stockinD
+                data = me.setStockinLotForStockinD(data);
+
+                viewModel.set('stockin', data);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
                 }
-                store.setData(response.data.stockin_d);
+                store.setData(data.stockin_d);
 
                 // set store org from
-                if(response.data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
+                if(data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore(5, false);
                 }else{
@@ -139,6 +144,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
             }
 		})
+    },
+    setStockinLotForStockinD: function(stockin){
+        var data = stockin;
+        for(var i=0; i<data.stockin_d.length; i++){
+            var stockInD = data.stockin_d[i];
+            var stockinDLot = '';
+            if(stockInD.skuid_link != null){
+                var materialid_link = stockInD.skuid_link;
+                for(var j=0; j<stockin.stockin_lot.length; j++){
+                    var stockinLot = stockin.stockin_lot[j];
+                    var result = '';
+                    result+= stockinLot.lot_number == null ? '' : stockinLot.lot_number;
+					result+= stockinLot.totalpackage == null ? '' : ' ' +  stockinLot.totalpackage;
+					// result+= stockinLot.space == null ? '' : ' ' + stockinLot.space;
+					
+					if(stockinLot.materialid_link == materialid_link) {
+						if(stockinDLot == '') {
+							stockinDLot += result;
+						}else {
+							stockinDLot += '; ' + result;
+						}
+					}
+                }
+            }
+            stockInD.stockinDLot = stockinDLot;
+        }
+        // console.log(data);
+        return data;
     },
     CheckValidate: function(){
 		var mes = "";

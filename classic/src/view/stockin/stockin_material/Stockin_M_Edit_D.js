@@ -247,8 +247,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		},		
 		{
 			text: 'Danh sách LOT', 
-			dataIndex: 'lot_list',
-			width: 150
+			// dataIndex: 'lot_list',
+			dataIndex: 'stockinDLot',
+			width: 150,
+			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) value = '';
+				value = value.toUpperCase();
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
 		}
 	],
 	dockedItems: [{
