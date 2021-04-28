@@ -312,7 +312,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             for(var j = 0; j<stockin_packinglist.length; j++){
                 // console.log(stockin_packinglist[j]);
                 storePackinglistArrAll.push(stockin_packinglist[j]);
-                if(stockin_packinglist[j].status >= 1){
+                // Khi nào api update lưu được status pkl != -1 thì xoá điều kiện or thứ 2 đi
+                if(stockin_packinglist[j].status >= 1 || stockin_packinglist[j].status < 1){
                     storePackinglistArr.push(stockin_packinglist[j]);
                 }else{
                     storePackinglistArrStatusLessThan1.push(stockin_packinglist[j]);
@@ -347,7 +348,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var storePackinglistArr = new Array();
         var storePackinglistArrStatusLessThan1 = new Array();
         for(var i=0; i<storePackinglistArrAll.length; i++){
-            if(storePackinglistArrAll[i].status >= 1){
+            // Khi nào api update lưu được status pkl != -1 thì xoá điều kiện or thứ 2 đi
+            if(storePackinglistArrAll[i].status >= 1 || storePackinglistArrAll[i].status < 1){
                 storePackinglistArr.push(storePackinglistArrAll[i]);
             }else{
                 storePackinglistArrStatusLessThan1.push(storePackinglistArrAll[i]);
