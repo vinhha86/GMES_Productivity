@@ -309,7 +309,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var stockin_packinglist = stockin_d.stockin_packinglist == null ? [] : stockin_d.stockin_packinglist;
             for(var j = 0; j<stockin_packinglist.length; j++){
                 // console.log(stockin_packinglist[j]);
-                storePackinglistArr.push(stockin_packinglist[j]);
+                if(storePackinglistArr[i].status >= 1){
+                    storePackinglistArr.push(stockin_packinglist[j]);
+                }
             }
         }
         viewModel.set('storePackinglistArr', storePackinglistArr);
@@ -323,7 +325,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // set pklist recheck store (hiển thị tất cả pkl của các stockin D co status = 1)
         var storePackinglistRecheckArr = new Array();
         for(var i = 0; i<storePackinglistArr.length; i++){
-            if(storePackinglistArr[i].status == 1){
+            if(storePackinglistArr[i].status == 2){
                 storePackinglistRecheckArr.push(storePackinglistArr[i]);
             }
         }
@@ -791,7 +793,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 item.grossweight = parseFloat(grossweight);
                 item.grossweight_check = parseFloat(grossweight_check);
                 item.checked = 1;
-                item.status = 1;
+                item.status = 2;
 
                 viewModel.set('storePackinglistArr', items);
                 // storePkl.setData([]);
@@ -1129,7 +1131,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         newObj.ydsorigin = parseFloat(ydsorigin);
         newObj.sample_check = parseFloat(sample_check);
         newObj.checked = 1;
-        newObj.status = 0;
+        newObj.status = 1;
 
         for(var i = 0; i < stockin_lot.length; i++){
             if(stockin_lot[i].lot_number.toUpperCase() == newObj.lotnumber.toUpperCase()){
@@ -1507,7 +1509,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockinD = viewModel.get('stockinD');
-
         
         var record = info.record;
         if(record.get('status') == -1){
@@ -1781,7 +1782,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     stockin_packinglist[j].packageid == packageid &&
                     stockin_packinglist[j].skuid_link == skuid_link
                 ){
-                    stockin_packinglist[j].status = 1;
+                    stockin_packinglist[j].status = 2;
                 }
             }
         }
@@ -1808,7 +1809,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     stockin_packinglist[j].packageid == packageid &&
                     stockin_packinglist[j].skuid_link == skuid_link
                 ){
-                    stockin_packinglist[j].status = 0;
+                    stockin_packinglist[j].status = 1;
                 }
             }
         }
