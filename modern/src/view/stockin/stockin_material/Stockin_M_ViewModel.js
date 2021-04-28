@@ -90,7 +90,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		lotAmount: null, // sl cây
 
 		// Stockin_M_Edit_Pkl
-		storePackinglistArr: [],
+		storePackinglistArrAll: [], // all
+		storePackinglistArr: [], // status >= 1 
+		storePackinglistArrStatusLessThan1: [], // status < 1 
 		maPklFilterByMaVai: '',
 		maPklFilter: '',
 
