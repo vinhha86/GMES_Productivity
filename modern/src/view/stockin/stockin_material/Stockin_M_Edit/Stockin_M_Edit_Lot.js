@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     {
         text: 'Cây/kiểm', 
         // flex: 1,
-        width: 100,
+        width: 70,
         dataIndex: 'totalpackage',
         align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {

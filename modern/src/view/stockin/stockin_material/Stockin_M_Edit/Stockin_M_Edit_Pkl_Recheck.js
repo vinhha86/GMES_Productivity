@@ -49,13 +49,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
 
     columns: [{
         text: '',
-        width: 40,
+        width: 30,
         xtype: 'rownumberer',
         align: 'center'
     },
     {
         text: 'Số Lot', 
-        flex: 1,
+        // flex: 1,
+        width: 90,
         dataIndex: 'lotnumber',
         renderer: function(value, record, dataIndex, cell, column) {
             return value.toUpperCase();
@@ -63,7 +64,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
     },
     {
         text: 'Số cây', 
-        flex: 1,
+        // flex: 1,
+        width: 75,
         dataIndex: 'packageid',
         align: 'right'
     },
