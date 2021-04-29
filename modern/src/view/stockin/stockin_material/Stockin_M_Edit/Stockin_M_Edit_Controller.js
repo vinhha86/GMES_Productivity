@@ -370,7 +370,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     var stockinLot = stockin.stockin_lot[j];
                     var result = '';
                     result+= stockinLot.lot_number == null ? '' : stockinLot.lot_number;
-					result+= stockinLot.totalpackage == null ? '' : ' ' +  stockinLot.totalpackage;
+					result+= stockinLot.totalpackage == null ? '' : ' (' +  stockinLot.totalpackage + ')';
 					// result+= stockinLot.space == null ? '' : ' ' + stockinLot.space;
 					
 					if(stockinLot.materialid_link == materialid_link) {
