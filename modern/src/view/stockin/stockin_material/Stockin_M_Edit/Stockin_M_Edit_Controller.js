@@ -620,8 +620,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var colorTxt = viewModel.get('colorTxt');
         // var widthTxt = viewModel.get('widthTxt');
         var sampleCheckTxt = viewModel.get('sampleCheckTxt');
-        var grossweightTxt = viewModel.get('grossweightTxt');
-        var grossweightCheckTxt = viewModel.get('grossweightCheckTxt');
+        var grossweightTxt = viewModel.get('grossweightTxt'); 
+        var grossweightCheckTxt = viewModel.get('grossweightCheckTxt'); console.log(grossweightCheckTxt);
         var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
         var widthYdsTxt = viewModel.get('widthYdsTxt');
         var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
@@ -677,12 +677,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         if(yOriginTxt == null || yOriginTxt == '' || yOriginTxt == 0) yOriginTxt = yTxt;
         if(mOriginTxt == null || mOriginTxt == '' || mOriginTxt == 0) mOriginTxt = mTxt;
         if(sampleCheckTxt == null || sampleCheckTxt == '') sampleCheckTxt = 0;
-        if(grossweightTxt == null || grossweightTxt == '') grossweightTxt = 0;
         if(grossweightCheckTxt == null || grossweightCheckTxt == '') grossweightCheckTxt = 0;
+        if(grossweightTxt == null || grossweightTxt == '') grossweightTxt = grossweightCheckTxt;
         if(widthYdsCheckTxt == null || widthYdsCheckTxt == '') widthYdsCheckTxt = 0;
-        if(widthYdsTxt == null || widthYdsTxt == '') widthYdsTxt = 0;
+        if(widthYdsTxt == null || widthYdsTxt == '') widthYdsTxt = widthYdsCheckTxt;
         if(widthMetCheckTxt == null || widthMetCheckTxt == '') widthMetCheckTxt = 0;
-        if(widthMetTxt == null || widthMetTxt == '') widthMetTxt = 0;
+        if(widthMetTxt == null || widthMetTxt == '') widthMetTxt = widthMetCheckTxt;
 
         var objData = new Object();
         objData.lotnumberTxt = lotnumberTxt;
@@ -959,11 +959,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 item.met_origin = parseFloat(met_origin);
                 item.sample_check = parseFloat(sample_check);
                 // item.width_check = parseFloat(width_check);
-                item.width_met = parseFloat(width_met);
+                // item.width_met = parseFloat(width_met);
                 item.width_met_check = parseFloat(width_met_check);
-                item.width_yds = parseFloat(width_yds);
+                // item.width_yds = parseFloat(width_yds);
                 item.width_yds_check = parseFloat(width_yds_check);
-                item.grossweight = parseFloat(grossweight);
+                // item.grossweight = parseFloat(grossweight);
                 item.grossweight_check = parseFloat(grossweight_check);
                 item.checked = 1;
                 item.status = 2;
@@ -1077,6 +1077,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         newObj.colorid_link = colorTxt;
         newObj.comment = '';
         newObj.grossweight = grossweight;
+        newObj.grossweight_check = grossweight_check;
         newObj.lotnumber = lotnumberTxt;
         newObj.m3 = 0;
         newObj.met_check = parseFloat(met_check);
@@ -1238,7 +1239,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
         })
 
-        console.log(stockin);
+        // console.log(stockin);
     },
 
     onItemPklTap: function(list, location, eOpts ){
