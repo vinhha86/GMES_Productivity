@@ -142,26 +142,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             hidden: '{isYdsColumnHidden}',
         },
     },
-    // {
-    //     text: 'Cân/kiểm', 
-    //     flex: 1,
-    //     dataIndex: 'grossweight',
-    //     align: 'right',
-    //     renderer: function(value, record, dataIndex, cell, column) {
-    //         if(value == null) value = 0;
-    //         var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
-    //         var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
-    //         if (grossweight == grossweight_check) {
-    //             cell.setCls('cellWhite');
-    //         } else if (grossweight < grossweight_check) {
-    //             cell.setCls('cellRed');
-    //         } else{
-    //             cell.setCls('cellYellow');
-    //         }
+    {
+        text: 'Cân/kiểm', 
+        flex: 1,
+        dataIndex: 'grossweight_check',
+        align: 'right',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
+            var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+            if (grossweight == grossweight_check) {
+                cell.setCls('cellWhite');
+            } else if (grossweight < grossweight_check) {
+                cell.setCls('cellRed');
+            } else{
+                cell.setCls('cellYellow');
+            }
             
-    //         return grossweight + ' / ' + grossweight_check;
-    //     },
-    // },
+            return grossweight + ' / ' + grossweight_check;
+        },
+    },
     // {
     //     width: 50,
     //     hideable: false,

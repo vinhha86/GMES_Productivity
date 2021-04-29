@@ -186,6 +186,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // log result
         // console.log(stockin);
         // console.log(selectedDRecord);
+        // m.onSave();
     },
     onPklDetail: function(grid, info) {
         // Ext.Msg.alert('Approve', info.record.get('id'));

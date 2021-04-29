@@ -44,6 +44,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_List', {
             text: 'Khoang', 
             flex: 1,
             dataIndex: 'space',
+            renderer: function(value, record, dataIndex, cell, column) {
+                var valueArr = value.split('C');
+                return valueArr[0]+' (' + valueArr[1] +')';
+            },
         },
         {
             width: 50,

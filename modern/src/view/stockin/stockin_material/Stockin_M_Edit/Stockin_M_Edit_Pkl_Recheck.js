@@ -111,5 +111,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
             hidden: '{isYdsColumnHidden}',
         }
     },
+    {
+        text: 'Số cân/kiểm', 
+        flex: 1,
+        dataIndex: 'grossweight_check',
+        align: 'right',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
+            var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+            if (grossweight <= grossweight_check) {
+                cell.setCls('cellWhite');
+            } else {
+                cell.setCls('cellYellow');
+            }
+            
+            return grossweight + ' / ' + grossweight_check;
+        },
+    },
     ],
 });
