@@ -1038,7 +1038,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                         value: '{lotnumberTxtRecheck}'
                                                     },
                                                     listeners: {
-                                                        change: 'onlotnumberTxtRecheckType'
+                                                        change: 'onlotnumberTxtRecheckType',
+                                                        focusleave: 'onlotnumberTxtAndpackageidTxtRecheckleave'
                                                     }
                                                 },
                                                 {
@@ -1061,10 +1062,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     bind: {
                                                         value: '{packageidTxtRecheck}'
                                                     },
-                                                    // listeners: {
-                                                    //     keyup: 'onpackageidTxtKeyup',
-                                                    //     buffer: 1000
-                                                    // },
+                                                    listeners: {
+                                                        focusleave: 'onlotnumberTxtAndpackageidTxtRecheckleave'
+                                                    },
                                                     stepValue: 0.1,
                                                 },
                                                 {

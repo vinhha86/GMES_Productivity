@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
             var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
             var met_origin = record.get('met_origin') == null ? 0 : record.get('met_origin');
             if (met_origin == met_check) {
-                cell.setCls('cellWhite');
+                cell.setCls('cellGreen');
             } else if (met_origin < met_check) {
                 cell.setCls('cellYellow');
             } else{
@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
             var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
             var ydsorigin = record.get('ydsorigin') == null ? 0 : record.get('ydsorigin');
             if (ydsorigin == ydscheck) {
-                cell.setCls('cellWhite');
+                cell.setCls('cellGreen');
             } else if (ydsorigin < ydscheck) {
                 cell.setCls('cellYellow');
             } else{
@@ -125,7 +125,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
             var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
             var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
             if (grossweight == grossweight_check) {
-                cell.setCls('cellWhite');
+                cell.setCls('cellGreen');
             } else if (grossweight < grossweight_check) {
                 cell.setCls('cellYellow');
             } else{
