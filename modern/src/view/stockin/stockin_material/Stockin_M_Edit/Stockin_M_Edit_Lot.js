@@ -88,9 +88,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if (totalpackage == totalpackagecheck) {
                 cell.setCls('cellGreen');
             } else if (totalpackage < totalpackagecheck) {
-                cell.setCls('cellRed');
-            } else{
                 cell.setCls('cellYellow');
+            } else{
+                cell.setCls('cellRed');
             }
             
             return totalpackage + ' / ' + totalpackagecheck;
@@ -108,9 +108,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if (totalmet == totalmetcheck) {
                 cell.setCls('cellGreen');
             } else if (totalmet < totalmetcheck) {
-                cell.setCls('cellRed');
-            } else{
                 cell.setCls('cellYellow');
+            } else{
+                cell.setCls('cellRed');
             }
             
             return totalmet + ' / ' + totalmetcheck;
@@ -131,9 +131,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if (totalyds == totalydscheck) {
                 cell.setCls('cellWhite');
             } else if (totalyds < totalydscheck) {
-                cell.setCls('cellRed');
-            } else{
                 cell.setCls('cellYellow');
+            } else{
+                cell.setCls('cellRed');
             }
             
             return totalyds + ' / ' + totalydscheck;
@@ -154,9 +154,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if (grossweight == grossweight_check) {
                 cell.setCls('cellWhite');
             } else if (grossweight < grossweight_check) {
-                cell.setCls('cellRed');
-            } else{
                 cell.setCls('cellYellow');
+            } else{
+                cell.setCls('cellRed');
             }
             
             return grossweight + ' / ' + grossweight_check;

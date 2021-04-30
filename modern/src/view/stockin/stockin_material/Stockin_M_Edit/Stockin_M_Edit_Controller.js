@@ -81,7 +81,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         },
         '#Stockin_M_Edit_Pkl_Recheck':{
             itemtap: 'onItemPklRecheckTap'
+        },
+        '#TabView':{
+            activeItemchange: 'onTabViewActiveItemchange'
         }
+    },
+    onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
+        console.log(sender);
+        console.log(value);
+        console.log(oldValue);
     },
     onStockin_M_Edit_DItemTap: function(dataView, index, target, record, e, eOpts){
         var me = this.getView();
@@ -622,7 +630,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // var widthTxt = viewModel.get('widthTxt');
         var sampleCheckTxt = viewModel.get('sampleCheckTxt');
         var grossweightTxt = viewModel.get('grossweightTxt'); 
-        var grossweightCheckTxt = viewModel.get('grossweightCheckTxt'); console.log(grossweightCheckTxt);
+        var grossweightCheckTxt = viewModel.get('grossweightCheckTxt');
         var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
         var widthYdsTxt = viewModel.get('widthYdsTxt');
         var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
@@ -659,19 +667,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             return;
         }
 
-        // set khổ width (ĐƠN VỊ LÀ GÌ?)
-        // CŨ CHƯA PHÂN BIỆT Y, M
-        for(var i = 0; i < stockin_lot.length; i++){
-            if(stockin_lot[i].lot_number.toUpperCase() == lotnumberTxt.toUpperCase()){
-                for(var j = 0; j < stockin_d.length; j++){
-                    if(stockin_lot[i].materialid_link == stockin_d[j].skuid_link){
-                        widthTxt=stockin_d[j].size_name == null ? 0 : stockin_d[j].size_name;
-                    }
-                }
-            }
-        }
-
-
         // tạo obj
         if(yTxt == null || yTxt == '') yTxt = 0;
         if(mTxt == null || mTxt == '') mTxt = 0;
@@ -679,11 +674,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         if(mOriginTxt == null || mOriginTxt == '' || mOriginTxt == 0) mOriginTxt = mTxt;
         if(sampleCheckTxt == null || sampleCheckTxt == '') sampleCheckTxt = 0;
         if(grossweightCheckTxt == null || grossweightCheckTxt == '') grossweightCheckTxt = 0;
-        if(grossweightTxt == null || grossweightTxt == '') grossweightTxt = grossweightCheckTxt;
+        if(grossweightTxt == null || grossweightTxt == '' || grossweightTxt == 0) grossweightTxt = grossweightCheckTxt;
         if(widthYdsCheckTxt == null || widthYdsCheckTxt == '') widthYdsCheckTxt = 0;
-        if(widthYdsTxt == null || widthYdsTxt == '') widthYdsTxt = widthYdsCheckTxt;
+        if(widthYdsTxt == null || widthYdsTxt == '' || widthYdsTxt == 0) widthYdsTxt = widthYdsCheckTxt;
         if(widthMetCheckTxt == null || widthMetCheckTxt == '') widthMetCheckTxt = 0;
-        if(widthMetTxt == null || widthMetTxt == '') widthMetTxt = widthMetCheckTxt;
+        if(widthMetTxt == null || widthMetTxt == '' || widthMetTxt == 0) widthMetTxt = widthMetCheckTxt;
 
         var objData = new Object();
         objData.lotnumberTxt = lotnumberTxt;
@@ -816,7 +811,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         m.resetFormAddSpace();
 
         m.getView().down('#packageidTxt').focus();
-        if(isSaving) m.onSave();
+        // if(isSaving) m.onSave();
+        console.log(stockin);
     },
     onCheckRecheck: function(){
         var m = this;
@@ -1008,7 +1004,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         m.resetFormAddSpace();
 
         m.getView().down('#packageidTxtRecheck').focus();
-        if(isSaving) m.onSave();
+        // if(isSaving) m.onSave();
+        console.log(stockin);
     },
     themCayVaiMoi: function(objData){
         var viewModel = this.getViewModel();
@@ -1810,5 +1807,63 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         // console.log(newValue.toUpperCase());
         viewModel.set('lotnumberTxtRecheck', newValue.toUpperCase());
         field.setValue(newValue.toUpperCase());
+    },
+
+    // textfield focusleave events
+    // pkl
+    onmTxtFocusleave: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var mTxt = viewModel.get('mTxt');
+        var mOriginTxt = viewModel.get('mOriginTxt');
+        if(mOriginTxt == null || mOriginTxt == ''){
+            viewModel.set('mOriginTxt', mTxt);
+        }
+    },
+    onyTxtFocusleave: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var yTxt = viewModel.get('yTxt');
+        var yOriginTxt = viewModel.get('yOriginTxt');
+        if(yOriginTxt == null || yOriginTxt == ''){
+            viewModel.set('yOriginTxt', yTxt);
+        }
+    },
+    oncanCheckTxtFocusleave: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var grossweightCheckTxt = viewModel.get('grossweightCheckTxt');
+        var grossweightTxt = viewModel.get('grossweightTxt');
+        if(grossweightTxt == null || grossweightTxt == ''){
+            viewModel.set('grossweightTxt', grossweightCheckTxt);
+        }
+    },
+    onwidthYdsCheckTxtFocusleave: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
+        var widthYdsTxt = viewModel.get('widthYdsTxt');
+        if(widthYdsTxt == null || widthYdsTxt == ''){
+            viewModel.set('widthYdsTxt', widthYdsCheckTxt);
+        }
+    },
+    onwidthMetCheckTxtFocusleave: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
+        var widthMetTxt = viewModel.get('widthMetTxt');
+        if(widthMetTxt == null || widthMetTxt == ''){
+            viewModel.set('widthMetTxt', widthMetCheckTxt);
+        }
     },
 })
