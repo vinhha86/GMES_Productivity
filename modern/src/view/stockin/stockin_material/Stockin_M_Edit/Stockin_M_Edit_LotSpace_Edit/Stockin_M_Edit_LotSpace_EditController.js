@@ -4,9 +4,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
     init: function() {
         var viewModel = this.getViewModel();
         var selectedLotRecord = viewModel.get('selectedLotRecord');
+        var unitid_link = viewModel.get('unitid_link');
         var space = selectedLotRecord.get('space');
         this.setSpaceStore(space);
-        // console.log(selectedLotRecord);
+        this.setInfo();
+
+        console.log(selectedLotRecord);
+        console.log(unitid_link);
+
     },
     control: {
         '#btnLuu': {
@@ -20,6 +25,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         }
     },
     onLuu: function(){
+        var viewModel = this.getViewModel();
+        var selectedLotRecord = viewModel.get('selectedLotRecord');
+        var lotSpace = viewModel.get('lotSpace');
+        var lotSpaceAmount = viewModel.get('lotSpaceAmount');
+
+        // reset form
+        viewModel.set('lotSpace', null);
+        viewModel.set('lotSpaceAmount', null);
+
+        // fire event
+        this.fireEvent('Luu', selectedLotRecord);
+        Ext.toast('Lưu thành công', 1000);
+        // console.log(selectedLotRecord);
+    },
+    onThoat: function(){
+        this.fireEvent('Thoat');
+    },
+    updateSpace: function(){
         var viewModel = this.getViewModel();
         var selectedLotRecord = viewModel.get('selectedLotRecord');
         var lotSpace = viewModel.get('lotSpace');
@@ -53,18 +76,22 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
 
         // update grid
         this.setSpaceStore(newLotSpaceString);
-
-        // reset form
-        viewModel.set('lotSpace', null);
-        viewModel.set('lotSpaceAmount', null);
-
-        // fire event
-        this.fireEvent('Luu', selectedLotRecord);
-        Ext.toast('Lưu thành công', 1000);
-        // console.log(selectedLotRecord);
     },
-    onThoat: function(){
-        this.fireEvent('Thoat');
+    setInfo: function(){
+        var viewModel = this.getViewModel();
+        var selectedLotRecord = viewModel.get('selectedLotRecord');
+
+        var lot_number = selectedLotRecord.get('lot_number').toUpperCase();
+        var totalpackage = selectedLotRecord.get('totalpackage');
+        var totalyds = selectedLotRecord.get('totalyds');
+        var totalmet = selectedLotRecord.get('totalmet');
+        var grossweight = selectedLotRecord.get('grossweight');
+
+        viewModel.set('lot_number', lot_number);
+        viewModel.set('totalpackage', totalpackage);
+        viewModel.set('totalyds', totalyds);
+        viewModel.set('totalmet', totalmet);
+        viewModel.set('grossweight', grossweight);
     },
     setSpaceStore: function(lotSpace){
         // update space textfield

@@ -270,10 +270,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                             stepValue: 0.1,
                                         },
                                         {
-                                            // flex: 1,
-                                            width: 44,
+                                            xtype:'button',
+                                            iconCls: 'x-fa fa-plus',
+                                            // itemId:'',
+                                            ui: 'action',
                                             margin: 1,
-                                            // maxWidth: 130,
+                                            style: 'visibility: hidden;'
                                         },
                                     ]
                                 },
@@ -627,12 +629,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     // flex: 1,
                                                     // minWidth: 80,
                                                     // maxWidth: 130,
-                                                    width: 45,
+                                                    // width: 45,
                                                     margin: 1,
                                                     iconCls: 'x-fa fa-check',
                                                     itemId:'btnCheck',
                                                     ui: 'action',
-                                                },   
+                                                },
                                             ]
                                         },
                                         {
@@ -739,10 +741,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     stepValue: 0.1,
                                                 },
                                                 {
-                                                    // flex: 1,
-                                                    width: 45,
+                                                    xtype:'button',
+                                                    iconCls: 'x-fa fa-plus',
+                                                    // itemId:'',
+                                                    ui: 'action',
                                                     margin: 1,
-                                                    // maxWidth: 130,
+                                                    style: 'visibility: hidden;'
                                                 },
                                                 // {
                                                 //     xtype:'button',
@@ -811,10 +815,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     stepValue: 0.1,
                                                 },
                                                 {
-                                                    // flex: 1,
-                                                    width: 45,
+                                                    xtype:'button',
+                                                    iconCls: 'x-fa fa-plus',
+                                                    // itemId:'',
+                                                    ui: 'action',
                                                     margin: 1,
-                                                    // maxWidth: 130,
+                                                    style: 'visibility: hidden;'
                                                 },
                                             ]
                                         },
@@ -1073,7 +1079,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     // flex: 1,
                                                     // minWidth: 80,
                                                     // maxWidth: 130,
-                                                    width: 45,
+                                                    // width: 45,
                                                     margin: 1,
                                                     iconCls: 'x-fa fa-check',
                                                     itemId:'btnCheckRecheck',
@@ -1179,10 +1185,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     stepValue: 0.1,
                                                 },
                                                 {
-                                                    // flex: 1,
-                                                    width: 45,
+                                                    xtype:'button',
+                                                    iconCls: 'x-fa fa-plus',
+                                                    // itemId:'',
+                                                    ui: 'action',
                                                     margin: 1,
-                                                    // maxWidth: 130,
+                                                    style: 'visibility: hidden;'
                                                 },
                                             ]
                                         },
@@ -1236,10 +1244,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     stepValue: 0.1,
                                                 },
                                                 {
-                                                    // flex: 1,
-                                                    width: 45,
+                                                    xtype:'button',
+                                                    iconCls: 'x-fa fa-plus',
+                                                    // itemId:'',
+                                                    ui: 'action',
                                                     margin: 1,
-                                                    // maxWidth: 130,
+                                                    style: 'visibility: hidden;'
                                                 },
                                             ]
                                         },
@@ -1337,10 +1347,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                                                     stepValue: 0.1,
                                                 },
                                                 {
-                                                    // flex: 1,
-                                                    width: 45,
+                                                    xtype:'button',
+                                                    iconCls: 'x-fa fa-plus',
+                                                    // itemId:'',
+                                                    ui: 'action',
                                                     margin: 1,
-                                                    // maxWidth: 130,
+                                                    style: 'visibility: hidden;'
                                                 },
                                             ]
                                         },

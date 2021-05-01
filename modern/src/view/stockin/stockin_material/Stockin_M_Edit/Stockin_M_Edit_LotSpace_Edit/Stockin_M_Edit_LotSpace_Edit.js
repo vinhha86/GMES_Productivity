@@ -17,7 +17,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
 
     items: [
         {
-            // tạo một file grid mới cho nhanh
+            margin: 1,
+            xtype: 'Stockin_M_Edit_LotSpace_Edit_Info'
+        },
+        {
             margin: 1,
             flex: 1,
             xtype: 'Stockin_M_Edit_LotSpace_Edit_List'
@@ -44,7 +47,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
                     // labelWidth: 100,
                     // width: 280,
                     flex: 1,
-                    padding: '0 3'
+                    padding: '0 3 0 1'
                 },
                 {
                     xtype: 'numberfield',
@@ -64,7 +67,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
                     // labelWidth: 100,
                     // width: 280,
                     flex: 1,
-                    padding: '0 3'
+                    padding: '0 1 0 3'
                 }
             ]
         },

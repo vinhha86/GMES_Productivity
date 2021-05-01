@@ -1121,17 +1121,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var totalmetcheck = 0;
             var totalydscheck = 0;
             var grossweight_check = 0;
+            var totalpackagepklist = 0;
             for(var j = 0; j < storePackinglistArrAll.length; j++){
                 var pkl = storePackinglistArrAll[j];
                 if(stockin_lot[i].lot_number.toUpperCase() == pkl.lotnumber.toUpperCase()){
                     totalmetcheck+=pkl.met_check;
                     totalydscheck+=pkl.ydscheck;
                     grossweight_check+=pkl.grossweight_check;
+                    totalpackagepklist++;
                 }
             }
             stockin_lot[i].totalmetcheck = totalmetcheck;
             stockin_lot[i].totalydscheck = totalydscheck;
             stockin_lot[i].grossweight_check = grossweight_check;
+            stockin_lot[i].totalpackagepklist = totalpackagepklist;
         }
         viewModel.set('stockin.stockin_lot', stockin_lot);
         // storeLot.setData([]);
@@ -1461,9 +1464,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var spacesString = '';
         for(var i = 0; i < lotSpaceArrStore.length; i++){
             if(spacesString == ''){
-                spacesString+=lotSpaceArrStore[i].space;
+                spacesString+=lotSpaceArrStore[i].space.split('C')[0];
+                spacesString+= ' (' + lotSpaceArrStore[i].space.split('C')[1] + ')';
             }else{
-                spacesString+=';'+lotSpaceArrStore[i].space;
+                spacesString+=';'+lotSpaceArrStore[i].space.split('C')[0];
+                spacesString+= ' (' + lotSpaceArrStore[i].space.split('C')[1] + ')';
             }
         }
         viewModel.set('spacesString', spacesString);
@@ -1550,6 +1555,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
+        var unitid_link = stockin.unitid_link;
 
         // thông báo nếu chưa chọn lot
         var selectedLotRecord = viewModel.get('selectedLotRecord');
@@ -1563,9 +1569,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var dialog = Ext.create({
             xtype: 'dialog',
             itemId: 'dialog',
-            title: 'Danh sách khoang',
+            title: 'Thông tin chi tiết',
             width: 300,
-            height: 450,
+            height: 600,
             maxWidth: 300,
             maxHeight: 600,
             header: true,
@@ -1589,6 +1595,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 viewModel: {
                     data: {
                         selectedLotRecord: selectedLotRecord,
+                        unitid_link: unitid_link
                     }
                 }
             }],
@@ -1636,21 +1643,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var lotSpace = viewModel.get('lotSpace');
         var lotFloor = viewModel.get('lotFloor');
         var lotAmount = viewModel.get('lotAmount');
+
         if(lotRow == null || lotRow == ''){
-            Ext.toast('Chưa nhập dãy', 1000);
-            return;
+            // Ext.toast('Chưa nhập dãy', 1000);
+            // return;
+            lotRow = 'x';
         }
         if(lotSpace == null || lotSpace == ''){
-            Ext.toast('Chưa nhập hàng', 1000);
-            return;
+            // Ext.toast('Chưa nhập hàng', 1000);
+            // return;
+            lotSpace = 'x';
         }
         if(lotFloor == null || lotFloor == ''){
-            Ext.toast('Chưa nhập tầng', 1000);
-            return;
+            // Ext.toast('Chưa nhập tầng', 1000);
+            // return;
+            lotFloor = 'x';
         }
         if(lotAmount == null || lotAmount == ''){
             lotAmount = 0;
-            return;
+            // return;
         }
 
         var spaceInfo = new Object();

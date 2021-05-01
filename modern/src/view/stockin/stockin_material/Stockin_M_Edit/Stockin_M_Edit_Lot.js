@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     columns: [
     {
         text: '',
-        width: 30,
+        width: 40,
         xtype: 'rownumberer',
         align: 'center'
     },
@@ -76,24 +76,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'Cây/kiểm', 
-        // flex: 1,
-        width: 70,
+        text: 'SL/kiểm lot/kiểm cây', 
+        flex: 1,
+        // width: 85,
         dataIndex: 'totalpackage',
         align: 'right',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
             var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
-            if (totalpackage == totalpackagecheck) {
+            var totalpackagepklist = record.get('totalpackagepklist') == null ? 0 : record.get('totalpackagepklist');
+            if (totalpackage == totalpackagecheck || totalpackage == totalpackagepklist) {
                 cell.setCls('cellGreen');
-            } else if (totalpackage < totalpackagecheck) {
+            } else if (totalpackage < totalpackagecheck || totalpackage < totalpackagepklist) {
                 cell.setCls('cellYellow');
             } else{
                 cell.setCls('cellRed');
             }
             
-            return totalpackage + ' / ' + totalpackagecheck;
+            return totalpackage + ' / ' + totalpackagecheck + ' / ' + totalpackagepklist;
         },
     },
     {
