@@ -26,6 +26,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
         }, 
         {
             xtype: 'numberfield',
+            itemId: 'totalmet',
             label: 'Độ dài (M):',
             bind: {
                 value: '{totalmet}',
@@ -34,6 +35,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
         }, 
         {
             xtype: 'numberfield',
+            itemId: 'totalyds',
             label: 'Độ dài (Y):',
             bind: {
                 value: '{totalyds}',

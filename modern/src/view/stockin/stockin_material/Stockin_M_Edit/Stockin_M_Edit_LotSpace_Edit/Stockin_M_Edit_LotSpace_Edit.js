@@ -51,6 +51,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
                 },
                 {
                     xtype: 'numberfield',
+                    itemId: 'lotSpaceAmount',
                     // reference: 'cboorgto',
                     // editable: false,
                     // readOnly: true,

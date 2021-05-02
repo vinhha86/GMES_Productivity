@@ -11,12 +11,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditViewModel', {
         selectedLotRecord: null, // lot truyen vao
         unitid_link: null,
         // thông tin lot
-
+        lot_number: null,
+        totalpackage: null,
+        totalmet: null,
+        totalyds: null,
+        grossweight: null,
 
         // thông tin khoang
         spaces: [], // list
 		lotSpace: null, // khoang
 		lotSpaceAmount: null, // sl cây khoang
+
+        //
+        newLotSpaceString: null
     },
     formulas: {
         isMetColumnHidden: function (get) {
