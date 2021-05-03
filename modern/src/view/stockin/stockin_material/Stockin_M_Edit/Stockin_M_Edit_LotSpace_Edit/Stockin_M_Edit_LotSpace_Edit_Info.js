@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
     items: [
         {
             xtype: 'textfield',
+            itemId: 'lot_number',
             label: 'Số lot:',
             bind: {
                 value: '{lot_number}'
