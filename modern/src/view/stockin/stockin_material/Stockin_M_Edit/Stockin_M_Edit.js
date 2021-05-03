@@ -1365,29 +1365,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
             ]
         }
     ],
-    tbar: [{
-        xtype:'button',
-        iconCls: 'x-fa fa-arrow-left',
-        itemId:'btnBack',
-        ui: 'action',
-    },
-    {
-        xtype:'button',
-        iconCls: 'x-fa fa-home',
-        itemId:'btnHome',
-        ui: 'action',
-    },    
-    '->',
-    {
-        xtype:'button',
-        iconCls: 'x-fa fa-print',
-        itemId:'btnPrint',
-        ui: 'action',
-    },    
-    {
-        xtype:'button',
-        iconCls: 'x-fa fa-save',
-        itemId:'btnLuu',
-        ui: 'action',
-    }],
+    tbar: [
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-arrow-left',
+            itemId:'btnBack',
+            ui: 'action',
+        },
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-home',
+            itemId:'btnHome',
+            ui: 'action',
+        },    
+        '->',
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-print',
+            itemId:'btnPrint',
+            ui: 'action',
+        },    
+        // {
+        //     xtype:'button',
+        //     iconCls: 'x-fa fa-save',
+        //     itemId:'btnLuu',
+        //     ui: 'action',
+        // }
+    ],
 });

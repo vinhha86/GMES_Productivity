@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         },
         '#TabView':{
             activeItemchange: 'onTabViewActiveItemchange'
-        }
+        },
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         // console.log(sender);
@@ -343,8 +343,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     orgfromstore.loadStore_byRoot(listidtype);
                 }
 
-                // sort
-                me.sortList();
+                setTimeout(function(){
+                    me.onSort();
+                }, 1000);
             }
 		})
     },
@@ -2038,7 +2039,36 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     },
 
     // sort store
-    sortList: function(){
-        
+    onSort: function(){
+        var me = this.getView();
+        var Stockin_M_Edit_D = me.down('#Stockin_M_Edit_D');
+        Stockin_M_Edit_D.getStore().getSorters().add({
+            property: 'skucode',
+            direction: 'ASC'
+        });
+
+        var Stockin_M_Edit_Lot = me.down('#Stockin_M_Edit_Lot');
+        Stockin_M_Edit_Lot.getStore().getSorters().add({
+            property: 'lot_number',
+            direction: 'ASC'
+        });
+
+        var Stockin_M_Edit_Pkl = me.down('#Stockin_M_Edit_Pkl');
+        Stockin_M_Edit_Pkl.getStore().getSorters().add({
+            property: 'lotnumber',
+            direction: 'ASC'
+        },{
+            property: 'packageid',
+            direction: 'ASC'
+        });
+
+        var Stockin_M_Edit_Pkl_Recheck = me.down('#Stockin_M_Edit_Pkl_Recheck');
+        Stockin_M_Edit_Pkl_Recheck.getStore().getSorters().add({
+            property: 'lotnumber',
+            direction: 'ASC'
+        },{
+            property: 'packageid',
+            direction: 'ASC'
+        });
     }
 })
