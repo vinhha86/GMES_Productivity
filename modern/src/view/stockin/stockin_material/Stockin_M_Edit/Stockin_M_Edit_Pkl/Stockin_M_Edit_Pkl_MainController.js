@@ -260,7 +260,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // 
         console.log(objData);
         m.onUpdate_Print_Pklist(objData);
-        
+
         this.resetForm();
         Ext.getCmp('Stockin_M_Edit_Pkl_Recheck_Main').getController().resetFormRecheck();
         Ext.getCmp('Stockin_M_Edit_D_Main').getController().resetFormAddLot();
@@ -274,10 +274,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         console.log("update pklist");
         console.log(pklistData);
         var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-        pklistData.id = null;
-        pklistData.stockinid_link=stockin.id;
-        pklistData.stockindid_link=772;
 
         var params = new Object();
         params.data = pklistData;
