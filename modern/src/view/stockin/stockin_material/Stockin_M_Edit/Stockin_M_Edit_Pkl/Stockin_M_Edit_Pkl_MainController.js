@@ -207,6 +207,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.width_met_check = widthMetCheckTxt;
         objData.width_met = widthMetTxt;
         objData.unitid_link = stockin.unitid_link;
+        objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
         objData.status = 1;
 
@@ -310,13 +311,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 				// console.log(jsonObj);
 				if (jsonObj.ct == 1) {
 					if (jsonObj.cid == 'CMD_START_PRINT') {
-						viewModel.set('isCheckEnable', false);
+
+                        //Disable nut check --> Khong cho nhan luc dang in
+						viewModel.set('isKiemcay_CheckEnable', false);
 					}
 				}
 
-				//Khi het time out tu dong goi nut Stop
+				//Khi het time out tu dong enable nut check cho nhap tiep
 				if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
-					me.onStop();
+					viewModel.set('isKiemcay_CheckEnable', true);
 				}
 			} 
 		}, function () {
@@ -337,7 +340,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 			viewModel.set('clsbtnStop', "");
 			viewModel.set('isStart', false);
 		});
-	},    
+	},  
+    onStop: function () {
+		var me = this;
+		var viewModel = me.getViewModel();
+		viewModel.set('clsbtn', "red-button");
+		viewModel.set('clsbtnStart', "blue-button");
+		viewModel.set('clsbtnStop', "");
+		viewModel.set('isStart', false);
+		var termid = GSmartApp.Ajax.getTermid();
+		if (GSmartApp.Mqtt.client) {
+			var cmd = { ct: 0, cid: "CMD_STOP_INV", srcid: termid, reqdata: { token: me.stoken, funcid: me.funcid } };
+			console.log("Device channel:" + me.sendChannel);
+			var message = new Paho.Message(Ext.JSON.encode(cmd));
+			message.destinationName = me.sendChannel;
+			message.qos = 0;
+			GSmartApp.Mqtt.client.send(message);
+		}
+		me.channel.dta = null;
+		GSmartApp.Mqtt.onDisconnect();
+		GSmartApp.Mqtt.deviceid_link = 0;
+	},  
     onbtnResetForm: function(){
         var m = this;
         var viewModel = this.getViewModel();

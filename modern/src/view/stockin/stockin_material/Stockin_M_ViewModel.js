@@ -59,6 +59,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 	},
 	data: {
 		urlback:'',
+		isKiemcay_CheckEnable: true,
 		IsformMaster:false,
 		isTabEpc:true,
 		isNhapMoi:true,
