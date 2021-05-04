@@ -1,23 +1,23 @@
 Ext.define('GSmartApp.view.sku.SkuSearchController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.skusearch',
-    init: function(){
+    init: function () {
         var me = this.getView();
         var viewModel = this.getViewModel();
-        if (viewModel.get('sourceview') == 'PContractListProductView' 
-        || viewModel.get('isHidden_Select_Products') == false){
-            var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');        
+        if (viewModel.get('sourceview') == 'PContractListProductView'
+            || viewModel.get('isHidden_Select_Products') == false) {
+            var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');
             SkuAtributesStore.loadDefaultAttr(10);
             this.onSearchButton();
         }
 
-        if(viewModel.get('sourceview') == 'PContract_PO_Edit_Price'){
+        if (viewModel.get('sourceview') == 'PContract_PO_Edit_Price') {
             var grid_skusearch = me.items.get('grid_skusearch');
             var selectionModel = grid_skusearch.getSelectionModel();
             selectionModel.setSelectionMode('SINGLE');
         }
 
-        if(viewModel.get('SKUCode') != null || viewModel.get('SKUCode') != ''){
+        if (viewModel.get('SKUCode') != null || viewModel.get('SKUCode') != '') {
             viewModel.set('code', viewModel.get('SKUCode'));
         }
 
@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             producttypeStore.getall_SubMaterialTypes();
         else if (viewModel.get('searchtype') == 4)
             producttypeStore.getall_MaterialTypes();
-        else if(viewModel.get('searchtype') == 5)
+        else if (viewModel.get('searchtype') == 5)
             producttypeStore.get_not_type_product();
         if (null != viewModel.get('skucode')) {
             var store_sku = Ext.data.StoreManager.lookup('store_sku');
@@ -45,17 +45,17 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 store_sku.loadByCode(viewModel.get('skucode'));
             }
         }
-   
-        if(viewModel.get('productid_link') != 0){
+
+        if (viewModel.get('productid_link') != 0) {
             var SkuStore = viewModel.getStore('SkuStore');
             var productid_link = viewModel.get('productid_link');
             SkuStore.loadByProduct(productid_link, true);
             SkuStore.sort([
-                {property :'color_name', direction: 'ASC'},
-                {property :'sort_size', direction: 'ASC'}
+                { property: 'color_name', direction: 'ASC' },
+                { property: 'sort_size', direction: 'ASC' }
             ]);
 
-            var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');    
+            var SkuAtributesStore = this.getViewModel().getStore('SkuAtributesStore');
             SkuAtributesStore.loadDefaultAttr(10);
 
             this.onSearchButton();
@@ -66,13 +66,13 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             itemdblclick: 'onEditProduct'
         },
     },
-    onCloseButton: function(){
+    onCloseButton: function () {
         var mywin = Ext.WindowManager.getActive();
         if (mywin) {
             mywin.close();
         }
     },
-    onCreateSKU: function(){
+    onCreateSKU: function () {
         var viewmodel = this.getViewModel();
 
         var params = new Object();
@@ -119,7 +119,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 }
             })
     },
-    onSearchButton: function(){
+    onSearchButton: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -134,8 +134,8 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         ProductStore.removeAll();
         SkuStore.removeAll();
 
-        var attributes =new Array();
-        Ext.Array.each(SkuAtributesStore.data.items, function(rc) {
+        var attributes = new Array();
+        Ext.Array.each(SkuAtributesStore.data.items, function (rc) {
             if (rc.data.selectedids != '')
                 attributes.push(rc.data);
         });
@@ -147,7 +147,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             productid_link,
             orgcustomerid_link
         )
-   
+
     },
     onSelectButton: function (button) {
         var viewModel = this.getViewModel();
@@ -163,45 +163,48 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         //Tab phan loai san pham trong don hang
         if (viewModel.get('sourceview') == 'PContractSKU_ListProductView') {
             this.createPContractProductSKU();
-        }   
+        }
         //Tab nguyen phu lieu trong don hang
         if (viewModel.get('sourceview') == 'PContractProductBomView') {
             this.createContractBOM();
-        } 
-        
+        }
+        if (viewModel.get('sourceview') == 'PContract_Bom_View') {
+            this.InsertNPL_DinhMucKhachHang();
+        }
+
         //Invoice 
         // if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
         //     this.InsertSKU_to_invoice();
         // } 
 
-        if(viewModel.get('sourceview') == 'PContractProduct_Bom_TabColorView'){
+        if (viewModel.get('sourceview') == 'PContractProduct_Bom_TabColorView') {
             this.InsertNPL_DinhMucHaiQuan();
         }
 
-        if(viewModel.get('sourceview') == 'PContractProduct_Bom2_TabColorView'){
+        if (viewModel.get('sourceview') == 'PContractProduct_Bom2_TabColorView') {
             this.InsertNPL_DinhMucKhachHang();
         }
 
-        if(sourceview == 'PContract_PO_Edit_Price'){
+        if (sourceview == 'PContract_PO_Edit_Price') {
             this.InsertMaterialIdLinkToPriceD();
         }
 
-        if(sourceview == 'PContract_PO_Edit_Price_D_SKU'){
+        if (sourceview == 'PContract_PO_Edit_Price_D_SKU') {
             this.InsertMaterialIdLinkToPriceDSKU();
         }
-        
-        if(sourceview == 'FabricPrice'){
+
+        if (sourceview == 'FabricPrice') {
             this.InsertToFabricPrice();
         }
 
         if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
             this.InsertToInvoiceEdit_D();
-        } 
+        }
         if (viewModel.get('sourceview') == 'Stockout_P_EditController') {
             var grid_skusearch = this.getView().items.get('grid_skusearch');
             var records = grid_skusearch.getSelection();
             this.fireEvent('product_sku_selected', records);
-        } 
+        }
     },
     createPContractProduct: function () {
         var m = this;
@@ -445,7 +448,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         storebom.loadStore(pcontractid_link, productid_link);
 
                         var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
-                        if(tab.items.length > 0){
+                        if (tab.items.length > 0) {
                             var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
                             storebomcolor.load();
 
@@ -454,7 +457,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         }
 
                         var tab2 = Ext.getCmp('PContractProduct_Bom2_TabColorView');
-                        if(tab2.items.length > 0){
+                        if (tab2.items.length > 0) {
                             var storebomcolor2 = Ext.getCmp('PContractView').getViewModel().getStore('PContractBom2ColorStore');
                             storebomcolor2.load();
                         }
@@ -476,7 +479,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 })
         }
     },
-    InsertNPL_DinhMucHaiQuan: function(){
+    InsertNPL_DinhMucHaiQuan: function () {
         var viewModel = this.getViewModel();
         var pcontractid_link = viewModel.get('pcontractid_link');
         var productid_link = viewModel.get('productid_link_notsearch');
@@ -497,7 +500,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 function (success, response, options) {
                     if (success) {
                         var tab = Ext.getCmp('PContractProduct_Bom_TabColorView');
-                        if(tab.items.length > 0){
+                        if (tab.items.length > 0) {
                             var storebomcolor = Ext.getCmp('PContractView').getViewModel().getStore('PContractBomColorStore');
                             storebomcolor.load();
                         }
@@ -525,7 +528,9 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 })
         }
     },
-    InsertNPL_DinhMucKhachHang: function(){
+    InsertNPL_DinhMucKhachHang: function () {
+        var me = this;
+
         var viewModel = this.getViewModel();
         var pcontractid_link = viewModel.get('pcontractid_link');
         var productid_link = viewModel.get('productid_link_notsearch');
@@ -548,11 +553,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         // var storebom = Ext.getCmp('PContractProductBomView').getStore();
                         // storebom.loadStore(pcontractid_link, productid_link);
 
-                        var tab2 = Ext.getCmp('PContractProduct_Bom2_TabColorView');
-                        if(tab2.items.length > 0){
-                            var storebomcolor2 = Ext.getCmp('PContractView').getViewModel().getStore('PContractBom2ColorStore');
-                            storebomcolor2.load();
-                        }
+                        me.fireEvent('reload');
 
                         Ext.MessageBox.show({
                             title: "Thông báo",
@@ -579,18 +580,18 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                 })
         }
     },
-    InsertMaterialIdLinkToPriceD: function(){
+    InsertMaterialIdLinkToPriceD: function () {
         var m = this;
         var viewModel = this.getViewModel();
         var grid_skusearch = this.getView().items.get('grid_skusearch');
         var selectionModel = grid_skusearch.getSelectionModel();
         var records = grid_skusearch.getSelection();
-        if(records.length > 0){
+        if (records.length > 0) {
             // console.log(records[0]);
             // var materialid_link = records[0].get('id');
             m.fireEvent("AddMaterialIdLink", records[0]);
             // m.onThoat();
-        }else{
+        } else {
             // Ext.Msg.alert({
             //     title: "Thông báo",
             //     msg: 'Bạn chưa chọn SKU',
@@ -605,19 +606,19 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             // return;
         }
     },
-    InsertMaterialIdLinkToPriceDSKU: function(){
+    InsertMaterialIdLinkToPriceDSKU: function () {
         var m = this;
         var viewModel = this.getViewModel();
         var grid_skusearch = this.getView().items.get('grid_skusearch');
         var selectionModel = grid_skusearch.getSelectionModel();
         var records = grid_skusearch.getSelection();
-        if(records.length > 0){
+        if (records.length > 0) {
             var params = new Object();
             var currencyid_link = viewModel.get('currencyid_link');
             var unitid_link = viewModel.get('unitid_link');
             var materialid_link_list = new Array();
 
-            for(var i = 0; i < records.length; i++){
+            for (var i = 0; i < records.length; i++) {
                 materialid_link_list.push(records[i].data.id);
             }
 
@@ -634,21 +635,21 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         m.fireEvent("AddMaterialIdLink", response.data);
                     }
                 })
-        }else{
+        } else {
         }
     },
-    InsertToFabricPrice: function(){
+    InsertToFabricPrice: function () {
         var m = this;
         var viewModel = this.getViewModel();
         var grid_skusearch = this.getView().items.get('grid_skusearch');
         var selectionModel = grid_skusearch.getSelectionModel();
         var records = grid_skusearch.getSelection();
-        if(records.length > 0){
+        if (records.length > 0) {
             // console.log(records[0]);
             // var materialid_link = records[0].get('id');
             m.fireEvent("AddMaterialIdLinkFabricPrice", records);
             // m.onThoat();
-        }else{
+        } else {
             // Ext.Msg.alert({
             //     title: "Thông báo",
             //     msg: 'Bạn chưa chọn nguyên phụ liệu',
@@ -660,18 +661,18 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             // return;
         }
     },
-    onSelect_Products: function(){
+    onSelect_Products: function () {
         var me = this.getView().down('#ProductList');
         var records = me.getSelectionModel().getSelection();
 
-        if(records.length > 0){
+        if (records.length > 0) {
             this.fireEvent("onSelect_Products", records);
         }
     },
-    InsertToInvoiceEdit_D: function(){
+    InsertToInvoiceEdit_D: function () {
         var grid_skusearch = this.getView().items.get('grid_skusearch');
         var records = grid_skusearch.getSelection();
-        if(records.length > 0){
+        if (records.length > 0) {
             this.fireEvent("InsertToInvoiceEdit_D", records);
         }
     },
@@ -746,7 +747,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         var SkuStore = viewModel.getStore('SkuStore');
         if (record.get('id') > 0) {
             //Chỉ gán khi tìm kiếm sản phẩm
-            if(viewModel.get('searchtype') == 1){
+            if (viewModel.get('searchtype') == 1) {
                 viewModel.set('productid_link_notsearch', record.data.id);
             }
             if (record.data.product_type >= 20 && record.data.product_type < 60)
@@ -754,42 +755,37 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             else
                 SkuStore.loadByProduct(record.get('id'), true);
             SkuStore.sort([
-                {property :'color_name', direction: 'ASC'},
-                {property :'sort_size', direction: 'ASC'}
+                { property: 'color_name', direction: 'ASC' },
+                { property: 'sort_size', direction: 'ASC' }
             ]);
         }
     },
-    onCreateProduct: function(){
+    onCreateProduct: function () {
         var viewmodel = this.getViewModel();
         var me = this;
-        var xtype = '', title ='';
+        var xtype = '', title = '';
         if (null != viewmodel.get('type') && viewmodel.get('type') > 0) {
-            if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
-            {
+            if (10 <= viewmodel.get('type') && viewmodel.get('type') < 20) {
                 xtype = 'ProductDetailView';
                 title = 'Thêm mới sản phẩm';
             }
-            else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
-            {
+            else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30) {
                 xtype = 'MaterialDetailView';
                 title = 'Thêm mới nguyên liệu';
             }
-            else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40)
-            {
+            else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40) {
                 xtype = 'SewingTrimDetailView';
                 title = 'Thêm mới phụ liệu may';
             }
-            else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50)
-            {
+            else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50) {
                 xtype = 'PackingTrimDetailView';
                 title = 'Thêm mới phụ liệu hoàn thiện';
             }
-            else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60)
-            {
+            else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60) {
                 xtype = 'SewingThreadDetailView';
                 title = 'Thêm mới chỉ may';
             }
-        
+
             var form = Ext.create('Ext.window.Window', {
                 height: 500,
                 closable: true,
@@ -821,7 +817,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             });
             form.show();
 
-            form.down('#'+xtype).on('CreateProduct', function (product) {
+            form.down('#' + xtype).on('CreateProduct', function (product) {
                 me.onSearchButton();
                 // form.close();
             })
@@ -837,41 +833,35 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         }
     },
 
-    onEditProductList: function(grid, rowIndex, colIndex){
-        var viewmodel = this.getViewModel();
+    onEditProductList: function (grid, rowIndex, colIndex) {
         var data = grid.getStore().getAt(rowIndex);
         this.onEditProduct(grid, data);
         // console.log(data);
     },
 
-    onEditProduct: function(grid, rec){
+    onEditProduct: function (grid, rec) {
         // console.log(rec);
         var viewmodel = this.getViewModel();
         var me = this;
-        var xtype = '', title ='', height = 500;
-        if(10 <= viewmodel.get('type') && viewmodel.get('type') < 20)
-        {
+        var xtype = '', title = '', height = 500;
+        if (10 <= viewmodel.get('type') && viewmodel.get('type') < 20) {
             xtype = 'ProductDetailView';
             title = 'Cập nhật sản phẩm';
             height = '95%';
         }
-        else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30)
-        {
+        else if (20 <= viewmodel.get('type') && viewmodel.get('type') < 30) {
             xtype = 'MaterialDetailView';
             title = 'Cập nhật nguyên liệu';
         }
-        else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40)
-        {
+        else if (30 <= viewmodel.get('type') && viewmodel.get('type') < 40) {
             xtype = 'SewingTrimDetailView';
             title = 'Cập nhật phụ liệu may';
         }
-        else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50)
-        {
+        else if (40 <= viewmodel.get('type') && viewmodel.get('type') < 50) {
             xtype = 'PackingTrimDetailView';
             title = 'Cập nhật phụ liệu hoàn thiện';
         }
-        else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60)
-        {
+        else if (50 <= viewmodel.get('type') && viewmodel.get('type') < 60) {
             xtype = 'SewingTrimDetailView';
             title = 'Cập nhật Chỉ may';
         }
@@ -898,7 +888,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
                         btnQuayLai: true,
                         isWindow: true,
                         product: {
-                            id : rec.data.id,
+                            id: rec.data.id,
                             producttypeid_link: viewmodel.get('type')
                         }
                     }
@@ -907,13 +897,13 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         });
         form.show();
 
-        form.down('#'+xtype).on('CreateProduct', function (product) {
+        form.down('#' + xtype).on('CreateProduct', function (product) {
             me.onSearchButton();
             form.close();
         })
     },
 
-    onbuyercodeProductListFilterKeyup:function(){
+    onbuyercodeProductListFilterKeyup: function () {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('buyercodeProductListFilter'),
@@ -933,7 +923,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             this.buyercodeProductListFilter = null;
         }
     },
-    partnercodeProductListFilterKeyup:function(){
+    partnercodeProductListFilterKeyup: function () {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('partnercodeProductListFilter'),
@@ -953,7 +943,7 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             this.partnercodeProductListFilter = null;
         }
     },
-    onnameProductListFilterKeyup:function(){
+    onnameProductListFilterKeyup: function () {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('nameProductListFilter'),

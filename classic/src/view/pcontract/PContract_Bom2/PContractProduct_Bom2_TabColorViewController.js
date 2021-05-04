@@ -127,6 +127,11 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorViewControlle
             }
         });
         form.show();
+
+        form.getController().on('reload', function () {
+            var store = viewmodel.getStore('PContractBom2ColorStore');
+            store.load();
+        })
     },
     createTab: function () {
         newActiveItem = this.getView();

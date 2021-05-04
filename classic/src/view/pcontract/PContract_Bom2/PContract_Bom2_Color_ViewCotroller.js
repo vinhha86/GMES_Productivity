@@ -38,8 +38,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                             listtitle.push(data.coSanPham);
                         }
                     }
-
                     for (var i = 0; i < listtitle.length; i++) {
+                        if ("" + listtitle[i] == "") continue;
 
                         var column = Ext.create('Ext.grid.column.Number', {
                             text: listtitle[i],

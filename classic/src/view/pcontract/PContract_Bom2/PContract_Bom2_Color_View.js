@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_Bom2_Color_View',
     controller: 'PContract_Bom2_Color_ViewCotroller',
-    colorid_link : 0,
+    colorid_link: 0,
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -10,28 +10,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
         rowLines: true
     },
     features: [{
-        ftype:'grouping',
+        ftype: 'grouping',
         groupHeaderTpl: '{name}',
         collapseTip: "",
-        expandTip:""
+        expandTip: ""
     }],
     plugins: {
         cellediting: {
             clicksToEdit: 1,
             listeners: {
                 edit: 'onEdit'
-            } 
+            }
         }
     },
-    bind:{
-        store:'{PContractBom2ColorStore}'
+    bind: {
+        store: '{PContractBom2ColorStore}'
     },
-    columns:[{
+    columns: [{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    },{
+    }, {
         xtype: 'actioncolumn',
         width: 30,
         menuDisabled: true,
@@ -47,26 +47,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
     }, {
         text: 'Mã NPL',
         dataIndex: 'materialCode',
-        width: 120
-    },{
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
-        width: 150
-    },{
+        width: 150,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
         width: 80
-    },{
+    }, {
         text: 'Cỡ khổ',
         dataIndex: 'coKho',
         width: 80
-    },{
+    }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
         }
     }, {
         text: 'ĐVT',
@@ -92,42 +103,42 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
         width: 70,
         xtype: 'numbercolumn',
         format: '0.000',
-        editor:{
-            xtype:'textfield',
+        editor: {
+            xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
             return Ext.util.Format.number(value, '0.00') + " %";
         }
-    },{
+    }, {
         text: 'Chung',
         dataIndex: 'amount',
         width: 65,
         xtype: 'numbercolumn',
         format: '0.0000',
-        editor:{
-            xtype:'textfield',
+        editor: {
+            xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            if(value ==0) return "";
+            if (value == 0) return "";
             return Ext.util.Format.number(value, '0.0000')
         }
-    },{
+    }, {
         text: 'Màu',
         dataIndex: 'amount_color',
         width: 65,
         xtype: 'numbercolumn',
         format: '0.0000',
-        editor:{
-            xtype:'textfield',
+        editor: {
+            xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            if(value ==0) return "";
+            if (value == 0) return "";
             return Ext.util.Format.number(value, '0.0000')
         }
     }]

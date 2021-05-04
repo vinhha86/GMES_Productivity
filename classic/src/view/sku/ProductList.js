@@ -21,27 +21,28 @@ Ext.define('GSmartApp.view.sku.ProductList', {
     features: [{
         ftype: 'summary',
         dock: 'bottom'
-    }],  
+    }],
     viewConfig: {
         enableTextSelection: false,
         stripeRows: false,
-    },                  
+    },
     columns: [
         {
-            text:'Ảnh',
-            dataIndex:'urlimage',
+            text: 'Ảnh',
+            dataIndex: 'urlimage',
             width: 45,
             textAlign: 'center',
-            renderer: function(value, meta, record){
-                return '<img style="width:40px; height:30px" src="data:image/gif;base64,'+ value +'">';
+            renderer: function (value, meta, record) {
+                return '<img style="width:40px; height:30px" src="data:image/gif;base64,' + value + '">';
             },
-            listeners:{
+            listeners: {
                 click: 'viewImg'
             }
         },
-        { header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 100,
+        {
+            header: 'Mã SP (Buyer)', dataIndex: 'buyercode', width: 100,
             summaryType: 'count',
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
@@ -49,7 +50,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'buyercodeProductListFilter',
-                flex: 1,
+                width: '100%',
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {
@@ -58,8 +59,9 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                 }
             },
         },
-        { header: 'Mã NCC', dataIndex: 'partnercode', width: 100,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        {
+            header: 'Mã NCC', dataIndex: 'partnercode', width: 100,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
@@ -76,8 +78,9 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                 }
             },
         },
-        { header: 'Tên', dataIndex: 'name', flex: 1,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        {
+            header: 'Tên', dataIndex: 'name', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
@@ -85,7 +88,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'nameProductListFilter',
-                flex: 1,
+                width: '100%',
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {
@@ -94,19 +97,19 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                 }
             },
         },
-		{ 
-			xtype: 'actioncolumn',
-			width: 30,
-			menuDisabled: true,
-			sortable: false,
-			items: [
+        {
+            xtype: 'actioncolumn',
+            width: 30,
+            menuDisabled: true,
+            sortable: false,
+            items: [
                 {
                     iconCls: 'x-fa fas fa-edit',
                     tooltip: 'Sửa thông tin',
                     handler: 'onEditProductList'
                 }
             ]
-		}
+        }
     ],
     fbar: [{
         minWidth: 80,
@@ -138,9 +141,9 @@ Ext.define('GSmartApp.view.sku.ProductList', {
             hidden: '{isHidden_newProduct}'
         }
     },
-    '->'
-    ],    
+        '->'
+    ],
     listeners: {
         itemclick: 'onProductItemSelected'
-    }           
+    }
 });

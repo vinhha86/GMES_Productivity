@@ -39,7 +39,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Mã NPL',
         dataIndex: 'materialCode',
-        width: 120
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
@@ -47,22 +52,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
-        width: 150
+        width: 150,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
     }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
         width: 200,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
         }
     }, {
         text: 'PO',
         dataIndex: 'po_line',
         width: 150,
-        renderer: function (value, metaData, record) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
         }
     }, {
         text: 'ĐVT',

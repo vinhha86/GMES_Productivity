@@ -16,6 +16,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         },
         '#btnConfirmBOM': {
             click: 'onConfirmBOM2'
+        },
+        '#btnAddMaterial_Bom': {
+            click: 'onThemMoiNPL'
+        },
+        '#PContract_Bom_View': {
+            celldblclick: 'onCellDblClick'
         }
     },
     listen: {
@@ -26,6 +32,83 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     init: function () {
+    },
+    onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        var me = this;
+        if (cellIndex == 5) {
+            me.ShowPO();
+        }
+    },
+    ShowPO: function () {
+        var form = Ext.create('Ext.window.Window', {
+            height: 600,
+            closable: true,
+            title: 'Danh sách PO',
+            resizable: false,
+            modal: true,
+            border: false,
+            closeAction: 'destroy',
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContract_Bom_PO_MainView'
+            }]
+        });
+        form.show();
+
+        form.down('PContract_Bom_PO_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
+    },
+    onThemMoiNPL: function () {
+        var me = this.getView();
+        var t = this;
+        var viewmodel = this.getViewModel();
+
+        var productid_link = viewmodel.get('IdProduct');
+
+        if (productid_link == 0) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn sản phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+                fn: function (btn) {
+                    me.down('#cmbSanPham').expand();
+                }
+            });
+            return;
+        }
+
+        var form = Ext.create({
+            xtype: 'skusearchwindow',
+            width: Ext.getBody().getViewSize().width * .99,
+            height: Ext.getBody().getViewSize().height * .99,
+            reference: 'skusearchwindow',
+            viewModel: {
+                data: {
+                    sourceview: 'PContract_Bom_View',
+                    searchtype: 5,
+                    pcontractid_link: viewmodel.get('PContract.id'),
+                    productid_link_notsearch: productid_link,
+                    isAddNPL: true,
+                    isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
+                    isHiddenSkuSearchCriteria_Attr_btnThemMoi: true
+                }
+            }
+        });
+        form.show();
+
+        form.getController().on('reload', function () {
+            var store = viewmodel.getStore('PContractBom2Store_New');
+            store.load();
+        })
     },
     onUpload: function (record) {
         var me = this.getView();
@@ -230,6 +313,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     }
 
                     for (var i = 0; i < listtitle.length; i++) {
+                        if ("" + listtitle[i] == "") continue;
 
                         var column = Ext.create('Ext.grid.column.Number', {
                             text: listtitle[i],
