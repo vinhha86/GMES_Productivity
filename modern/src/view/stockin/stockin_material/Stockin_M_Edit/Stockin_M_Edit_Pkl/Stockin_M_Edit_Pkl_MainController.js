@@ -259,7 +259,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 
         // 
         console.log(objData);
-
+        m.onUpdate_Print_Pklist(objData);
+        
         this.resetForm();
         Ext.getCmp('Stockin_M_Edit_Pkl_Recheck_Main').getController().resetFormRecheck();
         Ext.getCmp('Stockin_M_Edit_D_Main').getController().resetFormAddLot();
@@ -267,6 +268,80 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         m.getView().down('#packageidTxt').focus();
     },
     
+    //hungdaibang code
+    onUpdate_Print_Pklist: function(pklistData){
+		var me = this;
+        console.log("update pklist");
+        console.log(pklistData);
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        pklistData.id = null;
+        pklistData.stockinid_link=stockin.id;
+        pklistData.stockindid_link=772;
+
+        var params = new Object();
+        params.data = pklistData;
+        params.isprintlabel = true;
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_create', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                       console.log(response);
+					   
+					   //Goi mqtt de in tem
+					   me.onPrint_WithRFID(response.rfprintid_link);
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
+                }
+        })        
+    },
+	onPrint_WithRFID: function(print_session){
+		var host = config.getMqtthost();
+		var port = config.getMqttport();
+		var clientid = config.getClientid();
+		var termid = config.getTermid();
+		me.sessionid = ""+print_session;
+		
+		me.channel.cmd = 'gsm5/term/' + termid + '/cmd';
+		GSmartApp.Mqtt.connect(host, port, clientid, me.channel, deviceId, function (topic, message) {
+			console.log(topic);
+			if (topic.includes("cmd")) {
+				var jsonObj = Ext.JSON.decode(message);
+				// console.log(jsonObj);
+				if (jsonObj.ct == 1) {
+					if (jsonObj.cid == 'CMD_START_PRINT') {
+						viewModel.set('isCheckEnable', false);
+					}
+				}
+
+				//Khi het time out tu dong goi nut Stop
+				if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
+					me.onStop();
+				}
+			} 
+		}, function () {
+			me.sendChannel = 'gsm5/device/' + 'rfprinter-0001' + '/cmd';
+			me.funcid = ""+1;
+			var cmd = { ct: 0, cid: "CMD_START_PRINT", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
+			console.log("Device channel:" + me.sendChannel);
+			var message = new Paho.Message(Ext.JSON.encode(cmd));
+			message.destinationName = me.sendChannel;
+			message.qos = 0;
+			GSmartApp.Mqtt.client.send(message);
+
+		}, function () {
+			console.log('Loi connect');
+			var viewModel = me.getViewModel();
+			viewModel.set('clsbtn', "red-button");
+			viewModel.set('clsbtnStart', "blue-button");
+			viewModel.set('clsbtnStop', "");
+			viewModel.set('isStart', false);
+		});
+	},    
     onbtnResetForm: function(){
         var m = this;
         var viewModel = this.getViewModel();
