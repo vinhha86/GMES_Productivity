@@ -1,11 +1,8 @@
-Ext.define('GSmartApp.view.pcontract.PCotnract_Bom_PO_VIew', {
+Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PCotnract_Bom_PO_VIew',
-    id: 'PCotnract_Bom_PO_VIew',
-    controller: 'PCotnract_Bom_PO_VIewController',
-    viewModel: {
-        type: 'PCotnract_Bom_PO_VIewModel'
-    },
+    xtype: 'PContract_Bom_PO_VIew',
+    id: 'PContract_Bom_PO_VIew',
+    controller: 'PContract_Bom_PO_VIewController',
     bind: {
         store: '{PContractBom_PO_Store}'
     },
@@ -22,7 +19,7 @@ Ext.define('GSmartApp.view.pcontract.PCotnract_Bom_PO_VIew', {
     columns: [{
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
-        width: 120,
+        flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -31,19 +28,18 @@ Ext.define('GSmartApp.view.pcontract.PCotnract_Bom_PO_VIew', {
     }, {
         text: 'Ngày giao hàng',
         dataIndex: 'shipdate',
+        renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 150
     }, {
         text: 'Số lượng',
-        dataIndex: 'quantity',
+        dataIndex: 'po_quantity',
         width: 100,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }, {
         text: 'Cảng đi',
-        dataIndex: 'port_from_name',
+        dataIndex: 'portFrom',
         width: 200,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
@@ -52,12 +48,25 @@ Ext.define('GSmartApp.view.pcontract.PCotnract_Bom_PO_VIew', {
         }
     }, {
         text: 'Cảng đến',
-        dataIndex: 'port_to_name',
+        dataIndex: 'portTo',
         width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
         }
+    }],
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        padding: '0 0 10 5',
+        height: 35,
+        items: [{
+            xtype: 'displayfield',
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelWidth: 0,
+            value: 'Danh sách PO'
+        }
+        ]
     }]
 })

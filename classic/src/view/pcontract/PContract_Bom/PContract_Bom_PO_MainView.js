@@ -11,11 +11,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_MainView', {
         region: 'west',
         margin: 1,
         border: true,
-        xtype: 'PCotnract_Bom_PO_VIew',
+        xtype: 'PContract_Bom_PO_VIew',
         width: '50%'
     }, {
         region: 'center',
-        tittle: 'center'
+        xtype: 'PContract_Bom_PO_SKUView'
     }
     ],
     dockedItems: [{

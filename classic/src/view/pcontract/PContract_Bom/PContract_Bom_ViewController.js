@@ -36,26 +36,35 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var me = this;
         if (cellIndex == 5) {
-            me.ShowPO();
+            me.ShowPO(record);
         }
     },
-    ShowPO: function () {
+    ShowPO: function (record) {
+        var viewmodel = this.getViewModel();
+
         var form = Ext.create('Ext.window.Window', {
-            height: 600,
             closable: true,
-            title: 'Danh sách PO',
+            title: 'Danh sách PO sử dụng NPL ' + record.get('materialName') + "(" + record.get('materialCode') + ")",
             resizable: false,
             modal: true,
             border: false,
             closeAction: 'destroy',
-            width: 800,
+            height: Ext.getBody().getViewSize().height * .99,
+            width: Ext.getBody().getViewSize().width * .95,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
                 padding: 5
             },
             items: [{
-                xtype: 'PContract_Bom_PO_MainView'
+                xtype: 'PContract_Bom_PO_MainView',
+                viewModel: {
+                    data: {
+                        pcontractid_link: viewmodel.get('PContract.id'),
+                        productid_link: viewmodel.get('IdProduct'),
+                        material_skuid_link: record.get('materialid_link')
+                    }
+                }
             }]
         });
         form.show();

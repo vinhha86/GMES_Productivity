@@ -9,6 +9,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_MainViewController', {
     init: function () {
     },
     onThoat: function () {
+        var me = this;
         me.fireEvent('Thoat');
     }
 })
