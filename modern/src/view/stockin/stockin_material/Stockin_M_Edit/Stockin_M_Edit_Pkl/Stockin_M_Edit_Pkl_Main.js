@@ -274,11 +274,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                         },
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
+                            iconCls: 'x-fa fa-print',
                             // itemId:'',
                             ui: 'action',
                             margin: 1,
-                            style: 'visibility: hidden;'
+                            // style: 'visibility: hidden;'
                         },
                         // {
                         //     xtype:'button',
@@ -348,11 +348,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                         },
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
+                            iconCls: 'x-fa fa-trash',
                             // itemId:'',
                             ui: 'action',
                             margin: 1,
-                            style: 'visibility: hidden;'
+                            // style: 'visibility: hidden;'
                         },
                     ]
                 },

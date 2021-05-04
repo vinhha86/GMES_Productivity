@@ -139,6 +139,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var widthMetTxt = viewModel.get('widthMetTxt');
 
         // check combo đã chọn chưa
+        var pkl_stockindId = viewModel.get('pkl_stockindId');
+        if(pkl_stockindId == '' || pkl_stockindId == null){
+            Ext.toast('Cần chọn loại vải', 3000);
+            return;
+        }
 
         // check textfield
         if(stockin.unitid_link == 3){
@@ -185,237 +190,83 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         if(widthMetTxt == null || widthMetTxt == '' || widthMetTxt == 0) widthMetTxt = widthMetCheckTxt;
 
         var objData = new Object();
-        objData.lotnumberTxt = lotnumberTxt;
-        objData.packageidTxt = packageidTxt;
-        objData.yTxt = yTxt;
-        objData.mTxt = mTxt;
-        objData.yOriginTxt = yOriginTxt;
-        objData.mOriginTxt = mOriginTxt;
-        objData.colorTxt = colorTxt;
+        objData.id = null;
+        objData.lotnumber = lotnumberTxt;
+        objData.packageid = packageidTxt;
+        objData.ydscheck = yTxt;
+        objData.met_check = mTxt;
+        objData.ydsorigin = yOriginTxt;
+        objData.met_origin = mOriginTxt;
+        objData.colorid_link = colorTxt;
         // objData.widthTxt = widthTxt;
-        objData.sampleCheckTxt = sampleCheckTxt;
-        objData.grossweightTxt = grossweightTxt;
-        objData.grossweightCheckTxt = grossweightCheckTxt;
-        objData.widthYdsCheckTxt = widthYdsCheckTxt;
-        objData.widthYdsTxt = widthYdsTxt;
-        objData.widthMetCheckTxt = widthMetCheckTxt;
-        objData.widthMetTxt = widthMetTxt;
+        objData.sample_check = sampleCheckTxt;
+        objData.grossweight = grossweightTxt;
+        objData.grossweight_check = grossweightCheckTxt;
+        objData.width_yds_check = widthYdsCheckTxt;
+        objData.width_yds = widthYdsTxt;
+        objData.width_met_check = widthMetCheckTxt;
+        objData.width_met = widthMetTxt;
         objData.unitid_link = stockin.unitid_link;
+        objData.stockindid_link = pkl_stockindId;
+        objData.status = 1;
 
-        var viewPklRecheck = Ext.getCmp('Stockin_M_Edit_Pkl_Recheck_Main').down('#Stockin_M_Edit_Pkl_Recheck');
-        var storePklRecheck = viewPklRecheck.getStore();
-        var storePackinglistRecheckArr = viewModel.get('storePackinglistRecheckArr');
-        var viewPkl = this.getView().down('#Stockin_M_Edit_Pkl');
-        var storePkl = viewPkl.getStore();
-        var items = viewModel.get('storePackinglistArrAll');
-        var isExist = false;
+        if(stockin.unitid_link == 3){
+            // có y
+            objData.ydscheck = parseFloat(yTxt);
+            objData.met_check = objData.ydscheck * 0.9144;
+            objData.ydsorigin = parseFloat(yOriginTxt);
+            objData.met_origin = objData.ydsorigin * 0.9144;
+
+            objData.width_yds_check = parseFloat(widthYdsTxt);
+            objData.width_met_check = objData.width_yds_check * 0.9144;
+            objData.width_yds = parseFloat(widthYdsTxt);
+            objData.width_met = objData.width_yds * 0.9144;
+        }
+        if(stockin.unitid_link == 1){
+            // có m
+            objData.met_check = parseFloat(mTxt);
+            objData.ydscheck = objData.met_check / 0.9144;
+            objData.met_origin = parseFloat(mOriginTxt);
+            objData.ydsorigin = objData.met_origin / 0.9144;
+
+            objData.width_met_check = parseFloat(widthMetCheckTxt);
+            objData.width_yds_check = objData.width_met_check / 0.9144;
+            objData.width_met = parseFloat(widthMetTxt);
+            objData.width_yds = objData.width_met / 0.9144;
+        }
+
+        objData.met_check = parseFloat(Ext.util.Format.number(objData.met_check, '0.00'));
+        objData.ydscheck = parseFloat(Ext.util.Format.number(objData.ydscheck, '0.00'));
+        objData.met_origin = parseFloat(Ext.util.Format.number(objData.met_origin, '0.00'));
+        objData.ydsorigin = parseFloat(Ext.util.Format.number(objData.ydsorigin, '0.00'));
+        objData.width_met_check = parseFloat(Ext.util.Format.number(objData.width_met_check, '0.00'));
+        objData.width_yds_check = parseFloat(Ext.util.Format.number(objData.width_yds_check, '0.00'));
+        objData.width_met = parseFloat(Ext.util.Format.number(objData.width_met, '0.00'));
+        objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
+
+        // var items = viewModel.get('storePackinglistArrAll');\
+        var StockinPklStore = viewModel.getStore('StockinPklStore');
+        var items = StockinPklStore.getData().items;
 
         // lặp qua danh sách để tìm cây vải tương ứng
         for(var i = 0; i < items.length; i++){
             var item = items[i];
             // nếu tìm thấy cây vải
-            if(item.lotnumber.toUpperCase() == lotnumberTxt.toUpperCase() && item.packageid == packageidTxt){
-                isExist = true;
-
-                // thay đổi thông tin storePackinglistArr (danh sách hiển thị pkl)
-                var ydscheck = 0;
-                var met_check = 0;
-                var ydsorigin = 0;
-                var met_origin = 0;
-                var sample_check = 0;
-                var width_yds =0;
-                var width_yds_check = 0;
-                var width_met = 0;
-                var width_met_check = 0;
-                if(stockin.unitid_link == 3){
-                    ydscheck = parseFloat(yTxt);
-                    met_check = ydscheck * 0.9144;
-                    ydsorigin = parseFloat(yOriginTxt);
-                    met_origin = ydsorigin * 0.9144;
-                    width_yds_check = parseFloat(widthYdsTxt);
-                    width_met_check = width_yds_check * 0.9144;
-                    width_yds = parseFloat(widthYdsTxt);
-                    width_met = width_yds * 0.9144;
-                }
-                if(stockin.unitid_link == 1){
-                    met_check = parseFloat(mTxt);
-                    ydscheck = met_check / 0.9144;
-                    met_origin = parseFloat(mOriginTxt);
-                    ydsorigin = met_origin / 0.9144;
-                    width_met_check = parseFloat(widthMetCheckTxt);
-                    width_yds_check = width_met_check / 0.9144;
-                    width_met = parseFloat(widthMetTxt);
-                    width_yds = width_met / 0.9144;
-                }
-                // width_check = parseFloat(widthTxt);
-                sample_check = parseFloat(sampleCheckTxt);
-                grossweight = parseFloat(grossweightTxt);
-                grossweight_check = parseFloat(grossweightCheckTxt);
-                
-                item.ydscheck = parseFloat(Ext.util.Format.number(ydscheck, '0.00'));
-                item.met_check = parseFloat(Ext.util.Format.number(met_check, '0.00'));
-                item.ydsorigin = parseFloat(Ext.util.Format.number(ydsorigin, '0.00'));
-                item.met_origin = parseFloat(Ext.util.Format.number(met_origin, '0.00'));
-                item.sample_check = parseFloat(Ext.util.Format.number(sample_check, '0.00'));
-                // item.width_check = parseFloat(width_check);
-                item.width_met = parseFloat(Ext.util.Format.number(width_met, '0.00'));
-                item.width_met_check = parseFloat(Ext.util.Format.number(width_met_check, '0.00'));
-                item.width_yds = parseFloat(Ext.util.Format.number(width_yds, '0.00'));
-                item.width_yds_check = parseFloat(Ext.util.Format.number(width_yds_check, '0.00'));
-                item.grossweight = parseFloat(Ext.util.Format.number(grossweight, '0.00'));
-                item.grossweight_check = parseFloat(Ext.util.Format.number(grossweight_check, '0.00'));
-                item.checked = 1;
-                if(item.status < 1)item.status = 1;
-
-                // update storePkl
-                viewModel.set('storePackinglistArrAll', items);
-                Ext.getCmp('Stockin_M_Edit').getController().setPklAndPklStatusLessThan1(items);
-                // storePkl.setData([]);
-                storePkl.removeAll();
-                storePkl.insert(0, viewModel.get('storePackinglistArr'));
-
-                // update storePklRecheck
-                for(var j = 0; j < storePackinglistRecheckArr.length; j++){
-                    if(storePackinglistRecheckArr[j].lotnumber.toUpperCase() == item.lotnumber.toUpperCase() && storePackinglistRecheckArr[j].packageid == item.packageid){
-                        storePackinglistRecheckArr[j] = item;
-                    }
-                }
-                viewModel.set('storePackinglistRecheckArr', storePackinglistRecheckArr);
-                // storePklRecheck.setData([]);
-                storePklRecheck.removeAll();
-                storePklRecheck.insert(0, storePackinglistRecheckArr);
+            if(item.get('lotnumber').toUpperCase() == lotnumberTxt.toUpperCase() && item.get('packageid') == packageidTxt){
+                objData.id = item.get('id');
             }
         }
 
-        // nếu ko có trong danh sách, thêm cây vải
-        if(!isExist){
-            // set color
-            for(var i = 0;i < stockin_lot.length; i++){
-                if(stockin_lot[i].lot_number.toUpperCase() == lotnumberTxt.toUpperCase()){
-                    for(var j = 0; j < stockin_d.length; j++){
-                        if(stockin_lot[i].materialid_link == stockin_d[j].skuid_link){
-                            objData.colorTxt = stockin_d[j].colorid_link;
-                        }
-                    }
-                }
-            }
-            objData = m.themCayVaiMoi(objData);
-        }
-
-        // thay đổi thông tin obj stockin
-        Ext.getCmp('Stockin_M_Edit').getController().setDataStockin();
+        // 
+        console.log(objData);
 
         this.resetForm();
         Ext.getCmp('Stockin_M_Edit_Pkl_Recheck_Main').getController().resetFormRecheck();
         Ext.getCmp('Stockin_M_Edit_D_Main').getController().resetFormAddLot();
         Ext.getCmp('Stockin_M_Edit_Lot_Main').getController().resetFormAddSpace();
-
         m.getView().down('#packageidTxt').focus();
-        //  m.onSave();
-        // console.log(stockin);
     },
-    themCayVaiMoi: function(objData){
-        var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-        var storePackinglistArrAll = viewModel.get('storePackinglistArrAll');
-        var storePackinglistArr = viewModel.get('storePackinglistArr');
-        var stockin_lot = viewModel.get('stockin.stockin_lot');
-        var view = this.getView().down('#Stockin_M_Edit_Pkl');
-        var store = view.getStore();
-
-        var lotnumberTxt = objData.lotnumberTxt;
-        var packageidTxt = objData.packageidTxt;
-        var yTxt = objData.yTxt;
-        var mTxt = objData.mTxt;
-        var yOriginTxt = objData.yOriginTxt;
-        var mOriginTxt = objData.mOriginTxt;
-        var colorTxt = objData.colorTxt;
-        // var widthTxt = objData.widthTxt;
-        var sampleCheckTxt = objData.sampleCheckTxt;
-        var grossweightTxt = objData.grossweightTxt;
-        var grossweightCheckTxt = objData.grossweightCheckTxt;
-        var widthYdsCheckTxt = objData.widthYdsCheckTxt;
-        var widthYdsTxt = objData.widthYdsTxt;
-        var widthMetCheckTxt = objData.widthMetCheckTxt;
-        var widthMetTxt = objData.widthMetTxt;
-
-        var ydscheck = 0;
-        var met_check = 0;
-        var ydsorigin = 0;
-        var met_origin = 0;
-        var sample_check = 0;
-        var width_yds =0;
-        var width_yds_check = 0;
-        var width_met = 0;
-        var width_met_check = 0;
-        if(stockin.unitid_link == 3){
-            ydscheck = parseFloat(yTxt), '0.00';
-            met_check = ydscheck * 0.9144;
-            ydsorigin = parseFloat(yOriginTxt);
-            met_origin = ydsorigin * 0.9144;
-
-            width_yds_check = parseFloat(widthYdsCheckTxt);
-            width_met_check = width_yds_check * 0.9144;
-            width_yds = parseFloat(widthYdsTxt);
-            width_met = width_yds * 0.9144;
-        }
-        if(stockin.unitid_link == 1){
-            met_check = parseFloat(mTxt);
-            ydscheck = met_check / 0.9144;
-            met_origin = parseFloat(mOriginTxt);
-            ydsorigin = met_origin / 0.9144;
-
-            width_met_check = parseFloat(widthMetCheckTxt);
-            width_yds_check = width_met_check / 0.9144;
-            width_met = parseFloat(widthMetTxt);
-            width_yds = width_met / 0.9144;
-        }
-        // width_check = Ext.util.Format.number(parseFloat(widthTxt), '0.00');
-        sample_check = parseFloat(sampleCheckTxt);
-        grossweight = parseFloat(grossweightTxt);
-        grossweight_check = parseFloat(grossweightCheckTxt);
-
-        var item = new Object();
-        item.checked = 0;
-        item.colorid_link = colorTxt;
-        item.comment = '';
-        item.lotnumber = lotnumberTxt;
-        item.m3 = 0;
-        item.netweight = 0;
-        item.packageid = packageidTxt;
-        item.unitid_link = stockin.unitid_link;
-        item.width = 0;
-        item.ydscheck = parseFloat(Ext.util.Format.number(ydscheck, '0.00'));
-        item.met_check = parseFloat(Ext.util.Format.number(met_check, '0.00'));
-        item.ydsorigin = parseFloat(Ext.util.Format.number(ydsorigin, '0.00'));
-        item.met_origin = parseFloat(Ext.util.Format.number(met_origin, '0.00'));
-        item.sample_check = parseFloat(Ext.util.Format.number(sample_check, '0.00'));
-        // item.width_check = parseFloat(width_check);
-        item.width_met = parseFloat(Ext.util.Format.number(width_met, '0.00'));
-        item.width_met_check = parseFloat(Ext.util.Format.number(width_met_check, '0.00'));
-        item.width_yds = parseFloat(Ext.util.Format.number(width_yds, '0.00'));
-        item.width_yds_check = parseFloat(Ext.util.Format.number(width_yds_check, '0.00'));
-        item.grossweight = parseFloat(Ext.util.Format.number(grossweight, '0.00'));
-        item.grossweight_check = parseFloat(Ext.util.Format.number(grossweight_check, '0.00'));
-        item.checked = 1;
-        item.status = 1;
-
-        for(var i = 0; i < stockin_lot.length; i++){
-            if(stockin_lot[i].lot_number.toUpperCase() == item.lotnumber.toUpperCase()){
-                item.skuid_link = stockin_lot[i].materialid_link;
-            }
-        }
-
-        storePackinglistArr.push(item);
-        viewModel.set('storePackinglistArr', storePackinglistArr);
-        storePackinglistArrAll.push(item);
-        viewModel.set('storePackinglistArrAll', storePackinglistArrAll);
-        // store.setData([]);
-        store.removeAll();
-        store.insert(0, storePackinglistArr);
-
-        return item;
-    },
+    
     onbtnResetForm: function(){
         var m = this;
         var viewModel = this.getViewModel();
@@ -485,4 +336,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             viewModel.set('widthMetTxt', widthMetCheckTxt);
         }
     },
+
+    reloadStore: function(){
+        var viewModel = this.getViewModel();
+        var StockinPklStore = viewModel.getStore('StockinPklStore');
+        StockinPklStore.load();
+    }
 })

@@ -354,4 +354,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             }
         }
     },
+
+    reloadStore: function(){
+        var viewModel = this.getViewModel();
+        var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
+        StockinPklRecheckStore.load();
+    }
 })
