@@ -48,7 +48,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     },
 
     bind: {
-        store:'{stockin.stockin_lot}'
+        // store:'{stockin.stockin_lot}'
+        store: '{StockinLotStore}'
     },
 
     columns: [
@@ -76,7 +77,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'SL/kiểm lot/kiểm cây', 
+        text: 'Kiểm lot', 
         flex: 1,
         // width: 85,
         dataIndex: 'totalpackage',
@@ -98,7 +99,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'M/kiểm', 
+        text: 'Kiểm dài(M)', 
         flex: 1,
         dataIndex: 'totalmet',
         align: 'right',
@@ -121,7 +122,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'Y/kiểm', 
+        text: 'Kiểm dài(Y)', 
         flex: 1,
         dataIndex: 'totalyds',
         align: 'right',
@@ -144,7 +145,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         },
     },
     {
-        text: 'Cân/kiểm', 
+        text: 'Kiểm cân', 
         flex: 1,
         dataIndex: 'grossweight_check',
         align: 'right',

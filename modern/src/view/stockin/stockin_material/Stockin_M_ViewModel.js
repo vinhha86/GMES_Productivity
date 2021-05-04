@@ -11,8 +11,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		SkuStore:{
 			type: 'skustore'
 		},
-		StockinDetailStore:{
+		Stockin_d_Store:{
 			type: 'Stockin_d_Store'
+		},
+		StockinLotStore: {
+			type: 'StockinLotStore'
+		},
+		StockinPklStore: {
+			type: 'StockinPklStore'
+		},
+		StockinPklRecheckStore: {
+			type: 'StockinPklStore'
 		},
 		StockinDetailEpcStore:{
 			type : 'stockindetailepcstore'
@@ -74,14 +83,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		stockinD: null,
 
 		// Stockin_M_Edit_D
-		selectedDRecord: null,
+		selectedDRecord: null, // loại vải đang chọn
 		lotNumberTxt: '',
 		cayNumberTxt: '',
 		yNumberTxt: '',
 		canNumberTxt: '',
 
 		// Stockin_M_Edit_Lot
-		selectedLotRecord: null,
+		selectedLotRecord: null, // lot đang chọn
 		spaces: [],
 		spacesString: '',
 		lotRow: null, // dãy
@@ -93,7 +102,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		storePackinglistArrAll: [], // all
 		storePackinglistArr: [], // status >= 1 
 		storePackinglistArrStatusLessThan1: [], // status < 1 
-		maPklFilterByMaVai: '',
+		// maPklFilterByMaVai: '',
+		pkl_stockindId: null, // kiểm cây combo value
 		maPklFilter: '',
 
 		// textfield
@@ -116,7 +126,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		// Stockin_M_Edit_Pkl_Recheck
 		storePackinglistRecheckArr: [],
 		selectedPklRecheckRecord: null,
-		maPklRecheckFilterByMaVai: '',
+		// maPklRecheckFilterByMaVai: '',
+		pklRecheck_stockindId: null, // kiểm 10% combo value
 		maPklRecheckFilter: '',
 
 		// textfield

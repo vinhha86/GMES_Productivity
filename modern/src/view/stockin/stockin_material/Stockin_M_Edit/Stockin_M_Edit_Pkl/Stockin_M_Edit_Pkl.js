@@ -46,7 +46,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
     },
 
     bind: {
-        store:'{storePackinglistArr}'
+        // store:'{storePackinglistArr}',
+        store: '{StockinPklStore}'
     },
 
     columns: [{

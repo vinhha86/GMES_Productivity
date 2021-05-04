@@ -21,30 +21,49 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
             layout: 'hbox',
             items:[
                 {
-                    xtype: 'textfield',
-                    itemId: 'maPklFilterByMaVai',
-                    // label: 'Mã hàng:',
-                    // labelWidth: 85,
-                    margin: '5 5 1 5',
-                    // padding: 6,
-                    flex: 1,
-                    // width: '100%',
-                    // minWidth: 80,
-                    // maxWidth: 200,
-                    textAlign: 'left',
-                    placeholder: 'Mã vải',
-                    // editable: false,
-                    // readOnly: true,
-                    clearable: false,
-                    cls: 'searchField',
-                    bind: {
-                        value: '{maPklFilterByMaVai}'
+                    xtype: 'combobox',
+                    itemId: 'cbbox_pkl_stockindId',
+                    // reference: 'cboorgto',
+                    editable: false,
+                    readOnly: true,
+                    // cls: 'notEditable',
+                    bind:{
+                        store:'{Stockin_d_Store}',
+                        value:'{pkl_stockindId}'
                     },
-                    listeners: {
-                        keyup: 'onmaPklFilterKeyup',
-                        buffer: 500
-                    }
+                    displayField: 'skucode',
+                    valueField: 'id',
+                    // label: 'Nơi giao:',
+                    // disabled: true,
+                    labelWidth: 85,
+                    flex: 1,
+                    padding: 2,
                 },
+                // {
+                //     xtype: 'textfield',
+                //     itemId: 'maPklFilterByMaVai',
+                //     // label: 'Mã hàng:',
+                //     // labelWidth: 85,
+                //     margin: '5 5 1 5',
+                //     // padding: 6,
+                //     flex: 1,
+                //     // width: '100%',
+                //     // minWidth: 80,
+                //     // maxWidth: 200,
+                //     textAlign: 'left',
+                //     placeholder: 'Mã vải',
+                //     // editable: false,
+                //     // readOnly: true,
+                //     clearable: false,
+                //     cls: 'searchField',
+                //     bind: {
+                //         value: '{maPklFilterByMaVai}'
+                //     },
+                //     listeners: {
+                //         keyup: 'onmaPklFilterKeyup',
+                //         buffer: 500
+                //     }
+                // },
                 {
                     xtype: 'textfield',
                     itemId: 'maPklFilter',

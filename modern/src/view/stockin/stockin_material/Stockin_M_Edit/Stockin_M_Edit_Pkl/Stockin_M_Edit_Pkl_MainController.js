@@ -15,6 +15,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         '#Stockin_M_Edit_Pkl':{
             childtap: 'onItemPklTap'
         },
+        '#cbbox_pkl_stockindId':{
+            change: 'oncbbox_pkl_stockindId_change'
+        }
+    },
+    oncbbox_pkl_stockindId_change: function(cbbox, newValue, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        // var pkl_stockindId = viewModel.get('pkl_stockindId');
+        if(newValue != null && newValue != ''){
+            var StockinPklStore = viewModel.getStore('StockinPklStore');
+            StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(newValue, -1);
+        }
     },
     onmaPklFilterKeyup: function (){
         var grid = this.getView().down('#Stockin_M_Edit_Pkl'),
@@ -31,25 +42,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         this.resetForm();
         this.getView().down('#lotnumberTxt').focus();
 
-        var maPklFilterByMaVai = viewModel.get('maPklFilterByMaVai') == null ? '' : viewModel.get('maPklFilterByMaVai').toLowerCase();
+        // var maPklFilterByMaVai = viewModel.get('maPklFilterByMaVai') == null ? '' : viewModel.get('maPklFilterByMaVai').toLowerCase();
         var maPklFilter = viewModel.get('maPklFilter') == null ? '' : viewModel.get('maPklFilter').toLowerCase();
         store.clearFilter();
         store.filterBy(function(rec) { //toLowerCase() // includes()
-            var isByMaVaiOK = false;
+            // var isByMaVaiOK = false;
             var isByLotOK = false;
             if(
                 rec.get('lotnumber').toLowerCase().includes(maPklFilter)
             ){
                 isByLotOK = true;
             }
-            for(var i=0; i<stockin_d.length; i++){
-                if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
-                    if(stockin_d[i].skuid_link == rec.get('skuid_link')){
-                        isByMaVaiOK = true;
-                    }
-                }
-            }
-            if(isByMaVaiOK && isByLotOK){
+            // for(var i=0; i<stockin_d.length; i++){
+            //     if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
+            //         if(stockin_d[i].skuid_link == rec.get('skuid_link')){
+            //             isByMaVaiOK = true;
+            //         }
+            //     }
+            // }
+            if(
+                // isByMaVaiOK && 
+                isByLotOK
+            ){
                 return true;
             }else{
                 return false;
@@ -123,6 +137,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var widthYdsTxt = viewModel.get('widthYdsTxt');
         var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
         var widthMetTxt = viewModel.get('widthMetTxt');
+
+        // check combo đã chọn chưa
 
         // check textfield
         if(stockin.unitid_link == 3){
