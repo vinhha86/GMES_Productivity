@@ -2,17 +2,17 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractSKUViewCotroller',
     init: function () {
-        
+
     },
-    control:{
-        '#btnConfirmSKU' : {
+    control: {
+        '#btnConfirmSKU': {
             click: 'onConfimSKU'
         },
         '#cmbSanPham': {
             select: 'onSelectSanPham'
         }
     },
-    onSelectSanPham: function(combo, record, eOpts){
+    onSelectSanPham: function (combo, record, eOpts) {
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
@@ -21,10 +21,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
 
         storeSku.loadStoreByPO_and_Product(record.data.id, pcontract_poid_link);
     },
-    onConfimSKU: function(){
+    onConfimSKU: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-        if(viewmodel.get('IdProduct') == 0){
+        if (viewmodel.get('IdProduct') == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn chưa chọn sản phẩm',
@@ -40,42 +40,42 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
             params.productid_link = viewmodel.get('IdProduct');
 
             GSmartApp.Ajax.post('/api/v1/pcontractproduct/comfim_sizebreakdown', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        if (success) {
-                            var response = Ext.decode(response.responseText);
-                            if(response.respcode == 200){
-                                Ext.Msg.show({
-                                    title: "Thông báo",
-                                    msg: 'Thành công',
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'OK'
-                                    },
-                                    fn: function(){
-                                        me.fireEvent('ConfimSKU');
-                                    }
-                                });
-                            }
-                        }
-                        else {
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
                             Ext.Msg.show({
                                 title: "Thông báo",
-                                msg: 'Thất bại',
+                                msg: 'Thành công',
                                 buttons: Ext.MessageBox.YES,
                                 buttonText: {
                                     yes: 'OK'
+                                },
+                                fn: function () {
+                                    me.fireEvent('ConfimSKU');
                                 }
                             });
                         }
-                    })
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: 'Thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'OK'
+                            }
+                        });
+                    }
+                })
         }
     },
-    onSpecialkey: function( text, e, eOpts ){
-        if(e.keyCode == 9) e.stopEvent();
+    onSpecialkey: function (text, e, eOpts) {
+        if (e.keyCode == 9) e.stopEvent();
     },
-    onEdit: function(editor, context, e){
+    onEdit: function (editor, context, e) {
         var grid = this.getView();
-        if(context.value == context.originalValue) return;
+        if (context.value == context.originalValue) return;
         grid.setLoading("Đang xử lý");
 
         var viewmodel = this.getViewModel();
@@ -83,7 +83,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         var params = new Object();
         params.data = data;
         params.data.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
-        if(context.field == "pquantity_porder")
+        if (context.field == "pquantity_porder")
             params.isupdte_amount = true;
         else
             params.isupdte_amount = false;
@@ -110,8 +110,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                     else {
                         context.record.set('pquantity_production', response.amount);
                         store.commitChanges();
-                        
-                        if(context.rowIdx < store.data.length - 1) {  
+
+                        if (context.rowIdx < store.data.length - 1) {
                             var cellediting = grid.getPlugin('cellediting');
                             cellediting.startEditByPosition({
                                 row: (context.rowIdx + 1),
@@ -122,7 +122,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                 }
             })
     },
-    onXoa: function(grid, rowIndex, colIndex){
+    onXoa: function (grid, rowIndex, colIndex) {
         var th = this;
         Ext.Msg.show({
             title: "Thông báo",
@@ -132,55 +132,55 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                 yes: 'Có',
                 no: 'Không'
             },
-            fn: function(btn){
-                if(btn==='yes'){
-                    var viewmodel= th.getViewModel();
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var viewmodel = th.getViewModel();
                     var record = grid.getStore().getAt(rowIndex);
                     var params = new Object();
                     params.pcontractid_link = viewmodel.get('PContract.id');
                     params.skuid_link = record.data.skuid_link;
-                
+
                     GSmartApp.Ajax.post('/api/v1/pcontractsku/delete', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        if (success) {
-                            var response = Ext.decode(response.responseText);
-                            var store = viewmodel.getStore('PContractSKUStore');
-                            if (response.respcode == 200) {
-                                Ext.Msg.show({
-                                    title: "Thông báo",
-                                    msg: 'Xóa thành công',
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'OK'
-                                    }
-                                });
-                                store.remove(record);
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                var store = viewmodel.getStore('PContractSKUStore');
+                                if (response.respcode == 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: 'Xóa thành công',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'OK'
+                                        }
+                                    });
+                                    store.remove(record);
 
-                                var tab = Ext.getCmp('PContractProduct_Bom_TabColorView').getController();
-                                tab.createTab();
+                                    var tab = Ext.getCmp('PContractProduct_Bom_TabColorView').getController();
+                                    tab.createTab();
 
-                                var storeAtt = viewmodel.getStore('PContractAttValueStore');
-                                storeAtt.loadStore(params.pcontractid_link, viewmodel.get('IdProduct'));
+                                    var storeAtt = viewmodel.getStore('PContractAttValueStore');
+                                    storeAtt.loadStore(params.pcontractid_link, viewmodel.get('IdProduct'));
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'OK'
+                                        }
+                                    });
+                                }
                             }
-                            else {
-                                Ext.Msg.show({
-                                    title: "Thông báo",
-                                    msg: 'Xóa thất bại',
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'OK'
-                                    }
-                                });
-                            }
-                        }
-                    })
+                        })
                 }
             }
         });
     },
-    onThemSKU: function(){
+    onThemSKU: function () {
         var viewmodel = this.getViewModel();
-        if(viewmodel.get('IdProduct') == 0){
+        if (viewmodel.get('IdProduct') == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn chưa chọn sản phẩm',
@@ -190,19 +190,19 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                 }
             });
         }
-        else{
-            var form =Ext.create({
+        else {
+            var form = Ext.create({
                 xtype: 'skusearchwindow',
-                reference:'skusearchwindow',
+                reference: 'skusearchwindow',
                 width: 800,
-                height: 500,                
+                height: 500,
                 viewModel: {
                     data: {
                         sourceview: 'PContractSKU_ListProductView',
                         pcontractid_link: viewmodel.get('PContract.id'),
                         searchtype: 1,
                         orgcustomerid_link: viewmodel.get('PContract.orgbuyerid_link'),
-                        productid_link : viewmodel.get('IdProduct'),
+                        productid_link: viewmodel.get('IdProduct'),
                         productid_link_notsearch: viewmodel.get('IdProduct'),
                         type: 10,
                         pcontract_poid_link: viewmodel.get('pcontract_poid_link'),
@@ -212,14 +212,14 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
             });
             form.show();
         }
-        
+
     },
-    renderSum: function(value, summaryData, dataIndex){
+    renderSum: function (value, summaryData, dataIndex) {
         var viewmodel = this.getViewModel();
         var Product_pquantity = viewmodel.get('Product_pquantity');
         if (null == Product_pquantity) Product_pquantity = 0;
         if (null == value) value = 0;
-        if (Product_pquantity != value){
+        if (Product_pquantity != value) {
             // viewmodel.set('isPorderReq_CheckOK', false);
             viewmodel.set('ProductSKUSummaryCssStyle', '<div style="color:red; font-weight: bold; align: right">');
         }
@@ -228,5 +228,5 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
             viewmodel.set('ProductSKUSummaryCssStyle', '<div style="color:black; font-weight: bold; align: right">');
         }
         return viewmodel.get('ProductSKUSummaryCssStyle') + Ext.util.Format.number(value, '0,000') + '</div>';
-    },
+    }
 })

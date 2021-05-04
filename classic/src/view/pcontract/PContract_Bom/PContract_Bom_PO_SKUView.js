@@ -23,45 +23,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
     }],
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+        checkOnly: true
+    },
     bind: {
         store: '{PContractSKUStore}'
     },
     columns: [{
-        xtype: 'actioncolumn',
-        width: 28,
-        menuDisabled: true,
-        sortable: false,
-        align: 'center',
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip: 'Xóa',
-            handler: 'onXoa'
-        }]
-    }, {
-        text: 'STT',
-        width: 40,
-        xtype: 'rownumberer',
-        align: 'center'
-    }, {
         text: 'SKU',
         dataIndex: 'skuCode',
         width: 150,
         summaryType: 'count',
         summaryRenderer: function (value, summaryData, dataIndex) {
-            var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
-            var ProductSKUSummaryCssStyle = viewmodel.get('ProductSKUSummaryCssStyle');
-            return ProductSKUSummaryCssStyle + 'Tổng' + '</div>';
+            return 'Tổng';
         },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     },
-    // {
-    //     text:'Mã vạch',
-    //     dataIndex:'skuBarCode',
-    //     flex: 1
-    // },
     {
         text: 'Màu',
         flex: 1,
@@ -77,7 +59,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
     }, {
         text: 'SL đơn',
         dataIndex: 'pquantity_porder',
-        width: 62,
+        width: 80,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');

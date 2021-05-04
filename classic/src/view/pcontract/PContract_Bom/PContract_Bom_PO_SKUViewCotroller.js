@@ -9,5 +9,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_SKUViewCotroller', {
     },
     onEdit: function (editor, context, e) {
 
+    },
+    renderSum: function (value, summaryData, dataIndex) {
+        return Ext.util.Format.number(value, '0,000');
     }
 })

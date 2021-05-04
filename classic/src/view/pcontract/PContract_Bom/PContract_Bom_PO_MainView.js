@@ -15,7 +15,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_MainView', {
         width: '50%'
     }, {
         region: 'center',
-        xtype: 'PContract_Bom_PO_SKUView'
+        xtype: 'PContract_Bom_PO_SKUView',
+        margin: 1,
+        border: true
     }
     ],
     dockedItems: [{

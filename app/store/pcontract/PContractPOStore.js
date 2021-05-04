@@ -70,10 +70,12 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	loadPOConfirm: function (pcontractid_link, productid_link) {
+	loadPOConfirm: function (pcontractid_link, productid_link, material_skuid_link) {
+		var me = this;
 		var params = new Object();
 		params.pcontractid_link = pcontractid_link;
 		params.productid_link = productid_link;
+		params.material_skuid_link = material_skuid_link;
 
 		this.setProxy({
 			type: 'ajax',
@@ -93,7 +95,12 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			},
 			reader: {
 				type: 'json',
-				rootProperty: 'data'
+				rootProperty: 'data',
+				processRawResponse: function (response) {
+					if (response.responseJson != null) {
+						me.fireEvent('loaddone', response.responseJson.poline);
+					}
+				}
 			}
 		});
 		this.load();
