@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.store.stockin.Stockin_d_Store', {
+Ext.define('GSmartApp.store.stockin.StockinLotStore', {
     extend: 'Ext.data.Store',
-	alias: 'store.Stockin_d_Store',
-	model: 'GSmartApp.model.stockin.Stockin_d',
+	alias: 'store.StockinLotStore',
+	model: 'GSmartApp.model.stockin.StockinLot',
 
 	loadStore_byStockinId: function(stockinid_link){
 		var me=this;
@@ -16,7 +16,7 @@ Ext.define('GSmartApp.store.stockin.Stockin_d_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/getStockinDByStockinId',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/getStockinLotByStockinId',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,

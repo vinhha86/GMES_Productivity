@@ -44,7 +44,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck', {
     },
 
     bind: {
-        store:'{storePackinglistRecheckArr}'
+        // store:'{storePackinglistRecheckArr}',
+        store: '{StockinPklRecheckStore}'
     },
 
     columns: [{

@@ -36,6 +36,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
 		var stockin = viewModel.get('stockin');
         var stockin_lot = viewModel.get('stockin.stockin_lot');
 		var selectedDRecord = viewModel.get('selectedDRecord');
+        var stockinid_link = viewModel.get('stockin.id');
 
         if(selectedDRecord == null){ // chưa chọn vải
             Ext.toast('Chưa chọn mã vải', 1000);
@@ -77,6 +78,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         newLotObj.space = '';
         newLotObj.status = -1;
         newLotObj.materialid_link = selectedDRecord.get('skuid_link');
+        newLotObj.stockindid_link = selectedDRecord.get('id');
         
 
         // thêm sl yêu cầu
@@ -94,6 +96,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         }
 
         // lưu lot vào db qua api -> nhận obj trả về -> đẩy obj vào d/sách trên giao diện
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang lưu'
+        });
 
         var params = new Object();
         params.data = newLotObj;
@@ -108,26 +114,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
                         var data = response.data;
 
                         // thêm obj vào d/sách lot
-                        stockin_lot.push(data);
-                        viewModel.set('stockin.stockin_lot', stockin_lot);
-                        Ext.getCmp('Stockin_M_Edit_Lot_Main').down('#Stockin_M_Edit_Lot').getStore().insert(0, data);
+                        // stockin_lot.push(data);
+                        // viewModel.set('stockin.stockin_lot', stockin_lot);
+                        // Ext.getCmp('Stockin_M_Edit_Lot_Main').down('#Stockin_M_Edit_Lot').getStore().insert(0, data);
 
                         // update dataview d/sách vải
-                        var stockinDLot = selectedDRecord.get('stockinDLot');
-                        if(stockinDLot == ''){
-                            stockinDLot+=lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
-                        }else{
-                            stockinDLot+= '; ' + lotNumberTxt.toUpperCase()+' ('+cayNumberTxt+')';
-                        }
-                        selectedDRecord.set('stockinDLot', stockinDLot);
+                        // var stockinDLot = selectedDRecord.get('stockinDLot');
+                        // if(stockinDLot == ''){
+                        //     stockinDLot+=lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
+                        // }else{
+                        //     stockinDLot+= '; ' + lotNumberTxt.toUpperCase()+' ('+cayNumberTxt+')';
+                        // }
+                        // selectedDRecord.set('stockinDLot', stockinDLot);
 
+                        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
+                        Stockin_d_Store.loadStore_byStockinId(stockinid_link);
                         // reset form
                         m.resetFormAddLot();
+                        me.setMasked(false);
                         // console.log(response);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
+                    me.setMasked(false);
                 }
         })
 

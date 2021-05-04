@@ -14,6 +14,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         '#Stockin_M_Edit_Pkl_Recheck':{
             itemtap: 'onItemPklRecheckTap'
         },
+        '#cbbox_pklRecheck_stockindId':{
+            change: 'oncbbox_pklRecheck_stockindId_change'
+        }
+    },
+    oncbbox_pklRecheck_stockindId_change: function(cbbox, newValue, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
+        if(newValue != null && newValue != ''){
+            var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
+            StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(newValue, 2);
+        }
     },
     onmaPklRecheckFilterKeyup: function (){
         var grid = this.getView().down('#Stockin_M_Edit_Pkl_Recheck'),
@@ -30,25 +41,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         this.resetFormRecheck();
         this.getView().down('#lotnumberTxtRecheck').focus();
 
-        var maPklFilterByMaVai = viewModel.get('maPklRecheckFilterByMaVai') == null ? '' : viewModel.get('maPklRecheckFilterByMaVai').toLowerCase();
+        // var maPklFilterByMaVai = viewModel.get('maPklRecheckFilterByMaVai') == null ? '' : viewModel.get('maPklRecheckFilterByMaVai').toLowerCase();
         var maPklFilter = viewModel.get('maPklRecheckFilter') == null ? '' : viewModel.get('maPklRecheckFilter').toLowerCase();
         store.clearFilter();
         store.filterBy(function(rec) { //toLowerCase() // includes()
-            var isByMaVaiOK = false;
+            // var isByMaVaiOK = false;
             var isByLotOK = false;
             if(
                 rec.get('lotnumber').toLowerCase().includes(maPklFilter)
             ){
                 isByLotOK = true;
             }
-            for(var i=0; i<stockin_d.length; i++){
-                if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
-                    if(stockin_d[i].skuid_link == rec.get('skuid_link')){
-                        isByMaVaiOK = true;
-                    }
-                }
-            }
-            if(isByMaVaiOK && isByLotOK){
+            // for(var i=0; i<stockin_d.length; i++){
+            //     if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
+            //         if(stockin_d[i].skuid_link == rec.get('skuid_link')){
+            //             isByMaVaiOK = true;
+            //         }
+            //     }
+            // }
+            if(
+                // isByMaVaiOK && 
+                isByLotOK
+            ){
                 return true;
             }else{
                 return false;
