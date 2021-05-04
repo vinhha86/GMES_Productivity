@@ -19,25 +19,45 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
         },
         'ProductSelectAttributeView': {
             select: 'onSelectValue',
-            beforedeselect : 'onDeselect'
+            beforedeselect: 'onDeselect'
         }
     },
-    onDeselect: function( grid, record, index, eOpts){
-        if(record.data.isdefault) return false;
+    onDeselect: function (grid, record, index, eOpts) {
+        if (record.data.isdefault) return false;
     },
-    onSelectValue: function(grid, record, index, eOpts){
-       var me = this.getView();
+    onSelectValue: function (grid, record, index, eOpts) {
+        var me = this.getView();
 
-        if(record.data.isdefault){
+        if (record.data.isdefault) {
             me.getSelectionModel().deselectAll();
             me.getSelectionModel().select(record, true, true);
         } else {
-            if(me.IdAttribute == 4 || me.IdAttribute == 30) return;
-            
+            if (me.IdAttribute == 4 || me.IdAttribute == 30) return;
+
             // var rec = grid.getStore().findRecord('isdefault', true);
             // me.getSelectionModel().deselect(rec);
         }
 
+    },
+    onFilterValueKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('AttributeValueStore');
+        var filterField = this.lookupReference('ValueFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.valueFilter = filters.add({
+                id: 'valueFilter',
+                property: 'value',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.valueFilter) {
+            filters.remove(this.valueFilter);
+            this.valueFilter = null;
+        }
     },
     onThoat: function () {
         this.getView().up('window').close();
@@ -49,27 +69,27 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
         var gridAtt = Ext.getCmp('ProductAttributeView');
         var store = gridAtt.getStore();
         var description = "";
-        for(var i=0; i< store.data.length; i++){
+        for (var i = 0; i < store.data.length; i++) {
             var rec = store.data.items[i];
 
-            if(rec.get('is_select')){
-                var name = "";  
-                if(rec.get('attributeid_link') == me.IdAttribute) {
+            if (rec.get('is_select')) {
+                var name = "";
+                if (rec.get('attributeid_link') == me.IdAttribute) {
                     for (var j = 0; j < select.length; j++) {
-                        if(name==""){
+                        if (name == "") {
                             name = select[j].get('value');
                         }
-                        else{
-                            name += ", "+select[j].get('value');
+                        else {
+                            name += ", " + select[j].get('value');
                         }
                     }
                 }
                 else {
-                    name = rec.get('attributeValueName').replace('ALL, ','');
+                    name = rec.get('attributeValueName').replace('ALL, ', '');
                 }
 
-                if(description!=""){
-                    description += "; "+name;
+                if (description != "") {
+                    description += "; " + name;
                 }
                 else {
                     description = name;
@@ -155,7 +175,7 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                     }
                 }
             });
-        }else{
+        } else {
             m.Luu();
         }
     },
@@ -177,7 +197,7 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                 }
             })
     },
-    onBtnAddAttributeValue: function(){
+    onBtnAddAttributeValue: function () {
         // console.log('here yet');
         var me = this.getView();
         var m = this;
@@ -187,7 +207,7 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
         // console.log(IdProduct);
 
         var value = me.down('#txtAttributeValueAdd').getValue();
-        if(value == null || value == '' || value.length == 0){
+        if (value == null || value == '' || value.length == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Giá trị thuộc tính không được để trống',
@@ -218,10 +238,10 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
         GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_create_quick', Ext.JSON.encode(params),
             function (success, response, options) {
                 me.setLoading(false);
-                
+
                 var response = Ext.decode(response.responseText);
                 if (success) {
-                    if(response.message == 'Giá trị thuộc tính đã tồn tại'){
+                    if (response.message == 'Giá trị thuộc tính đã tồn tại') {
                         Ext.Msg.show({
                             title: 'Thông báo',
                             msg: response.message,
@@ -230,7 +250,7 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                                 yes: 'Đóng',
                             }
                         });
-                    }else{
+                    } else {
                         var AttributeValueStore = me.getViewModel().getStore('AttributeValueStore');
                         AttributeValueStore.load();
                         me.down('#txtAttributeValueAdd').setValue('');
@@ -248,9 +268,9 @@ Ext.define('GSmartApp.view.product.ProductSelectAttributeViewCotroller', {
                 me.setLoading(false);
             })
     },
-    onEnterAddAttributeValue: function(textfield, e, eOpts){
+    onEnterAddAttributeValue: function (textfield, e, eOpts) {
         var m = this;
-        if(e.getKey() == e.ENTER) {
+        if (e.getKey() == e.ENTER) {
             m.onBtnAddAttributeValue();
         }
     }

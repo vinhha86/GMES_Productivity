@@ -4,9 +4,9 @@ Ext.define('GSmartApp.view.attribute.ProductSelectAttributeView', {
     id: 'ProductSelectAttributeView',
     controller: 'ProductSelectAttributeViewCotroller',
     IdAttribute: 0,
-    IdProduct : 0,
+    IdProduct: 0,
     viewModel: {
-        type : 'ProductDetailViewModel'
+        type: 'ProductDetailViewModel'
     },
     selModel: {
         selType: 'checkboxmodel',
@@ -30,46 +30,57 @@ Ext.define('GSmartApp.view.attribute.ProductSelectAttributeView', {
     }, {
         text: 'Giá trị',
         dataIndex: 'value',
-        flex: 1
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'ValueFilterField',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueKeyup',
+                buffer: 500
+            }
+        }
     }],
-    dockedItems:[{
-        dock:'top',
-        layout:'hbox',
+    dockedItems: [{
+        dock: 'top',
+        layout: 'hbox',
         border: false,
-        items:[{
+        items: [{
             xtype: 'textfield',
             margin: 3,
             itemId: 'txtAttributeValueAdd',
             flex: 1,
-            enableKeyEvents : true,
+            enableKeyEvents: true,
             listeners: {
                 keypress: 'onEnterAddAttributeValue'
             }
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             text: 'Thêm',
             margin: 3,
-            itemId:'btnAddAttributeValue',
+            itemId: 'btnAddAttributeValue',
             iconCls: 'x-fa fa-plus'
         }]
-    },{
-        dock:'bottom',
-        layout:'hbox',
+    }, {
+        dock: 'bottom',
+        layout: 'hbox',
         border: false,
-        items:[{
+        items: [{
             border: false,
-            flex : 1
-        },{
-            xtype:'button',
+            flex: 1
+        }, {
+            xtype: 'button',
             text: 'Lưu',
             margin: 3,
-            itemId:'btnLuu',
+            itemId: 'btnLuu',
             iconCls: 'x-fa fa-save'
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             text: 'Thoát',
             margin: 3,
-            itemId:'btnThoat',
+            itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close'
         }]
     }]

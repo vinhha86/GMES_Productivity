@@ -41,6 +41,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         dataIndex: 'materialCode',
         width: 120
     }, {
+        text: 'Màu SP',
+        dataIndex: 'color_name',
+        width: 150
+    }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
         width: 150
@@ -92,10 +96,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         renderer: function (value, metaData, record) {
             return value + " %";
         }
-    }, {
-        text: 'Màu SP',
-        dataIndex: 'color_name',
-        width: 150
     }],
     dockedItems: [{
         dock: 'top',
