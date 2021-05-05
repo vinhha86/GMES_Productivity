@@ -332,19 +332,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 			console.log(topic);
 			if (topic.includes("cmd")) {
 				var jsonObj = Ext.JSON.decode(message);
-				// console.log(jsonObj);
-				if (jsonObj.ct == 1) {
-					if (jsonObj.cid == 'CMD_START_PRINT') {
+				console.log(jsonObj);
+                //Neu respcode = 2 --> may in chua san sang
+                if (jsonObj.respcode == 2){
+                    Ext.Msg.alert('Thông báo', 'Máy in chưa sẵn sàng', Ext.emptyFn);
+                    viewModel.set('isKiemcay_CheckEnable', true);
+                } else {
+                    if (jsonObj.ct == 1) {
+                        if (jsonObj.cid == 'CMD_START_PRINT') {
 
-                        //Disable nut check --> Khong cho nhan luc dang in
-						viewModel.set('isKiemcay_CheckEnable', false);
-					}
-				}
+                            //Disable nut check --> Khong cho nhan luc dang in
+                            viewModel.set('isKiemcay_CheckEnable', false);
+                        }
+                    }
 
-				//Khi het time out tu dong enable nut check cho nhap tiep
-				if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
-                    me.onPrintStop(rfprintid_link);
-				}
+                    //Khi het time out tu dong enable nut check cho nhap tiep
+                    if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
+                        me.onPrintStop(rfprintid_link);
+                    }
+                }
 			} 
 		}, function () {
 			me.sendChannel = 'gsm5/device/' + 'rfprinter-0001' + '/cmd';
