@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'color_name',
+			dataIndex: 'sku_product_color',
 			width: 120
 		},{
 			text: 'Cỡ khổ', 

@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockin_M_Edit_Pkl_MainController',
+    channelPrint: { cmd: null, dta: null },
 	init: function () {
 		
 	},
@@ -76,6 +77,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         });
     },
     resetForm: function(){
+        var myview = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
         
@@ -95,6 +97,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthMetCheckTxt', '');
         viewModel.set('widthMetTxt', '');
         // m.getView().down('#packageidTxt').focus();
+
+        myview.setMasked(false);
     },
     onItemPklTap: function(list, location, eOpts ){
         var m = this;
@@ -279,9 +283,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
     
     //hungdaibang code
     onUpdate_Print_Pklist: function(pklistData){
+        var myview = this.getView();
+        myview.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang in tem'
+        });
+
 		var me = this;
-        console.log("update pklist");
-        console.log(pklistData);
+        // console.log("update pklist");
+        // console.log(pklistData);
         var params = new Object();
         params.data = pklistData;
         params.isprintlabel = true;
@@ -299,7 +309,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                         } else {
                             //Reload danh sach Pklist va Reset cac o nhap lieu
                             me.reloadStore();
-                            me.onbtnResetForm();
+                            me.resetForm();
                         }
                     }
                 } else {
@@ -309,16 +319,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         })        
     },
 	onPrint_WithRFID: function(rfprintid_link){
+        console.log(rfprintid_link);
+
         var me = this;
+
+        //Ngat connect trc khi goi
+		GSmartApp.Mqtt.onDisconnect();
+
         var viewModel = this.getViewModel();
-		var host = config.getMqtthost();
-		var port = config.getMqttport();
+		var host = config.getHost();
+		var port = config.getPort();
 		var clientid = config.getClientid();
 		var termid = config.getTermid();
+        var deviceId = 2;
 		me.sessionid = ""+rfprintid_link;
 		
-		me.channel.cmd = 'gsm5/term/' + termid + '/cmd';
-		GSmartApp.Mqtt.connect(host, port, clientid, me.channel, deviceId, function (topic, message) {
+		me.channelPrint.cmd = 'gsm5/term/' + termid + '/cmd';
+		GSmartApp.Mqtt.connect(host, port, clientid, me.channelPrint, deviceId, function (topic, message) {
 			console.log(topic);
 			if (topic.includes("cmd")) {
 				var jsonObj = Ext.JSON.decode(message);
@@ -339,7 +356,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 		}, function () {
 			me.sendChannel = 'gsm5/device/' + 'rfprinter-0001' + '/cmd';
 			me.funcid = ""+1;
-			var cmd = { ct: 0, cid: "CMD_START_PRINT", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
+			var cmd = { ct: 0, cid: "CMD_START_PRINT", srcid: termid, reqdata: { timeout: 120000, sessionid: me.sessionid, funcid: me.funcid } };
 			console.log("Device channel:" + me.sendChannel);
 			var message = new Paho.Message(Ext.JSON.encode(cmd));
 			message.destinationName = me.sendChannel;
@@ -369,19 +386,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        if (response.status == 3){
+                        if (response.status == 2){//In tem OK
                             //In Success --> Reload danh sach Pklist va Reset cac o nhap lieu
                             me.reloadStore();
-                            me.onbtnResetForm();
+                            me.resetForm();
                         } else {
-                            Ext.MessageBox.show({
-                                title: "Thông báo",
-                                msg: "Lỗi máy in",
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
+                            Ext.Msg.alert('Thông báo', 'Lỗi máy in:' + response.err_msg, Ext.emptyFn);
+                            me.reloadStore();
                         }
                     } else {
                         Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 3000);
