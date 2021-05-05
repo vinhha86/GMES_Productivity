@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         align: 'right',
     },
     {
-        text: 'Số M/kiểm', 
+        text: 'Kiểm dài(M)', 
         flex: 1,
         dataIndex: 'met_check',
         align: 'right',
@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         }
     },
     {
-        text: 'Số Y/kiểm', 
+        text: 'Kiểm dài(Y)', 
         flex: 1,
         dataIndex: 'ydscheck',
         align: 'right',
@@ -119,7 +119,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         }
     },
     {
-        text: 'Số cân/kiểm', 
+        text: 'Kiểm cân', 
         flex: 1,
         dataIndex: 'grossweight_check',
         align: 'right',
