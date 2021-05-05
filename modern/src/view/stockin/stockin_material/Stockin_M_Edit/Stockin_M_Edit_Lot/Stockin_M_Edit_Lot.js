@@ -53,12 +53,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     },
 
     columns: [
-    {
-        text: '',
-        width: 40,
-        xtype: 'rownumberer',
-        align: 'center'
-    },
+    // {
+    //     text: '',
+    //     width: 40,
+    //     xtype: 'rownumberer',
+    //     align: 'center'
+    // },
     {
         text: 'Số Lot', 
         // flex: 1,
@@ -66,12 +66,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         dataIndex: 'lot_number',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = '';
-            var status = record.get('status') == null ? -1 : record.get('status');
-            if (status == 0) {
-                cell.setCls('cellGreen');
-            } else {
-                cell.setCls('cellYellow');
-            }
+            // var status = record.get('status') == null ? -1 : record.get('status');
+            // if (status == 0) {
+            //     cell.setCls('cellGreen');
+            // } else {
+            //     cell.setCls('cellYellow');
+            // }
             
             return value.toUpperCase();
         },

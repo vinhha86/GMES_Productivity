@@ -50,12 +50,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         store: '{StockinPklStore}'
     },
 
-    columns: [{
-        text: '',
-        width: 30,
-        xtype: 'rownumberer',
-        align: 'center'
-    },
+    columns: [
+    // {
+    //     text: '',
+    //     width: 30,
+    //     xtype: 'rownumberer',
+    //     align: 'center'
+    // },
     {
         text: 'Số Lot', 
         // flex: 1,
