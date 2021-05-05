@@ -166,6 +166,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             iconCls: 'x-fa fa-check',
                             itemId:'btnCheck',
                             ui: 'action',
+                            focusable: false
                         },
                     ]
                 },
@@ -278,6 +279,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // itemId:'',
                             ui: 'action',
                             margin: 1,
+                            focusable: false,
                             // style: 'visibility: hidden;'
                         },
                         // {
@@ -352,6 +354,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // itemId:'',
                             ui: 'action',
                             margin: 1,
+                            focusable: false
                             // style: 'visibility: hidden;'
                         },
                     ]
