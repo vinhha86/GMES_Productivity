@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(newValue, -1);
 
             if(cbbox.getSelection() != null){
-                viewModel.set('selectedPklRecord', cbbox.getSelection());
+                viewModel.set('selectedDRecord', cbbox.getSelection());
             }
 
         }
@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var stockin = viewModel.get('stockin');
         var stockin_d = viewModel.get('stockin.stockin_d');
         var stockin_lot = viewModel.get('stockin.stockin_lot');
-        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        var selectedDRecord = viewModel.get('selectedDRecord');
 
         var lotnumberTxt = viewModel.get('lotnumberTxt');
         var packageidTxt = viewModel.get('packageidTxt');
@@ -216,7 +216,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.unitid_link = stockin.unitid_link;
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
-        objData.skuid_link = selectedPklRecord.get('skuid_link');
+        objData.skuid_link = selectedDRecord.get('skuid_link');
         objData.status = 1;
 
         if(stockin.unitid_link == 3){
@@ -267,7 +267,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         }
 
         // 
-        console.log(objData);
+        // console.log(objData);
         m.onUpdate_Print_Pklist(objData);
 
         this.resetForm();
