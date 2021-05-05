@@ -366,7 +366,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                             me.reloadStore();
                             me.onbtnResetForm();
                         } else {
-                            Ext.toast('Lỗi máy in: ' + response.err_code, 3000);
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Lỗi máy in",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
                         }
                     } else {
                         Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 3000);
