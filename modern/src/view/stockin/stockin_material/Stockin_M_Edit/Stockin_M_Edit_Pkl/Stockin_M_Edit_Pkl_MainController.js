@@ -97,6 +97,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 
         // console.log(location);
         var record = location.record;
+        viewModel.set('selectedPklRecord',record);
         
         viewModel.set('lotnumberTxt', record.get('lotnumber'));
         viewModel.set('packageidTxt', record.get('packageid'));
@@ -121,6 +122,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var stockin = viewModel.get('stockin');
         var stockin_d = viewModel.get('stockin.stockin_d');
         var stockin_lot = viewModel.get('stockin.stockin_lot');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
 
         var lotnumberTxt = viewModel.get('lotnumberTxt');
         var packageidTxt = viewModel.get('packageidTxt');
@@ -209,6 +211,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.unitid_link = stockin.unitid_link;
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
+        objData.skuid_link = selectedPklRecord.get('skuid_link');
         objData.status = 1;
 
         if(stockin.unitid_link == 3){

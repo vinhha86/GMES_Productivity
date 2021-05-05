@@ -28,6 +28,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
 
 		Stockin_M_Edit_Pkl_Main.getController().onmaPklFilterKeyup();
 		Stockin_M_Edit_Pkl_Recheck_Main.getController().onmaPklRecheckFilterKeyup();
+
+        this.setComboPkl();
+        this.setComboPklRecheck();
+    },
+    setComboPkl: function(){
+        var viewModel = this.getViewModel();
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('pkl_stockindId', selectedDRecord.get('id'));
+    },
+    setComboPklRecheck: function(){
+        var viewModel = this.getViewModel();
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('pklRecheck_stockindId', selectedDRecord.get('id'));
     },
 	onAddLot: function(){
         var me = this.getView();

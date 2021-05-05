@@ -100,9 +100,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		lotAmount: null, // sl cây
 
 		// Stockin_M_Edit_Pkl
-		storePackinglistArrAll: [], // all
-		storePackinglistArr: [], // status >= 1 
-		storePackinglistArrStatusLessThan1: [], // status < 1 
+		selectedPklRecord: null, // pkl đang chọn
+		// storePackinglistArrAll: [], // all
+		// storePackinglistArr: [], // status >= 1 
+		// storePackinglistArrStatusLessThan1: [], // status < 1 
 		// maPklFilterByMaVai: '',
 		pkl_stockindId: null, // kiểm cây combo value
 		maPklFilter: '',
