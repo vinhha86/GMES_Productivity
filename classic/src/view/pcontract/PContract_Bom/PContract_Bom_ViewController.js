@@ -71,6 +71,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
 
         form.down('PContract_Bom_PO_MainView').getController().on('Thoat', function () {
             form.close();
+        });
+
+        form.down('PContract_Bom_PO_MainView').on('SelectDone', function (data) {
+            console.log(data);
+        });
+
+        form.down('PContract_Bom_PO_MainView').on('DeSelectDone', function (data) {
+            console.log(data);
         })
     },
     onThemMoiNPL: function () {

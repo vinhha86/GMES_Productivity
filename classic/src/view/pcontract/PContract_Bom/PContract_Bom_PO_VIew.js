@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'MULTI',
+        mode: 'SIMPLE',
         checkOnly: true
     },
     columns: [{
@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
         dock: 'top',
         xtype: 'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 40,
         items: [{
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",

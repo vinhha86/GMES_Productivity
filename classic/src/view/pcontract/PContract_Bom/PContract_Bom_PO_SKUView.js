@@ -26,7 +26,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
     selModel: {
         selType: 'checkboxmodel',
         mode: 'MULTI',
-        checkOnly: true
+        checkOnly: true,
+        injectCheckbox: 'first'
     },
     bind: {
         store: '{PContractSKUStore}'
@@ -57,8 +58,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
         dataIndex: 'coSanPham',
         width: 65
     }, {
-        text: 'SL đơn',
-        dataIndex: 'pquantity_porder',
+        text: 'Số lượng',
+        dataIndex: 'pquantity_total',
         width: 80,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
@@ -70,23 +71,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
             selectOnFocus: true
         },
         summaryType: 'sum',
-        // summaryRenderer: function(value, summaryData, dataIndex) {
-        //     return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
-        // },
         summaryRenderer: 'renderSum'
     }],
     dockedItems: [{
         dock: 'top',
-        xtype: 'toolbar',
-        padding: '0 0 10 5',
-        height: 35,
+        layout: 'hbox',
         items: [{
-            xtype: 'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black",
-            labelWidth: 0,
+            xtype: 'combo',
             bind: {
-                value: 'Chi tiết màu, cỡ'
-            }
+                store: '{PContractProduct_PO_Store}',
+                value: '{cmb_productid_link}'
+            },
+            margin: 5,
+            width: 400,
+            valueField: 'id',
+            displayField: 'buyercode',
+            queryMode: 'local',
+            fieldLabel: 'Chi tiết màu, cỡ sản phẩm',
+            labelWidth: 200,
+            itemId: 'cmbSanPham',
+            labelStyle: "font-weight: bold; font-size: 14px; color: black"
         }
         ]
     }]
