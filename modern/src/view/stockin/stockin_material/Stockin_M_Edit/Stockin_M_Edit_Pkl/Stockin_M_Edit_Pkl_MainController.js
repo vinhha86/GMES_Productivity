@@ -25,6 +25,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         if(newValue != null && newValue != ''){
             var StockinPklStore = viewModel.getStore('StockinPklStore');
             StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(newValue, -1);
+
+            if(cbbox.getSelection() != null){
+                viewModel.set('selectedPklRecord', cbbox.getSelection());
+            }
+
         }
     },
     onmaPklFilterKeyup: function (){
@@ -40,7 +45,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         grid.getSelectable().deselectAll();
         viewModel.set('lotnumberTxt', '');
         this.resetForm();
-        this.getView().down('#lotnumberTxt').focus();
+        // this.getView().down('#lotnumberTxt').focus();
 
         // var maPklFilterByMaVai = viewModel.get('maPklFilterByMaVai') == null ? '' : viewModel.get('maPklFilterByMaVai').toLowerCase();
         var maPklFilter = viewModel.get('maPklFilter') == null ? '' : viewModel.get('maPklFilter').toLowerCase();

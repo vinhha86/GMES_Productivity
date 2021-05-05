@@ -98,6 +98,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		lotSpace: null, // hàng
 		lotFloor: null, // tầng
 		lotAmount: null, // sl cây
+		maLotFilter: null,
 
 		// Stockin_M_Edit_Pkl
 		selectedPklRecord: null, // pkl đang chọn

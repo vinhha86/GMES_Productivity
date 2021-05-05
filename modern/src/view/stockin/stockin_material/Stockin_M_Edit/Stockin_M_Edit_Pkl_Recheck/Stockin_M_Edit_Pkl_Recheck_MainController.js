@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         grid.getSelectable().deselectAll();
         viewModel.set('lotnumberTxtRecheck', '');
         this.resetFormRecheck();
-        this.getView().down('#lotnumberTxtRecheck').focus();
+        // this.getView().down('#lotnumberTxtRecheck').focus();
 
         // var maPklFilterByMaVai = viewModel.get('maPklRecheckFilterByMaVai') == null ? '' : viewModel.get('maPklRecheckFilterByMaVai').toLowerCase();
         var maPklFilter = viewModel.get('maPklRecheckFilter') == null ? '' : viewModel.get('maPklRecheckFilter').toLowerCase();
