@@ -98,14 +98,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		lotSpace: null, // hàng
 		lotFloor: null, // tầng
 		lotAmount: null, // sl cây
+		maLotFilter: null,
 
 		// Stockin_M_Edit_Pkl
-		storePackinglistArrAll: [], // all
-		storePackinglistArr: [], // status >= 1 
-		storePackinglistArrStatusLessThan1: [], // status < 1 
-		// maPklFilterByMaVai: '',
-		pkl_stockindId: null, // kiểm cây combo value
-		maPklFilter: '',
+		selectedPklRecord: null, // pkl đang chọn
+		pkl_stockindId: null, // kiểm cây combobox value
+		maPklFilter: '', // filter field pkl
 
 		// textfield
 		lotnumberTxt: '',
@@ -125,28 +123,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		widthMetTxt: '',
 
 		// Stockin_M_Edit_Pkl_Recheck
-		storePackinglistRecheckArr: [],
 		selectedPklRecheckRecord: null,
+		// storePackinglistRecheckArr: [],
 		// maPklRecheckFilterByMaVai: '',
-		pklRecheck_stockindId: null, // kiểm 10% combo value
-		maPklRecheckFilter: '',
+		pklRecheck_stockindId: null, // kiểm 10% combobox value
+		maPklRecheckFilter: '', // filter field pkl recheck 10%
+		objRecheck: null,
 
 		// textfield
-		lotnumberTxtRecheck: '',
-		packageidTxtRecheck: '',
-		yTxtRecheck: '',
-		mTxtRecheck: '',
-        mOriginTxtRecheck: '',
-        yOriginTxtRecheck: '',
-        sampleCheckTxtRecheck: '',
-        colorTxtRecheck: null,
-        // widthTxtRecheck: '',
-		grossweightTxtRecheck: '',
-		grossweightCheckTxtRecheck: '',
-		widthYdsCheckTxtRecheck: '',
-		widthYdsTxtRecheck: '',
-		widthMetCheckTxtRecheck: '',
-		widthMetTxtRecheck: '',
+		// idRecheck: null,
+		// lotnumberTxtRecheck: '',
+		// packageidTxtRecheck: '',
+		// yTxtRecheck: '',
+		// mTxtRecheck: '',
+        // mOriginTxtRecheck: '',
+        // yOriginTxtRecheck: '',
+        // sampleCheckTxtRecheck: '',
+        // colorTxtRecheck: null,
+        // // widthTxtRecheck: '',
+		// grossweightTxtRecheck: '',
+		// grossweightCheckTxtRecheck: '',
+		// widthYdsCheckTxtRecheck: '',
+		// widthYdsTxtRecheck: '',
+		// widthMetCheckTxtRecheck: '',
+		// widthMetTxtRecheck: '',
 	},
 	formulas: {
         isEdit: function (get) {

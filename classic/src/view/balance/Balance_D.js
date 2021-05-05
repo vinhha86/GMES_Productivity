@@ -29,19 +29,32 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 			text: 'Mã NPL', 
 			width: 100,
 			dataIndex: 'mat_sku_code'
-		},{
-			text: 'Tên NPL', 
-			dataIndex: 'mat_sku_name',
-			flex: 1
-		},{
-			text: 'Màu', 
+		},
+		// {
+		// 	text: 'Tên NPL', 
+		// 	dataIndex: 'mat_sku_name',
+		// 	flex: 1
+		// },
+		{
+			text: 'Thành phần vải',
+			dataIndex: 'mat_sku_desc',
+			width: 200,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
+		},
+		{
+			text: 'Màu SP', 
 			dataIndex: 'mat_sku_color_name',
 			width: 85
-		},{
-			text: 'Cỡ', 
-			dataIndex: 'mat_sku_size_name',
-			width: 50
-		},{
+		},
+		// {
+		// 	text: 'Cỡ', 
+		// 	dataIndex: 'mat_sku_size_name',
+		// 	width: 50
+		// },
+		{
 			text: 'ĐVT', 
 			dataIndex: 'mat_sku_unit_name',
 			width: 70

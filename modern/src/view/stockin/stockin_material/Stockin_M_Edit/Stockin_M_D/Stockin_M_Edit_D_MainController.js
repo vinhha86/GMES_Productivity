@@ -25,9 +25,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
 		// thêm filter mã vải cho pkl và pkl_recheck
 		viewModel.set('maPklFilterByMaVai', record.get('skucode'));
 		viewModel.set('maPklRecheckFilterByMaVai', record.get('skucode'));
-
 		Stockin_M_Edit_Pkl_Main.getController().onmaPklFilterKeyup();
 		Stockin_M_Edit_Pkl_Recheck_Main.getController().onmaPklRecheckFilterKeyup();
+
+        this.setComboPkl();
+        this.setComboPklRecheck();
+    },
+    setComboPkl: function(){
+        var viewModel = this.getViewModel();
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('pkl_stockindId', selectedDRecord.get('id'));
+    },
+    setComboPklRecheck: function(){
+        var viewModel = this.getViewModel();
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('pklRecheck_stockindId', selectedDRecord.get('id'));
     },
 	onAddLot: function(){
         var me = this.getView();
@@ -110,29 +122,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        Ext.toast('Lưu thành công', 3000);
-                        var data = response.data;
-
-                        // thêm obj vào d/sách lot
-                        // stockin_lot.push(data);
-                        // viewModel.set('stockin.stockin_lot', stockin_lot);
-                        // Ext.getCmp('Stockin_M_Edit_Lot_Main').down('#Stockin_M_Edit_Lot').getStore().insert(0, data);
-
-                        // update dataview d/sách vải
-                        // var stockinDLot = selectedDRecord.get('stockinDLot');
-                        // if(stockinDLot == ''){
-                        //     stockinDLot+=lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
-                        // }else{
-                        //     stockinDLot+= '; ' + lotNumberTxt.toUpperCase()+' ('+cayNumberTxt+')';
-                        // }
-                        // selectedDRecord.set('stockinDLot', stockinDLot);
-
-                        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-                        Stockin_d_Store.loadStore_byStockinId(stockinid_link);
-                        // reset form
-                        m.resetFormAddLot();
-                        me.setMasked(false);
-                        // console.log(response);
+                        if(response.message == 'Số lot đã tồn tại'){
+                            Ext.toast(response.message, 3000);
+                            me.setMasked(false);
+                        }else{
+                            Ext.toast('Lưu thành công', 3000);
+                            var data = response.data;
+                            m.reloadStore();
+                            // reset form
+                            m.resetFormAddLot();
+                            me.setMasked(false);
+                        }
+                        console.log(response);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
@@ -204,4 +205,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         viewModel.set('lotNumberTxt', newValue.toUpperCase());
         field.setValue(newValue.toUpperCase());
     },
+    reloadStore: function(){
+        var viewModel = this.getViewModel();
+        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
+        Stockin_d_Store.load();
+    }
 })

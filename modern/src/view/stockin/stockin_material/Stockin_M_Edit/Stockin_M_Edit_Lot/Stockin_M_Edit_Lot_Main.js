@@ -37,9 +37,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_Main', {
                     // readOnly: true,
                     clearable: false,
                     cls: 'searchField',
-                    // bind: {
-                    //     value: '{maNPLFilter}'
-                    // },
+                    bind: {
+                        value: '{maLotFilter}'
+                    },
                     listeners: {
                         keyup: 'onmaLotFilterKeyup',
                         buffer: 500

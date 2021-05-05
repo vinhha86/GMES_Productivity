@@ -23,16 +23,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayM(values)]}>' +
-                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>SL Y/C:</div>'+
+                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài phiếu(M):</div>'+
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmet_origin}</div>' +
-                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>SL kiểm:</div>'+
+                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài kiểm(M):</div>'+
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmet_check}</div>' +
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayY(values)]}>' +
-                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>SL Y/C:</div>'+
+                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài phiếu(Y):</div>'+
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydsorigin}</div>' +
-                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>SL kiểm:</div>'+
+                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài kiểm(Y):</div>'+
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydscheck}</div>' +
                 '</div>' +
 

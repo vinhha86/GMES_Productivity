@@ -359,24 +359,53 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         var grid = this.getView().down('#Stockin_M_Edit_Lot'),
             // Access the field using its "reference" property name.
             filterField = this.getView().down('#maLotFilter'),
+            store = grid.store,
             filters = grid.store.getFilters();
 
         var viewModel = this.getViewModel();
         viewModel.set('selectedLotRecord', null);
         grid.getSelectable().deselectAll();
+        viewModel.set('spacesString', null);
+        viewModel.set('selectedLotRecord', null);
+        this.resetFormAddSpace();
 
-        if (filterField.getValue()) {
-            this.maLotFilter = filters.add({
-                id: 'maLotFilter',
-                property: 'lot_number',
-                value: filterField.getValue(),
-                anyMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.maLotFilter) {
-            filters.remove(this.maLotFilter);
-            this.maLotFilter = null;
-        }
+        var maLotFilter = viewModel.get('maLotFilter') == null ? '' : viewModel.get('maLotFilter').toLowerCase();
+        store.clearFilter();
+        store.filterBy(function(rec) { //toLowerCase() // includes()
+            var isByMaVaiOK = false;
+            var isByLotOK = false;
+            if(
+                rec.get('lot_number').toLowerCase().includes(maLotFilter)
+            ){
+                isByLotOK = true;
+            }
+            if(
+                rec.get('skucode').toLowerCase().includes(maLotFilter)
+            ){
+                isByMaVaiOK = true;
+            }
+            if(
+                isByMaVaiOK ||
+                isByLotOK
+            ){
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        // if (filterField.getValue()) {
+        //     this.maLotFilter = filters.add({
+        //         id: 'maLotFilter',
+        //         property: 'lot_number',
+        //         value: filterField.getValue(),
+        //         anyMatch: true,
+        //         caseSensitive: false
+        //     });
+        // }
+        // else if (this.maLotFilter) {
+        //     filters.remove(this.maLotFilter);
+        //     this.maLotFilter = null;
+        // }
     },
 })

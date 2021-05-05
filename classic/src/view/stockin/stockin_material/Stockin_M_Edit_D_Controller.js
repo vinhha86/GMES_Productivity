@@ -693,7 +693,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 					stockin_dObj.skuid_link = npl.get('mat_skuid_link');
 					stockin_dObj.skucode = npl.get('mat_sku_code');
 					stockin_dObj.skuname = npl.get('mat_sku_name');
-					stockin_dObj.sku_product_desc = npl.get('setMat_sku_desc');
+					stockin_dObj.sku_product_desc = npl.get('mat_sku_desc');
 
 					stockin_dObj.colorid_link = npl.get('mat_sku_color_id');
 					stockin_dObj.color_name = npl.get('mat_sku_color_name');

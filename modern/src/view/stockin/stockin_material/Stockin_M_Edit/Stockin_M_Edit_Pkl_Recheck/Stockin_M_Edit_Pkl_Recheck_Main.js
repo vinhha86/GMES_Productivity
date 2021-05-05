@@ -130,7 +130,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{lotnumberTxtRecheck}'
+                                // value: '{lotnumberTxtRecheck}',
+                                value: '{objRecheck.lotnumber}'
                             },
                             listeners: {
                                 change: 'onlotnumberTxtRecheckType',
@@ -155,7 +156,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{packageidTxtRecheck}'
+                                // value: '{packageidTxtRecheck}'
+                                value: '{objRecheck.packageid}'
                             },
                             listeners: {
                                 focusleave: 'onlotnumberTxtAndpackageidTxtRecheckleave'
@@ -199,7 +201,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{mTxtRecheck}',
+                                // value: '{mTxtRecheck}',
+                                value: '{objRecheck.met_check}',
                                 // cls: '{yTxtCls}',
                                 hidden: '{isMetColumnHidden}',
                             },
@@ -223,7 +226,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yTxtRecheck}',
+                                // value: '{yTxtRecheck}',
+                                value: '{objRecheck.ydscheck}',
                                 // cls: '{yTxtCls}',
                                 hidden: '{isYdsColumnHidden}',
                             },
@@ -246,7 +250,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{mOriginTxtRecheck}',
+                                // value: '{mOriginTxtRecheck}',
+                                value: '{objRecheck.met_origin}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -268,7 +273,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yOriginTxtRecheck}',
+                                // value: '{yOriginTxtRecheck}',
+                                value: '{objRecheck.ydsorigin}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -306,7 +312,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{grossweightCheckTxtRecheck}',
+                                // value: '{grossweightCheckTxtRecheck}',
+                                value: '{objRecheck.grossweight_check}',
                             },
                             stepValue: 0.1,
                         },
@@ -328,7 +335,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{grossweightTxtRecheck}',
+                                // value: '{grossweightTxtRecheck}',
+                                value: '{objRecheck.grossweight}',
                             },
                             stepValue: 0.1,
                         },
@@ -364,7 +372,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthYdsCheckTxtRecheck}',
+                                // value: '{widthYdsCheckTxtRecheck}',
+                                value: '{objRecheck.width_yds_check}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -386,7 +395,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthYdsTxtRecheck}',
+                                // value: '{widthYdsTxtRecheck}',
+                                value: '{objRecheck.width_yds}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -408,7 +418,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthMetCheckTxtRecheck}',
+                                // value: '{widthMetCheckTxtRecheck}',
+                                value: '{objRecheck.width_met_check}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -430,7 +441,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthMetTxtRecheck}',
+                                // value: '{widthMetTxtRecheck}',
+                                value: '{objRecheck.width_met}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,

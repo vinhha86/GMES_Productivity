@@ -113,6 +113,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var me = this;
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('StockinD_Store');
+        var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
         var listepc = viewModel.get('listepc');
 
         var params = new Object();
@@ -132,6 +133,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
                 }
                 store.setData(data.stockin_d);
+                StockinProduct_Store.setData(data.stockin_product);
 
                 // set store org from
                 if(data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap

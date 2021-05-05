@@ -1,11 +1,11 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockin_M_Edit_Pkl_MainController',
+    channelPrint: { cmd: null, dta: null },
 	init: function () {
 		
 	},
     control: {
-
         '#btnResetForm':{
             tap: 'onbtnResetForm'
         },
@@ -25,6 +25,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         if(newValue != null && newValue != ''){
             var StockinPklStore = viewModel.getStore('StockinPklStore');
             StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(newValue, -1);
+
+            viewModel.set('pklRecheck_stockindId', newValue);
+            var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
+            StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(newValue, 2);
+
+            if(cbbox.getSelection() != null){
+                viewModel.set('selectedDRecord', cbbox.getSelection());
+            }
         }
     },
     onmaPklFilterKeyup: function (){
@@ -40,28 +48,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         grid.getSelectable().deselectAll();
         viewModel.set('lotnumberTxt', '');
         this.resetForm();
-        this.getView().down('#lotnumberTxt').focus();
 
-        // var maPklFilterByMaVai = viewModel.get('maPklFilterByMaVai') == null ? '' : viewModel.get('maPklFilterByMaVai').toLowerCase();
         var maPklFilter = viewModel.get('maPklFilter') == null ? '' : viewModel.get('maPklFilter').toLowerCase();
         store.clearFilter();
         store.filterBy(function(rec) { //toLowerCase() // includes()
-            // var isByMaVaiOK = false;
             var isByLotOK = false;
             if(
                 rec.get('lotnumber').toLowerCase().includes(maPklFilter)
             ){
                 isByLotOK = true;
             }
-            // for(var i=0; i<stockin_d.length; i++){
-            //     if(stockin_d[i].skucode.toLowerCase().includes(maPklFilterByMaVai)){
-            //         if(stockin_d[i].skuid_link == rec.get('skuid_link')){
-            //             isByMaVaiOK = true;
-            //         }
-            //     }
-            // }
             if(
-                // isByMaVaiOK && 
                 isByLotOK
             ){
                 return true;
@@ -71,6 +68,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         });
     },
     resetForm: function(){
+        var myview = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
         
@@ -90,13 +88,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthMetCheckTxt', '');
         viewModel.set('widthMetTxt', '');
         // m.getView().down('#packageidTxt').focus();
+
+        myview.setMasked(false);
     },
     onItemPklTap: function(list, location, eOpts ){
         var m = this;
         var viewModel = this.getViewModel();
 
-        // console.log(location);
         var record = location.record;
+        viewModel.set('selectedPklRecord',record);
         
         viewModel.set('lotnumberTxt', record.get('lotnumber'));
         viewModel.set('packageidTxt', record.get('packageid'));
@@ -114,13 +114,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthMetCheckTxt', record.get('width_met_check'));
         viewModel.set('widthMetTxt', record.get('width_met'));
     },
-
     onCheck: function(){
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
-        var stockin_d = viewModel.get('stockin.stockin_d');
         var stockin_lot = viewModel.get('stockin.stockin_lot');
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
 
         var lotnumberTxt = viewModel.get('lotnumberTxt');
         var packageidTxt = viewModel.get('packageidTxt');
@@ -197,7 +197,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.met_check = mTxt;
         objData.ydsorigin = yOriginTxt;
         objData.met_origin = mOriginTxt;
-        objData.colorid_link = colorTxt;
+        objData.colorid_link = selectedDRecord.get('colorid_link');;
         // objData.widthTxt = widthTxt;
         objData.sample_check = sampleCheckTxt;
         objData.grossweight = grossweightTxt;
@@ -209,6 +209,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.unitid_link = stockin.unitid_link;
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
+        objData.skuid_link = selectedDRecord.get('skuid_link');
         objData.status = 1;
 
         if(stockin.unitid_link == 3){
@@ -245,37 +246,45 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.width_met = parseFloat(Ext.util.Format.number(objData.width_met, '0.00'));
         objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
 
-        // var items = viewModel.get('storePackinglistArrAll');\
+        // var items = viewModel.get('storePackinglistArrAll');
         var StockinPklStore = viewModel.getStore('StockinPklStore');
         var items = StockinPklStore.getData().items;
 
         // lặp qua danh sách để tìm cây vải tương ứng
-        for(var i = 0; i < items.length; i++){
-            var item = items[i];
-            // nếu tìm thấy cây vải
-            if(item.get('lotnumber').toUpperCase() == lotnumberTxt.toUpperCase() && item.get('packageid') == packageidTxt){
-                objData.id = item.get('id');
-            }
+        // for(var i = 0; i < items.length; i++){
+        //     var item = items[i];
+        //     // nếu tìm thấy cây vải
+        //     if(item.get('lotnumber').toUpperCase() == lotnumberTxt.toUpperCase() && item.get('packageid') == packageidTxt){
+        //         objData.id = item.get('id');
+        //     }
+        // }
+
+        if(selectedPklRecord != null){
+            objData.id = selectedPklRecord.get('id');
+            // console.log(selectedPklRecord);
         }
 
+
         // 
-        console.log(objData);
+        // console.log(objData);
         m.onUpdate_Print_Pklist(objData);
+        viewModel.set('selectedPklRecord', null); // edit xong set selectedPklRecord = null để chuyển thành thêm mới
 
         this.resetForm();
-        Ext.getCmp('Stockin_M_Edit_Pkl_Recheck_Main').getController().resetFormRecheck();
-        Ext.getCmp('Stockin_M_Edit_D_Main').getController().resetFormAddLot();
-        Ext.getCmp('Stockin_M_Edit_Lot_Main').getController().resetFormAddSpace();
         m.getView().down('#packageidTxt').focus();
     },
     
     //hungdaibang code
     onUpdate_Print_Pklist: function(pklistData){
-		var me = this;
-        console.log("update pklist");
-        console.log(pklistData);
-        var viewModel = this.getViewModel();
+        var myview = this.getView();
+        myview.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang in tem'
+        });
 
+		var me = this;
+        // console.log("update pklist");
+        // console.log(pklistData);
         var params = new Object();
         params.data = pklistData;
         params.isprintlabel = true;
@@ -288,7 +297,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                        console.log(response);
 					   
 					   //Goi mqtt de in tem
-					   me.onPrint_WithRFID(response.rfprintid_link);
+                        if (null != response.rfprintid_link && response.rfprintid_link > 0){
+					        me.onPrint_WithRFID(response.rfprintid_link);
+                        } else {
+                            //Reload danh sach Pklist va Reset cac o nhap lieu
+                            me.reloadStore();
+                            me.resetForm();
+                        }
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
@@ -296,36 +311,51 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                 }
         })        
     },
-	onPrint_WithRFID: function(print_session){
-		var host = config.getMqtthost();
-		var port = config.getMqttport();
+	onPrint_WithRFID: function(rfprintid_link){
+        console.log(rfprintid_link);
+
+        var me = this;
+
+        //Ngat connect trc khi goi
+		GSmartApp.Mqtt.onDisconnect();
+
+        var viewModel = this.getViewModel();
+		var host = config.getHost();
+		var port = config.getPort();
 		var clientid = config.getClientid();
 		var termid = config.getTermid();
-		me.sessionid = ""+print_session;
+        var deviceId = 2;
+		me.sessionid = ""+rfprintid_link;
 		
-		me.channel.cmd = 'gsm5/term/' + termid + '/cmd';
-		GSmartApp.Mqtt.connect(host, port, clientid, me.channel, deviceId, function (topic, message) {
+		me.channelPrint.cmd = 'gsm5/term/' + termid + '/cmd';
+		GSmartApp.Mqtt.connect(host, port, clientid, me.channelPrint, deviceId, function (topic, message) {
 			console.log(topic);
 			if (topic.includes("cmd")) {
 				var jsonObj = Ext.JSON.decode(message);
-				// console.log(jsonObj);
-				if (jsonObj.ct == 1) {
-					if (jsonObj.cid == 'CMD_START_PRINT') {
+				console.log(jsonObj);
+                //Neu respcode = 2 --> may in chua san sang
+                if (jsonObj.respcode == 2){
+                    Ext.Msg.alert('Thông báo', 'Máy in chưa sẵn sàng', Ext.emptyFn);
+                    viewModel.set('isKiemcay_CheckEnable', true);
+                } else {
+                    if (jsonObj.ct == 1) {
+                        if (jsonObj.cid == 'CMD_START_PRINT') {
 
-                        //Disable nut check --> Khong cho nhan luc dang in
-						viewModel.set('isKiemcay_CheckEnable', false);
-					}
-				}
+                            //Disable nut check --> Khong cho nhan luc dang in
+                            viewModel.set('isKiemcay_CheckEnable', false);
+                        }
+                    }
 
-				//Khi het time out tu dong enable nut check cho nhap tiep
-				if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
-					viewModel.set('isKiemcay_CheckEnable', true);
-				}
+                    //Khi het time out tu dong enable nut check cho nhap tiep
+                    if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
+                        me.onPrintStop(rfprintid_link);
+                    }
+                }
 			} 
 		}, function () {
 			me.sendChannel = 'gsm5/device/' + 'rfprinter-0001' + '/cmd';
 			me.funcid = ""+1;
-			var cmd = { ct: 0, cid: "CMD_START_PRINT", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
+			var cmd = { ct: 0, cid: "CMD_START_PRINT", srcid: termid, reqdata: { timeout: 120000, sessionid: me.sessionid, funcid: me.funcid } };
 			console.log("Device channel:" + me.sendChannel);
 			var message = new Paho.Message(Ext.JSON.encode(cmd));
 			message.destinationName = me.sendChannel;
@@ -341,26 +371,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 			viewModel.set('isStart', false);
 		});
 	},  
-    onStop: function () {
-		var me = this;
-		var viewModel = me.getViewModel();
-		viewModel.set('clsbtn', "red-button");
-		viewModel.set('clsbtnStart', "blue-button");
-		viewModel.set('clsbtnStop', "");
-		viewModel.set('isStart', false);
-		var termid = GSmartApp.Ajax.getTermid();
-		if (GSmartApp.Mqtt.client) {
-			var cmd = { ct: 0, cid: "CMD_STOP_INV", srcid: termid, reqdata: { token: me.stoken, funcid: me.funcid } };
-			console.log("Device channel:" + me.sendChannel);
-			var message = new Paho.Message(Ext.JSON.encode(cmd));
-			message.destinationName = me.sendChannel;
-			message.qos = 0;
-			GSmartApp.Mqtt.client.send(message);
-		}
-		me.channel.dta = null;
-		GSmartApp.Mqtt.onDisconnect();
-		GSmartApp.Mqtt.deviceid_link = 0;
-	},  
+    onPrintStop: function (rfprintid_link) {
+        var me = this;
+        var viewModel = this.getViewModel();
+        viewModel.set('isKiemcay_CheckEnable', true);
+
+        //Kiem tra lai trang thai cua Session print
+        var params = new Object();
+        params.rfprintid_link = rfprintid_link;
+        GSmartApp.Ajax.postJitin('/api/v1/rfprint/getbyid', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        if (response.status == 2){//In tem OK
+                            //In Success --> Reload danh sach Pklist va Reset cac o nhap lieu
+                            me.reloadStore();
+                            me.resetForm();
+                        } else {
+                            Ext.Msg.alert('Thông báo', 'Lỗi máy in:' + response.err_msg, Ext.emptyFn);
+                            me.reloadStore();
+                        }
+                    } else {
+                        Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 3000);
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 3000);
+                }
+        }) 
+    },
     onbtnResetForm: function(){
         var m = this;
         var viewModel = this.getViewModel();
