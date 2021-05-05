@@ -72,10 +72,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
                     StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
                 }
+                // if(pklRecheck_stockindId != null){
+                //     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
+                //     StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
+                // }
                 break;
             case 'Kiểm 10%':
                 // var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
                 // Stockin_d_Store.loadStore_byStockinId(stockinid_link);
+                // if(pkl_stockindId != null){
+                //     var StockinPklStore = viewModel.getStore('StockinPklStore');
+                //     StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
+                // }
                 if(pklRecheck_stockindId != null){
                     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
                     StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
