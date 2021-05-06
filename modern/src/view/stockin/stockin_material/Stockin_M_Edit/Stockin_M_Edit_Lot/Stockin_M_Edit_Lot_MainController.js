@@ -21,11 +21,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
 
-        if(location.record.get('space') == null) location.record.set('space', '');
-        var lotSpace = location.record.get('space');
-        m.setSpaceStore(lotSpace);
+        if(location.record.get('stockinLotSpace') == null) location.record.set('stockinLotSpace', '');
+        var stockinLotSpace = location.record.get('stockinLotSpace');
         viewModel.set('selectedLotRecord', location.record);
-        grid.getSelectable().select(location.record);
+
+        // m.setSpaceStore(lotSpace);
+        // grid.getSelectable().select(location.record);
+        console.log(location.record);
     },
     setSpaceStore: function(lotSpace){
         // update space textfield
@@ -195,59 +197,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         }
 
         // check thông tin
+        var stockinlotid_link = selectedLotRecord.get('id');
         var lotRow = viewModel.get('lotRow');
         var lotSpace = viewModel.get('lotSpace');
         var lotFloor = viewModel.get('lotFloor');
         var lotAmount = viewModel.get('lotAmount');
 
         if(lotRow == null || lotRow == ''){
-            // Ext.toast('Chưa nhập dãy', 1000);
-            // return;
             lotRow = 'x';
         }
         if(lotSpace == null || lotSpace == ''){
-            // Ext.toast('Chưa nhập hàng', 1000);
-            // return;
             lotSpace = 'x';
         }
         if(lotFloor == null || lotFloor == ''){
-            // Ext.toast('Chưa nhập tầng', 1000);
-            // return;
             lotFloor = 'x';
         }
         if(lotAmount == null || lotAmount == ''){
             lotAmount = 0;
-            // return;
         }
 
-        var spaceInfo = new Object();
-        spaceInfo.lotRow = lotRow;
-        spaceInfo.lotSpace = lotSpace;
-        spaceInfo.lotFloor = lotFloor;
-        spaceInfo.lotAmount = lotAmount;
-
-        // D1H5T2C1
-        // kiểm tra danh sách khoang đã có khoang này hay chưa
-        // update thông tin thuộc tính cho lot
-        var record = selectedLotRecord;
-        // nếu lưu vào db fail thì set lại cho record trên giao diện
-        var oldLotSpaceString = record.get('space');
-        var oldStatus = record.get('status');
-        var oldTotalpackagecheck  = record.get('totalpackagecheck');
-        record = m.updateLotRecord(record, spaceInfo); // record.data là obj gửi lên api
-        // update lot grid, đồng thời update luôn các thuộc tính record để gửi
-        m.updateLotGridRecord(record);
-
-        // lưu lot vào db qua api -> nhận obj trả về -> đẩy obj vào d/sách trên giao diện
+        //
         me.setMasked({
             xtype: 'loadmask',
             message: 'Đang lưu'
         });
 
         var params = new Object();
-        params.data = record.data;
+        params.stockinlotid_link = stockinlotid_link;
+        params.spaceepcid_link = 'D' + lotRow + 'H' + lotSpace + 'T' + lotFloor;
+        params.totalpackage = lotAmount;
 
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_lot_create', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_lot_space/stockin_lot_space_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
                 if (success) {
@@ -256,14 +236,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
                         Ext.toast('Lưu thành công', 3000);
                         var data = response.data;
 
-                        // update textfield
-                        // m.setSpaceStore(data.space);
                         var StockinLotStore = viewModel.getStore('StockinLotStore');
-                        StockinLotStore.loadStore_byStockinId(stockinid_link);
-                        // m.setSpaceStore(data.space);
-                        // reset form
-                        viewModel.set('spacesString', null);
-                        viewModel.set('selectedLotRecord', null);
+                        StockinLotStore.loadStore_byStockinId_async(stockinid_link);
+                        StockinLotStore.load({
+                            scope: this,
+                            callback: function(records, operation, success) {
+                                if(!success){
+                                    this.fireEvent('logout');
+                                } else {
+                                    if(selectedLotRecord != null){
+                                        var storeItems = StockinLotStore.getData().items;
+                                        for(var i=0; i<storeItems.length; i++){
+                                            var item = storeItems[i];
+                                            if(item.get('id') == stockinlotid_link){
+                                                var grid = m.getView().down('#Stockin_M_Edit_Lot');
+                                                grid.getSelectable().select(item);
+                                                viewModel.set('selectedLotRecord', item);
+                                                // console.log(item);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
                         m.resetFormAddSpace();
                         me.setMasked(false);
                         // console.log(response);
@@ -271,28 +267,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                    // update lại giá trị cũ
-                    record.set('space', oldLotSpaceString);
-                    record.set('status', oldStatus);
-                    record.set('totalpackagecheck', oldTotalpackagecheck);
-                    m.updateLotGridRecord(record);
                     me.setMasked(false);
                 }
         })
-
-        // old
-
-        // // update textfield
-        // m.setSpaceStore(record.get('space'));
-        // // update lot grid
-        // m.updateLotGridRecord(record);
-        // // reset form
-        // m.resetFormAddSpace();
-
-        // console.log(stockin);
-        // console.log(selectedLotRecord);
-        // console.log(oldLotSpaceString);
-        // console.log(record);
     },
     resetFormAddSpace: function(){
         var m = this;

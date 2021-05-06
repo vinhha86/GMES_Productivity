@@ -51,15 +51,44 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         },
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
+        var m = this;
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
+        var selectedDRecord = viewModel.get('selectedDRecord');
         var pkl_stockindId = viewModel.get('pkl_stockindId');
         var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
 
         switch(value.title){
             case 'DS vải':
                 var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-                Stockin_d_Store.loadStore_byStockinId(stockinid_link);
+                // Stockin_d_Store.loadStore_byStockinId(stockinid_link); // loadStore_byStockinId_async
+                Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
+                Stockin_d_Store.load({
+                    scope: this,
+                    callback: function(records, operation, success) {
+                        if(!success){
+                            this.fireEvent('logout');
+                        } else {
+                            if(selectedDRecord != null){
+                                var storeItems = Stockin_d_Store.getData().items;
+                                for(var i=0; i<storeItems.length; i++){
+                                    var item = storeItems[i];
+                                    if(item.get('id') == selectedDRecord.get('id')){
+                                        var grid = m.getView().down('#Stockin_M_Edit_D');
+                                        grid.getSelectable().select(item);
+                                        // viewModel.set('pkl_stockindId', item.get('id'));
+                                        // viewModel.set('pklRecheck_stockindId', item.get('id'));
+                                    }
+                                }
+
+                                // var grid = this.getView().down('#Stockin_M_Edit_D');
+                                // grid.getSelectable().select(selectedDRecord.get('id'));
+                                console.log(selectedDRecord);
+                                console.log(storeItems);
+                            }
+                        }
+                    }
+                });
                 break;
             case 'Kiểm lot':
                 var StockinLotStore = viewModel.getStore('StockinLotStore');
@@ -68,6 +97,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             case 'Kiểm cây':
                 // var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
                 // Stockin_d_Store.loadStore_byStockinId(stockinid_link);
+                console.log(pkl_stockindId);
+                // viewModel.set('pkl_stockindId', pkl_stockindId);
                 if(pkl_stockindId != null){
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
                     StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
@@ -84,6 +115,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 //     var StockinPklStore = viewModel.getStore('StockinPklStore');
                 //     StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
                 // }
+                console.log(pklRecheck_stockindId);
+                // viewModel.set('pklRecheck_stockindId', pklRecheck_stockindId);
                 if(pklRecheck_stockindId != null){
                     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
                     StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);

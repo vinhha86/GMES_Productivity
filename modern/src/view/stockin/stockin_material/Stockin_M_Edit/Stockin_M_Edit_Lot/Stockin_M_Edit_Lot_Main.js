@@ -78,7 +78,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_Main', {
                             clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value:'{spacesString}'
+                                // value:'{spacesString}'
+                                value: '{selectedLotRecord.stockinLotSpace}'
                             },
                         },
                         {
