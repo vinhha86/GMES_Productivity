@@ -15,14 +15,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
             itemId: 'lot_number',
             label: 'Số lot:',
             bind: {
-                value: '{lot_number}'
+                value: '{stockinLot.lot_number}'
             },
         }, 
         {
             xtype: 'numberfield',
             label: 'SL cây:',
             bind: {
-                value: '{totalpackage}'
+                value: '{stockinLot.totalpackage}'
             },
         }, 
         {
@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
             itemId: 'totalmet',
             label: 'Độ dài (M):',
             bind: {
-                value: '{totalmet}',
+                value: '{stockinLot.totalmet}',
                 hidden: '{isMetColumnHidden}',
             },
         }, 
@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
             itemId: 'totalyds',
             label: 'Độ dài (Y):',
             bind: {
-                value: '{totalyds}',
+                value: '{stockinLot.totalyds}',
                 hidden: '{isYdsColumnHidden}',
             },
         }, 
@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_Info', {
             xtype: 'numberfield',
             label: 'Cân nặng:',
             bind: {
-                value: '{grossweight}'
+                value: '{stockinLot.grossweight}'
             },
         }, 
     ]

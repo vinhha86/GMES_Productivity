@@ -35,7 +35,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
                     editable: false,
                     readOnly: true,
                     bind:{
-                        value:'{lotSpace}'
+                        value:'{spaceepcid_link}',
+                        disabled: '{!isSpaceSelected}'
                     },
                     // label: 'Số lượng:',
                     textAlign: 'left',
@@ -51,12 +52,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
                 },
                 {
                     xtype: 'numberfield',
-                    itemId: 'lotSpaceAmount',
+                    itemId: 'totalpackage',
                     // reference: 'cboorgto',
                     // editable: false,
                     // readOnly: true,
                     bind:{
-                        value:'{lotSpaceAmount}'
+                        value:'{totalpackage}',
+                        disabled: '{!isSpaceSelected}'
                     },
                     // label: 'Số lượng:',
                     textAlign: 'left',

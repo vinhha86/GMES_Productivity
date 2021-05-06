@@ -8,22 +8,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditViewModel', {
         
     },
     data: {
-        selectedLotRecord: null, // lot truyen vao
+        selectedLotRecord: null, // lot truyen vao de lay id
         unitid_link: null,
         // thông tin lot
-        lot_number: null,
-        totalpackage: null,
-        totalmet: null,
-        totalyds: null,
-        grossweight: null,
+        stockinLot: {
+            stockin_lot_space: []
+        },
 
         // thông tin khoang
-        spaces: [], // list
-		lotSpace: null, // khoang
-		lotSpaceAmount: null, // sl cây khoang
-
-        //
-        newLotSpaceString: null
+        selectedSpaceRecord: null, // khoang đang chọn
+		spaceepcid_link: null, // khoang
+		totalpackage: null, // sl cây khoang
     },
     formulas: {
         isMetColumnHidden: function (get) {
@@ -42,6 +37,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditViewModel', {
                 return true;
             }else 
             if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+        isSpaceSelected: function (get) {
+            var selectedSpaceRecord = get('selectedSpaceRecord');
+            if(selectedSpaceRecord == null){
                 return false;
             }
             return true;

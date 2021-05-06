@@ -96,13 +96,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         // thêm sl yêu cầu
         if(stockin.unitid_link == 3){
             var ydsorigin = parseFloat(yNumberTxt);
-            var met_origin = ydsorigin * 0.9144;
+            var met_origin =  parseFloat(Ext.util.Format.number(ydsorigin * 0.9144, '0.00'));
             newLotObj.totalyds = ydsorigin;
             newLotObj.totalmet = met_origin;
         }
         if(stockin.unitid_link == 1){
             var met_origin = parseFloat(yNumberTxt);
-            var ydsorigin = met_origin / 0.9144;
+            var ydsorigin =  parseFloat(Ext.util.Format.number(met_origin / 0.9144, '0.00'));
             newLotObj.totalyds = ydsorigin;
             newLotObj.totalmet = met_origin;
         }
@@ -116,7 +116,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         var params = new Object();
         params.data = newLotObj;
 
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_lot_create', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_lot/stockin_lot_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
                 if (success) {
@@ -134,6 +134,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
                             me.setMasked(false);
                         }
                         console.log(response);
+                    } else{
+                        Ext.toast('Lưu thất bại: ' + response.message, 3000);
+                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);

@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_List', {
     },
 
     bind: {
-        store:'{spaces}'
+        store:'{stockinLot.stockin_lot_space}'
     },
 
     columns: [
@@ -43,10 +43,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit_List', {
         {
             text: 'Khoang', 
             flex: 1,
-            dataIndex: 'space',
+            dataIndex: 'spaceepcid_link',
             renderer: function(value, record, dataIndex, cell, column) {
-                var valueArr = value.split('C');
-                return valueArr[0]+' (' + valueArr[1] +')';
+                var spaceepcid_link = record.get('spaceepcid_link');
+                var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
+                return spaceepcid_link + ' (' + totalpackage + ')';
             },
         },
         {

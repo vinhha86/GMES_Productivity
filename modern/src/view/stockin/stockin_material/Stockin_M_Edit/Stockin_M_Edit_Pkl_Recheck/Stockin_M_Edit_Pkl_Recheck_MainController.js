@@ -281,7 +281,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             params.lotnumber = lotnumber;
             params.packageid = packageid;
 
-            GSmartApp.Ajax.postJitin('/api/v1/stockin/getStockinPklByStockinDLotAndPackageId', Ext.JSON.encode(params),
+            GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/getByStockinDLotAndPackageId', Ext.JSON.encode(params),
                 function (success, response, options) {
                     // me.setLoading(false);
                     if (success) {
@@ -301,13 +301,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                                 console.log(responseObj);
                                 viewModel.set('objRecheck', responseObj);
                             }
-                           console.log(response);
-                           me.setMasked(false);
+                            console.log(response);
+                            me.setMasked(false);
+                        }else{
+                            Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
+                            me.setMasked(false);
                         }
-                        me.setMasked(false);
                     } else {
                         var response = Ext.decode(response.responseText);
-                        Ext.toast('Lỗi khi tìm cây vải', 3000);
+                        Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
                         me.setMasked(false);
                     }
             })        

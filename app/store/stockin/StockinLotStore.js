@@ -16,7 +16,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/getStockinLotByStockinId',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getStockinLotByStockinId',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/getStockinLotByStockinId',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getStockinLotByStockinId',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
