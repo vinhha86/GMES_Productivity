@@ -41,6 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     ShowPO: function (record) {
         var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractBom2Store_New');
 
         var form = Ext.create('Ext.window.Window', {
             closable: true,
@@ -74,11 +75,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         });
 
         form.down('PContract_Bom_PO_MainView').on('SelectDone', function (data) {
-            console.log(data);
+            var po_line = record.get('po_line');
+            po_line += ", " + data;
+            record.set('po_line', po_line);
+            store.commitChanges();
         });
 
         form.down('PContract_Bom_PO_MainView').on('DeSelectDone', function (data) {
-            console.log(data);
+            var po_line = record.get('po_line');
+            po_line = po_line.replace(', ' + data, '').replace(data + ",", '').replace(data, '');
+            record.set('po_line', po_line);
+            store.commitChanges();
         })
     },
     onThemMoiNPL: function () {
