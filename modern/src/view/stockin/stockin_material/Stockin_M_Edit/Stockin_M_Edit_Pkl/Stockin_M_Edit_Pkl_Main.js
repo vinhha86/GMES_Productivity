@@ -255,7 +255,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             ui: 'action',
                             margin: 1,
                             focusable: false,
-                            // style: 'visibility: hidden;'
+                            bind: {
+                                disabled: '{!isPklSelected}',
+                            },
                         },
                         // {
                         //     xtype:'button',
@@ -329,7 +331,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // itemId:'',
                             ui: 'action',
                             margin: 1,
-                            focusable: false
+                            focusable: false,
+                            bind: {
+                                disabled: '{!isPklSelected}',
+                            },
                             // style: 'visibility: hidden;'
                         },
                     ]
@@ -440,7 +445,87 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                 //             // maxWidth: 130,
                 //         },
                 //     ]
-                // }
+                // },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'numberfield',
+                            itemId: 'pklRowTxt',
+                            // label: 'Mã hàng:',
+                            // labelWidth: 85,
+                            margin: 1,
+                            // padding: 6,
+                            flex: 1,
+                            // width: '100%',
+                            // minWidth: 80,
+                            // maxWidth: 200,
+                            textAlign: 'left',
+                            placeholder: 'Dãy',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value:'{pklRowTxt}'
+                            },
+                        },
+                        {
+                            xtype: 'numberfield',
+                            itemId: 'pklSpaceTxt',
+                            // label: 'Mã hàng:',
+                            // labelWidth: 85,
+                            margin: 1,
+                            // padding: 6,
+                            flex: 1,
+                            // width: '100%',
+                            // minWidth: 80,
+                            // maxWidth: 200,
+                            textAlign: 'left',
+                            placeholder: 'Hàng',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value:'{pklSpaceTxt}'
+                            },
+                            // stepValue: 0.1,
+                        },
+                        {
+                            xtype: 'numberfield',
+                            itemId: 'pklFloorTxt',
+                            // label: 'Mã hàng:',
+                            // labelWidth: 85,
+                            margin: 1,
+                            // padding: 6,
+                            flex: 1,
+                            // width: '100%',
+                            // minWidth: 80,
+                            // maxWidth: 200,
+                            textAlign: 'left',
+                            placeholder: 'Tầng',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value:'{pklFloorTxt}'
+                            },
+                            // stepValue: 0.1,
+                        },
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
+                    ]
+                },
             ]
         }
     ]

@@ -64,6 +64,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         // flex: 1,
         width: 90,
         dataIndex: 'lot_number',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = '';
             // var status = record.get('status') == null ? -1 : record.get('status');
@@ -81,7 +82,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         flex: 1,
         // width: 85,
         dataIndex: 'totalpackage',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
@@ -102,7 +103,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         text: 'Kiểm dài(M)', 
         flex: 1,
         dataIndex: 'totalmet',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalmetcheck = record.get('totalmetcheck') == null ? 0 : record.get('totalmetcheck');
@@ -125,7 +126,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         text: 'Kiểm dài(Y)', 
         flex: 1,
         dataIndex: 'totalyds',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
@@ -148,7 +149,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
         text: 'Kiểm cân', 
         flex: 1,
         dataIndex: 'grossweight_check',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');

@@ -62,6 +62,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         // flex: 1,
         width: 90,
         dataIndex: 'lotnumber',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             return value.toUpperCase();
         },
@@ -71,13 +72,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         // flex: 1,
         width: 75,
         dataIndex: 'packageid',
-        align: 'right',
+        align: 'center',
     },
     {
         text: 'Kiểm dài(M)', 
         flex: 1,
         dataIndex: 'met_check',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
@@ -100,7 +101,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         text: 'Kiểm dài(Y)', 
         flex: 1,
         dataIndex: 'ydscheck',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
@@ -123,7 +124,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
         text: 'Kiểm cân', 
         flex: 1,
         dataIndex: 'grossweight_check',
-        align: 'right',
+        align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
             var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');

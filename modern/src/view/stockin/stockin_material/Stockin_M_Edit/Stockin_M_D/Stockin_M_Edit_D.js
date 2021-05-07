@@ -18,8 +18,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
                 '</div>' +
 
                 '<div class="content2">'+
+                    '<div class="content2-sub1">Màu:</div>'+
+                    '<div class="content2-sub2">{sku_product_color}</div>' +
+                '</div>' +
+
+                '<div class="content2">'+
                     '<div class="content2-sub1">Mô tả:</div>'+
-                    '<div class="content2-sub2"></div>' +
+                    '<div class="content2-sub2">{sku_product_desc}</div>' +
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayM(values)]}>' +

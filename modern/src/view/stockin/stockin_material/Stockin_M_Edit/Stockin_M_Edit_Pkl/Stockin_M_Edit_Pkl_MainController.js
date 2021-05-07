@@ -43,6 +43,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 
         var viewModel = this.getViewModel();
         grid.getSelectable().deselectAll();
+        viewModel.set('selectedPklRecord', null);
         viewModel.set('lotnumberTxt', '');
         this.resetForm();
 
@@ -134,6 +135,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var widthYdsTxt = viewModel.get('widthYdsTxt');
         var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
         var widthMetTxt = viewModel.get('widthMetTxt');
+        var pklRowTxt = viewModel.get('pklRowTxt');
+        var pklSpaceTxt = viewModel.get('pklSpaceTxt');
+        var pklFloorTxt = viewModel.get('pklFloorTxt');
 
         // check combo đã chọn chưa
         var pkl_stockindId = viewModel.get('pkl_stockindId');
@@ -163,6 +167,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                 return;
             }
         }
+
+        // spaceepc_link: khoang cây vải
+        if(pklRowTxt == null || pklRowTxt == '') pklRowTxt = 'x';
+        if(pklSpaceTxt == null || pklSpaceTxt == '') pklSpaceTxt = 'x';
+        if(pklFloorTxt == null || pklFloorTxt == '') pklFloorTxt = 'x';
+        var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
 
         // check lotnumber tồn tại
         var isLotnumberExist = stockin_lot.some(
@@ -207,6 +217,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
         objData.skuid_link = selectedDRecord.get('skuid_link');
+        objData.spaceepc_link = spaceepc_link;
         objData.status = 1;
 
         if(stockin.unitid_link == 3){

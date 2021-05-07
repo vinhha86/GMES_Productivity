@@ -1,6 +1,13 @@
 .Stockin_M_Edit_Pkl{
     border-bottom: 1px solid lightblue;
 
+    .x-gridcell-body-el{
+        padding: 12px 2px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: normal;
+    }
+
     .cellWhite{
         background-color: white;
         color: black;

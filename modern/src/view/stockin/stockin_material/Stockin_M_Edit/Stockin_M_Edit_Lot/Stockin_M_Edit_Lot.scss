@@ -9,9 +9,9 @@
     }
     .x-gridcell-body-el{
         padding: 12px 2px;
-    }
-    .x-gridcolumn-title-wrap-el {
-        padding: 12px 2px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: normal;
     }
 
     .content{
