@@ -111,6 +111,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthYdsTxt', record.get('width_yds'));
         viewModel.set('widthMetCheckTxt', record.get('width_met_check'));
         viewModel.set('widthMetTxt', record.get('width_met'));
+
+        // set khoang info cho pkl
+        var spaceepc_link = record.get('spaceepc_link') == null ? '' : record.get('spaceepc_link');
+        if(spaceepc_link != ''){ // D1H2T3
+            var spaceepc_linkArr = spaceepc_link.split('T');
+            var pklFloorTxt = spaceepc_linkArr[1];
+            viewModel.set('pklFloorTxt', pklFloorTxt);
+            spaceepc_linkArr = spaceepc_linkArr[0].split('H');
+            var pklSpaceTxt = spaceepc_linkArr[1];
+            viewModel.set('pklSpaceTxt', pklSpaceTxt);
+            spaceepc_linkArr = spaceepc_linkArr[0].split('D');
+            var pklRowTxt = spaceepc_linkArr[1];
+            viewModel.set('pklRowTxt', pklRowTxt);
+        }else{
+            viewModel.set('pklFloorTxt', null);
+            viewModel.set('pklSpaceTxt', null);
+            viewModel.set('pklRowTxt', null);
+        }
     },
     onCheck: function(){
         var m = this;
