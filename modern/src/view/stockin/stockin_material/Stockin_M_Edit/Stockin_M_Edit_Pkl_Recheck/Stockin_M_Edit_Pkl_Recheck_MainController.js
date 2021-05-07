@@ -22,12 +22,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var viewModel = this.getViewModel();
         var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
         if(newValue != null && newValue != ''){
-            viewModel.set('pkl_stockindId', newValue);
-            var StockinPklStore = viewModel.getStore('StockinPklStore');
-            StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(newValue, -1);
-            
             var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
             StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(newValue, 2);
+
+            viewModel.set('lot_stockindId', newValue);
+            viewModel.set('pkl_stockindId', newValue);
 
             if(cbbox.getSelection() != null){
                 viewModel.set('selectedDRecord', cbbox.getSelection());
@@ -42,8 +41,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             filters = grid.store.getFilters();
 
         var viewModel = this.getViewModel();
-        var stockin_d = viewModel.get('stockin.stockin_d');
-
         grid.getSelectable().deselectAll();
         viewModel.set('lotnumberTxtRecheck', '');
         this.resetFormRecheck();

@@ -14,6 +14,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         '#Stockin_M_Edit_Lot': {
             childtap: 'onStockin_M_Edit_LotItemTap'
 		},
+        '#cbbox_lot_stockindId':{
+            change: 'oncbbox_lot_stockindId_change'
+        }
+    },
+    oncbbox_lot_stockindId_change: function(cbbox, newValue, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        if(newValue != null && newValue != ''){
+            var StockinLotStore = viewModel.getStore('StockinLotStore');
+            StockinLotStore.loadStore_byStockinDId(newValue);
+
+            viewModel.set('pkl_stockindId', newValue);
+            viewModel.set('pklRecheck_stockindId', newValue);
+
+            if(cbbox.getSelection() != null){
+                viewModel.set('selectedDRecord', cbbox.getSelection());
+            }
+        }
     },
     onStockin_M_Edit_LotItemTap: function(grid, location, eOpts){
         var me = this.getView();
@@ -80,7 +97,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         dialog.show();
 
         dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Luu', function () {
-            console.log('here here');
+            m.reloadStore();
+        });
+
+        dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Xoa', function () {
+            dialog.close();
+            viewModel.set('selectedLotRecord', null)
             m.reloadStore();
         });
 
@@ -169,58 +191,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         viewModel.set('lotFloor', null);
         viewModel.set('lotAmount', null);
     },
-    updateLotGridRecord: function(record){
-        // update số cây kiểm theo space
-        var me = this.getView();
-        var m = this;
-        var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-
-        var space = record.get('space');
-        var spaceStringArr = space.split(';'); // D1H1T1C1
-        var totalpackagecheck = 0;
-        for(var i=0; i<spaceStringArr.length; i++){
-            if(spaceStringArr[i] != null && spaceStringArr[i] != ''){
-                var lotString = spaceStringArr[i];
-                totalpackagecheck += parseInt(lotString.split('C')[1]);
-            }
-        }
-        record.set('totalpackagecheck', totalpackagecheck);
-        record.set('status', 0);
-        // console.log(spaceStringArr);
-    },
-    updateLotRecord: function(record, spaceInfo){
-        // record: lot đang chọn
-        // spaceInfo: lotRow, lotSpace, lotFloor, lotAmount
-        var space = record.get('space') == null ? '' : record.get('space');
-        var spaceInfoString = 'D' + spaceInfo.lotRow + 'H' + spaceInfo.lotSpace + 'T' + spaceInfo.lotFloor + 'C';
-        var spaceStringArr = space.split(';'); // D1H1T1C1
-        var isSpaceExist = false; // chưa tồn tại khoang trong danh sách khoang của lot
-        
-        var newLotSpaceString = '';
-        for(var i = 0; i < spaceStringArr.length; i++){
-            if(spaceStringArr[i].includes(spaceInfoString)){ // đã tồn tại trong danh sách khoang
-                isSpaceExist = true;
-                var amount = parseInt(spaceStringArr[i].split('C')[1]) + spaceInfo.lotAmount;
-                spaceStringArr[i] = spaceStringArr[i].split('C')[0] + 'C' +amount;
-            }
-            if(newLotSpaceString == ''){
-                newLotSpaceString+=spaceStringArr[i];
-            }else{
-                newLotSpaceString+=';' + spaceStringArr[i];
-            }
-        }
-
-        if(!isSpaceExist){
-            if(newLotSpaceString == ''){
-                newLotSpaceString+= spaceInfoString + spaceInfo.lotAmount;
-            }else{
-                newLotSpaceString+= ';' + spaceInfoString + spaceInfo.lotAmount;
-            }
-        }
-        record.set('space', newLotSpaceString);
-        return record;
-    },
     onmaLotFilterKeyup: function (){
         var grid = this.getView().down('#Stockin_M_Edit_Lot'),
             // Access the field using its "reference" property name.
@@ -229,16 +199,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
             filters = grid.store.getFilters();
 
         var viewModel = this.getViewModel();
-        viewModel.set('selectedLotRecord', null);
         grid.getSelectable().deselectAll();
-        viewModel.set('spacesString', null);
         viewModel.set('selectedLotRecord', null);
         this.resetFormAddSpace();
 
         var maLotFilter = viewModel.get('maLotFilter') == null ? '' : viewModel.get('maLotFilter').toLowerCase();
         store.clearFilter();
-        store.filterBy(function(rec) { //toLowerCase() // includes()
-            var isByMaVaiOK = false;
+        store.filterBy(function(rec) {
             var isByLotOK = false;
             if(
                 rec.get('lot_number').toLowerCase().includes(maLotFilter)
@@ -246,12 +213,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
                 isByLotOK = true;
             }
             if(
-                rec.get('skucode').toLowerCase().includes(maLotFilter)
-            ){
-                isByMaVaiOK = true;
-            }
-            if(
-                isByMaVaiOK ||
                 isByLotOK
             ){
                 return true;
@@ -266,7 +227,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
         var selectedLotRecord = viewModel.get('selectedLotRecord');
-        var stockinlotid_link = selectedLotRecord.get('id');
 
         var StockinLotStore = viewModel.getStore('StockinLotStore');
         StockinLotStore.loadStore_byStockinId_async(stockinid_link);
@@ -277,6 +237,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
                     this.fireEvent('logout');
                 } else {
                     if(selectedLotRecord != null){
+                        var stockinlotid_link = selectedLotRecord.get('id');
                         var storeItems = StockinLotStore.getData().items;
                         for(var i=0; i<storeItems.length; i++){
                             var item = storeItems[i];

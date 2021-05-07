@@ -17,19 +17,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         var me = this.getView();
         var m = this;
 		var viewModel = this.getViewModel();
-
-		var Stockin_M_Edit_Pkl_Main = Ext.getCmp('Stockin_M_Edit_Pkl_Main');
-		var Stockin_M_Edit_Pkl_Recheck_Main = Ext.getCmp('Stockin_M_Edit_Pkl_Recheck_Main');
-
 		viewModel.set('selectedDRecord', record);
-		// thêm filter mã vải cho pkl và pkl_recheck
-		viewModel.set('maPklFilterByMaVai', record.get('skucode'));
-		viewModel.set('maPklRecheckFilterByMaVai', record.get('skucode'));
-		Stockin_M_Edit_Pkl_Main.getController().onmaPklFilterKeyup();
-		Stockin_M_Edit_Pkl_Recheck_Main.getController().onmaPklRecheckFilterKeyup();
 
+        this.setComboLot();
         this.setComboPkl();
         this.setComboPklRecheck();
+    },
+    setComboLot: function(){
+        var viewModel = this.getViewModel();
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('lot_stockindId', selectedDRecord.get('id'));
     },
     setComboPkl: function(){
         var viewModel = this.getViewModel();
@@ -90,6 +87,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         newLotObj.space = '';
         newLotObj.status = -1;
         newLotObj.materialid_link = selectedDRecord.get('skuid_link');
+        newLotObj.skucode = selectedDRecord.get('skucode');
         newLotObj.stockindid_link = selectedDRecord.get('id');
         
 
@@ -133,7 +131,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
                             m.resetFormAddLot();
                             me.setMasked(false);
                         }
-                        console.log(response);
+                        // console.log(response);
                     } else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
                         me.setMasked(false);

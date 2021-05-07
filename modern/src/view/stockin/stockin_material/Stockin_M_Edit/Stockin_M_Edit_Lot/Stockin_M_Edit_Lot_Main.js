@@ -16,10 +16,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_Main', {
     ],
 
     items:[
+        
         {
-            layout: 'vbox',
-            flex: 1,
+            xtype: 'container',
+            layout: 'hbox',
             items:[
+                {
+                    xtype: 'combobox',
+                    itemId: 'cbbox_lot_stockindId',
+                    // reference: 'cboorgto',
+                    editable: false,
+                    readOnly: true,
+                    // cls: 'notEditable',
+                    bind:{
+                        store:'{Stockin_d_Store}',
+                        value:'{lot_stockindId}'
+                    },
+                    displayField: 'skucode',
+                    valueField: 'id',
+                    // label: 'Nơi giao:',
+                    // disabled: true,
+                    labelWidth: 85,
+                    flex: 1,
+                    padding: 2,
+                },
                 {
                     xtype: 'textfield',
                     itemId: 'maLotFilter',
@@ -45,152 +65,152 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_Main', {
                         buffer: 500
                     }
                 },
+            ]
+        },
+        {
+            margin: 1,
+            flex: 2,
+            xtype: 'Stockin_M_Edit_Lot',
+        },
+        {
+            margin: 1,
+            flex: 1,
+            xtype: 'Stockin_M_Edit_Space',
+            hidden: true
+        },
+        {
+            layout: 'hbox',
+            // flex: 1,
+            items:[
                 {
+                    xtype: 'textfield',
+                    // itemId: 'maNPLFilter',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
                     margin: 1,
-                    flex: 2,
-                    xtype: 'Stockin_M_Edit_Lot',
-                },
-                {
-                    margin: 1,
+                    // padding: 6,
                     flex: 1,
-                    xtype: 'Stockin_M_Edit_Space',
-                    hidden: true
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Danh sách khoang',
+                    editable: false,
+                    readOnly: true,
+                    clearable: false,
+                    cls: 'notEditable',
+                    bind: {
+                        // value:'{spacesString}'
+                        value: '{selectedLotRecord.stockinLotSpace}'
+                    },
                 },
                 {
-                    layout: 'hbox',
-                    // flex: 1,
-                    items:[
-                        {
-                            xtype: 'textfield',
-                            // itemId: 'maNPLFilter',
-                            // label: 'Mã hàng:',
-                            // labelWidth: 85,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Danh sách khoang',
-                            editable: false,
-                            readOnly: true,
-                            clearable: false,
-                            cls: 'notEditable',
-                            bind: {
-                                // value:'{spacesString}'
-                                value: '{selectedLotRecord.stockinLotSpace}'
-                            },
-                        },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-edit',
-                            itemId:'btnLotEditSpace',
-                            ui: 'action',
-                            margin: 1,
-                        },    
-                    ]
+                    xtype:'button',
+                    iconCls: 'x-fa fa-edit',
+                    itemId:'btnLotEditSpace',
+                    ui: 'action',
+                    margin: 1,
+                },    
+            ]
+        },
+        {
+            layout: 'hbox',
+            // flex: 1,
+            items:[
+                {
+                    xtype: 'numberfield',
+                    // itemId: 'maNPLFilter',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Dãy',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{lotRow}'
+                    },
                 },
                 {
-                    layout: 'hbox',
-                    // flex: 1,
-                    items:[
-                        {
-                            xtype: 'numberfield',
-                            // itemId: 'maNPLFilter',
-                            // label: 'Mã hàng:',
-                            // labelWidth: 85,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Dãy',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{lotRow}'
-                            },
-                        },
-                        {
-                            xtype: 'numberfield',
-                            // itemId: 'maNPLFilter',
-                            // label: 'Mã hàng:',
-                            // labelWidth: 85,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Hàng',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{lotSpace}'
-                            },
-                            // stepValue: 0.1,
-                        },
-                        {
-                            xtype: 'numberfield',
-                            // itemId: 'maNPLFilter',
-                            // label: 'Mã hàng:',
-                            // labelWidth: 85,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Tầng',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{lotFloor}'
-                            },
-                            // stepValue: 0.1,
-                        },
-                        {
-                            xtype: 'numberfield',
-                            // itemId: 'maNPLFilter',
-                            // label: 'Mã hàng:',
-                            // labelWidth: 85,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'SL Cây',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{lotAmount}'
-                            },
-                            // stepValue: 0.1,
-                        },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            itemId:'btnLotAddSpace',
-                            ui: 'action',
-                            margin: 1,
-                        },    
-                    ]
+                    xtype: 'numberfield',
+                    // itemId: 'maNPLFilter',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Hàng',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{lotSpace}'
+                    },
+                    // stepValue: 0.1,
                 },
+                {
+                    xtype: 'numberfield',
+                    // itemId: 'maNPLFilter',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Tầng',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{lotFloor}'
+                    },
+                    // stepValue: 0.1,
+                },
+                {
+                    xtype: 'numberfield',
+                    // itemId: 'maNPLFilter',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'SL Cây',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{lotAmount}'
+                    },
+                    // stepValue: 0.1,
+                },
+                {
+                    xtype:'button',
+                    iconCls: 'x-fa fa-plus',
+                    itemId:'btnLotAddSpace',
+                    ui: 'action',
+                    margin: 1,
+                },    
             ]
         },
     ]

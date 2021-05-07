@@ -74,16 +74,82 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
                 }
             ]
         },
-],
-
-    buttons: [
+        // {
+        //     layout : 'hbox',
+        //     margin: 1,
+        //     items:[
+        //         {
+        //             xtype: 'button',
+        //             itemId:'btnDeleteLot',
+        //             iconCls: 'x-fa fa-trash',
+        //             ui: 'action',
+        //             margin: 1,
+        //         },
+        //         {
+        //             flex: 1,
+        //         },
+        //         {
+        //             xtype: 'button',
+        //             // text: 'Thoát',
+        //             itemId: 'btnThoat',
+        //             iconCls: 'x-fa fa-window-close',
+        //             ui: 'action',
+        //             margin: 1,
+        //         },
+        //         {
+        //             xtype: 'button',
+        //             // text: 'Lưu',
+        //             itemId: 'btnLuu',
+        //             iconCls: 'x-fa fa-save',
+        //             ui: 'action',
+        //             margin: 1,
+        //         }
+        //     ]
+        // },
+    ],
+    bbar: [
         {
-            text: 'Thoát',
-            itemId: 'btnThoat'
+            xtype: 'button',
+            itemId:'btnDeleteLot',
+            iconCls: 'x-fa fa-trash',
+            ui: 'action',
+            // margin: 1,
+        },
+        '->',
+        {
+            xtype: 'button',
+            // text: 'Thoát',
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+            ui: 'action',
+            // margin: 1,
         },
         {
-            text: 'Lưu',
-            itemId: 'btnLuu'
+            xtype: 'button',
+            // text: 'Lưu',
+            itemId: 'btnLuu',
+            iconCls: 'x-fa fa-save',
+            ui: 'action',
+            // margin: 1,
         }
-]
+    ],
+
+    // buttons: [
+    //     {
+    //         itemId:'btnDeleteLot',
+    //         iconCls: 'x-fa fa-trash',
+    //         ui: 'action',
+    //         // margin: 1,
+    //     },
+    //     {
+    //         // text: 'Thoát',
+    //         iconCls: 'x-fa fa-window-close',
+    //         itemId: 'btnThoat'
+    //     },
+    //     {
+    //         // text: 'Lưu',
+    //         iconCls: 'x-fa fa-save',
+    //         itemId: 'btnLuu'
+    //     }
+    // ]
 });

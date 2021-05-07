@@ -16,7 +16,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getStockinLotByStockinId',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getByStockinId',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
@@ -52,7 +52,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getStockinLotByStockinId',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getByStockinId',
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
@@ -66,6 +66,70 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 				totalProperty: 'totalCount'
 			}
 		});
-	}
+	},
+	loadStore_byStockinDId: function(stockindid_link){
+		var me=this;
+		var params = new Object();
+		params.stockinid_link = stockindid_link;
+		
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getByStockinDId',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				totalProperty: 'totalCount'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
+	loadStore_byStockinDId_async: function(stockindid_link){
+		var me=this;
+		var params = new Object();
+		params.stockinid_link = stockindid_link;
+		
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin_lot/getByStockinDId',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				totalProperty: 'totalCount'
+			}
+		});
+	},
    
 });

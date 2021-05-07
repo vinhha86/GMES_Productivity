@@ -42,31 +42,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                     flex: 1,
                     padding: 2,
                 },
-                // {
-                //     xtype: 'textfield',
-                //     itemId: 'maPklRecheckFilterByMaVai',
-                //     // label: 'Mã hàng:',
-                //     // labelWidth: 85,
-                //     margin: '5 5 1 5',
-                //     // padding: 6,
-                //     flex: 1,
-                //     // width: '100%',
-                //     // minWidth: 80,
-                //     // maxWidth: 200,
-                //     textAlign: 'left',
-                //     placeholder: 'Mã vải',
-                //     // editable: false,
-                //     // readOnly: true,
-                //     clearable: false,
-                //     cls: 'searchField',
-                //     bind: {
-                //         value: '{maPklRecheckFilterByMaVai}'
-                //     },
-                //     listeners: {
-                //         keyup: 'onmaPklRecheckFilterKeyup',
-                //         buffer: 500
-                //     }
-                // },
                 {
                     xtype: 'textfield',
                     itemId: 'maPklRecheckFilter',

@@ -10,6 +10,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
 
     },
     control: {
+        '#btnDeleteLot': {
+            tap: 'onDeleteLot'
+        },
         '#btnLuu': {
             tap: 'onLuu'
         },
@@ -31,6 +34,51 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         '#lot_number': { // đây là lot_number của lot
             change: 'onlotNumberTxtType',
         }
+    },
+    onDeleteLot: function(){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockinLot = viewModel.get('stockinLot');
+        var stockinlotid_link = stockinLot.id;
+
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang lưu'
+        });
+        var params = new Object();
+        params.stockinlotid_link = stockinlotid_link;
+
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_lot/delete', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        if(response.message == 'Lot này đã tồn tại cây vải'){
+                            Ext.toast('Xoá thất bại: ' + response.message, 3000);
+                            me.setMasked(false);
+                        }else{
+                            Ext.toast('Xoá thành công', 3000);
+                            me.setMasked(false);
+                            m.fireEvent('Xoa');
+                        }
+                        // console.log(response);
+                    }else{
+                        Ext.toast('Xoá thất bại: ' + response.message, 3000);
+                        me.setMasked(false);
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.toast('Xoá thất bại: ' + response.message, 3000);
+                    me.setMasked(false);
+                }
+        })
+
+        // fire event
+        // this.fireEvent('Luu', selectedLotRecord);
+        // Ext.toast('Lưu thành công', 1000);
+        // console.log(selectedLotRecord);
     },
     onLuu: function(){
         var me = this.getView();

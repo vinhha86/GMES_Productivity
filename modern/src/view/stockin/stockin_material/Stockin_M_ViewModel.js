@@ -92,6 +92,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 
 		// Stockin_M_Edit_Lot
 		selectedLotRecord: null, // lot đang chọn
+		lot_stockindId: null, // kiểm lot combobox value
 		spaces: [],
 		spacesString: '',
 		lotRow: null, // dãy
