@@ -12,6 +12,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         '#btnCheck':{
             tap: 'onCheck'
         },
+        '#btnPrintPkl':{
+            tap: 'onPrintPkl'
+        },
+        '#btnDeletePkl':{
+            tap: 'onDeletePkl'
+        },
         '#Stockin_M_Edit_Pkl':{
             childtap: 'onItemPklTap'
         },
@@ -129,6 +135,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             viewModel.set('pklSpaceTxt', null);
             viewModel.set('pklRowTxt', null);
         }
+    },
+    onPrintPkl: function () {
+        console.log('onPrintPkl cliked');
+        // popup here
+    },
+    onDeletePkl: function () {
+        console.log('onDeletePkl cliked');
+        // popup here
     },
     onCheck: function(){
         var m = this;

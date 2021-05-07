@@ -133,24 +133,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		pklRecheck_stockindId: null, // kiểm 10% combobox value
 		maPklRecheckFilter: '', // filter field pkl recheck 10%
 		objRecheck: null,
-
-		// textfield
-		// idRecheck: null,
-		// lotnumberTxtRecheck: '',
-		// packageidTxtRecheck: '',
-		// yTxtRecheck: '',
-		// mTxtRecheck: '',
-        // mOriginTxtRecheck: '',
-        // yOriginTxtRecheck: '',
-        // sampleCheckTxtRecheck: '',
-        // colorTxtRecheck: null,
-        // // widthTxtRecheck: '',
-		// grossweightTxtRecheck: '',
-		// grossweightCheckTxtRecheck: '',
-		// widthYdsCheckTxtRecheck: '',
-		// widthYdsTxtRecheck: '',
-		// widthMetCheckTxtRecheck: '',
-		// widthMetTxtRecheck: '',
 	},
 	formulas: {
         isEdit: function (get) {
@@ -204,6 +186,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 			}
 			return true
 		},
+		isobjRecheckSelected: function(get){
+			var objRecheck = get('objRecheck');
+			if(objRecheck == null){
+                return false;
+			}
+			return true
+		}
     },
 
 	

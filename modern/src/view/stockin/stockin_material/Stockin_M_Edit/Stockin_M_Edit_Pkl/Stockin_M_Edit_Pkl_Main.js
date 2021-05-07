@@ -251,7 +251,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                         {
                             xtype:'button',
                             iconCls: 'x-fa fa-print',
-                            // itemId:'',
+                            itemId:'btnPrintPkl',
                             ui: 'action',
                             margin: 1,
                             focusable: false,
@@ -328,7 +328,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                         {
                             xtype:'button',
                             iconCls: 'x-fa fa-trash',
-                            // itemId:'',
+                            itemId:'btnDeletePkl',
                             ui: 'action',
                             margin: 1,
                             focusable: false,

@@ -94,25 +94,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var record = location.record;
         viewModel.set('selectedPklRecheckRecord', record);
         viewModel.set('objRecheck', record.data);
-        console.log(record.data);
-        
-        // viewModel.set('lotnumberTxtRecheck', record.get('lotnumber'));
-        // viewModel.set('packageidTxtRecheck', record.get('packageid'));
-        // viewModel.set('yTxtRecheck', record.get('ydscheck'));
-        // viewModel.set('mTxtRecheck', record.get('met_check'));
-        // viewModel.set('yOriginTxtRecheck', record.get('ydsorigin'));
-        // viewModel.set('mOriginTxtRecheck', record.get('met_origin'));
-        // viewModel.set('colorTxtRecheck', record.get('colorid_link'));
-        // // viewModel.set('widthTxtRecheck', record.get('width_check'));
-        // viewModel.set('grossweightTxtRecheck', record.get('grossweight'));
-        // viewModel.set('grossweightCheckTxtRecheck', record.get('grossweight_check'));
-        // viewModel.set('sampleCheckTxtRecheck', record.get('sample_check'));
-        // viewModel.set('widthYdsCheckTxtRecheck', record.get('width_yds_check'));
-        // viewModel.set('widthYdsTxtRecheck', record.get('width_yds'));
-        // viewModel.set('widthMetCheckTxtRecheck', record.get('width_met_check'));
-        // viewModel.set('widthMetTxtRecheck', record.get('width_met'));
+        // console.log(record);
     },
     onCheckRecheck: function(){
+        var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
@@ -120,22 +105,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         // var selectedDRecord = viewModel.get('selectedDRecord');
         var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
         var objRecheck = viewModel.get('objRecheck');
-
-        // var lotnumberTxt = viewModel.get('lotnumberTxtRecheck');
-        // var packageidTxt = viewModel.get('packageidTxtRecheck');
-        // var yTxt = viewModel.get('yTxtRecheck');
-        // var mTxt = viewModel.get('mTxtRecheck');
-        // var yOriginTxt = viewModel.get('yOriginTxtRecheck');
-        // var mOriginTxt = viewModel.get('mOriginTxtRecheck');
-        // var colorTxt = viewModel.get('colorTxtRecheck');
-        // // var widthTxt = viewModel.get('widthTxtRecheck');
-        // var sampleCheckTxt = viewModel.get('sampleCheckTxtRecheck');
-        // var grossweightTxt = viewModel.get('grossweightTxtRecheck');
-        // var grossweightCheckTxt = viewModel.get('grossweightCheckTxtRecheck');
-        // var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxtRecheck');
-        // var widthYdsTxt = viewModel.get('widthYdsTxtRecheck');
-        // var widthMetCheckTxt = viewModel.get('widthMetCheckTxtRecheck');
-        // var widthMetTxt = viewModel.get('widthMetTxtRecheck');
 
         // check combo đã chọn chưa
         var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
@@ -228,11 +197,46 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         objRecheck.width_yds = parseFloat(Ext.util.Format.number(objRecheck.width_yds, '0.00'));
 
         //
-        console.log(objRecheck);
+        // console.log(objRecheck);
 
-        // thay đổi thông tin obj stockin
-        this.resetFormRecheck();
-        m.getView().down('#packageidTxtRecheck').focus();
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang lưu'
+        })
+
+        var params = new Object();
+        params.data = objRecheck;
+
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/update', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        if(response.message == 'Đã tồn tại cây vải khác có lot và packageid này'){
+                            Ext.toast('Lưu thất bại: ' + response.message, 3000);
+                            me.setMasked(false);
+                        }else{
+                            Ext.toast('Lưu thành công', 3000);
+                            var data = response.data;
+                            me.setMasked(false);
+                            m.reloadStore();
+                            m.resetFormRecheck();
+                            m.getView().down('#packageidTxtRecheck').focus();
+                        }
+                        // console.log(response);
+                    }else{
+                        Ext.toast('Lưu thất bại: ' + response.message, 3000);
+                        me.setMasked(false);
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.toast('Lưu thất bại: ' + response.message, 3000);
+                    me.setMasked(false);
+                }
+        })
+
+        
     },
     onbtnResetFormRecheck: function(){
         var m = this;
@@ -295,10 +299,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 var responseObj = response.data[0];
-                                console.log(responseObj);
+                                // console.log(responseObj);
                                 viewModel.set('objRecheck', responseObj);
                             }
-                            console.log(response);
+                            // console.log(response);
                             me.setMasked(false);
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
