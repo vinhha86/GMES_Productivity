@@ -150,6 +150,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                             iconCls: 'x-fa fa-check',
                             itemId:'btnCheckRecheck',
                             ui: 'action',
+                            bind: {
+                                disabled: '{!isobjRecheckSelected}'
+                            }
                         },   
                     ]
                 },
