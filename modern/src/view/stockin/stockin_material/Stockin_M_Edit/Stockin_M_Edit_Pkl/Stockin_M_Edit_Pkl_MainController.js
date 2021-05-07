@@ -250,7 +250,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.stockindid_link = pkl_stockindId;
         objData.skuid_link = selectedDRecord.get('skuid_link');
         objData.spaceepc_link = spaceepc_link;
-        objData.status = 1;
+        // objData.status = 1;
 
         if(stockin.unitid_link == 3){
             // có y
@@ -301,6 +301,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 
         if(selectedPklRecord != null){
             objData.id = selectedPklRecord.get('id');
+            objData.status = selectedPklRecord.get('status');
             // console.log(selectedPklRecord);
         }
 
