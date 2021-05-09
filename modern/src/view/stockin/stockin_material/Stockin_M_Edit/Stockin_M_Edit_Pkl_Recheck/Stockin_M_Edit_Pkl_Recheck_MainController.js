@@ -69,23 +69,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var lotnumber = viewModel.get('objRecheck.lotnumber');
         viewModel.set('objRecheck', null);
         viewModel.set('objRecheck.lotnumber', lotnumber);
-        
-        // // viewModel.set('lotnumberTxtRecheck', '');
-        // viewModel.set('packageidTxtRecheck', '');
-        // viewModel.set('yTxtRecheck', '');
-        // viewModel.set('mTxtRecheck', '');
-        // viewModel.set('yOriginTxtRecheck', '');
-        // viewModel.set('mOriginTxtRecheck', '');
-        // // viewModel.set('colorTxt', stockinD.colorid_link);
-        // // viewModel.set('widthTxtRecheck', '');
-        // viewModel.set('grossweightTxtRecheck', '');
-        // viewModel.set('grossweightCheckTxtRecheck', '');
-        // viewModel.set('sampleCheckTxtRecheck', '');
-        // viewModel.set('widthYdsCheckTxtRecheck', '');
-        // viewModel.set('widthYdsTxtRecheck', '');
-        // viewModel.set('widthMetCheckTxtRecheck', '');
-        // viewModel.set('widthMetTxtRecheck', '');
-        // // m.getView().down('#packageidTxtRecheck').focus();
     },
     onItemPklRecheckTap: function(list, location, eOpts ){
         var m = this;
@@ -93,8 +76,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
 
         var record = location.record;
         viewModel.set('selectedPklRecheckRecord', record);
-        viewModel.set('objRecheck', record.data);
-        // console.log(record);
+
+        // copy obj
+        var newObjData = JSON.parse(JSON.stringify(record.data));
+        viewModel.set('objRecheck', newObjData);
+
+        // console.log(newObj);
+        // console.log(record.data);
+        console.log(record);
     },
     onCheckRecheck: function(){
         var me = this.getView();
@@ -223,6 +212,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                             m.reloadStore();
                             m.resetFormRecheck();
                             m.getView().down('#packageidTxtRecheck').focus();
+
+                            // bỏ highlight
+                            var grid = me.down('#Stockin_M_Edit_Pkl_Recheck');
+                            grid.getSelectable().deselectAll();
+                            viewModel.set('selectedPklRecheckRecord', null);
+                            //
                         }
                         // console.log(response);
                     }else{
@@ -256,11 +251,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
+        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
 
         var lotnumber = viewModel.get('objRecheck.lotnumber');
         var packageid = viewModel.get('objRecheck.packageid');
 
-        if(
+        // nếu đang chọn 1 record thì edit, ko tìm trên db, return
+        if(selectedPklRecheckRecord != null){
+            return;
+        }
+
+        if( // nếu chưu đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
             lotnumber == null || packageid == null ||
             selectedDRecord == null
@@ -269,7 +270,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             viewModel.set('objRecheck.lotnumber', lotnumber);
             viewModel.set('objRecheck.packageid', packageid);
             return;
-        }else{
+        }else{ // tìm cây vải theo lot và package
             var stockindid_link = selectedDRecord.get('id');
 
             me.setMasked({
@@ -293,16 +294,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                                 viewModel.set('objRecheck', null);
                                 viewModel.set('objRecheck.lotnumber', lotnumber);
                                 viewModel.set('objRecheck.packageid', packageid);
-                                console.log(viewModel.get('objRecheck'));
-                                // console.log(lotnumber);
-                                // console.log(packageid);
+
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 var responseObj = response.data[0];
-                                // console.log(responseObj);
                                 viewModel.set('objRecheck', responseObj);
+
+                                // bỏ highlight
+                                var grid = me.down('#Stockin_M_Edit_Pkl_Recheck');
+                                grid.getSelectable().deselectAll();
+                                // highlight nếu cây vải có trong danh sách 10%
+                                var storeItems = viewModel.getStore('StockinPklRecheckStore').getData().items;
+                                for(var i=0; i<storeItems.length; i++){
+                                    var item = storeItems[i];
+                                    if(item.get('id') == responseObj.id){
+                                        grid.getSelectable().select(item);
+                                        viewModel.set('selectedPklRecheckRecord', item);
+                                        // console.log(item);
+                                    }
+                                }
+                                //
+                                // console.log(responseObj);
                             }
-                            // console.log(response);
                             me.setMasked(false);
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);

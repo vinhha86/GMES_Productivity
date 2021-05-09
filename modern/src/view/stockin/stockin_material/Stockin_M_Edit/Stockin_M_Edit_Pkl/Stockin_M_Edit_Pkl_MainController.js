@@ -122,19 +122,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var spaceepc_link = record.get('spaceepc_link') == null ? '' : record.get('spaceepc_link');
         if(spaceepc_link != ''){ // D1H2T3
             var spaceepc_linkArr = spaceepc_link.split('T');
-            var pklFloorTxt = spaceepc_linkArr[1];
+            var pklFloorTxt = spaceepc_linkArr[1]; if(pklFloorTxt == 'x') pklFloorTxt = null;
             viewModel.set('pklFloorTxt', pklFloorTxt);
             spaceepc_linkArr = spaceepc_linkArr[0].split('H');
-            var pklSpaceTxt = spaceepc_linkArr[1];
+            var pklSpaceTxt = spaceepc_linkArr[1]; if(pklSpaceTxt == 'x') pklSpaceTxt = null;
             viewModel.set('pklSpaceTxt', pklSpaceTxt);
             spaceepc_linkArr = spaceepc_linkArr[0].split('D');
-            var pklRowTxt = spaceepc_linkArr[1];
+            var pklRowTxt = spaceepc_linkArr[1]; if(pklRowTxt == 'x') pklRowTxt = null;
             viewModel.set('pklRowTxt', pklRowTxt);
+
+            // console.log(pklRowTxt);
+            // console.log(pklSpaceTxt);
+            // console.log(pklFloorTxt);
         }else{
             viewModel.set('pklFloorTxt', null);
             viewModel.set('pklSpaceTxt', null);
             viewModel.set('pklRowTxt', null);
         }
+        // console.log(spaceepc_link);  
     },
     onPrintPkl: function () {
         console.log('onPrintPkl cliked');
