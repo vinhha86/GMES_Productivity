@@ -134,17 +134,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         var lotFloor = viewModel.get('lotFloor');
         var lotAmount = viewModel.get('lotAmount');
 
+        var numberOfEmptyField = 0;
         if(lotRow == null || lotRow == ''){
             lotRow = 'x';
+            numberOfEmptyField++;
         }
         if(lotSpace == null || lotSpace == ''){
             lotSpace = 'x';
+            numberOfEmptyField++;
         }
         if(lotFloor == null || lotFloor == ''){
             lotFloor = 'x';
+            numberOfEmptyField++;
         }
         if(lotAmount == null || lotAmount == ''){
             lotAmount = 0;
+        }
+
+        if(numberOfEmptyField !=0 && numberOfEmptyField != 3){
+            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 3000);
+            return;
         }
 
         //

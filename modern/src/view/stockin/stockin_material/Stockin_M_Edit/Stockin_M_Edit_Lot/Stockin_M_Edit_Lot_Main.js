@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_Main', {
             // flex: 1,
             items:[
                 {
-                    xtype: 'numberfield',
+                    xtype: 'textfield',
                     // itemId: 'maNPLFilter',
                     // label: 'Mã hàng:',
                     // labelWidth: 85,

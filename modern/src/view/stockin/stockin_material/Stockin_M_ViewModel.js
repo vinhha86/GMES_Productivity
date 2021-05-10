@@ -127,12 +127,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		pklFloorTxt: null, //tầng
 
 		// Stockin_M_Edit_Pkl_Recheck
-		selectedPklRecheckRecord: null,
+		selectedPklRecheckRecord: null, // pkl đang chọn
 		// storePackinglistRecheckArr: [],
 		// maPklRecheckFilterByMaVai: '',
 		pklRecheck_stockindId: null, // kiểm 10% combobox value
 		maPklRecheckFilter: '', // filter field pkl recheck 10%
-		objRecheck: null,
+		objRecheck: null, // obj chứa các trường thông tin
 	},
 	formulas: {
         isEdit: function (get) {

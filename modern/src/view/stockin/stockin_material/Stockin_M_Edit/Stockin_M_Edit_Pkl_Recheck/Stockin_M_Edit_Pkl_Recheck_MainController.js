@@ -77,13 +77,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var record = location.record;
         viewModel.set('selectedPklRecheckRecord', record);
 
-        // copy obj
+        // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
+        // khi click lên record ở grid sẽ lấy lại giá trị cũ
         var newObjData = JSON.parse(JSON.stringify(record.data));
         viewModel.set('objRecheck', newObjData);
 
         // console.log(newObj);
         // console.log(record.data);
-        console.log(record);
+        // console.log(record);
     },
     onCheckRecheck: function(){
         var me = this.getView();
@@ -337,8 +338,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
     },
 
     reloadStore: function(){
+        var m = this;
         var viewModel = this.getViewModel();
+        var stockinid_link = viewModel.get('stockin.id');
+        var pklRecheck_stockindId = viewModel.get('pkl_stockindId');
+        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
+
         var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
-        StockinPklRecheckStore.load();
+        StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, 2);
+        StockinPklRecheckStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    if(selectedPklRecheckRecord != null){
+                        var stockinpklid_link = selectedPklRecheckRecord.get('id');
+                        var storeItems = StockinPklRecheckStore.getData().items;
+                        for(var i=0; i<storeItems.length; i++){
+                            var item = storeItems[i];
+                            if(item.get('id') == stockinpklid_link){
+                                var grid = m.getView().down('#Stockin_M_Edit_Pkl_Recheck');
+                                grid.getSelectable().select(item);
+                                viewModel.set('selectedPklRecheckRecord', item);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 })
