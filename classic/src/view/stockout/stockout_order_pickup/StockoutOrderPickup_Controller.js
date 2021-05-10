@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_Controller', {
             itemclick: 'onStockoutOrderClick'
         },
         '#btnTimKiem': {
-            click: 'onloadPage'
+            click: 'onSearch'
         }
 	},
     onDestroy:function(){
@@ -85,6 +85,48 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_Controller', {
                     m.onStockout_orderFilterKeyup();
                     m.onOrgFromFilter();
                     m.onOrgToFilter();
+                }
+            }
+        });
+    },
+    onSearch: function () {
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+
+        var stockout_order_code = viewModel.get('stockout_order_code');
+        var stockoutorderdate_from = me.down('#stockoutorderdate_from').getValue();
+		var stockoutorderdate_to = me.down('#stockoutorderdate_to').getValue();
+        var orgid_from_link = me.down('#orgid_from_link').getValue();
+
+        
+        if (stockout_order_code == null) {
+            stockout_order_code = "";
+        }
+
+		if (orgid_from_link == null) {
+            orgid_from_link = 0;
+		}
+		
+		if (status == null) {
+            status = 0;
+        }
+
+        Stockout_order_Store.loadStore_byPage_async(
+            stockoutorderdate_from, stockoutorderdate_to, 1, 1000);
+
+            Stockout_order_Store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (!success) {
+                    this.fireEvent('logout');
+                } 
+                else {
+                    console.log(records);
+                    // var filterField = m.lookupReference('stockout_orderFilter');
+                    // filterField.setValue(stockout_order_code);
+                    // m.onStockout_orderFilterKeyup();
                 }
             }
         });
