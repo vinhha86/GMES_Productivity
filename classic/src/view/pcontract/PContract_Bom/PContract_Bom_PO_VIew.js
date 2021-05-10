@@ -26,21 +26,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
             return val;
         }
     }, {
-        text: 'Ngày giao hàng',
+        text: 'Ngày giao',
         dataIndex: 'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 150
+        width: 100
     }, {
         text: 'Số lượng',
         dataIndex: 'po_quantity',
-        width: 100,
+        width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }, {
         text: 'Cảng đi',
         dataIndex: 'portFrom',
-        width: 200,
+        width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth: 0,
-            value: 'Danh sách PO'
+            value: 'Danh sách PO Line'
         }
         ]
     }]

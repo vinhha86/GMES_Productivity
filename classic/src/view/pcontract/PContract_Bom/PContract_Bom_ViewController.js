@@ -211,6 +211,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 }
             })
     },
+    onFilterValueKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PContractBom2Store_New');
+        var filterField = this.lookupReference('ValueFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.valueFilter = filters.add({
+                id: 'valueFilter',
+                property: 'color_name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.valueFilter) {
+            filters.remove(this.valueFilter);
+            this.valueFilter = null;
+        }
+    },
     onDownTemp: function () {
         var me = this;
         var viewmodel = this.getViewModel();

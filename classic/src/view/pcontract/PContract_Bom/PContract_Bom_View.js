@@ -48,7 +48,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
-        width: 150
+        width: 150,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterField',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
