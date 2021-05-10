@@ -18,6 +18,7 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 				return data.pquantity_production + data.pquantity_sample;
 			}
 		},
+		'pquantity',
 		{ name: 'pquantity_granted', type: 'int' },
 		{ name: 'pquantity_lenhsx', type: 'int' },
 		{
@@ -172,11 +173,12 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 		});
 		// this.load();
 	},
-	loadStoreByPO_and_Product: function (productid_link, pcontract_poid_link) {
+	loadStoreByPO_and_Product: function (productid_link, pcontract_poid_link, material_skuid_link) {
 		var me = this;
 		var params = new Object();
 		params.productid_link = productid_link;
 		params.pcontract_poid_link = pcontract_poid_link;
+		params.material_skuid_link = material_skuid_link;
 
 		this.setProxy({
 			type: 'ajax',
@@ -187,6 +189,36 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl() + '/api/v1/pcontractsku/getby_po_product',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	},
+	loadStoreByPO_and_Product_Material: function (productid_link, pcontract_poid_link, material_skuid_link) {
+		var me = this;
+		var params = new Object();
+		params.productid_link = productid_link;
+		params.pcontract_poid_link = pcontract_poid_link;
+		params.material_skuid_link = material_skuid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontractsku/getby_po_product_linesku',
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,

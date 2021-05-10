@@ -14,7 +14,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_SKUViewCotroller', {
         var viewmodel = this.getViewModel();
     },
     onEdit: function (editor, context, e) {
-        console.log(context);
         if (context.value == context.originalValue) return;
 
         var record = context.record;
@@ -69,8 +68,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_SKUViewCotroller', {
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        var material_skuid_link = viewmodel.get('material_skuid_link');
 
-        storeSku.loadStoreByPO_and_Product(record.data.id, pcontract_poid_link);
+        storeSku.loadStoreByPO_and_Product_Material(record.data.id, pcontract_poid_link, material_skuid_link);
     },
     renderSum: function (value, summaryData, dataIndex) {
         return Ext.util.Format.number(value, '0,000');

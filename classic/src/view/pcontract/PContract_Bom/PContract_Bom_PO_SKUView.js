@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
         width: 65
     }, {
         text: 'Số lượng',
-        dataIndex: 'pquantity_total',
+        dataIndex: 'pquantity',
         width: 80,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {

@@ -61,8 +61,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIewController', {
                         for (var i = 0; i < data.length; i++) {
                             var rec = store.findRecord('skuid_link', data[i].product_skuid_link);
                             grid.getSelectionModel().select(rec, true, true);
-                            rec.set('pquantity_total', data[i].quantity);
+                            data[i].quantity = data[i].quantity == null ? 0 : data[i].quantity;
+                            rec.set('pquantity', data[i].quantity);
                         }
+                        store.commitChanges();
                     }
                 }
             })
@@ -73,8 +75,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIewController', {
 
         var storeSku = viewmodel.getStore('PContractSKUStore');
         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        var material_skuid_link = viewmodel.get('material_skuid_link');
 
-        storeSku.loadStoreByPO_and_Product(rec.data.id, pcontract_poid_link);
+        storeSku.loadStoreByPO_and_Product_Material(rec.data.id, pcontract_poid_link, material_skuid_link);
     },
     onLoadProduct: function (m, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         if (cellIndex == 0) return;
@@ -119,13 +122,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIewController', {
                         var productStore = viewmodel.getStore('PContractProduct_PO_Store');
                         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
                         var product_id_link = viewmodel.get('cmb_productid_link');
+                        var material_skuid_link = viewmodel.get('material_skuid_link');
 
                         if (product_id_link == 0)
                             productStore.loadbyPO(pcontract_poid_link);
                         else {
                             var storeSKU = viewmodel.getStore('PContractSKUStore');
                             storeSKU.removeAll();
-                            storeSKU.loadStoreByPO_and_Product(product_id_link, pcontract_poid_link);
+                            storeSKU.loadStoreByPO_and_Product_Material(product_id_link, pcontract_poid_link, material_skuid_link);
                         }
 
                         grid.up('#PContract_Bom_PO_MainView').fireEvent('SelectDone', record.get('po_buyer'))
@@ -177,13 +181,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIewController', {
                                     var productStore = viewmodel.getStore('PContractProduct_PO_Store');
                                     var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
                                     var product_id_link = viewmodel.get('cmb_productid_link');
+                                    var material_skuid_link = viewmodel.get('material_skuid_link');
 
                                     if (product_id_link == 0)
                                         productStore.loadbyPO(pcontract_poid_link);
                                     else {
                                         var storeSKU = viewmodel.getStore('PContractSKUStore');
                                         storeSKU.removeAll();
-                                        storeSKU.loadStoreByPO_and_Product(product_id_link, pcontract_poid_link);
+                                        storeSKU.loadStoreByPO_and_Product_Material(product_id_link, pcontract_poid_link, material_skuid_link);
                                     }
 
                                     grid.up('#PContract_Bom_PO_MainView').fireEvent('DeSelectDone', record.get('po_buyer'))
