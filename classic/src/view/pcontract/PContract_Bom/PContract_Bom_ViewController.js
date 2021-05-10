@@ -5,6 +5,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#fileUploadBom': {
             change: 'onSelectFile'
         },
+        '#fileUploadBomSizeset': {
+            change: 'onSelectFile_Sizeset'
+        },
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
@@ -16,6 +19,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         },
         '#btn_UploadBomSize': {
             click: 'onUpload'
+        },
+        '#btn_UploadBomSizeSet': {
+            click: 'onUploadSizeset'
         },
         '#btnConfirmBOM': {
             click: 'onConfirmBOM2'
@@ -141,6 +147,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var me = this.getView();
         me.down('#fileUploadBom').fileInputEl.dom.click();
     },
+    onUploadSizeset: function () {
+        var me = this.getView();
+        me.down('#fileUploadBomSizeset').fileInputEl.dom.click();
+    },
     onSelectFile: function (m, value) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
@@ -151,6 +161,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
 
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi', data, 2 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.MessageBox.show({
+                            title: "Có lỗi trong quá trình tải định mức",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    store.load();
+                }
+            })
+    },
+    onSelectFile_Sizeset: function (m, value) {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractid_link', viewmodel.get('PContract.id'));
+        data.append('productid_link', viewmodel.get('IdProduct'));
+
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi_sizeset', data, 2 * 60 * 1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
