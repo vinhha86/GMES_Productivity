@@ -452,7 +452,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                     width: '100%',
                     items:[
                         {
-                            xtype: 'numberfield',
+                            xtype: 'textfield',
                             itemId: 'pklRowTxt',
                             // label: 'Mã hàng:',
                             // labelWidth: 85,

@@ -226,10 +226,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
+        var lot_stockindId = viewModel.get('lot_stockindId');
         var selectedLotRecord = viewModel.get('selectedLotRecord');
 
         var StockinLotStore = viewModel.getStore('StockinLotStore');
-        StockinLotStore.loadStore_byStockinId_async(stockinid_link);
+        StockinLotStore.loadStore_byStockinDId_async(lot_stockindId);
         StockinLotStore.load({
             scope: this,
             callback: function(records, operation, success) {

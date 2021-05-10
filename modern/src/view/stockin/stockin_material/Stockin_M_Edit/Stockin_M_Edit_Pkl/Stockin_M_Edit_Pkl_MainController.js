@@ -91,6 +91,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthYdsTxt', '');
         viewModel.set('widthMetCheckTxt', '');
         viewModel.set('widthMetTxt', '');
+
+        viewModel.set('pklSpaceTxt', null);
+        viewModel.set('pklFloorTxt', null);
         // m.getView().down('#packageidTxt').focus();
 
         myview.setMasked(false);
@@ -212,6 +215,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
 
         // check lotnumber tồn tại
+        // console.log(stockin); console.log(stockin_lot); console.log(lotnumberTxt);
         var isLotnumberExist = stockin_lot.some(
             item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
         );
@@ -316,8 +320,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         m.onUpdate_Print_Pklist(objData);
         viewModel.set('selectedPklRecord', null); // edit xong set selectedPklRecord = null để chuyển thành thêm mới
 
-        this.resetForm();
-        m.getView().down('#packageidTxt').focus();
+        // this.resetForm();
+        // m.getView().down('#packageidTxt').focus();
     },
     
     //hungdaibang code
@@ -349,11 +353,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                             //Reload danh sach Pklist va Reset cac o nhap lieu
                             me.reloadStore();
                             me.resetForm();
+                            myview.down('#packageidTxt').focus();
                         }
+                    }else{
+                        Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
+                        myview.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
+                    myview.setMasked(false);
                 }
         })        
     },
