@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#btndownloadsize': {
             click: 'onDownTemp'
         },
+        '#btndownloadsizeset': {
+            click: 'onDownTempSizeSet'
+        },
         '#btn_UploadBomSize': {
             click: 'onUpload'
         },
@@ -181,6 +184,43 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         me.saveByteArray("Template_Bom_CanDoi.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    onDownTempSizeSet: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.pcontractid_link = viewmodel.get('PContract.id');
+        params.productid_link = viewmodel.get('IdProduct');
+
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_sizeset', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_Bom_CanDoi_SizeSet.xlsx", response.data);
                     }
                     else {
                         Ext.Msg.show({
