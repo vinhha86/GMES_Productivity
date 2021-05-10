@@ -209,9 +209,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         }
 
         // spaceepc_link: khoang cây vải
-        if(pklRowTxt == null || pklRowTxt == '') pklRowTxt = 'x';
-        if(pklSpaceTxt == null || pklSpaceTxt == '') pklSpaceTxt = 'x';
-        if(pklFloorTxt == null || pklFloorTxt == '') pklFloorTxt = 'x';
+        var numberOfEmptyField = 0;
+        if(pklRowTxt == null || pklRowTxt == '') {
+            pklRowTxt = 'x';
+            numberOfEmptyField++;
+        }
+        if(pklSpaceTxt == null || pklSpaceTxt == '') {
+            pklSpaceTxt = 'x';
+            numberOfEmptyField++;
+        }
+        if(pklFloorTxt == null || pklFloorTxt == '') {
+            pklFloorTxt = 'x';
+            numberOfEmptyField++;
+        }
+        if(numberOfEmptyField !=0 && numberOfEmptyField != 3){
+            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 3000);
+            return;
+        }
         var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
 
         // check lotnumber tồn tại
@@ -529,8 +543,35 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
     },
 
     reloadStore: function(){
+        var m = this;
         var viewModel = this.getViewModel();
+        var stockinid_link = viewModel.get('stockin.id');
+        var pkl_stockindId = viewModel.get('pkl_stockindId');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+
         var StockinPklStore = viewModel.getStore('StockinPklStore');
-        StockinPklStore.load();
+        // StockinPklStore.load();
+        StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, -1);
+        StockinPklStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    if(selectedPklRecord != null){
+                        var stockinpklid_link = selectedPklRecord.get('id');
+                        var storeItems = StockinPklStore.getData().items;
+                        for(var i=0; i<storeItems.length; i++){
+                            var item = storeItems[i];
+                            if(item.get('id') == stockinpklid_link){
+                                var grid = m.getView().down('#Stockin_M_Edit_Pkl');
+                                grid.getSelectable().select(item);
+                                viewModel.set('selectedPklRecord', item);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 })

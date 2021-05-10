@@ -54,13 +54,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         var m = this;
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
-        var selectedDRecord = viewModel.get('selectedDRecord');
         var lot_stockindId = viewModel.get('lot_stockindId');
         var pkl_stockindId = viewModel.get('pkl_stockindId');
         var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
 
         switch(value.title){
             case 'DS vải':
+                var selectedDRecord = viewModel.get('selectedDRecord');
                 var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
                 // Stockin_d_Store.loadStore_byStockinId(stockinid_link); // loadStore_byStockinId_async
                 Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
@@ -90,8 +90,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 break;
             case 'Kiểm lot':
                 if(lot_stockindId != null){
+                    var selectedLotRecord = viewModel.get('selectedLotRecord');
                     var StockinLotStore = viewModel.getStore('StockinLotStore');
-                    StockinLotStore.loadStore_byStockinDId(lot_stockindId);
+                    StockinLotStore.loadStore_byStockinDId_async(lot_stockindId);
+                    StockinLotStore.load({
+                        scope: this,
+                        callback: function(records, operation, success) {
+                            if(!success){
+                                this.fireEvent('logout');
+                            } else {
+                                if(selectedLotRecord != null){
+                                    var stockinlotid_link = selectedLotRecord.get('id');
+                                    var storeItems = StockinLotStore.getData().items;
+                                    for(var i=0; i<storeItems.length; i++){
+                                        var item = storeItems[i];
+                                        if(item.get('id') == stockinlotid_link){
+                                            var grid = m.getView().down('#Stockin_M_Edit_Lot');
+                                            grid.getSelectable().select(item);
+                                            viewModel.set('selectedLotRecord', item);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
 
                     var cbbox_lot_stockindId = m.getView().down('#cbbox_lot_stockindId');
                     cbbox_lot_stockindId.setValue(lot_stockindId);
@@ -99,8 +121,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 break;
             case 'Kiểm cây':
                 if(pkl_stockindId != null){
+                    var selectedPklRecord = viewModel.get('selectedPklRecord');
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
-                    StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
+                    // StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
+                    StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, -1);
+                    StockinPklStore.load({
+                        scope: this,
+                        callback: function(records, operation, success) {
+                            if(!success){
+                                this.fireEvent('logout');
+                            } else {
+                                if(selectedPklRecord != null){
+                                    var stockinpklid_link = selectedPklRecord.get('id');
+                                    var storeItems = StockinPklStore.getData().items;
+                                    for(var i=0; i<storeItems.length; i++){
+                                        var item = storeItems[i];
+                                        if(item.get('id') == stockinpklid_link){
+                                            var grid = m.getView().down('#Stockin_M_Edit_Pkl');
+                                            grid.getSelectable().select(item);
+                                            viewModel.set('selectedPklRecord', item);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
 
                     var cbbox_pkl_stockindId = m.getView().down('#cbbox_pkl_stockindId');
                     cbbox_pkl_stockindId.setValue(pkl_stockindId);
@@ -108,8 +153,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 break;
             case 'Kiểm 10%':
                 if(pklRecheck_stockindId != null){
+                    var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
                     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
-                    StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
+                    // StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
+                    StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, 2);
+                    StockinPklRecheckStore.load({
+                        scope: this,
+                        callback: function(records, operation, success) {
+                            if(!success){
+                                this.fireEvent('logout');
+                            } else {
+                                if(selectedPklRecheckRecord != null){
+                                    var stockinpklid_link = selectedPklRecheckRecord.get('id');
+                                    var storeItems = StockinPklRecheckStore.getData().items;
+                                    for(var i=0; i<storeItems.length; i++){
+                                        var item = storeItems[i];
+                                        if(item.get('id') == stockinpklid_link){
+                                            var grid = m.getView().down('#Stockin_M_Edit_Pkl_Recheck');
+                                            grid.getSelectable().select(item);
+                                            viewModel.set('selectedPklRecheckRecord', item);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
 
                     var cbbox_pklRecheck_stockindId = m.getView().down('#cbbox_pklRecheck_stockindId');
                     cbbox_pklRecheck_stockindId.setValue(pklRecheck_stockindId);
