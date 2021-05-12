@@ -66,12 +66,12 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                                 this.fireEvent('logout');
                             } else {
                                 if(selectedPklRecord != null){
-                                    var stockinpklid_link = selectedPklRecord.get('id');
+                                    var id = selectedPklRecord.get('id');
                                     var storeItems = Stockout_order_pkl_Store.getData().items;
                                     for(var i=0; i<storeItems.length; i++){
-                                        var item = storeItems[i];
-                                        if(item.get('id') == stockinpklid_link){
-                                            var grid = m.getView().down('#Stockin_M_Edit_Pkl_Recheck');
+                                        var item = storeItems[i]; console.log(item.get('id'));
+                                        if(item.get('id') == id){
+                                            var grid = m.getView().down('#Stockout_ForCheck_Edit_ToVai');
                                             grid.getSelectable().select(item);
                                             viewModel.set('selectedPklRecord', item);
                                         }
@@ -159,13 +159,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
             direction: 'ASC'
         });
 
-        // var Stockin_M_Edit_Pkl_Recheck = me.down('#Stockin_M_Edit_Pkl_Recheck');
-        // Stockin_M_Edit_Pkl_Recheck.getStore().getSorters().add({
-        //     property: 'lotnumber',
-        //     direction: 'ASC'
-        // },{
-        //     property: 'packageid',
-        //     direction: 'ASC'
-        // });
+        var Stockout_ForCheck_Edit_ToVai = me.down('#Stockout_ForCheck_Edit_ToVai');
+        Stockout_ForCheck_Edit_ToVai.getStore().getSorters().add({
+            property: 'lotnumber',
+            direction: 'ASC'
+        },{
+            property: 'packageid',
+            direction: 'ASC'
+        });
     }
 })
