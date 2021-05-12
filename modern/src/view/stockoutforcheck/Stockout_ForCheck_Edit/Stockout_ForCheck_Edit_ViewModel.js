@@ -1,9 +1,12 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_ViewModel', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockout_ForCheck_Edit_ViewModel',
 	stores:{
 		Stockout_order_d_store:{
 			type :'Stockout_order_d_store'
+		},
+        Stockout_order_pkl_Store:{
+			type :'Stockout_order_pkl_Store'
 		},
 	},
 	data: {
@@ -11,20 +14,20 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_ViewModel', {
 			id: null
 		},
 
-		// Stockin_M_Edit_D
+		// Stockout_ForCheck_Edit_D
 		selectedDRecord: null, // loại vải đang chọn
 
-		// Stockin_M_Edit_Pkl_Recheck
-		selectedPklRecheckRecord: null, // pkl đang chọn
-		pklRecheck_stockindId: null, // kiểm 10% combobox value
-		maPklRecheckFilter: '', // filter field pkl recheck 10%
-		objRecheck: null, // obj chứa các trường thông tin
+		// Stockout_ForCheck_Edit_ToVai
+        selectedPklRecord: null, // pkl đang chọn
+		pkl_stockout_order_dId: null, // combobox value, hidden
+		maPklFilter: '', // filter field pkl
+		objPkl: null, // obj chứa các trường thông tin
 
 		//
 	},
 	formulas: {
         isEdit: function (get) {
-            if (get('stockin.id') == 0 || get('stockin.id') == null) {
+            if (get('stockin.id') == 0 || get('stockout_order.id') == null) {
                 return false
             }
             else {
@@ -32,18 +35,18 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_ViewModel', {
             }
         },
 		isBtnConfirmHidden: function (get) {
-            if (get('stockin.status') == 1) {
+            if (get('stockout_order.status') == 1) {
                 return true;
-            }else if (get('stockin.status') == 0) {
+            }else if (get('stockout_order.status') == 0) {
                 return false;
             }else {
                 return true;
             }
         },
 		isMetColumnHidden: function (get) {
-            var unitid_link = get('stockin.unitid_link');
+            var unitid_link = get('stockout_order.unitid_link');
             if(unitid_link == null){
-                return true;
+                return false;
             }else 
             if(unitid_link == 1){
                 return false;
@@ -51,7 +54,7 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_ViewModel', {
             return true;
         },
         isYdsColumnHidden: function (get) {
-            var unitid_link = get('stockin.unitid_link');
+            var unitid_link = get('stockout_order.unitid_link');
             if(unitid_link == null){
                 return true;
             }else 

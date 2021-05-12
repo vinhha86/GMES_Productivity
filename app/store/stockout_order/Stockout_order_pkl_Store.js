@@ -30,6 +30,71 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_pkl_Store', {
 			}
 		});
 		this.load();
+	},
+
+	loadStore_byStockout_orderDId: function(stockoutorderdid_link){
+		var me=this;
+		var params = new Object();
+		params.stockoutorderdid_link = stockoutorderdid_link;
+		
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockoutorder_pkl/getByStockoutOrderDId',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				totalProperty: 'totalCount'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
+	loadStore_byStockout_orderDId_async: function(stockoutorderdid_link){
+		var me=this;
+		var params = new Object();
+		params.stockoutorderdid_link = stockoutorderdid_link;
+		
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockoutorder_pkl/getByStockoutOrderDId',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				totalProperty: 'totalCount'
+			}
+		});
 	}
 
 });

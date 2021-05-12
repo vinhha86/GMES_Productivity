@@ -133,7 +133,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
                         flex: 1,
                     }]
                 },
-            ]
+            ],
+            // tabBar: {
+            //     items: [{
+            //         flex: 1,
+            //     },{
+            //         xtype: 'button',
+            //         iconCls: 'x-fa fa-angle-double-up',
+            //         ui: 'action',
+            //         // setActive: function (active) {
+            //         //     this.setPressed(active);
+            //         // },
+            //         handler: function () {
+            //             console.log('clicked');
+            //         }
+            //     },{
+            //         xtype: 'button',
+            //         iconCls: 'x-fa fa-angle-double-down',
+            //         ui: 'action',
+            //         // setActive: function (active) {
+            //         //     this.setPressed(active);
+            //         // },
+            //         handler: function () {
+            //             console.log('clicked');
+            //         },
+            //         hidden: true,
+            //         style: 'border: 0px'
+            //     }]
+            // },
         }
     ],
     tbar: [

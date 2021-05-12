@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_D_MainController', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D_MainController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockout_ForCheck_Edit_D_MainController',
 	init: function () {
@@ -16,40 +16,34 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_D_MainController', {
 		var viewModel = this.getViewModel();
 		viewModel.set('selectedDRecord', record);
 
-        this.setComboPklRecheck();
+        this.setComboPkl();
     },
-    setComboPklRecheck: function(){
+    setComboPkl: function(){
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
-        viewModel.set('pklRecheck_stockindId', selectedDRecord.get('id'));
+        viewModel.set('pkl_stockout_order_dId', selectedDRecord.get('id'));
     },
     reloadStore: function(){
         var m = this;
         var viewModel = this.getViewModel();
-        var stockinid_link = viewModel.get('stockin.id');
-        var selectedDRecord = viewModel.get('selectedDRecord');
+        var stockoutorderid_link = viewModel.get('stockout_order.id');
 
-        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-        Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
-        Stockin_d_Store.load({
+        var Stockout_order_d_store = viewModel.getStore('Stockin_d_Store');
+        Stockout_order_d_store.loadStore_byStockout_orderId_async(stockoutorderid_link);
+        Stockout_order_d_store.load({
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
                     this.fireEvent('logout');
                 } else {
-                    if(selectedDRecord != null){
-                        var storeItems = Stockin_d_Store.getData().items;
-                        for(var i=0; i<storeItems.length; i++){
-                            var item = storeItems[i];
-                            if(item.get('id') == selectedDRecord.get('id')){
-                                var grid = m.getView().down('#Stockin_M_Edit_D');
-                                grid.getSelectable().select(item);
-                                viewModel.set('selectedDRecord', item);
-                                viewModel.set('lot_stockindId', item.get('id'));
-                                viewModel.set('pkl_stockindId', item.get('id'));
-                                viewModel.set('pklRecheck_stockindId', item.get('id'));
-                            }
-                        }
+                    var storeItems = Stockout_order_d_store.getData().items;
+                    for(var i=0; i<storeItems.length; i++){
+                        var item = storeItems[i];
+                        var grid = m.getView().down('#Stockout_ForCheck_Edit_D');
+                        grid.getSelectable().deselectAll();
+                        grid.getSelectable().select(item);
+                        viewModel.set('selectedDRecord', item);
+                        viewModel.set('pkl_stockout_order_dId', item.get('id'));
                     }
                 }
             }

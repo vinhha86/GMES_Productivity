@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_MainViewModel', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockout_ForCheck_MainViewModel',
 	stores:{

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_D_Main', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockout_ForCheck_Edit_D_Main',
     id: 'Stockout_ForCheck_Edit_D_Main',

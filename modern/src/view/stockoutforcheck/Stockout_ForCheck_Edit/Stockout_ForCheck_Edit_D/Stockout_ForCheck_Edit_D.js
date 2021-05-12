@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_D', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D', {
     extend: 'Ext.dataview.DataView',
     xtype: 'Stockout_ForCheck_Edit_D',
     itemId: 'Stockout_ForCheck_Edit_D',
@@ -28,24 +28,26 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_D', {
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayM(values)]}>' +
-                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài phiếu:</div>'+ // M
+                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài y/cầu:</div>'+ // M
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmet}</div>' +
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài kiểm:</div>'+ // M
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmetcheck}</div>' +
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayY(values)]}>' +
-                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài phiếu:</div>'+ // Y
+                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài y/cầu:</div>'+ // Y
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalyds}</div>' +
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài kiểm:</div>'+ // Y
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydscheck}</div>' +
                 '</div>' +
 
-                '<div class="content2">'+
-                    '<div class="content2-sub1">Lot:</div>'+
-                    '<div class="content2-sub2">{[this.getStockinDLotUpperCase(values)]}</div>' +
-                    // '<div class="content2-sub2">{stockinDLot}</div>' +
+                '<div class="content1" style={[this.getDisplayM(values)]}>' +
+                    '<div class="content1-sub1">Cây y/cầu:</div>'+ // M
+                    '<div class="content1-sub1">{totalpackage}</div>' +
+                    '<div class="content1-sub1">Cây kiểm:</div>'+ // M
+                    '<div class="content1-sub1">{totalpackagecheck}</div>' +
                 '</div>' +
+
             '</div>',
         '</tpl>'
         , {

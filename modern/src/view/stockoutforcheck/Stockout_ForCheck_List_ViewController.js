@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_List_ViewController', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_List_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_ForCheck_List_ViewController',
     isActivate: false,

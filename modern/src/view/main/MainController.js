@@ -8,6 +8,11 @@ Ext.define('GSmartApp.view.main.MainController', {
                 unmatchedroute : 'onRouteChange'
             }
         },
+        store: {
+            '*' : {
+                'logout' : 'onLogout'
+            }
+        },
         global: {
             navigationback: 'onNavigationBack'
         }
@@ -238,8 +243,10 @@ Ext.define('GSmartApp.view.main.MainController', {
         if (Ext.os.deviceType === 'Phone' || Ext.os.deviceType === 'Tablet') {
             //Ext.getCmp('app-main').destroy();
             //Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
-            this.redirectTo('');
-            window.location.reload();
+            // this.redirectTo('');
+            // window.location.reload();
+            this.getView().destroy();
+            Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
         } else {
             this.getView().destroy();
             Ext.create({

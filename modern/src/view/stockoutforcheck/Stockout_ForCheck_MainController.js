@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_MainController', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_ForCheck_MainController',
     init: function() {

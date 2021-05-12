@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
     extend: 'Ext.form.Panel',
     xtype: 'stockoutforcheckmain_edit',
     id: 'stockoutforcheckmain_edit',
@@ -19,6 +19,76 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit', {
     ],
 
     items: [
+        {
+            xtype: 'container',
+            layout: 'hbox',
+            items: [
+                {
+                    layout: 'vbox',
+                    flex: 1,
+                    items: [
+                        // {
+                        //     layout: 'hbox',
+                        //     flex: 1,
+                        //     defaults: {
+                        //         margin: 1
+                        //     },
+                        //     items: [{
+                        //         xtype: 'combobox',
+                        //         // reference: 'cboorgto',
+                        //         editable: false,
+                        //         readOnly: true,
+                        //         cls: 'notEditable',
+                        //         bind:{
+                        //             store:'{OrgFromStore}',
+                        //             value:'{stockin.orgid_from_link}'
+                        //         },
+                        //         displayField: 'name',
+                        //         valueField: 'id',
+                        //         label: 'Nơi giao:',
+                        //         // disabled: true,
+                        //         labelWidth: 85,
+                        //         flex: 1,
+                        //     }]
+                        // },
+                        {
+                            layout: 'hbox',
+                            flex: 1,
+                            defaults: {
+                                margin: 1
+                            },
+                            items: [{
+                                xtype: 'textfield',
+                                label: 'Nơi nhận:',
+                                labelWidth: 85,
+                                flex: 1,
+                                textAlign: 'left',
+                                editable: false,
+                                readOnly: true,
+                                clearable: false,
+                                cls: 'notEditable',
+                                bind: {
+                                    value: '{stockout_order.org_to_name}'
+                                }
+                            },{
+                                xtype: 'textfield',
+                                label: 'Đ/vị tính:',
+                                labelWidth: 85,
+                                flex: 1,
+                                textAlign: 'left',
+                                editable: false,
+                                readOnly: true,
+                                clearable: false,
+                                cls: 'notEditable',
+                                bind: {
+                                    value: '{stockout_order.unitName}'
+                                }
+                            }]
+                        },
+                    ]
+                }
+            ]
+        },
         {
             xtype: 'tabpanel',
             itemId: 'TabView',
@@ -41,7 +111,7 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit', {
                     layout: 'hbox',
                     flex: 1,
                     items:[{
-                        // xtype: 'Stockout_ForCheck_Edit_ToVai_Main',
+                        xtype: 'Stockout_ForCheck_Edit_ToVai_Main',
                         flex: 1,
                     }]
                 },

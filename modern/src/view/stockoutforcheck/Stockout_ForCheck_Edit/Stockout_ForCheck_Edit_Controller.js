@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_Controller', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_ForCheck_Edit_Controller',
 	init: function() {
@@ -20,69 +20,60 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_Controller', {
         '#btnHome':{
             tap: 'onBtnHomeTap'
         },
-        // '#TabView':{
-        //     activeItemchange: 'onTabViewActiveItemchange'
-        // },
+        '#TabView':{
+            activeItemchange: 'onTabViewActiveItemchange'
+        },
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         var m = this;
         var viewModel = this.getViewModel();
-        var stockinid_link = viewModel.get('stockin.id');
-        var lot_stockindId = viewModel.get('lot_stockindId');
-        var pkl_stockindId = viewModel.get('pkl_stockindId');
-        var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
+        var stockoutorderid_link = viewModel.get('stockout_order.id');
+        var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
 
         switch(value.title){
             case 'DS vải':
                 var selectedDRecord = viewModel.get('selectedDRecord');
-                var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-                // Stockin_d_Store.loadStore_byStockinId(stockinid_link); // loadStore_byStockinId_async
-                Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
-                Stockin_d_Store.load({
+                var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+                Stockout_order_d_store.loadStore_byStockout_orderId_async(stockoutorderid_link);
+                Stockout_order_d_store.load({
                     scope: this,
                     callback: function(records, operation, success) {
                         if(!success){
                             this.fireEvent('logout');
                         } else {
-                            if(selectedDRecord != null){
-                                var storeItems = Stockin_d_Store.getData().items;
-                                for(var i=0; i<storeItems.length; i++){
-                                    var item = storeItems[i];
-                                    if(item.get('id') == selectedDRecord.get('id')){
-                                        var grid = m.getView().down('#Stockin_M_Edit_D');
-                                        grid.getSelectable().select(item);
-                                        viewModel.set('selectedDRecord', item);
-                                        viewModel.set('lot_stockindId', item.get('id'));
-                                        viewModel.set('pkl_stockindId', item.get('id'));
-                                        viewModel.set('pklRecheck_stockindId', item.get('id'));
-                                    }
-                                }
+                            var storeItems = Stockout_order_d_store.getData().items;
+                            for(var i=0; i<storeItems.length; i++){
+                                var item = storeItems[i];
+                                var grid = m.getView().down('#Stockout_ForCheck_Edit_D');
+                                grid.getSelectable().deselectAll();
+                                grid.getSelectable().select(item);
+                                viewModel.set('selectedDRecord', item);
+                                viewModel.set('pkl_stockout_order_dId', item.get('id'));
                             }
                         }
                     }
                 });
                 break;
-            case 'Kiểm 10%':
-                if(pklRecheck_stockindId != null){
-                    var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
-                    var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
-                    // StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
-                    StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, 2);
-                    StockinPklRecheckStore.load({
+            case 'Tở vải':
+                if(pkl_stockout_order_dId != null){
+                    var selectedPklRecord = viewModel.get('selectedPklRecord');
+                    var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
+                    Stockout_order_pkl_Store.loadStore_byStockout_orderDId_async(pkl_stockout_order_dId);
+                    Stockout_order_pkl_Store.load({
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
                                 this.fireEvent('logout');
                             } else {
-                                if(selectedPklRecheckRecord != null){
-                                    var stockinpklid_link = selectedPklRecheckRecord.get('id');
-                                    var storeItems = StockinPklRecheckStore.getData().items;
+                                if(selectedPklRecord != null){
+                                    var stockinpklid_link = selectedPklRecord.get('id');
+                                    var storeItems = Stockout_order_pkl_Store.getData().items;
                                     for(var i=0; i<storeItems.length; i++){
                                         var item = storeItems[i];
                                         if(item.get('id') == stockinpklid_link){
                                             var grid = m.getView().down('#Stockin_M_Edit_Pkl_Recheck');
                                             grid.getSelectable().select(item);
-                                            viewModel.set('selectedPklRecheckRecord', item);
+                                            viewModel.set('selectedPklRecord', item);
                                         }
                                     }
                                 }
@@ -90,8 +81,8 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_Controller', {
                         }
                     });
 
-                    var cbbox_pklRecheck_stockindId = m.getView().down('#cbbox_pklRecheck_stockindId');
-                    cbbox_pklRecheck_stockindId.setValue(pklRecheck_stockindId);
+                    var cbbox_pkl_stockout_order_dId = m.getView().down('#cbbox_pkl_stockout_order_dId');
+                    cbbox_pkl_stockout_order_dId.setValue(pkl_stockout_order_dId);
                 }
                 break;
             default: 
@@ -102,14 +93,33 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_Controller', {
     onBtnHomeTap: function(){
         this.redirectTo("mobilemenu");
     },
-    onLoadData:function(id,type){
-        console.log('onLoadData: ' + id + ' ' + type);
+    onLoadData:function(id){
+        var m = this;
         var viewModel = this.getViewModel();
 
         this.getInfo(id);
         // load store các tab
         var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
-        Stockout_order_d_store.loadStore_byStockout_orderId(id);
+        Stockout_order_d_store.loadStore_byStockout_orderId_async(id);
+        Stockout_order_d_store.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    var storeItems = Stockout_order_d_store.getData().items;
+                    for(var i=0; i<storeItems.length; i++){
+                        var item = storeItems[i];
+                        var grid = m.getView().down('#Stockout_ForCheck_Edit_D');
+                        grid.getSelectable().deselectAll();
+                        grid.getSelectable().select(item);
+                        viewModel.set('selectedDRecord', item);
+                        viewModel.set('pkl_stockout_order_dId', item.get('id'));
+                    }
+                }
+            }
+        });
+
     },
     onBackPage: function(){
         // console.log('onBackPage');
@@ -123,10 +133,15 @@ Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Edit_Controller', {
         params.id = id ;
         GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/stockoutorder_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
-            var response = Ext.decode(response.responseText); console.log(response);
+            var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
                 var data = response.data;
 
+                if(data.unitid_link == null) { // nếu đơn vị tính là null -> met
+                    data.unitid_link = 1; 
+                    data.unitname = "MÉT";
+                    data.unitName = "MÉT";
+                }
                 viewModel.set('stockout_order', data);
 
                 setTimeout(function(){

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockout_ForCheck_Main', {
+Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Main', {
     extend: 'Ext.Container',
     xtype: 'stockoutforcheckmain',
     id: 'stockoutforcheckmain',
