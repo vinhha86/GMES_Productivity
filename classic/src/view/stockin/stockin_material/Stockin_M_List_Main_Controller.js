@@ -6,6 +6,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
+		var UnitStore = viewmodel.getStore('UnitStore');
+		UnitStore.loadStore();
 
         var stockintype = viewmodel.getStore('StockinTypeStore');
         stockintype.loadStore();
@@ -63,7 +65,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         }
     },
     onSearch: function () {
-        console.log('Searching');
+        // console.log('Searching');
         var me = this.getView();
         var t = this;
 
@@ -76,9 +78,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
         var status = [];
-        status[0]=0;
-        status[1]=1;
-        status[2]=2;
+        status[0] = 0;
+        status[1] = 1;
+        status[2] = 2;
 
         // var page = store.currentPage;
 

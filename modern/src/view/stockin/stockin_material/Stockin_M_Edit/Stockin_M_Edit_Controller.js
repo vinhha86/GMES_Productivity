@@ -501,6 +501,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             }
         }
 
+        //Doi ve trang thai "Dang kiem tra"
+        stockin.status = 0;
+        
         params.data.push(stockin);
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
             function (success, response, options) {

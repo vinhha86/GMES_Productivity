@@ -24,10 +24,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_MainController', {
         var viewId = viewModel.get('viewId');
         var fromDate = this.lookupReference('fromDate').getValue();
         var toDate = this.lookupReference('toDate').getValue();
-
+        var status = [];
+        status[0]=-1;
+        status[1]=0;
         var StockinStore = viewModel.getStore('StockinStore');
         // StockinStore.loadStore(null, fromDate, toDate, null, -1, 100, 1);
-        StockinStore.loadStore_Material(null, fromDate, toDate, null, -1, null, 100, 1);
+        StockinStore.loadStore_Material(null, fromDate, toDate, null, status, null, 100, 1);
         StockinStore.getSorters().add({
             property: 'stockindate',
             direction: 'DESC'
