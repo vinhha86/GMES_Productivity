@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_View', {
+Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_Color_View', {
     extend: 'Ext.grid.Panel',
     xtype: 'PorderBom_Color_View',
     controller: 'PorderBom_Color_ViewCotroller',
-    colorid_link : 0,
+    colorid_link: 0,
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -14,20 +14,20 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_View', {
             clicksToEdit: 1,
             listeners: {
                 edit: 'onEdit'
-            } 
+            }
         }
     },
     features: [{
         id: 'grouping',
-        ftype:'grouping',
+        ftype: 'grouping',
         groupHeaderTpl: '{name}',
         collapseTip: "",
-        expandTip:""
+        expandTip: ""
     }],
-    bind:{
-        store:'{POrderBomColorStore}'
+    bind: {
+        store: '{POrderBomColorStore}'
     },
-    columns:[{
+    columns: [{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
@@ -36,23 +36,23 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_View', {
         text: 'Mã NPL',
         dataIndex: 'materialCode',
         width: 120
-    },{
+    }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
         width: 150
-    },{
+    }, {
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
         width: 80
-    },{
+    }, {
         text: 'Cỡ khổ',
         dataIndex: 'coKho',
         width: 80
-    },{
+    }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -66,42 +66,42 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_View', {
         width: 70,
         xtype: 'numbercolumn',
         format: '0.000',
-        editor:{
-            xtype:'textfield',
+        editor: {
+            xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            return value+" %";
+            return value + " %";
         }
-    },{
+    }, {
         text: 'Chung',
         dataIndex: 'amount',
         width: 65,
         xtype: 'numbercolumn',
         format: '0.0000',
-        editor:{
-            xtype:'textfield',
+        editor: {
+            xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            if(value ==0) return "";
+            if (value == 0) return "";
             return Ext.util.Format.number(value, '0.0000')
         }
-    },{
+    }, {
         text: 'Màu',
         dataIndex: 'amount_color',
         width: 65,
         xtype: 'numbercolumn',
         format: '0.0000',
-        editor:{
-            xtype:'textfield',
+        editor: {
+            xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            if(value ==0) return "";
+            if (value == 0) return "";
             return Ext.util.Format.number(value, '0.0000')
         }
     }]

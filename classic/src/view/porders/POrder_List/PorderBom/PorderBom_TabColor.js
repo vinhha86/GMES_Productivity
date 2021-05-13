@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor', {
+Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_TabColor', {
     extend: 'Ext.tab.Panel',
     xtype: 'PorderBom_TabColor',
     id: 'PorderBom_TabColor',
@@ -10,23 +10,23 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor', {
         border: true,
         height: 45,
         style: "background-color : white",
-        items:[
+        items: [
             {
-                xtype:'button',
-                text:'Đồng bộ định mức cân đối',
+                xtype: 'button',
+                text: 'Đồng bộ định mức cân đối',
                 margin: 3,
                 itemId: 'btnDongBo',
                 iconCls: 'x-fa fa-refresh',
             },
             {
-                xtype:'button',
+                xtype: 'button',
                 text: 'Chốt định mức',
-                itemId:'btnConfirmBOM_POrder',
+                itemId: 'btnConfirmBOM_POrder',
                 // ui: 'header',
                 tooltip: 'Chốt định mức sản xuất',
                 iconCls: 'x-fa fa-check greenIcon',
                 // handler: 'onFactoriesTap',
-            }               
+            }
         ]
     }]
 })

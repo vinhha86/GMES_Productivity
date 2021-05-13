@@ -3,8 +3,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
     alias: 'viewmodel.POrder_List_DetailViewModel',
     requires: [
         'GSmartApp.store.porder.POrder_ListStatusStore',
-        'GSmartApp.store.porder.POrder_ListVendorStore', 
-        'GSmartApp.store.porder.POrder_ListBuyerStore', 
+        'GSmartApp.store.porder.POrder_ListVendorStore',
+        'GSmartApp.store.porder.POrder_ListBuyerStore',
         'GSmartApp.store.porder.POrder_ListStore',
         'GSmartApp.store.porder.porderSKUStore',
         'GSmartApp.store.porder.POrder_ListGrantStore',
@@ -47,6 +47,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         POrderBomColorStore: {
             type: 'POrderBomColorStore'
         },
+        POrderBom2Store: {
+            type: 'POrderBomColorStore'
+        },
         PorderSewingCostStore: {
             type: 'PorderSewingCostStore'
         },
@@ -66,12 +69,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
             type: 'PContractSKUStore'
         }
     },
-    data:{
+    data: {
         IdPOrder: null,
         IdGrant: null,
         IdPContractPO: null,
         POrder_grant: null,
-        isEditSL : false,
+        isEditSL: false,
         //
         grantSKUViewTabInfoTitle: 'Chi tiết màu, cỡ',
         //

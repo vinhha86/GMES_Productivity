@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_TabColor_ViewController', {
+Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_TabColor_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PorderBom_TabColor_ViewController',
     init: function () {

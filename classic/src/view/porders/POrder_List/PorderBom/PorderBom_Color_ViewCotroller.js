@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
+Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_Color_ViewCotroller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PorderBom_Color_ViewCotroller',
     init: function () {
@@ -9,11 +9,11 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
         var grid = this.getView();
         var length = 10
         for (var i = 0; i < grid.headerCt.items.length; i++) {
-            if (i > length -1 ) {
+            if (i > length - 1) {
                 grid.headerCt.remove(i);
                 i--;
             }
-        }      
+        }
         var listtitle = [];
         var listid = [];
 
@@ -36,9 +36,9 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
                             listtitle.push(data.coSanPham);
                         }
                     }
-            
+
                     for (var i = 0; i < listtitle.length; i++) {
-            
+
                         var column = Ext.create('Ext.grid.column.Number', {
                             text: listtitle[i],
                             xtype: 'numbercolumn',
@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
                         grid.headerCt.insert(length, column);
                         length++;
                     }
-            
+
                     var storeBOM = grid.getStore();
 
                     var model = storeBOM.getModel();
@@ -69,19 +69,19 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
                             model.removeFields(fields[i].name);
                         }
                     }
-            
+
                     var fieldnew = [];
                     for (var i = 0; i < listid.length; i++) {
                         fieldnew.push({ name: listid[i], type: 'number' });
                     }
-            
+
                     model.addFields(fieldnew);
                 }
             })
     },
     onEdit: function (editor, context, e) {
         var viewmodel = this.getViewModel();
-        if(context.value == context.originalValue){
+        if (context.value == context.originalValue) {
             var store = viewmodel.getStore('POrderBomColorStore');
             store.rejectChanges();
             return;
@@ -98,9 +98,9 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
         else if (context.field == "lost_ratio") {
             me.updateBOM(context.record, false);
         }
-        else{ 
-             me.updateSKU(context);
-         }
+        else {
+            me.updateSKU(context);
+        }
     },
     updateColumnSize: function (record) {
         var me = this;
@@ -136,11 +136,11 @@ Ext.define('GSmartApp.view.porders.PorderBom.PorderBom_Color_ViewCotroller', {
                         store.rejectChanges();
                     }
                     else {
-                        if(isupdateBom){
+                        if (isupdateBom) {
                             me.updateColumnSize(record);
                             record.set("amount_color", 0);
                         }
-                        
+
                         store.commitChanges();
                     }
                 }
