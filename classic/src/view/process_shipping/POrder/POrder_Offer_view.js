@@ -59,7 +59,8 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
         },
         {
             text: 'Phân xưởng',
-            width: 90
+            width: 90,
+            dataIndex: 'granttoorgcode'
         },
         {
             text: 'SL',

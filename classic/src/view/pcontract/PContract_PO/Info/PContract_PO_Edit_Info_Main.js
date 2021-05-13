@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
                 },
                 {
                     region: 'east',
-                    width: 0,
+                    width: 270,
                     xtype: 'PContract_PO_Edit_Porder_Req',
                     itemId: 'PContract_PO_Edit_Porder_Req',
                     border: true,
