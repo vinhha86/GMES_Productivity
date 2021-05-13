@@ -94,12 +94,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			format: GSmartApp.util.State.get('dataFormat'),
 			altFormats: "Y-m-d\\TH:i:s.uO",
 			bind: {
-				value: '{order.timecreate}'
+				value: '{order.orderdate}'
 			},
-			readOnly: true,
+			editable: false,
 			labelWidth: 85,
 			flex: 1,
-			fieldLabel: "Ngày lập"
+			fieldLabel: "Ngày xuất"
 		}]
 	}, {
 		layout: 'hbox',

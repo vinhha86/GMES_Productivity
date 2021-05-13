@@ -72,6 +72,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             }
         },
         {
+            text: 'SL cây giữ',
+            dataIndex: 'socaygiu',
+            width: 80,
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value;
+                return value;
+            }
+        },
+        {
             text: 'SL YC',
             dataIndex: 'totalyds',
             width: 80,

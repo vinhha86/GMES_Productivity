@@ -23,6 +23,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         if (order.id == null) {
             var sesion = GSmartApp.util.State.get('session');
             viewmodel.set('order.timecreate', new Date());
+            viewmodel.set('order.orderdate', new Date());
             viewmodel.set('order.usercreateid_link', sesion.id);
             viewmodel.set('order.unitid_link', 1); //1 = met; 3 = yard
         }

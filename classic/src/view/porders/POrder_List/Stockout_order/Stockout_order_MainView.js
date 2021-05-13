@@ -6,13 +6,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_Mai
     layout: 'border',
     items: [{
         region: 'south',
-        xtype: 'Stockout_list_DetailView',
+        xtype: 'Stockout_order_list_DetailView',
         margin: 1,
         border: true,
         height: '40%'
     }, {
         region: 'center',
-        xtype: 'Stockout_list_View',
+        xtype: 'Stockout_order_list_View',
         border: true,
         margin: 1
     }]

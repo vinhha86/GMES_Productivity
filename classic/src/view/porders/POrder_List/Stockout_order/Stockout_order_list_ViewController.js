@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_ViewController', {
+Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_list_ViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_list_ViewController',
+    alias: 'controller.Stockout_order_list_ViewController',
     init: function () {
     },
     control: {
@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
         '#btnThemMoi_Stockout_order_PL': {
             click: 'onThemMoiPL'
         },
-        'Stockout_list_View': {
+        'Stockout_order_list_View': {
             itemclick: 'onItemClick',
             itemdblclick: 'onEdit'
         }
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
         });
 
         form.down('#Stockout_Detail_View').getController().on('Save', function () {
-            var store = view.getStore('Stockout_order_Store');
+            var store = viewmodel.getStore('Stockout_order_Store');
             store.load();
         });
     },
@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
         });
 
         form.down('#Stockout_Detail_View').getController().on('Save', function () {
-            var store = view.getStore('Stockout_order_Store');
+            var store = viewmodel.getStore('Stockout_order_Store');
             store.load();
         });
     },
@@ -144,7 +144,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
         });
 
         form.down('#Stockout_Detail_View').getController().on('Save', function () {
-            var store = view.getStore('Stockout_order_Store');
+            var store = viewmodel.getStore('Stockout_order_Store');
             store.load();
         });
     }
