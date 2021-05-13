@@ -56,6 +56,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
         form.down('#Stockout_Detail_View').getController().on('Thoat', function () {
             form.close();
         });
+
+        form.down('#Stockout_Detail_View').getController().on('Save', function () {
+            var store = view.getStore('Stockout_order_Store');
+            store.load();
+        });
     },
     onThemMoiPL: function () {
         var viewmodel = this.getViewModel();
@@ -95,6 +100,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             store.load();
             form.close();
         });
+
+        form.down('#Stockout_Detail_View').getController().on('Save', function () {
+            var store = view.getStore('Stockout_order_Store');
+            store.load();
+        });
     },
     onThemMoiNL: function () {
         var viewmodel = this.getViewModel();
@@ -131,6 +141,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
 
         form.down('#Stockout_Detail_View').getController().on('Thoat', function () {
             form.close();
+        });
+
+        form.down('#Stockout_Detail_View').getController().on('Save', function () {
+            var store = view.getStore('Stockout_order_Store');
+            store.load();
         });
     }
 })

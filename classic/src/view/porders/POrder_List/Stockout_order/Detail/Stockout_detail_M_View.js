@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 		items: [{
 			xtype: 'combo',
 			valueField: 'id',
-			displayField: 'name',
+			displayField: 'name_andParent',
 			bind: {
 				value: '{order.orgid_from_link}',
 				store: '{OrgFromStore}',
@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 		}, {
 			xtype: 'combo',
 			valueField: 'id',
-			displayField: 'name',
+			displayField: 'name_andParent',
 			bind: {
 				value: '{order.orgid_to_link}',
 				store: '{OrgToStore}'

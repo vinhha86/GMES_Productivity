@@ -80,6 +80,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                         });
                         viewmodel.set('order.id', res.id);
                         me.getInfo(res.id);
+                        me.fireEvent('Save');
                     }
                 } else {
                     Ext.Msg.show({
