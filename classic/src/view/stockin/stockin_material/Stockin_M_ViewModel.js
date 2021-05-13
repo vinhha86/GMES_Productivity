@@ -44,6 +44,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		StockinD_Store:{
 			type: 'Stockin_d_Store'
 		},
+		Stockin_Order_Store: {
+			type: 'StockinStore'
+		},
+		Stockin_Order_D_Store:{
+			type: 'Stockin_d_Store'
+		},
 		StockinProduct_Store:{
 			type: 'Stockin_product_Store'
 		},
@@ -59,6 +65,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		StockinGroupStore: {
 			type: 'StockinGroupStore'
 		},
+		UnitStore: {
+            type: 'UnitStore'
+        },
 	},
 	data: {
 		urlback:'',

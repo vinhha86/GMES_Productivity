@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main', {
     xtype: 'Stockin_M_List_Main',
     id:'Stockin_M_List_Main',
     layout: 'border',
+    controller: 'Stockin_M_List_Main_Controller',
     items: [
         {
             region: 'center',

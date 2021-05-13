@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_D', {
     //     }
     // },
 	bind:{
-		store: '{StockinD_Store}'
+		store: '{Stockin_Order_D_Store}'
 	},
 	columns: [
 		{
