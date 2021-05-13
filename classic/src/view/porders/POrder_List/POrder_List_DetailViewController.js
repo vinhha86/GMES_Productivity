@@ -29,25 +29,25 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         '#tabmain': {
             tabchange: 'onTabChange'
         },
-        '#btnPrintPorder' : {
+        '#btnPrintPorder': {
             click: 'onPrintPorder'
         },
-        '#btnCutPlan' : {
+        '#btnCutPlan': {
             click: 'onCutPlan'
         }
     },
-    onCutPlan: function(){
+    onCutPlan: function () {
         var viewmodel = this.getViewModel();
         var porderid_link = viewmodel.get('porder.id');
         var porder = viewmodel.get('porder');
 
         var productiondate_plan = Ext.Date.parse(porder.productiondate_plan, 'c');
-        if(productiondate_plan == null) productiondate_plan = new Date(porder.productiondate_plan);
+        if (productiondate_plan == null) productiondate_plan = new Date(porder.productiondate_plan);
         var golivedate = Ext.Date.parse(porder.golivedate, 'c');
-        if(golivedate == null) productiondate_plan = new Date(porder.golivedate);
-        porder.productiondate_plan = productiondate_plan;  
+        if (golivedate == null) productiondate_plan = new Date(porder.golivedate);
+        porder.productiondate_plan = productiondate_plan;
         porder.golivedate = golivedate;
-        
+
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
                 xtype: 'CutPlan_MainView',
                 viewModel: {
                     data: {
-                        porderid_link : porderid_link,
+                        porderid_link: porderid_link,
                         porder: porder
                     }
                 }
@@ -78,22 +78,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             form.close();
         })
     },
-    onPrintPorder:function () {
+    onPrintPorder: function () {
         var me = this;
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.porderid_link = viewmodel.get('IdPOrder');
 
         GSmartApp.Ajax.post('/api/v1/porder_report/porder', Ext.JSON.encode(params),
-        function (success, response, options) {
-            if (success) {
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    var vendor = viewmodel.get('porder.vendorname');
-                    var masp = viewmodel.get('porder.stylebuyer');
-                    me.saveByteArray("LenhSanXuat_"+vendor+"_"+masp+ ".xlsx", response.data);
-                }
-                else {
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var vendor = viewmodel.get('porder.vendorname');
+                        var masp = viewmodel.get('porder.stylebuyer');
+                        me.saveByteArray("LenhSanXuat_" + vendor + "_" + masp + ".xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
                     Ext.Msg.show({
                         title: 'Thông báo',
                         msg: 'Lấy thông tin thất bại',
@@ -103,24 +114,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
                         }
                     });
                 }
-
-            } else {
-                Ext.Msg.show({
-                    title: 'Thông báo',
-                    msg: 'Lấy thông tin thất bại',
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng'
-                    }
-                });
-            }
-        })
+            })
     },
     saveByteArray: function (reportName, byte) {
         var me = this;
         byte = this.base64ToArrayBuffer(byte);
-        
-        var blob = new Blob([byte], {type: "application/xlsx"});
+
+        var blob = new Blob([byte], { type: "application/xlsx" });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         var fileName = reportName;
@@ -132,11 +132,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         var binaryLen = binaryString.length;
         var bytes = new Uint8Array(binaryLen);
         for (var i = 0; i < binaryLen; i++) {
-           var ascii = binaryString.charCodeAt(i);
-           bytes[i] = ascii;
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
         }
         return bytes;
-     },
+    },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var me = this.getView();
         var viewmodel = this.getViewModel();
@@ -157,23 +157,26 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             listGrantView.IdPOrder = me.IdPOrder;
             listGrantView.getController().loadInfo(me.IdPOrder);
 
-            
+
         }
-        else if(newCard.xtype == "PorderBom_TabColor"){
+        else if (newCard.xtype == "PorderBom_TabColor") {
             var tab = Ext.getCmp('PorderBom_TabColor').getController();
             tab.createTab();
         }
-        else if(newCard.xtype == "PorderSewingCost_View"){
+        else if (newCard.xtype == "POrderBom2View") {
+            me.down('#POrderBom2View').getController().CreateColumns();
+        }
+        else if (newCard.xtype == "PorderSewingCost_View") {
             var storeSewing = viewmodel.getStore('PorderSewingCostStore');
             var porderid_link = viewmodel.get('porder.id');
             storeSewing.loadby_porder(porderid_link);
         }
-        else if(newCard.xtype == "PorderProcessingDetail"){
+        else if (newCard.xtype == "PorderProcessingDetail") {
             var POrderGrantStore = viewmodel.getStore('POrderGrantStore');
             var porderid_link = viewmodel.get('IdPOrder');
             POrderGrantStore.loadStoreByPOrderId(porderid_link);
         }
-        else if(newCard.xtype == "Stockout_order_MainView"){
+        else if (newCard.xtype == "Stockout_order_MainView") {
             var POrderGrantStore = viewmodel.getStore('Stockout_order_Store');
             var porderid_link = viewmodel.get('IdPOrder');
             POrderGrantStore.GetByPorder(porderid_link);
@@ -207,7 +210,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
     onQuayLai: function () {
         this.redirectTo('porderlistmain');
     },
-    onTTSanPham: function(){
+    onTTSanPham: function () {
         // pcontractid_link
         console.log('here yet');
         var viewModel = this.getViewModel();
@@ -228,7 +231,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         });
         window.show();
     },
-    onTTDonHang: function(){
+    onTTDonHang: function () {
         // pcontract_poid_link
         var viewModel = this.getViewModel();
         var pcontract_poid_link = viewModel.get('porder').pcontract_poid_link;

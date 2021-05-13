@@ -300,7 +300,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
                             if(response.data.length == 0){
-                                Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
+                                // Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
+                                Ext.toast('Cây vải không tồn tại hoặc đã có trong yêu cầu xuất', 3000);
                                 viewModel.set('objPkl', null);
                                 viewModel.set('objPkl.lotnumber', lotnumber);
                                 viewModel.set('objPkl.packageid', packageid);

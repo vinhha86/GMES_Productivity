@@ -48,11 +48,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D', {
                     '<div class="content1-sub1">{totalpackagecheck}</div>' +
                 '</div>' +
 
+                '<div class="content2">'+
+                    '<div class="content2-sub1">Khoang:</div>'+
+                    '<div class="content2-sub2">{data_spaces}</div>' +
+                '</div>' +
+
             '</div>',
         '</tpl>'
         , {
             getDisplayM: function (values) {
-                if (values.unitid_link != 1) { // không phải met, ẩn
+                if (values.unitid_link != 1 && values.unitid_link != null) { // không phải met, ẩn
                     return 'display:none;padding-bottom:0px;';
                 }
             },
