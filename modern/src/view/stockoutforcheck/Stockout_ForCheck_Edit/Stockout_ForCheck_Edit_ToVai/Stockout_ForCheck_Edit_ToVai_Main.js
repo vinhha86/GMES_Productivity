@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                     labelWidth: 85,
                     flex: 1,
                     padding: 2,
-                    hidden: true
+                    // hidden: true
                 },
                 {
                     xtype: 'textfield',
@@ -111,7 +111,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType',
-                                focusleave: 'onlotnumberTxtAndpackageidTxtleave'
+                                focusleave: 'onlotnumberTxtAndpackageidTxtleave',
+                                focusenter: 'onlotnumberTxtAndpackageidTxtenter'
                             }
                         },
                         {
@@ -135,7 +136,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 value: '{objPkl.packageid}'
                             },
                             listeners: {
-                                focusleave: 'onlotnumberTxtAndpackageidTxtleave'
+                                focusleave: 'onlotnumberTxtAndpackageidTxtleave',
+                                focusenter: 'onlotnumberTxtAndpackageidTxtenter'
                             },
                             stepValue: 0.1,
                         },
@@ -151,7 +153,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             itemId:'btnCheck',
                             ui: 'action',
                             bind: {
-                                disabled: '{!isobjPklSelected}'
+                                disabled: '{isbtnCheckDisabled}'
                             }
                         },   
                     ]

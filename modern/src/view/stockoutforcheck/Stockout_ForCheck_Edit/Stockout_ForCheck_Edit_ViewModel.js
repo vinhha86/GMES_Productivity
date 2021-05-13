@@ -21,7 +21,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
         selectedPklRecord: null, // pkl đang chọn
 		pkl_stockout_order_dId: null, // combobox value, hidden
 		maPklFilter: '', // filter field pkl
-		objPkl: null, // obj chứa các trường thông tin
+		objPkl: null, // obj chứa các trường thông tin,
+        isPklTextfieldFocus: false,
 
 		//
 	},
@@ -45,6 +46,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
         },
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockout_order.unitid_link');
+            console.log(unitid_link);
             if(unitid_link == null){
                 return false;
             }else 
@@ -63,20 +65,18 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
             }
             return true;
         },
-		isPklSelected: function (get) {
+		isbtnCheckDisabled: function (get) {
 			var selectedPklRecord = get('selectedPklRecord');
-			if(selectedPklRecord == null){
-                return false;
+            var isPklTextfieldFocus = get('isPklTextfieldFocus');
+            var objPkl = get('objPkl');
+            if(isPklTextfieldFocus){
+                return true;
+            }
+			if(objPkl == null){
+                return true;
 			}
-			return true
+			return false;
 		},
-		isobjRecheckSelected: function(get){
-			var objRecheck = get('objRecheck');
-			if(objRecheck == null){
-                return false;
-			}
-			return true
-		}
     },
 
 	

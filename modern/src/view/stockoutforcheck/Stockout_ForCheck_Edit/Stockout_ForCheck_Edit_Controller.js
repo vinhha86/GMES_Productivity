@@ -41,14 +41,17 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                         if(!success){
                             this.fireEvent('logout');
                         } else {
-                            var storeItems = Stockout_order_d_store.getData().items;
-                            for(var i=0; i<storeItems.length; i++){
-                                var item = storeItems[i];
-                                var grid = m.getView().down('#Stockout_ForCheck_Edit_D');
-                                grid.getSelectable().deselectAll();
-                                grid.getSelectable().select(item);
-                                viewModel.set('selectedDRecord', item);
-                                viewModel.set('pkl_stockout_order_dId', item.get('id'));
+                            if(selectedDRecord != null){
+                                var storeItems = Stockout_order_d_store.getData().items;
+                                for(var i=0; i<storeItems.length; i++){
+                                    var item = storeItems[i];
+                                    if(item.get('id') == selectedDRecord.get('id')){
+                                        var grid = m.getView().down('#Stockout_ForCheck_Edit_D');
+                                        grid.getSelectable().select(item);
+                                        viewModel.set('selectedDRecord', item);
+                                        viewModel.set('pkl_stockout_order_dId', item.get('id'));
+                                    }
+                                }
                             }
                         }
                     }
@@ -107,15 +110,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                 if(!success){
                     this.fireEvent('logout');
                 } else {
-                    var storeItems = Stockout_order_d_store.getData().items;
-                    for(var i=0; i<storeItems.length; i++){
-                        var item = storeItems[i];
-                        var grid = m.getView().down('#Stockout_ForCheck_Edit_D');
-                        grid.getSelectable().deselectAll();
-                        grid.getSelectable().select(item);
-                        viewModel.set('selectedDRecord', item);
-                        viewModel.set('pkl_stockout_order_dId', item.get('id'));
-                    }
+                    
                 }
             }
         });
