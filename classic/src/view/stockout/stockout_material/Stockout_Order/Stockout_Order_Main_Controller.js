@@ -71,6 +71,50 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         //     page = 1;
         // }
         
-        store.loadStore_byPage(fromDate, toDate, null, null, 0);
+        store.loadStore_byPage(fromDate, toDate, null, null, null);
+    },
+
+    onMenu_StockoutOrderList: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Xuất NPL cho nhà cắt',
+                    itemId: 'btnMenu_StockoutOrderList_Cat',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-edit brownIcon',
+                    handler: function () {
+                        // console.log(record);
+                        var stockoutorderidObj = new Object();
+                        stockoutorderidObj.id = record.get('id');
+                        GSmartApp.util.State.set('stockoutorderidObj', stockoutorderidObj);
+                        me.redirectTo('stockout_m/1/create');
+                        // me.redirectTo('stockout_m/1/create/16');
+                        // me.redirectTo('stockout_m/1/create/' + record.get('id'));
+                    },
+                },
+                {
+                    text: 'Xuất gia công',
+                    itemId: 'btnMenu_StockoutOrderList_GiaCong',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function () {
+                        console.log(record);
+                    }
+                },
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
     },
 });

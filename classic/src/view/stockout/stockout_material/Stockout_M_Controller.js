@@ -54,10 +54,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         }
     },
     onXuatTo: function(){
-        this.redirectTo('stockout_m_main/11/create');
+        this.redirectTo('stockout_m/11/create');
     },
     onXuatCat: function(){
-        this.redirectTo('stockout_m_main/1/create');
+        this.redirectTo('stockout_m/1/create');
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -112,11 +112,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
     onStockoutEdit: function(grid, rowIndex, colIndex){
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
-        this.redirectTo("stockout_m_main/"+id+"/edit");
+        this.redirectTo("stockout_m/"+id+"/edit");
     },
     onCapNhat: function(m, record, item, index, e, eOpts){
         var id = record.data.id;
-        this.redirectTo("stockout_m_main/" + id + "/edit");
+        this.redirectTo("stockout_m/" + id + "/edit");
     },
     onStockoutItemDelete: function(grid, rowIndex, colIndex){
         var me = this.getView();
@@ -163,6 +163,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         });
     },
     onStockoutNew: function(){
-        this.redirectTo("stockout_m_main/create");
+        this.redirectTo("stockout_m/create");
     }
 });

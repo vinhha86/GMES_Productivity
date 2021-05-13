@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         // var listidtype = "4,8,9,11,12";
         var listidtype = "3";
         var orgfromstore = this.getViewModel().getStore('OrgFromStore');
-        orgfromstore.loadStore_allchildren_byorg(listidtype);
+        // orgfromstore.loadStore_allchildren_byorg(listidtype);
+        orgfromstore.loadStore(3, false);
         // var orgtostore = this.getViewModel().getStore('OrgToStore');
         // orgtostore.loadStore_byRoot(listidtype);
 
@@ -140,7 +141,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
             viewModel.set('stockout.stockout_d', stockout_d);
 
             // console.log(invoice_ds);
-            // console.log(stockout);
+            console.log(stockout);
 
             form.close();
         });

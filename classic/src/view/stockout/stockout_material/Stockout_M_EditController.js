@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		
 	},
     onUrlBack:function(type){ 
-        this.redirectTo("stockout_m_main");
+        this.redirectTo("stockout_m");
     },
     onLoadData:function(id,type){
         this.getInfo(id);
@@ -102,11 +102,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
-                viewModel.set('stockout', response.data);
+                viewModel.set('stockout', response.data); console.log(response.data);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
                 }
-                store.setData(response.data.stockoutd);
+                store.setData(response.data.stockout_d);
 
 				if(response.data.stockouttypeid_link == 1) { // xuat den cat
 					var OrgToStore = viewModel.getStore('OrgToStore');
@@ -119,9 +119,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             }
 		})
     },
-    onNewData:function(type, id){ 
-		// console.log('onNewData'); console.log(id); 
+    onNewData:function(node, id, type){
+		var m = this;
 		var viewModel = this.getViewModel();
+
+		// lấy id stockout_order truyền vào -> xoá trong State
+		var stockoutorderidObj = GSmartApp.util.State.get('stockoutorderidObj');
+		if(stockoutorderidObj != null){
+			viewModel.set('stockoutorderid_link', stockoutorderidObj.id)
+			GSmartApp.util.State.set('stockoutorderidObj', null);
+		}
+
 		var session = GSmartApp.util.State.get('session');
         viewModel.set('stockout.stockoutdate',new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
@@ -141,6 +149,110 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			var OrgToStore = viewModel.getStore('OrgToStore');
             OrgToStore.loadStore(14, false);
 		}
+
+		var stockoutorderid_link = viewModel.get('stockoutorderid_link');
+		if(stockoutorderid_link != null){
+			m.loadStockoutOrderData();
+		}
+	},
+	loadStockoutOrderData: function(){
+		var me = this.getView();
+		var m = this;
+		var viewModel = this.getViewModel();
+
+		var stockoutorderid_link = viewModel.get('stockoutorderid_link');
+
+		var params=new Object();
+		params.id = stockoutorderid_link;
+
+		me.setLoading("Đang tải dữ liệu");
+		GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/stockoutorder_getbyid',Ext.JSON.encode(params),
+		function(success,response,options ) {
+			me.setLoading(false);
+				if (success) {
+					var response = Ext.decode(response.responseText);
+					if (response.respcode == 200) {
+						console.log(response);
+						// đang làm đến đây
+						var stockout_order = response.data;
+						m.setStockoutOrderData(stockout_order);
+					}
+				} else {
+					var response = Ext.decode(response.responseText);
+					Ext.MessageBox.show({
+						title: "Thông báo",
+						msg: 'Lấy thông tin Stockout_Order thất bại: ' + response.message,
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						}
+					});
+				}
+		})	
+	},
+	setStockoutOrderData: function(stockout_order){
+		var me = this.getView();
+		var m = this;
+		var viewModel = this.getViewModel();
+
+		var stockout_order_ds = stockout_order.stockout_order_d == null ? new Array() : stockout_order.stockout_order_d;
+		// console.log(stockout_order_ds);
+		viewModel.set('stockout.stockout_order_code', stockout_order.stockout_order_code);
+		viewModel.set('stockout.porderid_link', stockout_order.porderid_link);
+		viewModel.set('stockout.pcontractid_link', stockout_order.pcontractid_link);
+		// viewModel.set('stockout.invoice_date', stockout_order.timecreate);
+		viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
+		viewModel.set('stockout.stockout_d', null);
+		viewModel.set('stockout.orgid_from_link', stockout_order.orgid_from_link);
+		viewModel.set('stockout.orgid_to_link', stockout_order.orgid_to_link);
+
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d');
+		if (stockout_d == null) {
+			stockout_d = new Array();
+		}
+
+		for (var i = 0; i < stockout_order_ds.length; i++) {
+			var stockout_order_d = stockout_order_ds[i];
+			// var found = stockout_d.some(item => item.skuid_link === npl.get('id'));
+			var found = false;
+			if (!found) {
+				var stockout_dObj = new Object();
+				stockout_dObj.skuid_link = stockout_order_d.material_skuid_link;
+				stockout_dObj.p_skuid_link = stockout_order_d.material_skuid_link;
+				stockout_dObj.porderid_link = stockout_order.porderid_link;
+				stockout_dObj.skucode = stockout_order_d.skucode;
+				stockout_dObj.skuname = stockout_order_d.skuname;
+				stockout_dObj.color_name = stockout_order_d.tenMauNPL;
+				stockout_dObj.colorid_link = stockout_order_d.colorid_link;
+				stockout_dObj.size_name = stockout_order_d.coKho;
+				stockout_dObj.unitprice = stockout_order_d.unitprice;
+
+				stockout_dObj.totalpackage = stockout_order_d.totalpackage == null ? 0 : stockout_order_d.totalpackage;
+				stockout_dObj.totalpackagecheck = 0;
+
+				stockout_dObj.unitid_link = stockout.unitid_link;
+				stockout_dObj.unit_name = stockout_order_d.unitname;
+				if (stockout_dObj.unitid_link == 3) { //YDS
+					stockout_dObj.totalmet_origin = stockout_order_d.totalyds == null ? 0 : stockout_order_d.totalyds * 0.9144;
+					stockout_dObj.totalmet_check = 0;
+					stockout_dObj.totalydsorigin = stockout_order_d.totalyds == null ? 0 : stockout_order_d.totalyds;
+					stockout_dObj.totalydscheck = 0;
+				} else {
+					if (stockout_dObj.unitid_link == 1) { //Mét
+						stockout_dObj.totalmet_origin = stockout_order_d.totalyds == null ? 0 : stockout_order_d.totalyds;
+						stockout_dObj.totalmet_check = 0;
+						stockout_dObj.totalydsorigin = stockout_order_d.totalyds == null ? 0 : stockout_order_d.totalyds * 1.09361;
+						stockout_dObj.totalydscheck = 0;
+					}
+				}
+
+				stockout_d.push(stockout_dObj);
+			}
+		}
+
+		viewModel.set('stockout.stockout_d', stockout_d);
+		console.log(stockout);
 	},
 	CheckValidate: function(){
 		var mes = "";
@@ -206,7 +318,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 								yes: 'Đóng',
 							}
 						});							
-						this.redirectTo("stockout_m_main/" + response.id + "/edit");
+						this.redirectTo("stockout_m/" + response.id + "/edit");
 						m.getInfo(response.id);
 					}
 				} else {

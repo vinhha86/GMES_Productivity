@@ -29,8 +29,8 @@ Ext.define('GSmartApp.model.stockout.Stockout_Order', {
         {
             name: 'statusName',
             calculate: function(data){
-                if(data.status == 0) return "Đang tạo";
-                return "Đã xác nhận";
+                if(data.status == 0) return "Chưa tở vải";
+                return "Đã tở vải";
             }
         },
         {

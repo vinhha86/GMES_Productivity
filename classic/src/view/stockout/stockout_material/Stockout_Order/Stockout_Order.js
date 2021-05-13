@@ -21,6 +21,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
     },
     columns: [
         {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_StockoutOrderList'
+                },            
+            ]
+        },
+        {
             text: 'STT',
             width: 40,
             xtype: 'rownumberer',
