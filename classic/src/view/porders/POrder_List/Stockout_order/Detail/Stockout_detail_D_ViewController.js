@@ -174,11 +174,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             });
         }
         else {
+            grid.setLoading('Đang tính dữ liệu');
             var params = new Object();
             params.id = viewmodel.get('order.id');
 
             GSmartApp.Ajax.post('/api/v1/stockoutorder/calculate', Ext.JSON.encode(params),
                 function (success, response, options) {
+                    grid.setLoading(false);
                     if (success) {
                         var res = Ext.decode(response.responseText);
                         if (res.respcode == 200) {
