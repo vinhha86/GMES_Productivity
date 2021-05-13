@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('Stockout');
 
-        var limit = me.down('#limitpage').getValue();
+        // var limit = me.down('#limitpage').getValue();
         var stockouttypeid = me.down('#stockouttypeid').getValue();
         var stockindate_from = me.down('#stockoutdate_from').getValue();
         var stockindate_to = me.down('#stockoutdate_to').getValue();
@@ -91,14 +91,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
 
         var page = store.currentPage;
 
-        if (limit == null) {
-            limit = 25;
-        }
+        // if (limit == null) {
+        //     limit = 100;
+        // }
 
-        if (page == null) {
-            page = 1;
-        }
-        store.loadByDate_Material(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,
+        // if (page == null) {
+        //     page = 1;
+        // }
+        store.loadByDate_Material(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, null, null,
             orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto);
     },
     renderCell: function(value, record) {

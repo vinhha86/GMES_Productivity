@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_OrderController', {
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('Stockout_order_Store');
 
-        var limit = me.down('#orderlimitpage').getValue();
+        // var limit = me.down('#orderlimitpage').getValue();
         // var stockouttypeid = me.down('#stockouttypeid').getValue();
         var fromDate = me.down('#stockoutorderdate_from').getValue();
         var toDate = me.down('#stockoutorderdate_to').getValue();
@@ -54,14 +54,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_OrderController', {
 
         var page = store.currentPage;
 
-        if (limit == null) {
-            limit = 25;
-        }
+        // if (limit == null) {
+        //     limit = 25;
+        // }
 
-        if (page == null) {
-            page = 1;
-        }
+        // if (page == null) {
+        //     page = 1;
+        // }
         
-        store.loadStore_byPage(fromDate, toDate, page, limit, 0);
+        store.loadStore_byPage(fromDate, toDate, null, null, 0);
     },
 });

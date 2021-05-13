@@ -3,7 +3,7 @@ Ext.define('GSmartApp.model.Stockout_d', {
     idProperty: 'idx',
     fields: [
         {name: 'id'},
-        {name: 'idx', type: 'int'},
+        {name: 'idx'},
         'orgrootid_link',
         'stockoutid_link',
         'pordercode',

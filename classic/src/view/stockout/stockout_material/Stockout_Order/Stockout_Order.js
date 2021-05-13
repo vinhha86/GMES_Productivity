@@ -26,37 +26,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
     columns: [
         {
             text: 'STT',
-            width: 50,
+            width: 40,
             xtype: 'rownumberer',
             align: 'center'
         },
+        { header: 'Mã SP', dataIndex: 'porder_product_buyercode', width: 120 },
+        { header: 'Lệnh SX', dataIndex: 'porder_code', width: 120 },
         { header: 'Số phiếu', dataIndex: 'stockout_order_code', flex: 1 },
-        // { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
-        { header: 'Ngày xuất', dataIndex: 'timecreate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), flex: 1 },
-        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
-        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
-        // { header: 'Tổng tiền', dataIndex: 'totalprice', width: 110},   
-        // { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
+        { header: 'Loại phiếu', dataIndex: 'typename', width: 140 },
+        { header: 'Ngày xuất', dataIndex: 'orderdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
+        { header: 'Nơi xuất', dataIndex: 'org_from_name', width: 150 },
+        { header: 'Nơi nhận', dataIndex: 'org_to_name', width: 150 },
         {
-            xtype: 'actioncolumn',
-            reference: 'stockout_contextmenu',
-            width: 45,
-            menuDisabled: true,
-            sortable: false,
-            items: [
-                {
-                    // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-pencil-square-o',
-                    tooltip: 'Sửa phiếu',
-                    // handler: 'onStockoutEdit'
-                },
-                {
-                    // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-trash-o',
-                    tooltip: 'Xóa phiếu',
-                    // handler: 'onStockoutItemDelete'
-                },
-            ]
+            text: 'Trạng thái',
+            dataIndex: 'statusName',
+            width: 120,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
         }
     ],
     dockedItems: [{
@@ -187,40 +175,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
                 handler: 'onOrderSearch'
             }
         ]
-    }, {
-        dock: 'bottom',
-        layout: 'hbox',
-        xtype: 'toolbar',
-        border: false,
-        height: 50,
-        items: [{
-            xtype: 'textfield',
-            value: 25,
-            itemId: 'orderlimitpage',
-            maskRe: /[0-9]/,
-            width: 180,
-            selectOnFocus: true,
-            margin: 5,
-            fieldLabel: 'Số bản ghi/ Trang',
-            labelWidth: 120
-        }, '-', {
-            xtype: 'pagingtoolbar',
-            displayInfo: true,
-            flex: 1,
-            nextText: 'Trang tiếp',
-            prevText: 'Trang trước',
-            afterPageText: '/ {0}',
-            beforePageText: 'Trang',
-            itemId: 'page',
-            refreshText: 'Làm mới dữ liệu',
-            border: false,
-            bind: {
-                store: '{Stockout_order_Store}'
-            },
-            emptyMsg: 'Không có kết quả tìm kiếm',
-            lastText: 'Trang cuối',
-            firstText: 'Trang đầu',
-            displayMsg: 'Hiển thị {0} - {1} của {2}'
-        }]
-    }]
+    }
+    ]
 });
