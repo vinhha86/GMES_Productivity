@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_OrderController', {
+Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_OrderController',
+    alias: 'controller.Stockout_Order_Main_Controller',
     init: function() {
         // this.callParent(arguments);
         var me = this.getView();
@@ -30,8 +30,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_OrderController', {
             }
         }
     },        
-    control:{
-
+    control: {
+        '#Stockout_Order': {
+            select: 'onStockout_orderSelect'
+        },
+    },
+    onStockout_orderSelect: function (e, selected, eOpts) {
+        // console.log(selected);
+        var viewmodel = this.getViewModel();
+        var storeDetail = viewmodel.getStore('Stockout_order_d_Store');
+        storeDetail.removeAll();
+        storeDetail.GetByStockoutOrder(selected.data.id);
     },
     onOrderSearch: function(){
         var me = this.getView();

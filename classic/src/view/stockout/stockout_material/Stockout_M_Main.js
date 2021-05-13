@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Main', {
         },
         {
             title: 'Yêu cầu xuất kho',
-            xtype: 'Stockout_Order',
+            xtype: 'Stockout_Order_Main',
             margin: 1,
         }, 
     ],

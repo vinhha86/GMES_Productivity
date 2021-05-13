@@ -3,10 +3,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
     xtype: 'Stockout_Order',
     id: 'Stockout_Order',
     reference: 'Stockout_Order',
-    controller: 'Stockout_OrderController',
-    viewModel: {
-        type: 'Stockout_M_EditModel'
-    },
     requires: [
         'GSmartApp.store.Stockout',
         'Ext.Number',
