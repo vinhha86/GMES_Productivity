@@ -23,7 +23,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         if (order.id == null) {
             var sesion = GSmartApp.util.State.get('session');
             viewmodel.set('order.timecreate', new Date());
+            viewmodel.set('order.orderdate', new Date());
             viewmodel.set('order.usercreateid_link', sesion.id);
+            viewmodel.set('order.unitid_link', 1); //1 = met; 3 = yard
         }
 
         var UnitStore = viewmodel.getStore('UnitStore');
@@ -35,6 +37,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         }
     },
     onSelectDVT: function (cmb, rec, e) {
-
+        var viewmodel = this.getViewModel();
+        var store_d = viewmodel.getStore('Stockout_order_d_Store');
+        for (var i = 0; i < store_d.data.length; i++) {
+            var data = store_d.data.items[i];
+            data.set('unitid_link', rec.get('id'));
+            data.set('unitName', rec.get('name'));
+        }
     }
 })

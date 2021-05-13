@@ -18,15 +18,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Warehouse_V
     },
     features: [{
         id: 'grouping',
-        ftype:'grouping',
+        ftype: 'grouping',
         groupHeaderTpl: '{name}',
         collapseTip: "",
-        expandTip:""
+        expandTip: ""
     }],
-    bind:{
-        store:'{POrderBomColorStore}'
+    bind: {
+        store: '{POrderBomColorStore}'
     },
-    columns:[{
+    columns: [{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
@@ -35,23 +35,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Warehouse_V
         text: 'Mã NPL',
         dataIndex: 'materialCode',
         width: 120
-    },{
+    }, {
         text: 'Tên NPL',
         dataIndex: 'materialName',
         width: 150
-    },{
+    }, {
         text: 'Màu NPL',
-        dataIndex: 'tenMauNPL',
-        width: 80
-    },{
+        dataIndex: 'tenMauNPL_product',
+        width: 80,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    }, {
         text: 'Cỡ khổ',
-        dataIndex: 'coKho',
+        dataIndex: 'coKho_product',
         width: 80
-    },{
+    }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -60,21 +64,21 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Warehouse_V
         dataIndex: 'unitName',
         width: 70
     }],
-    dockedItems:[{
+    dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
-        items:[{
+        items: [{
             xtype: 'button',
             text: 'Thoát',
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
             margin: 5
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             formBind: true,
             text: 'Chọn',
             margin: 5,
-            itemId:'btnChon',
+            itemId: 'btnChon',
             iconCls: 'x-fa fa-check'
         }]
     }]

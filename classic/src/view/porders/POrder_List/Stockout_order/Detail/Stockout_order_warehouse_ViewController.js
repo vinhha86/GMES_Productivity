@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
         var stockout_orderid_link = viewmodel.get('stockout_orderid_link');
 
         var warehouseStore = viewmodel.getStore('WarehouseStore');
-
+        warehouseStore.removeAll();
         if (type == 1) {
             warehouseStore.setGroupField('');
         }

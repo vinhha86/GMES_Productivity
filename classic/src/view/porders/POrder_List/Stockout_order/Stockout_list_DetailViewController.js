@@ -1,9 +1,0 @@
-Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_DetailViewController', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_list_DetailViewController',
-    init: function () {
-    },
-    control: {
-        
-    }
-})

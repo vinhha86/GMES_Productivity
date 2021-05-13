@@ -52,30 +52,37 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             dataIndex: 'totalyds_lock',
             width: 80,
             renderer: function (value, metaData, record) {
-                return value + " m";
+                value = value == null ? "" : value + ' y';
+                return value;
+            },
+            bind: {
+                hidden: '{isHiddenYard}'
             }
         },
         {
-            text: 'SL YC',
-            dataIndex: 'totalyds',
-            itemId: 'totalyds',
+            text: 'SL giữ',
+            dataIndex: 'totalmet_lock',
             width: 80,
-            editor: {
-                xtype: 'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true
-            },
             renderer: function (value, metaData, record) {
-                return value + " y";
+                value = value == null ? "" : value + ' m';
+                return value;
             },
             bind: {
                 hidden: '{!isHiddenYard}'
             }
         },
         {
+            text: 'SL cây giữ',
+            dataIndex: 'socaygiu',
+            width: 80,
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value;
+                return value;
+            }
+        },
+        {
             text: 'SL YC',
-            dataIndex: 'totalmet',
-            itemId: 'totalmet',
+            dataIndex: 'totalyds',
             width: 80,
             editor: {
                 xtype: 'textfield',
@@ -83,10 +90,28 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
                 selectOnFocus: true
             },
             renderer: function (value, metaData, record) {
-                return value + " m";
+                value = value == null ? "" : value + ' y';
+                return value;
             },
             bind: {
                 hidden: '{isHiddenYard}'
+            }
+        },
+        {
+            text: 'SL YC',
+            dataIndex: 'totalmet',
+            width: 80,
+            editor: {
+                xtype: 'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true
+            },
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value + ' m';
+                return value;
+            },
+            bind: {
+                hidden: '{!isHiddenYard}'
             }
         },
         {

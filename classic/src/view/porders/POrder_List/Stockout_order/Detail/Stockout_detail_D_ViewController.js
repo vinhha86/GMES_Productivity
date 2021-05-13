@@ -16,7 +16,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
 
         var viewmodel = this.getViewModel();
         var params = new Object();
-        params.data = context.record.data;
+        var data = context.record.data;
+
+        if (data.unitid_link == 1) {
+            data.totalyds = context.value * 0.9144;
+        }
+        else if (data.unitid_link == 3) {
+            data.totalmet = context.value * 1.09361;
+        }
+
+        params.data = data;
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/update_stockout_orderd', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -165,11 +174,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             });
         }
         else {
+            grid.setLoading('Đang tính dữ liệu');
             var params = new Object();
             params.id = viewmodel.get('order.id');
 
             GSmartApp.Ajax.post('/api/v1/stockoutorder/calculate', Ext.JSON.encode(params),
                 function (success, response, options) {
+                    grid.setLoading(false);
                     if (success) {
                         var res = Ext.decode(response.responseText);
                         if (res.respcode == 200) {
