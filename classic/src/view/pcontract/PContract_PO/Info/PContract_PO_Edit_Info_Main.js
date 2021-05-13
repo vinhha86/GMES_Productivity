@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
         {
             region: 'center',
             layout: 'border',
-            items:[
+            items: [
                 {
                     region: 'center',
                     xtype: 'PContract_PO_Edit_Info',
@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
                 },
                 {
                     region: 'east',
-                    width: 250,
+                    width: 0,
                     xtype: 'PContract_PO_Edit_Porder_Req',
                     itemId: 'PContract_PO_Edit_Porder_Req',
                     border: true,
@@ -34,27 +34,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
             width: 0,
             xtype: 'ListOrg_Req',
             border: true,
-            margin: 1,            
+            margin: 1,
         }
     ],
-    dockedItems:[{
-        dock:'bottom',
+    dockedItems: [{
+        dock: 'bottom',
         layout: 'hbox',
-        items:[{
+        items: [{
             xtype: 'button',
             text: 'Thoát',
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
             margin: 5
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             formBind: true,
             text: 'Lưu',
             margin: 5,
-            itemId:'btnLuu',
+            itemId: 'btnLuu',
             iconCls: 'x-fa fa-save'
-        },{
-            flex:1
+        }, {
+            flex: 1
         }]
     }]
 })
