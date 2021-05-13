@@ -46,7 +46,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
         },
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockout_order.unitid_link');
-            console.log(unitid_link);
             if(unitid_link == null){
                 return false;
             }else 
