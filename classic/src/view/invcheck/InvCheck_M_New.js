@@ -10,7 +10,6 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
         pack: 'start',
         align: 'stretch'
     },
-	// qrcode:null,
 	items:[{
 		// height: 280,
 		 layout: {
@@ -177,6 +176,10 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
 		columnLines:true,
 		rowLines:true,
 		flex:1,
+		viewConfig: {
+			enableTextSelection: true,
+			stripeRows: false,
+		},
         lockedViewConfig: {
             scroll: 'horizontal'
         },
@@ -186,103 +189,143 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_M_New', {
 		}], 
 		store:'GSmartApp.store.invcheck.InvCheckDetailStore',
 		columns: [{
-				text:'Mã vạch', 
+				text:'Mã hàng', 
 				dataIndex: 'skucode',
-				width:120,
+				width: 150,
 				summaryRenderer:function (grid, context) {
 					return 'Tổng cộng';
 				}
 			},
 			{
-				text:'SKU', 
-				dataIndex: 'skuname',
+				text:'Mô tả', 
+				dataIndex: 'sku_desc',
 				flex:1,
 				// minWidth:120
-			},{
+			},
+			{
 				text:'Đơn vị tính', 
 				dataIndex: 'unitname',
 				width:80,
 			},{
 				text: 'Số sổ sách', 
-				columns:[{
-					xtype: 'numbercolumn',
-					format:'0,000.00',
-					text: 'Số lượng', 
-					dataIndex: 'ydsorigin',
-					width:85,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSumFloat'
-				},{
-					xtype: 'numbercolumn',
-					format:'0,000',
-					text: 'Giá', 
-					dataIndex: 'unitprice',
-					width:80,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
-				},{
-					xtype: 'numbercolumn',
-					format:'0,000',
-					text: 'Thành tiền', 
-					dataIndex: 'totalamount',
-					width:105,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
-				}]
+				columns:[
+					{
+						xtype: 'numbercolumn',
+						format:'0,000',
+						text: 'Số cây', 
+						dataIndex: 'totalpackage',
+						width:80,
+						align:'right',
+						summaryType: 'sum', summaryRenderer: 'renderSumFloat'
+					},
+					{
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Số lượng', 
+						dataIndex: 'met_origin',
+						width:100,
+						align:'right',
+						summaryType: 'sum', summaryRenderer: 'renderSumFloat'
+					},
+					// {
+					// 	xtype: 'numbercolumn',
+					// 	format:'0,000',
+					// 	text: 'Giá', 
+					// 	dataIndex: 'unitprice',
+					// 	width:80,
+					// 	align:'right',
+					// 	summaryType: 'sum', summaryRenderer: 'renderSum'
+					// },
+					// {
+					// 	xtype: 'numbercolumn',
+					// 	format:'0,000',
+					// 	text: 'Thành tiền', 
+					// 	dataIndex: 'totalamount',
+					// 	width:105,
+					// 	align:'right',
+					// 	summaryType: 'sum', summaryRenderer: 'renderSum'
+					// }
+				]
 			},{
 				text: 'Số lượng thực tế', 
-				columns:[{
-					xtype: 'numbercolumn',
-					format:'0,000.00',
-					text: 'Số lượng', 
-					dataIndex: 'ydscheck',
-					width:85,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSumFloat'
-				},{
-					xtype: 'numbercolumn',
-					format:'0,000',
-					text: 'Giá', 
-					dataIndex: 'unitprice',
-					width:80,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
-				},{
-					xtype: 'numbercolumn',
-					format:'0,000',
-					text: 'Thành tiền', 
-					dataIndex: 'totalamountcheck',
-					width:105,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
-				}]
+				columns:[
+					{
+						xtype: 'numbercolumn',
+						format:'0,000',
+						text: 'Số cây', 
+						dataIndex: 'totalpackagecheck',
+						width:80,
+						align:'right',
+						summaryType: 'sum', summaryRenderer: 'renderSumFloat'
+					},					
+					{
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Số lượng', 
+						dataIndex: 'met_check',
+						width:100,
+						align:'right',
+						summaryType: 'sum', summaryRenderer: 'renderSumFloat'
+					},
+					// {
+					// 	xtype: 'numbercolumn',
+					// 	format:'0,000',
+					// 	text: 'Giá', 
+					// 	dataIndex: 'unitprice',
+					// 	width:80,
+					// 	align:'right',
+					// 	summaryType: 'sum', summaryRenderer: 'renderSum'
+					// },
+					// {
+					// 	xtype: 'numbercolumn',
+					// 	format:'0,000',
+					// 	text: 'Thành tiền', 
+					// 	dataIndex: 'totalamountcheck',
+					// 	width:105,
+					// 	align:'right',
+					// 	summaryType: 'sum', summaryRenderer: 'renderSum'
+					// }
+				]
 			},{
 				text:'Chênh lệch', 
-				columns:[{
-					xtype: 'numbercolumn',
-					format:'0,000.00',
-					text: 'Số lượng', 
-					dataIndex: 'ydsdiff',
-					width:85,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSumFloat'
-				},{
-					xtype: 'numbercolumn',
-					format:'0,000',
-					text: 'Giá', 
-					dataIndex: 'unitprice',
-					width:80,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
-				},{
-					xtype: 'numbercolumn',
-					format:'0,000',
-					text: 'Thành tiền', 
-					dataIndex: 'totalamountdiff',
-					width:105,
-					align:'right',
-					summaryType: 'sum', summaryRenderer: 'renderSum'
-				}]
+				columns:[
+					{
+						xtype: 'numbercolumn',
+						format:'0,000',
+						text: 'Số cây', 
+						dataIndex: 'packagediff',
+						width:80,
+						align:'right',
+						summaryType: 'sum', summaryRenderer: 'renderSumFloat'
+					},	
+					{
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Số lượng', 
+						dataIndex: 'metdiff',
+						width:100,
+						align:'right',
+						summaryType: 'sum', summaryRenderer: 'renderSumFloat'
+					},
+					// {
+					// 	xtype: 'numbercolumn',
+					// 	format:'0,000',
+					// 	text: 'Giá', 
+					// 	dataIndex: 'unitprice',
+					// 	width:80,
+					// 	align:'right',
+					// 	summaryType: 'sum', summaryRenderer: 'renderSum'
+					// },
+					// {
+					// 	xtype: 'numbercolumn',
+					// 	format:'0,000',
+					// 	text: 'Thành tiền', 
+					// 	dataIndex: 'totalamountdiff',
+					// 	width:105,
+					// 	align:'right',
+					// 	summaryType: 'sum', summaryRenderer: 'renderSum'
+					// }
+				]
 			},
 			// {
 			// 	width: 40,
