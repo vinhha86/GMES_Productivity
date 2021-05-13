@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.Stockin_Order_List_ViewController', {
+Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_Order_List_ViewController',
+    alias: 'controller.Stockin_M_List_Main_Controller',
     isActivate: false,
     init: function () {
         var me = this.getView();
@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_ViewController', {
         '#limitpage': {
             specialkey: 'onSpecialkey'
         },
-        '#Stockin_Order_List': {
+        '#Stockin_M_List': {
             select: 'onStockinSelect',
             itemdblclick: 'onCapNhatdbl',
         },        
@@ -75,7 +75,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_ViewController', {
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
-        var status = 0;
+        var status = [];
+        status[0]=0;
+        status[1]=1;
+        status[2]=2;
 
         // var page = store.currentPage;
 
@@ -278,5 +281,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_ViewController', {
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
+    renderUnit: function(val, meta, record, rindex, cindex, store) {
+        if (null != val){
+            var viewModel = this.getViewModel();
+            var UnitStore = viewModel.getStore('UnitStore');
+            if (null!=UnitStore){
+                var objUnit = UnitStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.code;
+            }
+        }
     },
 })
