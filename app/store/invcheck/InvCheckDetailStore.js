@@ -4,11 +4,14 @@ Ext.define('GSmartApp.store.invcheck.InvCheckDetailStore', {
 	fields: [
          {name: 'skuname', type: 'string'},
          {name: 'skucode',  type: 'string'},
+		 {name: 'sku_desc',  type: 'string'},
          {name: 'colorname',   type: 'string'},
 	     {name: 'unitname',type:'string'},
 		 {name: 'unitprice',  type: 'number'},
 		 {name: 'ydsorigin',  type: 'number'},
 		 {name: 'ydscheck',  type: 'number'},
+		 {name: 'met_origin',  type: 'number'},
+		 {name: 'met_check',  type: 'number'},
 		 {name: 'epcs'},
 		 {name: 'totalpackage',  type: 'number'},
 		 {name: 'totalpackagecheck',  type: 'number'},
@@ -25,6 +28,13 @@ Ext.define('GSmartApp.store.invcheck.InvCheckDetailStore', {
             type: 'number',
             calculate: function(data) {
                 return data.ydsorigin - data.ydscheck;
+			}
+		 },
+		 {
+			name: 'metdiff',
+            type: 'number',
+            calculate: function(data) {
+                return data.met_origin - data.met_check;
 			}
 		 },
 		 {

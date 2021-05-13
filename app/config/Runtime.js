@@ -17,7 +17,7 @@ Ext.define('GSmartApp.config.Runtime', {
         // appBaseUrl: 'http://172.20.10.2:8990/gsmartcore',
         // appBaseUrl_Jitin: 'http://172.20.10.2:8991/jitin',
         // appBaseUrl: 'http://gpay.vn:8090/gmes',
-        // appBaseUrl: 'http://gpay.vn:8090/gmesdha',
+        // appBaseUrl_Jitin: 'http://gpay.vn:8090/jitin',
         // appBaseUrl: 'http://27.71.231.154:8080/gmesdha',
         // back: 'http://27.71.231.154:8081/oauth/',
         back: 'http://gpay.vn:8181/oauth/',
@@ -29,6 +29,9 @@ Ext.define('GSmartApp.config.Runtime', {
         fname: null,
         avatar: null,
         pageSize: 25,
+        //RFID config
+        print_material_label: false,
+        print_rfid_enable: true,
         // MQTT config
         deviceid: 'devsim-0002',
         termid: 'term-0004',

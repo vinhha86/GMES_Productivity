@@ -351,8 +351,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // console.log(pklistData);
         var params = new Object();
         params.data = pklistData;
-        params.isprintlabel = true;
-        params.rfid_enable = true;
+        params.isprintlabel = config.getPrint_material_label();
+        params.rfid_enable = config.getPrint_rfid_enable();
         GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
