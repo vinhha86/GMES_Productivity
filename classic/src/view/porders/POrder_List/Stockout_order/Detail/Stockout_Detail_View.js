@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         items: [{
             region: 'west',
             xtype: 'Stockout_order_coloramount_View',
-            width: 200,
+            width: 262,
             border: true
         }, {
             region: 'center',
@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
             itemId: 'btnLuu',
             iconCls: 'x-fa fa-save',
             bind: {
-                hidden: '{isCreate}'
+                text: '{textbtnLuu}'
             }
         }]
     }]

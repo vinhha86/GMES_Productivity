@@ -11,6 +11,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             click: 'onCalculate'
         }
     },
+    onEdit: function (editor, context, e) {
+        if (context.value == context.originalValue) return;
+
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.data = context.record.data;
+
+        GSmartApp.Ajax.post('/api/v1/stockoutorder/update_stockout_orderd', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var store = viewmodel.getStore('Stockout_order_d_Store');
+                if (success) {
+                    var res = Ext.decode(response.responseText);
+                    if (res.respcode == 200) {
+                        store.commitChanges();
+                    }
+                    else {
+                        store.rejectChanges();
+                    }
+                }
+            })
+    },
     onMenu: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
         var menu_grid = new Ext.menu.Menu({
@@ -112,7 +133,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             grid.up('Stockout_Detail_View').getController().getInfo(viewmodel.get('order.id'));
         })
     },
-    onAddMat: function(record, data){
+    onAddMat: function (record, data) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var params = new Object();
@@ -148,22 +169,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
             params.id = viewmodel.get('order.id');
 
             GSmartApp.Ajax.post('/api/v1/stockoutorder/calculate', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var res = Ext.decode(response.responseText);
-                    if (res.respcode == 200) {
-                        Ext.Msg.show({
-                            title: 'Thông báo',
-                            msg: 'Tính số lượng yêu cầu thành công!',
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
-                        grid.up('Stockout_Detail_View').getController().getInfo(params.id);
+                function (success, response, options) {
+                    if (success) {
+                        var res = Ext.decode(response.responseText);
+                        if (res.respcode == 200) {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Tính số lượng yêu cầu thành công!',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            grid.up('Stockout_Detail_View').getController().getInfo(params.id);
+                        }
                     }
-                }
-            })
+                })
         }
     },
     onThemMoiNPL: function () {

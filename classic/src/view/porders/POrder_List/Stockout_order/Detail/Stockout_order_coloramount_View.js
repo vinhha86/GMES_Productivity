@@ -21,15 +21,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
     },
     columns: [
         {
-            text: 'STT',
-            width: 40,
-            xtype: 'rownumberer',
-            align: 'center'
-        },
-        {
             text: 'Màu SP',
             dataIndex: 'color_name',
-            flex: 1,
+            width: 100,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
+        {
+            text: 'Cỡ SP',
+            dataIndex: 'size_name',
+            width: 80,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -39,6 +42,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
             text: 'SL',
             dataIndex: 'amount',
             width: 60,
+            align: 'right',
             editor: {
                 xtype: 'textfield',
                 maskRe: /[0-9.]/,

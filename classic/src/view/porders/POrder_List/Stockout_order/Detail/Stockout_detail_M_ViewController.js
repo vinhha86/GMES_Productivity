@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var orgFromStore = viewmodel.getStore('OrgFromStore');
 
         var OrgToStore = viewmodel.getStore('OrgToStore');
-        if(order.stockouttypeid_link == 1){
+        if (order.stockouttypeid_link == 1) {
             OrgToStore.GetOrg_By_type(17);
             orgFromStore.GetOrg_By_type(3);
         }
@@ -20,13 +20,21 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var userStore = viewmodel.getStore('UserStore');
         userStore.loadUserbyOrg(-1);
 
-        if(order.id == null){
+        if (order.id == null) {
             var sesion = GSmartApp.util.State.get('session');
             viewmodel.set('order.timecreate', new Date());
             viewmodel.set('order.usercreateid_link', sesion.id);
         }
+
+        var UnitStore = viewmodel.getStore('UnitStore');
+        UnitStore.loadStore();
     },
     control: {
-        
+        '#cmbDonViTinh': {
+            select: 'onSelectDVT'
+        }
+    },
+    onSelectDVT: function (cmb, rec, e) {
+
     }
 })

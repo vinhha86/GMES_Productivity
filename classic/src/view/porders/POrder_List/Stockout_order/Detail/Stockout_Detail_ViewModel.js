@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         'GSmartApp.store.stockout_order.Stockout_order_type_Store',
         'GSmartApp.store.stockout_order.Stockout_order_d_store',
         'GSmartApp.store.UserListStore',
-        'GSmartApp.store.stockout_order.Stockout_order_color_amount_Store'
+        'GSmartApp.store.stockout_order.Stockout_order_color_amount_Store',
+        'GSmartApp.store.unit.UnitStore'
     ],
     stores: {
         Stockout_order_type_Store: {
@@ -29,6 +30,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         },
         Stockout_order_color_amount_Store: {
             type: 'Stockout_order_color_amount_Store'
+        },
+        UnitStore: {
+            type: 'UnitStore'
         }
     },
     data: {
@@ -38,8 +42,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_De
         porderid_link: 0
     },
     formulas: {
-        isCreate: function (get) {
-            if (get('order.id') != null) return true;
+        textbtnLuu: function (get) {
+            if (get('order.id') != null) return "Cập nhật YCX";
+            return "Tạo phiếu YCX";
+        },
+        isHiddenYard: function (get) {
+            if (get('order.unitid_link') == 1) return true;
             return false;
         }
     }

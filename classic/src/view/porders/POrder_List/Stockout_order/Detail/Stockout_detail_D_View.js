@@ -10,7 +10,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
         }
     },
     bind: {
@@ -47,15 +50,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
         }, {
             text: 'SL giữ',
             dataIndex: 'totalyds_lock',
-            width: 100,
+            width: 80,
             renderer: function (value, metaData, record) {
                 return value + " m";
             }
         },
         {
-            text: 'SL yêu cầu',
+            text: 'SL YC',
             dataIndex: 'totalyds',
-            width: 100,
+            itemId: 'totalyds',
+            width: 80,
+            editor: {
+                xtype: 'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true
+            },
+            renderer: function (value, metaData, record) {
+                return value + " y";
+            },
+            bind: {
+                hidden: '{!isHiddenYard}'
+            }
+        },
+        {
+            text: 'SL YC',
+            dataIndex: 'totalmet',
+            itemId: 'totalmet',
+            width: 80,
             editor: {
                 xtype: 'textfield',
                 maskRe: /[0-9.]/,
@@ -63,6 +84,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             },
             renderer: function (value, metaData, record) {
                 return value + " m";
+            },
+            bind: {
+                hidden: '{isHiddenYard}'
             }
         },
         {

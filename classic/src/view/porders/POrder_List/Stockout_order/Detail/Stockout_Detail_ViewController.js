@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                 })
         }
         else {
-            var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
+            // var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
 
         }
     },

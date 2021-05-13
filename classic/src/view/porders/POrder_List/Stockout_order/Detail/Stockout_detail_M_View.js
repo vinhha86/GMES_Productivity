@@ -106,13 +106,27 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 		xtype: 'container',
 		items: [{
 			margin: '0 5 0 5',
+			xtype: 'combo',
+			bind: {
+				value: '{order.unitid_link}',
+				store: '{UnitStore}'
+			},
+			valueField: 'id',
+			displayField: 'name',
+			queryMode: 'local',
+			fieldLabel: 'Đơn vị tính',
+			itemId: 'cmbDonViTinh',
+			labelWidth: 80,
+			width: 375
+		}, {
+			margin: '0 5 0 5',
 			xtype: 'textfield',
 			bind: {
 				value: '{order.extrainfo}'
 			},
 			fieldLabel: 'Ghi chú',
 			flex: 1,
-			labelWidth: 80
+			labelWidth: 85
 		},]
 	}]
 });

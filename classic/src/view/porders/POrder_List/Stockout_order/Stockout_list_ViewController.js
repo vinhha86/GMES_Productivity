@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             title: 'Phiếu yêu cầu xuất phụ liệu cho sản xuất',
             closeAction: 'destroy',
             height: Ext.getBody().getViewSize().height * .99,
-            width: 1000,
+            width: Ext.getBody().getViewSize().width * .90,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -67,8 +67,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             border: false,
             title: 'Phiếu yêu cầu xuất phụ liệu cho sản xuất',
             closeAction: 'destroy',
-            height: 600,
-            width: 900,
+            height: Ext.getBody().getViewSize().height * .99,
+            width: Ext.getBody().getViewSize().width * .90,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
@@ -106,8 +106,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_list_View
             border: false,
             title: 'Phiếu yêu cầu xuất Nguyên liệu cho sản xuất',
             closeAction: 'destroy',
-            height: 600,
-            width: 900,
+            height: Ext.getBody().getViewSize().height * .99,
+            width: Ext.getBody().getViewSize().width * .90,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
