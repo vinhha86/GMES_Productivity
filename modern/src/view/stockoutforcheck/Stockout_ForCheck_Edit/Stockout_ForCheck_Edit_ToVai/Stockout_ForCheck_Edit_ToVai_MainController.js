@@ -90,13 +90,21 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var selectedDRecord = viewModel.get('selectedDRecord');
         var objPkl = viewModel.get('objPkl');
 
-        console.log(objPkl);
+        // console.log(objPkl);
         // if(objPkl.id == null){
         //     Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
         //     return;
         // }
 
         // check textfield
+        if(objPkl.packageid == null || objPkl.packageid == ''){
+            Ext.toast('Thiếu thông tin số cây', 3000);
+            return;
+        }
+        if(objPkl.lotnumber == null || objPkl.lotnumber == ''){
+            Ext.toast('Thiếu thông tin số lot', 3000);
+            return;
+        }
         if(stockout_order.unitid_link == null) stockout_order.unitid_link = 1;
         if(stockout_order.unitid_link == 3){
             if(objPkl.width_yds_check == '' || objPkl.ydscheck == ''){
@@ -198,33 +206,30 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                 // me.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
+                    me.setMasked(false);
                     if (response.respcode == 200) {
-                        if(response.message == 'Đã tồn tại cây vải khác có lot và packageid này'){
+                        if(response.message == 'Không tồn tại cây vải trong kho'){
                             Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                            me.setMasked(false);
                         }else{
                             Ext.toast('Lưu thành công', 3000);
                             var data = response.data;
-                            me.setMasked(false);
-                            m.reloadStore();
-                            m.resetForm();
-                            m.getView().down('#packageidTxt').focus();
 
                             // bỏ highlight
                             var grid = me.down('#Stockout_ForCheck_Edit_ToVai');
                             grid.getSelectable().deselectAll();
                             viewModel.set('selectedPklRecord', null);
-                            //
+
+                            m.reloadStore();
+                            m.resetForm();
+                            m.getView().down('#packageidTxt').focus();
                         }
                         // console.log(response);
                     }else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                    me.setMasked(false);
                 }
         })
 
@@ -243,20 +248,26 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         viewModel.set('objPkl.lotnumber', newValue.toUpperCase());
         field.setValue(newValue.toUpperCase());
     },
+    onlotnumberTxtAndpackageidTxtenter: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        viewModel.set('isPklTextfieldFocus', true);
+    },
     onlotnumberTxtAndpackageidTxtleave: function(textfield, event, eOpts){
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
-        var selectedPklRecord = viewModel.get('selectedPklRecord');
 
+        viewModel.set('isPklTextfieldFocus', false);
         var lotnumber = viewModel.get('objPkl.lotnumber');
         var packageid = viewModel.get('objPkl.packageid');
 
         // nếu đang chọn 1 record thì edit, ko tìm trên db, return
-        if(selectedPklRecord != null){
-            return;
-        }
+        // if(selectedPklRecord != null){
+        //     return;
+        // }
 
         if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
@@ -304,19 +315,19 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                                 var grid = me.down('#Stockout_ForCheck_Edit_ToVai');
                                 grid.getSelectable().deselectAll();
                                 // highlight nếu cây vải có trong danh sách pkl
-                                var storeItems = viewModel.getStore('Stockout_order_pkl_Store').getData().items;
-                                for(var i=0; i<storeItems.length; i++){
-                                    var item = storeItems[i];
-                                    if(
-                                        item.get('skuid_link') == objPkl.skuid_link &&
-                                        item.get('lotnumber') == objPkl.lotnumber &&
-                                        item.get('packageid') == objPkl.packageid
-                                    ){
-                                        grid.getSelectable().select(item);
-                                        viewModel.set('selectedPklRecord', item);
-                                        // console.log(item);
-                                    }
-                                }
+                                // var storeItems = viewModel.getStore('Stockout_order_pkl_Store').getData().items;
+                                // for(var i=0; i<storeItems.length; i++){
+                                //     var item = storeItems[i];
+                                //     if(
+                                //         item.get('skuid_link') == objPkl.skuid_link &&
+                                //         item.get('lotnumber') == objPkl.lotnumber &&
+                                //         item.get('packageid') == objPkl.packageid
+                                //     ){
+                                //         grid.getSelectable().select(item);
+                                //         viewModel.set('selectedPklRecord', item);
+                                //         // console.log(item);
+                                //     }
+                                // }
                                 //
                                 // console.log(response);
                                 // console.log(responseObj);
