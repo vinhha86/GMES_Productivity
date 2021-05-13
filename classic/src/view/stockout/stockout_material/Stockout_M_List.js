@@ -25,19 +25,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
     },
     columns: [
         {
-            text: 'STT',
-            width: 50,
-            xtype: 'rownumberer',
-            align: 'center'
-        },
-        { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
-        { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
-        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
-        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
-        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
-        // { header: 'Tổng tiền', dataIndex: 'totalprice', width: 110},   
-        { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
-        {
             xtype: 'actioncolumn',
             reference: 'stockout_contextmenu',
             width: 45,
@@ -46,18 +33,43 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             items: [
                 {
                     // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-pencil-square-o',
+                    iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
                     tooltip: 'Sửa phiếu',
                     handler: 'onStockoutEdit'
                 },
                 {
                     // iconCls: 'x-fa fas fa-bars violetIcon',
-                    iconCls: 'x-fa fas fa-trash-o',
+                    iconCls: 'x-fa fas fa-trash-o redIcon',
                     tooltip: 'Xóa phiếu',
                     handler: 'onStockoutItemDelete'
                 },
             ]
-        }
+        },     
+        // {
+        //     text: 'STT',
+        //     width: 50,
+        //     xtype: 'rownumberer',
+        //     align: 'center'
+        // },
+        { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
+        { header: 'Số YCX', dataIndex: 'stockout_order_code', width: 150 },
+        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
+        { header: 'Loại xuất kho', dataIndex: 'stockouttype_name', width: 150 },
+        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
+        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
+        // { header: 'Tổng tiền', dataIndex: 'totalprice', width: 110},   
+        { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
+        {
+            text: 'Trạng thái', dataIndex: 'statusString', width: 120,
+            // renderer: function(value, metaData, record){
+            //     switch(value){
+            //         case -1: return 'Chưa kiểm tra đủ';
+            //         case 0: return 'Đã kiểm tra đủ';
+            //         case 1: return 'Đã duyệt';
+            //     }
+            //     return '';
+            // }
+        },  
     ],
     dockedItems: [{
         dock: 'top',
@@ -187,40 +199,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 handler: 'onSearch'
             }
         ]
-    }, {
-        dock: 'bottom',
-        layout: 'hbox',
-        xtype: 'toolbar',
-        border: false,
-        height: 50,
-        items: [{
-            xtype: 'textfield',
-            value: 25,
-            itemId: 'limitpage',
-            maskRe: /[0-9]/,
-            width: 180,
-            selectOnFocus: true,
-            margin: 5,
-            fieldLabel: 'Số bản ghi/ Trang',
-            labelWidth: 120
-        }, '-', {
-            xtype: 'pagingtoolbar',
-            displayInfo: true,
-            flex: 1,
-            nextText: 'Trang tiếp',
-            prevText: 'Trang trước',
-            afterPageText: '/ {0}',
-            beforePageText: 'Trang',
-            itemId: 'page',
-            refreshText: 'Làm mới dữ liệu',
-            border: false,
-            bind: {
-                store: '{Stockout}'
-            },
-            emptyMsg: 'Không có kết quả tìm kiếm',
-            lastText: 'Trang cuối',
-            firstText: 'Trang đầu',
-            displayMsg: 'Hiển thị {0} - {1} của {2}'
-        }]
-    }]
+    }, 
+    ]
 });

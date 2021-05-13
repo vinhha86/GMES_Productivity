@@ -28,7 +28,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         }                     
     },
     columns: [
-
+		{ 
+			xtype: 'actioncolumn',
+			reference: 'stockout_contextmenu',
+			width: 25,
+			menuDisabled: true,
+			sortable: false,
+			items: [
+				// {
+				// 	iconCls: 'x-fa fas fa-bars violetIcon',
+				// 	tooltip:'Chi tiết chíp',
+				// 	handler: 'onEPCDetail'
+				// },
+				{
+					iconCls: 'x-fa fas fa-bars violetIcon',
+					tooltip:'PackingList',
+					handler: 'onViewPackingList'
+				},
+			]
+        },   	
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',
@@ -72,12 +90,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         {
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL yêu cầu (m)', 
+			text: 'SL Y/C (M)', 
 			align:'right',
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 100,
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
@@ -85,12 +103,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         {
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL xuất (m)', 
+			text: 'SL xuất (M)', 
 			align:'right',
 			dataIndex: 'totalmet_check',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 105,
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
@@ -98,12 +116,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         {
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL yêu cầu (y)', 
+			text: 'SL Y/C (Y)', 
 			align:'right',
 			dataIndex: 'totalydsorigin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 100,
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
@@ -111,12 +129,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL xuất (y)', 
+			text: 'SL xuất (Y)', 
 			align:'right',
 			dataIndex: 'totalydscheck',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 105,
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
@@ -131,25 +149,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		// 	dataIndex: 'totalydscheck',
 		// 	width: 85
 		// },
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockout_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-			// {
-			// 	iconCls: 'x-fa fas fa-bars violetIcon',
-			// 	tooltip:'Chi tiết chíp',
-			// 	handler: 'onEPCDetail'
-			// },
-			{
-				iconCls: 'x-fa fas fa-bars violetIcon',
-				tooltip:'PackingList',
-				handler: 'onViewPackingList'
-			},
-		]
-        }   	
     ],
     // dockedItems: [{
     //     dock: 'top',

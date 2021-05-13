@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Main_D', {
+Ext.define('GSmartApp.view.stockin.Stockout_M_List_Main_D', {
 	extend: 'Ext.grid.Panel',
-	xtype: 'Stockin_M_Main_D',
-	id: 'Stockin_M_Main_D',
+	xtype: 'Stockout_M_List_Main_D',
+	id: 'Stockout_M_List_Main_D',
 	columnLines: true,
 	rowLines: true,
 	border: true,
@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main_D', {
     //     }
     // },
 	bind:{
-		store: '{StockinD_Store}'
+		store: '{StockoutD_Store}'
 	},
 	columns: [
 		{
@@ -49,37 +49,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main_D', {
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'sku_product_color',
-			width: 120
+			dataIndex: 'color_name',
+			width: 120,
 		},{
-			text: 'Cỡ khổ', 
+			text: 'Cỡ', 
 			dataIndex: 'size_name',
-			width: 70
+			width: 70,
 		},{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
 			width: 70,
-			// editor: {
-			// 	completeOnEnter: true,
-			// 	field: {
-			// 		xtype: 'combo',
-			// 		typeAhead: true,
-			// 		triggerAction: 'all',
-			// 		selectOnFocus: false,
-			// 		bind: {
-			// 			store: '{UnitStore}',
-			// 			// value: '{unitid_link}'
-			// 		},
-			// 		displayField: 'code',
-			// 		valueField: 'id',
-			// 		queryMode : 'local',
-			// 		editable: false,
-			// 		readOnly: true
-			// 	}
-			// },
+			editor: {
+				completeOnEnter: true,
+				field: {
+					xtype: 'combo',
+					typeAhead: true,
+					triggerAction: 'all',
+					selectOnFocus: false,
+					bind: {
+						store: '{UnitStore}',
+						// value: '{unitid_link}'
+					},
+					displayField: 'code',
+					valueField: 'id',
+					queryMode : 'local',
+					editable: false,
+					readOnly: true
+				}
+			},
 			renderer: 'renderUnit'
 		},
-		{
+        {
 			xtype: 'numbercolumn',
 			format:'0,000.00',
 			text: 'SL Y/C (M)', 
@@ -87,96 +87,50 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main_D', {
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
+			width: 100,
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
-		},{
+		},
+        {
 			xtype: 'numbercolumn',
 			format:'0,000.00',
-			text: 'SL kiểm (M)', 
+			text: 'SL xuất (M)', 
 			align:'right',
+			dataIndex: 'totalmet_check',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'totalmet_check',
-			width: 90,
+			width: 105,
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
 		},
-		// {
+        // {
 		// 	xtype: 'numbercolumn',
 		// 	format:'0,000.00',
-		// 	text: 'SL Y/C (Y)', 
+		// 	text: 'SL yêu cầu (y)', 
 		// 	align:'right',
 		// 	dataIndex: 'totalydsorigin',
 		// 	summaryType: 'sum',
 		// 	summaryRenderer: 'renderSum',
-		// 	width: 80,
+		// 	width: 90,
 		// 	bind: {
 		// 		hidden: '{isYdsColumnHidden}',
 		// 	},
-		// 	// editor:{
-		// 	// 	xtype:'textfield',
-		// 	// 	maskRe: /[0-9]/,
-		// 	// 	selectOnFocus: true
-		// 	// },
 		// },
 		// {
 		// 	xtype: 'numbercolumn',
 		// 	format:'0,000.00',
-		// 	text: 'SL kiểm (Y)', 
+		// 	text: 'SL xuất (y)', 
 		// 	align:'right',
+		// 	dataIndex: 'totalydscheck',
 		// 	summaryType: 'sum',
 		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'totalydscheck',
-		// 	width: 85,
+		// 	width: 90,
 		// 	bind: {
 		// 		hidden: '{isYdsColumnHidden}',
 		// 	},
-		// 	// editor:{
-		// 	// 	xtype:'textfield',
-		// 	// 	maskRe: /[0-9]/,
-		// 	// 	selectOnFocus: true
-		// 	// },
 		// },
-		{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL cây', 
-			align:'right',
-			dataIndex: 'totalpackage',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 60,
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
-		},		
-		{
-			text: 'Danh sách LOT', 
-			// dataIndex: 'lot_list',
-			dataIndex: 'stockinDLot',
-			width: 150,
-			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-				if(value == null) value = '';
-				value = value.toUpperCase();
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
-		}
 	],
 });
 
