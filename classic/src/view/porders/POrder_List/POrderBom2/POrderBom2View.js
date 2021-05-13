@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2View', {
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
-        width: 150,
+        flex: 1,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
@@ -66,33 +66,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2View', {
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
         }
-    }, {
-        text: 'PO',
-        dataIndex: 'po_line',
-        width: 150,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
-        }
-    }, {
-        text: 'ĐVT',
-        dataIndex: 'unitid_link',
-        width: 70,
-        getEditor: function (record) {
-            return Ext.create('Ext.grid.CellEditor', {
-                field: {
-                    xtype: 'combo',
-                    bind: {
-                        store: '{UnitStore}'
-                    },
-                    valueField: 'id',
-                    displayField: 'code',
-                    queryMode: 'local'
-                }
-            })
-        },
-        renderer: 'renderUnit'
     }, {
         text: 'Tiêu hao',
         dataIndex: 'lost_ratio',
