@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 	'GSmartApp.store.stockout.StockoutTypeStore',
 	'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 	'GSmartApp.store.VatTypeStore', 'GSmartApp.store.CurrencyStore',
-	'GSmartApp.store.Stockout'],
+	'GSmartApp.store.Stockout', 'GSmartApp.store.stockout_order.Stockout_order_Store'],
     stores: {
         DeviceInvStore:{
 			type :'DeviceInvStore'
@@ -43,6 +43,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		},
         UnitStore: {
             type: 'UnitStore'
+        },
+        Stockout_order_Store: {
+            type: 'Stockout_order_Store'
         },
 	},
 	data: {
