@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Main_D', {
+Ext.define('GSmartApp.view.stockin.Stockin_M_List_D', {
 	extend: 'Ext.grid.Panel',
-	xtype: 'Stockin_M_Main_D',
-	id: 'Stockin_M_Main_D',
+	xtype: 'Stockin_M_List_D',
+	id: 'Stockin_M_List_D',
 	columnLines: true,
 	rowLines: true,
 	border: true,

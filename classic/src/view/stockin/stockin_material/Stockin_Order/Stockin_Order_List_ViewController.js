@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
+Ext.define('GSmartApp.view.stockin.Stockin_Order_List_ViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_M_List_ViewController',
+    alias: 'controller.Stockin_Order_List_ViewController',
     isActivate: false,
     init: function () {
         var me = this.getView();
@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_ViewController', {
         '#limitpage': {
             specialkey: 'onSpecialkey'
         },
-        '#Stockin_M_List': {
+        '#Stockin_Order_List': {
             select: 'onStockinSelect',
             itemdblclick: 'onCapNhatdbl',
         },        

@@ -1,21 +1,20 @@
-Ext.define('GSmartApp.view.stockin.Stockout_M_List_Main', {
+Ext.define('GSmartApp.view.stockin.Stockin_Order_List_Main', {
     extend: 'Ext.container.Container',
-    xtype: 'Stockout_M_List_Main',
-    id:'Stockout_M_List_Main',
-    controller: 'Stockout_M_List_Main_Controller',
+    xtype: 'Stockin_Order_List_Main',
+    id:'Stockin_Order_List_Main',
     layout: 'border',
     items: [
         {
             region: 'center',
             border: true,
             margin: 1,
-            xtype: 'Stockout_M_List'
+            xtype: 'Stockin_Order_List'
         },
         {
             region: 'south',
             margin: 1,
             height: '50%',
-            xtype: 'Stockout_M_List_D'
+            xtype: 'Stockin_Order_List_D'
         },
     ],
     // listeners: {

@@ -6,22 +6,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Main_Controller', {
 		var UnitStore = viewModel.getStore('UnitStore');
 		UnitStore.loadStore();
     },
-    control: {
-        '#Stockin_M_List': {
-            select: 'onStockinSelect'
-        },
-    },
     onPContract_Stockin: function (pcontractid) {
         var viewmodel = this.getViewModel();
         viewmodel.set('pcontractid_link', pcontractid);
 
         var store = viewmodel.getStore('StockinStore');
         store.loadStore_Material(null, null, null, null, null, pcontractid, null, null);
-    },
-    onStockinSelect: function (e, selected, eOpts) {
-        var viewmodel = this.getViewModel();
-        var StockinD_Store = viewmodel.getStore('StockinD_Store');
-        StockinD_Store.setData(selected.data.stockin_d);
     },
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
