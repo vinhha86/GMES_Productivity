@@ -19,6 +19,18 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'filterMaSP',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterMaSPKeyup',
+                buffer: 500
+            }
         }
     },
     {
@@ -34,6 +46,18 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'filterPO',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterPOKeyup',
+                buffer: 500
+            }
         }
     },
     {
@@ -96,32 +120,39 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
-        // padding: '0 0 5 5',
-        // height: 40,
         layout: 'hbox',
-        items: [
-            // {
-            //     xtype: 'button',
-            //     iconCls: 'x-fa fa-tasks',
-            //     itemId: 'hideView',
-            //     tooltip: 'Kế hoạch sản xuất'
-            // },
-            {
-                xtype: 'datefield',
-                fieldLabel: "Danh sách PO Line (Nhịp giao hàng) đến ngày",
-                fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-                labelStyle: "font-weight: bold; font-size: 14px; color: black;",
-                bind: {
-                    value: '{shipdate_to}'
-                },
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                itemId: 'shipdate',
-                width: 470,
-                margin: 2,
-                editable: false,
-                labelWidth: 330
-            }
+        items: [{
+            xtype: 'datefield',
+            fieldLabel: "Danh sách PO Line (Nhịp giao hàng) từ ngày",
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelStyle: "font-weight: bold; font-size: 14px; color: black;",
+            bind: {
+                value: '{shipdate_from}'
+            },
+            format: 'd/m/Y',
+            altFormats: "Y-m-d\\TH:i:s.uO",
+            itemId: 'shipdate_from',
+            width: 470,
+            margin: 2,
+            editable: false,
+            labelWidth: 330
+        },
+        {
+            xtype: 'datefield',
+            fieldLabel: "Đến ngày",
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelStyle: "font-weight: bold; font-size: 14px; color: black;",
+            bind: {
+                value: '{shipdate_to}'
+            },
+            format: 'd/m/Y',
+            altFormats: "Y-m-d\\TH:i:s.uO",
+            itemId: 'shipdate_to',
+            width: 210,
+            margin: 2,
+            editable: false,
+            labelWidth: 70
+        }
         ]
     }
     ]

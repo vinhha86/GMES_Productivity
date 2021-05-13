@@ -1,13 +1,20 @@
-Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
+Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view', {
     extend: 'Ext.grid.Panel',
-    xtype: 'POrderView',
-    id: 'POrderView',
-    controller: 'POrderViewController',
-    reference: 'POrderView',
+    xtype: 'POrder_Offer_view',
+    id: 'POrder_Offer_view',
+    controller: 'POrder_Offer_viewController',
+    viewModel: {
+        type: 'POrder_Offer_viewModel'
+    },
     viewConfig: {
         stripeRows: false,
         columnLines: true,
         rowLines: true
+    },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+        checkOnly: true
     },
     bind: {
         store: '{POrder_ListStore}'
@@ -66,27 +73,26 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
         }
     ],
     dockedItems: [{
-        dock: 'top',
-        xtype: 'toolbar',
-        padding: '0 0 10 5',
-        height: 40,
+        dock: 'bottom',
+        layout: 'hbox',
         items: [{
-            xtype: 'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth: 0,
-            value: 'Lệnh sản xuất'
-        },
-            '->'
-            ,
-        {
-            xtype: 'button',
-            itemId: 'btnAddPOrder',
-            ui: 'header',
-            margin: '10 5 0 0',
-            tooltip: 'Thêm Lệnh SX',
-            iconCls: 'x-fa fa-plus'
-        }
-        ]
+            dock: 'bottom',
+            layout: 'hbox',
+            items: [{
+                xtype: 'button',
+                text: 'Thoát',
+                itemId: 'btnThoat',
+                iconCls: 'x-fa fa-window-close',
+                margin: 5
+            }, {
+                xtype: 'button',
+                text: 'Chọn',
+                margin: 5,
+                itemId: 'btnLuu',
+                iconCls: 'x-fa fa-check',
+                text: 'Chọn'
+            }]
+        }]
     }]
 });
 

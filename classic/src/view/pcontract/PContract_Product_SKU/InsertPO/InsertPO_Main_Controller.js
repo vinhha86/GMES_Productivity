@@ -41,6 +41,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_Product_SKU.InsertPO.InsertPO_Mai
                         }
                         viewmodel.set('po', new_po.data);
 
+                        var productid_link = viewmodel.get('productid_link');
+                        var pcontract_po_productivity = new Object();
+
+                        for (var i = 0; i < response.data.pcontract_po_productivity.length; i++) {
+                            if (response.data.pcontract_po_productivity[i].productid_link == productid_link) {
+                                pcontract_po_productivity = response.data.pcontract_po_productivity[i];
+                                break;
+                            }
+                        }
+                        viewmodel.set('pcontract_po_productivity', pcontract_po_productivity);
+
 
                         // viewmodel.set('po.po_buyer', record.get('po_buyer'));
                         // viewmodel.set('po.po_vendor', record.get('po_vendor'));

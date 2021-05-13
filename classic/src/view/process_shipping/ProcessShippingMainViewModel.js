@@ -23,6 +23,8 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
     },
     data: {
         shipdate_to: new Date(),
-        porderid_link: 1379
+        shipdate_from: new Date(),
+        porderid_link: 1379,
+        pcontract_poid_link: 0
     }
 })
