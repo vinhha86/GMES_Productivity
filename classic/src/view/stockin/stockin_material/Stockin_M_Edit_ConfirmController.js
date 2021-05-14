@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_ConfirmController', {
         params.stockinId = stockinId;
         params.approver_userid_link = approver_userid_link;
 
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve_material', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);

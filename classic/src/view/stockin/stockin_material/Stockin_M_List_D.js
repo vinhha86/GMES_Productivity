@@ -155,7 +155,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_D', {
 			format:'0,000',
 			text: 'Cây kiểm', 
 			align:'right',
-			dataIndex: 'package_o_check',
+			dataIndex: 'totalpackagecheck',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 70,

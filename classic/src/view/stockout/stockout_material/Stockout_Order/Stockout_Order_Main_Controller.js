@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
             viewModel: {},
             items: [
                 {
-                    text: 'Xuất NPL cho nhà cắt',
+                    text: 'Tạo phiếu Xuất NPL cho nhà cắt',
                     itemId: 'btnMenu_StockoutOrderList_Cat',
                     separator: true,
                     margin: '10 0 0',
@@ -100,7 +100,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
                     },
                 },
                 {
-                    text: 'Xuất gia công',
+                    text: 'Tạo phiếu Xuất điều chuyển',
                     itemId: 'btnMenu_StockoutOrderList_GiaCong',
                     separator: true,
                     margin: '10 0 0',

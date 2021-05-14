@@ -33,9 +33,7 @@ Ext.define('GSmartApp.model.stockin.Stockin_d', {
         {
             name: 'package_o_check',
             calculate: function(data) {
-                var a = (null==data.totalpackage?'0':data.totalpackage) + '/' +  (null==data.totalpackagecheck?'0':data.totalpackagecheck);
-                console.log(a);
-                return a;
+                return (null==data.totalpackage?'0':data.totalpackage) + '/' +  (null==data.totalpackagecheck?'0':data.totalpackagecheck);
             }
         },
         {
