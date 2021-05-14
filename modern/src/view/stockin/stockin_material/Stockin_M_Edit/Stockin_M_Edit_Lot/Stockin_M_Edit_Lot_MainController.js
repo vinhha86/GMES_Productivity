@@ -156,6 +156,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
             return;
         }
 
+        var spaceepcid_link = 'D[' + lotRow + ']H[' + lotSpace + ']T[' + lotFloor + ']';
+
         //
         me.setMasked({
             xtype: 'loadmask',
@@ -164,7 +166,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
 
         var params = new Object();
         params.stockinlotid_link = stockinlotid_link;
-        params.spaceepcid_link = 'D' + lotRow + 'H' + lotSpace + 'T' + lotFloor;
+        params.spaceepcid_link = spaceepcid_link
         params.totalpackage = lotAmount;
 
         GSmartApp.Ajax.postJitin('/api/v1/stockin_lot_space/stockin_lot_space_create', Ext.JSON.encode(params),
