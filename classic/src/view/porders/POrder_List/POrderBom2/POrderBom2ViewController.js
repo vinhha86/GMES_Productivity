@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                     var model = storeBOM.getModel();
                     var fields = model.getFields();
                     for (var i = 0; i < fields.length; i++) {
-                        if (i > 24) {
+                        if (i > 21) {
                             model.removeFields(fields[i].name);
                         }
                     }
@@ -81,5 +81,25 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                     storeBOM.getbom_by_porder(porderid_link);
                 }
             })
+    },
+    onFilterValueKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('POrderBom2Store');
+        var filterField = this.lookupReference('ValueFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.valueFilter = filters.add({
+                id: 'valueFilter',
+                property: 'color_name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.valueFilter) {
+            filters.remove(this.valueFilter);
+            this.valueFilter = null;
+        }
     }
 })
