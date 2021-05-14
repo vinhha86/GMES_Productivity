@@ -114,8 +114,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 		// 	}
 		// },
         {
-			text: 'Khổ', 
-			dataIndex: 'width',
+			text: 'Khổ (M)', 
+			dataIndex: 'width_met',
             flex: 1,
 			align:'right',
 			editor:{
@@ -127,11 +127,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
 		},
         {
-			text: 'Khổ thực tế', 
-			dataIndex: 'width_check',
+			text: 'Khổ thực tế (M)', 
+			dataIndex: 'width_met_check',
             flex: 1,
 			align:'right',
 			editor:{
@@ -143,7 +146,48 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
 				return Ext.util.Format.number(value, '0,000.00');
-			}
+			},
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
+		},
+		{
+			text: 'Khổ (Y)', 
+			dataIndex: 'width_yds',
+            flex: 1,
+			align:'right',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
+		},
+        {
+			text: 'Khổ thực tế (Y)', 
+			dataIndex: 'width_yds_check',
+            flex: 1,
+			align:'right',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
 		},
 		{
 			text: 'SL Invoice (m)', 
