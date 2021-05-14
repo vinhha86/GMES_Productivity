@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List', {
     id: 'Stockin_Order_List',
     reference: 'Stockin_Order_List',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         columnLines: true,
         rowLines: true
     },

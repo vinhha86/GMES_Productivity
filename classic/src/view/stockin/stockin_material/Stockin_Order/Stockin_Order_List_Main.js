@@ -4,6 +4,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_Main', {
     id:'Stockin_Order_List_Main',
     layout: 'border',
     controller: 'Stockin_Order_List_Main_Controller',
+    viewModel: {
+        type: 'Stockin_M_ViewModel'
+    },
     items: [
         {
             region: 'center',

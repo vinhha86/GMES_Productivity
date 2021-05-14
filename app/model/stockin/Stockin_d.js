@@ -31,6 +31,14 @@ Ext.define('GSmartApp.model.stockin.Stockin_d', {
         {name: 'lasttimeupdate', type: 'date', dateFormat: 'c'},
         'porder_year',
         {
+            name: 'package_o_check',
+            calculate: function(data) {
+                var a = (null==data.totalpackage?'0':data.totalpackage) + '/' +  (null==data.totalpackagecheck?'0':data.totalpackagecheck);
+                console.log(a);
+                return a;
+            }
+        },
+        {
             name: 'totalprice',
             calculate: function(data) {
                 return (null == data.unitprice ?'0':data.totalpackage * data.unitprice);

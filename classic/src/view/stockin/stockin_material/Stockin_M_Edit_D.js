@@ -233,17 +233,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
-			text: 'SL cây', 
+			text: 'Cây kiểm', 
 			align:'right',
-			dataIndex: 'totalpackage',
+			dataIndex: 'package_origin_check',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 60,
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
+			width: 70,
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
 		},		
 		{
 			text: 'Danh sách LOT', 

@@ -5,7 +5,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_Main_Controller', {
     init: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
-
+        
+		var UnitStore = viewmodel.getStore('UnitStore');
+		if (null!=UnitStore) UnitStore.loadStore();
 
         var stockintype = viewmodel.getStore('StockinTypeStore');
         stockintype.loadStore();

@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             },
             {
                 title: 'Nguyên phụ liệu về',
-                xtype: 'Stockin_M_Main',
+                xtype: 'Stockin_M_List_Main',
                 viewModel: {
                     data: {
                         isAdd_Pcontract_Stockin: true,
