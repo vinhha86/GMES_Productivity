@@ -52,26 +52,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin_lot/delete', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
+                me.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if(response.message == 'Lot này đã tồn tại cây vải'){
                             Ext.toast('Xoá thất bại: ' + response.message, 3000);
-                            me.setMasked(false);
                         }else{
                             Ext.toast('Xoá thành công', 3000);
-                            me.setMasked(false);
                             m.fireEvent('Xoa');
                         }
                         // console.log(response);
                     }else{
                         Ext.toast('Xoá thất bại: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Xoá thất bại: ' + response.message, 3000);
-                    me.setMasked(false);
                 }
         })
 
@@ -96,21 +93,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin_lot/update', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
+                me.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.toast('Lưu thành công', 3000);
-                        me.setMasked(false);
                         m.fireEvent('Luu');
                         // console.log(response);
                     }else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                    me.setMasked(false);
                 }
         })
 
@@ -137,20 +132,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin_lot/getById', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
+                me.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        viewModel.set('stockinLot', response.data)
-                        me.setMasked(false);
+                        viewModel.set('stockinLot', response.data);
                         // console.log(response);
                     } else{
                         Ext.toast('Lấy thông tin chi tiết lot thất bại: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lấy thông tin chi tiết lot thất bại: ' + response.message, 3000);
-                    me.setMasked(false);
                 }
         })
     },

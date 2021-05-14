@@ -296,6 +296,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             GSmartApp.Ajax.postJitin('/api/v1/warehouse/getByLotAndPackageId', Ext.JSON.encode(params),
                 function (success, response, options) {
                     // me.setLoading(false);
+                    me.setMasked(false);
                     if (success) {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
@@ -334,15 +335,12 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                                 // console.log(responseObj);
                                 // console.log(storeItems);
                             }
-                            me.setMasked(false);
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
-                            me.setMasked(false);
                         }
                     } else {
                         var response = Ext.decode(response.responseText);
                         Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
             })        
         }

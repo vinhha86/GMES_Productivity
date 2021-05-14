@@ -117,12 +117,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin_lot/stockin_lot_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
+                me.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if(response.message == 'Số lot đã tồn tại'){
                             Ext.toast(response.message, 3000);
-                            me.setMasked(false);
                         }else{
                             Ext.toast('Lưu thành công', 3000);
                             var data = response.data;
@@ -134,17 +134,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
                             m.reloadStore();
                             // reset form
                             m.resetFormAddLot();
-                            me.setMasked(false);
                         }
                         // console.log(response);
                     } else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                    me.setMasked(false);
                 }
         })
 

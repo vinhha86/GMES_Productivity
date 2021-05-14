@@ -200,16 +200,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/update', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
+                me.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if(response.message == 'Đã tồn tại cây vải khác có lot và packageid này'){
                             Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                            me.setMasked(false);
                         }else{
                             Ext.toast('Lưu thành công', 3000);
                             var data = response.data;
-                            me.setMasked(false);
                             m.reloadStore();
                             m.resetFormRecheck();
                             m.getView().down('#packageidTxtRecheck').focus();
@@ -223,12 +222,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                         // console.log(response);
                     }else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
-                    me.setMasked(false);
                 }
         })
 
@@ -287,6 +284,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/getByStockinDLotAndPackageId', Ext.JSON.encode(params),
                 function (success, response, options) {
                     // me.setLoading(false);
+                    me.setMasked(false);
                     if (success) {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
@@ -317,15 +315,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                                 //
                                 // console.log(responseObj);
                             }
-                            me.setMasked(false);
+                            
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
-                            me.setMasked(false);
                         }
                     } else {
                         var response = Ext.decode(response.responseText);
                         Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
-                        me.setMasked(false);
                     }
             })        
         }
