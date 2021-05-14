@@ -90,6 +90,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         var stockouttypeto = 10;
 
         var page = store.currentPage;
+        var statuses = [-1,0,1,2];
 
         // if (limit == null) {
         //     limit = 100;
@@ -99,7 +100,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         //     page = 1;
         // }
         store.loadByDate_Material(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, null, null,
-            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto);
+            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses);
     },
     renderCell: function(value, record) {
         if (null == value) value = 0;
