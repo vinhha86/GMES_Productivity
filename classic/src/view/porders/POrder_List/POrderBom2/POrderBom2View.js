@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2View', {
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
-        flex: 1,
+        width: 150,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
