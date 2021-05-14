@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_ViewModel', {
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockin.unitid_link');
             if(unitid_link == null){
-                return true;
+                return false;
             }else 
             if(unitid_link == 1){
                 return false;
