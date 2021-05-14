@@ -723,5 +723,77 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 			me.getStore().commitChanges();
 			form.close();
 		})
+	},
+
+	onMenu_Stockin_M_Edit_D_List: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Chi tiết cây vải',
+                    itemId: 'btnMenu_Stockin_M_Edit_D_List_Pkl',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-edit brownIcon',
+                    handler: function () {
+                        // console.log(record);
+						me.onViewPackingList(grid, rowIndex);
+                    },
+                },
+                {
+                    text: 'Phiếu đo khổ vải',
+                    itemId: 'btnMenu_Stockin_M_Edit_D_List_PhieuKhoVai',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function () {
+                        // console.log(record);
+						me.onViewPhieuKhoVai(grid, rowIndex);
+                    }
+                },
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+    },
+
+	onViewPhieuKhoVai: function(grid, rowIndex){
+		var viewmodel = this.getViewModel();
+		var stockin = viewmodel.get('stockin'); // console.log(stockin);
+        var data = grid.getStore().getAt(rowIndex); // console.log(data);
+		var form = Ext.create('Ext.window.Window', {
+			height: '90%',
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Phiếu đo khổ vải : ' + data.get('skucode'),
+			closeAction: 'destroy',
+			width: 1200,
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockin_M_Edit_D_PhieuKhoVai'
+			}],
+			viewModel: {
+				type: 'Stockin_M_Edit_D_PhieuKhoVaiViewModel',
+				data: {
+					stockin: stockin,
+					stockin_d: data
+				}
+			}
+		});
+		form.show();
 	}
 })
