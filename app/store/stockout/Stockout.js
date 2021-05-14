@@ -100,7 +100,7 @@ Ext.define('GSmartApp.store.Stockout', {
 		});
     }, 
     loadByDate_Material:function(stockouttypeid,stockoutcode, stockoutdate_from, stockoutdate_to, page, limit,
-        orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto){
+        orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses){
         var me = this;
         var param=new Object();
         param.stockoutdate_from = stockoutdate_from;
@@ -111,6 +111,7 @@ Ext.define('GSmartApp.store.Stockout', {
         param.orgid_to_link = orgid_to_link;
         param.stockouttypefrom = stockouttypefrom;
         param.stockouttypeto = stockouttypeto;
+        param.statuses = statuses;
         
         me.pageSize = limit;
 
