@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D', {
                 '</div>' +
 
                 '<div class="content2">'+
-                    '<div class="content2-sub1">Khoang:</div>'+
+                    '<div class="content2-sub1">Thẻ kho:</div>'+
                     '<div class="content2-sub2">{data_spaces}</div>' +
                 '</div>' +
 

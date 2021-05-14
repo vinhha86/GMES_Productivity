@@ -117,7 +117,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List', {
             // width: 100,
             xtype: 'button',
             margin: 3,
-            // text: GSmartApp.Locales.btn_loc[GSmartApp.Locales.currentLocale],
+            text: "Đồng bộ từ MITI",
             iconCls: 'x-fa fa-search',
             itemId: 'btnTimKiem',
             bind: {

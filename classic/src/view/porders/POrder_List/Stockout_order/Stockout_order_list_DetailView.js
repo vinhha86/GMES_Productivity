@@ -30,6 +30,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
         }, {
             text: 'Màu NPL',
             dataIndex: 'tenMauNPL',
+            width: 180
+        }, {
+            text: 'Thẻ kho',
+            dataIndex: 'data_spaces',
             flex: 1
         }, {
             text: 'Cỡ khổ',

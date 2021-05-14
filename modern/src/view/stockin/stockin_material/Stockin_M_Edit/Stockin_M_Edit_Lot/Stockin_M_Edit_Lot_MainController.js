@@ -156,7 +156,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
             return;
         }
 
-        var spaceepcid_link = 'D[' + lotRow + ']H[' + lotSpace + ']T[' + lotFloor + ']';
+        var spaceepcid_link = 'D-' + lotRow + '|H-' + lotSpace + '|T-' + lotFloor + '|';
 
         //
         me.setMasked({
