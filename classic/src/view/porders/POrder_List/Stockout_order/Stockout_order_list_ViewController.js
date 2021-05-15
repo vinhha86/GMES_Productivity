@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
     },
     onItemClick: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
+        viewmodel.set('order', record);
         var storeDetail = viewmodel.getStore('Stockout_order_d_Store');
         storeDetail.GetByStockoutOrder(record.get('id'));
     },

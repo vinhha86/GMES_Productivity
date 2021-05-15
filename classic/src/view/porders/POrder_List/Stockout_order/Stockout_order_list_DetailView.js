@@ -44,11 +44,61 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
             dataIndex: 'unitName',
             width: 70
         }, {
-            text: 'SL yêu cầu',
+            text: 'SL giữ',
+            dataIndex: 'totalyds_lock',
+            width: 80,
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value + ' y';
+                return value;
+            },
+            bind: {
+                hidden: '{isHiddenYard}'
+            }
+        },
+        {
+            text: 'SL giữ',
+            dataIndex: 'totalmet_lock',
+            width: 80,
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value + ' m';
+                return value;
+            },
+            bind: {
+                hidden: '{!isHiddenYard}'
+            }
+        }, {
+            text: 'Số cây YC',
+            dataIndex: 'roll_request',
+            width: 60,
+            editor: {
+                xtype: 'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true
+            },
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value;
+                return value;
+            }
+        }, {
+            text: 'SL YC',
             dataIndex: 'totalyds',
             width: 100,
             renderer: function (value, metaData, record) {
+                return value + " y";
+            },
+            bind: {
+                hidden: '{isHiddenYard}'
+            }
+        },
+        {
+            text: 'SL YC',
+            dataIndex: 'totalmet',
+            width: 100,
+            renderer: function (value, metaData, record) {
                 return value + " m";
+            },
+            bind: {
+                hidden: '{!isHiddenYard}'
             }
         }
     ]

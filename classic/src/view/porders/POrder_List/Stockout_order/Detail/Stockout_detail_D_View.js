@@ -81,6 +81,20 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             }
         },
         {
+            text: 'Số cây YC',
+            dataIndex: 'roll_request',
+            width: 60,
+            editor: {
+                xtype: 'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true
+            },
+            renderer: function (value, metaData, record) {
+                value = value == null ? "" : value;
+                return value;
+            }
+        },
+        {
             text: 'SL YC',
             dataIndex: 'totalyds',
             width: 80,
