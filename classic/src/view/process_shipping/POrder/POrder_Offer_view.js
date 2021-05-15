@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
                 xtype: 'button',
                 text: 'Chọn',
                 margin: 5,
-                itemId: 'btnLuu',
+                itemId: 'btnChon',
                 iconCls: 'x-fa fa-check',
                 text: 'Chọn'
             }]

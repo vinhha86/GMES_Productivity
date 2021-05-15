@@ -7,11 +7,19 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
     control: {
         '#btnAddPOrder': {
             click: 'onAddPorder'
+        },
+        'POrderView': {
+            itemclick: 'onSelectPOrder'
         }
     },
     renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
+    onSelectPOrder: function (grid, record, item, index, e, eOpts) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('porderid_link', record.get('id'));
+        viewmodel.set('productid_link', record.get('productid_link'));
     },
     onAddPorder: function () {
         var viewmodel = this.getViewModel();
@@ -53,7 +61,13 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
 
             form.down('#POrder_Offer_view').getController().on('Thoat', function () {
                 form.close();
-            })
+            });
+
+            form.down('#POrder_Offer_view').on('Chon', function (data) {
+                var store = viewmodel.getStore('POrder_ListStore');
+                store.load();
+                form.close();
+            });
         }
     }
 })

@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
     id: 'POLineSKU',
     controller: 'POLineSKU_ViewController',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         columnLines: true,
         rowLines: true
     },

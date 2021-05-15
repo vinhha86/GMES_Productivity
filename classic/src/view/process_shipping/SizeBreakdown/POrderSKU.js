@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
     controller: 'POrderSKUViewController',
     reference: 'POrderSKU',
     viewConfig: {
-        stripeRows: true,
+        stripeRows: false,
         columnLines: true,
         rowLines: true
     },

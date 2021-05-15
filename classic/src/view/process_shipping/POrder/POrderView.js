@@ -5,9 +5,12 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
     controller: 'POrderViewController',
     reference: 'POrderView',
     viewConfig: {
-        stripeRows: false,
-        columnLines: true,
-        rowLines: true
+        rowLines: true,
+        columnLines: true
+    },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'SINGLE'
     },
     bind: {
         store: '{POrder_ListStore}'
