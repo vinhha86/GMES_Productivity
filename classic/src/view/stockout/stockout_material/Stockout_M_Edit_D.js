@@ -225,7 +225,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 				}
 			},
 			{
-				xtype: 'textfield',
+				xtype: 'combo',
 				margin: '0 5 0 5',
 				itemId:'skucode',
 				fieldLabel: 'Mã hàng',
@@ -233,9 +233,22 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 				labelWidth: 70,
 				hideLabel: false,			
 				bind:{
+					// store: '{SKUStore}',
 					hidden: '{isBarcodeHidden}',
-					value: '{skucode}'
+					// value: '{skucode}'
 				},
+				store: {
+					type: 'Sku_AutoComplete',
+					// pageSize: 10
+				},
+				displayField: 'code',
+				valueField: 'id',
+				listConfig: {
+					loadingText: 'Tải mã hàng...',
+					emptyText: 'Không có mã hàng phù hợp.',
+				},
+				queryMode: 'remote',
+				queryParam: 'code'				
 				// enableKeyEvents : true,
 				// listeners: {
 				//     keypress: 'onPressEnterBtnThemNPL'
