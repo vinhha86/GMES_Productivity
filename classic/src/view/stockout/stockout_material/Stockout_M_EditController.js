@@ -728,4 +728,128 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				}
 		})	
     },	
+
+	onMenu_Stockout_M_Edit_D_List: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Chi tiết hàng',
+                    itemId: 'btnMenu_Stockout_M_Edit_D_List_Pkl',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-edit brownIcon',
+					iconCls: 'x-fa fas fa-edit',
+                    handler: function () {
+                        // console.log(record);
+						me.onViewPackingList(grid, rowIndex);
+                    },
+                },
+                {
+                    text: 'Xoá dòng hàng',
+                    itemId: 'btnMenu_Stockout_M_Edit_D_List_Delete',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-trash redIcon',
+					iconCls: 'x-fa fas fa-trash',
+                    handler: function () {
+                        // console.log(record);
+						me.onDeleteStockoutD(grid, rowIndex);
+                    }
+                },
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+    },
+	onDeleteStockoutD: function(grid, rowIndex){
+		var me = this;
+		var viewmodel = this.getViewModel();
+		var stockout = viewmodel.get('stockout');
+        var data = grid.getStore().getAt(rowIndex);
+
+		Ext.Msg.show({
+			title: 'Thông báo',
+			msg: 'Bạn có chắc chắn xóa nguyên phụ liệu ' + data.get('skucode') + '?',
+			buttons: Ext.Msg.YESNO,
+			icon: Ext.Msg.QUESTION,
+			buttonText: {
+				yes: 'Có',
+				no: 'Không'
+			},
+			fn: function (btn) {
+				if (btn === 'yes') {
+					// Xoá, check id
+					var id = data.get('id');
+					if(isNaN(id) || id == null || id == 0){ // chưa có trong db
+						me.deleteRow_Stockout_D(data);
+					}else{ // đã có trong db
+						me.deleteRowDb_Stockout_D(data);
+					}
+				}
+			}
+		});
+	},
+	deleteRow_Stockout_D: function(data){
+		var me = this;
+		var viewmodel = this.getViewModel();
+		var stockout = viewmodel.get('stockout');
+		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var id = data.get('id');
+
+		for(var i = 0; i < stockout_d.length; i++) {
+			if(stockout_d[i].id == id){
+				stockout_d.splice(i,1);
+				break;
+			}
+		}
+		var stockout_dStore = this.getView().down('Stockout_M_Edit_D').getStore();
+		if(stockout_dStore){
+			stockout_dStore.removeAll();
+			stockout_dStore.insert(0, stockout_d);
+		}
+		viewmodel.set('stockout.stockout_d', stockout_d);
+		// console.log(stockout);
+	},
+	deleteRowDb_Stockout_D: function(data){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockout = viewmodel.get('stockout');
+		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var id = data.get('id');
+
+		m.setLoading(true);
+
+		var params = new Object();
+        params.id = id ;
+        GSmartApp.Ajax.postJitin('/api/v1/stockout_d/stockoutd_delete',Ext.JSON.encode(params),
+		function(success,response,options ) {
+            var response = Ext.decode(response.responseText);
+			m.setLoading(false);
+            if(response.respcode == 200) {
+                for(var i = 0; i < stockout_d.length; i++) {
+					if(stockout_d[i].id == id){
+						stockout_d.splice(i,1);
+						break;
+					}
+				}
+				var stockout_dStore = m.down('Stockout_M_Edit_D').getStore();
+				if(stockout_dStore){
+					stockout_dStore.removeAll();
+					stockout_dStore.insert(0, stockout_d);
+				}
+				viewmodel.set('stockout.stockout_d', stockout_d);
+				// console.log(stockout);
+            }
+		})
+	},
 });

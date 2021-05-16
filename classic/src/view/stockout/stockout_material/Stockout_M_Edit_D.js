@@ -28,25 +28,38 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         }                     
     },
     columns: [
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockout_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-				// {
-				// 	iconCls: 'x-fa fas fa-bars violetIcon',
-				// 	tooltip:'Chi tiết chíp',
-				// 	handler: 'onEPCDetail'
-				// },
-				{
-					iconCls: 'x-fa fas fa-bars violetIcon',
-					tooltip:'PackingList',
-					handler: 'onViewPackingList'
-				},
-			]
-        },   	
+		{
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_Stockout_M_Edit_D_List'
+                },            
+            ]
+        },
+		// { 
+		// 	xtype: 'actioncolumn',
+		// 	reference: 'stockout_contextmenu',
+		// 	width: 25,
+		// 	menuDisabled: true,
+		// 	sortable: false,
+		// 	items: [
+		// 		// {
+		// 		// 	iconCls: 'x-fa fas fa-bars violetIcon',
+		// 		// 	tooltip:'Chi tiết chíp',
+		// 		// 	handler: 'onEPCDetail'
+		// 		// },
+		// 		{
+		// 			iconCls: 'x-fa fas fa-bars violetIcon',
+		// 			tooltip:'PackingList',
+		// 			handler: 'onViewPackingList'
+		// 		},
+		// 	]
+        // },   	
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',

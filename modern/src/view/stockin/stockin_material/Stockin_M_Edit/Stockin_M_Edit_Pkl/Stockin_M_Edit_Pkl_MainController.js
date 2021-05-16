@@ -122,17 +122,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthMetTxt', record.get('width_met'));
 
         // set khoang info cho pkl
-        var spaceepc_link = record.get('spaceepc_link') == null ? '' : record.get('spaceepc_link');
-        if(spaceepc_link != ''){ // D1H2T3
-            var spaceepc_linkArr = spaceepc_link.split('T');
-            var pklFloorTxt = spaceepc_linkArr[1]; if(pklFloorTxt == 'x') pklFloorTxt = null;
-            viewModel.set('pklFloorTxt', pklFloorTxt);
-            spaceepc_linkArr = spaceepc_linkArr[0].split('H');
-            var pklSpaceTxt = spaceepc_linkArr[1]; if(pklSpaceTxt == 'x') pklSpaceTxt = null;
-            viewModel.set('pklSpaceTxt', pklSpaceTxt);
-            spaceepc_linkArr = spaceepc_linkArr[0].split('D');
-            var pklRowTxt = spaceepc_linkArr[1]; if(pklRowTxt == 'x') pklRowTxt = null;
-            viewModel.set('pklRowTxt', pklRowTxt);
+        var spaceepc_link = record.get('spaceepc_link') == null ? '' : record.get('spaceepc_link').toUpperCase();
+        if(spaceepc_link != ''){ // D-1|H-2|T-3|
+            // var spaceepc_linkArr = spaceepc_link.split('|');
+            // var pklFloorTxt = spaceepc_linkArr[1]; if(pklFloorTxt == 'x') pklFloorTxt = null;
+            // viewModel.set('pklFloorTxt', pklFloorTxt);
+            // spaceepc_linkArr = spaceepc_linkArr[0].split('H');
+            // var pklSpaceTxt = spaceepc_linkArr[1]; if(pklSpaceTxt == 'x') pklSpaceTxt = null;
+            // viewModel.set('pklSpaceTxt', pklSpaceTxt);
+            // spaceepc_linkArr = spaceepc_linkArr[0].split('D');
+            // var pklRowTxt = spaceepc_linkArr[1]; if(pklRowTxt == 'x') pklRowTxt = null;
+            // viewModel.set('pklRowTxt', pklRowTxt);
+            
+            var spaceepc_linkArr = spaceepc_link.split('|');
+            var row = spaceepc_linkArr[0].substring(2); //console.log(row);
+            if(row == 'x' || row == 'X') row = null; 
+            var space = spaceepc_linkArr[1].substring(2); //console.log(space);
+            if(space == 'x' || space == 'X') space = null;
+            var floor = spaceepc_linkArr[2].substring(2); //console.log(floor);
+            if(floor == 'x' || floor == 'X') floor = null;
+            viewModel.set('pklRowTxt', row);
+            viewModel.set('pklSpaceTxt', space);
+            viewModel.set('pklFloorTxt', floor);
 
             // console.log(pklRowTxt);
             // console.log(pklSpaceTxt);
@@ -222,11 +233,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             pklFloorTxt = 'x';
             numberOfEmptyField++;
         }
+        
         if(numberOfEmptyField !=0 && numberOfEmptyField != 3){
             Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 3000);
             return;
         }
-        var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
+        // var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
+        var spaceepc_link = 'D-' + pklRowTxt + '|H-' + pklSpaceTxt + '|T-' + pklFloorTxt + '|';
 
         // check lotnumber tồn tại
         // console.log(stockin); console.log(stockin_lot); console.log(lotnumberTxt);
@@ -332,7 +345,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // 
         // console.log(objData);
         m.onUpdate_Print_Pklist(objData);
-        viewModel.set('selectedPklRecord', null); // edit xong set selectedPklRecord = null để chuyển thành thêm mới
 
         // this.resetForm();
         // m.getView().down('#packageidTxt').focus();
@@ -347,6 +359,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         });
 
 		var me = this;
+        var viewModel = this.getViewModel();
         // console.log("update pklist");
         // console.log(pklistData);
         var params = new Object();
@@ -367,6 +380,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 					        me.onPrint_WithRFID(response.rfprintid_link);
                         } else {
                             //Reload danh sach Pklist va Reset cac o nhap lieu
+                            viewModel.set('selectedPklRecord', null);
                             me.reloadStore();
                             me.resetForm();
                             myview.down('#packageidTxt').focus();
