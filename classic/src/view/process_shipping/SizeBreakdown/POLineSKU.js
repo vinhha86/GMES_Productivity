@@ -10,10 +10,7 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'MULTI',
-        bind: {
-            hidden: '{isProductSkuSelectHidden}'
-        }
+        mode: 'MULTI'
     },
     features: [{
         ftype: 'summary',

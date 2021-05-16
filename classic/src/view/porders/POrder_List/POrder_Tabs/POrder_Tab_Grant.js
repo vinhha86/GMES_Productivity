@@ -9,9 +9,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Grant', {
         border: false,
         xtype: 'POrder_List_GrantView',
         margin: 1
-    },{
+    }, {
         region: 'center',
-        width: '50%',
         border: false,
         xtype: 'POrder_List_GrantSKUView',
         margin: 1

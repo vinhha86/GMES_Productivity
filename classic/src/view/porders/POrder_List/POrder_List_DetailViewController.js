@@ -147,10 +147,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
             infoView.getController().loadInfo(me.IdPOrder);
 
             var store_porder = viewmodel.getStore('porderSKUStore');
+
+            store_porder.setGroupField('po_buyer');
             store_porder.load();
 
-            var store_line = viewmodel.getStore('POLineSKU_Store');
-            store_line.load();
+            // var store_line = viewmodel.getStore('POLineSKU_Store');
+            // store_line.load();
         }
         else if (newCard.xtype == "POrder_Tab_Grant") {
             var listGrantView = me.down('#POrder_List_GrantView');

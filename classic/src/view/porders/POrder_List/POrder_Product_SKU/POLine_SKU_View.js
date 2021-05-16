@@ -63,7 +63,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
         align: 'end'
     }, {
         text: 'Còn lại',
-        dataIndex: 'pquantity_ungranted',
+        dataIndex: 'pquantity_free',
         renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
@@ -98,31 +98,31 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Product_SKU.POLine_SKU_Vie
         layout: 'vbox',
         border: true,
         items:
-        [
-            {
-                flex: 1
-            },
-            {
-                xtype: 'button',
-                tooltip: 'Thêm vào lệnh',
-                iconCls: 'x-fa fa-arrow-right',
-                weight: 30,
-                itemId: 'btnAddToPorder'
-                // handler: 'onPorder_AddSKU'
-            },
-            {height: 10},
-            {
-                xtype: 'button',
-                tooltip: 'Xoá khỏi lệnh',
-                iconCls: 'x-fa fa-arrow-left',
-                itemId: 'btnDeleteFromPOrder',
-                weight: 30,
-                // handler: 'onPorder_AddSKU'
-            },
-            {
-                flex: 1
-            }    
-        ]
+            [
+                {
+                    flex: 1
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Thêm vào lệnh',
+                    iconCls: 'x-fa fa-arrow-right',
+                    weight: 30,
+                    itemId: 'btnAddToPorder'
+                    // handler: 'onPorder_AddSKU'
+                },
+                { height: 10 },
+                {
+                    xtype: 'button',
+                    tooltip: 'Xoá khỏi lệnh',
+                    iconCls: 'x-fa fa-arrow-left',
+                    itemId: 'btnDeleteFromPOrder',
+                    weight: 30,
+                    // handler: 'onPorder_AddSKU'
+                },
+                {
+                    flex: 1
+                }
+            ]
     }]
 });
 

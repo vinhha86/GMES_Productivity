@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         is_poline_skugranted_hidden: false,
         fieldstyle_sl: 'font-size:12px;text-align:right;background-color:white;color:black',
         fieldstyle_date: 'font-size:12px;text-align:right;background-color:white;color:black',
-        width_sku_poline: '50%',
+        width_sku_poline: 0,
         order: {
 
         }

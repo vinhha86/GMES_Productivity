@@ -25,7 +25,12 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
 
         //load sku cua lenh san xuat
         var storesku = viewmodel.getStore('porderSKUStore');
+        storesku.setGroupField('po_buyer');
         storesku.loadByPorderID(porderid_link);
+
+        //load ds to da phan chuyen
+        var storeGrant = viewmodel.getStore('POrder_ListGrantStore');
+        storeGrant.loadStore(porderid_link);
     },
     onAddPorder: function () {
         var viewmodel = this.getViewModel();

@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
             height: 120,
             border: false,
             xtype: 'POrder_InfoView'
-        },{
+        }, {
             region: 'center',
             layout: 'border',
             // border: false,
@@ -18,7 +18,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                 {
                     region: 'west',
                     xtype: 'POLine_SKU_View',
-                    width: '50%',
                     border: true,
                     bind: {
                         hidden: '{is_poline_hidden}',
@@ -46,7 +45,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                             width: 40,
                             height: '100%',
                             layout: 'center',
-                            items:[
+                            items: [
                                 {
                                     xtype: 'container',
                                     layout: 'vbox',
@@ -59,7 +58,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                                             weight: 30,
                                             // handler: 'onPorder_AddSKU'
                                         },
-                                        {height: 10},
+                                        { height: 10 },
                                         {
                                             xtype: 'button',
                                             id: 'btnRemoveFromGrantSku',
@@ -67,14 +66,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                                             iconCls: 'x-fa fa-arrow-left',
                                             weight: 30,
                                             // handler: 'onPorder_AddSKU'
-                                        }    
+                                        }
                                     ]
                                 }
                             ],
                             bind: {
                                 hidden: '{is_addremovesku_hidden}'
                             }
-                        },               
+                        },
                         {
                             xtype: 'POrder_List_GrantSKUView',
                             id: 'POrder_List_GrantSKUViewTabInfo',
@@ -89,7 +88,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_Tab_Info', {
                             border: true
                         },
                     ]
-            }]
+                }]
         }
     ]
 })

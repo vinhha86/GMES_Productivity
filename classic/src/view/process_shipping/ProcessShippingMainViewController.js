@@ -13,6 +13,12 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewController', 
         if (newCard.xtype == "Balance_mat_View") {
             this.onCalBalance();
         }
+        else if (newCard.xtype == 'SizeBreakdown_Grant_MainView') {
+            var viewmodel = this.getViewModel();
+            var store = viewmodel.getStore('POrder_ListGrantStore');
+            var porderid_link = viewmodel.get('porderid_link');
+            store.loadStore(porderid_link);
+        }
     },
     onCalBalance: function () {
         var me = this.getView();

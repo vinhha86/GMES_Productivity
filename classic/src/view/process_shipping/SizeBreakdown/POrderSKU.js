@@ -19,15 +19,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'MULTI',
-        bind: {
-            hidden: '{isProductSkuSelectHidden}'
-        }
+        mode: 'MULTI'
     },
     features: [{
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
+    }, {
+        ftype: 'grouping',
+        groupHeaderTpl: 'PO: {name}'
     }],
     bind: {
         store: '{porderSKUStore}'
@@ -59,12 +59,21 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
                 field: {
                     xtype: 'textfield',
                     selectOnFocus: true,
-                    bind: {
-                        editable: '{isEditSL}'
-                    }
+                    maskRe: /[0-9]/,
                 }
             })
         },
+
+    }, {
+        text: 'Đã PC',
+        dataIndex: 'pquantity_granted',
+        renderer: function (value) {
+            return Ext.util.Format.number(parseFloat(value), '0,000');
+        },
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum',
+        width: 60,
+        align: 'end'
     }],
     dockedItems: [{
         dock: 'top',
@@ -76,15 +85,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
             labelWidth: 0,
             value: 'Chi tiết màu cỡ'
-        },
-            '->'
-            , {
-            xtype: 'button',
-            itemId: 'btnThemSKU',
-            ui: 'header',
-            margin: '10 5 0 0',
-            tooltip: 'Thêm màu, cỡ',
-            iconCls: 'x-fa fa-plus'
         }]
     }]
 });

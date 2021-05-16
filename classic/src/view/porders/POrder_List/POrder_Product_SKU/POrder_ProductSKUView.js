@@ -32,6 +32,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
+    }, {
+        ftype: 'grouping',
+        groupHeaderTpl: 'PO: {name}'
     }],
     bind: {
         store: '{porderSKUStore}'
@@ -41,7 +44,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    }, 
+    },
     // {
     //     text: 'SKU',
     //     dataIndex: 'skuCode',
@@ -55,7 +58,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         text: 'Màu',
         dataIndex: 'mauSanPham',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -66,7 +69,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'SL',
         dataIndex: 'pquantity_total',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
@@ -87,7 +90,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'Đã phân chuyền',
         dataIndex: 'pquantity_granted',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
@@ -97,7 +100,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
     }, {
         text: 'Còn lại',
         dataIndex: 'pquantity_ungranted',
-        renderer: function(value){
+        renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
         summaryType: 'sum',
@@ -105,24 +108,25 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         width: 65,
         align: 'end'
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 35,
-        items:[{
-            xtype:'displayfield',
+        items: [{
+            xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
-            labelWidth : 0,
+            labelWidth: 0,
             value: 'Chi tiết màu cỡ'
         },
-		'->'
-		,{
-            xtype:'button',
-            itemId:'btnThemSKU',
+            '->'
+            , {
+            xtype: 'button',
+            itemId: 'btnThemSKU',
             ui: 'header',
+            hidden: true,
             margin: '10 5 0 0',
-			tooltip: 'Thêm màu, cỡ',
+            tooltip: 'Thêm màu, cỡ',
             iconCls: 'x-fa fa-plus'
         }]
     }]
