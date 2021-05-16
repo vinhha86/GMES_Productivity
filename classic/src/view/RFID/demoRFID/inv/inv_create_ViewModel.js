@@ -8,6 +8,8 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_create_ViewModel', {
         }
     },
     data: {
+        inv: {
 
+        }
     }
 });

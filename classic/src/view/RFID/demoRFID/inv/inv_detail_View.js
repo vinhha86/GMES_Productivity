@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_detail_View', {
     },
     {
         text: 'Lot',
-        dataIndex: 'prodname',
+        dataIndex: 'lot',
         flex: 1,
         items: {
             xtype: 'textfield',

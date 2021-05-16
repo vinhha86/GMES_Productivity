@@ -15,5 +15,30 @@ Ext.define('GSmartApp.store.demo.StoreType', {
     sorters: {
         direction: 'ASC',
         property: 'name'
+    },
+    loadStore: function () {
+        var params = new Object();
+        this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create: 'POST',
+                read: 'POST',
+                update: 'POST',
+                destroy: 'POST'
+            },
+            url: config.getAppBaseUrl_demo() + 'demorfid/getstoretype',
+            paramsAsJson: true,
+            noCache: false,
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': "application/json"
+            },
+            extraParams: params,
+            reader: {
+                type: 'json',
+                rootProperty: 'data'
+            }
+        });
+        this.load();
     }
 });

@@ -62,6 +62,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_viewController', {
         }
     },
     onAddInv: function () {
+        var viewmodel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             height: 250,
             width: 400,
@@ -92,6 +93,12 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_viewController', {
 
         form.down('#inv_create_View').getController().on('Thoat', function () {
             form.close();
-        })
+        });
+
+        form.down('#inv_create_View').on('Create', function () {
+            var store = viewmodel.getStore('inv_store');
+            store.load();
+            form.close();
+        });
     }
 })
