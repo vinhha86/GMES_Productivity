@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_main_View', {
         width: '30%'
     }, {
         region: 'center',
+        xtype: 'inv_detail_View',
         border: true,
         margin: 1
     }]

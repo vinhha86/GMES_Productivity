@@ -14,6 +14,7 @@ Ext.define('GSmartApp.config.Runtime', {
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         appBaseUrl: 'http://localhost:8990/gsmartcore',
         appBaseUrl_Jitin: 'http://localhost:8991/jitin',
+        appBaseUrl_demo: 'http://localhost:9091/',
         // appBaseUrl: 'http://172.20.10.2:8990/gsmartcore',
         // appBaseUrl_Jitin: 'http://172.20.10.2:8991/jitin',
         // appBaseUrl: 'http://gpay.vn:8090/gmes',

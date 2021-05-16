@@ -1,23 +1,27 @@
-Ext.define('GSmartApp.store.demo.inv_store', {
+Ext.define('GSmartApp.store.demo.inv_detail_store', {
     extend: 'Ext.data.Store',
-    alias: 'store.inv_store',
-    storeId: 'inv_store',
+    alias: 'store.inv_detail_store',
+    storeId: 'inv_detail_store',
     fields: [
-        { name: 'id', type: 'int' },
-        { name: 'codename', type: 'string' },
-        { name: 'storename', type: 'string' },
-        { name: 'storetype_id', type: 'int' },
-        'state',
-        'created_on',
-        'storetype_name'
+        'id',
+        'store_id',
+        'epc',
+        'prodname',
+        'prodcode',
+        'lot',
+        { name: 'expdate', type: 'date' },
+        'status'
     ],
-    sorters: {
+    sorters: [{
         direction: 'ASC',
-        property: 'codename'
-    },
-    groupField: 'storetype_name',
-    loadStore: function () {
+        property: 'expdate'
+    }, {
+        direction: 'ASC',
+        property: 'prodname'
+    }],
+    loadItemInStore: function (store_id) {
         var params = new Object();
+        params.store_id = store_id;
         this.setProxy({
             type: 'ajax',
             actionMethods: {
@@ -26,7 +30,7 @@ Ext.define('GSmartApp.store.demo.inv_store', {
                 update: 'POST',
                 destroy: 'POST'
             },
-            url: config.getAppBaseUrl_demo() + 'demorfid/listinv',
+            url: config.getAppBaseUrl_demo() + 'demorfid/getitems_in_store',
             paramsAsJson: true,
             noCache: false,
             headers: {
