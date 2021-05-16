@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.RFID.Demo_rfid_View', {
     },
     items: [{
         title: '[1] Tạo kho',
-        xtype: 'Demo_Create_Inv_View'
+        xtype: 'inv_main_View'
     },
     {
         title: '[2] Mã hóa/In nhãn'
@@ -23,6 +23,6 @@ Ext.define('GSmartApp.view.RFID.Demo_rfid_View', {
     },
     {
         title: '[6] Cửa cảnh báo'
-    }    
+    }
     ]
 })

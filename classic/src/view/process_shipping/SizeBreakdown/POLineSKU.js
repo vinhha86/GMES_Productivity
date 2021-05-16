@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
         align: 'end'
     }, {
         text: 'Còn lại',
-        dataIndex: 'pquantity_ungranted',
+        dataIndex: 'pquantity_free',
         renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
         },
@@ -66,15 +66,6 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
             labelWidth: 0,
             value: 'Chi tiết màu cỡ PO Line'
-        },
-            '->'
-            , {
-            xtype: 'button',
-            itemId: 'btnHideSKUPO',
-            ui: 'header',
-            margin: '10 35 0 0',
-            tooltip: 'Ẩn',
-            iconCls: 'x-fa fa-eye'
         }]
     },
     {
