@@ -50,6 +50,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
         Stockout_order_Store: {
             type: 'Stockout_order_Store'
         },
+        SKUStore: {
+            type: 'Sku_AutoComplete'
+        },
 	},
 	data: {
         stockout: {
