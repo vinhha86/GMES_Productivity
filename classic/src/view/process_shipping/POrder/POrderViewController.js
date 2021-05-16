@@ -18,8 +18,14 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
     },
     onSelectPOrder: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
-        viewmodel.set('porderid_link', record.get('id'));
-        viewmodel.set('productid_link', record.get('productid_link'));
+        var porderid_link = record.get('id');
+        var productid_link = record.get('productid_link');
+        viewmodel.set('porderid_link', porderid_link);
+        viewmodel.set('productid_link', productid_link);
+
+        //load sku cua lenh san xuat
+        var storesku = viewmodel.getStore('porderSKUStore');
+        storesku.loadByPorderID(porderid_link);
     },
     onAddPorder: function () {
         var viewmodel = this.getViewModel();
