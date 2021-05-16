@@ -349,9 +349,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 				xtype: 'textfield',
 				margin: '0 5 0 5',
 				itemId:'skucode',
-				fieldLabel: 'Mã SP',
-				width: 200,
-				labelWidth: 50,
+				fieldLabel: 'Mã hàng',
+				width: 250,
+				labelWidth: 70,
 				hideLabel: false,			
 				bind:{
 					hidden: '{isBarcodeHidden}',

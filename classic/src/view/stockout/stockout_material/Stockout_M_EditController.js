@@ -39,7 +39,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		},
         '#btnConfirm':{
             click: 'onConfirm'
-        }
+        },
+		'#cmbStockoutGroup': {
+			select: 'onSelectGroupStockout'
+		},
 	},
 	channel: { cmd: null, dta: null },
     renderCell: function(value, record) {
@@ -74,6 +77,24 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var viewModel = this.getViewModel();
 		viewModel.set('stockout.vat_exchangerate', record.data.exrate);
 	 },
+	 onSelectGroupStockout: function(combo, record, eOpts){
+		var viewmodel = this.getViewModel();
+		if (record.get('id') == 1) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', false);
+		}
+		if (record.get('id') == 2) {
+			viewmodel.set('isRFIDHidden', true);
+			viewmodel.set('isBarcodeHidden', false);
+			viewmodel.set('isManualHidden', true);
+		}
+		if (record.get('id') == 3) {
+			viewmodel.set('isRFIDHidden', false);
+			viewmodel.set('isBarcodeHidden', true);
+			viewmodel.set('isManualHidden', true);
+		}
+	},	 
 	onDeviceChange:function( combo, newValue, oldValue, eOpts){
 		var me=this;
 		var txtDevice = me.lookupReference('device');

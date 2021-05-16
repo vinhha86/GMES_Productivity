@@ -30,11 +30,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
         }, {
             text: 'Màu NPL',
             dataIndex: 'tenMauNPL',
-            width: 180
+            width: 120
         }, {
             text: 'Thẻ kho',
             dataIndex: 'data_spaces',
-            flex: 1
+            flex: 1,
+			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) value = '';
+				value = value.toUpperCase();
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},            
         }, {
             text: 'Cỡ khổ',
             dataIndex: 'coKho',
@@ -43,31 +49,33 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
             text: 'ĐVT',
             dataIndex: 'unitName',
             width: 70
-        }, {
-            text: 'SL giữ',
-            dataIndex: 'totalyds_lock',
-            width: 80,
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value + ' y';
-                return value;
-            },
-            bind: {
-                hidden: '{isHiddenYard}'
-            }
-        },
+        }, 
+        // {
+        //     text: 'SL giữ',
+        //     dataIndex: 'totalyds_lock',
+        //     width: 80,
+        //     renderer: function (value, metaData, record) {
+        //         value = value == null ? "" : value + ' y';
+        //         return value;
+        //     },
+        //     bind: {
+        //         hidden: '{isHiddenYard}'
+        //     }
+        // },
+        // {
+        //     text: 'SL giữ',
+        //     dataIndex: 'totalmet_lock',
+        //     width: 80,
+        //     renderer: function (value, metaData, record) {
+        //         value = value == null ? "" : value + ' m';
+        //         return value;
+        //     },
+        //     bind: {
+        //         hidden: '{!isHiddenYard}'
+        //     }
+        // }, 
         {
-            text: 'SL giữ',
-            dataIndex: 'totalmet_lock',
-            width: 80,
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value + ' m';
-                return value;
-            },
-            bind: {
-                hidden: '{!isHiddenYard}'
-            }
-        }, {
-            text: 'Số cây YC',
+            text: 'Cây Y/C',
             dataIndex: 'roll_request',
             width: 60,
             editor: {
@@ -80,9 +88,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
                 return value;
             }
         }, {
-            text: 'SL YC',
+            text: 'SL Y/C (Y)',
             dataIndex: 'totalyds',
-            width: 100,
+            width: 80,
             renderer: function (value, metaData, record) {
                 return value + " y";
             },
@@ -91,9 +99,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
             }
         },
         {
-            text: 'SL YC',
+            text: 'SL Y/C (M)',
             dataIndex: 'totalmet',
-            width: 100,
+            width: 80,
             renderer: function (value, metaData, record) {
                 return value + " m";
             },

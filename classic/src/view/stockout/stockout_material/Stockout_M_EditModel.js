@@ -41,6 +41,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		CurrencyStore: {
 			type : 'CurrencyStore'
 		},
+        StockinGroupStore: {
+			type: 'StockinGroupStore'
+		},
         UnitStore: {
             type: 'UnitStore'
         },
@@ -59,7 +62,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		clsbtnStart:'blue-button',
 		clsbtnStop:'',
         clsbtnSkuError:'',        
-        IsformMaster: false
+        IsformMaster: false,
+        groupstockin: 1,
+		isHidden: false,
+        isRFIDHidden: true,
+		isBarcodeHidden: true,
+		isManualHidden: false,
 	},
 	formulas: {
         isEdit: function (get) {
