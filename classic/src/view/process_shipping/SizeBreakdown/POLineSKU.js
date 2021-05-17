@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
             labelWidth: 0,
-            value: 'Chi tiết màu cỡ PO Line'
+            value: 'Chi tiết màu cỡ PO Line đã chốt'
         }]
     },
     {

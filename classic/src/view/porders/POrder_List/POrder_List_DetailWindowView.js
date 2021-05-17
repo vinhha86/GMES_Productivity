@@ -5,7 +5,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
     height: '90%',
     width: '90%',
     closable: false,
-    title: 'Thông tin lệnh sản xuất',
     resizable: false,
     modal: true,
     border: false,
@@ -13,18 +12,19 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
     bodyStyle: 'background-color: transparent',
     layout: 'border',
     viewModel: {
-        type: 'POrder_List_DetailViewModel'
+        type: 'POrder_List_DetailWindowViewModel'
     },
     controller: 'POrder_List_DetailWindowViewController',
-    IdPOrder: 0,
-    IdGrant: 0,
+    bind: {
+        title: '{grantSKUViewTabInfoTitle}'
+    },
     items: [
         {
             region: 'north',
             height: 40,
             border: false,
             xtype: 'POrder_Grant_InfoView'
-        },{
+        }, {
             region: 'center',
             layout: 'border',
             // border: false,
@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
                         {
                             // region: 'west',
                             xtype: 'POrder_ProductSKUView',
+                            id: 'POrder_ProductSKUView_window',
                             flex: 1,
                             height: '100%',
                             border: true,
@@ -50,39 +51,39 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
                             width: 40,
                             height: '100%',
                             layout: 'center',
-                            items:[
+                            items: [
                                 {
                                     xtype: 'container',
                                     layout: 'vbox',
                                     items: [
                                         {
                                             xtype: 'button',
-                                            id: 'btnAddToGrantSku',
+                                            itemId: 'btnAddToGrantSku',
                                             tooltip: 'Thêm vào tổ chuyền',
                                             iconCls: 'x-fa fa-arrow-right',
                                             weight: 30,
                                             // handler: 'onPorder_AddSKU'
                                         },
-                                        {height: 10},
+                                        { height: 10 },
                                         {
                                             xtype: 'button',
-                                            id: 'btnRemoveFromGrantSku',
+                                            itemId: 'btnRemoveFromGrantSku',
                                             tooltip: 'Xoá khỏi tổ chuyền',
                                             iconCls: 'x-fa fa-arrow-left',
                                             weight: 30,
                                             // handler: 'onPorder_AddSKU'
-                                        }    
+                                        }
                                     ]
                                 }
                             ],
                             bind: {
                                 hidden: '{is_addremovesku_hidden}'
                             }
-                        },               
+                        },
                         {
                             xtype: 'POrder_List_GrantSKUView',
-                            id: 'POrder_List_GrantSKUViewTabInfo',
-                            reference: 'POrder_List_GrantSKUViewTabInfo',
+                            id: 'POrder_List_GrantSKUView_window',
+                            reference: 'POrder_List_GrantSKUView_window',
                             bind: {
                                 // store: '{POrder_ListGrantSKUStoreForWindow}',
                                 // title: '{grantSKUViewTabInfoTitle}',
@@ -93,7 +94,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
                             border: true
                         },
                     ]
-            }]
+                }]
         }
         // {
         //     region: 'center',
@@ -111,8 +112,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
         // }
     ],
     dockedItems: [{
-        dock:'bottom',
-        layout:'hbox',
+        dock: 'bottom',
+        layout: 'hbox',
         items: [{
             xtype: 'button',
             margin: 3,

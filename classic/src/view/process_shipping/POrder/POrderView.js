@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
             dataIndex: 'granttoorgcode'
         },
         {
-            text: 'SL',
+            text: 'SL KH',
             dataIndex: 'totalorder',
             renderer: function (value) {
                 return Ext.util.Format.number(parseFloat(value), '0,000');

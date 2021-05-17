@@ -22,6 +22,8 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         var productid_link = record.get('productid_link');
         viewmodel.set('porderid_link', porderid_link);
         viewmodel.set('productid_link', productid_link);
+        viewmodel.set('productid_link', productid_link);
+        viewmodel.set('IdGrant', 0);
 
         //load sku cua lenh san xuat
         var storesku = viewmodel.getStore('porderSKUStore');

@@ -34,10 +34,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var me = this;
         var schedule = this.getView();
 
-        if(schedule.readOnly) return;
+        if (schedule.readOnly) return;
 
         var ishidden_delete = true;
-        if(eventRecord.data.status == -1)
+        if (eventRecord.data.status == -1)
             ishidden_delete = false;
 
         var menu_grid = new Ext.menu.Menu({
@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     form.show();
 
                     form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function (productivity) {
-                        if(productivity != null){
+                        if (productivity != null) {
                             eventRecord.data.productivity_po = productivity.plan_productivity;
                         }
                         form.close();
@@ -166,7 +166,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         menu_grid.showAt(e.getXY());
         common.Check_Menu_Permission(menu_grid);
     },
-    cancel_pordergrant: function(rec){
+    cancel_pordergrant: function (rec) {
         var grid = this.getView();
         grid.setLoading('Đang xử lý dữ liệu');
 
@@ -204,7 +204,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
-    Show_LenhSanXuat: function(eventRecord){
+    Show_LenhSanXuat: function (eventRecord) {
         var window = Ext.create('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
             viewModel: {
                 data: {
@@ -216,18 +216,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         window.show();
 
-        window.on('Thoat', function(porderinfo, amount){
-            if(amount > 0){
+        window.on('Thoat', function (porderinfo, amount) {
+            if (amount > 0) {
                 eventRecord.set('mahang', porderinfo);
                 eventRecord.set('name', porderinfo);
-                eventRecord.set('totalpackage',amount)
+                eventRecord.set('totalpackage', amount)
             }
-           
+
             // var FilterBar = Ext.getCmp('FilterBar');
             // FilterBar.getController().onSearch();
 
             window.close();
-        })
+        });
 
         // window.on('UpdatePorder', function(porderinfo, amount){
         //     eventRecord.set('mahang', porderinfo);
@@ -235,7 +235,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         //     eventRecord.set('totalpackage',amount)
         // })
     },
-    Delete_Porder_Req: function(rec){
+    Delete_Porder_Req: function (rec) {
         var grid = this.getView();
         var me = this;
         grid.setLoading('Đang xóa dữ liệu');
@@ -304,7 +304,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             duration: rec.get('duration')
                         },
                         quantity: rec.get('totalpackage'),
-                        amount: Math.round(rec.get('totalpackage')/2)
+                        amount: Math.round(rec.get('totalpackage') / 2)
                     }
                 }
             }]
@@ -320,22 +320,22 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             rec.set('mahang', data.old_data.mahang);
             rec.set('totalpackage', data.old_data.totalpackage);
 
-            if(data.old_data.grant_type == 1){
-                rec.set('Cls', data.old_data.Cls +" x-fa fa-exclamation-circle")
+            if (data.old_data.grant_type == 1) {
+                rec.set('Cls', data.old_data.Cls + " x-fa fa-exclamation-circle")
             }
             else {
-                rec.set('Cls', data.old_data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                rec.set('Cls', data.old_data.Cls.replace(' x-fa fa-exclamation-circle', ''));
             }
 
             var eventStore = me.getCrudManager().getEventStore();
             eventStore.insert(0, data.new_data);
             var reccord = eventStore.getAt(0);
 
-            if(data.new_data.grant_type == 1){
-                reccord.set('Cls', data.new_data.Cls +" x-fa fa-exclamation-circle")
+            if (data.new_data.grant_type == 1) {
+                reccord.set('Cls', data.new_data.Cls + " x-fa fa-exclamation-circle")
             }
             else {
-                reccord.set('Cls', data.new_data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                reccord.set('Cls', data.new_data.Cls.replace(' x-fa fa-exclamation-circle', ''));
             }
 
             me.getSchedulingView().scrollEventIntoView(reccord, true, true);
@@ -378,11 +378,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             rec.set('duration', data.duration);
             rec.set('productivity', data.productivity);
 
-            if(data.grant_type == 1){
-                rec.set('Cls', data.Cls +" x-fa fa-exclamation-circle")
+            if (data.grant_type == 1) {
+                rec.set('Cls', data.Cls + " x-fa fa-exclamation-circle")
             }
             else {
-                rec.set('Cls', data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                rec.set('Cls', data.Cls.replace(' x-fa fa-exclamation-circle', ''));
             }
 
             me.getSchedulingView().scrollEventIntoView(rec);
@@ -468,11 +468,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         record.set('duration', data.duration);
                         record.set('productivity', data.productivity);
 
-                        if(response.data.grant_type == 1){
-                            record.set('Cls', response.data.Cls +" x-fa fa-exclamation-circle")
+                        if (response.data.grant_type == 1) {
+                            record.set('Cls', response.data.Cls + " x-fa fa-exclamation-circle")
                         }
                         else {
-                            record.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                            record.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle', ''));
                         }
                     }
                     else {
@@ -509,16 +509,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             })
     },
-    onbeforeDrag: function(scheduler, record, e, eOpts){
+    onbeforeDrag: function (scheduler, record, e, eOpts) {
         var records = scheduler.getEventSelectionModel().selected;
         var count = 1;
-        for(var i =0; i< records.items.length; i++){
+        for (var i = 0; i < records.items.length; i++) {
             var data_i = records.items[i].data;
-            for(var j=i+1; j<records.items.length; j++){
+            for (var j = i + 1; j < records.items.length; j++) {
                 var data_j = records.items[j].data;
-                if(data_i.ResourceId != data_j.ResourceId)
+                if (data_i.ResourceId != data_j.ResourceId)
                     count++
-                if(count > 1) {
+                if (count > 1) {
                     Ext.Msg.show({
                         title: 'Thông báo',
                         msg: 'Bạn chỉ được chọn nhiều lệnh trong 1 tổ để di chuyển!',
@@ -526,25 +526,25 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         buttonText: {
                             yes: 'Đóng',
                         },
-                        fn: function(){
+                        fn: function () {
                             scheduler.getEventSelectionModel().deselect(record);
                         }
                     });
                     e.stopEvent();
                     return false;
                 }
-                    
+
             }
         }
     },
     newResource: null,
     beforeDrop: function (scheduler, dragContext, e, eOpts) {
         var me = this;
-        for(var i=0; i<dragContext.draggedRecords.length;i++){
+        for (var i = 0; i < dragContext.draggedRecords.length; i++) {
             var newResource = dragContext.newResource;
             me.newResource = newResource;
             record = dragContext.draggedRecords[i].data;
-    
+
             //Truong hop keo tha vao phan xuong
             if (newResource.get('type') == 0) {
                 Ext.Msg.show({
@@ -562,7 +562,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             }
             //truong hop keo tha tu to nay sang to khac cua 1 nha may khac
             else if (newResource.get('parentid_origin') != record.parentid_origin) {
-    
+
                 Ext.Msg.show({
                     title: 'Thông báo',
                     msg: 'Bạn không được phép chuyển lệnh sản xuất sang tổ của nhà máy khác!',
@@ -575,7 +575,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     }
                 });
                 return false;
-    
+
             }
         }
     },
@@ -584,7 +584,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var sch = this.getView().down('#treeplan');
         var store = sch.getCrudManager().getEventStore();
         var listEvent = store.getEventsForResource(me.newResource);
-        for(var a =0; a< dragContext.length; a++){
+        for (var a = 0; a < dragContext.length; a++) {
             var record = dragContext[a];
 
             var params = new Object();
@@ -682,7 +682,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         params.parentid_origin = destPos_Data.parentid_origin;
                         t.TaoLenhSanXuat(params);
                     }
-                    else if (config.id == "POrderOffer_event"){
+                    else if (config.id == "POrderOffer_event") {
                         var params = new Object();
                         params.pcontract_poid_link = porder.get('pcontract_poid_link');
                         params.productid_link = porder.get('productid_link');
@@ -704,7 +704,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
                         t.TaoGrantTestTuChaoGia(params);
                         //Tao nhieu grant 1 cho 1 san pham
-                        
+
                     }
                     else if (config.id == "Porder_Req_Event") {
                         var params = new Object();
@@ -714,7 +714,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         params.parentid_origin = destPos_Data.parentid_origin;
 
                         t.TaoLenhThu(params);
-                        
+
                     }
 
                 }
@@ -735,14 +735,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     if (response.respcode == 200) {
                         var list = response.data;
                         var store = me.getCrudManager().getEventStore();
-                        for(var i =0; i<list.length; i++){
+                        for (var i = 0; i < list.length; i++) {
                             var event = list[i];
                             store.insert(0, event);
                             var rec = store.getAt(0);
-    
+
                             me.getSchedulingView().scrollEventIntoView(rec);
                         }
-                       
+
                         var panel = Ext.getCmp('FilterBar').getController();
                         panel.onGrantToOrgTap();
                     }
@@ -823,14 +823,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     if (response.respcode == 200) {
                         var list = response.data;
                         var store = me.getCrudManager().getEventStore();
-                        for(var i =0; i<list.length; i++){
+                        for (var i = 0; i < list.length; i++) {
                             var event = list[i];
                             store.insert(0, event);
                             var rec = store.getAt(0);
-    
+
                             me.getSchedulingView().scrollEventIntoView(rec);
                         }
-                       
+
                         var panel = Ext.getCmp('FilterBar').getController();
                         panel.onGrantToOrgTap();
                     }
@@ -916,11 +916,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         rec.set('productivity', response.data.productivity);
                         rec.set('porder_grantid_link', response.data.porder_grantid_link);
                         rec.set('EndDate', response.data.EndDate);
-                        if(response.data.grant_type == 1){
-                            rec.set('Cls', response.data.Cls +" x-fa fa-exclamation-circle")
+                        if (response.data.grant_type == 1) {
+                            rec.set('Cls', response.data.Cls + " x-fa fa-exclamation-circle")
                         }
                         else {
-                            rec.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                            rec.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle', ''));
                         }
                     }
                     else {
@@ -969,11 +969,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                         event.set('mahang', response.data.mahang);
                         event.set('totalpackage', response.data.totalpackage);
 
-                        if(response.data.grant_type == 1){
-                            event.set('Cls', response.data.Cls +" x-fa fa-exclamation-circle")
+                        if (response.data.grant_type == 1) {
+                            event.set('Cls', response.data.Cls + " x-fa fa-exclamation-circle")
                         }
                         else {
-                            event.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle',''));
+                            event.set('Cls', response.data.Cls.replace(' x-fa fa-exclamation-circle', ''));
                         }
 
                         var sch = me.getView().down('#treeplan');
@@ -1084,9 +1084,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
     //     this.getView()[value.length > 0 ? 'addCls' : 'removeCls']('highlighting');
     // },
-    porderGrantBalance: function(eventRecord){
+    porderGrantBalance: function (eventRecord) {
         // console.log(eventRecord.data);
-        
+
         var porderid_link = eventRecord.data.porderid_link;
         var pordergrantid_link = eventRecord.data.porder_grantid_link;
 
@@ -1119,7 +1119,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
 
     // event Item Click
-    onItemDblClick: function(scheduler, eventRecord, e, eOpts){
+    onItemDblClick: function (scheduler, eventRecord, e, eOpts) {
         var productid_link = eventRecord.get('productid_link');
 
         var params = new Object();
@@ -1142,7 +1142,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             focusable: true,
                             tabIndex: 0,
                             modal: true,
-                            
+
                             closeAction: 'destroy',
                             bodyStyle: 'background-color: transparent',
                             layout: {
@@ -1150,15 +1150,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                                 padding: 5
                             },
                             listeners: {
-                                maskclick: function ( cmp, eOpts ) {
+                                maskclick: function (cmp, eOpts) {
                                     cmp.close();
                                 }
                             },
                             items: [{
-                                layout:'hbox',
-                                border:false,
+                                layout: 'hbox',
+                                border: false,
                                 flex: 1,
-                                items:[{
+                                items: [{
                                     xtype: 'ScheduleItemInfo',
                                     border: false,
                                     // width: '66%',
@@ -1169,13 +1169,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                                             eventRecord: eventRecord // 
                                         }
                                     }
-                                },{
-                                    layout:'hbox',
-                                    border:false,
+                                }, {
+                                    layout: 'hbox',
+                                    border: false,
                                     // width: '34%',
                                     width: 300,
                                     height: 270,
-                                    items:[{
+                                    items: [{
                                         xtype: 'PContractImageView',
                                         border: false,
                                         width: '100%',

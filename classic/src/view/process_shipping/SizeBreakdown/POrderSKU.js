@@ -84,7 +84,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
             labelWidth: 0,
-            value: 'Chi tiết màu cỡ'
+            value: 'Chi tiết màu cỡ lệnh sản xuất'
         }]
     }]
 });

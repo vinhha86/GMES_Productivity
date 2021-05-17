@@ -40,6 +40,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var pcontractid_link = record.get('pcontractid_link');
         var pcontractpoid_link = record.get('id');
         viewmodel.set('pcontract_poid_link', pcontractpoid_link);
+        viewmodel.set('porderid_link', 0);
 
         storeSKU.loadStoreByPO(pcontractid_link, pcontractpoid_link);
 
