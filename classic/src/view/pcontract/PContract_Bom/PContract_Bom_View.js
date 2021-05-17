@@ -44,11 +44,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaNPLKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
         width: 150,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
         items: {
             xtype: 'textfield',
             fieldStyle: "",
@@ -144,11 +161,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                     value: '{IdProduct}',
                     readOnly: '{isReadOnlycmbSanPham}'
                 },
+                triggerAction: 'all',
                 fieldLabel: 'Sản phẩm',
                 labelWidth: 80,
                 itemId: 'cmbSanPham',
                 queryMode: 'local',
-                editable: false,
                 valueField: 'productid_link',
                 displayField: 'productBuyerCode'
             },

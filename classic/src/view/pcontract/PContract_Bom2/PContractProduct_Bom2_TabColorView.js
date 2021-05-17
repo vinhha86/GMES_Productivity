@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorView', {
             },
             {
                 xtype: 'combo',
-                width:400,
+                width: 400,
                 margin: 3,
                 bind: {
                     store: '{PContractProductStore}',
@@ -32,19 +32,18 @@ Ext.define('GSmartApp.view.pcontract.PContractProduct_Bom2_TabColorView', {
                 labelWidth: 80,
                 itemId: 'cmbSanPham',
                 queryMode: 'local',
-                editable: false,
                 valueField: 'productid_link',
                 displayField: 'productBuyerCode'
             },
             {
-                xtype:'button',
+                xtype: 'button',
                 text: 'Chốt định mức',
-                itemId:'btnConfirmBOM2',
+                itemId: 'btnConfirmBOM2',
                 // ui: 'header',
                 tooltip: 'Chốt định mức cân đối',
                 iconCls: 'x-fa fa-check greenIcon',
                 // handler: 'onFactoriesTap',
-            }   
+            }
         ]
     }]
 })
