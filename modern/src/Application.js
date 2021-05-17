@@ -59,6 +59,11 @@ Ext.define('GSmartApp.Application', {
                                         //window.location.reload();
                                 });
                             }
+                            else {
+                                config.setToken(null);
+                                GSmartApp.util.State.set('session', null);
+                                Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
+                            }
                         }
                     } else {
                         Ext.create('GSmartApp.view.main.Main', { fullscreen: true });

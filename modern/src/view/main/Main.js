@@ -36,11 +36,7 @@ Ext.define('GSmartApp.view.main.Main', {
                     ui: 'navigation',
                     store: 'NavigationTree',
                     expanderFirst: false,
-                    expanderOnly: false,
-                    listeners: {
-                        itemclick: 'onNavigationItemClick',
-                        selectionchange: 'onNavigationTreeSelectionChange'
-                    }
+                    expanderOnly: false
                 },
             ]
         },
