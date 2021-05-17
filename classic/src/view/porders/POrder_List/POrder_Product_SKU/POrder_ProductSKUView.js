@@ -45,15 +45,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
         xtype: 'rownumberer',
         align: 'center'
     },
-    // {
-    //     text: 'SKU',
-    //     dataIndex: 'skuCode',
-    //     flex: 1,
-    //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-    //         metaData.tdAttr = 'data-qtip="' + value + '"';
-    //         return value;
-    //     }
-    // }, 
     {
         text: 'Màu',
         dataIndex: 'mauSanPham',
@@ -82,7 +73,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_ProductSKUView', {
                     xtype: 'textfield',
                     selectOnFocus: true,
                     bind: {
-                        editable: '{isEditSL}'
+                        readOnly: '{!isEditSL}'
                     }
                 }
             })

@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         'GSmartApp.store.porder.POrder_ListStore',
         'GSmartApp.store.SKUBalanceStore',
         'GSmartApp.store.porder.porderSKUStore',
+        'GSmartApp.store.porder.POrder_ListGrantSKUStore',
         'GSmartApp.store.porder.POrder_ListGrantStore'],
     stores: {
         POLineStore: {
@@ -27,6 +28,9 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         },
         POrder_ListGrantStore: {
             type: 'POrder_ListGrantStore'
+        },
+        POrder_ListGrantSKUStore: {
+            type: 'POrder_ListGrantSKUStore'
         }
     },
     data: {
@@ -34,6 +38,15 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         shipdate_from: new Date(),
         porderid_link: 0,
         pcontract_poid_link: 0,
-        productid_link: 0
+        productid_link: 0,
+        IdGrant: 0
+    },
+    formulas: {
+        IdPOrder: function (get) {
+            return get('porderid_link');
+        },
+        IdPContractPO: function (get) {
+            return get('pcontract_poid_link');
+        }
     }
 })

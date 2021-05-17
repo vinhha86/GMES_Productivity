@@ -23,6 +23,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantViewController',
     },
     onItemClick: function (thisView, record, item, index, e, eOpts) {
         let viewmodel = this.getViewModel();
+        viewmodel.set('IdGrant', record.get('id'));
         let store = viewmodel.getStore('POrder_ListGrantSKUStore');
         store.loadStore(record.data.id);
     },
