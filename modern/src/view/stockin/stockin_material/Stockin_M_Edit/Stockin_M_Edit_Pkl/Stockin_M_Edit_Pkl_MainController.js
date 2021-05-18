@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var viewModel = this.getViewModel();
 
         var record = location.record;
-        viewModel.set('selectedPklRecord',record);
+        viewModel.set('selectedPklRecord',record); console.log(record);
         
         viewModel.set('lotnumberTxt', record.get('lotnumber'));
         viewModel.set('packageidTxt', record.get('packageid'));
@@ -160,8 +160,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // popup here
     },
     onDeletePkl: function () {
-        console.log('onDeletePkl cliked');
-        // popup here
+        var m = this;
+        var viewModel = this.getViewModel();
+
+
     },
     onCheck: function(){
         var m = this;
@@ -180,7 +182,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var colorTxt = viewModel.get('colorTxt');
         // var widthTxt = viewModel.get('widthTxt');
         var sampleCheckTxt = viewModel.get('sampleCheckTxt');
-        var grossweightTxt = viewModel.get('grossweightTxt') == null ? viewModel.get('grossweightCheckTxt') : viewModel.get('grossweightTxt');
+        var grossweightTxt = viewModel.get('grossweightTxt'); null ? viewModel.get('grossweightCheckTxt') : viewModel.get('grossweightTxt');
         var grossweightCheckTxt = viewModel.get('grossweightCheckTxt');
         var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
         var widthYdsTxt = viewModel.get('widthYdsTxt') == null ? viewModel.get('widthYdsCheckTxt') : viewModel.get('widthYdsTxt');
@@ -189,6 +191,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var pklRowTxt = viewModel.get('pklRowTxt');
         var pklSpaceTxt = viewModel.get('pklSpaceTxt');
         var pklFloorTxt = viewModel.get('pklFloorTxt');
+
+        // console.log(widthYdsCheckTxt);
+        // console.log(widthYdsTxt);
+        // console.log(widthMetCheckTxt);
+        // console.log(widthMetTxt);
 
         // check combo đã chọn chưa
         var pkl_stockindId = viewModel.get('pkl_stockindId');
@@ -295,12 +302,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             objData.ydsorigin = parseFloat(yOriginTxt);
             objData.met_origin = objData.ydsorigin * 0.9144;
 
-            objData.width_yds_check = parseFloat(widthYdsTxt);
+            objData.width_yds_check = parseFloat(widthYdsCheckTxt);
             objData.width_met_check = objData.width_yds_check * 0.9144;
             objData.width_yds = parseFloat(widthYdsTxt);
             objData.width_met = objData.width_yds * 0.9144;
         }
-        if(stockin.unitid_link == 1){
+        if(stockin.unitid_link == 1 || stockin.unitid_link == null){
             // có m
             objData.met_check = parseFloat(mTxt);
             objData.ydscheck = objData.met_check / 0.9144;
