@@ -39,6 +39,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'FilterMauSP',
+            width: '99%',
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterMauSP',
+                buffer: 500
+            }
         }
     }, {
         text: 'Cỡ',

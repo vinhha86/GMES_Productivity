@@ -4,6 +4,65 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
     init: function () {
 
     },
+    control: {
+        '#btnDongBo': {
+            click: 'onDongBo'
+        }
+    },
+    onDongBo: function () {
+        var me = this;
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        grid.setLoading('Đang đồng bộ');
+
+        var params = new Object();
+        params.porderid_link = viewmodel.get('porder.id');
+
+        GSmartApp.Ajax.post('/api/v1/porderbom/sync', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var mes = "Đồng bộ thành công";
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        mes = "Đồng bộ thất bại";
+                    }
+                    else {
+                        me.createTab();
+                    }
+                } else {
+                    mes = "Đồng bộ thất bại";
+                }
+                Ext.Msg.show({
+                    title: "Thông báo",
+                    msg: mes,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng'
+                    }
+                });
+            })
+    },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('POrderBom2Store');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'materialCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();

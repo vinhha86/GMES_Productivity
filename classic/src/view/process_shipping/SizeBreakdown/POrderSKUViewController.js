@@ -4,6 +4,26 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POrderSKUViewControlle
     init: function () {
 
     },
+    onFilterMauSP: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('porderSKUStore');
+        var filterField = this.lookupReference('FilterMauSP'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.FilterMauSP = filters.add({
+                id: 'FilterMauSP',
+                property: 'mauSanPham',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.FilterMauSP) {
+            filters.remove(this.FilterMauSP);
+            this.FilterMauSP = null;
+        }
+    },
     renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';

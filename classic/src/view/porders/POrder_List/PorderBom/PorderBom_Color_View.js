@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_Color_View', 
         dataIndex: 'coKho',
         width: 80
     }, {
-        text: 'Thành phần vải',
+        text: 'TP vải',
         dataIndex: 'thanhPhanVai',
         flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {

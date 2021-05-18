@@ -21,11 +21,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
             items: [
                 {
                     iconCls: 'x-fa fa-edit',
-                    tooltip: 'Chi tiết'
+                    tooltip: 'Chi tiết',
+                    handler: 'onUpdate'
                 },
                 {
                     iconCls: 'x-fa fa-trash',
-                    tooltip: 'Xóa'
+                    tooltip: 'Xóa',
+                    handler: 'onXoa'
                 }
             ]
         },

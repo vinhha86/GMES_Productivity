@@ -31,6 +31,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2View', {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaNPLKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Màu SP',
@@ -58,7 +70,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2View', {
             return val;
         }
     }, {
-        text: 'Thành phần vải',
+        text: 'TP vải',
         dataIndex: 'thanhPhanVai',
         width: 200,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
