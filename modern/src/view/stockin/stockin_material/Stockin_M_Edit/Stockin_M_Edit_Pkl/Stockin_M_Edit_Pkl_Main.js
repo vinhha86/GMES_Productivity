@@ -325,18 +325,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                 //             },
                 //             stepValue: 0.1,
                 //         },
-                //         {
-                //             xtype:'button',
-                //             iconCls: 'x-fa fa-trash',
-                //             itemId:'btnDeletePkl',
-                //             ui: 'action',
-                //             margin: 1,
-                //             focusable: false,
-                //             bind: {
-                //                 disabled: '{!isPklSelected}',
-                //             },
-                //             // style: 'visibility: hidden;'
-                //         },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{!isPklSelected}',
+                        //     },
+                        //     // style: 'visibility: hidden;'
+                        // },
                 //     ]
                 // },
                 {
@@ -440,11 +440,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                         },
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
+                            iconCls: 'x-fa fa-trash',
+                            itemId:'btnDeletePkl',
                             ui: 'action',
                             margin: 1,
-                            style: 'visibility: hidden;'
+                            focusable: false,
+                            bind: {
+                                disabled: '{!isPklSelected}',
+                            },
+                            // style: 'visibility: hidden;'
                         },
                     ]
                 },
