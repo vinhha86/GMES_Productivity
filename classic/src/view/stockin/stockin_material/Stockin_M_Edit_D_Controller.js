@@ -650,6 +650,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		var m = this;
         var me = this.getView();
 		var viewModel = this.getViewModel();
+		var ls_productid_link = [];
+		var StockinProduct_Store = viewModel.getStore('StockinProduct_Store')
+		for(var i = 0; i < StockinProduct_Store.data.length; i++){
+			var the_product = StockinProduct_Store.data.items[i].data;
+			console.log(the_product.productid_link);
+			ls_productid_link[i] = the_product.productid_link;
+		}
 		var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -668,7 +675,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                 xtype: 'Balance_Main',
                 viewModel: {
                     data: {
-                        pcontractid_link: viewModel.get('pcontractid_link')
+                        pcontractid_link: viewModel.get('pcontractid_link'),
+						ls_productid_link: ls_productid_link
                     }
                 }
             }]

@@ -19,5 +19,6 @@ Ext.define('GSmartApp.view.balance.Balance_ViewModel', {
 		pcontractid_link: null,
 		pcontract_poid_link: null,
 		isAdd_Pcontract_Stockin: false,
+		ls_productid_link: null
 	}
 })

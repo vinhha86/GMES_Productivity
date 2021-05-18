@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Controller', {
         var PContractProductStore = viewmodel.getStore('PContractProductStore');
         if (!viewmodel.get('isAdd_Pcontract_Stockin')){
             //Neu khong phai goi de tao Stockin --> Load tat cac SP cua don hang
-            PContractProductStore.loadStore(viewmodel.get('pcontractid_link'), null);
+            PContractProductStore.loadStore_ByProductList(viewmodel.get('pcontractid_link'), viewmodel.get('ls_productid_link'));
         } else {
             //Goi de tao Stockin va nhan vao danh sach SP
             var grd_product = Ext.getCmp('Balance_Product');

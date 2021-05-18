@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var stockouttypeto = 10;
 
         var page = store.currentPage;
-        var statuses = [-1, 0, 1, 2];
+        var statuses = [-2,-1, 0, 1, 2];
 
         // if (limit == null) {
         //     limit = 100;

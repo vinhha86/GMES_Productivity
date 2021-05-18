@@ -33,8 +33,18 @@ Ext.define('GSmartApp.view.stockin.PContract_Product_Select', {
             text:'Mã SP (Buyer)',
             dataIndex:'productBuyerCode',
             width: 120,
-            listeners:{
-                dblclick: 'viewProductDetail'
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'ProductCodeFilter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onProductCodeFilterKeyup',
+                    buffer: 500
+                }
             },
         },
         {
