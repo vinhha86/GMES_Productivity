@@ -30,6 +30,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_Main_Controller', {
         controller: {
             '*': {
 				urlBack:'onSearch',
+            },
+            'Stockin_M_Main_Controller': {
+                Reload_StockinOrderList: 'onSearch'
             }
         }
     },    

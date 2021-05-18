@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
+Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_M_Controller',
+    alias: 'controller.Stockout_M_List_Controller',
     init: function () {
         // this.callParent(arguments);
         var me = this.getView();
@@ -39,6 +39,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         controller: {
             '*': {
                 urlBack: 'onSearch',
+            },
+            'Stockout_M_Main_Controller': {
+                Reload_StockoutList: 'onSearch'
             }
         }
     },
@@ -52,9 +55,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         '#limitpage': {
             specialkey: 'onSpecialkey'
         },
-        '#Stockout_M_Main': {
-            tabchange: 'onTabChange'
-        }
     },
     onXuatTo: function () {
         this.redirectTo('stockout_m/11/create');
@@ -71,20 +71,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         }
         if (e.getKey() == e.ENTER) {
             me.onSearch();
-        }
-    },
-    onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
-        var me = this;
-        var viewmodel = this.getViewModel();
-
-        console.log(newCard.xtype);
-        if (newCard.xtype == "Stockout_M_List_Main") {
-
-        }
-        else {
-            if (newCard.xtype == "Stockout_Order_Main") {
-                me.fireEvent('Reload_OrderMain');
-            }
         }
     },
     onSearch: function () {
