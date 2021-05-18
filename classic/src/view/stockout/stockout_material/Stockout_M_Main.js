@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'Stockout_M_Main',
     itemId: 'Stockout_M_Main',
-    controller: 'Stockout_M_Controller',
+    controller: 'Stockout_M_Main_Controller',
     viewModel: {
         type: 'Stockout_M_EditModel'
     },
@@ -26,7 +26,5 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Main', {
             margin: 1,
         }, 
     ],
-    listeners: {
-        activate: 'onActivate',
-    }      
+
 });

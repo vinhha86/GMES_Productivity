@@ -28,8 +28,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
             '*': {
                 urlBack: 'onOrderSearch',
             },
-            'Stockout_M_Controller': {
-                Reload_OrderMain: 'onReload_OrderMain'
+            'Stockout_M_Main_Controller': {
+                Reload_StockoutOrderList: 'onOrderSearch'
             }
         }
     },
@@ -37,9 +37,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         '#Stockout_Order': {
             select: 'onStockout_orderSelect'
         },
-    },
-    onReload_OrderMain: function () {
-        this.onOrderSearch();
     },
     onStockout_orderSelect: function (e, selected, eOpts) {
         // console.log(selected);

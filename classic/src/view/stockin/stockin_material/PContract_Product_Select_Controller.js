@@ -19,4 +19,24 @@ Ext.define('GSmartApp.view.stockin.PContract_Product_Select_Controller', {
             this.fireEvent('onSelect_Products', select);
         }
     },
+    onProductCodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('ProductCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.ProductCodeFilter = filters.add({
+                id: 'ProductCodeFilter',
+                property: 'productBuyerCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ProductCodeFilter) {
+            filters.remove(this.ProductCodeFilter);
+            this.ProductCodeFilter = null;
+        }
+    },
 })

@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_D', {
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'color_name',
+			dataIndex: 'sku_product_color',
 			width: 120,
 		},{
 			text: 'Cỡ', 
@@ -131,6 +131,21 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_D', {
 		// 		hidden: '{isYdsColumnHidden}',
 		// 	},
 		// },
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'Cây xuất', 
+			align:'right',
+			dataIndex: 'totalpackagecheck',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 70,
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9]/,
+			// 	selectOnFocus: true
+			// },
+		},
 	],
 });
 

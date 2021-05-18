@@ -7,8 +7,7 @@ Ext.define('GSmartApp.store.stockout.Stockout_d', {
       
     loadByStockoutID:function(stockoutid_link){
         var param=new Object();
-        param.stockoutid_link = stockoutid_link;
-        console.log(Ext.JSON.encode(param));
+        param.id = stockoutid_link;
 
 		this.setProxy({
             type: 'ajax',
@@ -22,7 +21,7 @@ Ext.define('GSmartApp.store.stockout.Stockout_d', {
             startParam: false, //to remove param "start"
             limitParam: false, //to remove param "limit"            
             cors: true,
-			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockout/getbystockoutdid',
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockout_d/getbystockoutid',
 			paramsAsJson:true,
 			noCache: false,
 			headers :{
@@ -44,7 +43,38 @@ Ext.define('GSmartApp.store.stockout.Stockout_d', {
 				}
 			}
 		});
-    } 
+    },
+    loadByStockoutID_async:function(stockoutid_link){
+        var param=new Object();
+        param.id = stockoutid_link;
+
+		this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create : 'POST',
+                read   : 'POST',
+                update : 'POST',
+                destroy: 'POST'
+            },
+            pageParam: false, //to remove param "page"
+            startParam: false, //to remove param "start"
+            limitParam: false, //to remove param "limit"            
+            cors: true,
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockout_d/getbystockoutid',
+			paramsAsJson:true,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+            useDefaultXhrHeader: false,
+			extraParams: param,
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+            }
+		});
+    },
     // sorters: [{
     //     property: 'stockincode',
     //     direction: 'ASC'

@@ -73,7 +73,8 @@ Ext.define('GSmartApp.view.product.ProductInfoView', {
                     height: 32,
                     labelWidth: 110
                 }]
-            },{
+            },
+            {
                 xtype:'textarea',
                 margin: 1,
                 minHeight: 30,

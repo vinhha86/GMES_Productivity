@@ -63,14 +63,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',
-			width: 150,
+			width: 100,
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
+			width: 100,
+		},{
+			text: 'Mô tả', 
+			dataIndex: 'sku_product_desc',
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'color_name',
+			dataIndex: 'sku_product_color',
 			width: 120,
 		},{
 			text: 'Cỡ', 
@@ -162,6 +166,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		// 	dataIndex: 'totalydscheck',
 		// 	width: 85
 		// },
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'Cây xuất', 
+			align:'right',
+			dataIndex: 'totalpackagecheck',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 70,
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9]/,
+			// 	selectOnFocus: true
+			// },
+		},
     ],
 	dockedItems: [{
 		dock: 'top',

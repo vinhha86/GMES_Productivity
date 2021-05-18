@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'Stockin_M_Main',
-    id:'Stockin_M_Main',
+    itemId:'Stockin_M_Main',
+    controller: 'Stockin_M_Main_Controller',
     items: [
         {
             title: 'Phiếu nhập kho',
