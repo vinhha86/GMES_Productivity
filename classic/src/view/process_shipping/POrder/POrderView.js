@@ -40,18 +40,18 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'ordercodeFilterField',
-            //     width: '99%',
-            //     margin: 2,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onOrderCodeFilterKeyup',
-            //         buffer: 500
-            //     }
-            // }
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'ordercodeFilterField',
+                width: '99%',
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrderCodeFilterKeyup',
+                    buffer: 500
+                }
+            }
         },
         {
             text: 'Phân xưởng',

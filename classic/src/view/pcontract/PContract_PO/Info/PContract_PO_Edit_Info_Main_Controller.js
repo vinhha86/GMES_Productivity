@@ -101,6 +101,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
                                     break;
                                 }
                             }
+                            // pcontract_po_productivity
+                            console.log(pcontract_po_productivity);
+
                             viewmodel.set('pcontract_po_productivity', pcontract_po_productivity);
                         }
                     }

@@ -58,12 +58,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIewController', {
                     }
                     else {
                         var data = response.data;
+
                         for (var i = 0; i < data.length; i++) {
                             var rec = store.findRecord('skuid_link', data[i].product_skuid_link);
                             grid.getSelectionModel().select(rec, true, true);
                             data[i].quantity = data[i].quantity == null ? 0 : data[i].quantity;
                             rec.set('pquantity', data[i].quantity);
                         }
+
                         store.commitChanges();
                     }
                 }

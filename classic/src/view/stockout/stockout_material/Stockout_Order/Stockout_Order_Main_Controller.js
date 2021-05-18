@@ -1,16 +1,16 @@
 Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_Order_Main_Controller',
-    init: function() {
+    init: function () {
         // this.callParent(arguments);
         var me = this.getView();
 
         var today = new Date();
-		var priorDate = new Date().setDate(today.getDate()-30);
-		me.down('#stockoutorderdate_from').setValue(new Date(priorDate));
+        var priorDate = new Date().setDate(today.getDate() - 30);
+        me.down('#stockoutorderdate_from').setValue(new Date(priorDate));
 
         this.onOrderSearch();
-        
+
         // var store_stockout = this.getViewModel().getStore('Stockout');
         // if (store_stockout) {
         //     var page = store_stockout.currentPage;
@@ -23,17 +23,23 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
     onActivate: function () {
         this.onOrderSearch();
     },
-	listen: {
+    listen: {
         controller: {
             '*': {
-				urlBack:'onOrderSearch',
+                urlBack: 'onOrderSearch',
+            },
+            'Stockout_M_Controller': {
+                Reload_OrderMain: 'onReload_OrderMain'
             }
         }
-    },        
+    },
     control: {
         '#Stockout_Order': {
             select: 'onStockout_orderSelect'
         },
+    },
+    onReload_OrderMain: function () {
+        this.onOrderSearch();
     },
     onStockout_orderSelect: function (e, selected, eOpts) {
         // console.log(selected);
@@ -42,7 +48,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         storeDetail.removeAll();
         storeDetail.GetByStockoutOrder(selected.data.id);
     },
-    onOrderSearch: function(){
+    onOrderSearch: function () {
         var me = this.getView();
         var t = this;
 
@@ -70,7 +76,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         // if (page == null) {
         //     page = 1;
         // }
-        
+
         store.loadStore_byPage(fromDate, toDate, null, null, null);
     },
 

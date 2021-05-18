@@ -16,6 +16,26 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
+    onOrderCodeFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('POrder_ListStore');
+        var filterField = this.lookupReference('ordercodeFilterField'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ordercodeFilterField = filters.add({
+                id: 'ordercodeFilterField',
+                property: 'ordercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ordercodeFilterField) {
+            filters.remove(this.ordercodeFilterField);
+            this.ordercodeFilterField = null;
+        }
+    },
     onSelectPOrder: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         var porderid_link = record.get('id');
