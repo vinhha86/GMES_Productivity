@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
+Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Order_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockout_Order_Main',
     id: 'Stockout_Order_Main',
     reference: 'Stockout_Order_Main',
-    viewModel: {
-        // type: 'Stockout_M_MainViewModel'
-    },
-    // controller: 'Stockout_Order_MainController',
+    // viewModel: {
+    //     type: 'Stockout_M_MainViewModel'
+    // },
+    controller: 'Stockout_Order_MainController',
     height: '100%',
     layout: 'vbox',
     width: '100%',
@@ -19,8 +19,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
             items: [
                 {
                     xtype: 'datefield',
-                    reference: 'fromDate',
-                    itemId: 'fromDate',
+                    reference: 'stockoutorderdate_from',
+                    itemId: 'stockoutorderdate_from',
                     label: 'Từ:',
                     // labelWidth: 'auto',
                     labelWidth: 60,
@@ -30,13 +30,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
                     flex: 1,
                     enableKeyEvents: true,
                     listeners: {
-                        change : 'loadData'
+                        change : 'onOrderSearch'
                     }
                 },
                 {
                     xtype: 'datefield',
-                    reference: 'toDate',
-                    itemId: 'toDate',
+                    reference: 'stockoutorderdate_to',
+                    itemId: 'stockoutorderdate_to',
                     label: 'Đến:',
                     // labelWidth: 'auto',
                     labelWidth: 60,
@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
                     flex: 1,
                     enableKeyEvents: true,
                     listeners: {
-                        change : 'loadData'
+                        change : 'onOrderSearch'
                     }
                 }
             ]
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
             items: [
                 {
                     xtype: 'textfield',
-                    itemId: 'invoiceFilter',
+                    itemId: 'stockout_M_OrderFilter',
                     // label: 'Invoice:',
                     // labelWidth: 60,
                     // margin: 1,
@@ -77,8 +77,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
                     //     value: '{maNPLFilter}'
                     // },
                     listeners: {
-                        change: 'oninvoiceFilterKeyup',
-                        keyup: 'oninvoiceFilterKeyup',
+                        change: 'onStockout_M_OrderFilterKeyup',
+                        keyup: 'onStockout_M_OrderFilterKeyup',
                         buffer: 500
                     }
                 },
@@ -87,7 +87,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main', {
         {
             margin: 1,
             flex: 1,
-            // xtype: 'Stockin_M_List',
+            xtype: 'Stockout_Order',
         },
     ], 
 });

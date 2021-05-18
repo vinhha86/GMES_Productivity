@@ -252,8 +252,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         });
     },
     onThemPO: function (rec) {
-        var plan_productivity = [];
-        plan_productivity.push(rec.get('pcontract_po_productivity')[0].plan_productivity);
+        var data = rec.get('pcontract_po_productivity');
+        for (var i = 0; i < data.length; i++) {
+            data[i].id = null;
+        }
 
         var viewmodel = this.getViewModel();
 
@@ -272,28 +274,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                 padding: 5
             },
             items: [{
-                xtype: 'InsertPO_Main',
+                xtype: 'PContract_PO_Edit_Info_Main',
                 viewModel: {
+                    type: 'PContract_PO_Edit_Info_Main_ViewModel',
                     data: {
                         po: {
                             pcontractid_link: viewmodel.get('PContract.id'),
                             parentpoid_link: rec == null ? 0 : rec.data.id,
                             po_typeid_link: 11,
-                            pcontract_po_productivity: rec.get('pcontract_po_productivity'),
+                            pcontract_po_productivity: data,
+                            productid_link: rec.data.productid_link
                         },
-                        productid_link: viewmodel.get('IdProduct_filterPO'),
+                        isedit: true,
+                        productpairid_link: rec.get('productid_link'),
+                        productid_link: rec.get('productid_link'),
                         pcontract_po_productivity: {
-                            plan_productivity: plan_productivity
-                        }
+                            plan_productivity: data[0].plan_productivity,
+                            amount: data[0].amount,
+                            plan_linerequired: data[0].plan_linerequired,
+                            pairamount: data[0].pairamount
+                        },
+                        width_PContract_PO_Edit_Porder_Req: 0
                     }
                 }
             }]
         });
         form.show();
 
-        form.down('#InsertPO_Main').down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('LuuThanhCong', function () {
             var storePO = viewmodel.getStore('PContractPOList');
             storePO.load();
+        });
+
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
             form.close();
         })
     },
@@ -357,17 +370,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         form.show();
 
         form.down('#PContract_PO_Edit_Info_Main').getController().on('Thoat', function () {
+            form.close();
+        });
+
+        form.down('#PContract_PO_Edit_Info_Main').getController().on('LuuThanhCong', function () {
             var storePO = viewModel.getStore('PContractPOList');
             storePO.load();
-
-            var store_porder_req = viewModel.getStore('porderReqStore');
-            var po_id = rec.get('id');
-            store_porder_req.loadByPO(po_id);
-            form.close();
         })
     },
     onFOBPO: function (rec) {
-        console.log(rec);
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -395,8 +406,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         form.show();
     },
     onShowBalance: function (rec) {
-        console.log(rec);
-        var viewmodel = this.getViewModel();
 
         var form = Ext.create('Ext.window.Window', {
             closable: true,
@@ -556,7 +565,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         common.Check_Menu_Permission(menu_grid);
     },
     onChangeMer: function (rec) {
-        console.log(rec);
         var viewmodel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             height: 320,
@@ -619,7 +627,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             e.record.data[e.field] = e.value;
             var params = new Object();
             params.data = e.record.data;
-            console.log(params);
             GSmartApp.Ajax.post('/api/v1/pcontract_po/update', Ext.JSON.encode(params),
                 function (success, response, options) {
                     var response = Ext.decode(response.responseText);

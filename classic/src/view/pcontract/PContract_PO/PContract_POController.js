@@ -707,48 +707,48 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    onCancelOffer: function(rec){
+    onCancelOffer: function (rec) {
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.pcontract_poid_link = rec.get('id');
 
         GSmartApp.Ajax.post('/api/v1/pcontract_po/cancel_po_offer', Ext.JSON.encode(params),
-                        function (success, response, options) {
-                            if (success) {
-                                var response = Ext.decode(response.responseText);
-                                var store = viewmodel.getStore('PContractProductPOStore');
-                                if(response.respcode == 200){
-                                    Ext.MessageBox.show({
-                                        title: "Thông báo",
-                                        msg: "Hủy thành công",
-                                        buttons: Ext.MessageBox.YES,
-                                        buttonText: {
-                                            yes: 'Đóng',
-                                        }
-                                    });
-                                    store.load();
-                                }
-                                else {
-                                    Ext.MessageBox.show({
-                                        title: "Thông báo",
-                                        msg: "Hủy thất bại",
-                                        buttons: Ext.MessageBox.YES,
-                                        buttonText: {
-                                            yes: 'Đóng',
-                                        }
-                                    });
-                                }
-                            } else {
-                                Ext.MessageBox.show({
-                                    title: "Thông báo",
-                                    msg: "Hủy thất bại",
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'Đóng',
-                                    }
-                                });
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    var store = viewmodel.getStore('PContractProductPOStore');
+                    if (response.respcode == 200) {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Hủy thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
                             }
                         });
+                        store.load();
+                    }
+                    else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Hủy thất bại",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Hủy thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            });
     },
     onDel_KHSX: function (rec) {
         var viewmodel = this.getViewModel();
@@ -762,7 +762,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         function (success, response, options) {
                             if (success) {
                                 var response = Ext.decode(response.responseText);
-                                if(response.respcode == 200){
+                                if (response.respcode == 200) {
                                     Ext.MessageBox.show({
                                         title: "Thông báo",
                                         msg: "Xóa thành công",
@@ -976,7 +976,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             portfromid_link: rec.get('portfromid_link'),
                             porttoid_link: rec.get('porttoid_link')
                         },
-                        pcontract_po_productivity: plan_productivity
+                        pcontract_po_productivity: plan_productivity,
+                        width_PContract_PO_Edit_Porder_Req: 270
                     }
                 }
             }]
