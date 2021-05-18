@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
     listen: {
         controller: {
             '*': {
-                // loaddata: 'onLoadData',
+                loaddata: 'onLoadData',
                 // newdata: 'onNewData',
 				// // urlBack:'onUrlBack'
             }
@@ -20,41 +20,39 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         '#btnHome':{
             tap: 'onBtnHomeTap'
         },
-        // '#TabView':{
-        //     activeItemchange: 'onTabViewActiveItemchange'
-        // },
+        '#TabView':{
+            activeItemchange: 'onTabViewActiveItemchange'
+        },
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         var m = this;
         var viewModel = this.getViewModel();
-        var stockinid_link = viewModel.get('stockin.id');
-        var lot_stockindId = viewModel.get('lot_stockindId');
-        var pkl_stockindId = viewModel.get('pkl_stockindId');
-        var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
+        var stockoutid_link = viewModel.get('stockout.id');
+        var pkl_stockoutdId = viewModel.get('pkl_stockoutdId');
+        var pklRip_stockoutdId = viewModel.get('pklRip_stockoutdId');
 
         switch(value.title){
             case 'DS vải':
                 var selectedDRecord = viewModel.get('selectedDRecord');
-                var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-                // Stockin_d_Store.loadStore_byStockinId(stockinid_link); // loadStore_byStockinId_async
-                Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
-                Stockin_d_Store.load({
+                var Stockout_d = viewModel.getStore('Stockout_d');
+                // Stockout_d.loadStore_byStockoutId(stockoutid_link); // loadStore_byStockoutId_async
+                Stockout_d.loadByStockoutID_async(stockoutid_link);
+                Stockout_d.load({
                     scope: this,
                     callback: function(records, operation, success) {
                         if(!success){
                             this.fireEvent('logout');
                         } else {
                             if(selectedDRecord != null){
-                                var storeItems = Stockin_d_Store.getData().items;
+                                var storeItems = Stockout_d.getData().items;
                                 for(var i=0; i<storeItems.length; i++){
                                     var item = storeItems[i];
                                     if(item.get('id') == selectedDRecord.get('id')){
-                                        var grid = m.getView().down('#Stockin_M_Edit_D');
+                                        var grid = m.getView().down('#Stockout_M_Edit_D');
                                         grid.getSelectable().select(item);
                                         viewModel.set('selectedDRecord', item);
-                                        viewModel.set('lot_stockindId', item.get('id'));
-                                        viewModel.set('pkl_stockindId', item.get('id'));
-                                        viewModel.set('pklRecheck_stockindId', item.get('id'));
+                                        viewModel.set('pkl_stockoutdId', item.get('id'));
+                                        viewModel.set('pklRip_stockoutdId', item.get('id'));
                                     }
                                 }
                             }
@@ -62,56 +60,24 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     }
                 });
                 break;
-            case 'Kiểm lot':
-                if(lot_stockindId != null){
-                    var selectedLotRecord = viewModel.get('selectedLotRecord');
-                    var StockinLotStore = viewModel.getStore('StockinLotStore');
-                    StockinLotStore.loadStore_byStockinDId_async(lot_stockindId);
-                    StockinLotStore.load({
-                        scope: this,
-                        callback: function(records, operation, success) {
-                            if(!success){
-                                this.fireEvent('logout');
-                            } else {
-                                if(selectedLotRecord != null){
-                                    var stockinlotid_link = selectedLotRecord.get('id');
-                                    var storeItems = StockinLotStore.getData().items;
-                                    for(var i=0; i<storeItems.length; i++){
-                                        var item = storeItems[i];
-                                        if(item.get('id') == stockinlotid_link){
-                                            var grid = m.getView().down('#Stockin_M_Edit_Lot');
-                                            grid.getSelectable().select(item);
-                                            viewModel.set('selectedLotRecord', item);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    var cbbox_lot_stockindId = m.getView().down('#cbbox_lot_stockindId');
-                    cbbox_lot_stockindId.setValue(lot_stockindId);
-                }
-                break;
-            case 'Kiểm cây':
-                if(pkl_stockindId != null){
+            case 'DS cây':
+                if(pkl_stockoutdId != null){
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
-                    var StockinPklStore = viewModel.getStore('StockinPklStore');
-                    // StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
-                    StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, -1);
-                    StockinPklStore.load({
+                    var stockout_pklist = viewModel.getStore('stockout_pklist');
+                    stockout_pklist.loadstore_ByStockoutDId_async(pkl_stockoutdId);
+                    stockout_pklist.load({
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
                                 this.fireEvent('logout');
                             } else {
                                 if(selectedPklRecord != null){
-                                    var stockinpklid_link = selectedPklRecord.get('id');
-                                    var storeItems = StockinPklStore.getData().items;
+                                    var stockoutpklid_link = selectedPklRecord.get('id');
+                                    var storeItems = stockout_pklist.getData().items;
                                     for(var i=0; i<storeItems.length; i++){
                                         var item = storeItems[i];
-                                        if(item.get('id') == stockinpklid_link){
-                                            var grid = m.getView().down('#Stockin_M_Edit_Pkl');
+                                        if(item.get('id') == stockoutpklid_link){
+                                            var grid = m.getView().down('#Stockout_M_Edit_Pkl');
                                             grid.getSelectable().select(item);
                                             viewModel.set('selectedPklRecord', item);
                                         }
@@ -121,41 +87,41 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                         }
                     });
 
-                    var cbbox_pkl_stockindId = m.getView().down('#cbbox_pkl_stockindId');
-                    cbbox_pkl_stockindId.setValue(pkl_stockindId);
+                    var cbbox_pkl_stockoutdId = m.getView().down('#cbbox_pkl_stockoutdId');
+                    cbbox_pkl_stockoutdId.setValue(pkl_stockoutdId);
                 }
                 break;
-            case 'Kiểm 10%':
-                if(pklRecheck_stockindId != null){
-                    var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
-                    var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
-                    // StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
-                    StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, 2);
-                    StockinPklRecheckStore.load({
-                        scope: this,
-                        callback: function(records, operation, success) {
-                            if(!success){
-                                this.fireEvent('logout');
-                            } else {
-                                if(selectedPklRecheckRecord != null){
-                                    var stockinpklid_link = selectedPklRecheckRecord.get('id');
-                                    var storeItems = StockinPklRecheckStore.getData().items;
-                                    for(var i=0; i<storeItems.length; i++){
-                                        var item = storeItems[i];
-                                        if(item.get('id') == stockinpklid_link){
-                                            var grid = m.getView().down('#Stockin_M_Edit_Pkl_Recheck');
-                                            grid.getSelectable().select(item);
-                                            viewModel.set('selectedPklRecheckRecord', item);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
+            case 'Xé vải':
+                // if(pklRip_stockoutdId != null){
+                //     var selectedPklRipRecord = viewModel.get('selectedPklRipRecord');
+                //     var StockoutPklRipStore = viewModel.getStore('StockoutPklRipStore');
+                //     // StockoutPklRipStore.loadStore_byStockoutDIdAndEqualStatus(pklRip_stockoutdId, 2);
+                //     StockoutPklRipStore.loadStore_byStockoutDIdAndEqualStatus_async(pklRip_stockoutdId, 2);
+                //     StockoutPklRipStore.load({
+                //         scope: this,
+                //         callback: function(records, operation, success) {
+                //             if(!success){
+                //                 this.fireEvent('logout');
+                //             } else {
+                //                 if(selectedPklRipRecord != null){
+                //                     var stockoutpklid_link = selectedPklRipRecord.get('id');
+                //                     var storeItems = StockoutPklRipStore.getData().items;
+                //                     for(var i=0; i<storeItems.length; i++){
+                //                         var item = storeItems[i];
+                //                         if(item.get('id') == stockoutpklid_link){
+                //                             var grid = m.getView().down('#Stockout_M_Edit_Pkl_Rip');
+                //                             grid.getSelectable().select(item);
+                //                             viewModel.set('selectedPklRipRecord', item);
+                //                         }
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //     });
 
-                    var cbbox_pklRecheck_stockindId = m.getView().down('#cbbox_pklRecheck_stockindId');
-                    cbbox_pklRecheck_stockindId.setValue(pklRecheck_stockindId);
-                }
+                //     var cbbox_pklRip_stockoutdId = m.getView().down('#cbbox_pklRip_stockoutdId');
+                //     cbbox_pklRip_stockoutdId.setValue(pklRip_stockoutdId);
+                // }
                 break;
             default: 
                 console.log('tab title không tồn tại');
@@ -168,10 +134,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
     //     var me = this.getView();
     //     var m = this;
 	// 	var viewModel = this.getViewModel();
-	// 	var stockin = viewModel.get('stockin');
+	// 	var stockout = viewModel.get('stockout');
     //     var id = info.record.data.id;
 
-    //     m.redirectTo("stockin_m_main/" + id + "/edit_detail");
+    //     m.redirectTo("stockout_m_main/" + id + "/edit_detail");
     // },
     onPrint: function(){
         console.log('print btn');
@@ -185,12 +151,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         var session = GSmartApp.util.State.get('session');
         console.log(session);
 
-        viewModel.set('stockin.stockindate',new Date());
-        viewModel.set('stockin.usercreateid_link', session.user);
+        viewModel.set('stockout.stockoutdate',new Date());
+        viewModel.set('stockout.usercreateid_link', session.user);
         viewModel.set('listepc', new Map());
-        viewModel.set('stockin.orgid_to_link', session.orgid_link)
-        viewModel.set('stockin.stockintypeid_link', id);
-        viewModel.set('stockin.status', -1);
+        viewModel.set('stockout.orgid_to_link', session.orgid_link)
+        viewModel.set('stockout.stockouttypeid_link', id);
+        viewModel.set('stockout.status', -1);
 
         // set store org from
         if(id == 1) {// mua moi va cap bu thi là nha cung cap
@@ -202,7 +168,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             orgfromstore.loadStore_byRoot(listidtype);
         }
 
-        console.log(viewModel.get('stockin'));
+        console.log(viewModel.get('stockout'));
     },
     onLoadData:function(id,type){
         console.log('onLoadData: ' + id + ' ' + type);
@@ -210,10 +176,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 
         this.getInfo(id);
         // load store các tab
-        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-        Stockin_d_Store.loadStore_byStockinId(id);
-        // var StockinLotStore = viewModel.getStore('StockinLotStore');
-        // StockinLotStore.loadStore_byStockinId(id);
+        var Stockout_d = viewModel.getStore('Stockout_d');
+        Stockout_d.loadByStockoutID(id);
+        // var StockoutLotStore = viewModel.getStore('StockoutLotStore');
+        // StockoutLotStore.loadStore_byStockoutId(id);
     },
     onBackPage: function(){
         // console.log('onBackPage');
@@ -225,74 +191,52 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 
         var params = new Object();
         params.id = id ;
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_getbyid',Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
-                // console.log(response.data);
-                var data = response.data;
+                var stockout =  response.data;
+                stockout = me.setStockoutData(stockout);
+                viewModel.set('stockout', stockout); 
 
-                // set stockin lot cho stockinD
-                // data = me.setStockinLotForStockinD(data);
+                // setTimeout(function(){
+                //     me.onSort();
+                // }, 1000);
 
-                viewModel.set('stockin', data);
-
-                // set store kiểm cây và 10%
-                // me.setStorePklAndPklReCheck(data);
-
-                // load cbbox color pkl theo stockin
-                var attributeValueStore = viewModel.getStore('attributeValueStore');
-                attributeValueStore.loadStore_colorForStockin(data.id);
-                attributeValueStore.load({
-                    scope: this,
-                    callback: function(records, operation, success) {
-                        if(!success){
-                            this.fireEvent('logout');
-                        } else {
-                            // viewModel.set('colorTxt', viewModel.get('stockinD.colorid_link'));
-                        }
-                    }
-                });
-
-                // set store org from
-                if(data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
-                    var orgfromstore = viewModel.getStore('OrgFromStore');
-                    orgfromstore.loadStore(5, false);
-                }else{
-                    var listidtype = "13,4,8,9";
-                    var orgfromstore = viewModel.getStore('OrgFromStore');
-                    orgfromstore.loadStore_byRoot(listidtype);
-                }
-
-                setTimeout(function(){
-                    me.onSort();
-                }, 1000);
+                console.log(stockout);
             }
 		})
     },
-    setStorePklAndPklReCheck: function(stockin){
+    setStockoutData:function(stockout){
+        if(stockout.unitid_link == null){ // lấy mặc định là met nếu null
+            stockout.unitid_link = 1;
+            stockout.unit_name = 'MÉT';
+        }
+        return stockout;
+    },
+    setStorePklAndPklReCheck: function(stockout){
         var me = this;
         var viewModel = this.getViewModel();
-        var data = stockin;
-        var viewPkl = this.getView().down('#Stockin_M_Edit_Pkl');
+        var data = stockout;
+        var viewPkl = this.getView().down('#Stockout_M_Edit_Pkl');
         var storePkl = viewPkl.getStore();
-        var viewPklRecheck = this.getView().down('#Stockin_M_Edit_Pkl_Recheck');
-        var storePklRecheck = viewPklRecheck.getStore();
-        // set pklist store (hiển thị tất cả pkl của các stockin D)
+        var viewPklRip = this.getView().down('#Stockout_M_Edit_Pkl_Rip');
+        var storePklRip = viewPklRip.getStore();
+        // set pklist store (hiển thị tất cả pkl của các stockout D)
         var storePackinglistArr = new Array();
         var storePackinglistArrStatusLessThan1 = new Array();
         var storePackinglistArrAll = new Array();
-        for(var i = 0; i<data.stockin_d.length; i++){
-            var stockin_d = data.stockin_d[i];
-            var stockin_packinglist = stockin_d.stockin_packinglist == null ? [] : stockin_d.stockin_packinglist;
-            for(var j = 0; j<stockin_packinglist.length; j++){
-                // console.log(stockin_packinglist[j]);
-                storePackinglistArrAll.push(stockin_packinglist[j]);
+        for(var i = 0; i<data.stockout_d.length; i++){
+            var stockout_d = data.stockout_d[i];
+            var stockout_packinglist = stockout_d.stockout_packinglist == null ? [] : stockout_d.stockout_packinglist;
+            for(var j = 0; j<stockout_packinglist.length; j++){
+                // console.log(stockout_packinglist[j]);
+                storePackinglistArrAll.push(stockout_packinglist[j]);
                 // Khi nào api update lưu được status pkl != -1 thì xoá điều kiện or thứ 2 đi
-                if(stockin_packinglist[j].status >= 1 || stockin_packinglist[j].status < 1){
-                    storePackinglistArr.push(stockin_packinglist[j]);
+                if(stockout_packinglist[j].status >= 1 || stockout_packinglist[j].status < 1){
+                    storePackinglistArr.push(stockout_packinglist[j]);
                 }else{
-                    storePackinglistArrStatusLessThan1.push(stockin_packinglist[j]);
+                    storePackinglistArrStatusLessThan1.push(stockout_packinglist[j]);
                 }
             }
         }
@@ -306,17 +250,17 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // console.log(storePackinglistArr);
         // console.log(storePkl);
 
-        // set pklist recheck store (hiển thị tất cả pkl của các stockin D co status = 1)
-        var storePackinglistRecheckArr = new Array();
+        // set pklist recheck store (hiển thị tất cả pkl của các stockout D co status = 1)
+        var storePackinglistRipArr = new Array();
         for(var i = 0; i<storePackinglistArr.length; i++){
             if(storePackinglistArr[i].status == 2){
-                storePackinglistRecheckArr.push(storePackinglistArr[i]);
+                storePackinglistRipArr.push(storePackinglistArr[i]);
             }
         }
-        viewModel.set('storePackinglistRecheckArr', storePackinglistRecheckArr);
-        // storePklRecheck.setData([]);
-        storePklRecheck.removeAll();
-        storePklRecheck.insert(0, storePackinglistRecheckArr);
+        viewModel.set('storePackinglistRipArr', storePackinglistRipArr);
+        // storePklRip.setData([]);
+        storePklRip.removeAll();
+        storePklRip.insert(0, storePackinglistRipArr);
 
     },
     setPklAndPklStatusLessThan1: function(storePackinglistArrAll){
@@ -334,98 +278,98 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         viewModel.set('storePackinglistArr', storePackinglistArr);
         viewModel.set('storePackinglistArrStatusLessThan1', storePackinglistArrStatusLessThan1);
     },
-    setStockinLotForStockinD: function(stockin){
-        var data = stockin;
-        for(var i=0; i<data.stockin_d.length; i++){
-            var stockInD = data.stockin_d[i];
-            var stockinDLot = '';
-            if(stockInD.skuid_link != null){
-                var materialid_link = stockInD.skuid_link;
-                for(var j=0; j<stockin.stockin_lot.length; j++){
-                    var stockinLot = stockin.stockin_lot[j];
+    setStockoutLotForStockoutD: function(stockout){
+        var data = stockout;
+        for(var i=0; i<data.stockout_d.length; i++){
+            var stockoutD = data.stockout_d[i];
+            var stockoutDLot = '';
+            if(stockoutD.skuid_link != null){
+                var materialid_link = stockoutD.skuid_link;
+                for(var j=0; j<stockout.stockout_lot.length; j++){
+                    var stockoutLot = stockout.stockout_lot[j];
                     var result = '';
-                    result+= stockinLot.lot_number == null ? '' : stockinLot.lot_number;
-					result+= stockinLot.totalpackage == null ? '' : ' (' +  stockinLot.totalpackage + ')';
-					// result+= stockinLot.space == null ? '' : ' ' + stockinLot.space;
+                    result+= stockoutLot.lot_number == null ? '' : stockoutLot.lot_number;
+					result+= stockoutLot.totalpackage == null ? '' : ' (' +  stockoutLot.totalpackage + ')';
+					// result+= stockoutLot.space == null ? '' : ' ' + stockoutLot.space;
 					
-					if(stockinLot.materialid_link == materialid_link) {
-						if(stockinDLot == '') {
-							stockinDLot += result;
+					if(stockoutLot.materialid_link == materialid_link) {
+						if(stockoutDLot == '') {
+							stockoutDLot += result;
 						}else {
-							stockinDLot += '; ' + result;
+							stockoutDLot += '; ' + result;
 						}
 					}
                 }
             }
-            stockInD.stockinDLot = stockinDLot;
+            stockoutD.stockoutDLot = stockoutDLot;
         }
         // console.log(data);
         return data;
     },
     
-    setDataStockin: function(){
+    setDataStockout: function(){
         var m = this;
         var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-        var stockin_d = viewModel.get('stockin.stockin_d');
-        var stockin_lot = viewModel.get('stockin.stockin_lot');
+        var stockout = viewModel.get('stockout');
+        var stockout_d = viewModel.get('stockout.stockout_d');
+        var stockout_lot = viewModel.get('stockout.stockout_lot');
         var storePackinglistArr = viewModel.get('storePackinglistArr');
         var storePackinglistArrAll = viewModel.get('storePackinglistArrAll');
 
         // Lot data
-        var viewLot = this.getView().down('#Stockin_M_Edit_Lot');
+        var viewLot = this.getView().down('#Stockout_M_Edit_Lot');
         var storeLot = viewLot.getStore();
-        for(var i = 0; i < stockin_lot.length; i++){
+        for(var i = 0; i < stockout_lot.length; i++){
             var totalmetcheck = 0;
             var totalydscheck = 0;
             var grossweight_check = 0;
             var totalpackagepklist = 0;
             for(var j = 0; j < storePackinglistArrAll.length; j++){
                 var pkl = storePackinglistArrAll[j];
-                if(stockin_lot[i].lot_number.toUpperCase() == pkl.lotnumber.toUpperCase()){
+                if(stockout_lot[i].lot_number.toUpperCase() == pkl.lotnumber.toUpperCase()){
                     totalmetcheck+=pkl.met_check;
                     totalydscheck+=pkl.ydscheck;
                     grossweight_check+=pkl.grossweight_check;
                     totalpackagepklist++;
                 }
             }
-            stockin_lot[i].totalmetcheck = totalmetcheck;
-            stockin_lot[i].totalydscheck = totalydscheck;
-            stockin_lot[i].grossweight_check = grossweight_check;
-            stockin_lot[i].totalpackagepklist = totalpackagepklist;
+            stockout_lot[i].totalmetcheck = totalmetcheck;
+            stockout_lot[i].totalydscheck = totalydscheck;
+            stockout_lot[i].grossweight_check = grossweight_check;
+            stockout_lot[i].totalpackagepklist = totalpackagepklist;
         }
-        viewModel.set('stockin.stockin_lot', stockin_lot);
+        viewModel.set('stockout.stockout_lot', stockout_lot);
         // storeLot.setData([]);
         storeLot.removeAll();
-        storeLot.insert(0, stockin_lot);
+        storeLot.insert(0, stockout_lot);
 
-        // StockinD data
-        var viewD = this.getView().down('#Stockin_M_Edit_D');
+        // StockoutD data
+        var viewD = this.getView().down('#Stockout_M_Edit_D');
         var storeD = viewD.getStore();
-        for(var i = 0; i < stockin_d.length; i++){
-            stockin_d[i].stockin_packinglist = [];
+        for(var i = 0; i < stockout_d.length; i++){
+            stockout_d[i].stockout_packinglist = [];
             var totalmet_check = 0;
             var totalydscheck = 0;
             var grossweight = 0;
             for(var j = 0; j < storePackinglistArrAll.length; j++){
                 var pkl = storePackinglistArrAll[j];
-                if(stockin_d[i].skuid_link == pkl.skuid_link){
-                    stockin_d[i].stockin_packinglist.push(pkl);
+                if(stockout_d[i].skuid_link == pkl.skuid_link){
+                    stockout_d[i].stockout_packinglist.push(pkl);
                     totalmet_check+=pkl.met_check;
                     totalydscheck+=pkl.ydscheck;
                     grossweight+=pkl.grossweight;
                 }
             }
-            stockin_d[i].totalmet_check = totalmet_check;
-            stockin_d[i].totalydscheck = totalydscheck;
-            stockin_d[i].grossweight = grossweight;
+            stockout_d[i].totalmet_check = totalmet_check;
+            stockout_d[i].totalydscheck = totalydscheck;
+            stockout_d[i].grossweight = grossweight;
         }
-        viewModel.set('stockin.stockin_d', stockin_d);
+        viewModel.set('stockout.stockout_d', stockout_d);
         // storeD.setData([]);
         storeD.removeAll();
-        storeD.insert(0, stockin_d);
+        storeD.insert(0, stockout_d);
 
-        // console.log(stockin);
+        // console.log(stockout);
         // console.log(storePackinglistArr);
     },
     onSave: function(){
@@ -434,63 +378,63 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         var viewModel = this.getViewModel();
         var params = new Object();
         params.data = [];
-        var stockin = viewModel.get('stockin');
+        var stockout = viewModel.get('stockout');
 
-        var stockin_d = stockin.stockin_d;
-        if(stockin_d != null){
-            for(var i = 0; i < stockin_d.length; i++){
-                if(stockin_d[i].id == 0 || typeof stockin_d[i].id === 'string'){
-                    stockin_d[i].id = null;
+        var stockout_d = stockout.stockout_d;
+        if(stockout_d != null){
+            for(var i = 0; i < stockout_d.length; i++){
+                if(stockout_d[i].id == 0 || typeof stockout_d[i].id === 'string'){
+                    stockout_d[i].id = null;
                 }
 
-                var stockin_packinglist = stockin_d[i].stockin_packinglist;
-                if(stockin_packinglist != null){
-                    for(var j = 0; j < stockin_packinglist.length; j++){
-                        if(stockin_packinglist[j].id == 0 || typeof stockin_packinglist[j].id === 'string'){
-                            stockin_packinglist[j].id = null;
+                var stockout_packinglist = stockout_d[i].stockout_packinglist;
+                if(stockout_packinglist != null){
+                    for(var j = 0; j < stockout_packinglist.length; j++){
+                        if(stockout_packinglist[j].id == 0 || typeof stockout_packinglist[j].id === 'string'){
+                            stockout_packinglist[j].id = null;
                         }
-                        if(stockin_packinglist[j].stockindid_link == 0 || typeof stockin_packinglist[j].stockindid_link === 'string'){
-                            stockin_packinglist[j].stockindid_link = null;
+                        if(stockout_packinglist[j].stockoutdid_link == 0 || typeof stockout_packinglist[j].stockoutdid_link === 'string'){
+                            stockout_packinglist[j].stockoutdid_link = null;
                         }
                     }
                 }
             }
         }
 
-        var stockin_lot = stockin.stockin_lot;
-        if(stockin_lot != null){
-            for(var i = 0; i < stockin_lot.length; i++){
-                if(stockin_lot[i].id == 0 || typeof stockin_lot[i].id === 'string'){
-                    stockin_lot[i].id = null;
+        var stockout_lot = stockout.stockout_lot;
+        if(stockout_lot != null){
+            for(var i = 0; i < stockout_lot.length; i++){
+                if(stockout_lot[i].id == 0 || typeof stockout_lot[i].id === 'string'){
+                    stockout_lot[i].id = null;
                 }
             }
         }
 
-        var stockin_product = stockin.stockin_product;
-        if(stockin_product != null){
-            for(var i = 0; i < stockin_product.length; i++){
-                if(stockin_product[i].id == 0 || typeof stockin_product[i].id === 'string'){
-                    stockin_product[i].id = null;
+        var stockout_product = stockout.stockout_product;
+        if(stockout_product != null){
+            for(var i = 0; i < stockout_product.length; i++){
+                if(stockout_product[i].id == 0 || typeof stockout_product[i].id === 'string'){
+                    stockout_product[i].id = null;
                 }
             }
         }
 
         //Doi ve trang thai "Dang kiem tra"
-        stockin.status = 0;
+        stockout.status = 0;
         
-        params.data.push(stockin);
-        GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
+        params.data.push(stockout);
+        GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.toast('Lưu thành công', 3000);
-                        // m.redirectTo("stockin_m_main/" + response.id + "/edit");
-                        m.getInfo(stockin.id);
+                        // m.redirectTo("stockout_m_main/" + response.id + "/edit");
+                        m.getInfo(stockout.id);
                         viewModel.set('selectedDRecord', null);
                         viewModel.set('selectedLotRecord', null);
-                        viewModel.set('selectedPklRecheckRecord', null);
+                        viewModel.set('selectedPklRipRecord', null);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
@@ -498,26 +442,26 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                 }
         })
 
-        // console.log(stockin);
+        // console.log(stockout);
     },
 
     // sort store
     onSort: function(){
         var me = this.getView();
-        var Stockin_M_Edit_D = me.down('#Stockin_M_Edit_D');
-        Stockin_M_Edit_D.getStore().getSorters().add({
+        var Stockout_M_Edit_D = me.down('#Stockout_M_Edit_D');
+        Stockout_M_Edit_D.getStore().getSorters().add({
             property: 'skucode',
             direction: 'ASC'
         });
 
-        var Stockin_M_Edit_Lot = me.down('#Stockin_M_Edit_Lot');
-        Stockin_M_Edit_Lot.getStore().getSorters().add({
+        var Stockout_M_Edit_Lot = me.down('#Stockout_M_Edit_Lot');
+        Stockout_M_Edit_Lot.getStore().getSorters().add({
             property: 'lot_number',
             direction: 'ASC'
         });
 
-        var Stockin_M_Edit_Pkl = me.down('#Stockin_M_Edit_Pkl');
-        Stockin_M_Edit_Pkl.getStore().getSorters().add({
+        var Stockout_M_Edit_Pkl = me.down('#Stockout_M_Edit_Pkl');
+        Stockout_M_Edit_Pkl.getStore().getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{
@@ -525,8 +469,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             direction: 'ASC'
         });
 
-        var Stockin_M_Edit_Pkl_Recheck = me.down('#Stockin_M_Edit_Pkl_Recheck');
-        Stockin_M_Edit_Pkl_Recheck.getStore().getSorters().add({
+        var Stockout_M_Edit_Pkl_Rip = me.down('#Stockout_M_Edit_Pkl_Rip');
+        Stockout_M_Edit_Pkl_Rip.getStore().getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{

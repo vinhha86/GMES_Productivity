@@ -33,23 +33,39 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                 defaults: {
                                     margin: 1
                                 },
-                                items: [{
-                                    xtype: 'combobox',
-                                    // reference: 'cboorgto',
-                                    editable: false,
-                                    readOnly: true,
-                                    cls: 'notEditable',
-                                    bind:{
-                                        store:'{OrgFromStore}',
-                                        value:'{stockin.orgid_from_link}'
-                                    },
-                                    displayField: 'name',
-                                    valueField: 'id',
-                                    label: 'Nơi giao:',
-                                    // disabled: true,
-                                    labelWidth: 85,
-                                    flex: 1,
-                                }]
+                                items: [
+                                    // {
+                                    //     xtype: 'combobox',
+                                    //     // reference: 'cboorgto',
+                                    //     editable: false,
+                                    //     readOnly: true,
+                                    //     cls: 'notEditable',
+                                    //     bind:{
+                                    //         store:'{OrgFromStore}',
+                                    //         value:'{stockin.orgid_from_link}'
+                                    //     },
+                                    //     displayField: 'name',
+                                    //     valueField: 'id',
+                                    //     label: 'Nơi giao:',
+                                    //     // disabled: true,
+                                    //     labelWidth: 85,
+                                    //     flex: 1,
+                                    // },
+                                    {
+                                        xtype: 'textfield',
+                                        label: 'Nơi nhận:',
+                                        labelWidth: 85,
+                                        flex: 1,
+                                        textAlign: 'left',
+                                        editable: false,
+                                        readOnly: true,
+                                        clearable: false,
+                                        cls: 'notEditable',
+                                        bind: {
+                                            value: '{stockout.org_to_name}'
+                                        }
+                                    }
+                                ]
                             },
                             {
                                 layout: 'hbox',
@@ -59,7 +75,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                 },
                                 items: [{
                                     xtype: 'textfield',
-                                    label: 'Invoice:',
+                                    label: 'Số phiếu:',
                                     labelWidth: 85,
                                     flex: 1,
                                     textAlign: 'left',
@@ -68,7 +84,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                     clearable: false,
                                     cls: 'notEditable',
                                     bind: {
-                                        value: '{stockin.invoice_number}'
+                                        value: '{stockout.stockoutcode}'
                                     }
                                 },{
                                     xtype: 'textfield',
@@ -81,7 +97,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                     clearable: false,
                                     cls: 'notEditable',
                                     bind: {
-                                        value: '{stockin.unitName}'
+                                        value: '{stockout.unit_name}'
                                     }
                                 }]
                             },
@@ -102,7 +118,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     layout: 'hbox',
                     flex: 1,
                     items: [{
-                        // xtype: 'Stockin_M_Edit_D_Main',
+                        xtype: 'Stockout_M_Edit_D_Main',
                         flex: 1,
                     }],
                 },
@@ -111,7 +127,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     layout: 'hbox',
                     flex: 1,
                     items:[{
-                        // xtype: 'Stockin_M_Edit_Lot_Main',
+                        xtype: 'Stockout_M_Edit_Pkl_Main',
                         flex: 1,
                     }]
                 },
