@@ -17,7 +17,7 @@ Ext.define('GSmartApp.store.Sku_AutoComplete', {
         'providerid_link',
         'fabricid_link',
         'packingtype',
-        // 'unitid_link',
+        'unitid_link',
         'imgurl1',
         'imgurl2',
         'imgurl3',

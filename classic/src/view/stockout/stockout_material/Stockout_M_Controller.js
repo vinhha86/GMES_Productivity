@@ -51,6 +51,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
         },
         '#limitpage': {
             specialkey: 'onSpecialkey'
+        },
+        '#Stockout_M_Main': {
+            tabchange: 'onTabChange'
         }
     },
     onXuatTo: function(){
@@ -70,6 +73,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Controller', {
             me.onSearch();
         }
     },
+    onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
+        var viewmodel = this.getViewModel();
+        console.log(newCard.xtype);
+        if (newCard.xtype == "Stockout_M_List_Main") {
+
+        }
+        else {
+            if (newCard.xtype == "Stockout_Order_Main") {
+            }
+        }
+    },    
     onSearch: function(){
         var me = this.getView();
         var t = this;
