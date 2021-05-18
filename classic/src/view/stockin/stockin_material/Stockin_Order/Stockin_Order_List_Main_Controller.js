@@ -39,12 +39,49 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_Main_Controller', {
         },
         '#Stockin_Order_List': {
             select: 'onStockin_Order_Select',
+            itemdblclick: 'onCapNhatdbl',
         },        
     },
     onStockin_Order_Select: function (e, selected, eOpts) {
         var viewmodel = this.getViewModel();
         var Stockin_Order_D_Store = viewmodel.getStore('Stockin_Order_D_Store');
         Stockin_Order_D_Store.setData(selected.data.stockin_d);
+    },
+    onCapNhatdbl: function(m, record, item, index, e, eOpts){
+        var viewmodel = this.getViewModel();
+        var id = record.data.id;
+        if (viewmodel.get('isAdd_Pcontract_Stockin')){
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu nhập kho',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .99,
+                width: Ext.getBody().getViewSize().width * .95,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_M_Edit',
+                    viewModel: {
+                        type: 'Stockin_M_ViewModel',
+                        data: {
+                            isNewStockin: false,
+                            isAdd_Pcontract_Stockin: true,
+                            stockinid_link: id,
+                            pcontractid_link: viewmodel.get('pcontractid_link'),                
+                        }
+                    }
+                }]
+            });            
+            form.show();
+        } else {
+            this.redirectTo("stockin_m_main/" + id + "/edit");
+        }
     },
     onSearch: function () {
         var me = this.getView();
