@@ -6,7 +6,7 @@ Ext.define('GSmartApp.model.stockout.Stockout_Order', {
         {name: 'idx', type: 'int'},
         'orgrootid_link',
         'ordercode',
-        'orderdate',
+        {name: 'orderdate', type: 'date', dateFormat: 'c'},
         {name: 'stockoutdate', type: 'date', dateFormat: 'c'},
         'stockouttypeid_link',
         'orgid_from_link',

@@ -163,7 +163,70 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
 
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        if(selectedPklRecord == null || isNaN(selectedPklRecord.get('id'))){
+            Ext.toast('Cần chọn cây vải', 3000);
+            return;
+        }
 
+        var msgWindow = Ext.Msg.show({
+            title: 'Thông báo',
+            message: 'Bạn có chắc chắn xoá?',
+            width: 300,
+            closable: false,
+            buttons: [{
+                text: 'Thoát',
+                itemId: 'no'
+            }, {
+                text: 'Xoá',
+                itemId: 'yes'
+            }],
+            multiline: false,
+            fn: function (buttonValue, inputText, showConfig) {
+                if(buttonValue == 'no'){
+                    if(msgWindow){
+                        msgWindow.hide();
+                    }
+                }
+                if(buttonValue == 'yes'){
+                    m.deletePkl();
+                }
+            },
+            icon: Ext.Msg.QUESTION
+        });
+
+        // console.log(selectedPklRecord);
+    },
+    deletePkl: function(){
+        var myview = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        var id = selectedPklRecord.get('id');
+
+        myview.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang xoá'
+        });
+
+        var params = new Object();
+        params.id = id;
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_delete', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                myview.setMasked(false);
+                if (success) {
+                    Ext.toast('Xoá thành công', 3000);
+                    viewModel.set('selectedPklRecord', null);
+                    m.reloadStore();
+                    m.resetForm();
+                    myview.down('#packageidTxt').focus();
+
+                } else {
+                    Ext.toast('Lỗi xoá pkl: ' + response.message, 3000);
+                }
+        })        
     },
     onCheck: function(){
         var m = this;
