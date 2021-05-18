@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.main.MainController', {
         // the listener on the view...
     },
     onUnMathRouter: function () {
-        this.redirectTo(mobilemenu);
+        this.redirectTo('mobilemenu');
     },
     onNavigationTreeSelectionChange: function (tree, node) {
         var to = node && (node.get('routeId') || node.get('viewType'));
@@ -570,7 +570,7 @@ Ext.define('GSmartApp.view.main.MainController', {
                         mainCard.setHeight('100vh');
                     }
                 }
-                catch {
+                catch (err){ console.log(err);
                     Ext.Msg.alert('Thông báo', 'Chức năng đang phát triển! Bạn vui lòng quay lại sau!',function(){
                         me.redirectTo('mobilemenu');
                     });
