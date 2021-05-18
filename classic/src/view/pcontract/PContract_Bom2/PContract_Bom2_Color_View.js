@@ -52,6 +52,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaNPLKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Nguyên phụ liệu',
@@ -61,6 +73,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_View', {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueNPLKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Màu NPL',

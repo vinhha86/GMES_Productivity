@@ -81,6 +81,46 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                 }
             })
     },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PContractBom2ColorStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'materialCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
+    onFilterValueNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PContractBom2ColorStore');
+        var filterField = this.lookupReference('ValueFilterFieldNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldNPL = filters.add({
+                id: 'ValueFilterFieldNPL',
+                property: 'materialName',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldNPL) {
+            filters.remove(this.ValueFilterFieldNPL);
+            this.ValueFilterFieldNPL = null;
+        }
+    },
     onEdit: function (editor, context, e) {
         var viewmodel = this.getViewModel();
 
