@@ -4,6 +4,26 @@ Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_Color_ViewCot
     init: function () {
 
     },
+    onFilterValueMaNPLKeyup: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('POrderBomColorStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'materialCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();

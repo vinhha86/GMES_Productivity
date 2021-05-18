@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewModel
     data: {
         IdPOrder: null,
         IdGrant: null,
-        IdPContractPO: null,
+        pcontract_poid_link: null,
         POrder_grant: null,
         isEditSL: false,
         //

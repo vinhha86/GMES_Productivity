@@ -10,9 +10,13 @@ Ext.define('GSmartApp.store.porder.porderSKUStore', {
 		{ name: 'pquantity_sample', type: 'int' },
 		{ name: 'pquantity_porder', type: 'int' },
 		{ name: 'pquantity_total', type: 'int' },
-		// calculate: function(data) {
-		//     return data.pquantity_porder + data.pquantity_sample;
-		// }},
+		{
+			name: 'pquantity_ungranted', type: 'int',
+			calculate: function (data) {
+				return data.pquantity_total - data.pquantity_granted;
+			}
+		},
+		{name: 'pquantity_granted', type : 'int'},
 		{ name: 'skuName', type: 'string' },
 		{ name: 'skuCode', type: 'string' },
 		{ name: 'mauSanPham', type: 'string' },

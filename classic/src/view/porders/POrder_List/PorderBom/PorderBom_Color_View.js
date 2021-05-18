@@ -35,7 +35,19 @@ Ext.define('GSmartApp.view.porders.POrder_List.PorderBom.PorderBom_Color_View', 
     }, {
         text: 'Mã NPL',
         dataIndex: 'materialCode',
-        width: 120
+        width: 120,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaNPLKeyup',
+                buffer: 500
+            }
+        }
     }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',

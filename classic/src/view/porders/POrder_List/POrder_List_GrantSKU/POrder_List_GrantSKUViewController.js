@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
                     data: {
                         IdPOrder: viewmodel.get('IdPOrder'),
                         IdGrant: viewmodel.get('IdGrant'),
-                        IdPContractPO: viewmodel.get('IdPContractPO'),
+                        pcontract_poid_link: viewmodel.get('IdPContractPO'),
                         isEditSL: false
                     }
                 }
