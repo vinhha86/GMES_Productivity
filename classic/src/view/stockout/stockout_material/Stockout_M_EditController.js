@@ -265,9 +265,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 					stockout_dObj.totalydscheck = 0;
 				} else {
 					if (stockout_dObj.unitid_link == 1) { //Mét
-						stockout_dObj.totalmet_origin = stockout_order_d.totalyds == null ? 0 : stockout_order_d.totalyds;
+						stockout_dObj.totalmet_origin = stockout_order_d.totalmet == null ? 0 : stockout_order_d.totalmet;
 						stockout_dObj.totalmet_check = 0;
-						stockout_dObj.totalydsorigin = stockout_order_d.totalyds == null ? 0 : stockout_order_d.totalyds * 1.09361;
+						stockout_dObj.totalydsorigin = stockout_order_d.totalmet == null ? 0 : stockout_order_d.totalmet * 1.09361;
 						stockout_dObj.totalydscheck = 0;
 					}
 				}
