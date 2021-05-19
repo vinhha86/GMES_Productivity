@@ -24,8 +24,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantViewController',
     onItemClick: function (thisView, record, item, index, e, eOpts) {
         let viewmodel = this.getViewModel();
         viewmodel.set('IdGrant', record.get('id'));
+        var pcontract_poid_link = viewmodel.get('IdPContractPO');
+
         let store = viewmodel.getStore('POrder_ListGrantSKUStore');
-        store.loadStore(record.data.id);
+        store.getbyPorderAndPO(record.data.id, pcontract_poid_link);
     },
     renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;

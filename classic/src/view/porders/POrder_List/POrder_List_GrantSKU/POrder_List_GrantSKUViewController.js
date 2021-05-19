@@ -43,7 +43,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
                         IdPOrder: viewmodel.get('IdPOrder'),
                         IdGrant: viewmodel.get('IdGrant'),
                         pcontract_poid_link: viewmodel.get('IdPContractPO'),
-                        isEditSL: false
+                        isEditSL: false,
+                        isProductSkuSelectHidden: false
                     }
                 }
             });

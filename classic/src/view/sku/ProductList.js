@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.sku.ProductList', {
                     keyup: 'onbuyercodeProductListFilterKeyup',
                     buffer: 500
                 }
-            },
+            }
         },
         {
             header: 'Mã NCC', dataIndex: 'partnercode', width: 100,

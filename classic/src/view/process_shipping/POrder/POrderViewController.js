@@ -40,6 +40,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         var viewmodel = this.getViewModel();
         var porderid_link = record.get('id');
         var productid_link = record.get('productid_link');
+        var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
         viewmodel.set('porderid_link', porderid_link);
         viewmodel.set('productid_link', productid_link);
         viewmodel.set('productid_link', productid_link);
@@ -48,7 +49,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         //load sku cua lenh san xuat
         var storesku = viewmodel.getStore('porderSKUStore');
         storesku.setGroupField('po_buyer');
-        storesku.loadByPorderID(porderid_link);
+        storesku.loadByPorder_And_PO(porderid_link, pcontract_poid_link);
 
         //load ds to da phan chuyen
         var storeGrant = viewmodel.getStore('POrder_ListGrantStore');

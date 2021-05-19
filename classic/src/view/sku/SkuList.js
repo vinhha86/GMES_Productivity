@@ -20,17 +20,18 @@ Ext.define('GSmartApp.view.sku.SkuList', {
     features: [{
         ftype: 'summary',
         dock: 'bottom'
-    }],  
+    }],
     viewConfig: {
         enableTextSelection: false,
         stripeRows: false,
         rowLines: true,
         columnLines: true
-    },                  
+    },
     columns: [
-        { header: 'SKU', dataIndex: 'code', width: 100,
+        {
+            header: 'SKU', dataIndex: 'code', width: 100,
             summaryType: 'count',
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
@@ -41,13 +42,26 @@ Ext.define('GSmartApp.view.sku.SkuList', {
         //         return value;
         //     }
         // },
-        { header: 'Màu', dataIndex: 'color_name', flex: 1,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        {
+            header: 'Màu', dataIndex: 'color_name', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'FilterMauSP',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onFilterMauSP',
+                    buffer: 500
+                }
             }
         },
-        { header: 'Size', dataIndex: 'size_name', flex: 1}
+        { header: 'Size', dataIndex: 'size_name', flex: 1 }
         //{ header: 'Ngày kiểm vải', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/y'), flex: 1},                             
     ],
     // dockedItems: [{
@@ -108,7 +122,7 @@ Ext.define('GSmartApp.view.sku.SkuList', {
         iconCls: 'x-fa fa-check',
         handler: 'onSelectButton'
     }, ,
-    '->'],    
+        '->'],
     // listeners: {
     //     select: 'onStockoutDItemSelected'
     // }           

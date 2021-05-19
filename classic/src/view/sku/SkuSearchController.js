@@ -66,6 +66,26 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             itemdblclick: 'onEditProduct'
         },
     },
+    onFilterMauSP: function () {
+        var viewmodel = this.getViewModel(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('FilterMauSP'),
+            filters = viewmodel.getStore('SkuStore').getFilters();
+
+        if (filterField.value) {
+            this.FilterMauSP = filters.add({
+                id: 'FilterMauSP',
+                property: 'color_name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.FilterMauSP) {
+            filters.remove(this.FilterMauSP);
+            this.FilterMauSP = null;
+        }
+    },
     onCloseButton: function () {
         var mywin = Ext.WindowManager.getActive();
         if (mywin) {

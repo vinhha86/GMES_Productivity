@@ -45,8 +45,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         // PContract_PO.loadPOLine_Confirm(IdPContractPO);
 
         var storePOrder = viewmodel.getStore('porderSKUStore');
+        var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
         storePOrder.setGroupField('po_buyer');
-        storePOrder.loadByPorderID(viewmodel.get('IdPOrder'));
+        storePOrder.loadByPorder_And_PO(viewmodel.get('IdPOrder'), pcontract_poid_link);
 
         //Lay danh sach SKU cua POrder_Grant
         var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');
