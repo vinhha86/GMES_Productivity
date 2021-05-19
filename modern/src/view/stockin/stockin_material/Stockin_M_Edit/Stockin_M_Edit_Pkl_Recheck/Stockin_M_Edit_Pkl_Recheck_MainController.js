@@ -80,11 +80,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
         // khi click lên record ở grid sẽ lấy lại giá trị cũ
         var newObjData = JSON.parse(JSON.stringify(record.data));
+        // chuyển khổ m -> cm
+        newObjData.width_met = newObjData.width_met * 100;
+        newObjData.width_met_check = newObjData.width_met_check * 100;
         viewModel.set('objRecheck', newObjData);
 
-        // console.log(newObj);
-        // console.log(record.data);
-        // console.log(record);
+        // console.log(newObjData);
     },
     onCheckRecheck: function(){
         var me = this.getView();
@@ -147,8 +148,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         if(objRecheck.sample_check == null || objRecheck.sample_check == '') objRecheck.sample_check = 0;
         if(objRecheck.grossweight_check == null || objRecheck.grossweight_check == '') objRecheck.grossweight_check = 0;
         if(objRecheck.grossweight == null || objRecheck.grossweight == '' || objRecheck.grossweight == 0) objRecheck.grossweight = objRecheck.grossweight_check;
-        if(objRecheck.width_yds_check == null || objRecheck.width_yds_check == '') objRecheck.width_yds_check = 0;
-        if(objRecheck.width_yds == null || objRecheck.width_yds == '' || objRecheck.width_yds == 0) objRecheck.width_yds = objRecheck.width_yds_check;
+        // if(objRecheck.width_yds_check == null || objRecheck.width_yds_check == '') objRecheck.width_yds_check = 0;
+        // if(objRecheck.width_yds == null || objRecheck.width_yds == '' || objRecheck.width_yds == 0) objRecheck.width_yds = objRecheck.width_yds_check;
         if(objRecheck.width_met_check == null || objRecheck.width_met_check == '') objRecheck.width_met_check = 0;
         if(objRecheck.width_met == null || objRecheck.width_met == '' || objRecheck.width_met == 0) widthMetTxt = objRecheck.width_met_check;
 
@@ -159,10 +160,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
             objRecheck.met_origin = objRecheck.ydsorigin * 0.9144;
 
-            objRecheck.width_yds_check = parseFloat(objRecheck.width_yds_check);
-            objRecheck.width_met_check = objRecheck.width_yds_check * 0.9144;
-            objRecheck.width_yds = parseFloat(objRecheck.width_yds);
-            objRecheck.width_met = objRecheck.width_yds * 0.9144;
+            // objRecheck.width_yds_check = parseFloat(objRecheck.width_yds_check);
+            // objRecheck.width_met_check = objRecheck.width_yds_check * 0.9144;
+            // objRecheck.width_yds = parseFloat(objRecheck.width_yds);
+            // objRecheck.width_met = objRecheck.width_yds * 0.9144;
         }
         if(stockin.unitid_link == 1){
             // có m
@@ -171,20 +172,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             objRecheck.met_origin = parseFloat(objRecheck.met_origin);
             objRecheck.ydsorigin = objRecheck.met_origin / 0.9144;
 
-            objRecheck.width_met_check = parseFloat(objRecheck.width_met_check);
-            objRecheck.width_yds_check = objRecheck.width_met_check / 0.9144;
-            objRecheck.width_met = parseFloat(objRecheck.width_met);
-            objRecheck.width_yds = objRecheck.width_met / 0.9144;
+            // objRecheck.width_met_check = parseFloat(objRecheck.width_met_check);
+            // objRecheck.width_yds_check = objRecheck.width_met_check / 0.9144;
+            // objRecheck.width_met = parseFloat(objRecheck.width_met);
+            // objRecheck.width_yds = objRecheck.width_met / 0.9144;
         }
 
         objRecheck.met_check = parseFloat(Ext.util.Format.number(objRecheck.met_check, '0.00'));
         objRecheck.ydscheck = parseFloat(Ext.util.Format.number(objRecheck.ydscheck, '0.00'));
         objRecheck.met_origin = parseFloat(Ext.util.Format.number(objRecheck.met_origin, '0.00'));
         objRecheck.ydsorigin = parseFloat(Ext.util.Format.number(objRecheck.ydsorigin, '0.00'));
-        objRecheck.width_met_check = parseFloat(Ext.util.Format.number(objRecheck.width_met_check, '0.00'));
-        objRecheck.width_yds_check = parseFloat(Ext.util.Format.number(objRecheck.width_yds_check, '0.00'));
-        objRecheck.width_met = parseFloat(Ext.util.Format.number(objRecheck.width_met, '0.00'));
-        objRecheck.width_yds = parseFloat(Ext.util.Format.number(objRecheck.width_yds, '0.00'));
+        objRecheck.width_met_check = parseFloat(Ext.util.Format.number(objRecheck.width_met_check / 100, '0.00'));
+        // objRecheck.width_yds_check = parseFloat(Ext.util.Format.number(objRecheck.width_yds_check, '0.00'));
+        objRecheck.width_met = parseFloat(Ext.util.Format.number(objRecheck.width_met / 100, '0.00'));
+        // objRecheck.width_yds = parseFloat(Ext.util.Format.number(objRecheck.width_yds, '0.00'));
 
         //
         // console.log(objRecheck);
@@ -259,7 +260,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             return;
         }
 
-        if( // nếu chưu đủ thông tin hoặc chưa chọn loại vải, return
+        if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
             lotnumber == null || packageid == null ||
             selectedDRecord == null
@@ -297,6 +298,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 var responseObj = response.data[0];
+                                // chuyển khổ m -> cm
+                                responseObj.width_met = responseObj.width_met * 100;
+                                responseObj.width_met_check = responseObj.width_met_check * 100;
                                 viewModel.set('objRecheck', responseObj);
 
                                 // bỏ highlight
@@ -325,12 +329,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                     }
             })        
         }
-
-        // viewModel.set('mOriginTxtRecheck', obj.met_origin);
-        // viewModel.set('yOriginTxtRecheck', obj.ydsorigin);
-        // viewModel.set('grossweightTxtRecheck', obj.grossweight);
-        // viewModel.set('widthMetTxtRecheck', obj.width_met);
-        // viewModel.set('widthYdsTxtRecheck', obj.width_yds);
     },
 
     reloadStore: function(){

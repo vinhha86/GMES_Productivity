@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var viewModel = this.getViewModel();
 
         var record = location.record;
-        viewModel.set('selectedPklRecord',record); console.log(record);
+        viewModel.set('selectedPklRecord',record);
         
         viewModel.set('lotnumberTxt', record.get('lotnumber'));
         viewModel.set('packageidTxt', record.get('packageid'));
@@ -116,24 +116,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('grossweightTxt', record.get('grossweight'));
         viewModel.set('grossweightCheckTxt', record.get('grossweight_check'));
         viewModel.set('sampleCheckTxt', record.get('sample_check'));
-        viewModel.set('widthYdsCheckTxt', record.get('width_yds_check'));
-        viewModel.set('widthYdsTxt', record.get('width_yds'));
-        viewModel.set('widthMetCheckTxt', record.get('width_met_check'));
-        viewModel.set('widthMetTxt', record.get('width_met'));
+        // viewModel.set('widthYdsCheckTxt', record.get('width_yds_check'));
+        // viewModel.set('widthYdsTxt', record.get('width_yds'));
+        viewModel.set('widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
+        viewModel.set('widthMetTxt', record.get('width_met') * 100); // m -> cm
 
         // set khoang info cho pkl
         var spaceepc_link = record.get('spaceepc_link') == null ? '' : record.get('spaceepc_link').toUpperCase();
         if(spaceepc_link != ''){ // D-1|H-2|T-3|
-            // var spaceepc_linkArr = spaceepc_link.split('|');
-            // var pklFloorTxt = spaceepc_linkArr[1]; if(pklFloorTxt == 'x') pklFloorTxt = null;
-            // viewModel.set('pklFloorTxt', pklFloorTxt);
-            // spaceepc_linkArr = spaceepc_linkArr[0].split('H');
-            // var pklSpaceTxt = spaceepc_linkArr[1]; if(pklSpaceTxt == 'x') pklSpaceTxt = null;
-            // viewModel.set('pklSpaceTxt', pklSpaceTxt);
-            // spaceepc_linkArr = spaceepc_linkArr[0].split('D');
-            // var pklRowTxt = spaceepc_linkArr[1]; if(pklRowTxt == 'x') pklRowTxt = null;
-            // viewModel.set('pklRowTxt', pklRowTxt);
-            
             var spaceepc_linkArr = spaceepc_link.split('|');
             var row = spaceepc_linkArr[0].substring(2); //console.log(row);
             if(row == 'x' || row == 'X') row = null; 
@@ -144,19 +134,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             viewModel.set('pklRowTxt', row);
             viewModel.set('pklSpaceTxt', space);
             viewModel.set('pklFloorTxt', floor);
-
-            // console.log(pklRowTxt);
-            // console.log(pklSpaceTxt);
-            // console.log(pklFloorTxt);
         }else{
             viewModel.set('pklFloorTxt', null);
             viewModel.set('pklSpaceTxt', null);
             viewModel.set('pklRowTxt', null);
         }
         // console.log(spaceepc_link);  
+        // console.log(location.record.data);
     },
     onPrintPkl: function () {
-        console.log('onPrintPkl cliked');
+        console.log('onPrintPkl clicked');
         // popup here
     },
     onDeletePkl: function () {
@@ -247,18 +234,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var sampleCheckTxt = viewModel.get('sampleCheckTxt');
         var grossweightTxt = viewModel.get('grossweightTxt'); null ? viewModel.get('grossweightCheckTxt') : viewModel.get('grossweightTxt');
         var grossweightCheckTxt = viewModel.get('grossweightCheckTxt');
-        var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
-        var widthYdsTxt = viewModel.get('widthYdsTxt') == null ? viewModel.get('widthYdsCheckTxt') : viewModel.get('widthYdsTxt');
+        // var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
+        // var widthYdsTxt = viewModel.get('widthYdsTxt') == null ? viewModel.get('widthYdsCheckTxt') : viewModel.get('widthYdsTxt');
         var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
         var widthMetTxt = viewModel.get('widthMetTxt') == null ? viewModel.get('widthMetCheckTxt') : viewModel.get('widthMetTxt');
         var pklRowTxt = viewModel.get('pklRowTxt');
         var pklSpaceTxt = viewModel.get('pklSpaceTxt');
         var pklFloorTxt = viewModel.get('pklFloorTxt');
-
-        // console.log(widthYdsCheckTxt);
-        // console.log(widthYdsTxt);
-        // console.log(widthMetCheckTxt);
-        // console.log(widthMetTxt);
 
         // check combo đã chọn chưa
         var pkl_stockindId = viewModel.get('pkl_stockindId');
@@ -329,8 +311,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         if(sampleCheckTxt == null || sampleCheckTxt == '') sampleCheckTxt = 0;
         if(grossweightCheckTxt == null || grossweightCheckTxt == '') grossweightCheckTxt = 0;
         if(grossweightTxt == null || grossweightTxt == '' || grossweightTxt == 0) grossweightTxt = grossweightCheckTxt;
-        if(widthYdsCheckTxt == null || widthYdsCheckTxt == '') widthYdsCheckTxt = 0;
-        if(widthYdsTxt == null || widthYdsTxt == '' || widthYdsTxt == 0) widthYdsTxt = widthYdsCheckTxt;
+        // if(widthYdsCheckTxt == null || widthYdsCheckTxt == '') widthYdsCheckTxt = 0;
+        // if(widthYdsTxt == null || widthYdsTxt == '' || widthYdsTxt == 0) widthYdsTxt = widthYdsCheckTxt;
         if(widthMetCheckTxt == null || widthMetCheckTxt == '') widthMetCheckTxt = 0;
         if(widthMetTxt == null || widthMetTxt == '' || widthMetTxt == 0) widthMetTxt = widthMetCheckTxt;
 
@@ -347,10 +329,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.sample_check = sampleCheckTxt;
         objData.grossweight = grossweightTxt;
         objData.grossweight_check = grossweightCheckTxt;
-        objData.width_yds_check = widthYdsCheckTxt;
-        objData.width_yds = widthYdsTxt;
-        objData.width_met_check = widthMetCheckTxt;
-        objData.width_met = widthMetTxt;
+        // objData.width_yds_check = widthYdsCheckTxt;
+        // objData.width_yds = widthYdsTxt;
+        objData.width_met_check = widthMetCheckTxt / 100;
+        objData.width_met = widthMetTxt / 100;
         objData.unitid_link = stockin.unitid_link;
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
@@ -365,10 +347,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             objData.ydsorigin = parseFloat(yOriginTxt);
             objData.met_origin = objData.ydsorigin * 0.9144;
 
-            objData.width_yds_check = parseFloat(widthYdsCheckTxt);
-            objData.width_met_check = objData.width_yds_check * 0.9144;
-            objData.width_yds = parseFloat(widthYdsTxt);
-            objData.width_met = objData.width_yds * 0.9144;
+            // objData.width_yds_check = parseFloat(widthYdsCheckTxt);
+            // objData.width_met_check = objData.width_yds_check * 0.9144;
+            // objData.width_yds = parseFloat(widthYdsTxt);
+            // objData.width_met = objData.width_yds * 0.9144;
         }
         if(stockin.unitid_link == 1 || stockin.unitid_link == null){
             // có m
@@ -377,10 +359,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             objData.met_origin = parseFloat(mOriginTxt);
             objData.ydsorigin = objData.met_origin / 0.9144;
 
-            objData.width_met_check = parseFloat(widthMetCheckTxt);
-            objData.width_yds_check = objData.width_met_check / 0.9144;
-            objData.width_met = parseFloat(widthMetTxt);
-            objData.width_yds = objData.width_met / 0.9144;
+            // objData.width_met_check = parseFloat(widthMetCheckTxt);
+            // objData.width_yds_check = objData.width_met_check / 0.9144;
+            // objData.width_met = parseFloat(widthMetTxt);
+            // objData.width_yds = objData.width_met / 0.9144;
         }
 
         objData.met_check = parseFloat(Ext.util.Format.number(objData.met_check, '0.00'));
@@ -388,11 +370,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.met_origin = parseFloat(Ext.util.Format.number(objData.met_origin, '0.00'));
         objData.ydsorigin = parseFloat(Ext.util.Format.number(objData.ydsorigin, '0.00'));
         objData.width_met_check = parseFloat(Ext.util.Format.number(objData.width_met_check, '0.00'));
-        objData.width_yds_check = parseFloat(Ext.util.Format.number(objData.width_yds_check, '0.00'));
+        // objData.width_yds_check = parseFloat(Ext.util.Format.number(objData.width_yds_check, '0.00'));
         objData.width_met = parseFloat(Ext.util.Format.number(objData.width_met, '0.00'));
-        objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
+        // objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
 
-        // var items = viewModel.get('storePackinglistArrAll');
         var StockinPklStore = viewModel.getStore('StockinPklStore');
         var items = StockinPklStore.getData().items;
 
@@ -408,16 +389,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         if(selectedPklRecord != null){
             objData.id = selectedPklRecord.get('id');
             objData.status = selectedPklRecord.get('status');
-            // console.log(selectedPklRecord);
         }
 
 
         // 
-        // console.log(objData);
         m.onUpdate_Print_Pklist(objData);
-
-        // this.resetForm();
-        // m.getView().down('#packageidTxt').focus();
     },
     
     //hungdaibang code
