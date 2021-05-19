@@ -249,6 +249,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				stockout_dObj.size_name = stockout_order_d.coKho;
 				stockout_dObj.unitprice = stockout_order_d.unitprice;
 
+				stockout_dObj.sku_product_color = stockout_order_d.sku_product_color;
+				stockout_dObj.sku_product_desc = stockout_order_d.sku_product_desc;
+
 				stockout_dObj.totalpackage = stockout_order_d.totalpackage == null ? 0 : stockout_order_d.totalpackage;
 				stockout_dObj.totalpackagecheck = 0;
 
@@ -273,7 +276,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		}
 
 		viewModel.set('stockout.stockout_d', stockout_d);
-		console.log(stockout);
+		// console.log(stockout_order);
+		// console.log(stockout);
 	},
 	CheckValidate: function(){
 		var mes = "";

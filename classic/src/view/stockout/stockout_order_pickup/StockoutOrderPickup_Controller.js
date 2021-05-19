@@ -198,12 +198,11 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_Controller', {
     },
     
     onStockoutOrderClick: function(view, record, item, index, e, eOpts){
-        console.log(record);
+        // console.log(record);
         var viewModel = this.getViewModel();
         var stockout_order = record.data;
         var stockout_order_d = record.get('stockout_order_d');
 
         viewModel.set('stockout_order', stockout_order);
-
     }
 })

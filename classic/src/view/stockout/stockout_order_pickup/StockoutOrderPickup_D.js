@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_D', {
 			flex: 1
 		},{
 			text: 'Màu', 
-			dataIndex: 'tenMauNPL',
+			dataIndex: 'sku_product_color',
 			flex: 1
 			// width: 90
 		},{

@@ -44,10 +44,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         var orgid_from_link = viewModel.get('stockout.orgid_from_link');
         var orgid_to_link = viewModel.get('stockout.orgid_to_link');
 
-        // console.log(stockout_order_code);
-        // console.log(orgid_from_link);
-        // console.log(orgid_to_link);
-
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -81,8 +77,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         });
 
         form.down('#StockoutOrderPickup_Main').getController().on('StockoutOrderPickupSelect', function (stockout_order, stockout_order_ds) {
-            console.log(stockout_order);
-            console.log(stockout_order_ds);
+            // console.log(stockout_order);
+            // console.log(stockout_order_ds);
 
             viewModel.set('stockout.stockout_order_code', stockout_order.stockout_order_code);
             viewModel.set('stockout.porderid_link', stockout_order.porderid_link);
@@ -115,6 +111,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
                     stockout_dObj.size_name = stockout_order_d.get('coKho');
                     stockout_dObj.unitprice = stockout_order_d.get('unitprice');
 
+                    stockout_dObj.sku_product_color = stockout_order_d.get('sku_product_color');
+                    stockout_dObj.sku_product_desc = stockout_order_d.get('sku_product_desc');
+
                     stockout_dObj.totalpackage = stockout_order_d.get('totalpackage') == null ? 0 : stockout_order_d.get('totalpackage');
                     stockout_dObj.totalpackagecheck = 0;
 
@@ -141,7 +140,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
             viewModel.set('stockout.stockout_d', stockout_d);
 
             // console.log(invoice_ds);
-            console.log(stockout);
+            // console.log(stockout);
 
             form.close();
         });
