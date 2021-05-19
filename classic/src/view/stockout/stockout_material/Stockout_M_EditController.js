@@ -159,6 +159,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         viewModel.set('stockout.stockouttypeid_link', id);
         viewModel.set('stockout.unitid_link', 1);
         viewModel.set('stockout.status', 0);
+		viewModel.set('stockout.id', null);
 
 		// console.log(session);
 		// set store org from

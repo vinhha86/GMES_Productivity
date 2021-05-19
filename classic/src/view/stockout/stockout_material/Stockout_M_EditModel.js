@@ -82,6 +82,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
             }
         },
 		isBtnConfirmHidden: function (get) {
+            if(get('stockout.id') == 0 || get('stockout.id') == null){
+                return true;
+            }
             if (get('stockout.status') == 1) {
                 return true;
             }else if (get('stockout.status') == 0) {
