@@ -130,20 +130,20 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            // text: 'Xác nhận',
-                            // flex: 1,
-                            // minWidth: 80,
-                            // maxWidth: 130,
-                            // width: 45,
-                            margin: 1,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
-                            ui: 'action',
-                            focusable: false,
-                            disabled: true,
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     // text: 'Xác nhận',
+                        //     // flex: 1,
+                        //     // minWidth: 80,
+                        //     // maxWidth: 130,
+                        //     // width: 45,
+                        //     margin: 1,
+                        //     iconCls: 'x-fa fa-check',
+                        //     itemId:'btnCheck',
+                        //     ui: 'action',
+                        //     focusable: false,
+                        //     disabled: true,
+                        // },
                     ]
                 },
                 {
@@ -249,18 +249,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-print',
-                            itemId:'btnPrintPkl',
-                            ui: 'action',
-                            margin: 1,
-                            focusable: false,
-                            // bind: {
-                            //     disabled: '{!isPklSelected}',
-                            // },
-                            disabled: true,
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-print',
+                        //     itemId:'btnPrintPkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     // bind: {
+                        //     //     disabled: '{!isPklSelected}',
+                        //     // },
+                        //     disabled: true,
+                        // },
                         // {
                         //     xtype:'button',
                         //     text: 'Nhập lại',
@@ -440,19 +440,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-trash',
-                            itemId:'btnDeletePkl',
-                            ui: 'action',
-                            margin: 1,
-                            focusable: false,
-                            // bind: {
-                            //     disabled: '{!isPklSelected}',
-                            // },
-                            disabled: true,
-                            // style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     // bind: {
+                        //     //     disabled: '{!isPklSelected}',
+                        //     // },
+                        //     disabled: true,
+                        //     // style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 // {

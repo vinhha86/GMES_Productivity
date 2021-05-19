@@ -92,36 +92,36 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                 }
                 break;
             case 'Xé vải':
-                // if(pklRip_stockoutdId != null){
-                //     var selectedPklRipRecord = viewModel.get('selectedPklRipRecord');
-                //     var StockoutPklRipStore = viewModel.getStore('StockoutPklRipStore');
-                //     // StockoutPklRipStore.loadStore_byStockoutDIdAndEqualStatus(pklRip_stockoutdId, 2);
-                //     StockoutPklRipStore.loadStore_byStockoutDIdAndEqualStatus_async(pklRip_stockoutdId, 2);
-                //     StockoutPklRipStore.load({
-                //         scope: this,
-                //         callback: function(records, operation, success) {
-                //             if(!success){
-                //                 this.fireEvent('logout');
-                //             } else {
-                //                 if(selectedPklRipRecord != null){
-                //                     var stockoutpklid_link = selectedPklRipRecord.get('id');
-                //                     var storeItems = StockoutPklRipStore.getData().items;
-                //                     for(var i=0; i<storeItems.length; i++){
-                //                         var item = storeItems[i];
-                //                         if(item.get('id') == stockoutpklid_link){
-                //                             var grid = m.getView().down('#Stockout_M_Edit_Pkl_Rip');
-                //                             grid.getSelectable().select(item);
-                //                             viewModel.set('selectedPklRipRecord', item);
-                //                         }
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     });
+                if(pklRip_stockoutdId != null){
+                    var selectedPklRipRecord = viewModel.get('selectedPklRipRecord');
+                    var stockout_pklist_rip = viewModel.getStore('stockout_pklist_rip');
+                    // stockout_pklist_rip.loadStore_byStockoutDIdAndEqualStatus(pklRip_stockoutdId, 2);
+                    stockout_pklist_rip.loadstore_ByStockoutDId_async(pklRip_stockoutdId);
+                    stockout_pklist_rip.load({
+                        scope: this,
+                        callback: function(records, operation, success) {
+                            if(!success){
+                                this.fireEvent('logout');
+                            } else {
+                                if(selectedPklRipRecord != null){
+                                    var stockoutpklid_link = selectedPklRipRecord.get('id');
+                                    var storeItems = stockout_pklist_rip.getData().items;
+                                    for(var i=0; i<storeItems.length; i++){
+                                        var item = storeItems[i];
+                                        if(item.get('id') == stockoutpklid_link){
+                                            var grid = m.getView().down('#Stockout_M_Edit_Pkl_Rip');
+                                            grid.getSelectable().select(item);
+                                            viewModel.set('selectedPklRipRecord', item);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
 
-                //     var cbbox_pklRip_stockoutdId = m.getView().down('#cbbox_pklRip_stockoutdId');
-                //     cbbox_pklRip_stockoutdId.setValue(pklRip_stockoutdId);
-                // }
+                    var cbbox_pklRip_stockoutdId = m.getView().down('#cbbox_pklRip_stockoutdId');
+                    cbbox_pklRip_stockoutdId.setValue(pklRip_stockoutdId);
+                }
                 break;
             default: 
                 console.log('tab title không tồn tại');
@@ -203,7 +203,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                 //     me.onSort();
                 // }, 1000);
 
-                console.log(stockout);
+                // console.log(stockout);
             }
 		})
     },

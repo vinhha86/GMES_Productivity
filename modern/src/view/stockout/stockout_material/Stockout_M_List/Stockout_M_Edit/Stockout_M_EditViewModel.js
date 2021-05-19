@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 		stockout_pklist: {
 			type: 'stockout_pklist'
 		},
+		stockout_pklist_rip: {
+			type: 'stockout_pklist'
+		},
 	},
 	data: {
 		stockout: null,
@@ -21,9 +24,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 		maPklFilter: '', // filter field pkl
 
 		// Stockout_M_Edit_Pkl_Rip
-		selectedPklRipRecord: null, // pkl đang chọn
-		pklRip_stockindId: null, // kiểm 10% combobox value
-		maPklRipFilter: '', // filter field pkl recheck 10%
+		selectedPklRipRecord: null, // pkl xé vải đang chọn
+		pklRip_stockoutdId: null, // xé vải combobox value
+		maPklRipFilter: '', // filter field pkl xé vải
 		objRip: null, // obj chứa các trường thông tin
 	},
 	formulas: {
@@ -45,6 +48,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             if(unitid_link == 3){
                 return false;
             }
+            return true;
+        },
+		isobjRipSelected: function (get) {
+            var selectedPklRipRecord = get('selectedPklRipRecord');
+            if(selectedPklRipRecord == null){
+                return false;
+            } 
             return true;
         },
     },

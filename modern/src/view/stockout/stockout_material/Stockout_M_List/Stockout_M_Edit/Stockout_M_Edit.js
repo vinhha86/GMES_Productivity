@@ -136,7 +136,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     layout: 'hbox',
                     flex: 1,
                     items:[{
-                        // xtype: 'Stockin_M_Edit_Lot_Main',
+                        xtype: 'Stockout_M_Edit_Pkl_Rip_Main',
                         flex: 1,
                     }]
                 },
