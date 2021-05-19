@@ -80,13 +80,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         objRip.id = record.get('id');
         objRip.lotnumber = record.get('lotnumber');
         objRip.packageid = record.get('packageid');
-        objRip.met_check = record.get('met_check');
-        objRip.ydscheck = record.get('ydscheck');
+        // objRip.met_check = 0;
+        // objRip.ydscheck = 0;
+        objRip.met_remain = record.get('met_check');
+        objRip.yds_remain = record.get('ydscheck');
 
         viewModel.set('objRip', objRip);
 
         // console.log(record);
-        console.log(objRip);
+        // console.log(objRip);
     },
     onCheckRip: function(){
         var me = this.getView();
@@ -200,7 +202,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                         grid.getSelectable().deselectAll();
                         viewModel.set('selectedPklRipRecord', null);
 
-                        console.log(response);
+                        // console.log(response);
                     }else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
                     }

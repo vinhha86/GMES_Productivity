@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         align: 'center',
     },
     {
-        text: 'Số xé (M)', 
+        text: 'Kiểm dài (M)', 
         flex: 1,
         dataIndex: 'met_check',
         align: 'center',
@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         }
     },
     {
-        text: 'Số xé (Y)', 
+        text: 'Kiểm dài (Y)', 
         flex: 1,
         dataIndex: 'ydscheck',
         align: 'center',

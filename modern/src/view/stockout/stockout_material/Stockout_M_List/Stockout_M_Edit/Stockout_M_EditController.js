@@ -199,9 +199,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                 stockout = me.setStockoutData(stockout);
                 viewModel.set('stockout', stockout); 
 
-                // setTimeout(function(){
-                //     me.onSort();
-                // }, 1000);
+                setTimeout(function(){
+                    me.onSort();
+                }, 500);
 
                 // console.log(stockout);
             }
@@ -448,20 +448,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
     // sort store
     onSort: function(){
         var me = this.getView();
-        var Stockout_M_Edit_D = me.down('#Stockout_M_Edit_D');
-        Stockout_M_Edit_D.getStore().getSorters().add({
+        var viewModel = this.getViewModel();
+        var Stockout_d = viewModel.getStore('Stockout_d');
+        Stockout_d.getSorters().add({
             property: 'skucode',
             direction: 'ASC'
         });
 
-        var Stockout_M_Edit_Lot = me.down('#Stockout_M_Edit_Lot');
-        Stockout_M_Edit_Lot.getStore().getSorters().add({
-            property: 'lot_number',
-            direction: 'ASC'
-        });
-
-        var Stockout_M_Edit_Pkl = me.down('#Stockout_M_Edit_Pkl');
-        Stockout_M_Edit_Pkl.getStore().getSorters().add({
+        var stockout_pklist = viewModel.getStore('stockout_pklist');
+        stockout_pklist.getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{
@@ -469,8 +464,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             direction: 'ASC'
         });
 
-        var Stockout_M_Edit_Pkl_Rip = me.down('#Stockout_M_Edit_Pkl_Rip');
-        Stockout_M_Edit_Pkl_Rip.getStore().getSorters().add({
+        var stockout_pklist_rip = viewModel.getStore('stockout_pklist_rip');
+        stockout_pklist_rip.getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{
