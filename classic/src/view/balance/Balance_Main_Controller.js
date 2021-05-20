@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Controller', {
         // this.onCalBalance();
         var viewmodel = this.getViewModel();
         var PContractProductStore = viewmodel.getStore('PContractProductStore');
+        console.log(viewmodel.get('pcontractid_link'));
         if (!viewmodel.get('isAdd_Pcontract_Stockin')){
             //Neu khong phai goi de tao Stockin --> Load tat cac SP cua don hang
             PContractProductStore.loadStore_ByProductList(viewmodel.get('pcontractid_link'), viewmodel.get('ls_productid_link'));
@@ -15,6 +16,41 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Controller', {
             this.onCalBalance();
         }
     },
+    onCalBalance_OneProduct: function(){
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
+
+        var params = new Object();
+        params.pcontractid_link = viewmodel.get('pcontractid_link');
+        params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        params.list_productid = viewmodel.get('IdProduct');
+
+        me.setLoading("Đang tính cân đối");
+        if (null!=params.pcontract_poid_link && 0!=params.pcontract_poid_link){
+            GSmartApp.Ajax.post('/api/v1/balance/cal_balance_bypo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        SKUBalanceStore.setData(response.data);
+                    }
+                }
+            })
+        } else {
+            GSmartApp.Ajax.post('/api/v1/balance/cal_balance_bycontract', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        SKUBalanceStore.setData(response.data);
+                    }
+                }
+            })
+        }
+    },    
     onCalBalance: function(){
         var me = this.getView();
         var viewmodel = this.getViewModel();
