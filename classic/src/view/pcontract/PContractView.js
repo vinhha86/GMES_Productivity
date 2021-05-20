@@ -89,16 +89,21 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
                 bind: {
                     // disabled: '{disabledTab}'
                 }
-            }, {
+            }, 
+            // {
+            //     title: 'Định mức cân đối',
+            //     xtype: 'PContractProduct_Bom2_TabColorView',
+            //     bind: {
+            //         // disabled: '{disabledTab}'
+            //     }
+            // },
+            {
                 title: 'Định mức cân đối',
-                xtype: 'PContractProduct_Bom2_TabColorView',
-                bind: {
-                    // disabled: '{disabledTab}'
-                }
+                xtype: 'PContract_Bom_View'
             },
             {
-                title: 'Định mức cân đối New',
-                xtype: 'PContract_Bom_View'
+                title: 'Cân đối NPL',
+                xtype: 'Balance_Main_Pcontract',
             },
             {
                 title: 'Nguyên phụ liệu về',

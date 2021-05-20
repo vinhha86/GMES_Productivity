@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.balance.Balance_D', {
+Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 	extend: 'Ext.grid.Panel',
-	xtype: 'Balance_D',
-	id: 'Balance_D',
+	xtype: 'Balance_D_Pcontract',
+	id: 'Balance_D_Pcontract',
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
@@ -18,16 +18,16 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
         enableTextSelection: true,
         stripeRows: false                
     },
-	selModel: {
-        selType: 'checkboxmodel',
-    },
+	// selModel: {
+    //     selType: 'checkboxmodel',
+    // },
 	bind:{
 		store: '{SKUBalanceStore}'
 	},
 	columns: [
 		{
 			text: 'Mã NPL', 
-			width: 100,
+			width: 120,
 			dataIndex: 'mat_sku_code'
 		},
 		// {
@@ -49,11 +49,11 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 			dataIndex: 'mat_sku_color_name',
 			width: 85
 		},
-		// {
-		// 	text: 'Cỡ', 
-		// 	dataIndex: 'mat_sku_size_name',
-		// 	width: 50
-		// },
+		{
+			text: 'Số lượng SP', 
+			dataIndex: 'mat_sku_product_total',
+			width: 85
+		},
 		{
 			text: 'ĐVT', 
 			dataIndex: 'mat_sku_unit_name',
@@ -178,15 +178,6 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 				handler: 'onCalBalance_OneProduct'
             }
         ]
-    }],	
-	fbar: [
-        '->',
-        {
-            minWidth: 80,
-            text: 'Chọn',
-            iconCls: 'x-fa fa-check',
-            handler: 'onMaterialSelect'
-        }
-    ],    
+    }],	 
 });
 
