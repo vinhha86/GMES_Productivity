@@ -2,7 +2,9 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POrderSKUViewControlle
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrderSKUViewController',
     init: function () {
-
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('porderSKUStore');
+        store.setGroupField('po_buyer');
     },
     onFilterMauSP: function () {
         var viewmodel = this.getViewModel();

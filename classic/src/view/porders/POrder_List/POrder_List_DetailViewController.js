@@ -193,6 +193,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         storeSku.loadByPOrderStore(id);
 
         var storePOrder = viewmodel.getStore('porderSKUStore');
+        storePOrder.setGroupField('po_buyer');
         storePOrder.loadByPorderID(id);
 
         me.IdPOrder = id;
