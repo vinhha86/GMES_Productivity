@@ -1043,4 +1043,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
         store.commitChanges();
     },
+	onPressEnterSkucode: function (textfield, e, eOpts) {
+        var m = this;
+        if (e.getKey() == e.ENTER) {
+            // Ext.Msg.alert('Keys','You pressed the Enter key');
+            m.onBtnThemSP();
+        }
+    },
 });

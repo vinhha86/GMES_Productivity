@@ -920,4 +920,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 
 		console.log(data);
 	},
+	onPressEnterSkucode: function (textfield, e, eOpts) {
+        var m = this;
+        if (e.getKey() == e.ENTER) {
+            // Ext.Msg.alert('Keys','You pressed the Enter key');
+            m.onBtnThemSP();
+        }
+    },
 })

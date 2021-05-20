@@ -288,11 +288,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 					emptyText: 'Không có mã hàng phù hợp.',
 				},
 				queryMode: 'remote',
-				queryParam: 'code'				
-				// enableKeyEvents : true,
-				// listeners: {
-				//     keypress: 'onPressEnterBtnThemNPL'
-				// }
+				queryParam: 'code'			,	
+				enableKeyEvents : true,
+				listeners: {
+					keypress: 'onPressEnterSkucode'
+				}
 			},
 			{
 				tooltip: 'Thêm SP',
