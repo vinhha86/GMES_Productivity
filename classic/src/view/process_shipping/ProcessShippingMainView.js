@@ -50,7 +50,8 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
                     title: 'Chi tiết tổ',
                     xtype: 'SizeBreakdown_Grant_MainView'
                 }, {
-                    title: 'Định mức'
+                    title: 'Định mức',
+                    xtype: 'POrderBom2View'
                 }, {
                     title: 'Nguyên liệu',
                     xtype: 'Balance_mat_View'

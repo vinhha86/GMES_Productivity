@@ -4,14 +4,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
     init: function () {
     },
     control: {
-        '#POrder_List_GrantSKUView': {
-            itemclick: 'onItemClick',
-        }
-    },
-    control: {
-        '#POrder_List_GrantSKUViewTabInfo': {
-            itemclick: 'onItemClick',
-        },
         '#btnThemSKU': {
             click: 'onThemSKU'
         }
@@ -50,13 +42,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
             });
             window.show();
 
-            window.on('Thoat', function (porderinfo, amount) {
-                if (amount > 0) {
-                    // eventRecord.set('mahang', porderinfo);
-                    // eventRecord.set('name', porderinfo);
-                    // eventRecord.set('totalpackage', amount)
-                }
+            window.down('#POrder_List_GrantSKUView_window').getController().on('UpdatePorder', function (porderinfo, amount) {
+                var store = viewmodel.getStore('POrder_ListGrantSKUStore');
+                store.load();
 
+                var storeGrant = viewmodel.getStore('POrder_ListGrantStore');
+                storeGrant.load();
+            });
+
+            window.on('Thoat', function (porderinfo, amount) {
                 window.close();
             });
         }
@@ -64,13 +58,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
     renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
-    },
-    onItemClick: function (thisItem, record, item, index, e, eOpts) {
-        console.log(record.data);
-        let viewModel = this.getViewModel();
-        viewModel.set('currentGrantSKURec', record.data);
-        viewModel.set('oldGrantSKUAmount', record.data.grantamount);
-        viewModel.set('newGrantSKUAmount', record.data.grantamount);
     },
     onEdit: function (editor, context, eOpts) {
         let me = this;
@@ -84,10 +71,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
         }
     },
     updateGrantAmount: function (record) {
+        var m = this;
         let me = this.getView();
         let viewModel = this.getViewModel();
         let POrder_ListGrantSKUStore = viewModel.getStore('POrder_ListGrantSKUStore');
-        let porderSKUStore = viewModel.getStore('porderSKUStore');
         let data = record.data;
 
         let params = new Object();
@@ -100,11 +87,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
             function (success, response, options) {
                 var response = Ext.decode(response.responseText);
                 if (success) {
-                    if(response.respcode == 200){
+                    if (response.respcode == 200) {
                         POrder_ListGrantSKUStore.commitChanges();
                         viewModel.set('porderinfo', response.porderinfo);
                         viewModel.set('amount', response.amount);
-                        me.fireEvent('UpdatePorder', viewModel.get('porderinfo'), viewModel.get('amount'));
+                        m.fireEvent('UpdatePorder', record, viewModel.get('porderinfo'), viewModel.get('amount'));
                     }
                     else {
                         Ext.MessageBox.show({

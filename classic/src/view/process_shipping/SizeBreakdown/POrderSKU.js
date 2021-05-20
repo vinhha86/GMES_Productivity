@@ -22,9 +22,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
         mode: 'MULTI'
     },
     features: [{
-        ftype: 'groupingsummary',
+        ftype: 'grouping',
         groupHeaderTpl: 'PO: {name}'
-    },{
+    }, {
         ftype: 'summary',
         dock: 'bottom'
     }],

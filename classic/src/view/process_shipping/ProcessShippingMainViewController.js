@@ -10,6 +10,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewController', 
         }
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
+        var me = this.getView();
         if (newCard.xtype == "Balance_mat_View") {
             this.onCalBalance();
         }
@@ -18,6 +19,9 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewController', 
             var store = viewmodel.getStore('POrder_ListGrantStore');
             var porderid_link = viewmodel.get('porderid_link');
             store.loadStore(porderid_link);
+        }
+        else if (newCard.xtype == 'POrderBom2View') {
+            me.down('#POrderBom2View').getController().CreateColumns();
         }
     },
     onCalBalance: function () {

@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         'GSmartApp.store.SKUBalanceStore',
         'GSmartApp.store.porder.porderSKUStore',
         'GSmartApp.store.porder.POrder_ListGrantSKUStore',
-        'GSmartApp.store.porder.POrder_ListGrantStore'],
+        'GSmartApp.store.porder.POrder_ListGrantStore',
+        'GSmartApp.store.pcontract.POrderBomColorStore',],
     stores: {
         POLineStore: {
             type: 'PContractPOStore'
@@ -31,6 +32,9 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         },
         POrder_ListGrantSKUStore: {
             type: 'POrder_ListGrantSKUStore'
+        },
+        POrderBom2Store: {
+            type: 'POrderBomColorStore'
         }
     },
     data: {

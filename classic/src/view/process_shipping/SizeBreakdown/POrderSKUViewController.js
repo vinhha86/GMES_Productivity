@@ -6,6 +6,18 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POrderSKUViewControlle
         var store = viewmodel.get('porderSKUStore');
         store.setGroupField('po_buyer');
     },
+    listen: {
+        controller: {
+            'POrder_List_GrantSKUViewController': {
+                'UpdatePorder': 'onReload'
+            }
+        }
+    },
+    onReload: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('porderSKUStore');
+        store.load();
+    },
     onFilterMauSP: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('porderSKUStore');

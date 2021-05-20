@@ -14,6 +14,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     control: {
 
     },
+    listen: {
+        controller: {
+            'POrder_List_GrantSKUViewController': {
+                'UpdatePorder': 'onUpdatePorder'
+            }
+        }
+    },
+    onUpdatePorder: function (record, porderinfo, amount) {
+        record.set('mahang', porderinfo);
+        record.set('totalpackage', amount);
+    },
     onSchedulerRender: function () {
         var me = this;
         var view = this.getView().down('#treeplan');
