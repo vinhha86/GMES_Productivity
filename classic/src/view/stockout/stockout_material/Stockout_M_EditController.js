@@ -43,6 +43,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		'#cmbStockoutGroup': {
 			select: 'onSelectGroupStockout'
 		},
+		'#Stockout_M_Edit_D': {
+			itemclick: 'onStockout_M_Edit_D_Itemclick'
+		},
+		'#btnThemSP': {
+			click: 'onBtnThemSP'
+		},
 	},
 	channel: { cmd: null, dta: null },
     renderCell: function(value, record) {
@@ -123,11 +129,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
-                viewModel.set('stockout', response.data); console.log(response.data);
+				var stockout = response.data;
+				if(stockout.unitid_link == null) stockout.unitid_link = 1;
+                viewModel.set('stockout', stockout);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
                 }
                 store.setData(response.data.stockout_d);
+				store.commitChanges();
 
 				if(response.data.stockouttypeid_link == 1) { // xuat den cat
 					var OrgToStore = viewModel.getStore('OrgToStore');
@@ -137,6 +146,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 					var OrgToStore = viewModel.getStore('OrgToStore');
 					OrgToStore.loadStore(14, false);
 				}
+
+				console.log(stockout);
             }
 		})
     },
@@ -857,4 +868,162 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             }
 		})
 	},
+	onStockout_M_Edit_D_Itemclick: function(grid, record, item, index, e, eOpts){
+		console.log(record.data);
+	},
+	checkSkuInDList: function(selectedRecord){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockout_d = viewmodel.get('stockout.stockout_d');
+
+		var skuid_link = selectedRecord.get('id');
+		for(var i = 0; i < stockout_d.length; i++){
+			if(stockout_d[i].skuid_link == skuid_link){
+				return true;
+			}
+		}
+		// console.log(stockout_d);
+		return false;
+	},
+	onBtnThemSP: function(){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var skucodeCbbox = m.down('#skucode');
+
+		if(skucodeCbbox){
+			var selectedRecord = skucodeCbbox.getSelectedRecord();
+			if(selectedRecord){
+				// check danh sách d đã có vải này chưa, có thông báo, chưa có thêm
+				var isExist = me.checkSkuInDList(selectedRecord);
+				if(isExist){ // thông báo
+					Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Đã có loại vải này trong danh sách',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+				}else{ // thêm
+					me.addSkuToDList(selectedRecord.data);
+				}
+			}else{
+				console.log('no or null selectedRecord');
+			}
+		}
+	},
+	addSkuToDList: function(data){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockout = viewmodel.get('stockout');
+		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var Stockout_M_Edit_D = m.down('#Stockout_M_Edit_D');
+		var store = Stockout_M_Edit_D.getStore();
+
+		var newObj = new Object();
+		newObj.color_name = data.color_name;
+		newObj.colorid_link = data.color_id;
+		newObj.id = null;
+		newObj.p_skuid_link = data.id;
+		newObj.product_code = data.product_code;
+		newObj.size_name = data.size_name;
+		newObj.sizeid_link = data.size_id;
+		newObj.sku_product_code = data.product_code;
+		newObj.sku_product_color = data.product_color;
+		newObj.sku_product_desc = data.product_desc;
+		newObj.skucode = data.code;
+		newObj.skuid_link = data.id;
+		newObj.skuname = data.name;
+		newObj.status = -1;
+		newObj.stockout_packinglist = [];
+		newObj.stockoutid_link = stockout.id;
+		newObj.unitid_link = stockout.unitid_link;
+
+		stockout_d.push(newObj);
+		store.setData([]);
+		store.insert(0, stockout_d);
+		store.commitChanges();
+
+		// console.log(data);
+	},
+	onDItemEdit: function (editor, context, eOpts){
+        // console.log('onInvoiceDItemEdit');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockout');
+        var store = me.down('#Stockout_M_Edit_D').getStore();
+        var stockoutD_data = context.record.data;
+
+        if(context.value == "" || context.value == context.originalValue || isNaN(context.value)){
+            store.rejectChanges();
+            return;
+        }
+
+        if(context.field == 'totalpackage'){
+            stockoutD_data.totalpackage = parseFloat(stockoutD_data.totalpackage);
+        }
+        if(context.field == 'netweight'){
+            stockoutD_data.netweight = parseFloat(stockoutD_data.netweight);
+        }
+        if(context.field == 'grossweight'){
+            stockoutD_data.grossweight = parseFloat(stockoutD_data.grossweight);
+        }
+        if(context.field == 'm3'){
+            stockoutD_data.m3 = parseFloat(stockoutD_data.m3);
+        }
+        if(context.field == 'met'){
+            stockoutD_data.met = parseFloat(stockoutD_data.met);
+        }
+        if(context.field == 'yds'){
+            stockoutD_data.yds = parseFloat(stockoutD_data.yds);
+        }
+		if(context.field == 'totalmet_origin'){
+            stockoutD_data.totalmet_origin = parseFloat(stockoutD_data.totalmet_origin);
+        }
+		if(context.field == 'totalmet_check'){
+            stockoutD_data.totalmet_check = parseFloat(stockoutD_data.totalmet_check);
+        }
+		if(context.field == 'totalydsorigin'){
+            stockoutD_data.totalydsorigin = parseFloat(stockoutD_data.totalydsorigin);
+        }
+		if(context.field == 'totalydscheck'){
+            stockoutD_data.totalydscheck = parseFloat(stockoutD_data.totalydscheck);
+        }
+
+        if(stockin.unitid_link == 1){
+            if(context.field == 'met' && (stockoutD_data.unitprice != null || stockoutD_data.unitprice != "")){
+                // console.log('yds');
+                stockoutD_data.yds = Ext.Number.roundToPrecision(stockoutD_data.met / 0.9144,2);
+                stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.met*stockoutD_data.unitprice,2);
+            }
+            if(context.field == 'unitprice' && (stockoutD_data.met != null || stockoutD_data.met != "")){
+                // console.log('unitprice');
+                stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.met*stockoutD_data.unitprice,2);
+            }
+
+			if(context.field == 'totalmet_origin'){
+				stockoutD_data.totalydsorigin = Ext.Number.roundToPrecision(stockoutD_data.totalmet_origin / 0.9144,2);
+			}
+        }else if(stockin.unitid_link == 3){
+            if(context.field == 'yds' && (stockoutD_data.unitprice != null || stockoutD_data.unitprice != "")){
+                // console.log('yds');
+                stockoutD_data.met = Ext.Number.roundToPrecision(stockoutD_data.yds * 0.9144,2);
+                stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.yds*stockoutD_data.unitprice,2);
+            }
+            if(context.field == 'unitprice' && (stockoutD_data.yds != null || stockoutD_data.yds != "")){
+                // console.log('unitprice');
+                stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.yds*stockoutD_data.unitprice,2);
+            }
+
+			if(context.field == 'totalydsorigin'){
+				stockoutD_data.totalmet_origin = Ext.Number.roundToPrecision(stockoutD_data.totalydsorigin * 0.9144,2);
+			}
+        }
+
+        store.commitChanges();
+    },
 });

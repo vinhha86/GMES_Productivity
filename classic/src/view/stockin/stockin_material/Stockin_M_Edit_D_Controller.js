@@ -34,8 +34,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         '#btnTimNPL': {
             click: 'onBtnTimNPL'
         },
+        '#btnThemSP': {
+            click: 'onBtnThemSP'
+        },
 		'#cmbStockinGroup': {
 			select: 'onSelectGroupStockin'
+		},
+		'#Stockin_M_Edit_D': {
+			itemclick: 'onStockin_M_Edit_D_Itemclick'
 		},
 	},
 	onSelectGroupStockin: function(combo, record, eOpts){
@@ -542,6 +548,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
         if(context.field == 'yds'){
             stockinD_data.yds = parseFloat(stockinD_data.yds);
         }
+		if(context.field == 'totalmet_origin'){
+            stockinD_data.totalmet_origin = parseFloat(stockinD_data.totalmet_origin);
+        }
+		if(context.field == 'totalmet_check'){
+            stockinD_data.totalmet_check = parseFloat(stockinD_data.totalmet_check);
+        }
+		if(context.field == 'totalydsorigin'){
+            stockinD_data.totalydsorigin = parseFloat(stockinD_data.totalydsorigin);
+        }
+		if(context.field == 'totalydscheck'){
+            stockinD_data.totalydscheck = parseFloat(stockinD_data.totalydscheck);
+        }
 
         if(stockin.unitid_link == 1){
             if(context.field == 'met' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")){
@@ -553,6 +571,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                 // console.log('unitprice');
                 stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met*stockinD_data.unitprice,2);
             }
+
+			if(context.field == 'totalmet_origin'){
+				stockinD_data.totalydsorigin = Ext.Number.roundToPrecision(stockinD_data.totalmet_origin / 0.9144,2);
+			}
         }else if(stockin.unitid_link == 3){
             if(context.field == 'yds' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")){
                 // console.log('yds');
@@ -563,6 +585,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                 // console.log('unitprice');
                 stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds*stockinD_data.unitprice,2);
             }
+
+			if(context.field == 'totalydsorigin'){
+				stockinD_data.totalmet_origin = Ext.Number.roundToPrecision(stockinD_data.totalydsorigin * 0.9144,2);
+			}
         }
 
         store.commitChanges();
@@ -803,5 +829,87 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 			}
 		});
 		form.show();
-	}
+	},
+	//
+	onStockin_M_Edit_D_Itemclick: function(grid, record, item, index, e, eOpts){
+		console.log(record.data);
+	},
+	checkSkuInDList: function(selectedRecord){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockin_d = viewmodel.get('stockin.stockin_d');
+
+		var skuid_link = selectedRecord.get('id');
+		for(var i = 0; i < stockin_d.length; i++){
+			if(stockin_d[i].skuid_link == skuid_link){
+				return true;
+			}
+		}
+		// console.log(stockin_d);
+		return false;
+	},
+	onBtnThemSP: function(){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var skucodeCbbox = m.down('#skucode');
+
+		if(skucodeCbbox){
+			var selectedRecord = skucodeCbbox.getSelectedRecord();
+			if(selectedRecord){
+				// check danh sách d đã có vải này chưa, có thông báo, chưa có thêm
+				var isExist = me.checkSkuInDList(selectedRecord);
+				if(isExist){ // thông báo
+					Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Đã có loại vải này trong danh sách',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+				}else{ // thêm
+					me.addSkuToDList(selectedRecord.data);
+				}
+			}else{
+				console.log('no or null selectedRecord');
+			}
+		}
+	},
+	addSkuToDList: function(data){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockin = viewmodel.get('stockin');
+		var stockin_d = viewmodel.get('stockin.stockin_d');
+		// var Stockin_M_Edit_D = m.down('#Stockin_M_Edit_D');
+		var store = m.getStore();
+
+		var newObj = new Object();
+		newObj.color_name = data.color_name;
+		newObj.colorid_link = data.color_id;
+		newObj.id = null;
+		newObj.p_skuid_link = data.id;
+		newObj.product_code = data.product_code;
+		newObj.size_name = data.size_name;
+		newObj.sizeid_link = data.size_id;
+		newObj.sku_product_code = data.product_code;
+		newObj.sku_product_color = data.product_color;
+		newObj.sku_product_desc = data.product_desc;
+		newObj.skucode = data.code;
+		newObj.skuid_link = data.id;
+		newObj.skuname = data.name;
+		newObj.status = -1;
+		newObj.stockin_packinglist = [];
+		newObj.stockinid_link = stockin.id;
+		newObj.unitid_link = stockin.unitid_link;
+
+		stockin_d.push(newObj);
+		store.setData([]);
+		store.insert(0, stockin_d);
+		store.commitChanges();
+
+		console.log(data);
+	},
 })

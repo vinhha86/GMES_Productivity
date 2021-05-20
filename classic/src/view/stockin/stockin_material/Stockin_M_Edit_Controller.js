@@ -128,6 +128,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 // set stockin lot cho stockinD
                 data = me.setStockinLotForStockinD(data);
 
+                if(data.unitid_link == null) data.unitid_link = 1;
                 viewModel.set('stockin', data);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);

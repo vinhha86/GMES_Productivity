@@ -68,6 +68,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		UnitStore: {
             type: 'UnitStore'
         },
+        SKUStore: {
+            type: 'Sku_AutoComplete'
+        },
 	},
 	data: {
 		urlback:'',

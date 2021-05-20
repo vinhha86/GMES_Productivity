@@ -27,6 +27,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
             }
         }                     
     },
+	plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onDItemEdit',
+            }             
+        }
+    },
     columns: [
 		{
             xtype: 'actioncolumn',
@@ -116,6 +124,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
 		},
         {
 			xtype: 'numbercolumn',
@@ -142,6 +155,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
 		},
 		{
 			xtype: 'numbercolumn',
@@ -156,16 +174,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 				hidden: '{isYdsColumnHidden}',
 			},
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'SL Xuất (y)', 
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'totalydscheck',
-		// 	width: 85
-		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
