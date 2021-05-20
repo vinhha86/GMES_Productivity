@@ -92,14 +92,17 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                 '</div>' +
 
                 '<div class="content2">'+
-                    '<div class="content2-sub1"><b>Loại xuất kho:</b></div>'+
-                    '<div class="content2-sub2">{stockouttype_name}</div>' +
+                    '<div class="content2-sub1"><b>S/phẩm:</b></div>'+
+                    '<div class="content2-sub2">{porder_product_buyercode}</div>' +
                 '</div>' +
 
-                '<div class="content2">'+
-                    '<div class="content2-sub1"><b>Nơi nhận:</b></div>'+
-                    '<div class="content2-sub2">{org_to_name}</div>' +
+                '<div class="content1">' +
+                    '<div class="content1-sub1"><b>Loại xuất kho:</b></div>'+
+                    '<div class="content1-sub1">{stockouttype_name}</div>' +
+                    '<div class="content1-sub1"><b>Nơi nhận:</b></div>'+
+                    '<div class="content1-sub1">{org_to_name}</div>' +
                 '</div>' +
+
 
                 '<div class="content2">'+
                     '<div class="content2-sub1"><b>Trạng thái:</b></div>'+
