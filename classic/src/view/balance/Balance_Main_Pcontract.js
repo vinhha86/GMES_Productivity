@@ -1,11 +1,8 @@
-Ext.define('GSmartApp.view.balance.Balance_Main', {
+Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract', {
     extend: 'Ext.container.Container',
-    xtype: 'Balance_Main',
-    id: 'Balance_Main',
-    controller: 'Balance_Main_Controller',
-    viewModel: {
-        type: 'Balance_ViewModel'
-    },    
+    xtype: 'Balance_Main_Pcontract',
+    id: 'Balance_Main_Pcontract',
+    controller: 'Balance_Main_Pcontract_Controller',
 	layout: {
         type: 'border'
     },
@@ -18,7 +15,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main', {
         // },
         {
             region: 'center',
-            xtype: 'Balance_D'
+            xtype: 'Balance_D_Pcontract'
         }
     ] 
 });
