@@ -941,6 +941,23 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		newObj.stockout_packinglist = [];
 		newObj.stockoutid_link = stockout.id;
 		newObj.unitid_link = stockout.unitid_link;
+		newObj.totaldif = null;
+		newObj.totalerror = null;
+		newObj.totalmet_check = null;
+		newObj.totalmet_origin = null;
+		newObj.totalmet_processed = null;
+		newObj.totalmet_stockout = null;
+		newObj.totalorder_design = null;
+		newObj.totalorder_tech = null;
+		newObj.totalpackage = null;
+		newObj.totalpackage_req = null;
+		newObj.totalpackagecheck = null;
+		newObj.totalpackageprocessed = null;
+		newObj.totalpackagestockout = null;
+		newObj.totalydscheck = null;
+		newObj.totalydsorigin = null;
+		newObj.totalydsprocessed = null;
+		newObj.totalydsstockout = null;
 
 		stockout_d.push(newObj);
 		store.setData([]);

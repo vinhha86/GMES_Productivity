@@ -904,6 +904,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		newObj.stockin_packinglist = [];
 		newObj.stockinid_link = stockin.id;
 		newObj.unitid_link = stockin.unitid_link;
+		newObj.totalmet_check = null;
+		newObj.totalmet_origin = null;
+		newObj.totalpackage = null;
+		newObj.totalpackage_order = null;
+		newObj.totalpackagecheck = null;
+		newObj.totalprice = null;
+		newObj.totalydscheck = null;
+		newObj.totalydsorigin = null;
 
 		stockin_d.push(newObj);
 		store.setData([]);
