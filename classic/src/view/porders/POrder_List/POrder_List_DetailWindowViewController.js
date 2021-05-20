@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
 
         //Lay danh sach SKU cua POrder_Grant
         var storeGrantSKUTabInfo = viewmodel.getStore('POrder_ListGrantSKUStore');
-        storeGrantSKUTabInfo.loadStore(IdGrant);
+        storeGrantSKUTabInfo.getbyPorderAndPO(IdGrant, pcontract_poid_link);
 
         // var listGrantView = me.down('#POrder_List_GrantView');
         // listGrantView.getController().loadInfo(IdPOrder);
