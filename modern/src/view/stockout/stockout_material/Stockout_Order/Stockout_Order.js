@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Or
                 '</div>' +
 
                 '<div class="content2">'+
-                    '<div class="content2-sub1"><b>Mã SP:</b></div>'+
+                    '<div class="content2-sub1"><b>S/phẩm:</b></div>'+
                     '<div class="content2-sub2">{porder_product_buyercode}</div>' +
                 '</div>' +
 
