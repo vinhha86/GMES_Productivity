@@ -199,7 +199,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 
 								//Thêm stockind vào grid
 								store.insert(0, stockind);
-
+								store.commitChanges();
 							}
 							else {
 								//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
@@ -774,6 +774,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                     separator: true,
                     margin: '10 0 0',
                     // iconCls: 'x-fa fas fa-edit brownIcon',
+					iconCls: 'x-fa fas fa-edit',
                     handler: function () {
                         // console.log(record);
 						me.onViewPackingList(grid, rowIndex);
@@ -785,9 +786,22 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                     separator: true,
                     margin: '10 0 0',
                     // iconCls: 'x-fa fas fa-trash redIcon',
+					iconCls: 'x-fa fas fa-print',
                     handler: function () {
                         // console.log(record);
 						me.onViewPhieuKhoVai(grid, rowIndex);
+                    }
+                },
+                {
+                    text: 'Xoá dòng hàng',
+                    itemId: 'btnMenu_Stockin_M_Edit_D_List_Delete',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-trash redIcon',
+					iconCls: 'x-fa fas fa-trash',
+                    handler: function () {
+                        // console.log(record);
+						me.onDeleteStockinD(grid, rowIndex);
                     }
                 },
             ]
@@ -829,6 +843,111 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 			}
 		});
 		form.show();
+	},
+	onDeleteStockinD: function(grid, rowIndex){
+		var me = this;
+		var viewmodel = this.getViewModel();
+		var stockin = viewmodel.get('stockin');
+        var data = grid.getStore().getAt(rowIndex);
+
+		Ext.Msg.show({
+			title: 'Thông báo',
+			msg: 'Bạn có chắc chắn xóa nguyên phụ liệu ' + data.get('skucode') + '?',
+			buttons: Ext.Msg.YESNO,
+			icon: Ext.Msg.QUESTION,
+			buttonText: {
+				yes: 'Có',
+				no: 'Không'
+			},
+			fn: function (btn) {
+				if (btn === 'yes') {
+					// Xoá, check id
+					var id = data.get('id');
+					if(isNaN(id) || id == null || id == 0){ // chưa có trong db
+						me.deleteRow_Stockin_D(data);
+					}else{ // đã có trong db
+						me.deleteRowDb_Stockin_D(data);
+					}
+				}
+			}
+		});
+	},
+	deleteRow_Stockin_D: function(data){
+		var me = this;
+		var viewmodel = this.getViewModel();
+		var stockin = viewmodel.get('stockin');
+		var stockin_d = viewmodel.get('stockin.stockin_d');
+		var id = data.get('id');
+
+		for(var i = 0; i < stockin_d.length; i++) {
+			if(stockin_d[i].id == id){
+				stockin_d.splice(i,1);
+				break;
+			}
+		}
+		var stockin_dStore = viewmodel.getStore('StockinD_Store');
+		if(stockin_dStore){
+			stockin_dStore.removeAll();
+			stockin_dStore.insert(0, stockin_d);
+			stockin_dStore.commitChanges();
+		}
+		viewmodel.set('stockin.stockin_d', stockin_d);
+		// console.log(stockin);
+	},
+	deleteRowDb_Stockin_D: function(data){
+		var me = this;
+		var m = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockin = viewmodel.get('stockin');
+		var stockin_d = viewmodel.get('stockin.stockin_d');
+		var id = data.get('id');
+
+		m.setLoading(true);
+
+		var params = new Object();
+        params.id = id ;
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_d/stockind_delete',Ext.JSON.encode(params),
+		function(success,response,options ) {
+            var response = Ext.decode(response.responseText);
+			m.setLoading(false);
+			if(success){
+				if(response.respcode == 200) {
+					for(var i = 0; i < stockin_d.length; i++) {
+						if(stockin_d[i].id == id){
+							stockin_d.splice(i,1);
+							break;
+						}
+					}
+					var stockin_dStore = viewmodel.getStore('StockinD_Store');
+					if(stockin_dStore){
+						stockin_dStore.removeAll();
+						stockin_dStore.insert(0, stockin_d);
+						stockin_dStore.commitChanges();
+					}
+					viewmodel.set('stockin.stockin_d', stockin_d);
+					// console.log(stockin);
+				}else{
+					Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+				}
+			}else{
+				Ext.Msg.show({
+					title: 'Thông báo',
+					msg: response.message,
+					buttons: Ext.MessageBox.YES,
+					buttonText: {
+						yes: 'Đóng',
+					}
+				});
+			}
+            
+		})
 	},
 	//
 	onStockin_M_Edit_D_Itemclick: function(grid, record, item, index, e, eOpts){
