@@ -489,6 +489,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 							viewModel.set('stockout', stockout);
 							//Thêm stockind vào grid
 							store.insert(0, stockoutd);
+							store.commitChanges();
 						}
 						else {
 							var stockoutpklist = sku.get('stockoutpklist');
@@ -827,10 +828,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				break;
 			}
 		}
-		var stockout_dStore = this.getView().down('Stockout_M_Edit_D').getStore();
+		var stockout_dStore = viewmodel.getStore('StockoutD_Store');
 		if(stockout_dStore){
 			stockout_dStore.removeAll();
 			stockout_dStore.insert(0, stockout_d);
+			stockout_dStore.commitChanges();
 		}
 		viewmodel.set('stockout.stockout_d', stockout_d);
 		// console.log(stockout);
@@ -851,21 +853,42 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
 			m.setLoading(false);
-            if(response.respcode == 200) {
-                for(var i = 0; i < stockout_d.length; i++) {
-					if(stockout_d[i].id == id){
-						stockout_d.splice(i,1);
-						break;
+			if(success){
+				if(response.respcode == 200) {
+					for(var i = 0; i < stockout_d.length; i++) {
+						if(stockout_d[i].id == id){
+							stockout_d.splice(i,1);
+							break;
+						}
 					}
+					var stockout_dStore = viewmodel.getStore('StockoutD_Store');
+					if(stockout_dStore){
+						stockout_dStore.removeAll();
+						stockout_dStore.insert(0, stockout_d);
+						stockout_dStore.commitChanges();
+					}
+					viewmodel.set('stockout.stockout_d', stockout_d);
+					// console.log(stockout);
+				}else{
+					Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
 				}
-				var stockout_dStore = m.down('Stockout_M_Edit_D').getStore();
-				if(stockout_dStore){
-					stockout_dStore.removeAll();
-					stockout_dStore.insert(0, stockout_d);
-				}
-				viewmodel.set('stockout.stockout_d', stockout_d);
-				// console.log(stockout);
-            }
+			}else{
+				Ext.Msg.show({
+					title: 'Thông báo',
+					msg: response.message,
+					buttons: Ext.MessageBox.YES,
+					buttonText: {
+						yes: 'Đóng',
+					}
+				});
+			}
 		})
 	},
 	onStockout_M_Edit_D_Itemclick: function(grid, record, item, index, e, eOpts){

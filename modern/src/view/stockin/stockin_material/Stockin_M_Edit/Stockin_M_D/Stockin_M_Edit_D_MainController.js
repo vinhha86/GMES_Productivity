@@ -144,28 +144,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
                 }
         })
-
-        // old
-        // stockin_lot.push(newLotObj);
-        // viewModel.set('stockin.stockin_lot', stockin_lot);
-        // me.down('#Stockin_M_Edit_Lot').getStore().insert(0, newLotObj);
-
-        // update dataview d/sách vải
-        // var stockinDLot = selectedDRecord.get('stockinDLot');
-        // if(stockinDLot == ''){
-        //     stockinDLot+=lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
-        // }else{
-        //     stockinDLot+= '; ' + lotNumberTxt.toUpperCase()+' '+cayNumberTxt;
-        // }
-        // selectedDRecord.set('stockinDLot', stockinDLot);
-
-        // reset form
-        // m.resetFormAddLot();
-
-        // log result
-        // console.log(stockin);
-        // console.log(selectedDRecord);
-        // m.onSave();
     },
 	resetFormAddLot: function(){
         var m = this;

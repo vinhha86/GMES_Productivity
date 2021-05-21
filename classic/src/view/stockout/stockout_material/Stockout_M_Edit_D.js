@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 	],
     border: true,
     bind:{
-        store: '{stockout.stockout_d}'
+        store: '{StockoutD_Store}'
     },
     features: [{
         ftype: 'summary',
