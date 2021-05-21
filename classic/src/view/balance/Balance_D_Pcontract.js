@@ -30,11 +30,11 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			width: 120,
 			dataIndex: 'mat_sku_code'
 		},
-		// {
-		// 	text: 'Tên NPL', 
-		// 	dataIndex: 'mat_sku_name',
-		// 	flex: 1
-		// },
+		{
+			text: 'Màu NPL', 
+			dataIndex: 'mat_sku_color_name',
+			width: 85
+		},
 		{
 			text: 'Thành phần vải',
 			dataIndex: 'mat_sku_desc',
@@ -43,11 +43,6 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
 			}
-		},
-		{
-			text: 'Màu SP', 
-			dataIndex: 'mat_sku_color_name',
-			width: 85
 		},
 		{
 			text: 'Số lượng SP', 
@@ -108,7 +103,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		// },
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
+			format:'0,000.00',
 			text: 'Nhập kho', 
 			align:'right',
 			summaryType: 'sum',
@@ -118,17 +113,17 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Chênh lệch', 
+			format:'0,000.00',
+			text: 'Y/C xuất', 
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'mat_sku_dif',
+			dataIndex: 'mat_sku_stockout_order',
 			width: 80
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
+			format:'0,000.00',
 			text: 'Xuất kho', 
 			align:'right',
 			summaryType: 'sum',
@@ -136,16 +131,16 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			dataIndex: 'mat_sku_stockout',
 			width: 80
 		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Tồn', 
-			align:'right',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			dataIndex: 'in_stock',
-			width: 80
-		},
+		// {
+		// 	xtype: 'numbercolumn',
+		// 	format:'0,000',
+		// 	text: 'Tồn', 
+		// 	align:'right',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	dataIndex: 'in_stock',
+		// 	width: 80
+		// },
 	],
     dockedItems: [{
         dock: 'top',
