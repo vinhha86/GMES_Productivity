@@ -156,8 +156,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
             }
 
             console.log(stockin_d);
-            viewModel.set('stockin.stockin_d', []);
+            // viewModel.set('stockin.stockin_d', []);
             viewModel.set('stockin.stockin_d', stockin_d);
+
+            var store = viewModel.getStore('StockinD_Store'); // StockinD_Store
+            store.setData([]);
+            store.insert(0, stockin_d);
+            store.commitChanges();
 
             // console.log(invoice_ds);
             // console.log(stockin);
