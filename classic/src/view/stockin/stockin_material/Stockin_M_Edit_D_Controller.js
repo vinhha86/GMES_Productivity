@@ -904,21 +904,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		newObj.stockin_packinglist = [];
 		newObj.stockinid_link = stockin.id;
 		newObj.unitid_link = stockin.unitid_link;
-		newObj.totalmet_check = null;
-		newObj.totalmet_origin = null;
-		newObj.totalpackage = null;
-		newObj.totalpackage_order = null;
-		newObj.totalpackagecheck = null;
-		newObj.totalprice = null;
-		newObj.totalydscheck = null;
-		newObj.totalydsorigin = null;
+		newObj.totalmet_check = 0;
+		newObj.totalmet_origin = 0;
+		newObj.totalpackage = 0;
+		newObj.totalpackage_order = 0;
+		newObj.totalpackagecheck = 0;
+		newObj.totalprice = 0;
+		newObj.totalydscheck = 0;
+		newObj.totalydsorigin = 0;
 
 		stockin_d.push(newObj);
 		store.setData([]);
 		store.insert(0, stockin_d);
 		store.commitChanges();
 
-		console.log(data);
+		// console.log(data);
 	},
 	onPressEnterSkucode: function (textfield, e, eOpts) {
         var m = this;
