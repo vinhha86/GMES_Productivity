@@ -119,7 +119,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
         }
     },
     {
-        text: 'Kiểm khổ(M)', 
+        text: 'Kiểm khổ(cm)', 
         flex: 1,
         dataIndex: 'width_met_check',
         align: 'center',
@@ -136,35 +136,35 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             // }
             
             // return width_met + ' / ' + width_met_check;
-            return width_met_check;
+            return width_met_check * 100;
         },
         bind: {
-            hidden: '{isMetColumnHidden}',
+            // hidden: '{isMetColumnHidden}',
         },
     },
-    {
-        text: 'Kiểm khổ(Y)', 
-        flex: 1,
-        dataIndex: 'width_yds_check',
-        align: 'center',
-        renderer: function(value, record, dataIndex, cell, column) {
-            if(value == null) value = 0;
-            var width_yds_check = record.get('width_yds_check') == null ? 0 : record.get('width_yds_check');
-            var width_yds = record.get('width_yds') == null ? 0 : record.get('width_yds');
-            // if (width_yds == width_yds_check) {
-            //     cell.setCls('cellGreen');
-            // } else if (width_yds < width_yds_check) {
-            //     cell.setCls('cellYellow');
-            // } else{
-            //     cell.setCls('cellRed');
-            // }
+    // {
+    //     text: 'Kiểm khổ(Y)', 
+    //     flex: 1,
+    //     dataIndex: 'width_yds_check',
+    //     align: 'center',
+    //     renderer: function(value, record, dataIndex, cell, column) {
+    //         if(value == null) value = 0;
+    //         var width_yds_check = record.get('width_yds_check') == null ? 0 : record.get('width_yds_check');
+    //         var width_yds = record.get('width_yds') == null ? 0 : record.get('width_yds');
+    //         // if (width_yds == width_yds_check) {
+    //         //     cell.setCls('cellGreen');
+    //         // } else if (width_yds < width_yds_check) {
+    //         //     cell.setCls('cellYellow');
+    //         // } else{
+    //         //     cell.setCls('cellRed');
+    //         // }
             
-            // return width_yds + ' / ' + width_yds_check;
-            return width_yds_check;
-        },
-        bind: {
-            hidden: '{isYdsColumnHidden}',
-        },
-    },
+    //         // return width_yds + ' / ' + width_yds_check;
+    //         return width_yds_check;
+    //     },
+    //     bind: {
+    //         hidden: '{isYdsColumnHidden}',
+    //     },
+    // },
     ],
 });

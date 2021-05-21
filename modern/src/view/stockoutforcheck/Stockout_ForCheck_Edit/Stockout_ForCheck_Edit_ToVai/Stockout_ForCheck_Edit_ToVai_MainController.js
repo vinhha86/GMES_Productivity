@@ -76,6 +76,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
         // khi click lên record ở grid sẽ lấy lại giá trị cũ
         var newObjData = JSON.parse(JSON.stringify(record.data));
+        newObjData.width_met_check = newObjData.width_met_check * 100;
+        newObjData.width_met = newObjData.width_met * 100;
         viewModel.set('objPkl', newObjData);
 
         // console.log(newObj);
@@ -172,9 +174,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         objPkl.ydscheck = parseFloat(Ext.util.Format.number(objPkl.ydscheck, '0.00'));
         objPkl.metorigin = parseFloat(Ext.util.Format.number(objPkl.metorigin, '0.00'));
         objPkl.ydsorigin = parseFloat(Ext.util.Format.number(objPkl.ydsorigin, '0.00'));
-        objPkl.width_met_check = parseFloat(Ext.util.Format.number(objPkl.width_met_check, '0.00'));
+        objPkl.width_met_check = parseFloat(Ext.util.Format.number(objPkl.width_met_check / 100, '0.00'));
         objPkl.width_yds_check = parseFloat(Ext.util.Format.number(objPkl.width_yds_check, '0.00'));
-        objPkl.width_met = parseFloat(Ext.util.Format.number(objPkl.width_met, '0.00'));
+        objPkl.width_met = parseFloat(Ext.util.Format.number(objPkl.width_met / 100, '0.00'));
         objPkl.width_yds = parseFloat(Ext.util.Format.number(objPkl.width_yds, '0.00'));
 
         objPkl.stockoutorderid_link = stockout_order.id;
@@ -358,14 +360,14 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         if(objPkl.unitid_link == null) objPkl.unitid_link = 1;
         // width
         if(objPkl.unitid_link == 1){ // met
-            objPkl.width_met = objPkl.width;
-            objPkl.width_met_check  = objPkl.width;
-            objPkl.width_yds = parseFloat(Ext.util.Format.number(objPkl.width_met / 0.9144, '0.00'));
-            objPkl.width_yds_check = parseFloat(Ext.util.Format.number(objPkl.width_met_check / 0.9144, '0.00'));
+            objPkl.width_met = objPkl.width * 100;
+            objPkl.width_met_check  = objPkl.width * 100;
+            // objPkl.width_yds = parseFloat(Ext.util.Format.number(objPkl.width_met / 0.9144, '0.00'));
+            // objPkl.width_yds_check = parseFloat(Ext.util.Format.number(objPkl.width_met_check / 0.9144, '0.00'));
         }
         if(objPkl.unitid_link == 3){ // yds
-            objPkl.width_yds = objPkl.width;
-            objPkl.width_yds_check = objPkl.width;
+            // objPkl.width_yds = objPkl.width;
+            // objPkl.width_yds_check = objPkl.width;
             objPkl.width_met = parseFloat(Ext.util.Format.number(objPkl.width_yds * 0.9144, '0.00'));
             objPkl.width_met_check = parseFloat(Ext.util.Format.number(objPkl.width_yds_check * 0.9144, '0.00'));
         }

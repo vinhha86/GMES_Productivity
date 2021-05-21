@@ -156,7 +156,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var viewModel = this.getViewModel();
 
 		// lấy id stockout_order truyền vào -> xoá trong State
-		var stockoutorderidObj = GSmartApp.util.State.get('stockoutorderidObj');
+		var stockoutorderidObj = GSmartApp.util.State.get('stockoutorderidObj'); // console.log(stockoutorderidObj);
 		if(stockoutorderidObj != null){
 			viewModel.set('stockoutorderid_link', stockoutorderidObj.id)
 			GSmartApp.util.State.set('stockoutorderidObj', null);
@@ -288,6 +288,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		}
 
 		viewModel.set('stockout.stockout_d', stockout_d);
+		var store = viewModel.getStore('StockoutD_Store');
+		store.insert(0, stockout_d);
+		store.commitChanges();
 		// console.log(stockout_order);
 		// console.log(stockout);
 	},
