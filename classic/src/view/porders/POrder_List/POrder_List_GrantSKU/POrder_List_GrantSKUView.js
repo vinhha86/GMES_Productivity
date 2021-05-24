@@ -30,12 +30,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     // },
     features: [
         {
-            ftype: 'summary',
-            dock: 'bottom'
-        },
-        {
             ftype: 'grouping',
             groupHeaderTpl: 'PO: {name}'
+        },
+        {
+            ftype: 'summary',
+            dock: 'bottom'
         }
     ],
     bind: {

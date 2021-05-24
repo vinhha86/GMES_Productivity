@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     viewConfig: {
         stripeRows: false,
         columnLines: true,
+        enableTextSelection: true,
         rowLines: true
     },
     plugins: {
@@ -61,6 +62,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
         width: 150,
+        enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -70,6 +72,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
         width: 120,
+        enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -88,6 +91,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         text: 'Màu SP',
         dataIndex: 'color_name',
         width: 150,
+        enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
