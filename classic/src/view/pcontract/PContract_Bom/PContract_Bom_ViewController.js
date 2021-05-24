@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var me = this;
-        if (cellIndex == 6) {
+        if (cellIndex == 8) {
             me.ShowPO(record);
         }
     },
@@ -425,7 +425,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 8;
+        var length = 11;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);

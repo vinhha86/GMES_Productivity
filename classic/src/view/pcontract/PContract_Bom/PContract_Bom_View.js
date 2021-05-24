@@ -69,6 +69,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             return val;
         }
     }, {
+        text: 'Thành phần vải',
+        dataIndex: 'thanhPhanVai',
+        width: 200,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
+        text: 'Nhà CC',
+        dataIndex: 'nhacungcap',
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
         width: 120,
@@ -79,9 +97,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             return val;
         }
     }, {
-        text: 'Thành phần vải',
-        dataIndex: 'thanhPhanVai',
-        width: 200,
+        text: 'Cỡ/khổ',
+        dataIndex: 'coKho',
+        width: 70,
+        enableTextSelection: true,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
+        text: 'PO',
+        dataIndex: 'po_line',
+        width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -108,15 +136,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 keyup: 'onFilterValueKeyup',
                 buffer: 500
             }
-        }
-    }, {
-        text: 'PO',
-        dataIndex: 'po_line',
-        width: 150,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
         }
     }, {
         text: 'ĐVT',
