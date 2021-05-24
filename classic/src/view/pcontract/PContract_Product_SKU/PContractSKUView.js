@@ -49,7 +49,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     }, {
         text: 'SKU',
         dataIndex: 'skuCode',
-        width: 150,
+        flex: 1,
+        // width: 150,
         summaryType: 'count',
         summaryRenderer: function (value, summaryData, dataIndex) {
             var viewmodel = Ext.getCmp('PContractSKUView').getController().getViewModel();
@@ -68,7 +69,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     // },
     {
         text: 'Màu',
-        flex: 1,
+        // flex: 1,
+        width: 150,
         dataIndex: 'mauSanPham',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
