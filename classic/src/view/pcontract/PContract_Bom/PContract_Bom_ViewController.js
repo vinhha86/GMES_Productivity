@@ -479,6 +479,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                         grid.headerCt.insert(length, column);
                         length++;
                     }
+                    console.log(grid.headerCt.gridDataColumns[0])
+                    grid.headerCt.gridDataColumns[0].locked = true;
+                    grid.headerCt.gridDataColumns[1].locked = true;
+                    grid.headerCt.gridDataColumns[2].locked = true;
 
                     var storeBOM = grid.getStore();
 
