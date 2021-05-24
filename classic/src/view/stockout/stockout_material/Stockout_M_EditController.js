@@ -902,12 +902,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var m = this.getView();
 		var viewmodel = this.getViewModel();
 		var stockout_d = viewmodel.get('stockout.stockout_d');
-
-		var skuid_link = selectedRecord.get('id');
-		for(var i = 0; i < stockout_d.length; i++){
-			if(stockout_d[i].skuid_link == skuid_link){
-				return true;
+		if (null!=stockout_d){
+			var skuid_link = selectedRecord.get('id');
+			for(var i = 0; i < stockout_d.length; i++){
+				if(stockout_d[i].skuid_link == skuid_link){
+					return true;
+				}
 			}
+		} else {
+			viewmodel.set('stockout.stockout_d',[]);
 		}
 		// console.log(stockout_d);
 		return false;

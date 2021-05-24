@@ -47,7 +47,11 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		{
 			text: 'Số lượng SP', 
 			dataIndex: 'mat_sku_product_total',
-			width: 85
+			width: 85,
+			renderer: function (value, metaData, record) {
+				if(value ==0) return "";
+				return Ext.util.Format.number(value, '0,000')
+			}
 		},
 		{
 			text: 'ĐVT', 

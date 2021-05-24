@@ -15,6 +15,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
 
         me.setLoading("Đang tính cân đối");
         if (null!=params.pcontract_poid_link && 0!=params.pcontract_poid_link){
+            console.log("hehe" + params.pcontract_poid_link);
             GSmartApp.Ajax.post('/api/v1/balance/cal_balance_bypo', Ext.JSON.encode(params),
             function (success, response, options) {
                 me.setLoading(false);
