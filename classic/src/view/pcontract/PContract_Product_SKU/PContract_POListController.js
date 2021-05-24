@@ -311,6 +311,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         })
     },
     onXoaPO: function (rec) {
+        var grid = this.getView();
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
             function (choice) {
@@ -323,6 +324,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             var response = Ext.decode(response.responseText);
                             if (success) {
                                 PContractPOList.reload();
+                                var skuStore = viewmodel.getStore('PContractSKUStore');
+                                skuStore.removeAll();
                             } else {
                                 Ext.MessageBox.show({
                                     title: "Kế hoạch giao hàng",
