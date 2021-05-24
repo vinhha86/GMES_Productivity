@@ -58,6 +58,33 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             }
         }
     }, {
+        text: 'Nguyên phụ liệu',
+        dataIndex: 'materialName',
+        width: 150,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
+        text: 'Màu NPL',
+        dataIndex: 'tenMauNPL',
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
+        text: 'Thành phần vải',
+        dataIndex: 'thanhPhanVai',
+        width: 200,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
         width: 150,
@@ -77,24 +104,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 keyup: 'onFilterValueKeyup',
                 buffer: 500
             }
-        }
-    }, {
-        text: 'Nguyên phụ liệu',
-        dataIndex: 'materialName',
-        width: 150,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
-        }
-    }, {
-        text: 'Thành phần vải',
-        dataIndex: 'thanhPhanVai',
-        width: 200,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
         }
     }, {
         text: 'PO',

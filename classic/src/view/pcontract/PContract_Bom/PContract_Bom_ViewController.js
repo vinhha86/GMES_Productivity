@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var me = this;
-        if (cellIndex == 5) {
+        if (cellIndex == 6) {
             me.ShowPO(record);
         }
     },
