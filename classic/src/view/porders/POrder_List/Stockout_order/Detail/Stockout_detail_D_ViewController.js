@@ -17,14 +17,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var viewmodel = this.getViewModel();
         var params = new Object();
         var data = context.record.data;
-
-        if (data.unitid_link == 1) {
-            data.totalyds = context.value * 0.9144;
+        if (context.field != roll_request) {
+            if (data.unitid_link == 1) {
+                data.totalyds = context.value * 0.9144;
+            }
+            else if (data.unitid_link == 3) {
+                data.totalmet = context.value * 1.09361;
+            }
         }
-        else if (data.unitid_link == 3) {
-            data.totalmet = context.value * 1.09361;
-        }
-
         params.data = data;
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/update_stockout_orderd', Ext.JSON.encode(params),

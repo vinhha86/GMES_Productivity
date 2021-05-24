@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
         },
         {
             text: 'Số cây YC',
-            dataIndex: 'roll_request',
+            dataIndex: 'totalpackage',
             width: 60,
             editor: {
                 xtype: 'textfield',
