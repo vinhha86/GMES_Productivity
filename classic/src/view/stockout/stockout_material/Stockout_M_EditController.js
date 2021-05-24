@@ -937,6 +937,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                     });
 				}else{ // thêm
 					me.addSkuToDList(selectedRecord.data);
+					skucodeCbbox.setValue(null);
+					skucodeCbbox.focus();
 				}
 			}else{
 				console.log('no or null selectedRecord');

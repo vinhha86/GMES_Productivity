@@ -51,6 +51,11 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             }
         ]
     },{
+        text: 'STT',
+        width: 50,
+        xtype: 'rownumberer',
+        align: 'center'
+    },{
         text:'Ảnh',
         dataIndex:'imgproduct',
         width: 45,

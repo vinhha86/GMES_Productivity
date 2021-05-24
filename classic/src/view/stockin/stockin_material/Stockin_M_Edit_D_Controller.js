@@ -959,11 +959,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		var viewmodel = this.getViewModel();
 		var stockin_d = viewmodel.get('stockin.stockin_d');
 
-		var skuid_link = selectedRecord.get('id');
-		for(var i = 0; i < stockin_d.length; i++){
-			if(stockin_d[i].skuid_link == skuid_link){
-				return true;
+		if (null!=stockin.stockin_d){
+			var skuid_link = selectedRecord.get('id');
+			for(var i = 0; i < stockin_d.length; i++){
+				if(stockin_d[i].skuid_link == skuid_link){
+					return true;
+				}
 			}
+		}else {
+			viewmodel.set('stockin.stockin_d',[]);
 		}
 		// console.log(stockin_d);
 		return false;
@@ -990,6 +994,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
                     });
 				}else{ // thêm
 					me.addSkuToDList(selectedRecord.data);
+					skucodeCbbox.setValue(null);
+					skucodeCbbox.focus();
 				}
 			}else{
 				console.log('no or null selectedRecord');
