@@ -131,6 +131,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
                 }]
             });            
             form.show();
+
+            // bắt event load lại store, LuuPhieuNhapThanhCong
+            form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                var StockinStore = viewmodel.getStore('StockinStore');
+                StockinStore.load();
+            });
         } else {
             this.redirectTo('stockin_m_main/1/create');
         }        

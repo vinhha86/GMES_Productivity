@@ -244,6 +244,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                             this.redirectTo("stockin_m_main/" + response.id + "/edit");
                             m.getInfo(response.id);
                         }
+                        
+                        // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
+                        if (viewModel.get('isAdd_Pcontract_Stockin')){	
+                            m.fireEvent('LuuPhieuNhapThanhCong');
+                        }
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
