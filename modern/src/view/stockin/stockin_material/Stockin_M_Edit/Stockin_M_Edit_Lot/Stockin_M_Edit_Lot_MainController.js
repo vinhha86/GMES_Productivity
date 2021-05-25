@@ -98,6 +98,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot_MainController', {
 
         dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Luu', function () {
             m.reloadStore();
+            // reload obj stockin để làm mới danh sách lot
+            var Stockin_M_Edit = Ext.getCmp('Stockin_M_Edit');
+            Stockin_M_Edit.getController().getInfo(stockin.id);
         });
 
         dialog.down('#Stockin_M_Edit_LotSpace_Edit').getController().on('Xoa', function () {
