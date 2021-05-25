@@ -137,6 +137,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
             form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
                 var StockinStore = viewmodel.getStore('StockinStore');
                 StockinStore.load();
+                var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                StockinD_Store.removeAll();
             });
         } else {
             this.redirectTo('stockin_m_main/1/create');
@@ -174,6 +176,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
                 }]
             });            
             form.show();
+
+             // bắt event load lại store, LuuPhieuNhapThanhCong
+             form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                var StockinStore = viewmodel.getStore('StockinStore');
+                StockinStore.load();
+                var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                StockinD_Store.removeAll();
+            });
         } else {
             this.redirectTo("stockin_m_main/" + id + "/edit");
         }
