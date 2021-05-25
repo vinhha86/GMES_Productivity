@@ -957,9 +957,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		var me = this;
 		var m = this.getView();
 		var viewmodel = this.getViewModel();
+		// var stockin = viewmodel.get('stockin');
 		var stockin_d = viewmodel.get('stockin.stockin_d');
 
-		if (null!=stockin.stockin_d){
+		if (null!=stockin_d){
 			var skuid_link = selectedRecord.get('id');
 			for(var i = 0; i < stockin_d.length; i++){
 				if(stockin_d[i].skuid_link == skuid_link){
