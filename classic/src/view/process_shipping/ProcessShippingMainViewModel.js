@@ -43,7 +43,9 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         porderid_link: 0,
         pcontract_poid_link: 0,
         productid_link: 0,
-        IdGrant: 0
+        IdGrant: 0,
+        IsOpen: false,
+        heightPOLine: '50%'
     },
     formulas: {
         IdPOrder: function (get) {

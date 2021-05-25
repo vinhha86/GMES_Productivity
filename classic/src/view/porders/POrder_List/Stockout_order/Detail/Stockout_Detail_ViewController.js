@@ -18,9 +18,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
     },
     getInfo: function (id) {
         var me = this;
+        var viewmodel = this.getViewModel();
+
         if (id != null) {
             var params = new Object();
-            var viewmodel = this.getViewModel();
             params.id = viewmodel.get('order.id');
 
             GSmartApp.Ajax.post('/api/v1/stockoutorder/getby_id', Ext.JSON.encode(params),
@@ -42,8 +43,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
                 })
         }
         else {
-            // var store_amout = viewmodel.getStore('Stockout_order_color_amount_Store');
-
+            var detail = viewmodel.get('detail');
+    
+            var store = viewmodel.getStore('Stockout_order_d_Store');
+            store.insert(0, detail);
         }
     },
     onLuu: function () {

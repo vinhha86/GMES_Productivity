@@ -12,9 +12,11 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
         {
             region: 'north',
             xtype: 'POLineView',
-            height: '50%',
             margin: 1,
-            border: true
+            border: true,
+            bind: {
+                height: '{heightPOLine}'
+            }
         },
         {
             region: 'center',
@@ -53,11 +55,8 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
                     title: 'Định mức',
                     xtype: 'POrderBom2View'
                 }, {
-                    title: 'Nguyên liệu',
+                    title: 'Cân đối NPL',
                     xtype: 'Balance_mat_View'
-                }, {
-                    title: 'Phụ liệu',
-                    xtype: 'Balance_Trim_View'
                 }]
             }]
         }

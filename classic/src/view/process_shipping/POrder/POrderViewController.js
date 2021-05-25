@@ -10,7 +10,23 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         },
         'POrderView': {
             itemclick: 'onSelectPOrder'
+        },
+        '#btnMoRong': {
+            click: 'onMoRong'
+        },
+        '#btnThuGon': {
+            click: 'onThuGon'
         }
+    },
+    onMoRong: function(){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('heightPOLine', 0);
+        viewmodel.set('IsOpen', !viewmodel.get('IsOpen'));
+    },
+    onThuGon: function(){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('heightPOLine', '50%');
+        viewmodel.set('IsOpen', !viewmodel.get('IsOpen'));
     },
     renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
@@ -53,6 +69,11 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         //load ds to da phan chuyen
         var storeGrant = viewmodel.getStore('POrder_ListGrantStore');
         storeGrant.loadStore(porderid_link);
+
+        //load can doi 
+        var SKUBalanceStore_Mat = viewmodel.getStore('SKUBalanceStore_Mat');
+        SKUBalanceStore_Mat.setGroupField('mat_sku_product_typename');
+        SKUBalanceStore_Mat.loadBalancePOrder(porderid_link);
     },
     onAddPorder: function () {
         var viewmodel = this.getViewModel();

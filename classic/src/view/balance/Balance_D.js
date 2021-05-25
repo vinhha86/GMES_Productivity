@@ -30,11 +30,6 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 			width: 100,
 			dataIndex: 'mat_sku_code'
 		},
-		// {
-		// 	text: 'Tên NPL', 
-		// 	dataIndex: 'mat_sku_name',
-		// 	flex: 1
-		// },
 		{
 			text: 'Thành phần vải',
 			dataIndex: 'mat_sku_desc',
