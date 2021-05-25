@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
 
         var params = new Object();
         params.pcontractid_link = viewmodel.get('PContract.id');
-        params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        // params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        params.pcontract_poid_link = null;
         params.list_productid = viewmodel.get('IdProduct');
 
         me.setLoading("Đang tính cân đối");
