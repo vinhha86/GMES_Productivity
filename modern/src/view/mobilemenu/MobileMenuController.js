@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.mobilemenu.MobileMenuController', {
     },
     control: {
         '#MobileMenuDataview': {
-            itemtap: 'onItemTap'
+            // itemtap: 'onItemTap',
+            select: 'onItemSelect',
         },
     },
     
@@ -20,5 +21,11 @@ Ext.define('GSmartApp.view.mobilemenu.MobileMenuController', {
         if(viewId != null){
             this.redirectTo(viewId);
         }
-    }
+    },
+    onItemSelect: function(dataview, selected, eOpts){
+        var viewId = selected.get('id');
+        if(viewId != null){
+            this.redirectTo(viewId);
+        }
+    } 
 });
