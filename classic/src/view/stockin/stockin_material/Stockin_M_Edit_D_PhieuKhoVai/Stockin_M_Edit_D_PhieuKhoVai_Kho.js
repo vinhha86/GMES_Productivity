@@ -22,24 +22,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_PhieuKhoVai_Kho', {
 	},
 	columns: [
 		{
-			text: 'Khổ (M)', 
+			text: 'Khổ (cm)', 
 			dataIndex: 'width_met_check',
             flex: 1,
             summaryType: 'count',
 			summaryRenderer: 'renderCount',
             bind:{
-                hidden: '{isMetColumnHidden}'
-            }
-		},
-        {
-			text: 'Khổ (Y)', 
-			dataIndex: 'width_yds_check',
-            flex: 1,
-            summaryType: 'count',
-			summaryRenderer: 'renderCount',
-            bind:{
-                hidden: '{isYdsColumnHidden}'
-            }
+                // hidden: '{isMetColumnHidden}'
+            },
+            renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+				return Ext.util.Format.number(value * 100, '0,000.00');
+			},
 		},
 	],
 	// dockedItems: [

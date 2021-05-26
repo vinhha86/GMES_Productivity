@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_PhieuKhoVai_KhoController', 
     },
     control: {
       '#Stockin_M_Edit_D_PhieuKhoVai_Kho': {
-        select: 'onSelectlot'
+        select: 'onSelectKho'
       }
     },
     renderSum: function (value) {
@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_PhieuKhoVai_KhoController', 
       if (null == value) value = 0;
       return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
-    onSelectlot: function(grid, record, item, index, e, eOpts){
+    onSelectKho: function(grid, record, item, index, e, eOpts){
         var me = this.getView()
         var m = this;
         var viewModel = this.getViewModel();
