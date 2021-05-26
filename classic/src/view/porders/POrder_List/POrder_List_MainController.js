@@ -3,14 +3,15 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     alias: 'controller.POrder_List_MainController',
     isActivate: false,
     init: function () {
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var store = viewModel.getStore('POrder_ListStore');
-        // store.sort('orderdate','DESC');
-        var golivedatefrom = new Date(new Date().getTime() - 30*86400000);
-        var golivedateto = new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1);
-        store.loadStoreBySearch("", "", "", "", null, null, null, 
-            golivedatefrom, golivedateto, [1, 2, 3, 0, -1], 50, 1);
+        // var me = this.getView();
+        // var viewModel = this.getViewModel();
+        // var store = viewModel.getStore('POrder_ListStore');
+        // // store.sort('orderdate','DESC');
+        // var golivedatefrom = new Date(new Date().getTime() - 30*86400000);
+        // var golivedateto = new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1);
+
+        // store.loadStoreBySearch("", "", "", "", null, null, null, 
+        //     golivedatefrom, golivedateto, [1, 2, 3, 0, -1], 50, 1);
 
         this.onActivate();
     },
@@ -46,9 +47,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // startField.getPicker().monthYearFormat = 'm-Y';
         // endField.getPicker().monthYearFormat = 'm-Y';
 
-        if (me.isActivate) {
-            me.onloadPage();
-        }
+        // if (me.isActivate) {
+        //     me.onloadPage();
+        // }
         me.isActivate = true;
     },
     onSpecialkey: function (field, e) {
