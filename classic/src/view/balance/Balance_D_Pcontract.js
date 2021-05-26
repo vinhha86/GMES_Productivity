@@ -33,7 +33,11 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		{
 			text: 'Màu NPL', 
 			dataIndex: 'mat_sku_color_name',
-			width: 85
+			width: 85,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
 		},
 		{
 			text: 'Thành phần vải',
@@ -45,9 +49,10 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			}
 		},
 		{
-			text: 'Số lượng SP', 
+			text: 'SL sản phẩm', 
 			dataIndex: 'mat_sku_product_total',
-			width: 85,
+			// align:'right',
+			width: 70,
 			renderer: function (value, metaData, record) {
 				if(value ==0) return "";
 				return Ext.util.Format.number(value, '0,000')
@@ -135,16 +140,16 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			dataIndex: 'mat_sku_stockout',
 			width: 80
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000',
-		// 	text: 'Tồn', 
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'in_stock',
-		// 	width: 80
-		// },
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'Tồn', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'in_stock',
+			width: 80
+		},
 	],
     dockedItems: [{
         dock: 'top',
