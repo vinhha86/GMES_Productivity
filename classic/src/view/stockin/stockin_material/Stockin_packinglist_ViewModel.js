@@ -30,7 +30,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_ViewModel', {
             m3: null,
             netweight: null,
             grossweight: null,
-            width: null
+            width: null,
+            width_met: null,
+            width_met_check: null
         },
         invoice: null,
         invoiceDRec: null,

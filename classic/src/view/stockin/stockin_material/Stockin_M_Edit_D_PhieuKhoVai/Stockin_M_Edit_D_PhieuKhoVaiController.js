@@ -72,44 +72,22 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_PhieuKhoVaiController', {
         var khoArr = new Array();
         for(var i = 0; i < data.length; i++){
             var width_met_check = data[i].width_met_check == null ? 0 : data[i].width_met_check;
-            var width_yds_check = data[i].width_yds_check == null ? 0 : data[i].width_yds_check;
             data[i].width_met_check = width_met_check;
-            data[i].width_yds_check = width_yds_check;
 
-            if(unitid_link == 1){ // met
-                var found = khoArr.some(item => item.width_met_check == width_met_check);
-                if(!found){
-                    var item = new Object();
-                    item.width_met_check = width_met_check;
-                    item.width_yds_check = width_yds_check;
-                    item.stockindid_link = data[i].stockindid_link;
-                    khoArr.push(item);
-                }
-            }
-            if(unitid_link == 3){ // yds
-                var found = khoArr.some(item => item.width_yds_check == width_yds_check);
-                if(!found){
-                    var item = new Object();
-                    item.width_met_check = width_met_check;
-                    item.width_yds_check = width_yds_check;
-                    item.stockindid_link = data[i].stockindid_link;
-                    khoArr.push(item);
-                }
+            var found = khoArr.some(item => item.width_met_check == width_met_check);
+            if(!found){
+                var item = new Object();
+                item.width_met_check = width_met_check;
+                item.stockindid_link = data[i].stockindid_link;
+                khoArr.push(item);
             }
         }
 
         for(var i = 0; i < khoArr.length; i++){
             var pklist = new Array();
             for(var j = 0; j < data.length; j++){
-                if(unitid_link == 1){
-                    if(khoArr[i].width_met_check == data[j].width_met_check){
-                        pklist.push(data[j]);
-                    }
-                }
-                if(unitid_link == 3){
-                    if(khoArr[i].width_yds_check == data[j].width_yds_check){
-                        pklist.push(data[j]);
-                    }
+                if(khoArr[i].width_met_check == data[j].width_met_check){
+                    pklist.push(data[j]);
                 }
             }
             khoArr[i].pklist = pklist;

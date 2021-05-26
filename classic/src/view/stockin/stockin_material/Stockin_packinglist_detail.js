@@ -54,67 +54,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			dataIndex: 'packageid',
             width: 50,
 		},
-		{
-			text: 'Màu', 
-			dataIndex: 'color_name',
-            flex: 1,
-		},
 		// {
-		// 	text: 'N.W', 
-        //     dataIndex: 'netweight',
+		// 	text: 'Màu', 
+		// 	dataIndex: 'color_name',
         //     flex: 1,
-		// 	align:'right',
-        //     summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/,
-		// 		selectOnFocus: true
-		// 	},
-		// 	renderer: function (value, metaData, record) {
-		// 		// if(value ==0) return "";
-		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-		// 		return Ext.util.Format.number(value, '0,000.00');
-		// 	}
-        // },
-        // {
-		// 	text: 'G.W', 
-        //     dataIndex: 'grossweight',
-        //     flex: 1,
-		// 	align:'right',
-        //     summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/,
-		// 		selectOnFocus: true
-		// 	},
-		// 	renderer: function (value, metaData, record) {
-		// 		// if(value ==0) return "";
-		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-		// 		return Ext.util.Format.number(value, '0,000.00');
-		// 	}
-        // },
-        // {
-		// 	text: 'M3', 
-		// 	dataIndex: 'm3',
-        //     flex: 1,
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/,
-		// 		selectOnFocus: true
-		// 	},
-		// 	renderer: function (value, metaData, record) {
-		// 		// if(value ==0) return "";
-		// 		metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-		// 		return Ext.util.Format.number(value, '0,000.00');
-		// 	}
 		// },
         {
-			text: 'Khổ (M)', 
+			text: 'Khổ (cm)', 
 			dataIndex: 'width_met',
             flex: 1,
 			align:'right',
@@ -125,15 +71,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			},
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+				return Ext.util.Format.number(value * 100, '0,000.00');
 			},
 			bind: {
-				hidden: '{isMetColumnHidden}',
+				// hidden: '{isMetColumnHidden}',
 			},
 		},
         {
-			text: 'Khổ thực tế (M)', 
+			text: 'Khổ thực tế (cm)', 
 			dataIndex: 'width_met_check',
             flex: 1,
 			align:'right',
@@ -144,53 +90,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			},
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+				return Ext.util.Format.number(value * 100, '0,000.00');
 			},
 			bind: {
-				hidden: '{isMetColumnHidden}',
+				// hidden: '{isMetColumnHidden}',
 			},
 		},
 		{
-			text: 'Khổ (Y)', 
-			dataIndex: 'width_yds',
-            flex: 1,
-			align:'right',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			},
-			bind: {
-				hidden: '{isYdsColumnHidden}',
-			},
-		},
-        {
-			text: 'Khổ thực tế (Y)', 
-			dataIndex: 'width_yds_check',
-            flex: 1,
-			align:'right',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
-			renderer: function (value, metaData, record) {
-				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
-			},
-			bind: {
-				hidden: '{isYdsColumnHidden}',
-			},
-		},
-		{
-			text: 'SL Invoice (m)', 
+			text: 'Dài phiếu (m)', 
             dataIndex: 'met_origin',
             flex: 1,
 			align:'right',
@@ -211,7 +119,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			},
         },
 		{
-			text: 'SL nhập (m)', 
+			text: 'Dài kiểm (m)', 
             dataIndex: 'met_check',
             flex: 1,
 			align:'right',
@@ -232,7 +140,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			},
         },
 		{
-			text: 'SL Invoice (y)', 
+			text: 'Dài phiếu (y)', 
             dataIndex: 'ydsorigin',
             flex: 1,
 			align:'right',
@@ -253,7 +161,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 			},
         },
 		{
-			text: 'SL nhập (y)', 
+			text: 'Dài kiểm (y)', 
             dataIndex: 'ydscheck',
             flex: 1,
 			align:'right',
@@ -327,56 +235,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 				value: '{packinglist.packageid}'
             }
 		},
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: 1,
-		// 	itemId:'netweight',
-		// 	emptyText: 'N.W',
-		// 	flex: 1,
-		// 	labelWidth: 0,
-		// 	hideLabel: true,	
-		// 	maskRe: /[0-9.]/,		
-        //     bind:{
-		// 		value: '{packinglist.netweight}'
-        //     }
-        // },
-        // {
-		// 	xtype: 'textfield',
-		// 	margin: 1,
-		// 	itemId:'grossweight',
-		// 	emptyText: 'G.W',
-		// 	flex: 1,
-		// 	labelWidth: 0,
-		// 	hideLabel: true,
-		// 	maskRe: /[0-9.]/,
-        //     bind:{
-		// 		value: '{packinglist.grossweight}'
-        //     }
-		// },
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: 1,
-		// 	itemId:'m3',
-		// 	emptyText: 'M3',
-		// 	flex: 1,
-		// 	labelWidth: 0,
-		// 	hideLabel: true,
-		// 	maskRe: /[0-9.]/,
-        //     bind:{
-		// 		value: '{packinglist.m3}'
-        //     }
-        // },
 		{
 			xtype: 'textfield',
 			margin: 1,
-			itemId:'width',
-			emptyText: 'Khổ',
+			itemId:'width_met',
+			emptyText: 'Khổ (cm)',
 			width: 120,
 			labelWidth: 0,
 			hideLabel: true,
 			maskRe: /[0-9.]/,
             bind:{
-				value: '{packinglist.width}'
+				value: '{packinglist.width_met}'
             }
         },
         {

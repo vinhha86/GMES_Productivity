@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
       '#m3': {
         specialkey: 'onSpecialkey'
       },
-      '#width': {
+      '#width_met': {
         specialkey: 'onSpecialkey'
       },
       '#btnThemPKL': {
@@ -71,9 +71,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
           me.down('#packageid').focus();
         }
         else if (field.itemId == "packageid") {
-          me.down('#width').focus();
+          me.down('#width_met').focus();
         }
-        else if (field.itemId == "width") {
+        else if (field.itemId == "width_met") {
           if(!viewModel.get('isMetColumnHidden')){
             me.down('#met_origin').focus();
           }else if(!viewModel.get('isYdsColumnHidden')){
@@ -169,8 +169,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         // packinglistObj.m3 = me.down('#m3').getValue() == '' ? 0 : parseFloat(me.down('#m3').getValue());
         // packinglistObj.netweight = me.down('#netweight').getValue() == '' ? 0 : parseFloat(me.down('#netweight').getValue());
         // packinglistObj.grossweight = me.down('#grossweight').getValue() == '' ? 0 : parseFloat(me.down('#grossweight').getValue());
-        packinglistObj.width = me.down('#width').getValue() == '' ? 0 : parseFloat(me.down('#width').getValue());
-        packinglistObj.width_check = packinglistObj.width;
+        packinglistObj.width_met = me.down('#width_met').getValue() == '' ? 0 : parseFloat(me.down('#width_met').getValue()) / 100;
+        packinglistObj.width_met_check = packinglistObj.width_met;
         packinglistObj.status = 0;
         packinglistObj.checked = 1;
   
@@ -191,7 +191,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail_Controller', {
         // me.down('#m3').setValue('');
         // me.down('#netweight').setValue('');
         // me.down('#grossweight').setValue('');
-        me.down('#width').setValue('');
+        me.down('#width_met').setValue('');
         me.down('#lotnumber').focus();
       }
       this.reCalculateSkuGrid();
