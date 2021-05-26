@@ -393,7 +393,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 
         if(selectedPklRecord != null){
             objData.id = selectedPklRecord.get('id');
-            objData.status = selectedPklRecord.get('status');
         }
 
 
