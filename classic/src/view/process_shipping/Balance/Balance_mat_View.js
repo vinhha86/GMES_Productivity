@@ -21,7 +21,8 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_mat_View', {
         ftype: 'grouping',
         groupHeaderTpl: '{name}'
     }],
-    columns: [{
+    columns: [
+        {
         text: 'Mã NPL', 
         width: 100,
         dataIndex: 'mat_sku_code'
@@ -155,6 +156,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_mat_View', {
             ui: 'header',
             margin: '10 5 0 0',
             tooltip: 'Tạo yêu cầu xuất',
+            text: 'Yêu cầu xuất NPL',
             iconCls: 'x-fa fa-plus'
         }
         ]

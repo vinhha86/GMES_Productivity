@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
             items: [{
                 region: 'west',
                 xtype: 'POrderView',
-                width: '35%',
+                width: 300,
                 margin: 1,
                 border: true
             }, {
@@ -51,12 +51,14 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
                 }, {
                     title: 'Chi tiết tổ',
                     xtype: 'SizeBreakdown_Grant_MainView'
-                }, {
-                    title: 'Định mức',
-                    xtype: 'POrderBom2View'
-                }, {
+                }, 
+                // {
+                //     title: 'Định mức',
+                //     xtype: 'POrderBom2View'
+                // }, 
+                {
                     title: 'Cân đối NPL',
-                    xtype: 'Balance_mat_View'
+                    xtype: 'Balance_D_POrder'
                 }]
             }]
         }
