@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
         // }, 
         {
             text: 'Cây Y/C',
-            dataIndex: 'roll_request',
+            dataIndex: 'totalpackage',
             width: 60,
             editor: {
                 xtype: 'textfield',
