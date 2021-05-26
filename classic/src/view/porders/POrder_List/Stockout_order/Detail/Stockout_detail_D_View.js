@@ -19,128 +19,127 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
     bind: {
         store: '{Stockout_order_d_Store}'
     },
-    columns: [
-        {
-            text: 'STT',
-            width: 40,
-            xtype: 'rownumberer',
-            align: 'center'
-        },
-        {
-            text: 'Mã NPL',
-            dataIndex: 'materialCode',
-            width: 120
-        },
-        {
-            text: 'Tên NPL',
-            dataIndex: 'materialName',
-            width: 150
-        }, {
-            text: 'Màu NPL',
-            dataIndex: 'tenMauNPL',
-            flex: 1
-        }, {
-            text: 'Cỡ khổ',
-            dataIndex: 'coKho',
-            width: 80
-        }, {
-            text: 'ĐVT',
-            dataIndex: 'unitName',
-            width: 70
-        }, {
-            text: 'SL giữ',
-            dataIndex: 'totalyds_lock',
-            width: 80,
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value + ' y';
-                return value;
-            },
-            bind: {
-                hidden: '{isHiddenYard}'
+    columns: [{
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenu'
             }
+        ]
+    },
+    {
+        text: 'STT',
+        width: 40,
+        xtype: 'rownumberer',
+        align: 'center'
+    },
+    {
+        text: 'Mã NPL',
+        dataIndex: 'materialCode',
+        width: 120
+    },
+    {
+        text: 'Tên NPL',
+        dataIndex: 'materialName',
+        width: 150
+    }, {
+        text: 'Màu NPL',
+        dataIndex: 'tenMauNPL',
+        flex: 1
+    }, {
+        text: 'Cỡ khổ',
+        dataIndex: 'coKho',
+        width: 80
+    }, {
+        text: 'ĐVT',
+        dataIndex: 'unitName',
+        width: 70
+    }, {
+        text: 'SL giữ',
+        dataIndex: 'totalyds_lock',
+        width: 80,
+        renderer: function (value, metaData, record) {
+            value = value == null ? "" : value + ' y';
+            return value;
         },
-        {
-            text: 'SL giữ',
-            dataIndex: 'totalmet_lock',
-            width: 80,
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value + ' m';
-                return value;
-            },
-            bind: {
-                hidden: '{!isHiddenYard}'
-            }
-        },
-        {
-            text: 'SL cây giữ',
-            dataIndex: 'socaygiu',
-            width: 80,
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value;
-                return value;
-            }
-        },
-        {
-            text: 'Số cây YC',
-            dataIndex: 'totalpackage',
-            width: 60,
-            editor: {
-                xtype: 'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true
-            },
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value;
-                return value;
-            }
-        },
-        {
-            text: 'SL YC',
-            dataIndex: 'totalyds',
-            width: 80,
-            editor: {
-                xtype: 'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true
-            },
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value + ' y';
-                return value;
-            },
-            bind: {
-                hidden: '{isHiddenYard}'
-            }
-        },
-        {
-            text: 'SL YC',
-            dataIndex: 'totalmet',
-            width: 80,
-            editor: {
-                xtype: 'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true
-            },
-            renderer: function (value, metaData, record) {
-                value = value == null ? "" : value + ' m';
-                return value;
-            },
-            bind: {
-                hidden: '{!isHiddenYard}'
-            }
-        },
-        {
-            xtype: 'actioncolumn',
-            width: 28,
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            items: [
-                {
-                    iconCls: 'x-fa fas fa-bars violetIcon',
-                    handler: 'onMenu'
-                }
-            ]
+        bind: {
+            hidden: '{isHiddenYard}'
         }
+    },
+    {
+        text: 'SL giữ',
+        dataIndex: 'totalmet_lock',
+        width: 80,
+        renderer: function (value, metaData, record) {
+            value = value == null ? "" : value + ' m';
+            return value;
+        },
+        bind: {
+            hidden: '{!isHiddenYard}'
+        }
+    },
+    {
+        text: 'SL cây giữ',
+        dataIndex: 'socaygiu',
+        width: 80,
+        renderer: function (value, metaData, record) {
+            value = value == null ? "" : value;
+            return value;
+        }
+    },
+    {
+        text: 'Số cây YC',
+        dataIndex: 'totalpackage',
+        width: 60,
+        editor: {
+            xtype: 'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            value = value == null ? "" : value;
+            return value;
+        }
+    },
+    {
+        text: 'SL YC',
+        dataIndex: 'totalyds',
+        width: 80,
+        editor: {
+            xtype: 'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            value = value == null ? "" : value + ' y';
+            return value;
+        },
+        bind: {
+            hidden: '{isHiddenYard}'
+        }
+    },
+    {
+        text: 'SL YC',
+        dataIndex: 'totalmet',
+        width: 80,
+        editor: {
+            xtype: 'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+        renderer: function (value, metaData, record) {
+            value = value == null ? "" : value + ' m';
+            return value;
+        },
+        bind: {
+            hidden: '{!isHiddenYard}'
+        }
+    }
     ],
     dockedItems: [{
         dock: 'top',
