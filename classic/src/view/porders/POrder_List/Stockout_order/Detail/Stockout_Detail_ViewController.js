@@ -77,6 +77,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
             list_d.push(data);
         }
         params.data = viewmodel.get('order');
+        params.data.pcontractid_link = viewmodel.get('pcontractid_link');
         params.detail = list_d;
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/create', Ext.JSON.encode(params),

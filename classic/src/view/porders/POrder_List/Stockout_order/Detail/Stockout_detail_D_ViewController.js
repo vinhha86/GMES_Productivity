@@ -19,10 +19,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var data = context.record.data;
         if (context.field != 'totalpackage') {
             if (data.unitid_link == 1) {
-                data.totalyds = context.value * 0.9144;
+                data.totalyds = context.value * 1.09361;
             }
             else if (data.unitid_link == 3) {
-                data.totalmet = context.value * 1.09361;
+                data.totalmet = context.value * 0.9144;
             }
         }
         params.data = data;
