@@ -97,8 +97,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthMetCheckTxt', '');
         viewModel.set('widthMetTxt', '');
 
-        viewModel.set('pklSpaceTxt', null);
-        viewModel.set('pklFloorTxt', null);
+        // viewModel.set('pklSpaceTxt', null);
+        // viewModel.set('pklFloorTxt', null);
         // m.getView().down('#packageidTxt').focus();
 
         myview.setMasked(false);
@@ -224,7 +224,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
-        var stockin_lot = viewModel.get('stockin.stockin_lot');
         var selectedDRecord = viewModel.get('selectedDRecord');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
 
@@ -299,7 +298,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var spaceepc_link = 'D-' + pklRowTxt + '|H-' + pklSpaceTxt + '|T-' + pklFloorTxt + '|';
 
         // check lotnumber tồn tại
-        // console.log(stockin); console.log(stockin_lot); console.log(lotnumberTxt);
+        var stockin_lot = selectedDRecord.get('stockin_lot');
+        if(stockin_lot == null) stockin_lot = [];
         var isLotnumberExist = stockin_lot.some(
             item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
         );

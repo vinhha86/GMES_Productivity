@@ -257,29 +257,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             if(response.respcode == 200) {
                 // console.log(response.data);
                 var data = response.data;
-
-                // set stockin lot cho stockinD
-                // data = me.setStockinLotForStockinD(data);
-
                 viewModel.set('stockin', data);
-
-                // set store kiểm cây và 10%
-                // me.setStorePklAndPklReCheck(data);
-
-                // load cbbox color pkl theo stockin
-                var attributeValueStore = viewModel.getStore('attributeValueStore');
-                attributeValueStore.loadStore_colorForStockin(data.id);
-                attributeValueStore.load({
-                    scope: this,
-                    callback: function(records, operation, success) {
-                        if(!success){
-                            this.fireEvent('logout');
-                        } else {
-                            // viewModel.set('colorTxt', viewModel.get('stockinD.colorid_link'));
-                        }
-                    }
-                });
-
+                
                 // set store org from
                 if(data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
                     var orgfromstore = viewModel.getStore('OrgFromStore');
@@ -360,100 +339,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('storePackinglistArr', storePackinglistArr);
         viewModel.set('storePackinglistArrStatusLessThan1', storePackinglistArrStatusLessThan1);
     },
-    setStockinLotForStockinD: function(stockin){
-        var data = stockin;
-        for(var i=0; i<data.stockin_d.length; i++){
-            var stockInD = data.stockin_d[i];
-            var stockinDLot = '';
-            if(stockInD.skuid_link != null){
-                var materialid_link = stockInD.skuid_link;
-                for(var j=0; j<stockin.stockin_lot.length; j++){
-                    var stockinLot = stockin.stockin_lot[j];
-                    var result = '';
-                    result+= stockinLot.lot_number == null ? '' : stockinLot.lot_number;
-					result+= stockinLot.totalpackage == null ? '' : ' (' +  stockinLot.totalpackage + ')';
-					// result+= stockinLot.space == null ? '' : ' ' + stockinLot.space;
-					
-					if(stockinLot.materialid_link == materialid_link) {
-						if(stockinDLot == '') {
-							stockinDLot += result;
-						}else {
-							stockinDLot += '; ' + result;
-						}
-					}
-                }
-            }
-            stockInD.stockinDLot = stockinDLot;
-        }
-        // console.log(data);
-        return data;
-    },
     
-    setDataStockin: function(){
-        var m = this;
-        var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
-        var stockin_d = viewModel.get('stockin.stockin_d');
-        var stockin_lot = viewModel.get('stockin.stockin_lot');
-        var storePackinglistArr = viewModel.get('storePackinglistArr');
-        var storePackinglistArrAll = viewModel.get('storePackinglistArrAll');
-
-        // Lot data
-        var viewLot = this.getView().down('#Stockin_M_Edit_Lot');
-        var storeLot = viewLot.getStore();
-        for(var i = 0; i < stockin_lot.length; i++){
-            var totalmetcheck = 0;
-            var totalydscheck = 0;
-            var grossweight_check = 0;
-            var totalpackagepklist = 0;
-            for(var j = 0; j < storePackinglistArrAll.length; j++){
-                var pkl = storePackinglistArrAll[j];
-                if(stockin_lot[i].lot_number.toUpperCase() == pkl.lotnumber.toUpperCase()){
-                    totalmetcheck+=pkl.met_check;
-                    totalydscheck+=pkl.ydscheck;
-                    grossweight_check+=pkl.grossweight_check;
-                    totalpackagepklist++;
-                }
-            }
-            stockin_lot[i].totalmetcheck = totalmetcheck;
-            stockin_lot[i].totalydscheck = totalydscheck;
-            stockin_lot[i].grossweight_check = grossweight_check;
-            stockin_lot[i].totalpackagepklist = totalpackagepklist;
-        }
-        viewModel.set('stockin.stockin_lot', stockin_lot);
-        // storeLot.setData([]);
-        storeLot.removeAll();
-        storeLot.insert(0, stockin_lot);
-
-        // StockinD data
-        var viewD = this.getView().down('#Stockin_M_Edit_D');
-        var storeD = viewD.getStore();
-        for(var i = 0; i < stockin_d.length; i++){
-            stockin_d[i].stockin_packinglist = [];
-            var totalmet_check = 0;
-            var totalydscheck = 0;
-            var grossweight = 0;
-            for(var j = 0; j < storePackinglistArrAll.length; j++){
-                var pkl = storePackinglistArrAll[j];
-                if(stockin_d[i].skuid_link == pkl.skuid_link){
-                    stockin_d[i].stockin_packinglist.push(pkl);
-                    totalmet_check+=pkl.met_check;
-                    totalydscheck+=pkl.ydscheck;
-                    grossweight+=pkl.grossweight;
-                }
-            }
-            stockin_d[i].totalmet_check = totalmet_check;
-            stockin_d[i].totalydscheck = totalydscheck;
-            stockin_d[i].grossweight = grossweight;
-        }
-        viewModel.set('stockin.stockin_d', stockin_d);
-        // storeD.setData([]);
-        storeD.removeAll();
-        storeD.insert(0, stockin_d);
-
-        // console.log(stockin);
-        // console.log(storePackinglistArr);
-    },
+    
     onSave: function(){
         var me = this.getView();
         var m = this;
@@ -479,15 +366,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                             stockin_packinglist[j].stockindid_link = null;
                         }
                     }
-                }
-            }
-        }
-
-        var stockin_lot = stockin.stockin_lot;
-        if(stockin_lot != null){
-            for(var i = 0; i < stockin_lot.length; i++){
-                if(stockin_lot[i].id == 0 || typeof stockin_lot[i].id === 'string'){
-                    stockin_lot[i].id = null;
                 }
             }
         }

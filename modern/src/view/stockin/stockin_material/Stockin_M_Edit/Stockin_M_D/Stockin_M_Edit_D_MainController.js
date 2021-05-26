@@ -43,7 +43,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         var m = this;
 		var viewModel = this.getViewModel();
 		var stockin = viewModel.get('stockin');
-        var stockin_lot = viewModel.get('stockin.stockin_lot');
 		var selectedDRecord = viewModel.get('selectedDRecord');
         var stockinid_link = viewModel.get('stockin.id');
 
@@ -63,13 +62,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         if(yNumberTxt == '') {Ext.toast('Chưa nhập số Y', 1000); return;}
         if(canNumberTxt == '') {Ext.toast('Chưa nhập số cân nặng', 1000); return;}
 
-        // check stockin_lot
-        for(var i = 0; i < stockin_lot.length; i++){
-            var stockin_lotRec = stockin_lot[i];
-            if(stockin_lotRec.lot_number.toUpperCase() == lotNumberTxt.toUpperCase() && stockin_lotRec.materialid_link == selectedDRecord.get('skuid_link')){
-                // lot cho sku đã tồn tại, ko Thêm
-                Ext.toast('Đã tồn tại lot của mã vải', 1000);
-                return;
+        // check stockin_lot tồn tại chưa
+        var stockin_lot = selectedDRecord.get('stockin_lot');
+        if(stockin_lot != null){
+            for(var i = 0; i < stockin_lot.length; i++){
+                var stockin_lotRec = stockin_lot[i];
+                if(stockin_lotRec.lot_number.toUpperCase() == lotNumberTxt.toUpperCase() && stockin_lotRec.materialid_link == selectedDRecord.get('skuid_link')){
+                    // lot cho sku đã tồn tại, ko Thêm
+                    Ext.toast('Đã tồn tại lot của mã vải', 1000);
+                    return;
+                }
             }
         }
 
@@ -89,7 +91,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_MainController', {
         newLotObj.materialid_link = selectedDRecord.get('skuid_link');
         newLotObj.skucode = selectedDRecord.get('skucode');
         newLotObj.stockindid_link = selectedDRecord.get('id');
-        
 
         // thêm sl yêu cầu
         if(stockin.unitid_link == 3){
