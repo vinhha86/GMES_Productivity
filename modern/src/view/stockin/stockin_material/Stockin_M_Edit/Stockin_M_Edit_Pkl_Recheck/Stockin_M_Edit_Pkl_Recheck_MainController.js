@@ -31,6 +31,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             if(cbbox.getSelection() != null){
                 viewModel.set('selectedDRecord', cbbox.getSelection());
             }
+            
+            // bỏ selectedRecord
+            viewModel.set('selectedLotRecord', null);
+            viewModel.set('selectedPklRecord', null);
+            viewModel.set('selectedPklRecheckRecord', null);
         }
     },
     onmaPklRecheckFilterKeyup: function (){
