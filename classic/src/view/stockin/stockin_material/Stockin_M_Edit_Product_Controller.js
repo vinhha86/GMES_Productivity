@@ -40,10 +40,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Product_Controller', {
 			var stockin_product = viewmodel.get('stockin.stockin_product');
             if(stockin_product == null){
                 stockin_product = new Array();
+				viewmodel.set('stockin.stockin_product', []);
             }	
 			for(var i = 0; i < records.length; i++){
                 var theProduct = records[i];
-                var found = stockin_product.some(item => item.productid_link === theProduct.get('id'));
+                var found = stockin_product.some(item => item.productid_link === theProduct.get('productid_link'));
                 if(!found){
                     var stockin_productObj = new Object();
 					stockin_productObj.id =  null;
@@ -58,6 +59,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Product_Controller', {
 			var StockinProduct_Store = viewmodel.getStore('StockinProduct_Store');
             StockinProduct_Store.removeAll();
 			StockinProduct_Store.setData(stockin_product);
+			viewmodel.set('stockin.stockin_product', stockin_product);
             form.close();					
         })
     },

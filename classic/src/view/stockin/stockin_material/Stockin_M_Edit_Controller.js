@@ -129,6 +129,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 data = me.setStockinLotForStockinD(data);
 
                 if(data.unitid_link == null) data.unitid_link = 1;
+                if(data.stockin_d == null) data.stockin_d = [];
+                if(data.stockin_product == null) data.stockin_product = [];
                 viewModel.set('stockin', data);
                 for(var i=0; i<response.listepc.length; i++){
                     listepc.set(response.listepc[i].epc, response.listepc[i].epc);
@@ -223,7 +225,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
             }
         }
-        // console.log(stockin);
+        var stockin_product = stockin.stockin_product;
+        if(stockin_product != null){
+            for(var i = 0; i < stockin_product.length; i++){
+                if(stockin_product[i].id == 0 || typeof stockin_product[i].id === 'string'){
+                    stockin_product[i].id = null;
+                }
+            }
+        }
+        console.log(stockin);
         params.data.push(stockin);
         me.setLoading("Đang lưu dữ liệu");
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
