@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var viewmodel = this.getViewModel();
         var params = new Object();
         var data = context.record.data;
-        if (context.field != roll_request) {
+        if (context.field != 'totalpackage') {
             if (data.unitid_link == 1) {
                 data.totalyds = context.value * 0.9144;
             }

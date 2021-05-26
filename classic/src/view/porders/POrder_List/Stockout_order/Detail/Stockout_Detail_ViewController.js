@@ -74,12 +74,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
         var list_d = [];
         for (var i = 0; i < store.data.length; i++) {
             var data = store.data.items[i].data;
-            console.log(data);
             list_d.push(data);
         }
         params.data = viewmodel.get('order');
         params.detail = list_d;
-
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/create', Ext.JSON.encode(params),
             function (success, response, options) {
