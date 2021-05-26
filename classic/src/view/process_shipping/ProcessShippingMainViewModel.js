@@ -7,7 +7,9 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         'GSmartApp.store.porder.porderSKUStore',
         'GSmartApp.store.porder.POrder_ListGrantSKUStore',
         'GSmartApp.store.porder.POrder_ListGrantStore',
-        'GSmartApp.store.pcontract.POrderBomColorStore',],
+        'GSmartApp.store.pcontract.POrderBomColorStore',
+        'GSmartApp.store.stockout_order.Stockout_order_Store',
+        'GSmartApp.store.stockout_order.Stockout_order_d_store'],
     stores: {
         POLineStore: {
             type: 'PContractPOStore'
@@ -35,6 +37,12 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         },
         POrderBom2Store: {
             type: 'POrderBomColorStore'
+        },
+        Stockout_order_Store: {
+            type: 'Stockout_order_Store'
+        },
+        Stockout_order_d_Store: {
+            type: 'Stockout_order_d_store'
         }
     },
     data: {
@@ -42,6 +50,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         shipdate_from: new Date(),
         porderid_link: 0,
         pcontract_poid_link: 0,
+        pcontractid_link: 0,
         productid_link: 0,
         IdGrant: 0,
         IsOpen: false,

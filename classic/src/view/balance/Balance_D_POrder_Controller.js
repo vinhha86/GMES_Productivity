@@ -8,7 +8,43 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
             click: 'onAddStockoutOrder'
         },
         'Balance_D_POrder': {
-            beforeselect: 'onBeforeselect'
+            beforeselect: 'onBeforeselect',
+            celldblclick: 'onCellDblClick'
+        }
+    },
+    onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        var viewmodel = this.getViewModel();
+
+        if (cellIndex == 9) {
+            var porderid_link = viewmodel.get('porderid_link');
+
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu yêu cầu xuất cho sản xuất',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .8,
+                width: Ext.getBody().getViewSize().width * .80,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockout_order_MainView',
+                    viewModel: {
+                        type: 'ProcessShippingMainViewModel',
+                        data: {
+                            isload: true, //them bien de load du lieu len hay khong
+                            porderid_link: porderid_link,
+                            material_skuid_link: record.get('mat_skuid_link')
+                        }
+                    }
+                }]
+            });
+            form.show();
         }
     },
     onBeforeselect: function (m, record, index, eOpts) {
@@ -25,7 +61,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                     buttonText: {
                         yes: 'Đóng',
                     },
-                    fn: function(){                        
+                    fn: function () {
                         grid.getSelectionModel().deselect(record, true, true);
                     }
                 });
@@ -41,44 +77,36 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
 
         var stockouttypeid_link = select[0].get('mat_sku_product_typename') == "Vải chính" ? 1 : 2;
 
-            var form = Ext.create('Ext.window.Window', {
-                closable: false,
-                resizable: false,
-                modal: true,
-                border: false,
-                title: 'Phiếu yêu cầu xuất cho sản xuất',
-                closeAction: 'destroy',
-                height: Ext.getBody().getViewSize().height * .99,
-                width: Ext.getBody().getViewSize().width * .90,
-                bodyStyle: 'background-color: transparent',
-                layout: {
-                    type: 'fit', // fit screen for window
-                    padding: 5
-                },
-                items: [{
-                    xtype: 'Stockout_Detail_View',
-                    viewModel: {
-                        data: {
-                            order: {
-                                stockouttypeid_link: stockouttypeid_link,
-                                id: null,
-                                porderid_link: viewmodel.get('porderid_link')
-                            },
-                            porderid_link: viewmodel.get('porderid_link'),
-                            detail : select
-                        }
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Phiếu yêu cầu xuất cho sản xuất',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .99,
+            width: Ext.getBody().getViewSize().width * .90,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_Detail_View',
+                viewModel: {
+                    data: {
+                        order: {
+                            stockouttypeid_link: stockouttypeid_link,
+                            id: null,
+                            porderid_link: viewmodel.get('porderid_link')
+                        },
+                        porderid_link: viewmodel.get('porderid_link'),
+                        pcontractid_link: viewmodel.get('pcontractid_link'),
+                        detail: select
                     }
-                }]
-            });
-            form.show();
-        
-            form.down('#Stockout_Detail_View').getController().on('Thoat', function () {
-                form.close();
-            });
-        
-            form.down('#Stockout_Detail_View').getController().on('Save', function () {
-                var store = viewmodel.getStore('Stockout_order_Store');
-                store.load();
-            });
+                }
+            }]
+        });
+        form.show();
     }
 })

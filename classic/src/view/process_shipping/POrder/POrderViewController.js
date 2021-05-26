@@ -18,12 +18,12 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
             click: 'onThuGon'
         }
     },
-    onMoRong: function(){
+    onMoRong: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('heightPOLine', 0);
         viewmodel.set('IsOpen', !viewmodel.get('IsOpen'));
     },
-    onThuGon: function(){
+    onThuGon: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('heightPOLine', '50%');
         viewmodel.set('IsOpen', !viewmodel.get('IsOpen'));
@@ -60,6 +60,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         viewmodel.set('porderid_link', porderid_link);
         viewmodel.set('productid_link', productid_link);
         viewmodel.set('productid_link', productid_link);
+        viewmodel.set('pcontractid_link', record.get('pcontractid_link'));
         viewmodel.set('IdGrant', 0);
 
         //load sku cua lenh san xuat
