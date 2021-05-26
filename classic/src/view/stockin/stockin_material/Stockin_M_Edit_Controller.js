@@ -125,9 +125,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 // console.log(response.data);
                 var data = response.data;
 
-                // set stockin lot cho stockinD
-                data = me.setStockinLotForStockinD(data);
-
                 if(data.unitid_link == null) data.unitid_link = 1;
                 if(data.stockin_d == null) data.stockin_d = [];
                 if(data.stockin_product == null) data.stockin_product = [];
@@ -151,34 +148,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
             }
 		})
-    },
-    setStockinLotForStockinD: function(stockin){
-        var data = stockin;
-        for(var i=0; i<data.stockin_d.length; i++){
-            var stockInD = data.stockin_d[i];
-            var stockinDLot = '';
-            if(stockInD.skuid_link != null){
-                var materialid_link = stockInD.skuid_link;
-                for(var j=0; j<stockin.stockin_lot.length; j++){
-                    var stockinLot = stockin.stockin_lot[j];
-                    var result = '';
-                    result+= stockinLot.lot_number == null ? '' : stockinLot.lot_number;
-					result+= stockinLot.totalpackage == null ? '' : ' ' +  stockinLot.totalpackage;
-					// result+= stockinLot.space == null ? '' : ' ' + stockinLot.space;
-					
-					if(stockinLot.materialid_link == materialid_link) {
-						if(stockinDLot == '') {
-							stockinDLot += result;
-						}else {
-							stockinDLot += '; ' + result;
-						}
-					}
-                }
-            }
-            stockInD.stockinDLot = stockinDLot;
-        }
-        // console.log(data);
-        return data;
     },
     CheckValidate: function(){
 		var mes = "";

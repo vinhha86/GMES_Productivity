@@ -48,7 +48,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     },
 
     bind: {
-        // store:'{stockin.stockin_lot}'
         store: '{StockinLotStore}'
     },
 

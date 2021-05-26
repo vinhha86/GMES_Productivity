@@ -27,6 +27,12 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
                 return (data.mat_sku_stockin - data.mat_sku_stockout);
             }
         },
+		{
+            name: 'ability',
+            calculate: function(data) {
+                return (data.mat_sku_stockin - data.mat_sku_stockout)/data.mat_sku_bom_amount;
+            }
+        },
 	],
 	groupField: 'mat_sku_product_typename',
 	sorters: [{
@@ -101,7 +107,8 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					//  this.fireEvent('logout');
+					console.log('Loi tinh can doi');
 				} else {
 					console.log(records);
 				}

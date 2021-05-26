@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewController', 
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var me = this.getView();
-        if (newCard.xtype == "Balance_mat_View") {
+        if (newCard.xtype == "Balance_D_POrder") {
             this.onCalBalance();
         }
         else if (newCard.xtype == 'SizeBreakdown_Grant_MainView') {

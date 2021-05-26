@@ -97,7 +97,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
-        var stockin_lot = viewModel.get('stockin.stockin_lot');
         // var selectedDRecord = viewModel.get('selectedDRecord');
         var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
         var objRecheck = viewModel.get('objRecheck');
