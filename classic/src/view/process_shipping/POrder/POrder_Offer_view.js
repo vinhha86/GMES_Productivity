@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
         {
             text: 'Mã lệnh',
             dataIndex: 'ordercode',
-            flex: 1,
+            width: 150,
             renderer: function (value, metaData, record, rowIndex) {
                 var c = record.get('status');
                 if (c == 0) {
@@ -63,7 +63,34 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
             dataIndex: 'granttoorgcode'
         },
         {
-            text: 'SL',
+            text: 'Ngày NPL về',
+            width: 90,
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            dataIndex: 'matdate'
+        },
+        {
+            text: 'Ngày RC',
+            width: 70,
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            dataIndex: 'productiondate'
+        },
+        {
+            text: 'Ngày giao KH',
+            width: 90,
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            dataIndex: 'shipdate'
+        },
+        {
+            text: 'Tổ chuyền',
+            flex: 1,
+            dataIndex: 'grantName',
+            renderer: function (value, metaData, record, rowIndex) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        {
+            text: 'SL KH',
             dataIndex: 'totalorder',
             renderer: function (value) {
                 return Ext.util.Format.number(parseFloat(value), '0,000');

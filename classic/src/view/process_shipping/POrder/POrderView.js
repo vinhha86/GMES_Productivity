@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
         padding: '0 0 10 5',
         height: 40,
         items: [{
-            margin:'10 5 0 5',
+            margin: '10 5 0 5',
             ui: 'header',
             xtype: 'button',
             iconCls: 'x-fa fa-angle-double-down',
@@ -83,9 +83,9 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
             bind: {
                 hidden: '{!IsOpen}'
             }
-        }, 
+        },
         {
-            margin:'10 5 0 5',
+            margin: '10 5 0 5',
             ui: 'header',
             xtype: 'button',
             itemId: 'btnMoRong',
@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
             bind: {
                 hidden: '{IsOpen}'
             }
-        },{
+        }, {
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth: 0,
