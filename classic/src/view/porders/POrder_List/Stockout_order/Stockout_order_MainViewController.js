@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_Mai
     alias: 'controller.Stockout_order_MainViewController',
     init: function () {
         var viewmodel = this.getViewModel();
-        console.log(viewmodel);
         if (viewmodel.get('isload')) {
             var POrderGrantStore = viewmodel.getStore('Stockout_order_Store');
             var porderid_link = viewmodel.get('porderid_link');
