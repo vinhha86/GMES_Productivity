@@ -61,6 +61,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
 
     onBtnAddToGrantSku: function () {
         var me = this.getView();
+        var th = this;
+
         me.setLoading(true);
         var viewmodel = this.getViewModel();
         var IdPOrder = viewmodel.get('IdPOrder');
@@ -101,6 +103,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         viewmodel.set('amount', response.amount);
 
                         me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
+                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
                     }
                     else {
                         Ext.Msg.show({
@@ -132,12 +135,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
     },
     onBtnRemoveFromGrantSku: function () {
         var me = this.getView();
+        var th = this;
         me.setLoading(true);
         var viewmodel = this.getViewModel();
         var IdPOrder = viewmodel.get('IdPOrder');
         var IdGrant = viewmodel.get('IdGrant');
 
-        var GrantSKUView = me.down('#POrder_List_GrantSKUViewTabInfo');
+        var GrantSKUView = me.down('#POrder_List_GrantSKUView_window');
 
         var data = [];
         var select = GrantSKUView.getSelectionModel().getSelection();
@@ -166,6 +170,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         viewmodel.set('amount', response.amount);
 
                         me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
+                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
                     }
                     else {
                         Ext.Msg.show({
