@@ -73,9 +73,9 @@ Ext.define('GSmartApp.view.balance.Balance_D_POrder', {
 			width: 55,
 			xtype: 'numbercolumn',
 			format: '0.000',
-			renderer: function (value, metaData, record) {
-				return value+" %";
-			}
+			// renderer: function (value, metaData, record) {
+			// 	return value+" %";
+			// }
 		},
 		{
 			xtype: 'numbercolumn',
