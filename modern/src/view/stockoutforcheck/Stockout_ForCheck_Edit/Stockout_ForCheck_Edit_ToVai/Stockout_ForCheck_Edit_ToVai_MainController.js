@@ -140,7 +140,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         if(objPkl.width_yds_check == null || objPkl.width_yds_check == '') objPkl.width_yds_check = 0;
         if(objPkl.width_yds == null || objPkl.width_yds == '' || objPkl.width_yds == 0) objPkl.width_yds = objPkl.width_yds_check;
         if(objPkl.width_met_check == null || objPkl.width_met_check == '') objPkl.width_met_check = 0;
-        if(objPkl.width_met == null || objPkl.width_met == '' || objPkl.width_met == 0) widthMetTxt = objPkl.width_met_check;
+        if(objPkl.width_met == null || objPkl.width_met == '' || objPkl.width_met == 0) objPkl.width_met = objPkl.width_met_check;
 
         if(stockout_order.unitid_link == 3){
             // có y
@@ -149,11 +149,10 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
             objPkl.metorigin = objPkl.ydsorigin * 0.9144;
 
-            objPkl.width_yds_check = parseFloat(objPkl.width_yds_check);
-            objPkl.width_met_check = objPkl.width_yds_check * 0.9144;
-            objPkl.width_yds = parseFloat(objPkl.width_yds);
-            objPkl.width_met = objPkl.width_yds * 0.9144;
-
+            objPkl.width_met_check = parseFloat(objPkl.width_met_check);
+            objPkl.width_yds_check = objPkl.width_met_check / 0.9144;
+            objPkl.width_met = parseFloat(objPkl.width_met);
+            objPkl.width_yds = objPkl.width_met / 0.9144;
         }
         if(stockout_order.unitid_link == 1){
             // có m
@@ -166,7 +165,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             objPkl.width_yds_check = objPkl.width_met_check / 0.9144;
             objPkl.width_met = parseFloat(objPkl.width_met);
             objPkl.width_yds = objPkl.width_met / 0.9144;
-
         }
 
         objPkl.metcheck = parseFloat(Ext.util.Format.number(objPkl.metcheck, '0.00'));
@@ -233,8 +231,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                     Ext.toast('Lưu thất bại: ' + response.message, 3000);
                 }
         })
-
-        
     },
     onbtnResetForm: function(){
         var m = this;
@@ -317,24 +313,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                                 // bỏ highlight
                                 var grid = me.down('#Stockout_ForCheck_Edit_ToVai');
                                 grid.getSelectable().deselectAll();
-                                // highlight nếu cây vải có trong danh sách pkl
-                                // var storeItems = viewModel.getStore('Stockout_order_pkl_Store').getData().items;
-                                // for(var i=0; i<storeItems.length; i++){
-                                //     var item = storeItems[i];
-                                //     if(
-                                //         item.get('skuid_link') == objPkl.skuid_link &&
-                                //         item.get('lotnumber') == objPkl.lotnumber &&
-                                //         item.get('packageid') == objPkl.packageid
-                                //     ){
-                                //         grid.getSelectable().select(item);
-                                //         viewModel.set('selectedPklRecord', item);
-                                //         // console.log(item);
-                                //     }
-                                // }
-                                //
-                                // console.log(response);
-                                // console.log(responseObj);
-                                // console.log(storeItems);
                             }
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);

@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{lotnumberTxt}'
+                                value: '{objPkl.lotnumber}'
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType'
@@ -122,28 +122,27 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{packageidTxt}'
+                                value: '{objPkl.packageid}'
                             },
-                            // listeners: {
-                            //     keyup: 'onpackageidTxtKeyup',
-                            //     buffer: 1000
-                            // },
+                            listeners: {
+                                focusleave: 'onlotnumberTxtAndpackageidTxtleave',
+                            },
                             stepValue: 0.1,
                         },
-                        // {
-                        //     xtype:'button',
-                        //     // text: 'Xác nhận',
-                        //     // flex: 1,
-                        //     // minWidth: 80,
-                        //     // maxWidth: 130,
-                        //     // width: 45,
-                        //     margin: 1,
-                        //     iconCls: 'x-fa fa-check',
-                        //     itemId:'btnCheck',
-                        //     ui: 'action',
-                        //     focusable: false,
-                        //     disabled: true,
-                        // },
+                        {
+                            xtype:'button',
+                            // text: 'Xác nhận',
+                            // flex: 1,
+                            // minWidth: 80,
+                            // maxWidth: 130,
+                            // width: 45,
+                            margin: 1,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
+                            ui: 'action',
+                            focusable: false,
+                            // disabled: true,
+                        },
                     ]
                 },
                 {
@@ -169,7 +168,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{mTxt}',
+                                value: '{objPkl.met_check}',
                                 // cls: '{yTxtCls}',
                                 hidden: '{isMetColumnHidden}',
                             },
@@ -183,7 +182,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'yTxt',
+                            itemId: 'objPkl.ydscheck',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
@@ -196,7 +195,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yTxt}',
+                                value: '{objPkl.ydscheck}',
                                 // cls: '{yTxtCls}',
                                 hidden: '{isYdsColumnHidden}',
                             },
@@ -222,7 +221,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{mOriginTxt}',
+                                value: '{objPkl.met_origin}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -244,133 +243,26 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yOriginTxt}',
+                                value: '{objPkl.ydsorigin}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-print',
-                        //     itemId:'btnPrintPkl',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     focusable: false,
-                        //     // bind: {
-                        //     //     disabled: '{!isPklSelected}',
-                        //     // },
-                        //     disabled: true,
-                        // },
-                        // {
-                        //     xtype:'button',
-                        //     text: 'Nhập lại',
-                        //     flex: 1,
-                        //     minWidth: 80,
-                        //     // maxWidth: 130,
-                        //     margin: 1,
-                        //     iconCls: 'x-fa fa-file',
-                        //     itemId:'btnResetForm',
-                        //     ui: 'action',
-                        // },   
-                        
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
                     ]
                 },
-                // {
-                //     layout: 'hbox',
-                //     border: false,
-                //     width: '100%',
-                //     items:[
-                //         {
-                //             xtype: 'numberfield',
-                //             margin: 1,
-                //             border: true,
-                //             cls: 'my-textfield',
-                //             itemId: 'canCheckTxt',
-                //             // label: 'Màu:',
-                //             // labelWidth: 85,
-                //             flex: 1,
-                //             minWidth: 80,
-                //             // maxWidth: 130,
-                //             textAlign: 'left',
-                //             placeholder: 'Cân kiểm',
-                //             // editable: false,
-                //             // readOnly: true,
-                //             // clearable: false,
-                //             // cls: 'notEditable',
-                //             bind: {
-                //                 value: '{grossweightCheckTxt}',
-                //             },
-                //             stepValue: 0.1,
-                //             listeners: {
-                //                 focusleave: 'oncanCheckTxtFocusleave'
-                //             }
-                //         },
-                //         {
-                //             xtype: 'numberfield',
-                //             margin: 1,
-                //             border: true,
-                //             cls: 'my-textfield',
-                //             itemId: 'canTxt',
-                //             // label: 'Màu:',
-                //             // labelWidth: 85,
-                //             flex: 1,
-                //             minWidth: 80,
-                //             // maxWidth: 130,
-                //             textAlign: 'left',
-                //             placeholder: 'Cân phiếu',
-                //             // editable: false,
-                //             // readOnly: true,
-                //             // clearable: false,
-                //             // cls: 'notEditable',
-                //             bind: {
-                //                 value: '{grossweightTxt}',
-                //             },
-                //             stepValue: 0.1,
-                //         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-trash',
-                        //     itemId:'btnDeletePkl',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     focusable: false,
-                        //     bind: {
-                        //         disabled: '{!isPklSelected}',
-                        //     },
-                        //     // style: 'visibility: hidden;'
-                        // },
-                //     ]
-                // },
                 {
                     layout: 'hbox',
                     border: false,
                     width: '100%',
                     items:[
-                        {
-                            xtype: 'numberfield',
-                            border: true,
-                            cls: 'my-textfield',
-                            margin: 1,
-                            itemId: 'widthYdsCheckTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Khổ kiểm (Y)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{widthYdsCheckTxt}',
-                                hidden: '{isYdsColumnHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                focusleave: 'onwidthYdsCheckTxtFocusleave'
-                            }
-                        },
                         {
                             xtype: 'numberfield',
                             border: true,
@@ -382,41 +274,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
-                            placeholder: 'Khổ kiểm (M)',
+                            placeholder: 'Khổ kiểm (cm)',
                             // editable: false,
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthMetCheckTxt}',
-                                hidden: '{isMetColumnHidden}',
+                                value: '{objPkl.widthcheck}',
+                                // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focusleave: 'onwidthMetCheckTxtFocusleave'
                             }
-                        },
-                        {
-                            xtype: 'numberfield',
-                            border: true,
-                            cls: 'my-textfield',
-                            margin: 1,
-                            itemId: 'widthYdsTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Khổ phiếu (Y)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{widthYdsTxt}',
-                                hidden: '{isYdsColumnHidden}',
-                            },
-                            stepValue: 0.1,
                         },
                         {
                             xtype: 'numberfield',
@@ -429,112 +299,27 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
-                            placeholder: 'Khổ phiếu (M)',
+                            placeholder: 'Khổ phiếu (cm)',
                             // editable: false,
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthMetTxt}',
-                                hidden: '{isMetColumnHidden}',
+                                value: '{objPkl.widthorigin}',
+                                // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-trash',
-                        //     itemId:'btnDeletePkl',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     focusable: false,
-                        //     // bind: {
-                        //     //     disabled: '{!isPklSelected}',
-                        //     // },
-                        //     disabled: true,
-                        //     // style: 'visibility: hidden;'
-                        // },
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
                     ]
                 },
-                // {
-                //     layout: 'hbox',
-                //     border: false,
-                //     width: '100%',
-                //     items:[
-                //         {
-                //             xtype: 'textfield',
-                //             itemId: 'pklRowTxt',
-                //             // label: 'Mã hàng:',
-                //             // labelWidth: 85,
-                //             margin: 1,
-                //             // padding: 6,
-                //             flex: 1,
-                //             // width: '100%',
-                //             // minWidth: 80,
-                //             // maxWidth: 200,
-                //             textAlign: 'left',
-                //             placeholder: 'Dãy',
-                //             // editable: false,
-                //             // readOnly: true,
-                //             // clearable: false,
-                //             // cls: 'notEditable',
-                //             bind: {
-                //                 value:'{pklRowTxt}'
-                //             },
-                //         },
-                //         {
-                //             xtype: 'numberfield',
-                //             itemId: 'pklSpaceTxt',
-                //             // label: 'Mã hàng:',
-                //             // labelWidth: 85,
-                //             margin: 1,
-                //             // padding: 6,
-                //             flex: 1,
-                //             // width: '100%',
-                //             // minWidth: 80,
-                //             // maxWidth: 200,
-                //             textAlign: 'left',
-                //             placeholder: 'Hàng',
-                //             // editable: false,
-                //             // readOnly: true,
-                //             // clearable: false,
-                //             // cls: 'notEditable',
-                //             bind: {
-                //                 value:'{pklSpaceTxt}'
-                //             },
-                //             // stepValue: 0.1,
-                //         },
-                //         {
-                //             xtype: 'numberfield',
-                //             itemId: 'pklFloorTxt',
-                //             // label: 'Mã hàng:',
-                //             // labelWidth: 85,
-                //             margin: 1,
-                //             // padding: 6,
-                //             flex: 1,
-                //             // width: '100%',
-                //             // minWidth: 80,
-                //             // maxWidth: 200,
-                //             textAlign: 'left',
-                //             placeholder: 'Tầng',
-                //             // editable: false,
-                //             // readOnly: true,
-                //             // clearable: false,
-                //             // cls: 'notEditable',
-                //             bind: {
-                //                 value:'{pklFloorTxt}'
-                //             },
-                //             // stepValue: 0.1,
-                //         },
-                //         {
-                //             xtype:'button',
-                //             iconCls: 'x-fa fa-plus',
-                //             // itemId:'',
-                //             ui: 'action',
-                //             margin: 1,
-                //             style: 'visibility: hidden;'
-                //         },
-                //     ]
-                // },
             ]
         }
     ]

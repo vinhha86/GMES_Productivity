@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 		selectedPklRecord: null, // pkl đang chọn
 		pkl_stockoutdId: null, // kiểm cây combobox value
 		maPklFilter: '', // filter field pkl
+        objPkl: null, // obj de them hoac update pkl
 
 		// Stockout_M_Edit_Pkl_Rip
 		selectedPklRipRecord: null, // pkl xé vải đang chọn
