@@ -134,15 +134,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                 return;
             }
         }
-
-        // // check lotnumber tồn tại
-        // var isLotnumberExist = stockin_lot.some(
-        //     item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
-        // );
-        // if(!isLotnumberExist){
-        //     Ext.toast('Số lot ko tồn tại', 3000);
-        //     return;
-        // }
         
         // tạo obj
         if(objRecheck.ydscheck == null || objRecheck.ydscheck == '') objRecheck.ydscheck = 0;
@@ -152,8 +143,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         if(objRecheck.sample_check == null || objRecheck.sample_check == '') objRecheck.sample_check = 0;
         if(objRecheck.grossweight_check == null || objRecheck.grossweight_check == '') objRecheck.grossweight_check = 0;
         if(objRecheck.grossweight == null || objRecheck.grossweight == '' || objRecheck.grossweight == 0) objRecheck.grossweight = objRecheck.grossweight_check;
-        // if(objRecheck.width_yds_check == null || objRecheck.width_yds_check == '') objRecheck.width_yds_check = 0;
-        // if(objRecheck.width_yds == null || objRecheck.width_yds == '' || objRecheck.width_yds == 0) objRecheck.width_yds = objRecheck.width_yds_check;
         if(objRecheck.width_met_check == null || objRecheck.width_met_check == '') objRecheck.width_met_check = 0;
         if(objRecheck.width_met == null || objRecheck.width_met == '' || objRecheck.width_met == 0) widthMetTxt = objRecheck.width_met_check;
 
@@ -163,11 +152,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             objRecheck.met_check = objRecheck.ydscheck * 0.9144;
             objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
             objRecheck.met_origin = objRecheck.ydsorigin * 0.9144;
-
-            // objRecheck.width_yds_check = parseFloat(objRecheck.width_yds_check);
-            // objRecheck.width_met_check = objRecheck.width_yds_check * 0.9144;
-            // objRecheck.width_yds = parseFloat(objRecheck.width_yds);
-            // objRecheck.width_met = objRecheck.width_yds * 0.9144;
         }
         if(stockin.unitid_link == 1){
             // có m
@@ -175,11 +159,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             objRecheck.ydscheck = objRecheck.met_check / 0.9144;
             objRecheck.met_origin = parseFloat(objRecheck.met_origin);
             objRecheck.ydsorigin = objRecheck.met_origin / 0.9144;
-
-            // objRecheck.width_met_check = parseFloat(objRecheck.width_met_check);
-            // objRecheck.width_yds_check = objRecheck.width_met_check / 0.9144;
-            // objRecheck.width_met = parseFloat(objRecheck.width_met);
-            // objRecheck.width_yds = objRecheck.width_met / 0.9144;
         }
 
         objRecheck.met_check = parseFloat(Ext.util.Format.number(objRecheck.met_check, '0.00'));
@@ -187,9 +166,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         objRecheck.met_origin = parseFloat(Ext.util.Format.number(objRecheck.met_origin, '0.00'));
         objRecheck.ydsorigin = parseFloat(Ext.util.Format.number(objRecheck.ydsorigin, '0.00'));
         objRecheck.width_met_check = parseFloat(Ext.util.Format.number(objRecheck.width_met_check / 100, '0.00'));
-        // objRecheck.width_yds_check = parseFloat(Ext.util.Format.number(objRecheck.width_yds_check, '0.00'));
+        objRecheck.width_yds_check = parseFloat(Ext.util.Format.number(objRecheck.width_met_check / 0.9144, '0.00'));
         objRecheck.width_met = parseFloat(Ext.util.Format.number(objRecheck.width_met / 100, '0.00'));
-        // objRecheck.width_yds = parseFloat(Ext.util.Format.number(objRecheck.width_yds, '0.00'));
+        objRecheck.width_yds = parseFloat(Ext.util.Format.number(objRecheck.width_met / 0.9144, '0.00'));
 
         //
         // console.log(objRecheck);
@@ -222,7 +201,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                             var grid = me.down('#Stockin_M_Edit_Pkl_Recheck');
                             grid.getSelectable().deselectAll();
                             viewModel.set('selectedPklRecheckRecord', null);
-                            //
                         }
                         // console.log(response);
                     }else{
@@ -260,9 +238,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
         var packageid = viewModel.get('objRecheck.packageid');
 
         // nếu đang chọn 1 record thì edit, ko tìm trên db, return
-        if(selectedPklRecheckRecord != null){
-            return;
-        }
+        // if(selectedPklRecheckRecord != null){ console.log('here');
+        //     return;
+        // }
 
         if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||

@@ -108,10 +108,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_Main', {
                                 // value: '{lotnumberTxtRecheck}',
                                 value: '{objRecheck.lotnumber}'
                             },
-                            listeners: {
-                                change: 'onlotnumberTxtRecheckType',
-                                focusleave: 'onlotnumberTxtAndpackageidTxtRecheckleave'
-                            }
                         },
                         {
                             xtype: 'numberfield',
