@@ -41,10 +41,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydscheck}</div>' +
                 '</div>' +
 
-                // '<div class="content2">'+
-                //     '<div class="content2-sub1">Lot:</div>'+
-                //     '<div class="content2-sub2">{[this.getStockinDLotUpperCase(values)]}</div>' +
-                // '</div>' +
+                '<div class="content2">'+
+                    '<div class="content2-sub1">Thẻ kho:</div>'+
+                    '<div class="content2-sub2">{data_spaces}</div>' +
+                '</div>' +
             '</div>',
         '</tpl>'
         , {

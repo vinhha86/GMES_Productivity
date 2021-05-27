@@ -5,8 +5,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Or
         
     },
     control: {
-        // '#btnThem': {
-        //     tap: 'onBtnThemTap'
-        // },
+        '#Stockout_Order': {
+            select: 'onStockout_orderSelect'
+        },
+    },
+    onStockout_orderSelect: function (e, selected, eOpts) {
+        // console.log(selected);
+        var viewModel = this.getViewModel();
+        var storeDetail = viewModel.getStore('Stockout_order_d_store');
+        // storeDetail.removeAll();
+        storeDetail.GetByStockoutOrder(selected.data.id);
     },
 });

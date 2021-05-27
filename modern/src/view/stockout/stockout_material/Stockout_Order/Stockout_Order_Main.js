@@ -89,5 +89,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Or
             flex: 1,
             xtype: 'Stockout_Order',
         },
+        {
+            margin: 1,
+            flex: 1,
+            xtype: 'Stockout_Order_D',
+        },
     ], 
 });

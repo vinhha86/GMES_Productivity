@@ -108,10 +108,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                 // value: '{lotnumberTxtRip}',
                                 value: '{objRip.lotnumber}'
                             },
-                            listeners: {
-                                change: 'onlotnumberTxtRipType',
-                                focusleave: 'onlotnumberTxtAndpackageidTxtRipleave'
-                            }
                         },
                         {
                             xtype: 'numberfield',

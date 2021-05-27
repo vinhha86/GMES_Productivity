@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_MainViewModel',
 		Stockout_order_Store: { // grid Yêu cầu xuất (thứ 2)
             type: 'Stockout_order_Store'
         },
+		Stockout_order_d_store: { // grid Yêu cầu xuất (thứ 2)
+            type: 'Stockout_order_d_store'
+        },
 	},
 	data: {
 		
