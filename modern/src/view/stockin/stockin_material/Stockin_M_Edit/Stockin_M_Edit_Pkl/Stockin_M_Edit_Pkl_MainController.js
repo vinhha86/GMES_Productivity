@@ -316,8 +316,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         if(sampleCheckTxt == null || sampleCheckTxt == '') sampleCheckTxt = 0;
         if(grossweightCheckTxt == null || grossweightCheckTxt == '') grossweightCheckTxt = 0;
         if(grossweightTxt == null || grossweightTxt == '' || grossweightTxt == 0) grossweightTxt = grossweightCheckTxt;
-        // if(widthYdsCheckTxt == null || widthYdsCheckTxt == '') widthYdsCheckTxt = 0;
-        // if(widthYdsTxt == null || widthYdsTxt == '' || widthYdsTxt == 0) widthYdsTxt = widthYdsCheckTxt;
         if(widthMetCheckTxt == null || widthMetCheckTxt == '') widthMetCheckTxt = 0;
         if(widthMetTxt == null || widthMetTxt == '' || widthMetTxt == 0) widthMetTxt = widthMetCheckTxt;
 
@@ -334,10 +332,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.sample_check = sampleCheckTxt;
         objData.grossweight = grossweightTxt;
         objData.grossweight_check = grossweightCheckTxt;
-        // objData.width_yds_check = widthYdsCheckTxt;
-        // objData.width_yds = widthYdsTxt;
         objData.width_met_check = widthMetCheckTxt / 100;
         objData.width_met = widthMetTxt / 100;
+        objData.width_yds_check = objData.width_met_check / 0.9144;
+        objData.width_yds = objData.width_met / 0.9144;
         objData.unitid_link = stockin.unitid_link;
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
@@ -351,11 +349,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             objData.met_check = objData.ydscheck * 0.9144;
             objData.ydsorigin = parseFloat(yOriginTxt);
             objData.met_origin = objData.ydsorigin * 0.9144;
-
-            // objData.width_yds_check = parseFloat(widthYdsCheckTxt);
-            // objData.width_met_check = objData.width_yds_check * 0.9144;
-            // objData.width_yds = parseFloat(widthYdsTxt);
-            // objData.width_met = objData.width_yds * 0.9144;
         }
         if(stockin.unitid_link == 1 || stockin.unitid_link == null){
             // có m
@@ -363,11 +356,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             objData.ydscheck = objData.met_check / 0.9144;
             objData.met_origin = parseFloat(mOriginTxt);
             objData.ydsorigin = objData.met_origin / 0.9144;
-
-            // objData.width_met_check = parseFloat(widthMetCheckTxt);
-            // objData.width_yds_check = objData.width_met_check / 0.9144;
-            // objData.width_met = parseFloat(widthMetTxt);
-            // objData.width_yds = objData.width_met / 0.9144;
         }
 
         objData.met_check = parseFloat(Ext.util.Format.number(objData.met_check, '0.00'));
@@ -375,26 +363,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.met_origin = parseFloat(Ext.util.Format.number(objData.met_origin, '0.00'));
         objData.ydsorigin = parseFloat(Ext.util.Format.number(objData.ydsorigin, '0.00'));
         objData.width_met_check = parseFloat(Ext.util.Format.number(objData.width_met_check, '0.00'));
-        // objData.width_yds_check = parseFloat(Ext.util.Format.number(objData.width_yds_check, '0.00'));
+        objData.width_yds_check = parseFloat(Ext.util.Format.number(objData.width_yds_check, '0.00'));
         objData.width_met = parseFloat(Ext.util.Format.number(objData.width_met, '0.00'));
-        // objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
-
-        var StockinPklStore = viewModel.getStore('StockinPklStore');
-        var items = StockinPklStore.getData().items;
-
-        // lặp qua danh sách để tìm cây vải tương ứng
-        // for(var i = 0; i < items.length; i++){
-        //     var item = items[i];
-        //     // nếu tìm thấy cây vải
-        //     if(item.get('lotnumber').toUpperCase() == lotnumberTxt.toUpperCase() && item.get('packageid') == packageidTxt){
-        //         objData.id = item.get('id');
-        //     }
-        // }
+        objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
 
         if(selectedPklRecord != null){
             objData.id = selectedPklRecord.get('id');
         }
-
 
         // 
         m.onUpdate_Print_Pklist(objData);
