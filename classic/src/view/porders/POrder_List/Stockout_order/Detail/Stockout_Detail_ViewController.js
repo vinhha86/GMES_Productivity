@@ -44,22 +44,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
         }
         else {
             var detail = viewmodel.get('detail');
-            var store = viewmodel.getStore('Stockout_order_d_Store');
-            for (var i = 0; i < detail.length; i++) {
-                var rec = new Object({
-                    materialCode: detail[i].get('mat_sku_code'),
-                    material_skuid_link: detail[i].get('mat_skuid_link'),
-                    stockoutorderid_link: null,
-                    materialName: detail[i].get('mat_sku_name'),
-                    tenMauNPL: detail[i].get('mat_sku_color_name'),
-                    unitid_link: viewmodel.get('order.unitid_link'),
-                    unitName: 'MÉT',
-                    coKho: detail[i].get('mat_sku_size_name')
-                });
-                store.insert(0, rec);
+            if (detail != null) {
+                var store = viewmodel.getStore('Stockout_order_d_Store');
+                for (var i = 0; i < detail.length; i++) {
+                    var rec = new Object({
+                        materialCode: detail[i].get('mat_sku_code'),
+                        material_skuid_link: detail[i].get('mat_skuid_link'),
+                        stockoutorderid_link: null,
+                        materialName: detail[i].get('mat_sku_name'),
+                        tenMauNPL: detail[i].get('mat_sku_color_name'),
+                        unitid_link: viewmodel.get('order.unitid_link'),
+                        unitName: 'MÉT',
+                        coKho: detail[i].get('mat_sku_size_name')
+                    });
+                    store.insert(0, rec);
+                }
             }
-
-
         }
     },
     onLuu: function () {

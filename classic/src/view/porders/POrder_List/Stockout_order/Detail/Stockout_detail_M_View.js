@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 				value: '{order.stockout_order_code}',
 				disabled: '{isCreate}'
 			},
-			// editable: false,
+			editable: false,
 			flex: 1
 		}]
 	}, {
