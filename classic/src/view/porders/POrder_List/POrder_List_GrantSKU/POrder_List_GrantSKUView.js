@@ -6,9 +6,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
     requires: [
         'Ext.grid.feature.Grouping'
     ],
-    // viewModel: {
-    //     type: 'SizesetViewModel'
-    // },
     controller: 'POrder_List_GrantSKUViewController',
     reference: 'POrder_List_GrantSKUView',
     viewConfig: {
@@ -24,10 +21,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUView', {
             }
         }
     },
-    // selModel: {
-    //     selType: 'checkboxmodel',
-    //     mode: 'MULTI'
-    // },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     features: [
         {
             ftype: 'grouping',

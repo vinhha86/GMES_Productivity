@@ -8,6 +8,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
             click: 'onThemSKU'
         }
     },
+    listen: {
+        controller: {
+            'POrder_List_DetailWindowViewController': {
+                'UpdatePorder': 'onUpdatePorder'
+            }
+        }
+    },
+    onUpdatePorder: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrder_ListGrantSKUStore');
+        store.load();
+    },
     onThemSKU: function () {
         var viewmodel = this.getViewModel();
         var mes = "";

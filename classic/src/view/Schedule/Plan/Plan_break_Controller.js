@@ -1,40 +1,41 @@
 Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Plan_break_Controller',
-    init: function(){
-      var view = this.getView();
-      var viewmodel = this.getViewModel();
-      var store = viewmodel.getStore('POrder_ListGrantSKUStore');
-      var pordergrantid_link = viewmodel.get('plan.pordergrant_id_link');
-      store.loadStore_NotAsync(pordergrantid_link);
-      store.load({
-          scope: this,
-          callback: function(records, operation, success){
-            if(records.length == 0){
-                viewmodel.set('ishidden', false);
-                view.down('#amount').focus();
+    init: function () {
+        var view = this.getView();
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrder_ListGrantSKUStore');
+        var pordergrantid_link = viewmodel.get('plan.pordergrant_id_link');
+        store.loadStore_NotAsync(pordergrantid_link);
+        store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (records.length == 0) {
+                    viewmodel.set('ishidden', false);
+                    view.down('#amount').focus();
+                }
             }
-          }
-      })
-    } ,
+        })
+    },
     control: {
-        '#btnThoat' : {
+        '#btnThoat': {
             click: 'onThoat'
         },
-        '#btnLuu' : {
+        '#btnLuu': {
             click: 'onBreak'
         }
     },
-    onThoat: function(){
+    onThoat: function () {
         this.getView().up('window').close();
     },
-    renderSum: function(value, summaryData, dataIndex) {
+    renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     onEdit: function (editor, context, e) {
+        var viewmodel = this.getViewModel();
         var rec = context.record;
-        if(rec.get('amount_break') > rec.get('grantamount')){
+        if (context.value > rec.get('grantamount')) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Số lượng tách không được lớn hơn số lượng đang hiện có!',
@@ -42,13 +43,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
                 buttonText: {
                     yes: 'Đóng'
                 },
-                fn: function(){
-                    rec.set('amount_break', context.originalValue == null ? 0 : context.originalValue);
+                fn: function () {
+                    // rec.set('amount_break', context.originalValue == null ? 0 : context.originalValue);
+                    var store = viewmodel.getStore('POrder_ListGrantSKUStore');
+                    store.rejectChanges();
                 }
             });
         }
     },
-    onBreak: function(){
+    onBreak: function () {
         var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
@@ -59,17 +62,17 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
         store.each(function (record) {
             var data = new Object();
             data = record.data;
-            data.grantamount = record.data.amount_break == null ? 0 : record.data.amount_break;
+            data.grantamount = data.grantamount == null ? 0 : data.grantamount;
             list_sku.push(data);
-            var amount = parseInt("0"+record.data.amount_break);
+            var amount = parseInt(record.data.amount_break == null ? "0" : "0" + record.data.amount_break);
             sum += amount;
         });
 
-        if(!viewmodel.get('ishidden') && sum == 0){
-            sum = viewmodel.get('amount') == "" ? 0 : parseInt(viewmodel.get('amount').toString().replace(/,/gi,''));
+        if (!viewmodel.get('ishidden') && sum == 0) {
+            sum = viewmodel.get('amount') == "" ? 0 : parseInt(viewmodel.get('amount').toString().replace(/,/gi, ''));
         }
 
-        if(sum == 0){
+        if (sum == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Số lượng tách không được bằng 0',
@@ -84,15 +87,25 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
             params.quantity = sum;
 
             grid.setLoading('Đang xử lý dữ liệu');
-            GSmartApp.Ajax.post('/api/v1/schedule/break_porder' , Ext.JSON.encode(params),
-            function (success, response, options) {
-                grid.setLoading(false);
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        me.fireEvent('BreakPorder', response);
-                    }
-                    else {
+            GSmartApp.Ajax.post('/api/v1/schedule/break_porder', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    grid.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            me.fireEvent('BreakPorder', response);
+                        }
+                        else {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Cập nhật thất bại',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    } else {
                         Ext.Msg.show({
                             title: 'Thông báo',
                             msg: 'Cập nhật thất bại',
@@ -102,18 +115,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
                             }
                         });
                     }
-                } else {
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Cập nhật thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-            })
+                })
         }
-        
+
     }
 })
