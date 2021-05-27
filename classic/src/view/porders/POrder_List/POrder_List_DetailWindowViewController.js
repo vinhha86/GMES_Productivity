@@ -67,7 +67,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         var viewmodel = this.getViewModel();
         var IdPOrder = viewmodel.get('IdPOrder');
         var IdGrant = viewmodel.get('IdGrant');
-        var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
 
         var productSkuView = me.down('#POrder_ProductSKUView_window');
 
@@ -90,7 +89,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         params.porderSku = data;
         params.idGrant = IdGrant;
         params.idPOrder = IdPOrder;
-        params.pcontract_poid_link = pcontract_poid_link;
 
         GSmartApp.Ajax.post('/api/v1/porderlist/addskutogrant', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -101,9 +99,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         viewmodel.getStore('POrder_ListGrantSKUStore').load();
                         viewmodel.set('porderinfo', response.porderinfo);
                         viewmodel.set('amount', response.amount);
-
-                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
-                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
+                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
+                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
                     }
                     else {
                         Ext.Msg.show({
@@ -169,8 +166,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         viewmodel.set('porderinfo', response.porderinfo);
                         viewmodel.set('amount', response.amount);
 
-                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
-                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'));
+                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
+                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
                     }
                     else {
                         Ext.Msg.show({

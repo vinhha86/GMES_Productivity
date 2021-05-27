@@ -18,12 +18,20 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         controller: {
             'POrder_List_GrantSKUViewController': {
                 'UpdatePorder': 'onUpdatePorder'
+            },
+            'POrder_List_DetailWindowViewController': {
+                'UpdatePorder': 'onUpdatePorder'
             }
         }
     },
-    onUpdatePorder: function (record, porderinfo, amount) {
+    onUpdatePorder: function (porderinfo, amount, endDate, porder_grantid_link) {
+        var view = this.getView().down('#treeplan');
+        var store = view.getCrudManager().getEventStore();
+        var record = store.findRecord('porder_grantid_link', porder_grantid_link);
         record.set('mahang', porderinfo);
         record.set('totalpackage', amount);
+        record.set('EndDate', endDate);
+        record.set('endDate', endDate);
     },
     onSchedulerRender: function () {
         var me = this;
