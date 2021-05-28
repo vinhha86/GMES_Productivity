@@ -49,6 +49,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         dataIndex: 'material_product_code',
         width: 120,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var c = record.get('status');
+            if (c == 0) {
+                metaData.tdCls = 'process-free';
+            } else if (c == 1) {
+                metaData.tdCls = 'process-granted';
+            }
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
         },
