@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         var pklRip_stockoutdId = viewModel.get('pklRip_stockoutdId');
         if(newValue != null && newValue != ''){
             var stockout_pklist_rip = viewModel.getStore('stockout_pklist_rip');
-            stockout_pklist_rip.loadstore_ByStockoutDId(newValue);
+            stockout_pklist_rip.loadstore_ByStockoutDId_Rip(newValue);
             
             viewModel.set('pkl_stockoutdId', newValue);
 
@@ -80,10 +80,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         objRip.id = record.get('id');
         objRip.lotnumber = record.get('lotnumber');
         objRip.packageid = record.get('packageid');
-        // objRip.met_check = 0;
-        // objRip.ydscheck = 0;
-        objRip.met_remain = record.get('met_check');
-        objRip.yds_remain = record.get('ydscheck');
+        objRip.met_check = record.get('met_check');
+        objRip.ydscheck = record.get('ydscheck');
+        // objRip.met_remain = record.get('met_check');
+        // objRip.yds_remain = record.get('ydscheck');
 
         viewModel.set('objRip', objRip);
 
@@ -101,12 +101,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // id, lotnumber, packageid, met_check, ydscheck (các trường của stockout pkl)
         // met_remain, yds_remain (trường để update warehouse)
 
-        // đã chọn cây vải hay chưa
-        if(selectedPklRipRecord == null){
-            Ext.toast('Chưa chọn cây vải cần xé', 3000);
+        // check combo đã chọn chưa
+        var pklRip_stockoutdId = viewModel.get('pklRip_stockoutdId');
+        if(pklRip_stockoutdId == '' || pklRip_stockoutdId == null){
+            Ext.toast('Cần chọn loại vải', 3000);
             return;
         }
-        
+
+        if(objRip.id == null){
+            Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
+            return;
+        }
+
         // check textfield
         if(stockout.unitid_link == 3){
             if(objRip.yds_remain == '' || objRip.yds_remain == null){
@@ -294,7 +300,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                     }
                                 }
                                 //
-                                // console.log(responseObj);
+                                console.log(responseObj);
                             }
                             
                         }else{
@@ -318,7 +324,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         var m = this;
         var viewModel = this.getViewModel();
         var stockoutid_link = viewModel.get('stockout.id');
-        var pklRip_stockoutdId = viewModel.get('pkl_stockoutdId');
+        var pklRip_stockoutdId = viewModel.get('pklRip_stockoutdId');
         var selectedPklRipRecord = viewModel.get('selectedPklRipRecord');
 
         var stockout_pklist_rip = viewModel.getStore('stockout_pklist_rip');

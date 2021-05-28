@@ -52,8 +52,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             return true;
         },
 		isobjRipSelected: function (get) {
-            var selectedPklRipRecord = get('selectedPklRipRecord');
-            if(selectedPklRipRecord == null){
+            var objRip = get('objRip');
+            if(objRip == null){
                 return false;
             } 
             return true;
