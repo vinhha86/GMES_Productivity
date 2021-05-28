@@ -445,6 +445,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         objPkl.met_origin = objPkl.met;
         objPkl.met_check = objPkl.met;
         objPkl.warehousestatus = objPkl.status;
+        objPkl.status = 0;
         if(objPkl.unitid_link == null) objPkl.unitid_link = 1;
         return objPkl;
     },

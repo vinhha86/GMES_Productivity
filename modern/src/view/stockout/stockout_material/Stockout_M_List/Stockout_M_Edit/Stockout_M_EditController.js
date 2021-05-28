@@ -95,7 +95,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                 if(pklRip_stockoutdId != null){
                     var selectedPklRipRecord = viewModel.get('selectedPklRipRecord');
                     var stockout_pklist_rip = viewModel.getStore('stockout_pklist_rip');
-                    // stockout_pklist_rip.loadStore_byStockoutDIdAndEqualStatus(pklRip_stockoutdId, 2);
                     stockout_pklist_rip.loadstore_ByStockoutDId_Rip_async(pklRip_stockoutdId);
                     stockout_pklist_rip.load({
                         scope: this,
