@@ -167,14 +167,14 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             objPkl.width_yds = objPkl.width_met / 0.9144;
         }
 
-        objPkl.metcheck = parseFloat(Ext.util.Format.number(objPkl.metcheck, '0.00'));
-        objPkl.ydscheck = parseFloat(Ext.util.Format.number(objPkl.ydscheck, '0.00'));
-        objPkl.metorigin = parseFloat(Ext.util.Format.number(objPkl.metorigin, '0.00'));
-        objPkl.ydsorigin = parseFloat(Ext.util.Format.number(objPkl.ydsorigin, '0.00'));
-        objPkl.width_met_check = parseFloat(Ext.util.Format.number(objPkl.width_met_check / 100, '0.00'));
-        objPkl.width_yds_check = parseFloat(Ext.util.Format.number(objPkl.width_yds_check / 100, '0.00'));
-        objPkl.width_met = parseFloat(Ext.util.Format.number(objPkl.width_met / 100, '0.00'));
-        objPkl.width_yds = parseFloat(Ext.util.Format.number(objPkl.width_yds / 100, '0.00'));
+        objPkl.metcheck = parseFloat(objPkl.metcheck);
+        objPkl.ydscheck = parseFloat(objPkl.ydscheck);
+        objPkl.metorigin = parseFloat(objPkl.metorigin);
+        objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
+        objPkl.width_met_check = parseFloat(objPkl.width_met_check / 100);
+        objPkl.width_yds_check = parseFloat(objPkl.width_yds_check / 100);
+        objPkl.width_met = parseFloat(objPkl.width_met / 100);
+        objPkl.width_yds = parseFloat(objPkl.width_yds / 100);
 
         objPkl.stockoutorderid_link = stockout_order.id;
         objPkl.stockoutorderdid_link = selectedDRecord.get('id');

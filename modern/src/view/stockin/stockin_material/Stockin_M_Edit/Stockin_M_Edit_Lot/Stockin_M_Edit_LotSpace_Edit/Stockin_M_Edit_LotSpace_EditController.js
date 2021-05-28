@@ -284,12 +284,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditController', {
         if(itemId == 'totalmet'){
             if(stockinLot.totalmet == null) stockinLot.totalmet = 0;
             stockinLot.totalyds = stockinLot.totalmet / 0.9144;
-            stockinLot.totalyds = parseFloat(Ext.util.Format.number(stockinLot.totalyds, '0.00'));
+            stockinLot.totalyds = parseFloat(stockinLot.totalyds);
         }
         if(itemId == 'totalyds'){
             if(stockinLot.totalyds == null) stockinLot.totalyds = 0;
             stockinLot.totalmet = stockinLot.totalyds * 0.9144;
-            stockinLot.totalmet = parseFloat(Ext.util.Format.number(stockinLot.totalmet, '0.00'));
+            stockinLot.totalmet = parseFloat(stockinLot.totalmet);
         }
 
         viewModel.set('stockinLot.totalmet', stockinLot.totalmet);

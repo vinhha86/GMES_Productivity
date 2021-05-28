@@ -161,14 +161,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
             objRecheck.ydsorigin = objRecheck.met_origin / 0.9144;
         }
 
-        objRecheck.met_check = parseFloat(Ext.util.Format.number(objRecheck.met_check, '0.00'));
-        objRecheck.ydscheck = parseFloat(Ext.util.Format.number(objRecheck.ydscheck, '0.00'));
-        objRecheck.met_origin = parseFloat(Ext.util.Format.number(objRecheck.met_origin, '0.00'));
-        objRecheck.ydsorigin = parseFloat(Ext.util.Format.number(objRecheck.ydsorigin, '0.00'));
-        objRecheck.width_met_check = parseFloat(Ext.util.Format.number(objRecheck.width_met_check / 100, '0.00'));
-        objRecheck.width_yds_check = parseFloat(Ext.util.Format.number(objRecheck.width_met_check / 0.9144, '0.00'));
-        objRecheck.width_met = parseFloat(Ext.util.Format.number(objRecheck.width_met / 100, '0.00'));
-        objRecheck.width_yds = parseFloat(Ext.util.Format.number(objRecheck.width_met / 0.9144, '0.00'));
+        objRecheck.met_check = parseFloat(objRecheck.met_check);
+        objRecheck.ydscheck = parseFloat(objRecheck.ydscheck);
+        objRecheck.met_origin = parseFloat(objRecheck.met_origin);
+        objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
+        objRecheck.width_met_check = parseFloat(objRecheck.width_met_check / 100);
+        objRecheck.width_yds_check = parseFloat(objRecheck.width_met_check / 0.9144);
+        objRecheck.width_met = parseFloat(objRecheck.width_met / 100);
+        objRecheck.width_yds = parseFloat(objRecheck.width_met / 0.9144);
 
         //
         // console.log(objRecheck);

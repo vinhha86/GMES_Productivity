@@ -358,14 +358,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             objData.ydsorigin = objData.met_origin / 0.9144;
         }
 
-        objData.met_check = parseFloat(Ext.util.Format.number(objData.met_check, '0.00'));
-        objData.ydscheck = parseFloat(Ext.util.Format.number(objData.ydscheck, '0.00'));
-        objData.met_origin = parseFloat(Ext.util.Format.number(objData.met_origin, '0.00'));
-        objData.ydsorigin = parseFloat(Ext.util.Format.number(objData.ydsorigin, '0.00'));
-        objData.width_met_check = parseFloat(Ext.util.Format.number(objData.width_met_check, '0.00'));
-        objData.width_yds_check = parseFloat(Ext.util.Format.number(objData.width_yds_check, '0.00'));
-        objData.width_met = parseFloat(Ext.util.Format.number(objData.width_met, '0.00'));
-        objData.width_yds = parseFloat(Ext.util.Format.number(objData.width_yds, '0.00'));
+        objData.met_check = parseFloat(objData.met_check);
+        objData.ydscheck = parseFloat(objData.ydscheck);
+        objData.met_origin = parseFloat(objData.met_origin);
+        objData.ydsorigin = parseFloat(objData.ydsorigin);
+        objData.width_met_check = parseFloat(objData.width_met_check);
+        objData.width_yds_check = parseFloat(objData.width_yds_check);
+        objData.width_met = parseFloat(objData.width_met);
+        objData.width_yds = parseFloat(objData.width_yds);
 
         if(selectedPklRecord != null){
             objData.id = selectedPklRecord.get('id');

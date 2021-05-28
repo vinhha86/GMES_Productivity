@@ -29,16 +29,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D', {
 
                 '<div class="content1" style={[this.getDisplayM(values)]}>' +
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài y/cầu:</div>'+ // M
-                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmet}</div>' +
+                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmet:number("000.00")}</div>' +
                     '<div class="content1-sub1" style={[this.getDisplayM(values)]}>Dài kiểm:</div>'+ // M
-                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmetcheck}</div>' +
+                    '<div class="content1-sub1" style={[this.getDisplayM(values)]}>{totalmetcheck:number("000.00")}</div>' +
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayY(values)]}>' +
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài y/cầu:</div>'+ // Y
-                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalyds}</div>' +
+                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalyds:number("000.00")}</div>' +
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>Dài kiểm:</div>'+ // Y
-                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydscheck}</div>' +
+                    '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydscheck:number("000.00")}</div>' +
                 '</div>' +
 
                 '<div class="content1" style={[this.getDisplayM(values)]}>' +

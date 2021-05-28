@@ -79,6 +79,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             if(value == null) value = 0;
             var metcheck = record.get('metcheck') == null ? 0 : record.get('metcheck');
             var metorigin = record.get('metorigin') == null ? 0 : record.get('metorigin');
+            metcheck = Ext.util.Format.number(metcheck, '0.00');
+            metorigin = Ext.util.Format.number(metorigin, '0.00');
             // if (metorigin == metcheck) {
             //     cell.setCls('cellGreen');
             // } else if (metorigin < metcheck) {
@@ -103,6 +105,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             if(value == null) value = 0;
             var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
             var ydsorigin = record.get('ydsorigin') == null ? 0 : record.get('ydsorigin');
+            ydscheck = Ext.util.Format.number(ydscheck, '0.00');
+            ydsorigin = Ext.util.Format.number(ydsorigin, '0.00');
             // if (ydsorigin == ydscheck) {
             //     cell.setCls('cellGreen');
             // } else if (ydsorigin < ydscheck) {

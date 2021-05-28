@@ -169,10 +169,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // console.log(objRip);
 
         // lấy 2 số thập phân
-        objRip.met_check = parseFloat(Ext.util.Format.number(objRip.met_check, '0.00'));
-        objRip.ydscheck = parseFloat(Ext.util.Format.number(objRip.ydscheck, '0.00'));
-        objRip.met_remain = parseFloat(Ext.util.Format.number(objRip.met_remain, '0.00'));
-        objRip.yds_remain = parseFloat(Ext.util.Format.number(objRip.yds_remain, '0.00'));
+        objRip.met_check = parseFloat(objRip.met_check);
+        objRip.ydscheck = parseFloat(objRip.ydscheck);
+        objRip.met_remain = parseFloat(objRip.met_remain);
+        objRip.yds_remain = parseFloat(objRip.yds_remain);
 
         // lưu
         me.setMasked({

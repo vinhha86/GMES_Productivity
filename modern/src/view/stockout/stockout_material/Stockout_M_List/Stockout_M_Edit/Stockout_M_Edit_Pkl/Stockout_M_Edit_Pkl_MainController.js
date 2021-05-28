@@ -240,12 +240,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             objPkl.widthorigin = parseFloat(objPkl.widthorigin);
         }
 
-        objPkl.met_check = parseFloat(Ext.util.Format.number(objPkl.met_check, '0.00'));
-        objPkl.ydscheck = parseFloat(Ext.util.Format.number(objPkl.ydscheck, '0.00'));
-        objPkl.met_origin = parseFloat(Ext.util.Format.number(objPkl.met_origin, '0.00'));
-        objPkl.ydsorigin = parseFloat(Ext.util.Format.number(objPkl.ydsorigin, '0.00'));
-        objPkl.widthcheck = parseFloat(Ext.util.Format.number(objPkl.widthcheck / 100, '0.00'));
-        objPkl.widthorigin = parseFloat(Ext.util.Format.number(objPkl.widthorigin / 100, '0.00'));
+        objPkl.met_check = parseFloat(objPkl.met_check);
+        objPkl.ydscheck = parseFloat(objPkl.ydscheck);
+        objPkl.met_origin = parseFloat(objPkl.met_origin);
+        objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
+        objPkl.widthcheck = parseFloat(objPkl.widthcheck / 100);
+        objPkl.widthorigin = parseFloat(objPkl.widthorigin / 100);
 
         objPkl.stockoutid_link = stockout.id;
         objPkl.stockoutdid_link = selectedDRecord.get('id');

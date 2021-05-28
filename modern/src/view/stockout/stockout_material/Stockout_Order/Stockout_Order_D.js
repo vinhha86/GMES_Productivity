@@ -34,9 +34,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Or
 
                 '<div class="content1">' +
                     '<div class="content1-sub1"><b>SL Y/C (Y):</b></div>'+
-                    '<div class="content1-sub1">{totalyds}</div>' +
+                    '<div class="content1-sub1">{totalyds:number("000.00")}</div>' +
                     '<div class="content1-sub1"><b>SL Y/C (M):</b></div>'+
-                    '<div class="content1-sub1">{totalmet}</div>' +
+                    '<div class="content1-sub1">{totalmet:number("000.00")}</div>' +
                 '</div>' +
 
                 '<div class="content2">'+

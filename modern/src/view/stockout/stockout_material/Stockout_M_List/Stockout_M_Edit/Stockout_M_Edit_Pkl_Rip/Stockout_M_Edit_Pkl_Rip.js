@@ -77,17 +77,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
-            // var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
-            // var met_origin = record.get('met_origin') == null ? 0 : record.get('met_origin');
-            // if (met_origin == met_check) {
-            //     cell.setCls('cellGreen');
-            // } else if (met_origin < met_check) {
-            //     cell.setCls('cellYellow');
-            // } else{
-            //     cell.setCls('cellRed');
-            // }
-            
-            // return met_origin + ' / ' + met_check;
+            value = Ext.util.Format.number(value, '0.00');
             return value;
         },
         bind: {
@@ -101,42 +91,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
-            // var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
-            // var ydsorigin = record.get('ydsorigin') == null ? 0 : record.get('ydsorigin');
-            // if (ydsorigin == ydscheck) {
-            //     cell.setCls('cellGreen');
-            // } else if (ydsorigin < ydscheck) {
-            //     cell.setCls('cellYellow');
-            // } else{
-            //     cell.setCls('cellRed');
-            // }
-            
-            // return ydsorigin + ' / ' + ydscheck;
+            value = Ext.util.Format.number(value, '0.00');
             return value;
         },
         bind: {
             // hidden: '{isYdsColumnHidden}',
         }
     },
-    // {
-    //     text: 'Kiểm cân', 
-    //     flex: 1,
-    //     dataIndex: 'grossweight_check',
-    //     align: 'center',
-    //     renderer: function(value, record, dataIndex, cell, column) {
-    //         if(value == null) value = 0;
-    //         var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
-    //         var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
-    //         if (grossweight == grossweight_check) {
-    //             cell.setCls('cellGreen');
-    //         } else if (grossweight < grossweight_check) {
-    //             cell.setCls('cellYellow');
-    //         } else{
-    //             cell.setCls('cellRed');
-    //         }
-            
-    //         return grossweight + ' / ' + grossweight_check;
-    //     },
-    // },
     ],
 });
