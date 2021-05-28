@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
     viewConfig: {
         stripeRows: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        loadMask: true
     },
     bind: {
         store: '{POrder_ListStore}'
@@ -383,7 +384,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 },
                 displayField: 'name',
                 valueField: 'id',
-                value: [1, 2, 3, 0, -1],
+                // value: [1, 2, 3, 0, -1],
+                value: [1, 2],
                 queryMode: 'local',
                 editable: true,
                 allowBlank: true,

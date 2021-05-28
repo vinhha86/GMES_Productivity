@@ -14,8 +14,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var viewmodel = this.getViewModel();
-
-        if (cellIndex == 9) {
+        if (cellIndex == 9) {//Yeu cau xuat
             var porderid_link = viewmodel.get('porderid_link');
 
             var form = Ext.create('Ext.window.Window', {
@@ -46,6 +45,34 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                 }]
             });
             form.show();
+        } else {
+            if (cellIndex == 7) {//Nhu cau
+                var form = Ext.create('Ext.window.Window', {
+                    closable: true,
+                    resizable: false,
+                    modal: true,
+                    border: false,
+                    title: 'Chi tiết nhu cầu',
+                    closeAction: 'destroy',
+                    height: 500,
+                    width: 800,
+                    bodyStyle: 'background-color: transparent',
+                    layout: {
+                        type: 'fit', // fit screen for window
+                        padding: 5
+                    },
+                    items: [{
+                        xtype: 'Balance_D_Product_Skus',
+                        viewModel: {
+                            type: 'Balance_D_Product_Skus_ViewModel',
+                            data: {
+                                productlist: record.data.product_d, 
+                            }
+                        }
+                    }]
+                });
+                form.show();
+            }            
         }
     },
     onBeforeselect: function (m, record, index, eOpts) {

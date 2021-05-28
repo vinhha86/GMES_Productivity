@@ -3,6 +3,40 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
     alias: 'controller.Balance_Main_Pcontract_Controller',
     init: function () {
     },
+    control: {
+        'Balance_D_Pcontract': {
+            celldblclick: 'onCellDblClick'
+        }
+    },
+    onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        if (cellIndex == 7) {//Nhu cau
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Chi tiết nhu cầu',
+                closeAction: 'destroy',
+                height: 500,
+                width: 800,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Balance_D_Product_Skus',
+                    viewModel: {
+                        type: 'Balance_D_Product_Skus_ViewModel',
+                        data: {
+                            productlist: record.data.product_d, 
+                        }
+                    }
+                }]
+            });
+            form.show();
+        }   
+    },    
     onCalBalance_OneProduct: function(){
         var me = this.getView();
         var viewmodel = this.getViewModel();

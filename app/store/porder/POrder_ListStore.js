@@ -144,7 +144,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				// totalProperty: 'totalCount'
 			}
 		});
-		this.loadPage(1, {
+		this.load({
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {

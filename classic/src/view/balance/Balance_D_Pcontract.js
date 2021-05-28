@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			dataIndex: 'mat_sku_bom_lostratio',
 			width: 55,
 			xtype: 'numbercolumn',
-			format: '0.000',
+			format: '0.00',
 			// renderer: function (value, metaData, record) {
 			// 	return value+" %";
 			// }

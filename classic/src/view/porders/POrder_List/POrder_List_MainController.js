@@ -114,10 +114,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         if (page == null) {
             page = 1;
         }
+
         store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
             buyerid, vendorid, factoryid, 
             golivedatefrom, golivedateto, 
             status, limit, page);
+
     },
     onBtnTimKiem: function () {
         var me = this.getView();
@@ -172,6 +174,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         // if (page == null) {
         //     page = 1;
         // }
+        
         store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
             buyerid, vendorid, factoryid, 
             golivedatefrom, golivedateto,
