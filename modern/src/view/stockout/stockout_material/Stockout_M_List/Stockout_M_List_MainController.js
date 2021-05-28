@@ -27,6 +27,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 
         StockoutStore.loadByDate_Material(null, "", stockindate_from, stockindate_to, null, null,
             null, null, null, null, statuses);
+        StockoutStore.getSorters().add({
+            property: 'stockoutdate',
+            direction: 'ASC'
+        });
     },
     onStockout_M_ListFilterKeyup: function(){
         var viewModel = this.getViewModel();

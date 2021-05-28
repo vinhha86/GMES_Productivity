@@ -24,8 +24,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainController', {
         var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
         Stockout_order_Store.loadStore_byPage(fromDate, toDate, 0, 0, 0);
         Stockout_order_Store.getSorters().add({
-            property: 'timecreate',
-            direction: 'DESC'
+            property: 'orderdate',
+            direction: 'ASC'
         });
     },
     onBtnBackTap: function(){

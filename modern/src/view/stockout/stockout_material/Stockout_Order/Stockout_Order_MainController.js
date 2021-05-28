@@ -21,31 +21,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Or
         var t = this;
 
         var viewModel = this.getViewModel();
-        var store = viewModel.getStore('Stockout_order_Store');
+        var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
 
-        // var limit = me.down('#orderlimitpage').getValue();
-        // var stockouttypeid = me.down('#stockouttypeid').getValue();
         var fromDate = me.down('#stockoutorderdate_from').getValue();
         var toDate = me.down('#stockoutorderdate_to').getValue();
-        // var OrgToStore = me.down('#OrgToStore').getValue();
-        // var OrgFromStore = me.down('#OrgFromStore').getValue();
-        // var stockoutcode = '';
-        // var orgid_from_link = null;
-        // var orgid_to_link = null;
-        // var stockouttypefrom = 1;
-        // var stockouttypeto = 10;
-
-        var page = store.currentPage;
-
-        // if (limit == null) {
-        //     limit = 25;
-        // }
-
-        // if (page == null) {
-        //     page = 1;
-        // }
         
-        store.loadStore_byPage(fromDate, toDate, null, null, null);
+        Stockout_order_Store.loadStore_byPage(fromDate, toDate, 0, 0, 0);
+        Stockout_order_Store.getSorters().add({
+            property: 'orderdate',
+            direction: 'ASC'
+        });
     },
     onStockout_M_OrderFilterKeyup: function(){
         var viewModel = this.getViewModel();

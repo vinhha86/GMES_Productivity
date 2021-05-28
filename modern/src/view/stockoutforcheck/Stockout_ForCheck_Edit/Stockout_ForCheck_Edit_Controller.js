@@ -134,8 +134,14 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
 
                 if(data.unitid_link == null) { // nếu đơn vị tính là null -> met
                     data.unitid_link = 1; 
+                }
+                if(data.unitid_link == 1){
                     data.unitname = "MÉT";
                     data.unitName = "MÉT";
+                }
+                if(data.unitid_link == 3){
+                    data.unitname = "YDS";
+                    data.unitName = "YDS";
                 }
                 viewModel.set('stockout_order', data);
 

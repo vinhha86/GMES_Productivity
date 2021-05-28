@@ -27,30 +27,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
                     layout: 'vbox',
                     flex: 1,
                     items: [
-                        // {
-                        //     layout: 'hbox',
-                        //     flex: 1,
-                        //     defaults: {
-                        //         margin: 1
-                        //     },
-                        //     items: [{
-                        //         xtype: 'combobox',
-                        //         // reference: 'cboorgto',
-                        //         editable: false,
-                        //         readOnly: true,
-                        //         cls: 'notEditable',
-                        //         bind:{
-                        //             store:'{OrgFromStore}',
-                        //             value:'{stockin.orgid_from_link}'
-                        //         },
-                        //         displayField: 'name',
-                        //         valueField: 'id',
-                        //         label: 'Nơi giao:',
-                        //         // disabled: true,
-                        //         labelWidth: 85,
-                        //         flex: 1,
-                        //     }]
-                        // },
                         {
                             layout: 'hbox',
                             flex: 1,
