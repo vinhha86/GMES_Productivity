@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainViewModel', {
 		},
 	},
 	data: {
-		
+		is_stockout_m_view: false,
 	},
 	formulas: {
         

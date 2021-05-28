@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_MainController'
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
 
         switch(value.title){
@@ -26,10 +27,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_MainController'
                 // Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
                 break;
             case 'Yêu cầu xuất':
-                var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+                // var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+                // Stockout_order_Store.reload();
+                // var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+                // Stockout_order_d_store.removeAll();
+                var Stockout_order_Store = me.down('#stockoutforcheckmain').getViewModel().getStore('Stockout_order_Store');
                 Stockout_order_Store.reload();
-                var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
-                Stockout_order_d_store.removeAll();
                 break;
             default: 
                 console.log('tab title không tồn tại');
