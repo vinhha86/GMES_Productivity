@@ -9,6 +9,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
             click: 'onDongBo'
         }
     },
+    listen: {
+        controller: {
+            'CutPlan_ViewController': {
+                'ReloadBOM': 'onReloadBOM'
+            }
+        }
+    },
+    onReloadBOM: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrderBom2Store');
+        store.load();
+    },
     onDongBo: function () {
         var me = this;
         var grid = this.getView();
@@ -66,6 +78,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
+        grid.setLoading('Đang lấy dữ liệu');
         var length = 5;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
@@ -84,6 +97,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
 
         GSmartApp.Ajax.post('/api/v1/porder/getsku_by_porder', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
 
@@ -98,23 +112,54 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                     for (var i = 0; i < listtitle.length; i++) {
                         if ("" + listtitle[i] == "") continue;
 
-                        var column = Ext.create('Ext.grid.column.Number', {
+                        var column = Ext.create('Ext.grid.column.Column',{
                             text: listtitle[i],
-                            xtype: 'numbercolumn',
-                            dataIndex: listid[i].toString(),
-                            width: 65,
-                            format: '0.0000',
-                            align: 'right',
-                            editor: {
-                                xtype: 'textfield',
-                                selectOnFocus: true,
-                                maskRe: /[0-9.]/
-                            },
-                            renderer: function (value, metaData, record) {
-                                if (value == 0) return "";
-                                return Ext.util.Format.number(value, '0.0000')
-                            }
-                        });
+                            columns: [{
+                                text: 'CĐ',
+                                dataIndex: listid[i].toString(),
+                                width: 65,
+                                format: '0.0000',
+                                align: 'right',
+                                editor: {
+                                    xtype: 'textfield',
+                                    selectOnFocus: true,
+                                    maskRe: /[0-9.]/
+                                },
+                                renderer: function (value, metaData, record) {
+                                    if (value == 0) return "";
+                                    return Ext.util.Format.number(value, '0.0000')
+                                }
+                            },{
+                                text: 'KT',
+                                dataIndex: listid[i]+"_KT",
+                                cls: 'titleRed',
+                                width: 65,
+                                format: '0.0000',
+                                align: 'right',
+                                renderer: function (value, metaData, record) {
+                                    if (value == 0) return "";
+                                    return Ext.util.Format.number(value, '0.0000')
+                                }
+                            }]
+                        })
+
+                        // var column = Ext.create('Ext.grid.column.Number', {
+                        //     text: listtitle[i],
+                        //     xtype: 'numbercolumn',
+                        //     dataIndex: listid[i].toString(),
+                        //     width: 65,
+                        //     format: '0.0000',
+                        //     align: 'right',
+                        //     editor: {
+                        //         xtype: 'textfield',
+                        //         selectOnFocus: true,
+                        //         maskRe: /[0-9.]/
+                        //     },
+                        //     renderer: function (value, metaData, record) {
+                        //         if (value == 0) return "";
+                        //         return Ext.util.Format.number(value, '0.0000')
+                        //     }
+                        // });
                         grid.headerCt.insert(length, column);
                         length++;
                     }

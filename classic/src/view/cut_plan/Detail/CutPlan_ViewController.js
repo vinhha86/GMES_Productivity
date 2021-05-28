@@ -57,6 +57,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         });
     },
     onXoa: function (grid, rowIndex, colIndex) {
+        var me =this;
         var viewmodel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
         if (rec.get('type') == 0) {
@@ -87,6 +88,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                                         var store = viewmodel.getStore('CutPlanRowStore');
                                         store.remove(rec);
                                         store.load();
+                                        me.fireEvent('ReloadBOM');
                                     }
                                     else {
                                         Ext.Msg.alert({
@@ -116,6 +118,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         }
     },
     UpdateRow: function(context){
+        var me = this;
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('CutPlanRowStore');
 
@@ -136,6 +139,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         store.load();
+                        me.fireEvent('ReloadBOM');
                     }
                     else {
                         Ext.Msg.alert({
@@ -156,6 +160,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     UpdateSizeAmount: function (context) {
         if(context.value == context.originalValue) return;
         
+        var me = this;
         var viewmodel = this.getViewModel();
         var porder = viewmodel.get('porder');
         var npl = viewmodel.get('npl');
@@ -177,6 +182,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         store.load();
+                        me.fireEvent('ReloadBOM');
                     }
                     else {
                         Ext.Msg.alert({
