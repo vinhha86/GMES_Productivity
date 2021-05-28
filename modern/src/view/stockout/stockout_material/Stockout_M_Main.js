@@ -43,7 +43,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_Main', {
                     layout: 'hbox',
                     flex: 1,
                     items:[{
-                        xtype: 'Stockout_Order_Main',
+                        // xtype: 'Stockout_Order_Main',
+                        xtype: 'stockoutforcheckmain',
+                        viewModel: {
+                            data: {
+                                is_stockout_m_view: true
+                            }
+                        },
                         flex: 1,
                     }]
                 },

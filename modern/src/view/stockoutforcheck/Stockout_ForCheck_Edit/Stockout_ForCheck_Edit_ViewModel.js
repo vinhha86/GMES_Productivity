@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
         isPklTextfieldFocus: false,
 
 		//
+        is_stockout_m_view: false, // view có vào từ xuất kho hay không (true), mặc định là tở vải (false)
 	},
 	formulas: {
         isEdit: function (get) {

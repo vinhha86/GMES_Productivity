@@ -5,6 +5,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainController', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
+        // nếu là view nằm trong view xuất kho -> ẩn top bar (nút back)
+        var is_stockout_m_view = viewmodel.get('is_stockout_m_view');
+        if(is_stockout_m_view){
+            me.down('#panel').setTbar(null);
+        }
+
+        //
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#fromDate').setValue(new Date(priorDate));

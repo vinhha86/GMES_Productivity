@@ -2,7 +2,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_ForCheck_Edit_Controller',
 	init: function() {
+        var viewModel = this.getViewModel();
         
+        // nếu vào từ view xuất kho
+        var tempObj = GSmartApp.util.State.get('tempObj');
+        if(tempObj){
+            viewModel.set('is_stockout_m_view', tempObj.is_stockout_m_view);
+            GSmartApp.util.State.set('tempObj', null);
+        }else{ // nếu vào từ view tở vải
+            // do nothing
+        }
     },
     listen: {
         controller: {
@@ -117,8 +126,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
 
     },
     onBackPage: function(){
-        // console.log('onBackPage');
-        this.redirectTo('stockoutforcheckmain');
+        var viewModel = this.getViewModel();
+        var is_stockout_m_view = viewModel.get('is_stockout_m_view');
+        if(is_stockout_m_view){ // view xuất kho
+            this.redirectTo('stockout_m');
+        }else{ // view tở vải
+            this.redirectTo('stockoutforcheckmain');
+        }
     },
     getInfo: function(id){
         var me = this;

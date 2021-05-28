@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Main', {
     items:[
         {
             xtype: 'panel',
+            itemId: 'panel',
             height: '100%',
             layout: 'vbox',
             items: [
