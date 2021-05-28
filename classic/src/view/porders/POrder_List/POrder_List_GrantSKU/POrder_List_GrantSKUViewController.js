@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantSKUViewControlle
                         POrder_ListGrantSKUStore.commitChanges();
                         viewModel.set('porderinfo', response.porderinfo);
                         viewModel.set('amount', response.amount);
-                        m.fireEvent('UpdatePorder', viewModel.get('porderinfo'), viewModel.get('amount'), response.endDate, viewModel.get('IdGrant'));
+                        m.fireEvent('UpdatePorder', viewModel.get('porderinfo'), viewModel.get('amount'), response.endDate, viewModel.get('IdGrant'), response.duration);
                     }
                     else {
                         Ext.MessageBox.show({

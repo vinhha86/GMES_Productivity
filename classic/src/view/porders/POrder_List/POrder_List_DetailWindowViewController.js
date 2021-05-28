@@ -99,8 +99,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         viewmodel.getStore('POrder_ListGrantSKUStore').load();
                         viewmodel.set('porderinfo', response.porderinfo);
                         viewmodel.set('amount', response.amount);
-                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
-                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
+                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'), response.duration);
+                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'), response.duration);
                     }
                     else {
                         Ext.Msg.show({
@@ -166,8 +166,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
                         viewmodel.set('porderinfo', response.porderinfo);
                         viewmodel.set('amount', response.amount);
 
-                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
-                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'));
+                        me.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'), response.duration);
+                        th.fireEvent('UpdatePorder', viewmodel.get('porderinfo'), viewmodel.get('amount'), response.endDate, viewmodel.get('IdGrant'), response.duration);
                     }
                     else {
                         Ext.Msg.show({

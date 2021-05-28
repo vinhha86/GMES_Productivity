@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             }
         }
     },
-    onUpdatePorder: function (porderinfo, amount, endDate, porder_grantid_link) {
+    onUpdatePorder: function (porderinfo, amount, endDate, porder_grantid_link, duration) {
         var view = this.getView().down('#treeplan');
         var store = view.getCrudManager().getEventStore();
         var record = store.findRecord('porder_grantid_link', porder_grantid_link);
@@ -32,6 +32,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         record.set('totalpackage', amount);
         record.set('EndDate', endDate);
         record.set('endDate', endDate);
+        record.set('duration', duration);
     },
     onSchedulerRender: function () {
         var me = this;
