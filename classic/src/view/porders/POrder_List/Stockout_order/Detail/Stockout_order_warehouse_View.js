@@ -92,7 +92,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         dataIndex: 'met',
         width: 120,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            return Ext.util.Format.number(parseFloat(value), '0,000');
+            return Ext.util.Format.number(parseFloat(value), '0,000.00');
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum'
