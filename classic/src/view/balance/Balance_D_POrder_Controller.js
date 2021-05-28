@@ -108,5 +108,9 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
             }]
         });
         form.show();
+
+        form.down('#Stockout_Detail_View').getController().on('Thoat', function () {
+            form.close();
+        });
     }
 })
