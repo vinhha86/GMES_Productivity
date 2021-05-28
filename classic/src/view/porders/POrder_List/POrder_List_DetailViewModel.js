@@ -98,6 +98,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         },
         porderid_link: function(get){
             return get('porder.id');
+        },
+        pcontractid_link: function(get){
+            return get('porder.pcontractid_link');
         }
     }
 })

@@ -39,7 +39,8 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                         data: {
                             isload: true, //them bien de load du lieu len hay khong
                             porderid_link: porderid_link,
-                            material_skuid_link: record.get('mat_skuid_link')
+                            material_skuid_link: record.get('mat_skuid_link'),
+                            pcontractid_link: viewmodel.get('pcontractid_link'),
                         }
                     }
                 }]
