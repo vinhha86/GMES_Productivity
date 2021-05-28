@@ -45,10 +45,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
                         order: {
                             id: record.get('id'),
                             stockouttypeid_link: record.get('stockouttypeid_link'),
-                            porderid_link: viewmodel.get('porder.id'),
+                            porderid_link: viewmodel.get('porderid_link'),
                             pcontractid_link: viewmodel.get('porder.pcontractid_link')
                         },
-                        porderid_link: viewmodel.get('porder.id'),
+                        porderid_link: viewmodel.get('porderid_link'),
                         pcontractid_link: viewmodel.get('porder.pcontractid_link')
                     }
                 }
@@ -89,10 +89,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
                         order: {
                             id: record.get('id'),
                             stockouttypeid_link: record.get('stockouttypeid_link'),
-                            porderid_link: viewmodel.get('porder.id'),
+                            porderid_link: viewmodel.get('porderid_link'),
                             pcontractid_link: viewmodel.get('porder.pcontractid_link')
                         },
-                        porderid_link: viewmodel.get('porder.id'),
+                        porderid_link: viewmodel.get('porderid_link'),
                         pcontractid_link: viewmodel.get('porder.pcontractid_link')
                     }
                 }

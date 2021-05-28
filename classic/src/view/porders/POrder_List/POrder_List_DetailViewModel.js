@@ -95,6 +95,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewModel', {
         isHiddenYard: function (get) {
             if (get('order.unitid_link') == 1) return true;
             return false;
+        },
+        porderid_link: function(get){
+            return get('porder.id');
         }
     }
 })

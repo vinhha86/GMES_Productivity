@@ -3,6 +3,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
     alias: 'controller.Stockout_Detail_ViewController',
     init: function () {
         var viewmodel = this.getViewModel();
+        
+        console.log(viewmodel.get('porderid_link'));
         this.getInfo(viewmodel.get('order.id'));
     },
     control: {
@@ -19,7 +21,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_Det
     getInfo: function (id) {
         var me = this;
         var viewmodel = this.getViewModel();
-
+        
         if (id != null) {
             var params = new Object();
             params.id = viewmodel.get('order.id');

@@ -99,7 +99,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
-
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
