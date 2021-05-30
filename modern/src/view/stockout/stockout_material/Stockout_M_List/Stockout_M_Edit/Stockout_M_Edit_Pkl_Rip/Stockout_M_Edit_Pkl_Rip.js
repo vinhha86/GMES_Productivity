@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         align: 'center',
     },
     {
-        text: 'Kiểm dài (M)', 
+        text: 'Xé (M)', 
         flex: 1,
         dataIndex: 'met_check',
         align: 'center',
@@ -81,11 +81,11 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             return value;
         },
         bind: {
-            // hidden: '{isMetColumnHidden}',
+            hidden: '{isMetColumnHidden}',
         }
     },
     {
-        text: 'Kiểm dài (Y)', 
+        text: 'Xé (Y)', 
         flex: 1,
         dataIndex: 'ydscheck',
         align: 'center',
@@ -95,7 +95,35 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             return value;
         },
         bind: {
-            // hidden: '{isYdsColumnHidden}',
+            hidden: '{isYdsColumnHidden}',
+        }
+    },
+    {
+        text: 'Còn (M)', 
+        flex: 1,
+        dataIndex: 'met_remain',
+        align: 'center',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            value = Ext.util.Format.number(value, '0.00');
+            return value;
+        },
+        bind: {
+            hidden: '{isMetColumnHidden}',
+        }
+    },
+    {
+        text: 'Còn (Y)', 
+        flex: 1,
+        dataIndex: 'yds_remain',
+        align: 'center',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            value = Ext.util.Format.number(value, '0.00');
+            return value;
+        },
+        bind: {
+            hidden: '{isYdsColumnHidden}',
         }
     },
     ],

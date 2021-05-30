@@ -77,6 +77,14 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 			}
 			return false;
 		},
+        isTabToVaiHidden: function (get) {
+			var is_stockout_m_view = get('is_stockout_m_view');
+            if(is_stockout_m_view){ console.log('true true');
+                return true; 
+            }
+            console.log('false false');
+			return false;
+		},
     },
 
 	

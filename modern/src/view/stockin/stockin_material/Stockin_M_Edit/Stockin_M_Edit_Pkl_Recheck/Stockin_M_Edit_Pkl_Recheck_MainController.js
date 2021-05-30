@@ -193,14 +193,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
                         }else{
                             Ext.toast('Lưu thành công', 3000);
                             var data = response.data;
-                            m.reloadStore();
-                            m.resetFormRecheck();
-                            m.getView().down('#packageidTxtRecheck').focus();
-
+                            
                             // bỏ highlight
                             var grid = me.down('#Stockin_M_Edit_Pkl_Recheck');
                             grid.getSelectable().deselectAll();
                             viewModel.set('selectedPklRecheckRecord', null);
+
+                            m.reloadStore();
+                            m.resetFormRecheck();
+                            m.getView().down('#packageidTxtRecheck').focus();
                         }
                         // console.log(response);
                     }else{

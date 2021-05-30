@@ -89,7 +89,10 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
                     items:[{
                         xtype: 'Stockout_ForCheck_Edit_ToVai_Main',
                         flex: 1,
-                    }]
+                    }],
+                    // bind: {
+                    //     disabled: '{isTabToVaiHidden}'
+                    // }
                 },
             ],
         }

@@ -28,7 +28,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 		selectedPklRipRecord: null, // pkl xé vải đang chọn
 		pklRip_stockoutdId: null, // xé vải combobox value
 		maPklRipFilter: '', // filter field pkl xé vải
-		objRip: null, // obj chứa các trường thông tin
+		objRip: null, // obj chứa các trường thông tin,
+        currentEditField: null, // đang edit textfield nào
 	},
 	formulas: {
         isMetColumnHidden: function (get) {

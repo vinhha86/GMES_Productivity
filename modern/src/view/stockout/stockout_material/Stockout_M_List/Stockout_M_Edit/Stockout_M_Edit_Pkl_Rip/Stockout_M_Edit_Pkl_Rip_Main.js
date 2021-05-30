@@ -105,7 +105,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{lotnumberTxtRip}',
                                 value: '{objRip.lotnumber}'
                             },
                         },
@@ -127,7 +126,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{packageidTxtRip}'
                                 value: '{objRip.packageid}'
                             },
                             listeners: {
@@ -162,7 +160,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'mTxtRip',
+                            itemId: 'metCheck',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
@@ -175,10 +173,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{mTxtRip}',
                                 value: '{objRip.met_check}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isMetColumnHidden}',
+                            },
+                            listeners: {
+                                focusleave: 'onPklRipTextfieldFocusLeave',
+                                focus: 'onPklRipTextfieldFocus',
                             },
                             stepValue: 0.1,
                         },
@@ -187,7 +187,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'yTxtRip',
+                            itemId: 'ydsCheck',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
@@ -200,10 +200,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{yTxtRip}',
                                 value: '{objRip.ydscheck}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isYdsColumnHidden}',
+                            },
+                            listeners: {
+                                focusleave: 'onPklRipTextfieldFocusLeave',
+                                focus: 'onPklRipTextfieldFocus',
                             },
                             stepValue: 0.1,
                         },
@@ -212,7 +214,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'mOriginTxtRip',
+                            itemId: 'metRemain',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
@@ -224,9 +226,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{mOriginTxtRip}',
                                 value: '{objRip.met_remain}',
                                 hidden: '{isMetColumnHidden}',
+                            },
+                            listeners: {
+                                focusleave: 'onPklRipTextfieldFocusLeave',
+                                focus: 'onPklRipTextfieldFocus',
                             },
                             stepValue: 0.1,
                         },
@@ -235,7 +240,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'yOriginTxtRip',
+                            itemId: 'ydsRemain',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
@@ -247,9 +252,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{yOriginTxtRip}',
                                 value: '{objRip.yds_remain}',
                                 hidden: '{isYdsColumnHidden}',
+                            },
+                            listeners: {
+                                focusleave: 'onPklRipTextfieldFocusLeave',
+                                focus: 'onPklRipTextfieldFocus',
                             },
                             stepValue: 0.1,
                         },

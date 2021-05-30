@@ -62,9 +62,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
     resetFormRip: function(){
         var m = this;
         var viewModel = this.getViewModel();
-        // var lotnumber = viewModel.get('objRip.lotnumber');
+        var lotnumber = viewModel.get('objRip.lotnumber');
         viewModel.set('objRip', null);
-        // viewModel.set('objRip.lotnumber', lotnumber);
+        viewModel.set('objRip.lotnumber', lotnumber);
     },
     onItemPklRipTap: function(list, location, eOpts ){
         var m = this;
@@ -80,10 +80,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         objRip.id = record.get('id');
         objRip.lotnumber = record.get('lotnumber');
         objRip.packageid = record.get('packageid');
-        objRip.met_check = record.get('met_check');
-        objRip.ydscheck = record.get('ydscheck');
-        // objRip.met_remain = record.get('met_check');
-        // objRip.yds_remain = record.get('ydscheck');
+        objRip.met_check = record.get('met_check') == null ? 0 : record.get('met_check');
+        objRip.ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
+        objRip.met_remain = record.get('met_remain') == null ? 0 : record.get('met_remain');
+        objRip.yds_remain = record.get('yds_remain') == null ? 0 : record.get('yds_remain');
+        objRip.met_remain_and_check = record.get('met_remain_and_check') == null ? 0 : record.get('met_remain_and_check');
+        objRip.yds_remain_and_check = record.get('yds_remain_and_check') == null ? 0 : record.get('yds_remain_and_check');
 
         viewModel.set('objRip', objRip);
 
@@ -114,41 +116,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         }
 
         // check textfield
-        if(stockout.unitid_link == 3){
-            if(objRip.yds_remain == '' || objRip.yds_remain == null){
-                Ext.toast('Thiếu thông tin số còn', 3000);
-                return;
-            }
-            if(isNaN(objRip.yds_remain)){
-                Ext.toast('Số còn là số', 3000);
-                return;
-            }
-            if(objRip.ydscheck == '' || objRip.ydscheck == null){
-                Ext.toast('Thiếu thông tin số xé', 3000);
-                return;
-            }
-            if(isNaN(objRip.ydscheck)){
-                Ext.toast('Số xé là số', 3000);
-                return;
-            }
-        }
-        if(stockout.unitid_link == 1){
-            if(objRip.met_remain == '' || objRip.met_remain == null){
-                Ext.toast('Thiếu thông tin số còn', 3000);
-                return;
-            }
-            if(isNaN(objRip.met_remain)){
-                Ext.toast('Số còn là số', 3000);
-                return;
-            }
-            if(objRip.met_check == '' || objRip.met_check == null){
-                Ext.toast('Thiếu thông tin số xé', 3000);
-                return;
-            }
-            if(isNaN(objRip.met_check)){
-                Ext.toast('Số xé là số', 3000);
-                return;
-            }
+        if(
+            objRip.yds_remain == '' || objRip.yds_remain == null ||
+            objRip.ydscheck == '' || objRip.ydscheck == null ||
+            objRip.met_remain == '' || objRip.met_remain == null ||
+            objRip.met_check == '' || objRip.met_check == null
+        ){
+            var currentEditField = viewModel.get('currentEditField');
+            currentEditField = '#' + currentEditField;
+            var txtfield = me.down(currentEditField);
+            m.onPklRipTextfieldFocusLeave(txtfield);
         }
         
         // quy đổi met <-> yds
@@ -199,15 +176,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.toast('Lưu thành công', 3000);
-                        m.reloadStore();
-                        m.resetFormRip();
-                        // m.getView().down('#packageidTxtRip').focus();
-
                         // bỏ highlight
                         var grid = me.down('#Stockout_M_Edit_Pkl_Rip');
                         grid.getSelectable().deselectAll();
                         viewModel.set('selectedPklRipRecord', null);
 
+                        m.reloadStore();
+                        m.resetFormRip();
                         // console.log(response);
                     }else{
                         Ext.toast('Lưu thất bại: ' + response.message, 3000);
@@ -284,13 +259,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 var responseObj = response.data[0];
+                                responseObj.met_check = responseObj.met_check == null ? 0 : responseObj.met_check;
+                                responseObj.ydscheck = responseObj.ydscheck == null ? 0 : responseObj.ydscheck;
+                                responseObj.met_remain = responseObj.met_remain == null ? 0 : responseObj.met_remain;
+                                responseObj.yds_remain = responseObj.yds_remain == null ? 0 : responseObj.yds_remain;
+                                responseObj.met_remain_and_check = responseObj.met_remain_and_check == null ? 0 : responseObj.met_remain_and_check;
+                                responseObj.yds_remain_and_check = responseObj.yds_remain_and_check == null ? 0 : responseObj.yds_remain_and_check;
                                 viewModel.set('objRip', responseObj);
 
                                 // bỏ highlight
                                 var grid = me.down('#Stockout_M_Edit_Pkl_Rip');
                                 grid.getSelectable().deselectAll();
                                 // highlight nếu cây vải có trong danh sách 10%
-                                var storeItems = viewModel.getStore('StockoutPklRipStore').getData().items;
+                                var storeItems = viewModel.getStore('stockout_pklist_rip').getData().items;
                                 for(var i=0; i<storeItems.length; i++){
                                     var item = storeItems[i];
                                     if(item.get('id') == responseObj.id){
@@ -312,14 +293,99 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                     }
             })        
         }
-
-        // viewModel.set('mOriginTxtRip', obj.met_origin);
-        // viewModel.set('yOriginTxtRip', obj.ydsorigin);
-        // viewModel.set('grossweightTxtRip', obj.grossweight);
-        // viewModel.set('widthMetTxtRip', obj.width_met);
-        // viewModel.set('widthYdsTxtRip', obj.width_yds);
     },
+    onPklRipTextfieldFocus: function(txtfield, e, eOpts){
+        // set viewmodel currentEditField (txtfield đang edit)
+        var viewModel = this.getViewModel();
+        var itemId = txtfield.getItemId();
+        viewModel.set('currentEditField', itemId);
+    },
+    onPklRipTextfieldFocusLeave: function(txtfield, e, eOpts){
+        // update các txtfield còn lại
+        // console.log(txtfield);
+        // console.log(txtfield.getItemId());
+        var viewModel = this.getViewModel();
+        var itemId = '';
+        if(txtfield == null){
+            itemId = 'metCheck';
+        }else{
+            itemId = txtfield.getItemId();
+        }
 
+        var objRip = viewModel.get('objRip');
+        if(objRip == null || objRip.id == null) return;
+        // met_check ydscheck met_remain yds_remain met_remain_and_check yds_remain_and_check
+        switch(itemId){
+            case 'metCheck':
+                if(objRip.met_check < 0){
+                    Ext.toast('Giá trị < 0', 1000);
+                    objRip.met_check = objRip.met_remain_and_check - objRip.met_remain;
+                }else
+                if(objRip.met_check > objRip.met_remain_and_check){
+                    Ext.toast('Giá trị > tổng số xé và số còn', 3000);
+                    objRip.met_check = objRip.met_remain_and_check - objRip.met_remain;
+                }else
+                {
+                    if(objRip.met_check == null || objRip.met_check == '') objRip.met_check = 0;
+                    objRip.met_remain = objRip.met_remain_and_check - objRip.met_check;
+                    objRip.yds_remain = objRip.met_remain / 0.9144;
+                    objRip.ydscheck = objRip.yds_remain_and_check - objRip.yds_remain;
+                }
+                break;
+            case 'metRemain':
+                console.log('here');
+                if(objRip.met_remain < 0){
+                    Ext.toast('Giá trị < 0', 1000);
+                    objRip.met_remain = objRip.met_remain_and_check - objRip.met_check;
+                }else
+                if(objRip.met_remain > objRip.met_remain_and_check){
+                    Ext.toast('Giá trị > tổng số xé và số còn', 3000);
+                    objRip.met_remain = objRip.met_remain_and_check - objRip.met_check;
+                }else
+                {
+                    if(objRip.met_remain == null || objRip.met_remain == '') objRip.met_remain = 0;
+                    objRip.met_check = objRip.met_remain_and_check - objRip.met_remain;
+                    objRip.ydscheck = objRip.met_check / 0.9144;
+                    objRip.yds_remain = objRip.yds_remain_and_check - objRip.ydscheck;
+                }
+                break;
+            case 'ydsCheck':
+                if(objRip.ydscheck < 0){
+                    Ext.toast('Giá trị < 0', 1000);
+                    objRip.ydscheck = objRip.yds_remain_and_check - objRip.yds_remain;
+                }else
+                if(objRip.ydscheck > objRip.yds_remain_and_check){
+                    Ext.toast('Giá trị > tổng số xé và số còn', 3000);
+                    objRip.ydscheck = objRip.yds_remain_and_check - objRip.yds_remain;
+                }else
+                {
+                    if(objRip.ydscheck == null || objRip.ydscheck == '') objRip.ydscheck = 0;
+                    objRip.yds_remain = objRip.yds_remain_and_check - objRip.ydscheck;
+                    objRip.met_remain = objRip.yds_remain * 0.9144;
+                    objRip.met_check = objRip.met_remain_and_check - objRip.met_remain;
+                }
+                break;
+            case 'ydsRemain':
+                if(objRip.yds_remain < 0){
+                    Ext.toast('Giá trị < 0', 1000);
+                    objRip.yds_remain = objRip.yds_remain_and_check - objRip.ydscheck;
+                }else
+                if(objRip.yds_remain > objRip.yds_remain_and_check){
+                    Ext.toast('Giá trị > tổng số xé và số còn', 3000);
+                    objRip.yds_remain = objRip.yds_remain_and_check - objRip.ydscheck;
+                }else
+                {
+                    if(objRip.yds_remain == null || objRip.yds_remain == '') objRip.yds_remain = 0;
+                    objRip.ydscheck = objRip.yds_remain_and_check - objRip.yds_remain;
+                    objRip.met_check = objRip.ydscheck * 0.9144;
+                    objRip.met_remain = objRip.met_remain_and_check - objRip.met_check;
+                }
+                break;
+            default:
+                break;
+        }
+        viewModel.set('objRip', objRip);
+    },
     reloadStore: function(){
         var m = this;
         var viewModel = this.getViewModel();
