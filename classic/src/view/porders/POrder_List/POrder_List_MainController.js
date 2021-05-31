@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         }
     },
     onloadStoreBySearch_Done: function () {
-        this.getView.setLoading(false);
+        this.getView().setLoading(false);
     },
     onSpecialkey: function (field, e) {
         var me = this;
