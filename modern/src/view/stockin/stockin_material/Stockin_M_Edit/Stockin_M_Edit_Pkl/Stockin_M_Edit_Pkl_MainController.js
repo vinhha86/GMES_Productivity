@@ -99,9 +99,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 
         // viewModel.set('pklSpaceTxt', null);
         // viewModel.set('pklFloorTxt', null);
-        // m.getView().down('#packageidTxt').focus();
+        myview.down('#packageidTxt').focus();
 
-        myview.setMasked(false);
     },
     onItemPklTap: function(list, location, eOpts ){
         var m = this;
@@ -364,7 +363,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
     //hungdaibang code
     onUpdate_Print_Pklist: function(pklistData){
         var myview = this.getView();
-        myview.setMasked({
+        Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Đang in tem'
         });
@@ -375,7 +374,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // console.log(pklistData);
         var params = new Object();
         params.data = pklistData;
-        params.isprintlabel = config.getPrint_material_label();
+
+        if (null!=pklistData.id){
+            //Neu la update thong tin cay vai --> Khong in tem
+            params.isprintlabel = false;
+        } else {
+            //Neu la them moi cay vai --> Theo cau hinh he thong (In/Ko in)
+            params.isprintlabel = config.getPrint_material_label();
+        }
+        
         params.rfid_enable = config.getPrint_rfid_enable();
         GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_create', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -384,13 +391,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                       console.log(response);
+                    //    console.log(response);
 					   
 					   //Goi mqtt de in tem
                         if (null != response.rfprintid_link && response.rfprintid_link > 0){
 					        me.onPrint_WithRFID(response.rfprintid_link);
                         } else {
                             //Reload danh sach Pklist va Reset cac o nhap lieu
+                            Ext.Viewport.setMasked(false);
                             viewModel.set('selectedPklRecord', null);
                             me.reloadStore();
                             me.resetForm();
@@ -406,7 +414,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         })        
     },
 	onPrint_WithRFID: function(rfprintid_link){
-        console.log(rfprintid_link);
+        // console.log(rfprintid_link);
 
         var me = this;
 
@@ -423,12 +431,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 		
 		me.channelPrint.cmd = 'gsm5/term/' + termid + '/cmd';
 		GSmartApp.Mqtt.connect(host, port, clientid, me.channelPrint, deviceId, function (topic, message) {
-			console.log(topic);
 			if (topic.includes("cmd")) {
 				var jsonObj = Ext.JSON.decode(message);
-				console.log(jsonObj);
+				// console.log(jsonObj);
                 //Neu respcode = 2 --> may in chua san sang
                 if (jsonObj.respcode == 2){
+                    Ext.Viewport.setMasked(false);
                     Ext.Msg.alert('Thông báo', 'Máy in chưa sẵn sàng', Ext.emptyFn);
                     viewModel.set('isKiemcay_CheckEnable', true);
                 } else {
@@ -457,7 +465,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
 			GSmartApp.Mqtt.client.send(message);
 
 		}, function () {
-			console.log('Loi connect');
+            Ext.Viewport.setMasked(false);
+			console.log('Loi connect may in');
 			var viewModel = me.getViewModel();
 			viewModel.set('clsbtn', "red-button");
 			viewModel.set('clsbtnStart', "blue-button");
@@ -475,7 +484,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         params.rfprintid_link = rfprintid_link;
         GSmartApp.Ajax.postJitin('/api/v1/rfprint/getbyid', Ext.JSON.encode(params),
             function (success, response, options) {
-                // me.setLoading(false);
+                Ext.Viewport.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
