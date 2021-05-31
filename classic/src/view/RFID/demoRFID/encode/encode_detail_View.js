@@ -1,8 +1,11 @@
-Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
+Ext.define('GSmartApp.view.RFID.demoRFID.inv.encode_detail_View', {
     extend: 'Ext.form.Panel',
-    xtype: 'encode_View',
-    id: 'encode_View',
-    controller: 'encode_ViewController',
+    xtype: 'encode_detail_View',
+    id: 'encode_detail_View',
+    controller: 'encode_detail_ViewCotroller',
+    viewModel: {
+        type: 'inv_create_ViewModel'
+    },
     layout: 'vbox',
     items: [{
         layout: 'hbox',
@@ -41,37 +44,20 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
         }]
     }],
     dockedItems: [{
-        dock: 'top',
         layout: 'hbox',
-        border: true,
+        border: false,
+        dock: 'bottom',
         items: [{
-            xtype: 'combo',
+            xtype: 'button',
+            text: 'Thoát',
             margin: 3,
-            fieldLabel: 'Loại kho',
-            displayField: 'name',
-            valueField: 'id',
-            bind: {
-                store: '{StoreType}'
-            }
+            itemId: 'btnThoat',
+            iconCls: 'x-fa fa-window-close'
         }, {
             xtype: 'button',
             margin: 3,
             text: 'In nhãn',
-            itemId: 'btnIn',
-            iconCls: 'x-fa fa-print'
-        }, {
-            xtype: 'button',
-            margin: 3,
-            itemId: 'btnInExcode',
-            text: 'In nhãn & Mã hóa',
-            iconCls: 'x-fa fa-print'
-        }, {
-            xtype: 'button',
-            margin: 3,
-            itemId: 'btnEncode',
-            text: 'Mã hóa',
             iconCls: 'x-fa fa-print'
         }]
     }]
-});
-
+})

@@ -147,6 +147,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		this.load({
 			scope: this,
 			callback: function (records, operation, success) {
+				this.fireEvent('loadStoreBySearch_Done');
 				if (!success) {
 					this.fireEvent('logout');
 				}
