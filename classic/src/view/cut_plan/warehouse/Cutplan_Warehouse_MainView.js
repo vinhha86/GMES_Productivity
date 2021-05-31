@@ -24,15 +24,29 @@ Ext.define('GSmartApp.view.warehouse.cut_plan.Cutplan_Warehouse_MainView', {
             margin: 1
         },
     ],
-    dockedItems:[{
-        dock:'bottom',
+    dockedItems: [{
+        dock: 'bottom',
         layout: 'hbox',
-        items:[{
+        items: [{
             xtype: 'button',
             text: 'Thoát',
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
             margin: 5
+        }, {
+            layout: 'hbox',
+            border: false,
+            items: [{
+                html: '<div class="color-box">'
+                    + '<div class="color-square process-free"></div>&nbspĐã tở vải'
+                    + '</div>',
+                margin: 5
+            }, {
+                html: '<div class="color-box">'
+                    + '<div class="color-square process-granted"></div>&nbspChưa tở vải'
+                    + '</div>',
+                margin: 5
+            }]
         }]
     }]
 })

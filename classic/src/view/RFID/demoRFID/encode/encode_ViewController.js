@@ -14,32 +14,71 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
             select: 'onSelectLoaiKho'
         }
     },
-    onPrint: function () {
-        var form = Ext.create('Ext.window.Window', {
-            height: 250,
-            width: 600,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'In và mã hóa',
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'encode_detail_View',
-                viewModel: {
-                    data: {
-                        type: 1
-                    }
-                }
-            }]
-        });
+    CheckValidate: function () {
+        var viewmodel = this.getViewModel();
+        var form = this.getView();
+        var type = viewmodel.get('type');
+        var encode = viewmodel.get('encode');
 
-        form.show();
+        var mes = "";
+        if (type.en_name && encode.name == '') {
+            mes = "Bạn chưa nhập tên nhãn";
+        }
+        else if (type.en_code && encode.code == '') {
+            mes = "Bạn chưa nhập mã";
+        }
+        else if (type.en_lot && encode.lot == '') {
+            mes = "Bạn chưa nhập lot";
+        }
+        else if (type.en_exp && encode.exp == '') {
+            mes = "Bạn chưa nhập ngày hết hạn";
+        }
+        else if (type.id == 0) {
+            mes = "Bạn chưa chọn loại kho";
+        }
+
+        return mes;
+    },
+    onPrint: function () {
+        var me = this;
+        var mes = me.CheckValidate();
+        if (mes == "") {
+            var form = Ext.create('Ext.window.Window', {
+                height: 250,
+                width: 600,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'In và mã hóa',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'encode_detail_View',
+                    viewModel: {
+                        data: {
+                            type: 1
+                        }
+                    }
+                }]
+            });
+
+            form.show();
+        }
+        else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: mes,
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
     },
     onSelectLoaiKho: function (cmb, rec, e) {
         var viewmodel = this.getViewModel();
