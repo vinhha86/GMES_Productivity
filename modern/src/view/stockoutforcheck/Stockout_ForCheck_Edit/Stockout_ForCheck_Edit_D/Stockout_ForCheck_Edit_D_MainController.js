@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D_MainControl
 
         var msgWindow = Ext.Msg.show({
             title: 'Thông báo',
-            message: 'Tạo phiếu nhập?',
+            message: 'Tạo phiếu xuất kho?',
             width: 300,
             closable: false,
             buttons: [{
