@@ -127,23 +127,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         viewModel.set('widthMetTxt', record.get('width_met') * 100); // m -> cm
 
         // set khoang info cho pkl
-        var spaceepc_link = record.get('spaceepc_link') == null ? '' : record.get('spaceepc_link').toUpperCase();
-        if(spaceepc_link != ''){ // D-1|H-2|T-3|
-            var spaceepc_linkArr = spaceepc_link.split('|');
-            var row = spaceepc_linkArr[0].substring(2); //console.log(row);
-            if(row == 'x' || row == 'X') row = null; 
-            var space = spaceepc_linkArr[1].substring(2); //console.log(space);
-            if(space == 'x' || space == 'X') space = null;
-            var floor = spaceepc_linkArr[2].substring(2); //console.log(floor);
-            if(floor == 'x' || floor == 'X') floor = null;
-            viewModel.set('pklRowTxt', row);
-            viewModel.set('pklSpaceTxt', space);
-            viewModel.set('pklFloorTxt', floor);
-        }else{
-            viewModel.set('pklFloorTxt', null);
-            viewModel.set('pklSpaceTxt', null);
-            viewModel.set('pklRowTxt', null);
-        }
+        viewModel.set('pklFloorTxt', record.get('floor'));
+        viewModel.set('pklSpaceTxt', record.get('space'));
+        viewModel.set('pklRowTxt', record.get('row'));
         // console.log(spaceepc_link);  
         // console.log(location.record.data);
     },
@@ -295,7 +281,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
             return;
         }
         // var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
-        var spaceepc_link = 'D-' + pklRowTxt + '|H-' + pklSpaceTxt + '|T-' + pklFloorTxt + '|';
+        // var spaceepc_link = 'D-' + pklRowTxt + '|H-' + pklSpaceTxt + '|T-' + pklFloorTxt + '|';
 
         // check lotnumber tồn tại
         var stockin_lot = selectedDRecord.get('stockin_lot');
@@ -340,8 +326,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
         objData.skuid_link = selectedDRecord.get('skuid_link');
-        objData.spaceepc_link = spaceepc_link;
+        // objData.spaceepc_link = spaceepc_link;
         // objData.status = 1;
+        objData.row = pklRowTxt;
+        objData.space = pklSpaceTxt;
+        objData.floor = pklFloorTxt;
 
         if(stockin.unitid_link == 3){
             // có y
