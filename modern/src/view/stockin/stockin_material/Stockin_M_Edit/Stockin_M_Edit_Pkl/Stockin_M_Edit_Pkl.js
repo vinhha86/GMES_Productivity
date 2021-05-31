@@ -83,8 +83,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
             if(value == null) value = 0;
             var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
             var met_origin = record.get('met_origin') == null ? 0 : record.get('met_origin');
-            met_check = Ext.util.Format.number(met_check, '0.00');
-            met_origin = Ext.util.Format.number(met_origin, '0.00');
 
             if (met_origin == met_check) {
                 cell.setCls('cellGreen');
@@ -94,6 +92,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
                 cell.setCls('cellRed');
             }
             
+            met_check = Ext.util.Format.number(met_check, '0.00');
+            met_origin = Ext.util.Format.number(met_origin, '0.00');
             return met_origin + ' / ' + met_check;
         },
         bind: {
@@ -109,8 +109,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
             if(value == null) value = 0;
             var ydscheck = record.get('ydscheck') == null ? 0 : record.get('ydscheck');
             var ydsorigin = record.get('ydsorigin') == null ? 0 : record.get('ydsorigin');
-            ydscheck = Ext.util.Format.number(ydscheck, '0.00');
-            ydsorigin = Ext.util.Format.number(ydsorigin, '0.00');
             
             if (ydsorigin == ydscheck) {
                 cell.setCls('cellGreen');
@@ -120,6 +118,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl', {
                 cell.setCls('cellRed');
             }
             
+            ydscheck = Ext.util.Format.number(ydscheck, '0.00');
+            ydsorigin = Ext.util.Format.number(ydsorigin, '0.00');
             return ydsorigin + ' / ' + ydscheck;
         },
         bind: {

@@ -107,9 +107,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if(value == null) value = 0;
             var totalmetcheck = record.get('totalmetcheck') == null ? 0 : record.get('totalmetcheck');
             var totalmet = record.get('totalmet') == null ? 0 : record.get('totalmet');
-            totalmetcheck = Ext.util.Format.number(totalmetcheck, '0.00');
-            totalmet = Ext.util.Format.number(totalmet, '0.00');
-
+            
             if (totalmet == totalmetcheck) {
                 cell.setCls('cellGreen');
             } else if (totalmet < totalmetcheck) {
@@ -117,6 +115,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             } else{
                 cell.setCls('cellRed');
             }
+
+            totalmetcheck = Ext.util.Format.number(totalmetcheck, '0.00');
+            totalmet = Ext.util.Format.number(totalmet, '0.00');
             return totalmet + ' / ' + totalmetcheck;
             // return Ext.util.Format.number(totalmet, '0.00') + ' / ' + Ext.util.Format.number(totalmetcheck, '0.00');
         },
@@ -133,8 +134,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
             if(value == null) value = 0;
             var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
             var totalyds = record.get('totalyds') == null ? 0 : record.get('totalyds');
-            totalydscheck = Ext.util.Format.number(totalydscheck, '0.00');
-            totalyds = Ext.util.Format.number(totalyds, '0.00');
 
             if (totalyds == totalydscheck) {
                 cell.setCls('cellGreen');
@@ -144,6 +143,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
                 cell.setCls('cellRed');
             }
             
+            totalydscheck = Ext.util.Format.number(totalydscheck, '0.00');
+            totalyds = Ext.util.Format.number(totalyds, '0.00');
             return totalyds + ' / ' + totalydscheck;
             // return Ext.util.Format.number(totalyds, '0.00') + ' / ' + Ext.util.Format.number(totalydscheck, '0.00');
         },
