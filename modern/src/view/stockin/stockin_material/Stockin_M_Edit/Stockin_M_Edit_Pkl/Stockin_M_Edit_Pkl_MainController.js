@@ -264,15 +264,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // spaceepc_link: khoang cây vải
         var numberOfEmptyField = 0;
         if(pklRowTxt == null || pklRowTxt == '') {
-            pklRowTxt = 'x';
+            // pklRowTxt = 'x';
             numberOfEmptyField++;
         }
         if(pklSpaceTxt == null || pklSpaceTxt == '') {
-            pklSpaceTxt = 'x';
+            // pklSpaceTxt = 'x';
             numberOfEmptyField++;
         }
         if(pklFloorTxt == null || pklFloorTxt == '') {
-            pklFloorTxt = 'x';
+            // pklFloorTxt = 'x';
             numberOfEmptyField++;
         }
         
