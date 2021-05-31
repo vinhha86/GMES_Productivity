@@ -10,37 +10,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.encode_detail_View', {
     items: [{
         layout: 'hbox',
         items: [{
-            xtype: 'textfield',
+            xtype: 'combo',
             margin: 3,
             fieldLabel: 'Tạo nhãn'
-        }, {
-            xtype: 'textfield',
-            margin: 3,
-            fieldLabel: 'Code'
-        }]
-    }, {
-        layout: 'hbox',
-        items: [{
-            xtype: 'textfield',
-            margin: 3,
-            fieldLabel: 'Lot'
-        }, {
-            xtype: 'datefield',
-            fieldLabel: 'Exp:',
-            margin: 3,
-            format: 'd/m/y',
-            altFormats: "Y-m-d\\TH:i:s.uO",
-            bind: {
-                value: '{po.productiondate}'
-            }
-        }]
-    }, {
-        layout: 'hbox',
-        items: [{
-            xtype: 'textfield',
-            margin: 3,
-            fieldLabel: 'Qty',
-            maskRe: /[0-9]/
         }]
     }],
     dockedItems: [{

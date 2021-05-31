@@ -39,6 +39,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
             margin: 3,
             format: 'd/m/y',
             altFormats: "Y-m-d\\TH:i:s.uO",
+            editable: false,
             bind: {
                 value: '{po.productiondate}',
                 disabled: '{!type.en_exp}',

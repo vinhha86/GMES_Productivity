@@ -5,6 +5,11 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_detail_ViewCotroller', {
         var viewmodel = this.getViewModel();
     },
     control: {
-
+        '#btnThoat': {
+            click: 'onThoat'
+        }
+    },
+    onThoat: function () {
+        this.getView().up('window').close();
     }
 })
