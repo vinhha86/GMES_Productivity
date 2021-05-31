@@ -16,6 +16,15 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.Demo_rfid_ViewModel', {
         }
     },
     data: {
-
+        encode: {
+            qty: 1
+        },
+        type: {
+            en_name: false,
+            en_code: false,
+            en_lot: false,
+            en_exp: false,
+            en_qty: false
+        }
     }
 });

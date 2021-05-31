@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.Demo_rfid_ViewController', {
             var storeInv = viewmodel.getStore('inv_store');
             storeInv.loadStore();
         }
-        else if (newCard.xtype == 'inv_main_View') {
+        else if (newCard.xtype == 'encode_View') {
             var storeIntType = viewmodel.getStore('StoreType');
             storeIntType.loadStore();
         }

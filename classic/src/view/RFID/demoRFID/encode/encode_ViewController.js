@@ -9,6 +9,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
     control: {
         '#btnIn': {
             click: 'onPrint'
+        },
+        '#cmbLoaiKho': {
+            select: 'onSelectLoaiKho'
         }
     },
     onPrint: function () {
@@ -37,5 +40,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
         });
 
         form.show();
+    },
+    onSelectLoaiKho: function (cmb, rec, e) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('type', rec.data);
     }
 })

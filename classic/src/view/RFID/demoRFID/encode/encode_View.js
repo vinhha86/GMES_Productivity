@@ -9,18 +9,30 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
         items: [{
             xtype: 'textfield',
             margin: 3,
-            fieldLabel: 'Tạo nhãn'
+            fieldLabel: 'Name',
+            bind: {
+                disabled: '{!type.en_name}',
+                value: '{encode.name}'
+            }
         }, {
             xtype: 'textfield',
             margin: 3,
-            fieldLabel: 'Code'
+            fieldLabel: 'Code',
+            bind: {
+                disabled: '{!type.en_code}',
+                value: '{encode.code}'
+            }
         }]
     }, {
         layout: 'hbox',
         items: [{
             xtype: 'textfield',
             margin: 3,
-            fieldLabel: 'Lot'
+            fieldLabel: 'Lot',
+            bind: {
+                disabled: '{!type.en_lot}',
+                value: '{encode.lot}'
+            }
         }, {
             xtype: 'datefield',
             fieldLabel: 'Exp:',
@@ -28,7 +40,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
             format: 'd/m/y',
             altFormats: "Y-m-d\\TH:i:s.uO",
             bind: {
-                value: '{po.productiondate}'
+                value: '{po.productiondate}',
+                disabled: '{!type.en_exp}',
+                value: '{encode.exp}'
             }
         }]
     }, {
@@ -37,7 +51,11 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
             xtype: 'textfield',
             margin: 3,
             fieldLabel: 'Qty',
-            maskRe: /[0-9]/
+            maskRe: /[0-9]/,
+            bind: {
+                disabled: '{!type.en_qty}',
+                value: '{encode.qty}'
+            }
         }]
     }],
     dockedItems: [{
@@ -50,6 +68,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
             fieldLabel: 'Loại kho',
             displayField: 'name',
             valueField: 'id',
+            itemId: 'cmbLoaiKho',
             bind: {
                 store: '{StoreType}'
             }

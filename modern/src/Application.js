@@ -25,8 +25,8 @@ Ext.define('GSmartApp.Application', {
         'NavigationTree'
     ],
 
-    launch: function() {
-        var me=this;
+    launch: function () {
+        var me = this;
         console.log('.... launch modern app!');
 
         var mainview = me.getMainView();
@@ -42,21 +42,21 @@ Ext.define('GSmartApp.Application', {
             config.setFname(session.get('fname'));
             Ext.Ajax.setDefaultHeaders({ authorization: config.getToken() });
 
-            if(!config.getEnableSSO()) {
-                storeMenu.loadMenu(function(success,records, operation) {    
-                    if(!success){
-                        if(operation.error == undefined) {
+            if (!config.getEnableSSO()) {
+                storeMenu.loadMenu(function (success, records, operation) {
+                    if (!success) {
+                        if (operation.error == undefined) {
                             console.log(operation.error);
-                            Ext.Msg.alert('Warning', 'Can load resource data, Please check your network connection!',function(){
+                            Ext.Msg.alert('Warning', 'Can load resource data, Please check your network connection!', function () {
                                 window.location.reload();
                             });
                         } else {
                             if (403 == operation.error.status || 401 == operation.error.status) {
-                                    Ext.Msg.alert('Warning', 'User token expire, Please re-login to continue', function(){
-                                        config.setToken(null);
-                                        GSmartApp.util.State.set('session', null);
-                                        Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
-                                        //window.location.reload();
+                                Ext.Msg.alert('Warning', 'User token expire, Please re-login to continue', function () {
+                                    config.setToken(null);
+                                    GSmartApp.util.State.set('session', null);
+                                    Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
+                                    //window.location.reload();
                                 });
                             }
                             else {
@@ -68,21 +68,21 @@ Ext.define('GSmartApp.Application', {
                     } else {
                         Ext.create('GSmartApp.view.main.Main', { fullscreen: true });
                     }
-                }); 
+                });
             } else {
                 GSmartApp.model.Session.check()
-                    .then(function() {
-                        storeMenu.loadMenu(function(success,records, operation) {  
+                    .then(function () {
+                        storeMenu.loadMenu(function (success, records, operation) {
                             Ext.create('GSmartApp.view.main.Main', { fullscreen: true });
                         });
                     })
-                    .catch(function(errors) {
+                    .catch(function (errors) {
                         config.setToken(null);
                         GSmartApp.util.State.set('session', null);
                         Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
-                    });    
+                    });
             }
-        // If session is not valid --> Go to login screen
+            // If session is not valid --> Go to login screen
         } else {
             console.log('Session is not valid --> Go login');
             config.setToken(null);
@@ -95,12 +95,6 @@ Ext.define('GSmartApp.Application', {
     //     store.loadMenu();
     // },
     onAppUpdate: function () {
-        Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
-            function (choice) {
-                if (choice === 'yes') {
-                    window.location.reload();
-                }
-            }
-        );
+        window.location.reload();
     }
 });
