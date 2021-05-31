@@ -84,16 +84,14 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
                 },
                 {
                     title: 'Tở vải',
+                    // xtype: 'Stockout_ForCheck_Edit_ToVai_Main'
                     layout: 'hbox',
                     flex: 1,
-                    items:[{
+                    items: [{
                         xtype: 'Stockout_ForCheck_Edit_ToVai_Main',
                         flex: 1,
                     }],
-                    // bind: {
-                    //     disabled: '{isTabToVaiHidden}'
-                    // }
-                },
+                }
             ],
         }
     ],

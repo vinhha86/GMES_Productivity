@@ -13,6 +13,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 		stockout_order: {
 			id: null
 		},
+        stockout: {
+
+        },
 
 		// Stockout_ForCheck_Edit_D
 		selectedDRecord: null, // loại vải đang chọn
@@ -79,10 +82,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 		},
         isTabToVaiHidden: function (get) {
 			var is_stockout_m_view = get('is_stockout_m_view');
-            if(is_stockout_m_view){ console.log('true true');
+            if(is_stockout_m_view){
                 return true; 
             }
-            console.log('false false');
 			return false;
 		},
     },

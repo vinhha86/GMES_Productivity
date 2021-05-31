@@ -408,20 +408,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
     // sort store
     onSort: function(){
         var me = this.getView();
-        var Stockin_M_Edit_D = me.down('#Stockin_M_Edit_D');
-        Stockin_M_Edit_D.getStore().getSorters().add({
+        var viewModel = this.getViewModel();
+        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
+        Stockin_d_Store.getSorters().add({
             property: 'skucode',
             direction: 'ASC'
         });
 
-        var Stockin_M_Edit_Lot = me.down('#Stockin_M_Edit_Lot');
-        Stockin_M_Edit_Lot.getStore().getSorters().add({
+        var StockinLotStore = viewModel.getStore('StockinLotStore');
+        StockinLotStore.getSorters().add({
             property: 'lot_number',
             direction: 'ASC'
         });
 
-        var Stockin_M_Edit_Pkl = me.down('#Stockin_M_Edit_Pkl');
-        Stockin_M_Edit_Pkl.getStore().getSorters().add({
+        var StockinPklStore = viewModel.getStore('StockinPklStore');
+        StockinPklStore.getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{
@@ -429,8 +430,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             direction: 'ASC'
         });
 
-        var Stockin_M_Edit_Pkl_Recheck = me.down('#Stockin_M_Edit_Pkl_Recheck');
-        Stockin_M_Edit_Pkl_Recheck.getStore().getSorters().add({
+        var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
+        StockinPklRecheckStore.getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{

@@ -9,6 +9,11 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
         if(tempObj){
             viewModel.set('is_stockout_m_view', tempObj.is_stockout_m_view);
             GSmartApp.util.State.set('tempObj', null);
+
+            // ẩn tay tab tở vải nếu vào từ view xuất kho
+            // var view = this.getView().down('#TabView');
+            // var tabToVai = view.down('#Stockout_ForCheck_Edit_ToVai_Main');
+            // tabToVai.tab.hide();
         }else{ // nếu vào từ view tở vải
             // do nothing
         }
@@ -38,7 +43,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
         var viewModel = this.getViewModel();
         var stockoutorderid_link = viewModel.get('stockout_order.id');
         var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
-
+        
         switch(value.title){
             case 'DS vải':
                 var selectedDRecord = viewModel.get('selectedDRecord');
@@ -168,14 +173,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
     // sort store
     onSort: function(){
         var me = this.getView();
-        var Stockout_ForCheck_Edit_D = me.down('#Stockout_ForCheck_Edit_D');
-        Stockout_ForCheck_Edit_D.getStore().getSorters().add({
+        var viewmodel = this.getViewModel();
+        var Stockout_order_d_store = viewmodel.getStore('Stockout_order_d_store');
+
+        Stockout_order_d_store.getSorters().add({
             property: 'skucode',
             direction: 'ASC'
         });
 
-        var Stockout_ForCheck_Edit_ToVai = me.down('#Stockout_ForCheck_Edit_ToVai');
-        Stockout_ForCheck_Edit_ToVai.getStore().getSorters().add({
+        var Stockout_order_pkl_Store = viewmodel.getStore('Stockout_order_pkl_Store');
+        Stockout_order_pkl_Store.getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{

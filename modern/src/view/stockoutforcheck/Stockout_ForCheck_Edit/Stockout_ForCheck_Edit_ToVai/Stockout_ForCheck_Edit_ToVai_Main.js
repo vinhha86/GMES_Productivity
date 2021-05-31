@@ -323,7 +323,11 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                         },
                     ]
                 },
-            ]
+            ],
+            // hidden: true,
+            bind: { // ẩn nhập liệu nếu là vào từ view xuất kho
+                hidden: '{isTabToVaiHidden}'
+            }
         }
     ]
 });
