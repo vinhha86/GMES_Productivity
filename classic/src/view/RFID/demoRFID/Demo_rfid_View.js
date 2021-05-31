@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.RFID.Demo_rfid_View', {
     extend: 'Ext.tab.Panel',
     xtype: 'Demo_rfid_View',
+    id: 'Demo_rfid_View',
     controller: 'Demo_rfid_ViewController',
     viewModel: {
         type: 'Demo_rfid_ViewModel'
@@ -10,7 +11,8 @@ Ext.define('GSmartApp.view.RFID.Demo_rfid_View', {
         xtype: 'inv_main_View'
     },
     {
-        title: '[2] Mã hóa/In nhãn'
+        title: '[2] Mã hóa/In nhãn',
+        xtype: 'encode_View'
     },
     {
         title: '[3] Nhập kho/Xuất kho'
