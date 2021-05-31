@@ -115,24 +115,47 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         }
     },
     {
-        text: 'Kiểm cân', 
+        text: 'Khổ (cm)', 
         flex: 1,
-        dataIndex: 'grossweight_check',
+        dataIndex: 'widthcheck',
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
-            var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
-            var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
-            // if (grossweight == grossweight_check) {
+            var widthcheck = record.get('widthcheck') == null ? 0 : record.get('widthcheck');
+            var widthorigin = record.get('widthorigin') == null ? 0 : record.get('widthorigin');
+            widthcheck = Ext.util.Format.number(widthcheck * 100, '0.00');
+            widthorigin = Ext.util.Format.number(widthorigin * 100, '0.00');
+
+            // if (met_origin == met_check) {
             //     cell.setCls('cellGreen');
-            // } else if (grossweight < grossweight_check) {
+            // } else if (met_origin < met_check) {
             //     cell.setCls('cellYellow');
             // } else{
             //     cell.setCls('cellRed');
             // }
             
-            return grossweight + ' / ' + grossweight_check;
+            return widthorigin + ' / ' + widthcheck;
         },
     },
+    // {
+    //     text: 'Kiểm cân', 
+    //     flex: 1,
+    //     dataIndex: 'grossweight_check',
+    //     align: 'center',
+    //     renderer: function(value, record, dataIndex, cell, column) {
+    //         if(value == null) value = 0;
+    //         var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
+    //         var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+    //         // if (grossweight == grossweight_check) {
+    //         //     cell.setCls('cellGreen');
+    //         // } else if (grossweight < grossweight_check) {
+    //         //     cell.setCls('cellYellow');
+    //         // } else{
+    //         //     cell.setCls('cellRed');
+    //         // }
+            
+    //         return grossweight + ' / ' + grossweight_check;
+    //     },
+    // },
     ],
 });
