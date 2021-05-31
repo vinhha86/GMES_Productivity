@@ -125,6 +125,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                 value: '{objPkl.packageid}'
                             },
                             listeners: {
+                                focusenter: 'onlotnumberTxtAndpackageidTxtenter',
                                 focusleave: 'onlotnumberTxtAndpackageidTxtleave',
                             },
                             stepValue: 0.1,
@@ -142,6 +143,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             ui: 'action',
                             focusable: false,
                             // disabled: true,
+                            bind: {
+                                disabled: '{isFocusTxtField}'
+                            }
                         },
                     ]
                 },

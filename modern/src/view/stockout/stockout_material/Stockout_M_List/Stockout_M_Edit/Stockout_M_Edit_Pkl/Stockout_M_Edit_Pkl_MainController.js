@@ -362,11 +362,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         //     viewModel.set('widthMetTxt', widthMetCheckTxt);
         // }
     },
+    onlotnumberTxtAndpackageidTxtenter: function(){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        viewModel.set('isFocusTxtField', true);
+
+    },
     onlotnumberTxtAndpackageidTxtleave: function(textfield, event, eOpts){
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('isFocusTxtField', false);
 
         viewModel.set('isPklTextfieldFocus', false);
         var lotnumber = viewModel.get('objPkl.lotnumber');
