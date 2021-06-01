@@ -31,6 +31,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 		maPklRipFilter: '', // filter field pkl xé vải
 		objRip: null, // obj chứa các trường thông tin,
         currentEditField: null, // đang edit textfield nào
+        isTextFieldFocus: false,
 	},
 	formulas: {
         isMetColumnHidden: function (get) {
@@ -55,9 +56,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         },
 		isobjRipSelected: function (get) {
             var objRip = get('objRip');
+            var isTextFieldFocus = get('isTextFieldFocus');
             if(objRip == null){
                 return false;
-            } 
+            }
+            if(isTextFieldFocus == true){
+                return false;
+            }
             return true;
         },
     },

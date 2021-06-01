@@ -385,10 +385,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         //     return;
         // }
 
+        if(selectedDRecord == null){
+            viewModel.set('objPkl', null);
+            viewModel.set('objPkl.lotnumber', lotnumber);
+            Ext.toast('Cần chọn nguyên phụ liệu', 3000);
+            return;
+        }
+
         if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
-            lotnumber == null || packageid == null ||
-            selectedDRecord == null
+            lotnumber == null || packageid == null
         ){
             viewModel.set('objPkl', null);
             viewModel.set('objPkl.lotnumber', lotnumber);

@@ -298,6 +298,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // set viewmodel currentEditField (txtfield đang edit)
         var viewModel = this.getViewModel();
         var itemId = txtfield.getItemId();
+        viewModel.set('isTextFieldFocus', true);
         viewModel.set('currentEditField', itemId);
     },
     onPklRipTextfieldFocusLeave: function(txtfield, e, eOpts){
@@ -305,6 +306,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // console.log(txtfield);
         // console.log(txtfield.getItemId());
         var viewModel = this.getViewModel();
+        viewModel.set('isTextFieldFocus', false);
         var itemId = '';
         if(txtfield == null){
             itemId = 'metCheck';
