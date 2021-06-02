@@ -512,16 +512,58 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditController', {
 
 		form.down('#Handover_kho_tocut_Edit_Confirm').getController().on('Confirmed', function (receiver_userid_link) {
 
-			viewModel.set('stockout.receiver_userid_link', receiver_userid_link);
-			viewModel.set('stockout.receive_date', new Date());
-			viewModel.set('stockout.status', 2);
-			viewModel.set('stockout.statusString', 'Đã nhận');
-
-			Ext.getCmp('Handover_kho_tocut_Edit').down('#btnConfirm').setHidden(true);
-            Ext.getCmp('Handover_kho_tocut_Edit').down('#statusString').setValue('Đã nhận');
-			me.onSave();
-			
+			me.receive_material(receiver_userid_link);
             form.close();
         })
-    }
+    },
+	receive_material: function(receiver_userid_link){
+		var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var stockoutId = stockout.id;
+		var receiver_userid_link = receiver_userid_link;
+
+		// viewModel.set('stockout.receiver_userid_link', receiver_userid_link);
+		// viewModel.set('stockout.receive_date', new Date());
+		// viewModel.set('stockout.status', 2);
+		// viewModel.set('stockout.statusString', 'Đã nhận');
+
+		var params=new Object();
+		params.stockoutId = stockoutId;
+		params.receiver_userid_link = receiver_userid_link;
+
+		me.setLoading("Đang lưu dữ liệu");
+		GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_receive_material',Ext.JSON.encode(params),
+		function(success,response,options ) {
+			me.setLoading(false);
+				if (success) {
+					var response = Ext.decode(response.responseText);
+					if (response.respcode == 200) {
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Nhận thành công',
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+						Ext.getCmp('Handover_kho_tocut_Edit').down('#btnConfirm').setHidden(true);
+						Ext.getCmp('Handover_kho_tocut_Edit').down('#statusString').setValue('Đã nhận');
+						this.redirectTo("handover_kho_tocut/" + response.id + "/edit");
+						m.getInfo(response.id);
+					}
+				} else {
+					var response = Ext.decode(response.responseText);
+					Ext.MessageBox.show({
+						title: "Thông báo",
+						msg: 'Lỗi nhận: ' + response.message,
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						}
+					});
+				}
+		})
+	}
 });
