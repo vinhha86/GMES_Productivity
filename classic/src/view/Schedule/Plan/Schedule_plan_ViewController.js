@@ -1150,8 +1150,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         var form = Ext.create('Ext.window.Window', {
-                            height: 320,
-                            width: 800,
+                            height: 350,
+                            width: 900,
                             border: false,
                             closable: true,
                             title: 'Thông tin chi tiết',
