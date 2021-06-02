@@ -696,8 +696,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			// viewModel.set('stockout.status', 1);
 			// viewModel.set('stockout.statusString', 'Đã duyệt');
 
-			Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
-            Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
 			me.onApprove();
 			
             form.close();
@@ -726,7 +724,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 							buttonText: {
 								yes: 'Đóng',
 							}
-						});							
+						});		
+						Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+						Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
 						this.redirectTo("stockout_m/" + response.id + "/edit");
 						m.getInfo(response.id);
 					}
