@@ -296,7 +296,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail_Controller', {
         pkl_data.widthorigin = parseFloat(pkl_data.widthorigin);
       }
       if(context.field == 'widthcheck'){
-        pkl_data.widthcheck = parseFloat(pkl_data.widthcheck);
+        pkl_data.widthcheck = parseFloat(pkl_data.widthcheck) /100;
       }
   
       store.commitChanges();

@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			summaryRenderer: 'renderCount'
 		},
 		{
-			text: 'Cây số', 
+			text: 'Số cây', 
 			dataIndex: 'packageid',
             flex: 1,
 		},
@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		// 	}
 		// },
         {
-			text: 'Khổ', 
+			text: 'Khổ (cm)', 
 			dataIndex: 'widthcheck',
             flex: 1,
 			align:'right',
@@ -129,8 +129,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			},
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
-				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-				return Ext.util.Format.number(value, '0,000.00');
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+				return Ext.util.Format.number(value * 100, '0,000.00');
 			}
 		},
         // {

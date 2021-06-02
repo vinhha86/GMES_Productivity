@@ -39,18 +39,45 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_warehouse', {
 		},
 		{
 			text: 'Mầu', 
-			dataIndex: 'color_name',
+			dataIndex: 'colorname',
             flex: 1
 		},
 		{
-			text: 'Khổ', 
-			dataIndex: 'width',
-            flex: 1
+			text: 'Khổ (cm)', 
+			dataIndex: 'width_met',
+            flex: 1,
+			renderer: function (value, metaData, record) {
+				if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+				return Ext.util.Format.number(value * 100, '0,000.00');
+			}
 		},
 		{
 			text: 'Dài (M)', 
 			dataIndex: 'met',
-            flex: 1
+            flex: 1,
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
+			renderer: function (value, metaData, record) {
+				if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
+		},
+
+		{
+			text: 'Dài (Y)', 
+			dataIndex: 'yds',
+            flex: 1,
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
+			renderer: function (value, metaData, record) {
+				if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			}
 		},
 	],
 });
