@@ -120,4 +120,48 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         menu_grid.record = record;
         menu_grid.showAt(position);
     },
+
+    // filter
+    onPorder_product_buyercodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('porder_product_buyercodeFilter'),
+            store = this.getViewModel().getStore('Stockout_order_Store'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.porder_product_buyercodeFilter = filters.add({
+                id: 'porder_product_buyercodeFilter',
+                property: 'porder_product_buyercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.porder_product_buyercodeFilter) {
+            filters.remove(this.porder_product_buyercodeFilter);
+            this.porder_product_buyercodeFilter = null;
+        }
+    },
+    onPorder_codeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('porder_codeFilter'),
+            store = this.getViewModel().getStore('Stockout_order_Store'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.porder_codeFilter = filters.add({
+                id: 'porder_codeFilter',
+                property: 'porder_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.porder_codeFilter) {
+            filters.remove(this.porder_codeFilter);
+            this.porder_codeFilter = null;
+        }
+    },
 });

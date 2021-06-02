@@ -39,8 +39,38 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
             xtype: 'rownumberer',
             align: 'center'
         },
-        { header: 'Mã SP', dataIndex: 'porder_product_buyercode', width: 120 },
-        { header: 'Lệnh SX', dataIndex: 'porder_code', width: 120 },
+        { 
+            header: 'Mã SP', dataIndex: 'porder_product_buyercode', width: 120, 
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'porder_product_buyercodeFilter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onPorder_product_buyercodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
+        { 
+            header: 'Lệnh SX', dataIndex: 'porder_code', width: 120,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'porder_codeFilter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onPorder_codeFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
         { header: 'Số phiếu', dataIndex: 'stockout_order_code', flex: 1 },
         { header: 'Loại phiếu', dataIndex: 'typename', width: 140 },
         { header: 'Ngày xuất', dataIndex: 'orderdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },

@@ -51,8 +51,38 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         //     xtype: 'rownumberer',
         //     align: 'center'
         // },
-        { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
-        { header: 'Số YCX', dataIndex: 'stockout_order_code', width: 150 },
+        { 
+            header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stockoutcodeFilter',
+                width: 145,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockoutcodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
+        { 
+            header: 'Số YCX', dataIndex: 'stockout_order_code', width: 150,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stockout_order_codeFilter',
+                width: 145,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockout_order_codeFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
         { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
         { header: 'Loại xuất kho', dataIndex: 'stockouttype_name', width: 150 },
         { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
