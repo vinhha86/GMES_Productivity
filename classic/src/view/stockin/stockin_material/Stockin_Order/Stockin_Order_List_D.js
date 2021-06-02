@@ -9,54 +9,55 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_D', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
-    viewConfig: {
-        enableTextSelection: true,
-        stripeRows: false,
-        getRowClass: function(record, index) {
-            var c = record.get('status');
-            if (c == -1) {
-                return 'epc-error';
-            }
-            else {
-                return 'epc-ok';
-            }
-        }                     
-    },
+	viewConfig: {
+		enableTextSelection: true,
+		stripeRows: false,
+		getRowClass: function (record, index) {
+			var c = record.get('status');
+			console.log(c);
+			if (c == -1) {
+				return 'epc-error';
+			}
+			else {
+				return 'epc-ok';
+			}
+		}
+	},
 	// plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onDItemEdit',
-    //             // beforeedit: 'onPriceDItemBeforeEdit'
-    //         }             
-    //     }
-    // },
-	bind:{
+	//     cellediting: {
+	//         clicksToEdit: 1,
+	//         listeners: {
+	//             edit: 'onDItemEdit',
+	//             // beforeedit: 'onPriceDItemBeforeEdit'
+	//         }             
+	//     }
+	// },
+	bind: {
 		store: '{Stockin_Order_D_Store}'
 	},
 	columns: [
 		{
-			text: 'Mã NPL', 
+			text: 'Mã NPL',
 			width: 100,
 			dataIndex: 'skucode'
-		},{
-			text: 'Tên NPL', 
+		}, {
+			text: 'Tên NPL',
 			dataIndex: 'skuname',
 			width: 100,
-		},{
-			text: 'Mô tả', 
+		}, {
+			text: 'Mô tả',
 			dataIndex: 'sku_product_desc',
 			flex: 1
-		},{
-			text: 'Màu', 
+		}, {
+			text: 'Màu',
 			dataIndex: 'sku_product_color',
 			width: 120
-		},{
-			text: 'Cỡ khổ', 
+		}, {
+			text: 'Cỡ khổ',
 			dataIndex: 'size_name',
 			width: 70
-		},{
-			text: 'ĐVT', 
+		}, {
+			text: 'ĐVT',
 			dataIndex: 'unitid_link',
 			width: 70,
 			// editor: {
@@ -81,9 +82,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_D', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'SL Y/C (M)', 
-			align:'right',
+			format: '0,000.00',
+			text: 'SL Y/C (M)',
+			align: 'right',
 			dataIndex: 'totalmet_origin',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
@@ -96,11 +97,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_D', {
 			// 	maskRe: /[0-9]/,
 			// 	selectOnFocus: true
 			// },
-		},{
+		}, {
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'SL kiểm (M)', 
-			align:'right',
+			format: '0,000.00',
+			text: 'SL kiểm (M)',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalmet_check',
@@ -152,9 +153,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_D', {
 		// },
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL cây', 
-			align:'right',
+			format: '0,000',
+			text: 'SL cây',
+			align: 'right',
 			dataIndex: 'totalpackage',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
@@ -164,14 +165,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_Order_List_D', {
 			// 	maskRe: /[0-9]/,
 			// 	selectOnFocus: true
 			// },
-		},		
+		},
 		{
-			text: 'Danh sách LOT', 
+			text: 'Danh sách LOT',
 			// dataIndex: 'lot_list',
 			dataIndex: 'stockinDLot',
 			width: 150,
-			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-				if(value == null) value = '';
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				if (value == null) value = '';
 				value = value.toUpperCase();
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
