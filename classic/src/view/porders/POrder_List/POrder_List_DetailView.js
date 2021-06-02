@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailView', {
                 xtype: 'PorderBom_TabColor',
                 hidden: true
             }, {
-                title: 'Định mức New',
+                title: 'Định mức',
                 xtype: 'POrderBom2View'
             }, {
                 title: 'Quy trình công nghệ',

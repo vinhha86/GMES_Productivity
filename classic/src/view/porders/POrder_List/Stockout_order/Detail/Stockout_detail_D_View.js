@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
         dataIndex: 'totalyds_lock',
         width: 80,
         renderer: function (value, metaData, record) {
-            value = value == null ? "" : value + ' y';
+            value = value == null ? "" : Ext.util.Format.number(parseFloat(value), '#,###.##');
             return value;
         },
         bind: {
@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
         dataIndex: 'totalmet_lock',
         width: 80,
         renderer: function (value, metaData, record) {
-            value = value == null ? "" : value + ' m';
+            value = value == null ? "" : Ext.util.Format.number(parseFloat(value), '#,###.##');
             return value;
         },
         bind: {
@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
         dataIndex: 'socaygiu',
         width: 80,
         renderer: function (value, metaData, record) {
-            value = value == null ? "" : value;
+            value = value == null ? "" : Ext.util.Format.number(parseFloat(value), '#,###');
             return value;
         }
     },
@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            value = value == null ? "" : value;
+            value = value == null ? "" : Ext.util.Format.number(parseFloat(value), '#,###');
             return value;
         }
     },
@@ -116,7 +116,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            value = value == null ? "" : value + ' y';
+            value = value == null ? "" : Ext.util.Format.number(parseFloat(value), '#,###.##');
             return value;
         },
         bind: {
@@ -133,7 +133,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            value = value == null ? "" : value + ' m';
+            value = value == null ? "" : Ext.util.Format.number(parseFloat(value), '#,###.##');
             return value;
         },
         bind: {

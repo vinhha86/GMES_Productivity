@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
             }
         }
     },
-    onReloadBOM: function(){
+    onReloadBOM: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrderBom2Store');
         store.load();
@@ -40,7 +40,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                         mes = "Đồng bộ thất bại";
                     }
                     else {
-                        me.createTab();
+                        var store = viewmodel.getStore('POrderBom2Store');
+                        store.load();
                     }
                 } else {
                     mes = "Đồng bộ thất bại";
@@ -112,7 +113,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                     for (var i = 0; i < listtitle.length; i++) {
                         if ("" + listtitle[i] == "") continue;
 
-                        var column = Ext.create('Ext.grid.column.Column',{
+                        var column = Ext.create('Ext.grid.column.Column', {
                             text: listtitle[i],
                             columns: [{
                                 text: 'CĐ',
@@ -129,9 +130,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                                     if (value == 0) return "";
                                     return Ext.util.Format.number(value, '0.0000')
                                 }
-                            },{
+                            }, {
                                 text: 'KT',
-                                dataIndex: listid[i]+"_KT",
+                                dataIndex: listid[i] + "_KT",
                                 cls: 'titleRed',
                                 width: 65,
                                 format: '0.0000',

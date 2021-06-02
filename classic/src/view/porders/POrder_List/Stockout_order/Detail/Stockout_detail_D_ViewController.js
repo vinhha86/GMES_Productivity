@@ -99,47 +99,60 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_det
         var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
-        var form = Ext.create('Ext.window.Window', {
-            closable: false,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Danh sách cây vải',
-            closeAction: 'destroy',
-            height: Ext.getBody().getViewSize().height * .99,
-            width: Ext.getBody().getViewSize().width * .95,
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'Stockout_order_pkl_MainView',
-                viewModel: {
-                    data: {
-                        material_skuid_link: record.get('material_skuid_link'),
-                        org_from_id_link: viewmodel.get('order.orgid_from_link'),
-                        porderid_link: viewmodel.get('porderid_link'),
-                        stockout_order_pkl: record.get('stockout_order_pkl'),
-                        stockout_orderid_link: viewmodel.get('order.id'),
-                        stockoutorderdid_link: record.get('id')
-                    }
+
+        if (viewmodel.get('order.id') == null) {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn phải lưu phiếu trước khi chọn chi tiết cây vải!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
-            }]
-        });
-        form.show();
+            });
+        }
+        else {
+            var form = Ext.create('Ext.window.Window', {
+                closable: false,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Danh sách cây vải',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .99,
+                width: Ext.getBody().getViewSize().width * .95,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockout_order_pkl_MainView',
+                    viewModel: {
+                        data: {
+                            material_skuid_link: record.get('material_skuid_link'),
+                            org_from_id_link: viewmodel.get('order.orgid_from_link'),
+                            porderid_link: viewmodel.get('porderid_link'),
+                            stockout_order_pkl: record.get('stockout_order_pkl'),
+                            stockout_orderid_link: viewmodel.get('order.id'),
+                            stockoutorderdid_link: record.get('id')
+                        }
+                    }
+                }]
+            });
+            form.show();
 
-        form.down('#Stockout_order_pkl_MainView').getController().on('Thoat', function (data) {
-            form.close();
-        });
+            form.down('#Stockout_order_pkl_MainView').getController().on('Thoat', function (data) {
+                form.close();
+            });
 
-        form.down('#Stockout_order_pkl_MainView').on('AddMat', function (data) {
-            me.onAddMat(record, data);
-        });
+            form.down('#Stockout_order_pkl_MainView').on('AddMat', function (data) {
+                me.onAddMat(record, data);
+            });
 
-        form.down('Stockout_order_pkl_MainView').on('XoaPKL', function () {
-            grid.up('Stockout_Detail_View').getController().getInfo(viewmodel.get('order.id'));
-        })
+            form.down('Stockout_order_pkl_MainView').on('XoaPKL', function () {
+                grid.up('Stockout_Detail_View').getController().getInfo(viewmodel.get('order.id'));
+            })
+        }
     },
     onAddMat: function (record, data) {
         var grid = this.getView();
