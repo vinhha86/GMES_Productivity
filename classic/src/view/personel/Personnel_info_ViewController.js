@@ -43,15 +43,17 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
   },
   i: 0,
   onQRShow: function () {
-    var me = this;
-    var viewmodel = this.getViewModel();
+//     var me = this;
+//     var viewmodel = this.getViewModel();
+// 
+//     var grid = this.getView();
+//     var qrcode = grid.down('#qrcode');
+//     qrcode.onGenBase64();
+//     qrcode.text = viewmodel.get('personnel.fullname');
+//     qrcode.onRender();
+//     qrcode.onGenBase64();
 
-    var grid = this.getView();
-    var qrcode = grid.down('#qrcode');
-    qrcode.onGenBase64();
-    qrcode.text = viewmodel.get('personnel.fullname');
-    qrcode.onRender();
-    qrcode.onGenBase64();
+  GSmartApp.ux.grid.print_test.print(null);
   },
   onUploadImage: function () {
     var me = this.getView();

@@ -272,10 +272,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
             margin: '10 5 0 0',
             text: 'Tải ảnh',
             iconCls: 'x-fa fa-upload'
-        },{
-            xtype: 'button',
-            text: 'qrcode',
-            itemId: 'btnQR'
         }]
     },{
         layout: 'vbox',
