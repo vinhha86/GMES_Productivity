@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
     alias: 'controller.Stockin_M_List_Main_Controller',
     isActivate: false,
     init: function () {
+        var m = this;
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -25,6 +26,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
 		me.down('#stockindate_from').setValue(new Date(priorDate));
 
         // this.onSearch();
+
+        // nếu là pop up từ tab cân đối NPL của tab tiến độ giao hàng
+        var isCanDoiNplPopup = viewmodel.get('isCanDoiNplPopup');
+        if(isCanDoiNplPopup){
+            // load store theo npl
+            m.onSearch();
+        }
     },
 	listen: {
         controller: {
@@ -81,6 +89,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
         var status = [0,1,2];
+        var mat_skuid_link = viewmodel.get('mat_skuid_link');
 
         // var page = store.currentPage;
 
@@ -92,7 +101,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         //     page = 1;
         // }
         // store.loadStore(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page);
-        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null, null);
+        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null, null, mat_skuid_link);
+        var StockinD_Store = viewmodel.getStore('StockinD_Store');
+        if(null!=StockinD_Store) StockinD_Store.removeAll();
     },
     onThemMoi: function(){
         this.redirectTo('stockin_m_main/create');
@@ -260,7 +271,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('stockincodeFilter'),
-            filters = this.getView().store.getFilters();
+            store = this.getViewModel().getStore('StockinStore'),
+            filters = store.getFilters();
 
         if (filterField.value) {
             this.stockincodeFilter = filters.add({
@@ -280,7 +292,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('invoice_numberFilter'),
-            filters = this.getView().store.getFilters();
+            store = this.getViewModel().getStore('StockinStore'),
+            filters = store.getFilters();
 
         if (filterField.value) {
             this.invoice_numberFilter = filters.add({

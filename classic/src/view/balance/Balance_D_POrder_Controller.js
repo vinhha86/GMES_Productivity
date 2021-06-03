@@ -45,34 +45,88 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                 }]
             });
             form.show();
-        } else {
-            if (cellIndex == 7) {//Nhu cau
-                var form = Ext.create('Ext.window.Window', {
-                    closable: true,
-                    resizable: false,
-                    modal: true,
-                    border: false,
-                    title: 'Chi tiết nhu cầu',
-                    closeAction: 'destroy',
-                    height: 500,
-                    width: 800,
-                    bodyStyle: 'background-color: transparent',
-                    layout: {
-                        type: 'fit', // fit screen for window
-                        padding: 5
-                    },
-                    items: [{
-                        xtype: 'Balance_D_Product_Skus',
-                        viewModel: {
-                            type: 'Balance_D_Product_Skus_ViewModel',
-                            data: {
-                                productlist: record.data.product_d, 
-                            }
+        } else if (cellIndex == 7) {//Nhu cau
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Chi tiết nhu cầu',
+                closeAction: 'destroy',
+                height: 500,
+                width: 800,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Balance_D_Product_Skus',
+                    viewModel: {
+                        type: 'Balance_D_Product_Skus_ViewModel',
+                        data: {
+                            productlist: record.data.product_d, 
                         }
-                    }]
-                });
-                form.show();
-            }            
+                    }
+                }]
+            });
+            form.show();
+        } else if(cellIndex == 8){ // cột Nhập kho
+            // bật danh sách phiếu nhập kho có chứa NPL đang chọn
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Danh sách phiếu nhập kho',
+                closeAction: 'destroy',
+                height: '95%',
+                width: '95%',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_M_List_Main',
+                    viewModel: {
+                        type: 'Stockin_M_ViewModel',
+                        data: {
+                            isCanDoiNplPopup: true,
+                            mat_skuid_link: record.get('mat_skuid_link'),
+                        }
+                    }
+                }]
+            });
+            form.show();
+        } else if(cellIndex == 10){ // cột Xuất kho
+            // bật danh sách phiếu xuất kho có chứa NPL đanh chọn
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Danh sách phiếu xuất kho',
+                closeAction: 'destroy',
+                height: '95%',
+                width: '95%',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockout_M_List_Main',
+                    viewModel: {
+                        type: 'Stockout_M_EditModel',
+                        data: {
+                            isCanDoiNplPopup: true,
+                            mat_skuid_link: record.get('mat_skuid_link'),
+                        }
+                    }
+                }]
+            });
+            form.show();
         }
     },
     onBeforeselect: function (m, record, index, eOpts) {

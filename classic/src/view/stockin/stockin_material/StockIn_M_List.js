@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_M_List',
-    id: 'Stockin_M_List',
+    itemId: 'Stockin_M_List',
     reference: 'Stockin_M_List',
     viewConfig: {
         stripeRows: false,

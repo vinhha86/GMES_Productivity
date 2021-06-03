@@ -1,12 +1,9 @@
 Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockout_M_List',
-    id: 'Stockout_M_List',
+    itemId: 'Stockout_M_List',
     reference: 'Stockout_M_List',
     controller: 'Stockout_M_List_Controller',
-    viewModel: {
-        type: 'Stockout_M_EditModel'
-    },
     requires: [
         'GSmartApp.store.Stockout',
         'Ext.Number',

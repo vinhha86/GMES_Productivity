@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_Main_Controller', {
     init: function(){
         var viewModel = this.getViewModel();
 		var UnitStore = viewModel.getStore('UnitStore');
-		UnitStore.loadStore();
+		if (null!=UnitStore) UnitStore.loadStore();
     },
     control: {
         '#Stockout_M_List': {

@@ -5,17 +5,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         // this.callParent(arguments);
         var me = this.getView();
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
-        StockoutType.loadStore();
+        if(null!=StockoutType) StockoutType.loadStore();
 
         var listidtype = "4,8,9,11,12";
         var fromStore = this.getViewModel().getStore('OrgFromStore');
-        fromStore.loadStore_allchildren_byorg(listidtype);
+        if(null!=fromStore) fromStore.loadStore_allchildren_byorg(listidtype);
 
         var orgtostore = this.getViewModel().getStore('OrgToStore');
-        orgtostore.loadStore_byRoot(listidtype);
-
-        var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
-        StockoutType.loadStore();
+        if(null!=orgtostore) orgtostore.loadStore_byRoot(listidtype);
 
         var today = new Date();
         var priorDate = new Date().setDate(today.getDate() - 30);
@@ -91,9 +88,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var orgid_to_link = null;
         var stockouttypefrom = 1;
         var stockouttypeto = 10;
-
-        var page = store.currentPage;
         var statuses = [-2,-1, 0, 1, 2];
+        var mat_skuid_link = viewmodel.get('mat_skuid_link');
+
+        // var page = store.currentPage;
 
         // if (limit == null) {
         //     limit = 100;
@@ -103,7 +101,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         //     page = 1;
         // }
         store.loadByDate_Material(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, null, null,
-            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses);
+            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link);
+
+        var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
+        if(null!=StockoutD_Store) StockoutD_Store.removeAll();
     },
     renderCell: function (value, record) {
         if (null == value) value = 0;

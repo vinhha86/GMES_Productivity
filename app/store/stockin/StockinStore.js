@@ -2,7 +2,7 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
     extend: 'Ext.data.Store',
     alias: 'store.StockinStore',
 	model: 'GSmartApp.model.stockin.Stockin',
-	loadStore: function(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page){
+	loadStore: function(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page,){
 		var me=this;
 		var params = new Object();
 		params.orgid_from_link = orgid_from_link;
@@ -91,7 +91,8 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 		status, 
 		pcontractid_link,
 		limit, 
-		page){
+		page,
+		skuid_link){
 		var me=this;
 		var params = new Object();
 		params.orgid_from_link = orgid_from_link;
@@ -100,6 +101,7 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 		params.stockintypeid_link = stockintypeid_link;
 		params.status = status;
 		params.pcontractid_link = pcontractid_link;
+		params.skuid_link = skuid_link;
 
 		me.pageSize = limit;
 		this.setProxy({

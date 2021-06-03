@@ -102,6 +102,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		stockintypeid_link: 1,
 		isAdd_Pcontract_Stockin: false,
 		isNewStockin: false,
+		isCanDoiNplPopup: false, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
+		mat_skuid_link: null, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
 	},
 	formulas: {
         isEdit: function (get) {
