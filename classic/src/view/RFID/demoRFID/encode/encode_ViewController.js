@@ -10,6 +10,12 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
         '#btnIn': {
             click: 'onPrint'
         },
+        '#btnEncode': {
+            click: 'onEncode'
+        },
+        '#btnInEncode': {
+            click: 'onEncodeAndPrint'
+        },
         '#cmbLoaiKho': {
             select: 'onSelectLoaiKho'
         }
@@ -39,18 +45,19 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
 
         return mes;
     },
-    onPrint: function () {
+    onEncodeAndPrint: function () {
         var me = this;
+        var viewmodel = this.getViewModel();
         var mes = me.CheckValidate();
         if (mes == "") {
             var form = Ext.create('Ext.window.Window', {
-                height: 250,
-                width: 600,
+                height: 200,
+                width: 500,
                 closable: true,
                 resizable: false,
                 modal: true,
                 border: false,
-                title: 'In và mã hóa',
+                title: 'In nhãn và Mã hóa',
                 closeAction: 'destroy',
                 bodyStyle: 'background-color: transparent',
                 layout: {
@@ -61,7 +68,94 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
                     xtype: 'encode_detail_View',
                     viewModel: {
                         data: {
-                            type: 1
+                            type_print: 3,
+                            encode: viewmodel.get('encode')
+                        }
+                    }
+                }]
+            });
+
+            form.show();
+        }
+        else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: mes,
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
+    },
+    onEncode: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var mes = me.CheckValidate();
+        if (mes == "") {
+            var form = Ext.create('Ext.window.Window', {
+                height: 200,
+                width: 500,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Mã hóa',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'encode_detail_View',
+                    viewModel: {
+                        data: {
+                            type_print: 2,
+                            encode: viewmodel.get('encode')
+                        }
+                    }
+                }]
+            });
+
+            form.show();
+        }
+        else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: mes,
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
+    },
+    onPrint: function () {
+        var me = this;
+        var mes = me.CheckValidate();
+        var viewmodel = this.getViewModel();
+        if (mes == "") {
+            var form = Ext.create('Ext.window.Window', {
+                height: 200,
+                width: 500,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'In nhãn',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'encode_detail_View',
+                    viewModel: {
+                        data: {
+                            type_print: 1,
+                            encode: viewmodel.get('encode')
                         }
                     }
                 }]
