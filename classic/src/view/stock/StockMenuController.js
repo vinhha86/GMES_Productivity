@@ -49,6 +49,8 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             viewModel.set('spaceObj.isCreateNew', false);
         }else{
             m.resetObj();
+            viewModel.set('isRowViewHidden', true);
+            viewModel.set('isSpaceViewHidden', true);
         }
         console.log(record);
     },
