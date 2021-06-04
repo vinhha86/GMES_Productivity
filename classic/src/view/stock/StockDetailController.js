@@ -119,6 +119,7 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
                             stockfloorObj.parentId = null;
                             stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
                             stockfloorObj.spaceepc = stockspace.spaceepc;
+                            stockfloorObj.spacename = stockspace.spacename;
                             stockfloorObj.type = 5;
                             stockfloorObj.visible = true;
 
@@ -144,6 +145,7 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
                             stockfloorObj.parentId = null;
                             stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
                             stockfloorObj.spaceepc = stockspace.spaceepc;
+                            stockfloorObj.spacename = stockspace.spacename;
                             stockfloorObj.type = 5;
                             stockfloorObj.visible = true;
                             nodeSpace.appendChild(stockfloorObj);
