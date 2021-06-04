@@ -8,7 +8,13 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         StockTreeStore: {
             type: 'StockTreeStore'
         },
-        ListKhoStore: {
+        ListPhanXuongStore: {
+            type: 'ListOrgStore'
+        },
+        ListKhoRowStore: {
+            type: 'ListOrgStore'
+        },
+        ListKhoSpaceStore: {
             type: 'ListOrgStore'
         },
     },
@@ -17,6 +23,7 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         parentid_link: null,
         titleName: '',
         currentRec:null,
+        phanxuong_orgid_link: null,
         //
         //
         rowObj: {
@@ -27,14 +34,18 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         spaceObj: {
             orgid_link: null,
             spaceepc: null,
+            spaceepc_old: null,
             spacename: null,
+            rowid_link: null,
             floorid: null,
+            isCreateNew: true,
         },
         //
         isRowViewHidden: true,
         isSpaceViewHidden: true,
+        isBtnLuuFloorDisabled: true,
     },
     formulas: {
-        
+
     }
 })

@@ -26,7 +26,8 @@ Ext.define('GSmartApp.config.Runtime', {
         appBaseUrl: 'http://gpay.vn:8090/gmes',
         // appBaseUrl_Jitin: 'http://gpay.vn:8090/jitin',        
         back: 'http://gpay.vn:8181/oauth/',
-
+        qrcode_personel_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
+        qrcode_bike_number_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
         // back: 'http://localhost:8181/oauth/',
         token: null,
         enableSSO: false,
