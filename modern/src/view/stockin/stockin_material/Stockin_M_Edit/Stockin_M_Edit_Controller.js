@@ -257,6 +257,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             if(response.respcode == 200) {
                 // console.log(response.data);
                 var data = response.data;
+                data = me.setStockinData(data);
                 viewModel.set('stockin', data);
                 
                 // set store org from
@@ -274,6 +275,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }, 1000);
             }
 		})
+    },
+    setStockinData: function(stockin){
+        if(stockin.unitid_link == null) {
+            stockin.unitid_link = 1;
+            stockin.unitName = 'MÉT';
+        }
+        return stockin;
     },
     setStorePklAndPklReCheck: function(stockin){
         var me = this;
