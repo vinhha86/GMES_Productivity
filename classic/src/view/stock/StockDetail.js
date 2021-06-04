@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         xtype: 'combobox',
         fieldLabel: 'Kho',
         bind:{
-            store:'{ListKhoStore}',
+            store:'{ListKhoSpaceStore}',
             value:'{spaceObj.orgid_link}'
         },
         displayField: 'name',
@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         readOnly: true
     },{
         xtype:'textfield',
+        itemId: 'txtFieldSpaceEpc',
         margin: 5,
         fieldLabel: 'EPC ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
@@ -40,6 +41,7 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         labelWidth: 105
     },{
         xtype:'textfield',
+        itemId: 'txtFieldSpaceName',
         margin: 5,
         fieldLabel: 'Hàng ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
@@ -54,6 +56,7 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         maskRe: /[0-9]/,
     },{
         xtype:'textfield',
+        itemId: 'txtFieldFloorId',
         margin: 5,
         fieldLabel: 'Tầng ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
@@ -74,9 +77,12 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
             xtype:'button',
             text: 'Lưu',
             margin: 3,
-            itemId:'btnLuu',
+            itemId:'btnLuuSpace',
             iconCls: 'x-fa fa-save',
-            formBind: true
+            // bind: {
+            //     disabled: '{isBtnSpaceSaveDisabled}'
+            // },
+            // formBind: true
         },{
             flex:1,
             border: false

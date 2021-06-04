@@ -3,15 +3,20 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
     alias: 'controller.StockRowController',
     Id: 0,
     init: function () {
-        
+        this.onloadPage();
     },
     control: {
-        '#btnLuu': {
+        '#btnLuuRow': {
             click: 'onLuu'
         },
         // '#btnThemDonViTrucThuoc': {
         //     click: 'onThemTrucThuoc'
         // }
+    },
+    onloadPage: function(){
+        var viewModel = this.getViewModel();
+        var ListKhoRowStore = viewModel.getStore('ListKhoRowStore');
+        ListKhoRowStore.loadOrgByTypeKho();
     },
     emptyForm: function(){
         var viewModel = this.getViewModel();
@@ -31,6 +36,21 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
 
         var viewModel = this.getViewModel();
         var rowObj = viewModel.get('rowObj');
+        if(
+            rowObj.orgid_link == null || rowObj.orgid_link == '' || 
+            rowObj.code == null || rowObj.code == ''
+            ){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Cần phải điền đầy đủ thông tin',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            me.down('#txtFieldCode').focus();
+            return;
+        }
 
         var params = new Object();
         params.data = rowObj;
@@ -59,7 +79,7 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
                         // check ton tai
                         if(!isNew){
                             var node = StockTreeStore.findNode('idString', '3;' + stockrow.id);
-                            node.data.code = stockrow.code;
+                            node.data.name = stockrow.code;
                         }
                         if(isNew){
                             var parentNode = StockTreeStore.findNode('idString', '2;' + stockrow.orgid_link);
@@ -80,6 +100,7 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
                         }
 
                         treePanel.reconfigure(StockTreeStore);
+                        viewModel.set('rowObj', null);
                     }
                     else {
                         Ext.Msg.show({
@@ -95,7 +116,7 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
                 } else {
                     Ext.Msg.show({
                         title: 'Lưu thất bại',
-                        msg: null,
+                        msg: response.message,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',

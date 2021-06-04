@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         xtype: 'combobox',
         fieldLabel: 'Kho',
         bind:{
-            store:'{ListKhoStore}',
+            store:'{ListKhoRowStore}',
             value:'{rowObj.orgid_link}'
         },
         displayField: 'name',
@@ -27,10 +27,11 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         readOnly: true
     },{
         xtype:'textfield',
+        itemId: 'txtFieldCode',
         margin: 5,
         fieldLabel: 'Dãy ('+ '<span style="color:red">*</span>' + ')',
-        allowBlank: false,
-        blankText : 'Không được để trống',
+        // allowBlank: false,
+        // blankText : 'Không được để trống',
         maxLength: 20,
         maxLengthText: 'Tối đa 20 ký tự',
         bind:{
@@ -47,9 +48,12 @@ Ext.define('GSmartApp.view.stock.StockRow', {
             xtype:'button',
             text: 'Lưu',
             margin: 3,
-            itemId:'btnLuu',
+            itemId:'btnLuuRow',
             iconCls: 'x-fa fa-save',
-            formBind: true
+            // bind: {
+            //     disabled: '{isBtnRowSaveDisabled}'
+            // },
+            // formBind: true
         },{
             flex:1,
             border: false

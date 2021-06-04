@@ -6,17 +6,17 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
         this.onloadPage();
     },
     control: {
-        // '#btnLuu': {
-        //     click: 'onLuu'
-        // },
+        '#btnLuuSpace': {
+            click: 'onLuu'
+        },
         // '#btnThemDonViTrucThuoc': {
         //     click: 'onThemTrucThuoc'
         // }
     },
     onloadPage: function(){
         var viewModel = this.getViewModel();
-        var ListKhoStore = viewModel.getStore('ListKhoStore');
-        ListKhoStore.loadOrgByTypeKho();
+        var ListKhoSpaceStore = viewModel.getStore('ListKhoSpaceStore');
+        ListKhoSpaceStore.loadOrgByTypeKho();
     },
     emptyForm: function(){
         var viewModel = this.getViewModel();
@@ -32,50 +32,44 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
     onLuu: function () {
         var m = this;
         var me = this.getView();
-        var treePanel = Ext.getCmp('ListOrgMenu');
-        me.setLoading("Đang lưu dữ liệu");
+        var treePanel = Ext.getCmp('stock').down('StockMenu');
 
         var viewModel = this.getViewModel();
+        var spaceObj = viewModel.get('spaceObj'); console.log(spaceObj);
+        if(
+            spaceObj.orgid_link == null || spaceObj.orgid_link == '' || 
+            spaceObj.spaceepc == null || spaceObj.spaceepc == '' || 
+            spaceObj.spacename == null || spaceObj.spacename == '' || 
+            spaceObj.floorid == null || spaceObj.floorid == ''
+            ){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Cần phải điền đầy đủ thông tin',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            if(spaceObj.floorid == null || spaceObj.floorid) me.down('#txtFieldFloorId').focus();
+            if(spaceObj.spacename == null || spaceObj.spacename) me.down('#txtFieldSpaceName').focus();
+            if(spaceObj.spaceepc == null || spaceObj.spaceepc) me.down('#txtFieldSpaceEpc').focus();
+            return;
+        }
 
         var params = new Object();
-        var data = new Object();
-        data.id = viewModel.get('id');
-        data.parentid_link=viewModel.get('parentid_link');
-        data.code = viewModel.get('code');
-        data.name = viewModel.get('name');
-        data.city = viewModel.get('city');
-        data.address = viewModel.get('address');
-        data.contactperson = viewModel.get('contactperson');
-        data.email = viewModel.get('email');
-        data.phone = viewModel.get('phone');
-        data.linecost = viewModel.get('linecost');
-        data.orgtypeid_link = viewModel.get('orgtypeid_link');
-        data.colorid_link = viewModel.get('colorid_link');
-        data.costpersec = viewModel.get('costpersec');
-        data.status = viewModel.get('status');
-        if(data.status==true){
-            data.status=1;
-        }else{
-            data.status=-1;
-        }
+        params.orgid_link = spaceObj.orgid_link;
+        params.spaceepc = spaceObj.spaceepc;
+        params.spacename = spaceObj.spacename;
+        params.floorid = spaceObj.floorid;
+        params.rowid_link = spaceObj.rowid_link;
+        params.isCreateNew = spaceObj.isCreateNew;
 
-        if(viewModel.get('orgtypeid_link') == 13){
-            data.is_manufacturer = viewModel.get('is_manufacturer');
-        }
-
-        params.data = data;
-        params.msgtype = "ORG_CREATE";
-        params.message = "Tạo org";
-
-        if(data.id == 0){
-            m.emptyForm();
-            viewModel.set('id',0);
-        }
-
-        GSmartApp.Ajax.post('/api/v1/orgmenu/createOrg', Ext.JSON.encode(params),
+        me.setLoading("Đang lưu dữ liệu");
+        GSmartApp.Ajax.postJitin('/api/v1/stock/create_floor', Ext.JSON.encode(params),
             function (success, response, options) {
+                me.setLoading(false);
+                var response = Ext.decode(response.responseText);
                 if (success) {
-                    var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.Msg.show({
                             title: 'Thông báo',
@@ -86,95 +80,84 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
                             }
                         });
                         
-                        var storeMenu = viewModel.getStore('MenuStore');
-                        var items = storeMenu.data.items; // items trong tree
-                        var isExist = false; // Org ton tai hay chua
-                        var org = response.org;
-                        var parentId = org.parentid_link;
+                        var StockTreeStore = viewModel.getStore('StockTreeStore');
+                        var items = StockTreeStore.data.items; // items trong tree
+                        var stockspace = response.stockspace;
+                        var isSpaceNew = response.isSpaceNew;
+                        var isFloorNew = response.isFloorNew;
 
-                        if(data.id != 0 && org.status != -1){ // dat lai title cho detail
-                            me.setTitle(org.name);
+                        // nếu tree chưa có hàng (space), thêm vào children của dãy(row)
+                        if(isSpaceNew){
+                            var nodeRow = StockTreeStore.findNode('idString', '3;' + stockspace.rowid_link);
+                            var stockSpaceObj = new Object();
+                            stockSpaceObj.children = [];
+                            stockSpaceObj.expandable = true;
+                            stockSpaceObj.expanded = true;
+                            stockSpaceObj.id = null;
+                            stockSpaceObj.idString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
+                            stockSpaceObj.leaf = false;
+                            stockSpaceObj.name = stockspace.spacename;
+                            stockSpaceObj.spacename = stockspace.spacename;
+                            stockSpaceObj.orgid_link = stockspace.orgid_link;
+                            stockSpaceObj.rowid_link = stockspace.rowid_link;
+                            stockSpaceObj.parentId = stockspace.rowid_link;
+                            stockSpaceObj.parentIdString = '3;' + stockspace.rowid_link;
+                            stockSpaceObj.type = 4;
+                            stockSpaceObj.visible = true;
+
+                            var stockfloorObj = new Object();
+                            stockfloorObj.children = [];
+                            stockfloorObj.expandable = false;
+                            stockfloorObj.expanded = false;
+                            stockfloorObj.id = null;
+                            stockfloorObj.idString = '5;' + stockspace.spaceepc;
+                            stockfloorObj.leaf = true;
+                            stockfloorObj.name = stockspace.floorid;
+                            stockfloorObj.floorid = stockspace.floorid;
+                            stockfloorObj.orgid_link = stockspace.orgid_link;
+                            stockfloorObj.rowid_link = stockspace.rowid_link;
+                            stockfloorObj.parentId = null;
+                            stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
+                            stockfloorObj.spaceepc = stockspace.spaceepc;
+                            stockfloorObj.type = 5;
+                            stockfloorObj.visible = true;
+
+                            stockSpaceObj.children.push(stockfloorObj);
+
+                            nodeRow.appendChild(stockSpaceObj);
                         }
 
-                        // check ton tai
-                        if(storeMenu.getById(org.id) != null){
-                            isExist = true;
-                            var node = storeMenu.getById(org.id);
-                            var nodeData = node.data;
-                            node.data.code = org.code;
-                            node.data.name = org.name;
-                            node.data.city = org.city;
-                            node.data.address = org.address;
-                            node.data.contactperson = org.contactperson;
-                            node.data.email = org.email;
-                            node.data.phone = org.phone;
-                            node.data.linecost = org.linecost;
-                            node.data.orgtypeid_link = org.orgtypeid_link;
-                            node.data.colorid_link = org.colorid_link;
-                            node.data.costpersec = org.costpersec;
-                            node.data.is_manufacturer = org.is_manufacturer;
-                            node.data.status = org.status;
+                        // nếu tree chưa có tầng (floor), thêm vào children của hàng(space)
+                        if(isFloorNew && !isSpaceNew){
+                            var nodeSpace = StockTreeStore.findNode('idString', '4;' + stockspace.rowid_link + ';' + stockspace.spacename);
+                            var stockfloorObj = new Object();
+                            stockfloorObj.children = [];
+                            stockfloorObj.expandable = false;
+                            stockfloorObj.expanded = false;
+                            stockfloorObj.id = null;
+                            stockfloorObj.idString = '5;' + stockspace.spaceepc;
+                            stockfloorObj.leaf = true;
+                            stockfloorObj.floorid = stockspace.floorid;
+                            stockfloorObj.name = stockspace.floorid;
+                            stockfloorObj.orgid_link = stockspace.orgid_link;
+                            stockfloorObj.rowid_link = stockspace.rowid_link;
+                            stockfloorObj.parentId = null;
+                            stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
+                            stockfloorObj.spaceepc = stockspace.spaceepc;
+                            stockfloorObj.type = 5;
+                            stockfloorObj.visible = true;
+                            nodeSpace.appendChild(stockfloorObj);
                         }
 
-                        // neu da org ton tai, neu status = -1, xoa
-                        // if(isExist && org.status == -1){
-                        //     if(org.parentid_link == -1){
-                        //         me.setLoading(false);
-                        //         return;
-                        //     }
-                        //     var node = storeMenu.getById(org.parentid_link);
-                        //     var node2 = storeMenu.getById(org.id);
-                        //     node.removeChild(node2);
-                        //     m.emptyForm();
-                        //     viewModel.set('parentid_link',null);
-                        //     viewModel.set('fieldState',false);
-                        //     viewModel.set('id',0);
-
+                        // nếu tree đã có tầng (edit)
+                        // if(!isFloorNew){
+                        //     var node = StockTreeStore.findNode('idString', '3;' + stockrow.id);
+                        //     node.data.name = stockrow.code;
                         // }
 
-                        // neu org chua ton tai, neu status = 1, them
-                        if(!isExist){
-                            for(var i=0;i<items.length;i++){
-                                var parentOrg = items[i].data;
-                                // console.log(parentOrg);
-                                if(parentOrg.id == org.parentid_link){
-                                    org.children = [];
-                                    org.depth = parentOrg.depth+1;
-                                    org.expandable = true;
-                                    org.expanded = false;
-                                    org.glyph = '';
-                                    org.leaf = true;
-                                    org.qshowDelay = 0;
-                                    org.root = false;
-                                    org.selectable = true;
-                                    org.visible = true;
-                                    var node = storeMenu.getById(parentOrg.id);
-                                    node.appendChild(org);
-                                    break;
-                                }
-                            }
-                        }
-
-                        // neu la don vi gia cong, them 1 to chuyen
-                        if(!isExist && org.orgtypeid_link == 13 && org.is_manufacturer == 1){
-                            console.log('are you even here ?');
-                            m.createProductionLineForManufacturer(org);
-                        }
-
-                        treePanel.reconfigure(storeMenu);
-
-                        // chay lai filter
-
-                        var ListOrgMenu = Ext.getCmp('ListOrgMenu');
-                        var ListOrgMenuController = ListOrgMenu.getController();
-                        var chkBoxFilterValue = viewModel.get('isDisplayInactive');
-
-                        if (chkBoxFilterValue) {
-                            ListOrgMenu.getStore().getFilters().removeAll();
-                        } else {
-                            ListOrgMenu.getStore().getFilters().removeAll();
-                            ListOrgMenu.getStore().getFilters().add(ListOrgMenuController.activeOnlyFilter);
-                        }
+                        treePanel.reconfigure(StockTreeStore);
+                        viewModel.set('spaceObj', new Object());
+                        console.log(stockspace);
                     }
                     else {
                         Ext.Msg.show({
@@ -190,14 +173,13 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
                 } else {
                     Ext.Msg.show({
                         title: 'Lưu thất bại',
-                        msg: null,
+                        msg: response.message,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
                         }
                     });
                 }
-                me.setLoading(false);
             })
     },
     createProductionLineForManufacturer: function (record) {

@@ -8,7 +8,10 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         StockTreeStore: {
             type: 'StockTreeStore'
         },
-        ListKhoStore: {
+        ListKhoRowStore: {
+            type: 'ListOrgStore'
+        },
+        ListKhoSpaceStore: {
             type: 'ListOrgStore'
         },
     },
@@ -27,14 +30,17 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         spaceObj: {
             orgid_link: null,
             spaceepc: null,
+            spaceepc_old: null,
             spacename: null,
+            rowid_link: null,
             floorid: null,
+            isCreateNew: true,
         },
         //
         isRowViewHidden: true,
         isSpaceViewHidden: true,
     },
     formulas: {
-        
+
     }
 })
