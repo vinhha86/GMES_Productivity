@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         StockTreeStore: {
             type: 'StockTreeStore'
         },
+        ListPhanXuongStore: {
+            type: 'ListOrgStore'
+        },
         ListKhoRowStore: {
             type: 'ListOrgStore'
         },
@@ -20,6 +23,7 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         parentid_link: null,
         titleName: '',
         currentRec:null,
+        phanxuong_orgid_link: null,
         //
         //
         rowObj: {
@@ -39,6 +43,7 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         //
         isRowViewHidden: true,
         isSpaceViewHidden: true,
+        isBtnLuuFloorDisabled: true,
     },
     formulas: {
 

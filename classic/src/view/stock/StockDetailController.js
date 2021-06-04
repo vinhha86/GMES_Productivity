@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
         var treePanel = Ext.getCmp('stock').down('StockMenu');
 
         var viewModel = this.getViewModel();
-        var spaceObj = viewModel.get('spaceObj'); console.log(spaceObj);
+        var spaceObj = viewModel.get('spaceObj'); // console.log(spaceObj);
         if(
             spaceObj.orgid_link == null || spaceObj.orgid_link == '' || 
             spaceObj.spaceepc == null || spaceObj.spaceepc == '' || 
@@ -81,85 +81,84 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
                         });
                         
                         var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        var items = StockTreeStore.data.items; // items trong tree
-                        var stockspace = response.stockspace;
-                        var isSpaceNew = response.isSpaceNew;
-                        var isFloorNew = response.isFloorNew;
+                        StockTreeStore.load();
+                        // var items = StockTreeStore.data.items; // items trong tree
+                        // var stockspace = response.stockspace;
+                        // var isSpaceNew = response.isSpaceNew;
+                        // var isFloorNew = response.isFloorNew;
 
-                        // nếu tree chưa có hàng (space), thêm vào children của dãy(row)
-                        if(isSpaceNew){
-                            var nodeRow = StockTreeStore.findNode('idString', '3;' + stockspace.rowid_link);
-                            var stockSpaceObj = new Object();
-                            stockSpaceObj.children = [];
-                            stockSpaceObj.expandable = true;
-                            stockSpaceObj.expanded = true;
-                            stockSpaceObj.id = null;
-                            stockSpaceObj.idString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
-                            stockSpaceObj.leaf = false;
-                            stockSpaceObj.name = stockspace.spacename;
-                            stockSpaceObj.spacename = stockspace.spacename;
-                            stockSpaceObj.orgid_link = stockspace.orgid_link;
-                            stockSpaceObj.rowid_link = stockspace.rowid_link;
-                            stockSpaceObj.parentId = stockspace.rowid_link;
-                            stockSpaceObj.parentIdString = '3;' + stockspace.rowid_link;
-                            stockSpaceObj.type = 4;
-                            stockSpaceObj.visible = true;
+                        // // nếu tree chưa có hàng (space), thêm vào children của dãy(row)
+                        // if(isSpaceNew){
+                        //     var nodeRow = StockTreeStore.findNode('idString', '3;' + stockspace.rowid_link);
+                        //     var stockSpaceObj = new Object();
+                        //     stockSpaceObj.children = [];
+                        //     stockSpaceObj.expandable = true;
+                        //     stockSpaceObj.expanded = true;
+                        //     // stockSpaceObj.id = null;
+                        //     stockSpaceObj.idString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
+                        //     stockSpaceObj.leaf = false;
+                        //     stockSpaceObj.name = stockspace.spacename;
+                        //     stockSpaceObj.spacename = stockspace.spacename;
+                        //     stockSpaceObj.orgid_link = stockspace.orgid_link;
+                        //     stockSpaceObj.rowid_link = stockspace.rowid_link;
+                        //     stockSpaceObj.parentId = stockspace.rowid_link;
+                        //     stockSpaceObj.parentIdString = '3;' + stockspace.rowid_link;
+                        //     stockSpaceObj.type = 4;
+                        //     stockSpaceObj.visible = true;
 
-                            var stockfloorObj = new Object();
-                            stockfloorObj.children = [];
-                            stockfloorObj.expandable = false;
-                            stockfloorObj.expanded = false;
-                            stockfloorObj.id = null;
-                            stockfloorObj.idString = '5;' + stockspace.spaceepc;
-                            stockfloorObj.leaf = true;
-                            stockfloorObj.name = stockspace.floorid;
-                            stockfloorObj.floorid = stockspace.floorid;
-                            stockfloorObj.orgid_link = stockspace.orgid_link;
-                            stockfloorObj.rowid_link = stockspace.rowid_link;
-                            stockfloorObj.parentId = null;
-                            stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
-                            stockfloorObj.spaceepc = stockspace.spaceepc;
-                            stockfloorObj.spacename = stockspace.spacename;
-                            stockfloorObj.type = 5;
-                            stockfloorObj.visible = true;
+                        //     var stockfloorObj = new Object();
+                        //     stockfloorObj.children = [];
+                        //     stockfloorObj.expandable = false;
+                        //     stockfloorObj.expanded = false;
+                        //     // stockfloorObj.id = null;
+                        //     stockfloorObj.idString = '5;' + stockspace.spaceepc;
+                        //     stockfloorObj.leaf = true;
+                        //     stockfloorObj.name = stockspace.floorid;
+                        //     stockfloorObj.floorid = stockspace.floorid;
+                        //     stockfloorObj.orgid_link = stockspace.orgid_link;
+                        //     stockfloorObj.rowid_link = stockspace.rowid_link;
+                        //     stockfloorObj.parentId = null;
+                        //     stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
+                        //     stockfloorObj.spaceepc = stockspace.spaceepc;
+                        //     stockfloorObj.spacename = stockspace.spacename;
+                        //     stockfloorObj.type = 5;
+                        //     stockfloorObj.visible = true;
 
-                            stockSpaceObj.children.push(stockfloorObj);
-
-                            nodeRow.appendChild(stockSpaceObj);
-                        }
-
-                        // nếu tree chưa có tầng (floor), thêm vào children của hàng(space)
-                        if(isFloorNew && !isSpaceNew){
-                            var nodeSpace = StockTreeStore.findNode('idString', '4;' + stockspace.rowid_link + ';' + stockspace.spacename);
-                            var stockfloorObj = new Object();
-                            stockfloorObj.children = [];
-                            stockfloorObj.expandable = false;
-                            stockfloorObj.expanded = false;
-                            stockfloorObj.id = null;
-                            stockfloorObj.idString = '5;' + stockspace.spaceepc;
-                            stockfloorObj.leaf = true;
-                            stockfloorObj.floorid = stockspace.floorid;
-                            stockfloorObj.name = stockspace.floorid;
-                            stockfloorObj.orgid_link = stockspace.orgid_link;
-                            stockfloorObj.rowid_link = stockspace.rowid_link;
-                            stockfloorObj.parentId = null;
-                            stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
-                            stockfloorObj.spaceepc = stockspace.spaceepc;
-                            stockfloorObj.spacename = stockspace.spacename;
-                            stockfloorObj.type = 5;
-                            stockfloorObj.visible = true;
-                            nodeSpace.appendChild(stockfloorObj);
-                        }
-
-                        // nếu tree đã có tầng (edit)
+                        //     stockSpaceObj.children.push(stockfloorObj);
+                        //     nodeRow.appendChild(stockSpaceObj);
+                        //     treePanel.reconfigure(StockTreeStore);
+                        // }else
+                        // // nếu tree chưa có tầng (floor), thêm vào children của hàng(space)
+                        // if(isFloorNew && !isSpaceNew){
+                        //     var nodeSpace = StockTreeStore.findNode('idString', '4;' + stockspace.rowid_link + ';' + stockspace.spacename);
+                        //     var stockfloorObj = new Object();
+                        //     stockfloorObj.children = [];
+                        //     stockfloorObj.expandable = false;
+                        //     stockfloorObj.expanded = false;
+                        //     // stockfloorObj.id = null;
+                        //     stockfloorObj.idString = '5;' + stockspace.spaceepc;
+                        //     stockfloorObj.leaf = true;
+                        //     stockfloorObj.floorid = stockspace.floorid;
+                        //     stockfloorObj.name = stockspace.floorid;
+                        //     stockfloorObj.orgid_link = stockspace.orgid_link;
+                        //     stockfloorObj.rowid_link = stockspace.rowid_link;
+                        //     stockfloorObj.parentId = null;
+                        //     stockfloorObj.parentIdString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
+                        //     stockfloorObj.spaceepc = stockspace.spaceepc;
+                        //     stockfloorObj.spacename = stockspace.spacename;
+                        //     stockfloorObj.type = 5;
+                        //     stockfloorObj.visible = true;
+                        //     nodeSpace.appendChild(stockfloorObj);
+                        //     treePanel.reconfigure(StockTreeStore);
+                        // }else
+                        // // nếu tree đã có tầng (edit)
                         // if(!isFloorNew){
-                        //     var node = StockTreeStore.findNode('idString', '3;' + stockrow.id);
-                        //     node.data.name = stockrow.code;
+                        //     // var node = StockTreeStore.findNode('idString', '3;' + stockrow.id);
+                        //     // node.data.name = stockrow.code;
                         // }
 
-                        treePanel.reconfigure(StockTreeStore);
                         viewModel.set('spaceObj', new Object());
-                        console.log(stockspace);
+                        // console.log(stockspace);
                     }
                     else {
                         Ext.Msg.show({

@@ -16,8 +16,8 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         xtype: 'combobox',
         fieldLabel: 'Kho',
         bind:{
-            store:'{ListKhoRowStore}',
-            value:'{rowObj.orgid_link}'
+            store:'{ListPhanXuongStore}',
+            value:'{phanxuong_orgid_link}'
         },
         displayField: 'name',
         valueField: 'id',
