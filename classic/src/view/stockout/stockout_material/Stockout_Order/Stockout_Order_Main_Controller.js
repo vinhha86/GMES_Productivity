@@ -109,7 +109,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
                     margin: '10 0 0',
                     // iconCls: 'x-fa fas fa-trash redIcon',
                     handler: function () {
-                        console.log(record);
+                        var stockoutorderidObj = new Object();
+                        stockoutorderidObj.id = record.get('id');
+                        GSmartApp.util.State.set('stockoutorderidObj', stockoutorderidObj);
+                        me.redirectTo('stockout_m/2/create');
                     }
                 },
             ]

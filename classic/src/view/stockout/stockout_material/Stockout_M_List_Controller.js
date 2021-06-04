@@ -59,6 +59,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     onXuatCat: function () {
         this.redirectTo('stockout_m/1/create');
     },
+    onXuatDieuChuyenNoiBo: function () {
+        this.redirectTo('stockout_m/2/create');
+    },
     onSpecialkey: function (field, e) {
         var me = this;
         if (field.itemId == "limitpage") {
