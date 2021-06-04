@@ -29,23 +29,38 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             m.resetObj();
             viewModel.set('isRowViewHidden', false);
             viewModel.set('isSpaceViewHidden', true);
+            viewModel.set('isFloorViewHidden', true);
             //
             viewModel.set('rowObj.orgid_link', record.get('orgid_link'));
             viewModel.set('rowObj.code', record.get('name'));
             viewModel.set('rowObj.id', record.get('id'));
-        }else
-        if(record.get('type') == 5){ // tầng
+        }else if(record.get('type') == 4){ // hàng
             //
             m.resetObj();
             viewModel.set('isRowViewHidden', true);
             viewModel.set('isSpaceViewHidden', false);
-            viewModel.set('isBtnLuuFloorDisabled', true);
+            viewModel.set('isFloorViewHidden', true);
+            //
+            viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
+            viewModel.set('spaceObj.spacename', record.get('spacename'));
+            viewModel.set('spaceObj.spacename_old', record.get('spacename'));
+            viewModel.set('spaceObj.rowid_link', record.get('rowid_link'));
+            viewModel.set('spaceObj.isCreateNew', false);
+        }else if(record.get('type') == 5){ // tầng
+            //
+            m.resetObj();
+            viewModel.set('isRowViewHidden', true);
+            viewModel.set('isSpaceViewHidden', true);
+            viewModel.set('isFloorViewHidden', false);
             //
             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
             viewModel.set('spaceObj.spaceepc', record.get('spaceepc'));
             viewModel.set('spaceObj.spaceepc_old', record.get('spaceepc'));
             viewModel.set('spaceObj.spacename', record.get('spacename'));
+            viewModel.set('spaceObj.spacename_old', record.get('spacename'));
             viewModel.set('spaceObj.floorid', record.get('floorid'));
+            viewModel.set('spaceObj.floorid_old', record.get('floorid'));
+            viewModel.set('spaceObj.rowid_link', record.get('rowid_link'));
             viewModel.set('spaceObj.isCreateNew', false);
         }else{
             m.resetObj();
@@ -92,6 +107,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             m.resetObj();
                             viewModel.set('isRowViewHidden', false);
                             viewModel.set('isSpaceViewHidden', true);
+                            viewModel.set('isFloorViewHidden', true);
                             //
                             viewModel.set('rowObj.orgid_link', record.get('id'));
                         }
@@ -116,7 +132,8 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             //
                             m.resetObj();
                             viewModel.set('isRowViewHidden', true);
-                            viewModel.set('isSpaceViewHidden', false);
+                            viewModel.set('isSpaceViewHidden', true);
+                            viewModel.set('isFloorViewHidden', false);
                             //
                             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
                             viewModel.set('spaceObj.rowid_link', record.get('id'));
@@ -135,6 +152,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             m.resetObj();
                             viewModel.set('isRowViewHidden', true);
                             viewModel.set('isSpaceViewHidden', true);
+                            viewModel.set('isFloorViewHidden', true);
                             //
                             Ext.Msg.show({
                                 title:'Thông báo',
@@ -169,8 +187,8 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             //
                             m.resetObj();
                             viewModel.set('isRowViewHidden', true);
-                            viewModel.set('isSpaceViewHidden', false);
-                            viewModel.set('isBtnLuuFloorDisabled', false);
+                            viewModel.set('isSpaceViewHidden', true);
+                            viewModel.set('isFloorViewHidden', false);
                             //
                             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
                             viewModel.set('spaceObj.rowid_link', record.get('rowid_link'));
@@ -190,6 +208,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             m.resetObj();
                             viewModel.set('isRowViewHidden', true);
                             viewModel.set('isSpaceViewHidden', true);
+                            viewModel.set('isFloorViewHidden', true);
                             //
                             Ext.Msg.show({
                                 title:'Thông báo',
@@ -226,6 +245,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             m.resetObj();
                             viewModel.set('isRowViewHidden', true);
                             viewModel.set('isSpaceViewHidden', true);
+                            viewModel.set('isFloorViewHidden', true);
                             //
                             Ext.Msg.show({
                                 title:'Thông báo',

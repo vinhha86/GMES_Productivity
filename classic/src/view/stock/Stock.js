@@ -28,12 +28,22 @@ Ext.define('GSmartApp.view.stock.Stock', {
     },{
         region: 'east',
         width: '50%',
+        title: 'Thông tin hàng',
+        xtype: 'StockSpace',
+        border: true,
+        margin: 1,
+        bind: {
+            hidden: '{isSpaceViewHidden}'
+        }
+    },{
+        region: 'east',
+        width: '50%',
         title: 'Thông tin hàng, tầng',
         xtype: 'StockDetail',
         border: true,
         margin: 1,
         bind: {
-            hidden: '{isSpaceViewHidden}'
+            hidden: '{isFloorViewHidden}'
         }
     }]
 

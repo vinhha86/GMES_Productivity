@@ -22,13 +22,6 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
         var viewModel = this.getViewModel();
         viewModel.set('spaceObj', null);
     },
-    onThemTrucThuoc: function(){
-        // parentid_link
-        var viewModel = this.getViewModel();
-        viewModel.set('parentid_link',viewModel.get('id'));
-        viewModel.set('id',0);
-        this.emptyForm();
-    },
     onLuu: function () {
         var m = this;
         var me = this.getView();
@@ -61,6 +54,9 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
         params.spaceepc = spaceObj.spaceepc;
         params.spacename = spaceObj.spacename;
         params.floorid = spaceObj.floorid;
+        params.spaceepc_old = spaceObj.spaceepc_old;
+        params.spacename_old = spaceObj.spacename_old;
+        params.floorid_old = spaceObj.floorid_old;
         params.rowid_link = spaceObj.rowid_link;
         params.isCreateNew = spaceObj.isCreateNew;
 
@@ -183,63 +179,4 @@ Ext.define('GSmartApp.view.stock.StockDetailController', {
                 }
             })
     },
-    createProductionLineForManufacturer: function (record) {
-        var treePanel = Ext.getCmp('ListOrgMenu');
-        var viewModel = this.getViewModel();
-
-        var params = new Object();
-        var data = record;
-        // data.prefix = parentRecord.data.code;
-        params.data = data;
-        params.msgtype = "ORG_PRODUCTIONLINE_CREATE";
-        params.message = "Thêm tổ chuyền";
-
-        GSmartApp.Ajax.post('/api/v1/orgmenu/createproductionline', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        // Ext.Msg.show({
-                        //     title: 'Thông báo',
-                        //     msg: 'Thêm tổ chuyền thành công',
-                        //     buttons: Ext.MessageBox.YES,
-                        //     buttonText: {
-                        //         yes: 'Đóng',
-                        //     }
-                        // });
-
-                        var storeMenu = viewModel.getStore('MenuStore');
-                        var items = storeMenu.data.items; // items trong tree
-                        var isExist = false;
-                        var org = response.org;
-
-                        // neu org chua ton tai, neu status = 1, them
-                        if(!isExist && org.status == 1){
-                            for(var i=0;i<items.length;i++){
-                                var parentOrg = items[i].data;
-                                // console.log(parentOrg);
-                                if(parentOrg.id == org.parentid_link){
-                                    org.children = [];
-                                    org.depth = parentOrg.depth+1;
-                                    org.expandable = true;
-                                    org.expanded = false;
-                                    org.glyph = '';
-                                    org.leaf = true;
-                                    org.qshowDelay = 0;
-                                    org.root = false;
-                                    org.selectable = true;
-                                    org.visible = true;
-                                    var node = storeMenu.getById(parentOrg.id);
-                                    node.appendChild(org);
-                                    break;
-                                }
-                            }
-                        }
-
-                        treePanel.reconfigure(storeMenu);
-
-                    }
-                }
-            })
-    }
 })

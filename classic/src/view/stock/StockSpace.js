@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.stock.StockRow', {
+Ext.define('GSmartApp.view.stock.StockSpace', {
     extend: 'Ext.form.Panel',
-    xtype: 'StockRow',
-    itemId:'StockRow',
-    controller: 'StockRowController',
+    xtype: 'StockSpace',
+    itemId:'StockSpace',
+    controller: 'StockSpaceController',
     layout: 'vbox',
     bind:{
         // title: '{title}',
@@ -16,8 +16,8 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         xtype: 'combobox',
         fieldLabel: 'Kho',
         bind:{
-            store:'{ListKhoRowStore}',
-            value:'{rowObj.orgid_link}'
+            store:'{ListKhoSpaceStore}',
+            value:'{spaceObj.orgid_link}'
         },
         displayField: 'name',
         valueField: 'id',
@@ -27,18 +27,19 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         readOnly: true
     },{
         xtype:'textfield',
-        itemId: 'txtFieldCode',
+        itemId: 'txtFieldSpacename',
         margin: 5,
-        fieldLabel: 'Dãy ('+ '<span style="color:red">*</span>' + ')',
+        fieldLabel: 'Hàng ('+ '<span style="color:red">*</span>' + ')',
         // allowBlank: false,
         // blankText : 'Không được để trống',
         maxLength: 20,
         maxLengthText: 'Tối đa 20 ký tự',
         bind:{
-            value:'{rowObj.code}'
+            value:'{spaceObj.spacename}'
         },
         width: 400,
-        labelWidth: 105
+        labelWidth: 105,
+        maskRe: /[0-9]/,
     }],
     dockedItems:[{
         layout:'hbox',
@@ -48,7 +49,7 @@ Ext.define('GSmartApp.view.stock.StockRow', {
             xtype:'button',
             text: 'Lưu',
             margin: 3,
-            itemId:'btnLuuRow',
+            itemId:'btnLuuSpace',
             iconCls: 'x-fa fa-save',
             // bind: {
             //     disabled: '{isBtnRowSaveDisabled}'
