@@ -2,20 +2,20 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Personnel_info_main_ViewController',
     init: function () {
-      
+
     },
     control: {
-        '#btnThoat' : {
+        '#btnThoat': {
             click: 'onThoat'
         },
-        '#btnLuu' : {
+        '#btnLuu': {
             click: 'onSave'
         }
     },
-    onThoat: function(){
+    onThoat: function () {
         this.fireEvent('Thoat');
     },
-    onSave: function(){
+    onSave: function () {
         var me = this.getView();
         me.setLoading("Đang lưu dữ liệu");
 
@@ -36,8 +36,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewController', {
                             buttonText: {
                                 yes: 'Đóng',
                             },
-                            fn: function(){
-
+                            fn: function () {
+                                viewmodel.set('personnel.id', response.id);
+                                viewmodel.set('personnel.bike_number', response.bike_number);
                             }
                         });
                     }
@@ -49,12 +50,12 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewController', {
                             buttonText: {
                                 yes: 'Đóng',
                             },
-                            fn: function(){
+                            fn: function () {
                                 var viewInfo = me.down('#Personnel_info');
                                 viewInfo.down('#code').focus();
                             }
                         });
-                        
+
                     }
 
                 } else {
@@ -66,7 +67,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewController', {
                         buttonText: {
                             yes: 'Đóng',
                         },
-                        fn: function(){
+                        fn: function () {
                             var viewInfo = me.down('#Personnel_info');
                             viewInfo.down('#code').focus();
                         }

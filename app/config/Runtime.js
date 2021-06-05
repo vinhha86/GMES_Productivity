@@ -28,8 +28,9 @@ Ext.define('GSmartApp.config.Runtime', {
         back: 'http://gpay.vn:8181/oauth/',
 
         qrcode_personel_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
-        qrcode_bike_number_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
-        
+        qrcode_bike_number_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_bike_number?text=',
+        image_person: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getimage_person?id=',
+        Logo: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getlogo',
         // back: 'http://localhost:8181/oauth/',
         token: null,
         enableSSO: false,
