@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
 
         // this.onSearch();
 
-        // nếu là pop up từ tab cân đối NPL của tab tiến độ giao hàng
+        // nếu là pop up từ tab cân đối NPL của tab tiến độ giao hàng hoặc đơn hàng
         var isCanDoiNplPopup = viewmodel.get('isCanDoiNplPopup');
         if(isCanDoiNplPopup){
             // load store theo npl

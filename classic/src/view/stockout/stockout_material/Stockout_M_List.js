@@ -154,8 +154,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                     {
                         // itemId: 'btnNhapCungCap', // id:2
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất điều chuyển nội bộ (đơn khác)',
-                        // handler: 'onNhapMuaMoi'
+                        text: 'Xuất điều chuyển nội bộ',
+                        handler: 'onXuatDieuChuyenNoiBo'
                     },
                 ],
                 // bind: {

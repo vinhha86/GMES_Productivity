@@ -191,15 +191,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             xtype: 'combobox',
             emptyText: 'Nơi xuất',
             bind:{
-                store: '{OrgFromStore}'
+                store: '{OrgFromStore}',
+                hidden: '{isAdd_Pcontract_Stockin}'
             },
             queryMode: 'local',
             margin: 3,
             displayField: 'name',
             valueField: 'id',
-            bind: {
-                hidden: '{isAdd_Pcontract_Stockin}'
-            }
             // flex: 1,
         },      
         // {
@@ -220,15 +218,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             xtype: 'combobox',
             emptyText: 'Loại nhập kho',
             bind:{
-                store: '{StockinTypeStore}'
+                store: '{StockinTypeStore}',
+                hidden: '{isAdd_Pcontract_Stockin}'
             },
             queryMode: 'local',
             margin: 3,
             displayField: 'name',
             valueField: 'id',
-            bind: {
-                hidden: '{isAdd_Pcontract_Stockin}'
-            }
             // flex: 1,
         }, 
         {

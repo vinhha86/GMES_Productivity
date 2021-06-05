@@ -2,15 +2,17 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 	extend: 'Ext.data.TreeStore',
 	alias: 'store.StockTreeStore',
 	idProperty: 'idString',
+	// parentIdProperty: 'parentIdString',
 	fields: [
 		'id',
 		'idString',
 		'name',
 	],
 	expanded: true,
-	loadStore: function () {
+	loadStore: function (phanxuong_orgid_link) {
 		var me = this;
 		var params = new Object();
+		params.phanxuong_orgid_link = phanxuong_orgid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

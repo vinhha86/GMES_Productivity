@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         // this.callParent(arguments);
         var me = this.getView();
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
-        if(null!=StockoutType) StockoutType.loadStore();
+        if(null!=StockoutType) StockoutType.loadStore(null, 10);
 
         var listidtype = "4,8,9,11,12";
         var fromStore = this.getViewModel().getStore('OrgFromStore');
@@ -58,6 +58,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     },
     onXuatCat: function () {
         this.redirectTo('stockout_m/1/create');
+    },
+    onXuatDieuChuyenNoiBo: function () {
+        this.redirectTo('stockout_m/2/create');
     },
     onSpecialkey: function (field, e) {
         var me = this;

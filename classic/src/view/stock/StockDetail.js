@@ -79,9 +79,9 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
             margin: 3,
             itemId:'btnLuuSpace',
             iconCls: 'x-fa fa-save',
-            // bind: {
-            //     disabled: '{isBtnSpaceSaveDisabled}'
-            // },
+            bind: {
+                disabled: '{isBtnLuuFloorDisabled}'
+            },
             // formBind: true
         },{
             flex:1,

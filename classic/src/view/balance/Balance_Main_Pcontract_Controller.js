@@ -9,6 +9,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
         }
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        var viewmodel = this.getViewModel();
         if (cellIndex == 7) {//Nhu cau
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -35,7 +36,97 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                 }]
             });
             form.show();
-        }   
+        }else if(cellIndex == 8){ // cột Nhập kho
+            // bật danh sách phiếu nhập kho có chứa NPL đang chọn
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Danh sách phiếu nhập kho',
+                closeAction: 'destroy',
+                height: '95%',
+                width: '95%',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockin_M_List_Main',
+                    id: null,
+                    itemId: 'Stockin_M_List_Main_CanDoiNPL',
+                    viewModel: {
+                        type: 'Stockin_M_ViewModel',
+                        data: {
+                            isCanDoiNplPopup: true,
+                            mat_skuid_link: record.get('mat_skuid_link'),
+                        }
+                    }
+                }]
+            });
+            form.show();
+        } else if (cellIndex == 9) {//Yeu cau xuat
+            // var porderid_link = viewmodel.get('porderid_link');
+
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu yêu cầu xuất cho sản xuất',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .8,
+                width: Ext.getBody().getViewSize().width * .80,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockout_order_MainView',
+                    viewModel: {
+                        type: 'ProcessShippingMainViewModel',
+                        data: {
+                            isload: true, //them bien de load du lieu len hay khong
+                            // porderid_link: porderid_link,
+                            material_skuid_link: record.get('mat_skuid_link'),
+                            pcontractid_link: viewmodel.get('pcontractid_link'),
+                        }
+                    }
+                }]
+            });
+            form.show();
+        }else if(cellIndex == 10){ // cột Xuất kho
+            // bật danh sách phiếu xuất kho có chứa NPL đanh chọn
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Danh sách phiếu xuất kho',
+                closeAction: 'destroy',
+                height: '95%',
+                width: '95%',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Stockout_M_List_Main',
+                    viewModel: {
+                        type: 'Stockout_M_EditModel',
+                        data: {
+                            isCanDoiNplPopup: true,
+                            mat_skuid_link: record.get('mat_skuid_link'),
+                        }
+                    }
+                }]
+            });
+            form.show();
+        }
+
     },    
     onCalBalance_OneProduct: function(){
         var me = this.getView();

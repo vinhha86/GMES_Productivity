@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
-
+        var status = [-1,0,1,2];
         // var page = store.currentPage;
 
         // if (limit == null) {

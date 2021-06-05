@@ -58,6 +58,32 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
             flex:1,
             border: false
         },]
+    },{
+        layout:'hbox',
+        border: false,
+        dock:'top',
+        items:[{
+        },{
+            width:400,
+            margin: 5,
+            labelWidth: 105,
+            xtype: 'combobox',
+            itemId: 'phanxuong_orgid_link_cbbox',
+            fieldLabel: 'Phân xưởng',
+            bind:{
+                store:'{ListPhanXuongStore}',
+                value:'{phanxuong_orgid_link}'
+            },
+            displayField: 'name',
+            valueField: 'id',
+            queryMode: 'local',
+            editable: false,
+            // allowBlank: false,
+            // readOnly: true
+        },{
+            flex:1,
+            border: false
+        },]
     }],
     listeners: {
        itemcontextmenu: 'onContextMenu'
