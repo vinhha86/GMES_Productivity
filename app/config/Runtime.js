@@ -13,8 +13,8 @@ Ext.define('GSmartApp.config.Runtime', {
         },
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         // appBaseUrl: 'http://localhost:8990/gmes',
-        appBaseUrl_Jitin: 'http://localhost:8991/jitin',
-        appBaseUrl_demo: 'http://localhost:9091/',
+        // appBaseUrl_Jitin: 'http://localhost:8991/jitin',
+        // appBaseUrl_demo: 'http://localhost:9091/',
 
         // appBaseUrl: 'http://172.20.10.2:8990/gsmartcore',
         // appBaseUrl_Jitin: 'http://172.20.10.2:8991/jitin',
@@ -24,10 +24,12 @@ Ext.define('GSmartApp.config.Runtime', {
         // back: 'http://27.71.231.154:8081/oauth/',
 
         appBaseUrl: 'http://gpay.vn:8090/gmes',
-        // appBaseUrl_Jitin: 'http://gpay.vn:8090/jitin',        
+        appBaseUrl_Jitin: 'http://gpay.vn:8090/jitin',        
         back: 'http://gpay.vn:8181/oauth/',
+
         qrcode_personel_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
         qrcode_bike_number_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
+        
         // back: 'http://localhost:8181/oauth/',
         token: null,
         enableSSO: false,
