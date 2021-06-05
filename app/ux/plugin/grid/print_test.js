@@ -62,8 +62,228 @@ Ext.define("GSmartApp.ux.grid.print_test", {
             //the other to create the body (see the escaped {} below)
             //get so phieu
 
+            function DanhSach(value) {
+                var VLhtml = '';
+                for (var i = 0; i < value.length; i++) {
+                    var val = value[i].data;
+                    var bike_number = val.bike_number == null ? "" : val.bike_number;
+                    VLhtml += [
+                        `<tr height=20 style='height:15.0pt'>
+                        <td height=20 class=xl1520217 width=53 style='height:15.0pt;width:40pt'></td>
+                        <td class=xl1520217 width=137 style='width:103pt'></td>
+                        <td class=xl7020217 width=64 style='width:48pt'></td>
+                        <td class=xl1520217 width=46 style='width:35pt'></td>
+                        <td class=xl1520217 width=48 style='width:36pt'></td>
+                        <td class=xl1520217 width=52 style='width:39pt'></td>
+                        <td class=xl1520217 width=75 style='width:56pt'></td>
+                        <td class=xl1520217 width=32 style='width:24pt'></td>
+                        <td class=xl1520217 width=29 style='width:22pt'></td>
+                        <td class=xl1520217 width=64 style='width:48pt'></td>
+                        <td class=xl1520217 width=64 style='width:48pt'></td>
+                        <td class=xl1520217 width=40 style='width:30pt'></td>
+                        <td class=xl1520217 width=64 style='width:48pt'></td>
+                        <td class=xl1520217 width=64 style='width:48pt'></td>
+                        <td class=xl1520217 width=38 style='width:29pt'></td>
+                       </tr>
+                       <tr height=20 style='height:15.0pt'>
+                        <td height=20 class=xl1520217 style='height:15.0pt'></td>
+                        <td class=xl1520217></td>
+                        <td class=xl7020217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                       </tr>
+                       <tr height=20 style='height:15.0pt'>
+                        <td height=20 class=xl1520217 style='height:15.0pt'></td>
+                        <td class=xl1520217></td>
+                        <td class=xl7020217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                       </tr>
+                       <tr height=27 style='mso-height-source:userset;height:20.25pt'>
+                        <td height=27 class=xl1520217 style='height:20.25pt'></td>
+                        <td align=left valign=top>
+                        </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;
+                        position:absolute;z-index:1;margin-left:45px;margin-top:7px;width:66px;
+                        height:58px'><img width=66 height=58
+                        src="`+ config.getLogo() + `" v:shapes="Picture_x0020_14"></span><![endif]><span
+                        style='mso-ignore:vglayout2'>
+                        <table cellpadding=0 cellspacing=0>
+                         <tr>
+                          <td height=27 class=xl6320217 width=137 style='height:20.25pt;width:103pt'>&nbsp;</td>
+                         </tr>
+                        </table>
+                        </span></td>
+                        <td colspan=6 class=xl7320217>DHA - BAC NINH CO.,LTD</td>
+                        <td class=xl6420217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                       </tr>
+                       <tr height=20 style='height:15.0pt'>
+                        <td height=20 class=xl1520217 style='height:15.0pt'></td>
+                        <td class=xl6520217>&nbsp;</td>
+                        <td colspan=6 class=xl7420217>CÔNG TY TNHH MTV DHA B&#7854;C NINH</td>
+                        <td class=xl6620217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6320217>&nbsp;</td>
+                        <td colspan=2 class=xl7320217>`+ bike_number + `</td>
+                        <td class=xl6420217>&nbsp;</td>
+                       </tr>
+                       <tr height=26 style='mso-height-source:userset;height:19.5pt'>
+                        <td height=26 class=xl1520217 style='height:19.5pt'></td>
+                        <td class=xl6520217>&nbsp;</td>
+                        <td class=xl7020217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6620217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6520217>&nbsp;</td>
+                        <td align=left valign=top>
+                        </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;
+                        position:absolute;z-index:4;margin-left:5px;margin-top:4px;width:118px;
+                        height:118px'><img width=118 height=118
+                        src="`+ config.getQrcode_bike_number_url() + bike_number + `" v:shapes="Picture_x0020_19"></span><![endif]><span
+                        style='mso-ignore:vglayout2'>
+                        <table cellpadding=0 cellspacing=0>
+                         <tr>
+                          <td height=26 class=xl1520217 width=64 style='height:19.5pt;width:48pt'></td>
+                         </tr>
+                        </table>
+                        </span></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6620217>&nbsp;</td>
+                       </tr>
+                       <tr height=36 style='mso-height-source:userset;height:27.0pt'>
+                        <td height=36 class=xl1520217 style='height:27.0pt'></td>
+                        <td rowspan=4 height=144 width=137 style='height:108.0pt;width:103pt'
+                        align=left valign=top>
+                        </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;
+                        position:absolute;z-index:3;margin-left:28px;margin-top:6px;width:99px;
+                        height:132px'><img width=99 height=132
+                        src="`+ config.getImage_person() + val.id + `" v:shapes="Picture_x0020_18"></span><![endif]><span
+                        style='mso-ignore:vglayout2'>
+                        <table cellpadding=0 cellspacing=0>
+                         <tr>
+                          <td rowspan=4 height=144 class=xl7520217 width=137 style='height:108.0pt;
+                          width:103pt'>&nbsp;</td>
+                         </tr>
+                        </table>
+                        </span></td>
+                        <td class=xl7720217>T&#7893;</td>
+                        <td colspan=3 class=xl7620217>1T08</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6620217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6520217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6620217>&nbsp;</td>
+                       </tr>
+                       <tr height=36 style='mso-height-source:userset;height:27.0pt'>
+                        <td height=36 class=xl1520217 style='height:27.0pt'></td>
+                        <td class=xl7720217>Họ tên</td>
+                        <td colspan=3 class=xl7620217>`+ val.fullname + `</td>
+                        <td colspan=2 rowspan=3 height=108 class=xl1520217 width=107
+                        style='mso-ignore:colspan-rowspan;height:81.0pt;width:80pt'><![if !vml]><span style='mso-ignore:vglayout'>
+                        <table cellpadding=0 cellspacing=0>
+                         <tr>
+                          <td width=5 height=3></td>
+                         </tr>
+                         <tr>
+                          <td></td>
+                          <td><img width=101 height=101
+                          src="`+ config.getQrcode_personel_url() + val.id + `" v:shapes="Picture_x0020_16"></td>
+                          <td width=1></td>
+                         </tr>
+                         <tr>
+                          <td height=4></td>
+                         </tr>
+                        </table>
+                        </span><![endif]><!--[if !mso & vml]><span style='width:80.25pt;height:81.0pt'></span><![endif]--></td>
+                        <td class=xl6620217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6520217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6620217>&nbsp;</td>
+                       </tr>
+                       <tr height=36 style='mso-height-source:userset;height:27.0pt'>
+                        <td height=36 class=xl1520217 style='height:27.0pt'></td>
+                        <td class=xl7720217>Ch&#7913;c v&#7909;</td>
+                        <td colspan=3 class=xl7620217>Công nhân may</td>
+                        <td class=xl6620217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl6720217>&nbsp;</td>
+                        <td class=xl6820217>&nbsp;</td>
+                        <td colspan=2 class=xl7120217 style='border-right:.5pt solid black'>&nbsp;</td>
+                       </tr>
+                       <tr height=36 style='mso-height-source:userset;height:27.0pt'>
+                        <td height=36 class=xl1520217 style='height:27.0pt'></td>
+                        <td class=xl7720217>Mã số</td>
+                        <td colspan=3 class=xl7620217>`+ val.code + `</td>
+                        <td class=xl6620217>&nbsp;</td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                        <td class=xl1520217></td>
+                       </tr>`
+                        + `
+                       <tr height=20 style='height:15.0pt'>
+  <td height=20 class=xl1520217 style='height:15.0pt'></td>
+  <td class=xl6720217>&nbsp;</td>
+  <td class=xl7820217>&nbsp;</td>
+  <td class=xl6820217>&nbsp;</td>
+  <td class=xl6820217>&nbsp;</td>
+  <td class=xl6820217>&nbsp;</td>
+  <td class=xl6820217>&nbsp;</td>
+  <td class=xl6820217>&nbsp;</td>
+  <td class=xl6920217>&nbsp;</td>
+  <td class=xl1520217></td>
+  <td class=xl1520217></td>
+  <td class=xl1520217></td>
+  <td class=xl1520217></td>
+  <td class=xl1520217></td>
+  <td class=xl1520217></td>
+ </tr>`
+                    ]
+                }
 
-
+                return VLhtml;
+            }
 
             //get Styles file relative location, if not supplied
             if (this.stylesheetPath === null) {
@@ -85,70 +305,29 @@ Ext.define("GSmartApp.ux.grid.print_test", {
                 '<a class="' + Ext.baseCSSPrefix + 'ux-grid-printer-linkprint" href="javascript:void(0);" onclick="window.print();">' + this.printLinkText + '</a>',
                 '<a class="' + Ext.baseCSSPrefix + 'ux-grid-printer-linkclose" href="javascript:void(0);" onclick="window.close();">' + this.closeLinkText + '</a>',
                 '</div>',
-
-                `<table border=0 cellpadding=0 cellspacing=0 width=374 style='border-collapse:
-                      collapse;table-layout:fixed;width:281pt'>
-                      <col width=64 style='width:48pt'>
-                      <col width=118 style='mso-width-source:userset;mso-width-alt:4315;width:89pt'>
-                      <col width=64 span=3 style='width:48pt'>
-                      <tr height=20 style='height:15.0pt'>
-                       <td height=20 class=xl6310923 width=64 style='height:15.0pt;width:48pt'>H&#7885;
-                       tên</td>
-                       <td class=xl6410923 width=118 style='width:89pt'>Nguyên v&#259;n Anh</td>
-                       <td width=64 style='width:48pt' align=left valign=top>
-                       </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;
-  position:absolute;z-index:1;margin-left:2px;margin-top:3px;width:125px;
-  height:75px'><img width=125 height=75
-  src="https://qrcode.tec-it.com/API/QRCode?data=QR+Code+Generator+by+TEC-IT"
-  v:shapes="Picture_x0020_2"></span><![endif]><span style='mso-ignore:vglayout2'>
-                       <table cellpadding=0 cellspacing=0>
-                        <tr>
-                         <td height=20 class=xl6410923 width=64 style='height:15.0pt;width:48pt'>&nbsp;</td>
-                        </tr>
-                       </table>
-                       </span></td>
-                       <td class=xl6410923 width=64 style='width:48pt'>&nbsp;</td>
-                       <td class=xl6510923 width=64 style='width:48pt'>&nbsp;</td>
-                      </tr>
-                      <tr height=20 style='height:15.0pt'>
-                       <td height=20 class=xl6610923 style='height:15.0pt'>Mã NV</td>
-                       <td class=xl1510923 align=right>123451</td>
-                       <td class=xl1510923></td>
-                       <td class=xl1510923></td>
-                       <td class=xl6710923>&nbsp;</td>
-                      </tr>
-                      <tr height=20 style='height:15.0pt'>
-                       <td height=20 class=xl6610923 style='height:15.0pt'>Bi&#7875;n s&#7889;<span
-                       style='mso-spacerun:yes'> </span></td>
-                       <td class=xl1510923>29y3-12345</td>
-                       <td class=xl1510923></td>
-                       <td class=xl1510923></td>
-                       <td class=xl6710923>&nbsp;</td>
-                      </tr>
-                      <tr height=20 style='height:15.0pt'>
-                       <td height=20 class=xl6610923 style='height:15.0pt'>&#272;&#417;n v&#7883;</td>
-                       <td class=xl1510923>BN1 - T&#7893; 1</td>
-                       <td class=xl1510923></td>
-                       <td class=xl1510923></td>
-                       <td class=xl6710923>&nbsp;</td>
-                      </tr>
-                      <tr height=20 style='height:15.0pt'>
-                       <td height=20 class=xl6810923 style='height:15.0pt'>&nbsp;</td>
-                       <td class=xl6910923>&nbsp;</td>
-                       <td class=xl6910923>&nbsp;</td>
-                       <td class=xl6910923>&nbsp;</td>
-                       <td class=xl7010923>&nbsp;</td>
-                      </tr>
-                      <![if supportMisalignedColumns]>
-                      <tr height=0 style='display:none'>
-                       <td width=64 style='width:48pt'></td>
-                       <td width=118 style='width:89pt'></td>
-                       <td width=64 style='width:48pt'></td>
-                       <td width=64 style='width:48pt'></td>
-                       <td width=64 style='width:48pt'></td>
-                      </tr>
-                      <![endif]>
-                     </table>`,
+                `<style>
+                v\:* {behavior:url(#default#VML);}
+                o\:* {behavior:url(#default#VML);}
+                x\:* {behavior:url(#default#VML);}
+                .shape {behavior:url(#default#VML);}
+                </style>`+
+                `<table border=0 cellpadding=0 cellspacing=0 width=870 style='border-collapse:
+                collapse;table-layout:fixed;width:654pt'>`
+                + `<col width=53 style='mso-width-source:userset;mso-width-alt:1938;width:40pt'>
+                <col width=137 style='mso-width-source:userset;mso-width-alt:5010;width:103pt'>
+                <col class=xl7020217 width=64 style='width:48pt'>
+                <col width=46 style='mso-width-source:userset;mso-width-alt:1682;width:35pt'>
+                <col width=48 style='mso-width-source:userset;mso-width-alt:1755;width:36pt'>
+                <col width=52 style='mso-width-source:userset;mso-width-alt:1901;width:39pt'>
+                <col width=75 style='mso-width-source:userset;mso-width-alt:2742;width:56pt'>
+                <col width=32 style='mso-width-source:userset;mso-width-alt:1170;width:24pt'>
+                <col width=29 style='mso-width-source:userset;mso-width-alt:1060;width:22pt'>
+                <col width=64 span=2 style='width:48pt'>
+                <col width=40 style='mso-width-source:userset;mso-width-alt:1462;width:30pt'>
+                <col width=64 span=2 style='width:48pt'>
+                <col width=38 style='mso-width-source:userset;mso-width-alt:1389;width:29pt'>`
+                + DanhSach(data)
+                + `</table>`,
                 '</body>',
                 '</html>'
             ];

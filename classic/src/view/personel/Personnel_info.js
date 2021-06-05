@@ -227,19 +227,47 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.status}',
                         store: '{PersonnelStatus_Store}'
                     }
+                }, {
+                    xtype: 'checkbox',
+                    labelWidth: 78,
+                    fieldLabel: 'Xe đạp',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    inputValue: true,
+                    itemId: 'checkmoto',
+                    bind: {
+                        value: '{personnel.isbike}'
+                    }
                 }]
             }]
         }, {
-            xtype: 'textfield',
-            margin: 1,
-            labelWidth: 78,
-            fieldLabel: 'Địa chỉ:',
-            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-            fieldStyle: 'font-size:11px;',
-            bind: {
-                value: '{personnel.address}'
-            },
-            width: '100%'
+            layout: 'hbox',
+            items: [{
+                xtype: 'textfield',
+                margin: 1,
+                labelWidth: 78,
+                fieldLabel: 'Địa chỉ:',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                bind: {
+                    value: '{personnel.address}'
+                },
+                width: 763
+            }, {
+                xtype: 'textfield',
+                labelWidth: 78,
+                fieldLabel: 'Biển số xe',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                flex: 1,
+                margin: 1,
+                bind: {
+                    value: '{personnel.bike_number}',
+                    editable: '{personnel.is_motobike}'
+                }
+            }]
         }]
     }, {
         layout: 'vbox',
@@ -277,12 +305,30 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
         layout: 'vbox',
         items: [{
             xtype: 'image',
-            itemId: 'img',
+            itemId: 'qrperson',
             width: 130,
             height: 130,
             margin: 1,
             bind: {
-                src: config.getQrcode_personel_url() + "{personnel.id}"
+                src: "{qr_person}"
+            },
+            listeners: {
+                afterrender: function (img, a, obj) {
+                    img.getEl().dom.style.border = '1px solid black';
+                }
+            }
+        }]
+    },
+    {
+        layout: 'vbox',
+        items: [{
+            xtype: 'image',
+            itemId: 'qrbike',
+            width: 130,
+            height: 130,
+            margin: 1,
+            bind: {
+                src: "{qr_bike}"
             },
             listeners: {
                 afterrender: function (img, a, obj) {

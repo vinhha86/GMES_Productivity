@@ -11,6 +11,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     bind: {
         store: '{Personnel_Store}'
     },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+        checkOnly: true
+    },
     columns: [{
         xtype: 'actioncolumn',
         width: 28,
@@ -21,9 +26,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             {
                 iconCls: 'x-fa fas fa-edit',
                 handler: 'onEdit'
-            },            
+            },
         ]
-    },{
+    }, {
         text: 'STT',
         width: 40,
         xtype: 'rownumberer',
@@ -32,7 +37,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Họ và tên',
         dataIndex: 'fullname',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -40,15 +45,15 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Mã NV',
         dataIndex: 'code',
         width: 100,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
+    }, {
         text: 'Số CMT',
         dataIndex: 'idnumber',
         width: 100,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -57,7 +62,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Đơn vị trực thuộc',
         dataIndex: 'orgname',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -66,7 +71,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Cấp bậc',
         dataIndex: 'contractBuyerYear',
         width: 75,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
@@ -75,12 +80,12 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Chức vụ',
         dataIndex: 'contractTypeName',
         flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     }
-   ],
+    ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
@@ -91,7 +96,13 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             text: 'Thêm mới',
             iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi_Personnel',
-        },'->',{
+        }, {
+            xtype: 'button',
+            margin: 1,
+            text: 'Print',
+            iconCls: 'x-fa fa-print',
+            itemId: 'btnPrint_Personnel',
+        }, '->', {
             xtype: 'checkbox',
             margin: '1 5 1 1',
             boxLabel: 'Xem tất cả',

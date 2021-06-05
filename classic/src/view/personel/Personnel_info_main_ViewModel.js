@@ -41,6 +41,18 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
             id: null,
             status: 1
         },
-        qrcode: config.getQrcode_personel_url()
+        isActive: false
+    },
+    formulas: {
+        qr_person: function (get) {
+            return config.getQrcode_personel_url() + get('personnel.id')
+        },
+        qr_bike: function (get) {
+            if (get('personnel.bike_number') == "" || get('personnel.bike_number') == null) {
+                return null;
+            }
+            else
+                return config.getQrcode_bike_number_url() + get('personnel.bike_number');
+        }
     }
 })
