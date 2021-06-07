@@ -8,18 +8,18 @@ Ext.define('GSmartApp.view.main.Main', {
     ],
 
     controller: 'main',
-    platformConfig: {
-        phone: {
-            controller: 'phone-main'
-        }
-    },
+    // platformConfig: {
+    //     phone: {
+    //         controller: 'phone-main'
+    //     }
+    // },
 
     layout: 'hbox',
 
     items: [
         {
             xtype: 'maintoolbar',
-            id: 'maintoolbar',
+            itemId: 'maintoolbar',
             docked: 'top',
             userCls: 'main-toolbar shadow'
         },
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.main.Main', {
         {
             xtype: 'navigationview',
             flex: 1,
-            id: 'mainCardPanel',
+            itemId: 'mainCardPanel',
             reference: 'mainCardPanel',
             userCls: 'main-container',
             navigationBar: false,
