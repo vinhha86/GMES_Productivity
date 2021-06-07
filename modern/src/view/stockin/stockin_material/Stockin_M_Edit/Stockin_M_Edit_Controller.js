@@ -34,6 +34,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
 	},
     control:{
+		'#btnThuGon': {
+			tap: 'onhiddenMaster'
+		},
+		'#btnMoRong': {
+			tap: 'onhiddenMaster'
+		},
         '#btnBack':{
             tap: 'onBackPage'
         },
@@ -189,16 +195,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
     },
     
-    // onPklDetail: function(grid, info) {
-    //     // Ext.Msg.alert('Approve', info.record.get('id'));
-    //     var me = this.getView();
-    //     var m = this;
-	// 	var viewModel = this.getViewModel();
-	// 	var stockin = viewModel.get('stockin');
-    //     var id = info.record.data.id;
-
-    //     m.redirectTo("stockin_m_main/" + id + "/edit_detail");
-    // },
+	onhiddenMaster: function () {
+        var me = this.getView();
+		var viewModel = this.getViewModel();
+		var formMaster = me.down('#infoFields');
+		// var isHidden = formMaster.getHeight() > 0 ? false : true; console.log(isHidden);
+        var IsformMaster = viewModel.get('IsformMaster');
+        if(IsformMaster){
+            viewModel.set('IsformMaster', false);
+		    formMaster.setHidden(true);
+        }else{
+            viewModel.set('IsformMaster', true);
+            formMaster.setHidden(false);
+        }
+	},
     onPrint: function(){
         console.log('print btn');
     },

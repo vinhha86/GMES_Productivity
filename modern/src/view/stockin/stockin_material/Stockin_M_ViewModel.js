@@ -133,6 +133,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		pklRecheck_stockindId: null, // kiểm 10% combobox value
 		maPklRecheckFilter: '', // filter field pkl recheck 10%
 		objRecheck: null, // obj chứa các trường thông tin
+
+		// phong to, thu gon
+		IsformMaster: true,
 	},
 	formulas: {
         isEdit: function (get) {
