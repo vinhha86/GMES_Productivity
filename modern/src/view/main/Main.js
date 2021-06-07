@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.main.Main', {
     items: [
         {
             xtype: 'maintoolbar',
-            itemId: 'maintoolbar',
+            id: 'maintoolbar',
             docked: 'top',
             userCls: 'main-toolbar shadow'
         },
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.main.Main', {
         {
             xtype: 'navigationview',
             flex: 1,
-            itemId: 'mainCardPanel',
+            id: 'mainCardPanel',
             reference: 'mainCardPanel',
             userCls: 'main-container',
             navigationBar: false,

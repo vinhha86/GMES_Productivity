@@ -507,12 +507,10 @@ Ext.define('GSmartApp.view.main.MainController', {
 
                     activeItem = mainCard.getActiveItem();
                     if (activeItem.xtype == 'MobileMenu') {
-                        me.getView().down('#maintoolbar').setHidden(false);
-                        // Ext.getCmp('maintoolbar').setHidden(false);
+                        Ext.getCmp('maintoolbar').setHidden(false);
                     } else {
-                        me.getView().down('#maintoolbar').setHidden(true);
-                        // Ext.getCmp('maintoolbar').setHidden(true);
-                        mainCard.setHeight('100vh');
+                        Ext.getCmp('maintoolbar').setHidden(true);
+                        Ext.getCmp('mainCardPanel').setHeight('100vh');
                     }
                 }
                 catch (err){ console.log(err);
@@ -562,11 +560,9 @@ Ext.define('GSmartApp.view.main.MainController', {
 
                     activeItem = mainCard.getActiveItem();
                     if (activeItem.xtype == 'MobileMenu') {
-                        me.getView().down('#maintoolbar').setHidden(false);
-                        // Ext.getCmp('maintoolbar').setHidden(false);
+                        Ext.getCmp('maintoolbar').setHidden(false);
                     } else {
-                        me.getView().down('#maintoolbar').setHidden(true);
-                        // Ext.getCmp('maintoolbar').setHidden(true);
+                        Ext.getCmp('maintoolbar').setHidden(true);
                         mainCard.setHeight('100vh');
                     }
                 }
