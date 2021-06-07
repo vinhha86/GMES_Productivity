@@ -37,6 +37,8 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_List', {
         { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
         // { header: 'Tổng tiền', dataIndex: 'totalprice', width: 110},   
         { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
+        { header: 'Trạng thái', dataIndex: 'statusString', width: 120 },
+
         {
             xtype: 'actioncolumn',
             reference: 'stockout_contextmenu',
@@ -178,7 +180,8 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_List', {
                 valueField: 'id',
                 bind: {
                     store: '{StockoutTypeStore}'
-                }
+                },
+                hidden: true
             },
             {
                 tooltip: 'Tìm phiếu xuất',

@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Controller', {
         orgtostore.loadStore_byRoot(listidtype);
         
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
-        StockoutType.loadStore();
+        StockoutType.loadStore(null, 10);
 
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Controller', {
         var store = viewmodel.getStore('Stockout'); console.log(store);
 
         var limit = me.down('#limitpage').getValue();
-        var stockouttypeid = me.down('#stockouttypeid').getValue();
+        var stockouttypeid = 1; // Xuất NPL tổ cắt
         var stockindate_from = me.down('#stockoutdate_from').getValue();
         var stockindate_to = me.down('#stockoutdate_to').getValue();
         // var OrgToStore = me.down('#OrgToStore').getValue();
@@ -88,6 +88,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Controller', {
         var orgid_to_link = null;
         var stockouttypefrom = 1;
         var stockouttypeto = 10;
+        var statuses = [1, 2];
 
         var page = store.currentPage;
 
@@ -99,7 +100,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Controller', {
             page = 1;
         }
         store.loadByDate(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, page, limit,
-            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto);
+            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses);
     },
     renderCell: function(value, record) {
         if (null == value) value = 0;
