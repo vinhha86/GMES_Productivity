@@ -3,7 +3,7 @@ Ext.define('GSmartApp.store.demo.device_demo_store', {
     alias: 'store.device_demo_store',
     storeId: 'device_demo_store',
     fields: [
-        { name: 'deviceid', type: 'int' },
+        { name: 'deviceid', type: 'string' },
         { name: 'devicename', type: 'string' },
         { name: 'devicetype', type: 'int' },
         { name: 'state', type: 'int' }
