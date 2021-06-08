@@ -37,27 +37,20 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     '#btnFile': {
       change: 'onSelect'
     },
-    '#btnQR': {
-      click: 'onQRShow'
+    '#checkmoto': {
+      change: 'onCheckMotoBike'
     }
   },
-  i: 0,
-  onQRShow: function () {
-//     var me = this;
-//     var viewmodel = this.getViewModel();
-// 
-//     var grid = this.getView();
-//     var qrcode = grid.down('#qrcode');
-//     qrcode.onGenBase64();
-//     qrcode.text = viewmodel.get('personnel.fullname');
-//     qrcode.onRender();
-//     qrcode.onGenBase64();
-
-  GSmartApp.ux.grid.print_test.print(null);
+  onCheckMotoBike: function (chk, newVal, oldVal, e) {
+    var viewmodel = this.getViewModel();
+    if ((viewmodel.get('isActive')))
+      viewmodel.set('personnel.bike_number', "");
+    viewmodel.set('isActive', true)
   },
   onUploadImage: function () {
     var me = this.getView();
     var viewmodel = this.getViewModel();
+    console.log(viewmodel);
     if (viewmodel.get('personnel.id') == null) {
       Ext.Msg.show({
         title: "Thông báo",

@@ -8,9 +8,9 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_M_Controller', {
 		userStore.loadStore();
 
 		// var listidtype = "4,8,9,11,12";
-        var listidtype = "3";
-		var orgfromstore = this.getViewModel().getStore('OrgFromStore');
-		orgfromstore.loadStore_allchildren_byorg(listidtype);
+        // var listidtype = "3";
+		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
+		// orgfromstore.loadStore_allchildren_byorg(listidtype);
 		// var orgtostore = this.getViewModel().getStore('OrgToStore');
 		// orgtostore.loadStore_byRoot(listidtype);
 

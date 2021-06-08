@@ -15,9 +15,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // '#btnPrintPkl':{
         //     tap: 'onPrintPkl'
         // },
-        // '#btnDeletePkl':{
-        //     tap: 'onDeletePkl'
-        // },
+        '#btnDeletePkl':{
+            tap: 'onDeletePkl'
+        },
         '#Stockout_M_Edit_Pkl':{
             childtap: 'onItemPklTap'
         },
@@ -100,6 +100,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         console.log('onPrintPkl cliked');
         // popup here
     },
+    
     onDeletePkl: function () {
         var m = this;
         var viewModel = this.getViewModel();
@@ -138,6 +139,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 
         // console.log(selectedPklRecord);
     },
+
     deletePkl: function(){
         var myview = this.getView();
         var m = this;

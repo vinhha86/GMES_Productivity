@@ -142,9 +142,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 					var OrgToStore = viewModel.getStore('OrgToStore');
 					OrgToStore.loadStore(17, false);
 				}
-				if(response.data.stockouttypeid_link == 2) { // xuat den to sx
+				if(response.data.stockouttypeid_link == 2) { // xuat den dieu chuyen noi bo
 					var OrgToStore = viewModel.getStore('OrgToStore');
-					OrgToStore.loadStore(14, false);
+					OrgToStore.loadStoreByOrgTypeString('3');
 				}
 
 				console.log(stockout);
@@ -178,9 +178,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             var OrgToStore = viewModel.getStore('OrgToStore');
             OrgToStore.loadStore(17, false);
         }
-		if(id == 2) { // xuat den to sx
+		if(id == 2) { // xuat den dieu chuyen noi bo
 			var OrgToStore = viewModel.getStore('OrgToStore');
-            OrgToStore.loadStore(14, false);
+			OrgToStore.loadStoreByOrgTypeString('3');
 		}
 
 		var stockoutorderid_link = viewModel.get('stockoutorderid_link');

@@ -2,17 +2,28 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Personnel_ListView_Controller',
     init: function () {
-      
+
     },
     control: {
-        '#btnThemMoi_Personnel' : {
+        '#btnThemMoi_Personnel': {
             click: 'onThemMoi'
         },
         '#Personnel_ListView': {
             itemdblclick: 'onitemdblclick'
         },
+        '#btnPrint_Personnel': {
+            click: 'onPrint'
+        }
     },
-    onThemMoi: function(){
+    onPrint: function () {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var select = grid.getSelectionModel().getSelection();
+        if (select.length > 0)
+            GSmartApp.ux.grid.print_test.print(select);
+    },
+    onThemMoi: function () {
         var viewModel = this.getViewModel();
         var data = new Object();
         data.id = null;
@@ -35,7 +46,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                 xtype: 'Personnel_info_main',
                 viewModel: {
                     data: {
-                        personnel : data
+                        personnel: data
                     }
                 }
             }]
@@ -49,15 +60,15 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             form.close();
         });
     },
-    onEdit: function(grid, rowIndex, colIndex){
+    onEdit: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
         this.showEditForm(rec);
     },
     onitemdblclick: function (m, record, item, index, e, eOpts) {
         console.log(record);
         this.showEditForm(record);
-    },    
-    showEditForm:function(rec){
+    },
+    showEditForm: function (rec) {
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -77,7 +88,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                 xtype: 'Personnel_info_main',
                 viewModel: {
                     data: {
-                        personnel : rec.data
+                        personnel: rec.data
                     }
                 }
             }]

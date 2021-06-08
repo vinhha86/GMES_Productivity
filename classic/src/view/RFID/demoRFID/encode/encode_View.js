@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
         }, {
             xtype: 'button',
             margin: 3,
-            itemId: 'btnInExcode',
+            itemId: 'btnInEncode',
             text: 'In nhãn & Mã hóa',
             iconCls: 'x-fa fa-print'
         }, {

@@ -209,7 +209,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
             // },
             {
                 tooltip: 'Tìm phiếu xuất',
-                text: 'Đồng bộ từ MITI',
+                // text: 'Đồng bộ từ MITI',
                 iconCls: 'x-fa fa-search',
                 margin: 1,
                 handler: 'onOrderSearch'

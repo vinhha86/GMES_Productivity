@@ -88,6 +88,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
 			width: 70,
+			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                // metaData.tdAttr = 'data-qtip="' + value + '"';
+                if(value == 'ALL'){
+                    return '';
+                }else{
+                    return value;
+                }
+            },
 		},{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',

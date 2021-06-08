@@ -29,6 +29,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 
 		//
         is_stockout_m_view: false, // view có vào từ xuất kho hay không (true), mặc định là tở vải (false)
+
+		// phong to, thu gon
+		IsformMaster: true,
 	},
 	formulas: {
         isEdit: function (get) {

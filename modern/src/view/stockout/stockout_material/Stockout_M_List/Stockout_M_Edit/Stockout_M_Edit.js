@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         {
             xtype: 'container',
             layout: 'hbox',
+            itemId: 'infoFields',
             items: [
                     {
                         layout: 'vbox',
@@ -157,5 +158,23 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             ui: 'action',
         },    
         '->',
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-angle-double-up',
+            itemId:'btnThuGon',
+            ui: 'action',
+            bind: {
+                hidden: '{!IsformMaster}'
+            }
+        },    
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-angle-double-down',
+            itemId:'btnMoRong',
+            ui: 'action',
+            bind: {
+                hidden: '{IsformMaster}'
+            }
+        },    
     ],
 });

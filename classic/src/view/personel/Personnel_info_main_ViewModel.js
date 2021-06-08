@@ -2,8 +2,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Personnel_info_main_ViewModel',
     requires: ['GSmartApp.store.gender.GenderStore', 'GSmartApp.store.org.ListOrgStore',
-            'GSmartApp.store.personnel.PersonnelType_Store', 'GSmartApp.store.personnel.PersonnelStatus_Store',
-            'GSmartApp.store.personnel.personnel_his_store'],
+        'GSmartApp.store.personnel.PersonnelType_Store', 'GSmartApp.store.personnel.PersonnelStatus_Store',
+        'GSmartApp.store.personnel.personnel_his_store'],
     stores: {
         GenderStore: {
             type: 'GenderStore'
@@ -40,6 +40,19 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
         personnel: {
             id: null,
             status: 1
+        },
+        isActive: false
+    },
+    formulas: {
+        qr_person: function (get) {
+            return config.getQrcode_personel_url() + get('personnel.id')
+        },
+        qr_bike: function (get) {
+            if (get('personnel.bike_number') == "" || get('personnel.bike_number') == null) {
+                return null;
+            }
+            else
+                return config.getQrcode_bike_number_url() + get('personnel.bike_number');
         }
     }
 })

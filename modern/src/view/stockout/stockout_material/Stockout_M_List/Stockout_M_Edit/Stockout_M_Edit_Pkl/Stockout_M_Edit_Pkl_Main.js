@@ -254,11 +254,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                         },
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
+                            iconCls: 'x-fa fa-trash',
+                            itemId:'btnDeletePkl',
                             ui: 'action',
                             margin: 1,
-                            style: 'visibility: hidden;'
+                            focusable: false,
+                            bind: {
+                                disabled: '{!isPklSelected}',
+                            },
+                            // style: 'visibility: hidden;'
                         },
                     ]
                 },

@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
         {
             xtype: 'container',
             layout: 'hbox',
+            itemId: 'infoFields',
             items: [
                     {
                         layout: 'vbox',
@@ -177,6 +178,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
             ui: 'action',
         },    
         '->',
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-angle-double-up',
+            itemId:'btnThuGon',
+            ui: 'action',
+            bind: {
+                hidden: '{!IsformMaster}'
+            }
+        },    
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-angle-double-down',
+            itemId:'btnMoRong',
+            ui: 'action',
+            bind: {
+                hidden: '{IsformMaster}'
+            }
+        },    
         {
             xtype:'button',
             iconCls: 'x-fa fa-print',

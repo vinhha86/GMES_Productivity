@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
     layout: 'hbox',
     items: [{
         layout: 'vbox',
-        items:[{
+        items: [{
             layout: 'hbox',
             items: [{
                 layout: 'vbox',
@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.code}'
                     }
-                },{
+                }, {
                     xtype: 'textfield',
                     labelWidth: 78,
                     fieldLabel: 'Họ và tên',
@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.fullname}'
                     }
-                },{
+                }, {
                     xtype: 'datefield',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
@@ -46,8 +46,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     altFormats: "Y-m-d\\TH:i:s.uO",
                     bind: {
                         value: '{personnel.birthdate}'
-                    }    
-                },{
+                    }
+                }, {
                     xtype: 'combo',
                     labelWidth: 78,
                     fieldLabel: 'Giới tính',
@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         store: '{GenderStore}'
                     }
                 }]
-            },{
+            }, {
                 layout: 'vbox',
                 items: [{
                     xtype: 'combo',
@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.orgmanagerid_link}',
                         store: '{OrgManagerStore}'
                     }
-                },{
+                }, {
                     xtype: 'combo',
                     labelWidth: 78,
                     queryMode: 'local',
@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.orgid_link}',
                         store: '{OrgStore}'
                     }
-                },{
+                }, {
                     xtype: 'combo',
                     labelWidth: 78,
                     fieldLabel: 'Loại Nh.viên',
@@ -109,7 +109,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.personnel_typeid_link}',
                         store: '{PersonnelTypeStore}'
                     }
-                },{
+                }, {
                     xtype: 'textfield',
                     labelWidth: 78,
                     fieldLabel: 'Điện thoại',
@@ -122,7 +122,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.tel}'
                     }
                 }]
-            },{
+            }, {
                 layout: 'vbox',
                 items: [{
                     xtype: 'combo',
@@ -140,7 +140,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.countryid_link}',
                         store: '{OrgCountryStore}'
                     }
-                },{
+                }, {
                     xtype: 'combo',
                     itemId: 'cmbThanhPho',
                     queryMode: 'local',
@@ -156,9 +156,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.provinceid_link}',
                         store: '{OrgProvinceStore}'
                     }
-                },{
+                }, {
                     xtype: 'combo',
-                    itemId:'cmbQuanHuyen',
+                    itemId: 'cmbQuanHuyen',
                     labelWidth: 78,
                     fieldLabel: 'Quận, huyện',
                     queryMode: 'local',
@@ -172,7 +172,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.districtid_link}',
                         store: '{OrgDistrictStore}'
                     }
-                },{
+                }, {
                     xtype: 'combo',
                     labelWidth: 78,
                     fieldLabel: 'Xã',
@@ -188,7 +188,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         store: '{OrgCommuneStore}'
                     }
                 }]
-            },{
+            }, {
                 layout: 'vbox',
                 items: [{
                     xtype: 'textfield',
@@ -202,7 +202,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.email}'
                     }
-                },{
+                }, {
                     xtype: 'textfield',
                     labelWidth: 78,
                     fieldLabel: 'Số CMT:',
@@ -213,7 +213,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.idnumber}'
                     }
-                },{
+                }, {
                     xtype: 'combo',
                     labelWidth: 78,
                     fieldLabel: 'Trạng thái',
@@ -227,21 +227,49 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.status}',
                         store: '{PersonnelStatus_Store}'
                     }
+                }, {
+                    xtype: 'checkbox',
+                    labelWidth: 78,
+                    fieldLabel: 'Xe đạp',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    inputValue: true,
+                    itemId: 'checkmoto',
+                    bind: {
+                        value: '{personnel.isbike}'
+                    }
                 }]
             }]
-        },{
-            xtype: 'textfield',
-            margin: 1,
-            labelWidth: 78,
-            fieldLabel: 'Địa chỉ:',
-            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-            fieldStyle: 'font-size:11px;',
-            bind: {
-                value: '{personnel.address}'
-            },
-            width: '100%'
+        }, {
+            layout: 'hbox',
+            items: [{
+                xtype: 'textfield',
+                margin: 1,
+                labelWidth: 78,
+                fieldLabel: 'Địa chỉ:',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                bind: {
+                    value: '{personnel.address}'
+                },
+                width: 763
+            }, {
+                xtype: 'textfield',
+                labelWidth: 78,
+                fieldLabel: 'Biển số xe',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                flex: 1,
+                margin: 1,
+                bind: {
+                    value: '{personnel.bike_number}',
+                    editable: '{personnel.is_motobike}'
+                }
+            }]
         }]
-    },{
+    }, {
         layout: 'vbox',
         items: [{
             xtype: 'image',
@@ -257,35 +285,56 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     img.getEl().dom.style.border = '1px solid black';
                 }
             }
-        },{
+        }, {
             xtype: 'filefield',
             buttonText: '+',
             buttonOnly: true,
             itemId: 'btnFile',
-            tooltip:'Upload File',
+            tooltip: 'Upload File',
             accept: 'image/*',
             hidden: true
-        },{
-            xtype:'button',
-            itemId:'btnUploadImage',
+        }, {
+            xtype: 'button',
+            itemId: 'btnUploadImage',
             ui: 'header',
             margin: '10 5 0 0',
             text: 'Tải ảnh',
             iconCls: 'x-fa fa-upload'
         }]
-    },{
+    }, {
         layout: 'vbox',
         items: [{
-            xtype: 'qrcode',
-            itemId: 'qrcode',
+            xtype: 'image',
+            itemId: 'qrperson',
             width: 130,
             height: 130,
             margin: 1,
-            text: 'Phong'
-        },{
-            xtype: 'button',
-            text: 'qrcode',
-            itemId: 'btnQR'
+            bind: {
+                src: "{qr_person}"
+            },
+            listeners: {
+                afterrender: function (img, a, obj) {
+                    img.getEl().dom.style.border = '1px solid black';
+                }
+            }
+        }]
+    },
+    {
+        layout: 'vbox',
+        items: [{
+            xtype: 'image',
+            itemId: 'qrbike',
+            width: 130,
+            height: 130,
+            margin: 1,
+            bind: {
+                src: "{qr_bike}"
+            },
+            listeners: {
+                afterrender: function (img, a, obj) {
+                    img.getEl().dom.style.border = '1px solid black';
+                }
+            }
         }]
     }]
 })

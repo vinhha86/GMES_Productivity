@@ -85,10 +85,14 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditController', {
                 store.setData(response.data.stockoutd);
 
 				if(response.data.stockouttypeid_link == 1) { // xuat den cat
+					var OrgFromStore = viewModel.getStore('OrgFromStore');
+					OrgFromStore.loadStore(3, false);
 					var OrgToStore = viewModel.getStore('OrgToStore');
 					OrgToStore.loadStore(17, false);
 				}
 				if(response.data.stockouttypeid_link == 2) { // xuat den to sx
+					var OrgFromStore = viewModel.getStore('OrgFromStore');
+					OrgFromStore.loadStore(3, false);
 					var OrgToStore = viewModel.getStore('OrgToStore');
 					OrgToStore.loadStore(14, false);
 				}

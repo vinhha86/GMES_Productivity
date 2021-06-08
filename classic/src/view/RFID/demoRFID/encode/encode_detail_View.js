@@ -4,15 +4,21 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.encode_detail_View', {
     id: 'encode_detail_View',
     controller: 'encode_detail_ViewCotroller',
     viewModel: {
-        type: 'inv_create_ViewModel'
+        type: 'encode_detail_ViewModel'
     },
     layout: 'vbox',
     items: [{
         layout: 'hbox',
         items: [{
             xtype: 'combo',
+            valueField: 'deviceid',
+            displayField: 'devicename',
             margin: 3,
-            fieldLabel: 'Tạo nhãn'
+            fieldLabel: 'Thiết bị',
+            bind: {
+                store: '{device_store}'
+            },
+            itemId: 'cmbDevice'
         }]
     }],
     dockedItems: [{
@@ -28,8 +34,11 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.encode_detail_View', {
         }, {
             xtype: 'button',
             margin: 3,
-            text: 'In nhãn',
-            iconCls: 'x-fa fa-print'
+            itemId: 'btnPrint',
+            iconCls: 'x-fa fa-print',
+            bind: {
+                text: '{textbtn}'
+            }
         }]
     }]
 })

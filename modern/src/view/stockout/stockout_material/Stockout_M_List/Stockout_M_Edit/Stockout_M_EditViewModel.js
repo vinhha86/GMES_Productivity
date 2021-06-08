@@ -32,6 +32,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 		objRip: null, // obj chứa các trường thông tin,
         currentEditField: null, // đang edit textfield nào
         isTextFieldFocus: false,
+
+		// phong to, thu gon
+		IsformMaster: true,
 	},
 	formulas: {
         isMetColumnHidden: function (get) {
@@ -65,6 +68,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             }
             return true;
         },
+        isPklSelected: function (get) {
+			var selectedPklRecord = get('selectedPklRecord');
+			if(selectedPklRecord == null){
+                return false;
+			}
+			return true
+		},
     },
 
 	

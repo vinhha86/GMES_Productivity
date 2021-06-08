@@ -450,8 +450,6 @@ Ext.define('GSmartApp.view.main.MainController', {
     onRouteChange: function (id) {
         console.log('onRouteChange:' + id);
         var me = this;
-        // backbutton = refs.backbutton;
-        // backbutton.setHidden(true);
         this.setCurrentView(id);
     },
 
@@ -469,9 +467,8 @@ Ext.define('GSmartApp.view.main.MainController', {
             mainCard = refs.mainCardPanel;
 
         var activeItem = mainCard.getActiveItem();
-        var store = Ext.getStore('NavigationTree'); // console.log(store.getData());
-        // var node = store.findNode('routeId', hashTag); console.log(node);
-        var node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag); console.log(node);
+        var store = Ext.getStore('NavigationTree');
+        var node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
         var xtype_edit = '';
 
         // console.log('args: ' + args);
@@ -484,43 +481,46 @@ Ext.define('GSmartApp.view.main.MainController', {
             }
 
         }
-        if (activeItem) {
-            // mainCard.pop(); // console.log('popped');
-            activeItem.destroy();
+        if (xtype_edit == '' || xtype_edit == null) {
+            this.redirectTo('mobilemenu');
         }
+        else{
+            if (activeItem) {
+                activeItem.destroy();
+            }
+            var item = mainCard.child('component[routeId=' + xtype_edit + ']');
+            if (!item) {
+                try {
+                    if (args.toString().includes('edit')) {
+                        item = mainCard.push({
+                            xtype: xtype_edit,
+                            routeId: xtype_edit
+                        });
+                        me.fireEvent('loaddata', id, args);
+                    } else {
+                        item = mainCard.push({
+                            xtype: xtype_edit,
+                            routeId: xtype_edit
+                        });
+                        me.fireEvent('newdata', node, id);
+                    }
 
-        var item = mainCard.child('component[routeId=' + xtype_edit + ']');
-        if (!item) {
-            // item = mainCard.push({
-            //     xtype: xtype_edit,
-            //     routeId: xtype_edit
-            // });
-            // me.fireEvent('loaddata', id);
-            if (args.toString().includes('edit')) {
-                item = mainCard.add({
-                    xtype: xtype_edit,
-                    routeId: xtype_edit
-                });
-                me.fireEvent('loaddata', id, args);
-            } else {
-                item = mainCard.add({
-                    xtype: xtype_edit,
-                    routeId: xtype_edit
-                });
-                me.fireEvent('newdata', node, id);
+                    activeItem = mainCard.getActiveItem();
+                    if (activeItem.xtype == 'MobileMenu') {
+                        Ext.getCmp('maintoolbar').setHidden(false);
+                    } else {
+                        Ext.getCmp('maintoolbar').setHidden(true);
+                        Ext.getCmp('mainCardPanel').setHeight('100vh');
+                    }
+                }
+                catch (err){ console.log(err);
+                    Ext.Msg.alert('Thông báo', 'Chức năng đang phát triển! Bạn vui lòng quay lại sau!',function(){
+                        me.redirectTo('mobilemenu');
+                    });
+                }
             }
         }
-        // mainCard.setActiveItem(item);
-
-        activeItem = mainCard.getActiveItem();
-        if (activeItem.xtype == 'MobileMenu') {
-            Ext.getCmp('maintoolbar').setHidden(false);
-        } else {
-            Ext.getCmp('maintoolbar').setHidden(true);
-            Ext.getCmp('mainCardPanel').setHeight('100vh');
-        }
     },
-
     setCurrentView: function (hashTag) {
         console.log('setCurrentView:' + hashTag);
         hashTag = (hashTag || '').toLowerCase();
@@ -535,7 +535,6 @@ Ext.define('GSmartApp.view.main.MainController', {
         var xtype = '';
 
         if (node) {
-            // xtype = node.get('id');
             xtype = node.get('viewType');
         }
 
@@ -547,10 +546,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             this.redirectTo('mobilemenu');
         }
         else {
-
-
             if (activeItem) {
-                // mainCard.pop();
                 activeItem.destroy();
             }
             var item = mainCard.child('component[routeId=' + hashTag + ']');
@@ -575,12 +571,7 @@ Ext.define('GSmartApp.view.main.MainController', {
                         me.redirectTo('mobilemenu');
                     });
                 }
-                // console.log('here');
-                // console.log(item);
             }
-            // mainCard.setActiveItem(item);
-
-
         }
 
     },

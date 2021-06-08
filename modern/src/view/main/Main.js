@@ -8,11 +8,11 @@ Ext.define('GSmartApp.view.main.Main', {
     ],
 
     controller: 'main',
-    platformConfig: {
-        phone: {
-            controller: 'phone-main'
-        }
-    },
+    // platformConfig: {
+    //     phone: {
+    //         controller: 'phone-main'
+    //     }
+    // },
 
     layout: 'hbox',
 
