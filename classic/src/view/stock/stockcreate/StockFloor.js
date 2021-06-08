@@ -1,16 +1,12 @@
-Ext.define('GSmartApp.view.stock.StockDetail', {
+Ext.define('GSmartApp.view.stock.stockcreate.StockFloor', {
     extend: 'Ext.form.Panel',
-    xtype: 'StockDetail',
-    itemId:'StockDetail',
-    controller: 'StockDetailController',
+    xtype: 'StockFloor',
+    itemId:'StockFloor',
+    controller: 'StockFloorController',
     layout: 'vbox',
-    bind:{
-        // title: '{title}',
-        // hidden : '{!fieldState}'
-    },
-    // orgtypeid_link, parentid_link, linecost, colorid_link
     items: [{
-        width:400,
+        // width:400,
+        flex: 1,
         margin: 5,
         labelWidth: 105,
         xtype: 'combobox',
@@ -24,8 +20,11 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         queryMode: 'local',
         editable: false,
         allowBlank: false,
-        readOnly: true
+        readOnly: true,
+        hidden: true,
     },{
+        // width:400,
+        flex: 1,
         xtype:'textfield',
         itemId: 'txtFieldSpaceEpc',
         margin: 5,
@@ -37,9 +36,10 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         bind:{
             value:'{spaceObj.spaceepc}'
         },
-        width: 400,
         labelWidth: 105
     },{
+        // width:400,
+        flex: 1,
         xtype:'textfield',
         itemId: 'txtFieldSpaceName',
         margin: 5,
@@ -49,12 +49,14 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         maxLength: 10,
         maxLengthText: 'Tối đa 10 ký tự',
         bind:{
-            value:'{spaceObj.spacename}'
+            value:'{spaceObj.spacename}',
+            hidden: '{isTxtFieldSpaceNameDisable}'
         },
-        width: 400,
         labelWidth: 105,
         maskRe: /[0-9]/,
     },{
+        // width:400,
+        flex: 1,
         xtype:'textfield',
         itemId: 'txtFieldFloorId',
         margin: 5,
@@ -65,7 +67,6 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         bind:{
             value :'{spaceObj.floorid}'
         },
-        width: 400,
         labelWidth: 105,
         maskRe: /[0-9]/,
     }],
@@ -74,6 +75,12 @@ Ext.define('GSmartApp.view.stock.StockDetail', {
         border: false,
         dock:'bottom',
         items:[{
+            xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+        },{
             xtype:'button',
             text: 'Lưu',
             margin: 3,

@@ -1,22 +1,18 @@
-Ext.define('GSmartApp.view.stock.StockSpace', {
+Ext.define('GSmartApp.view.stock.stockcreate.StockSpace', {
     extend: 'Ext.form.Panel',
     xtype: 'StockSpace',
     itemId:'StockSpace',
     controller: 'StockSpaceController',
     layout: 'vbox',
-    bind:{
-        // title: '{title}',
-        // hidden : '{!fieldState}'
-    },
-    // orgtypeid_link, parentid_link, linecost, colorid_link
     items: [{
-        width:400,
+        // width:400,
+        flex: 1,
         margin: 5,
         labelWidth: 105,
         xtype: 'combobox',
         fieldLabel: 'Kho',
         bind:{
-            store:'{ListKhoSpaceStore}',
+            store:'{ListKhoRowStore}',
             value:'{spaceObj.orgid_link}'
         },
         displayField: 'name',
@@ -24,8 +20,11 @@ Ext.define('GSmartApp.view.stock.StockSpace', {
         queryMode: 'local',
         editable: false,
         allowBlank: false,
-        readOnly: true
+        readOnly: true,
+        hidden: true,
     },{
+        // width:400,
+        flex: 1,
         xtype:'textfield',
         itemId: 'txtFieldSpacename',
         margin: 5,
@@ -37,7 +36,6 @@ Ext.define('GSmartApp.view.stock.StockSpace', {
         bind:{
             value:'{spaceObj.spacename}'
         },
-        width: 400,
         labelWidth: 105,
         maskRe: /[0-9]/,
     }],
@@ -47,14 +45,16 @@ Ext.define('GSmartApp.view.stock.StockSpace', {
         dock:'bottom',
         items:[{
             xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+        },{
+            xtype:'button',
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuuSpace',
             iconCls: 'x-fa fa-save',
-            // bind: {
-            //     disabled: '{isBtnRowSaveDisabled}'
-            // },
-            // formBind: true
         },{
             flex:1,
             border: false

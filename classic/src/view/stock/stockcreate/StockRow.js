@@ -1,16 +1,12 @@
-Ext.define('GSmartApp.view.stock.StockRow', {
+Ext.define('GSmartApp.view.stock.stockcreate.StockRow', {
     extend: 'Ext.form.Panel',
     xtype: 'StockRow',
     itemId:'StockRow',
     controller: 'StockRowController',
     layout: 'vbox',
-    bind:{
-        // title: '{title}',
-        // hidden : '{!fieldState}'
-    },
-    // orgtypeid_link, parentid_link, linecost, colorid_link
     items: [{
-        width:400,
+        // width:400,
+        flex: 1,
         margin: 5,
         labelWidth: 105,
         xtype: 'combobox',
@@ -26,6 +22,8 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         allowBlank: false,
         readOnly: true
     },{
+        // width:400,
+        flex: 1,
         xtype:'textfield',
         itemId: 'txtFieldCode',
         margin: 5,
@@ -37,7 +35,6 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         bind:{
             value:'{rowObj.code}'
         },
-        width: 400,
         labelWidth: 105
     }],
     dockedItems:[{
@@ -46,14 +43,16 @@ Ext.define('GSmartApp.view.stock.StockRow', {
         dock:'bottom',
         items:[{
             xtype:'button',
+            text: 'Thoát',
+            margin: 3,
+            itemId:'btnThoat',
+            iconCls: 'x-fa fa-window-close',
+        },{
+            xtype:'button',
             text: 'Lưu',
             margin: 3,
             itemId:'btnLuuRow',
             iconCls: 'x-fa fa-save',
-            // bind: {
-            //     disabled: '{isBtnRowSaveDisabled}'
-            // },
-            // formBind: true
         },{
             flex:1,
             border: false
