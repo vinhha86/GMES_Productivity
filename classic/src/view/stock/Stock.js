@@ -10,12 +10,20 @@ Ext.define('GSmartApp.view.stock.Stock', {
     items: [
         {
             region: 'west',
-            width: '50%',
+            width: '30%',
             title: 'Thẻ kho',
             xtype: 'StockMenu',
             border: true,
             margin: 1
         
+        },
+        {
+            region: 'east',
+            width: '70%',
+            title: 'Danh sách NPL',
+            xtype: 'StockMaterialList',  
+            border: true,
+            margin: 1,
         },
         // {
         //     region: 'east',

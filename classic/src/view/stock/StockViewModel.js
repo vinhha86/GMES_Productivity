@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         ListKhoSpaceStore: {
             type: 'ListOrgStore'
         },
+        WarehouseStore: {
+            type: 'WarehouseStore'
+        },
     },
     data: {
         // id: 0,
