@@ -33,4 +33,44 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_Main_Controller', {
             }
         }
     },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('StockoutD_Store');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'skucode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
+    onFilterValueTenNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('StockoutD_Store');
+        var filterField = this.lookupReference('ValueFilterFieldTenNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldTenNPL = filters.add({
+                id: 'ValueFilterFieldTenNPL',
+                property: 'skuname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldTenNPL) {
+            filters.remove(this.ValueFilterFieldTenNPL);
+            this.ValueFilterFieldTenNPL = null;
+        }
+    },
 })

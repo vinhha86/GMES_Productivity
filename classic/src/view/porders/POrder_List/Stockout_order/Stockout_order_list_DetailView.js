@@ -21,16 +21,55 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Stockout_order_lis
         {
             text: 'Mã NPL',
             dataIndex: 'materialCode',
-            width: 120
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                margin: 1,
+                reference: 'ValueFilterFieldMaNPL',
+                width: '99%',
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onFilterValueMaNPLKeyup',
+                    buffer: 500
+                }
+            }
         },
         {
             text: 'Tên NPL',
             dataIndex: 'materialName',
-            width: 150
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                margin: 1,
+                reference: 'ValueFilterFieldTenNPL',
+                width: '99%',
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onFilterValueTenNPLKeyup',
+                    buffer: 500
+                }
+            }
         }, {
             text: 'Màu NPL',
             dataIndex: 'tenMauNPL',
-            width: 120
+            width: 150,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
         }, {
             text: 'Thẻ kho',
             dataIndex: 'data_spaces',

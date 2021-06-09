@@ -37,20 +37,64 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_D', {
 	columns: [
 		{
 			text: 'Mã NPL', 
-			width: 100,
-			dataIndex: 'skucode'
+			flex: 1,
+			dataIndex: 'skucode',
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaNPLKeyup',
+					buffer: 500
+				}
+			}
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
-			width: 100,
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldTenNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueTenNPLKeyup',
+					buffer: 500
+				}
+			}
 		},{
 			text: 'Mô tả', 
 			dataIndex: 'sku_product_desc',
-			flex: 1
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
 		},{
 			text: 'Màu', 
 			dataIndex: 'sku_product_color',
-			width: 120,
+			width: 150,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
