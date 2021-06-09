@@ -8,6 +8,12 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         selType: 'rowmodel',
         mode: 'SINGLE'
     },
+    viewConfig: {
+        stripeRows: false,
+        columnLines: true,
+        enableTextSelection: true,
+        rowLines: true
+    },
     bind: {
         store: '{WarehouseStore}'
     },
