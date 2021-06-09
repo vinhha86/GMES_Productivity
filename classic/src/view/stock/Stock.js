@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.stock.Stock', {
         {
             region: 'west',
             width: '30%',
-            title: 'Thẻ kho',
+            title: 'Danh sách khoang',
             xtype: 'StockMenu',
             border: true,
             margin: 1
@@ -25,38 +25,5 @@ Ext.define('GSmartApp.view.stock.Stock', {
             border: true,
             margin: 1,
         },
-        // {
-        //     region: 'east',
-        //     width: '50%',
-        //     title: 'Thông tin dãy',
-        //     xtype: 'StockRow',
-        //     border: true,
-        //     margin: 1,
-        //     bind: {
-        //         hidden: '{isRowViewHidden}'
-        //     }
-        // },
-        // {
-        //     region: 'east',
-        //     width: '50%',
-        //     title: 'Thông tin hàng',
-        //     xtype: 'StockSpace',
-        //     border: true,
-        //     margin: 1,
-        //     bind: {
-        //         hidden: '{isSpaceViewHidden}'
-        //     }
-        // },
-        // {
-        //     region: 'east',
-        //     width: '50%',
-        //     title: 'Thông tin hàng, tầng',
-        //     xtype: 'StockDetail',
-        //     border: true,
-        //     margin: 1,
-        //     bind: {
-        //         hidden: '{isFloorViewHidden}'
-        //     }
-        // }
     ]
 })

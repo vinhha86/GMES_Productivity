@@ -8,12 +8,28 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         '#StockMenu': {
             itemclick: 'onloadDetail'
         },
-        '#btnReload': {
+        // '#btnReload': {
+        //     click: 'onloadPage'
+        // },
+        '#btnSearch': {
             click: 'onloadPage'
         },
-        // '#phanxuong_orgid_link_cbbox': {
-        //     select: 'loadMenu'
-        // },
+        '#txtMaHang': {
+            specialkey: 'onSpecialkey'
+        },
+        '#txtDonHang': {
+            specialkey: 'onSpecialkey'
+        },
+    },
+    listen: {
+        store: {
+            'StockTreeStore': {
+                'loadStore_Done': 'onloadStore_Done'
+            }
+        }
+    },
+    onloadStore_Done: function () {
+        this.getView().setLoading(false);
     },
     resetObj: function(){
         var viewModel = this.getViewModel();
@@ -29,24 +45,36 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             var WarehouseStore = viewModel.getStore('WarehouseStore');
             WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
         }
+        if(record.get('type') == 3 && record.get('khoangKhongXacDinh') == true){ // khoang KXD
+            var spaceepc = null;
+            var stockid_link = record.get('orgid_link');
+            var WarehouseStore = viewModel.getStore('WarehouseStore');
+            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+        }
     },
     onloadPage: function () {
         var me = this.getView();
         var viewModel = this.getViewModel();
-        // var ListPhanXuongStore = viewModel.getStore('ListPhanXuongStore');
-        // ListPhanXuongStore.loadStore(13);
+        //
+        var searchObj = viewModel.get('searchObj');
+        var maHang = searchObj.maHang == null ? null : searchObj.maHang.trim();
+        var donHang = searchObj.donHang == null ? null : searchObj.donHang.trim();
+        //
+        me.setLoading("Đang tải dữ liệu");
         var StockTreeStore = viewModel.getStore('StockTreeStore');
-        StockTreeStore.loadStore();
-        StockTreeStore.getSorters().add('name');
+        StockTreeStore.loadStore(maHang, donHang);
+        StockTreeStore.getSorters().add({
+            property: 'khoangKhongXacDinh',
+            direction: 'ASC'
+        },{
+            property: 'name',
+            direction: 'ASC'
+        });
     },
-    loadMenu: function(){
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var phanxuong_orgid_link = viewModel.get('phanxuong_orgid_link');
-        if(phanxuong_orgid_link != null){
-            var StockTreeStore = viewModel.getStore('StockTreeStore');
-            StockTreeStore.loadStore(phanxuong_orgid_link);
-            StockTreeStore.getSorters().add('name');
+    onSpecialkey: function (field, e) {
+        var me = this;
+        if (e.getKey() == e.ENTER) {
+            me.onloadPage();
         }
     },
     onContextMenu: function(tree, record, item, index, e, eOpts ) {
@@ -74,6 +102,10 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             menu_grid.showAt(position);
         }
         if(record.get('type') == 3){ // dãy
+            // khoang không xác định -> return
+            if(record.get('khoangKhongXacDinh') == true){
+                return;
+            }
             var menu_grid = new Ext.menu.Menu({ items:
                 [
                     {
@@ -652,5 +684,34 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                     });
                 }
             })
-    }
+    },
+
+
+    // filter cho danh sach npl (theo 2 txt field maHang va donHang)
+    onNPLFilterKeyup: function (){
+        // var viewModel = this.getViewModel();
+        // var WarehouseStore = viewModel.getStore('WarehouseStore');
+        // var filters = grid.store.getFilters();
+
+        // var maHang = viewModel.get('searchObj.maHang');
+        // var maHang = viewModel.get('searchObj.maHang');
+        // var filterField = this.getView().down('#invoiceFilter');
+            
+        
+        // var value = filterField.getValue() == null ? '' : filterField.getValue().toLowerCase();
+        // store.clearFilter();
+        // store.filterBy(function(rec) { //toLowerCase() // includes()
+        //     if(
+        //         rec.get('invoice_number').toLowerCase().includes(value) ||
+        //         rec.get('orgfrom_name').toLowerCase().includes(value) ||
+        //         rec.get('stockintype_name').toLowerCase().includes(value) ||
+        //         rec.get('stockinProductString').toLowerCase().includes(value) || 
+        //         Ext.Date.format(rec.get('invoice_date'),'d/m/y').toLowerCase().includes(value)
+                
+        //     ){
+        //         return true;
+        //     }
+        //     return false;
+        // });
+    },
 })

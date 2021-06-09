@@ -22,16 +22,14 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         },
     },
     data: {
-        // id: 0,
-        // parentid_link: null,
-        // titleName: '',
-        // currentRec:null,
-        // phanxuong_orgid_link: null,
-        //
-        //
 
         record: null,
         isEdit: false,
+
+        searchObj: {
+            maHang: null,
+            donHang: null
+        },
 
         rowObj: {
             orgid_link: null,
@@ -49,11 +47,7 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
             rowid_link: null,
             isCreateNew: false,
         },
-        //
-        // isRowViewHidden: true,
-        // isSpaceViewHidden: true,
-        // isFloorViewHidden: true,
-        // isBtnLuuFloorDisabled: false,
+
         isTxtFieldSpaceNameDisable: false,
     },
     formulas: {
