@@ -62,8 +62,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Plan_break_Controller', {
         store.each(function (record) {
             var data = new Object();
             data = record.data;
-            data.grantamount = data.grantamount == null ? 0 : data.grantamount;
-            list_sku.push(data);
+            data.amount_break = data.amount_break == null ? 0 : data.amount_break;
+            if (data.amount_break > 0)
+                list_sku.push(data);
             var amount = parseInt(record.data.amount_break == null ? "0" : "0" + record.data.amount_break);
             sum += amount;
         });
