@@ -150,9 +150,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
 
                     GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_deleteid', Ext.JSON.encode(params),
                         function (success, response, options) {
+                            var response = Ext.decode(response.responseText);
                             me.setLoading(false);
                             if (success) {
-                                var response = Ext.decode(response.responseText);
                                 if (response.respcode == 200) {
                                     Ext.MessageBox.show({
                                         title: "Thông báo",
@@ -163,7 +163,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
                                         }
                                     });
                                     grid.getStore().remove(rec);
+                                }else{
+                                    Ext.MessageBox.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại: " + response.msg,
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
                                 }
+                            }else{
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: "Xóa thất bại: " + response.msg,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
                             }
                         })
                 }
