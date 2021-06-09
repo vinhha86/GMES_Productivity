@@ -169,4 +169,25 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
+
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('SKUBalanceStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'mat_sku_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
 })
