@@ -113,10 +113,11 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			}
 		});
 	},
-	loadBySpaceEpc: function (spaceepc_link) {
+	loadBySpaceEpc: function (spaceepc_link, stockid_link) {
 		var me = this;
 		var params = new Object();
 		params.spaceepc = spaceepc_link;
+		params.stockid_link = stockid_link;
 
 		this.setProxy({
 			type: 'ajax',

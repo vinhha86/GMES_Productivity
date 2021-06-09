@@ -28,7 +28,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         {
             text: 'Màu',
             dataIndex: 'colorname',
-            flex: 1,
+            // flex: 1,
+            width: 200,
             align: 'center'
         },
         {

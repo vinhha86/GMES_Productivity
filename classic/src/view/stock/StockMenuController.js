@@ -25,8 +25,9 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         var viewModel = this.getViewModel();
         if(record.get('type') == 5){ // tầng
             var spaceepc = record.get('spaceepc');
+            var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
-            WarehouseStore.loadBySpaceEpc(spaceepc);
+            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
         }
     },
     onloadPage: function () {
