@@ -302,5 +302,45 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
     },
     checkActionColumnPermission: function (view, rowIndex, colIndex, item, record) { 
         return common.Check_ActionColum_Permission(item.itemId); 
-    }    
+    },
+    onFilterValueMaSPKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PContractProductStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaSP'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaSP = filters.add({
+                id: 'ValueFilterFieldMaSP',
+                property: 'productBuyerCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaSP) {
+            filters.remove(this.ValueFilterFieldMaSP);
+            this.ValueFilterFieldMaSP = null;
+        }
+    },
+    onFilterValueTenSPKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PContractProductStore');
+        var filterField = this.lookupReference('ValueFilterFieldTenSP'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldTenSP = filters.add({
+                id: 'ValueFilterFieldTenSP',
+                property: 'productName',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldTenSP) {
+            filters.remove(this.ValueFilterFieldTenSP);
+            this.ValueFilterFieldTenSP = null;
+        }
+    },
 })

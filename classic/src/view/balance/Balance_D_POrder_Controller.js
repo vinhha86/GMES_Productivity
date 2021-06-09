@@ -194,5 +194,25 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
         form.down('#Stockout_Detail_View').getController().on('Thoat', function () {
             form.close();
         });
-    }
+    },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('SKUBalanceStore_Mat');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'mat_sku_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
 })
