@@ -28,6 +28,7 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
 
         searchObj: {
             maHang: null,
+            maHangId: null,
             donHang: null
         },
 

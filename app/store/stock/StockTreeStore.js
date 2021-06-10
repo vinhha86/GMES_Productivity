@@ -9,10 +9,10 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 		'name',
 	],
 	expanded: true,
-	loadStore: function (maHang, donHang) {
+	loadStore: function (maHangId, donHang) {
 		var me = this;
 		var params = new Object();
-		params.maHang = maHang;
+		params.maHangId = maHangId;
 		params.donHang = donHang;
 		this.setProxy({
 			type: 'ajax',
