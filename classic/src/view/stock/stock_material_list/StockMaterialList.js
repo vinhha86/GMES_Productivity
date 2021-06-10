@@ -28,15 +28,58 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             text: 'Mã hàng',
             dataIndex: 'skucode',
             // flex: 1,
-            width: 200,
-            align: 'center'
+            width: 180,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             text: 'Màu',
             dataIndex: 'colorname',
             // flex: 1,
-            width: 200,
-            align: 'center'
+            width: 150,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        {
+            text: 'Dài (m)',
+            dataIndex: 'width_met',
+            flex: 1,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null || isNaN(value)){
+                    return '';
+                }
+                // return value * 100;
+                // metaData.tdAttr = 'data-qtip="' + value + '"';
+                return Ext.util.Format.number(value, '0.00');
+            },
+        },
+        {
+            text: 'Dài (y)',
+            dataIndex: 'width_yds',
+            flex: 1,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null || isNaN(value)){
+                    return '';
+                }
+                // return value * 100;
+                return Ext.util.Format.number(value, '0.00');
+            },
         },
         {
             text: 'Khổ cỡ(cm)',
@@ -54,19 +97,43 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             text: 'Số lot',
             dataIndex: 'lotnumber',
             flex: 1,
-            align: 'center'
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             text: 'Số cây',
             dataIndex: 'packageid',
             flex: 1,
-            align: 'center'
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             text: 'Đơn hàng',
             dataIndex: 'contractcode',
             flex: 1,
-            align: 'center'
+            align: 'center',
+            renderer: function(value, meta, record,){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
 ]
 });
