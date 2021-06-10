@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         },
         {
             text: 'Dài (m)',
-            dataIndex: 'width_met',
+            dataIndex: 'met',
             flex: 1,
             align: 'center',
             renderer: function(value, meta, record){
@@ -70,7 +70,7 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         },
         {
             text: 'Dài (y)',
-            dataIndex: 'width_yds',
+            dataIndex: 'yds',
             flex: 1,
             align: 'center',
             renderer: function(value, meta, record){
