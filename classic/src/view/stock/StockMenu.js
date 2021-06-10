@@ -82,15 +82,17 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
                     margin: '5 1 5 1',
                     emptyText: "Mã hàng",
                     itemId: 'txtMaHang',
+                    reference: 'ValueFilterFieldMaHang',
                     // width: 120,
                     flex: 1,
                     bind: {
                         value: '{searchObj.maHang}'
                     },
-                    // listeners: {
-                    //     keyup: 'onNPLFilterKeyup',
-                    //     buffer: 500
-                    // }
+                    enableKeyEvents: true,
+                    listeners: {
+                        keyup: 'onMaHangFilterKeyup',
+                        buffer: 500
+                    }
                 },
                 {
                     xtype:'textfield',
@@ -98,21 +100,32 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
                     margin: '5 1 5 1',
                     emptyText: "Đơn hàng",
                     itemId: 'txtDonHang',
+                    reference: 'ValueFilterFieldDonHang',
                     // width: 120,
                     flex: 1,
                     bind: {
                         value: '{searchObj.donHang}'
                     },
-                    // listeners: {
-                    //     keyup: 'onNPLFilterKeyup',
-                    //     buffer: 500
-                    // }
+                    enableKeyEvents: true,
+                    listeners: {
+                        keyup: 'onDonHangFilterKeyup',
+                        buffer: 500
+                    }
                 },
                 {
                     xtype: 'button',
                     // text: 'Thoát',
                     itemId: 'btnSearch',
                     iconCls: 'x-fa fa-search',
+                    tooltip: 'Tìm kiếm',
+                    margin: '5 1 5 1',
+                },
+                {
+                    xtype: 'button',
+                    // text: 'Thoát',
+                    itemId: 'btnResetTree',
+                    iconCls: 'x-fa fa-refresh',
+                    tooltip: 'Bỏ lọc',
                     margin: '5 1 5 1',
                 },
                 // {

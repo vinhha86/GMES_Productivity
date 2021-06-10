@@ -14,6 +14,9 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         '#btnSearch': {
             click: 'onloadPage'
         },
+        '#btnResetTree': {
+            click: 'onResetTree'
+        },
         '#txtMaHang': {
             specialkey: 'onSpecialkey'
         },
@@ -70,6 +73,18 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             property: 'name',
             direction: 'ASC'
         });
+    },
+    onResetTree: function(){
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        viewModel.set('searchObj.maHang', null);
+        viewModel.set('searchObj.donHang', null);
+        var store = viewModel.get('WarehouseStore');
+        store.clearFilter();
+        store.removeAll();
+
+        this.onloadPage();
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -688,30 +703,44 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
 
 
     // filter cho danh sach npl (theo 2 txt field maHang va donHang)
-    onNPLFilterKeyup: function (){
-        // var viewModel = this.getViewModel();
-        // var WarehouseStore = viewModel.getStore('WarehouseStore');
-        // var filters = grid.store.getFilters();
+    onMaHangFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaHang'),
+            filters = store.getFilters();
 
-        // var maHang = viewModel.get('searchObj.maHang');
-        // var maHang = viewModel.get('searchObj.maHang');
-        // var filterField = this.getView().down('#invoiceFilter');
-            
-        
-        // var value = filterField.getValue() == null ? '' : filterField.getValue().toLowerCase();
-        // store.clearFilter();
-        // store.filterBy(function(rec) { //toLowerCase() // includes()
-        //     if(
-        //         rec.get('invoice_number').toLowerCase().includes(value) ||
-        //         rec.get('orgfrom_name').toLowerCase().includes(value) ||
-        //         rec.get('stockintype_name').toLowerCase().includes(value) ||
-        //         rec.get('stockinProductString').toLowerCase().includes(value) || 
-        //         Ext.Date.format(rec.get('invoice_date'),'d/m/y').toLowerCase().includes(value)
-                
-        //     ){
-        //         return true;
-        //     }
-        //     return false;
-        // });
+        if (filterField.value) {
+            this.ValueFilterFieldMaHang = filters.add({
+                id: 'ValueFilterFieldMaHang',
+                property: 'skucode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaHang) {
+            filters.remove(this.ValueFilterFieldMaHang);
+            this.ValueFilterFieldMaHang = null;
+        }
+    },
+    onDonHangFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldDonHang'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldDonHang = filters.add({
+                id: 'ValueFilterFieldDonHang',
+                property: 'contractcode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldDonHang) {
+            filters.remove(this.ValueFilterFieldDonHang);
+            this.ValueFilterFieldDonHang = null;
+        }
     },
 })
