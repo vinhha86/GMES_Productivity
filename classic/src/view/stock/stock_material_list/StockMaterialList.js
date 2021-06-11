@@ -14,6 +14,12 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         enableTextSelection: true,
         rowLines: true
     },
+    features: [
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        }
+    ],
     bind: {
         store: '{WarehouseStore}'
     },
@@ -67,6 +73,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
                 // metaData.tdAttr = 'data-qtip="' + value + '"';
                 return Ext.util.Format.number(value, '0.00');
             },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum'
         },
         {
             text: 'Dài (y)',
@@ -80,6 +88,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
                 // return value * 100;
                 return Ext.util.Format.number(value, '0.00');
             },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum'
         },
         {
             text: 'Khổ cỡ(cm)',

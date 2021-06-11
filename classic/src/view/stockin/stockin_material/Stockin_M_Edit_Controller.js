@@ -100,6 +100,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             var orgfromstore = viewModel.getStore('OrgFromStore');
             orgfromstore.loadStore_byRoot(listidtype);
         }
+
+        // set store org from
+        if(id == 1) {// mua moi -> kho
+            var OrgToStore = viewModel.getStore('OrgToStore');
+            OrgToStore.loadOrgByTypeAndUser([3]);
+        }
     },
     onLoadData:function(id,type){
         var viewModel = this.getViewModel();
@@ -145,6 +151,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                     var listidtype = "13,4,8,9";
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore_byRoot(listidtype);
+                }
+
+                // set store org from
+                if(data.stockintypeid_link == 1) {// mua moi -> kho
+                    var OrgToStore = viewModel.getStore('OrgToStore');
+                    OrgToStore.loadOrgByTypeAndUser([3]);
                 }
             }
 		})
