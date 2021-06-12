@@ -80,9 +80,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
             case 'Tở vải':
                 if(pkl_stockout_order_dId != null){
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
-                    var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
-                    Stockout_order_pkl_Store.loadStore_byStockout_orderDId_async(pkl_stockout_order_dId);
-                    Stockout_order_pkl_Store.load({
+                    var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+                    WarehouseCheckStore.loadstore_ByStockoutOrderD_async(pkl_stockout_order_dId);
+                    WarehouseCheckStore.load({
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                             } else {
                                 if(selectedPklRecord != null){
                                     var id = selectedPklRecord.get('id');
-                                    var storeItems = Stockout_order_pkl_Store.getData().items;
+                                    var storeItems = WarehouseCheckStore.getData().items;
                                     for(var i=0; i<storeItems.length; i++){
                                         var item = storeItems[i]; console.log(item.get('id'));
                                         if(item.get('id') == id){
