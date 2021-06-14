@@ -404,7 +404,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             return;
         }else{ // tìm cây vải theo lot và package
             // var stockoutorderdid_link = selectedDRecord.get('id');
-            var skuid_link = selectedDRecord.get('material_skuid_link');
+            var skuid_link = selectedDRecord.get('skuid_link');
 
             me.setMasked({
                 xtype: 'loadmask',

@@ -28,15 +28,15 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         console.log(data);
     },
     oncbbox_pkl_stockout_order_dId_change: function(cbbox, newValue, oldValue, eOpts){
-        // var viewModel = this.getViewModel();
-        // var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
-        // if(newValue != null && newValue != ''){
-        //     var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
-        //     Stockout_order_pkl_Store.loadStore_byStockout_orderDId(newValue);
-        //     if(cbbox.getSelection() != null){
-        //         viewModel.set('selectedDRecord', cbbox.getSelection());
-        //     }
-        // }
+        var viewModel = this.getViewModel();
+        var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
+        if(newValue != null && newValue != ''){
+            var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+            WarehouseCheckStore.loadstore_ByStockoutOrderD(newValue);
+            if(cbbox.getSelection() != null){
+                viewModel.set('selectedDRecord', cbbox.getSelection());
+            }
+        }
     },
     onmaPklFilterKeyup: function (){
         var grid = this.getView().down('#Stockout_ForCheck_Edit_ToVai'),
