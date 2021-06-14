@@ -277,7 +277,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 				margin: '0 5 0 5',
 				itemId:'skucode',
 				fieldLabel: 'Mã hàng',
-				width: 250,
+				width: 350,
 				labelWidth: 70,
 				hideLabel: false,			
 				bind:{

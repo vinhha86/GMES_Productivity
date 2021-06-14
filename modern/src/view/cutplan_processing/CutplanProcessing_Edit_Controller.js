@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
     init: function () {
         var viewModel = this.getViewModel();
         var OrgStore = viewModel.getStore('OrgStore');
+        // tải những bàn cắt thuộc tổ cắt của user
         OrgStore.loadStore(28);
 
         var SkuStore = viewModel.getStore('Sku');
@@ -179,6 +180,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         params.material_skuid_link = viewModel.get('cutplanProcessing.material_skuid_link');
         params.colorid_link = viewModel.get('cutplanProcessing.colorid_link');
 
+        // console.log(params);
+
         GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -208,11 +211,17 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             return;
         }
 
+        Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang tải'
+        });
+        
         var params = new Object();
         params.pordercode = pordercode;
 
         GSmartApp.Ajax.post('/api/v1/porderlist/getbyexactpordercode', Ext.JSON.encode(params),
             function (success, response, options) {
+                Ext.Viewport.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -221,6 +230,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                             Ext.toast(response.message, 1000);
                         } else {
                             Ext.toast('Tìm lệnh thành công', 1000);
+                            // console.log(response.data[0]);
                             // load bản ghi đầu tiên trả vê, cần sửa lại nếu có nhiều lệnh trùng ordercode
                             viewModel.set('porder', response.data[0]); // VCTK-203621-14/05/21_1
                             viewModel.set('cutplanProcessing.porderid_link', response.data[0].id);
@@ -309,11 +319,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
 
         // get event
         dialog.down('#HandoverDetailPorderSearch').getController().on('selectPOrder', function (record) {
-            var porder = record.data; // console.log(record);
+            var porder = record.data;
             viewModel.set('porder', porder);
             viewModel.set('cutplanProcessing.pordercode', porder.ordercode);
 
             viewModel.set('cutplanProcessing.porderid_link', porder.id);
+            viewModel.set('porderid_link', porder.id);
             viewModel.set('cutplanProcessing.pcontractid_link', porder.pcontractid_link);
             viewModel.set('cutplanProcessing.productid_link', porder.productid_link);
 
@@ -341,7 +352,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         });
         dialog.down('#HandoverDetailPorderSearch').getController().on('found1Porder', function (record) {
             Ext.toast('Tìm thấy 1 lệnh', 1000);
-            var porder = record[0].data; // console.log(porder);
+            var porder = record[0].data;
             viewModel.set('porder', porder);
             viewModel.set('cutplanProcessing.pordercode', porder.ordercode);
 
@@ -469,6 +480,83 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
             });
         }
     },
+    onlotnumberTxtType: function(field, newValue, oldValue, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        // console.log(newValue.toUpperCase());
+        // viewModel.set('lotnumberTxt', newValue.toUpperCase());
+        field.setValue(newValue.toUpperCase());
+    },
+    onlotnumberTxtAndpackageidTxtleave: function(textfield, event, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var skuid_link = viewModel.get('cutplanProcessing.material_skuid_link');
+        var lotnumber = viewModel.get('cutplanProcessingDObj.lotnumber');
+        var packageid = viewModel.get('cutplanProcessingDObj.packageid');
+
+        if(skuid_link == null){
+            viewModel.set('cutplanProcessingDObj.packageid', null);
+            viewModel.set('cutplanProcessingDObj.lotnumber', lotnumber);
+            Ext.toast('Cần chọn mã vải (thông tin chung)', 3000);
+            return;
+        }
+
+        if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
+            lotnumber == '' || packageid == '' ||
+            lotnumber == null || packageid == null
+        ){
+            viewModel.set('cutplanProcessingDObj.lotnumber', lotnumber);
+            viewModel.set('cutplanProcessingDObj.packageid', null);
+            return;
+        }else{ // tìm cây vải theo lot và package
+
+            me.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+
+            var params = new Object();
+            // params.stockoutorderdid_link = stockoutorderdid_link;
+            params.skuid_link = skuid_link;
+            params.lotnumber = lotnumber;
+            params.packageid = packageid;
+
+            GSmartApp.Ajax.postJitin('/api/v1/warehouse/getByLotAndPackageIdForStockout', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    // me.setLoading(false);
+                    me.setMasked(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            console.log(response);
+                            if(response.data.length == 0){
+                                // Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
+                                Ext.toast('Cây vải không tồn tại', 3000);
+                                viewModel.set('cutplanProcessingDObj.lotnumber', lotnumber);
+                                viewModel.set('cutplanProcessingDObj.packageid', null);
+
+                            }else{
+                                // tìm thấy cây vải, set thông tin cho các trường
+                                // warehouseid_link, epc
+
+                                var responseObj = response.data[0];
+                                viewModel.set('cutplanProcessingDObj.warehouseid_link', responseObj.id);
+                                viewModel.set('cutplanProcessingDObj.epc', responseObj.epc);
+                                viewModel.set('cutplanProcessingDObj.met', responseObj.met);
+                            }
+                        }else{
+                            Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
+                        }
+                    } else {
+                        var response = Ext.decode(response.responseText);
+                        Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
+                    }
+            })        
+        }
+    },
 
     onSelectCutPlanRow: function (cbbox, newValue, oldValue, eOpts) {
         var viewModel = this.getViewModel();
@@ -495,8 +583,10 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         cutplanProcessingDObj.con_lai = viewModel.get('cutplanProcessingDObj.con_lai');
         cutplanProcessingDObj.ps = viewModel.get('cutplanProcessingDObj.ps');
         cutplanProcessingDObj.met = viewModel.get('cutplanProcessingDObj.met');
+        cutplanProcessingDObj.warehouseid_link = viewModel.get('cutplanProcessingDObj.warehouseid_link');
+        cutplanProcessingDObj.epc = viewModel.get('cutplanProcessingDObj.epc');
 
-        if (
+        if ( 
             viewModel.get('cutplanProcessingDObj.lotnumber') == null ||
             viewModel.get('cutplanProcessingDObj.lotnumber') == '') {
             me.down('#lotnumber').focus();
@@ -535,8 +625,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         if (
             viewModel.get('cutplanProcessingDObj.ps') == null ||
             viewModel.get('cutplanProcessingDObj.ps') == '') {
-            me.down('#ps').focus();
-            return;
+            me.down('#ps').setValue(0);
+            // return;
         }
 
         cutplanProcessingD.push(cutplanProcessingDObj);
@@ -550,6 +640,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         viewModel.set('cutplanProcessingDObj.con_lai', '');
         viewModel.set('cutplanProcessingDObj.ps', '');
         viewModel.set('cutplanProcessingDObj.met', '');
+        // viewModel.set('cutplanProcessingDObj', new Object());
 
         // console.log(cutplanProcessing);
         // console.log(cutplanProcessingD);

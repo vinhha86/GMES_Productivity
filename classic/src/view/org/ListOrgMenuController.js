@@ -52,7 +52,13 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
         // storeMenu.getSorters().add('orgtypeid_link');
         // storeMenu.getSorters().add('is_manufacturer');
         // storeMenu.getSorters().add('code');
-        storeMenu.getSorters().add('id');
+        storeMenu.getSorters().add({
+            property: 'orgtypeid_link',
+            direction: 'ASC'
+        },{
+            property: 'id',
+            direction: 'ASC'
+        });
     },
     onDropOrg: function(node, data, overModel, dropPosition){
         var start = data.records[0].data;
@@ -382,6 +388,40 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             viewModel.set('titleName', record.data.name);
                         },
                     },
+                ]
+                });
+            var position = e.getXY();
+            e.stopEvent();
+            menu_grid.showAt(position);
+        }
+        //Tổ cắt
+        if (record.data.orgtypeid_link == 17){
+            var menu_grid = new Ext.menu.Menu({ items:
+                [
+                    {
+                        text: 'Thêm Bàn cắt',
+                        itemId: 'btnAddBanCat_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-industry',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 28);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    }
                 ]
                 });
             var position = e.getXY();

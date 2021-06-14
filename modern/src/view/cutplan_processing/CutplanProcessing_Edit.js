@@ -165,8 +165,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             xtype: 'combobox',
                                             // reference: 'cboorgto',
                                             itemId: 'cbboxcolor',
-                                            // editable: false,
-                                            // readOnly: true,
+                                            editable: false,
+                                            readOnly: true,
                                             // cls: 'notEditable',
                                             bind:{
                                                 store:'{listcolorData}',
@@ -277,6 +277,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     // cls: 'notEditable',
                                     bind: {
                                         value: '{cutplanProcessingDObj.lotnumber}'
+                                    },
+                                    listeners: {
+                                        change: 'onlotnumberTxtType'
                                     }
                                 },{
                                     xtype: 'numberfield',
@@ -291,7 +294,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     // cls: 'notEditable',
                                     bind: {
                                         value: '{cutplanProcessingDObj.packageid}'
-                                    }
+                                    },
+                                    listeners: {
+                                        // focusenter: 'onlotnumberTxtAndpackageidTxtenter',
+                                        focusleave: 'onlotnumberTxtAndpackageidTxtleave',
+                                    },
                                 },{
                                     xtype: 'numberfield',
                                     itemId: 'met',
