@@ -5,7 +5,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         var viewModel = this.getViewModel();
         var OrgStore = viewModel.getStore('OrgStore');
         // tải những bàn cắt thuộc tổ cắt của user
-        OrgStore.loadStore(28); // chưa sửa
+        // OrgStore.loadStore(28);
+        OrgStore.loadOrgByTypeBanCat();
 
         var SkuStore = viewModel.getStore('Sku');
         SkuStore.getSorters().add('product_code');

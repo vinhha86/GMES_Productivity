@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 			type :'CutPlanRowStore'
 		},
 		OrgStore:{ // danh sách bàn
-			type: 'orgstore'
+			type: 'ListOrgStore'
 		},
 		Sku:{
 			type: 'sku'

@@ -104,7 +104,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         store: '{OrgToStore}',
                         value: '{stockout.orgid_to_link}'
                     },
-                    displayField: 'name',
+                    displayField: 'nameParent',
                     valueField: 'id'
                 },
                 {

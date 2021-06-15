@@ -27,7 +27,7 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
             convert : function (value, rec) {
 				if(rec.get('parentcode') == null || rec.get('parentcode') == '')
 					return rec.get('name');
-            	return rec.get('parentcode') + ' - ' + rec.get('name');
+            	return rec.get('name') + ' (' + rec.get('parentcode') + ')';
             }
         }
 	],
@@ -661,6 +661,39 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeAndUser',
+			paramsAsJson:true,
+			extraParams: params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
+	},
+	loadOrgByTypeBanCat(orgtypeList){ // array [1,2,3]
+		var params = new Object();
+		params.orgtypeList = orgtypeList;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeBanCatAndUser',
 			paramsAsJson:true,
 			extraParams: params,
 			noCache: false,
