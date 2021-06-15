@@ -417,6 +417,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         itemId:'btnAdd',
                                         ui: 'action',
                                         iconCls: 'x-fa fa-check',
+                                        bind: {
+                                            disabled: '{isBtnAddDisabled}'
+                                        }
                                     }]
                                 }]
                             },

@@ -39,9 +39,16 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 			tieu_hao: null,
 			con_lai: null,
 			ps: null,
+			warehouseid_link: null,
+			epc: null
 		},
 	},
 	formulas: {
-        
+        isBtnAddDisabled: function(get){
+			if (get('cutplanProcessingDObj.epc') == null) {
+				return true
+			}
+			return false;
+		}
     }
 })

@@ -110,10 +110,11 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     onEdit: function (editor, context, e) {
         if (context.originalValue == context.value) return;
 
-        if (context.colIdx >= 8) {
+        if (context.colIdx > 8) {
             this.UpdateSizeAmount(context);
-        }
-        else {
+        }else if (context.colIdx == 8) { // ngay
+            return;
+        }else {
             this.UpdateRow(context);
         }
     },
