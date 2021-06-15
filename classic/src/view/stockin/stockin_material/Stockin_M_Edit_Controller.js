@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 	init: function() {
         var viewModel = this.getViewModel();
 		var UnitStore = viewModel.getStore('UnitStore');
-		UnitStore.loadStore();
+		// UnitStore.loadStore();
 		var UnitStoreFilters = UnitStore.getFilters();
 		if (!this.UnitStoreFilters) {
             this.UnitStoreFilters = UnitStoreFilters.add({
@@ -91,6 +91,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('stockin.status', -1);
         viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 
+
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
+
         // set store org from
         if(id == 1) {// mua moi va cap bu thi là nha cung cap
             var orgfromstore = viewModel.getStore('OrgFromStore');
@@ -108,9 +112,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
     },
     onLoadData:function(id,type){
+        var m = this;
         var viewModel = this.getViewModel();
 
-        this.getInfo(id);
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore_async();
+        UnitStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    m.getInfo(id);
+                }
+            }
+        });
     },
     onBackPage: function(){
         this.redirectTo('stockin_m');
