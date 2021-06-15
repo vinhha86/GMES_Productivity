@@ -552,16 +552,22 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                                 // warehouseid_link, epc
 
                                 var responseObj = response.data[0];
+                                // kiểm tra status cây vải (2 == đã cắt)
+                                if(responseObj.status == 2){
+                                    Ext.toast('Cây vải đã cắt (status = 2)', 3000);
+                                    return;
+                                }
                                 // kiểm tra cây vải đã có ở danh sách cutplan_processing_d chưa
                                 var isExist = m.checkEpcExist(responseObj);
                                 if(isExist){
                                     Ext.toast('Cây vải đã có trong danh sách', 3000);
-                                }else{
-                                    // Ext.toast('Cây vải chưa có trong danh sách', 3000);
-                                    viewModel.set('cutplanProcessingDObj.warehouseid_link', responseObj.id);
-                                    viewModel.set('cutplanProcessingDObj.epc', responseObj.epc);
-                                    viewModel.set('cutplanProcessingDObj.met', responseObj.met);
+                                    return;
                                 }
+                                // set gia tri
+                                viewModel.set('cutplanProcessingDObj.warehouseid_link', responseObj.id);
+                                viewModel.set('cutplanProcessingDObj.epc', responseObj.epc);
+                                viewModel.set('cutplanProcessingDObj.met', responseObj.met);
+                                
                             }
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 3000);
