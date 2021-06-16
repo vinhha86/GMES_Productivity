@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller', {
+Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProcessing_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.CutplanProcessing_Edit_Controller',
     init: function () {
@@ -21,39 +21,32 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
     },
     control: {
         '#btnBack': {
-            tap: 'onBackPage'
+            click: 'onBackPage'
         },
-        '#btnLuu': {
-            tap: 'onSave'
-        },
-        '#btnPlusPorder': {
-            tap: 'onBtnPlusPorder'
-        },
-        '#btnSearchPorder': {
-            tap: 'onBtnSearchPorder'
-        },
-        '#btnAdd': {
-            tap: 'onBtnAdd'
-        },
-        '#btnHome': {
-            tap: 'onBtnHomeTap'
-        },
-    },
-    onBtnHomeTap: function () {
-        this.redirectTo("mobilemenu");
+        // '#btnLuu': {
+        //     click: 'onSave'
+        // },
+        // '#btnPlusPorder': {
+        //     click: 'onBtnPlusPorder'
+        // },
+        // '#btnSearchPorder': {
+        //     click: 'onBtnSearchPorder'
+        // },
+        // '#btnAdd': {
+        //     click: 'onBtnAdd'
+        // },
     },
     onLoadData: function (id, type) {
-        // console.log('onLoadData: ' + id + ' ' + type);
-        var me = this;
-        var viewModel = this.getViewModel();
-        if (id == 0) {
-            viewModel.set('cutplanProcessing.processingdate', new Date());
-        } else {
-            me.getInfo(id);
-        }
+        // // console.log('onLoadData: ' + id + ' ' + type);
+        // var me = this;
+        // var viewModel = this.getViewModel();
+        // if (id == 0) {
+        //     viewModel.set('cutplanProcessing.processingdate', new Date());
+        // } else {
+        //     me.getInfo(id);
+        // }
     },
     onBackPage: function () {
-        // console.log('onBackPage');
         this.redirectTo('cutplan_processing');
     },
     getInfo: function (id) {

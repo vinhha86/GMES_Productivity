@@ -116,14 +116,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_Edit', {
             // margin: 1,
         },
         '->',
-        {
-            xtype: 'button',
-            // text: 'Thoát',
-            itemId: 'btnThoat',
-            iconCls: 'x-fa fa-window-close',
-            ui: 'action',
-            // margin: 1,
-        },
+        // {
+        //     xtype: 'button',
+        //     // text: 'Thoát',
+        //     itemId: 'btnThoat',
+        //     iconCls: 'x-fa fa-window-close',
+        //     ui: 'action',
+        //     // margin: 1,
+        // },
         {
             xtype: 'button',
             // text: 'Lưu',

@@ -116,14 +116,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             xtype:'button',
                                             // text: 'Xác nhận xuất',
                                             margin: 2,
-                                            itemId:'btnPlus',
+                                            itemId:'btnPlusPorder',
                                             ui: 'action',
                                             iconCls: 'x-fa fa-plus',
                                         },{
                                             xtype:'button',
                                             // text: 'Xác nhận xuất',
                                             margin: 2,
-                                            itemId:'btnSearch',
+                                            itemId:'btnSearchPorder',
                                             ui: 'action',
                                             iconCls: 'x-fa fa-search',
                                         }]
