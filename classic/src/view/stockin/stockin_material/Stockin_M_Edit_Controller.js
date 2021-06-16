@@ -99,6 +99,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         if(id == 1) {// mua moi va cap bu thi là nha cung cap
             var orgfromstore = viewModel.getStore('OrgFromStore');
             orgfromstore.loadStore(5, false);
+        }else if(id == 2){ // nhap dieu chuyen (kho -> kho)
+            var orgfromstore = viewModel.getStore('OrgFromStore');
+            orgfromstore.loadOrgByTypeAndUser([3]);
         }else{
             var listidtype = "13,4,8,9";
             var orgfromstore = viewModel.getStore('OrgFromStore');
@@ -106,9 +109,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         }
 
         // set store org from
-        if(id == 1) {// mua moi -> kho
+        if(id == 1) { // mua moi -> kho
             var OrgToStore = viewModel.getStore('OrgToStore');
             OrgToStore.loadOrgByTypeAndUser([3]);
+        }else if(id == 2) { // nhap dieu chuyen (kho -> kho)
+            var OrgToStore = viewModel.getStore('OrgToStore');
+            OrgToStore.loadStore(3, false);
         }
     },
     onLoadData:function(id,type){
@@ -163,16 +169,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 if(data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore(5, false);
-                }else{
+                }else if(id == 2){ // nhap dieu chuyen (kho -> kho)
+                    var orgfromstore = viewModel.getStore('OrgFromStore');
+                    orgfromstore.loadOrgByTypeAndUser([3]);
+                }else {
                     var listidtype = "13,4,8,9";
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore_byRoot(listidtype);
                 }
 
-                // set store org from
+                // set store org to
                 if(data.stockintypeid_link == 1) {// mua moi -> kho
                     var OrgToStore = viewModel.getStore('OrgToStore');
                     OrgToStore.loadOrgByTypeAndUser([3]);
+                }
+                if(data.stockintypeid_link == 2) {// nhap dieu chuyen (kho -> kho)
+                    var OrgToStore = viewModel.getStore('OrgToStore');
+                    OrgToStore.loadStore(3, false);
                 }
             }
 		})

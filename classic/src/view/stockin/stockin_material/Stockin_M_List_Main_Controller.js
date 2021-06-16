@@ -151,6 +151,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
             this.redirectTo('stockin_m_main/1/create');
         }        
     },
+    onNhapDieuChuyen: function(){
+        this.redirectTo('stockin_m_main/2/create');
+    },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         var viewmodel = this.getViewModel();
         var id = record.data.id;

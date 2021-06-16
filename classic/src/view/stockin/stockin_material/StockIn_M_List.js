@@ -139,7 +139,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                     itemId: 'btnNhapDieuChuyen', // id:2
                     // iconCls: 'fa fa-file-pdf-o greenIcon',
                     text: 'Nhập điều chuyển',
-                    // handler: 'onNhapMuaMoi'
+                    handler: 'onNhapDieuChuyen'
                 },
                 {
                     itemId: 'btnNhapGiaCong', // id:4
