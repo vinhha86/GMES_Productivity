@@ -2,7 +2,6 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContractSKUView',
     id: 'PContractSKUView',
-    itemId: 'gridPContractSKU',
     controller: 'PContractSKUViewCotroller',
     IdPcontract: 0,
     viewConfig: {
@@ -192,7 +191,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             iconCls: 'x-fa fa-plus',
             handler: 'onThemSKU',
             bind: {
-                disabled: '{isDisable_btnThemSKU}'
+                disabled: '{isDisable_btnThemSKU}',
+                hidden: '{isHiddenThemSKU}'
             }
         },
         {

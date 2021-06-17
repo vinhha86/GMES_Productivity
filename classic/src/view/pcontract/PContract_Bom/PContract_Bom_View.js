@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     xtype: 'PContract_Bom_View',
     id: 'PContract_Bom_View',
     controller: 'PContract_Bom_ViewController',
+    itemId: 'PContract_Bom_View',
     bind: {
         store: '{PContractBom2Store_New}'
     },
