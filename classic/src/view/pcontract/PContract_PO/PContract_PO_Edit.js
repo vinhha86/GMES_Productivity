@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             id: 'panel_schedule',
             layout: 'border',
             hidden: true,
-            items:[
+            items: [
                 {
                     xtype: 'FilterBar',
                     region: 'north',
@@ -45,11 +45,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                 }
             ]
 
-        },                
+        },
         {
             id: 'panel_po',
             layout: 'border',
-            items:[
+            items: [
                 {
                     region: 'west',
                     // title: 'Giao hàng - Chào giá',
@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                     // border: true,
                     // margin: 1,
                     // collapsible: true,
-                    items:[
+                    items: [
                         {
                             region: 'north',
                             height: 42,
@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                                 {
                                     xtype: 'combobox',
                                     labelStyle: "font-weight: bold;font-size:13px;",
-                                    fieldStyle: "font-weight: bold;font-size:13px;",                                    
+                                    fieldStyle: "font-weight: bold;font-size:13px;",
                                     fieldLabel: 'Sản phẩm/Bộ SP',
                                     labelWidth: 120,
                                     editable: false,
@@ -80,12 +80,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                                     },
                                     displayField: 'code',
                                     valueField: 'id',
-                                    queryMode : 'local',
+                                    queryMode: 'local',
                                     flex: 1
-                                },{
-                                    xtype:'button',
+                                }, {
+                                    xtype: 'button',
                                     width: 20,
-                                    itemId:'btnProductInfoCopy',
+                                    itemId: 'btnProductInfoCopy',
                                     ui: 'header',
                                     margin: '5 5 0 0',
                                     tooltip: 'Copy',
@@ -96,9 +96,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                                     }
                                 },
                                 {
-                                    xtype:'button',
+                                    xtype: 'button',
                                     width: 20,
-                                    itemId:'btnProductInfoPaste',
+                                    itemId: 'btnProductInfoPaste',
                                     ui: 'header',
                                     margin: '5 5 0 0',
                                     tooltip: 'Dán',
@@ -114,7 +114,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                             region: 'center',
                             // height: 380,
                             layout: 'border',
-                            items:[
+                            items: [
                                 {
                                     region: 'center',
                                     // width: '60%',
@@ -136,19 +136,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                             height: 200,
                             xtype: 'PContract_PO_Edit_Sizeset',
                             border: true,
-                            margin: 1,      
+                            margin: 1,
                         }
                     ]
-                }, 
+                },
                 {
                     region: 'center',
                     layout: 'border',
                     // border: true,
-                    items:[
+                    items: [
                         {
                             region: 'north',
                             border: true,
-                            margin: 1, 
+                            margin: 1,
                             // height: 72,
                             height: 40,
                             xtype: 'PContract_PO_Edit_PriceSumUp',
@@ -171,30 +171,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             ]
         }
     ],
-    dockedItems:[{
-        dock:'bottom',
+    dockedItems: [{
+        dock: 'bottom',
         layout: 'hbox',
-        items:[{
+        items: [{
             xtype: 'button',
             text: 'Thoát',
             itemId: 'btnThoat',
             iconCls: 'x-fa fa-window-close',
             margin: 5
-        },{
-            xtype:'button',
+        }, {
+            xtype: 'button',
             formBind: true,
             text: 'Lưu',
             margin: 5,
-            itemId:'btnLuu',
+            itemId: 'btnSave_pcontractPO',
             iconCls: 'x-fa fa-save'
-        },{
-            flex:1
+        }, {
+            flex: 1
         },
         {
             xtype: 'button',
             margin: 5,
             iconCls: 'x-fa fa-bars',
-            menu      : [
+            hidden: true,
+            menu: [
                 {
                     text: 'Chào giá',
                     iconCls: 'x-fa fa-shopping-basket',
@@ -220,7 +221,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                     handler: 'onShowSchedule'
                 },
             ]
-        },        
-    ]
+        },
+        ]
     }]
 })

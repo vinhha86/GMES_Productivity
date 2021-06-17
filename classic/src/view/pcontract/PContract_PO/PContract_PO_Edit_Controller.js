@@ -39,6 +39,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 }
             }
         });
+
+        //them phan quyen
+        var grid = this.getView();
+        common.Check_Object_Permission();
+        common.Check_Menu_Permission(grid);
     },
     control: {
         '#btnThoat': {
@@ -77,7 +82,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
                             //Dat gia tri mac dinh = 20% cho Sew Target
                             if (null == viewmodel.get('po.sewtarget_percent')) viewmodel.set('po.sewtarget_percent', 20);
-                            
+
                             //Chuyen packing notice ve array
                             var packing_str = response.data.packingnotice;
                             if (packing_str != null) {
@@ -115,7 +120,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                     }
                 })
         } else {
-            
+
             var new_po = new GSmartApp.model.pcontract.PContractPO();
             new_po.data.id = null;
             new_po.data.po_quantity = null;
@@ -128,39 +133,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             m.setDefaultCurrency(); // để mặc định là usd
 
             var params = new Object();
-                GSmartApp.Ajax.post('/api/v1/fobprice/getAllDefault', Ext.JSON.encode(params),
-                    function (success, response, options) {
-                        var response = Ext.decode(response.responseText);
-                        if (success) {
+            GSmartApp.Ajax.post('/api/v1/fobprice/getAllDefault', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    var response = Ext.decode(response.responseText);
+                    if (success) {
 
-            //Them sizeset all cho tat ca cac san pham
-            var productStore = viewmodel.getStore('ProductStore');
-            var priceStore = viewmodel.getStore('PriceStore');
-            for (var k = 0; k < productStore.data.length; k++) {
-                var p_data = productStore.data.items[k].data;
-                var newSizeset = new Object();
-                var pcontract_price_d = [];
-                //Mac dinh them Giá CMP
-                var newPriceD = new Object({
-                    id: null,
-                    isfob: false,
-                    fobprice_name: 'Giá CMP',
-                    fobpriceid_link: 1,
-                    price: 0,
-                    cost: 0,
-                    productid_link: p_data.id
-                })
-                pcontract_price_d.push(newPriceD);
+                        //Them sizeset all cho tat ca cac san pham
+                        var productStore = viewmodel.getStore('ProductStore');
+                        var priceStore = viewmodel.getStore('PriceStore');
+                        for (var k = 0; k < productStore.data.length; k++) {
+                            var p_data = productStore.data.items[k].data;
+                            var newSizeset = new Object();
+                            var pcontract_price_d = [];
+                            //Mac dinh them Giá CMP
+                            var newPriceD = new Object({
+                                id: null,
+                                isfob: false,
+                                fobprice_name: 'Giá CMP',
+                                fobpriceid_link: 1,
+                                price: 0,
+                                cost: 0,
+                                productid_link: p_data.id
+                            })
+                            pcontract_price_d.push(newPriceD);
 
-                // Thêm các giá có isdefault = true
-                // var params = new Object();
-                // GSmartApp.Ajax.post('/api/v1/fobprice/getAllDefault', Ext.JSON.encode(params),
-                //     function (success, response, options) {
-                //         var response = Ext.decode(response.responseText);
-                //         if (success) {
+                            // Thêm các giá có isdefault = true
+                            // var params = new Object();
+                            // GSmartApp.Ajax.post('/api/v1/fobprice/getAllDefault', Ext.JSON.encode(params),
+                            //     function (success, response, options) {
+                            //         var response = Ext.decode(response.responseText);
+                            //         if (success) {
                             // console.log(response);
                             var priceDefaultData = response.data;
-                            for(var i = 0; i < priceDefaultData.length; i++){
+                            for (var i = 0; i < priceDefaultData.length; i++) {
                                 var newPriceD_Default = new Object({
                                     id: null,
                                     isfob: true,
@@ -173,27 +178,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                                 pcontract_price_d.push(newPriceD_Default);
                             }
 
-                    //     }
-                    // })
+                            //     }
+                            // })
 
-                var newSizeset = new Object();
-                newSizeset.pcontractid_link = new_po.data.pcontractid_link;
-                newSizeset.pcontract_poid_link = new_po.data.id;
-                newSizeset.productid_link = p_data.id;
-                newSizeset.sizesetid_link = 1;
-                newSizeset.sortvalue = 1;
-                newSizeset.sizesetname = 'ALL';
-                newSizeset.price_cmp = null;
-                newSizeset.price_fob = null;
-                newSizeset.price_sewingcost = null;
-                newSizeset.price_sewingtarget = null;
-                newSizeset.salaryfund = null;
-                newSizeset.totalprice = null;
-                newSizeset.pcontract_price_d = pcontract_price_d;
-                priceStore.insert(0, newSizeset);
-            }
-                }
-            })
+                            var newSizeset = new Object();
+                            newSizeset.pcontractid_link = new_po.data.pcontractid_link;
+                            newSizeset.pcontract_poid_link = new_po.data.id;
+                            newSizeset.productid_link = p_data.id;
+                            newSizeset.sizesetid_link = 1;
+                            newSizeset.sortvalue = 1;
+                            newSizeset.sizesetname = 'ALL';
+                            newSizeset.price_cmp = null;
+                            newSizeset.price_fob = null;
+                            newSizeset.price_sewingcost = null;
+                            newSizeset.price_sewingtarget = null;
+                            newSizeset.salaryfund = null;
+                            newSizeset.totalprice = null;
+                            newSizeset.pcontract_price_d = pcontract_price_d;
+                            priceStore.insert(0, newSizeset);
+                        }
+                    }
+                })
         }
     },
     setDefaultCurrency: function () {
@@ -243,8 +248,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             for (i = 0; i < record.data.pcontract_price_d.length; i++) {
                 record.data.pcontract_price_d[i].id = null;
                 var pcontract_price_d_sku = record.data.pcontract_price_d[i].pcontract_price_d_sku;
-                if(pcontract_price_d_sku != null){
-                    for(j = 0;j < pcontract_price_d_sku.length;j++){
+                if (pcontract_price_d_sku != null) {
+                    for (j = 0; j < pcontract_price_d_sku.length; j++) {
                         pcontract_price_d_sku[j].id = null;
                     }
                 }
@@ -359,7 +364,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var viewPrice = Ext.getCmp('PContract_PO_Edit_Price');
         var viewPriceSumUp = Ext.getCmp('PContract_PO_Edit_PriceSumUp');
         var viewSizeset = Ext.getCmp('PContract_PO_Edit_Sizeset');
-        
+
 
         var viewmodel = this.getViewModel();
         var po = viewmodel.get('po');
@@ -376,10 +381,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         else {
             viewPrice.setDisabled(false);
             viewmodel.set('isSewPriceReadonly', false);
-            if(productStore.data.items.length > 1)
+            if (productStore.data.items.length > 1)
                 viewmodel.set('isEditQuantity', false);
-            else 
-            viewmodel.set('isEditQuantity', true);
+            else
+                viewmodel.set('isEditQuantity', true);
         }
 
         var priceStore = viewmodel.getStore('PriceStore');
@@ -404,7 +409,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         }
 
         // neu la bo thi an nut paste thong tin
-        if(viewmodel.get('product_selected_typeid_link') == 5){
+        if (viewmodel.get('product_selected_typeid_link') == 5) {
             viewmodel.set('obj_paste_btn_hidden', true);
         }
     },
@@ -482,7 +487,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     //         priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
     //     }
     // },
-    onProductInfoCopy: function(){
+    onProductInfoCopy: function () {
         // console.log('copy product');
         var me = this;
         var viewModel = this.getViewModel();
@@ -493,10 +498,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         // console.log('product id: ' + productid_link);
         // console.log('product type id: ' + product_typeid_link);
 
-        if(product_typeid_link == 5){ // sp bo
+        if (product_typeid_link == 5) { // sp bo
             // console.log('đã chọn sp bộ');
             Ext.toast('Thất bại. Sản phẩm đang chọn là bộ');
-        }else if(product_typeid_link == 10){ // sp don
+        } else if (product_typeid_link == 10) { // sp don
             // console.log('đã chọn sp đơn');
             var obj_copy = new Object();
             // copy thong tin po, pcontract_po_productivity
@@ -514,7 +519,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
             porderReqStoreDataItems = porderReqStore.getData().items;
             var porderReqStoreData = new Array();
-            for(var i=0;i<porderReqStoreDataItems.length;i++){
+            for (var i = 0; i < porderReqStoreDataItems.length; i++) {
                 porderReqStoreData.push(porderReqStoreDataItems[i].data);
             }
             obj_copy.porderReqStoreData = porderReqStoreData;
@@ -524,7 +529,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
 
             PriceStoreDataItems = PriceStore.getData().items;
             var PriceStoreData = new Array();
-            for(var i=0;i<PriceStoreDataItems.length;i++){
+            for (var i = 0; i < PriceStoreDataItems.length; i++) {
                 PriceStoreData.push(PriceStoreDataItems[i].data);
             }
             obj_copy.PriceStoreData = PriceStoreData;
@@ -537,7 +542,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             Ext.toast('Data copied');
         }
     },
-    onProductInfoPaste: function(){
+    onProductInfoPaste: function () {
         // console.log('paste product');
         var viewModel = this.getViewModel();
         var id = viewModel.get('id');
@@ -554,15 +559,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         //     console.log('obj_copy.pcontract_po_productivity is null');
         // }
 
-        if(id != null && id != 0){
+        if (id != null && id != 0) {
             Ext.toast('Thất bại. Không phải chào giá mới');
-        }else if(obj_copy == null){
+        } else if (obj_copy == null) {
             Ext.toast('Thất bại. Chưa copy thông tin');
-        }else if(product_typeid_link == 5){ // sp bo
+        } else if (product_typeid_link == 5) { // sp bo
             Ext.toast('Thất bại. Sản phẩm đang chọn là bộ');
-        }else if(product_typeid_link == 10){ // sp don
+        } else if (product_typeid_link == 10) { // sp don
             // set thong tin cho pcontract po info
-            if(obj_copy.po != null){
+            if (obj_copy.po != null) {
                 viewModel.set('po.packingnotice', obj_copy.po.packingnotice);
                 viewModel.set('po.is_tbd', obj_copy.po.is_tbd);
                 viewModel.set('po.sewtarget_percent', obj_copy.po.sewtarget_percent);
@@ -579,11 +584,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 viewModel.set('po.porttoid_link', obj_copy.po.porttoid_link);
                 viewModel.set('po.comment', obj_copy.po.comment);
             }
-            
+
             var ProductStore = viewModel.getStore('ProductStore');
             var product = ProductStore.getById(productid_link).data;
 
-            if(obj_copy.pcontract_po_productivity != null){
+            if (obj_copy.pcontract_po_productivity != null) {
                 var pcontract_po_productivity = obj_copy.pcontract_po_productivity;
                 pcontract_po_productivity.id = null;
                 pcontract_po_productivity.pcontract_poid_link = null;
@@ -603,7 +608,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             var porderReqStore = viewModel.getStore('porderReqStore');
 
             var porderReqStoreData = obj_copy.porderReqStoreData;
-            for(var i = 0; i < porderReqStoreData.length; i++){
+            for (var i = 0; i < porderReqStoreData.length; i++) {
                 var porderReq = porderReqStoreData[i];
                 porderReq.id = null;
                 porderReq.pcontractid_link = viewModel.get('po.pcontractid_link');
@@ -611,7 +616,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                 porderReq.productid_link = productid_link;
                 porderReq.product_code = product.code;
                 porderReq.amount_inset = product.pairamount == null ? 1 : product.pairamount;
-                porderReq.productinfo = product.code + " ("+Ext.util.Format.number(obj_copy.po.po_quantity * porderReq.amount_inset, '0,000') + ")";
+                porderReq.productinfo = product.code + " (" + Ext.util.Format.number(obj_copy.po.po_quantity * porderReq.amount_inset, '0,000') + ")";
             }
             // console.log(porderReqStoreData);
             porderReqStore.removeAll();
@@ -623,10 +628,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             var PriceStoreData = obj_copy.PriceStoreData;
             var PriceStoreDataToAdd = new Array();
 
-            for(var i = 0; i < PriceStoreData.length; i++){
+            for (var i = 0; i < PriceStoreData.length; i++) {
                 var PriceStoreItem = PriceStoreData[i];
                 PriceStoreItem.productid_link = productid_link;
-                for(var j = 0; j < PriceStoreItem.pcontract_price_d.length; j++){
+                for (var j = 0; j < PriceStoreItem.pcontract_price_d.length; j++) {
                     PriceStoreItem.pcontract_price_d[j].productid_link = productid_link;
                 }
 
@@ -653,7 +658,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             Ext.toast('Data pasted');
         }
     },
-    onShowKHGH: function(){
+    onShowKHGH: function () {
         var me = this.getView();
         var panel_po = me.down('#panel_po');
         var panel_cmp = me.down('#panel_cmp');
@@ -665,7 +670,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         panel_cmp.setHidden(true);
         panel_schedule.setHidden(true);
     },
-    onShowCMP: function(){
+    onShowCMP: function () {
         var me = this.getView();
         var panel_po = me.down('#panel_po');
         var panel_cmp = me.down('#panel_cmp');
@@ -677,7 +682,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         panel_cmp.setHidden(false);
         panel_schedule.setHidden(true);
     },
-    onShowSalaryFund: function(){
+    onShowSalaryFund: function () {
         var me = this.getView();
         var panel_po = me.down('#panel_po');
         var panel_cmp = me.down('#panel_cmp');
@@ -689,7 +694,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         panel_cmp.setHidden(true);
         panel_schedule.setHidden(true);
     },
-    onShowSchedule: function(){
+    onShowSchedule: function () {
         var me = this.getView();
         var panel_po = me.down('#panel_po');
         var panel_cmp = me.down('#panel_cmp');
@@ -700,5 +705,5 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         panel_salaryfund.setHidden(true);
         panel_cmp.setHidden(true);
         panel_schedule.setHidden(false);
-    }   
+    }
 })
