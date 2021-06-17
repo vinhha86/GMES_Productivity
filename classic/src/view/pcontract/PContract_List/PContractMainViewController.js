@@ -291,7 +291,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 },
                 {
                     text: 'Quyết toán đơn hàng',
-                    itemId: 'btnEditPO_PContract_PO_List',
+                    itemId: 'btnmenuQuyetToanDonHang',
                     separator: true,
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-calculator greenIcon',

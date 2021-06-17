@@ -188,6 +188,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             itemId: 'btnSave_pcontractPO',
             iconCls: 'x-fa fa-save'
         }, {
+            xtype: 'button',
+            formBind: true,
+            text: 'Lưu',
+            margin: 5,
+            bind: {
+                hidden: '{hiddenBtnLuuAdd}'
+            },
+            iconCls: 'x-fa fa-save'
+        }, {
             flex: 1
         },
         {

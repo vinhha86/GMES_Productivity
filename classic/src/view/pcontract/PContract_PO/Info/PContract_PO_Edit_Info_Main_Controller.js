@@ -2,6 +2,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_Info_Main_Controller',
     init: function () {
+        //check quyen 
+        common.Check_Object_Permission();
+
         var main = this.getView();
         var viewmodel = this.getViewModel();
         var ctrsewtarget = Ext.getCmp('PContract_PO_Edit_Info_sewtarget_percent');
