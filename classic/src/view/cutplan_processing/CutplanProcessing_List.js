@@ -23,11 +23,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
                     tooltip: 'Sửa phiếu',
                     handler: 'onCutplanProcessingItemEditClick'
                 }, 
-                // {
-                //     iconCls: 'x-fa fas fa-trash-o redIcon',
-                //     tooltip: 'Xóa phiếu',
-                //     // handler: 'onDelete'
-                // }
+                {
+                    iconCls: 'x-fa fas fa-trash-o redIcon',
+                    tooltip: 'Xóa phiếu',
+                    handler: 'onDelete'
+                }
             ]
         },             
         {text: 'Lệnh SX', dataIndex: 'pordercode', width: 130,

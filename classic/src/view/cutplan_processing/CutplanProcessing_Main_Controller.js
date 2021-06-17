@@ -25,6 +25,66 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_Controller'
             itemdblclick: 'onCutplanProcessingItemDblCLick'
         },
     },
+    onDelete(grid, rowIndex, colIndex, item, e, record){
+        var m = this;
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    m.Delete(grid, rowIndex, record);
+                }
+            }
+        });
+    },
+    Delete:function(grid, rowIndex, record){
+        var id = record.data.id;
+
+        var params = new Object();
+        params.id = id;
+        GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_delete', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if(success){
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Xoá thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        store = grid.getStore();
+                        store.removeAt(rowIndex);
+                    }else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Xoá thất bại: ' + response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                }else{
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Xoá thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
     onCutplanProcessingItemEditClick: function (grid, rowIndex, colIndex, item, e, record) {
         var id = record.data.id;
         this.redirectTo("cutplan_processing/" + id + "/edit");

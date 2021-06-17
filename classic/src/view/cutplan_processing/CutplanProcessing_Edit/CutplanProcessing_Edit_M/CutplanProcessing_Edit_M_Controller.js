@@ -281,7 +281,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                     }
 
                     // set data cho store cbbox
-                    viewModel.set('listcolorData', listcolorData);
+                    // viewModel.set('listcolorData', listcolorData);
+                    var ColorStore = viewModel.getStore('ColorStore');
+                    // ColorStore.loadData(listcolorData);
+                    ColorStore.removeAll();
+                    ColorStore.insert(0, listcolorData);
                 }
             })
     },
