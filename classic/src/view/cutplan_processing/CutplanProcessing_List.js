@@ -102,13 +102,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
                 return val;
             },
         },
-        // {text: 'SL cắt', dataIndex: 'amountcut', flex: 1,
-        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-        //         var val = value == 'null' ? "" : value;
-        //         metaData.tdAttr = 'data-qtip="' + val + '"';
-        //         return val;
-        //     },
-        // },
+        {text: 'SL cắt', dataIndex: 'amountcut', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+        },
     ],
     dockedItems: [
         {

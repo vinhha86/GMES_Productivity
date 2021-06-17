@@ -87,7 +87,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             },
                                             displayField: 'name',
                                             valueField: 'id',
-                                            label: 'Bàn số:',
+                                            label: 'Bàn cắt:',
                                             // disabled: true,
                                             labelWidth: 60,
                                             flex: 1,
@@ -136,6 +136,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         },
                                         items: [{
                                             xtype: 'combobox',
+                                            itemId: 'comboboxSku',
                                             // reference: 'cboorgto',
                                             editable: false,
                                             readOnly: true,
@@ -150,9 +151,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             // disabled: true,
                                             labelWidth: 70,
                                             flex: 2,
-                                            listeners: {
-                                                select: 'onSelectSku'
-                                            }
                                         }]
                                     },
                                     {
@@ -163,8 +161,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         },
                                         items: [{
                                             xtype: 'combobox',
-                                            // reference: 'cboorgto',
-                                            itemId: 'cbboxcolor',
+                                            itemId: 'comboboxColor',
                                             editable: false,
                                             readOnly: true,
                                             // cls: 'notEditable',
@@ -178,9 +175,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             // disabled: true,
                                             labelWidth: 70,
                                             flex: 2,
-                                            listeners: {
-                                                select: 'onSelectMauSP'
-                                            }
                                         }]
                                     },
                                     {
@@ -191,7 +185,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         },
                                         items: [{
                                             xtype: 'combobox',
-                                            // reference: 'cboorgto',
+                                            itemId: 'comboboxCutPlanRow',
                                             editable: false,
                                             readOnly: true,
                                             // cls: 'notEditable',
@@ -205,9 +199,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             // disabled: true,
                                             labelWidth: 70,
                                             flex: 2,
-                                            listeners: {
-                                                select: 'onSelectCutPlanRow'
-                                            }
                                         },{
                                             xtype: 'textfield',
                                             label: 'Dài bàn:',
@@ -433,273 +424,4 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
             ]
         }
     ]
-
-    // items: [
-    //     {
-    //         xtype: 'container',
-    //         layout: 'hbox',
-    //         // docked : 'top',
-    //         defaults: {
-    //             margin:'2 2 0 2'
-    //         },
-    //         items: [
-    //                 {
-    //                     layout: 'vbox',
-    //                     flex: 1,
-    //                     items: [
-    //                         {
-    //                             layout: 'hbox',
-    //                             flex: 1,
-    //                             defaults: {
-    //                                 margin: 1
-    //                             },
-    //                             items: [{
-    //                                 xtype: 'datefield',
-    //                                 label: 'Ngày:',
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                                 textAlign: 'left',
-    //                                 dateFormat : 'd/m/y',
-    //                                 editable: false,
-    //                                 readOnly: true,
-    //                                 // cls: 'notEditable',
-    //                                 bind: {
-    //                                     value: '{cutplanProcessing.processingdate}'
-    //                                 }
-    //                             },{
-    //                                 xtype: 'combobox',
-    //                                 // reference: 'cboorgto',
-    //                                 editable: false,
-    //                                 readOnly: true,
-    //                                 // cls: 'notEditable',
-    //                                 bind:{
-    //                                     store:'{OrgStore}',
-    //                                     value:'{cutplanProcessing.cutorgid_link}'
-    //                                 },
-    //                                 displayField: 'name',
-    //                                 valueField: 'id',
-    //                                 label: 'Bàn số:',
-    //                                 // disabled: true,
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                             }]
-    //                         },
-    //                         {
-    //                             layout: 'hbox',
-    //                             flex: 1,
-    //                             defaults: {
-    //                                 margin: 1
-    //                             },
-    //                             items: [{
-    //                                 xtype: 'textfield',
-    //                                 label: 'Lệnh SX:',
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                                 textAlign: 'left',
-    //                                 // editable: false,
-    //                                 // readOnly: true,
-    //                                 clearable: false,
-    //                                 // cls: 'notEditable',
-    //                                 bind: {
-    //                                     value: '{cutplanProcessing.pordercode}'
-    //                                 }
-    //                             },{
-    //                                 xtype:'button',
-    //                                 // text: 'Xác nhận xuất',
-    //                                 margin: 2,
-    //                                 itemId:'btnPlus',
-    //                                 ui: 'action',
-    //                                 iconCls: 'x-fa fa-plus',
-    //                             },{
-    //                                 xtype:'button',
-    //                                 // text: 'Xác nhận xuất',
-    //                                 margin: 2,
-    //                                 itemId:'btnSearch',
-    //                                 ui: 'action',
-    //                                 iconCls: 'x-fa fa-search',
-    //                             }]
-    //                         },
-    //                         {
-    //                             layout: 'hbox',
-    //                             flex: 1,
-    //                             defaults: {
-    //                                 margin: 1
-    //                             },
-    //                             items: [{
-    //                                 xtype: 'combobox',
-    //                                 // reference: 'cboorgto',
-    //                                 editable: false,
-    //                                 readOnly: true,
-    //                                 // cls: 'notEditable',
-    //                                 bind:{
-    //                                     store:'{CutPlanRowStore}',
-    //                                 },
-    //                                 displayField: 'code',
-    //                                 valueField: 'id',
-    //                                 label: 'Sơ đồ cắt:',
-    //                                 // disabled: true,
-    //                                 labelWidth: 70,
-    //                                 flex: 2,
-    //                             },{
-    //                                 xtype: 'textfield',
-    //                                 label: 'Dài:',
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                                 textAlign: 'left',
-    //                                 // editable: false,
-    //                                 // readOnly: true,
-    //                                 clearable: false,
-    //                                 bind: {
-    //                                     // value: '{stockin.reason}'
-    //                                 }
-    //                             }]
-    //                         },
-    //                         {
-    //                             layout: 'hbox',
-    //                             flex: 1,
-    //                             defaults: {
-    //                                 margin: 1
-    //                             },
-    //                             items: [{
-    //                                 xtype: 'textfield',
-    //                                 label: 'Số Lot:',
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                                 textAlign: 'left',
-    //                                 // editable: false,
-    //                                 // readOnly: true,
-    //                                 clearable: false,
-    //                                 // cls: 'notEditable',
-    //                                 bind: {
-    //                                     // value: '{stockin.invoice_number}'
-    //                                 }
-    //                             },{
-    //                                 xtype: 'textfield',
-    //                                 label: 'Số cây:',
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                                 textAlign: 'left',
-    //                                 // editable: false,
-    //                                 // readOnly: true,
-    //                                 clearable: false,
-    //                                 // cls: 'notEditable',
-    //                                 bind: {
-    //                                     // value: '{stockin.invoice_number}'
-    //                                 }
-    //                             },{
-    //                                 xtype: 'textfield',
-    //                                 label: 'Số M:',
-    //                                 labelWidth: 70,
-    //                                 flex: 1,
-    //                                 textAlign: 'left',
-    //                                 // editable: false,
-    //                                 // readOnly: true,
-    //                                 clearable: false,
-    //                                 // cls: 'notEditable',
-    //                                 bind: {
-    //                                     // value: '{stockin.invoice_number}'
-    //                                 }
-    //                             },]
-    //                         },
-    //                         {
-    //                             layout: 'hbox',
-    //                             // flex: 1,
-    //                             // defaults: {
-    //                             //     margin: 1
-    //                             // },
-    //                             items: [{
-    //                                 layout: 'vbox',
-    //                                 flex: 1,
-    //                                 defaults: {
-    //                                     // margin: '1 1 0 1'
-    //                                     margin: '1 1 0 1',
-    //                                 },
-    //                                 items: [{
-    //                                     xtype: 'textfield',
-    //                                     label: 'Số lá:',
-    //                                     labelWidth: 70,
-    //                                     flex: 1,
-    //                                     textAlign: 'left',
-    //                                     // editable: false,
-    //                                     // readOnly: true,
-    //                                     clearable: false,
-    //                                     // cls: 'notEditable',
-    //                                     bind: {
-    //                                         // value: '{stockin.invoice_number}'
-    //                                     }
-    //                                 },{
-    //                                     xtype: 'textfield',
-    //                                     label: 'Còn:',
-    //                                     labelWidth: 70,
-    //                                     flex: 1,
-    //                                     textAlign: 'left',
-    //                                     // editable: false,
-    //                                     // readOnly: true,
-    //                                     clearable: false,
-    //                                     // cls: 'notEditable',
-    //                                     bind: {
-    //                                         // value: '{stockin.invoice_number}'
-    //                                     }
-    //                                 }]
-    //                             },{
-    //                                 layout: 'vbox',
-    //                                 flex: 1,
-    //                                 defaults: {
-    //                                     margin: '1 1 0 1',
-    //                                 },
-    //                                 items: [{
-    //                                     xtype: 'textfield',
-    //                                     label: 'Tiêu hao:',
-    //                                     labelWidth: 70,
-    //                                     flex: 1,
-    //                                     textAlign: 'left',
-    //                                     // editable: false,
-    //                                     // readOnly: true,
-    //                                     clearable: false,
-    //                                     // cls: 'notEditable',
-    //                                     bind: {
-    //                                         // value: '{stockin.invoice_number}'
-    //                                     }
-    //                                 },{
-    //                                     xtype: 'textfield',
-    //                                     label: 'P/S:',
-    //                                     labelWidth: 70,
-    //                                     flex: 1,
-    //                                     textAlign: 'left',
-    //                                     // editable: false,
-    //                                     // readOnly: true,
-    //                                     clearable: false,
-    //                                     // cls: 'notEditable',
-    //                                     bind: {
-    //                                         // value: '{stockin.invoice_number}'
-    //                                     }
-    //                                 }]
-    //                             },{
-    //                                 layout: 'vbox',
-    //                                 flex     : 1,
-    //                                 defaults : {
-    //                                     flex : 1
-    //                                 },
-    //                                 items: [{
-    //                                     xtype:'button',
-    //                                     text: 'Thêm',
-    //                                     margin: 2,
-    //                                     itemId:'btnAdd',
-    //                                     ui: 'action',
-    //                                     // iconCls: 'x-fa fa-plus',
-    //                                 }]
-    //                             }]
-    //                         },
-    //                 ]
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         margin: 1,
-    //         flex: 1,
-    //         xtype: 'CutplanProcessing_Edit_D',
-    //         // id: 'handover_cut_toline_detail',
-    //     },
-    // ],
-
 });

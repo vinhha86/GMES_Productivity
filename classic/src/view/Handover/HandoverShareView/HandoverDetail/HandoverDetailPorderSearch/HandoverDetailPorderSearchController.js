@@ -18,7 +18,10 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearchController', {
 				} else {
                     // console.log(records);
                     var items = POrder_ListStore.getData().items;
-                    if(viewId == 'handover_cut_toline_detail'){
+                    if(
+                        viewId == 'cutplan_processing_edit' ||
+                        viewId == 'handover_cut_toline_detail'
+                    ){
                         if(items.length == 0){
                             m.fireEvent('found0Porder');
                         }
@@ -67,18 +70,19 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearchController', {
         var viewId = viewModel.get('viewId');
         var mainView = Ext.getCmp(viewId);
 
-        // cut to line, load store ListOrgStore_To
-        if(viewId == 'handover_cut_toline_detail'){
-            var ListOrgStore_To = mainView.getViewModel().getStore('ListOrgStore_To');
-            ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
-            mainView.down('#orgid_to_link').setValue(null);
-            mainView.down('#orgid_to_link').focus();
+        if(viewId == 'cutplan_processing_edit'){
+            this.fireEvent('selectPOrder', select[0]);
+        }else {
+            if(viewId == 'handover_cut_toline_detail'){ // cut to line, load store ListOrgStore_To
+                var ListOrgStore_To = mainView.getViewModel().getStore('ListOrgStore_To');
+                ListOrgStore_To.loadStoreByPorderIdLink(porderid_link);
+                mainView.down('#orgid_to_link').setValue(null);
+                mainView.down('#orgid_to_link').focus();
+            }
+    
+            mainView.getViewModel().set('currentRec.porderid_link', porderid_link);
+            mainView.getViewModel().set('pordercode', ordercode);
+            this.onQuayLai();
         }
-
-        mainView.getViewModel().set('currentRec.porderid_link', porderid_link);
-        mainView.getViewModel().set('pordercode', ordercode);
-        // mainView.getController().loadHandoverProductOnPorderSelect(porderid_link);
-
-        this.onQuayLai();
     },
 })

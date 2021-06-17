@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
     //     }
     // },
 	bind:{
-		// store: '{StockinD_Store}'
+		// store: '{CutplanProcessingDStore}'
 	},
 	columns: [
 		{

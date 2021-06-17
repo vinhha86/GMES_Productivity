@@ -38,6 +38,15 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         '#btnHome': {
             tap: 'onBtnHomeTap'
         },
+        '#comboboxSku': {
+            select: 'onSelectSku'
+        },
+        '#comboboxColor': {
+            select: 'onSelectMauSP'
+        },
+        '#comboboxCutPlanRow': {
+            select: 'onSelectCutPlanRow'
+        },
     },
     onBtnHomeTap: function () {
         this.redirectTo("mobilemenu");
@@ -380,10 +389,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
 
         if (material_skuid_link != null && colorid_link != null) {
             var CutPlanRowStore = viewModel.getStore('CutPlanRowStore');
-            // CutPlanRowStore.loadStore_bycolor(
-            //     colorid_link, porderid_link, material_skuid_link, 
-            //     productid_link, pcontractid_link
-            //     );
 
             CutPlanRowStore.loadStore_bycolor_async(
                 colorid_link, porderid_link, material_skuid_link,
@@ -410,7 +415,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                         // loop
                         var newArray = new Array();
                         var CutPlanRowStoreData = CutPlanRowStore.getData().items;
-                        console.log(CutPlanRowStoreData);
+                        // console.log(CutPlanRowStoreData);
 
                         for (var i = 0; i < CutPlanRowStoreData.length; i++) {
                             if (CutPlanRowStoreData[i].get('type') == 0) {
