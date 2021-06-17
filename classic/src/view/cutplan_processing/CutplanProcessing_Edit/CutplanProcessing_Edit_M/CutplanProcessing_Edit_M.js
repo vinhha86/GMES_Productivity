@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 	extend: 'Ext.container.Container',
 	xtype: 'CutplanProcessing_Edit_M',
     itemId: 'CutplanProcessing_Edit_M',
+    cls: 'CutplanProcessing_Edit_M',
 	controller: 'CutplanProcessing_Edit_M_Controller',
 	requires: ['Ext.form.field.Hidden', 'Ext.form.field.Date'],
 	layout: {
@@ -115,7 +116,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                     xtype:'combobox',
                     itemId:'comboboxColor',
                     bind:{
-                        store:'{listcolorData}',
+                        store:'{ColorStore}',
                         value: '{cutplanProcessing.colorid_link}'
                     },
                     fieldLabel: 'Màu SP',

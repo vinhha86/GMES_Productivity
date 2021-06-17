@@ -296,7 +296,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var porder = viewModel.get('porder');
         var porderid_link = viewModel.get('cutplanProcessing.porderid_link');
         var pcontractid_link = viewModel.get('cutplanProcessing.pcontractid_link');
         var productid_link = viewModel.get('cutplanProcessing.productid_link');
@@ -304,8 +303,10 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         var colorid_link = viewModel.get('cutplanProcessing.colorid_link');
 
         if (material_skuid_link != null && colorid_link != null) {
-            var CutPlanRowStore = viewModel.getStore('CutPlanRowStore');
+            var mainView = Ext.getCmp('cutplan_processing_edit');
+            if(mainView) mainView.setLoading(true);
 
+            var CutPlanRowStore = viewModel.getStore('CutPlanRowStore');
             CutPlanRowStore.loadStore_bycolor_async(
                 colorid_link, porderid_link, material_skuid_link,
                 productid_link, pcontractid_link
@@ -313,6 +314,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
             CutPlanRowStore.load({
                 scope: this,
                 callback: function (records, operation, success) {
+                    if(mainView) mainView.setLoading(false);
                     if (!success) {
                         this.fireEvent('logout');
                     } else {

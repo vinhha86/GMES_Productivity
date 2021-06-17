@@ -14,9 +14,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 		ColorStore:{
 			type: 'ColorStore'
 		},
-		// CutplanProcessingDStore:{
-		// 	type: 'CutplanProcessingDStore'
-		// },
+		CutplanProcessingDStore:{
+			type: 'CutplanProcessingDStore'
+		},
 	},
 	data: {
 		cutplanProcessing: { // main obj
@@ -42,9 +42,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 			warehouseid_link: null,
 			epc: null
 		},
+
+		warehouseObj: {
+
+		}
 	},
 	formulas: {
-        isBtnAddDisabled: function(get){
+        isBtnAddCutplanProcessingDDisabled: function(get){
 			if (get('cutplanProcessingDObj.epc') == null) {
 				return true
 			}

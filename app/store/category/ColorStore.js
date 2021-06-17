@@ -2,7 +2,7 @@ Ext.define('GSmartApp.store.ColorStore', {
     extend: 'Ext.data.Store',
     alias: 'store.ColorStore',
 	fields: [
-		{name: 'id', type: 'string'},
+		{name: 'id', type: 'int'},
 		{name: 'code', type: 'string'},
 		{name: 'rgbvalue',   type: 'string'},
 		{name: 'name',   type: 'string'},

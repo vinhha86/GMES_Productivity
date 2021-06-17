@@ -207,6 +207,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             textAlign: 'right',
                                             editable: false,
                                             readOnly: true,
+                                            cls: 'notEditable',
                                             clearable: false,
                                             bind: {
                                                 value: '{cutPlanRow.dai_so_do}'
@@ -269,9 +270,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     bind: {
                                         value: '{cutplanProcessingDObj.lotnumber}'
                                     },
-                                    listeners: {
-                                        change: 'onlotnumberTxtType'
-                                    }
                                 },{
                                     xtype: 'numberfield',
                                     itemId: 'packageid',
@@ -286,10 +284,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     bind: {
                                         value: '{cutplanProcessingDObj.packageid}'
                                     },
-                                    listeners: {
-                                        // focusenter: 'onlotnumberTxtAndpackageidTxtenter',
-                                        focusleave: 'onlotnumberTxtAndpackageidTxtleave',
-                                    },
                                 },{
                                     xtype: 'numberfield',
                                     itemId: 'met',
@@ -297,10 +291,10 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                     labelWidth: 60,
                                     flex: 1,
                                     textAlign: 'left',
-                                    // editable: false,
-                                    // readOnly: true,
+                                    editable: false,
+                                    readOnly: true,
                                     clearable: false,
-                                    // cls: 'notEditable',
+                                    cls: 'notEditable',
                                     bind: {
                                         value: '{cutplanProcessingDObj.met}'
                                     }
@@ -333,9 +327,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         bind: {
                                             value: '{cutplanProcessingDObj.la_vai}'
                                         },
-                                        listeners: {
-                                            change : 'onla_vai_change'
-                                        }
                                     },
                                     {
                                         xtype: 'numberfield',
@@ -347,7 +338,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         editable: false,
                                         readOnly: true,
                                         clearable: false,
-                                        // cls: 'notEditable',
+                                        cls: 'notEditable',
                                         bind: {
                                             value: '{cutplanProcessingDObj.tieu_hao}'
                                         }
@@ -374,10 +365,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             // cls: 'notEditable',
                                             bind: {
                                                 value: '{cutplanProcessingDObj.con_lai}'
-                                            },
-                                            listeners: {
-                                                change : 'ondau_tam_change'
-                                            }                                            
+                                            },                                 
                                         },
                                         {
                                             xtype: 'numberfield',
@@ -389,7 +377,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                             editable: false,
                                             readOnly: true,
                                             clearable: false,
-                                            // cls: 'notEditable',
+                                            cls: 'notEditable',
                                             bind: {
                                                 value: '{cutplanProcessingDObj.ps}'
                                             }
@@ -405,11 +393,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit', {
                                         xtype:'button',
                                         text: 'Thêm',
                                         margin: 2,
-                                        itemId:'btnAdd',
+                                        itemId:'btnAddCutplanProcessingD',
                                         ui: 'action',
                                         iconCls: 'x-fa fa-check',
                                         bind: {
-                                            disabled: '{isBtnAddDisabled}'
+                                            disabled: '{isBtnAddCutplanProcessingDDisabled}'
                                         }
                                     }]
                                 }]

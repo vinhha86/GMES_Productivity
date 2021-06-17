@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 	extend: 'Ext.grid.Panel',
 	xtype: 'CutplanProcessing_Edit_D',
 	itemId: 'CutplanProcessing_Edit_D',
+    cls: 'CutplanProcessing_Edit_D',
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
@@ -27,7 +28,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
     //     }
     // },
 	bind:{
-		// store: '{CutplanProcessingDStore}'
+        // store:'{cutplanProcessing.cutplanProcessingD}',
+		store: '{CutplanProcessingDStore}'
 	},
 	columns: [
 		{
@@ -153,60 +155,53 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                         items: [
                             {
                                 xtype: 'textfield',
+                                itemId: 'lotnumber',
                                 fieldLabel: "Số Lot",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.lotnumber}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,
                                 flex: 1,
                                 enableKeyEvents : true,
-                                listeners: {
-                                    // keypress: 'onPressEnterPordercode'
-                                }
                             },
                             {
                                 xtype: 'textfield',
+                                itemId: 'packageid',
                                 fieldLabel: "Số cây",
+                                fieldStyle: "text-align:right;",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.packageid}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,
                                 flex: 1,
                                 enableKeyEvents : true,
-                                listeners: {
-                                    // keypress: 'onPressEnterPordercode'
-                                }
                             },
                             {
                                 xtype: 'textfield',
+                                itemId: 'met',
                                 fieldLabel: "Dài cây",
+                                fieldStyle: "text-align:right;",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
+                                editable: false,
+                                readOnly: true,
+                                cls: 'notEditable',
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.met}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,
                                 flex: 1,
                                 enableKeyEvents : true,
-                                listeners: {
-                                    // keypress: 'onPressEnterPordercode'
-                                }
                             },
                             {
                                 xtype:'button',
                                 text:  'Thêm',
                                 iconCls: 'x-fa fa-check',
-                                // itemId: 'btnLuu',
+                                itemId: 'btnAddCutplanProcessingD',
                                 margin: 2,
                                 flex: 1,
                             },
@@ -219,63 +214,62 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                         items: [
                             {
                                 xtype: 'textfield',
+                                itemId: 'la_vai',
                                 fieldLabel: "Số lá",
+                                fieldStyle: "text-align:right;",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.la_vai}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,
                                 flex: 1,
                                 enableKeyEvents : true,
-                                listeners: {
-                                    // keypress: 'onPressEnterPordercode'
-                                }
                             },
                             {
                                 xtype: 'textfield',
+                                itemId: 'tieu_hao',
                                 fieldLabel: "Tiêu hao",
+                                fieldStyle: "text-align:right;",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
+                                editable: false,
+                                readOnly: true,
+                                cls: 'notEditable',
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.tieu_hao}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,
                                 flex: 1,
                                 enableKeyEvents : true,
-                                listeners: {
-                                    // keypress: 'onPressEnterPordercode'
-                                }
                             },
                             {
                                 xtype: 'textfield',
+                                itemId: 'con_lai',
                                 fieldLabel: "Đầu tấm",
+                                fieldStyle: "text-align:right;",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
+                                // editable: false,
+                                // readOnly: true,
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.con_lai}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,
                                 flex: 1,
                                 enableKeyEvents : true,
-                                listeners: {
-                                    // keypress: 'onPressEnterPordercode'
-                                }
                             },
                             {
                                 xtype: 'textfield',
+                                itemId: 'ps',
                                 fieldLabel: "Phát sinh",
+                                fieldStyle: "text-align:right;",
                                 // allowBlank: false,
-                                // itemId: 'pordercode',
-                                // blankText: 'Không được để trống',
+                                editable: false,
+                                readOnly: true,
+                                cls: 'notEditable',
                                 bind: {
-                                    // value: '{pordercode}'
+                                    value: '{cutplanProcessingDObj.ps}'
                                 },
                                 margin: 2,
                                 labelWidth: 80,

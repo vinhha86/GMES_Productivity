@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 			cutplanProcessingD: [],
 		},
 		porder: null,
-		listcolorData: null,
+		listcolorData: [],
 		cutPlanRow: null,
 
 		porderid_link: null,
@@ -42,6 +42,10 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 			warehouseid_link: null,
 			epc: null
 		},
+
+		warehouseObj: {
+
+		}
 	},
 	formulas: {
         isBtnAddDisabled: function(get){
