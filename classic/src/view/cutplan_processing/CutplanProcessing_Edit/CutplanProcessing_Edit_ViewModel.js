@@ -14,9 +14,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_ViewModel',
 		ColorStore:{
 			type: 'ColorStore'
 		},
-		// CutplanProcessingDStore:{
-		// 	type: 'CutplanProcessingDStore'
-		// },
+		CutplanProcessingDStore:{
+			type: 'CutplanProcessingDStore'
+		},
 	},
 	data: {
 		cutplanProcessing: { // main obj

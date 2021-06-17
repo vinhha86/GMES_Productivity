@@ -26,67 +26,59 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                             itemId: 'pordercode',
                             blankText: 'Không được để trống',
                             bind: {
-                                // value: '{pordercode}'
+                                value: '{cutplanProcessing.pordercode}'
                             },
                             labelWidth: 80,
                             flex: 1,
                             enableKeyEvents : true,
                             listeners: {
-                                // keypress: 'onPressEnterPordercode'
+                                keypress: 'onEnterPOrderSearch'
                             }
                         },
                         {
                             xtype:'button',
                             margin: '0 0 0 2',
-                            itemId:'btnPlus',
+                            itemId:'btnPlusPorder',
                             iconCls: 'x-fa fa-plus',
-                            bind: {
-                                // visible: '{isCreateNew}'
-                            }
                         },
                         {
                             xtype:'button',
                             margin: '0 0 0 2',
-                            itemId:'btnSearch',
+                            itemId:'btnSearchPorder',
                             iconCls: 'x-fa fa-search',
-                            bind: {
-                                // visible: '{isCreateNew}'
-                            }
                         }
                     ],
                 },
                 {
                     xtype:'combobox',
-                    // itemId:'orgid_from_link',
+                    itemId: 'comboboxSku',
                     bind:{
-                        // store:'{ListOrgStore_From}',
-                        // value: '{currentRec.orgid_from_link}',
+                        store:'{Sku}',
+                        value: '{cutplanProcessing.material_skuid_link}'
                     },
                     fieldLabel: 'Mã vải',
-                    displayField: 'nameParent',
+                    displayField: 'code',
                     valueField: 'id',
                     queryMode: 'local',
                     // editable: false,
-                    allowBlank: false,
                     // readOnly: true,
+                    // allowBlank: false,
                     margin: 2,
                     // cls: 'notEditable',
                     labelWidth: 80,
                     flex: 1,
-                    // width: 250
+                    // width: 250,
                 },
                 {
                     xtype: 'datefield',
                     margin: 2,
                     // cls: 'notEditable',
-                    reference: 'golivedate',
+                    // reference: 'golivedate',
                     fieldLabel: "Ngày",
                     // allowBlank: false,
-                    itemId: 'golivedate',
+                    // itemId: 'golivedate',
                     bind: {
-                        // value: '{currentRec.handover_date}',
-                        // editable: '{isEditable}',
-                        // readOnly: '{isReadOnly}',
+                        value: '{cutplanProcessing.processingdate}'
                     },
                     format: 'd/m/Y',
                     labelWidth: 80,
@@ -97,16 +89,16 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                     xtype:'combobox',
                     // itemId:'orgid_from_link',
                     bind:{
-                        // store:'{ListOrgStore_From}',
-                        // value: '{currentRec.orgid_from_link}',
+                        store:'{OrgStore}',
+                        value:'{cutplanProcessing.cutorgid_link}'
                     },
                     fieldLabel: 'Bàn cắt',
                     displayField: 'nameParent',
                     valueField: 'id',
                     queryMode: 'local',
                     // editable: false,
-                    allowBlank: false,
                     // readOnly: true,
+                    // allowBlank: false,
                     margin: 2,
                     // cls: 'notEditable',
                     labelWidth: 80,
@@ -121,60 +113,61 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
             items: [
                 {
                     xtype:'combobox',
-                    // itemId:'orgid_from_link',
+                    itemId:'comboboxColor',
                     bind:{
-                        // store:'{ListOrgStore_From}',
-                        // value: '{currentRec.orgid_from_link}',
+                        store:'{listcolorData}',
+                        value: '{cutplanProcessing.colorid_link}'
                     },
                     fieldLabel: 'Màu SP',
-                    displayField: 'nameParent',
+                    displayField: 'name',
                     valueField: 'id',
                     queryMode: 'local',
                     // editable: false,
-                    allowBlank: false,
                     // readOnly: true,
+                    // allowBlank: false,
                     margin: 2,
                     // cls: 'notEditable',
                     labelWidth: 80,
                     flex: 1,
-                    // width: 250
+                    // width: 250,
                 },
                 {
                     xtype:'combobox',
-                    // itemId:'orgid_from_link',
+                    itemId:'comboboxCutPlanRow',
                     bind:{
-                        // store:'{ListOrgStore_From}',
-                        // value: '{currentRec.orgid_from_link}',
+                        store:'{CutPlanRowStore}',
+                        value:'{cutplanProcessing.cutplanrowid_link}'
                     },
                     fieldLabel: 'Sơ đồ cắt',
-                    displayField: 'nameParent',
+                    displayField: 'name',
                     valueField: 'id',
                     queryMode: 'local',
                     // editable: false,
-                    allowBlank: false,
                     // readOnly: true,
+                    // allowBlank: false,
                     margin: 2,
                     // cls: 'notEditable',
                     labelWidth: 80,
                     flex: 1,
-                    // width: 250
+                    // width: 250,
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: "Dài bàn",
                     // allowBlank: false,
                     itemId: 'pordercode',
+                    editable: false,
+                    readOnly: true,
+                    cls: 'notEditable',
+                    fieldStyle: "text-align:right;",
                     // blankText: 'Không được để trống',
                     bind: {
-                        // value: '{pordercode}'
+                        value: '{cutPlanRow.dai_so_do}'
                     },
                     margin: 2,
                     labelWidth: 80,
                     flex: 1,
                     enableKeyEvents : true,
-                    listeners: {
-                        // keypress: 'onPressEnterPordercode'
-                    }
                 },
                 {
                     margin: 2,
@@ -184,4 +177,3 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         },
     ]
 });
-

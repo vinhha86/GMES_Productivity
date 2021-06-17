@@ -4,9 +4,9 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearch', {
     id: 'HandoverDetailPorderSearch',
     reference: 'HandoverDetailPorderSearch',
     controller: 'HandoverDetailPorderSearchController',
-    viewModel:{
+    // viewModel:{
         // type:'HandoverDetailPorderSearchViewModel'
-    },
+    // },
     viewConfig: {
         stripeRows: false,
         enableTextSelection: false,
