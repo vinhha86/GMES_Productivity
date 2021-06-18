@@ -7,16 +7,20 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 	},
 	control: {
 		'#lotnumber': {
-			change: 'onlotnumberTxtType'
+			change: 'onlotnumberTxtType',
+            keypress: 'ontxtfieldkeypress'
 		},
 		'#packageid': {
 			focusleave: 'onlotnumberTxtAndpackageidTxtleave',
+            keypress: 'ontxtfieldkeypress'
 		},
         '#la_vai': {
-            change : 'onla_vai_change'
+            change : 'onla_vai_change',
+            keypress: 'ontxtfieldkeypress'
         },
         '#con_lai': {
-            change : 'ondau_tam_change'
+            change : 'ondau_tam_change',
+            keypress: 'ontxtfieldkeypress'
         },
         '#btnAddCutplanProcessingD': {
             click: 'onBtnAddCutplanProcessingD'
@@ -214,6 +218,49 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         var cutplanProcessing = viewModel.get('cutplanProcessing');
         var cutplanProcessingD = viewModel.get('cutplanProcessing.cutplanProcessingD');
 
+        if ( 
+            viewModel.get('cutplanProcessingDObj.lotnumber') == null ||
+            viewModel.get('cutplanProcessingDObj.lotnumber') == '') {
+            me.down('#lotnumber').focus();
+            return;
+        }
+        if (
+            viewModel.get('cutplanProcessingDObj.packageid') == null ||
+            viewModel.get('cutplanProcessingDObj.packageid') == '') {
+            me.down('#packageid').focus();
+            return;
+        }
+        // if (
+        //     viewModel.get('cutplanProcessingDObj.met') == null ||
+        //     viewModel.get('cutplanProcessingDObj.met') == '') {
+        //     me.down('#met').focus();
+        //     return;
+        // }
+        if (
+            viewModel.get('cutplanProcessingDObj.la_vai') == null ||
+            viewModel.get('cutplanProcessingDObj.la_vai') == '') {
+            me.down('#la_vai').focus();
+            return;
+        }
+        // if (
+        //     viewModel.get('cutplanProcessingDObj.tieu_hao') == null ||
+        //     viewModel.get('cutplanProcessingDObj.tieu_hao') == '') {
+        //     me.down('#tieu_hao').focus();
+        //     return;
+        // }
+        if (
+            viewModel.get('cutplanProcessingDObj.con_lai') == null ||
+            viewModel.get('cutplanProcessingDObj.con_lai') == '') {
+            me.down('#con_lai').focus();
+            return;
+        }
+        // if (
+        //     viewModel.get('cutplanProcessingDObj.ps') == null ||
+        //     viewModel.get('cutplanProcessingDObj.ps') == '') {
+        //     me.down('#ps').setValue(0);
+        //     // return;
+        // }
+
         // Nếu cây vải ko tồn tại hoặc đã nằm trong danh sách -> epc = null -> return
         if(viewModel.get('cutplanProcessingDObj.epc') == null){
             return;
@@ -234,52 +281,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 		cutplanProcessingDObj.skucode = warehouseObj.skucode;
 		cutplanProcessingDObj.skuname = warehouseObj.skuname;
 
-        if ( 
-            viewModel.get('cutplanProcessingDObj.lotnumber') == null ||
-            viewModel.get('cutplanProcessingDObj.lotnumber') == '') {
-            me.down('#lotnumber').focus();
-            return;
-        }
-        if (
-            viewModel.get('cutplanProcessingDObj.packageid') == null ||
-            viewModel.get('cutplanProcessingDObj.packageid') == '') {
-            me.down('#packageid').focus();
-            return;
-        }
-        if (
-            viewModel.get('cutplanProcessingDObj.met') == null ||
-            viewModel.get('cutplanProcessingDObj.met') == '') {
-            me.down('#met').focus();
-            return;
-        }
-        if (
-            viewModel.get('cutplanProcessingDObj.la_vai') == null ||
-            viewModel.get('cutplanProcessingDObj.la_vai') == '') {
-            me.down('#la_vai').focus();
-            return;
-        }
-        if (
-            viewModel.get('cutplanProcessingDObj.tieu_hao') == null ||
-            viewModel.get('cutplanProcessingDObj.tieu_hao') == '') {
-            me.down('#tieu_hao').focus();
-            return;
-        }
-        if (
-            viewModel.get('cutplanProcessingDObj.con_lai') == null ||
-            viewModel.get('cutplanProcessingDObj.con_lai') == '') {
-            me.down('#con_lai').focus();
-            return;
-        }
-        if (
-            viewModel.get('cutplanProcessingDObj.ps') == null ||
-            viewModel.get('cutplanProcessingDObj.ps') == '') {
-            me.down('#ps').setValue(0);
-            // return;
-        }
-
+        // thêm vào grid
         cutplanProcessingD.push(cutplanProcessingDObj);
         store.removeAll();
         store.insert(0, cutplanProcessingD);
+        viewModel.set('cutplanProcessing.cutplanProcessingD', cutplanProcessingD);
+
+        // focus textfield
+        me.down('#lotnumber').focus();
 
         viewModel.set('cutplanProcessingDObj.lotnumber', null);
         viewModel.set('cutplanProcessingDObj.packageid', null);
@@ -292,8 +301,138 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 		viewModel.set('cutplanProcessingDObj.epc', null);
         viewModel.set('cutplanProcessingDObj', new Object());
 
-        // console.log(cutplanProcessing);
+        console.log(cutplanProcessing);
         // console.log(cutplanProcessingD);
         // console.log(store);
     },
+    onDeleteCutplanProcessingD:  function(grid, rowIndex, colIndex, item, e, record){
+        var m = this;
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    m.DeleteCutplanProcessingD(grid, rowIndex, record);
+                }
+            }
+        });
+    },
+    DeleteCutplanProcessingD: function(grid, rowIndex, record){
+        console.log(record);
+        var m = this;
+        var viewModel = this.getViewModel();
+        var cutplanProcessing = viewModel.get('cutplanProcessing');
+        var cutplanProcessingD = viewModel.get('cutplanProcessing.cutplanProcessingD');
+        var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
+
+        if(cutplanProcessing.id == null || cutplanProcessing.id == 0){ 
+            // Tạo mới -> chưa có trong db -> remove row grid
+            CutplanProcessingDStore.removeAt(rowIndex);
+            // Xoá các obj của array theo điều kiện
+            cutplanProcessingD = cutplanProcessingD.filter(item => 
+                item.idx == record.get('idx')
+            );
+            viewModel.set('cutplanProcessing.cutplanProcessingD', cutplanProcessingD);
+            // console.log(cutplanProcessing);
+        }
+        else{
+            // Edit -> check id của CutplanProcessingD
+            var id = record.get('id');
+            console.log(id);
+            if(id == null){
+                // Tạo mới -> chưa có trong db -> remove row grid
+                CutplanProcessingDStore.removeAt(rowIndex);
+                // Xoá các obj của array theo điều kiện
+                cutplanProcessingD = cutplanProcessingD.filter(item => 
+                    item.idx == record.get('idx')
+                );
+                viewModel.set('cutplanProcessing.cutplanProcessingD', cutplanProcessingD);
+                // console.log(cutplanProcessing);
+            }else
+            if(id != null && !isNaN(id)){
+                // Xoá CutplanProcessingD trong db
+                m.deleteCutplanProcessingDfromDB(id, grid, rowIndex, record);
+            }
+        }
+    },
+    deleteCutplanProcessingDfromDB: function(id, grid, rowIndex, record){
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var mainView = Ext.getCmp('cutplan_processing_edit');
+        if(mainView) mainView.setLoading(true);
+
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_d_delete', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // me.setLoading(false);
+                if(mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
+                        CutplanProcessingDStore.removeAt(rowIndex);
+
+                        var cutplanProcessingD = viewModel.get('cutplanProcessing.cutplanProcessingD');
+                        cutplanProcessingD = cutplanProcessingD.filter(item => 
+                            item.idx == record.get('idx')
+                        );
+                        viewModel.set('cutplanProcessing.cutplanProcessingD', cutplanProcessingD);
+                    }else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lỗi: ' + response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lỗi: Xoá thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+        })        
+    },
+
+    ontxtfieldkeypress: function(field, e){
+        // if (e.keyCode == e.TAB) {
+        //     console.log(field);
+        //     var me = this.getView();
+        //     var itemId = field.itemId;
+        //     // lotnumber packageid la_vai con_lai
+        //     if(itemId == 'lotnumber'){
+        //         me.down('#packageid').focus();
+        //     }
+        //     if(itemId == 'packageid'){
+        //         me.down('#la_vai').focus();
+        //     }
+        //     if(itemId == 'la_vai'){
+        //         me.down('#con_lai').focus();
+        //     }
+        //     if(itemId == 'con_lai'){
+        //         me.down('#lotnumber').focus();
+        //     }
+        // }
+        var m = this;
+        console.log('here');
+        if(e.getKey() == e.ENTER) {
+            console.log('here');
+            m.onBtnAddCutplanProcessingD();
+        }
+   }
 })

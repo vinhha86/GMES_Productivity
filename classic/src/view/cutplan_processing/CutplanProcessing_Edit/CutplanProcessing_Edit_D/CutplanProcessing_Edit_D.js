@@ -32,6 +32,20 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 		store: '{CutplanProcessingDStore}'
 	},
 	columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 30,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-trash-o redIcon',
+                    tooltip: 'Xóa',
+                    handler: 'onDeleteCutplanProcessingD'
+                }
+            ]
+        },           
 		{
 			text: 'Mã NPL', 
 			flex: 1,

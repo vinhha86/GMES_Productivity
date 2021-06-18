@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
             width: 45,
             menuDisabled: true,
             sortable: false,
+            align: 'center',
             items: [
                 {
                     iconCls: 'x-fa fas fa-pencil-square-o greenIcon',

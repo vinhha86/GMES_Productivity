@@ -45,6 +45,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_Controller'
     },
     Delete:function(grid, rowIndex, record){
         var id = record.data.id;
+        var viewModel = this.getViewModel();
 
         var params = new Object();
         params.id = id;
@@ -61,8 +62,10 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_Controller'
                                 yes: 'Đóng',
                             }
                         });
-                        store = grid.getStore();
-                        store.removeAt(rowIndex);
+                        var CutplanProcessingStore = grid.getStore();
+                        CutplanProcessingStore.removeAt(rowIndex);
+                        var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
+                        CutplanProcessingDStore.removeAll();
                     }else{
                         Ext.Msg.show({
                             title: 'Thông báo',

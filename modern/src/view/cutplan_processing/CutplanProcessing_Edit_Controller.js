@@ -646,6 +646,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
         cutplanProcessingD.push(cutplanProcessingDObj);
         store.removeAll();
         store.insert(0, cutplanProcessingD);
+        viewModel.set('cutplanProcessing.cutplanProcessingD', cutplanProcessingD);
 
         viewModel.set('cutplanProcessingDObj.lotnumber', null);
         viewModel.set('cutplanProcessingDObj.packageid', null);
