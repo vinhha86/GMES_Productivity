@@ -18,15 +18,15 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         enableTextSelection: true,
         stripeRows: false,
     },
-	// plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onDItemEdit',
-    //             // beforeedit: 'onPriceDItemBeforeEdit'
-    //         }             
-    //     }
-    // },
+	plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onDItemEdit',
+                // beforeedit: 'onPriceDItemBeforeEdit'
+            }             
+        }
+    },
 	bind:{
         // store:'{cutplanProcessing.cutplanProcessingD}',
 		store: '{CutplanProcessingDStore}'
@@ -129,6 +129,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 				metaData.tdAttr = 'data-qtip="' + val + '"';
 				return val;
 			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
 		},
         {
 			text: 'Tiêu hao', 
@@ -143,6 +148,21 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         {
 			text: 'Đầu tấm', 
 			dataIndex: 'con_lai',
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+		},
+        {
+			text: 'Phát sinh', 
+			dataIndex: 'ps',
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;

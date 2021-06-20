@@ -434,5 +434,53 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
             console.log('here');
             m.onBtnAddCutplanProcessingD();
         }
-   }
+   },
+
+   onDItemEdit: function (editor, context, eOpts) {
+       console.log(context);
+    // console.log('onInvoiceDItemEdit');
+    var m = this;
+    var me = this.getView();
+    var viewModel = this.getViewModel();
+    var cutplanProcessing = viewModel.get('cutplanProcessing');
+    var store = viewModel.getStore('CutplanProcessingDStore');
+    var cutplanProcessingD_data = context.record.data;
+
+    if (context.value == "" || context.value == context.originalValue || isNaN(context.value)) {
+        store.rejectChanges();
+        return;
+    }
+
+    if (context.field == 'la_vai') {
+        cutplanProcessingD_data.la_vai = parseFloat(cutplanProcessingD_data.la_vai);
+
+        //
+        var dai_so_do = viewModel.get('cutPlanRow.dai_so_do'); // Dài bàn
+
+		if(dai_so_do != null && context.value != null){
+			var tieu_hao = context.value * dai_so_do;
+			tieu_hao = tieu_hao.toFixed(2); // 2 decimal
+            cutplanProcessingD_data.tieu_hao = parseFloat(tieu_hao);
+		}
+
+    }
+    if (context.field == 'con_lai') {
+        cutplanProcessingD_data.con_lai = parseFloat(cutplanProcessingD_data.con_lai);
+
+        //
+        var dai_cay = cutplanProcessingD_data.met; // Dài cây
+        var tieu_hao = cutplanProcessingD_data.tieu_hao; // tiêu hao
+
+		if(dai_cay != null && tieu_hao != null && context.value != null){
+			var con_lai = dai_cay - tieu_hao;
+			var ps = context.value - con_lai;
+			ps = ps.toFixed(2);  // 2 decimal
+            cutplanProcessingD_data.ps = parseFloat(ps);
+
+		}
+    }
+
+    store.commitChanges();
+    console.log(cutplanProcessing);
+},
 })

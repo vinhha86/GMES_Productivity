@@ -909,7 +909,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
         var me = this;
         if(e.getKey() == e.ENTER) {
             // Ext.Msg.alert('Keys','You pressed the Enter key');
-            me.onBtnPlus();
+            me.onBtnSearch();
         }
     },
     onOrgFromComboSelect: function(cbo, record, eOpts){

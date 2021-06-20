@@ -3,11 +3,12 @@ Ext.define('GSmartApp.store.handover.HandoverSkuStore', {
 	alias: 'store.HandoverSkuStore',
 	storeId: 'HandoverSkuStore',
 	model: 'GSmartApp.model.handover.HandoverSkuModel',
-	// fields: [
-	// 	{name: 'idx'},
-	// 	{name: 'id', type: 'int'},
-	// 	{name: 'totalpackage', type: 'int'},
-	// ],
+	fields: [
+		{name: 'idx'},
+		{name: 'id', type: 'int'},
+		{name: 'totalpackage', type: 'int'},
+		{name: 'totalpackagecheck', type: 'int'},
+	],
 	loadStore:function(handoverid_link, handoverproductid_link, porderid_link, productid_link){
         var params = new Object();
         params.handoverid_link = handoverid_link;
