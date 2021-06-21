@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 	init: function() {
         var viewModel = this.getViewModel();
 		var UnitStore = viewModel.getStore('UnitStore');
-		// UnitStore.loadStore();
+		UnitStore.loadStore();
 		var UnitStoreFilters = UnitStore.getFilters();
 		if (!this.UnitStoreFilters) {
             this.UnitStoreFilters = UnitStoreFilters.add({
