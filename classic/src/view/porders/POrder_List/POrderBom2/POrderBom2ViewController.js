@@ -141,6 +141,17 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                                     if (value == 0) return "";
                                     return Ext.util.Format.number(value, '0.0000')
                                 }
+                            }, {
+                                text: 'SX',
+                                dataIndex: listid[i] + "_SX",
+                                cls: 'titleRed',
+                                width: 65,
+                                format: '0.0000',
+                                align: 'right',
+                                renderer: function (value, metaData, record) {
+                                    if (value == 0) return "";
+                                    return Ext.util.Format.number(value, '0.0000')
+                                }
                             }]
                         })
 
