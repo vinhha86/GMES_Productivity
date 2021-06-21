@@ -170,6 +170,21 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
 				return val;
 			},
 		},
+        {
+			text: 'Lỗi vải', 
+			dataIndex: 'met_err',
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+		},
 	],
 	dockedItems: [{
 		dock: 'top',
@@ -231,14 +246,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                                 flex: 1,
                                 enableKeyEvents : true,
                             },
-                            {
-                                xtype:'button',
-                                text:  'Thêm',
-                                iconCls: 'x-fa fa-check',
-                                itemId: 'btnAddCutplanProcessingD',
-                                margin: 2,
-                                flex: 1,
-                            },
                         ]
                     },
                     {
@@ -279,6 +286,27 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                             },
                             {
                                 xtype: 'textfield',
+                                itemId: 'met_err',
+                                fieldLabel: "Lỗi vải",
+                                fieldStyle: "text-align:right;",
+                                // allowBlank: false,
+                                bind: {
+                                    value: '{cutplanProcessingDObj.met_err}'
+                                },
+                                margin: 2,
+                                labelWidth: 80,
+                                flex: 1,
+                                enableKeyEvents : true,
+                            },
+                        ]
+                    },
+                    {
+                        layout: 'hbox',
+                        width: '100%',
+                        // flex: 1,
+                        items: [
+                            {
+                                xtype: 'textfield',
                                 itemId: 'con_lai',
                                 fieldLabel: "Đầu tấm",
                                 fieldStyle: "text-align:right;",
@@ -312,6 +340,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                                 listeners: {
                                     // keypress: 'onPressEnterPordercode'
                                 }
+                            },
+                            {
+                                xtype:'button',
+                                text:  'Thêm',
+                                iconCls: 'x-fa fa-check',
+                                itemId: 'btnAddCutplanProcessingD',
+                                margin: 2,
+                                flex: 1,
                             },
                         ]
                     },

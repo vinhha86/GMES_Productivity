@@ -323,7 +323,50 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                         },
                     ]
                 },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            // itemId: 'yTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Vải lỗi (M)',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.met_err}',
+                                // hidden: '{isYdsColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                        },
+                        {
+                            margin: 1,
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            itemId:'btnTest',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
+                    ]
+                },
             ],
+            
             // hidden: true,
             bind: { // ẩn nhập liệu nếu là vào từ view xuất kho
                 hidden: '{isTabToVaiHidden}'

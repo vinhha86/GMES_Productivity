@@ -131,6 +131,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                                 viewModel.set('cutplanProcessingDObj.warehouseid_link', responseObj.id);
                                 viewModel.set('cutplanProcessingDObj.epc', responseObj.epc);
                                 viewModel.set('cutplanProcessingDObj.met', responseObj.met);
+                                viewModel.set('cutplanProcessingDObj.met_err', responseObj.met_err);
                                 
                             }
                         }else{
@@ -276,6 +277,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         cutplanProcessingDObj.met = viewModel.get('cutplanProcessingDObj.met');
         cutplanProcessingDObj.warehouseid_link = viewModel.get('cutplanProcessingDObj.warehouseid_link');
         cutplanProcessingDObj.epc = viewModel.get('cutplanProcessingDObj.epc');
+        cutplanProcessingDObj.met_err = viewModel.get('cutplanProcessingDObj.met_err');
 
 		var warehouseObj = viewModel.get('warehouseObj');
 		cutplanProcessingDObj.skucode = warehouseObj.skucode;
@@ -299,6 +301,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         viewModel.set('cutplanProcessingDObj.met', null)
 		viewModel.set('cutplanProcessingDObj.warehouseid_link', null);
 		viewModel.set('cutplanProcessingDObj.epc', null);
+		viewModel.set('cutplanProcessingDObj.met_err', null);
         viewModel.set('cutplanProcessingDObj', new Object());
 
         console.log(cutplanProcessing);
@@ -478,6 +481,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
             cutplanProcessingD_data.ps = parseFloat(ps);
 
 		}
+    }
+    if (context.field == 'met_err') {
+        cutplanProcessingD_data.met_err = parseFloat(cutplanProcessingD_data.met_err);
     }
 
     store.commitChanges();

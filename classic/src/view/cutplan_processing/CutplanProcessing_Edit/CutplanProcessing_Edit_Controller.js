@@ -45,10 +45,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         var viewModel = this.getViewModel();
         var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
 
+        var mainView = Ext.getCmp('cutplan_processing_edit');
+        if(mainView) mainView.setLoading(true);
+
         var params = new Object();
         params.id = id;
         GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_getbyid', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) mainView.setLoading(false);
                 var response = Ext.decode(response.responseText);
                 if (response.respcode == 200) {
                     // console.log(response.data);

@@ -147,7 +147,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         
         if(objPkl.width_check == null || objPkl.width_check == '') objPkl.width_check = 0;
         if(objPkl.width_origin == null || objPkl.width_origin == '' || objPkl.width_origin == 0) objPkl.width_origin = objPkl.width_check;
-        
+        if(objPkl.met_err == null || objPkl.met_err == '') objPkl.met_err = 0;
+
         if(stockout_order.unitid_link == 3){
             // có y
             objPkl.yds_check = parseFloat(objPkl.yds_check);
