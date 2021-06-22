@@ -29,12 +29,42 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
     },
     onLoadData: function (id, type) {
         // console.log('onLoadData: ' + id + ' ' + type);
-        var me = this;
+        var m = this;
         var viewModel = this.getViewModel();
+
+        var porderObj = GSmartApp.util.State.get('porderObj');
+		if(porderObj != null){
+
+            var porder = porderObj; console.log(porder);
+            viewModel.set('porder', porder);
+            viewModel.set('cutplanProcessing.pordercode', porder.ordercode);
+            viewModel.set('cutplanProcessing.porderid_link', porder.id);
+            viewModel.set('cutplanProcessing.pcontractid_link', porder.pcontractid_link);
+            viewModel.set('cutplanProcessing.productid_link', porder.productid_link);
+
+            var porderid_link = porder.id;
+            var pcontractid_link = porder.pcontractid_link;
+            var productid_link = porder.productid_link;
+            var producttypeid_link = 20;
+
+            // load sku store (npl)
+            if (pcontractid_link != null) {
+                var SkuStore = viewModel.getStore('Sku');
+                SkuStore.load_by_type_and_pcontract(producttypeid_link, pcontractid_link);
+            }
+
+            // load color store
+            if (pcontractid_link != null && productid_link != null) {
+                m.loadColorStore(pcontractid_link, productid_link);
+            }
+
+			GSmartApp.util.State.set('porderObj', null);
+		}
+
         if (id == 0) {
             viewModel.set('cutplanProcessing.processingdate', new Date());
         } else {
-            me.getInfo(id);
+            m.getInfo(id);
         }
     },
     onBackPage: function () {

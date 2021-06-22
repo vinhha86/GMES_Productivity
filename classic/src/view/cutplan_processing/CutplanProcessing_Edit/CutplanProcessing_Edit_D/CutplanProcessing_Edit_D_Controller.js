@@ -277,7 +277,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         cutplanProcessingDObj.met = viewModel.get('cutplanProcessingDObj.met');
         cutplanProcessingDObj.warehouseid_link = viewModel.get('cutplanProcessingDObj.warehouseid_link');
         cutplanProcessingDObj.epc = viewModel.get('cutplanProcessingDObj.epc');
-        cutplanProcessingDObj.met_err = viewModel.get('cutplanProcessingDObj.met_err');
+        cutplanProcessingDObj.met_err = viewModel.get('cutplanProcessingDObj.met_err') == null ? 0 : viewModel.get('cutplanProcessingDObj.met_err');
 
 		var warehouseObj = viewModel.get('warehouseObj');
 		cutplanProcessingDObj.skucode = warehouseObj.skucode;

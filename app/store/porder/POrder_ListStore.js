@@ -254,5 +254,46 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				}
 			}
 		});
-	}
+	},
+	loadStoreBySearch_for_cutplanprocessing: function (donvi, lenhsx_cb, sanpham_cb) {
+		var me = this;
+		var params = new Object();
+		params.granttoorgid_link = donvi;
+		params.ordercode = lenhsx_cb;
+		params.buyercode = sanpham_cb;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/porderlist/getallbysearch_for_cutplanprocessing',
+			paramsAsJson: true,
+			noCache: false,
+			// timeout: 60000,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				// totalProperty: 'totalCount'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function (records, operation, success) {
+				// this.fireEvent('loadStoreBySearch_Done');
+				this.fireEvent('POrder_ListStore_Done');
+				if (!success) {
+					this.fireEvent('logout');
+				}
+			}
+		});
+	},
 });

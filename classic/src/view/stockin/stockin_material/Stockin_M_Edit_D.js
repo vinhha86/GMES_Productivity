@@ -424,8 +424,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 				queryParam: 'code',		
 				enableKeyEvents : true,
 				listeners: {
-					keypress: 'onPressEnterSkucode'
-				}
+					keypress: 'onPressEnterSkucode',
+					// beforeQuery: function(){
+					// 	console.log('beforeQuery');
+					// 	this.store.proxy.extraParams = {
+					// 		entityType: 'cliente'
+					// 	}
+					// }
+				},
 			},
 			{
 				tooltip: 'Thêm SP',
