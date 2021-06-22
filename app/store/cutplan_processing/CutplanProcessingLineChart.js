@@ -4,11 +4,12 @@ Ext.define('GSmartApp.store.CutplanProcessingLineChart', {
 	alias: 'store.CutplanProcessingLineChart',
 	model: 'GSmartApp.model.CutplanProcessingLineChart',
 	
-    Load_byPorder:function(porderid_link){
+    Load_byPorder:function(porderid_link, skuid_link){
         this.removeAll();
 
         var param=new Object();
         param.porderid_link = porderid_link;
+        param.skuid_link = skuid_link;
 		this.setProxy({
             type: 'ajax',
             actionMethods: {

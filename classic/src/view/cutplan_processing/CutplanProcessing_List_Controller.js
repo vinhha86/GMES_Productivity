@@ -24,6 +24,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
             // select: 'onCutplanProcessingSelect',
             itemdblclick: 'onCutplanProcessingItemDblCLick'
         },
+        '#comboboxSku': {
+            select: 'onSKU_Select',
+        }
     },
     onDelete(grid, rowIndex, colIndex, item, e, record){
         var m = this;
@@ -116,11 +119,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
         var viewModel = this.getViewModel();
         var porder = viewModel.get('porder');
         var porderid_link = rec.get('id');
+        var maNPL_id = viewModel.get('maNPL_id');
         var fromDate = viewModel.get('fromDate');
         var toDate = viewModel.get('toDate');
 
         var CutplanProcessingStore = viewModel.getStore('CutplanProcessingStore');
-        CutplanProcessingStore.loadStore(fromDate, toDate, 100, 1, porderid_link);
+        CutplanProcessingStore.loadStore(fromDate, toDate, 100, 1, porderid_link, maNPL_id);
     },
     onCutplanProcessingSelect: function(e, selected, eOpts) {
         var viewModel = this.getViewModel();
@@ -191,4 +195,27 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
 		if (null == value) value = 0;
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
 	},
+    onSKU_Select: function(combo, record, eOpts){ // console.log(record);
+        var viewModel = this.getViewModel();
+        var porder = viewModel.get('porder');
+        var porderid_link = porder.get('id');
+        var maNPL_id = record.get('id');
+        viewModel.set('maNPL_id', maNPL_id);
+
+        // load ds theo doi cat
+        var CutplanProcessingStore = viewModel.getStore('CutplanProcessingStore');
+        var fromDate = viewModel.get('fromDate');
+        var toDate = viewModel.get('toDate');
+        if(CutplanProcessingStore) CutplanProcessingStore.loadStore(fromDate, toDate, 100, 1, porderid_link, maNPL_id);
+        console.log(maNPL_id);
+
+        // load chart tien do cat
+        var mainView = Ext.getCmp('cutplan_processing');
+        if(mainView){
+            var chartView = Ext.getCmp('CutplanProcessing_Chart_TienDoCat');
+            var chartViewController = chartView.getController();
+            var chart = Ext.getCmp('Chart_TienDoCat');
+            chartViewController.onChartRendered(chart);
+        }
+    }
 });

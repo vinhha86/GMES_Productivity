@@ -6,9 +6,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
         var ListOrgStore = viewModel.getStore('ListOrgStore');
         ListOrgStore.loadStore(13, false);
 
-        // test that
-        var POrder_ListStore = viewModel.getStore('POrder_ListStore');
-        POrder_ListStore.loadStoreBySearch_for_cutplanprocessing(8, 'bell', 'bell');
+        // test
+        // var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+        // POrder_ListStore.loadStoreBySearch_for_cutplanprocessing(8, 'bell', 'bell');
     },
     control: {
         '#btnSearchPorder': {
@@ -75,28 +75,49 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
         viewModel.set('porder', rec);
         var porderid_link = rec.get('id');
 
-        // load ds theo doi cat
-        var CutplanProcessingStore = viewModel.getStore('CutplanProcessingStore');
-        var fromDate = viewModel.get('fromDate');
-        var toDate = viewModel.get('toDate');
-        if(CutplanProcessingStore) CutplanProcessingStore.loadStore(fromDate, toDate, 100, 1, porderid_link);
+        // load combo sku cac npl
+        var pcontractid_link = rec.get('pcontractid_link');
+        var producttypeid_link = 20;
+        var SkuStore = viewModel.getStore('Sku');
+        SkuStore.load_by_type_and_pcontract_async(producttypeid_link, pcontractid_link);
+        SkuStore.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (!success) {
+                    this.fireEvent('logout');
+                } 
+                else {
+                    // 
+                    if(records.length > 0){
+                        // set gia tri combo dau tien
+                        var maNPL_id = records[0].get('id');
+                        viewModel.set('maNPL_id', maNPL_id);
+
+                        // load ds theo doi cat
+                        var CutplanProcessingStore = viewModel.getStore('CutplanProcessingStore');
+                        var fromDate = viewModel.get('fromDate');
+                        var toDate = viewModel.get('toDate');
+                        if(CutplanProcessingStore) CutplanProcessingStore.loadStore(fromDate, toDate, 100, 1, porderid_link, maNPL_id);
+
+                        // load chart tien do cat
+                        if(mainView){
+                            var chartView = Ext.getCmp('CutplanProcessing_Chart_TienDoCat');
+                            var chartViewController = chartView.getController();
+                            var chart = Ext.getCmp('Chart_TienDoCat');
+                            chartViewController.onChartRendered(chart);
+                        }
+                    }
+                }
+            }
+        })
 
         // load chart tien do lenh
         if(mainView){
             // vi ly do nao day ma ko dung duoc down itemId, phai choi getCmp
-
             // var chartView = mainView.down('#CutplanProcessing_Chart_TienDoCat');
             var chartView = Ext.getCmp('CutplanProcessing_Chart_TienDoLenhSX');
             var chartViewController = chartView.getController();
             var chart = Ext.getCmp('Chart_TienDoLenhSX');
-            chartViewController.onChartRendered(chart);
-        }
-
-        // load chart tien do cat
-        if(mainView){
-            var chartView = Ext.getCmp('CutplanProcessing_Chart_TienDoCat');
-            var chartViewController = chartView.getController();
-            var chart = Ext.getCmp('Chart_TienDoCat');
             chartViewController.onChartRendered(chart);
         }
     },

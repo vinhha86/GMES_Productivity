@@ -20,6 +20,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_ViewModel',
 		Product_AutoComplete: {
 			type :'Product_AutoComplete'
 		},
+		Sku:{
+			type: 'sku'
+		},
         POrderLineChartStore: {
             type: 'POrderLineChart'
         },
@@ -38,7 +41,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_ViewModel',
 		//
 		porder: null,
 		// search cutplan_processing
-		maNPL: null,
+		maNPL_id: null,
 		fromDate: null, // tim kiem
         toDate: null, // tim kiem
 	},

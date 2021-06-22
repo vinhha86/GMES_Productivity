@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoCat_
         var me = this.getView();
         var viewModel = this.getViewModel();
         var porder = viewModel.get('porder');
+        var maNPL_id = viewModel.get('maNPL_id');
         var store = chart.getStore();
         store.removeAll();
         store.add({
@@ -13,11 +14,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoCat_
             amountcut: null                                                 
         });
 
-        if(porder != null){
+        if(porder != null && maNPL_id != null){
             var porderId = porder.get('id');
 
             var CutplanProcessingLineChartStore = this.getViewModel().getStore('CutplanProcessingLineChartStore');
-            CutplanProcessingLineChartStore.Load_byPorder(porderId);
+            CutplanProcessingLineChartStore.Load_byPorder(porderId, maNPL_id);
             // LineChartStore.LoadPorderProcessing(4020);
             CutplanProcessingLineChartStore.load({
                 scope: this,

@@ -65,26 +65,26 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
         //         }
         //     },
         // },
-        {text: 'Mã NPL', dataIndex: 'maSP', width: 130,
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                var val = value == 'null' ? "" : value;
-                metaData.tdAttr = 'data-qtip="' + val + '"';
-                return val;
-            },
-            items: {
-                xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'cutplanProcessing_maSPFilter',
-                width: 125,
-                flex: 1,
-                margin: 2,
-                enableKeyEvents: true,
-                listeners: {
-                    keyup: 'onCutplanProcessing_maSPFilterKeyup',
-                    buffer: 500
-                }
-            },
-        },
+        // {text: 'Mã NPL', dataIndex: 'maSP', width: 130,
+        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+        //         var val = value == 'null' ? "" : value;
+        //         metaData.tdAttr = 'data-qtip="' + val + '"';
+        //         return val;
+        //     },
+        //     items: {
+        //         xtype: 'textfield',
+        //         fieldStyle: "",
+        //         reference: 'cutplanProcessing_maSPFilter',
+        //         width: 125,
+        //         flex: 1,
+        //         margin: 2,
+        //         enableKeyEvents: true,
+        //         listeners: {
+        //             keyup: 'onCutplanProcessing_maSPFilterKeyup',
+        //             buffer: 500
+        //         }
+        //     },
+        // },
         {text: 'Màu SP', dataIndex: 'color_name', flex: 1,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 var val = value == 'null' ? "" : value;
@@ -145,28 +145,28 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
                     disabled: '{isBtnLapPhieuMoi_disable}',
                 },
             },
-            // {
-            //     xtype:'combobox',
-            //     itemId: 'comboboxSku',
-            //     bind:{
-            //         store:'{Sku}',
-            //         value: '{maNPL}',
-            //         disabled: '{isBtnTimKiem_disable}',
-            //     },
-            //     fieldLabel: 'Mã NPL',
-            //     displayField: 'code',
-            //     valueField: 'id',
-            //     queryMode: 'local',
-            //     // editable: false,
-            //     // readOnly: true,
-            //     // allowBlank: false,
-            //     margin: 2,
-            //     // cls: 'notEditable',
-            //     labelWidth: 70,
-            //     width: 200,
-            //     // flex: 1,
-            //     // width: 250,
-            // },
+            {
+                xtype:'combobox',
+                itemId: 'comboboxSku',
+                bind:{
+                    store:'{Sku}',
+                    value: '{maNPL_id}',
+                    disabled: '{isBtnTimKiem_disable}',
+                },
+                fieldLabel: 'Mã NPL',
+                displayField: 'code',
+                valueField: 'id',
+                queryMode: 'local',
+                // editable: false,
+                // readOnly: true,
+                // allowBlank: false,
+                margin: 2,
+                // cls: 'notEditable',
+                labelWidth: 70,
+                width: 200,
+                // flex: 1,
+                // width: 250,
+            },
             {
                 itemId: 'fromDate',
                 xtype: 'datefield',
