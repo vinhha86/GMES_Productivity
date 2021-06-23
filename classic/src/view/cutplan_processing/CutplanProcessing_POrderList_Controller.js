@@ -4,7 +4,22 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
     init: function() {
         var viewModel = this.getViewModel();
         var ListOrgStore = viewModel.getStore('ListOrgStore');
-        ListOrgStore.loadStore(13, false);
+        ListOrgStore.loadStore_Async(13, false);
+        ListOrgStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+                    var session = GSmartApp.util.State.get('session');
+                    console.log(session);
+                    if(session.orgid_link != 1 && session.orgid_link != null){
+                        viewModel.set('porderSearchObj.donvi', session.orgid_link);
+                        viewModel.set('iscombo_DonVi_editable', false);
+                    }
+				}
+			}
+        });
 
         // test
         // var POrder_ListStore = viewModel.getStore('POrder_ListStore');

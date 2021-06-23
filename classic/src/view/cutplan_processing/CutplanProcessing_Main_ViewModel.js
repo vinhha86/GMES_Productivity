@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_ViewModel',
 			sanpham: null,
 
 		},
+		iscombo_DonVi_editable: true,
 		//
 		porder: null,
 		// search cutplan_processing

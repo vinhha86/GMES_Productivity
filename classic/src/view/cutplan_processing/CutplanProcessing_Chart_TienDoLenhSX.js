@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoLenh
                 type: 'line',
                 smooth: true,
                 showMarkers: true,
-                title: 'Vào chuyền',
+                title: 'SL vào chuyền',
                 xField: 'processingdate',
                 yField: 'amountinput',
                 style: {
@@ -104,102 +104,102 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoLenh
                     renderer: 'onTooltipRender_Input'
                 }
             },
-            {
-                type: 'line',
-                smooth: true,
-                showMarkers: true,
-                title: 'Ra chuyền',
-                xField: 'processingdate',
-                yField: 'amountoutput',
-                style: {
-                    lineWidth: 2
-                },
-                marker: {
-                    radius: 4,
-                    lineWidth: 2
-                },
-                label: {
-                    field: 'amountoutput',
-                    display: 'over'
-                },
-                highlight: {
-                    fillStyle: '#000',
-                    radius: 5,
-                    lineWidth: 2,
-                    strokeStyle: '#fff'
-                },
-                tooltip: {
-                    trackMouse: true,
-                    showDelay: 0,
-                    dismissDelay: 0,
-                    hideDelay: 0,
-                    renderer: 'onTooltipRender_Output'
-                }
-            },
-            {
-                type: 'line',
-                smooth: true,
-                showMarkers: true,
-                title: 'Đóng gói',
-                xField: 'processingdate',
-                yField: 'amountpacked',
-                style: {
-                    lineWidth: 2
-                },
-                marker: {
-                    radius: 4,
-                    lineWidth: 2
-                },
-                label: {
-                    field: 'amountpacked',
-                    display: 'over'
-                },
-                highlight: {
-                    fillStyle: '#000',
-                    radius: 5,
-                    lineWidth: 2,
-                    strokeStyle: '#fff'
-                },
-                tooltip: {
-                    trackMouse: true,
-                    showDelay: 0,
-                    dismissDelay: 0,
-                    hideDelay: 0,
-                    renderer: 'onTooltipRender_Packed'
-                }
-            },
-            {
-                type: 'line',
-                smooth: true,
-                showMarkers: true,
-                title: 'Nhập kho',
-                xField: 'processingdate',
-                yField: 'amountstocked',
-                style: {
-                    lineWidth: 2
-                },
-                marker: {
-                    radius: 4,
-                    lineWidth: 2
-                },
-                label: {
-                    field: 'amountstocked',
-                    display: 'over'
-                },
-                highlight: {
-                    fillStyle: '#000',
-                    radius: 5,
-                    lineWidth: 2,
-                    strokeStyle: '#fff'
-                },
-                tooltip: {
-                    trackMouse: true,
-                    showDelay: 0,
-                    dismissDelay: 0,
-                    hideDelay: 0,
-                    renderer: 'onTooltipRender_Stocked'
-                }
-            }           
+            // {
+            //     type: 'line',
+            //     smooth: true,
+            //     showMarkers: true,
+            //     title: 'Ra chuyền',
+            //     xField: 'processingdate',
+            //     yField: 'amountoutput',
+            //     style: {
+            //         lineWidth: 2
+            //     },
+            //     marker: {
+            //         radius: 4,
+            //         lineWidth: 2
+            //     },
+            //     label: {
+            //         field: 'amountoutput',
+            //         display: 'over'
+            //     },
+            //     highlight: {
+            //         fillStyle: '#000',
+            //         radius: 5,
+            //         lineWidth: 2,
+            //         strokeStyle: '#fff'
+            //     },
+            //     tooltip: {
+            //         trackMouse: true,
+            //         showDelay: 0,
+            //         dismissDelay: 0,
+            //         hideDelay: 0,
+            //         renderer: 'onTooltipRender_Output'
+            //     }
+            // },
+            // {
+            //     type: 'line',
+            //     smooth: true,
+            //     showMarkers: true,
+            //     title: 'Đóng gói',
+            //     xField: 'processingdate',
+            //     yField: 'amountpacked',
+            //     style: {
+            //         lineWidth: 2
+            //     },
+            //     marker: {
+            //         radius: 4,
+            //         lineWidth: 2
+            //     },
+            //     label: {
+            //         field: 'amountpacked',
+            //         display: 'over'
+            //     },
+            //     highlight: {
+            //         fillStyle: '#000',
+            //         radius: 5,
+            //         lineWidth: 2,
+            //         strokeStyle: '#fff'
+            //     },
+            //     tooltip: {
+            //         trackMouse: true,
+            //         showDelay: 0,
+            //         dismissDelay: 0,
+            //         hideDelay: 0,
+            //         renderer: 'onTooltipRender_Packed'
+            //     }
+            // },
+            // {
+            //     type: 'line',
+            //     smooth: true,
+            //     showMarkers: true,
+            //     title: 'Nhập kho',
+            //     xField: 'processingdate',
+            //     yField: 'amountstocked',
+            //     style: {
+            //         lineWidth: 2
+            //     },
+            //     marker: {
+            //         radius: 4,
+            //         lineWidth: 2
+            //     },
+            //     label: {
+            //         field: 'amountstocked',
+            //         display: 'over'
+            //     },
+            //     highlight: {
+            //         fillStyle: '#000',
+            //         radius: 5,
+            //         lineWidth: 2,
+            //         strokeStyle: '#fff'
+            //     },
+            //     tooltip: {
+            //         trackMouse: true,
+            //         showDelay: 0,
+            //         dismissDelay: 0,
+            //         hideDelay: 0,
+            //         renderer: 'onTooltipRender_Stocked'
+            //     }
+            // }           
         ],
         listeners: {
             afterrender: 'onChartRendered',

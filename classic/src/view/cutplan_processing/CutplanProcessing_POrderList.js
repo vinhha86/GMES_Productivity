@@ -50,11 +50,14 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
             items: [
                 {
                     xtype: 'combo',
+                    itemId:'combo_DonVi',
                     valueField: 'id',
                     displayField: 'name',
                     bind: {
                         value: '{porderSearchObj.donvi}',
-                        store: '{ListOrgStore}'
+                        store: '{ListOrgStore}',
+                        readOnly: '{!iscombo_DonVi_editable}',
+                        editable: '{iscombo_DonVi_editable}'
                     },
                     queryMode: 'local',
                     fieldLabel: 'Đơn vị',					
