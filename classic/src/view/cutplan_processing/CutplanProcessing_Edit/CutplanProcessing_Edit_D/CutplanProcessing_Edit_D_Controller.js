@@ -101,18 +101,18 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                                 // warehouseid_link, epc
 
                                 var responseObj = response.data[0];
-                                // kiểm tra status cây vải (2 == đã cắt)
-                                if(responseObj.status == 2){
-									Ext.Msg.show({
-										title: 'Thông báo',
-										msg: 'Cây vải đã cắt (status = 2)',
-										buttons: Ext.MessageBox.YES,
-										buttonText: {
-											yes: 'Đóng',
-										}
-									});
-                                    return;
-                                }
+                                // // kiểm tra status cây vải (2 == đã cắt)
+                                // if(responseObj.status == 2){
+								// 	Ext.Msg.show({
+								// 		title: 'Thông báo',
+								// 		msg: 'Cây vải đã cắt (status = 2)',
+								// 		buttons: Ext.MessageBox.YES,
+								// 		buttonText: {
+								// 			yes: 'Đóng',
+								// 		}
+								// 	});
+                                //     return;
+                                // }
                                 // kiểm tra cây vải đã có ở danh sách cutplan_processing_d chưa
                                 var isExist = m.checkEpcExist(responseObj);
                                 if(isExist){
@@ -127,6 +127,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
                                     return;
                                 }
                                 // set gia tri
+                                if(responseObj.met_err == null) responseObj.met_err = 0;
                     			viewModel.set('warehouseObj', responseObj);
                                 viewModel.set('cutplanProcessingDObj.warehouseid_link', responseObj.id);
                                 viewModel.set('cutplanProcessingDObj.epc', responseObj.epc);
@@ -327,7 +328,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit.CutplanProc
         });
     },
     DeleteCutplanProcessingD: function(grid, rowIndex, record){
-        console.log(record);
+        // console.log(record);
         var m = this;
         var viewModel = this.getViewModel();
         var cutplanProcessing = viewModel.get('cutplanProcessing');

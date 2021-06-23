@@ -22,8 +22,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
         });
 
         // test
-        // var POrder_ListStore = viewModel.getStore('POrder_ListStore');
-        // POrder_ListStore.loadStoreBySearch_for_cutplanprocessing(8, 'bell', 'bell');
+        var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+        POrder_ListStore.loadStoreBySearch_for_cutplanprocessing(8, 'bell', 'bell');
     },
     control: {
         '#btnSearchPorder': {
@@ -94,10 +94,15 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
         var pcontractid_link = rec.get('pcontractid_link');
         var producttypeid_link = 20;
         var SkuStore = viewModel.getStore('Sku');
+
+        var mainView = Ext.getCmp('cutplan_processing');
+        if(mainView) mainView.setLoading(true);
+
         SkuStore.load_by_type_and_pcontract_async(producttypeid_link, pcontractid_link);
         SkuStore.load({
             scope: this,
             callback: function (records, operation, success) {
+                if(mainView) mainView.setLoading(false);
                 if (!success) {
                     this.fireEvent('logout');
                 } 

@@ -20,6 +20,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_StockList_Contro
         var skuid_link = viewModel.get('skuid_link');
         var WarehouseStore = viewModel.getStore('WarehouseStore');
         WarehouseStore.loadBySkuAndStock(skuid_link);
+        WarehouseStore.getSorters().add({
+            property: 'lotnumber',
+            direction: 'ASC'
+        },{
+            property: 'packageid',
+            direction: 'ASC'
+        });
     },
     renderSum: function (value) {
 		if (null == value) value = 0;

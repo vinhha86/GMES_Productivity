@@ -7,9 +7,11 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
 
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
+        var laterDate = new Date().setDate(today.getDate()+30);
         priorDate = new Date(priorDate);
+        laterDate = new Date(laterDate);
         viewModel.set('fromDate', priorDate);
-        viewModel.set('toDate', today);
+        viewModel.set('toDate', laterDate);
 		// me.down('#fromDate').setValue(new Date(priorDate));
         // this.loadData();
     },
@@ -50,13 +52,18 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
         });
     },
     Delete:function(grid, rowIndex, record){
+        var me = this.getView();
         var id = record.data.id;
         var viewModel = this.getViewModel();
 
         var params = new Object();
         params.id = id;
+
+        me.setLoading(true);
+
         GSmartApp.Ajax.post('/api/v1/cutplan_processing/cutplan_processing_delete', Ext.JSON.encode(params),
             function (success, response, options) {
+                me.setLoading(false);
                 var response = Ext.decode(response.responseText);
                 if(success){
                     if (response.respcode == 200) {
@@ -70,8 +77,16 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
                         });
                         var CutplanProcessingStore = grid.getStore();
                         CutplanProcessingStore.removeAt(rowIndex);
-                        var CutplanProcessingDStore = viewModel.getStore('CutplanProcessingDStore');
-                        CutplanProcessingDStore.removeAll();
+
+                        // reload chart tien do cat
+                        var mainView = Ext.getCmp('cutplan_processing');
+                        if(mainView){
+                            var chartView = Ext.getCmp('CutplanProcessing_Chart_TienDoCat');
+                            var chartViewController = chartView.getController();
+                            var chart = Ext.getCmp('Chart_TienDoCat');
+                            chartViewController.onChartRendered(chart);
+                        }
+
                     }else{
                         Ext.Msg.show({
                             title: 'Thông báo',
@@ -121,7 +136,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
         var m = this;
         var viewModel = this.getViewModel();
         var porder = viewModel.get('porder');
-        var porderid_link = rec.get('id');
+        var porderid_link = porder.get('id');
         var maNPL_id = viewModel.get('maNPL_id');
         var fromDate = viewModel.get('fromDate');
         var toDate = viewModel.get('toDate');
