@@ -3,6 +3,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 	alias: 'store.WarehouseStore',
 	storeId: 'WarehouseStore',
 	model: 'GSmartApp.model.warehouse.WarehouseModel',
+	groupField: 'stockName',
 	sorters: {
 		direction: 'ASC',
 		property: 'material_product_code'
@@ -128,6 +129,42 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getMaterialListBySpaceEPC_search',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					this.fireEvent('logout');
+				}
+			}
+		});
+	},
+
+	loadBySkuAndStock: function (skuid_link) {
+		var me = this;
+		var params = new Object();
+		params.skuid_link = skuid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getBySkuAndStock',
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,

@@ -93,5 +93,12 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main_ViewModel',
 			}
 			return false;
 		},
+		isBtnTonKho_disable:function (get) {
+			var maNPL_id = get('maNPL_id');
+			if(maNPL_id == null){
+				return true;
+			}
+			return false;
+		},
     }
 })

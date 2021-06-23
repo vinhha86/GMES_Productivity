@@ -26,6 +26,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
         },
         '#comboboxSku': {
             select: 'onSKU_Select',
+        },
+        '#btnTonKho': {
+            click: 'onBtnTonKhoTap'
         }
     },
     onDelete(grid, rowIndex, colIndex, item, e, record){
@@ -216,6 +219,52 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
             var chartViewController = chartView.getController();
             var chart = Ext.getCmp('Chart_TienDoCat');
             chartViewController.onChartRendered(chart);
+        }
+    },
+    onBtnTonKhoTap: function(){
+        var viewModel = this.getViewModel();
+        var maNPL_id = viewModel.get('maNPL_id');
+
+        if(maNPL_id != null && !isNaN(maNPL_id)){
+            // popup
+            var form = Ext.create('Ext.window.Window', {
+                height: 600,
+                width: 900,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Danh sách vải tồn',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'CutplanProcessing_StockList',
+                    viewModel: {
+                        data: {
+                            skuid_link: maNPL_id,
+                        }
+                    }
+                }]
+            });
+            form.show();
+
+            form.down('#CutplanProcessing_StockList').getController().on('Thoat', function () {
+                form.close();
+            });
+        }else{
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn loại vải',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
         }
     }
 });

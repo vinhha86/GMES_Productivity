@@ -19,6 +19,7 @@ Ext.define('GSmartApp.model.warehouse.WarehouseModel', {
         'material_product_code',
         'material_product_id_link',
         'material_skuid_link',
-        'imgproduct'
+        'imgproduct',
+        'stockName'
     ]
 });

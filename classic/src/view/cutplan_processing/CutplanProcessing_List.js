@@ -134,75 +134,96 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
             xtype: 'toolbar',
             border: false,
             items: [
-            {
-                xtype: 'button',
-                margin: 2,
-                text: 'Lập phiếu mới',
-                iconCls: 'x-fa fa-plus',
-                itemId: 'btnLapPhieuMoi',
-                // handler: 'onNhapMuaMoi',
-                bind:{
-                    disabled: '{isBtnLapPhieuMoi_disable}',
+                {
+                    xtype: 'button',
+                    margin: 2,
+                    text: 'Lập phiếu mới',
+                    iconCls: 'x-fa fa-plus',
+                    itemId: 'btnLapPhieuMoi',
+                    // handler: 'onNhapMuaMoi',
+                    bind:{
+                        disabled: '{isBtnLapPhieuMoi_disable}',
+                    },
                 },
-            },
-            {
-                xtype:'combobox',
-                itemId: 'comboboxSku',
-                bind:{
-                    store:'{Sku}',
-                    value: '{maNPL_id}',
-                    disabled: '{isBtnTimKiem_disable}',
+                {
+                    xtype:'combobox',
+                    itemId: 'comboboxSku',
+                    bind:{
+                        store:'{Sku}',
+                        value: '{maNPL_id}',
+                        disabled: '{isBtnTimKiem_disable}',
+                    },
+                    fieldLabel: 'Mã NPL',
+                    displayField: 'code',
+                    valueField: 'id',
+                    queryMode: 'local',
+                    // editable: false,
+                    // readOnly: true,
+                    // allowBlank: false,
+                    margin: 2,
+                    // cls: 'notEditable',
+                    labelWidth: 70,
+                    width: 200,
+                    // flex: 1,
+                    // width: 250,
                 },
-                fieldLabel: 'Mã NPL',
-                displayField: 'code',
-                valueField: 'id',
-                queryMode: 'local',
-                // editable: false,
-                // readOnly: true,
-                // allowBlank: false,
-                margin: 2,
-                // cls: 'notEditable',
-                labelWidth: 70,
-                width: 200,
-                // flex: 1,
-                // width: 250,
-            },
-            {
-                itemId: 'fromDate',
-                xtype: 'datefield',
-                // value: new Date(),
-                margin: 2,
-                format:'d/m/Y',
-                fieldLabel: 'Từ ngày:',
-                labelWidth: 70,
-                width: 200,
-                bind: {
-                    value: '{fromDate}'
+                {
+                    itemId: 'fromDate',
+                    xtype: 'datefield',
+                    // value: new Date(),
+                    margin: 2,
+                    format:'d/m/Y',
+                    fieldLabel: 'Từ ngày:',
+                    labelWidth: 70,
+                    width: 200,
+                    bind: {
+                        value: '{fromDate}'
+                    }
+                }, 
+                {
+                    itemId: 'toDate',
+                    xtype: 'datefield',
+                    // value: new Date(),
+                    margin: 2,
+                    format:'d/m/Y',
+                    fieldLabel: 'đến ngày:',
+                    labelWidth: 70,
+                    width: 200,
+                    bind: {
+                        value: '{toDate}'
+                    }
+                },
+                {
+                    xtype: 'button',
+                    margin: 2,
+                    // text: 'Tìm kiếm',
+                    iconCls: 'x-fa fa-search',
+                    itemId: 'btnTimKiemCutPlanProcessing',
+                    bind:{
+                        disabled: '{isBtnTimKiem_disable}',
+                    },
                 }
-            }, 
-            {
-                itemId: 'toDate',
-                xtype: 'datefield',
-                // value: new Date(),
-                margin: 2,
-                format:'d/m/Y',
-                fieldLabel: 'đến ngày:',
-                labelWidth: 70,
-                width: 200,
-                bind: {
-                    value: '{toDate}'
-                }
-            },
-            {
-                xtype: 'button',
-                margin: 2,
-                // text: 'Tìm kiếm',
-                iconCls: 'x-fa fa-search',
-                itemId: 'btnTimKiemCutPlanProcessing',
-                bind:{
-                    disabled: '{isBtnTimKiem_disable}',
+            ]
+        }, 
+
+        {
+            dock: 'bottom',
+            layout: 'hbox',
+            xtype: 'toolbar',
+            border: false,
+            items: [
+                {
+                    xtype: 'button',
+                    margin: 2,
+                    text: 'Tồn kho',
+                    iconCls: 'x-fa fa-home',
+                    itemId: 'btnTonKho',
+                    // handler: 'onNhapMuaMoi',
+                    bind:{
+                        disabled: '{isBtnTonKho_disable}',
+                    },
                 },
-            }]
+            ]
         }, 
     ],
 });

@@ -22,8 +22,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
         });
 
         // test
-        // var POrder_ListStore = viewModel.getStore('POrder_ListStore');
-        // POrder_ListStore.loadStoreBySearch_for_cutplanprocessing(8, 'bell', 'bell');
+        var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+        POrder_ListStore.loadStoreBySearch_for_cutplanprocessing(8, 'bell', 'bell');
     },
     control: {
         '#btnSearchPorder': {

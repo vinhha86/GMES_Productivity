@@ -42,22 +42,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main', {
                     border: true,
                     margin: 1,
                     xtype: 'CutplanProcessing_Chart_TienDoLenhSX',
-                    dockedItems: [
-                        {
-                            dock: 'top',
-                            layout: 'hbox',
-                            xtype: 'toolbar',
-                            border: false,
-                            items: [
-                                {
-                                    xtype: 'displayfield',
-                                    fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-                                    labelWidth: 0,
-                                    value: 'Biểu đồ tiến độ lệnh sx'
-                                },
-                            ]
-                        }, 
-                    ],
                 },
                 {
                     region: 'east',
@@ -65,22 +49,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Main', {
                     margin: 1,
                     width: '50%',
                     xtype: 'CutplanProcessing_Chart_TienDoCat',
-                    dockedItems: [
-                        {
-                            dock: 'top',
-                            layout: 'hbox',
-                            xtype: 'toolbar',
-                            border: false,
-                            items: [
-                                {
-                                    xtype: 'displayfield',
-                                    fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-                                    labelWidth: 0,
-                                    value: 'Biểu đồ tiến độ cắt'
-                                },
-                            ]
-                        }, 
-                    ],
                 },
             ],
         },
