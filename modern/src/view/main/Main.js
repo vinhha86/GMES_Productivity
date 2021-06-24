@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.main.Main', {
     extend: 'Ext.Container',
     xtype: 'app-main',
+    id: 'GSmartApp-view-main',
     requires: [
         'Ext.Button',
         'Ext.list.Tree',
