@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail', {
     extend: 'Ext.form.Panel',
     xtype: 'HandoverCutToline_Detail',
-    id:'HandoverCutToline_Detail',
+    id:'handover_cut_toline_detail',
     controller: 'HandoverCutToline_Detail_Controller',
     viewModel:{
         type:'HandoverCutToline_Detail_ViewModel'

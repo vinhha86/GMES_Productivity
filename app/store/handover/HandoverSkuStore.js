@@ -3,6 +3,7 @@ Ext.define('GSmartApp.store.handover.HandoverSkuStore', {
 	alias: 'store.HandoverSkuStore',
 	storeId: 'HandoverSkuStore',
 	model: 'GSmartApp.model.handover.HandoverSkuModel',
+	idProperty: 'idx',
 	fields: [
 		{name: 'idx'},
 		{name: 'id', type: 'int'},
