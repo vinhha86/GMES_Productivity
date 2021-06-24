@@ -300,7 +300,263 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             viewModel.set('fieldState', true);
                             viewModel.set('titleName', record.data.name);
                         },
-                    }
+                    }, 
+                    //////////////////////////////////////////////////////
+                    {
+                        text: 'Thêm Tổ cơ điện',
+                        itemId: 'btnAddToCoDien_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 28);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },
+                    {
+                        text: 'Thêm Kho NPL',
+                        itemId: 'btnAddKhoNPL_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 29);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Tổ kỹ thuật',
+                        itemId: 'btnAddToKyThuat_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 30);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Tổ vệ sinh',
+                        itemId: 'btnAddToVeSinh_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 31);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Văn phòng xưởng',
+                        itemId: 'btnAddVanPhongXuong_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 32);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Tổ cơ động',
+                        itemId: 'btnAddToCoDong_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 33);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm FOB',
+                        itemId: 'btnAddFOB_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 34);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Đơn vị QA',
+                        itemId: 'btnAddQA_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 35);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Tổ bảo vệ',
+                        itemId: 'btnAddToBaoVe_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 36);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm KCS',
+                        itemId: 'btnAddKCS_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 37);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },{
+                        text: 'Thêm Lái xe',
+                        itemId: 'btnAddLaiXe_ListOrgMenu',
+                        separator: true,
+                        // margin: '5 0 0',
+                        // iconCls: 'x-fa fas fa-scissors',
+                        handler: function(){
+                            console.log(record);
+                            // var record = this.parentMenu.record;
+                            // me.onPOPriceEdit(record);
+                            var viewModel = me.getViewModel();
+                            viewInfo = Ext.getCmp('ListOrgDetail');
+                            viewInfo.getController().emptyForm();
+                            viewModel.set('id', 0);
+                            viewModel.set('parentid_link',record.id);
+                            //
+                            viewModel.set('orgtypeid_link', 38);
+                            viewModel.set('status', true);
+                            viewModel.set('is_manufacturer', 0);
+                            //
+                            viewModel.set('fieldState', true);
+                            viewModel.set('titleName', record.data.name);
+                        },
+                    },
                 ]
                 });
             var position = e.getXY();
@@ -414,7 +670,7 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             viewModel.set('id', 0);
                             viewModel.set('parentid_link',record.id);
                             //
-                            viewModel.set('orgtypeid_link', 28);
+                            viewModel.set('orgtypeid_link', 39);
                             viewModel.set('status', true);
                             viewModel.set('is_manufacturer', 0);
                             //

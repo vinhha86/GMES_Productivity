@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoLenh
     },
 
     onTooltipRender_Input: function(tooltip, record, item) {
-        tooltip.setHtml(record.get('processingdate') + '- Lũy kế VC: ' + record.get('amountinputsum'));
+        tooltip.setHtml(record.get('processingdate') + '- VC: ' + record.get('amountinput') + '- Lũy kế VC: ' + record.get('amountinputsum'));
     },
 
     onTooltipRender_Output: function(tooltip, record, item) {
