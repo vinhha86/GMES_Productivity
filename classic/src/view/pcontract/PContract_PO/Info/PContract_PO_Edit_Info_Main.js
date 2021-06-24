@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
             formBind: true,
             text: 'Lưu',
             margin: 5,
-            itemId: 'btnLuu_linegiaohang',
+            itemId: 'btnLuu',
             iconCls: 'x-fa fa-save'
         }, {
             xtype: 'button',
@@ -63,7 +63,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main', {
             iconCls: 'x-fa fa-save',
             bind: {
                 hidden: '{ishidden_luu_linegiaohang}'
-            }
+            },
+            itemId: 'btnLuuPOLine'
         }, {
             flex: 1
         }]

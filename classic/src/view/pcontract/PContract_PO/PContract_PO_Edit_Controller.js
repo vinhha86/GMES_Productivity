@@ -52,6 +52,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         '#btnLuu': {
             click: 'onSave'
         },
+        '#btnLuuTroLy': {
+            click: 'onSave'
+        },
         '#cboProduct': {
             select: 'onProductSelect'
         },

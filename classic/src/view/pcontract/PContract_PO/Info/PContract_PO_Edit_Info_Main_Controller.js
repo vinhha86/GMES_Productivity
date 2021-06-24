@@ -65,6 +65,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         },
         '#btnLuu': {
             click: 'onSave'
+        },
+        '#btnLuuPOLine': {
+            click: 'onSave'
         }
     },
     getInfo: function (id) {
