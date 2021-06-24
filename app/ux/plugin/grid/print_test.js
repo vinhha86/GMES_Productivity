@@ -222,7 +222,7 @@ Ext.define("GSmartApp.ux.grid.print_test", {
                          <tr>
                           <td></td>
                           <td><img width=101 height=101
-                          src="`+ config.getQrcode_personel_url() + val.id + `" v:shapes="Picture_x0020_16"></td>
+                          src="`+ config.getQrcode_personel_url() + val.code + `" v:shapes="Picture_x0020_16"></td>
                           <td width=1></td>
                          </tr>
                          <tr>
