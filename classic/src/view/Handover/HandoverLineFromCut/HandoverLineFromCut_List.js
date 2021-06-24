@@ -80,7 +80,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_List', {
     // },
     {
         text: 'Nơi giao',
-        dataIndex: 'orgFromNameParent',
+        dataIndex: 'orgFromName',
         width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -99,7 +99,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineFromCut_List', {
     },
     {
         text: 'Nơi nhận',
-        dataIndex: 'orgToNameParent',
+        dataIndex: 'orgToName',
         width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';

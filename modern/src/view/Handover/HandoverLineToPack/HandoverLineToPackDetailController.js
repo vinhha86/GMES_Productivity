@@ -95,8 +95,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         var params = new Object();
         params.id = userid_link;
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     data = response.data;
@@ -119,8 +130,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         var params = new Object();
         params.id = userid_link;
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     data = response.data;
@@ -148,8 +170,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         var params = new Object();
         params.id = id;
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/handover/getone', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     data = response.data;
@@ -214,14 +247,45 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         data = viewModel.get('currentRec');
         data.handoverProducts = handoverProducts;
 
-        console.log(data);
+        //
+        if(data.id == 0 || isNaN(data.id)){
+            data.id = null;
+        }
+        if(data.handoverProducts != null){
+            for(var i=0; i<data.handoverProducts.length; i++){
+                var handoverProduct = data.handoverProducts[i];
+                if(handoverProduct.id == 0 || isNaN(handoverProduct.id)){
+                    handoverProduct.id = null;
+                }
+    
+                if(handoverProduct.handoverSKUs != null){ 
+                    for(var j=0; j<handoverProduct.handoverSKUs.length; j++){
+                        var handoverSKU = handoverProduct.handoverSKUs[j];
+                        if(handoverSKU.id == 0 || isNaN(handoverSKU.id)){
+                            handoverSKU.id = null;
+                        }
+                    }
+                }
+            }
+        }
 
         params.data = data;
         params.msgtype = "HANDOVER_CREATE";
         params.message = "Tạo handover";
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/handover/create', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     if (response.respcode == 200) {
@@ -260,8 +324,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         var params = new Object();
         params.pordercode = pordercode;
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/porderlist/getbyexactpordercode', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -443,8 +518,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         var params = new Object();
         params.porderid_link = porderid_link;
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/handoverproduct/getByPorderId', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -547,8 +633,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         params.productid_link = productid_link;
         params.orgid_from_link = orgid_from_link; // org grant
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/handoversku/getByHandoverProduct', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     var data = response.data; console.log(data);
@@ -598,8 +695,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         var params = new Object();
         params.id = id;
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/handover/delete', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     if(response.message == 'Phiếu đã được bên nhận xác nhận'){
@@ -717,8 +825,19 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPackDetailController', {
         params.msgtype = "HANDOVER_SETSTATUS";
         params.message = "Set status";
 
+        var mainView = Ext.getCmp('handover_line_topack_edit');
+        if(mainView) {
+            mainView.setMasked({
+                xtype: 'loadmask',
+                message: 'Đang tải'
+            });
+        }
+
         GSmartApp.Ajax.post('/api/v1/handover/setstatus', Ext.JSON.encode(params),
             function (success, response, options) {
+                if(mainView) {
+                    mainView.setMasked(false);
+                }
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {

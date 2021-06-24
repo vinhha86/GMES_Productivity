@@ -99,7 +99,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_List', {
     },
     {
         text: 'Nơi nhận',
-        dataIndex: 'orgToNameParent',
+        dataIndex: 'orgToName',
         width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
