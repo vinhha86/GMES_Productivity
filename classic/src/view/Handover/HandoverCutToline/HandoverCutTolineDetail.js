@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutTolineDetail', {
         region: 'center',
         border: false,
         xtype: 'HandoverCutToline_Detail',
-        id: 'handover_cut_toline_detail'
+        // id: 'handover_cut_toline_detail'
     }],
 });
 

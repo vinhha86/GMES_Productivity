@@ -96,29 +96,45 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
                     return value;
                 }
             },
-		},{
+		},
+		// {
+		// 	text: 'ĐVT', 
+		// 	dataIndex: 'unitid_link',
+		// 	width: 70,
+		// 	editor: {
+		// 		completeOnEnter: true,
+		// 		field: {
+		// 			xtype: 'combo',
+		// 			typeAhead: true,
+		// 			triggerAction: 'all',
+		// 			selectOnFocus: false,
+		// 			bind: {
+		// 				store: '{UnitStore}',
+		// 				// value: '{unitid_link}'
+		// 			},
+		// 			displayField: 'code',
+		// 			valueField: 'id',
+		// 			queryMode : 'local',
+		// 			editable: false,
+		// 			readOnly: true
+		// 		}
+		// 	},
+		// 	renderer: 'renderUnit'
+		// },
+		{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
 			width: 70,
-			editor: {
-				completeOnEnter: true,
-				field: {
-					xtype: 'combo',
-					typeAhead: true,
-					triggerAction: 'all',
-					selectOnFocus: false,
-					bind: {
-						store: '{UnitStore}',
-						// value: '{unitid_link}'
-					},
-					displayField: 'code',
-					valueField: 'id',
-					queryMode : 'local',
-					editable: false,
-					readOnly: true
+			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) value = 1;
+				if(value == 1){
+					return 'MÉT';
 				}
+				if(value == 3){
+					return 'YARD'
+				}
+				return "";
 			},
-			renderer: 'renderUnit'
 		},
         {
 			xtype: 'numbercolumn',
@@ -277,7 +293,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 				margin: '0 5 0 5',
 				itemId:'skucode',
 				fieldLabel: 'Mã hàng',
-				width: 250,
+				width: 350,
 				labelWidth: 70,
 				hideLabel: false,			
 				bind:{

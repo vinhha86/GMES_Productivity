@@ -1,27 +1,51 @@
-Ext.define('GSmartApp.view.stock.StockSpaceController', {
+Ext.define('GSmartApp.view.stock.stockcreate.StockSpaceController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockSpaceController',
-    Id: 0,
     init: function () {
-        // this.onloadPage();
+        this.onloadPage();
     },
     control: {
         '#btnLuuSpace': {
             click: 'onLuu'
         },
-        // '#btnThemDonViTrucThuoc': {
-        //     click: 'onThemTrucThuoc'
-        // }
+        '#btnThoat': {
+            click: 'onThoat'
+        },
+        '#StockSpace': {
+            afterrender: 'onAfterrender'
+        }
     },
-    // onloadPage: function(){
-    //     var viewModel = this.getViewModel();
-    //     var ListKhoRowStore = viewModel.getStore('ListKhoRowStore');
-    //     ListKhoRowStore.loadOrgByTypeKho();
-    // },
+    onAfterrender: function(){
+        var me = this.getView();
+        me.down('#txtFieldSpacename').focus();
+    },
+    onloadPage: function(){
+        var viewModel = this.getViewModel();
+        //
+        var ListKhoRowStore = viewModel.getStore('ListKhoRowStore');
+        ListKhoRowStore.loadOrgByTypeKho();
+        //
+        var record = viewModel.get('record');
+        // edit
+        var isEdit = viewModel.get('isEdit');
+        if(isEdit){ // record: hang
+            viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
+            viewModel.set('spaceObj.spacename', record.get('spacename'));
+            viewModel.set('spaceObj.spacename_old', record.get('spacename'));
+            viewModel.set('spaceObj.rowid_link', record.get('rowid_link'));
+            viewModel.set('spaceObj.isCreateNew', false);
+        }else{ // record: day
+            viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
+            viewModel.set('spaceObj.rowid_link', record.get('id'));
+            viewModel.set('spaceObj.isCreateNew', true);
+        }
+    },
+    onThoat: function(){
+        this.fireEvent('Thoat');
+    },
     onLuu: function () {
         var m = this;
         var me = this.getView();
-        var treePanel = Ext.getCmp('stock').down('StockMenu');
 
         var viewModel = this.getViewModel();
         var spaceObj = viewModel.get('spaceObj');
@@ -50,6 +74,7 @@ Ext.define('GSmartApp.view.stock.StockSpaceController', {
                     yes: 'Đóng',
                 }
             });
+            m.fireEvent('Thoat');
             return;
         }
 
@@ -58,6 +83,7 @@ Ext.define('GSmartApp.view.stock.StockSpaceController', {
         params.spacename = spaceObj.spacename;
         params.spacename_old = spaceObj.spacename_old;
         params.rowid_link = spaceObj.rowid_link;
+        params.isCreateNew = spaceObj.isCreateNew;
 
         me.setLoading("Đang lưu dữ liệu");
         GSmartApp.Ajax.postJitin('/api/v1/stock/create_space', Ext.JSON.encode(params),
@@ -74,10 +100,7 @@ Ext.define('GSmartApp.view.stock.StockSpaceController', {
                                 yes: 'Đóng',
                             }
                         });
-                        
-                        var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        StockTreeStore.load();
-                        viewModel.set('spaceObj', null);
+                        m.fireEvent('Luu', response, spaceObj);
                     }
                     else {
                         Ext.Msg.show({

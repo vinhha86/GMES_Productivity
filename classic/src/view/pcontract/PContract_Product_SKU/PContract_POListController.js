@@ -365,7 +365,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         isedit: true,
                         productpairid_link: rec.get('productid_link'),
                         isHidden_req: isHidden_req == null ? false : true,
-                        productid_link: rec.get('productid_link')
+                        productid_link: rec.get('productid_link'),
+                        width_PContract_PO_Edit_Porder_Req: 0
                     }
                 }
             }]

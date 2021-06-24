@@ -191,7 +191,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             iconCls: 'x-fa fa-plus',
             handler: 'onThemSKU',
             bind: {
-                disabled: '{isDisable_btnThemSKU}'
+                disabled: '{isDisable_btnThemSKU}',
+                hidden: '{isHiddenThemSKU}'
             }
         },
         {

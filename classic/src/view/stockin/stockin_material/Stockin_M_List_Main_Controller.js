@@ -151,6 +151,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
             this.redirectTo('stockin_m_main/1/create');
         }        
     },
+    onNhapDieuChuyen: function(){
+        this.redirectTo('stockin_m_main/2/create');
+    },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         var viewmodel = this.getViewModel();
         var id = record.data.id;
@@ -307,6 +310,47 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
         else if (this.invoice_numberFilter) {
             filters.remove(this.invoice_numberFilter);
             this.invoice_numberFilter = null;
+        }
+    },
+
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('StockinD_Store');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'skucode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
+    onFilterValueTenNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('StockinD_Store');
+        var filterField = this.lookupReference('ValueFilterFieldTenNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldTenNPL = filters.add({
+                id: 'ValueFilterFieldTenNPL',
+                property: 'skuname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldTenNPL) {
+            filters.remove(this.ValueFilterFieldTenNPL);
+            this.ValueFilterFieldTenNPL = null;
         }
     },
     renderSum: function(value, summaryData, dataIndex) {

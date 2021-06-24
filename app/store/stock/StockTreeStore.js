@@ -9,10 +9,11 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 		'name',
 	],
 	expanded: true,
-	loadStore: function (phanxuong_orgid_link) {
+	loadStore: function (maHangId, donHang) {
 		var me = this;
 		var params = new Object();
-		params.phanxuong_orgid_link = phanxuong_orgid_link;
+		params.maHangId = maHangId;
+		params.donHang = donHang;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -37,6 +38,7 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 		this.loadPage(1, {
 			scope: this,
 			callback: function (records, operation, success) {
+				this.fireEvent('loadStore_Done');
 				if (!success) {
 					this.fireEvent('logout');
 				}

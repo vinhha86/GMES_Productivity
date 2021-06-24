@@ -14,8 +14,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		// orgfromstore.loadStore_byRoot(listidtype);
 
-		var orgtostore = viewModel.getStore('OrgToStore');
-		orgtostore.loadStore_allchildren_byorg(listidtype);
+		// var orgtostore = viewModel.getStore('OrgToStore');
+		// orgtostore.loadStore_allchildren_byorg(listidtype);
 
 		var currencyStore = viewModel.getStore('CurrencyStore');
 		currencyStore.loadStore();

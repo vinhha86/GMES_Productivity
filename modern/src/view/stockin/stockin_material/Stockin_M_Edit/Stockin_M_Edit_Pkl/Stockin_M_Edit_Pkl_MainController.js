@@ -81,6 +81,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var m = this;
         var viewModel = this.getViewModel();
         
+        Ext.Viewport.setMasked(false);
+
         // viewModel.set('lotnumberTxt', '');
         viewModel.set('packageidTxt', '');
         viewModel.set('yTxt', '');
@@ -387,7 +389,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_create', Ext.JSON.encode(params),
             function (success, response, options) {
                 // me.setLoading(false);
-                myview.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -408,6 +409,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
                         Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
                     }
                 } else {
+                    Ext.Viewport.setMasked(false);
                     var response = Ext.decode(response.responseText);
                     Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
                 }

@@ -199,8 +199,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         },
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-        //     metaData.tdAttr = 'data-qtip="' + value + '"';
-        //     return value == 'null' ? '' : value;
+        //     metaData.tdAttr = 'data-qtip="' + Ext.Date.format(value, 'd/m/Y') + '"';
+        //     return value;
         // }
     }
     ],

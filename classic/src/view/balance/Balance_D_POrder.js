@@ -31,7 +31,24 @@ Ext.define('GSmartApp.view.balance.Balance_D_POrder', {
 		{
 			text: 'Mã NPL', 
 			width: 120,
-			dataIndex: 'mat_sku_code'
+			dataIndex: 'mat_sku_code',
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaNPLKeyup',
+					buffer: 500
+				}
+			}
 		},
 		{
 			text: 'Màu NPL', 

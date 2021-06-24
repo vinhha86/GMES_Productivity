@@ -25,8 +25,9 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D_Controlle
         //     return;
         // }
         if(columnIndex == 0){
-            recordValue = record.get('met');
-			label = 'Dài cây';
+            // recordValue = record.get('met');
+			// label = 'Dài cây';
+            return;
         }
         if(columnIndex == 1){
             recordValue = record.get('la_vai');

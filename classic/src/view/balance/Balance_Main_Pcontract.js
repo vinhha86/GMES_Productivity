@@ -2,8 +2,9 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract', {
     extend: 'Ext.container.Container',
     xtype: 'Balance_Main_Pcontract',
     id: 'Balance_Main_Pcontract',
+    itemId: 'Balance_Main_Pcontract',
     controller: 'Balance_Main_Pcontract_Controller',
-	layout: {
+    layout: {
         type: 'border'
     },
     items: [
@@ -17,5 +18,5 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract', {
             region: 'center',
             xtype: 'Balance_D_Pcontract'
         }
-    ] 
+    ]
 });

@@ -1,17 +1,17 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContract_PO_Edit_ViewModel',
-    requires: ['GSmartApp.store.unit.UnitStore', 
-    'GSmartApp.store.pcontract.PContract_PO_Price_Store',
-    'GSmartApp.store.product.ProductStore',
-    'GSmartApp.store.POrderFilter', 'GSmartApp.store.org.ListOrgStore'],
-    stores:{
+    requires: ['GSmartApp.store.unit.UnitStore',
+        'GSmartApp.store.pcontract.PContract_PO_Price_Store',
+        'GSmartApp.store.product.ProductStore',
+        'GSmartApp.store.POrderFilter', 'GSmartApp.store.org.ListOrgStore'],
+    stores: {
         POrderStore: {
             type: 'POrderFilter'
         },
         porderReqStore: {
             type: 'POrder_Req'
-        },        
+        },
         CurrencyStore: {
             type: 'CurrencyStore'
         },
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         Price_D_SKUStore: {
             type: 'PContract_PO_Price_D_SKU_Store'
-        }, 
+        },
         ProductStore: {
             type: 'ProductStore'
         },
@@ -35,14 +35,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         },
         UnitStore: {
             type: 'UnitStore'
-        }  ,
-        EndBuyer : {
+        },
+        EndBuyer: {
             type: 'ListOrgStore'
         },
-        Vender:{
-            type : 'ListOrgStore'
+        Vender: {
+            type: 'ListOrgStore'
         },
-        PackingTypeStore:{
+        PackingTypeStore: {
             type: 'PackingTypeStore'
         },
         QCOrgStore: {
@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
     data: {
         id: null,
         po_typeid_link: 0,
-        parentId : 0,
+        parentId: 0,
         po_price: null,
         po_price_copy: null,
         packing_arr: null,
@@ -74,10 +74,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
             id: null
         },
         schedule: {
-            startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()-1, 1),
-            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
+            startDate: new Date((new Date()).getFullYear(), (new Date()).getMonth() - 1, 1),
+            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 6, 1),
             listid: '13,14',
-            PO : '',
+            PO: '',
             buyer: 0,
             vendor: 0,
             isReqPorder: true,
@@ -92,7 +92,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         isHidden_PDF: true,
         isHidden_KHGH: false,
         isHidden_Phanlenh: true,
-        isHidden_GuestView : true,
+        isHidden_GuestView: true,
         isPO_BuyerDisable: false,
         isPO_VendorDisable: false,
         isSizeset_CheckOK: false,
@@ -113,5 +113,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_ViewModel', {
         // dung cho view price_d_sku
         price_d_record: null,
         price_d_sku_record: null,
+
+        //nut luu khi them moi 
+        hiddenBtnLuuAdd: true
     }
 })

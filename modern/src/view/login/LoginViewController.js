@@ -53,6 +53,8 @@ Ext.define('GSmartApp.view.login.LoginViewController', {
                         	if(!success){
 
                         	} else {
+								var mainView = Ext.getCmp('GSmartApp-view-main');
+								if(mainView) mainView.destroy();
                         		Ext.create('GSmartApp.view.main.Main',{fullscreen: true});
                         	}
                         });

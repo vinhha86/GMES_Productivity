@@ -65,5 +65,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Product_Controller', {
     },
 	onXoa: function(){
 
-	}
+	},
+	onFilterValueMaSPKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('StockinProduct_Store');
+        var filterField = this.lookupReference('ValueFilterFieldMaSP'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaSP = filters.add({
+                id: 'ValueFilterFieldMaSP',
+                property: 'product_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaSP) {
+            filters.remove(this.ValueFilterFieldMaSP);
+            this.ValueFilterFieldMaSP = null;
+        }
+    },
 })

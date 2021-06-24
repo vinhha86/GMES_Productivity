@@ -41,6 +41,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
         },
         { 
             header: 'Mã SP', dataIndex: 'porder_product_buyercode', width: 120, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -57,6 +62,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
         },
         { 
             header: 'Lệnh SX', dataIndex: 'porder_code', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",

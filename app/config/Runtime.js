@@ -12,7 +12,7 @@ Ext.define('GSmartApp.config.Runtime', {
             dictionary: 'resources/dictionary.json'
         },
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        appBaseUrl: 'http://localhost:8990/gsmartcore',
+        // appBaseUrl: 'http://localhost:8990/gsmartcore',
         appBaseUrl_Jitin: 'http://localhost:8991/jitin',
         // appBaseUrl_demo: 'http://localhost:9091/',
 
@@ -23,15 +23,28 @@ Ext.define('GSmartApp.config.Runtime', {
         // appBaseUrl_Jitin: 'http://27.71.231.154:8080/jitindha',
         // back: 'http://27.71.231.154:8081/oauth/',
 
-        // appBaseUrl: 'http://gpay.vn:8090/gmes',
+        appBaseUrl: 'http://gpay.vn:8090/gmes',
         // appBaseUrl_Jitin: 'http://gpay.vn:8090/jitin',
         back: 'http://gpay.vn:8181/oauth/',
 
+        //local
         qrcode_personel_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_personel?text=',
         qrcode_bike_number_url: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_bike_number?text=',
         image_person: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getimage_person?id=',
         Logo: 'http://localhost:8990/gsmartcore/api/v1/qrocde/getlogo',
-        // back: 'http://localhost:8181/oauth/',
+
+        //gpay
+        // qrcode_personel_url: 'http://gpay.vn:8090/gmes/api/v1/qrocde/getqr_code_personel?text=',
+        // qrcode_bike_number_url: 'http://gpay.vn:8090/gmes/api/v1/qrocde/getqr_code_bike_number?text=',
+        // image_person: 'http://gpay.vn:8090/gmes/api/v1/qrocde/getimage_person?id=',
+        // Logo: 'http://gpay.vn:8090/gmes/api/v1/qrocde/getlogo',
+
+        // //dha
+        // qrcode_personel_url: 'http://27.71.231.154:8080/gmesdha/api/v1/qrocde/getqr_code_personel?text=',
+        // qrcode_bike_number_url: 'http://27.71.231.154:8080/gmesdha/api/v1/qrocde/getqr_code_bike_number?text=',
+        // image_person: 'http://27.71.231.154:8080/gmesdha/api/v1/qrocde/getimage_person?id=',
+        // Logo: 'http://27.71.231.154:8080/gmesdha/api/v1/qrocde/getlogo',
+        // // back: 'http://localhost:8181/oauth/',
         token: null,
         enableSSO: false,
         warmUpTime: 300000,
@@ -40,7 +53,7 @@ Ext.define('GSmartApp.config.Runtime', {
         avatar: null,
         pageSize: 25,
         //RFID config
-        print_material_label: true,
+        print_material_label: false,
         print_rfid_enable: true,
         // MQTT config
         deviceid: 'devsim-0002',

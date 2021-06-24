@@ -34,6 +34,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             }]
         },             
         {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -51,6 +56,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
             summaryRenderer: 'renderSum'
         },
         {text: 'Số Invoice', dataIndex: 'invoice_number', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -129,7 +139,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                     itemId: 'btnNhapDieuChuyen', // id:2
                     // iconCls: 'fa fa-file-pdf-o greenIcon',
                     text: 'Nhập điều chuyển',
-                    // handler: 'onNhapMuaMoi'
+                    handler: 'onNhapDieuChuyen'
                 },
                 {
                     itemId: 'btnNhapGiaCong', // id:4

@@ -27,8 +27,25 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 	columns: [
 		{
 			text: 'Mã NPL',
-			width: 100,
-			dataIndex: 'mat_sku_code'
+			// width: 100,
+			flex: 1,
+			dataIndex: 'mat_sku_code',
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaNPLKeyup',
+					buffer: 500
+				}
+			}
 		},
 		{
 			text: 'Thành phần vải',
@@ -42,7 +59,11 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 		{
 			text: 'Màu SP',
 			dataIndex: 'mat_sku_color_name',
-			width: 85
+			width: 150,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
 		},
 		// {
 		// 	text: 'Cỡ', 

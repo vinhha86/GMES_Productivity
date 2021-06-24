@@ -209,7 +209,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                                 obj_copy_btn_hidden: false,
                                 po: {
                                     po_typeid_link: 0
-                                }
+                                },
+                                hiddenBtnLuuAdd: false
                             }
                         }
                     }]
@@ -977,7 +978,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             porttoid_link: rec.get('porttoid_link')
                         },
                         pcontract_po_productivity: plan_productivity,
-                        width_PContract_PO_Edit_Porder_Req: 270
+                        width_PContract_PO_Edit_Porder_Req: 270,
+                        ishidden_luu_linegiaohang: false
                     }
                 }
             }]

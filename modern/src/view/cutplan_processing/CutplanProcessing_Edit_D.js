@@ -31,8 +31,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_D', {
     
 
     bind: {
-        store:'{cutplanProcessing.cutplanProcessingD}',  
-        // store: '{CutplanProcessingDStore}'
+        // store:'{cutplanProcessing.cutplanProcessingD}',
+        store: '{CutplanProcessingDStore}'
     },
 
     columns: [

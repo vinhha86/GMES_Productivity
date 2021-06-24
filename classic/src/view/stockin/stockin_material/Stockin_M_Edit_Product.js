@@ -30,18 +30,45 @@ Ext.define('GSmartApp.view.pcontract.Stockin_M_Edit_Product', {
     },{
         text:'Mã SP (Buyer)',
         dataIndex:'product_code',
-        width: 120,
+        width: 200,
         listeners:{
             dblclick: 'viewProductDetail'
         },
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaSP',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaSPKeyup',
+                buffer: 500
+            }
+        }
     },{
         text:'Tên SP (Buyer)',
         dataIndex:'product_name',
-        width: 200
+        width: 200,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
     },{
         text:'Mô tả',
         dataIndex:'product_desc',
-        flex: 1
+        flex: 1,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
     },
     ],
     dockedItems:[{

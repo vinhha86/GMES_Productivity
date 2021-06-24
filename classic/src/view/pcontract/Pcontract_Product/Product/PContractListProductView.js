@@ -73,10 +73,44 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
         listeners:{
             dblclick: 'viewProductDetail'
         },
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaSP',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaSPKeyup',
+                buffer: 500
+            }
+        }
     },{
         text:'Tên SP (Buyer)',
         dataIndex:'productName',
-        width: 200
+        width: 200,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldTenSP',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueTenSPKeyup',
+                buffer: 500
+            }
+        }
     },{
         text:'Mô tả',
         dataIndex:'productinfo',

@@ -1,7 +1,6 @@
-Ext.define('GSmartApp.view.stock.StockRowController', {
+Ext.define('GSmartApp.view.stock.stockcreate.StockRowController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockRowController',
-    Id: 0,
     init: function () {
         this.onloadPage();
     },
@@ -9,23 +8,44 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
         '#btnLuuRow': {
             click: 'onLuu'
         },
-        // '#btnThemDonViTrucThuoc': {
-        //     click: 'onThemTrucThuoc'
-        // }
+        '#btnThoat': {
+            click: 'onThoat'
+        },
+        '#StockRow': {
+            afterrender: 'onAfterrender'
+        }
+    },
+    onAfterrender: function(){
+        var me = this.getView();
+        me.down('#txtFieldCode').focus();
     },
     onloadPage: function(){
         var viewModel = this.getViewModel();
+        //
         var ListKhoRowStore = viewModel.getStore('ListKhoRowStore');
         ListKhoRowStore.loadOrgByTypeKho();
+        //
+        var record = viewModel.get('record');
+        // edit
+        var isEdit = viewModel.get('isEdit');
+        if(isEdit){ // record: day
+            viewModel.set('rowObj.orgid_link', record.get('orgid_link'));
+            viewModel.set('rowObj.code', record.get('name'));
+            viewModel.set('rowObj.id', record.get('id'));
+        }else{ // record: kho
+            viewModel.set('rowObj.orgid_link', record.get('id'));
+        }
     },
     emptyForm: function(){
         var viewModel = this.getViewModel();
         viewModel.set('rowObj', null);
     },
+    onThoat: function(){
+        this.fireEvent('Thoat');
+    },
     onLuu: function () {
         var m = this;
         var me = this.getView();
-        var treePanel = Ext.getCmp('stock').down('StockMenu');
 
         var viewModel = this.getViewModel();
         var rowObj = viewModel.get('rowObj');
@@ -45,6 +65,7 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
             return;
         }
 
+        rowObj.code = rowObj.code.toUpperCase();
         var params = new Object();
         params.data = rowObj;
 
@@ -63,37 +84,7 @@ Ext.define('GSmartApp.view.stock.StockRowController', {
                                 yes: 'Đóng',
                             }
                         });
-                        
-                        var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        var items = StockTreeStore.data.items; // items trong tree
-                        var stockrow = response.stockrow;
-                        var isNew = response.isNew;
-
-                        // check ton tai
-                        if(!isNew){
-                            var node = StockTreeStore.findNode('idString', '3;' + stockrow.id);
-                            node.data.name = stockrow.code;
-                        }
-                        if(isNew){
-                            var parentNode = StockTreeStore.findNode('idString', '2;' + stockrow.orgid_link);
-                            var stockrowObj = new Object();
-                            stockrowObj.children = [];
-                            stockrowObj.expandable = true;
-                            stockrowObj.expanded = false;
-                            stockrowObj.id = stockrow.id;
-                            stockrowObj.idString = '3;' + stockrow.id;
-                            stockrowObj.leaf = true;
-                            stockrowObj.name = stockrow.code;
-                            stockrowObj.orgid_link = stockrow.orgid_link;
-                            stockrowObj.parentId = stockrow.orgid_link;
-                            stockrowObj.parentIdString = '2;' + stockrow.orgid_link;
-                            stockrowObj.type = 3;
-                            stockrowObj.visible = true;
-                            parentNode.appendChild(stockrowObj);
-                        }
-
-                        treePanel.reconfigure(StockTreeStore);
-                        viewModel.set('rowObj', null);
+                        m.fireEvent('Luu', response);
                     }
                     else {
                         Ext.Msg.show({

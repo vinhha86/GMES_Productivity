@@ -81,12 +81,48 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		// },  			
 		{
 			text: 'Mã NPL', 
-			width: 100,
-			dataIndex: 'skucode'
+			dataIndex: 'skucode',
+			// width: 100,
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaNPLKeyup',
+					buffer: 500
+				}
+			}
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
-			width: 100,
+			// width: 100,
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldTenNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueTenNPLKeyup',
+					buffer: 500
+				}
+			}
 		},{
 			text: 'Mô tả', 
 			dataIndex: 'sku_product_desc',
@@ -94,34 +130,50 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'sku_product_color',
-			width: 120
+			width: 150
 		},{
 			text: 'Cỡ khổ', 
 			dataIndex: 'size_name',
 			width: 70
-		},{
+		},
+		// {
+		// 	text: 'ĐVT', 
+		// 	dataIndex: 'unitid_link',
+		// 	width: 70,
+		// 	editor: {
+		// 		completeOnEnter: true,
+		// 		field: {
+		// 			xtype: 'combo',
+		// 			typeAhead: true,
+		// 			triggerAction: 'all',
+		// 			selectOnFocus: false,
+		// 			bind: {
+		// 				store: '{UnitStore}',
+		// 				// value: '{unitid_link}'
+		// 			},
+		// 			displayField: 'code',
+		// 			valueField: 'id',
+		// 			queryMode : 'local',
+		// 			editable: false,
+		// 			readOnly: true
+		// 		}
+		// 	},
+		// 	renderer: 'renderUnit'
+		// },
+		{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
 			width: 70,
-			editor: {
-				completeOnEnter: true,
-				field: {
-					xtype: 'combo',
-					typeAhead: true,
-					triggerAction: 'all',
-					selectOnFocus: false,
-					bind: {
-						store: '{UnitStore}',
-						// value: '{unitid_link}'
-					},
-					displayField: 'code',
-					valueField: 'id',
-					queryMode : 'local',
-					editable: false,
-					readOnly: true
+			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) value = 1;
+				if(value == 1){
+					return 'MÉT';
 				}
+				if(value == 3){
+					return 'YARD'
+				}
+				return "";
 			},
-			renderer: 'renderUnit'
 		},
 		// {
 		// 	xtype: 'numbercolumn',
@@ -350,7 +402,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 				margin: '0 5 0 5',
 				itemId:'skucode',
 				fieldLabel: 'Mã hàng',
-				width: 250,
+				width: 350,
 				labelWidth: 70,
 				hideLabel: false,			
 				bind:{
@@ -372,8 +424,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 				queryParam: 'code',		
 				enableKeyEvents : true,
 				listeners: {
-					keypress: 'onPressEnterSkucode'
-				}
+					keypress: 'onPressEnterSkucode',
+					// beforeQuery: function(){
+					// 	console.log('beforeQuery');
+					// 	this.store.proxy.extraParams = {
+					// 		entityType: 'cliente'
+					// 	}
+					// }
+				},
 			},
 			{
 				tooltip: 'Thêm SP',

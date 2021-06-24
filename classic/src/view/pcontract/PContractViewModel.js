@@ -138,8 +138,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
             type: 'ShipModeStore'
         },
         SKUBalanceStore: {
-			type: 'SKUBalanceStore'
-		},
+            type: 'SKUBalanceStore'
+        },
     },
     data: {
         titleAttvalue: 'Thuộc tính ',

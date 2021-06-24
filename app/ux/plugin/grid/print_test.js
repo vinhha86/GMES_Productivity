@@ -417,7 +417,7 @@ Ext.define("GSmartApp.ux.grid.print_test", {
          */
         bodyTpl: [
             '<tpl for=".">',
-            '<td>\{{[Ext.String.createVarName(values.text)]}\}</td>',
+            '<td>{[Ext.String.createVarName(values.text)]}</td>',
             '</tpl>'
         ]
     }

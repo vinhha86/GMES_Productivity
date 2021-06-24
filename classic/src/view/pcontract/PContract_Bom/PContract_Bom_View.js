@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     xtype: 'PContract_Bom_View',
     id: 'PContract_Bom_View',
     controller: 'PContract_Bom_ViewController',
+    itemId: 'PContract_Bom_View',
     bind: {
         store: '{PContractBom2Store_New}'
     },
@@ -67,6 +68,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
             return val;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldTenNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueTenNPLKeyup',
+                buffer: 500
+            }
         }
     }, {
         text: 'Thành phần vải',

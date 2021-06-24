@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_ViewModel', {
         isedit: false,
         productpairid_link: 0,
         isHidden_req: false,
-        width_PContract_PO_Edit_Porder_Req: 270
+        width_PContract_PO_Edit_Porder_Req: 270,
+        ishidden_luu_linegiaohang: true
     }
 })

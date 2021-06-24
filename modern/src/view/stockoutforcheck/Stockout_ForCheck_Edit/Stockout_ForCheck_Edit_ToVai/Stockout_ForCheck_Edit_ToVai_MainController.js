@@ -5,9 +5,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
 		
 	},
     control: {
-        '#btnResetForm':{
-            tap: 'onbtnResetForm'
-        },
+        // '#btnResetForm':{
+        //     tap: 'onbtnResetForm'
+        // },
         '#btnCheck':{
             tap: 'onCheck'
         },
@@ -16,14 +16,23 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         },
         '#cbbox_pkl_stockout_order_dId':{
             change: 'oncbbox_pkl_stockout_order_dId_change'
+        },
+        '#btnTest': {
+            tap: 'ontest'
         }
+    },
+    ontest: function(){
+        var viewModel = this.getViewModel();
+        var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+        var data = WarehouseCheckStore.getData().items;
+        console.log(data);
     },
     oncbbox_pkl_stockout_order_dId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
         var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
         if(newValue != null && newValue != ''){
-            var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
-            Stockout_order_pkl_Store.loadStore_byStockout_orderDId(newValue);
+            var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+            WarehouseCheckStore.loadstore_ByStockoutOrderD(newValue);
             if(cbbox.getSelection() != null){
                 viewModel.set('selectedDRecord', cbbox.getSelection());
             }
@@ -78,9 +87,10 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
             // khi click lên record ở grid sẽ lấy lại giá trị cũ
             var newObjData = JSON.parse(JSON.stringify(record.data));
-            newObjData.width_met_check = newObjData.width_met_check * 100;
-            newObjData.width_met = newObjData.width_met * 100;
+            newObjData.width_check = newObjData.width_check * 100;
+            newObjData.width_origin = newObjData.width_origin * 100;
             viewModel.set('objPkl', newObjData);
+            console.log(newObjData);
         }, 100);
     },
     onCheck: function(){
@@ -108,21 +118,21 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         }
         if(stockout_order.unitid_link == null) stockout_order.unitid_link = 1;
         if(stockout_order.unitid_link == 3){
-            if(objPkl.width_yds_check == '' || objPkl.ydscheck == ''){
+            if(objPkl.width_check == '' || objPkl.yds_check == ''){
                 Ext.toast('Thiếu thông tin khổ hoặc độ dài', 3000);
                 return;
             }
-            if(isNaN(objPkl.ydscheck)){
+            if(isNaN(objPkl.yds_check)){
                 Ext.toast('Số Y phải là số', 3000);
                 return;
             }
         }
         if(stockout_order.unitid_link == 1){
-            if(objPkl.width_met_check == '' || objPkl.met_check == ''){
+            if(objPkl.width_check == '' || objPkl.met_check == ''){
                 Ext.toast('Thiếu thông tin khổ hoặc độ dài', 3000);
                 return;
             }
-            if(isNaN(objPkl.metcheck)){
+            if(isNaN(objPkl.met_check)){
                 Ext.toast('Số M phải là số', 3000);
                 return;
             }
@@ -130,66 +140,56 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
 
         
         // tạo obj
-        if(objPkl.ydscheck == null || objPkl.ydscheck == '') objPkl.ydscheck = 0;
-        if(objPkl.metcheck == null || objPkl.metcheck == '') objPkl.metcheck = 0;
-        if(objPkl.ydsorigin == null || objPkl.ydsorigin == '' || objPkl.ydsorigin == 0) objPkl.ydsorigin = objPkl.ydscheck;
-        if(objPkl.metorigin == null || objPkl.metorigin == '' || objPkl.metorigin == 0) objPkl.metorigin = objPkl.metcheck;
-        // if(objPkl.sample_check == null || objPkl.sample_check == '') objPkl.sample_check = 0;
-        // if(objPkl.grossweight_check == null || objPkl.grossweight_check == '') objPkl.grossweight_check = 0;
-        if(objPkl.grossweight == null || objPkl.grossweight == '' || objPkl.grossweight == 0) objPkl.grossweight = 0;
-        if(objPkl.width_yds_check == null || objPkl.width_yds_check == '') objPkl.width_yds_check = 0;
-        if(objPkl.width_yds == null || objPkl.width_yds == '' || objPkl.width_yds == 0) objPkl.width_yds = objPkl.width_yds_check;
-        if(objPkl.width_met_check == null || objPkl.width_met_check == '') objPkl.width_met_check = 0;
-        if(objPkl.width_met == null || objPkl.width_met == '' || objPkl.width_met == 0) objPkl.width_met = objPkl.width_met_check;
+        if(objPkl.yds_check == null || objPkl.yds_check == '') objPkl.yds_check = 0;
+        if(objPkl.met_check == null || objPkl.met_check == '') objPkl.met_check = 0;
+        if(objPkl.yds_origin == null || objPkl.yds_origin == '' || objPkl.yds_origin == 0) objPkl.yds_origin = objPkl.yds_check;
+        if(objPkl.met_origin == null || objPkl.met_origin == '' || objPkl.met_origin == 0) objPkl.met_origin = objPkl.met_check;
+        
+        if(objPkl.width_check == null || objPkl.width_check == '') objPkl.width_check = 0;
+        if(objPkl.width_origin == null || objPkl.width_origin == '' || objPkl.width_origin == 0) objPkl.width_origin = objPkl.width_check;
+        if(objPkl.met_err == null || objPkl.met_err == '') objPkl.met_err = 0;
 
         if(stockout_order.unitid_link == 3){
             // có y
-            objPkl.ydscheck = parseFloat(objPkl.ydscheck);
-            objPkl.metcheck = objPkl.ydscheck * 0.9144;
-            objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
-            objPkl.metorigin = objPkl.ydsorigin * 0.9144;
+            objPkl.yds_check = parseFloat(objPkl.yds_check);
+            objPkl.met_check = objPkl.yds_check * 0.9144;
+            objPkl.yds_origin = parseFloat(objPkl.yds_origin);
+            objPkl.met_origin = objPkl.yds_origin * 0.9144;
 
-            objPkl.width_met_check = parseFloat(objPkl.width_met_check);
-            objPkl.width_yds_check = objPkl.width_met_check / 0.9144;
-            objPkl.width_met = parseFloat(objPkl.width_met);
-            objPkl.width_yds = objPkl.width_met / 0.9144;
+            objPkl.width_check = parseFloat(objPkl.width_check);
+            objPkl.width_origin = parseFloat(objPkl.width_origin);
         }
         if(stockout_order.unitid_link == 1){
             // có m
-            objPkl.metcheck = parseFloat(objPkl.metcheck);
-            objPkl.ydscheck = objPkl.metcheck / 0.9144;
-            objPkl.metorigin = parseFloat(objPkl.metorigin);
-            objPkl.ydsorigin = objPkl.metorigin / 0.9144;
+            objPkl.met_check = parseFloat(objPkl.met_check);
+            objPkl.yds_check = objPkl.met_check / 0.9144;
+            objPkl.met_origin = parseFloat(objPkl.met_origin);
+            objPkl.yds_origin = objPkl.met_origin / 0.9144;
 
-            objPkl.width_met_check = parseFloat(objPkl.width_met_check);
-            objPkl.width_yds_check = objPkl.width_met_check / 0.9144;
-            objPkl.width_met = parseFloat(objPkl.width_met);
-            objPkl.width_yds = objPkl.width_met / 0.9144;
+            objPkl.width_check = parseFloat(objPkl.width_check);
+            objPkl.width_origin = parseFloat(objPkl.width_origin);
         }
 
-        objPkl.metcheck = parseFloat(objPkl.metcheck);
-        objPkl.ydscheck = parseFloat(objPkl.ydscheck);
-        objPkl.metorigin = parseFloat(objPkl.metorigin);
-        objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
-        objPkl.width_met_check = parseFloat(objPkl.width_met_check / 100);
-        objPkl.width_yds_check = parseFloat(objPkl.width_yds_check / 100);
-        objPkl.width_met = parseFloat(objPkl.width_met / 100);
-        objPkl.width_yds = parseFloat(objPkl.width_yds / 100);
+        objPkl.met_check = parseFloat(objPkl.met_check);
+        objPkl.yds_check = parseFloat(objPkl.yds_check);
+        objPkl.met_origin = parseFloat(objPkl.met_origin);
+        objPkl.yds_origin = parseFloat(objPkl.yds_origin);
+        objPkl.width_check = parseFloat(objPkl.width_check / 100);
+        objPkl.width_origin = parseFloat(objPkl.width_origin / 100);
 
-        objPkl.stockoutorderid_link = stockout_order.id;
-        objPkl.stockoutorderdid_link = selectedDRecord.get('id');
+        var stockoutorderid_link = stockout_order.id;
+        var stockoutorderdid_link = selectedDRecord.get('id');
 
         // set lại giá trị các trường của warehouse
-        objPkl.met = objPkl.metcheck;
-        objPkl.yds = objPkl.ydscheck;
-        if(objPkl.unitid_link == 1 || objPkl.unitid_link == null){ // trường unitid_link của warehouse
-            objPkl.width = objPkl.width_met_check;
-        }
-        if(objPkl.unitid_link == 3){ // trường unitid_link của warehouse
-            objPkl.width = objPkl.width_yds_check;
-        }
+        // objPkl.met = objPkl.metcheck;
+        // objPkl.yds = objPkl.ydscheck;
+        // if(objPkl.unitid_link == 1 || objPkl.unitid_link == null){ // trường unitid_link của warehouse
+        //     objPkl.width = objPkl.width_met_check;
+        // }
+        // if(objPkl.unitid_link == 3){ // trường unitid_link của warehouse
+        //     objPkl.width = objPkl.width_yds_check;
+        // }
         //
-        // console.log(objPkl);
 
         me.setMasked({
             xtype: 'loadmask',
@@ -197,8 +197,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         })
 
         var params = new Object();
-        params.warehouse = objPkl;
-        params.stockoutOrderPklist = objPkl;///////////////////////
+        params.warehouse_check = objPkl;
+        params.stockoutorderid_link = stockoutorderid_link;
+        params.stockoutorderdid_link = stockoutorderdid_link;
 
         GSmartApp.Ajax.postJitin('/api/v1/warehouse/updateToVai', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -232,12 +233,12 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                 }
         })
     },
-    onbtnResetForm: function(){
-        var m = this;
-        var viewModel = this.getViewModel();
-        viewModel.set('lotnumberTxt', '');
-        m.resetForm();
-    },
+    // onbtnResetForm: function(){
+    //     var m = this;
+    //     var viewModel = this.getViewModel();
+    //     viewModel.set('lotnumberTxt', '');
+    //     m.resetForm();
+    // },
     onlotnumberTxtType: function(field, newValue, oldValue, eOpts){
         var me = this.getView();
         var m = this;
@@ -330,14 +331,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         // grossweight, epc,
         // width_yds_check, width_yds, width_met_check, width_met
         // console.log(objPkl);
-        objPkl.ydsorigin = objPkl.yds;
-        objPkl.ydscheck = null;
-        objPkl.metorigin = objPkl.met;
-        objPkl.metcheck = null;
+        objPkl.warehouseid_link = objPkl.id;
+        objPkl.id = null;
+        objPkl.yds_origin = objPkl.yds;
+        objPkl.yds_check = null;
+        objPkl.met_origin = objPkl.met;
+        objPkl.met_check = null;
         if(objPkl.unitid_link == null) objPkl.unitid_link = 1;
         // width
-        objPkl.width_met = objPkl.width_met * 100;
-        objPkl.width_met_check = null;
+        objPkl.width_origin = objPkl.width_met * 100;
+        objPkl.width_check = null;
         return objPkl;
     },
 
@@ -348,9 +351,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
 
-        var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
-        Stockout_order_pkl_Store.loadStore_byStockout_orderDId_async(pkl_stockout_order_dId);
-        Stockout_order_pkl_Store.load({
+        var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+        WarehouseCheckStore.loadstore_ByStockoutOrderD_async(pkl_stockout_order_dId);
+        WarehouseCheckStore.load({
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
@@ -358,7 +361,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                 } else {
                     if(selectedPklRecord != null){
                         var id = selectedPklRecord.get('id');
-                        var storeItems = Stockout_order_pkl_Store.getData().items;
+                        var storeItems = WarehouseCheckStore.getData().items;
                         for(var i=0; i<storeItems.length; i++){
                             var item = storeItems[i];
                             if(item.get('id') == id){

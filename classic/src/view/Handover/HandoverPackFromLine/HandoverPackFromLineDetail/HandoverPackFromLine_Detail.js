@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.handover.HandoverPackFromLine_Detail', {
     extend: 'Ext.form.Panel',
     xtype: 'HandoverPackFromLine_Detail',
-    id:'HandoverPackFromLine_Detail',
+    id:'handover_pack_fromline_detail',
     controller: 'HandoverPackFromLine_Detail_Controller',
     viewModel:{
         type:'HandoverPackFromLine_Detail_ViewModel'

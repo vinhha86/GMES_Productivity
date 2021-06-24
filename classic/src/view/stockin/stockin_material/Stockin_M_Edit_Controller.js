@@ -91,20 +91,48 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         viewModel.set('stockin.status', -1);
         viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 
+
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
+
         // set store org from
         if(id == 1) {// mua moi va cap bu thi là nha cung cap
             var orgfromstore = viewModel.getStore('OrgFromStore');
             orgfromstore.loadStore(5, false);
+        }else if(id == 2){ // nhap dieu chuyen (kho -> kho)
+            var orgfromstore = viewModel.getStore('OrgFromStore');
+            orgfromstore.loadOrgByTypeAndUser([3]);
         }else{
             var listidtype = "13,4,8,9";
             var orgfromstore = viewModel.getStore('OrgFromStore');
             orgfromstore.loadStore_byRoot(listidtype);
         }
+
+        // set store org from
+        if(id == 1) { // mua moi -> kho
+            var OrgToStore = viewModel.getStore('OrgToStore');
+            OrgToStore.loadOrgByTypeAndUser([3]);
+        }else if(id == 2) { // nhap dieu chuyen (kho -> kho)
+            var OrgToStore = viewModel.getStore('OrgToStore');
+            OrgToStore.loadStore(3, false);
+        }
     },
     onLoadData:function(id,type){
+        var m = this;
         var viewModel = this.getViewModel();
 
-        this.getInfo(id);
+		var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore_async();
+        UnitStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                    m.getInfo(id);
+                }
+            }
+        });
     },
     onBackPage: function(){
         this.redirectTo('stockin_m');
@@ -141,10 +169,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 if(data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore(5, false);
-                }else{
+                }else if(id == 2){ // nhap dieu chuyen (kho -> kho)
+                    var orgfromstore = viewModel.getStore('OrgFromStore');
+                    orgfromstore.loadOrgByTypeAndUser([3]);
+                }else {
                     var listidtype = "13,4,8,9";
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore_byRoot(listidtype);
+                }
+
+                // set store org to
+                if(data.stockintypeid_link == 1) {// mua moi -> kho
+                    var OrgToStore = viewModel.getStore('OrgToStore');
+                    OrgToStore.loadOrgByTypeAndUser([3]);
+                }
+                if(data.stockintypeid_link == 2) {// nhap dieu chuyen (kho -> kho)
+                    var OrgToStore = viewModel.getStore('OrgToStore');
+                    OrgToStore.loadStore(3, false);
                 }
             }
 		})
