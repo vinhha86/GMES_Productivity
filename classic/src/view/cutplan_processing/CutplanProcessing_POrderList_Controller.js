@@ -12,7 +12,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
 					 this.fireEvent('logout');
 				} else {
                     var session = GSmartApp.util.State.get('session');
-                    console.log(session);
                     if(session.orgid_link != 1 && session.orgid_link != null){
                         viewModel.set('porderSearchObj.donvi', session.orgid_link);
                         viewModel.set('iscombo_DonVi_editable', false);
@@ -36,7 +35,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
             beforeQuery: 'Product_AutoComplete_beforeQuery'
         },
         '#CutplanProcessing_POrderList':{
-            itemclick: 'onPorderClick'
+            itemclick: 'onPorderClick',
+            afterrender: 'onAfterRender',
         }
     },
     listen: {
@@ -141,4 +141,44 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
             chartViewController.onChartRendered(chart);
         }
     },
+    onAfterRender: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var cutplanProcessing_porderSearchObj = GSmartApp.util.State.get('cutplanProcessing_porderSearchObj');
+        if(cutplanProcessing_porderSearchObj != null){
+            // set gia tri tim kiem porder
+            var donvi = cutplanProcessing_porderSearchObj.donvi;
+            var lenhsx = cutplanProcessing_porderSearchObj.lenhsx;
+            var sanpham = cutplanProcessing_porderSearchObj.sanpham;
+            var porderId = cutplanProcessing_porderSearchObj.porderId;
+            viewModel.set('porderSearchObj.donvi', donvi);
+            viewModel.set('porderSearchObj.lenhsx', lenhsx);
+            viewModel.set('porderSearchObj.sanpham', sanpham);
+            // viewModel.set('porder', porder);
+            GSmartApp.util.State.set('cutplanProcessing_porderSearchObj', null);
+
+            if(donvi!=null && (lenhsx != null || sanpham != null)){
+                var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+                POrder_ListStore.loadStoreBySearch_for_cutplanprocessing_async(donvi, lenhsx, sanpham);
+                POrder_ListStore.load({
+                    scope: this,
+                    callback: function (records, operation, success) {
+                        if (!success) {
+                            this.fireEvent('logout');
+                        } 
+                        else {
+                            if(porderId != null){
+                                var record = POrder_ListStore.findRecord('id', porderId, 0, false, true, true);
+                                if(record != null){ 
+                                    me.getSelectionModel().select(record, true);
+                                    m.onPorderClick(me, record);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }
 });

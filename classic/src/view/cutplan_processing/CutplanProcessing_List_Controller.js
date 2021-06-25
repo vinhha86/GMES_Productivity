@@ -110,18 +110,39 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List_Controller'
             })
     },
     onCutplanProcessingItemEditClick: function (grid, rowIndex, colIndex, item, e, record) {
+        var viewModel = this.getViewModel();
+        // set session luu tim kiem
+        var porderSearchObj = viewModel.get('porderSearchObj');
+        var porder = viewModel.get('porder');
+        if(porder != null) porderSearchObj.porderId = porder.get('id');
+        GSmartApp.util.State.set('cutplanProcessing_porderSearchObj', porderSearchObj);
+
         var id = record.data.id;
         this.redirectTo("cutplan_processing/" + id + "/edit");
     },
     onCutplanProcessingItemDblCLick: function (m, record, item, index, e, eOpts) {
+        var viewModel = this.getViewModel();
+        // set session luu tim kiem
+        var porderSearchObj = viewModel.get('porderSearchObj');
+        var porder = viewModel.get('porder');
+        if(porder != null) porderSearchObj.porderId = porder.get('id');
+        GSmartApp.util.State.set('cutplanProcessing_porderSearchObj', porderSearchObj);
+
         var id = record.data.id;
         this.redirectTo("cutplan_processing/" + id + "/edit");
     },
     onBtnLapPhieuMoiTap: function (){
         var m = this;
         var viewModel = this.getViewModel();
-        var porder = viewModel.get('porder'); console.log(porder);
+        // set session luu tim kiem
+        var porderSearchObj = viewModel.get('porderSearchObj');
+        var porder = viewModel.get('porder');
+        if(porder != null) porderSearchObj.porderId = porder.get('id');
+        GSmartApp.util.State.set('cutplanProcessing_porderSearchObj', porderSearchObj);
+
+        var porder = viewModel.get('porder');
         if(porder!=null){
+            // neu chon porder -> luu session de set porder tao moi
             var porderObj = porder.data;
             GSmartApp.util.State.set('porderObj', porderObj);
             m.redirectTo('cutplan_processing/0/edit');
