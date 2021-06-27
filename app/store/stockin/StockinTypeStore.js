@@ -5,8 +5,12 @@ Ext.define('GSmartApp.store.stockin.StockinTypeStore', {
 		{name: 'id', type: 'string'},
 		{name: 'name',   type: 'string'}
 	],
-	loadStore:function(){
+	loadStore:function(typeFrom, typeTo){
 		var me=this;
+		var params = new Object();
+		params.typeFrom = typeFrom;
+		params.typeTo = typeTo;
+		var access_token = GSmartApp.Ajax.access_token();
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -20,8 +24,10 @@ Ext.define('GSmartApp.store.stockin.StockinTypeStore', {
 			noCache: false,
 			headers :{
 				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+				'Content-Type':"application/json",
+				'authorization':  access_token
+			},
+			extraParams: params,
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -30,6 +36,9 @@ Ext.define('GSmartApp.store.stockin.StockinTypeStore', {
 		this.loadPage(1,{
 			scope: this,
 			callback: function(records, operation, success) {
+				if(!success){
+					this.fireEvent('logout');
+			   	}
 			}
 		});
 	}

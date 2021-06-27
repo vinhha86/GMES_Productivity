@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M_Controller', {
 		vattypeStore.loadStore();
 		
 		var stockintype = viewModel.getStore('StockinTypeStore');
-		stockintype.loadStore();
+		stockintype.loadStore(1, 10);
 	},
 	control:{
 		'#loaitien':{

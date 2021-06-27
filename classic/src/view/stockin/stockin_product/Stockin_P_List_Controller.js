@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
         var viewmodel = this.getViewModel();
 
         var stockintype = viewmodel.getStore('StockinTypeStore');
-        stockintype.loadStore();
+        stockintype.loadStore(21, 30);
         
         var listidtype = "4,8,9,11,12";
         var orgtostore = this.getViewModel().getStore('OrgToStore');

@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List_Main_Controller', {
 		if (null!=UnitStore) UnitStore.loadStore();
 
         var stockintype = viewmodel.getStore('StockinTypeStore');
-        if (null!=stockintype) stockintype.loadStore();
+        if (null!=stockintype) stockintype.loadStore(1, 10);
         
         var listidtype = "13";
         // var listidtype = "4,8,9,11,12";

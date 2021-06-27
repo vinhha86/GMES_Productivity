@@ -8,8 +8,10 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStockDetail', {
     {
         region: 'center',
         border: false,
-        xtype: 'HandoverDetail',
-        id: 'handover_pack_tostock_detail'
+        xtype: 'HandoverPackToStock_Detail',
+        // id: 'handover_pack_tostock_detail',
+        // xtype: 'HandoverDetail',
+        // id: 'handover_pack_tostock_detail',
     }],
 });
 

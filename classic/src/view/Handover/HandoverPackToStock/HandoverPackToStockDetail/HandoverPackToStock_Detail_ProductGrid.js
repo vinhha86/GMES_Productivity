@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
+Ext.define('GSmartApp.view.handover.HandoverPackToStock_Detail_ProductGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'HandoverDetail_ProductGrid',
-    id: 'HandoverDetail_ProductGrid',
-    reference: 'HandoverDetail_ProductGrid',
+    xtype: 'HandoverPackToStock_Detail_ProductGrid',
+    id: 'HandoverPackToStock_Detail_ProductGrid',
+    reference: 'HandoverPackToStock_Detail_ProductGrid',
     viewConfig: {
         stripeRows: true,
         columnLines: true,
@@ -103,23 +103,27 @@ Ext.define('GSmartApp.view.handover.HandoverDetail_ProductGrid', {
                     // margin: '0 15 0 0'
                 },
     
-                items: [{
-                    boxLabel: 'Nhập thủ công',
-                    inputValue: 1,
-                    width: 120,
-                    checked: true
-                }, {
-                    boxLabel: 'Nhập mã vạch',
-                    inputValue: 2,
-                    width: 120,
-                }, {
-                    boxLabel: 'Nhập RFID',
-                    inputValue: 3,
-                    width: 120,
-                }],
-                // listeners: {
-                //     change : 'onRadioChange'
-                // }
+                items: [
+                    // {
+                    //     boxLabel: 'Nhập thủ công',
+                    //     inputValue: 1,
+                    //     width: 120,
+                    //     checked: true
+                    // }, 
+                    {
+                        boxLabel: 'Nhập mã vạch',
+                        inputValue: 2,
+                        width: 120,
+                    }, 
+                    {
+                        boxLabel: 'Nhập RFID',
+                        inputValue: 3,
+                        width: 120,
+                    }
+                ],
+                listeners: {
+                    // change : 'onRadioChange'
+                }
             }]
         },{
             layout:'hbox',
