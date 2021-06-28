@@ -235,7 +235,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text: 'Ngày giao',
                     dataIndex: 'shipdate',
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function (value) {
+                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                         metaData.tdCls = 'po_linekh';
                         var date = Ext.Date.parse(value, 'c');
                         return Ext.Date.format(date, 'd/m/y');
@@ -244,7 +244,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                 }, {
                     text: 'Ngày NPL',
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function (value) {
+                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                         metaData.tdCls = 'po_linekh';
                         var date = Ext.Date.parse(value, 'c');
                         return Ext.Date.format(date, 'd/m/y');
@@ -255,7 +255,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     text: 'Ngày VC',
                     hidden: true,
                     // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function (value) {
+                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                         metaData.tdCls = 'po_linekh';
                         var date = Ext.Date.parse(value, 'c');
                         return Ext.Date.format(date, 'd/m/y');
@@ -274,7 +274,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                         metaData.tdCls = 'po_linekh';
                         metaData.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
+                        return value == null ? '' : value;
                     }
                 }]
             }
@@ -284,7 +284,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         dock: 'top',
         xtype: 'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 40,
         items: [{
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black",
@@ -302,40 +302,40 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             tooltip: 'Thêm chào giá',
             iconCls: 'x-fa fa-plus',
             handler: 'onAddPOTap',
-        },
-            // {
-            //     xtype:'button',
-            //     itemId:'btnShowFactory',
-            //     ui: 'header',
-            // 	tooltip: 'Xem năng suất nhà máy',
-            //     iconCls: 'x-fa fa-industry',
-            //     handler: 'onFactoriesTap',
-            // }
+        }
         ]
     },
     {
         dock: 'bottom',
-        layout: 'vbox',
+        layout: 'hbox',
         border: false,
         items: [{
-            layout: 'hbox',
-            border: false,
-            items: [{
-                html: '<div class="color-box">'
-                    + '<div class="color-square po_free"></div>&nbspChưa chốt'
-                    + '</div>',
-                margin: '5'
-            }, {
-                html: '<div class="color-box">'
-                    + '<div class="color-square po_wrongamount"></div>&nbspSai SL phân xưởng'
-                    + '</div>',
-                margin: '5'
-            }, {
-                html: '<div class="color-box">'
-                    + '<div class="color-square po_accept"></div>&nbspĐã chốt'
-                    + '</div>',
-                margin: '5'
-            }]
+            html: '<div class="color-box">'
+                + '<div class="color-square po_free"></div>&nbspChưa chốt'
+                + '</div>',
+            margin: '5'
+        }, {
+            html: '<div class="color-box">'
+                + '<div class="color-square po_wrongamount"></div>&nbspSai SL phân xưởng'
+                + '</div>',
+            margin: '5'
+        }, {
+            html: '<div class="color-box">'
+                + '<div class="color-square po_accept"></div>&nbspĐã chốt'
+                + '</div>',
+            margin: '5'
+        }, {
+            flex: 1
+        }, {
+            html: '<div class="color-box">'
+                + '<div class="color-square po_offer"></div>&nbspChào giá'
+                + '</div>',
+            margin: '5'
+        }, {
+            html: '<div class="color-box">'
+                + '<div class="color-square po_linekh"></div>&nbspLine giao hàng'
+                + '</div>',
+            margin: '5'
         }]
     }
     ],

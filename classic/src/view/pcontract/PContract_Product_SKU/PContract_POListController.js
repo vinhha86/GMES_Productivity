@@ -58,6 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     },
     onRender_poquantity: function (value, metaData, record, rowIdx, colIdx, stor) {
         var viewmodel = this.getViewModel();
+        metaData.tdCls = 'po_linekh';
         var cls = viewmodel.get('clspoquantity');
         if (!record.data.checkamount)
             cls = '<div style="color:red; font-weight: bold; align: right">';
@@ -615,7 +616,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
-    renderShipping: function (val, meta, record, rindex, cindex, store) {
+    renderShipping: function (val, metaData, record, rindex, cindex, store) {
+        metaData.tdCls = 'po_linekh';
         if (null != val) {
             var viewmodel = this.getViewModel();
             var ShipModeStore = viewmodel.getStore('ShipModeStore');
