@@ -22,46 +22,53 @@ Ext.define('GSmartApp.util.Common', {
             //     }
             //     console.log(item);
             // }
-            if(null != item){
-                if (a == '#PContract_PO_Main'){
+            if (null != item) {
+                if (a == '#PContract_PO_Main') {
                     item.setDisabled(func.isreadonly);
-                    if(func.isreadonly && !item.getHidden()) item.setHidden(true);
+                    if (func.isreadonly && !item.getHidden()) item.setHidden(true);
                 } else {
                     item.setDisabled(func.isreadonly);
-                    if(func.isreadonly && !item.getHidden()) item.setHidden(true);
+                    // if (item.itemId == "colSoLuongDon_ChiTietPO") {
+                    //     console.log(func);
+                    //     console.log(item);
+                    // }
+                    if (func.isreadonly && !item.getHidden()) {
+
+                        item.setHidden(true);
+                    }
                 }
-            } 
+            }
         }
     },
-    Check_Menu_Permission: function(me){
+    Check_Menu_Permission: function (me) {
         var data = GSmartApp.util.State.get('session');
         var list_function = data.list_function;
 
         for (var i = 0; i < list_function.length; i++) {
             var func = list_function[i];
             var item = me.queryById(func.function_id_item);
-            
-            if(item!=null){
+
+            if (item != null) {
                 item.setDisabled(func.isreadonly);
-            } 
+            }
         }
     },
-    Check_ActionColum_Permission: function(itemref){
+    Check_ActionColum_Permission: function (itemref) {
         var data = GSmartApp.util.State.get('session');
         var list_function = data.list_function;
 
         for (var i = 0; i < list_function.length; i++) {
             var func = list_function[i];
-            if (func.function_id_item == itemref){
+            if (func.function_id_item == itemref) {
                 return func.isreadonly;
             }
         }
     },
-    getFormatDate: function(date){
+    getFormatDate: function (date) {
         var year = date.getFullYear();
-        var month = date.getMonth() +1;
+        var month = date.getMonth() + 1;
         var day = date.getDate();
 
-        return day+"/"+month+"/"+year;
+        return day + "/" + month + "/" + year;
     }
 })

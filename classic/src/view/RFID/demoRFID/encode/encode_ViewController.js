@@ -178,7 +178,44 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
         }
     },
     onShowQrcode: function () {
-        
+        var viewmodel = this.getViewModel();
+        if (viewmodel.get('encode.code') != '') {
+            var form = Ext.create('Ext.window.Window', {
+                height: 270,
+                width: 230,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'QR Code',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'ViewQrcode',
+                    viewModel: {
+                        data: {
+                            code: viewmodel.get('encode.code')
+                        }
+                    }
+                }]
+            });
+
+            form.show();
+        }
+        else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn chưa nhập code",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
     },
     onSelectLoaiKho: function (cmb, rec, e) {
         var viewmodel = this.getViewModel();
