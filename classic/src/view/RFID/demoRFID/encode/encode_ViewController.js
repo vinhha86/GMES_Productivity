@@ -198,7 +198,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
                     xtype: 'ViewQrcode',
                     viewModel: {
                         data: {
-                            code: viewmodel.get('encode.code')
+                            code: viewmodel.get('encode.code'),
+                            name: viewmodel.get('encode.name'),
+                            type: viewmodel.get('type.id')
                         }
                     }
                 }]
