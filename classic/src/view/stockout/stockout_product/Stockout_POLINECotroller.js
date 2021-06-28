@@ -16,6 +16,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_POLINECotroller', {
         },
         '#btnLuu' :{
             click: 'onChon'
+        },
+        '#POBuyer_txtField': {
+            keypress: 'onEnterPOBuyer_txtField'
         }
     },
     onThoat: function(){
@@ -44,5 +47,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_POLINECotroller', {
         var select = grid.getSelectionModel().getSelection();
 
         grid.fireEvent("Chon", select[0].data);
-    }
+    },
+    onEnterPOBuyer_txtField: function (field, e) {
+		var me = this;
+		if (e.getKey() == e.ENTER) {
+			me.onTimKiem();
+		}
+	},
 })

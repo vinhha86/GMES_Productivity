@@ -72,17 +72,13 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
                     margin: 1,
                     labelWidth: 80,
                     flex: 1,
-                    hideLabel: false,		
-                    hideTrigger: true,				
+                    hideLabel: false,
+                    hideTrigger: true,
                     bind:{
                         store: '{POrder_AutoComplete}',
                         disabled: '{isPOrder_AutoComplete_disable}',
                         value: '{porderSearchObj.lenhsx}'
                     },
-                    // store: {
-                    //     type: 'POrder_AutoComplete',
-                    //     // pageSize: 10
-                    // },
                     displayField: 'ordercode',
                     valueField: 'ordercode',
                     listConfig: {
@@ -92,9 +88,6 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
                     queryMode: 'remote',
                     queryParam: 'ordercode',		
                     enableKeyEvents : true,
-                    // listeners: {
-                    //     keypress: 'onPressEnterSkucode'
-                    // }
                 },
                 // {
                 //     xtype: 'textfield',

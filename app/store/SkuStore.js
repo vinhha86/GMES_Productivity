@@ -42,10 +42,12 @@ Ext.define('GSmartApp.store.SkuStore', {
 			}
 		});
 	},
-	loadSkuByCode:function(code){
+	loadSkuByCode:function(code, typeFrom, typeTo){
 		var me=this;
 		var params = new Object();
 		params.code =code;
+		params.typeFrom =typeFrom;
+		params.typeTo =typeTo;
 		var access_token = GSmartApp.Ajax.access_token();
 		this.setProxy({
 			type: 'ajax',

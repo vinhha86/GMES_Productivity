@@ -1,10 +1,10 @@
-Ext.define('GSmartApp.view.stockin.Stockout_POLINE', {
+Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_POrder', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Stockout_POLINE',
-    id: 'Stockout_POLINE',
-    controller: 'Stockout_POLINECotroller',
+    xtype: 'HandoverPackToStock_Edit_POrder',
+    itemId: 'HandoverPackToStock_Edit_POrder',
+    controller: 'HandoverPackToStock_Edit_POrderCotroller',
     viewModel: {
-        type: 'Stockout_POLINE_ViewModel'
+        type: 'HandoverPackToStock_ViewModel'
     },
     viewConfig: {
         enableTextSelection: true,
@@ -13,54 +13,42 @@ Ext.define('GSmartApp.view.stockin.Stockout_POLINE', {
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'SINGLE',
-        checkOnly: true
+        mode: 'SINGLE'
     },
     bind: {
-        store: '{POLineStore}'
+        store: '{porderStore}'
     },
+    reference: 'HandoverPackToStock_Edit_POrder',
     columns: [{
         text: 'STT',
         width: 40,
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Buyer',
-        dataIndex: 'buyerName',
+        text: 'Mã lệnh',
+        dataIndex: 'ordercode',
         flex: 1
-    },{
-        text: 'Vendor',
-        dataIndex: 'vendorName',
-        flex: 1
-    },{
+    }, {
+        text: 'Tên SP',
+        dataIndex: 'productcode',
+        width: 150
+    }, {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
         flex: 1
     }, {
-        text: 'Sản phẩm',
-        dataIndex: 'productbuyercode',
-        width: 150
-    }, {
-        text: 'Ngày giao',
+        text: 'Ngày giao hàng',
         xtype: 'datecolumn',
         format: 'd/m/y',
-        dataIndex: 'shipdate',
+        dataIndex: 'orderdate',
         width: 120
     }, {
         xtype: 'numbercolumn',
         format: '0,000',
         text: 'SL',
-        dataIndex: 'po_quantity',
+        dataIndex: 'totalorder',
         width: 60,
         align: 'right'
-    },{
-        text: 'Cảng đến',
-        dataIndex: 'portTo',
-        width: 100
-    },{
-        text: 'Cảng đi',
-        dataIndex: 'portFrom',
-        width: 100
     }],
     dockedItems: [{
         dock: 'top',
@@ -69,13 +57,11 @@ Ext.define('GSmartApp.view.stockin.Stockout_POLINE', {
         style: "background-color : white;",
         items: [{
             xtype: 'textfield',
-            itemId: 'POBuyer_txtField',
             fieldLabel: 'PO Buyer',
             margin: 5,
             bind: {
-                value: '{po_buyer}'
-            },
-            enableKeyEvents : true,
+                value: '{ordercode}'
+            }
         }, {
             xtype: 'button',
             itemId: 'btnTimKiem',
@@ -94,7 +80,7 @@ Ext.define('GSmartApp.view.stockin.Stockout_POLINE', {
             text: 'Chọn',
             margin: 3,
             itemId: 'btnLuu',
-            iconCls: 'x-fa fa-check'
+            iconCls: 'x-fa fa-save'
         }, {
             xtype: 'button',
             text: 'Thoát',

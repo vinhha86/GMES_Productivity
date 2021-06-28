@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 			readOnly: true,
 			flex: 1,
             labelWidth: 85,
-			fieldLabel: 'Người nhập'
+			fieldLabel: 'Người lập'
 		}]
 	}, {
 		layout: 'hbox',

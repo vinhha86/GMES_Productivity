@@ -39,14 +39,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 		store: '{StockinD_Store}'
 	},
 	columns: [
-		// {
-		// 	text: 'Mã vạch', 
-		// 	dataIndex: 'skucode',
-		// 	width: 120,	
-		// 	summaryRenderer:function (grid, context) {
-		// 		return "Tổng cộng";
-		// 	}
-		// },
 		{
             xtype: 'actioncolumn',
             width: 28,
@@ -425,12 +417,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D', {
 				enableKeyEvents : true,
 				listeners: {
 					keypress: 'onPressEnterSkucode',
-					// beforeQuery: function(){
-					// 	console.log('beforeQuery');
-					// 	this.store.proxy.extraParams = {
-					// 		entityType: 'cliente'
-					// 	}
-					// }
 				},
 			},
 			{

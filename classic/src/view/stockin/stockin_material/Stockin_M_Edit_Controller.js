@@ -243,7 +243,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 }
             }
         }
-        console.log(stockin);
+        // console.log(stockin);
         params.data.push(stockin);
         me.setLoading("Đang lưu dữ liệu");
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
@@ -261,7 +261,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                             }
                         });		
                         if (!viewModel.get('isAdd_Pcontract_Stockin')){	
-                            this.redirectTo("stockin_m_main/" + response.id + "/edit");
+                            m.redirectTo("stockin_m_main/" + response.id + "/edit");
                             m.getInfo(response.id);
                         }
                         
