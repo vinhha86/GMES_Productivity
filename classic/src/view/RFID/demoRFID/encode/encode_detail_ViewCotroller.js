@@ -8,7 +8,11 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_detail_ViewCotroller', {
 
         var data_print = viewmodel.get('encode');
         var ExpDate = data_print.exp;
-        data_print.exp = ExpDate.getDate() + "/" + (ExpDate.getMonth() + 1) + "/" + ExpDate.getFullYear();
+        console.log(ExpDate);
+        if(ExpDate!=null && ExpDate != '') {
+            data_print.exp = ExpDate.getDate() + "/" + (ExpDate.getMonth() + 1) + "/" + ExpDate.getFullYear();
+        }
+        
     },
     control: {
         '#btnThoat': {
@@ -47,9 +51,12 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_detail_ViewCotroller', {
         console.log(data_print);
         console.log(type_print);
         console.log(deviceid);
-
         //code from here
-
-
+        if(type_print==1 || type_print == 2) {
+        } else if(type_print==3) {
+            //Encode Workstation
+        } else {
+            //Show qrcode 
+        }
     }
 })

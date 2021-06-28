@@ -91,7 +91,14 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_View', {
             itemId: 'btnEncode',
             text: 'Mã hóa',
             iconCls: 'x-fa fa-print'
-        }]
+        },{
+            xtype: 'button',
+            margin: 3,
+            itemId: 'btnViewQrcode',
+            text: 'Hiện QRCode',
+            iconCls: 'x-fa fa-print'
+        }
+    ]
     }]
 });
 

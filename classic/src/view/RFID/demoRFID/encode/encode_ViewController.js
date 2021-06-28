@@ -18,6 +18,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
         },
         '#cmbLoaiKho': {
             select: 'onSelectLoaiKho'
+        },
+        '#btnViewQrcode': {
+            click: 'onShowQrcode'
         }
     },
     CheckValidate: function () {
@@ -173,6 +176,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.encode_ViewController', {
                 }
             });
         }
+    },
+    onShowQrcode: function () {
+        
     },
     onSelectLoaiKho: function (cmb, rec, e) {
         var viewmodel = this.getViewModel();
