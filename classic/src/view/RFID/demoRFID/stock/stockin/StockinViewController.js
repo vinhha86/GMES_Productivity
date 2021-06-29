@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.RFID.demoRFID..stock.stockin.StockinViewController', {
+Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockinViewController',
     init: function () {
