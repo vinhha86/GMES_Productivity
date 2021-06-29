@@ -77,7 +77,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('StockinD_Store');
-        var listepc = viewModel.get('listepc');
 
         var params = new Object();
         params.id = id ;
@@ -94,6 +93,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
                 if(viewModel){
                     viewModel.set('stockin', response.data);
                     store.setData(response.data.stockin_d);
+                    store.commitChanges();
     
                     if(response.data.stockintypeid_link == 21) { // Nhap tu san xuat
                         var OrgFromStore = viewModel.getStore('OrgFromStore');

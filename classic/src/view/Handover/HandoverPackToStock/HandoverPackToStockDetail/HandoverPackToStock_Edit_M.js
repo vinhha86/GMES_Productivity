@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 	extend: 'Ext.container.Container',
 	xtype: 'HandoverPackToStock_Edit_M',
 	itemId: 'HandoverPackToStock_Edit_M',
+	cls: 'HandoverPackToStock_Edit_M',
 	controller: 'HandoverPackToStock_Edit_M_Controller',
 	requires: ['Ext.form.field.Hidden', 'Ext.form.field.Date'],
 	layout: {
@@ -36,8 +37,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 				queryMode: 'local',
 				margin: '0 5 0 5',
 				fieldLabel: 'Loại phiếu',	
+				editable: false,
 				readOnly: true,
-				editable: false,				
+				cls: 'notEditable',	
 				allowBlank: false,
 				blankText: 'Không được để trống',
 				labelWidth: 95,
@@ -49,8 +51,10 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 				bind: {
 					value: '{stockin.stockincode}'
 				},
-				readOnly: true,
 				fieldLabel: "Số phiếu",
+				editable: false,
+				readOnly: true,
+				cls: 'notEditable',
 				width: 235,
 				labelWidth: 85
 			}, 
@@ -77,7 +81,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 				},
 				queryMode: 'local',
 				margin: '0 5 0 5',
+				editable: false,
 				readOnly: true,
+				cls: 'notEditable',
 				flex: 1,
 				labelWidth: 85,
 				fieldLabel: 'Người lập'

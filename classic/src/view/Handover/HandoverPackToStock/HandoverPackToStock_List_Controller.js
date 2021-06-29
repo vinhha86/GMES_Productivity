@@ -65,20 +65,23 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List_Controller', {
         }
     },
     onSearch: function () {
-        console.log('Searching');
         var me = this.getView();
         var t = this;
 
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('StockinStore');
 
-        // var limit = me.down('#limitpage').getValue();
         var orgid_from_link = me.down('#OrgFromStore').getValue();
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
-        var stockintypeid_link = me.down('#stockintypeid_link').getValue();
+        var stockintypeid_link = 21;
+        var stockintypeid_link_from = 21;
+        var stockintypeid_link_to = 21;
         var status = [-1,0,1,2];
-        store.loadStore_Product(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null);
+        store.loadStore_Product(
+            orgid_from_link, stockindate_from, stockindate_to, 
+            stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to,
+            status, null, null);
     },
     onThemMoi: function(){
         this.redirectTo('handover_pack_tostock/create');

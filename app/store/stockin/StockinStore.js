@@ -43,13 +43,17 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 			}
 		});
 	},
-	loadStore_Product: function(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page){
+	loadStore_Product: function(orgid_from_link, stockindate_from, stockindate_to, 
+		stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
+		status, limit, page){
 		var me=this;
 		var params = new Object();
 		params.orgid_from_link = orgid_from_link;
 		params.stockindate_from = stockindate_from;
 		params.stockindate_to = stockindate_to;
 		params.stockintypeid_link = stockintypeid_link;
+		params.stockintypeid_link_from = stockintypeid_link_from;
+		params.stockintypeid_link_to = stockintypeid_link_to;
 		params.status = status;
 
 		me.pageSize = limit;

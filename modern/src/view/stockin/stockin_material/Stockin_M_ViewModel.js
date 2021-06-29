@@ -23,9 +23,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		StockinPklRecheckStore: {
 			type: 'StockinPklStore'
 		},
-		StockinDetailEpcStore:{
-			type : 'stockindetailepcstore'
-		},
 		StockinTypeStore: {
 			type: 'StockinTypeStore'
 		},

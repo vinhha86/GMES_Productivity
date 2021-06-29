@@ -39,9 +39,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit', {
                 iconCls: 'x-fa fa-check',
                 itemId: 'btnConfirm',
                 bind: {
-                    hidden: '{isBtnConfirmHidden}'
+                    // hidden: '{isBtnConfirmHidden}'
                 },
-                // hidden: true
+                hidden: true
             },            
             {
                 flex:1

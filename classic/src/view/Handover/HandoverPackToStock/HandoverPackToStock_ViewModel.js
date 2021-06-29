@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.stockin.HandoverPackToStock_ViewModel', {
 	alias: 'viewmodel.HandoverPackToStock_ViewModel',
 	requires: ['GSmartApp.store.DeviceInvStore', 'GSmartApp.store.OrgStore',
 	'GSmartApp.store.SkuStore','GSmartApp.store.stockin.Stockin_d_Store',
-	'GSmartApp.store.stockin.StockinDetailEpcStore',
 	'GSmartApp.store.stockin.StockinTypeStore',
 	'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 	'GSmartApp.store.VatTypeStore', 'GSmartApp.store.CurrencyStore', 
@@ -21,9 +20,6 @@ Ext.define('GSmartApp.view.stockin.HandoverPackToStock_ViewModel', {
 		},
 		StockinD_Store:{
 			type: 'Stockin_d_Store'
-		},
-		StockinDetailEpcStore:{
-			type : 'stockindetailepcstore'
 		},
 		StockinTypeStore: {
 			type: 'StockinTypeStore'

@@ -2,32 +2,18 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockIn_P_Edit_M_Controller',
 	init: function() {
-        var orgstore = this.getViewModel().getStore('OrgStore');
-		orgstore.loadStore(5);
+		var viewModel = this.getViewModel();
 
-		var userStore = this.getViewModel().getStore('UserStore');
+		var userStore = viewModel.getStore('UserStore');
 		userStore.loadStore();
 
-		var listidtype = "13,4,8,9";
-		var orgfromstore = this.getViewModel().getStore('OrgFromStore');
-		orgfromstore.loadStore_byRoot(listidtype);
-
-		var orgtostore = this.getViewModel().getStore('OrgToStore');
-		orgtostore.loadStore_allchildren_byorg(listidtype);
-
-		var currencyStore = this.getViewModel().getStore('CurrencyStore');
-		currencyStore.loadStore();
-
-		var vattypeStore = this.getViewModel().getStore('VatTypeStore');
-		vattypeStore.loadStore();
-		
-		var stockintype = this.getViewModel().getStore('StockinTypeStore');
-		stockintype.loadStore(21, 30);
+		var StockinTypeStore = viewModel.getStore('StockinTypeStore');
+		StockinTypeStore.loadStore(21, 30);
 	},
 	control:{
-		'#loaitien':{
-            select: 'onSelectCurency'
-        },
+		'#linegiaohang': {
+			keypress: 'onEnterLinegiaohang'
+		},
 		'#btnTimPOLine': {
 			click: 'onTimLine'
 		},
@@ -35,7 +21,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			click: 'onTimStockout'
 		}
     },
-	onSpecialkey: function (field, e) {
+	onEnterLinegiaohang: function (field, e) {
 		var me = this;
 		if (e.getKey() == e.ENTER) {
 			me.onTimLine();
@@ -161,7 +147,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 				xtype: 'Stockout_POLINE',
 				viewModel: {
 					data: {
-						po_buyer: grid.down('#ordercode').getValue()
+						po_buyer: grid.down('#linegiaohang').getValue()
 					}
 				}
 			}]
@@ -173,10 +159,10 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			form.close();
 		})
 	},	
-	onLoadPOLineData: function(data){
-		var viewmodel = this.getViewModel();
-		viewmodel.set('stockin.pcontract_poid_link', data.id);
-		viewmodel.set('stockin.contract_number', data.po_buyer);
+	onLoadPOLineData: function(data){ console.log(data);
+		var viewModel = this.getViewModel();
+		viewModel.set('stockin.pcontract_poid_link', data.id);
+		viewModel.set('stockin.contract_number', data.po_buyer);
 		var params = new Object();
 		params.pcontract_poid_link = data.id;
 
@@ -207,16 +193,11 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 						list.push(stockind_new);
 					}
 
-					viewmodel.set('stockin.stockin_d', list);
-					var store = viewmodel.getStore('StockinD_Store');
+					viewModel.set('stockin.stockin_d', list);
+					var store = viewModel.getStore('StockinD_Store');
 					store.removeAll();
 					store.setData(list);
 				}
 			})
 	},	
-    onSelectCurency: function(combo, record, eOpts ){
-       var viewModel = this.getViewModel();
-	   viewModel.set('stockin.vat_exchangerate', record.data.exchangerate);
-	   viewModel.set('curencycode',record.data.code);
-    }
 })

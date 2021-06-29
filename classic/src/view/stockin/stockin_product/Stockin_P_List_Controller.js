@@ -3,25 +3,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
     alias: 'controller.Stockin_P_List_Controller',
     isActivate: false,
     init: function () {
-        var me = this.getView();
-        var viewmodel = this.getViewModel();
+        // var me = this.getView();
+        // var viewmodel = this.getViewModel();
 
-        var stockintype = viewmodel.getStore('StockinTypeStore');
-        stockintype.loadStore(21, 30);
+        // var stockintype = viewmodel.getStore('StockinTypeStore');
+        // stockintype.loadStore(21, 30);
         
-        var listidtype = "4,8,9,11,12";
-        var orgtostore = this.getViewModel().getStore('OrgToStore');
-        orgtostore.loadStore_allchildren_byorg(listidtype);
+        // var listidtype = "4,8,9,11,12";
+        // var orgtostore = this.getViewModel().getStore('OrgToStore');
+        // orgtostore.loadStore_allchildren_byorg(listidtype);
 
-        var fromStore = this.getViewModel().getStore('OrgFromStore');
-        fromStore.loadStore_byRoot(listidtype);
+        // var fromStore = this.getViewModel().getStore('OrgFromStore');
+        // fromStore.loadStore_byRoot(listidtype);
 
-        // var store = viewmodel.getStore('StockinStore');
-        // store.loadStore(0, null, new Date(), 0, 0, 25, 1);
-        var today = new Date();
-		var priorDate = new Date().setDate(today.getDate()-30);
-		me.down('#stockindate_from').setValue(new Date(priorDate));
-        // this.onSearch();
+        // // var store = viewmodel.getStore('StockinStore');
+        // // store.loadStore(0, null, new Date(), 0, 0, 25, 1);
+        // var today = new Date();
+		// var priorDate = new Date().setDate(today.getDate()-30);
+		// me.down('#stockindate_from').setValue(new Date(priorDate));
+        // // this.onSearch();
     },
 	listen: {
         controller: {
@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
     control: {
         '#StockIn_P_List': {
             itemdblclick: 'onCapNhatdbl'
-        },        
+        },
         '#btnThemMoi_ByPOLine':{
             click: 'onStockinNew_ByPOLine'
         },
@@ -74,6 +74,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
         var stockintypeid_link = me.down('#stockintypeid_link').getValue();
+        var stockintypeid_link_from = 21;
+        var stockintypeid_link_to = 30;
         var status = [-1,0,1,2];
         // var page = store.currentPage;
 
@@ -84,7 +86,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_List_Controller', {
         // if (page == null) {
         //     page = 1;
         // }
-        store.loadStore_Product(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null);
+        store.loadStore_Product(orgid_from_link, stockindate_from, stockindate_to, 
+            stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to,
+            status, null, null);
     },
     onThemMoi: function(){
         this.redirectTo('stockin_p_main/create');

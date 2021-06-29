@@ -40,20 +40,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 		store: '{StockinD_Store}'
 	},
 	columns: [
-		// { 
-		// 	xtype: 'actioncolumn',
-		// 	reference: 'stockin_contextmenu',
-		// 	width: 25,
-		// 	menuDisabled: true,
-		// 	sortable: false,
-		// 	items: [
-		// 		{
-		// 			iconCls: 'x-fa fas fa-bars violetIcon',
-		// 			tooltip:'Chi tiết chíp',
-		// 			handler: 'onEPCDetail'
-		// 		}
-		// 	]
-		// },
 		{
             xtype: 'actioncolumn',
             width: 28,
@@ -99,7 +85,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
-			text: 'SL giao', 
+			text: 'SL Y/C', 
 			align:'right',
 			dataIndex: 'totalpackage',
 			summaryType: 'sum',
@@ -110,7 +96,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
                 maskRe: /[0-9.]/,
                 selectOnFocus: true,
                 bind: {
-                    // editable: '{iseditSL_YC}'
+                    editable: '{iseditSL_YC}'
                 }
             }    			
 		},		
