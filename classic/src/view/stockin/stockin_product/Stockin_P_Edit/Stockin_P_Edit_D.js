@@ -15,7 +15,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 	}],
 	plugins: {
         cellediting: {
-            clicksToEdit: 1
+            clicksToEdit: 1,
+			listeners: {
+                edit: 'onDItemEdit',
+                // beforeedit: 'onPriceDItemBeforeEdit'
+            }    
         }
     },
     viewConfig: {
@@ -36,6 +40,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 	},
 	columns: [
 		{
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_Stockin_P_Edit_D'
+                },            
+            ]
+        },
+		{
 			text: 'Mã vạch', 
 			dataIndex: 'skucode',
 			width: 120,	
@@ -53,17 +70,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 		},{
 			text: 'Màu', 
 			dataIndex: 'color_name',
-			width: 100
+			flex: 1
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
 			width: 50
 		},
-		// {
-		// 	text: 'Năm SX', 
-		// 	dataIndex: 'porder_year',
-		// 	width: 70
-		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
@@ -80,7 +92,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
                 bind: {
                     editable: '{iseditSL_YC}'
                 }
-            }    			
+            }
 		},		
 		{
 			xtype: 'numbercolumn',
@@ -91,58 +103,43 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalpackagecheck',
-			getEditor: function (record) {
-				return Ext.create('Ext.grid.CellEditor', {
-					field: {
-						xtype: 'textfield',
-						selectOnFocus: true,
-						bind: {
-							editable: '{iseditSL}'
-						}
-					}
-				})
-			}
-		},
-		{
-			text: 'ĐVT', 
-			dataIndex: 'unit_name',
-			width: 80
-		},{
-			xtype: 'numbercolumn',
-			width: 90,
-			format:'0,000',
-			text: 'Đơn giá', 
-			align:'right',
-			dataIndex: 'unitprice',
 			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/
-			}
-		},{
-			xtype: 'numbercolumn',
-			width: 100,
-			format:'0,000',
-			text: 'Thành tiền', 
-			align:'right',
-			dataIndex: 'totalprice',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			width: 120
+                xtype:'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true,
+                bind: {
+                    editable: '{iseditSL}'
+                }
+            },
 		},
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockin_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-			{
-				iconCls: 'x-fa fas fa-bars violetIcon',
-				tooltip:'Chi tiết chíp',
-				handler: 'onEPCDetail'
-			}
-		]
-		}   	
+		// {
+		// 	text: 'ĐVT', 
+		// 	dataIndex: 'unit_name',
+		// 	width: 80
+		// },
+		// {
+		// 	xtype: 'numbercolumn',
+		// 	width: 90,
+		// 	format:'0,000',
+		// 	text: 'Đơn giá', 
+		// 	align:'right',
+		// 	dataIndex: 'unitprice',
+		// 	editor:{
+		// 		xtype:'textfield',
+		// 		maskRe: /[0-9.]/
+		// 	}
+		// },
+		// {
+		// 	xtype: 'numbercolumn',
+		// 	width: 100,
+		// 	format:'0,000',
+		// 	text: 'Thành tiền', 
+		// 	align:'right',
+		// 	dataIndex: 'totalprice',
+		// 	summaryType: 'sum',
+		// 	summaryRenderer: 'renderSum',
+		// 	width: 120
+		// },
 	],
 	dockedItems: [{
 		dock: 'top',

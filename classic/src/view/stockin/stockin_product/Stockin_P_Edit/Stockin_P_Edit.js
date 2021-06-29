@@ -1,8 +1,9 @@
 Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
     extend: 'Ext.container.Container',
     xtype: 'Stockin_P_Edit',
+    id: 'Stockin_P_Edit',
     controller: 'Stockin_P_Edit_Controller',
-    viewModel: 'Stockin_P_ViewModel',
+    viewModel: 'Stockin_P_Edit_ViewModel',
 	layout: {
         type: 'vbox',
         pack: 'start',

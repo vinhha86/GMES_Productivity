@@ -33,10 +33,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List', {
                 handler: 'onDelete'
             }]
         },        
-        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150,
-            summaryType: 'count',
-            summaryRenderer: 'renderSum'
-        },
+        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
         {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
@@ -98,7 +95,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List', {
             {
                 itemId: 'OrgFromStore',
                 xtype: 'combobox',
-                emptyText: 'Nơi giao',
+                emptyText: 'Nơi xuất',
                 bind:{
                     store: '{OrgFromStore}'
                 },
@@ -113,7 +110,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List', {
                 bind:{
                     store: '{StockinTypeStore}'
                 },
-                value: 21,
+                // value: 21,
                 queryMode: 'local',
                 margin: 3,
                 displayField: 'name',

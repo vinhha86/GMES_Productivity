@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'StockIn_P_List',
-    id: 'StockIn_P_List',
+    itemId: 'StockIn_P_List',
     reference: 'StockIn_P_List',
     viewConfig: {
         stripeRows: true,
@@ -20,23 +20,24 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
     columns: [
         {
             xtype: 'actioncolumn',
-            width: 45,
+            width: 30,
             menuDisabled: true,
             sortable: false,
-            items: [{
-                iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
-                tooltip: 'Sửa phiếu',
-                handler: 'onEdit'
-            }, {
-                iconCls: 'x-fa fas fa-trash-o redIcon',
-                tooltip: 'Xóa phiếu',
-                handler: 'onDelete'
-            }]
-        },        
-        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150,
-            summaryType: 'count',
-            summaryRenderer: 'renderSum'
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
+                    tooltip: 'Sửa phiếu',
+                    handler: 'onEdit'
+                }, 
+                // {
+                //     iconCls: 'x-fa fas fa-trash-o redIcon',
+                //     tooltip: 'Xóa phiếu',
+                //     handler: 'onDelete'
+                // }
+            ]
         },
+        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
         {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
@@ -87,7 +88,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                 fieldLabel: 'đến ngày:',
                 labelWidth: 65,
                 width: 195,
-            },        
+            },
             {
                 itemId: 'OrgFromStore',
                 xtype: 'combobox',
@@ -100,7 +101,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                 displayField: 'name',
                 valueField: 'id'
             },{
-                itemId: 'stockintypeid_link',
+                itemId: 'cbo_StockinTypeStore',
                 xtype: 'combobox',
                 emptyText: 'Loại nhập kho',
                 bind:{
@@ -120,43 +121,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                 itemId: 'btnTimKiem'
             }
         ]
-    }, 
-    // {
-    //     dock: 'bottom',
-    //     layout: 'hbox',
-    //     xtype: 'toolbar',
-    //     border: false,
-    //     height: 50,
-    //     items: [{
-    //         xtype: 'textfield',
-    //         value: 25,
-    //         itemId: 'limitpage',
-    //         maskRe: /[0-9]/,
-    //         width: 180,
-    //         selectOnFocus: true,
-    //         margin: 5,
-    //         fieldLabel: 'Số bản ghi/ Trang',
-    //         labelWidth: 120
-    //     }, '-', {
-    //         xtype: 'pagingtoolbar',
-    //         displayInfo: true,
-    //         flex: 1,
-    //         nextText: 'Trang tiếp',
-    //         prevText: 'Trang trước',
-    //         afterPageText: '/ {0}',
-    //         beforePageText: 'Trang',
-    //         itemId: 'page',
-    //         refreshText: 'Làm mới dữ liệu',
-    //         border: false,
-    //         bind: {
-    //             store: '{StockinStore}'
-    //         },
-    //         emptyMsg: 'Không có kết quả tìm kiếm',
-    //         lastText: 'Trang cuối',
-    //         firstText: 'Trang đầu',
-    //         displayMsg: 'Hiển thị {0} - {1} của {2}'
-    //     }]
-    // }
+    },
 ]
 });
 

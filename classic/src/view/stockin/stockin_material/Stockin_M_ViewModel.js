@@ -11,12 +11,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
 		SkuStore:{
 			type: 'skustore'
 		},
-		// StockinDetailStore:{
-		// 	type: 'Stockin_d_Store'
-		// },
-		StockinDetailEpcStore:{
-			type : 'stockindetailepcstore'
-		},
 		StockinTypeStore: {
 			type: 'StockinTypeStore'
 		},

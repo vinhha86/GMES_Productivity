@@ -9,7 +9,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             '*': {
                 loaddata: 'onLoadData',
                 newdata: 'onNewData',
-				urlBack:'onUrlBack'
             }
         }
 	},
@@ -24,43 +23,54 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             click: 'onConfirm'
         }
     },
-    onUrlBack: function(type){
-        
-    },
     onNewData:function(type, id){
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
         viewModel.set('stockin.stockindate',new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
-        viewModel.set('listepc', new Map());
-        // viewModel.set('stockin.orgid_to_link', session.orgid_link)
         viewModel.set('stockin.stockintypeid_link', id);
+
+        var mainView = Ext.getCmp('Stockin_P_Edit');
+        if(mainView) mainView.setLoading(true);
 
         var GpayUser = viewModel.getStore('GpayUser');
 		GpayUser.loadUserInfo_Async();
 		GpayUser.load({
 			scope: this,
 			callback: function(records, operation, success) {
+                if(mainView) mainView.setLoading(false);
 				if(!success){
 					 this.fireEvent('logout');
 				} else {
-					if (null!=records[0].data.org_grant_id_link)
+					if (null!=records[0].data.org_grant_id_link){
                         viewModel.set('stockin.orgid_to_link', records[0].data.org_grant_id_link)
-					else
+                    }
+					else{
                         viewModel.set('stockin.orgid_to_link', records[0].data.orgid_link)
+                    }
+
+                    if(id == 21) { // Nhap tu san xuat
+                        var OrgFromStore = viewModel.getStore('OrgFromStore');
+                        OrgFromStore.loadStore(9, false);
+                        var OrgToStore = viewModel.getStore('OrgToStore');
+                        OrgToStore.loadStore(8, false);
+                        // var listidtype_to = "8";
+                        // var OrgToStore = viewModel.getStore('OrgToStore');
+                        // OrgToStore.loadStore_byRoot(listidtype_to);
+                    }
+                    if(id == 22) { // Nhap dieu chuyen
+                        var OrgFromStore = viewModel.getStore('OrgFromStore');
+                        OrgFromStore.loadStore(8, false);
+                        var OrgToStore = viewModel.getStore('OrgToStore');
+                        OrgToStore.loadStore(8, false);
+                        // var listidtype_to = "8";
+                        // var OrgToStore = viewModel.getStore('OrgToStore');
+                        // OrgToStore.loadStore_byRoot(listidtype_to);
+                    }
 				}
 			}
 		});
-
-        if(id == 21) { // Nhap tu san xuat
-            var OrgFromStore = viewModel.getStore('OrgFromStore');
-            OrgFromStore.loadStore(9, false);
-        }
-		if(id == 22) { // Nhap dieu chuyen
-			var OrgFromStore = viewModel.getStore('OrgFromStore');
-            OrgFromStore.loadStore(8, false);
-		}
     },
     onLoadData:function(id,type){
         this.getInfo(id);
@@ -70,22 +80,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
     },
     getInfo: function(id){
         var me = this;
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('StockinD_Store');
-        var listepc = viewmodel.get('listepc');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('StockinD_Store');
 
         var params = new Object();
         params.id = id ;
+
+        var mainView = Ext.getCmp('Stockin_P_Edit');
+        if(mainView) mainView.setLoading(true);
+
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
+            if(mainView) mainView.setLoading(false);
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
                 console.log(response.data);
-                viewmodel.set('stockin', response.data);
-                for(var i=0; i<response.listepc.length; i++){
-                    listepc.set(response.listepc[i].epc, response.listepc[i].epc);
-                }
+                viewModel.set('stockin', response.data);
                 store.setData(response.data.stockin_d);
+                store.commitChanges();
+
+                if(response.data.stockintypeid_link == 21) { // Nhap tu san xuat
+                    var OrgFromStore = viewModel.getStore('OrgFromStore');
+                    OrgFromStore.loadStore(9, false);
+                    var OrgToStore = viewModel.getStore('OrgToStore');
+                    OrgToStore.loadStore(8, false);
+                }
+                if(response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
+                    var OrgFromStore = viewModel.getStore('OrgFromStore');
+                    OrgFromStore.loadStore(8, false);
+                    var OrgToStore = viewModel.getStore('OrgToStore');
+                    OrgToStore.loadStore(8, false);
+                }
             }
 		})
     },
@@ -113,10 +138,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 
         var mes = this.CheckValidate();
         if(mes == ""){
-            var viewmodel = this.getViewModel();
+            var viewModel = this.getViewModel();
             var params = new Object();
             params.data = [];
-            var stockin = viewmodel.get('stockin');
+            var stockin = viewModel.get('stockin');
             // for(var i =0; i<stockin.stockin_d.length;i++){
             //     delete stockin.stockind[i].sku;
             // }
