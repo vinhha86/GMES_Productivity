@@ -298,7 +298,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         },
         {
             xtype: 'combo',
-
+            bind: {
+                store: '{MauSanPhamStore}'
+            },
+            displayField: 'value',
+            margin: 3,
+            valueField: 'id',
+            queryMode: 'local'
         }
         ]
     }, {

@@ -55,11 +55,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
             } else {
                 if (newCard.xtype == 'PContractSKUMainView') {
                     viewmodel.set('isHidden_btnLuu', true);
-                    // var productFilterStore = viewmodel.getStore('ProductFilterStore');
-                    // productFilterStore.loadStore_pair_andnotpair(viewmodel.get('PContract.id'));
-
-                    // var PContractPOList = viewmodel.getStore('PContractPOList');
-                    // PContractPOList.loadLeafOnly_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'), viewmodel.get('pcontract_poid_link_filter'));
+                    var MauSanPhamStore = viewmodel.getStore('MauSanPhamStore');
+                    console.log(MauSanPhamStore);
+                    MauSanPhamStore.getmausanpham_by_pcontract(viewmodel.get('IdPContract'));
 
                     var poStore = viewmodel.getStore('PContractPOList');
                     poStore.loadAccept_ByContract(viewmodel.get('PContract.id'), viewmodel.get('IdProduct_filterPO'));

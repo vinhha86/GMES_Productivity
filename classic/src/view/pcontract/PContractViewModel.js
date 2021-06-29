@@ -21,7 +21,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         'GSmartApp.store.pcontract.PContractProductTreeStore',
         'GSmartApp.store.pcontract.PContractBom2ColorStore',
         'GSmartApp.store.market.MarketStore',
-        'GSmartApp.store.PayerStore'],
+        'GSmartApp.store.PayerStore',
+        'GSmartApp.store.attribute.attributeValueStore'],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -140,6 +141,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         SKUBalanceStore: {
             type: 'SKUBalanceStore'
         },
+        MauSanPhamStore: {
+            type: 'attributeValueStore'
+        }
     },
     data: {
         titleAttvalue: 'Thuộc tính ',
