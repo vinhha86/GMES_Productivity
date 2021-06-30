@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             click: 'onSave'
         },
         '#btnConfirm':{
-            click: 'onConfirm'
+            click: 'onBtnConfirm'
         }
     },
     onNewData:function(type, id){
@@ -78,8 +78,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
     onBackPage: function(){
         this.redirectTo('stockin_p_main');
     },
-    getInfo: function(id){
-        var me = this;
+    getInfo: function(id, isConfirm){
+        var m = this;
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('StockinD_Store');
 
@@ -111,6 +111,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     var OrgToStore = viewModel.getStore('OrgToStore');
                     OrgToStore.loadStore(8, false);
                 }
+
+                // nếu là Duyệt
+                if(isConfirm == true){
+                    m.onConfirm();
+                }
             }
 		})
     },
@@ -132,9 +137,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 		}
 		return mes;
 	},
-    onSave: function(){
+    onSave: function(isConfirm){
         var me=this;
-        var myview = this.getView();
 
         var mes = this.CheckValidate();
         if(mes == ""){
@@ -142,26 +146,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             var params = new Object();
             params.data = [];
             var stockin = viewModel.get('stockin');
-            // for(var i =0; i<stockin.stockin_d.length;i++){
-            //     delete stockin.stockind[i].sku;
-            // }
             params.data.push(stockin);
-            myview.setLoading("Đang lưu dữ liệu");
+            
+            var mainView = Ext.getCmp('Stockin_P_Edit');
+            if(mainView) mainView.setLoading(true);
+
             GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
                 function (success, response, options) {
-                    myview.setLoading(false);
+                    if(mainView) mainView.setLoading(false);
                     if (success) {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
-                            Ext.MessageBox.show({
-								title: "Thông báo",
-								msg: 'Lập phiếu thành công',
-								buttons: Ext.MessageBox.YES,
-								buttonText: {
-									yes: 'Đóng',
-								}
-							});		
-                            me.getInfo(response.id);
+                            if(isConfirm == false){
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: 'Lập phiếu thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                            me.getInfo(response.id, isConfirm);
                             // this.redirectTo("stockin_p_main/" + response.id + "/edit");
                         }
                     } else {
@@ -187,6 +193,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                 }
             });
         }
+    },
+    onBtnConfirm: function(){
+        this.onSave(true);
     },
 	onConfirm: function(){
         var viewModel = this.getViewModel();
@@ -214,18 +223,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 
 		form.down('#Authen_Confirm').getController().on('AuthenOK', function (approver_userid_link) {
             form.close();
-
-			console.log(approver_userid_link);
+			// console.log(approver_userid_link);
 
 			var params = new Object();
 			params.stockinId = stockinId;
 			params.approver_userid_link = approver_userid_link;
+
+            var mainView = Ext.getCmp('Stockin_P_Edit');
+            if(mainView) mainView.setLoading(true);
 	
 			GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve', Ext.JSON.encode(params),
 				function (success, response, options) {
+                    if(mainView) mainView.setLoading(false);
+                    var response = Ext.decode(response.responseText);
 					if (success) {
-						var response = Ext.decode(response.responseText);
-						// console.log(response);
+						console.log(response);
 						if (response.respcode == 200) {
 							Ext.Msg.show({
 								title: 'Thông báo',
@@ -235,8 +247,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 									yes: 'Đóng',
 								}
 							});
-							
-							m.onThoat();
+							viewModel.set('stockin', response.data);
+							// m.onThoat();
 						}
 						else {
 							Ext.Msg.show({

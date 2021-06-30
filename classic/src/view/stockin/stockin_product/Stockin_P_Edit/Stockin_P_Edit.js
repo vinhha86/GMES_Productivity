@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
                 iconCls: 'x-fa fa-floppy-o',
                 itemId: 'btnLuu',
                 bind: {
-                    disabled: '{isStart}'
+                    disabled: '{isStart}',
+                    hidden: '{isBtnLuuHidden}'
                 }
             }
         ]

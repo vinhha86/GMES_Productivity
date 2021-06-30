@@ -258,7 +258,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
 								}
 							});
 							
-							m.onThoat();
+							// m.onThoat();
 						}
 						else {
 							Ext.Msg.show({
