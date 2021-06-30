@@ -112,34 +112,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
                 }
             },
 		},
-		// {
-		// 	text: 'ĐVT', 
-		// 	dataIndex: 'unit_name',
-		// 	width: 80
-		// },
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	width: 90,
-		// 	format:'0,000',
-		// 	text: 'Đơn giá', 
-		// 	align:'right',
-		// 	dataIndex: 'unitprice',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/
-		// 	}
-		// },
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	width: 100,
-		// 	format:'0,000',
-		// 	text: 'Thành tiền', 
-		// 	align:'right',
-		// 	dataIndex: 'totalprice',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 120
-		// },
 	],
 	dockedItems: [{
 		dock: 'top',
@@ -214,21 +186,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			}
 		},
 		{
-			xtype: 'textfield',
+			xtype: 'combo',
 			margin: '0 5 0 5',
-			itemId:'skucode',
-			fieldLabel: 'Mã SP',
-			width: 200,
-			labelWidth: 50,
-			hideLabel: false,			
+			itemId:'Sku_AutoComplete',
+			fieldLabel: 'Mã hàng',
+			width: 350,
+			labelWidth: 70,
+			hideLabel: false,		
+			hideTrigger: false,	
 			bind:{
+				store: '{Sku_AutoComplete}',
 				hidden: '{isBarcodeHidden}',
-				value: '{skucode}'
 			},
-			// enableKeyEvents : true,
-			// listeners: {
-			//     keypress: 'onPressEnterBtnThemNPL'
-			// }
+			displayField: 'code',
+			valueField: 'id',
+			listConfig: {
+				loadingText: 'Tải mã hàng...',
+				emptyText: 'Không có mã hàng phù hợp.',
+			},
+			queryMode: 'remote',
+			queryParam: 'code',		
+			enableKeyEvents : true,
 		},
 		{
 			tooltip: 'Thêm SP',
@@ -249,57 +227,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			bind:{
 				hidden: '{isManualHidden}',
 			},
-		},		
-		// ,'->',
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: '0 5 0 5',
-		// 	itemId:'ordercode',
-		// 	fieldLabel: 'Tìm lệnh SX:',
-		// 	width: 300,
-		// 	labelWidth: 80,
-		// 	hideLabel: false,			
-        //     bind:{
-		// 		disabled: '{isEdit}',
-		// 		value: '{stockin.pordercode}'
-        //     }
-		// 	// fieldStyle: {
-		// 	// 	textTransform: "uppercase"
-		// 	// },
-		// 	// enableKeyEvents: true,
-		// 	// listeners: {
-		// 	// 	// change: function (obj, newValue) {
-		// 	// 	//     //console.log(newValue);
-		// 	// 	//     obj.setRawValue(newValue.toUpperCase());
-		// 	// 	// },
-		// 	// 	keyup: 'onSkuCodeKeyup',
-		// 	// 	buffer: 100
-		// 	// }    
-		// },
-		// {
-		// 	tooltip: 'Tải danh sách sản phẩm',
-		// 	margin: '0 0 0 5',
-		// 	//text: 'Thêm thẻ vải',
-		// 	iconCls: 'x-fa fa-plus',
-		// 	weight: 30,
-		// 	itemId: 'btnTaiSP',			
-        //     bind:{
-        //         hidden: true
-        //     }
-		// 	// handler: 'onAddItemTap'
-		// },
-		// {
-		// 	tooltip: 'Tìm lệnh',
-		// 	margin: '0 5 0 5',
-		// 	itemId: 'btnTimLenh',
-		// 	//text: 'Thêm thẻ vải',
-		// 	iconCls: 'x-fa fa-search',
-		// 	weight: 30,			
-        //     bind:{
-        //         hidden: '{isEdit}'
-        //     }
-		// 	// handler: 'onSkuSearchTap'
-		// } 		
+		},
 	]
 	}]
 });

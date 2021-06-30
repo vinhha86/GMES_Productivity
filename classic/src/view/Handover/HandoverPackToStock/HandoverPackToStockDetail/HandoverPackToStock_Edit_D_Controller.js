@@ -555,41 +555,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		stockin_dObj.stockin_packinglist = [];
 
 		stockin_d.push(stockin_dObj);
-
-		// var newObj = new Object();
-		// newObj.color_name = data.color_name;
-		// newObj.colorid_link = data.color_id;
-		// newObj.id = null;
-		// newObj.p_skuid_link = data.id;
-		// newObj.product_code = data.product_code;
-		// newObj.size_name = data.size_name;
-		// newObj.sizeid_link = data.size_id;
-		// newObj.sku_product_code = data.product_code;
-		// newObj.sku_product_color = data.product_color;
-		// newObj.sku_product_desc = data.product_desc;
-		// newObj.skucode = data.code;
-		// newObj.skuid_link = data.id;
-		// newObj.skuname = data.name;
-		// newObj.status = -1;
-		// newObj.stockin_packinglist = [];
-		// newObj.stockinid_link = stockin.id;
-		// newObj.unitid_link = stockin.unitid_link;
-		// newObj.totalmet_check = 0;
-		// newObj.totalmet_origin = 0;
-		// newObj.totalpackage = 0;
-		// newObj.totalpackage_order = 0;
-		// newObj.totalpackagecheck = 0;
-		// newObj.totalprice = 0;
-		// newObj.totalydscheck = 0;
-		// newObj.totalydsorigin = 0;
-
-		// stockin_d.push(newObj);
 		store.setData([]);
 		store.insert(0, stockin_d);
 		store.commitChanges();
-
-		// console.log(stockin);
-		// console.log(stockin_d);
 	},
 
 	onMenu_HandoverPackToStock_Edit_D: function (grid, rowIndex, colIndex, item, e, record) {
@@ -635,8 +603,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 	},
 	onDeleteStockinD: function (grid, rowIndex) {
 		var me = this;
-		var viewmodel = this.getViewModel();
-		var stockin = viewmodel.get('stockin');
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
 		var data = grid.getStore().getAt(rowIndex);
 
 		Ext.Msg.show({
@@ -663,9 +631,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 	},
 	deleteRow_Stockin_D: function (data) {
 		var me = this;
-		var viewmodel = this.getViewModel();
-		var stockin = viewmodel.get('stockin');
-		var stockin_d = viewmodel.get('stockin.stockin_d');
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
+		var stockin_d = viewModel.get('stockin.stockin_d');
 		var id = data.get('id');
 
 		for (var i = 0; i < stockin_d.length; i++) {
@@ -674,21 +642,21 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 				break;
 			}
 		}
-		var stockin_dStore = viewmodel.getStore('StockinD_Store');
+		var stockin_dStore = viewModel.getStore('StockinD_Store');
 		if (stockin_dStore) {
 			stockin_dStore.removeAll();
 			stockin_dStore.insert(0, stockin_d);
 			stockin_dStore.commitChanges();
 		}
-		viewmodel.set('stockin.stockin_d', stockin_d);
+		viewModel.set('stockin.stockin_d', stockin_d);
 		// console.log(stockin);
 	},
 	deleteRowDb_Stockin_D: function (data) {
 		var me = this;
 		var m = this.getView();
-		var viewmodel = this.getViewModel();
-		var stockin = viewmodel.get('stockin');
-		var stockin_d = viewmodel.get('stockin.stockin_d');
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
+		var stockin_d = viewModel.get('stockin.stockin_d');
 		var id = data.get('id');
 
 		m.setLoading(true);
@@ -707,13 +675,13 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 								break;
 							}
 						}
-						var stockin_dStore = viewmodel.getStore('StockinD_Store');
+						var stockin_dStore = viewModel.getStore('StockinD_Store');
 						if (stockin_dStore) {
 							stockin_dStore.removeAll();
 							stockin_dStore.insert(0, stockin_d);
 							stockin_dStore.commitChanges();
 						}
-						viewmodel.set('stockin.stockin_d', stockin_d);
+						viewModel.set('stockin.stockin_d', stockin_d);
 						// console.log(stockin);
 					} else {
 						Ext.Msg.show({
@@ -752,13 +720,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 			store.rejectChanges();
 			return;
 		}
-
 		if (context.field == 'totalpackage') {
 			stockinD_data.totalpackage = parseFloat(stockinD_data.totalpackage);
 		}
-
 		store.commitChanges();
-
-		console.log(stockin);
 	},
 })

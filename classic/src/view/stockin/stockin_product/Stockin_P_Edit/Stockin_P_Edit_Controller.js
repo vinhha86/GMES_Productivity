@@ -104,6 +104,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     OrgFromStore.loadStore(9, false);
                     var OrgToStore = viewModel.getStore('OrgToStore');
                     OrgToStore.loadStore(8, false);
+                    var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+                    POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
                 }
                 if(response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
                     var OrgFromStore = viewModel.getStore('OrgFromStore');

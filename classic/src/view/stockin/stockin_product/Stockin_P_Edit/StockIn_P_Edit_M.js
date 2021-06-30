@@ -197,30 +197,36 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 					hidden: '{isPOLineHidden}'
 				}
 				// handler: 'onSkuSearchTap'
-			}, 			
+			},
 			{
-				margin: '0 5 0 5',
-				xtype: 'textfield',
+				xtype: 'combo',
+				itemId: 'cbo_POrder_ListStore',
+				valueField: 'id',
+				displayField: 'ordercode',
 				bind: {
-					value: '{stockin.customs_number}'
+					value: '{stockin.porderid_link}',
+					store: '{POrder_ListStore}',
+					disabled: '{isEdit}',
+					hideTrigger: '{isEdit}',
+					hidden: '{isPOLineHidden}'
 				},
-				labelWidth: 85,
+				queryMode: 'local',
+				margin: '0 5 0 5',
 				width: 445,
-				fieldLabel: 'Số tờ khai'
+				labelWidth: 85,
+				fieldLabel: 'Lệnh SX'
 			},
 			{
-			margin: '0 5 0 5',
-			xtype: 'datefield',
-			format: GSmartApp.util.State.get('dataFormat'),
-			altFormats: "Y-m-d\\TH:i:s.uO",
-			bind: {
-				value: '{stockin.customs_date}'
-			},
-			editable: false,
-			flex: 1,
-			labelWidth: 85,
-			fieldLabel: "Ngày tờ khai"
-		}]
+				// margin: '0 5 0 5',
+				// xtype: 'textfield',
+				// bind: {
+				// 	value: '{stockin.shipperson}'
+				// },
+				// fieldLabel: 'Người giao',
+				// labelWidth: 85,
+				flex: 1
+			}	
+		]
 	},
 	]
 });

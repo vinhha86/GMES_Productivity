@@ -233,23 +233,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			queryParam: 'code',		
 			enableKeyEvents : true,
 		},
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: '0 5 0 5',
-		// 	itemId:'skucode',
-		// 	fieldLabel: 'Mã SP',
-		// 	width: 200,
-		// 	labelWidth: 50,
-		// 	hideLabel: false,			
-		// 	bind:{
-		// 		hidden: '{isBarcodeHidden}',
-		// 		value: '{skucode}'
-		// 	},
-		// 	// enableKeyEvents : true,
-		// 	// listeners: {
-		// 	//     keypress: 'onPressEnterBtnThemNPL'
-		// 	// }
-		// },
 		{
 			tooltip: 'Thêm SP',
 			margin: '0 0 0 5',

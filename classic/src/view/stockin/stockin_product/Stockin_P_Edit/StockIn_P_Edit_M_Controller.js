@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		},
 		'#btnTimStockout': {
 			click: 'onTimStockout'
+		},
+		'#cbo_POrder_ListStore': {
+			select: 'on_cbo_POrder_ListStore_select'
 		}
     },
 	onEnterLinegiaohang: function (field, e) {
@@ -62,9 +65,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		})
 	},	
 	onLoadStockoutData: function(data){
-		var viewmodel = this.getViewModel();
-		viewmodel.set('stockin.stockoutid_link', data.id);
-		viewmodel.set('stockin.stockout_code', data.stockoutcode);
+		var viewModel = this.getViewModel();
+		viewModel.set('stockin.stockoutid_link', data.id);
+		viewModel.set('stockin.stockout_code', data.stockoutcode);
 		var list = [];
 		for(var i=0; i<data.stockout_d.length; i++){
 			var data_stockout = data.stockout_d[i];
@@ -121,13 +124,16 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			list.push(stockind_new);
 		}
 
-		viewmodel.set('stockin.stockin_d', list);
-		var store = viewmodel.getStore('StockinD_Store');
+		viewModel.set('stockin.stockin_d', list);
+		var store = viewModel.getStore('StockinD_Store');
 		store.removeAll();
-		store.setData(list);
+		// store.setData(list);
+		store.insert(0, list);
+		store.commitChanges();
 	},		
 	onTimLine: function () {
-		var me = this;
+		var m = this;
+		var viewModel = this.getViewModel();
 		var grid = this.getView();
 		var form = Ext.create('Ext.window.Window', {
 			height: 600,
@@ -155,7 +161,33 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		form.show();
 
 		form.down('#Stockout_POLINE').on('Chon', function (data) {
-			me.onLoadPOLineData(data);
+			viewModel.set('stockin.pcontract_poid_link', data.id);
+			viewModel.set('stockin.contract_number', data.po_buyer);
+
+			// me.onLoadPOLineData(data);
+
+			//
+			var mainView = Ext.getCmp('Stockin_P_Edit');
+        	if(mainView) mainView.setLoading(true);
+
+			var StockinD_Store = viewModel.getStore('StockinD_Store');
+			StockinD_Store.removeAll();
+			viewModel.set('stockin.stockin_d', []);
+			viewModel.set('stockin.porderid_link', null);
+
+			var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+			POrder_ListStore.removeAll();
+			POrder_ListStore.POrderPOLine_loadby_po_async(data.id);
+			POrder_ListStore.load({
+				scope: this,
+				callback: function(records, operation, success) {
+					if(mainView) mainView.setLoading(false);
+					if(!success){
+						 this.fireEvent('logout');
+					} else {
+					}
+				}
+			});
 			form.close();
 		})
 	},	
@@ -196,8 +228,58 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 					viewModel.set('stockin.stockin_d', list);
 					var store = viewModel.getStore('StockinD_Store');
 					store.removeAll();
-					store.setData(list);
+					// store.setData(list);
+					store.insert(0, list);
+					store.commitChanges();
 				}
 			})
-	},	
+	},
+	on_cbo_POrder_ListStore_select: function(combo, rec, eOpts){
+		var viewModel = this.getViewModel();
+		var porderid_link = rec.get('id');
+		var pcontract_poid_link = viewModel.get('stockin.pcontract_poid_link');
+		// load sku
+		var params = new Object();
+		params.porderid_link = porderid_link;
+		params.pcontract_poid_link = pcontract_poid_link;
+
+		var mainView = Ext.getCmp('Stockin_P_Edit');
+        if(mainView) mainView.setLoading(true);
+
+		GSmartApp.Ajax.post('/api/v1/porder/getsku_by_porder_po', Ext.JSON.encode(params),
+			function (success, response, options) {
+        if(mainView) mainView.setLoading(false);
+				var response = Ext.decode(response.responseText);
+				if (response.respcode == 200) { 
+					console.log(response);
+					var list = [];
+					for(var i=0; i<response.data.length; i++){
+						var data = response.data[i];
+						var stockind_new = new Object();
+						stockind_new.id = null;
+						stockind_new.skucode = data.skucode;
+						stockind_new.skuname = data.skuname;
+						stockind_new.sku_product_code = data.sku_product_code;
+						stockind_new.product_name = data.sku.product_name;
+						stockind_new.p_skuid_link = data.productid_link;
+						stockind_new.color_name = data.mauSanPham;
+						stockind_new.size_name = data.coSanPham;
+						stockind_new.totalpackage = data.pquantity_total;
+						stockind_new.unitid_link = data.unitid_link;
+						stockind_new.colorid_link = data.colorid_link;
+						stockind_new.skuid_link = data.skuid_link;
+						stockind_new.sizeid_link = data.sizeid_link;
+
+						list.push(stockind_new);
+					}
+
+					viewModel.set('stockin.stockin_d', list);
+					var store = viewModel.getStore('StockinD_Store');
+					store.removeAll();
+					// store.setData(list);
+					store.insert(0, list);
+					store.commitChanges();
+				}
+			})
+	},
 })

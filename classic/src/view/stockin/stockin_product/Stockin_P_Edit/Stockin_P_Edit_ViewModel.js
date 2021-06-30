@@ -33,14 +33,17 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 		StatusStore:{
 			type: 'stockinstatusstore'
 		},
-		porderStore: {
+		POrder_ListStore: {
 			type: 'POrder_ListStore'
+		},
+		GpayUser: {
+			type: 'GpayUserOrg'
 		},
 		StockinGroupStore: {
 			type: 'StockinGroupStore'
 		},
-		GpayUser: {
-			type: 'GpayUserOrg'
+        Sku_AutoComplete: {
+			type: 'Sku_AutoComplete'
 		},
 	},
 	data: {
@@ -82,8 +85,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 		},
 		iseditSL_YC: function(get){
 			//Neu la nhap theo PO thi ko cho sua SL YC
-			if(get('stockin.stockintypeid_link') == 21) 
+			if(get('stockin.stockintypeid_link') == 21){
+				if(get('stockin.id') == null || get('stockin.id') == 0) {
+					return true;
+				}
 				return false;
+			}
 			else
 				return true;
 		},

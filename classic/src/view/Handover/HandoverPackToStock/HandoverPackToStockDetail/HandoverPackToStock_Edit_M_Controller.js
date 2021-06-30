@@ -179,10 +179,10 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 			POrder_ListStore.load({
 				scope: this,
 				callback: function(records, operation, success) {
+					if(mainView) mainView.setLoading(false);
 					if(!success){
 						 this.fireEvent('logout');
 					} else {
-						if(mainView) mainView.setLoading(false);
 					}
 				}
 			});

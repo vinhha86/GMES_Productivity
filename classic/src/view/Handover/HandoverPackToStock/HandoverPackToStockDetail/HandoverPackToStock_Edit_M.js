@@ -237,7 +237,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					value: '{stockin.porderid_link}',
 					store: '{POrder_ListStore}',
 					disabled: '{isEdit}',
-					hideTrigger: '{isEdit}'
+					hideTrigger: '{isEdit}',
+					hidden: '{isPOLineHidden}'
 				},
 				queryMode: 'local',
 				margin: '0 5 0 5',
