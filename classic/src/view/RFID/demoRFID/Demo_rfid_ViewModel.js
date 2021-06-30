@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.Demo_rfid_ViewModel', {
         StockinStore: {
             type: 'Stockin_demo_Store'
         },
+        StockoutStore: {
+            type: 'Stockin_demo_Store'
+        },
         device_store: {
             type: 'device_demo_store'
         }

@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.ViewQrcodeController', {
     init: function () {
         var me = this;
         var viewmodel = this.getViewModel();
-        me.generateEpcInQrcode();
+        if (viewmodel.get('typeView') == 0)
+            me.generateEpcInQrcode();
     },
     control: {
         '#btnThoat': {
@@ -14,7 +15,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.ViewQrcodeController', {
     onThoat: function () {
         this.getView().up('window').close();
     },
-    generateEpcInQrcode: function() {
+    generateEpcInQrcode: function () {
         var viewmodel = this.getViewModel();
         var epc = "";
 
@@ -30,11 +31,11 @@ Ext.define('GSmartApp.view.RFID.demoRFID.encode.ViewQrcodeController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         epc = response.epc;
-                        console.log('epc'+epc);
+                        console.log('epc' + epc);
                     }
                     viewmodel.set('code', epc);
                 }
             })
-        
+
     }
 })
