@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit', {
                 iconCls: 'x-fa fa-floppy-o',
                 itemId: 'btnLuu',
                 bind: {
-                    disabled: '{isStart}'
+                    disabled: '{isStart}',
+                    hidden: '{isBtnLuuHidden}'
                 }
             }
         ]

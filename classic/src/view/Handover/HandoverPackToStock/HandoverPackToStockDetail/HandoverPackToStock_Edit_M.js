@@ -153,8 +153,21 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					value: '{stockin.extrainfo}'
 				},
 				fieldLabel: 'Kèm theo',
+				width: 445,
+				labelWidth: 85,
+			},
+			{
+				margin: '0 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.statusString}'
+				},
+				fieldLabel: 'Trạng thái',
+				editable: false,
+				readOnly: true,
+				cls: 'notEditable',
 				flex: 1,
-				labelWidth: 85
+				labelWidth: 85,
 			}
 		]
 	},
@@ -208,38 +221,41 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 				tooltip: 'Tìm PO Line',
 				margin: '0 5 0 3',
 				itemId: 'btnTimPOLine',
-				//text: 'Thêm thẻ vải',
 				iconCls: 'x-fa fa-search',
 				weight: 30,			
 				bind:{
 					disabled: '{isEdit}',
 					hidden: '{isPOLineHidden}'
 				},
-				// handler: 'onSkuSearchTap'
-			}, 			
+			},
 			{
-				margin: '0 5 0 5',
-				xtype: 'textfield',
+				xtype: 'combo',
+				itemId: 'cbo_POrder_ListStore',
+				valueField: 'id',
+				displayField: 'ordercode',
 				bind: {
-					value: '{stockin.customs_number}'
+					value: '{stockin.porderid_link}',
+					store: '{POrder_ListStore}',
+					disabled: '{isEdit}',
+					hideTrigger: '{isEdit}'
 				},
-				labelWidth: 85,
+				queryMode: 'local',
+				margin: '0 5 0 5',
 				width: 445,
-				fieldLabel: 'Số tờ khai'
+				labelWidth: 85,
+				fieldLabel: 'Lệnh SX'
 			},
 			{
-			margin: '0 5 0 5',
-			xtype: 'datefield',
-			format: GSmartApp.util.State.get('dataFormat'),
-			altFormats: "Y-m-d\\TH:i:s.uO",
-			bind: {
-				value: '{stockin.customs_date}'
-			},
-			editable: false,
-			flex: 1,
-			labelWidth: 85,
-			fieldLabel: "Ngày tờ khai"
-		}]
+				// margin: '0 5 0 5',
+				// xtype: 'textfield',
+				// bind: {
+				// 	value: '{stockin.shipperson}'
+				// },
+				// fieldLabel: 'Người giao',
+				// labelWidth: 85,
+				flex: 1
+			}	
+		]
 	},
 	]
 });

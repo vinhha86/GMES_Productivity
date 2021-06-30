@@ -255,6 +255,33 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			}
 		});
 	},
+	POrderPOLine_loadby_po_async: function (pcontract_poid_link) {
+		var me = this;
+		var params = new Object();
+		params.pcontract_poid_link = pcontract_poid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/porderpoline/getporder_by_po',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},
 	loadStoreBySearch_for_cutplanprocessing: function (donvi, lenhsx_cb, sanpham_cb) {
 		var me = this;
 		var params = new Object();

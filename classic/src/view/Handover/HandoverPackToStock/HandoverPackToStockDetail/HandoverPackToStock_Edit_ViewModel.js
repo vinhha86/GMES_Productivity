@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
 		StatusStore:{
 			type: 'stockinstatusstore'
 		},
-		porderStore: {
+		POrder_ListStore: {
 			type: 'POrder_ListStore'
 		},
 		GpayUser: {
@@ -98,7 +98,12 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
 			else
 				return true;
 		},
+		
 		isBtnConfirmHidden: function (get) {
+			if (get('stockin.status') < 0) {
+				return true;
+			}
+			else
             if (get('stockin.status') < 1) {
                 return false
             }
@@ -106,5 +111,13 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
                 return true;
             }
         },
+		isBtnLuuHidden: function(get){
+			if (get('stockin.status') > 0) {
+                return true
+            }
+            else {
+                return false;
+            }
+		}
     }
 })

@@ -118,11 +118,20 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List_Controller', {
                     params.id = id;
                     GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
+                        me.setLoading(false);
                         if (success) {
-                            me.setLoading(false);
                             var response = Ext.decode(response.responseText);
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
+                            }else{
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: 'Lỗi xoá phiếu: ' + response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
                             }
                         }
                 })
