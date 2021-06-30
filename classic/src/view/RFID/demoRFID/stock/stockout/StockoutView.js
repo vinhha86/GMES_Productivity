@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockout.StockoutView', {
             },
             {
                 margin: 5,
-                text: "Nhập kho",
+                text: "Xuất kho",
                 iconCls: 'x-fa fa-plus',
                 xtype: 'button',
                 itemId: 'btnLuu',
