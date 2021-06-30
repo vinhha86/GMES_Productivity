@@ -21,7 +21,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.ViewQrcode_ViewModel', {
                 // console.log(urlbase + "/api/v1/qrcode/getqr_code_bike_number?text=");
                 // console.log("http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_bike_number?text=");
                 // url = urlbase + "/api/v1/qrcode/getqr_code_bike_number?text=" + epc
-                url = 'http://localhost:8990/gsmartcore/api/v1/qrocde/getqr_code_bike_number?text=' + epc;
+                url = 'http://gpay.vn:8090/gmes/api/v1/qrocde/getqr_code_bike_number?text=' + epc;
             }
             return url;
         }
