@@ -8,7 +8,8 @@ Ext.define('GSmartApp.view.RFID.stock.StockView', {
         xtype: 'StockinView'
     },
     {
-        title: '[3.2] Xuất kho'
+        title: '[3.2] Xuất kho',
+        xtype: 'StockoutView'
     }
     ]
 })

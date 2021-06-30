@@ -19,13 +19,16 @@ Ext.define('GSmartApp.view.RFID.Demo_rfid_View', {
         xtype: 'StockView'
     },
     {
-        title: '[4] Kiểm kho'
+        title: '[4] Kiểm kho',
+        hidden: true
     },
     {
-        title: '[5] Tìm hàng'
+        title: '[5] Tìm hàng',
+        hidden: true
     },
     {
-        title: '[6] Cửa cảnh báo'
+        title: '[6] Cửa cảnh báo',
+        hidden: true
     }
     ]
 })

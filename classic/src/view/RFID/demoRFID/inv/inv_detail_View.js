@@ -12,6 +12,18 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_detail_View', {
         store: '{inv_detail_store}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-filter',
+                handler: 'onViewBarcode'
+            },
+        ]
+    }, {
         text: 'Mã sản phẩm',
         dataIndex: 'prodcode',
         flex: 1,

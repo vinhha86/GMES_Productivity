@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
+Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockout.StockoutViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.StockinViewController',
+    alias: 'controller.StockoutViewController',
     init: function () {
         var viewmodel = this.getViewModel();
         var deviceStore = viewmodel.getStore('device_store');
@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
         else {
             me.setLoading('Đang nhập kho');
             var lst = [];
-            var store = viewmodel.getStore('StockinStore');
+            var store = viewmodel.getStore('StockoutStore');
             for (var i = 0; i < store.data.length; i++) {
                 var data = store.data.items[i].data;
                 lst.push(data);
@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
             params.data = lst;
             params.store_id = id_invstore;
 
-            var url = 'demorfid/createInvD';
+            var url = 'demorfid/create_stockout';
 
             GSmartApp.Ajax.post_demo(url, Ext.JSON.encode(params),
                 function (success, response, options) {
@@ -96,9 +96,8 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
         else {
             viewmodel.set('isStart', true);
 
-            var store = viewmodel.getStore('StockinStore');
-            console.log(store);
-            store.loadPackingList();
+            var store = viewmodel.getStore('StockoutStore');
+            store.LoadPickingList(id_invstore);
         }
 
     },

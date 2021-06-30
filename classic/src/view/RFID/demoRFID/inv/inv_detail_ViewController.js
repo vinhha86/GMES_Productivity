@@ -7,6 +7,34 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.inv_detail_ViewController', {
     control: {
 
     },
+    onViewBarcode: function (grid, rowIndex, colIndex, item, e, record) {
+        var form = Ext.create('Ext.window.Window', {
+            height: 270,
+            width: 230,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'QR Code',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'ViewQrcode',
+                viewModel: {
+                    data: {
+                        epc: record.get('epc'),
+                        typeView: 1
+                    }
+                }
+            }]
+        });
+
+        form.show();
+    },
     onFilterCodeKeyup: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('inv_detail_store');
