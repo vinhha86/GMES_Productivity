@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.Demo_rfid_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Demo_rfid_ViewModel',
     requires: ['GSmartApp.store.demo.inv_store', 'GSmartApp.store.demo.inv_detail_store',
-        'GSmartApp.store.demo.StoreType', 'GSmartApp.store.demo.StockinStore', 'GSmartApp.store.demo.device_demo_store'],
+        'GSmartApp.store.demo.StoreType', 'GSmartApp.store.demo.Stockin_demo_Store', 'GSmartApp.store.demo.device_demo_store'],
     stores: {
         inv_store: {
             type: 'inv_store'
@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.inv.Demo_rfid_ViewModel', {
             type: 'StoreType'
         },
         StockinStore: {
-            type: 'StockinStore'
+            type: 'Stockin_demo_Store'
         },
         device_store: {
             type: 'device_demo_store'

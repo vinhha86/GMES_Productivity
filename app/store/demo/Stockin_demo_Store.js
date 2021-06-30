@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.store.demo.StockinStore', {
+Ext.define('GSmartApp.store.demo.Stockin_demo_Store', {
     extend: 'Ext.data.Store',
-    alias: 'store.StockinStore',
-    storeId: 'StockinStore',
+    alias: 'store.Stockin_demo_Store',
+    storeId: 'Stockin_demo_Store',
     fields: [
         { name: 'id' },
         { name: 'name', type: 'string' },
@@ -12,7 +12,8 @@ Ext.define('GSmartApp.store.demo.StockinStore', {
         direction: 'ASC',
         property: 'code'
     },
-    loadStore: function () {
+    loadPackingList: function () {
+        console.log(1234);
         var params = new Object();
         this.setProxy({
             type: 'ajax',
@@ -22,7 +23,7 @@ Ext.define('GSmartApp.store.demo.StockinStore', {
                 update: 'POST',
                 destroy: 'POST'
             },
-            url: config.getAppBaseUrl_demo() + 'demorfid/getstoretype',
+            url: config.getAppBaseUrl_demo() + 'demorfid/getpackinglist',
             paramsAsJson: true,
             noCache: false,
             headers: {

@@ -12,6 +12,61 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
         },
         '#btnStop': {
             click: 'onStop'
+        },
+        '#btnLuu': {
+            click: 'onLuu'
+        }
+    },
+    onLuu: function () {
+        var me = this.getView();
+
+        var viewmodel = this.getViewModel();
+        var id_invstore = viewmodel.get('id_invstore');
+
+        if (id_invstore == 0) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn kho",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
+        else {
+            me.setLoading('Đang nhập kho');
+            var lst = [];
+            var store = viewmodel.getStore('StockinStore');
+            for (var i = 0; i < store.data.length; i++) {
+                var data = store.data.items[i].data;
+                console.log(data);
+                lst.push(data);
+            }
+
+            var params = new Object();
+            params.data = lst;
+            params.store_id = id_invstore;
+
+            var url = 'demorfid/createInvD';
+
+            GSmartApp.Ajax.post_demo(url, Ext.JSON.encode(params),
+                function (success, response, options) {
+                    me.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Lưu thành công",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
+                                }
+                            });
+                            store.removeAll();
+                        }
+                    }
+                })
         }
     },
     onStart: function () {
@@ -41,6 +96,10 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinViewController', {
         }
         else {
             viewmodel.set('isStart', true);
+
+            var store = viewmodel.getStore('StockinStore');
+            console.log(store);
+            store.loadPackingList();
         }
 
     },

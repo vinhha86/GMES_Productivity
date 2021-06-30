@@ -19,36 +19,12 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockin.StockinView', {
     columns: [{
         text: 'Mã SP',
         dataIndex: 'code',
-        flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            margin: 1,
-            reference: 'filtercode',
-            width: '99%',
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onFilterCodeKeyup',
-                buffer: 500
-            }
-        }
+        flex: 1
     },
     {
         text: 'Tên SP',
         dataIndex: 'name',
-        flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            margin: 1,
-            reference: 'filtername',
-            width: '99%',
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onFilterNameKeyup',
-                buffer: 500
-            }
-        }
+        flex: 1
     }, {
         text: 'Số lượng',
         dataIndex: 'quantity',
