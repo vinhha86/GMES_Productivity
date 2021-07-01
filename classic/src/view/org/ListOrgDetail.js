@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false,
         allowBlank: false,
         readOnly: true
@@ -143,6 +144,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false,
         tpl: [
             '<ul class="x-list-plain">',

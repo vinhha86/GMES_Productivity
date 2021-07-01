@@ -82,6 +82,7 @@ Ext.define('GSmartApp.view.pcontract.PContractConfigAmountFormView', {
             displayField: 'typeString',
             valueField: 'type',
             queryMode: 'local',
+            anyMatch: true,
             editable: false,
             allowBlank: false,
             flex:1,

@@ -72,6 +72,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_List', {
                 store: '{OrgProviderStore}'
             },
             queryMode: 'local',
+			anyMatch: true,
             margin: '5 0 5 0',
             displayField: 'name',
             valueField: 'id'

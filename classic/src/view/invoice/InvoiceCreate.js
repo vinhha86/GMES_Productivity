@@ -95,6 +95,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceCreate', {
 					 xtype: 'combobox',
 					 fieldLabel: GSmartApp.Locales.nhacungcap[GSmartApp.Locales.currentLocale],
 					 queryMode: 'local',
+					 anyMatch: true,
 					 store:'ProviderStore',
 					 displayField: 'name',
 					 valueField: 'id'
@@ -105,6 +106,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceCreate', {
 					 xtype: 'combobox',
 					 fieldLabel: GSmartApp.Locales.donvinhan[GSmartApp.Locales.currentLocale],
 					 queryMode: 'local',
+					 anyMatch: true,
 					 store:'WareHouseStore',
 					 displayField: 'name',
 					 valueField: 'id'
@@ -124,6 +126,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceCreate', {
 					 xtype: 'combobox',
 					 fieldLabel:GSmartApp.Locales.cang_xephang[GSmartApp.Locales.currentLocale],
 					 queryMode: 'local',
+					 anyMatch: true,
 					 store:'PortStore',
 					 displayField: 'name',
 					 valueField: 'id'
@@ -134,6 +137,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceCreate', {
 					 xtype: 'combobox',
 					 fieldLabel: GSmartApp.Locales.cang_dohang[GSmartApp.Locales.currentLocale],
 					 queryMode: 'local',
+					 anyMatch: true,
 					 store:'PortStore',
 					 displayField: 'name',
 					 valueField: 'id'
@@ -191,6 +195,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceCreate', {
 					 xtype: 'combobox',
 					 fieldLabel: GSmartApp.Locales.sanpham[GSmartApp.Locales.currentLocale],
 					 queryMode: 'local',
+					 anyMatch: true,
 					 store:'SkuStore',
 					 displayField: 'name',
 					 valueField: 'id'

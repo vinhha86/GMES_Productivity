@@ -29,7 +29,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                 displayField: 'codename',
                 valueField: 'id',
                 filterPickList: true,
-                queryMode: 'local',          
+                queryMode: 'local',      
+				anyMatch: true,    
                 // publishes: 'po.packingnotice',   
                 style: {
                     background: 'white'
@@ -219,6 +220,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             displayField: 'code',
                             valueField: 'name',
                             queryMode: 'local',
+                            anyMatch: true,
                             editable: true,
                             bind: {
                                 store: '{QCOrgStore}',
@@ -267,6 +269,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             displayField: 'name',
                             valueField: 'id',
                             queryMode: 'local',
+                            anyMatch: true,
                             editable: true,
                             bind: {
                                 store: '{ShipModeStore}',
@@ -409,6 +412,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',            
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 1,
@@ -427,6 +431,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',           
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 1,

@@ -60,6 +60,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
                         editable: '{iscombo_DonVi_editable}'
                     },
                     queryMode: 'local',
+                    anyMatch: true,
                     fieldLabel: 'Đơn vị',					
                     margin: 1,
                     labelWidth: 80,
@@ -85,6 +86,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
                         loadingText: 'Tải mã lệnh...',
                         emptyText: 'Không có mã lệnh phù hợp.',
                     },
+                    anyMatch: true,
                     queryMode: 'remote',
                     queryParam: 'ordercode',		
                     enableKeyEvents : true,
@@ -126,6 +128,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
                         loadingText: 'Tải mã SP...',
                         emptyText: 'Không có mã SP phù hợp.',
                     },
+                    anyMatch: true,
                     queryMode: 'remote',
                     queryParam: 'buyercode',		
                     enableKeyEvents : true,

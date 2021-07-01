@@ -113,6 +113,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
             labelWidth: 80,
             itemId: 'cmbSanPham',
             queryMode: 'local',
+            anyMatch: true,
             editable: false,
             valueField: 'productid_link',
             displayField: 'productName'
@@ -127,6 +128,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
             fieldLabel: 'Đo độ dài:',
             labelWidth: 80,
             queryMode: 'local',
+            anyMatch: true,
             editable: false,
             valueField: 'lengthunitid_link',
             displayField: 'name'
@@ -141,6 +143,7 @@ Ext.define('GSmartApp.view.pcontract.PContractProductBomView', {
             fieldLabel: 'Đo trọng lượng:',
             labelWidth: 100,
             queryMode: 'local',
+            anyMatch: true,
             editable: false,
             valueField: 'weightunitid_link',
             displayField: 'name'

@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             flex:1,
             labelWidth: 110,
             queryMode: 'local',
+            anyMatch: true,
             listeners: {
                 change: 'onFactoryListChange'
             }
@@ -40,6 +41,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             flex:1,
             labelWidth: 110,
             queryMode: 'local',
+            anyMatch: true,
             listeners: {
                 change: 'onProductionLineListChange'
             }
@@ -62,6 +64,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             flex:1,
             labelWidth: 110,
             queryMode: 'local',
+            anyMatch: true,
             listeners: {
                 select: 'onPersonnelCodeListChange'
             }
@@ -80,6 +83,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             flex:1,
             labelWidth: 110,
             queryMode: 'local',
+            anyMatch: true,
             listeners: {
                 select: 'onPersonnelNameListChange'
             }
@@ -174,6 +178,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             flex:1,
             labelWidth: 110,
             queryMode: 'local',
+            anyMatch: true,
             listeners: {
                 // change: 'onChange'
             }

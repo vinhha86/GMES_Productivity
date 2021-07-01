@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{StockinTypeStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				fieldLabel: 'Loại phiếu',	
 				editable: false,
@@ -80,6 +81,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{UserStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				editable: false,
 				readOnly: true,
@@ -102,6 +104,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{OrgFromStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				fieldLabel: 'Nơi giao ('+ '<span style="color:red">*</span>' + ')',					
 				labelWidth: 95,					
@@ -116,20 +119,29 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{OrgToStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				width: 445,
 				labelWidth: 85,
 				fieldLabel: 'Nơi nhận'
 			},
 			{
-				margin: '0 5 0 5',
-				xtype: 'textfield',
+				xtype: 'combo',
+				valueField: 'id',
+				displayField: 'fullName',
 				bind: {
-					value: '{stockin.shipperson}'
+					value: '{stockin.approverid_link}',
+					store: '{UserStore}'
 				},
-				fieldLabel: 'Người giao',
+				queryMode: 'local',
+				anyMatch: true,
+				margin: '0 5 0 5',
+				editable: false,
+				readOnly: true,
+				cls: 'notEditable',
+				flex: 1,
 				labelWidth: 85,
-				flex: 1
+				fieldLabel: 'Người duyệt'
 			}
 		]
 	}, {
@@ -241,21 +253,31 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					hidden: '{isPOLineHidden}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				width: 445,
 				labelWidth: 85,
 				fieldLabel: 'Lệnh SX'
 			},
 			{
-				// margin: '0 5 0 5',
-				// xtype: 'textfield',
-				// bind: {
-				// 	value: '{stockin.shipperson}'
-				// },
-				// fieldLabel: 'Người giao',
-				// labelWidth: 85,
-				flex: 1
-			}	
+				xtype: 'combo',
+				itemId: 'cbo_POrder_ListGrantStore',
+				valueField: 'id',
+				displayField: 'granttoorgname',
+				bind: {
+					value: '{stockin.porder_grantid_link}',
+					store: '{POrder_ListGrantStore}',
+					disabled: '{isEdit}',
+					hideTrigger: '{isEdit}',
+					hidden: '{isPOLineHidden}'
+				},
+				queryMode: 'local',
+				anyMatch: true,
+				margin: '0 5 0 5',
+				flex: 1,
+				labelWidth: 85,
+				fieldLabel: 'Tổ chuyền'
+			},
 		]
 	},
 	]

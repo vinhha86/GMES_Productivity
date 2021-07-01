@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_InfoView', {
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
+				anyMatch: true,
                 editable: false,
                 allowBlank: false,
                 margin: 2,

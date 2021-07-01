@@ -259,6 +259,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceEdit_M', {
                         labelWidth: 90,
                         width: 220,
                         queryMode: 'local',
+                        anyMatch: true,
                         listeners: {
                             select: 'onSelectUnit'
                         },

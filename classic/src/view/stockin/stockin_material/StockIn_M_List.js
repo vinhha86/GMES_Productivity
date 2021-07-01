@@ -232,6 +232,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
                 hidden: '{isAdd_Pcontract_Stockin}'
             },
             queryMode: 'local',
+            anyMatch: true,
             margin: 3,
             displayField: 'name',
             valueField: 'id',

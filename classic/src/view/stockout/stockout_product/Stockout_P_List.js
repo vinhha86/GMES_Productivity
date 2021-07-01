@@ -109,6 +109,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
                     store: '{OrgToStore}'
                 },
                 queryMode: 'local',
+				anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id'

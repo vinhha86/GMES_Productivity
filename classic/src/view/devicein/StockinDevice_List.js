@@ -94,6 +94,7 @@ Ext.define('GSmartApp.view.devicein.StockinDevice_List', {
                     store: '{OrgFromStore}'
                 },
                 queryMode: 'local',
+                anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id'
@@ -105,6 +106,7 @@ Ext.define('GSmartApp.view.devicein.StockinDevice_List', {
                     store: '{DeviceInTypeStore}'
                 },
                 queryMode: 'local',
+                anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id'

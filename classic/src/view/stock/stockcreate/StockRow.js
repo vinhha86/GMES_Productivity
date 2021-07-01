@@ -18,6 +18,7 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockRow', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false,
         allowBlank: false,
         readOnly: true

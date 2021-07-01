@@ -50,6 +50,7 @@ Ext.define('GSmartApp.view.sewingtrim.SewingTrimInfoView', {
                 valueField: 'id',
                 displayField: 'name',
                 queryMode: 'local',
+				anyMatch: true,
                 fieldLabel: "Đơn vị tính (<span style = 'color: red'>*</span>)",
                 allowBlank: false,
                 labelWidth: 110,

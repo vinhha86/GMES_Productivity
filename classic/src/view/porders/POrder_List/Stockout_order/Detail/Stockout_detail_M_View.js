@@ -24,6 +24,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			width: 375,
 			margin: '0 5 0 5',
 			queryMode: 'local',
+			anyMatch: true,
 			fieldLabel: 'Loại nhập'
 		}, {
 			xtype: 'textfield',
@@ -50,6 +51,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 				disabled: '{isCreate}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '0 5 0 5',
 			fieldLabel: "Nơi giao (<span style = 'color: red'>*</span>)",
 			labelWidth: 80,
@@ -65,6 +67,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 				store: '{OrgToStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '0 5 0 5',
 			flex: 1,
 			labelWidth: 85,
@@ -114,6 +117,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_de
 			valueField: 'id',
 			displayField: 'name',
 			queryMode: 'local',
+			anyMatch: true,
 			fieldLabel: 'Đơn vị tính',
 			itemId: 'cmbDonViTinh',
 			labelWidth: 80,

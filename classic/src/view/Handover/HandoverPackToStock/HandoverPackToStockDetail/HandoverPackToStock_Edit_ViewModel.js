@@ -32,6 +32,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
 		POrder_ListStore: {
 			type: 'POrder_ListStore'
 		},
+		POrder_ListGrantStore: {
+			type: 'POrder_ListGrantStore'
+		},
 		GpayUser: {
 			type: 'GpayUserOrg'
 		},

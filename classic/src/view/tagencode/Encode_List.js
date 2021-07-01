@@ -84,6 +84,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_List', {
                 store: '{OrgStore}'
             },
             queryMode: 'local',
+            anyMatch: true,
             margin: 3,
             displayField: 'name',
             valueField: 'id'
@@ -95,6 +96,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_List', {
                 store: '{UserStore}'
             },
             queryMode: 'local',
+            anyMatch: true,
             margin: 3,
             valueField: 'id',
             displayField: 'fullName'

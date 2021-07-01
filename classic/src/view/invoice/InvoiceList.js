@@ -130,6 +130,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
                 store: '{OrgProviderStore}'
             },
             queryMode: 'local',
+			anyMatch: true,
             margin: '5 0 5 0',
             displayField: 'name',
             valueField: 'id'
@@ -142,6 +143,7 @@ Ext.define('GSmartApp.view.invoice.InvoiceList', {
 			},
 			value: 0,
             queryMode: 'local',
+			anyMatch: true,
             margin: '5 0 5 0',
             displayField: 'name',
             valueField: 'id'

@@ -30,6 +30,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         viewModel.set('stockin.stockindate',new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
         viewModel.set('stockin.stockintypeid_link', id);
+        // viewModel.set('stockin.status',-1);
 
         var mainView = Ext.getCmp('Stockin_P_Edit');
         if(mainView) mainView.setLoading(true);
@@ -95,6 +96,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
                 console.log(response.data);
+                // if(viewModel == null) viewModel = m.getViewModel();
                 viewModel.set('stockin', response.data);
                 store.setData(response.data.stockin_d);
                 store.commitChanges();
@@ -106,6 +108,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     OrgToStore.loadStore(8, false);
                     var POrder_ListStore = viewModel.getStore('POrder_ListStore');
                     POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
+                    var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
+                    POrder_ListGrantStore.loadStore(response.data.porderid_link);
                 }
                 if(response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
                     var OrgFromStore = viewModel.getStore('OrgFromStore');
@@ -266,7 +270,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 					} else {
 						Ext.Msg.show({
 							title: 'Duyệt thất bại',
-							msg: "Liên hệ IT để được hỗ trợ",
+							msg: response.message,
 							buttons: Ext.MessageBox.YES,
 							buttonText: {
 								yes: 'Đóng',

@@ -40,5 +40,32 @@ Ext.define('GSmartApp.store.porder.POrder_ListGrantStore', {
 			}
 		});
 		this.load();
+	},
+	loadStore_async: function(porderid){
+		var me=this;
+		var params = new Object();
+		params.porderid = porderid;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/porderlist/getgrantbyporderid',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
 	}
 });

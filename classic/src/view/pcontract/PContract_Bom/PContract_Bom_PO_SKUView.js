@@ -87,6 +87,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_SKUView', {
             valueField: 'id',
             displayField: 'buyercode',
             queryMode: 'local',
+            anyMatch: true,
             fieldLabel: 'Chi tiết màu, cỡ sản phẩm',
             labelWidth: 200,
             itemId: 'cmbSanPham',

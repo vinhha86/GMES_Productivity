@@ -20,6 +20,9 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 		},
 		'#cbo_POrder_ListStore': {
 			select: 'on_cbo_POrder_ListStore_select'
+		},
+		'#cbo_POrder_ListGrantStore': {
+			select: 'on_cbo_POrder_ListGrantStore_select'
 		}
     },
 	onEnterLinegiaohang: function (field, e) {
@@ -186,6 +189,11 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 					}
 				}
 			});
+
+			var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
+			POrder_ListGrantStore.removeAll();
+			viewModel.set('stockin.porder_grantid_link', null);
+
 			form.close();
 		})
 	},	
@@ -237,16 +245,36 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 	on_cbo_POrder_ListStore_select: function(combo, rec, eOpts){
 		var viewModel = this.getViewModel();
 		var porderid_link = rec.get('id');
+		var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
+
+		var mainView = Ext.getCmp('HandoverPackToStock_Edit');
+        if(mainView) mainView.setLoading(true);
+
+		POrder_ListGrantStore.loadStore_async(porderid_link);
+		POrder_ListGrantStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(mainView) mainView.setLoading(false);
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+				}
+			}
+		});
+	},
+	on_cbo_POrder_ListGrantStore_select: function(combo, rec, eOpts){
+		var viewModel = this.getViewModel();
+		var porder_grantid_link = rec.get('id');
 		var pcontract_poid_link = viewModel.get('stockin.pcontract_poid_link');
 		// load sku
 		var params = new Object();
-		params.porderid_link = porderid_link;
+		params.pordergrantid_link = porder_grantid_link;
 		params.pcontract_poid_link = pcontract_poid_link;
 
 		var mainView = Ext.getCmp('HandoverPackToStock_Edit');
         if(mainView) mainView.setLoading(true);
 
-		GSmartApp.Ajax.post('/api/v1/porder/getsku_by_porder_po', Ext.JSON.encode(params),
+		GSmartApp.Ajax.post('/api/v1/porderlist/getgrantskubygrantid_and_po', Ext.JSON.encode(params),
 			function (success, response, options) {
         if(mainView) mainView.setLoading(false);
 				var response = Ext.decode(response.responseText);
@@ -260,12 +288,11 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 						stockind_new.skucode = data.skucode;
 						stockind_new.skuname = data.skuname;
 						stockind_new.sku_product_code = data.sku_product_code;
-						stockind_new.product_name = data.sku.product_name;
+						stockind_new.product_name = data.product_name;
 						stockind_new.p_skuid_link = data.productid_link;
 						stockind_new.color_name = data.mauSanPham;
 						stockind_new.size_name = data.coSanPham;
-						stockind_new.totalpackage = data.pquantity_total;
-						stockind_new.unitid_link = data.unitid_link;
+						stockind_new.totalpackage = data.grantamount;
 						stockind_new.colorid_link = data.colorid_link;
 						stockind_new.skuid_link = data.skuid_link;
 						stockind_new.sizeid_link = data.sizeid_link;

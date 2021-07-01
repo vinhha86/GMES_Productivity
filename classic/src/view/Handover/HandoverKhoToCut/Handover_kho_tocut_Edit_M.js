@@ -26,6 +26,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_M', {
                         value: '{stockout.stockouttypeid_link}'
                     },
                     queryMode: 'local',
+                    anyMatch: true,
                     margin: '5 5 0 5',
                 },
                 {
@@ -92,6 +93,7 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_Edit_M', {
                     readOnly: true,
                     editable: false,
                     queryMode: 'local',
+                    anyMatch: true,
                     margin: '0 5 0 5',
                     displayField: 'name',
                     valueField: 'id'

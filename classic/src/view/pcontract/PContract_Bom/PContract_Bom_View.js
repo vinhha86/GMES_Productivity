@@ -211,6 +211,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 labelWidth: 80,
                 itemId: 'cmbSanPham',
                 queryMode: 'local',
+				anyMatch: true,
                 valueField: 'productid_link',
                 displayField: 'productBuyerCode',
                 anyMatch: true

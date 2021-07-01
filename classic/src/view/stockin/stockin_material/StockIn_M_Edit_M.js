@@ -31,6 +31,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				store: '{StockinTypeStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '5 5 0 5',
 			fieldLabel: 'Loại nhập',					
 			allowBlank: false,
@@ -68,6 +69,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				store: '{UserStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '5 5 0 5',
 			readOnly: true,
 			flex: 1,
@@ -87,6 +89,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				store: '{OrgFromStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '0 5 0 5',
 			fieldLabel: 'Nơi giao',					
 			labelWidth: 80,					
@@ -100,6 +103,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				store: '{OrgToStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '0 5 0 5',
 			width: 445,
 			labelWidth: 85,
@@ -205,6 +209,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				width: 200,
             	labelWidth: 70,
 				queryMode: 'local',
+				anyMatch: true,
 				listeners: {
 					select: 'onSelectUnit'
 				},

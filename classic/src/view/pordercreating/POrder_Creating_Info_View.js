@@ -68,6 +68,7 @@ Ext.define('GSmartApp.view.pordercreating.POrder_Creating_Info_View', {
                 items:[{
                     xtype:'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
@@ -83,6 +84,7 @@ Ext.define('GSmartApp.view.pordercreating.POrder_Creating_Info_View', {
                 },{
                     xtype:'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
@@ -98,6 +100,7 @@ Ext.define('GSmartApp.view.pordercreating.POrder_Creating_Info_View', {
                 },{
                     xtype:'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
@@ -117,6 +120,7 @@ Ext.define('GSmartApp.view.pordercreating.POrder_Creating_Info_View', {
                 items:[{
                     xtype:'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
@@ -132,6 +136,7 @@ Ext.define('GSmartApp.view.pordercreating.POrder_Creating_Info_View', {
                 },{
                     xtype:'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,

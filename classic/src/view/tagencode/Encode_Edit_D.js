@@ -34,6 +34,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_Edit_D', {
                     readOnly: '{isApprove}'
                 },
                 queryMode: 'local',
+				anyMatch: true,
                 displayField: 'name',
                 valueField: 'id',
                 flex: 1,

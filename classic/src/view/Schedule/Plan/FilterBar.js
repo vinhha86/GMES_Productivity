@@ -147,6 +147,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'combo',
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'name',
             bind: {
@@ -161,6 +162,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
         {
             xtype: 'combo',
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'name',
             bind: {

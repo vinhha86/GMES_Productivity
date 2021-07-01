@@ -81,6 +81,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
                                     displayField: 'code',
                                     valueField: 'id',
                                     queryMode: 'local',
+                                    anyMatch: true,
                                     flex: 1
                                 }, {
                                     xtype: 'button',

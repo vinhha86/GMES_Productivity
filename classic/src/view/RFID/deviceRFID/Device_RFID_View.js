@@ -30,6 +30,7 @@ Ext.define('GSmartApp.view.RFID.deviceRFID.Device_RFID_View', {
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
+				anyMatch: true,
                 name: 'org_governid_link'
             }, {
                 width: 385,
@@ -174,6 +175,7 @@ Ext.define('GSmartApp.view.RFID.deviceRFID.Device_RFID_View', {
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
+				anyMatch: true,
                 name: 'org_governid_link'
             }, {
                 width: 500,

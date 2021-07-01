@@ -176,6 +176,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             valueField: 'id',
             displayField: 'code_amount',
             queryMode: 'local',
+            anyMatch: true,
             fieldLabel: 'Sản phẩm',
             labelWidth: 70,
             margin: '5 5 5 20',

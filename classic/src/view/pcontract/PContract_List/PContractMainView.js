@@ -190,6 +190,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             valueField: 'id',
             displayField: 'code',
             queryMode: 'local',
+            anyMatch: true,
             itemId: 'orgbuyerid_link',
             margin: '5 1 5 0',
             anyMatch: true
@@ -205,6 +206,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             valueField: 'id',
             displayField: 'name',
             queryMode: 'local',
+            anyMatch: true,
             itemId: 'orgvendorid_link',
             margin: '5 1 5 0',
             anyMatch: true

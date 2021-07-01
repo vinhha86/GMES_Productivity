@@ -97,6 +97,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckList_M', {
 					store: '{ListOrgStore}'
 				},				
 				queryMode: 'local',
+				anyMatch: true,
 				displayField: 'name',
 				valueField: 'id'
 			},
@@ -108,6 +109,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheckList_M', {
 					store: '{InvCheckStatusStore}'
 				},		
 				queryMode: 'local',
+				anyMatch: true,
 				displayField: 'name',
 				valueField: 'id',
 				name:'status',

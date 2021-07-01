@@ -128,6 +128,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             displayField: 'name',
             itemId: 'orgFactoryList',
             queryMode: 'local',
+            anyMatch: true,
             margin: '5 1 5 0',
             width: 100
         },{
@@ -173,6 +174,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             displayField: 'name',
             itemId: 'timeSheetAbsenceTypeList',
             queryMode: 'local',
+            anyMatch: true,
             margin: '5 1 5 0',
             width: 130
         },{
