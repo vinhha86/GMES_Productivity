@@ -56,7 +56,6 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 if (newCard.xtype == 'PContractSKUMainView') {
                     viewmodel.set('isHidden_btnLuu', true);
                     var MauSanPhamStore = viewmodel.getStore('MauSanPhamStore');
-                    console.log(MauSanPhamStore);
                     MauSanPhamStore.getmausanpham_by_pcontract(viewmodel.get('IdPContract'));
 
                     var poStore = viewmodel.getStore('PContractPOList');

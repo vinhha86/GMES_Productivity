@@ -279,16 +279,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             queryMode: 'local'
         },
         {
-            xtype: 'filefield',
-            buttonText: 'Tải báo giá',
-            buttonOnly: true,
-            hidden: true,
-            itemId: 'fileUploadPO',
-            width: 35,
-            height: 32,
-            margin: 3
-        },
-        {
             xtype: 'button',
             tooltip: 'Tải file mẫu (PO Line)',
             margin: 3,
@@ -299,12 +289,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         {
             xtype: 'combo',
             bind: {
-                store: '{MauSanPhamStore}'
+                store: '{MauSanPhamStore}',
+                value: '{id_mausanpham_filter}'
             },
             displayField: 'value',
             margin: 3,
             valueField: 'id',
-            queryMode: 'local'
+            queryMode: 'local',
+            width: 250,
+            anyMatch: true,
+            itemId: 'cmbFilterMauSP',
+            triggers: {
+                clear: {
+                    cls: 'x-form-clear-trigger',
+                    weight: -1,
+                    handler: 'onClearFilter'
+                }
+            }
         }
         ]
     }, {

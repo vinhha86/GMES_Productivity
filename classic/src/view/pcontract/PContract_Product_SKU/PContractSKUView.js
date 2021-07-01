@@ -179,7 +179,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
             fieldLabel: 'Sản phẩm',
             labelWidth: 70,
             margin: '5 5 5 20',
-            itemId: 'cmbSanPham'
+            itemId: 'cmbSanPham',
+            anyMatch: true
         },
             '->'
             ,

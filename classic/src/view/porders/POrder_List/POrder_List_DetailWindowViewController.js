@@ -40,10 +40,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowViewContr
         var infoView = me.down('#POrder_Grant_InfoView');
         infoView.getController().loadInfo(IdGrant);
 
-        //Lay danh sach PO Line thuc te
-        // var PContract_PO = viewmodel.getStore('PContract_PO');
-        // PContract_PO.loadPOLine_Confirm(IdPContractPO);
-
         var storePOrder = viewmodel.getStore('porderSKUStore');
         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
         storePOrder.setGroupField('po_buyer');
