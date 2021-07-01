@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.taskgrant.TaskGrantForm', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false,
         allowBlank: false,
         // readOnly: true,
@@ -44,6 +45,7 @@ Ext.define('GSmartApp.view.taskgrant.TaskGrantForm', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false,
         allowBlank: false,
         // readOnly: true
@@ -61,6 +63,7 @@ Ext.define('GSmartApp.view.taskgrant.TaskGrantForm', {
         displayField: 'fullName',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false,
         allowBlank: false,
         // readOnly: true

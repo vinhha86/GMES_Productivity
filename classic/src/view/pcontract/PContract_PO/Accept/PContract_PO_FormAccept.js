@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
         },{
             xtype: 'combo',
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'name',
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
@@ -89,6 +90,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_FormAccept', {
         }, {
             xtype: 'combo',
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'fullname',
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",

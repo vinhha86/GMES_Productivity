@@ -184,6 +184,7 @@ Ext.define('GSmartApp.view.balance.Balance_D', {
 				labelWidth: 80,
 				itemId: 'cmbSanPham',
 				queryMode: 'local',
+				anyMatch: true,
 				valueField: 'productid_link',
 				displayField: 'productBuyerCode'
 			},

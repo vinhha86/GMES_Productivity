@@ -119,6 +119,7 @@ Ext.define('GSmartApp.view.holiday.HolidayView', {
                 valueField: 'year',
                 value: new Date().getFullYear(),
                 queryMode: 'local',
+				anyMatch: true,
                 editable: false,
                 allowBlank: false,
                 listeners: {

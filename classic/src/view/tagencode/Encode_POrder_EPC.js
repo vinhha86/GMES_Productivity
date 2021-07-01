@@ -37,6 +37,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_POrder_EPC', {
                     readOnly: '{isEdit}'
                 },
                 queryMode: 'local',
+				anyMatch: true,
                 displayField: 'name',
                 valueField: 'id',
                 flex: 1,

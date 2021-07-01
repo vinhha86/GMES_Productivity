@@ -11,6 +11,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Porder.Form_SelectOrg_PorderReq',
         {
             xtype: 'combo',
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'name',
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",

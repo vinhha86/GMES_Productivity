@@ -82,6 +82,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_Porder_List', {
                 store: '{UserStore}'
             },
             queryMode: 'local',
+            anyMatch: true,
             margin: 3,
             valueField: 'id',
             displayField: 'fullName'

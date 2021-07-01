@@ -66,6 +66,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.PriceDSKU.PriceDSKUDetai
         itemId: 'currencyid_link',
         reference: 'currencyid_link',
         queryMode: 'local',
+        anyMatch: true,
         margin: 5,
         width: '100%',
         flex: 1,

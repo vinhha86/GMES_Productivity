@@ -21,6 +21,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                     xtype: 'combo',
                     allowBlank: false,
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'code',
                     margin: 2,
@@ -36,6 +37,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                  {
                     xtype: 'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'code',
                     margin: 2,
@@ -51,6 +53,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                 {
                     xtype: 'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,
@@ -129,6 +132,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                 {
                     xtype: 'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'contract_code',
                     margin: 2,
@@ -145,6 +149,7 @@ Ext.define('GSmartApp.view.PContract.PContractInfoView', {
                 {
                     xtype: 'combo',
                     queryMode: 'local',
+                    anyMatch: true,
                     valueField: 'id',
                     displayField: 'name',
                     margin: 2,

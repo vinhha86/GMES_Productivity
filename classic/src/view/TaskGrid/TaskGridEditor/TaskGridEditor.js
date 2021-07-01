@@ -51,6 +51,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGridEditor', {
                         store: '{TaskObjectStore}'
                      },
                      queryMode: 'local',
+                     anyMatch: true,
                      valueField: 'objectid_link',
                      displayField: 'name',
                      itemId: 'cmbObject',

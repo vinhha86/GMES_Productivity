@@ -155,6 +155,7 @@ Ext.define('GSmartApp.view.TaskGrid.TaskGrid', {
             margin: 5,
             // editable: false,
             queryMode: 'local',
+            anyMatch: true,
             emptyText: 'Người phụ trách',
             itemId: 'comboUserGrid'
         }]

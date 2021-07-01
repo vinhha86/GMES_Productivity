@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{StockinTypeStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				fieldLabel: 'Loại phiếu',	
 				editable: false,
@@ -80,6 +81,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{UserStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				editable: false,
 				readOnly: true,
@@ -102,6 +104,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{OrgFromStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				fieldLabel: 'Nơi giao ('+ '<span style="color:red">*</span>' + ')',					
 				labelWidth: 95,					
@@ -116,6 +119,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{OrgToStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				width: 445,
 				labelWidth: 85,
@@ -130,6 +134,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					store: '{UserStore}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				editable: false,
 				readOnly: true,
@@ -248,6 +253,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					hidden: '{isPOLineHidden}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				width: 445,
 				labelWidth: 85,
@@ -266,6 +272,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M', {
 					hidden: '{isPOLineHidden}'
 				},
 				queryMode: 'local',
+				anyMatch: true,
 				margin: '0 5 0 5',
 				flex: 1,
 				labelWidth: 85,

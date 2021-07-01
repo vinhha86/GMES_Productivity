@@ -199,6 +199,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_List', {
             valueField: 'id',
             displayField: 'nameParent',
             queryMode: 'local',
+            anyMatch: true,
             itemId: 'orgid_from_link',
             margin: '5 1 5 0',
             width: 130
@@ -212,6 +213,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_List', {
             valueField: 'id',
             displayField: 'nameParent',
             queryMode: 'local',
+            anyMatch: true,
             itemId: 'orgid_to_link',
             margin: '5 1 5 0',
             width: 130
@@ -225,6 +227,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPack_List', {
             valueField: 'id',
             value: [0,1,2],
             queryMode: 'local',
+            anyMatch: true,
             editable: true,
             allowBlank: true,
             multiSelect: true,

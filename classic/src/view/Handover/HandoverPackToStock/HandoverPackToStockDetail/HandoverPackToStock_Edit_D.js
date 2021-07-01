@@ -197,6 +197,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 				loadingText: 'Tải mã hàng...',
 				emptyText: 'Không có mã hàng phù hợp.',
 			},
+			anyMatch: true,
 			queryMode: 'remote',
 			queryParam: 'code',		
 			enableKeyEvents : true,

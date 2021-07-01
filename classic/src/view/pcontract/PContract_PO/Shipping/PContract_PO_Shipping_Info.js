@@ -53,6 +53,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;',            
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'name',
             margin: 1,
@@ -71,6 +72,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
             labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
             fieldStyle: 'font-size:11px;',            
             queryMode: 'local',
+            anyMatch: true,
             valueField: 'id',
             displayField: 'name',
             margin: 1,
@@ -103,7 +105,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Shipping_Info', {
             displayField: 'code',
             valueField: 'id',
             filterPickList: true,
-            queryMode: 'local',          
+            queryMode: 'local',        
+            anyMatch: true,  
             publishes: 'shipping.packingnotice',   
             style: {
                 background: 'white'

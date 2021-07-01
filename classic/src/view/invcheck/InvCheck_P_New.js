@@ -74,6 +74,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_P_New', {
 					 xtype: 'combobox',
 					 fieldLabel: 'Kho kiểm kê',
 					 queryMode: 'local',
+					 anyMatch: true,
 					 bind:{
 						store: '{ListOrgStore}',
 						readOnly:'{isEdit}'
@@ -95,6 +96,7 @@ Ext.define('GSmartApp.view.invcheck.InvCheck_P_New', {
 						xtype: 'combobox',
 						fieldLabel: 'Sản phẩm',
 						queryMode: 'local',
+						anyMatch: true,
 					//  store:'SkuStore',
 					//  displayField: 'name',
 					//  valueField: 'id',

@@ -26,6 +26,7 @@ Ext.define('GSmartApp.view.salebill.SalebillList', {
 			 emptyText:GSmartApp.Locales.cuahang[GSmartApp.Locales.currentLocale],
 			 store:'OrgStore',
 			 queryMode: 'local',
+			 anyMatch: true,
 			 displayField: 'name',
 			 valueField: 'id'
 		 },{

@@ -157,6 +157,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_List', {
                     displayField: 'code',
                     valueField: 'id',
                     queryMode: 'local',
+                    anyMatch: true,
                     // editable: false,
                     // readOnly: true,
                     // allowBlank: false,

@@ -205,6 +205,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 				loadingText: 'Tải mã hàng...',
 				emptyText: 'Không có mã hàng phù hợp.',
 			},
+			anyMatch: true,
 			queryMode: 'remote',
 			queryParam: 'code',		
 			enableKeyEvents : true,

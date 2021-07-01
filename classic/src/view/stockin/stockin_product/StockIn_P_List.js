@@ -97,6 +97,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                     store: '{OrgFromStore}'
                 },
                 queryMode: 'local',
+				anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id'
@@ -108,6 +109,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                     store: '{StockinTypeStore}'
                 },
                 queryMode: 'local',
+				anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id'

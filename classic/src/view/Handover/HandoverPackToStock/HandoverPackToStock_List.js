@@ -100,6 +100,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List', {
                     store: '{OrgFromStore}'
                 },
                 queryMode: 'local',
+                anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id'
@@ -112,6 +113,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_List', {
                 },
                 // value: 21,
                 queryMode: 'local',
+                anyMatch: true,
                 margin: 3,
                 displayField: 'name',
                 valueField: 'id',

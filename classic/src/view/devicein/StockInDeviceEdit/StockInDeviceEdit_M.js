@@ -29,6 +29,7 @@ Ext.define('GSmartApp.view.devicein.StockInDeviceEdit_M', {
 				store: '{DeviceInTypeStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '5 5 0 5',
 			fieldLabel: 'Loại nhập',					
 			allowBlank: false,
@@ -70,6 +71,7 @@ Ext.define('GSmartApp.view.devicein.StockInDeviceEdit_M', {
 				store: '{OrgFromStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '5 5 0 5',
 			fieldLabel: 'Nơi giao',
 			labelWidth: 85,
@@ -83,6 +85,7 @@ Ext.define('GSmartApp.view.devicein.StockInDeviceEdit_M', {
 				store: '{OrgToStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '5 5 0 5',
 			labelWidth: 85,
             flex: 1,
@@ -96,6 +99,7 @@ Ext.define('GSmartApp.view.devicein.StockInDeviceEdit_M', {
 				store: '{UserStore}'
 			},
 			queryMode: 'local',
+			anyMatch: true,
 			margin: '5 5 0 5',
 			// readOnly: true,
 			flex: 1,

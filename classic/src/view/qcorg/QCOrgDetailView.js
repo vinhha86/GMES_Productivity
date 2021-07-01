@@ -124,6 +124,7 @@ Ext.define('GSmartApp.view.qcorg.QCOrgDetailView', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         editable: false
     }],
     dockedItems:[{

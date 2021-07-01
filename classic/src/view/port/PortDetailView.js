@@ -67,6 +67,7 @@ Ext.define('GSmartApp.view.Port.PortDetailView', {
         displayField: 'name',
         valueField: 'id',
         queryMode: 'local',
+        anyMatch: true,
         // editable: false,
         width:400,
         labelWidth: 105,

@@ -26,6 +26,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         value: '{stockout.stockouttypeid_link}'
                     },
                     queryMode: 'local',
+                    anyMatch: true,
                     margin: '5 5 0 5',
                 },
                 {
@@ -88,6 +89,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         value: '{stockout.orgid_from_link}'
                     },
                     queryMode: 'local',
+                    anyMatch: true,
                     margin: '0 5 0 5',
                     displayField: 'name',
                     valueField: 'id'
@@ -218,6 +220,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     labelWidth: 90,
                     width: 220,
                     queryMode: 'local',
+                    anyMatch: true,
                     listeners: {
                         select: 'onSelectUnit'
                     },
