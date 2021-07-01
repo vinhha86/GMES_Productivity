@@ -30,13 +30,13 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                     viewModel: {
                         type: 'Balance_D_Product_Skus_ViewModel',
                         data: {
-                            productlist: record.data.product_d, 
+                            productlist: record.data.product_d,
                         }
                     }
                 }]
             });
             form.show();
-        }else if(cellIndex == 8){ // cột Nhập kho
+        } else if (cellIndex == 8) { // cột Nhập kho
             // bật danh sách phiếu nhập kho có chứa NPL đang chọn
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                 }]
             });
             form.show();
-        }else if(cellIndex == 10){ // cột Xuất kho
+        } else if (cellIndex == 10) { // cột Xuất kho
             // bật danh sách phiếu xuất kho có chứa NPL đanh chọn
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -127,8 +127,8 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
             form.show();
         }
 
-    },    
-    onCalBalance_OneProduct: function(){
+    },
+    onCalBalance_OneProduct: function () {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
@@ -140,34 +140,34 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
         params.list_productid = viewmodel.get('IdProduct');
 
         me.setLoading("Đang tính cân đối");
-        if (null!=params.pcontract_poid_link && 0!=params.pcontract_poid_link){
+        if (null != params.pcontract_poid_link && 0 != params.pcontract_poid_link) {
             console.log("hehe" + params.pcontract_poid_link);
             GSmartApp.Ajax.post('/api/v1/balance/cal_balance_bypo', Ext.JSON.encode(params),
-            function (success, response, options) {
-                me.setLoading(false);
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        SKUBalanceStore.setData(response.data);
+                function (success, response, options) {
+                    me.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            SKUBalanceStore.setData(response.data);
+                        }
                     }
-                }
-            })
+                })
         } else {
             GSmartApp.Ajax.post('/api/v1/balance/cal_balance_bycontract', Ext.JSON.encode(params),
-            function (success, response, options) {
-                me.setLoading(false);
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        SKUBalanceStore.setData(response.data);
+                function (success, response, options) {
+                    me.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            SKUBalanceStore.setData(response.data);
+                        }
                     }
-                }
-            })
+                })
         }
     },
-    renderSum: function(value, summaryData, dataIndex) {
+    renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
 
     onFilterValueMaNPLKeyup: function () {

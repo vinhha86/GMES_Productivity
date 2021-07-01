@@ -35,10 +35,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     },
     onSelectOffer: function (rowNode, record, expandRow, eOpts) {
         var grid = this.getView();
+        var viewmodel = this.getViewModel();
+
         grid.setLoading('Đang tải dữ liệu');
 
         var params = new Object();
         params.pcontract_poid_link = record.get('id');
+        params.mausanphamid_link = viewmodel.get('id_mausanpham_filter');
 
         GSmartApp.Ajax.post('/api/v1/pcontract_po/getPOLine_Confirm', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -241,6 +244,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         viewModel.set('isDisable_btnConfirmSKU', true);
     },
     onSelectPO: function (m, rec) {
+        var grid = this.getView();
+        grid.setLoading("Đang tải dữ liệu");
+
         var viewModel = this.getViewModel();
         viewModel.set('isDisable_btnThemSKU', false);
         viewModel.set('isDisable_btnConfirmSKU', false);
@@ -252,6 +258,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         productStore.load({
             scope: this,
             callback: function (records, operation, success) {
+                grid.setLoading(false);
+
                 var record = productStore.getAt(0);
                 var skuView = Ext.getCmp('PContractSKUView');
                 var cmbSanPham = skuView.down('#cmbSanPham');
