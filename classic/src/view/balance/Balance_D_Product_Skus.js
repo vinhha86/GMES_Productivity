@@ -13,10 +13,19 @@ Ext.define('GSmartApp.view.balance.Balance_D_Product_Skus', {
         enableTextSelection: true,
         stripeRows: false                
     },
-    features: [{
-        ftype: 'summary',
-        dock: 'bottom'
-    }], 
+    features: [
+		// {
+		// 	id: 'group',
+		// 	ftype: 'groupingsummary',
+		// 	groupHeaderTpl: '<b>{p_sku_color}</b>',
+		// 	hideGroupedHeader: false,
+		// 	enableGroupingMenu: false
+    	// },
+		{
+			ftype: 'summary',
+			dock: 'bottom'
+    	}
+	], 
 	bind:'{productlist}',
 	columns: [
 		{
