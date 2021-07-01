@@ -77,11 +77,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			dataIndex: 'size_name',
 			width: 50
 		},
-		// {
-		// 	text: 'Năm SX', 
-		// 	dataIndex: 'porder_year',
-		// 	width: 70
-		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
@@ -110,33 +105,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalpackagecheck',
 		},
-		// {
-		// 	text: 'ĐVT', 
-		// 	dataIndex: 'unit_name',
-		// 	width: 80
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	width: 90,
-		// 	format:'0,000',
-		// 	text: 'Đơn giá', 
-		// 	align:'right',
-		// 	dataIndex: 'unitprice',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/
-		// 	}
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	width: 100,
-		// 	format:'0,000',
-		// 	text: 'Thành tiền', 
-		// 	align:'right',
-		// 	dataIndex: 'totalprice',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 120
-		// },
-		
 	],
 	dockedItems: [{
 		dock: 'top',
@@ -253,56 +221,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 				hidden: '{isManualHidden}',
 			},
 		},		
-		// ,'->',
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: '0 5 0 5',
-		// 	itemId:'ordercode',
-		// 	fieldLabel: 'Tìm lệnh SX:',
-		// 	width: 300,
-		// 	labelWidth: 80,
-		// 	hideLabel: false,			
-        //     bind:{
-		// 		disabled: '{isEdit}',
-		// 		value: '{stockin.pordercode}'
-        //     }
-		// 	// fieldStyle: {
-		// 	// 	textTransform: "uppercase"
-		// 	// },
-		// 	// enableKeyEvents: true,
-		// 	// listeners: {
-		// 	// 	// change: function (obj, newValue) {
-		// 	// 	//     //console.log(newValue);
-		// 	// 	//     obj.setRawValue(newValue.toUpperCase());
-		// 	// 	// },
-		// 	// 	keyup: 'onSkuCodeKeyup',
-		// 	// 	buffer: 100
-		// 	// }    
-		// },
-		// {
-		// 	tooltip: 'Tải danh sách sản phẩm',
-		// 	margin: '0 0 0 5',
-		// 	//text: 'Thêm thẻ vải',
-		// 	iconCls: 'x-fa fa-plus',
-		// 	weight: 30,
-		// 	itemId: 'btnTaiSP',			
-        //     bind:{
-        //         hidden: true
-        //     }
-		// 	// handler: 'onAddItemTap'
-		// },
-		// {
-		// 	tooltip: 'Tìm lệnh',
-		// 	margin: '0 5 0 5',
-		// 	itemId: 'btnTimLenh',
-		// 	//text: 'Thêm thẻ vải',
-		// 	iconCls: 'x-fa fa-search',
-		// 	weight: 30,			
-        //     bind:{
-        //         hidden: '{isEdit}'
-        //     }
-		// 	// handler: 'onSkuSearchTap'
-		// } 		
 	]
 	}]
 });

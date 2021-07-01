@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_POrder', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_P_Edit_POrder',
-    id: 'Stockin_P_Edit_POrder',
+    itemId: 'Stockin_P_Edit_POrder',
     controller: 'Stockin_P_Edit_POrderCotroller',
     viewModel: {
         type: 'Stockin_P_ViewModel'

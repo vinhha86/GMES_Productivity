@@ -102,6 +102,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
                         OrgToStore.loadStore(8, false);
                         var POrder_ListStore = viewModel.getStore('POrder_ListStore');
                         POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
+                        var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
+                        POrder_ListGrantStore.loadStore(response.data.porderid_link);
                     }
                 }
             }

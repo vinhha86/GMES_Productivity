@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_P_Edit_D',
-	id: 'Stockin_P_Edit_D',
+	itemId: 'Stockin_P_Edit_D',
+	cls: 'Stockin_P_Edit_D',
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],

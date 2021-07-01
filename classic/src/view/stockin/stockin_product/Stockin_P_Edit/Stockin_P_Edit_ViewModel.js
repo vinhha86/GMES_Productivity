@@ -36,6 +36,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 		POrder_ListStore: {
 			type: 'POrder_ListStore'
 		},
+		POrder_ListGrantStore: {
+			type: 'POrder_ListGrantStore'
+		},
 		GpayUser: {
 			type: 'GpayUserOrg'
 		},
