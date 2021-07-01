@@ -12,7 +12,7 @@ Ext.define('GSmartApp.config.Runtime', {
             dictionary: 'resources/dictionary.json'
         },
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        // appBaseUrl: 'http://localhost:8990/gsmartcore',
+        appBaseUrl: 'http://localhost:8990/gsmartcore',
         // appBaseUrl_Jitin: 'http://localhost:8991/jitin',
         // appBaseUrl_demo: 'http://localhost:9091/',
 
@@ -23,8 +23,9 @@ Ext.define('GSmartApp.config.Runtime', {
         // appBaseUrl_Jitin: 'http://27.71.231.154:8080/jitindha',
         // back: 'http://27.71.231.154:8081/oauth/',
 
-        appBaseUrl: 'http://gpay.vn:8090/gmes',
+        // appBaseUrl: 'http://gpay.vn:8090/gmes',
         appBaseUrl_Jitin: 'http://gpay.vn:8090/jitin',
+        appBaseUrl_demo: 'http://gpay.vn:9091/',
         back: 'http://gpay.vn:8181/oauth/',
 
         //local

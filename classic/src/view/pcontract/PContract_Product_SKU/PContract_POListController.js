@@ -17,7 +17,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         },
         '#btnUploadTemplate': {
             click: 'onDownloadTemplate'
+        },
+        '#cmbFilterMauSP': {
+            select: 'onFilterMauSP'
         }
+    },
+    onFilterMauSP: function (cmb, record, e) {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractPOList');
+        store.load();
+    },
+    onClearFilter: function () {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('id_mausanpham_filter', 0);
+        var store = viewmodel.getStore('PContractPOList');
+        store.load();
     },
     onSelectOffer: function (rowNode, record, expandRow, eOpts) {
         var grid = this.getView();

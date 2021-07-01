@@ -182,7 +182,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         obj_copy: null,
         text_chotdinhmuc: 'Chốt định mức',
         hidden_chotdinhmuc: true,
-        disabled_chotdinhmuc: true
+        disabled_chotdinhmuc: true,
+        id_mausanpham_filter: 0
     },
     formulas: {
         ishidden_addproduct: function (get) {
@@ -196,6 +197,11 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         allowUploadBom: function (get) {
             if (get('IdProduct') > 0) return true;
             return false;
+        },
+        isHiddenClearFilterMauSP: function (get) {
+            if (get('id_mausanpham_filter') != 0)
+                return false;
+            return true;
         }
     }
 })

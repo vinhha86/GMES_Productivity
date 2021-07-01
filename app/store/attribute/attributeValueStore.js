@@ -208,5 +208,7 @@ Ext.define('GSmartApp.store.attribute.attributeValueStore', {
 				rootProperty: 'data'
 			}
 		});
+
+		this.load();
 	}
 });

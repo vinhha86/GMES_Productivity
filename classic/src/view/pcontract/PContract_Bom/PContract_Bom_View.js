@@ -213,7 +213,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 queryMode: 'local',
 				anyMatch: true,
                 valueField: 'productid_link',
-                displayField: 'productBuyerCode'
+                displayField: 'productBuyerCode',
+                anyMatch: true
             },
             {
                 xtype: 'button',
