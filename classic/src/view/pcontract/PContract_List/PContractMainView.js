@@ -192,8 +192,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             queryMode: 'local',
             anyMatch: true,
             itemId: 'orgbuyerid_link',
-            margin: '5 1 5 0',
-            anyMatch: true
+            margin: '5 1 5 0'
         },
         {
             xtype: 'combo',
@@ -208,8 +207,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             queryMode: 'local',
             anyMatch: true,
             itemId: 'orgvendorid_link',
-            margin: '5 1 5 0',
-            anyMatch: true
+            margin: '5 1 5 0'
         }, {
             xtype: 'textfield',
             labelWidth: 0,
