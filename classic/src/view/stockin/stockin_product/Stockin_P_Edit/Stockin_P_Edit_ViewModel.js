@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 				return true;
 		},
 		isBtnConfirmHidden: function (get) {
-			if (get('stockin.status') < 0) {
+			if (get('stockin.status') < -1) {
 				return true;
 			}
 			else

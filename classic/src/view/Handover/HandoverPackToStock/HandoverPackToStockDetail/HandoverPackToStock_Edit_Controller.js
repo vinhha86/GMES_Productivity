@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
                 if(mainView) mainView.setLoading(false);
 				if(!success){
 					 this.fireEvent('logout');
-				} else { console.log(records);
+				} else {
 					if (null!=records[0].data.org_grant_id_link){
                         viewModel.set('stockin.orgid_from_link', records[0].data.org_grant_id_link);
                     }
@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
 			}
 		});
     },
-    onLoadData:function(id,type){ console.log('onLoadData');
+    onLoadData:function(id,type){
         this.getInfo(id);
     },
     onBackPage: function(){
@@ -112,7 +112,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
     CheckValidate: function(){
 		var mes = "";
 		var stockin = this.getViewModel().get('stockin');
-        console.log(stockin);
+        // console.log(stockin);
 		if(stockin.stockintypeid_link == null){
 			mes = "Bạn chưa chọn loại phiếu";
 		}
@@ -241,7 +241,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
 		form.down('#Authen_Confirm').getController().on('AuthenOK', function (approver_userid_link) {
             form.close();
 
-			console.log(approver_userid_link);
+			// console.log(approver_userid_link);
 
 			var params = new Object();
 			params.stockinId = stockinId;

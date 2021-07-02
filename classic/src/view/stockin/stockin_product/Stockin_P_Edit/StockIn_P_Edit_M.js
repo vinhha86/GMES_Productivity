@@ -253,25 +253,25 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 				labelWidth: 85,
 				fieldLabel: 'Lệnh SX'
 			},
-			{
-				xtype: 'combo',
-				itemId: 'cbo_POrder_ListGrantStore',
-				valueField: 'id',
-				displayField: 'granttoorgname',
-				bind: {
-					value: '{stockin.porder_grantid_link}',
-					store: '{POrder_ListGrantStore}',
-					disabled: '{isEdit}',
-					hideTrigger: '{isEdit}',
-					hidden: '{isPOLineHidden}'
-				},
-				queryMode: 'local',
-				anyMatch: true,
-				margin: '0 5 0 5',
-				flex: 1,
-				labelWidth: 85,
-				fieldLabel: 'Tổ chuyền'
-			},
+			// {
+			// 	xtype: 'combo',
+			// 	itemId: 'cbo_POrder_ListGrantStore',
+			// 	valueField: 'id',
+			// 	displayField: 'granttoorgname',
+			// 	bind: {
+			// 		value: '{stockin.porder_grantid_link}',
+			// 		store: '{POrder_ListGrantStore}',
+			// 		disabled: '{isEdit}',
+			// 		hideTrigger: '{isEdit}',
+			// 		hidden: '{isPOLineHidden}'
+			// 	},
+			// 	queryMode: 'local',
+			// 	anyMatch: true,
+			// 	margin: '0 5 0 5',
+			// 	flex: 1,
+			// 	labelWidth: 85,
+			// 	fieldLabel: 'Tổ chuyền'
+			// },
 		]
 	},
 	]

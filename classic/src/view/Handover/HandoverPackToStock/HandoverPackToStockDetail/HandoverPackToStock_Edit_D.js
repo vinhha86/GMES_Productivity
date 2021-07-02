@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
                 maskRe: /[0-9.]/,
                 selectOnFocus: true,
                 bind: {
-                    editable: '{iseditSL_YC}'
+                    // editable: '{iseditSL_YC}'
                 }
             }    			
 		},		

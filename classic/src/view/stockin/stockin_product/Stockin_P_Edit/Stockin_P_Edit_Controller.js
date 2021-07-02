@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             if(mainView) mainView.setLoading(false);
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
-                console.log(response.data);
+                // console.log(response.data);
                 // if(viewModel == null) viewModel = m.getViewModel();
                 viewModel.set('stockin', response.data);
                 store.setData(response.data.stockin_d);
@@ -118,6 +118,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     OrgToStore.loadStore(8, false);
                 }
 
+                // set gia tri sl nhap mac dinh = sl yeu cau
+                m.setSlNhap();
+
                 // nếu là Duyệt
                 if(isConfirm == true){
                     m.onConfirm();
@@ -125,10 +128,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             }
 		})
     },
+    setSlNhap: function(){
+        // set gia tri sl nhap mac dinh = sl yeu cau
+        var m = this;
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('StockinD_Store');
+        var stockin = viewModel.get('stockin');
+
+        if(stockin.status == -1){ // 
+            var stockin_d = viewModel.get('stockin.stockin_d');
+            if(stockin_d == null) stockin_d = [];
+            for(var i = 0; i < stockin_d.length; i++){
+                stockin_d[i].totalpackagecheck = stockin_d[i].totalpackage;
+            }
+            viewModel.set('stockin.stockin_d', stockin_d);
+            // viewModel.set('stockin', response.data);
+            store.setData(stockin_d);
+            store.commitChanges();
+        }
+        // console.log(stockin);
+    },
     CheckValidate: function(){
 		var mes = "";
 		var stockin = this.getViewModel().get('stockin');
-        console.log(stockin);
+        // console.log(stockin);
 		if(stockin.stockintypeid_link == null){
 			mes = "Bạn chưa chọn loại phiếu";
 		}
@@ -243,7 +266,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     if(mainView) mainView.setLoading(false);
                     var response = Ext.decode(response.responseText);
 					if (success) {
-						console.log(response);
+						// console.log(response);
 						if (response.respcode == 200) {
 							Ext.Msg.show({
 								title: 'Thông báo',

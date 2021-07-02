@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.stockin.Stockout_POLINE', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockout_POLINE',
-    id: 'Stockout_POLINE',
+    itemId: 'Stockout_POLINE',
     controller: 'Stockout_POLINECotroller',
     viewModel: {
         type: 'Stockout_POLINE_ViewModel'
