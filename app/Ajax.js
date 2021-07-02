@@ -57,6 +57,7 @@ Ext.define('GSmartApp.Ajax', {
 		Ext.Ajax.request({
 			url: config.getAppBaseUrl() + url,
 			method: 'POST',
+			timeout: 120000,
 			cors: true,
 			headers: {
 				'Content-Type': "application/json"
