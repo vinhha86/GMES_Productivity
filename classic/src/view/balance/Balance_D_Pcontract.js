@@ -8,25 +8,25 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 	columnLines: true,
 	rowLines: true,
 	border: true,
-    features: [{
-        ftype:'grouping',
-        groupHeaderTpl: '{name}',
-        collapseTip: "",
-        expandTip:""
-    }],
-    viewConfig: {
-        enableTextSelection: true,
-        stripeRows: false                
-    },
+	features: [{
+		ftype: 'grouping',
+		groupHeaderTpl: '{name}',
+		collapseTip: "",
+		expandTip: ""
+	}],
+	viewConfig: {
+		enableTextSelection: true,
+		stripeRows: false
+	},
 	// selModel: {
-    //     selType: 'checkboxmodel',
-    // },
-	bind:{
+	//     selType: 'checkboxmodel',
+	// },
+	bind: {
 		store: '{SKUBalanceStore}'
 	},
 	columns: [
 		{
-			text: 'Mã NPL', 
+			text: 'Mã NPL',
 			flex: 1,
 			dataIndex: 'mat_sku_code',
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -47,12 +47,12 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			}
 		},
 		{
-			text: 'Màu NPL', 
+			text: 'Màu NPL',
 			dataIndex: 'mat_sku_color_name',
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
+				return value == 'ALL' ? "" : value;
 			}
 		},
 		{
@@ -65,17 +65,26 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			}
 		},
 		{
-			text: 'SL sản phẩm', 
+			text: 'Cỡ khổ',
+			dataIndex: 'mat_sku_size_name',
+			width: 100,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value == 'ALL' ? "" : value;
+			}
+		},
+		{
+			text: 'SL sản phẩm',
 			dataIndex: 'mat_sku_product_total',
 			// align:'right',
 			width: 70,
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
+				if (value == 0) return "";
 				return Ext.util.Format.number(value, '0,000')
 			}
 		},
 		{
-			text: 'ĐVT', 
+			text: 'ĐVT',
 			dataIndex: 'mat_sku_unit_name',
 			width: 70
 		},
@@ -86,10 +95,10 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			xtype: 'numbercolumn',
 			format: '0.0000',
 			renderer: function (value, metaData, record) {
-				if(value ==0) return "";
+				if (value == 0) return "";
 				return Ext.util.Format.number(value, '0.0000')
 			}
-		},				
+		},
 		{
 			text: '%TH',
 			dataIndex: 'mat_sku_bom_lostratio',
@@ -102,9 +111,9 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Nhu cầu', 
-			align:'right',
+			format: '0,000',
+			text: 'Nhu cầu',
+			align: 'right',
 			dataIndex: 'mat_sku_demand',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
@@ -128,9 +137,9 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		// },
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Nhập kho', 
-			align:'right',
+			format: '0,000.00',
+			text: 'Nhập kho',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockin',
@@ -138,9 +147,9 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Y/C xuất', 
-			align:'right',
+			format: '0,000.00',
+			text: 'Y/C xuất',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockout_order',
@@ -148,9 +157,9 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Xuất kho', 
-			align:'right',
+			format: '0,000.00',
+			text: 'Xuất kho',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockout',
@@ -158,47 +167,47 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Tồn', 
-			align:'right',
+			format: '0,000',
+			text: 'Tồn',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'in_stock',
 			width: 80
 		},
 	],
-    dockedItems: [{
-        dock: 'top',
-        xtype: 'toolbar',
-        border: true,
-        height: 45,
-        style: "background-color : white",
-        items: [
-            {
-                xtype: 'combo',
-                width: 400,
-                margin: 3,
-                bind: {
-                    store: '{PContractProductStore}',
-                    value: '{IdProduct}',
-                    readOnly: '{isReadOnlycmbSanPham}'
-                },
-                triggerAction: 'all',
-                fieldLabel: 'Sản phẩm',
-                labelWidth: 80,
-                itemId: 'cmbSanPham',
-                queryMode: 'local',
+	dockedItems: [{
+		dock: 'top',
+		xtype: 'toolbar',
+		border: true,
+		height: 45,
+		style: "background-color : white",
+		items: [
+			{
+				xtype: 'combo',
+				width: 400,
+				margin: 3,
+				bind: {
+					store: '{PContractProductStore}',
+					value: '{IdProduct}',
+					readOnly: '{isReadOnlycmbSanPham}'
+				},
+				triggerAction: 'all',
+				fieldLabel: 'Sản phẩm',
+				labelWidth: 80,
+				itemId: 'cmbSanPham',
+				queryMode: 'local',
 				anyMatch: true,
-                valueField: 'productid_link',
-                displayField: 'productBuyerCode'
-            },
-            {
-                xtype: 'button',
+				valueField: 'productid_link',
+				displayField: 'productBuyerCode'
+			},
+			{
+				xtype: 'button',
 				text: 'Tính cân đối',
 				iconCls: 'x-fa fa-calculator',
 				handler: 'onCalBalance_OneProduct'
-            }
-        ]
-    }],	 
+			}
+		]
+	}],
 });
 

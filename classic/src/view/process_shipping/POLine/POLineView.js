@@ -66,6 +66,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         dataIndex: 'packing_method'
     },
     {
+        text: 'PT vận chuyển',
+        width: 150,
+        dataIndex: 'shipmode_name'
+    },
+    {
         text: 'Cảng xếp hàng',
         width: 100,
         dataIndex: 'portFrom'

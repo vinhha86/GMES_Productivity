@@ -190,7 +190,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         data.append('productid_link', viewmodel.get('IdProduct'));
 
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi_sizeset', data, 2 * 60 * 1000,
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom_sizeset/bom_candoi_sizeset', data, 2 * 60 * 1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
