@@ -136,7 +136,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 	},		
 	onTimLine: function () {
 		var m = this;
+		var me = this.getView();
 		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
 		var grid = this.getView();
 		var form = Ext.create('Ext.window.Window', {
 			height: 600,
@@ -160,14 +162,6 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 					}
 				}
 			}]
-			// items: [{
-			// 	xtype: 'Stockout_POLINE',
-			// 	viewModel: {
-			// 		data: {
-			// 			po_buyer: grid.down('#linegiaohang').getValue()
-			// 		}
-			// 	}
-			// }]
 		});
 		form.show();
 

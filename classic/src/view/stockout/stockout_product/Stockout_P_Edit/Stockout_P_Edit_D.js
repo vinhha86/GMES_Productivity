@@ -1,6 +1,9 @@
-Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Edit_D', {
     extend: 'Ext.grid.Panel',
     xtype: 'stockout_p_edit_d',
+    itemId: 'stockout_p_edit_d',
+    controller: 'Stockout_P_Edit_D_Controller',
+    cls: 'stockout_p_edit_d',
     requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
@@ -32,6 +35,33 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
         }                     
     },
     columns: [
+        // {
+        //     xtype: 'actioncolumn',
+        //     reference: 'stockout_contextmenu',
+		// 	width: 25,
+		// 	menuDisabled: true,
+		// 	sortable: false,
+		// 	items: [
+        //         {
+        //             iconCls: 'x-fa fas fa-bars violetIcon',
+        //             tooltip:'Chi tiết chíp',
+        //             handler: 'onEPCDetail'
+        //         }
+        //     ]
+        // },
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_Stockout_P_Edit_D'
+                },
+            ]
+        },
         {
 			header: 'Mã vạch', 
 			dataIndex: 'skucode',
@@ -41,15 +71,22 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
 			}
 		},{
 			header: 'Mã SP', 
-			dataIndex: 'product_code',
+			dataIndex: 'sku_product_code',
             width: 120,
 		},{
 			header: 'Tên sản phẩm', 
 			dataIndex: 'skuname',
 			flex: 1
 		},
-        { header: 'Màu', dataIndex: 'color_name', width: 100},
-        { header: 'Cỡ', dataIndex: 'size_name', width: 50 },
+        {
+			text: 'Màu', 
+			dataIndex: 'color_name',
+			flex: 1
+		},{
+			text: 'Cỡ', 
+			dataIndex: 'size_name',
+			width: 50
+		},
         {
             // header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
             header: 'SL Y/C', dataIndex: 'totalpackage', width: 80,
@@ -65,8 +102,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                     editable: '{iseditSL_YC}'
                 }
             }            
-        },{
-            header: 'SL xuất', dataIndex: 'totalpackagecheck', width: 80,
+        },
+        {
+            header: 'SL xuất', dataIndex: 'totalpackagecheck', width: 90,
             align:'right',
             summaryType: 'sum', summaryRenderer: 'renderSum',
             // xtype: 'numbercolumn',
@@ -80,26 +118,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                 }
             }
         },
-        { header: 'ĐVT', dataIndex: 'unit_name', width: 80 },
-        { header: 'Đơn giá', dataIndex: 'unitprice', width: 100},
         {
-            header: 'Thành tiền', dataIndex: 'totalprice', width: 100,
-            summaryType: 'sum', summaryRenderer: 'renderSum'
+            header: 'Tồn kho', dataIndex: 'so_luong_ton_kho', width: 90,
+            align:'right',
         },
-        { 
-            xtype: 'actioncolumn',
-            reference: 'stockout_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-            {
-				iconCls: 'x-fa fas fa-bars violetIcon',
-                tooltip:'Chi tiết chíp',
-                handler: 'onEPCDetail'
-            }
-        ]
-        }        
     ],
     dockedItems: [{
         dock: 'top',
@@ -213,32 +235,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_D', {
                     hidden: '{isManualHidden}',
                 },
             },
-            // '->',
-            // {
-            //     xtype: 'textfield',
-            //     margin: '0 5 0 0',
-            //     itemId:'ordercode',
-            //     fieldLabel: 'Đợt giao',
-            //     width: 200,
-            //     labelWidth: 70,
-            //     hideLabel: false,			
-            //     bind:{
-            //         hidden: '{isEdit}',
-            //         value: '{stockin.po_buyer}'
-            //     }  
-            // },
-            // {
-            //     tooltip: 'Tìm lệnh',
-            //     margin: '0 2 0 2',
-            //     itemId: 'btnTimLenh',
-            //     //text: 'Thêm thẻ vải',
-            //     iconCls: 'x-fa fa-search',
-            //     weight: 30,			
-            //     bind:{
-            //         hidden: '{isEdit}'
-            //     }
-            //     // handler: 'onSkuSearchTap'
-            // } 
+            '->',
+            {
+                tooltip: 'Tồn kho',
+                text: 'Tồn kho',
+                margin: '0 5 0 5',
+                itemId: 'benTonKho',
+                // iconCls: 'x-fa fa-house',
+                weight: 30,
+                bind:{
+                    // hidden: '{isManualHidden}',
+                },
+            },
         ]
     }]
 });

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_EditController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockout_P_EditController',
 	init: function () {
@@ -10,7 +10,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 			'*': {
 				loaddata: 'onLoadData',
 				newdata: 'onNewData',
-				urlBack: 'onUrlBack'
 			}
 		}
 	},
@@ -30,12 +29,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 		'#cmbGroupStockout': {
 			select: 'onSelectGroupStockout'
 		},
-		'#btnTimPOLine': {
-			click: 'onTimLine'
-		},
-		'#ordercode': {
-			specialkey: 'onSpecialkey'
-		},
+        '#btnLuu':{
+            click: 'onSave'
+        },
 		'#btnConfirm':{
             click: 'onConfirm'
         }
@@ -101,87 +97,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 		store.removeAll();
 		store.setData(viewmodel.get('stockout.stockout_d'));
 	},
-	onSpecialkey: function (field, e) {
-		var me = this;
-		if (e.getKey() == e.ENTER) {
-			me.onTimLine();
-		}
-	},
-	onTimLine: function () {
-		var me = this;
-		var grid = this.getView();
-		var form = Ext.create('Ext.window.Window', {
-			height: 600,
-			closable: true,
-			resizable: false,
-			modal: true,
-			border: false,
-			title: 'Danh sách line giao hàng',
-			closeAction: 'destroy',
-			width: 1100,
-			bodyStyle: 'background-color: transparent',
-			layout: {
-				type: 'fit', // fit screen for window
-				padding: 5
-			},
-			items: [{
-				xtype: 'Stockout_POLINE',
-				viewModel: {
-					data: {
-						po_buyer: grid.down('#ordercode').getValue()
-					}
-				}
-			}]
-		});
-		form.show();
-
-		form.down('#Stockout_POLINE').on('Chon', function (data) {
-			me.onTaiSanPham(data);
-			form.close();
-		})
-	},
-	onTaiSanPham: function(data){
-		var viewmodel = this.getViewModel();
-		viewmodel.set('stockout.pcontract_poid_link', data.id);
-		viewmodel.set('stockout.contract_number', data.po_buyer);
-		var params = new Object();
-		params.pcontract_poid_link = data.id;
-
-		GSmartApp.Ajax.post('/api/v1/pcontract_po/getall_sku_byline', Ext.JSON.encode(params),
-			function (success, response, options) {
-				var response = Ext.decode(response.responseText);
-				if (response.respcode == 200) {
-					var list = [];
-					for(var i=0; i<response.data.length; i++){
-						var data = response.data[i];
-						console.log(data);
-						var stockoutd_new = new Object();
-						stockoutd_new.id = null;
-						stockoutd_new.skucode = data.skuCode;
-						stockoutd_new.skuname = data.skuName;
-						stockoutd_new.product_code = data.productcode;
-						stockoutd_new.product_name = data.productname;
-						stockoutd_new.p_skuid_link = data.productid_link;
-						stockoutd_new.color_name = data.mauSanPham;
-						stockoutd_new.size_name = data.coSanPham;
-						stockoutd_new.totalpackage = data.pquantity_total;
-						stockoutd_new.unitid_link = data.unitid_link;
-						stockoutd_new.unit_name = data.unitname;
-						stockoutd_new.stockoutid_link = null;
-						stockoutd_new.colorid_link = data.color_id;
-						stockoutd_new.skuid_link = data.skuid_link;
-						stockoutd_new.sizeid_link = data.sizeid_link;
-
-						list.push(stockoutd_new);
-					}
-
-					viewmodel.set('stockout.stockout_d', list);
-					var store = viewmodel.getStore('StockoutD_Store');
-					store.removeAll();
-					store.setData(list);
-				}
-			})
-	},
+	
 	channel: { cmd: null, dta: null },
 	renderCell: function (value, record) {
 		if (null == value) value = 0;
@@ -254,20 +170,46 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditController', {
 	onNewData: function (type, id) {
 		var viewModel = this.getViewModel();
 		var session = GSmartApp.util.State.get('session');
+
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
-		viewModel.set('stockout.orgid_from_link', session.orgid_link);
-		viewModel.set('listepc', new Map());
 		viewModel.set('stockout.stockouttypeid_link', id);
 
-		if(id == 21) { // xuat theo don cho Vendor
-            var OrgToStore = viewModel.getStore('OrgToStore');
-            OrgToStore.loadStore(11, false);
-        }
-		if(id == 22) { // xuat dieu chuyen den px khac
-			var OrgToStore = viewModel.getStore('OrgToStore');
-            OrgToStore.loadStore(8, false);
-		}
+		var mainView = Ext.getCmp('stockout_p_edit');
+        if(mainView) mainView.setLoading(true);
+
+		var GpayUser = viewModel.getStore('GpayUser');
+		GpayUser.loadUserInfo_Async();
+		GpayUser.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(mainView) mainView.setLoading(false);
+				if(!success){
+					 this.fireEvent('logout');
+				} else {
+					if (null!=records[0].data.org_grant_id_link){
+                        viewModel.set('stockout.orgid_from_link', records[0].data.org_grant_id_link)
+                    }
+					else{
+                        viewModel.set('stockout.orgid_from_link', records[0].data.orgid_link)
+                    }
+                    if(id == 21) { // xuat theo don cho Vendor
+						var OrgFromStore = viewModel.getStore('OrgFromStore');
+						OrgFromStore.loadStore(8, false);
+						var OrgToStore = viewModel.getStore('OrgToStore');
+						OrgToStore.loadStore(11, false);
+					}
+					if(id == 22) { // xuat dieu chuyen den kho khac
+						var OrgFromStore = viewModel.getStore('OrgFromStore');
+						OrgFromStore.loadStore(8, false);
+						var OrgToStore = viewModel.getStore('OrgToStore');
+						OrgToStore.loadStore(8, false);
+					}
+				}
+			}
+		});
+
+		
 	},
 	CheckValidate: function () {
 		var mes = "";

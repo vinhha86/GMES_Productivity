@@ -51,24 +51,24 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
         xtype: 'toolbar',
         border: false,
         items: [
-            {
-                xtype: 'button',
-                margin: 3,
-                text: 'Lập phiếu mới',
-                iconCls: 'x-fa fa-bars',
-                menu: [
-                    {
-                        itemId: 'btnThemMoi_ByPOLine', // id:1
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Nhập từ sản xuất',
-                    },
-                    {
-                        itemId: 'btnThemMoi_Move', // id:3
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Nhập điều chuyển',
-                    },
-                ],
-            },  
+            // {
+            //     xtype: 'button',
+            //     margin: 3,
+            //     text: 'Lập phiếu mới',
+            //     iconCls: 'x-fa fa-bars',
+            //     menu: [
+            //         {
+            //             itemId: 'btnThemMoi_ByPOLine', // id:1
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Nhập từ sản xuất',
+            //         },
+            //         {
+            //             itemId: 'btnThemMoi_Move', // id:3
+            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
+            //             text: 'Nhập điều chuyển',
+            //         },
+            //     ],
+            // },
             {
                 margin: 3,
                 itemId: 'stockindate_from',

@@ -4,4 +4,4 @@ Ext.define('GSmartApp.view.stockout.Stockin_EPC_Controller', {
     init: function() {
         this.callParent(arguments);
     },
-});    
+});

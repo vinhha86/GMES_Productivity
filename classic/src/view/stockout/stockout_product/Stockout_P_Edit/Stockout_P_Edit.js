@@ -1,6 +1,7 @@
-Ext.define('GSmartApp.view.stockout.Stockout_P_Edit', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Edit', {
     extend: 'Ext.container.Container',
     xtype: 'stockout_p_edit',
+    id: 'stockout_p_edit',
     controller: 'Stockout_P_EditController',
     viewModel: 'Stockout_P_EditModel',
 	layout: {
@@ -53,7 +54,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit', {
                 xtype:'button',
                 text:  'Lưu',
                 iconCls: 'x-fa fa-floppy-o',
-                handler: 'onSave',
+                itemId: 'btnLuu',
                 bind:{
                     disabled: '{isStart}'
                 }

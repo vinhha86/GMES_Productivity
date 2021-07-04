@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_EditModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Stockout_P_EditModel',
     requires: ['GSmartApp.store.DeviceInvStore', 'GSmartApp.store.OrgStore',
@@ -35,11 +35,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
 		OrgToStore: {
             type: 'ListOrgStore'
 		},
-		VatTypeStore:{
-			type : 'VatTypeStore'
-		},
-		CurrencyStore: {
-			type : 'CurrencyStore'
+		GpayUser: {
+			type: 'GpayUserOrg'
 		},
 		StockoutGroupStore: {
 			type: 'StockoutGroupStore'
@@ -90,5 +87,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_EditModel', {
                 return true;
             }
         },
+		// isPOLineHidden: function(get){
+		// 	if(get('stockouts.stockintypeid_link') == 22) 
+		// 		return false;
+		// 	else
+		// 		return true;
+		// },
     }
 });

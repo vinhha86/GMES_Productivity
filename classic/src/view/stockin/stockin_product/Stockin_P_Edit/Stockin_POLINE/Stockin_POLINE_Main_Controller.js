@@ -62,7 +62,6 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
                 }
             });
         }else{
-            console.log('here here');
             mainView.down('#Stockin_POLINE_Main').fireEvent('Chon', select, poData);
         }
         // grid.fireEvent("Chon", select[0].data);

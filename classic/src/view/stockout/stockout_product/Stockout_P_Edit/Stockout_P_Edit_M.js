@@ -1,6 +1,7 @@
-Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Edit_M', {
     extend: 'Ext.container.Container',
     xtype: 'stockout_p_edit_m',
+    itemId: 'stockout_p_edit_m',
     controller: 'Stockout_P_Edit_M_Controller',
     layout: {
         type: 'vbox',
@@ -144,15 +145,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Edit_M', {
                 {
                     xtype: 'textfield',
                     margin: '0 0 0 0',
-                    itemId:'ordercode',
+                    itemId:'linegiaohang',
                     fieldLabel: 'Line giao hàng',
                     width: 335,
                     labelWidth: 95,
                     hideLabel: false,			
                     bind:{
                         disabled: '{isEdit}',
-                        value: '{stockout.contract_number}'
-                    }  
+                        value: '{stockout.contract_number}',
+                        hidden: '{isPOLineHidden}'
+                    },
+                    enableKeyEvents : true,
                 },
                 {
                     xtype: 'button',
