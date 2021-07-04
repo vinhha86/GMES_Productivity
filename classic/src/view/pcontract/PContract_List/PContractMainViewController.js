@@ -182,7 +182,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         this.redirectTo("lspcontract/" + id + "/edit");
     },
     onXoa: function (rec) {
-        // var rec = grid.getStore().getAt(rowIndex);
+        var grid = this.getView();
         var id = rec.get('id');
 
         var params = new Object();
