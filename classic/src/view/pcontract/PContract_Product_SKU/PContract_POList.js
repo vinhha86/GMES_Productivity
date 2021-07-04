@@ -279,6 +279,16 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             queryMode: 'local'
         },
         {
+            xtype: 'filefield',
+            buttonText: 'Tải báo giá',
+            buttonOnly: true,
+            hidden: true,
+            itemId: 'fileUploadPO',
+            width: 35,
+            height: 32,
+            margin: 3
+        },
+        {
             xtype: 'button',
             tooltip: 'Tải file mẫu (PO Line)',
             margin: 3,
