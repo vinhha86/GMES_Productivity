@@ -86,18 +86,18 @@ Ext.define('GSmartApp.view.product.ProductView', {
         },{
             xtype:'textfield',
             labelWidth: 0,
-            emptyText: "Tên sản phẩm",
-            margin: '5 0 5 5',
-            bind: {
-                value: '{search.name}'
-            }
-        },{
-            xtype:'textfield',
-            labelWidth: 0,
             margin: '5 1 5 1',
             emptyText: "Mã sản phẩm",
             bind: {
                 value: '{search.code}'
+            }
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            emptyText: "Tên sản phẩm",
+            margin: '5 0 5 5',
+            bind: {
+                value: '{search.name}'
             }
         },{
             xtype: 'button',

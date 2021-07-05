@@ -75,15 +75,15 @@ Ext.define('GSmartApp.view.material.MaterialView', {
         },{
             xtype:'textfield',
             labelWidth: 0,
-            emptyText: "Tên nguyên liệu",
-            itemId: 'name',
-            margin: 5,
-        },{
-            xtype:'textfield',
-            labelWidth: 0,
             margin: 5,
             emptyText: "Mã nguyên liệu",
             itemId: 'code'
+        },{
+            xtype:'textfield',
+            labelWidth: 0,
+            emptyText: "Tên nguyên liệu",
+            itemId: 'name',
+            margin: 5,
         },{
             xtype: 'button',
             margin: 5,
