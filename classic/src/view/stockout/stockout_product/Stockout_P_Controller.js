@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
         orgtostore.loadStore_byRoot(listidtype);
         
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
-        StockoutType.loadStore();
+        StockoutType.loadStore(21, 30);
         
         var store_stockout = this.getViewModel().getStore('Stockout');
         if (store_stockout) {

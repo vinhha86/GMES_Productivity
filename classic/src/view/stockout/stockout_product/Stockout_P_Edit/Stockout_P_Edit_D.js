@@ -206,21 +206,28 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 }
             },
             {
-                xtype: 'textfield',
+                xtype: 'combo',
                 margin: '0 5 0 5',
-                itemId:'skucode',
-                fieldLabel: 'Mã SP',
-                width: 200,
-                labelWidth: 50,
-                hideLabel: false,			
+                itemId:'Sku_AutoComplete',
+                fieldLabel: 'Mã hàng',
+                width: 350,
+                labelWidth: 70,
+                hideLabel: false,		
+                hideTrigger: false,	
                 bind:{
+                    store: '{Sku_AutoComplete}',
                     hidden: '{isBarcodeHidden}',
-                    value: '{skucode}'
                 },
-                // enableKeyEvents : true,
-                // listeners: {
-                //     keypress: 'onPressEnterBtnThemNPL'
-                // }
+                displayField: 'code',
+                valueField: 'id',
+                listConfig: {
+                    loadingText: 'Tải mã hàng...',
+                    emptyText: 'Không có mã hàng phù hợp.',
+                },
+                anyMatch: true,
+                queryMode: 'remote',
+                queryParam: 'code',		
+                enableKeyEvents : true,
             },
             {
                 tooltip: 'Thêm SP',

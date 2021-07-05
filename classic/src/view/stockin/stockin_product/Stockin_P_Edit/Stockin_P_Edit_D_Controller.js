@@ -19,15 +19,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		'#btnStop': {
 			click: 'onStop'
 		},
-		'#btnTimLenh': {
-			click: 'onTimLenh'
-		},
-		'#btnTaiSP': {
-			click: 'onTaiSanPham'
-		},
-		'#ordercode': {
-			specialkey: 'onSpecialkey'
-		},
 		'#cmbStockinGroup': {
 			select: 'onSelectGroupStockin'
 		},
@@ -71,6 +62,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		});
 	},
 	onAdd_Stockin_D: function(select){
+		var m = this;
 		var viewModel = this.getViewModel();
 		var list = viewModel.get('stockin.stockin_d');
 		if (list == null){
@@ -79,26 +71,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		for(var i=0; i<select.length; i++){
 			var data = select[i].data;
 
-			var stockind_new = new Object();
-			stockind_new.id = null;
-			stockind_new.skucode = data.code;
-			stockind_new.product_code = data.product_code;
-			stockind_new.product_name = data.product_name;
-			stockind_new.p_skuid_link = data.productid_link;
-			stockind_new.color_name = data.color_name;
-			stockind_new.size_name = data.size_name;
-			stockind_new.unitid_link = data.unitid_link;
-			stockind_new.unit_name = data.unit_name;
-			stockind_new.colorid_link = data.color_id;
-			stockind_new.skuid_link = data.id;
-			stockind_new.sizeid_link = data.size_id;
-			list.push(stockind_new);
+			var isExist = m.checkSkuInDList(select[i]); // console.log(isExist);
+			if(!isExist){
+				var stockind_new = new Object();
+				stockind_new.id = null;
+				stockind_new.skucode = data.code;
+				stockind_new.sku_product_code = data.product_code;
+				stockind_new.skuname = data.name;
+				stockind_new.product_name = data.product_name;
+				stockind_new.p_skuid_link = data.productid_link;
+				stockind_new.color_name = data.color_name;
+				stockind_new.size_name = data.size_name;
+				stockind_new.unitid_link = data.unitid_link;
+				stockind_new.unit_name = data.unit_name;
+				stockind_new.colorid_link = data.color_id;
+				stockind_new.skuid_link = data.id;
+				stockind_new.sizeid_link = data.size_id;
+				list.push(stockind_new);
+			}
 		}
 
 		viewModel.set('stockin.stockin_d', list);
-		var store = viewModel.getStore('StockinD_Store');
-		store.removeAll();
-		store.setData(viewModel.get('stockin.stockin_d'));
+		var StockinD_Store = viewModel.getStore('StockinD_Store');
+		StockinD_Store.removeAll();
+		StockinD_Store.insert(0, list);
+		StockinD_Store.commitChanges();
 	},	
 	onSelectGroupStockin: function(combo, record, eOpts){
 		var viewModel = this.getViewModel();
@@ -127,12 +124,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			GSmartApp.util.State.set('device_inv', device.data);
 		}
 
-	},
-	onSpecialkey: function (field, e) {
-		var me = this;
-		if (e.getKey() == e.ENTER) {
-			me.onTimLenh();
-		}
 	},
 	renderSum: function (value) {
 		if (null == value) value = 0;
@@ -356,73 +347,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				}
 			})
 	},
-	onTimLenh: function () {
-		var me = this;
-		var grid = this.getView();
-		var form = Ext.create('Ext.window.Window', {
-			height: 600,
-			closable: true,
-			resizable: false,
-			modal: true,
-			border: false,
-			title: 'Danh sách lệnh sản xuất',
-			closeAction: 'destroy',
-			width: 1100,
-			bodyStyle: 'background-color: transparent',
-			layout: {
-				type: 'fit', // fit screen for window
-				padding: 5
-			},
-			items: [{
-				xtype: 'Stockin_P_Edit_POrder',
-				viewModel: {
-					data: {
-						ordercode: grid.down('#ordercode').getValue()
-					}
-				}
-			}]
-		});
-		form.show();
-
-		form.down('#Stockin_P_Edit_POrder').getController().on('Chon', function (data) {
-			grid.down('#ordercode').setValue(data.po_buyer);
-			me.onTaiSanPham(data.id);
-			form.close();
-		})
-	},
-	onTaiSanPham: function (porderid_link) {
-		var viewModel = this.getViewModel();
-		var stockin = viewModel.get('stockin');
-
-		var params = new Object();
-		params.porderid_link = porderid_link;
-			GSmartApp.Ajax.postJitin('/api/v1/porder/get_porder_sku_stockin', Ext.JSON.encode(params),
-				function (success, resp, options) {
-					if (success) {
-						var resp = Ext.decode(resp.responseText);
-						if (resp.respcode == 200) {
-							var store = viewModel.getStore('StockinD_Store');
-								store.removeAll();
-								store.setData(resp.data);
-								stockin.stockind = resp.data;
-								stockin.stockin_d = resp.data;
-								viewModel.set('stockin', stockin);
-								viewModel.set('listepc', new Map());
-						}
-						else {
-							Ext.MessageBox.show({
-								title: "Thông báo",
-								msg: "Mã lệnh sản xuất không đúng bạn vui lòng tìm kiếm lại!",
-								buttons: Ext.MessageBox.YES,
-								buttonText: {
-									yes: 'Đóng',
-								}
-							});
-						}
-					}
-				})
-
-	},
     onEPCDetail: function(grid, rowIndex, colIndex){
         var record = grid.store.getAt(rowIndex);
         var form =Ext.create({
@@ -450,16 +374,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		}
 	},
 	onBtnThemSP: function () {
-		var me = this;
-		var m = this.getView();
+		var m = this;
+		var me = this.getView();
 		var viewModel = this.getViewModel();
-		var skucodeCbbox = m.down('#Sku_AutoComplete');
+		var skucodeCbbox = me.down('#Sku_AutoComplete');
 
 		if (skucodeCbbox) {
 			var selectedRecord = skucodeCbbox.getSelectedRecord();
 			if (selectedRecord) {
 				// check danh sách d đã có vải này chưa, có thông báo, chưa có thêm
-				var isExist = me.checkSkuInDList(selectedRecord);
+				var isExist = m.checkSkuInDList(selectedRecord);
 				if (isExist) { // thông báo
 					Ext.Msg.show({
 						title: 'Thông báo',
@@ -470,7 +394,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 						}
 					});
 				} else { // thêm
-					me.addSkuToDList(selectedRecord.data);
+					m.addSkuToDList(selectedRecord.data);
 					skucodeCbbox.setValue(null);
 					skucodeCbbox.focus();
 				}
@@ -480,8 +404,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		}
 	},
 	checkSkuInDList: function (selectedRecord) {
-		var me = this;
-		var m = this.getView();
+		var m = this;
+		var me = this.getView();
 		var viewModel = this.getViewModel();
 		// var stockin = viewModel.get('stockin');
 		var stockin_d = viewModel.get('stockin.stockin_d');
@@ -585,11 +509,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				if (btn === 'yes') {
 					// Xoá, check id
 					var id = data.get('id');
-					if (isNaN(id) || id == null || id == 0) { // chưa có trong db
-						me.deleteRow_Stockin_D(data);
-					} else { // đã có trong db
-						me.deleteRowDb_Stockin_D(data);
-					}
+					// if (isNaN(id) || id == null || id == 0) { // chưa có trong db
+					// 	me.deleteRow_Stockin_D(data);
+					// } else { // đã có trong db
+					// 	me.deleteRowDb_Stockin_D(data);
+					// }
+					me.deleteRow_Stockin_D(data);
 				}
 			}
 		});
@@ -607,11 +532,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				break;
 			}
 		}
-		var stockin_dStore = viewModel.getStore('StockinD_Store');
-		if (stockin_dStore) {
-			stockin_dStore.removeAll();
-			stockin_dStore.insert(0, stockin_d);
-			stockin_dStore.commitChanges();
+		var StockinD_Store = viewModel.getStore('StockinD_Store');
+		if (StockinD_Store) {
+			StockinD_Store.removeAll();
+			StockinD_Store.insert(0, stockin_d);
+			StockinD_Store.commitChanges();
 		}
 		viewModel.set('stockin.stockin_d', stockin_d);
 		// console.log(stockin);
@@ -640,11 +565,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 								break;
 							}
 						}
-						var stockin_dStore = viewModel.getStore('StockinD_Store');
-						if (stockin_dStore) {
-							stockin_dStore.removeAll();
-							stockin_dStore.insert(0, stockin_d);
-							stockin_dStore.commitChanges();
+						var StockinD_Store = viewModel.getStore('StockinD_Store');
+						if (StockinD_Store) {
+							StockinD_Store.removeAll();
+							StockinD_Store.insert(0, stockin_d);
+							StockinD_Store.commitChanges();
 						}
 						viewModel.set('stockin.stockin_d', stockin_d);
 						// console.log(stockin);

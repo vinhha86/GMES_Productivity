@@ -40,7 +40,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		},
 		StockoutGroupStore: {
 			type: 'StockoutGroupStore'
-		}
+		},
+        Sku_AutoComplete: {
+			type: 'Sku_AutoComplete'
+		},
 	},
 	data: {
         stockout: {

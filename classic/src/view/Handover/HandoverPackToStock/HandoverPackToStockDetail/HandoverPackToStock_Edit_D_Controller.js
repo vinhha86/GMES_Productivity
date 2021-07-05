@@ -95,8 +95,10 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 				}
 			}
 			// me.getStore().loadData(stockin_d);
-			me.getStore().insert(0, stockin_d);
-			me.getStore().commitChanges();
+			var StockinD_Store = viewModel.getStore('StockinD_Store');
+			StockinD_Store.removeAll();
+			StockinD_Store.insert(0, stockin_d);
+			StockinD_Store.commitChanges();
 
 			// console.log(stockin);
 			// console.log(stockin_d);
@@ -130,9 +132,10 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		}
 
 		viewModel.set('stockin.stockin_d', list);
-		var store = viewModel.getStore('StockinD_Store');
-		store.removeAll();
-		store.setData(viewModel.get('stockin.stockin_d'));
+		var StockinD_Store = viewModel.getStore('StockinD_Store');
+		StockinD_Store.removeAll();
+		StockinD_Store.insert(0, list);
+		StockinD_Store.commitChanges();
 	},	
 	onSelectGroupStockin: function(combo, record, eOpts){
 		var viewModel = this.getViewModel();
@@ -435,13 +438,16 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 					if (success) {
 						var resp = Ext.decode(resp.responseText);
 						if (resp.respcode == 200) {
-							var store = viewModel.getStore('StockinD_Store');
-								store.removeAll();
-								store.setData(resp.data);
-								stockin.stockind = resp.data;
-								stockin.stockin_d = resp.data;
-								viewModel.set('stockin', stockin);
-								viewModel.set('listepc', new Map());
+							var StockinD_Store = viewModel.getStore('StockinD_Store');
+							if (StockinD_Store) {
+								StockinD_Store.removeAll();
+								StockinD_Store.insert(0, resp.data);
+								StockinD_Store.commitChanges();
+							}
+							stockin.stockind = resp.data;
+							stockin.stockin_d = resp.data;
+							viewModel.set('stockin', stockin);
+							viewModel.set('listepc', new Map());
 						}
 						else {
 							Ext.MessageBox.show({
@@ -642,11 +648,11 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 				break;
 			}
 		}
-		var stockin_dStore = viewModel.getStore('StockinD_Store');
-		if (stockin_dStore) {
-			stockin_dStore.removeAll();
-			stockin_dStore.insert(0, stockin_d);
-			stockin_dStore.commitChanges();
+		var StockinD_Store = viewModel.getStore('StockinD_Store');
+		if (StockinD_Store) {
+			StockinD_Store.removeAll();
+			StockinD_Store.insert(0, stockin_d);
+			StockinD_Store.commitChanges();
 		}
 		viewModel.set('stockin.stockin_d', stockin_d);
 		// console.log(stockin);
@@ -675,11 +681,11 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 								break;
 							}
 						}
-						var stockin_dStore = viewModel.getStore('StockinD_Store');
-						if (stockin_dStore) {
-							stockin_dStore.removeAll();
-							stockin_dStore.insert(0, stockin_d);
-							stockin_dStore.commitChanges();
+						var StockinD_Store = viewModel.getStore('StockinD_Store');
+						if (StockinD_Store) {
+							StockinD_Store.removeAll();
+							StockinD_Store.insert(0, stockin_d);
+							StockinD_Store.commitChanges();
 						}
 						viewModel.set('stockin.stockin_d', stockin_d);
 						// console.log(stockin);
