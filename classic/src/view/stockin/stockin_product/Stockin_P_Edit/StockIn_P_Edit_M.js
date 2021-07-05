@@ -117,7 +117,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			margin: '0 5 0 5',
 			width: 445,
 			labelWidth: 85,
-			fieldLabel: 'Nơi nhận',
+			fieldLabel: 'Nơi nhập',
 		},{
 			xtype: 'combo',
 			valueField: 'id',

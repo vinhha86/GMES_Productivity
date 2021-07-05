@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			listeners: {
                 edit: 'onDItemEdit',
                 // beforeedit: 'onPriceDItemBeforeEdit'
-            }    
+            }
         }
     },
     viewConfig: {

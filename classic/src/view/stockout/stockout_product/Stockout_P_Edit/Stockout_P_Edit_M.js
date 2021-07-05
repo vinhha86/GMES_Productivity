@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     reference: 'stockout_orgid_to_link',
                     width: 450,
                     labelWidth: 75,
-                    fieldLabel: 'Nơi nhận:',
+                    fieldLabel: 'Nơi nhập:',
                     editable: false,
                     margin: '0 0 0 5',
                     bind: {
@@ -107,7 +107,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     reference: 'stockout_shipperson',
                     flex: 1,
                     labelWidth: 85,
-                    fieldLabel: 'Người nhận:',
+                    fieldLabel: 'Người giao:',
                     hideLabel: false,
                     bind: {value:'{stockout.shipperson}'}
                 }

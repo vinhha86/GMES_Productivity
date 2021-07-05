@@ -17,7 +17,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     }],
 	plugins: {
         cellediting: {
-            clicksToEdit: 1
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onDItemEdit',
+                // beforeedit: 'onPriceDItemBeforeEdit'
+            }
         }
     },
     columnLines: true,
@@ -121,6 +125,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         {
             header: 'Tồn kho', dataIndex: 'so_luong_ton_kho', width: 90,
             align:'right',
+            bind:{
+                hidden: '{isBtnTonKhoHidden}',
+            },
         },
     ],
     dockedItems: [{
@@ -240,11 +247,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 tooltip: 'Tồn kho',
                 text: 'Tồn kho',
                 margin: '0 5 0 5',
-                itemId: 'benTonKho',
+                itemId: 'btnTonKho',
                 // iconCls: 'x-fa fa-house',
                 weight: 30,
                 bind:{
-                    // hidden: '{isManualHidden}',
+                    hidden: '{isBtnTonKhoHidden}',
                 },
             },
         ]

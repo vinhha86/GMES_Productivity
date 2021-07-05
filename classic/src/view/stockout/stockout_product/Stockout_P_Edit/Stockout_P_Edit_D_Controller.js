@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         
 	},
 	control:{
-		'#benTonKho':{
+		'#btnTonKho':{
             click: 'onBtnTonKho'
         }
     },
@@ -36,26 +36,30 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
             var skuid_link = items[i].get('skuid_link');
             skuIdList.push(skuid_link);
         }
-		console.log(stockid_link);
-        console.log(skuIdList);
+		// console.log(stockid_link);
+        // console.log(skuIdList);
 
 		var params = new Object();
 		params.stockid_link = stockid_link;
 		params.skuIdList = skuIdList;
 
-		var mainView = Ext.getCmp('Stockin_P_Edit');
+		var mainView = Ext.getCmp('stockout_p_edit');
         if(mainView) mainView.setLoading(true);
 
 		GSmartApp.Ajax.postJitin('/api/v1/warehouse/check_inStock', Ext.JSON.encode(params),
 			function (success, response, options) {
-				if(mainView) mainView.setLoading(true);
+				if(mainView) mainView.setLoading(false);
 				var response = Ext.decode(response.responseText);
 				if (success) {
 					if (response.respcode == 200) {
-						console.log(response)
-
-
-
+						// console.log(response);
+						for(var i = 0; i < response.data.length; i++){
+							var obj = response.data[i];
+							var rec = StockoutD_Store.findRecord('skuid_link', obj.skuid_link, 0, false, true, true);
+							rec.set('so_luong_ton_kho', obj.totalpackage);
+							StockoutD_Store.commitChanges();
+							// console.log(rec);
+						}
 					} else {
 						Ext.Msg.show({
 							title: 'Thông báo',
@@ -124,11 +128,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     onEPCDetail: function(grid, rowIndex, colIndex){
         var record = grid.store.getAt(rowIndex);
         var form =Ext.create({
-            xtype: 'stockin_epc_window',
-            reference:'stockin_epc_window'
+            xtype: 'Stockout_EPC_Window',
+            reference:'Stockout_EPC_Window'
         });
 		var viewModel = form.getViewModel();
-        viewModel.set('stockin_d',record);
+        viewModel.set('stockout_d',record);
         form.show();
 	},
 	onDeleteStockoutD: function (grid, rowIndex) {
@@ -239,5 +243,27 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	renderSum: function (value) {
 		if (null == value) value = 0;
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+	},
+
+	onDItemEdit: function (editor, context, eOpts) {
+		// console.log(context);
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var store = me.getStore();
+		var stockoutD_data = context.record.data;
+
+		if (context.value == "" || context.value == context.originalValue || isNaN(context.value)) {
+			store.rejectChanges();
+			return;
+		}
+		if (context.field == 'totalpackage') {
+			stockoutD_data.totalpackage = parseFloat(stockoutD_data.totalpackage);
+		}
+		if (context.field == 'totalpackagecheck') {
+			stockoutD_data.totalpackagecheck = parseFloat(stockoutD_data.totalpackagecheck);
+		}
+		store.commitChanges();
 	},
 })

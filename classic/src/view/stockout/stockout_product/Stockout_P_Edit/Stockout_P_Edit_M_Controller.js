@@ -57,8 +57,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		form.show();
 
 		form.down('#Stockin_POLINE_Main').on('Chon', function (select, poData) {
-			console.log(select);
-			console.log(poData);
+			// console.log(select);
+			// console.log(poData);
 			viewModel.set('stockout.pcontract_poid_link', poData.id);
 			viewModel.set('stockout.contract_number', poData.po_buyer);
 
@@ -108,14 +108,18 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var params = new Object();
 		params.pcontract_poid_link = data.id;
 
+		var mainView = Ext.getCmp('stockout_p_edit');
+        if(mainView) mainView.setLoading(true);
+
 		GSmartApp.Ajax.post('/api/v1/pcontract_po/getall_sku_byline', Ext.JSON.encode(params),
 			function (success, response, options) {
+				if(mainView) mainView.setLoading(false);
 				var response = Ext.decode(response.responseText);
 				if (response.respcode == 200) {
 					var list = [];
 					for(var i=0; i<response.data.length; i++){
 						var data = response.data[i];
-						console.log(data);
+						// console.log(data);
 						var stockoutd_new = new Object();
 						stockoutd_new.id = null;
 						stockoutd_new.skucode = data.skucode;

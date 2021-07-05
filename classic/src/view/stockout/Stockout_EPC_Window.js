@@ -30,6 +30,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
             },
             
             columns: [
+                {
+                    text: 'STT',
+                    width: 50,
+                    xtype: 'rownumberer',
+                    align: 'center'
+                },
                 { header: 'Mã chíp', dataIndex: 'epc', width: 210},
                 // { header: 'Trạng thái', dataIndex: 'status', width: 100},
                 { header: 'Ghi chú', dataIndex: 'extrainfo', flex: 1}

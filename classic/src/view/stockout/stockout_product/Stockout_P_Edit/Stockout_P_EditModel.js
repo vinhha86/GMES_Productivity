@@ -87,6 +87,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 return true;
             }
         },
+		isBtnTonKhoHidden: function(get){
+			//Neu la xuat theo PO thi ko cho sua SL YC
+			if(get('stockout.stockouttypeid_link') == 22) 
+				return false;
+			else
+				return true;
+		},
 		// isPOLineHidden: function(get){
 		// 	if(get('stockouts.stockintypeid_link') == 22) 
 		// 		return false;
