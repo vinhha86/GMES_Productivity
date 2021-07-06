@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     extend: 'Ext.container.Container',
     xtype: 'stockout_p_edit_m',
     itemId: 'stockout_p_edit_m',
+    cls: 'Stockout_P_Edit_M',
     controller: 'Stockout_P_Edit_M_Controller',
     layout: {
         type: 'vbox',
@@ -20,6 +21,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     fieldLabel: 'Loại phiếu:',
                     readOnly: true,
                     editable: false,
+                    cls: 'notEditable',	
                     displayField: 'name',
                     valueField: 'id',
                     bind: {
@@ -35,6 +37,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     labelWidth: 75,
                     fieldLabel: 'Số phiếu:',
                     readOnly: true,
+                    editable: false,
+                    cls: 'notEditable',	
                     bind: {value:'{stockout.stockoutcode}'}
                 },
                 {
@@ -61,6 +65,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			        displayField: 'fullName',
                     fieldLabel: 'Người xuất:',
                     readOnly: true,
+                    editable: false,
+                    cls: 'notEditable',	
                     bind: {
                         value: '{stockout.usercreateid_link}',
                         store: '{UserStore}'

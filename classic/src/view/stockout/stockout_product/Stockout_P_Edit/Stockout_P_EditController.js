@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
             click: 'onSave'
         },
 		'#btnConfirm':{
-            click: 'onConfirm'
+            click: 'onBtnConfirm'
         }
 	},
 	
@@ -57,8 +57,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	onLoadData: function (id, type) {
 		this.getInfo(id);
 	},
-	getInfo: function (id) {
-		var me = this;
+	getInfo: function (id, isConfirm) {
+		var m = this;
 		var viewModel = this.getViewModel();
 		var store = viewModel.getStore('StockoutD_Store');
 		var listepc = viewModel.get('listepc');
@@ -92,6 +92,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						OrgFromStore.loadStore(8, false);
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						OrgToStore.loadStore(8, false);
+					}
+
+					if(isConfirm == true){
+						m.onConfirm();
 					}
 				}
 			})
@@ -157,7 +161,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		}
 		return mes;
 	},
-	onSave: function () {
+	onSave: function (isConfirm) {
 		var mes = this.CheckValidate();
 		var me=this;
 		if (mes == "") {
@@ -177,15 +181,17 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					if (success) {
 						var response = Ext.decode(response.responseText);
 						if (response.respcode == 200) {
-							Ext.MessageBox.show({
-								title: "Thông báo",
-								msg: 'Lập phiếu thành công',
-								buttons: Ext.MessageBox.YES,
-								buttonText: {
-									yes: 'Đóng',
-								}
-							});
-							me.getInfo(response.id);
+							if(isConfirm == false){
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: 'Lập phiếu thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+							me.getInfo(response.id, isConfirm);
 							// if(stockout.id ==null)
 							// 	this.redirectTo("stockout_p_main/" + response.id + "/edit");
 							// else {
@@ -252,6 +258,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			viewModel.set('isManualHidden', true);
 		}
 	},
+
+	onBtnConfirm: function(){
+        this.onSave(true);
+    },
 	onConfirm: function(){
         var viewModel = this.getViewModel();
         var stockout = viewModel.get('stockout');
@@ -303,8 +313,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 									yes: 'Đóng',
 								}
 							});
+
+							viewModel.set('stockout', response.data);
 							
-							m.onThoat();
+							// m.onThoat();
 						}
 						else {
 							Ext.Msg.show({
