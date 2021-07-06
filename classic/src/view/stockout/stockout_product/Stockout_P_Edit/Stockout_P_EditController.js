@@ -294,6 +294,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			var params = new Object();
 			params.stockoutId = stockoutId;
 			params.approver_userid_link = approver_userid_link;
+			params.isAutoChecked = true; 
+			// isAutoChecked = true -> stockin pklist sinh ra để status là ok
+			// dha mạc định là ok (checked)
 
 			var mainView = Ext.getCmp('stockout_p_edit');
 			if(mainView) mainView.setLoading(true);

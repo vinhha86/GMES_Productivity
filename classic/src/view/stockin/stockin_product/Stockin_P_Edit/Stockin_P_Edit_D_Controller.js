@@ -470,18 +470,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 						m.onEPCDetail(grid, rowIndex);
 					},
 				},
-				{
-					text: 'Xoá dòng hàng',
-					itemId: 'btnMenu_Stockin_P_Edit_D_Delete',
-					separator: true,
-					margin: '10 0 0',
-					// iconCls: 'x-fa fas fa-trash redIcon',
-					iconCls: 'x-fa fas fa-trash',
-					handler: function () {
-						// console.log(record);
-						m.onDeleteStockinD(grid, rowIndex);
-					}
-				},
+				// {
+				// 	text: 'Xoá dòng hàng',
+				// 	itemId: 'btnMenu_Stockin_P_Edit_D_Delete',
+				// 	separator: true,
+				// 	margin: '10 0 0',
+				// 	// iconCls: 'x-fa fas fa-trash redIcon',
+				// 	iconCls: 'x-fa fas fa-trash',
+				// 	handler: function () {
+				// 		// console.log(record);
+				// 		m.onDeleteStockinD(grid, rowIndex);
+				// 	}
+				// },
 			]
 		});
 		// HERE IS THE MAIN CHANGE
