@@ -86,6 +86,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'Cắt',
         align: 'right',
+        // dataIndex: '',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -93,6 +94,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'VC',
         align: 'right',
+        dataIndex: 'amountinputsum',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -100,6 +102,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'RC',
         align: 'right',
+        dataIndex: 'amountoutputsum',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -108,6 +111,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     {
         text: 'Đóng gói',
         align: 'right',
+        dataIndex: 'amountpackedsum',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');

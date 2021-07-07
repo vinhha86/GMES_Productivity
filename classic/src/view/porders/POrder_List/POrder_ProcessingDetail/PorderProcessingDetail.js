@@ -138,9 +138,9 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                 }                
             ]
         },
-        { header: 'Nhập kho', reference: 'pprocess_edit_amountstocked',
+        { header: 'Nhập hoàn thiện', reference: 'pprocess_edit_amountstocked',
             columns: [
-                { header: 'SL', dataIndex: 'amountstocked', width: 55,
+                { header: 'SL', dataIndex: 'amountpackstocked', width: 55,
                     editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100000, selectOnFocus: false},
                     summaryType: 'sum', summaryRenderer: 'renderSum',
                     align: 'end', 
@@ -150,7 +150,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                         return Ext.util.Format.number(parseFloat(value), '0,000');
                     }                     
                 }, 
-                { header: 'LK', dataIndex: 'amountstockedsum', width: 60,
+                { header: 'LK', dataIndex: 'amountpackstockedsum', width: 60,
                     summaryType: 'sum', summaryRenderer: 'renderSum', 
                     align: 'end', 
                     renderer: function(value){
@@ -182,7 +182,7 @@ Ext.define('GSmartApp.view.porders.PorderProcessingDetail', {
                 }
             ]
         },
-        { header: 'Nhập thành phẩm', dataIndex: 'totalstocked', width: 65,
+        { header: 'Nhập thành phẩm', dataIndex: 'amountstocked', width: 75,
             summaryType: 'sum', summaryRenderer: 'renderSum', 
             align: 'end', 
             renderer: function(value){
