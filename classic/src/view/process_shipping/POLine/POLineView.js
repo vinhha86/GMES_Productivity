@@ -109,6 +109,15 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         }
     },
     {
+        text: 'Hoàn thiện',
+        align: 'right',
+        dataIndex: 'amountpackstockedsum',
+        width: 70,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        }
+    },
+    {
         text: 'Đóng gói',
         align: 'right',
         dataIndex: 'amountpackedsum',
