@@ -60,7 +60,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		groupstockout: 1,
 		isRFIDHidden: true,
 		isBarcodeHidden: true,
-		isManualHidden: false
+		isManualHidden: false,
+
+		// is popup window tien do giao hang
+		isWindow: null,
+		stockouttypeid_link: null,
+		rec: null
 	},
 	formulas: {
 		isEdit: function (get) {
@@ -83,6 +88,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				return true;
 		},
 		isBtnConfirmHidden: function (get) {
+			if (get('isWindow')) { console.log('here 109')
+                return true;
+            }else
             if (get('stockout.status') < 1) {
                 return false
             }
@@ -92,7 +100,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         },
 		isBtnTonKhoHidden: function(get){
 			//Neu la xuat theo PO thi ko cho sua SL YC
-			if(get('stockout.stockouttypeid_link') == 22) 
+			if(
+				get('stockout.stockouttypeid_link') == 22 ||
+				get('stockout.stockouttypeid_link') == 21
+				) 
 				return false;
 			else
 				return true;

@@ -42,6 +42,16 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     handler: function () {
                         me.onMapPorder(record);
                     },
+                },
+                {
+                    text: 'Yêu cầu xuất kho thành phẩm',
+                    itemId: 'btnYCXKThanhPham',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-plus brownIcon',
+                    handler: function () {
+                        me.onCreateStockoutP(record);
+                    },
                 }
             ]
         });
@@ -145,6 +155,55 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     });
                 }
             })
+    },
+    onCreateStockoutP: function(rec){
+        console.log(rec);
+        var viewmodel = this.getViewModel();
+        var grid = this.getView();
+        var me = this;
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Phiếu xuất kho',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .99,
+            width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'stockout_p_edit',
+                viewModel: {
+                    type: 'Stockout_P_EditModel',
+                    data: {
+                        isWindow: true,
+                        stockouttypeid_link: 21,
+                        po: rec,
+                    }
+                }
+            }]
+        });            
+        form.show();
+
+        form.down('#stockout_p_edit').getController().on('Thoat', function () {
+            form.close();
+        });
+        form.down('#stockout_p_edit').getController().on('Luu', function () {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Lập phiếu thành công',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            // form.close();
+        });
     },
     onReload: function () {
         var viewmodel = this.getViewModel();

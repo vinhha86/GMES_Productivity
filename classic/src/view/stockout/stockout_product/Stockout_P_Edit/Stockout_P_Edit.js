@@ -26,40 +26,71 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
             xtype: 'container',
             height: 35,
             layout:'hbox',
+            bind: {
+                hidden: '{isWindow}'
+            },
             items:[
-            {
-                width:100,
-                xtype:'button',
-                text:  "Quay lại",
-                iconCls: 'x-fa fa-backward',
-                handler: 'onUrlBack'
-            },
-            {
-                margin: '0 5 5 5',
-                xtype:'button',
-                text:  "Duyệt",
-                iconCls: 'x-fa fa-check',
-                itemId: 'btnConfirm',
-                bind: {
-                    hidden: '{isBtnConfirmHidden}'
+                {
+                    width:100,
+                    xtype:'button',
+                    text:  "Quay lại",
+                    iconCls: 'x-fa fa-backward',
+                    handler: 'onUrlBack',
                 },
-                // hidden: true
-            },
-            {
-                flex:1
-            },
-            {
-                width:80,
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  'Lưu',
-                iconCls: 'x-fa fa-floppy-o',
-                itemId: 'btnLuu',
-                bind:{
-                    disabled: '{isStart}'
+                {
+                    margin: '0 5 5 5',
+                    xtype:'button',
+                    text:  "Duyệt",
+                    iconCls: 'x-fa fa-check',
+                    itemId: 'btnConfirm',
+                    bind: {
+                        hidden: '{isBtnConfirmHidden}',
+                    },
+                },
+                {
+                    flex:1
+                },
+                {
+                    width:80,
+                    margin: '0 5 5 0',
+                    xtype:'button',
+                    text:  'Lưu',
+                    iconCls: 'x-fa fa-floppy-o',
+                    itemId: 'btnLuu',
+                    bind:{
+                        disabled: '{isStart}'
+                    }
                 }
-            }
-        ]
-        }        
+            ]
+        },
+        {
+            xtype: 'container',
+            height: 35,
+            layout:'hbox',
+            bind: {
+                hidden: '{!isWindow}'
+            },
+            items:[
+                {
+                    width:100,
+                    margin: '0 0 5 5',
+                    xtype:'button',
+                    text:  "Thoát",
+                    iconCls: 'x-fa fa-window-close',
+                    itemId: 'btnThoatWindow',
+                },
+                {
+                    flex:1
+                },
+                {
+                    width:80,
+                    margin: '0 5 5 0',
+                    xtype:'button',
+                    text:  'Lưu',
+                    iconCls: 'x-fa fa-floppy-o',
+                    itemId: 'btnLuuWindow',
+                }
+            ]
+        }
     ] 
 });
