@@ -319,6 +319,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         });
 		var viewModel = form.getViewModel();
         viewModel.set('stockout_d',record);
+        viewModel.set('isAutoChecked',true);
         form.show();
 	},
 	onDeleteStockoutD: function (grid, rowIndex) {
