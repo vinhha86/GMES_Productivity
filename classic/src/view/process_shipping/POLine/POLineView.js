@@ -13,6 +13,18 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         store: '{POLineStore}'
     },
     columns: [{
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-bars violetIcon',
+                handler: 'onMenuShow'
+            },
+        ]
+    }, {
         text: 'Mã SP (Buyer)',
         dataIndex: 'productbuyercode',
         width: 150,

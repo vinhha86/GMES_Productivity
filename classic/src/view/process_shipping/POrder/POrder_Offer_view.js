@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'MULTI',
+        mode: 'SINGLE',
         checkOnly: true
     },
     bind: {

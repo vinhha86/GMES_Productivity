@@ -4,8 +4,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_Offer_viewController',
     init: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrder_ListStore');
-        var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
-        store.loadbyOffer(pcontract_poid_link);
+        store.insert(0, viewmodel.get('store'));
     },
     control: {
         '#btnThoat': {

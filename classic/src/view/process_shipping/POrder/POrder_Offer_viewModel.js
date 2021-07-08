@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder_Offer_viewModel', {
         }
     },
     data: {
+        store: null,
         pcontract_poid_link: 0
     }
 })

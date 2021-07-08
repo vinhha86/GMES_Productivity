@@ -8,7 +8,8 @@ Ext.define('GSmartApp.view.sku.SkuList', {
     ],
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'MULTI'
+        mode: 'MULTI',
+        checkOnly: true
     },
     layout: 'fit',
     border: true,

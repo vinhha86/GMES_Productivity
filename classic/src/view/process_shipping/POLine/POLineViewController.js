@@ -24,6 +24,128 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             itemclick: 'onSelect'
         }
     },
+    onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Map lệnh sản xuất',
+                    itemId: 'btnmapLSX',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-link brownIcon',
+                    handler: function () {
+                        me.onMapPorder(record);
+                    },
+                }
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
+    },
+    onShowPorderList: function (store, pcontract_poid_link) {
+        var viewmodel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách lệnh sản xuất của chào giá',
+            closeAction: 'destroy',
+            height: 600,
+            width: 900,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrder_Offer_view',
+                viewModel: {
+                    data: {
+                        store: store,
+                        pcontract_poid_link: pcontract_poid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#POrder_Offer_view').getController().on('Thoat', function () {
+            form.close();
+        });
+
+        form.down('#POrder_Offer_view').on('Chon', function (data) {
+            var store = viewmodel.getStore('POrder_ListStore');
+            store.load();
+            form.close();
+        });
+    },
+    onMapPorder: function (rec) {
+        var grid = this.getView();
+        var me = this;
+        grid.setLoading('Đang tải dữ liệu');
+        var params = new Object();
+        params.pcontract_poid_link = rec.get('id');
+        GSmartApp.Ajax.post('/api/v1/porder/getby_po_line', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        if (response.data.length > 0) {
+                            me.onShowPorderList(response.data, rec.get('id'));
+                        }
+                        else {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Bạn có muốn sinh lệnh cho line giao hàng thực tế!',
+                                buttons: Ext.Msg.YESNO,
+                                icon: Ext.Msg.QUESTION,
+                                buttonText: {
+                                    yes: 'Có',
+                                    no: 'Không'
+                                },
+                                fn: function (btn) {
+                                    if (btn === 'yes') {
+                                        console.log(123);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình xử lý dữ liệu!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình xử lý dữ liệu!',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
     onReload: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POLineStore');
