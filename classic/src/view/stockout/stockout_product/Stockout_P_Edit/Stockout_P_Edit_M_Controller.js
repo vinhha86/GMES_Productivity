@@ -5,10 +5,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var viewModel = this.getViewModel();
 
 		var UserStore = viewModel.getStore('UserStore');
-		UserStore.loadStore();
-
+		if(UserStore) UserStore.loadStore();
 		var StockoutTypeStore = viewModel.getStore('StockoutTypeStore');
-		StockoutTypeStore.loadStore();
+		if(StockoutTypeStore) StockoutTypeStore.loadStore();
 	},
 	control:{
 		'#linegiaohang': {

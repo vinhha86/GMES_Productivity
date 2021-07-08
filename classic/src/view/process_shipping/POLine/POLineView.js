@@ -129,18 +129,20 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     },
-    {
-        text: 'Đóng gói',
-        align: 'right',
-        dataIndex: 'amountpackedsum',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    },
+    // {
+    //     text: 'Đóng gói',
+    //     align: 'right',
+    //     dataIndex: 'amountpackedsum',
+    //     width: 70,
+    //     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+    //         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+    //     }
+    // },
     {
         text: 'Giao hàng',
         align: 'right',
+        // dataIndex: 'amountpackedsum',
+        dataIndex: 'amountgiaohang',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');

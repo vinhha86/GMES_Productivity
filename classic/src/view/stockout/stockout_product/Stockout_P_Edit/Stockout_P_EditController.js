@@ -2,8 +2,18 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockout_P_EditController',
 	init: function () {
-		var devicestore = this.getViewModel().getStore('DeviceInvStore');
-		devicestore.loadStore(3);
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var devicestore = viewModel.getStore('DeviceInvStore');
+		if(devicestore) devicestore.loadStore(3);
+
+		var isWindow = viewModel.get('isWindow');
+		// console.log(isWindow);
+		if(isWindow){
+			var stockouttypeid_link = viewModel.get('stockouttypeid_link');
+			m.onNewData(null, stockouttypeid_link);
+		}
 	},
 	listen: {
 		controller: {
@@ -25,7 +35,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         },
 		'#btnConfirm':{
             click: 'onBtnConfirm'
-        }
+        },
+		// window
+		'#btnThoatWindow': {
+			click: 'onBtnThoatWindow'
+		},
+		'#btnLuuWindow': {
+			click: 'onBtnLuuWindow'
+		},
+		/////////
 	},
 	
 	channel: { cmd: null, dta: null },
@@ -42,8 +60,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		viewModel.set('stockout.vat_exchangerate', record.data.exrate);
 	},
 	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
-		var me = this;
-		var txtDevice = me.lookupReference('device');
+		var m = this;
+		var txtDevice = m.lookupReference('device');
 		var deviceId = txtDevice.getValue();
 		var device = txtDevice.getStore().getById(deviceId);
 		if (device) {
@@ -106,7 +124,17 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
-		viewModel.set('stockout.stockouttypeid_link', id);
+
+		var isWindow = viewModel.get('isWindow');
+		if(!isWindow){
+			viewModel.set('stockout.stockouttypeid_link', id);
+		}else{
+			var stockouttypeid_link = viewModel.get('stockouttypeid_link');
+			var po = viewModel.get('po');
+			viewModel.set('stockout.stockouttypeid_link', stockouttypeid_link);
+			viewModel.set('stockout.pcontract_poid_link', po.get('id'));
+			viewModel.set('stockout.contract_number', po.get('po_buyer'));
+		}
 
 		var mainView = Ext.getCmp('stockout_p_edit');
         if(mainView) mainView.setLoading(true);
@@ -163,10 +191,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	},
 	onSave: function (isConfirm) {
 		var mes = this.CheckValidate();
-		var me=this;
+		var m=this;
 		if (mes == "") {
 			var viewModel = this.getViewModel();
-			var stockout = this.getViewModel().get('stockout');
+			var stockout = viewModel.get('stockout');
 			// console.log(stockout);
 			var params = new Object();
 			params.data = [];
@@ -191,7 +219,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                                     }
                                 });
                             }
-							me.getInfo(response.id, isConfirm);
+							m.getInfo(response.id, isConfirm);
 							// if(stockout.id ==null)
 							// 	this.redirectTo("stockout_p_main/" + response.id + "/edit");
 							// else {
@@ -344,5 +372,57 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					}
 				})
         })
-    }
+    },
+
+	onBtnThoatWindow: function (){
+		var m = this;
+		m.fireEvent('Thoat');
+	},
+	onBtnLuuWindow: function (){
+		var m = this;
+		var mes = this.CheckValidate();
+		if (mes == "") {
+			var viewModel = this.getViewModel();
+			var stockout = viewModel.get('stockout');
+			// console.log(stockout);
+			var params = new Object();
+			params.data = [];
+			params.data.push(stockout);
+
+			var mainView = Ext.getCmp('stockout_p_edit');
+        	if(mainView) mainView.setLoading(true);
+
+			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_create', Ext.JSON.encode(params),
+				function (success, response, options) {
+					if(mainView) mainView.setLoading(false);
+					var response = Ext.decode(response.responseText);
+					if (success) {
+						if (response.respcode == 200) {
+							m.getInfo(response.id);
+							m.fireEvent('Luu');
+						}
+					} else {
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Lỗi lập phiếu: ' + response.message,
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+					}
+				})
+		}
+		else {
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: mes,
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				}
+			});
+		}
+		// m.fireEvent('Luu');
+	},
 });
