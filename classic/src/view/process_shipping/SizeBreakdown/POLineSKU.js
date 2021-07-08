@@ -8,10 +8,10 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
         columnLines: true,
         rowLines: true
     },
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
     features: [{
         ftype: 'summary',
         groupHeaderTpl: 'Tổng',
@@ -80,6 +80,7 @@ Ext.define('GSmartApp.view.process_shipping.SizeBreakdown.POLineSKU', {
     {
         dock: 'right',
         layout: 'vbox',
+        hidden: true,
         border: true,
         items:
             [

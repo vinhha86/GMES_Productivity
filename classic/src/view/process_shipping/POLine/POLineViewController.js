@@ -26,6 +26,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
+        var hiddenMap = record.get('ismap');
+
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
@@ -37,10 +39,22 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     text: 'Map lệnh sản xuất',
                     itemId: 'btnmapLSX',
                     separator: true,
+                    hidden: hiddenMap,
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-link brownIcon',
                     handler: function () {
                         me.onMapPorder(record);
+                    },
+                },
+                {
+                    text: 'Hủy Map lệnh sản xuất',
+                    itemId: 'btnmapLSX',
+                    separator: true,
+                    hidden: !hiddenMap,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-undo brownIcon',
+                    handler: function () {
+                        me.CancelMap(record);
                     },
                 }
             ]
@@ -52,7 +66,53 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    onShowPorderList: function (store, pcontract_poid_link) {
+    CancelMap: function(rec){
+        var grid = this.getView();
+        var me = this;
+        grid.setLoading('Đang xử lý');
+        var params = new Object();
+        params.pcontract_poid_link = rec.get('id');
+        GSmartApp.Ajax.post('/api/v1/porderpoline/delete_porder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Thành công!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+
+                        rec.set('ismap', false);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình xử lý dữ liệu!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình xử lý dữ liệu!',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    onShowPorderList: function (store, pcontract_poid_link, rec) {
         var viewmodel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -157,12 +217,22 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         main.setActiveItem(0);
     },
     onSelect: function (grid, record, item, index, e, eOpts) {
+        var grid = this.getView();
+
         var viewmodel = this.getViewModel();
         var storeSKU = viewmodel.getStore('POLineSKU_Store');
         var pcontractid_link = record.get('pcontractid_link');
         var pcontractpoid_link = record.get('id');
         viewmodel.set('pcontract_poid_link', pcontractpoid_link);
         viewmodel.set('porderid_link', 0);
+
+        //remove het grid porder-sku
+        var store_porder_sku = viewmodel.getStore('porderSKUStore');
+        store_porder_sku.removeAll();
+
+        //remove bang can doi
+        var storeCanDoi = viewmodel.getStore('SKUBalanceStore_Mat');
+        storeCanDoi.removeAll();
 
         storeSKU.loadStoreByPO(pcontractid_link, pcontractpoid_link);
 

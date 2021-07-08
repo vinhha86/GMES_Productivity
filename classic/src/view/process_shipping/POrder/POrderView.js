@@ -8,10 +8,10 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
         rowLines: true,
         columnLines: true
     },
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     bind: {
         store: '{POrder_ListStore}'
     },

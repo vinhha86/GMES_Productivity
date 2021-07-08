@@ -15,6 +15,13 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
             click: 'onThuGon'
         }
     },
+    listen: {
+        store: {
+            'POrder_ListStore': {
+                'LoadSoLuongLenh': 'onSelectPOrder'
+            }
+        }
+    },
     onMoRong: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('heightPOLine', 0);

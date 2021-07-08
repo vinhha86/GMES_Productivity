@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_GrantView', {
         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
         // flex: 1
     }, {
-        text: 'Số lượng',
+        text: 'Số lượng KH',
         dataIndex: 'grantamount',
         renderer: function (value) {
             return Ext.util.Format.number(parseFloat(value), '0,000');
