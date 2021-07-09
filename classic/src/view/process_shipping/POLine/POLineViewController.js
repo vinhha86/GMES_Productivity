@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
-        var hiddenMap = record.get('ismap');
+        var hiddenMap = record.get('ismap') == null ? false : record.get('ismap');
 
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 },
                 {
                     text: 'Hủy Map lệnh sản xuất',
-                    itemId: 'btnmapLSX',
+                    itemId: 'btnCancelmapLSX',
                     separator: true,
                     hidden: !hiddenMap,
                     margin: '10 0 0',
@@ -96,7 +96,13 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                             }
                         });
 
-                        rec.set('ismap', false);
+                        var store = grid.getStore();
+                        store.load({
+                            callback: function(){
+                                grid.getSelectionModel().select(rec, true, true);
+                                me.onSelect(null, rec);
+                            }
+                        });
                     }
                     else {
                         Ext.Msg.show({
@@ -123,6 +129,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     onShowPorderList: function (store, pcontract_poid_link, rec) {
         var viewmodel = this.getViewModel();
+        var grid = this.getView();
+        var me = this;
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
@@ -172,7 +180,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if (response.data.length > 0) {
-                            me.onShowPorderList(response.data, rec.get('id'));
+                            me.onShowPorderList(response.data, rec.get('id'), rec);
                         }
                         else {
                             Ext.Msg.show({

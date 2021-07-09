@@ -57,6 +57,10 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
+
+            if (record.data.ismap) {
+                metaData.tdCls = "po_offer";
+            }
             return value;
         },
         items: {
@@ -184,6 +188,15 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             margin: 2,
             editable: false,
             labelWidth: 70
+        },
+        {
+            flex: 1
+        },
+        {
+            html: '<div class="color-box">'
+                + '<div class="color-square po_offer"></div>&nbspĐã map'
+                + '</div>',
+            margin: '5'
         }
         ]
     }

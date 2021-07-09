@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
     reference: 'POrderView',
     viewConfig: {
         rowLines: true,
-        columnLines: true
+        columnLines: true,        
+        enableTextSelection: true
     },
     // selModel: {
     //     selType: 'checkboxmodel',
