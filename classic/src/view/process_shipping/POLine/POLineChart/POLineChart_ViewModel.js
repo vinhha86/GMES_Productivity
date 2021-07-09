@@ -13,6 +13,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_ViewM
     formulas: {
         isamountinputHidden: function (get) {
             var dataIndex = get('dataIndex');
+            if(dataIndex == null){
+                return true;
+            }
             if(dataIndex == 'amountinputsum'){
                 return false;
             }
@@ -20,6 +23,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_ViewM
         },
         isamountoutputHidden: function (get) {
             var dataIndex = get('dataIndex');
+            if(dataIndex == null){
+                return true;
+            }
             if(dataIndex == 'amountoutputsum'){
                 return false;
             }
@@ -27,6 +33,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_ViewM
         },
         isamountpackedHidden: function (get) {
             var dataIndex = get('dataIndex');
+            if(dataIndex == null){
+                return true;
+            }
             if(dataIndex == 'amountpackedsum'){
                 return false;
             }
@@ -34,6 +43,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_ViewM
         },
         isamountpackstockedHidden: function (get) {
             var dataIndex = get('dataIndex');
+            if(dataIndex == null){
+                return true;
+            }
             if(dataIndex == 'amountpackstockedsum'){
                 return false;
             }
@@ -41,7 +53,20 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_ViewM
         },
         isamountstockedHidden: function (get) {
             var dataIndex = get('dataIndex');
+            if(dataIndex == null){
+                return true;
+            }
             if(dataIndex == 'amountstockedsum'){
+                return false;
+            }
+            return true;
+        },
+        isamountgiaohangHidden: function (get) {
+            var dataIndex = get('dataIndex');
+            if(dataIndex == null){
+                return true;
+            }
+            if(dataIndex == 'amountgiaohang'){
                 return false;
             }
             return true;

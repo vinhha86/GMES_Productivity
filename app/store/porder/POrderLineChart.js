@@ -96,21 +96,45 @@ Ext.define('GSmartApp.store.POrderLineChart', {
 				console.log(response);
 			}
 		});
-		// this.load();
-		// this.load({
-		// 	scope: this,
-		// 	callback: function(records, operation, success) {
-		// 		if(!success){
-		// 			 this.fireEvent('logout');
-		// 		}
-		// 		else{
-		// 			// console.log(this.data.items);
-		// 			config = config || {};
-		// 			config.data = this.data.items;
-		// 			this.callParent([config]);
-		// 		}
-		// 	}
-		// });
+    },
+	Load_slGiaoHang_byPO:function(pcontract_poid_link){
+        this.removeAll();
+
+        var param=new Object();
+        param.pcontract_poid_link = pcontract_poid_link;
+		this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create : 'POST',
+                read   : 'POST',
+                update : 'POST',
+                destroy: 'POST'
+            },
+            pageParam: false, //to remove param "page"
+            startParam: false, //to remove param "start"
+            limitParam: false, //to remove param "limit"            
+            cors: true,
+			url: config.getAppBaseUrl()+'/api/v1/pprocess/get_slgiaohang_by_pcontract_po',
+			paramsAsJson:true,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+            useDefaultXhrHeader: false,
+			extraParams: param,
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+            },
+            success : function(response,options ) {
+                var response = Ext.decode(response.responseText);
+                //console.log(response);
+            },
+            failure :function(response,options){
+				console.log(response);
+			}
+		});
     }, 	
 
 	// data:[

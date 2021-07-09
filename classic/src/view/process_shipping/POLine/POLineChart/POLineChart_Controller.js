@@ -12,11 +12,25 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_Contr
         store.removeAll();
 
         var me = this.getView();
+
+        me.setLoading(true);
+
         var POrderLineChart = this.getViewModel().getStore('POrderLineChart');
-        POrderLineChart.LoadPorderProcessing_byPO(pcontract_poid_link);
+        if(
+            dataIndex == 'amountinputsum' ||
+            dataIndex == 'amountoutputsum' ||
+            dataIndex == 'amountpackstockedsum' ||
+            dataIndex == 'amountstockedsum'
+            ){
+            POrderLineChart.LoadPorderProcessing_byPO(pcontract_poid_link);
+        }
+        if(dataIndex == 'amountgiaohang'){
+            POrderLineChart.Load_slGiaoHang_byPO(pcontract_poid_link);
+        }
         POrderLineChart.load({
             scope: this,
             callback: function(records, operation, success) {
+                me.setLoading(false);
                 if(!success){
                     this.fireEvent('logout');
                 }
@@ -40,7 +54,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_Contr
                                 amountpackstocked: null==data.amountpackstocked?0:data.amountpackstocked,
                                 amountpackstockedsum: null==data.amountpackstockedsum?0:data.amountpackstockedsum,
                                 amountstocked: null==data.amountstocked?0:data.amountstocked,
-                                amountstockedsum: null==data.amountstockedsum?0:data.amountstockedsum                                                        
+                                amountstockedsum: null==data.amountstockedsum?0:data.amountstockedsum,
+                                amountgiaohang: null==data.amountgiaohang?0:data.amountgiaohang,
                             });
                         }
                     }
@@ -61,19 +76,22 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_Contr
     },
 
     onTooltipRender_Input: function(tooltip, record, item) {
-        tooltip.setHtml(record.get('processingdate') + '- VC: ' + record.get('amountinput'));
+        tooltip.setHtml(record.get('processingdate') + '- Vào chuyền: ' + record.get('amountinput'));
     },
     onTooltipRender_Output: function(tooltip, record, item) {
-        tooltip.setHtml(record.get('processingdate') + '- RC: ' + record.get('amountoutput'));
+        tooltip.setHtml(record.get('processingdate') + '- Ra chuyền: ' + record.get('amountoutput'));
     },
     onTooltipRender_Packed: function(tooltip, record, item) {
-        tooltip.setHtml(record.get('processingdate') + '- ĐG: ' + record.get('amountpacked'));
+        tooltip.setHtml(record.get('processingdate') + '- Đóng gói: ' + record.get('amountpacked'));
     },
     onTooltipRender_Stocked: function(tooltip, record, item) {
-        tooltip.setHtml(record.get('processingdate') + '- NK: ' + record.get('amountstocked'));
+        tooltip.setHtml(record.get('processingdate') + '- Nhập kho TP: ' + record.get('amountstocked'));
     },
     onTooltipRender_Packstocked: function(tooltip, record, item) {
-        tooltip.setHtml(record.get('processingdate') + '- HT: ' + record.get('amountpackstocked'));
+        tooltip.setHtml(record.get('processingdate') + '- Hoàn thiện: ' + record.get('amountpackstocked'));
+    },
+    onTooltipRender_GiaoHang: function(tooltip, record, item) {
+        tooltip.setHtml(record.get('processingdate') + '- Giao hàng: ' + record.get('amountgiaohang'));
     },
     onItemHighlight: function(chart, newHighlightItem, oldHighlightItem) {
         this.setSeriesLineWidth(newHighlightItem, 4);

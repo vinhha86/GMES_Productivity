@@ -355,13 +355,14 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             clickedDataIndex == 'amountinputsum' ||
             clickedDataIndex == 'amountoutputsum' ||
             clickedDataIndex == 'amountpackstockedsum' ||
-            clickedDataIndex == 'amountstockedsum'
+            clickedDataIndex == 'amountstockedsum' ||
+            clickedDataIndex == 'amountgiaohang'
             ){
             var form = Ext.create('Ext.window.Window', {
                 height: 550,
                 width: 900,
                 closable: true,
-                title: 'Tiến độ vào chuyền',
+                title: 'Tiến độ',
                 resizable: false,
                 modal: true,
                 border: false,

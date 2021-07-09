@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart', {
         },
         axes: [{
             type: 'numeric',
-            fields: ['amountinput', 'amountoutput', 'amountpacked', 'amountpackstocked', 'amountstocked'],
+            fields: ['amountinput', 'amountoutput', 'amountpacked', 'amountpackstocked', 'amountstocked', 'amountgiaohang'],
             position: 'left',
             grid: true,
             minimum: 0,
@@ -249,6 +249,42 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart', {
                 bind: {
                     hidden: '{isamountstockedHidden}',
                     showInLegend: '{!isamountstockedHidden}'
+                }
+            },
+            {
+                type: 'line',
+                smooth: true,
+                showMarkers: true,
+                title: 'Giao hàng',
+                xField: 'processingdate',
+                yField: 'amountgiaohang',
+                style: {
+                    lineWidth: 2
+                },
+                marker: {
+                    radius: 4,
+                    lineWidth: 2
+                },
+                label: {
+                    field: 'amountgiaohang',
+                    display: 'over'
+                },
+                highlight: {
+                    fillStyle: '#000',
+                    radius: 5,
+                    lineWidth: 2,
+                    strokeStyle: '#fff'
+                },
+                tooltip: {
+                    trackMouse: true,
+                    showDelay: 0,
+                    dismissDelay: 0,
+                    hideDelay: 0,
+                    renderer: 'onTooltipRender_GiaoHang'
+                },
+                bind: {
+                    hidden: '{isamountgiaohangHidden}',
+                    showInLegend: '{!isamountgiaohangHidden}'
                 }
             }
         ],
