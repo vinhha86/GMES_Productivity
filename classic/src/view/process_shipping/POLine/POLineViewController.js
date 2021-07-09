@@ -21,7 +21,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             click: 'onHideView'
         },
         '#POLineView': {
-            itemclick: 'onSelect'
+            itemclick: 'onSelect',
+            celldblclick: 'onPOLineViewCellDblClick',
         }
     },
     onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
@@ -342,6 +343,48 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         else if (this.filterPO) {
             filters.remove(this.filterPO);
             this.filterPO = null;
+        }
+    },
+    onPOLineViewCellDblClick: function(view, td, cellIndex, record, tr, rowIndex, e, eOpts){
+        // console.log(record);
+        var viewmodel = this.getViewModel();
+        var clickedDataIndex = view.panel.headerCt.getHeaderAtIndex(cellIndex).dataIndex;
+        var clickedColumnName = view.panel.headerCt.getHeaderAtIndex(cellIndex).text;
+        var clickedCellValue = record.get(clickedDataIndex);
+        if(
+            clickedDataIndex == 'amountinputsum' ||
+            clickedDataIndex == 'amountoutputsum' ||
+            clickedDataIndex == 'amountpackstockedsum' ||
+            clickedDataIndex == 'amountstockedsum'
+            ){
+            var form = Ext.create('Ext.window.Window', {
+                height: 550,
+                width: 900,
+                closable: true,
+                title: 'Tiến độ vào chuyền',
+                resizable: false,
+                modal: true,
+                border: false,
+                closeAction: 'destroy',
+
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: 'POLineChart',
+                    viewModel: {
+                        type: 'POLineChart_ViewModel',
+                        data: {
+                            dataIndex: clickedDataIndex,
+                            po: record,
+                        }
+                    }
+                }]
+            });
+            form.show();      
         }
     }
 })

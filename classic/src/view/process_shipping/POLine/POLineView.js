@@ -83,7 +83,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     },
     {
         text: 'PT vận chuyển',
-        width: 150,
+        flex: 1,
+        // width: 150,
         dataIndex: 'shipmode_name'
     },
     {
@@ -110,6 +111,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'VC',
         align: 'right',
+        tooltip: 'Vào chuyền',
         dataIndex: 'amountinputsum',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
@@ -118,6 +120,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     }, {
         text: 'RC',
         align: 'right',
+        tooltip: 'Ra chuyền',
         dataIndex: 'amountoutputsum',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
@@ -125,9 +128,20 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         }
     },
     {
-        text: 'Hoàn thiện',
+        text: 'HT',
         align: 'right',
+        tooltip: 'Hoàn thiện',
         dataIndex: 'amountpackstockedsum',
+        width: 70,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        }
+    },
+    {
+        text: 'TP',
+        align: 'right',
+        tooltip: 'Thành phẩm',
+        dataIndex: 'amountstockedsum',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -143,8 +157,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     //     }
     // },
     {
-        text: 'Giao hàng',
+        text: 'GH',
         align: 'right',
+        tooltip: 'Giao hàng',
         // dataIndex: 'amountpackedsum',
         dataIndex: 'amountgiaohang',
         width: 70,
