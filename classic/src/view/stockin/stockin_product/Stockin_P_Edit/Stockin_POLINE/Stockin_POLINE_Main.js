@@ -16,7 +16,10 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
             xtype: 'Stockin_POLINE',
             width: '60%',
             margin: 1,
-            border: true
+            border: true,
+            bind: {
+                hidden: '{isDsPOLineHidden}'
+            },
         },
         {
             region: 'east',
@@ -31,6 +34,9 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
         xtype: 'toolbar',
         border: true,
         style: "background-color : white;",
+        bind: {
+            hidden: '{isDsPOLineHidden}'
+        },
         items: [{
             xtype: 'textfield',
             itemId: 'POBuyer_txtField',

@@ -25,6 +25,8 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
         this.getView().up('window').close();
     },
     onTimKiem: function(){
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var POLineStore = viewModel.getStore('POLineStore');
         var po_buyer = viewModel.get('po_buyer');
@@ -39,10 +41,49 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
             });
         }
         else{
-            POLineStore.getall_by_pobuyer(po_buyer);
-            var PContractSKUStore = viewModel.getStore('PContractSKUStore');
-            if(PContractSKUStore) PContractSKUStore.removeAll();
+            POLineStore.getall_by_pobuyer_async(po_buyer);
+            POLineStore.load({
+                scope: this,
+                callback: function(records, operation, success) {
+                    if(success){
+                        console.log(records);
+                        if(records.length > 0){
+                            // var POLineStore = viewModel.getStore('POLineStore');
+                            var grid = me.down('#Stockin_POLINE');
+                            grid.getSelectionModel().select(0);
+                            var select = grid.getSelectionModel().getSelection();
+                            var record = select[0];
+
+                            var PContractSKUStore = viewModel.getStore('PContractSKUStore');
+                            if(PContractSKUStore) PContractSKUStore.removeAll();
+                            m.onStockin_POLINE_itemclick(record);
+                        }
+                    }
+                }
+            });
+            
         }
+    },
+    onStockin_POLINE_itemclick: function(record){
+        var pcontract_poid_link = record.get('id');
+        var viewModel = this.getViewModel();
+        var PContractSKUStore = viewModel.getStore('PContractSKUStore');
+
+        var mainView = this.getView().up('window');
+        if(mainView) mainView.setLoading(true);
+        PContractSKUStore.load_by_pcontract_po_async(pcontract_poid_link);
+        PContractSKUStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(mainView) mainView.setLoading(false);
+                if(!success){
+                    this.fireEvent('logout');
+                } else {
+                }
+            }
+        });
+        viewModel.set('poData.id', record.get('id'));
+        viewModel.set('poData.po_buyer', record.get('po_buyer'));
     },
     onChon: function(){
         var viewModel = this.getViewModel();

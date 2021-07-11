@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		'#btnTonKho':{
             click: 'onBtnTonKho'
         },
+		'#btnTonKhoPOLine':{
+            click: 'onBtnTonKhoPOLine'
+        },
 		'#btnThuGon': {
 			click: 'onhiddenMaster'
 		},
@@ -33,31 +36,116 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     },
 	onTimSP: function(){
 		var me = this;
-		var form = Ext.create({
-			xtype: 'skusearchwindow',
-			width: 1200,
-			height: 500,
-			reference: 'skusearchwindow',
-			viewModel: {
-				data: {
-					sourceview: 'Stockout_P_EditController',
-					searchtype: 1,
-					pcontractid_link: null,
-					type: 10,                        
-					orgcustomerid_link: null,
-					isHidden_sku: false,
-					isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
-					isHiddenSkuSearchCriteria_Attr_btnThemMoi: false
+		var viewModel = this.getViewModel();
+		var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
+		
+		if(pcontract_poid_link != null && pcontract_poid_link != 0 && pcontract_poid_link != '' && !isNaN(pcontract_poid_link)){
+			me.onTimLine();
+		}else{
+			var form = Ext.create({
+				xtype: 'skusearchwindow',
+				width: 1200,
+				height: 500,
+				reference: 'skusearchwindow',
+				viewModel: {
+					data: {
+						sourceview: 'Stockout_P_EditController',
+						searchtype: 1,
+						pcontractid_link: null,
+						type: 10,                        
+						orgcustomerid_link: null,
+						isHidden_sku: false,
+						isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
+						isHiddenSkuSearchCriteria_Attr_btnThemMoi: false
+					}
 				}
-			}
+			});
+			form.show();
+	
+			form.getController().on('product_sku_selected', function (select) {
+				console.log(select);
+				me.onAdd_Stockout_D(select);
+				form.close();
+			});
+		}
+	},
+	onTimLine: function () {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var po_buyer = viewModel.get('stockout.contract_number');
+		var grid = this.getView();
+		var form = Ext.create('Ext.window.Window', {
+			height: 600,
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách SP',
+			closeAction: 'destroy',
+			width: 600,
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockin_POLINE_Main',
+				viewModel: {
+					data: {
+						po_buyer: po_buyer,
+						isDsPOLineHidden: true,
+					}
+				}
+			}]
 		});
+		form.down('#Stockin_POLINE_Sku').setWidth('100%');
 		form.show();
 
-		form.getController().on('product_sku_selected', function (select) {
-			console.log(select);
-			me.onAdd_Stockout_D(select);
+		form.down('#Stockin_POLINE_Main').on('Chon', function (select, poData) {
+			// console.log(select);
+			// console.log(poData);
+			viewModel.set('stockout.pcontract_poid_link', poData.id);
+			viewModel.set('stockout.contract_number', poData.po_buyer);
+
+			// me.onLoadPOLineData(data);
+
+			var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+			StockoutD_Store.removeAll();
+			viewModel.set('stockout.stockout_d', []);
+			// viewModel.set('stockout.porderid_link', null);
+
+			var list = [];
+			for(var i=0; i<select.length; i++){
+				var data = select[i].data;
+				var stockoutd_new = new Object();
+				stockoutd_new.id = null;
+				stockoutd_new.skucode = data.skuCode;
+				stockoutd_new.skuname = data.skuName;
+				stockoutd_new.sku_product_code = data.productcode;
+				stockoutd_new.product_name = data.productname;
+				stockoutd_new.p_skuid_link = data.productid_link;
+				stockoutd_new.color_name = data.mauSanPham;
+				stockoutd_new.size_name = data.coSanPham;
+				stockoutd_new.colorid_link = data.color_id;
+				stockoutd_new.skuid_link = data.skuid_link;
+				stockoutd_new.sizeid_link = data.sku.size_id;
+				stockoutd_new.totalpackage = data.so_luong_yeu_cau == null ? 0 : data.so_luong_yeu_cau;
+				stockoutd_new.totalpackagecheck = data.so_luong_yeu_cau == null ? 0 : data.so_luong_yeu_cau;
+				list.push(stockoutd_new);
+			}
+
+			viewModel.set('stockout.stockout_d', list);
+			var store = viewModel.getStore('StockoutD_Store');
+			store.removeAll();
+			// store.setData(list);
+			store.insert(0, list);
+			store.commitChanges();
+
 			form.close();
-		});
+			// console.log(stockout);
+		})
 	},
 	onAdd_Stockout_D: function(select){ console.log(select);
 		var m = this;
@@ -178,7 +266,63 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 			})
     },
+	onBtnTonKhoPOLine: function(){
+		var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockid_link = viewModel.get('stockout.orgid_from_link');
+		if(stockid_link == 0 || stockid_link == null || isNaN(stockid_link)){
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: "Bạn cần chọn đơn vị xuất kho",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				}
+			});
+			return;
+		}
 
+		var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
+		if(pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)){
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: "Bạn cần chọn PO Line",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				}
+			});
+			return;
+		}
+
+		var form = Ext.create('Ext.window.Window', {
+			height: 600,
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách tồn kho SP',
+			closeAction: 'destroy',
+			width: 1100,
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockout_P_TonKho',
+				viewModel: {
+					type: 'Stockout_P_TonKho_ViewModel',
+					data: {
+						stockid_link: stockid_link,
+						pcontract_poid_link: pcontract_poid_link
+					}
+				}
+			}]
+		});
+		form.show();
+	},
 	Sku_AutoComplete_beforeQuery: function(){
 		var viewModel = this.getViewModel();
         var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');

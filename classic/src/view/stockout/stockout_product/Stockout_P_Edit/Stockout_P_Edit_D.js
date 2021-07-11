@@ -122,13 +122,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 }
             }
         },
-        {
-            header: 'Tồn kho', dataIndex: 'so_luong_ton_kho', width: 90,
-            align:'right',
-            bind:{
-                hidden: '{isBtnTonKhoHidden}',
-            },
-        },
+        // {
+        //     header: 'Tồn kho', dataIndex: 'so_luong_ton_kho', width: 90,
+        //     align:'right',
+        //     bind:{
+        //         hidden: '{isBtnTonKhoHidden}',
+        //     },
+        // },
     ],
     dockedItems: [{
         dock: 'top',
@@ -254,13 +254,24 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 tooltip: 'Tồn kho',
                 text: 'Tồn kho',
                 margin: '0 5 0 5',
-                itemId: 'btnTonKho',
+                itemId: 'btnTonKhoPOLine',
                 // iconCls: 'x-fa fa-house',
                 weight: 30,
                 bind:{
                     hidden: '{isBtnTonKhoHidden}',
                 },
             },
+            // {
+            //     tooltip: 'Tồn kho',
+            //     text: 'Tồn kho',
+            //     margin: '0 5 0 5',
+            //     itemId: 'btnTonKho',
+            //     // iconCls: 'x-fa fa-house',
+            //     weight: 30,
+            //     bind:{
+            //         hidden: '{isBtnTonKhoHidden}',
+            //     },
+            // },
         ]
     }]
 });

@@ -70,6 +70,33 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
+	getall_by_pobuyer_async: function (po_buyer) {
+		var me = this;
+		var params = new Object();
+		params.po_buyer = po_buyer;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getall_bycode',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},
 	loadPOConfirm: function (pcontractid_link, productid_link) {
 		var me = this;
 		var params = new Object();

@@ -15,6 +15,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
         poData: {
             id: null,
             po_buyer: null,
-        }
+        },
+        isDsPOLineHidden: false,
 	}
 });

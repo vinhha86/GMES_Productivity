@@ -12,7 +12,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_Contr
         store.removeAll();
 
         var me = this.getView();
-
         me.setLoading(true);
 
         var POrderLineChart = this.getViewModel().getStore('POrderLineChart');

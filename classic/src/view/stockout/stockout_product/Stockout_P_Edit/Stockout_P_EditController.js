@@ -119,6 +119,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			})
 	},
 	onNewData: function (type, id) {
+		var m = this;
 		var viewModel = this.getViewModel();
 		var session = GSmartApp.util.State.get('session');
 
