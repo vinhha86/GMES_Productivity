@@ -21,8 +21,16 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             'POrder_List_DetailWindowViewController': {
                 'UpdatePorder': 'onUpdatePorder'
+            },
+            'POLineViewController': {
+                'AddPlan': 'onAddPlan'
             }
         }
+    },
+    onAddPlan: function (data) {
+        var view = this.getView().down('#treeplan');
+        var store = view.getCrudManager().getEventStore();
+        store.insert(0, data);
     },
     onUpdatePorder: function (porderinfo, amount, endDate, porder_grantid_link, duration) {
         var view = this.getView().down('#treeplan');

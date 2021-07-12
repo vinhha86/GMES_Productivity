@@ -55,9 +55,14 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-undo brownIcon',
                     handler: function () {
-                        me.CancelMap(record);
+                        Ext.Msg.confirm('Thông báo', 'Bạn có thực sự muốn hủy map với lệnh sản xuất',
+                            function (choice) {
+                                if (choice === 'yes') {
+                                    me.CancelMap(record);
+                                }
+                            });
                     }
-                },{
+                }, {
                     text: 'Yêu cầu xuất kho thành phẩm',
                     itemId: 'btnYCXKThanhPham',
                     separator: true,
@@ -76,7 +81,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
-    CancelMap: function(rec){
+    CancelMap: function (rec) {
         var grid = this.getView();
         var me = this;
         grid.setLoading('Đang xử lý');
@@ -99,7 +104,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
 
                         var store = grid.getStore();
                         store.load({
-                            callback: function(){
+                            callback: function () {
                                 grid.getSelectionModel().select(rec, true, true);
                                 me.onSelect(null, rec);
                             }
@@ -195,7 +200,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                                 },
                                 fn: function (btn) {
                                     if (btn === 'yes') {
-                                        console.log(123);
+                                        me.ShowCreatePorder(rec);
                                     }
                                 }
                             });
@@ -224,7 +229,45 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 }
             })
     },
-    onCreateStockoutP: function(rec){
+    ShowCreatePorder: function (rec) {
+        var viewmodel = this.getViewModel();
+        var me = this;
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tạo lệnh sản xuất',
+            closeAction: 'destroy',
+            height: 300,
+            width: 600,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'CreatePorderView',
+                viewModel: {
+                    data: {
+                        enddate: rec.get('shipdate'),
+                        productname: rec.get('productbuyercode'),
+                        quantity: rec.get('po_quantity'),
+                        pcontract_poid_link: rec.get('id')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#CreatePorderView').on('Create', function (data) {
+            me.fireEvent('AddPlan', data);
+            var store = viewmodel.getStore('POLineStore');
+            store.load();
+            form.close();
+        })
+    },
+    onCreateStockoutP: function (rec) {
         // var viewmodel = this.getViewModel();
         // var grid = this.getView();
         // var me = this;
@@ -254,7 +297,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     }
                 }
             }]
-        });            
+        });
         form.show();
 
         form.down('#stockout_p_edit').getController().on('Thoat', function () {
@@ -345,19 +388,19 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             this.filterPO = null;
         }
     },
-    onPOLineViewCellDblClick: function(view, td, cellIndex, record, tr, rowIndex, e, eOpts){
+    onPOLineViewCellDblClick: function (view, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         // console.log(record);
         var viewmodel = this.getViewModel();
         var clickedDataIndex = view.panel.headerCt.getHeaderAtIndex(cellIndex).dataIndex;
         var clickedColumnName = view.panel.headerCt.getHeaderAtIndex(cellIndex).text;
         var clickedCellValue = record.get(clickedDataIndex);
-        if(
+        if (
             clickedDataIndex == 'amountinputsum' ||
             clickedDataIndex == 'amountoutputsum' ||
             clickedDataIndex == 'amountpackstockedsum' ||
             clickedDataIndex == 'amountstockedsum' ||
             clickedDataIndex == 'amountgiaohang'
-            ){
+        ) {
             var form = Ext.create('Ext.window.Window', {
                 height: 550,
                 width: 900,
@@ -385,7 +428,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     }
                 }]
             });
-            form.show();      
+            form.show();
         }
     }
 })

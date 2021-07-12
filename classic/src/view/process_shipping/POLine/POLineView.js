@@ -52,6 +52,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         width: 80
     },
     {
+        text: 'Lệnh SX',
+        dataIndex: 'ordercode',
+        width: 120
+    },
+    {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
         width: 150,
@@ -78,13 +83,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     },
     {
         text: 'Đóng gói',
-        flex: 1,
+        width: 150,
         dataIndex: 'packing_method'
     },
     {
         text: 'PT vận chuyển',
-        flex: 1,
-        // width: 150,
+        width: 150,
         dataIndex: 'shipmode_name'
     },
     {
