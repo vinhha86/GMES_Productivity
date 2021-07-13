@@ -641,7 +641,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		var viewModel = this.getViewModel();
 		var stockin = viewModel.get('stockin');
 		var stockin_d = viewModel.get('stockin.stockin_d');
-		var id = data.get('id');
+		var id = data.get('idx');
 
 		for (var i = 0; i < stockin_d.length; i++) {
 			if (stockin_d[i].id == id) {
