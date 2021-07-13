@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 	channel: { cmd: null, dta: null },
 	init: function () {
 		var devicestore = this.getViewModel().getStore('DeviceInvStore');
-		devicestore.loadStore(3);
+		devicestore.load_device_active(3);
 	},
 	control: {
 		'#btnThuGon': {
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 			click: 'onBtnThemSP'
 		},
 	},
-	onTimSP: function(){
+	onTimSP: function () {
 		var m = this;
 		var me = this.getView();
 		var viewModel = this.getViewModel();
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 					sourceview: 'Stockout_P_EditController',
 					searchtype: 1,
 					pcontractid_link: null,
-					type: 10,                        
+					type: 10,
 					orgcustomerid_link: null,
 					isHidden_sku: false,
 					isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
@@ -106,13 +106,13 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 			form.close();
 		});
 	},
-	onAdd_Stockin_D: function(select){
+	onAdd_Stockin_D: function (select) {
 		var viewModel = this.getViewModel();
 		var list = viewModel.get('stockin.stockin_d');
-		if (list == null){
+		if (list == null) {
 			list = [];
 		}
-		for(var i=0; i<select.length; i++){
+		for (var i = 0; i < select.length; i++) {
 			var data = select[i].data;
 
 			var stockind_new = new Object();
@@ -136,8 +136,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		StockinD_Store.removeAll();
 		StockinD_Store.insert(0, list);
 		StockinD_Store.commitChanges();
-	},	
-	onSelectGroupStockin: function(combo, record, eOpts){
+	},
+	onSelectGroupStockin: function (combo, record, eOpts) {
 		var viewModel = this.getViewModel();
 		if (record.get('id') == 1) {
 			viewModel.set('isRFIDHidden', true);
@@ -269,16 +269,16 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 								});
 
 								//Tại Object để lưu thông tin stockin_packinglist
-								var epc_item = new Object({id:null});
+								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 1){
+								if (jsonObj[x].epcstate == 1) {
 									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 									epc_item.status = -1;
-									stockind.status = -1;									
+									stockind.status = -1;
 								} else {
 									epc_item.status = 0;
 									stockind.status = 0;
-								}							
+								}
 								epc_item.orgrootid_link = session.rootorgid_link;
 								epc_item.lastuserupdateid_link = session.id;
 								epc_item.timecreate = new Date();
@@ -300,12 +300,12 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 
 								sku.set('totalpackage', sku.get('totalpackage') + 1);
 
-								var epc_item = new Object({id:null});
+								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 1){
+								if (jsonObj[x].epcstate == 1) {
 									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 									epc_item.status = -1;
-									sku.set('status',-1);									
+									sku.set('status', -1);
 								} else {
 									epc_item.status = 0;
 								}
@@ -433,58 +433,58 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 
 		var params = new Object();
 		params.porderid_link = porderid_link;
-			GSmartApp.Ajax.postJitin('/api/v1/porder/get_porder_sku_stockin', Ext.JSON.encode(params),
-				function (success, resp, options) {
-					if (success) {
-						var resp = Ext.decode(resp.responseText);
-						if (resp.respcode == 200) {
-							var StockinD_Store = viewModel.getStore('StockinD_Store');
-							if (StockinD_Store) {
-								StockinD_Store.removeAll();
-								StockinD_Store.insert(0, resp.data);
-								StockinD_Store.commitChanges();
-							}
-							stockin.stockind = resp.data;
-							stockin.stockin_d = resp.data;
-							viewModel.set('stockin', stockin);
-							viewModel.set('listepc', new Map());
+		GSmartApp.Ajax.postJitin('/api/v1/porder/get_porder_sku_stockin', Ext.JSON.encode(params),
+			function (success, resp, options) {
+				if (success) {
+					var resp = Ext.decode(resp.responseText);
+					if (resp.respcode == 200) {
+						var StockinD_Store = viewModel.getStore('StockinD_Store');
+						if (StockinD_Store) {
+							StockinD_Store.removeAll();
+							StockinD_Store.insert(0, resp.data);
+							StockinD_Store.commitChanges();
 						}
-						else {
-							Ext.MessageBox.show({
-								title: "Thông báo",
-								msg: "Mã lệnh sản xuất không đúng bạn vui lòng tìm kiếm lại!",
-								buttons: Ext.MessageBox.YES,
-								buttonText: {
-									yes: 'Đóng',
-								}
-							});
-						}
+						stockin.stockind = resp.data;
+						stockin.stockin_d = resp.data;
+						viewModel.set('stockin', stockin);
+						viewModel.set('listepc', new Map());
 					}
-				})
+					else {
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: "Mã lệnh sản xuất không đúng bạn vui lòng tìm kiếm lại!",
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+					}
+				}
+			})
 
 	},
-    onEPCDetail: function(grid, rowIndex, colIndex){
-        var record = grid.store.getAt(rowIndex);
-        var form =Ext.create({
-            xtype: 'stockin_epc_window',
-            reference:'stockin_epc_window'
-        });
+	onEPCDetail: function (grid, rowIndex, colIndex) {
+		var record = grid.store.getAt(rowIndex);
+		var form = Ext.create({
+			xtype: 'stockin_epc_window',
+			reference: 'stockin_epc_window'
+		});
 		var viewModel = form.getViewModel();
-        viewModel.set('stockin_d',record);
-        form.show();
+		viewModel.set('stockin_d', record);
+		form.show();
 	},
 
-	Sku_AutoComplete_beforeQuery: function(){
+	Sku_AutoComplete_beforeQuery: function () {
 		var viewModel = this.getViewModel();
-        var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
-        var typeFrom = 10;
+		var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
+		var typeFrom = 10;
 		var typeTo = 20;
-        Sku_AutoComplete.proxy.extraParams = {
-            typeFrom: typeFrom,
+		Sku_AutoComplete.proxy.extraParams = {
+			typeFrom: typeFrom,
 			typeTo: typeTo,
-        }
+		}
 	},
-	onPressEnterSkucode: function (textfield, e, eOpts) { 
+	onPressEnterSkucode: function (textfield, e, eOpts) {
 		var m = this;
 		if (e.getKey() == e.ENTER) {
 			m.onBtnThemSP();
@@ -540,7 +540,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		// console.log(stockin_d);
 		return false;
 	},
-	addSkuToDList: function (data) { console.log(data);
+	addSkuToDList: function (data) {
+		console.log(data);
 		var me = this;
 		var m = this.getView();
 		var viewModel = this.getViewModel();

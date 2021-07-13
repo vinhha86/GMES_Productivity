@@ -336,32 +336,44 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     onXoaPO: function (rec) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
-        Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
-            function (choice) {
-                if (choice === 'yes') {
-                    var PContractPOList = viewmodel.getStore('PContractPOList');
-                    var params = new Object();
-                    params.id = rec.data.id;
-                    GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
-                        function (success, response, options) {
-                            var response = Ext.decode(response.responseText);
-                            if (success) {
-                                PContractPOList.reload();
-                                var skuStore = viewmodel.getStore('PContractSKUStore');
-                                skuStore.removeAll();
-                            } else {
-                                Ext.MessageBox.show({
-                                    title: "Kế hoạch giao hàng",
-                                    msg: response.message,
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'Đóng',
-                                    }
-                                });
-                            }
-                        });
+        if (rec.get('ismap')) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Line đã được đồng bộ với kế hoạch sản xuất! Bạn phải hùy đồng bộ để xóa đc Line",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
                 }
             });
+        }
+        else {
+            Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Đơn hàng? chọn YES để thực hiện',
+                function (choice) {
+                    if (choice === 'yes') {
+                        var PContractPOList = viewmodel.getStore('PContractPOList');
+                        var params = new Object();
+                        params.id = rec.data.id;
+                        GSmartApp.Ajax.post('/api/v1/pcontract_po/delete', Ext.JSON.encode(params),
+                            function (success, response, options) {
+                                var response = Ext.decode(response.responseText);
+                                if (success) {
+                                    PContractPOList.reload();
+                                    var skuStore = viewmodel.getStore('PContractSKUStore');
+                                    skuStore.removeAll();
+                                } else {
+                                    Ext.MessageBox.show({
+                                        title: "Kế hoạch giao hàng",
+                                        msg: response.message,
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                            });
+                    }
+                });
+        }
     },
     onEdit: function (rec, isHidden_req) {
         var viewModel = this.getViewModel();
