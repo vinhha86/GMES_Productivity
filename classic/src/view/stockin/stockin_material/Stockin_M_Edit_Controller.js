@@ -266,7 +266,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                         }
                         
                         // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
-                        if (viewModel.get('isAdd_Pcontract_Stockin')){	
+                        if (viewModel.get('isAdd_Pcontract_Stockin')){
+                            viewModel.set('stockin', response.data);
                             m.fireEvent('LuuPhieuNhapThanhCong');
                         }
                     }

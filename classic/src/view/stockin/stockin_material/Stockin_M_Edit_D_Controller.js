@@ -877,10 +877,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 		var viewmodel = this.getViewModel();
 		var stockin = viewmodel.get('stockin');
 		var stockin_d = viewmodel.get('stockin.stockin_d');
-		var id = data.get('id');
+		var id = data.get('idx');
+
+		// console.log(stockin_d);
+		// console.log(data);
+		// console.log(id);
 
 		for (var i = 0; i < stockin_d.length; i++) {
-			if (stockin_d[i].id == id) {
+			if (stockin_d[i].idx == id) {
 				stockin_d.splice(i, 1);
 				break;
 			}

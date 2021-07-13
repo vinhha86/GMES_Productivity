@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 	extend: 'Ext.container.Container',
 	xtype: 'Stockin_M_Edit_M',
+	cls: 'Stockin_M_Edit_M',
 	controller: 'Stockin_M_Edit_M_Controller',
 	requires: ['Ext.form.field.Hidden', 'Ext.form.field.Date'],
 	layout: {
@@ -23,7 +24,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 		}, {
 			xtype: 'combo',
 			readOnly: true,
-			editable: false,				
+			editable: false,	
+			cls: 'notEditable',
 			valueField: 'id',
 			displayField: 'name',
 			bind: {
@@ -45,6 +47,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 				value: '{stockin.stockincode}'
 			},
 			readOnly: true,
+			editable: false,	
+			cls: 'notEditable',
 			fieldLabel: "Số phiếu",
 			width: 235,
             labelWidth: 85
@@ -72,6 +76,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 			anyMatch: true,
 			margin: '5 5 0 5',
 			readOnly: true,
+			editable: false,	
+			cls: 'notEditable',
 			flex: 1,
             labelWidth: 85,
 			fieldLabel: 'Người lập'
@@ -222,6 +228,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 					value: '{stockin.statusString}'
 				},
 				readOnly: true,
+				editable: false,	
+				cls: 'notEditable',
 				fieldLabel: "Trạng thái",
 				labelWidth: 85,
 				flex: 1
