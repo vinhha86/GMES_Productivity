@@ -83,6 +83,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 		}); 
         
         viewModel.set('stockin.stockindate',new Date());
+        viewModel.set('stockin.invoice_date',new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
         viewModel.set('listepc', new Map());
 
@@ -267,7 +268,36 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                         
                         // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
                         if (viewModel.get('isAdd_Pcontract_Stockin')){
-                            viewModel.set('stockin', response.data);
+                            var data = response.data;
+
+                            var StockinD_Store = viewModel.getStore('StockinD_Store');
+                            var StockinD_Store_data = StockinD_Store.getData().items;
+                            // console.log(StockinD_Store_data);
+                            // console.log(data.stockin_d);
+                            // skuname, sku_product_desc, sku_product_color, size_name
+                            for(var i = 0; i < data.stockin_d.length; i++){
+                                for(var j = 0; j < StockinD_Store_data.length; j++){
+                                    if(StockinD_Store_data[j].get('skuid_link') ==  data.stockin_d[i].skuid_link){
+                                        // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
+                                        data.stockin_d[i].skuname = StockinD_Store_data[j].get('skuname');
+                                        data.stockin_d[i].sku_product_desc = StockinD_Store_data[j].get('sku_product_desc');
+                                        data.stockin_d[i].sku_product_color = StockinD_Store_data[j].get('sku_product_color');
+                                        data.stockin_d[i].size_name = StockinD_Store_data[j].get('size_name');
+                                    }
+                                }
+                            }
+                            
+                            // StockinD_Store.setData(data.stockin_d);
+                            StockinD_Store.removeAll();
+                            StockinD_Store.insert(0, data.stockin_d);
+                            StockinD_Store.commitChanges();
+
+                            var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
+                            StockinProduct_Store.setData(data.stockin_product);
+                            StockinProduct_Store.commitChanges();
+
+                            viewModel.set('stockin', data);
+
                             m.fireEvent('LuuPhieuNhapThanhCong');
                         }
                     }

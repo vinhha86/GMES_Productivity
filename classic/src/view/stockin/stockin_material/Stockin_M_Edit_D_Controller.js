@@ -955,7 +955,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 	},
 	//
 	onStockin_M_Edit_D_Itemclick: function (grid, record, item, index, e, eOpts) {
-		console.log(record.data);
+		// console.log(record.data);
 	},
 	checkSkuInDList: function (selectedRecord) {
 		var me = this;
