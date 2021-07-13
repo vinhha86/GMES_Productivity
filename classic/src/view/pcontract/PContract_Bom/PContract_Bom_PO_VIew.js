@@ -26,6 +26,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
             return val;
         }
     }, {
+        text: 'Chú thích',
+        dataIndex: 'comment',
+        width: 100,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        }
+    }, {
         text: 'Ngày giao',
         dataIndex: 'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),

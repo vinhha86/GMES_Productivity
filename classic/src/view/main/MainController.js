@@ -2,24 +2,24 @@ Ext.define('GSmartApp.view.main.MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.main',
 
-    listen : {
-        controller : {
-            '#' : {
-                unmatchedroute : 'onRouteChange'
+    listen: {
+        controller: {
+            '#': {
+                unmatchedroute: 'onRouteChange'
             }
         },
         store: {
-            '*' : {
-                'logout' : 'onLogout'
+            '*': {
+                'logout': 'onLogout'
             }
         }
     },
     routes: {
         ':node': 'onRouteChange',
-		':node/:id(/:args)?':'onRouteDataChange'
+        ':node/:id(/:args)?': 'onRouteDataChange'
     },
-    control:{
-        '#navigationTreeList':{
+    control: {
+        '#navigationTreeList': {
             selectionchange: 'onNavigationTreeSelectionChange'
         }
     },
@@ -34,20 +34,20 @@ Ext.define('GSmartApp.view.main.MainController', {
         // var tbavatar = this.lookup('tbavatar');
         tbname.text = config.getFname();
         // tbavatar.src = config.getAvatar();
-        if(''==window.location.hash) {
-             this.redirectTo('dashboard');
+        if ('' == window.location.hash) {
+            this.redirectTo('dashboard');
         } else {
             var hash = window.location.hash.substring(1);
             console.log(' hash view: ', hash);
             var listhast = hash.split('/');
-            if(listhast.length> 1)
-            this.onRouteDataChange(listhast[0],listhast[1],listhast[2]);
+            if (listhast.length > 1)
+                this.onRouteDataChange(listhast[0], listhast[1], listhast[2]);
             else
-            this.onRouteChange(hash);
+                this.onRouteChange(hash);
         }
 
     },
-    beforeRender: function() {
+    beforeRender: function () {
         // var tbname = this.lookup('tbname');
         // tbname.text = config.getFname();
         // console.log('beforeRender - location hash: ', window.location.hash);
@@ -55,12 +55,12 @@ Ext.define('GSmartApp.view.main.MainController', {
         // console.log(' hash view: ', hash);
         // this.setCurrentView(hash);
     },
-    setCurrentView: function(hashTag) {
-        if(null!=GSmartApp.Utils.porderTaskRunner){
+    setCurrentView: function (hashTag) {
+        if (null != GSmartApp.Utils.porderTaskRunner) {
             GSmartApp.Utils.porderTaskRunner.destroy();
-        }             
+        }
         hashTag = (hashTag || '').toLowerCase();
-        var session= GSmartApp.util.State.get('session');
+        var session = GSmartApp.util.State.get('session');
         /* if(!session){
              this.redirectTo("login");
         } */
@@ -73,17 +73,17 @@ Ext.define('GSmartApp.view.main.MainController', {
 
         var node = store.findNode('routeId', hashTag) || store.findNode('viewType', hashTag);
         var view = (node && node.get('viewType')) || 'page404';
-        
+
         //Hien thong tin menu dc chon
-        if (node){
-            var viewmodel =  this.getViewModel();
+        if (node) {
+            var viewmodel = this.getViewModel();
             if (null != node.data.parent_name)
-                viewmodel.set('selected_menu',node.data.parent_name + ' -> ' + node.data.text);
+                viewmodel.set('selected_menu', node.data.parent_name + ' -> ' + node.data.text);
             else
-                viewmodel.set('selected_menu',node.data.text);
+                viewmodel.set('selected_menu', node.data.text);
         }
 
-        if (mainLayout.getActiveItem()){
+        if (mainLayout.getActiveItem()) {
             mainLayout.getActiveItem().destroy();
         }
 
@@ -111,7 +111,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             this.redirectTo(hash);
         }
         else
-        this.redirectTo(to);
+            this.redirectTo(to);
     },
 
     onToggleNavigationSize: function () {
@@ -141,19 +141,19 @@ Ext.define('GSmartApp.view.main.MainController', {
             navigationList.setMicro(collapsing);
 
             // Start this layout first since it does not require a layout
-            refs.senchaLogo.animate({dynamic: true, to: {width: new_width}});
+            refs.senchaLogo.animate({ dynamic: true, to: { width: new_width } });
 
             // Directly adjust the width config and then run the main wrap container layout
             // as the root layout (it and its chidren). This will cause the adjusted size to
             // be flushed to the element and animate to that new size.
             navigationList.width = new_width;
             west.setWidth(new_width);
-            center.setWidth(center.width +250 - new_width);
+            center.setWidth(center.width + 250 - new_width);
             west.updateLayout();
             center.updateLayout();
-           // navigationList.el.addCls('nav-tree-animating');
+            // navigationList.el.addCls('nav-tree-animating');
 
-            
+
 
             // We need to switch to micro mode on the navlist *after* the animation (this
             // allows the "sweep" to leave the item text in place until it is no longer
@@ -169,44 +169,44 @@ Ext.define('GSmartApp.view.main.MainController', {
         }
     },
 
-    onMainViewRender:function() {
+    onMainViewRender: function () {
         if (!window.location.hash) {
             this.redirectTo("dashboard");
         }
     },
 
-    onRouteChange:function(id){
+    onRouteChange: function (id) {
         console.log('onRouteChange:' + id);
         var window = Ext.WindowManager.getActive();
-        if(window){
+        if (window) {
             window.close();
         }
-        if(id!='lspcontract'){
-            GSmartApp.util.State.set('po',null);
+        if (id != 'lspcontract') {
+            GSmartApp.util.State.set('po', null);
         }
-        if(id!='lsproduct'){
-            GSmartApp.util.State.set('product',null);
+        if (id != 'lsproduct') {
+            GSmartApp.util.State.set('product', null);
         }
         this.setCurrentView(id);
     },
-	onRouteDataChange(hashTag,id,args){
+    onRouteDataChange(hashTag, id, args) {
         args = Ext.Array.clean((args || '').split('/'));
-		hashTag = (hashTag || '').toLowerCase();
-		var session= GSmartApp.util.State.get('session');
-		if(!session){
-			 this.redirectTo("login");
-		}
-        
-        if(hashTag!='lspcontract'){
-            GSmartApp.util.State.set('po',null);
+        hashTag = (hashTag || '').toLowerCase();
+        var session = GSmartApp.util.State.get('session');
+        if (!session) {
+            this.redirectTo("login");
         }
-        
-        if(hashTag!='lsproduct'){
-            GSmartApp.util.State.set('product',null);
+
+        if (hashTag != 'lspcontract') {
+            GSmartApp.util.State.set('po', null);
         }
-        
+
+        if (hashTag != 'lsproduct') {
+            GSmartApp.util.State.set('product', null);
+        }
+
         var window = Ext.WindowManager.getActive();
-        if(window){
+        if (window) {
             window.close();
         }
 
@@ -223,16 +223,16 @@ Ext.define('GSmartApp.view.main.MainController', {
         // if (mainLayout.getActiveItem() && mainLayout.getActiveItem().xtype == xtype_edit){
         //     mainLayout.getActiveItem().destroy();
         // }
-        if (mainLayout.getActiveItem()){
+        if (mainLayout.getActiveItem()) {
             mainLayout.getActiveItem().destroy();
         }
-        if (args.toString().includes('edit')){
+        if (args.toString().includes('edit')) {
             item = mainCard.add({
                 xtype: xtype_edit,
                 routeId: xtype_edit
             });
             mainLayout.setActiveItem(item);
-            me.fireEvent('loaddata', id,args);
+            me.fireEvent('loaddata', id, args);
         } else {
             item = mainCard.add({
                 xtype: xtype_edit,
@@ -241,14 +241,14 @@ Ext.define('GSmartApp.view.main.MainController', {
             mainLayout.setActiveItem(item);
             me.fireEvent('newdata', node, id);
         }
-	},
+    },
     onSearchRouteChange: function () {
         this.setCurrentView('searchresults');
     },
 
     onSwitchToModern: function () {
         Ext.Msg.confirm('Switch to Modern', 'Are you sure you want to switch toolkits?',
-                        this.onSwitchToModernConfirmed, this);
+            this.onSwitchToModernConfirmed, this);
     },
 
     onSwitchToModernConfirmed: function (choice) {
@@ -268,7 +268,7 @@ Ext.define('GSmartApp.view.main.MainController', {
     onEmailRouteChange: function () {
         this.setCurrentView('email');
     },
-    closeSession: function(){
+    closeSession: function () {
         config.setToken(null);
         GSmartApp.util.State.set('session', null);
 
@@ -276,7 +276,7 @@ Ext.define('GSmartApp.view.main.MainController', {
             this.getView().destroy();
             Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
         } else {
-           // window.location.reload();
+            // window.location.reload();
             //var appMain = Ext.getCmp('app-main');//this.getComponent('app-main');
             //var view = this.getView();
             //console.log(appMain);
@@ -286,11 +286,11 @@ Ext.define('GSmartApp.view.main.MainController', {
             //Ext.Msg.alert('Warning', 'Network is slow ..');
             this.getView().destroy();
             Ext.create({
-               xtype: 'xlogin'
+                xtype: 'xlogin'
             });
         }
     },
-    onInfo: function(e){
+    onInfo: function (e) {
         var menu_grid = new Ext.menu.Menu({
             items: [{
                 text: 'Thay đổi mật khẩu',
@@ -302,11 +302,11 @@ Ext.define('GSmartApp.view.main.MainController', {
         e.stopEvent();
         menu_grid.showAt(e.getXY());
     },
-    onChangePass: function(){
+    onChangePass: function () {
         var me = this;
         var data = GSmartApp.util.State.get('session');
         var session = data ? GSmartApp.model.Session.loadData(data) : null;
-        
+
         var form = Ext.create('Ext.window.Window', {
             height: 200,
             closable: true,
@@ -333,28 +333,37 @@ Ext.define('GSmartApp.view.main.MainController', {
         });
         form.show();
 
-        form.down('#ChangePass').on('Success',function(){
+        form.down('#ChangePass').on('Success', function () {
             form.close();
             me.onLogout();
         })
     },
-    onLogout:function(){
+    onLogout: function () {
         // config.setToken(null);
         // GSmartApp.util.State.set('session', null);
         // Ext.Ajax.setDefaultHeaders({ authorization: '' });
         // this.getView().destroy();
         // Ext.create('GSmartApp.view.login.Login', { fullscreen: true });
         // console.log('onLogout:');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: "Phiên đăng nhập đã hết hạn! Bạn đăng nhập lại để tiếp tục",
+            buttons: Ext.MessageBox.YES,
+            buttonText: {
+                yes: 'Đóng'
+            }
+        });
+
         var self = this;
         GSmartApp.model.Session.logout()
-            .then(function(session) {
+            .then(function (session) {
                 self.closeSession();
             })
-            .catch(function(errors) {
+            .catch(function (errors) {
                 //console.log('Error on user logout', errors);
                 console.log('Error on user logout');
                 self.closeSession();
-            }); 
+            });
         /*Ext.Ajax.request({
             url :  'http://localhost:8990/gsmartcore/api/v1/menu/menu_data',
             //url: 'http://localhost:8080/users/me',
@@ -369,24 +378,24 @@ Ext.define('GSmartApp.view.main.MainController', {
             }
         });*/
     },
-	onTest:function(){
-		Ext.Ajax.request({
-            url :  'http://localhost:8990/gsmartcore/api/v1/test/user',
-            method:'POST',
+    onTest: function () {
+        Ext.Ajax.request({
+            url: 'http://localhost:8990/gsmartcore/api/v1/test/user',
+            method: 'POST',
             headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'authorization': config.getToken()
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'authorization': config.getToken()
             },
-            callback: function() {
+            callback: function () {
                 console.log('Test finished');
             }
         });
-	},
-	onFullScreen : function () {
+    },
+    onFullScreen: function () {
         document.body[this.getFullscreenFn()](Element.ALLOW_KEYBOARD_INPUT);
     },
-    getFullscreenFn : function () {
+    getFullscreenFn: function () {
         var docElm = document.documentElement,
             fn;
 

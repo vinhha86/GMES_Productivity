@@ -3,8 +3,6 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 	alias: 'controller.HandoverPackToStock_Edit_D_Controller',
 	channel: { cmd: null, dta: null },
 	init: function () {
-		var devicestore = this.getViewModel().getStore('DeviceInvStore');
-		devicestore.load_device_active(3);
 	},
 	control: {
 		'#btnThuGon': {
@@ -153,16 +151,16 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 			viewModel.set('isRFIDHidden', false);
 			viewModel.set('isBarcodeHidden', true);
 			viewModel.set('isManualHidden', true);
+
+
+			var devicestore = this.getViewModel().getStore('DeviceInvStore');
+			devicestore.load_device_active(3);
 		}
 	},
-	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
-		var me = this;
-		var txtDevice = me.lookupReference('device');
-		var deviceId = txtDevice.getValue();
-		var device = txtDevice.getStore().getById(deviceId);
-		if (device) {
-			GSmartApp.util.State.set('device_inv', device.data);
-		}
+	onDeviceChange: function (combo, rec, eOpts) {
+		// var viewmodel = this.getViewModel();
+		// viewmodel.set('deviceid_link', rec.get('id'));
+		// viewmodel.set('device', rec);
 
 	},
 	onSpecialkey: function (field, e) {
@@ -193,151 +191,151 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		var listcode = [];
 		var listepc = viewModel.get('listepc');
 
-		var host = config.getMqtthost();
-		var port = config.getMqttport();
+		var host = config.getHost();
+		var port = config.getPort();
 		var clientid = config.getClientid();
-		var txtDevice = me.lookupReference('device');
-		var deviceId = txtDevice.getValue();
-		var device = viewModel.getStore('DeviceInvStore').getById(deviceId);
 
-		if (device == null || device.length == 0) {
+		var deviceId = viewModel.get('deviceid_link');
+		var device = viewModel.get('device');
+
+		//kiem tra chua chon thiet bi thi thong bao
+		if (deviceId == 0 || deviceId == null) {
 			Ext.Msg.show({
-				title: GSmartApp.Locales.title_chonthietbi[GSmartApp.Locales.currentLocale],
-				msg: null,
-				buttons: [{
-					itemId: 'ok',
-					text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-					ui: 'action'
-				}]
-			});
-		}
-		else {
-			var orgid_link = GSmartApp.util.State.get('orgid_link');
-			var termid = config.getTermid();
-			/* Generate token */
-			me.stoken = Ext.Number.randomInt(100000, 999999);
-
-			me.channel.cmd = 'gsm5/term/' + termid + '/cmd';
-			GSmartApp.Mqtt.connect(host, port, clientid, me.channel, deviceId, function (topic, message) {
-				console.log(topic);
-				if (topic.includes("cmd")) {
-					var jsonObj = Ext.JSON.decode(message);
-					// console.log(jsonObj);
-					if (jsonObj.ct == 1) {
-						if (jsonObj.cid == 'CMD_START_INV') {
-							me.channel.dta = 'gsm5/transaction/inv/' + jsonObj.respdata.token;
-							GSmartApp.Mqtt.client.subscribe(me.channel.dta);
-							console.log('register dta ch:' + me.channel.dta);
-
-							viewModel.set('clsbtn', "blue-button");
-							viewModel.set('clsbtnStart', "");
-							viewModel.set('clsbtnStop', "red-button");
-							viewModel.set('isStart', true);
-
-							GSmartApp.util.State.set('CMD', 'CMD_STOP_INV');
-							GSmartApp.util.State.set('sendChannel', me.sendChannel);
-						}
-					}
-
-					//Khi het time out tu dong goi nut Stop
-					if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
-						me.onStop();
-					}
-				} else if (topic.includes("transaction")) {
-					var jsonObj = Ext.JSON.decode(message);
-					// console.log(jsonObj);
-					for (var x in jsonObj) {
-						// console.log(jsonObj[x].epc)
-						if (!listepc.has(jsonObj[x].epc)) {
-							listepc.set(jsonObj[x].epc, jsonObj[x].epc);
-							var sku = store.findRecord('skucode', jsonObj[x].skucode);
-
-							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
-							if (!sku) {
-								//chưa có thì thêm vào listcode để lấy thông tin từ server
-								listcode.push(jsonObj[x].skucode);
-
-								//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
-								var stockind = new Object({
-									stockin_packinglist: [],
-									id: null,
-									totalpackage: 1,
-									orgrootid_link: session.rootorgid_link,
-									skucode: jsonObj[x].skucode,
-									lastuserupdateid_link: session.id,
-									timecreate: new Date()
-								});
-
-								//Tại Object để lưu thông tin stockin_packinglist
-								var epc_item = new Object({ id: null });
-								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 1) {
-									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
-									epc_item.status = -1;
-									stockind.status = -1;
-								} else {
-									epc_item.status = 0;
-									stockind.status = 0;
-								}
-								epc_item.orgrootid_link = session.rootorgid_link;
-								epc_item.lastuserupdateid_link = session.id;
-								epc_item.timecreate = new Date();
-								epc_item.encryptdatetime = new Date();
-
-								stockind.stockin_packinglist.push(epc_item);
-
-								//Cập nhật lại stockin trong viewModel
-								stockin.stockin_d.push(stockind);
-								viewModel.set('stockin', stockin);
-
-								//Thêm stockind vào grid
-								store.insert(0, stockind);
-
-							}
-							else {
-								//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
-								var stockinpackinglist = sku.get('stockin_packinglist');
-
-								sku.set('totalpackage', sku.get('totalpackage') + 1);
-
-								var epc_item = new Object({ id: null });
-								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 1) {
-									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
-									epc_item.status = -1;
-									sku.set('status', -1);
-								} else {
-									epc_item.status = 0;
-								}
-								stockinpackinglist.push(epc_item);
-
-							}
-						}
-					}
-
-					//Lấy thông tin sku từ server để hiện lên grid
-					console.log(store);
-					me.UpdateInfoSKU(listcode, store);
+				title: 'Thông báo',
+				msg: "Bạn chưa chọn thiết bị",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng'
 				}
-			}, function () {
-				me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
-				me.funcid = '2;' + orgid_link;
-				var cmd = { ct: 0, cid: "CMD_START_INV", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
-				console.log("Device channel:" + me.sendChannel);
-				var message = new Paho.Message(Ext.JSON.encode(cmd));
-				message.destinationName = me.sendChannel;
-				message.qos = 0;
-				GSmartApp.Mqtt.client.send(message);
-
-			}, function () {
-				console.log('Loi connect');
-				var viewModel = me.getViewModel();
-				viewModel.set('clsbtn', "red-button");
-				viewModel.set('clsbtnStart', "blue-button");
-				viewModel.set('clsbtnStop', "");
-				viewModel.set('isStart', false);
 			});
+			return;
 		}
+
+		var orgid_link = GSmartApp.util.State.get('orgid_link');
+		var termid = config.getTermid();
+		/* Generate token */
+		me.stoken = Ext.Number.randomInt(100000, 999999);
+
+		me.channel.cmd = 'gsm5/term/' + termid + '/cmd';
+		GSmartApp.Mqtt.connect(host, port, clientid, me.channel, deviceId, function (topic, message) {
+			console.log(topic);
+			if (topic.includes("cmd")) {
+				var jsonObj = Ext.JSON.decode(message);
+				// console.log(jsonObj);
+				if (jsonObj.ct == 1) {
+					if (jsonObj.cid == 'CMD_START_INV') {
+						me.channel.dta = 'gsm5/transaction/inv/' + jsonObj.respdata.token;
+						GSmartApp.Mqtt.client.subscribe(me.channel.dta);
+						console.log('register dta ch:' + me.channel.dta);
+
+						viewModel.set('clsbtn', "blue-button");
+						viewModel.set('clsbtnStart', "");
+						viewModel.set('clsbtnStop', "red-button");
+						viewModel.set('isStart', true);
+
+						GSmartApp.util.State.set('CMD', 'CMD_STOP_INV');
+						GSmartApp.util.State.set('sendChannel', me.sendChannel);
+					}
+				}
+
+				//Khi het time out tu dong goi nut Stop
+				if (jsonObj.ct == 2 && jsonObj.cid == 'NTF_ON_STOP') {
+					me.onStop();
+				}
+			} else if (topic.includes("transaction")) {
+				var jsonObj = Ext.JSON.decode(message);
+				// console.log(jsonObj);
+				for (var x in jsonObj) {
+					// console.log(jsonObj[x].epc)
+					if (!listepc.has(jsonObj[x].epc)) {
+						listepc.set(jsonObj[x].epc, jsonObj[x].epc);
+						var sku = store.findRecord('skucode', jsonObj[x].skucode);
+						console.log(sku);
+						//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
+						if (!sku) {
+							//chưa có thì thêm vào listcode để lấy thông tin từ server
+							listcode.push(jsonObj[x].skucode);
+
+							//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
+							var stockind = new Object({
+								stockin_packinglist: [],
+								id: null,
+								totalpackage: 1,
+								orgrootid_link: session.rootorgid_link,
+								skucode: jsonObj[x].skucode,
+								lastuserupdateid_link: session.id,
+								timecreate: new Date()
+							});
+
+							//Tại Object để lưu thông tin stockin_packinglist
+							var epc_item = new Object({ id: null });
+							epc_item.epc = jsonObj[x].epc;
+							if (jsonObj[x].epcstate == 1) {
+								epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
+								epc_item.status = -1;
+								stockind.status = -1;
+							} else {
+								epc_item.status = 0;
+								stockind.status = 0;
+							}
+							epc_item.orgrootid_link = session.rootorgid_link;
+							epc_item.lastuserupdateid_link = session.id;
+							epc_item.timecreate = new Date();
+							epc_item.encryptdatetime = new Date();
+
+							stockind.stockin_packinglist.push(epc_item);
+
+							//Cập nhật lại stockin trong viewModel
+							stockin.stockin_d.push(stockind);
+							viewModel.set('stockin', stockin);
+
+							//Thêm stockind vào grid
+							store.insert(0, stockind);
+
+						}
+						else {
+							//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
+							var stockinpackinglist = sku.get('stockin_packinglist');
+
+							sku.set('totalpackage', sku.get('totalpackage') + 1);
+
+							var epc_item = new Object({ id: null });
+							epc_item.epc = jsonObj[x].epc;
+							if (jsonObj[x].epcstate == 1) {
+								epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
+								epc_item.status = -1;
+								sku.set('status', -1);
+							} else {
+								epc_item.status = 0;
+							}
+							stockinpackinglist.push(epc_item);
+
+						}
+					}
+				}
+
+				//Lấy thông tin sku từ server để hiện lên grid
+				console.log();
+				me.UpdateInfoSKU(listcode, store);
+			}
+		}, function () {
+			me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
+			me.funcid = '2;' + orgid_link;
+			var cmd = { ct: 0, cid: "CMD_START_INV", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
+			console.log("Device channel:" + me.sendChannel);
+			var message = new Paho.Message(Ext.JSON.encode(cmd));
+			message.destinationName = me.sendChannel;
+			message.qos = 0;
+			GSmartApp.Mqtt.client.send(message);
+
+		}, function () {
+			console.log('Loi connect');
+			var viewModel = me.getViewModel();
+			viewModel.set('clsbtn', "red-button");
+			viewModel.set('clsbtnStart', "blue-button");
+			viewModel.set('clsbtnStop', "");
+			viewModel.set('isStart', false);
+		});
 
 
 	},

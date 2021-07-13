@@ -1,32 +1,32 @@
 Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
-    extend: 'Ext.app.ViewModel',
+	extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.HandoverPackToStock_Edit_ViewModel',
 	requires: [
-        
-    ],
-	stores:{
-		DeviceInvStore:{
-			type :'DeviceInvStore'
+
+	],
+	stores: {
+		DeviceInvStore: {
+			type: 'DeviceInvStore'
 		},
-		SkuStore:{
+		SkuStore: {
 			type: 'skustore'
 		},
-		StockinD_Store:{
+		StockinD_Store: {
 			type: 'Stockin_d_Store'
 		},
 		StockinTypeStore: {
 			type: 'StockinTypeStore'
 		},
 		UserStore: {
-            type: 'userliststore'
+			type: 'userliststore'
 		},
 		OrgFromStore: {
-            type: 'ListOrgStore'
+			type: 'ListOrgStore'
 		},
 		OrgToStore: {
-            type: 'ListOrgStore'
+			type: 'ListOrgStore'
 		},
-		StatusStore:{
+		StatusStore: {
 			type: 'stockinstatusstore'
 		},
 		POrder_ListStore: {
@@ -41,20 +41,20 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
 		StockinGroupStore: {
 			type: 'StockinGroupStore'
 		},
-        Sku_AutoComplete: {
+		Sku_AutoComplete: {
 			type: 'Sku_AutoComplete'
 		},
 	},
 	data: {
-		urlback:'',
-		IsformMaster:false,
-		isTabEpc:true,
-		isNhapMoi:true,
-		clsbtn:'red-button',
-		clsbtnStart:'blue-button',
-		clsbtnStop:'red-button',
-		clsbtnSkuError:'',
-		isStart:false,
+		urlback: '',
+		IsformMaster: false,
+		isTabEpc: true,
+		isNhapMoi: true,
+		clsbtn: 'red-button',
+		clsbtnStart: 'blue-button',
+		clsbtnStop: 'red-button',
+		clsbtnSkuError: '',
+		isStart: false,
 		stockin: {
 			stockin_d: [],
 			id: null
@@ -68,59 +68,61 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_ViewModel', {
 		isRFIDHidden: true,
 		isBarcodeHidden: true,
 		isManualHidden: false,
+		deviceid_link: 0,
+		device: null
 	},
 	formulas: {
-        isEdit: function (get) {
-            if (get('stockin.id') == 0 || get('stockin.id') == null) {
-                return false
-            }
-            else {
-                return true;
-            }
-        },
-		iseditSL: function(get){
-			if(get('groupstockin') == 1) return true;
+		isEdit: function (get) {
+			if (get('stockin.id') == 0 || get('stockin.id') == null) {
+				return false
+			}
+			else {
+				return true;
+			}
+		},
+		iseditSL: function (get) {
+			if (get('groupstockin') == 1) return true;
 			return false;
 		},
-		iseditSL_YC: function(get){
+		iseditSL_YC: function (get) {
 			//Neu la nhap theo PO thi ko cho sua SL YC
-			if(get('stockin.stockintypeid_link') == 21) 
+			if (get('stockin.stockintypeid_link') == 21)
 				return false;
 			else
 				return true;
 		},
-		isPOLineHidden: function(get){
-			if(get('stockin.stockintypeid_link') == 21) 
+		isPOLineHidden: function (get) {
+			if (get('stockin.stockintypeid_link') == 21)
 				return false;
 			else
 				return true;
 		},
-		isStockoutHidden: function(get){
-			if(get('stockin.stockintypeid_link') == 22) 
+		isStockoutHidden: function (get) {
+			if (get('stockin.stockintypeid_link') == 22)
 				return false;
 			else
 				return true;
 		},
-		
+
 		isBtnConfirmHidden: function (get) {
 			if (get('stockin.status') < 0) {
 				return true;
 			}
 			else
-            if (get('stockin.status') < 1) {
-                return false
-            }
-            else {
-                return true;
-            }
-        },
-		isBtnLuuHidden: function(get){
+				if (get('stockin.status') < 1) {
+					return false
+				}
+				else {
+					return true;
+				}
+		},
+		isBtnLuuHidden: function (get) {
 			if (get('stockin.status') > 0) {
-                return true
-            }
-            else {
-                return false;
-            }
+				return true
+			}
+			else {
+				return false;
+			}
 		}
-    }
+	}
 })

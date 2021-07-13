@@ -15,92 +15,92 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 		dock: 'bottom'
 	}],
 	plugins: {
-        cellediting: {
-            clicksToEdit: 1,
+		cellediting: {
+			clicksToEdit: 1,
 			listeners: {
-                edit: 'onDItemEdit',
-                // beforeedit: 'onPriceDItemBeforeEdit'
-            }    
-        }
-    },
-    viewConfig: {
-        enableTextSelection: true,
-        stripeRows: false,
-        getRowClass: function(record, index) {
-            var c = record.get('status');
-            if (c == -1) {
-                return 'epc-error';
-            }
-            else {
-                return 'epc-ok';
-            }
-        }                     
-    },
-	bind:{
+				edit: 'onDItemEdit',
+				// beforeedit: 'onPriceDItemBeforeEdit'
+			}
+		}
+	},
+	viewConfig: {
+		enableTextSelection: true,
+		stripeRows: false,
+		getRowClass: function (record, index) {
+			var c = record.get('status');
+			if (c == -1) {
+				return 'epc-error';
+			}
+			else {
+				return 'epc-ok';
+			}
+		}
+	},
+	bind: {
 		store: '{StockinD_Store}'
 	},
 	columns: [
 		{
-            xtype: 'actioncolumn',
-            width: 28,
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            items: [
-                {
-                    iconCls: 'x-fa fas fa-bars violetIcon',
-                    handler: 'onMenu_HandoverPackToStock_Edit_D'
-                },            
-            ]
-        },
+			xtype: 'actioncolumn',
+			width: 28,
+			menuDisabled: true,
+			sortable: false,
+			align: 'center',
+			items: [
+				{
+					iconCls: 'x-fa fas fa-bars violetIcon',
+					handler: 'onMenu_HandoverPackToStock_Edit_D'
+				},
+			]
+		},
 		{
-			text: 'Mã vạch', 
+			text: 'Mã vạch',
 			dataIndex: 'skucode',
-			width: 120,	
-			summaryRenderer:function (grid, context) {
+			width: 120,
+			summaryRenderer: function (grid, context) {
 				return "Tổng cộng";
 			}
-		},{
-			text: 'Mã SP', 
+		}, {
+			text: 'Mã SP',
 			dataIndex: 'sku_product_code',
 			width: 120,
-		},{
-			text: 'Tên sản phẩm', 
+		}, {
+			text: 'Tên sản phẩm',
 			dataIndex: 'skuname',
 			flex: 1
-		},{
-			text: 'Màu', 
+		}, {
+			text: 'Màu',
 			dataIndex: 'color_name',
 			flex: 1
-		},{
-			text: 'Cỡ', 
+		}, {
+			text: 'Cỡ',
 			dataIndex: 'size_name',
 			width: 50
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL Y/C', 
-			align:'right',
+			format: '0,000',
+			text: 'SL Y/C',
+			align: 'right',
 			dataIndex: 'totalpackage',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 80,
-            editor:{
-                xtype:'textfield',
-                maskRe: /[0-9.]/,
-                selectOnFocus: true,
-                bind: {
-                    // editable: '{iseditSL_YC}'
-                }
-            }    			
-		},		
+			editor: {
+				xtype: 'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true,
+				bind: {
+					// editable: '{iseditSL_YC}'
+				}
+			}
+		},
 		{
 			xtype: 'numbercolumn',
 			width: 90,
-			format:'0,000',
-			text: 'SL nhận', 
-			align:'right',
+			format: '0,000',
+			text: 'SL nhận',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'totalpackagecheck',
@@ -110,15 +110,15 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 		dock: 'top',
 		xtype: 'toolbar',
 		items: [{
-			margin:'0 0 0 5',
+			margin: '0 0 0 5',
 			xtype: 'button',
 			iconCls: 'x-fa fa-angle-double-up',
 			itemId: 'btnThuGon',
 			bind: {
 				hidden: '{IsformMaster}'
 			}
-		},{
-			margin:'0 0 0 5',
+		}, {
+			margin: '0 0 0 5',
 			xtype: 'button',
 			itemId: 'btnMoRong',
 			iconCls: 'x-fa fa-angle-double-down',
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 		},
 		{
 			labelWidth: 120,
-			margin:'0 5 5 5',
+			margin: '0 5 5 5',
 			xtype: 'combobox',
 			editable: false,
 			fieldLabel: 'Phương pháp nhập',
@@ -140,24 +140,26 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			displayField: 'name',
 			valueField: 'id',
 			itemId: 'cmbStockinGroup'
-		},  {
+		}, {
 			labelWidth: 90,
-			margin:'0 5 5 5',
+			margin: '0 5 5 5',
 			xtype: 'combobox',
 			reference: 'device',
 			fieldLabel: 'Thiết bị RFID',
 			bind: {
 				store: '{DeviceInvStore}',
-				hidden: '{isRFIDHidden}'
+				hidden: '{isRFIDHidden}',
+				value: '{deviceid_link}',
+				selection: '{device}'
 			},
 			width: 300,
 			displayField: 'name',
 			valueField: 'id',
 			listeners: {
-				change: 'onDeviceChange'
+				select: 'onDeviceChange'
 			}
 		}, {
-			margin:'0 5 5 5',
+			margin: '0 5 5 5',
 			text: "Start",
 			iconCls: 'x-fa fa-play',
 			xtype: 'button',
@@ -168,7 +170,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 				hidden: '{isRFIDHidden}'
 			}
 		}, {
-			margin:'0 5 5 5',
+			margin: '0 5 5 5',
 			text: "Stop",
 			iconCls: 'x-fa fa-stop',
 			xtype: 'button',
@@ -181,13 +183,13 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 		{
 			xtype: 'combo',
 			margin: '0 5 0 5',
-			itemId:'Sku_AutoComplete',
+			itemId: 'Sku_AutoComplete',
 			fieldLabel: 'Mã hàng',
 			width: 350,
 			labelWidth: 70,
-			hideLabel: false,		
-			hideTrigger: false,	
-			bind:{
+			hideLabel: false,
+			hideTrigger: false,
+			bind: {
 				store: '{Sku_AutoComplete}',
 				hidden: '{isBarcodeHidden}',
 			},
@@ -199,8 +201,8 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			},
 			anyMatch: true,
 			queryMode: 'remote',
-			queryParam: 'code',		
-			enableKeyEvents : true,
+			queryParam: 'code',
+			enableKeyEvents: true,
 		},
 		{
 			tooltip: 'Thêm SP',
@@ -208,7 +210,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			iconCls: 'x-fa fa-plus',
 			weight: 30,
 			itemId: 'btnThemSP',
-			bind:{
+			bind: {
 				hidden: '{isBarcodeHidden}',
 			},
 		},
@@ -217,12 +219,12 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D', {
 			margin: '0 5 0 5',
 			itemId: 'btnTimSP',
 			iconCls: 'x-fa fa-search',
-			weight: 30,			
-			bind:{
+			weight: 30,
+			bind: {
 				hidden: '{isManualHidden}',
 			},
-		},		
-	]
+		},
+		]
 	}]
 });
 
