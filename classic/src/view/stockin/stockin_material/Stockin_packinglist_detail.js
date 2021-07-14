@@ -13,15 +13,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
-	plugins: {
-        cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onPackingListItemEdit',
-                // beforeedit: 'onPriceDItemBeforeEdit'
-            }             
-        }
-    },
+	// plugins: {
+    //     cellediting: {
+    //         clicksToEdit: 1,
+    //         listeners: {
+    //             edit: 'onPackingListItemEdit',
+    //             // beforeedit: 'onPriceDItemBeforeEdit'
+    //         }             
+    //     }
+    // },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false               
@@ -30,18 +30,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 		store: '{PackingListStore}'
 	},
 	columns: [
-        { 
-            xtype: 'checkcolumn',
-            // text: 'Đi làm',
-            dataIndex: 'checked',
-            headerCheckbox: false,
-            width: 30,
-            listeners: {
-                // beforecheckchange: 'onBeforecheckchange',
-                checkchange: 'onCheckchange',
-                // headerclick: 'onHeaderClick'
-            }
-        },
+        // {
+        //     xtype: 'checkcolumn',
+        //     // text: 'Đi làm',
+        //     dataIndex: 'checked',
+        //     headerCheckbox: false,
+        //     width: 30,
+        //     listeners: {
+        //         // beforecheckchange: 'onBeforecheckchange',
+        //         checkchange: 'onCheckchange',
+        //         // headerclick: 'onHeaderClick'
+        //     }
+        // },
 		{
 			text: 'Số Lot', 
 			dataIndex: 'lotnumber',
@@ -205,86 +205,86 @@ Ext.define('GSmartApp.view.stockin.Stockin_packinglist_detail', {
 		// ]
 		// }   	
 	],
-	dockedItems: [{
-		dock: 'top',
-        xtype: 'toolbar',
-		items: [
-            {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'lotnumber',
-			emptyText: 'Số lot',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			// maskRe: /[0-9]/,		
-            bind:{
-				value: '{packinglist.lotnumber}'
-            }
-		},
-            {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'packageid',
-			emptyText: 'Cây số',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9]/,		
-            bind:{
-				value: '{packinglist.packageid}'
-            }
-		},
-		{
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'width_met',
-			emptyText: 'Khổ (cm)',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.width_met}'
-            }
-        },
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'met_origin',
-			emptyText: 'SL Nhập (m)',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.met_origin}',
-				hidden: '{isMetColumnHidden}',
-            }
-		},
+	// dockedItems: [{
+	// 	dock: 'top',
+    //     xtype: 'toolbar',
+	// 	items: [
+    //         {
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'lotnumber',
+	// 		emptyText: 'Số lot',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		// maskRe: /[0-9]/,		
+    //         bind:{
+	// 			value: '{packinglist.lotnumber}'
+    //         }
+	// 	},
+    //         {
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'packageid',
+	// 		emptyText: 'Cây số',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9]/,		
+    //         bind:{
+	// 			value: '{packinglist.packageid}'
+    //         }
+	// 	},
+	// 	{
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'width_met',
+	// 		emptyText: 'Khổ (cm)',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9.]/,
+    //         bind:{
+	// 			value: '{packinglist.width_met}'
+    //         }
+    //     },
+    //     {
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'met_origin',
+	// 		emptyText: 'SL Nhập (m)',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9.]/,
+    //         bind:{
+	// 			value: '{packinglist.met_origin}',
+	// 			hidden: '{isMetColumnHidden}',
+    //         }
+	// 	},
 
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'ydsorigin',
-			emptyText: 'SL Nhập (y)',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.ydsorigin}',
-				hidden: '{isYdsColumnHidden}',
-            }
-		},		
-		{
-			tooltip: 'Thêm',
-			margin: '0 5 0 5',
-			itemId: 'btnThemPKL',
-			iconCls: 'x-fa fa-plus',
-			weight: 30
-		} 		
-	]
-	}]
+    //     {
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'ydsorigin',
+	// 		emptyText: 'SL Nhập (y)',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9.]/,
+    //         bind:{
+	// 			value: '{packinglist.ydsorigin}',
+	// 			hidden: '{isYdsColumnHidden}',
+    //         }
+	// 	},		
+	// 	{
+	// 		tooltip: 'Thêm',
+	// 		margin: '0 5 0 5',
+	// 		itemId: 'btnThemPKL',
+	// 		iconCls: 'x-fa fa-plus',
+	// 		weight: 30
+	// 	} 		
+	// ]
+	// }]
 });
 

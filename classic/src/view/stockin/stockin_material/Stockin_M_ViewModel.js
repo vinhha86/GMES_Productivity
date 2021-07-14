@@ -137,5 +137,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
             }
             return true;
         },
+		isBtnLuuHidden: function (get){
+			if(get('stockin.status') >=1 ){
+				return true;
+			}
+			return false;
+		}
     }
 })

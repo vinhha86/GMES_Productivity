@@ -355,7 +355,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
             items: [{
                 xtype: 'Stockin_M_Edit_Confirm',
                 viewModel: {
-                    type: 'HandoverDetailConfirmViewModel',
+                    type: 'Stockin_M_Edit_ConfirmViewModel',
                     data: {
                         stockin: stockin,
                         stockinId: stockinId
