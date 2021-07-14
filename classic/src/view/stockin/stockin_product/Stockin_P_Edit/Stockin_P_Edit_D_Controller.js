@@ -3,8 +3,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 	alias: 'controller.Stockin_P_Edit_D_Controller',
 	channel: { cmd: null, dta: null },
 	init: function () {
-		var devicestore = this.getViewModel().getStore('DeviceInvStore');
-		devicestore.loadStore(3);
+
 	},
 	control: {
 		'#btnThuGon': {
@@ -33,7 +32,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			click: 'onBtnThemSP'
 		},
 	},
-	onTimSP: function(){
+	onTimSP: function () {
 		var me = this;
 		var form = Ext.create({
 			xtype: 'skusearchwindow',
@@ -45,7 +44,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					sourceview: 'Stockout_P_EditController',
 					searchtype: 1,
 					pcontractid_link: null,
-					type: 10,                        
+					type: 10,
 					orgcustomerid_link: null,
 					isHidden_sku: false,
 					isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
@@ -61,18 +60,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			form.close();
 		});
 	},
-	onAdd_Stockin_D: function(select){
+	onAdd_Stockin_D: function (select) {
 		var m = this;
 		var viewModel = this.getViewModel();
 		var list = viewModel.get('stockin.stockin_d');
-		if (list == null){
+		if (list == null) {
 			list = [];
 		}
-		for(var i=0; i<select.length; i++){
+		for (var i = 0; i < select.length; i++) {
 			var data = select[i].data;
 
 			var isExist = m.checkSkuInDList(select[i]); // console.log(isExist);
-			if(!isExist){
+			if (!isExist) {
 				var stockind_new = new Object();
 				stockind_new.id = null;
 				stockind_new.skucode = data.code;
@@ -96,9 +95,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		StockinD_Store.removeAll();
 		StockinD_Store.insert(0, list);
 		StockinD_Store.commitChanges();
-	},	
-	onSelectGroupStockin: function(combo, record, eOpts){
+	},
+	onSelectGroupStockin: function (combo, record, eOpts) {
 		var viewModel = this.getViewModel();
+		var me = this;
+
+		me.setSlNhap();
 		if (record.get('id') == 1) {
 			viewModel.set('isRFIDHidden', true);
 			viewModel.set('isBarcodeHidden', true);
@@ -113,17 +115,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			viewModel.set('isRFIDHidden', false);
 			viewModel.set('isBarcodeHidden', true);
 			viewModel.set('isManualHidden', true);
+
+			var devicestore = this.getViewModel().getStore('DeviceInvStore');
+			devicestore.loadStore(3);
 		}
 	},
-	onDeviceChange: function (combo, newValue, oldValue, eOpts) {
-		var me = this;
-		var txtDevice = me.lookupReference('device');
-		var deviceId = txtDevice.getValue();
-		var device = txtDevice.getStore().getById(deviceId);
-		if (device) {
-			GSmartApp.util.State.set('device_inv', device.data);
-		}
+	setSlNhap: function () {
+		// set gia tri sl nhap mac dinh = sl yeu cau
+		var m = this;
+		var viewModel = this.getViewModel();
+		var store = viewModel.getStore('StockinD_Store');
+		var stockin = viewModel.get('stockin');
 
+		if (stockin.status == -1) { // 
+			var stockin_d = viewModel.get('stockin.stockin_d');
+			if (stockin_d == null) stockin_d = [];
+			for (var i = 0; i < stockin_d.length; i++) {
+				stockin_d[i].totalpackagecheck = 0;
+			}
+			viewModel.set('stockin.stockin_d', stockin_d);
+			// viewModel.set('stockin', response.data);
+			store.setData(stockin_d);
+			store.commitChanges();
+		}
+		// console.log(stockin);
 	},
 	renderSum: function (value) {
 		if (null == value) value = 0;
@@ -144,26 +159,25 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		var stockin = viewModel.get('stockin');
 		var session = GSmartApp.util.State.get('session');
 
-		var listcode = [];
+		var listcode = new Map();
 		var listepc = viewModel.get('listepc');
 
-		var host = config.getMqtthost();
-		var port = config.getMqttport();
+		var host = config.getHost();
+		var port = config.getPort();
 		var clientid = config.getClientid();
-		var txtDevice = me.lookupReference('device');
-		var deviceId = txtDevice.getValue();
-		var device = viewModel.getStore('DeviceInvStore').getById(deviceId);
+		var deviceId = viewModel.get('deviceid_link');
+		var device = viewModel.get('device');
 
-		if (device == null || device.length == 0) {
+		//kiem tra chua chon thiet bi thi thong bao
+		if (deviceId == 0 || deviceId == null) {
 			Ext.Msg.show({
-				title: GSmartApp.Locales.title_chonthietbi[GSmartApp.Locales.currentLocale],
-				msg: null,
-				buttons: [{
-					itemId: 'ok',
-					text: GSmartApp.Locales.btn_dong[GSmartApp.Locales.currentLocale],
-					ui: 'action'
-				}]
-			});
+				title: 'Thông báo',
+				msg: "Bạn chưa chọn thiết bị",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng'
+				}
+			})
 		}
 		else {
 			var orgid_link = GSmartApp.util.State.get('orgid_link');
@@ -199,17 +213,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					}
 				} else if (topic.includes("transaction")) {
 					var jsonObj = Ext.JSON.decode(message);
-					// console.log(jsonObj);
+					console.log(listepc);
 					for (var x in jsonObj) {
-						// console.log(jsonObj[x].epc)
 						if (!listepc.has(jsonObj[x].epc)) {
 							listepc.set(jsonObj[x].epc, jsonObj[x].epc);
 							var sku = store.findRecord('skucode', jsonObj[x].skucode);
-
+							console.log(sku);
 							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 							if (!sku) {
 								//chưa có thì thêm vào listcode để lấy thông tin từ server
-								listcode.push(jsonObj[x].skucode);
+								listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
 
 								//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
 								var stockind = new Object({
@@ -223,16 +236,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 								});
 
 								//Tại Object để lưu thông tin stockin_packinglist
-								var epc_item = new Object({id:null});
+								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 1){
+								if (jsonObj[x].epcstate == 1) {
 									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 									epc_item.status = -1;
-									stockind.status = -1;									
+									stockind.status = -1;
 								} else {
 									epc_item.status = 0;
 									stockind.status = 0;
-								}							
+								}
 								epc_item.orgrootid_link = session.rootorgid_link;
 								epc_item.lastuserupdateid_link = session.id;
 								epc_item.timecreate = new Date();
@@ -249,17 +262,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 
 							}
 							else {
+								console.log(sku);
 								//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
 								var stockinpackinglist = sku.get('stockin_packinglist');
 
-								sku.set('totalpackage', sku.get('totalpackage') + 1);
+								sku.set('totalpackagecheck', sku.get('totalpackagecheck') + 1);
 
-								var epc_item = new Object({id:null});
+								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 1){
+								if (jsonObj[x].epcstate == 1) {
 									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 									epc_item.status = -1;
-									sku.set('status',-1);									
+									epc_item.id = null;
+									sku.set('status', -1);
 								} else {
 									epc_item.status = 0;
 								}
@@ -268,10 +283,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 							}
 						}
 					}
-
 					//Lấy thông tin sku từ server để hiện lên grid
-					console.log(store);
-					me.UpdateInfoSKU(listcode, store);
+					// console.log(store);
+					// me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
 				me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
@@ -347,27 +361,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				}
 			})
 	},
-    onEPCDetail: function(grid, rowIndex, colIndex){
-        var record = grid.store.getAt(rowIndex);
-        var form =Ext.create({
-            xtype: 'stockin_epc_window',
-            reference:'stockin_epc_window'
-        });
+	onEPCDetail: function (grid, rowIndex, colIndex) {
+		var record = grid.store.getAt(rowIndex);
+		var form = Ext.create({
+			xtype: 'stockin_epc_window',
+			reference: 'stockin_epc_window'
+		});
 		var viewModel = form.getViewModel();
-        viewModel.set('stockin_d',record);
-        form.show();
+		viewModel.set('stockin_d', record);
+		form.show();
 	},
-	Sku_AutoComplete_beforeQuery: function(){
+	Sku_AutoComplete_beforeQuery: function () {
 		var viewModel = this.getViewModel();
-        var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
-        var typeFrom = 10;
+		var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
+		var typeFrom = 10;
 		var typeTo = 20;
-        Sku_AutoComplete.proxy.extraParams = {
-            typeFrom: typeFrom,
+		Sku_AutoComplete.proxy.extraParams = {
+			typeFrom: typeFrom,
 			typeTo: typeTo,
-        }
+		}
 	},
-	onPressEnterSkucode: function (textfield, e, eOpts) { 
+	onPressEnterSkucode: function (textfield, e, eOpts) {
 		var m = this;
 		if (e.getKey() == e.ENTER) {
 			m.onBtnThemSP();
@@ -423,7 +437,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		// console.log(stockin_d);
 		return false;
 	},
-	addSkuToDList: function (data) { console.log(data);
+	addSkuToDList: function (data) {
+		console.log(data);
 		var me = this;
 		var m = this.getView();
 		var viewModel = this.getViewModel();

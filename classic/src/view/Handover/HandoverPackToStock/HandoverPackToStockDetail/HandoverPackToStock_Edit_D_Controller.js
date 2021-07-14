@@ -612,6 +612,12 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		var stockin = viewModel.get('stockin');
 		var data = grid.getStore().getAt(rowIndex);
 
+		//xoa trong list epc khi xoa stockind
+		var listepc = viewModel.get('listepc');
+		for (var i = 0; i < data.stockin_packinglist.length; i++) {
+			listepc.delete(data.stockin_packinglist[i].epc);
+		}
+		console.log(listepc);
 		Ext.Msg.show({
 			title: 'Thông báo',
 			msg: 'Bạn có chắc chắn xóa thành phẩm ' + data.get('skucode') + '?',
