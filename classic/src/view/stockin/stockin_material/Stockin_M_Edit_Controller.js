@@ -270,6 +270,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                         if (viewModel.get('isAdd_Pcontract_Stockin')){
                             var data = response.data;
 
+                            // Danh sách nguyên liệu
                             var StockinD_Store = viewModel.getStore('StockinD_Store');
                             var StockinD_Store_data = StockinD_Store.getData().items;
                             // console.log(StockinD_Store_data);
@@ -286,14 +287,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                                     }
                                 }
                             }
-                            
                             // StockinD_Store.setData(data.stockin_d);
                             StockinD_Store.removeAll();
                             StockinD_Store.insert(0, data.stockin_d);
                             StockinD_Store.commitChanges();
 
+                            // Danh sách sản phẩm
                             var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
-                            StockinProduct_Store.setData(data.stockin_product);
+                            var StockinProduct_Store_data = StockinProduct_Store.getData().items;
+                            // console.log(StockinD_Store_data);
+                            // console.log(data.stockin_d);
+                            // skuname, sku_product_desc, sku_product_color, size_name
+                            for(var i = 0; i < data.stockin_product.length; i++){
+                                for(var j = 0; j < StockinProduct_Store_data.length; j++){
+                                    if(StockinProduct_Store_data[j].get('productid_link') ==  data.stockin_product[i].productid_link){
+                                        // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
+                                        data.stockin_product[i].product_code = StockinProduct_Store_data[j].get('product_code');
+                                        data.stockin_product[i].product_desc = StockinProduct_Store_data[j].get('product_desc');
+                                        data.stockin_product[i].product_name = StockinProduct_Store_data[j].get('product_name');
+                                    }
+                                }
+                            }
+
+                            // StockinProduct_Store.setData(data.stockin_product);
+                            StockinProduct_Store.removeAll();
+                            StockinProduct_Store.insert(0, data.stockin_product);
                             StockinProduct_Store.commitChanges();
 
                             viewModel.set('stockin', data);

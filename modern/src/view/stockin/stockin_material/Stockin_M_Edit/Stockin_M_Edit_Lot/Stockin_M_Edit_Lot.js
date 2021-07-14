@@ -60,8 +60,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Lot', {
     // },
     {
         text: 'Số Lot', 
-        // flex: 1,
-        width: 90,
+        flex: 1,
+        // width: 90,
         dataIndex: 'lot_number',
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {

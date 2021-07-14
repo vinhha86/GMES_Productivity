@@ -282,15 +282,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         // var spaceepc_link = 'D-' + pklRowTxt + '|H-' + pklSpaceTxt + '|T-' + pklFloorTxt + '|';
 
         // check lotnumber tồn tại
-        var stockin_lot = selectedDRecord.get('stockin_lot');
-        if(stockin_lot == null) stockin_lot = [];
-        var isLotnumberExist = stockin_lot.some(
-            item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
-        );
-        if(!isLotnumberExist){
-            Ext.toast('Số lot ko tồn tại', 3000);
-            return;
-        }
+        // console.log(selectedDRecord);
+        // var stockin_lot = selectedDRecord.get('stockin_lot');
+        // if(stockin_lot == null) stockin_lot = [];
+        // var isLotnumberExist = stockin_lot.some(
+        //     item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
+        // );
+        // if(!isLotnumberExist){
+        //     Ext.toast('Số lot ko tồn tại', 3000);
+        //     return;
+        // }
 
         // tạo obj
         if(yTxt == null || yTxt == '') yTxt = 0;
