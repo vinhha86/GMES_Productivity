@@ -118,7 +118,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						// OrgToStore.loadStore(8, false);
 						var listidtype = "8,4";
-						OrgToStore.loadStore_allchildren_byorg(listidtype);
+						// OrgToStore.loadStore_allchildren_byorg(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtype);
 					}
 
 					if(isConfirm == true){

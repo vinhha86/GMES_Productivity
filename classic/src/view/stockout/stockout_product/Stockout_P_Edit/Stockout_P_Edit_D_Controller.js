@@ -745,25 +745,25 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								} else {
 									epc_item.status = 0;
 									stockoutd.status = 0;
+
+									epc_item.orgrootid_link = session.rootorgid_link;
+									epc_item.lastuserupdateid_link = session.id;
+									epc_item.timecreate = new Date();
+									epc_item.encryptdatetime = new Date();
+									epc_item.rssi = 1;
+
+									stockoutd.stockout_packinglist.push(epc_item);
+									console.log(stockout);
+
+									//Cập nhật lại stockout trong viewModel
+									stockout.stockout_d.push(stockoutd);
+									console.log(stockout);
+									viewModel.set('stockout', stockout);
+
+									//Thêm stockout_d vào grid
+									store.insert(0, stockoutd);
+									console.log(stockout);
 								}
-
-								epc_item.orgrootid_link = session.rootorgid_link;
-								epc_item.lastuserupdateid_link = session.id;
-								epc_item.timecreate = new Date();
-								epc_item.encryptdatetime = new Date();
-								epc_item.rssi = 1;
-
-								stockoutd.stockout_packinglist.push(epc_item);
-								console.log(stockout);
-
-								//Cập nhật lại stockout trong viewModel
-								stockout.stockout_d.push(stockoutd);
-								console.log(stockout);
-								viewModel.set('stockout', stockout);
-
-								//Thêm stockout_d vào grid
-								store.insert(0, stockoutd);
-								console.log(stockout);
 
 							}
 							else {
@@ -781,9 +781,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 									sku.set('status', -1);
 								} else {
 									epc_item.status = 0;
+									stockout_packinglist.push(epc_item);
+									sku.set('stockout_packinglist', stockout_packinglist)
 								}
-								stockout_packinglist.push(epc_item);
-								sku.set('stockout_packinglist', stockout_packinglist)
 							}
 						}
 					}
