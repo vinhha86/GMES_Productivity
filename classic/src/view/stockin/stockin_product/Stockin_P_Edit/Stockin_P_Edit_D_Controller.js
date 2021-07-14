@@ -213,7 +213,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					}
 				} else if (topic.includes("transaction")) {
 					var jsonObj = Ext.JSON.decode(message);
-					console.log(listepc);
+					console.log(jsonObj);
 					for (var x in jsonObj) {
 						if (!listepc.has(jsonObj[x].epc)) {
 							listepc.set(jsonObj[x].epc, jsonObj[x].epc);
@@ -250,6 +250,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 								epc_item.lastuserupdateid_link = session.id;
 								epc_item.timecreate = new Date();
 								epc_item.encryptdatetime = new Date();
+								epc_item.rssi = 1;
 
 								stockind.stockin_packinglist.push(epc_item);
 
@@ -270,6 +271,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
+
 								if (jsonObj[x].epcstate == 1) {
 									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 									epc_item.status = -1;
@@ -277,14 +279,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 									sku.set('status', -1);
 								} else {
 									epc_item.status = 0;
+									epc_item.rssi = 1;
 								}
 								stockinpackinglist.push(epc_item);
-
+								sku.set('stockin_packinglist', stockinpackinglist)
 							}
 						}
 					}
 					//Lấy thông tin sku từ server để hiện lên grid
-					// console.log(store);
+					console.log(stockin);
 					// me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
