@@ -100,9 +100,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						var epc = response.listepc[i].epc.trim();
                         listepc.set(epc, epc);
                     }
-					console.log(listepc);
-					console.log(listepc.has('307B6814807497801C3EEBF1'));
-					console.log(listepc.has('307B68148073C9C00390B811'));
 
                     viewModel.set('listepc', listepc);
 
