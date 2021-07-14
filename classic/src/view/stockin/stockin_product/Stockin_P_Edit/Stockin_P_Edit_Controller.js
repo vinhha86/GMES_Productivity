@@ -103,9 +103,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     viewModel.set('listepc', new Map());
                     var listepc = new Map();
                     for (var i = 0; i < response.listepc.length; i++) {
-                        listepc.set(response.listepc[0].epc);
+                        var epc = response.listepc[i].epc.trim();
+                        listepc.set(epc, epc);
                     }
                     viewModel.set('listepc', listepc);
+                    
                     viewModel.set('stockin', response.data);
                     store.setData(response.data.stockin_d);
                     store.commitChanges();
@@ -181,9 +183,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         var mes = this.CheckValidate();
         if (mes == "") {
             var viewModel = this.getViewModel();
+
+            var stockin = viewModel.get('stockin');
+            var stockin_d = stockin.stockin_d;
+            if(stockin_d != null){
+                for(var i = 0; i < stockin_d.length; i++){
+                    if(stockin_d[i].id == 0 || typeof stockin_d[i].id === 'string'){
+                        stockin_d[i].id = null;
+                    }
+
+                    var stockin_packinglist = stockin_d[i].stockin_packinglist;
+                    if(stockin_packinglist != null){
+                        for(var j = 0; j < stockin_packinglist.length; j++){
+                            if(stockin_packinglist[j].id == 0 || typeof stockin_packinglist[j].id === 'string'){
+                                stockin_packinglist[j].id = null;
+                            }
+                            if(stockin_packinglist[j].stockindid_link == 0 || typeof stockin_packinglist[j].stockindid_link === 'string'){
+                                stockin_packinglist[j].stockindid_link = null;
+                            }
+                        }
+                    }
+                }
+            }
+
             var params = new Object();
             params.data = [];
-            var stockin = viewModel.get('stockin');
             params.data.push(stockin);
 
             var mainView = Ext.getCmp('Stockin_P_Edit');

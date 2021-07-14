@@ -166,21 +166,18 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 itemId: 'cmbGroupStockout'
             }, {
                 labelWidth: 90,
-                width: 300,
                 margin: '0 0 0 5',
                 xtype: 'combobox',
                 fieldLabel: 'Thiết bị RFID:',
                 bind: {
                     store: '{DeviceInvStore}',
-				    hidden: '{isRFIDHidden}'
+				    hidden: '{isRFIDHidden}',
+                    value: '{deviceid_link}',
+                    selection: '{device}'
                 },
+                width: 300,
                 displayField: 'name',
                 valueField: 'id',
-                name: 'deviceid',
-                reference: 'device',
-                listeners: {
-                    change: 'onDeviceChange'
-                }
             },
             {
                 margin: '0 5 5 5',

@@ -93,9 +93,19 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				var response = Ext.decode(response.responseText);
 				if (response.respcode == 200) {
 					viewModel.set('stockout', response.data);
-					for (var i = 0; i < response.listepc.length; i++) {
-						listepc.set(response.listepc[i].epc, response.listepc[i].epc);
-					}
+					
+					viewModel.set('listepc', new Map());
+                    var listepc = new Map();
+                    for (var i = 0; i < response.listepc.length; i++) {
+						var epc = response.listepc[i].epc.trim();
+                        listepc.set(epc, epc);
+                    }
+					console.log(listepc);
+					console.log(listepc.has('307B6814807497801C3EEBF1'));
+					console.log(listepc.has('307B68148073C9C00390B811'));
+
+                    viewModel.set('listepc', listepc);
+
 					store.setData(response.data.stockout_d);
 					store.commitChanges();
 
@@ -109,7 +119,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						var OrgFromStore = viewModel.getStore('OrgFromStore');
 						OrgFromStore.loadStore(8, false);
 						var OrgToStore = viewModel.getStore('OrgToStore');
-						OrgToStore.loadStore(8, false);
+						// OrgToStore.loadStore(8, false);
+						var listidtype = "8,4";
+						OrgToStore.loadStore_allchildren_byorg(listidtype);
 					}
 
 					if(isConfirm == true){
@@ -125,6 +137,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
+		viewModel.set('stockout.status',-1);
 
 		var isWindow = viewModel.get('isWindow');
 		if(!isWindow){
@@ -165,7 +178,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						var OrgFromStore = viewModel.getStore('OrgFromStore');
 						OrgFromStore.loadStore(8, false);
 						var OrgToStore = viewModel.getStore('OrgToStore');
-						OrgToStore.loadStore(8, false);
+						// OrgToStore.loadStore(8, false);
+						var listidtype = "8,4";
+						OrgToStore.loadStore_allchildren_byorg(listidtype);
 					}
 				}
 			}
@@ -197,6 +212,28 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			var viewModel = this.getViewModel();
 			var stockout = viewModel.get('stockout');
 			// console.log(stockout);
+
+			var stockout_d = stockout.stockout_d;
+			if(stockout_d != null){
+				for(var i = 0; i < stockout_d.length; i++){
+					if(stockout_d[i].id == 0 || typeof stockout_d[i].id === 'string'){
+						stockout_d[i].id = null;
+					}
+
+					var stockout_packinglist = stockout_d[i].stockout_packinglist;
+					if(stockout_packinglist != null){
+						for(var j = 0; j < stockout_packinglist.length; j++){
+							if(stockout_packinglist[j].id == 0 || typeof stockout_packinglist[j].id === 'string'){
+								stockout_packinglist[j].id = null;
+							}
+							if(stockout_packinglist[j].stockoutdid_link == 0 || typeof stockout_packinglist[j].stockoutdid_link === 'string'){
+								stockout_packinglist[j].stockoutdid_link = null;
+							}
+						}
+					}
+				}
+			}
+
 			var params = new Object();
 			params.data = [];
 			params.data.push(stockout);

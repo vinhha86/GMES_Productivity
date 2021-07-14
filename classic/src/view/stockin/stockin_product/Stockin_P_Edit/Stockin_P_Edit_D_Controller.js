@@ -238,6 +238,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 								//Tại Object để lưu thông tin stockin_packinglist
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
+
 								if (jsonObj[x].epcstate == 1) {
 									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 									epc_item.status = -1;
@@ -246,6 +247,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 									epc_item.status = 0;
 									stockind.status = 0;
 								}
+								
 								epc_item.orgrootid_link = session.rootorgid_link;
 								epc_item.lastuserupdateid_link = session.id;
 								epc_item.timecreate = new Date();

@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	},
 	data: {
         stockout: {
-			stockoutd: [],
+			stockout_d: [],
 			id: null
 		},
 		listepc: new Map(),
@@ -61,6 +61,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		isRFIDHidden: true,
 		isBarcodeHidden: true,
 		isManualHidden: false,
+		deviceid_link: 0,
+		device: null,
 
 		// is popup window tien do giao hang
 		isWindow: null,
