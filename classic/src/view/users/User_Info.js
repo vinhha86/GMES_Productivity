@@ -76,6 +76,8 @@ Ext.define('GSmartApp.view.users.User_Info', {
             margin: '5 5 0 1',
             labelWidth: 100,
             flex: 1,
+            queryMode: 'local',
+            anyMath: true,
             fieldLabel: 'Đơn vị con'
         }]
     },

@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.salebill.SalebillListController', {
 		}
 	},
 	onAddnew:function(){
-		this.redirectTo("home_shop/0/edit");
+		this.redirectTo("shop/0/edit");
 	},
 	onSearch:function(){
 		var params = new Object();
