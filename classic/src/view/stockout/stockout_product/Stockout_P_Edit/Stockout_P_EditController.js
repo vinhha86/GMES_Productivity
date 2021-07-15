@@ -206,7 +206,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	},
 	onSave: function (isConfirm) {
 		var mes = this.CheckValidate();
-		var m=this;
+		var me=this;
 		if (mes == "") {
 			var viewModel = this.getViewModel();
 			var stockout = viewModel.get('stockout');
@@ -256,7 +256,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                                     }
                                 });
                             }
-							m.getInfo(response.id, isConfirm);
+
+							var isWindow = viewModel.get('isWindow');
+							if(!isWindow){
+								me.redirectTo("stockout_p_main/" + response.id + "/edit");
+							}
+							me.getInfo(response.id, isConfirm);
 							// if(stockout.id ==null)
 							// 	this.redirectTo("stockout_p_main/" + response.id + "/edit");
 							// else {

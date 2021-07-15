@@ -232,8 +232,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                                     }
                                 });
                             }
+                            me.redirectTo("stockin_p_main/" + response.id + "/edit");
                             me.getInfo(response.id, isConfirm);
-                            // this.redirectTo("stockin_p_main/" + response.id + "/edit");
+                            // this.redirectTo("stockin_p_main/" + response.id + "/edit");s
                         }
                     } else {
                         var response = Ext.decode(response.responseText);
