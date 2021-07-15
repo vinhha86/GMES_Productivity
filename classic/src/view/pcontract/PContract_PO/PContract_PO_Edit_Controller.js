@@ -1,6 +1,26 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_Controller',
+    control: {
+        '#btnThoat': {
+            click: 'onThoat'
+        },
+        '#btnLuu': {
+            click: 'onSave'
+        },
+        '#btnLuuTroLy': {
+            click: 'onSave'
+        },
+        '#btnSave_pcontractPO': {
+            click: 'onSave'
+        },
+        '#cboProduct': {
+            select: 'onProductSelect'
+        },
+        '#btnProductInfoCopy': {
+            click: 'onProductInfoCopy'
+        }
+    },
     init: function () {
         var viewmodel = this.getViewModel();
         var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
@@ -44,26 +64,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var grid = this.getView();
         common.Check_Object_Permission();
         common.Check_Menu_Permission(grid);
-    },
-    control: {
-        '#btnThoat': {
-            click: 'onThoat'
-        },
-        '#btnLuu': {
-            click: 'onSave'
-        },
-        '#btnLuuTroLy': {
-            click: 'onSave'
-        },
-        '#cboProduct': {
-            select: 'onProductSelect'
-        },
-        '#btnProductInfoCopy': {
-            click: 'onProductInfoCopy'
-        },
-        '#btnProductInfoPaste': {
-            click: 'onProductInfoPaste'
-        }
     },
     getInfo: function (id) {
         var m = this;
