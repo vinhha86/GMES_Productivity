@@ -335,8 +335,20 @@ Ext.define('GSmartApp.view.main.MainController', {
 
         form.down('#ChangePass').on('Success', function () {
             form.close();
-            me.onLogout();
+            me.onClickLogout();
         })
+    },
+    onClickLogout: function () {
+        var self = this;
+        GSmartApp.model.Session.logout()
+            .then(function (session) {
+                self.closeSession();
+            })
+            .catch(function (errors) {
+                //console.log('Error on user logout', errors);
+                console.log('Error on user logout');
+                self.closeSession();
+            });
     },
     onLogout: function () {
         // config.setToken(null);

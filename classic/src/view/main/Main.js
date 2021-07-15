@@ -39,7 +39,7 @@ Ext.define('GSmartApp.view.main.Main', {
                 {
                     margin: '0 0 0 8',
                     ui: 'header',
-                    iconCls:'x-fa fa-navicon',
+                    iconCls: 'x-fa fa-navicon',
                     id: 'main-navigation-btn',
                     handler: 'onToggleNavigationSize'
                 },
@@ -49,20 +49,20 @@ Ext.define('GSmartApp.view.main.Main', {
                     bind: {
                         text: '{selected_menu}'
                     },
-                },                
+                },
                 '->',
                 {
-                    iconCls:'x-fa fa fa-window-maximize',
+                    iconCls: 'x-fa fa fa-window-maximize',
                     //cls       : 'icon-fullscreen',
                     ui: 'header',
                     tooltip: 'FullScreen',
                     handler: 'onFullScreen'
                 },
                 {
-                    iconCls:'x-fa fa fa-power-off',
+                    iconCls: 'x-fa fa fa-power-off',
                     ui: 'header',
                     tooltip: 'Logout',
-                    handler: 'onLogout'
+                    handler: 'onClickLogout'
                 },
                 {
                     xtype: 'tbtext',
@@ -75,11 +75,11 @@ Ext.define('GSmartApp.view.main.Main', {
                     xtype: 'image',
                     reference: 'tbavatar',
                     itemId: 'tbavatar',
-                    id:'id_avatar',
+                    id: 'id_avatar',
                     cls: 'header-right-profile-image',
                     height: 35,
                     width: 35,
-                    alt:'current user image',
+                    alt: 'current user image',
                     //src: 'resources/images/user-profile/2.png'
                     bind: {
                         src: '{avatar}'
