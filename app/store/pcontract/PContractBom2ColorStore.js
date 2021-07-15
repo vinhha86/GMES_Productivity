@@ -64,6 +64,7 @@ Ext.define('GSmartApp.store.pcontract.PContractBom2ColorStore', {
 			},
 			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom2/getbom_by_product',
 			paramsAsJson: true,
+			timeout: 120*1000,
 			extraParams: params,
 			noCache: false,
 			headers: {
@@ -101,6 +102,7 @@ Ext.define('GSmartApp.store.pcontract.PContractBom2ColorStore', {
 			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom2/getbom_by_product',
 			paramsAsJson: true,
 			extraParams: params,
+			timeout: 120*1000,
 			noCache: false,
 			headers: {
 				'Accept': "application/json",
