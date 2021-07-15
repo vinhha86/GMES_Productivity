@@ -64,10 +64,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(8, false);
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadStore(8, false);
-                        // var listidtype_to = "8";
-                        // var OrgToStore = viewModel.getStore('OrgToStore');
-                        // OrgToStore.loadStore_byRoot(listidtype_to);
+                        // OrgToStore.loadStore(8, false);
+						var listidtype = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtype);
                     }
                 }
             }
@@ -126,7 +126,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(8, false);
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadStore(8, false);
+                        // OrgToStore.loadStore(8, false);
+						var listidtype = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtype);
                     }
 
                     // set gia tri sl nhap mac dinh = sl yeu cau

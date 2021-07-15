@@ -769,8 +769,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 							else {
 								console.log(sku);
 								var stockout_packinglist = sku.get('stockout_packinglist');
-								var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
-								sku.set('totalpackagecheck', totalpackagecheck + 1);
 
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
@@ -782,7 +780,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								} else {
 									epc_item.status = 0;
 									stockout_packinglist.push(epc_item);
-									sku.set('stockout_packinglist', stockout_packinglist)
+									sku.set('stockout_packinglist', stockout_packinglist);
+									var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
+									sku.set('totalpackagecheck', totalpackagecheck + 1);
 								}
 							}
 						}
