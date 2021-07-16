@@ -232,7 +232,7 @@ Ext.define('GSmartApp.view.main.MainController', {
                 routeId: xtype_edit
             });
             mainLayout.setActiveItem(item);
-            me.fireEvent('loaddata', id, args);
+            me.fireEvent('loaddata', id, hashTag);
         } else {
             item = mainCard.add({
                 xtype: xtype_edit,
