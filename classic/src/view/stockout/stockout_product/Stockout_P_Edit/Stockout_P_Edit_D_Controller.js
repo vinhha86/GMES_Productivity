@@ -1,17 +1,17 @@
 Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Edit_D_Controller', {
-    extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_P_Edit_D_Controller',
+	extend: 'Ext.app.ViewController',
+	alias: 'controller.Stockout_P_Edit_D_Controller',
 	channel: { cmd: null, dta: null },
-	init: function() {
-        
+	init: function () {
+
 	},
-	control:{
-		'#btnTonKho':{
-            click: 'onBtnTonKho'
-        },
-		'#btnTonKhoPOLine':{
-            click: 'onBtnTonKhoPOLine'
-        },
+	control: {
+		'#btnTonKho': {
+			click: 'onBtnTonKho'
+		},
+		'#btnTonKhoPOLine': {
+			click: 'onBtnTonKhoPOLine'
+		},
 		'#btnThuGon': {
 			click: 'onhiddenMaster'
 		},
@@ -37,15 +37,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		'#btnThemSP': {
 			click: 'onBtnThemSP'
 		},
-    },
-	onTimSP: function(){
+	},
+	onTimSP: function () {
 		var me = this;
 		var viewModel = this.getViewModel();
 		var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
-		
-		if(pcontract_poid_link != null && pcontract_poid_link != 0 && pcontract_poid_link != '' && !isNaN(pcontract_poid_link)){
+
+		if (pcontract_poid_link != null && pcontract_poid_link != 0 && pcontract_poid_link != '' && !isNaN(pcontract_poid_link)) {
 			me.onTimLine();
-		}else{
+		} else {
 			var form = Ext.create({
 				xtype: 'skusearchwindow',
 				width: 1200,
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						sourceview: 'Stockout_P_EditController',
 						searchtype: 1,
 						pcontractid_link: null,
-						type: 10,                        
+						type: 10,
 						orgcustomerid_link: null,
 						isHidden_sku: false,
 						isHiddenSkuSearchCriteria_Attr_actioncolumn: false,
@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				}
 			});
 			form.show();
-	
+
 			form.getController().on('product_sku_selected', function (select) {
 				console.log(select);
 				me.onAdd_Stockout_D(select);
@@ -121,7 +121,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			// viewModel.set('stockout.porderid_link', null);
 
 			var list = [];
-			for(var i=0; i<select.length; i++){
+			for (var i = 0; i < select.length; i++) {
 				var data = select[i].data;
 				var stockoutd_new = new Object();
 				stockoutd_new.id = null;
@@ -151,19 +151,20 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			// console.log(stockout);
 		})
 	},
-	onAdd_Stockout_D: function(select){ console.log(select);
+	onAdd_Stockout_D: function (select) {
+		console.log(select);
 		var m = this;
 		var me = this.getView();
 		var viewModel = this.getViewModel();
 		var list = viewModel.get('stockout.stockout_d');
-		if (list == null){
+		if (list == null) {
 			list = [];
 		}
-		for(var i=0; i<select.length; i++){
+		for (var i = 0; i < select.length; i++) {
 			var data = select[i].data;
 
 			var isExist = m.checkSkuInDList(select[i]); // console.log(isExist);
-			if(!isExist){
+			if (!isExist) {
 				var stockoutd_new = new Object();
 				stockoutd_new.id = null;
 				stockoutd_new.skucode = data.code;
@@ -212,7 +213,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			devicestore.loadStore(3);
 		}
 	},
-	setSlNhap: function () { console.log('here');
+	setSlNhap: function () {
+		console.log('here');
 		// set gia tri sl nhap mac dinh = sl yeu cau
 		var m = this;
 		var viewModel = this.getViewModel();
@@ -241,12 +243,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 		formMaster.setHidden(!isHidden);
 	},
-    onBtnTonKho: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var stockid_link = viewModel.get('stockout.orgid_from_link');
-		if(stockid_link == 0 || stockid_link == null || isNaN(stockid_link)){
+	onBtnTonKho: function () {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockid_link = viewModel.get('stockout.orgid_from_link');
+		if (stockid_link == 0 || stockid_link == null || isNaN(stockid_link)) {
 			Ext.MessageBox.show({
 				title: "Thông báo",
 				msg: "Bạn cần chọn đơn vị xuất kho",
@@ -258,33 +260,33 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			return;
 		}
 
-        var StockoutD_Store = viewModel.getStore('StockoutD_Store');
-        var data = StockoutD_Store.getData();
-        var items = data.items;
-        // console.log(items); // skuid_link
-        var skuIdList = [];
-        for(var i = 0; i<items.length; i++){
-            var skuid_link = items[i].get('skuid_link');
-            skuIdList.push(skuid_link);
-        }
+		var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+		var data = StockoutD_Store.getData();
+		var items = data.items;
+		// console.log(items); // skuid_link
+		var skuIdList = [];
+		for (var i = 0; i < items.length; i++) {
+			var skuid_link = items[i].get('skuid_link');
+			skuIdList.push(skuid_link);
+		}
 		// console.log(stockid_link);
-        // console.log(skuIdList);
+		// console.log(skuIdList);
 
 		var params = new Object();
 		params.stockid_link = stockid_link;
 		params.skuIdList = skuIdList;
 
 		var mainView = Ext.getCmp('stockout_p_edit');
-        if(mainView) mainView.setLoading(true);
+		if (mainView) mainView.setLoading(true);
 
 		GSmartApp.Ajax.postJitin('/api/v1/warehouse/check_inStock', Ext.JSON.encode(params),
 			function (success, response, options) {
-				if(mainView) mainView.setLoading(false);
+				if (mainView) mainView.setLoading(false);
 				var response = Ext.decode(response.responseText);
 				if (success) {
 					if (response.respcode == 200) {
 						// console.log(response);
-						for(var i = 0; i < response.data.length; i++){
+						for (var i = 0; i < response.data.length; i++) {
 							var obj = response.data[i];
 							var rec = StockoutD_Store.findRecord('skuid_link', obj.skuid_link, 0, false, true, true);
 							rec.set('so_luong_ton_kho', obj.totalpackage);
@@ -313,13 +315,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				}
 
 			})
-    },
-	onBtnTonKhoPOLine: function(){
+	},
+	onBtnTonKhoPOLine: function () {
 		var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var stockid_link = viewModel.get('stockout.orgid_from_link');
-		if(stockid_link == 0 || stockid_link == null || isNaN(stockid_link)){
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockid_link = viewModel.get('stockout.orgid_from_link');
+		if (stockid_link == 0 || stockid_link == null || isNaN(stockid_link)) {
 			Ext.MessageBox.show({
 				title: "Thông báo",
 				msg: "Bạn cần chọn đơn vị xuất kho",
@@ -332,7 +334,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		}
 
 		var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
-		if(pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)){
+		if (pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)) {
 			Ext.MessageBox.show({
 				title: "Thông báo",
 				msg: "Bạn cần chọn PO Line",
@@ -371,17 +373,17 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		});
 		form.show();
 	},
-	Sku_AutoComplete_beforeQuery: function(){
+	Sku_AutoComplete_beforeQuery: function () {
 		var viewModel = this.getViewModel();
-        var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
-        var typeFrom = 10;
+		var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
+		var typeFrom = 10;
 		var typeTo = 20;
-        Sku_AutoComplete.proxy.extraParams = {
-            typeFrom: typeFrom,
+		Sku_AutoComplete.proxy.extraParams = {
+			typeFrom: typeFrom,
 			typeTo: typeTo,
-        }
+		}
 	},
-	onPressEnterSkucode: function (textfield, e, eOpts) { 
+	onPressEnterSkucode: function (textfield, e, eOpts) {
 		var m = this;
 		if (e.getKey() == e.ENTER) {
 			m.onBtnThemSP();
@@ -436,7 +438,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		// console.log(stockout_d);
 		return false;
 	},
-	addSkuToDList: function (data) { console.log(data);
+	addSkuToDList: function (data) {
+		console.log(data);
 		var me = this;
 		var m = this.getView();
 		var viewModel = this.getViewModel();
@@ -462,7 +465,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		store.commitChanges();
 	},
 
-    onMenu_Stockout_P_Edit_D: function (grid, rowIndex, colIndex, item, e, record) {
+	onMenu_Stockout_P_Edit_D: function (grid, rowIndex, colIndex, item, e, record) {
 		var m = this;
 		var menu_grid = new Ext.menu.Menu({
 			xtype: 'menu',
@@ -503,16 +506,16 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		menu_grid.record = record;
 		menu_grid.showAt(position);
 	},
-    onEPCDetail: function(grid, rowIndex, colIndex){
-        var record = grid.store.getAt(rowIndex);
-        var form =Ext.create({
-            xtype: 'Stockout_EPC_Window',
-            reference:'Stockout_EPC_Window'
-        });
+	onEPCDetail: function (grid, rowIndex, colIndex) {
+		var record = grid.store.getAt(rowIndex);
+		var form = Ext.create({
+			xtype: 'Stockout_EPC_Window',
+			reference: 'Stockout_EPC_Window'
+		});
 		var viewModel = form.getViewModel();
-        viewModel.set('stockout_d',record);
-        viewModel.set('isAutoChecked',true);
-        form.show();
+		viewModel.set('stockout_d', record);
+		viewModel.set('isAutoChecked', true);
+		form.show();
 	},
 	onDeleteStockoutD: function (grid, rowIndex) {
 		var me = this;
@@ -711,64 +714,66 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					console.log(jsonObj);
 					for (var x in jsonObj) {
 						var jsonObj_epc = jsonObj[x].epc.trim();
-
-						if (!listepc.has(jsonObj_epc)) { 
+						console.log(listepc);
+						if (!listepc.has(jsonObj_epc)) {
+							console.log(123);
 							listepc.set(jsonObj_epc, jsonObj_epc);
 							var sku = store.findRecord('skucode', jsonObj[x].skucode);
 							console.log(sku);
 							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 							if (!sku) {
 								//chưa có thì thêm vào listcode để lấy thông tin từ server
-								console.log(jsonObj[x]);
-								console.log(jsonObj[x].skucode);
-								listcode.push(jsonObj[x].skucode);
+								// console.log(jsonObj[x]);
+								// console.log(jsonObj[x].skucode);
+								// listcode.push(jsonObj[x].skucode);
 
-								//Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist vào stockoutd
-								var stockoutd = new Object({
-									stockout_packinglist: [],
-									id: null,
-									totalpackage: 1,
-									totalpackagecheck: 1,
-									orgrootid_link: session.rootorgid_link,
-									skucode: jsonObj[x].skucode,
-									lastuserupdateid_link: session.id,
-									timecreate: new Date()
-								});
+								// //Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist vào stockoutd
+								// var stockoutd = new Object({
+								// 	stockout_packinglist: [],
+								// 	id: null,
+								// 	totalpackage: 1,
+								// 	totalpackagecheck: 1,
+								// 	orgrootid_link: session.rootorgid_link,
+								// 	skucode: jsonObj[x].skucode,
+								// 	lastuserupdateid_link: session.id,
+								// 	timecreate: new Date()
+								// });
 
-								//Tạo Object để lưu thông tin stockout_packinglist
-								var epc_item = new Object({ id: null });
-								epc_item.epc = jsonObj[x].epc;
-								if (jsonObj[x].epcstate == 0) {
-									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
-									epc_item.status = -1;
-									stockoutd.status = -1;
-								} else {
-									epc_item.status = 0;
-									stockoutd.status = 0;
+								// //Tạo Object để lưu thông tin stockout_packinglist
+								// var epc_item = new Object({ id: null });
+								// epc_item.epc = jsonObj[x].epc;
+								// if (jsonObj[x].epcstate == 0) {
+								// 	epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
+								// 	epc_item.status = -1;
+								// 	stockoutd.status = -1;
+								// } else {
+								// 	epc_item.status = 0;
+								// 	stockoutd.status = 0;
 
-									epc_item.orgrootid_link = session.rootorgid_link;
-									epc_item.lastuserupdateid_link = session.id;
-									epc_item.timecreate = new Date();
-									epc_item.encryptdatetime = new Date();
-									epc_item.rssi = 1;
+								// 	epc_item.orgrootid_link = session.rootorgid_link;
+								// 	epc_item.lastuserupdateid_link = session.id;
+								// 	epc_item.timecreate = new Date();
+								// 	epc_item.encryptdatetime = new Date();
+								// 	epc_item.rssi = 1;
 
-									stockoutd.stockout_packinglist.push(epc_item);
-									console.log(stockout);
+								// 	stockoutd.stockout_packinglist.push(epc_item);
+								// 	console.log(stockout);
 
-									//Cập nhật lại stockout trong viewModel
-									stockout.stockout_d.push(stockoutd);
-									console.log(stockout);
-									viewModel.set('stockout', stockout);
+								// 	//Cập nhật lại stockout trong viewModel
+								// 	stockout.stockout_d.push(stockoutd);
+								// 	console.log(stockout);
+								// 	viewModel.set('stockout', stockout);
 
-									//Thêm stockout_d vào grid
-									store.insert(0, stockoutd);
-									console.log(stockout);
-								}
+								// 	//Thêm stockout_d vào grid
+								// 	store.insert(0, stockoutd);
+								// 	console.log(stockout);
+								// }
 
 							}
 							else {
 								console.log(sku);
 								var stockout_packinglist = sku.get('stockout_packinglist');
+								stockout_packinglist = stockout_packinglist == null ? [] : stockout_packinglist;
 
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
@@ -780,8 +785,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								} else {
 									epc_item.status = 0;
 									stockout_packinglist.push(epc_item);
+									console.log(stockout_packinglist);
+
+									// sku.stockout_packinglist.push(stockout_packinglist);
 									sku.set('stockout_packinglist', stockout_packinglist);
 									var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
+									console.log(totalpackagecheck);
 									sku.set('totalpackagecheck', totalpackagecheck + 1);
 								}
 							}
@@ -789,7 +798,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					}
 					//Lấy thông tin từ server
 					console.log(stockout);
-					me.UpdateInfoSKU(listcode, store);
+					// me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
 				me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
@@ -836,11 +845,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		params.listcode = listcode;
 
 		var mainView = Ext.getCmp('stockout_p_edit');
-		if(mainView) mainView.setLoading(true);
+		if (mainView) mainView.setLoading(true);
 
 		GSmartApp.Ajax.postJitin('/api/v1/sku/getinfolist_bycode', Ext.JSON.encode(params),
 			function (success, resp, options) {
-				if(mainView) mainView.setLoading(false);
+				if (mainView) mainView.setLoading(false);
 				if (success) {
 					var resp = Ext.decode(resp.responseText);
 					if (resp.respcode == 200) {
