@@ -30,10 +30,19 @@ Ext.define('GSmartApp.view.stock_product.StockProductMenu', {
             // console.log(metaData);
             if(record.data.type == 0)
                 metaData.iconCls = 'x-fa fa-building';
-            if(record.data.type == 1)
+            if(record.data.type == 1){
                 metaData.iconCls = 'x-fa fa-industry';
-            if(record.data.type == 2)
+                if(record.data.shop == true){
+                    metaData.iconCls = 'x-fa fa-home';
+                    return value;
+                }else{
+                    metaData.iconCls = 'x-fa fa-industry';
+                    return value;
+                }
+            }
+            if(record.data.type == 2){
                 metaData.iconCls = 'x-fa fa-home';
+            }
             if(record.data.type == 3){
                 if(record.data.khoangKhongXacDinh == true){
                     metaData.iconCls = 'x-fa fa-minus-square-o';

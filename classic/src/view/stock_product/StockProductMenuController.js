@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stock_product.StockProductMenuController', {
         if(maHangId == null){
             var WarehouseStore = viewModel.get('WarehouseStore');
             var filters = WarehouseStore.getFilters();
-            console.log(filters);
+            // console.log(filters);
             if(filters.items.length > 0){
                 for(var i = 0; i < filters.items.length; i++){
                     var filterObj = filters.items[i];
@@ -57,6 +57,12 @@ Ext.define('GSmartApp.view.stock_product.StockProductMenuController', {
             var WarehouseStore = viewModel.getStore('WarehouseStore');
             WarehouseStore.loadProductBySpaceEpc(spaceepc, stockid_link);
         }
+        if(record.get('type') == 1 && record.get('shop') == true){ // shop
+            var spaceepc = null;
+            var stockid_link = record.get('id');
+            var WarehouseStore = viewModel.getStore('WarehouseStore');
+            WarehouseStore.loadProductBySpaceEpc(spaceepc, stockid_link);
+        }
     },
 
     onContextMenu: function(tree, record, item, index, e, eOpts ) {
@@ -64,6 +70,10 @@ Ext.define('GSmartApp.view.stock_product.StockProductMenuController', {
         var viewModel = this.getViewModel();
         //Phan xuong
         if(record.get('type') == 2){ // kho
+            // cửa hàng -> return
+            if(record.get('shop') == true){
+                return;
+            }
             var menu_grid = new Ext.menu.Menu({ items:
                 [
                     {
