@@ -103,9 +103,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 maskRe: /[0-9.]/,
                 selectOnFocus: true,
                 bind: {
-                    editable: '{iseditSL_YC}'
+                    editable: '{iseditSL_YC}',
                 }
-            }            
+            },
+            bind: {
+                hidden: '{is_SLYC_hidden}'
+            }
         },
         {
             header: 'SL xuất', dataIndex: 'totalpackagecheck', width: 90,

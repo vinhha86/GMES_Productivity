@@ -110,6 +110,14 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			else
 				return true;
 		},
+		is_SLYC_hidden: function(get){
+			if(
+				get('stockout.stockouttypeid_link') == 22
+				) {
+					return true;
+				}
+			return false;
+		},
 		// isPOLineHidden: function(get){
 		// 	if(get('stockouts.stockintypeid_link') == 22) 
 		// 		return false;
