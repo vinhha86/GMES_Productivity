@@ -1,8 +1,8 @@
-Ext.define('GSmartApp.view.stock.StockController', {
+Ext.define('GSmartApp.view.stock_product.StockProductController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.StockController',
+    alias: 'controller.StockProductController',
     init: function () {
-        this.onloadPage();
+        this.onloadPage(); // open this
     },
     control: {
         '#btnSearch': {
@@ -17,12 +17,25 @@ Ext.define('GSmartApp.view.stock.StockController', {
         '#txtDonHang': {
             specialkey: 'onSpecialkey'
         },
+        '#Sku_AutoComplete': {
+            beforeQuery: 'Sku_AutoComplete_beforeQuery'
+        },
     },
     listen: {
         store: {
-            'StockTreeStore': {
+            'StockProductTreeStore': {
                 'loadStore_Done': 'onloadStore_Done'
             }
+        }
+    },
+    Sku_AutoComplete_beforeQuery: function(){
+        var viewModel = this.getViewModel();
+        var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
+        var typeFrom = 10;
+        var typeTo = 20;
+        Sku_AutoComplete.proxy.extraParams = {
+            typeFrom: typeFrom,
+            typeTo: typeTo
         }
     },
     onloadPage: function () {
@@ -37,9 +50,9 @@ Ext.define('GSmartApp.view.stock.StockController', {
         if(isNaN(maHangId)) maHangId = null;
         //
         me.setLoading("Đang tải dữ liệu");
-        var StockTreeStore = viewModel.getStore('StockTreeStore');
-        StockTreeStore.loadStore(maHangId, donHang);
-        StockTreeStore.getSorters().add({
+        var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
+        StockProductTreeStore.loadStore(maHangId, donHang);
+        StockProductTreeStore.getSorters().add({
             property: 'khoangKhongXacDinh',
             direction: 'ASC'
         },{
@@ -50,9 +63,6 @@ Ext.define('GSmartApp.view.stock.StockController', {
         var WarehouseStore = viewModel.get('WarehouseStore');
         WarehouseStore.getSorters().removeAll();
         WarehouseStore.getSorters().add({
-            property: 'contractcode',
-            direction: 'ASC'
-        },{
             property: 'skucode',
             direction: 'ASC'
         },{
@@ -85,24 +95,24 @@ Ext.define('GSmartApp.view.stock.StockController', {
         this.getView().setLoading(false);
     },
     // filter cho danh sach npl (theo 2 txt field maHang va donHang)
-    onDonHangFilterKeyup: function () {
+    onMaHangFilterKeyup: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('WarehouseStore');
-        var filterField = this.lookupReference('ValueFilterFieldDonHang'),
+        var filterField = this.lookupReference('ValueFilterFieldMaHang'),
             filters = store.getFilters();
 
         if (filterField.value) {
-            this.ValueFilterFieldDonHang = filters.add({
-                id: 'ValueFilterFieldDonHang',
-                property: 'contractcode',
+            this.ValueFilterFieldMaHang = filters.add({
+                id: 'ValueFilterFieldMaHang',
+                property: 'skucode',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false
             });
         }
-        else if (this.ValueFilterFieldDonHang) {
-            filters.remove(this.ValueFilterFieldDonHang);
-            this.ValueFilterFieldDonHang = null;
+        else if (this.ValueFilterFieldMaHang) {
+            filters.remove(this.ValueFilterFieldMaHang);
+            this.ValueFilterFieldMaHang = null;
         }
     },
     onSelectMaHangId: function(combo, record, eOpts){

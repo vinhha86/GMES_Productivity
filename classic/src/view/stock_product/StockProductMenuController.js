@@ -1,17 +1,17 @@
-Ext.define('GSmartApp.view.stock.StockMenuController', {
+Ext.define('GSmartApp.view.stock_product.StockProductMenuController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.StockMenuController',
+    alias: 'controller.StockProductMenuController',
     init: function () {
         // this.onloadPage();
     },
     control: {
-        '#StockMenu': {
+        '#StockProductMenu': {
             itemclick: 'onloadDetail'
         },
     },
     listen: {
         store: {
-            'StockTreeStore': {
+            'StockProductTreeStore': {
                 'loadStore_Done': 'onloadStore_Done'
             }
         }
@@ -49,17 +49,16 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             var spaceepc = record.get('spaceepc');
             var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
-            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            WarehouseStore.loadProductBySpaceEpc(spaceepc, stockid_link);
         }
         if(record.get('type') == 3 && record.get('khoangKhongXacDinh') == true){ // khoang KXD
             var spaceepc = null;
             var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
-            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
-            console.log('in here');
-            console.log(WarehouseStore.getData());
+            WarehouseStore.loadProductBySpaceEpc(spaceepc, stockid_link);
         }
     },
+
     onContextMenu: function(tree, record, item, index, e, eOpts ) {
         var m = this;
         var viewModel = this.getViewModel();
@@ -277,18 +276,18 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         })
 
         form.down('#StockRow').getController().on('Luu', function (response) {
-            var treePanel = Ext.getCmp('stock').down('StockMenu');
-            var StockTreeStore = viewModel.getStore('StockTreeStore');
+            var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
+            var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
             var stockrow = response.stockrow;
             var isNew = response.isNew;
 
             // check ton tai
             if(!isNew){
-                var node = StockTreeStore.findNode('idString', '3;' + stockrow.id);
+                var node = StockProductTreeStore.findNode('idString', '3;' + stockrow.id);
                 node.data.name = stockrow.code;
             }
             if(isNew){
-                var parentNode = StockTreeStore.findNode('idString', '2;' + stockrow.orgid_link);
+                var parentNode = StockProductTreeStore.findNode('idString', '2;' + stockrow.orgid_link);
                 var stockrowObj = new Object();
                 stockrowObj.children = [];
                 stockrowObj.expandable = true;
@@ -305,7 +304,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 parentNode.appendChild(stockrowObj);
             }
 
-            treePanel.reconfigure(StockTreeStore);
+            treePanel.reconfigure(StockProductTreeStore);
             //
             form.close();
         })
@@ -313,7 +312,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
     xoaDay: function(record){
         var m = this;
         var me = this.getView();
-        var treePanel = Ext.getCmp('stock').down('StockMenu');
+        var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
 
         var viewModel = this.getViewModel();
         
@@ -336,11 +335,11 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             }
                         });
                         
-                        var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        var items = StockTreeStore.data.items; // items trong tree
-                        var nodeKho = StockTreeStore.findNode('idString', record.get('parentIdString'));
+                        var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
+                        var items = StockProductTreeStore.data.items; // items trong tree
+                        var nodeKho = StockProductTreeStore.findNode('idString', record.get('parentIdString'));
                         nodeKho.removeChild(record);
-                        treePanel.reconfigure(StockTreeStore);
+                        treePanel.reconfigure(StockProductTreeStore);
                     }
                     else {
                         Ext.Msg.show({
@@ -401,14 +400,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         })
 
         form.down('#StockSpace').getController().on('Luu', function (response, spaceObj) {
-            var treePanel = Ext.getCmp('stock').down('StockMenu');
-            var StockTreeStore = viewModel.getStore('StockTreeStore');
+            var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
+            var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
             var stockspace = response.stockspace;
             var isSpaceNew = response.isSpaceNew;
 
             // check ton tai
             if(!isSpaceNew){
-                var node = StockTreeStore.findNode('idString', '4;' + spaceObj.rowid_link + ';' + spaceObj.spacename_old);
+                var node = StockProductTreeStore.findNode('idString', '4;' + spaceObj.rowid_link + ';' + spaceObj.spacename_old);
                 node.data.name = stockspace.spacename;
                 node.data.spacename = stockspace.spacename;
                 node.data.idString = '4;' + stockspace.rowid_link + ';' + stockspace.spacename;
@@ -420,7 +419,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 }
             }
 
-            treePanel.reconfigure(StockTreeStore);
+            treePanel.reconfigure(StockProductTreeStore);
             //
             form.close();
         })
@@ -460,9 +459,9 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         })
 
         form.down('#StockFloor').getController().on('Luu', function (response) {
-            var treePanel = Ext.getCmp('stock').down('StockMenu');
-            var StockTreeStore = viewModel.getStore('StockTreeStore');
-            StockTreeStore.load();
+            var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
+            var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
+            StockProductTreeStore.load();
             //
             form.close();
             // console.log(response);
@@ -471,7 +470,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
     xoaHang: function(record){
         var m = this;
         var me = this.getView();
-        var treePanel = Ext.getCmp('stock').down('StockMenu');
+        var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
 
         var viewModel = this.getViewModel();
         
@@ -495,11 +494,11 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                             }
                         });
                         
-                        var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        var items = StockTreeStore.data.items; // items trong tree
-                        var nodeDay = StockTreeStore.findNode('idString', record.get('parentIdString'));
+                        var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
+                        var items = StockProductTreeStore.data.items; // items trong tree
+                        var nodeDay = StockProductTreeStore.findNode('idString', record.get('parentIdString'));
                         nodeDay.removeChild(record);
-                        treePanel.reconfigure(StockTreeStore);
+                        treePanel.reconfigure(StockProductTreeStore);
                     }
                     else {
                         Ext.Msg.show({
@@ -560,15 +559,15 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         })
 
         form.down('#StockFloor').getController().on('Luu', function (response, spaceObj) {
-            var treePanel = Ext.getCmp('stock').down('StockMenu');
-            var StockTreeStore = viewModel.getStore('StockTreeStore');
+            var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
+            var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
 
             var stockspace = response.stockspace;
             var isSpaceNew = response.isSpaceNew;
             var isFloorNew = response.isFloorNew;
 
             if(isFloorNew){
-                var nodeSpace = StockTreeStore.findNode('idString', '4;' + stockspace.rowid_link + ';' + stockspace.spacename);
+                var nodeSpace = StockProductTreeStore.findNode('idString', '4;' + stockspace.rowid_link + ';' + stockspace.spacename);
                 var stockfloorObj = new Object();
                 stockfloorObj.children = [];
                 stockfloorObj.expandable = false;
@@ -590,7 +589,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             }else
             // nếu tree đã có tầng (edit)
             if(!isFloorNew){
-                var node = StockTreeStore.findNode('idString', '5;' + spaceObj.spaceepc_old);
+                var node = StockProductTreeStore.findNode('idString', '5;' + spaceObj.spaceepc_old);
                 node.data.name = stockspace.floorid;
                 node.data.floorid = stockspace.floorid;
                 node.data.idString = '5;' + stockspace.spaceepc;
@@ -598,7 +597,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 node.data.spacename = stockspace.spacename;
             }
 
-            treePanel.reconfigure(StockTreeStore);
+            treePanel.reconfigure(StockProductTreeStore);
             //
             form.close();
         })
@@ -606,7 +605,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
     xoaTang: function(record){
         var m = this;
         var me = this.getView();
-        var treePanel = Ext.getCmp('stock').down('StockMenu');
+        var treePanel = Ext.getCmp('stock_product').down('StockProductMenu');
 
         var viewModel = this.getViewModel();
         
@@ -634,16 +633,16 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                         });
                         var isSpaceDelete = response.isSpaceDelete;
                         
-                        var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        var nodeHang = StockTreeStore.findNode('idString', record.get('parentIdString'));
+                        var StockProductTreeStore = viewModel.getStore('StockProductTreeStore');
+                        var nodeHang = StockProductTreeStore.findNode('idString', record.get('parentIdString'));
                         nodeHang.removeChild(record);
 
                         if(isSpaceDelete){ // console.log(nodeHang);
-                            var nodeDay = StockTreeStore.findNode('idString', nodeHang.get('parentIdString'));
+                            var nodeDay = StockProductTreeStore.findNode('idString', nodeHang.get('parentIdString'));
                             nodeDay.removeChild(nodeHang);
                         }
 
-                        treePanel.reconfigure(StockTreeStore);
+                        treePanel.reconfigure(StockProductTreeStore);
                     }
                     else {
                         Ext.Msg.show({

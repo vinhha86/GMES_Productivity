@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.stock.StockMenu', {
+Ext.define('GSmartApp.view.stock_product.StockProductMenu', {
     extend: 'Ext.tree.Panel',
-    xtype: 'StockMenu',
-    itemId:'StockMenu',
-    controller: 'StockMenuController',
-    reference: 'StockMenu',
+    xtype: 'StockProductMenu',
+    itemId:'StockProductMenu',
+    controller: 'StockProductMenuController',
+    reference: 'StockProductMenu',
     useArrows:true,
     bufferedRenderer: false,
     // viewConfig: {
@@ -18,10 +18,10 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
     // },
     rootVisible: false,
     bind:{
-        store:'{StockTreeStore}'
+        store:'{StockProductTreeStore}'
     },
     columns:[{
-        text:'Khoang',
+        text:'Kho',
         dataIndex:'name',
         xtype: 'treecolumn',
         flex: 1,
