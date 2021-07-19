@@ -24,13 +24,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         }
     },
     onNewData: function (type, id) {
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
         viewModel.set('stockin.stockindate', new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
-        viewModel.set('stockin.stockintypeid_link', id);
+        if(id != 0){
+            viewModel.set('stockin.stockintypeid_link', id);
+        }else{
+            viewModel.set('stockin.stockintypeid_link', null);
+            viewModel.set('stockin.status', 0);
+        }
         // viewModel.set('stockin.status',-1);
+
+        viewModel.set('listepc', new Map());
 
         var mainView = Ext.getCmp('Stockin_P_Edit');
         if (mainView) mainView.setLoading(true);
@@ -51,9 +59,29 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         viewModel.set('stockin.orgid_to_link', records[0].data.orgid_link)
                     }
 
+                    if(id == 0){
+                        //// 
+                        var comboTypeStockin = me.down('#comboTypeStockin');
+                        if(comboTypeStockin){
+                            comboTypeStockin.setEditable(true);
+                            comboTypeStockin.setReadOnly(false);
+                            // comboTypeStockin.setCls(null);
+                        }
+                        ////
+                        var OrgFromStore = viewModel.getStore('OrgFromStore');
+                        // OrgFromStore.loadStore(8, false);
+                        var listidtypefrom = "8,9";
+                        OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+                        var OrgToStore = viewModel.getStore('OrgToStore');
+                        // OrgToStore.loadStore(8, false);
+						var listidtypeto = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+                    }
                     if (id == 21) { // Nhap tu san xuat
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(9, false);
+
                         var OrgToStore = viewModel.getStore('OrgToStore');
                         OrgToStore.loadStore(8, false);
                         // var listidtype_to = "8";
@@ -63,6 +91,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     if (id == 22) { // Nhap dieu chuyen
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(8, false);
+
                         var OrgToStore = viewModel.getStore('OrgToStore');
                         // OrgToStore.loadStore(8, false);
 						var listidtype = "8,4";
@@ -100,7 +129,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 
                     //gan gia tri vao list epc
                     // viewModel.set('listepc', response.listepc);
-                    viewModel.set('listepc', new Map());
+                    // viewModel.set('listepc', new Map());
                     var listepc = new Map();
                     for (var i = 0; i < response.listepc.length; i++) {
                         var epc = response.listepc[i].epc.trim();

@@ -46,6 +46,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
         '#btnThemMoi_Move':{
             click: 'onStockinNew_Move'
         },
+        '#btnTaoPhieuNhap': {
+            click: 'onBtnTaoPhieuNhap'
+        }
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         // console.log(record);
@@ -76,6 +79,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
             orgid_from_link, stockindate_from, stockindate_to, 
             stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to,
             status, null, null);
+    },
+    onBtnTaoPhieuNhap: function(){
+        this.redirectTo("stockin_p_main/0/create");
     },
     onStockinNew_ByPOLine: function(){
         this.redirectTo("stockin_p_main/21/create");

@@ -69,6 +69,15 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
             //         },
             //     ],
             // },
+
+            {
+                // width: 100,
+                xtype: 'button',
+                margin: 3,
+                text: 'Tạo phiếu nhập',
+                iconCls: 'x-fa fa-plus',
+                itemId: 'btnTaoPhieuNhap'
+            },
             {
                 margin: 3,
                 itemId: 'stockindate_from',

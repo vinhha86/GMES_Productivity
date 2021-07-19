@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			},
 		{
 			xtype: 'combo',
+			itemId: 'comboTypeStockin',
 			valueField: 'id',
 			displayField: 'name',
 			bind: {
@@ -36,7 +37,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			queryMode: 'local',
 			anyMatch: true,
 			margin: '0 5 0 5',
-			fieldLabel: 'Loại phiếu',	
+			fieldLabel: 'Loại phiếu',
 			editable: false,
 			readOnly: true,
 			cls: 'notEditable',	
