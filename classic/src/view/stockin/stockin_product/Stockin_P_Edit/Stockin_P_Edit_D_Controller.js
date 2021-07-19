@@ -132,11 +132,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			if (stockin_d == null) stockin_d = [];
 			for (var i = 0; i < stockin_d.length; i++) {
 				stockin_d[i].totalpackagecheck = 0;
+				stockin_d[i].stockin_packinglist = [];
 			}
 			viewModel.set('stockin.stockin_d', stockin_d);
 			// viewModel.set('stockin', response.data);
 			store.setData(stockin_d);
 			store.commitChanges();
+
+			// set listepc == new Map() 
+			viewModel.set('listepc', new Map() );
 		}
 		// console.log(stockin);
 	},
