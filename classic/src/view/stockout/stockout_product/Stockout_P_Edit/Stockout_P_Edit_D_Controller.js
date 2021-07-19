@@ -169,7 +169,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				stockoutd_new.id = null;
 				stockoutd_new.skucode = data.code;
 				stockoutd_new.sku_product_code = data.product_code;
-				stockind_new.skuname = data.name;
+				stockoutd_new.skuname = data.name;
 				stockoutd_new.product_name = data.product_name;
 				stockoutd_new.p_skuid_link = data.productid_link;
 				stockoutd_new.color_name = data.color_name;
@@ -686,7 +686,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			GSmartApp.Mqtt.connect(host, port, clientid, me.channel, deviceId, function (topic, message) {
 				console.log(topic);
 				if (topic.includes("cmd")) {
-					// console.log('cmd data:' + message);
+					console.log('cmd data:' + message);
 					var jsonObj = Ext.JSON.decode(message);
 
 					if (jsonObj.ct == 1) {
@@ -711,67 +711,69 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					}
 				} else if (topic.includes("transaction")) {
 					var jsonObj = Ext.JSON.decode(message);
-					console.log(jsonObj);
+					// console.log(jsonObj);
 					for (var x in jsonObj) {
 						var jsonObj_epc = jsonObj[x].epc.trim();
-						console.log(listepc);
+						// console.log(listepc);
+						// console.log(jsonObj_epc);
 						if (!listepc.has(jsonObj_epc)) {
-							console.log(123);
+							// console.log(123);
 							listepc.set(jsonObj_epc, jsonObj_epc);
 							var sku = store.findRecord('skucode', jsonObj[x].skucode);
-							console.log(sku);
+							// console.log(sku);
 							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 							if (!sku) {
+								// console.log('no sku');
 								//chưa có thì thêm vào listcode để lấy thông tin từ server
 								// console.log(jsonObj[x]);
 								// console.log(jsonObj[x].skucode);
-								// listcode.push(jsonObj[x].skucode);
+								listcode.push(jsonObj[x].skucode);
 
-								// //Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist vào stockoutd
-								// var stockoutd = new Object({
-								// 	stockout_packinglist: [],
-								// 	id: null,
-								// 	totalpackage: 1,
-								// 	totalpackagecheck: 1,
-								// 	orgrootid_link: session.rootorgid_link,
-								// 	skucode: jsonObj[x].skucode,
-								// 	lastuserupdateid_link: session.id,
-								// 	timecreate: new Date()
-								// });
+								//Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist vào stockoutd
+								var stockoutd = new Object({
+									stockout_packinglist: [],
+									id: null,
+									totalpackage: null,
+									totalpackagecheck: 1,
+									orgrootid_link: session.rootorgid_link,
+									skucode: jsonObj[x].skucode,
+									lastuserupdateid_link: session.id,
+									timecreate: new Date()
+								});
 
-								// //Tạo Object để lưu thông tin stockout_packinglist
-								// var epc_item = new Object({ id: null });
-								// epc_item.epc = jsonObj[x].epc;
-								// if (jsonObj[x].epcstate == 0) {
-								// 	epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
-								// 	epc_item.status = -1;
-								// 	stockoutd.status = -1;
-								// } else {
-								// 	epc_item.status = 0;
-								// 	stockoutd.status = 0;
+								//Tạo Object để lưu thông tin stockout_packinglist
+								var epc_item = new Object({ id: null });
+								epc_item.epc = jsonObj[x].epc;
+								if (jsonObj[x].epcstate == 0) {
+									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
+									epc_item.status = -1;
+									stockoutd.status = -1;
+								} else {
+									epc_item.status = 0;
+									stockoutd.status = 0;
 
-								// 	epc_item.orgrootid_link = session.rootorgid_link;
-								// 	epc_item.lastuserupdateid_link = session.id;
-								// 	epc_item.timecreate = new Date();
-								// 	epc_item.encryptdatetime = new Date();
-								// 	epc_item.rssi = 1;
+									epc_item.orgrootid_link = session.rootorgid_link;
+									epc_item.lastuserupdateid_link = session.id;
+									epc_item.timecreate = new Date();
+									epc_item.encryptdatetime = new Date();
+									epc_item.rssi = 1;
 
-								// 	stockoutd.stockout_packinglist.push(epc_item);
-								// 	console.log(stockout);
+									stockoutd.stockout_packinglist.push(epc_item);
+									// console.log(stockout);
 
-								// 	//Cập nhật lại stockout trong viewModel
-								// 	stockout.stockout_d.push(stockoutd);
-								// 	console.log(stockout);
-								// 	viewModel.set('stockout', stockout);
+									//Cập nhật lại stockout trong viewModel
+									stockout.stockout_d.push(stockoutd);
+									// console.log(stockout);
+									viewModel.set('stockout', stockout);
 
-								// 	//Thêm stockout_d vào grid
-								// 	store.insert(0, stockoutd);
-								// 	console.log(stockout);
-								// }
-
+									//Thêm stockout_d vào grid
+									store.insert(0, stockoutd);
+									// console.log(stockout);
+								}
 							}
 							else {
-								console.log(sku);
+								// console.log('yes sku');
+								// console.log(sku);
 								var stockout_packinglist = sku.get('stockout_packinglist');
 								stockout_packinglist = stockout_packinglist == null ? [] : stockout_packinglist;
 
@@ -782,23 +784,27 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
 									epc_item.status = -1;
 									sku.set('status', -1);
+									// console.log(stockout);
 								} else {
 									epc_item.status = 0;
 									stockout_packinglist.push(epc_item);
-									console.log(stockout_packinglist);
+									// console.log(stockout_packinglist);
 
 									// sku.stockout_packinglist.push(stockout_packinglist);
 									sku.set('stockout_packinglist', stockout_packinglist);
 									var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
-									console.log(totalpackagecheck);
+									// console.log(totalpackagecheck);
 									sku.set('totalpackagecheck', totalpackagecheck + 1);
 								}
 							}
+						}else{
+							// console.log('listepc.has(jsonObj_epc)');
+							// console.log(listepc);
 						}
 					}
 					//Lấy thông tin từ server
-					console.log(stockout);
-					// me.UpdateInfoSKU(listcode, store);
+					// console.log(stockout);
+					me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
 				me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
@@ -844,12 +850,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var params = new Object();
 		params.listcode = listcode;
 
-		var mainView = Ext.getCmp('stockout_p_edit');
-		if (mainView) mainView.setLoading(true);
+		// console.log(listcode);
+		// var mainView = Ext.getCmp('stockout_p_edit');
+		// if (mainView) mainView.setLoading(true);
 
 		GSmartApp.Ajax.postJitin('/api/v1/sku/getinfolist_bycode', Ext.JSON.encode(params),
 			function (success, resp, options) {
-				if (mainView) mainView.setLoading(false);
+				// if (mainView) mainView.setLoading(false);
 				if (success) {
 					var resp = Ext.decode(resp.responseText);
 					if (resp.respcode == 200) {

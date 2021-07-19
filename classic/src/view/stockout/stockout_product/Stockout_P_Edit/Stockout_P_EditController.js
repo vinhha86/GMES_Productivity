@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var m = this;
 		var viewModel = this.getViewModel();
 		var store = viewModel.getStore('StockoutD_Store');
-		var listepc = viewModel.get('listepc');
+		// var listepc = viewModel.get('listepc');
 
 		var params = new Object();
 		params.id = id;
@@ -94,7 +94,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				if (response.respcode == 200) {
 					viewModel.set('stockout', response.data);
 					
-					viewModel.set('listepc', new Map());
+					// viewModel.set('listepc', new Map());
                     var listepc = new Map();
                     for (var i = 0; i < response.listepc.length; i++) {
 						var epc = response.listepc[i].epc.trim();
@@ -136,6 +136,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
 		viewModel.set('stockout.status',-1);
+		viewModel.set('listepc', new Map());
 
 		var isWindow = viewModel.get('isWindow');
 		if(!isWindow){
