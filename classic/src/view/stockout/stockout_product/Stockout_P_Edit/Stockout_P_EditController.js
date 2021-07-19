@@ -161,6 +161,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				if(!success){
 					 this.fireEvent('logout');
 				} else {
+					console.log(records);
 					if (null!=records[0].data.org_grant_id_link){
                         viewModel.set('stockout.orgid_from_link', records[0].data.org_grant_id_link)
                     }
@@ -175,12 +176,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					}
 					if(id == 22) { // xuat dieu chuyen den kho khac
 						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						OrgFromStore.loadStore(8, false);
+						var listidtypefrom = "8,4";
+						// OrgFromStore.loadStore(8, false);
+						OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
+						// OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						// OrgToStore.loadStore(8, false);
-						var listidtype = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtype);
+						var listidtypeto = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
 					}
 				}
 			}
