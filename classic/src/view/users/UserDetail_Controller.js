@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
 
         viewModel.set('userid_link',id);
         var GpayUserFactory = viewModel.getStore('GpayUserFactory');
-        var listtypefactory = [13,8];
+        var listtypefactory = [13,8,4];
         GpayUserFactory.loadStore(id, listtypefactory);
         GpayUserFactory.load();
 
@@ -178,7 +178,7 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
                         data: {
                             userid_link: viewmodel.get('userid_link'),
                             orgtypeid_link: 13,
-                            orgtypeid_link_list: '8,13',
+                            orgtypeid_link_list: '4,8,13',
                         }
                     }
                 }]

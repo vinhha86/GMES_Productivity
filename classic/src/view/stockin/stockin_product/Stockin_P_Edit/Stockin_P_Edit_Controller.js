@@ -145,7 +145,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(9, false);
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadStore(8, false);
+						var listidtype = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtype);
+
                         var POrder_ListStore = viewModel.getStore('POrder_ListStore');
                         POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
                         var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
@@ -155,7 +158,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(8, false);
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        // OrgToStore.loadStore(8, false);
 						var listidtype = "8,4";
 						// OrgToStore.loadStore_allchildren_byorg(listidtype);
 						OrgToStore.loadStoreByOrgTypeString(listidtype);
