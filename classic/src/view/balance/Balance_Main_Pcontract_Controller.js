@@ -10,6 +10,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var viewmodel = this.getViewModel();
+        console.log(record.data.product_d);
         if (cellIndex == 8) {//Nhu cau
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -28,7 +29,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                 items: [{
                     xtype: 'Balance_D_Product_Skus',
                     viewModel: {
-                        type: 'Balance_D_Product_Skus_ViewModel',
+                        // type: 'Balance_D_Product_Skus_ViewModel',
                         data: {
                             productlist: record.data.product_d,
                         }

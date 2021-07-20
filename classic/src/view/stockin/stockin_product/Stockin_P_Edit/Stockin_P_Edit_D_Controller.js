@@ -132,11 +132,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			if (stockin_d == null) stockin_d = [];
 			for (var i = 0; i < stockin_d.length; i++) {
 				stockin_d[i].totalpackagecheck = 0;
+				stockin_d[i].stockin_packinglist = [];
 			}
 			viewModel.set('stockin.stockin_d', stockin_d);
 			// viewModel.set('stockin', response.data);
 			store.setData(stockin_d);
 			store.commitChanges();
+
+			// set listepc == new Map() 
+			viewModel.set('listepc', new Map() );
 		}
 		// console.log(stockin);
 	},
@@ -159,7 +163,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		var stockin = viewModel.get('stockin');
 		var session = GSmartApp.util.State.get('session');
 
-		var listcode = new Map();
+		// var listcode = new Map();
+		var listcode = []
 		var listepc = viewModel.get('listepc');
 
 		var host = config.getHost();
@@ -222,13 +227,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 							if (!sku) {
 								//chưa có thì thêm vào listcode để lấy thông tin từ server
-								listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
+								// listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
+								listcode.push(jsonObj[x].skucode);
 
 								//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
 								var stockind = new Object({
 									stockin_packinglist: [],
 									id: null,
-									totalpackage: 1,
+									totalpackagecheck: 1,
 									orgrootid_link: session.rootorgid_link,
 									skucode: jsonObj[x].skucode,
 									lastuserupdateid_link: session.id,
@@ -290,7 +296,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					}
 					//Lấy thông tin sku từ server để hiện lên grid
 					console.log(stockin);
-					// me.UpdateInfoSKU(listcode, store);
+					me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
 				me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';
