@@ -7,7 +7,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     viewConfig: {
         stripeRows: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        enableTextSelection: true
     },
     bind: {
         store: '{POLineStore}'

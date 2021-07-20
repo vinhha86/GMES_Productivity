@@ -142,10 +142,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderView', {
                     margin: 2,
                     labelWidth: 120,
                     flex: 1,
-                    fieldLabel: 'Tổ SX',
-                    allowBlank: false,
-                    blankText: 'Không được để trống',
-                    msgTarget: 'under'
+                    fieldLabel: 'Tổ SX'
                 }
             ]
         }

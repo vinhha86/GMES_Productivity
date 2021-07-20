@@ -71,8 +71,6 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 			callback: function (records, operation, success) {
 				if (!success) {
 					this.fireEvent('logout');
-				} else {
-					console.log(records);
 				}
 			}
 		});
@@ -104,16 +102,6 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 			}
 		});
 		// this.load();
-		this.load({
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					//  this.fireEvent('logout');
-					console.log('Loi tinh can doi');
-				} else {
-					console.log(records);
-				}
-			}
-		});
+		this.load();
 	}
 });

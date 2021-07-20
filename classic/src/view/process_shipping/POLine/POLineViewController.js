@@ -135,7 +135,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     onShowPorderList: function (store, pcontract_poid_link, rec) {
         var viewmodel = this.getViewModel();
-        var grid = this.getView();
         var me = this;
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -166,10 +165,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         form.down('#POrder_Offer_view').getController().on('Thoat', function () {
             form.close();
         });
+        var record = viewmodel.get('poline_selection');
 
-        form.down('#POrder_Offer_view').on('Chon', function (data) {
-            var store = viewmodel.getStore('POrder_ListStore');
+        form.down('#POrder_Offer_view').on('Chon', function () {
+            var store = viewmodel.getStore('POLineStore');
             store.load();
+            me.onSelect(null, rec);
             form.close();
         });
     },
@@ -261,7 +262,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         form.show();
 
         form.down('#CreatePorderView').on('Create', function (data) {
-            me.fireEvent('AddPlan', data);
+            if (data != null)
+                me.fireEvent('AddPlan', data);
             var store = viewmodel.getStore('POLineStore');
             store.load();
             form.close();
@@ -326,8 +328,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         main.setActiveItem(0);
     },
     onSelect: function (grid, record, item, index, e, eOpts) {
-        var grid = this.getView();
-
         var viewmodel = this.getViewModel();
         var storeSKU = viewmodel.getStore('POLineSKU_Store');
         var pcontractid_link = record.get('pcontractid_link');
