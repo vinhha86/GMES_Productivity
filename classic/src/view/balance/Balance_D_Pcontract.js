@@ -74,7 +74,17 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			}
 		},
 		{
-			text: 'SL sản phẩm',
+			text: 'SL ĐH',
+			dataIndex: 'mat_sku_product',
+			// align:'right',
+			width: 70,
+			renderer: function (value, metaData, record) {
+				if (value == 0) return "";
+				return Ext.util.Format.number(value, '0,000')
+			}
+		},
+		{
+			text: 'SL SX',
 			dataIndex: 'mat_sku_product_total',
 			// align:'right',
 			width: 70,

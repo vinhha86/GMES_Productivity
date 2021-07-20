@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainView', {
             items: [{
                 region: 'west',
                 xtype: 'POrderView',
-                width: 0,
+                width: 300,
                 margin: 1,
                 border: true
             }, {

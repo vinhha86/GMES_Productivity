@@ -208,9 +208,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             editable: false,
             labelWidth: 70
         },
-        {
-            flex: 1
-        },
+            '->',
         {
             html: '<div class="color-box">'
                 + '<div class="color-square po_offer"></div>&nbspĐã map'

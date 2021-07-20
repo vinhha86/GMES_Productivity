@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                 items: [{
                     xtype: 'Balance_D_Product_Skus',
                     viewModel: {
-                        type: 'Balance_D_Product_Skus_ViewModel',
+                        // type: 'Balance_D_Product_Skus_ViewModel',
                         data: {
                             productlist: record.data.product_d,
                         }

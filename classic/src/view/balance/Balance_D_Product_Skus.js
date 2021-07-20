@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Product_Skus', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Balance_D_Product_Skus',
 	id: 'Balance_D_Product_Skus',
-	// controller: 'Balance_D_POrder_Controller',
+	controller: 'Balance_D_Product_Skus_Controller',
 	viewModel: {
 		type: 'Balance_D_Product_Skus_ViewModel'
 	},
@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Product_Skus', {
 			dock: 'bottom'
 		}
 	],
-	bind: '{productlist}',
+	bind: '{Balance_D_Product_Sku}',
 	columns: [
 		{
 			text: 'SKU',
@@ -50,7 +50,20 @@ Ext.define('GSmartApp.view.balance.Balance_D_Product_Skus', {
 		{
 			xtype: 'numbercolumn',
 			format: '0,000',
-			text: 'Số lượng',
+			text: 'SL ĐH',
+			align: 'right',
+			dataIndex: 'p_amount_dh',
+			summaryType: 'sum',
+			summaryRenderer: function (value, summaryData, dataIndex) {
+				if (null == value) value = 0;
+				return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+			},
+			width: 80
+		},
+		{
+			xtype: 'numbercolumn',
+			format: '0,000',
+			text: 'SL SX',
 			align: 'right',
 			dataIndex: 'p_amount',
 			summaryType: 'sum',

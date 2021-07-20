@@ -3,7 +3,7 @@ Ext.define('GSmartApp.store.Balance_D_Product_Sku', {
 	storeId: 'Balance_D_Product_Sku',
 	alias: 'store.Balance_D_Product_Sku',
 	idProperty: 'idx',
-    fields: [
+	fields: [
 		'idx',
 		'p_skuid_link',
 		'p_sku_code',
@@ -12,6 +12,8 @@ Ext.define('GSmartApp.store.Balance_D_Product_Sku', {
 		'p_sku_color',
 		'p_sku_size',
 		'p_amount',
+		'p_amount_dh',
+		'po_buyer'
 	],
 	sorters: [
 		{
