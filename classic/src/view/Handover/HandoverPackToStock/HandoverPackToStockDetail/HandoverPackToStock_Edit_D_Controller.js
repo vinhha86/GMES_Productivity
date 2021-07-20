@@ -278,20 +278,22 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 								epc_item.status = 0;
 								stockind.status = 0;
 							}
-							epc_item.orgrootid_link = session.rootorgid_link;
-							epc_item.lastuserupdateid_link = session.id;
-							epc_item.timecreate = new Date();
-							epc_item.encryptdatetime = new Date();
 
-							stockind.stockin_packinglist.push(epc_item);
-
-							//Cập nhật lại stockin trong viewModel
-							stockin.stockin_d.push(stockind);
-							viewModel.set('stockin', stockin);
-
-							//Thêm stockind vào grid
-							store.insert(0, stockind);
-
+							if(jsonObj[x].epcstate != 1){
+								epc_item.orgrootid_link = session.rootorgid_link;
+								epc_item.lastuserupdateid_link = session.id;
+								epc_item.timecreate = new Date();
+								epc_item.encryptdatetime = new Date();
+	
+								stockind.stockin_packinglist.push(epc_item);
+	
+								//Cập nhật lại stockin trong viewModel
+								stockin.stockin_d.push(stockind);
+								viewModel.set('stockin', stockin);
+	
+								//Thêm stockind vào grid
+								store.insert(0, stockind);
+							}
 						}
 						else {
 							//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
@@ -350,6 +352,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_D_Controller', {
 		if (GSmartApp.Mqtt.client) {
 			var cmd = { ct: 0, cid: "CMD_STOP_INV", srcid: termid, reqdata: { token: me.stoken, funcid: me.funcid } };
 			console.log("Device channel:" + me.sendChannel);
+			if(me.sendChannel == null) me.sendChannel = '???';
 			var message = new Paho.Message(Ext.JSON.encode(cmd));
 			message.destinationName = me.sendChannel;
 			message.qos = 0;

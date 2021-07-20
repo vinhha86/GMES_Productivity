@@ -810,6 +810,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		me.funcid = '2'; /* FuncId: 2 -  StockIn; 3-StockOut*/
 		var cmd = { ct: 0, cid: "CMD_START_INV", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
 		console.log("Device channel:" + me.sendChannel);
+		if(me.sendChannel == null) me.sendChannel = '???';
 		var message = new Paho.Message(Ext.JSON.encode(cmd));
 		message.destinationName = me.sendChannel;
 		message.qos = 0;

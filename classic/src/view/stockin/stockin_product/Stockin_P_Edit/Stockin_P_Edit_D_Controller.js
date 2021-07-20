@@ -398,6 +398,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				me.funcid = '2;' + orgid_link;
 				var cmd = { ct: 0, cid: "CMD_START_INV", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
 				console.log("Device channel:" + me.sendChannel);
+				if(me.sendChannel == null) me.sendChannel = '???';
 				var message = new Paho.Message(Ext.JSON.encode(cmd));
 				message.destinationName = me.sendChannel;
 				message.qos = 0;
