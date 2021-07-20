@@ -90,14 +90,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 		},
 		iseditSL_YC: function (get) {
 			//Neu la nhap theo PO thi ko cho sua SL YC
+			if (get('stockin.stockintypeid_link') == null) {
+				return false;
+			}
 			if (get('stockin.stockintypeid_link') == 21) {
 				if (get('stockin.id') == null || get('stockin.id') == 0) {
 					return true;
 				}
 				return false;
 			}
-			else
-				return true;
+			if (get('stockin.stockintypeid_link') == 22) {
+				return false;
+			}
+			
+			return true;
 		},
 		isPOLineHidden: function (get) {
 			if(get('stockin.stockintypeid_link') == null){

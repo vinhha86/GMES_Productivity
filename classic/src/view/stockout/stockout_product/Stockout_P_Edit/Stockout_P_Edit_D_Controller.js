@@ -726,21 +726,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								//chưa có thì thêm vào listcode để lấy thông tin từ server
 								// console.log(jsonObj[x]);
 								// console.log(jsonObj[x].skucode);
-<<<<<<< HEAD
-								// listcode.push(jsonObj[x].skucode);
-=======
 								listcode.push(jsonObj[x].skucode);
->>>>>>> d8edab61060b5fe14f0141530a9c7c35fa50376c
 
 								//Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist vào stockoutd
 								var stockoutd = new Object({
 									stockout_packinglist: [],
 									id: null,
-<<<<<<< HEAD
-									totalpackage: 1,
-=======
 									totalpackage: null,
->>>>>>> d8edab61060b5fe14f0141530a9c7c35fa50376c
 									totalpackagecheck: 1,
 									orgrootid_link: session.rootorgid_link,
 									skucode: jsonObj[x].skucode,
@@ -758,7 +750,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								} else {
 									epc_item.status = 0;
 									stockoutd.status = 0;
-<<<<<<< HEAD
 
 									epc_item.orgrootid_link = session.rootorgid_link;
 									epc_item.lastuserupdateid_link = session.id;
@@ -767,76 +758,51 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 									epc_item.rssi = 1;
 
 									stockoutd.stockout_packinglist.push(epc_item);
-									console.log(stockout);
+									// console.log(stockout);
 
 									//Cập nhật lại stockout trong viewModel
 									stockout.stockout_d.push(stockoutd);
-									console.log(stockout);
+									// console.log(stockout);
 									viewModel.set('stockout', stockout);
 
 									//Thêm stockout_d vào grid
 									store.insert(0, stockoutd);
-									console.log(stockout);
+									// console.log(stockout);
 								}
-=======
->>>>>>> d8edab61060b5fe14f0141530a9c7c35fa50376c
-
-								epc_item.orgrootid_link = session.rootorgid_link;
-								epc_item.lastuserupdateid_link = session.id;
-								epc_item.timecreate = new Date();
-								epc_item.encryptdatetime = new Date();
-								epc_item.rssi = 1;
-
-								stockoutd.stockout_packinglist.push(epc_item);
-								// console.log(stockout);
-
-								//Cập nhật lại stockout trong viewModel
-								stockout.stockout_d.push(stockoutd);
-								// console.log(stockout);
-								viewModel.set('stockout', stockout);
-
-								//Thêm stockout_d vào grid
-								store.insert(0, stockoutd);
-								// console.log(stockout);
 							}
-						}
-						else {
-							// console.log('yes sku');
-							// console.log(sku);
-							var stockout_packinglist = sku.get('stockout_packinglist');
-							stockout_packinglist = stockout_packinglist == null ? [] : stockout_packinglist;
+							else {
+								// console.log('yes sku');
+								// console.log(sku);
+								var stockout_packinglist = sku.get('stockout_packinglist');
+								stockout_packinglist = stockout_packinglist == null ? [] : stockout_packinglist;
 
-							var epc_item = new Object({ id: null });
-							epc_item.epc = jsonObj[x].epc;
-							epc_item.status = jsonObj[x].epcstate;
-							if (jsonObj[x].epcstate == 0) {
-								epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
-								epc_item.status = -1;
-								sku.set('status', -1);
-								// console.log(stockout);
-							} else {
-								epc_item.status = 0;
-								stockout_packinglist.push(epc_item);
-								// console.log(stockout_packinglist);
+								var epc_item = new Object({ id: null });
+								epc_item.epc = jsonObj[x].epc;
+								epc_item.status = jsonObj[x].epcstate;
+								if (jsonObj[x].epcstate == 0) {
+									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
+									epc_item.status = -1;
+									sku.set('status', -1);
+									// console.log(stockout);
+								} else {
+									epc_item.status = 0;
+									stockout_packinglist.push(epc_item);
+									// console.log(stockout_packinglist);
 
-								// sku.stockout_packinglist.push(stockout_packinglist);
-								sku.set('stockout_packinglist', stockout_packinglist);
-								var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
-								// console.log(totalpackagecheck);
-								sku.set('totalpackagecheck', totalpackagecheck + 1);
+									// sku.stockout_packinglist.push(stockout_packinglist);
+									sku.set('stockout_packinglist', stockout_packinglist);
+									var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
+									// console.log(totalpackagecheck);
+									sku.set('totalpackagecheck', totalpackagecheck + 1);
+								}
 							}
-						}
-					}else {
-					// console.log('listepc.has(jsonObj_epc)');
-					// console.log(listepc);
-				}
+						}else {
+						// console.log('listepc.has(jsonObj_epc)');
+						// console.log(listepc);
+					}
 			}
 					//Lấy thông tin từ server
-<<<<<<< HEAD
-					console.log(stockout);
-=======
 					// console.log(stockout);
->>>>>>> d8edab61060b5fe14f0141530a9c7c35fa50376c
 			me.UpdateInfoSKU(listcode, store);
 		}
 	}, function() {
@@ -899,18 +865,20 @@ UpdateInfoSKU: function (listcode, store) {
 						var sku = resp.data[i];
 						var record = store.findRecord('skucode', sku.code);
 
-						record.set('skuname', sku.name);
-						record.set('skuid_link', sku.id);
-						record.set('sku_product_code', sku.product_code);
-						record.set('product_code', sku.product_code);
-						record.set('sizeid_link', sku.sizeid_link);
-						record.set('unit_name', sku.unit_name);
-						record.set('size_name', sku.size_name);
-						record.set('color_name', sku.color_name);
-						record.set('colorid_link', sku.colorid_link);
-						record.set('p_skuid_link', sku.productid_link);
-						record.set('skutypeid_link', sku.skutypeid_link);
-						record.set('unitprice', sku.unitprice);
+						if(record != null){
+							record.set('skuname', sku.name);
+							record.set('skuid_link', sku.id);
+							record.set('sku_product_code', sku.product_code);
+							record.set('product_code', sku.product_code);
+							record.set('sizeid_link', sku.sizeid_link);
+							record.set('unit_name', sku.unit_name);
+							record.set('size_name', sku.size_name);
+							record.set('color_name', sku.color_name);
+							record.set('colorid_link', sku.colorid_link);
+							record.set('p_skuid_link', sku.productid_link);
+							record.set('skutypeid_link', sku.skutypeid_link);
+							record.set('unitprice', sku.unitprice);
+						}
 					}
 				}
 			}
