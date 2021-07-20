@@ -54,18 +54,21 @@ Ext.define('GSmartApp.view.provider.ProviderDetailViewCotroller', {
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
+                            },
+                            fn: function(){
+                                if (data.id == 0) {
+                                    if(viewMain)
+                                    viewMain.getStore().load();
+                                }
+                                if(thisBtn.itemId=='btnLuu')
+                                    me.Id = response.id;
+                                if(thisBtn.itemId=='btnLuuVaTaoMoi')
+                                    me.Id = 0;
+                                m.redirectTo("lsprovider/" + me.Id + "/edit");
                             }
                         });
 
-                        if (data.id == 0) {
-                            if(viewMain)
-                            viewMain.getStore().load();
-                        }
-                        if(thisBtn.itemId=='btnLuu')
-                            me.Id = response.id;
-                        if(thisBtn.itemId=='btnLuuVaTaoMoi')
-                            me.Id = 0;
-                        m.redirectTo("lsprovider/" + me.Id + "/edit");
+                        
                     }
                     else {
                         Ext.Msg.show({
@@ -155,6 +158,7 @@ Ext.define('GSmartApp.view.provider.ProviderDetailViewCotroller', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     data = response.data;
+                 
                     viewmodel.set('currentRec', data);
                     viewmodel.set('name', data.name);
                 }
