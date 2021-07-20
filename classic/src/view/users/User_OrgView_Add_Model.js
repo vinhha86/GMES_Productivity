@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.salary.User_OrgView_Add_Model', {
     },
     data: {
         userid_link: null,
-        orgtypeid_link: null
+        orgtypeid_link: null,
+        orgtypeid_link_list: null,
     }
 })

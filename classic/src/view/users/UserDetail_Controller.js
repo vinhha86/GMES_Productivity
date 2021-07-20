@@ -36,13 +36,19 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
 
         viewModel.set('userid_link',id);
         var GpayUserFactory = viewModel.getStore('GpayUserFactory');
-        GpayUserFactory.loadStore(id, 13);
+        var listtypefactory = [13,8];
+        GpayUserFactory.loadStore(id, listtypefactory);
+        GpayUserFactory.load();
 
         var GpayUserVendor = viewModel.getStore('GpayUserVendor');
-        GpayUserVendor.loadStore(id, 11);
+        var listtypevendor = [11];
+        GpayUserVendor.loadStore(id, listtypevendor);
+        GpayUserVendor.load();
 
         var GpayUserBuyer = viewModel.getStore('GpayUserBuyer');
-        GpayUserBuyer.loadStore(id, 12);
+        var listtypebuyer = [12];
+        GpayUserBuyer.loadStore(id, listtypebuyer);
+        GpayUserBuyer.load();
     },
     getInfo: function (id) {
         var viewModel = this.getViewModel();
@@ -171,7 +177,8 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
                     viewModel: {
                         data: {
                             userid_link: viewmodel.get('userid_link'),
-                            orgtypeid_link: 13
+                            orgtypeid_link: 13,
+                            orgtypeid_link_list: '8,13',
                         }
                     }
                 }]

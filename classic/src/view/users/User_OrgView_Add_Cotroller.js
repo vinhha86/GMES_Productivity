@@ -4,7 +4,14 @@ Ext.define('GSmartApp.view.product.User_OrgView_Add_Cotroller', {
     init: function () {
         var viewmodel = this.getViewModel();
         var store = this.getViewModel().getStore('OrgStore');
-        store.loadStore(viewmodel.get('orgtypeid_link'),false);
+
+        var orgtypeid_link_list = viewmodel.get('orgtypeid_link_list');
+        if(orgtypeid_link_list != null){
+            store.loadStoreByOrgTypeString(orgtypeid_link_list);
+        }else{
+            store.loadStore(viewmodel.get('orgtypeid_link'),false);
+        }
+        
     },
     control: {
         '#btnThoat': {
