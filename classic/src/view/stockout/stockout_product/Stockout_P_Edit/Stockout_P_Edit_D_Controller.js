@@ -743,6 +743,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								//Tạo Object để lưu thông tin stockout_packinglist
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
+								console.log(jsonObj[x].epc);
+								console.log(jsonObj[x].epcstate);
 								if (jsonObj[x].epcstate == 0) {
 									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
 									epc_item.status = -1;
@@ -750,28 +752,26 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								} else {
 									epc_item.status = 0;
 									stockoutd.status = 0;
-
-									epc_item.orgrootid_link = session.rootorgid_link;
-									epc_item.lastuserupdateid_link = session.id;
-									epc_item.timecreate = new Date();
-									epc_item.encryptdatetime = new Date();
-									epc_item.rssi = 1;
-
-									stockoutd.stockout_packinglist.push(epc_item);
-									// console.log(stockout);
-
-									//Cập nhật lại stockout trong viewModel
-									stockout.stockout_d.push(stockoutd);
-									// console.log(stockout);
-									viewModel.set('stockout', stockout);
-
-									//Thêm stockout_d vào grid
-									store.insert(0, stockoutd);
-									// console.log(stockout);
 								}
+								epc_item.orgrootid_link = session.rootorgid_link;
+								epc_item.lastuserupdateid_link = session.id;
+								epc_item.timecreate = new Date();
+								epc_item.encryptdatetime = new Date();
+								epc_item.rssi = 1;
+
+								stockoutd.stockout_packinglist.push(epc_item);
+								// console.log(stockout);
+
+								//Cập nhật lại stockout trong viewModel
+								stockout.stockout_d.push(stockoutd);
+								// console.log(stockout);
+								viewModel.set('stockout', stockout);
+
+								//Thêm stockout_d vào grid
+								store.insert(0, stockoutd);
+								// console.log(stockout);
 							}
 							else {
-								// console.log('yes sku');
 								// console.log(sku);
 								var stockout_packinglist = sku.get('stockout_packinglist');
 								stockout_packinglist = stockout_packinglist == null ? [] : stockout_packinglist;
@@ -786,15 +786,21 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 									// console.log(stockout);
 								} else {
 									epc_item.status = 0;
-									stockout_packinglist.push(epc_item);
-									// console.log(stockout_packinglist);
-
-									// sku.stockout_packinglist.push(stockout_packinglist);
-									sku.set('stockout_packinglist', stockout_packinglist);
-									var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
-									// console.log(totalpackagecheck);
-									sku.set('totalpackagecheck', totalpackagecheck + 1);
+									
 								}
+								epc_item.orgrootid_link = session.rootorgid_link;
+								epc_item.lastuserupdateid_link = session.id;
+								epc_item.timecreate = new Date();
+								epc_item.encryptdatetime = new Date();
+								epc_item.rssi = 1;
+								stockout_packinglist.push(epc_item);
+								// console.log(stockout_packinglist);
+
+								// sku.stockout_packinglist.push(stockout_packinglist);
+								sku.set('stockout_packinglist', stockout_packinglist);
+								var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
+								// console.log(totalpackagecheck);
+								sku.set('totalpackagecheck', totalpackagecheck + 1);
 							}
 						}else {
 						// console.log('listepc.has(jsonObj_epc)');
@@ -810,7 +816,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		me.funcid = '2'; /* FuncId: 2 -  StockIn; 3-StockOut*/
 		var cmd = { ct: 0, cid: "CMD_START_INV", srcid: termid, reqdata: { timeout: 120000, token: me.stoken, funcid: me.funcid } };
 		console.log("Device channel:" + me.sendChannel);
-		if(me.sendChannel == null) me.sendChannel = '???';
 		var message = new Paho.Message(Ext.JSON.encode(cmd));
 		message.destinationName = me.sendChannel;
 		message.qos = 0;
@@ -837,6 +842,7 @@ onStop: function () {
 	if (GSmartApp.Mqtt.client) {
 		var cmd = { ct: 0, cid: "CMD_STOP_INV", srcid: termid, reqdata: { token: me.stoken, funcid: me.funcid } };
 		console.log("Device channel:" + me.sendChannel);
+		if(me.sendChannel == null) me.sendChannel = '???';
 		var message = new Paho.Message(Ext.JSON.encode(cmd));
 		message.destinationName = me.sendChannel;
 		message.qos = 0;

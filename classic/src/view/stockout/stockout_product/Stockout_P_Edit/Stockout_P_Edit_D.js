@@ -30,7 +30,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         stripeRows: false,
         getRowClass: function(record, index) {
             var c = record.get('status');
-            if (c == -1) {
+            var totalpackage = record.get('totalpackage');
+            if(totalpackage == null) totalpackage = 0;
+            if (c == -1 && totalpackage != 0) {
                 return 'epc-error';
             }
             else {
