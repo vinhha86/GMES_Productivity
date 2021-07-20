@@ -396,18 +396,20 @@ Ext.define('GSmartApp.view.handover.Handover_kho_tocut_EditController', {
 						for (var i = 0; i < resp.data.length; i++) {
 							var sku = resp.data[i];
 							var record = store.findRecord('skucode', sku.code);
-
-							record.set('skuname', sku.name);
-							record.set('skuid_link', sku.id);
-							record.set('product_code', sku.product_code);
-							record.set('sizeid_link', sku.sizeid_link);
-							record.set('unit_name', sku.unit_name);
-							record.set('size_name', sku.size_name);
-							record.set('color_name', sku.color_name);
-							record.set('colorid_link', sku.colorid_link);
-							record.set('p_skuid_link', sku.productid_link);
-							record.set('skutypeid_link', sku.skutypeid_link);
-							record.set('unitprice', sku.unitprice);
+							
+							if(record != null){
+								record.set('skuname', sku.name);
+								record.set('skuid_link', sku.id);
+								record.set('product_code', sku.product_code);
+								record.set('sizeid_link', sku.sizeid_link);
+								record.set('unit_name', sku.unit_name);
+								record.set('size_name', sku.size_name);
+								record.set('color_name', sku.color_name);
+								record.set('colorid_link', sku.colorid_link);
+								record.set('p_skuid_link', sku.productid_link);
+								record.set('skutypeid_link', sku.skutypeid_link);
+								record.set('unitprice', sku.unitprice);
+							}
 						}
 					}
 				}

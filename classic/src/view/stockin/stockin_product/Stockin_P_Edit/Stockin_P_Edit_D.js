@@ -28,7 +28,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 		stripeRows: false,
 		getRowClass: function (record, index) {
 			var c = record.get('status');
-			if (c == -1) {
+			var totalpackage = record.get('totalpackage');
+			if(totalpackage == null) totalpackage = 0;
+			if (c == -1 && totalpackage != 0) {
 				return 'epc-error';
 			}
 			else {

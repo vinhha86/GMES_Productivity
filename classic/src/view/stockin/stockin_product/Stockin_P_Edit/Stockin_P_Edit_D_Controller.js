@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		var store = viewModel.getStore('StockinD_Store');
 		var stockin = viewModel.get('stockin');
 
-		if (stockin.status == -1) { // 
+		if (stockin.status == -1 || stockin.status == 0) { // 
 			var stockin_d = viewModel.get('stockin.stockin_d');
 			if (stockin_d == null) stockin_d = [];
 			for (var i = 0; i < stockin_d.length; i++) {
@@ -139,8 +139,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			store.setData(stockin_d);
 			store.commitChanges();
 
-			// set listepc == new Map() 
-			viewModel.set('listepc', new Map() );
+			// // set listepc == new Map() 
+			// viewModel.set('listepc', new Map() );
 		}
 		// console.log(stockin);
 	},
@@ -218,84 +218,179 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					}
 				} else if (topic.includes("transaction")) {
 					var jsonObj = Ext.JSON.decode(message);
-					console.log(jsonObj);
+					// console.log(jsonObj);
 					for (var x in jsonObj) {
-						if (!listepc.has(jsonObj[x].epc)) {
-							listepc.set(jsonObj[x].epc, jsonObj[x].epc);
-							var sku = store.findRecord('skucode', jsonObj[x].skucode);
-							console.log(sku);
-							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
-							if (!sku) {
-								//chưa có thì thêm vào listcode để lấy thông tin từ server
-								// listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
-								listcode.push(jsonObj[x].skucode);
-
-								//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
-								var stockind = new Object({
-									stockin_packinglist: [],
-									id: null,
-									totalpackagecheck: 1,
-									orgrootid_link: session.rootorgid_link,
-									skucode: jsonObj[x].skucode,
-									lastuserupdateid_link: session.id,
-									timecreate: new Date()
-								});
-
-								//Tại Object để lưu thông tin stockin_packinglist
-								var epc_item = new Object({ id: null });
-								epc_item.epc = jsonObj[x].epc;
-
-								if (jsonObj[x].epcstate == 1) {
-									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
-									epc_item.status = -1;
-									stockind.status = -1;
-								} else {
-									epc_item.status = 0;
-									stockind.status = 0;
+						// tổng sl yêu cầu của stockin theo các stockin_d
+						var slYeuCau = viewModel.get('stockin.slYeuCau');
+						if(slYeuCau == null) slYeuCau = 0;
+						if(slYeuCau == 0){
+							// trường hợp 1: Tạo phiếu nhập mới, không có sl yêu cầu
+							if (!listepc.has(jsonObj[x].epc)) {
+								listepc.set(jsonObj[x].epc, jsonObj[x].epc);
+								var sku = store.findRecord('skucode', jsonObj[x].skucode);
+								// console.log(sku);
+								//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
+								if (!sku) {
+									//chưa có thì thêm vào listcode để lấy thông tin từ server
+									// listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
+									listcode.push(jsonObj[x].skucode);
+	
+									//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
+									var stockind = new Object({
+										stockin_packinglist: [],
+										id: null,
+										totalpackagecheck: 1,
+										orgrootid_link: session.rootorgid_link,
+										skucode: jsonObj[x].skucode,
+										lastuserupdateid_link: session.id,
+										timecreate: new Date()
+									});
+	
+									//Tại Object để lưu thông tin stockin_packinglist
+									var epc_item = new Object({ id: null });
+									epc_item.epc = jsonObj[x].epc;
+	
+									if (jsonObj[x].epcstate == 1) {
+										epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
+										epc_item.status = -1;
+										stockind.status = -1;
+									} else {
+										epc_item.status = 0;
+										stockind.status = 0;
+									}
+									
+									// ko có trong kho mới xử lý
+									if(jsonObj[x].epcstate != 1){
+										epc_item.orgrootid_link = session.rootorgid_link;
+										epc_item.lastuserupdateid_link = session.id;
+										epc_item.timecreate = new Date();
+										epc_item.encryptdatetime = new Date();
+										epc_item.rssi = 1;
+		
+										stockind.stockin_packinglist.push(epc_item);
+		
+										//Cập nhật lại stockin trong viewModel
+										stockin.stockin_d.push(stockind);
+										viewModel.set('stockin', stockin);
+		
+										//Thêm stockind vào grid
+										store.insert(0, stockind);
+									}
 								}
-								
-								epc_item.orgrootid_link = session.rootorgid_link;
-								epc_item.lastuserupdateid_link = session.id;
-								epc_item.timecreate = new Date();
-								epc_item.encryptdatetime = new Date();
-								epc_item.rssi = 1;
+								else {
+									// console.log(sku);
+									//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
+									var stockinpackinglist = sku.get('stockin_packinglist');
+	
+									sku.set('totalpackagecheck', sku.get('totalpackagecheck') + 1);
+	
+									var epc_item = new Object({ id: null });
+									epc_item.epc = jsonObj[x].epc;
+	
+									if (jsonObj[x].epcstate == 1) {
+										epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
+										epc_item.status = -1;
+										epc_item.id = null;
+										sku.set('status', -1);
+									} else {
+										epc_item.status = 0;
+										epc_item.rssi = 1;
+									}
 
-								stockind.stockin_packinglist.push(epc_item);
-
-								//Cập nhật lại stockin trong viewModel
-								stockin.stockin_d.push(stockind);
-								viewModel.set('stockin', stockin);
-
-								//Thêm stockind vào grid
-								store.insert(0, stockind);
-
+									// ko có trong kho mới xử lý
+									if(jsonObj[x].epcstate != 1){
+										stockinpackinglist.push(epc_item);
+										sku.set('stockin_packinglist', stockinpackinglist)
+									}
+								}
 							}
-							else {
-								console.log(sku);
-								//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
-								var stockinpackinglist = sku.get('stockin_packinglist');
-
-								sku.set('totalpackagecheck', sku.get('totalpackagecheck') + 1);
-
-								var epc_item = new Object({ id: null });
-								epc_item.epc = jsonObj[x].epc;
-
-								if (jsonObj[x].epcstate == 1) {
-									epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
-									epc_item.status = -1;
-									epc_item.id = null;
-									sku.set('status', -1);
-								} else {
-									epc_item.status = 0;
-									epc_item.rssi = 1;
+						}else if(slYeuCau > 0){
+							// trường hợp 2: Tạo từ yêu cầu xuất, có sl yêu cầus
+							// Yêu cầu nhập được tạo khi duyệt phiếu xuất kho
+							if (listepc.has(jsonObj[x].epc)) {
+								listepc.set(jsonObj[x].epc, jsonObj[x].epc);
+								var sku = store.findRecord('skucode', jsonObj[x].skucode);
+								// console.log(sku);
+								//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
+								if (!sku) {
+									//chưa có thì thêm vào listcode để lấy thông tin từ server
+									// listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
+									listcode.push(jsonObj[x].skucode);
+	
+									//Tạo Object để lưu thông tin stockind và gắn stockin_packinglist và stockind
+									var stockind = new Object({
+										stockin_packinglist: [],
+										id: null,
+										totalpackagecheck: 1,
+										orgrootid_link: session.rootorgid_link,
+										skucode: jsonObj[x].skucode,
+										lastuserupdateid_link: session.id,
+										timecreate: new Date()
+									});
+	
+									//Tại Object để lưu thông tin stockin_packinglist
+									var epc_item = new Object({ id: null });
+									epc_item.epc = jsonObj[x].epc;
+	
+									// console.log('epcstate ' + jsonObj[x].epcstate);
+									if (jsonObj[x].epcstate == 1) {
+										epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
+										epc_item.status = -1;
+										stockind.status = -1;
+									} else {
+										epc_item.status = 0;
+										stockind.status = 0;
+									}
+									
+									// ko có trong kho mới xử lý
+									if(jsonObj[x].epcstate != 1){
+										epc_item.orgrootid_link = session.rootorgid_link;
+										epc_item.lastuserupdateid_link = session.id;
+										epc_item.timecreate = new Date();
+										epc_item.encryptdatetime = new Date();
+										epc_item.rssi = 1;
+		
+										stockind.stockin_packinglist.push(epc_item);
+		
+										//Cập nhật lại stockin trong viewModel
+										stockin.stockin_d.push(stockind);
+										viewModel.set('stockin', stockin);
+		
+										//Thêm stockind vào grid
+										store.insert(0, stockind);
+									}
 								}
-								stockinpackinglist.push(epc_item);
-								sku.set('stockin_packinglist', stockinpackinglist)
+								else {
+									// console.log(sku);
+									//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
+									var stockinpackinglist = sku.get('stockin_packinglist');
+	
+									sku.set('totalpackagecheck', sku.get('totalpackagecheck') + 1);
+	
+									var epc_item = new Object({ id: null });
+									epc_item.epc = jsonObj[x].epc;
+	
+									if (jsonObj[x].epcstate == 1) {
+										epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
+										epc_item.status = -1;
+										epc_item.id = null;
+										sku.set('status', -1);
+									} else {
+										epc_item.status = 0;
+										epc_item.rssi = 1;
+									}
+
+									// ko có trong kho mới xử lý
+									if(jsonObj[x].epcstate != 1){
+										stockinpackinglist.push(epc_item);
+										sku.set('stockin_packinglist', stockinpackinglist)
+									}
+								}
 							}
 						}
 					}
 					//Lấy thông tin sku từ server để hiện lên grid
-					console.log(stockin);
+					// console.log(stockin);
 					me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
@@ -354,19 +449,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 							var sku = resp.data[i];
 							var record = store.findRecord('skucode', sku.code);
 
-							record.set('skuname', sku.name);
-							record.set('skuid_link', sku.id);
-							record.set('sku_product_code', sku.product_code);
-							record.set('sizeid_link', sku.sizeid_link);
-							record.set('size_name', sku.size_name);
-							record.set('color_name', sku.color_name);
-							record.set('colorid_link', sku.colorid_link);
-							record.set('p_skuid_link', sku.productid_link);
-							record.set('skutypeid_link', sku.skutypeid_link);
-							record.set('unitid_link', sku.unitid_link);
-							record.set('unit_name', sku.unit_name);
-							record.set('porder_year', sku.porder_year);
-							record.set('unitprice', sku.unitprice);
+							if(record != null){
+								record.set('skuname', sku.name);
+								record.set('skuid_link', sku.id);
+								record.set('sku_product_code', sku.product_code);
+								record.set('sizeid_link', sku.sizeid_link);
+								record.set('size_name', sku.size_name);
+								record.set('color_name', sku.color_name);
+								record.set('colorid_link', sku.colorid_link);
+								record.set('p_skuid_link', sku.productid_link);
+								record.set('skutypeid_link', sku.skutypeid_link);
+								record.set('unitid_link', sku.unitid_link);
+								record.set('unit_name', sku.unit_name);
+								record.set('porder_year', sku.porder_year);
+								record.set('unitprice', sku.unitprice);
+							}
 						}
 					}
 				}
