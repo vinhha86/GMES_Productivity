@@ -4,37 +4,37 @@ Ext.define('GSmartApp.view.balance.Balance_D_Product_Skus', {
 	id: 'Balance_D_Product_Skus',
 	// controller: 'Balance_D_POrder_Controller',
 	viewModel: {
-        type: 'Balance_D_Product_Skus_ViewModel'
-    },  
+		type: 'Balance_D_Product_Skus_ViewModel'
+	},
 	columnLines: true,
 	rowLines: true,
 	border: true,
-    viewConfig: {
-        enableTextSelection: true,
-        stripeRows: false                
-    },
-    features: [
-		// {
-		// 	id: 'group',
-		// 	ftype: 'groupingsummary',
-		// 	groupHeaderTpl: '<b>{p_sku_color}</b>',
-		// 	hideGroupedHeader: false,
-		// 	enableGroupingMenu: false
-    	// },
+	viewConfig: {
+		enableTextSelection: true,
+		stripeRows: false
+	},
+	features: [
+		{
+			id: 'group',
+			ftype: 'groupingsummary',
+			groupHeaderTpl: '<b>PO-Line: {name}</b>',
+			hideGroupedHeader: false,
+			enableGroupingMenu: false
+		},
 		{
 			ftype: 'summary',
 			dock: 'bottom'
-    	}
-	], 
-	bind:'{productlist}',
+		}
+	],
+	bind: '{productlist}',
 	columns: [
 		{
-			text: 'SKU', 
+			text: 'SKU',
 			flex: 1,
 			dataIndex: 'p_sku_code'
 		},
 		{
-			text: 'Màu', 
+			text: 'Màu',
 			dataIndex: 'p_sku_color',
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -49,58 +49,58 @@ Ext.define('GSmartApp.view.balance.Balance_D_Product_Skus', {
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Số lượng', 
-			align:'right',
+			format: '0,000',
+			text: 'Số lượng',
+			align: 'right',
 			dataIndex: 'p_amount',
 			summaryType: 'sum',
-			summaryRenderer: function(value, summaryData, dataIndex) {
+			summaryRenderer: function (value, summaryData, dataIndex) {
 				if (null == value) value = 0;
-				return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+				return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
 			},
 			width: 80
 		},
 		{
 			xtype: 'numbercolumn',
 			format: '0.0000',
-			text: 'Định mức', 
-			align:'right',
+			text: 'Định mức',
+			align: 'right',
 			dataIndex: 'p_bom_amount',
 			width: 70
 		},
 		{
 			xtype: 'numbercolumn',
 			format: '0.00',
-			text: '%TH', 
-			align:'right',
+			text: '%TH',
+			align: 'right',
 			dataIndex: 'p_bom_lostratio',
 			width: 70
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Nhu cầu', 
-			align:'right',
+			format: '0,000.00',
+			text: 'Nhu cầu',
+			align: 'right',
 			dataIndex: 'p_bom_demand',
 			summaryType: 'sum',
-			summaryRenderer: function(value, summaryData, dataIndex) {
+			summaryRenderer: function (value, summaryData, dataIndex) {
 				if (null == value) value = 0;
-				return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
+				return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
 			},
 			width: 100
 		},
 	],
-    // dockedItems: [{
-    //     dock: 'bottom',
-    //     layout: 'hbox',
-    //     items: [{
-    //         xtype: 'button',
-    //         text: 'Thoát',
-    //         itemId: 'btnThoat',
-    //         iconCls: 'x-fa fa-window-close',
-    //         margin: 5
-    //     }
-    //     ]
-    // }] 
+	// dockedItems: [{
+	//     dock: 'bottom',
+	//     layout: 'hbox',
+	//     items: [{
+	//         xtype: 'button',
+	//         text: 'Thoát',
+	//         itemId: 'btnThoat',
+	//         iconCls: 'x-fa fa-window-close',
+	//         margin: 5
+	//     }
+	//     ]
+	// }] 
 });
 

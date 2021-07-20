@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
         }
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        console.log(record);
         var viewmodel = this.getViewModel();
         if (cellIndex == 9) {//Yeu cau xuat
             var porderid_link = viewmodel.get('porderid_link');
@@ -46,6 +47,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
             });
             form.show();
         } else if (cellIndex == 7) {//Nhu cau
+            console.log(record.data.product_d)
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
                 resizable: false,
@@ -65,13 +67,13 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                     viewModel: {
                         type: 'Balance_D_Product_Skus_ViewModel',
                         data: {
-                            productlist: record.data.product_d, 
+                            productlist: record.data.product_d,
                         }
                     }
                 }]
             });
             form.show();
-        } else if(cellIndex == 8){ // cột Nhập kho
+        } else if (cellIndex == 8) { // cột Nhập kho
             // bật danh sách phiếu nhập kho có chứa NPL đang chọn
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -99,7 +101,7 @@ Ext.define('GSmartApp.view.process_shipping.Balance.Balance_D_POrder_Controller'
                 }]
             });
             form.show();
-        } else if(cellIndex == 10){ // cột Xuất kho
+        } else if (cellIndex == 10) { // cột Xuất kho
             // bật danh sách phiếu xuất kho có chứa NPL đanh chọn
             var form = Ext.create('Ext.window.Window', {
                 closable: true,

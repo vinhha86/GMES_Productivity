@@ -100,16 +100,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 				return true;
 		},
 		isPOLineHidden: function (get) {
+			if(get('stockin.stockintypeid_link') == null){
+				return false;
+			}
 			if (get('stockin.stockintypeid_link') == 21)
 				return false;
 			else
 				return true;
 		},
 		isStockoutHidden: function (get) {
-			if (get('stockin.stockintypeid_link') == 22)
-				return false;
-			else
+			if(get('stockin.stockintypeid_link') == null){
 				return true;
+			}
+			if (get('stockin.stockintypeid_link') == 22){
+				return false;
+			}
+			else {
+				return true;
+			}
 		},
 		isBtnConfirmHidden: function (get) {
 			if (get('stockin.status') < -1) {

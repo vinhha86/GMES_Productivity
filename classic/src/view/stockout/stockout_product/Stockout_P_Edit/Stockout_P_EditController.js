@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var m = this;
 		var viewModel = this.getViewModel();
 		var store = viewModel.getStore('StockoutD_Store');
-		var listepc = viewModel.get('listepc');
+		// var listepc = viewModel.get('listepc');
 
 		var params = new Object();
 		params.id = id;
@@ -94,7 +94,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				if (response.respcode == 200) {
 					viewModel.set('stockout', response.data);
 					
-					viewModel.set('listepc', new Map());
+					// viewModel.set('listepc', new Map());
                     var listepc = new Map();
                     for (var i = 0; i < response.listepc.length; i++) {
 						var epc = response.listepc[i].epc.trim();
@@ -136,6 +136,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
 		viewModel.set('stockout.status',-1);
+		viewModel.set('listepc', new Map());
 
 		var isWindow = viewModel.get('isWindow');
 		if(!isWindow){
@@ -160,6 +161,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				if(!success){
 					 this.fireEvent('logout');
 				} else {
+					console.log(records);
 					if (null!=records[0].data.org_grant_id_link){
                         viewModel.set('stockout.orgid_from_link', records[0].data.org_grant_id_link)
                     }
@@ -174,12 +176,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					}
 					if(id == 22) { // xuat dieu chuyen den kho khac
 						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						OrgFromStore.loadStore(8, false);
+						var listidtypefrom = "8,4";
+						// OrgFromStore.loadStore(8, false);
+						OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
+						// OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						// OrgToStore.loadStore(8, false);
-						var listidtype = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtype);
+						var listidtypeto = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
 					}
 				}
 			}
