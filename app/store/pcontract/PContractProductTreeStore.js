@@ -25,6 +25,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductTreeStore', {
 			url: config.getAppBaseUrl()+'/api/v1/pcontractproduct/gettreeproduct',
 			paramsAsJson:true,
 			noCache: false,
+			timeout: 120000,
 			extraParams : params,
 			headers :{
 				'Accept': "application/json", 
@@ -39,7 +40,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductTreeStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					//  this.fireEvent('logout');
 				}
 			}
 		});
