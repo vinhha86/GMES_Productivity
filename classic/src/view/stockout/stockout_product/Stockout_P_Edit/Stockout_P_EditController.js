@@ -114,12 +114,16 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					}
 					if(response.data.stockouttypeid_link == 22) { // xuat dieu chuyen den px khac
 						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						OrgFromStore.loadStore(8, false);
+						// OrgFromStore.loadStore(8, false);
+						var listidtypefrom = "8,4";
+						OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
+						// OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						// OrgToStore.loadStore(8, false);
-						var listidtype = "8,4";
+						var listidtypeto = "8,4";
 						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
 					}
 
 					if(isConfirm == true){

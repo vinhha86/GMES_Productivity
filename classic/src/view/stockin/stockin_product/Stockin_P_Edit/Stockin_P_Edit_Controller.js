@@ -156,11 +156,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     }
                     if (response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        OrgFromStore.loadStore(8, false);
+                        // OrgFromStore.loadStore(8, false);
+                        var listidtypefrom = "8,4";
+                        OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
                         var OrgToStore = viewModel.getStore('OrgToStore');
-						var listidtype = "8,4";
+						var listidtypeto = "8,4";
 						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtype);
+						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
                     }
 
                     // set gia tri sl nhap mac dinh = sl yeu cau
