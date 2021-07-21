@@ -41,7 +41,7 @@ Ext.define('GSmartApp.store.market.MarketStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					//  this.fireEvent('logout');
 				}
 			}
 		});
