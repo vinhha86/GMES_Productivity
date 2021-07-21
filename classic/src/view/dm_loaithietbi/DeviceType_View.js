@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Mã thiết bị',
+        text: 'Mã loại thiết bị',
         dataIndex: 'code',
         flex: 1,
         items: {
@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
           
             },
     }, {
-        text: 'Tên thiết bị',
+        text: 'Tên loại thiết bị',
         dataIndex: 'name',
         flex: 1,
         items: {
@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
           
             width: 250,
             allowBlank: true,
-            emptyText: 'Mã thiết bị',
+            emptyText: 'Mã loại thiết bị',
             bind:{
                 value:'{device.code}'
             }
@@ -107,7 +107,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
             margin: 5,
             width: 250,
             allowBlank: false,
-            emptyText: 'Tên thiết bị',
+            emptyText: 'Tên loại thiết bị',
             bind:{
                 value:'{device.name}'
             }
