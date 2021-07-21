@@ -9,18 +9,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderSKU', {
         columnLines: true,
         rowLines: true
     },
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onEdit'
-    //         }
-    //     }
-    // },
-    // selModel: {
-    //     selType: 'checkboxmodel',
-    //     mode: 'MULTI'
-    // },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     features: [
         // {
         //     ftype: 'grouping',
