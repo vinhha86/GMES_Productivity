@@ -56,22 +56,35 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     }
                 },
                 {
-                    xtype: 'combo',
                     margin: '0 5 0 5',
-                    reference: 'stockout_usercreateid_link',
+                    xtype: 'textfield',
+                    bind: {
+                        value: '{stockout.usercreate_name}'
+                    },
+                    fieldLabel: 'Người xuất',
+                    editable: false,
+                    readOnly: true,
+                    cls: 'notEditable',
                     flex: 1,
                     labelWidth: 85,
-                    valueField: 'id',
-			        displayField: 'fullName',
-                    fieldLabel: 'Người xuất:',
-                    readOnly: true,
-                    editable: false,
-                    cls: 'notEditable',	
-                    bind: {
-                        value: '{stockout.usercreateid_link}',
-                        store: '{UserStore}'
-                    },
-                }
+                },
+                // {
+                //     xtype: 'combo',
+                //     margin: '0 5 0 5',
+                //     reference: 'stockout_usercreateid_link',
+                //     flex: 1,
+                //     labelWidth: 85,
+                //     valueField: 'id',
+			    //     displayField: 'fullName',
+                //     fieldLabel: 'Người xuất:',
+                //     readOnly: true,
+                //     editable: false,
+                //     cls: 'notEditable',	
+                //     bind: {
+                //         value: '{stockout.usercreateid_link}',
+                //         store: '{UserStore}'
+                //     },
+                // }
             ]
         },
         {

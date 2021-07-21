@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		form.show();
 
 		form.getController().on('product_sku_selected', function (select) {
-			console.log(select);
+			// console.log(select);
 			me.onAdd_Stockin_D(select);
 			form.close();
 		});
@@ -231,6 +231,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 								// console.log(sku);
 								//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 								if (!sku) {
+									// console.log(jsonObj[x].skucode);
+									// console.log(jsonObj[x].epc);
 									//chưa có thì thêm vào listcode để lấy thông tin từ server
 									// listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
 									listcode.push(jsonObj[x].skucode);
@@ -243,7 +245,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										orgrootid_link: session.rootorgid_link,
 										skucode: jsonObj[x].skucode,
 										lastuserupdateid_link: session.id,
-										timecreate: new Date()
+										timecreate: new Date(),
+										stockin_packinglist: []
 									});
 	
 									//Tại Object để lưu thông tin stockin_packinglist
@@ -260,9 +263,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 									}
 									
 									// ko có trong kho mới xử lý
-									console.log(jsonObj[x].epcstate);
-									if(jsonObj[x].epcstate != 1){
-										console.log('jsonObj[x].epcstate != 1');
+									// if(jsonObj[x].epcstate != 1){
 										epc_item.orgrootid_link = session.rootorgid_link;
 										epc_item.lastuserupdateid_link = session.id;
 										epc_item.timecreate = new Date();
@@ -277,7 +278,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		
 										//Thêm stockind vào grid
 										store.insert(0, stockind);
-									}
+									// }
 								}
 								else {
 									// console.log(sku);
@@ -296,16 +297,15 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										sku.set('status', -1);
 									} else {
 										epc_item.status = 0;
-										epc_item.rssi = 1;
 									}
+									epc_item.orgrootid_link = session.rootorgid_link;
+									epc_item.lastuserupdateid_link = session.id;
+									epc_item.timecreate = new Date();
+									epc_item.encryptdatetime = new Date();
+									epc_item.rssi = 1;
 
-									console.log(jsonObj[x].epcstate);
-									// ko có trong kho mới xử lý
-									if(jsonObj[x].epcstate != 1){
-										console.log('jsonObj[x].epcstate != 1');
-										stockinpackinglist.push(epc_item);
-										sku.set('stockin_packinglist', stockinpackinglist)
-									}
+									stockinpackinglist.push(epc_item);
+									sku.set('stockin_packinglist', stockinpackinglist)
 								}
 							}
 						}else if(slYeuCau > 0){
@@ -329,7 +329,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										orgrootid_link: session.rootorgid_link,
 										skucode: jsonObj[x].skucode,
 										lastuserupdateid_link: session.id,
-										timecreate: new Date()
+										timecreate: new Date(),
+										stockin_packinglist: []
 									});
 	
 									//Tại Object để lưu thông tin stockin_packinglist
@@ -346,35 +347,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										stockind.status = 0;
 									}
 									
-									// ko có trong kho mới xử lý
-									console.log('here');
-									if(jsonObj[x].epcstate != 1){ console.log('here');
-										epc_item.orgrootid_link = session.rootorgid_link;
-										epc_item.lastuserupdateid_link = session.id;
-										epc_item.timecreate = new Date();
-										epc_item.encryptdatetime = new Date();
-										epc_item.rssi = 1;
-		
-										stockind.stockin_packinglist.push(epc_item);
-		
-										//Cập nhật lại stockin trong viewModel
-										stockin.stockin_d.push(stockind);
-										viewModel.set('stockin', stockin);
-		
-										//Thêm stockind vào grid
-										store.insert(0, stockind);
-									}
+									epc_item.orgrootid_link = session.rootorgid_link;
+									epc_item.lastuserupdateid_link = session.id;
+									epc_item.timecreate = new Date();
+									epc_item.encryptdatetime = new Date();
+									epc_item.rssi = 1;
+	
+									stockind.stockin_packinglist.push(epc_item);
+	
+									//Cập nhật lại stockin trong viewModel
+									stockin.stockin_d.push(stockind);
+									viewModel.set('stockin', stockin);
+	
+									//Thêm stockind vào grid
+									store.insert(0, stockind);
 								}
 								else {
 									// console.log(sku);
 									//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
 									var stockinpackinglist = sku.get('stockin_packinglist');
 	
-									sku.set('totalpackagecheck', sku.get('totalpackagecheck') + 1);
-	
 									var epc_item = new Object({ id: null });
 									epc_item.epc = jsonObj[x].epc;
 	
+									// console.log(sku);
 									if (jsonObj[x].epcstate == 1) {
 										epc_item.extrainfo = 'Chíp đã có trong kho!!! Không thể nhập';
 										epc_item.status = -1;
@@ -382,33 +378,34 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										sku.set('status', -1);
 									} else {
 										epc_item.status = 0;
-										epc_item.rssi = 1;
 									}
 
+									// console.log(sku);
 									// ko có trong kho mới xử lý
-									console.log('here');
-									if(jsonObj[x].epcstate != 1){ console.log('here');
-										epc_item.orgrootid_link = session.rootorgid_link;
-										epc_item.lastuserupdateid_link = session.id;
-										epc_item.timecreate = new Date();
-										epc_item.encryptdatetime = new Date();
-										epc_item.rssi = 1;
-		
-										stockind.stockin_packinglist.push(epc_item);
-		
-										//Cập nhật lại stockin trong viewModel
-										stockin.stockin_d.push(stockind);
-										viewModel.set('stockin', stockin);
-		
-										//Thêm stockind vào grid
-										store.insert(0, stockind);
-									}
+									epc_item.orgrootid_link = session.rootorgid_link;
+									epc_item.lastuserupdateid_link = session.id;
+									epc_item.timecreate = new Date();
+									epc_item.encryptdatetime = new Date();
+									epc_item.rssi = 1;
+	
+									stockinpackinglist.push(epc_item);
+									sku.set('stockin_packinglist', stockinpackinglist);
+									var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
+									sku.set('totalpackagecheck', totalpackagecheck + 1);
+	
+									// //Cập nhật lại stockin trong viewModel
+									// stockin.stockin_d.push(stockind);
+									// viewModel.set('stockin', stockin);
+	
+									// //Thêm stockind vào grid
+									// store.insert(0, stockind);
+									// console.log(sku);
 								}
 							}
 						}
 					}
 					//Lấy thông tin sku từ server để hiện lên grid
-					console.log(stockin);
+					// console.log(stockin);
 					me.UpdateInfoSKU(listcode, store);
 				}
 			}, function () {
@@ -490,7 +487,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 			})
 	},
 	onEPCDetail: function (grid, rowIndex, colIndex) {
-		var record = grid.store.getAt(rowIndex); console.log(record);
+		var record = grid.store.getAt(rowIndex); 
+		// console.log(record);
 		var form = Ext.create({
 			xtype: 'stockin_epc_window',
 			reference: 'stockin_epc_window'
@@ -566,7 +564,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		return false;
 	},
 	addSkuToDList: function (data) {
-		console.log(data);
+		// console.log(data);
 		var me = this;
 		var m = this.getView();
 		var viewModel = this.getViewModel();
@@ -741,7 +739,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 	},
 
 	onDItemEdit: function (editor, context, eOpts) {
-		console.log(context);
+		// console.log(context);
 		var m = this;
 		var me = this.getView();
 		var viewModel = this.getViewModel();

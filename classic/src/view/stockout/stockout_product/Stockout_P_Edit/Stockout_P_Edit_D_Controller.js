@@ -152,7 +152,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		})
 	},
 	onAdd_Stockout_D: function (select) {
-		console.log(select);
+		// console.log(select);
 		var m = this;
 		var me = this.getView();
 		var viewModel = this.getViewModel();
@@ -214,7 +214,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		}
 	},
 	setSlNhap: function () {
-		console.log('here');
+		// console.log('here');
 		// set gia tri sl nhap mac dinh = sl yeu cau
 		var m = this;
 		var viewModel = this.getViewModel();
@@ -439,7 +439,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		return false;
 	},
 	addSkuToDList: function (data) {
-		console.log(data);
+		// console.log(data);
 		var me = this;
 		var m = this.getView();
 		var viewModel = this.getViewModel();
@@ -743,8 +743,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								//Tạo Object để lưu thông tin stockout_packinglist
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
-								console.log(jsonObj[x].epc);
-								console.log(jsonObj[x].epcstate);
+								// console.log(jsonObj[x].epc);
+								// console.log(jsonObj[x].epcstate);
 								if (jsonObj[x].epcstate == 0) {
 									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
 									epc_item.status = -1;

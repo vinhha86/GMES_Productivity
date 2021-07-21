@@ -31,8 +31,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         getRowClass: function(record, index) {
             var c = record.get('status');
             var totalpackage = record.get('totalpackage');
+            var totalpackagecheck = record.get('totalpackagecheck');
             if(totalpackage == null) totalpackage = 0;
-            if (c == -1 && totalpackage != 0) {
+            if(totalpackagecheck == null) totalpackagecheck = 0;
+            if (totalpackagecheck != totalpackage && totalpackage != 0) {
                 return 'epc-error';
             }
             else {

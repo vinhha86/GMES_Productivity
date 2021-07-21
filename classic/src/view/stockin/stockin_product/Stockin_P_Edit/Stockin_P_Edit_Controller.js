@@ -70,13 +70,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         ////
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         // OrgFromStore.loadStore(8, false);
-                        var listidtypefrom = "8,9";
+                        var listidtypefrom = "4,8,9";
                         OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
                         var OrgToStore = viewModel.getStore('OrgToStore');
                         // OrgToStore.loadStore(8, false);
 						var listidtypeto = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+						OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+						// OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+                        console.log('here');
                     }
                     if (id == 21) { // Nhap tu san xuat
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
@@ -90,13 +91,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     }
                     if (id == 22) { // Nhap dieu chuyen
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        OrgFromStore.loadStore(8, false);
+						var listidtypefrom = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtypefrom);
+						OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
 
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        // OrgToStore.loadStore(8, false);
-						var listidtype = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtype);
+						var listidtypeto = "8,4";
+						OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+						// OrgToStore.loadStoreByOrgTypeString(listidtypeto);
                     }
                 }
             }
@@ -146,8 +148,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         OrgFromStore.loadStore(9, false);
                         var OrgToStore = viewModel.getStore('OrgToStore');
 						var listidtype = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtype);
+						OrgToStore.loadStore_allchildren_byorg(listidtype);
+						// OrgToStore.loadStoreByOrgTypeString(listidtype);
 
                         var POrder_ListStore = viewModel.getStore('POrder_ListStore');
                         POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
@@ -156,13 +158,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     }
                     if (response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        // OrgFromStore.loadStore(8, false);
                         var listidtypefrom = "8,4";
+						// OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
                         OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
                         var OrgToStore = viewModel.getStore('OrgToStore');
 						var listidtypeto = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+						OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+						// OrgToStore.loadStoreByOrgTypeString(listidtypeto);
                     }
 
                     // set gia tri sl nhap mac dinh = sl yeu cau
@@ -265,9 +267,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                                     }
                                 });
                             }
+
+                            var StockinD_Store = viewModel.get('StockinD_Store');
+                            StockinD_Store.commitChanges();
+
                             me.redirectTo("stockin_p_main/" + response.id + "/edit");
-                            me.getInfo(response.id, isConfirm);
-                            // this.redirectTo("stockin_p_main/" + response.id + "/edit");s
+                            // me.getInfo(response.id, isConfirm);
+                            // this.redirectTo("stockin_p_main/" + response.id + "/edit");
                         }
                     } else {
                         var response = Ext.decode(response.responseText);
@@ -294,7 +300,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         }
     },
     onBtnConfirm: function () {
-        this.onSave(true);
+        // this.onSave(true);
+        this.onConfirm();
     },
     onConfirm: function () {
         var viewModel = this.getViewModel();

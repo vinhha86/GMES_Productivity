@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			editable: false,
 			readOnly: true,
 			cls: 'notEditable',	
-			allowBlank: false,
+			// allowBlank: false,
 			blankText: 'Không được để trống',
 			labelWidth: 95,
 			width: 370
@@ -69,24 +69,39 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			fieldLabel: "Ngày nhập",
 			width: 200,
             labelWidth: 70
-		}, {
-			xtype: 'combo',
-			valueField: 'id',
-			displayField: 'fullName',
-			bind: {
-				value: '{stockin.usercreateid_link}',
-				store: '{UserStore}'
-			},
-			queryMode: 'local',
-			anyMatch: true,
+		}, 
+		{
 			margin: '0 5 0 5',
+			xtype: 'textfield',
+			bind: {
+				value: '{stockin.usercreate_name}'
+			},
+			fieldLabel: 'Người lập',
 			editable: false,
 			readOnly: true,
 			cls: 'notEditable',
 			flex: 1,
-            labelWidth: 85,
-			fieldLabel: 'Người lập'
-		}]
+			labelWidth: 85,
+		},
+		// {
+		// 	xtype: 'combo',
+		// 	valueField: 'id',
+		// 	displayField: 'fullName',
+		// 	bind: {
+		// 		value: '{stockin.usercreateid_link}',
+		// 		store: '{UserStore}'
+		// 	},
+		// 	queryMode: 'local',
+		// 	anyMatch: true,
+		// 	margin: '0 5 0 5',
+		// 	editable: false,
+		// 	readOnly: true,
+		// 	cls: 'notEditable',
+		// 	flex: 1,
+        //     labelWidth: 85,
+		// 	fieldLabel: 'Người lập'
+		// }
+		]
 	}, {
 		layout: 'hbox',
 		xtype: 'container',
@@ -119,24 +134,39 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			width: 445,
 			labelWidth: 85,
 			fieldLabel: 'Nơi nhập',
-		},{
-			xtype: 'combo',
-			valueField: 'id',
-			displayField: 'fullName',
-			bind: {
-				value: '{stockin.approverid_link}',
-				store: '{UserStore}'
-			},
-			queryMode: 'local',
-			anyMatch: true,
+		},
+		{
 			margin: '0 5 0 5',
+			xtype: 'textfield',
+			bind: {
+				value: '{stockin.userApprove_name}'
+			},
+			fieldLabel: 'Người duyệt',
 			editable: false,
 			readOnly: true,
 			cls: 'notEditable',
 			flex: 1,
-            labelWidth: 85,
-			fieldLabel: 'Người duyệt'
-		}]
+			labelWidth: 85,
+		},
+		// {
+		// 	xtype: 'combo',
+		// 	valueField: 'id',
+		// 	displayField: 'fullName',
+		// 	bind: {
+		// 		value: '{stockin.approverid_link}',
+		// 		store: '{UserStore}'
+		// 	},
+		// 	queryMode: 'local',
+		// 	anyMatch: true,
+		// 	margin: '0 5 0 5',
+		// 	editable: false,
+		// 	readOnly: true,
+		// 	cls: 'notEditable',
+		// 	flex: 1,
+        //     labelWidth: 85,
+		// 	fieldLabel: 'Người duyệt'
+		// }
+		]
 	}, {
 		layout: 'hbox',
 		xtype: 'container',
