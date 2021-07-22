@@ -30,6 +30,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         stripeRows: false,
         getRowClass: function(record, index) {
             var c = record.get('status');
+            //
+            var isPklistNotInStore = record.get('isPklistNotInStore');
+            if(isPklistNotInStore == null) isPklistNotInStore = false;
+            if(isPklistNotInStore == true){
+                return 'epc-notinstock';
+            }
+            //
             var totalpackage = record.get('totalpackage');
             var totalpackagecheck = record.get('totalpackagecheck');
             if(totalpackage == null) totalpackage = 0;

@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
     extend: 'Ext.window.Window',
     xtype: 'Stockout_EPC_Window',
+    cls: 'Stockout_EPC_Window',
     requires: [
         'Ext.grid.Panel'
     ],
@@ -20,13 +21,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
             viewConfig: {
                 enableTextSelection: true,
                 stripeRows: false,
-                getRowClass: function(record, index) {
-                    var c = record.get('status');
-                    if (c == -1)
-                        return "epc-error";
-                    else 
-                        return "epc-ok";
-                }                
+                // getRowClass: function(record, index) {
+                //     var c = record.get('status');
+                //     if (c == -2)
+                //         return "epc-notinstock";
+                //     else if (c == -1)
+                //         return "epc-error";
+                //     else 
+                //         return "epc-ok";
+                // }                
             },
             
             columns: [
@@ -36,7 +39,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
                     xtype: 'rownumberer',
                     align: 'center'
                 },
-                { header: 'Mã chíp', dataIndex: 'epc', width: 210},
+                { header: 'Mã chíp', dataIndex: 'epc', width: 210, 
+                    renderer: function (value, metaData, record){
+                        var c = record.get('status');
+                        if (c == -2)
+                            metaData.tdCls =  "epc-notinstock";
+                        else if (c == -1)
+                            metaData.tdCls =  "epc-error";
+                        else 
+                            metaData.tdCls =  "epc-ok";
+                        return value;
+                    }
+                },
                 // { header: 'Trạng thái', dataIndex: 'status', width: 100},
                 { header: 'Ghi chú', dataIndex: 'extrainfo', flex: 1}
             ]

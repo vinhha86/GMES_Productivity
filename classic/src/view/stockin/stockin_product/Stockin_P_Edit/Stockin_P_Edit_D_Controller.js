@@ -126,21 +126,37 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		var viewModel = this.getViewModel();
 		var store = viewModel.getStore('StockinD_Store');
 		var stockin = viewModel.get('stockin');
+		var id = viewModel.get('stockin.id');
 
-		if (stockin.status == -1 || stockin.status == 0) { // 
-			var stockin_d = viewModel.get('stockin.stockin_d');
-			if (stockin_d == null) stockin_d = [];
-			for (var i = 0; i < stockin_d.length; i++) {
-				stockin_d[i].totalpackagecheck = 0;
-				stockin_d[i].stockin_packinglist = [];
+		if (stockin.status == -1 || stockin.status == 0) {
+			if(id == 0 || id == null){
+				var stockin_d = viewModel.get('stockin.stockin_d');
+				if (stockin_d == null) stockin_d = [];
+				for (var i = 0; i < stockin_d.length; i++) {
+					stockin_d[i].totalpackagecheck = 0;
+					stockin_d[i].stockin_packinglist = [];
+				}
+				viewModel.set('stockin.stockin_d', stockin_d);
+				// viewModel.set('stockin', response.data);
+				store.setData(stockin_d);
+				store.commitChanges();
+			}else{
+				var stockin = viewModel.get('stockin');
+				var stockoutid_link = viewModel.get('stockin.stockoutid_link');
+				if(stockoutid_link != null && stockoutid_link != 0){
+					// phiếu nhập sinh ra từ duyệt phiếu xuất
+					var stockin_d = viewModel.get('stockin.stockin_d');
+					if (stockin_d == null) stockin_d = [];
+					for (var i = 0; i < stockin_d.length; i++) {
+						stockin_d[i].totalpackagecheck = 0;
+						stockin_d[i].stockin_packinglist = [];
+					}
+					viewModel.set('stockin.stockin_d', stockin_d);
+					// viewModel.set('stockin', response.data);
+					store.setData(stockin_d);
+					store.commitChanges();
+				}
 			}
-			viewModel.set('stockin.stockin_d', stockin_d);
-			// viewModel.set('stockin', response.data);
-			store.setData(stockin_d);
-			store.commitChanges();
-
-			// // set listepc == new Map() 
-			// viewModel.set('listepc', new Map() );
 		}
 		// console.log(stockin);
 	},
@@ -218,7 +234,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 					}
 				} else if (topic.includes("transaction")) {
 					var jsonObj = Ext.JSON.decode(message);
-					// console.log(jsonObj);
 					for (var x in jsonObj) {
 						// tổng sl yêu cầu của stockin theo các stockin_d
 						var slYeuCau = viewModel.get('stockin.slYeuCau');
@@ -228,11 +243,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 							if (!listepc.has(jsonObj[x].epc)) {
 								listepc.set(jsonObj[x].epc, jsonObj[x].epc);
 								var sku = store.findRecord('skucode', jsonObj[x].skucode);
-								// console.log(sku);
 								//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 								if (!sku) {
-									// console.log(jsonObj[x].skucode);
-									// console.log(jsonObj[x].epc);
 									//chưa có thì thêm vào listcode để lấy thông tin từ server
 									// listcode.set(jsonObj[x].skucode, jsonObj[x].skucode);
 									listcode.push(jsonObj[x].skucode);
@@ -262,26 +274,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										stockind.status = 0;
 									}
 									
-									// ko có trong kho mới xử lý
-									// if(jsonObj[x].epcstate != 1){
-										epc_item.orgrootid_link = session.rootorgid_link;
-										epc_item.lastuserupdateid_link = session.id;
-										epc_item.timecreate = new Date();
-										epc_item.encryptdatetime = new Date();
-										epc_item.rssi = 1;
-		
-										stockind.stockin_packinglist.push(epc_item);
-		
-										//Cập nhật lại stockin trong viewModel
-										stockin.stockin_d.push(stockind);
-										viewModel.set('stockin', stockin);
-		
-										//Thêm stockind vào grid
-										store.insert(0, stockind);
-									// }
+									epc_item.orgrootid_link = session.rootorgid_link;
+									epc_item.lastuserupdateid_link = session.id;
+									epc_item.timecreate = new Date();
+									epc_item.encryptdatetime = new Date();
+									epc_item.rssi = 1;
+									stockind.stockin_packinglist.push(epc_item);
+	
+									//Cập nhật lại stockin trong viewModel
+									stockin.stockin_d.push(stockind);
+									viewModel.set('stockin', stockin);
+	
+									//Thêm stockind vào grid
+									store.insert(0, stockind);
 								}
 								else {
-									// console.log(sku);
 									//Bản ghi đã tồn tại trong grid thì lấy ds packinglist ra để so sánh xem epc đã tồn tại trong packinglist hay chưa
 									var stockinpackinglist = sku.get('stockin_packinglist');
 	
@@ -314,7 +321,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 							if (listepc.has(jsonObj[x].epc)) {
 								listepc.set(jsonObj[x].epc, jsonObj[x].epc);
 								var sku = store.findRecord('skucode', jsonObj[x].skucode);
-								// console.log(sku);
 								//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 								if (!sku) {
 									//chưa có thì thêm vào listcode để lấy thông tin từ server

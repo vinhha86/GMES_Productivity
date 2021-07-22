@@ -20,6 +20,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		'#btnTimStockout': {
 			click: 'onTimStockout'
 		},
+		'#comboTypeStockin': {
+			select: 'onSelect_comboTypeStockin'
+		},
 		// '#cbo_POrder_ListStore': {
 		// 	select: 'on_cbo_POrder_ListStore_select'
 		// },
@@ -27,6 +30,27 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		// 	select: 'on_cbo_POrder_ListGrantStore_select'
 		// }
     },
+	onSelect_comboTypeStockin: function(cbbox, newValue, oldValue, eOpts){
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
+		var OrgFromStore = viewModel.getStore('OrgFromStore');
+		var id = newValue.get('id');
+
+		viewModel.set('stockin.orgid_from_link', null);
+		if(id == 21){
+			// từ sản xuất
+            OrgFromStore.loadStore(9, false);
+		}else if(id == 22){
+			// điều chuyển
+			var listidtypefrom = "8,4";
+			// OrgToStore.loadStore_allchildren_byorg(listidtypefrom);
+			OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+		}else{
+			// còn lại
+			var listidtypefrom = "4,8,9";
+			OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+		}
+	},
 	onEnterLinegiaohang: function (field, e) {
 		var me = this;
 		if (e.getKey() == e.ENTER) {

@@ -345,6 +345,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		this.onConfirm();
     },
 	onConfirm: function(){
+		var m = this;
         var viewModel = this.getViewModel();
         var stockout = viewModel.get('stockout');
         var stockoutId = stockout.id;
@@ -371,9 +372,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		form.down('#Authen_Confirm').getController().on('AuthenOK', function (approver_userid_link) {
             form.close();
 
-			console.log(approver_userid_link);
+			// console.log(approver_userid_link);
 
 			var params = new Object();
+			params.stockout = stockout;
 			params.stockoutId = stockoutId;
 			params.approver_userid_link = approver_userid_link;
 			params.isAutoChecked = true; 
@@ -390,16 +392,32 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						var response = Ext.decode(response.responseText);
 						// console.log(response);
 						if (response.respcode == 200) {
-							Ext.Msg.show({
-								title: 'Thông báo',
-								msg: 'Duyệt thành công',
-								buttons: Ext.MessageBox.YES,
-								buttonText: {
-									yes: 'Đóng',
-								}
-							});
+							if(response.message == 'EPC không có trong kho'){
+								Ext.Msg.show({
+									title: 'Thông báo',
+									msg: response.message,
+									buttons: Ext.MessageBox.YES,
+									buttonText: {
+										yes: 'Đóng',
+									},
+								});
 
-							viewModel.set('stockout', response.data);
+								var data = response.data;
+								m.setConfirmReturnData(data); // set thong tin tra ve cho grid
+							}else{
+								Ext.Msg.show({
+									title: 'Thông báo',
+									msg: 'Duyệt thành công',
+									buttons: Ext.MessageBox.YES,
+									buttonText: {
+										yes: 'Đóng',
+									}
+								});
+	
+								var data = response.data;
+								viewModel.set('stockout', data);
+                                m.getApproverName(data.approverid_link);
+							}
 							
 							// m.onThoat();
 						}
@@ -427,6 +445,42 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				})
         })
     },
+	setConfirmReturnData: function(data){
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d'); // data giao dien
+		var new_stockout_d = data.stockout_d; // data tra ve
+
+		// console.log(stockout_d);
+		// console.log(new_stockout_d);
+
+		for(var i = 0; i < stockout_d.length; i++){
+			for(var j = 0; j < new_stockout_d.length; j++){
+				var stockout_d_obj = stockout_d[i];
+				var new_stockout_d_obj = new_stockout_d[j];
+				if(stockout_d_obj.id == new_stockout_d_obj.id){
+					stockout_d_obj.isPklistNotInStore = new_stockout_d_obj.isPklistNotInStore;
+					var stockout_packinglist = stockout_d_obj.stockout_packinglist;
+					var new_stockout_packinglist = new_stockout_d_obj.stockout_packinglist;
+					for(var k = 0; k < stockout_packinglist.length; k++){
+						for(var l = 0; l < new_stockout_packinglist.length; l++){
+							if(stockout_packinglist[k].id == new_stockout_packinglist[l].id){
+								stockout_packinglist[k].status = new_stockout_packinglist[l].status;
+							}
+						}
+					}
+				}
+			}
+		}
+		viewModel.set('stockout', stockout);
+
+		var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+		StockoutD_Store.removeAll();
+		StockoutD_Store.insert(0, stockout_d);
+		StockoutD_Store.commitChanges();
+		// console.log(stockout);
+		// console.log(stockout_d);
+	},
 
 	onBtnThoatWindow: function (){
 		var m = this;
@@ -479,4 +533,30 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		}
 		// m.fireEvent('Luu');
 	},
+
+	getApproverName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('stockout_p_edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+						// console.log(stockout);
+                        stockout.userApprove_name = response.data.fullName;
+                        viewModel.set('stockout', stockout);
+                    }
+                }
+            })
+    }
 });

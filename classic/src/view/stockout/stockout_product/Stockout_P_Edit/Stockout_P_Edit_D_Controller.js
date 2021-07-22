@@ -713,16 +713,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					// console.log(jsonObj);
 					for (var x in jsonObj) {
 						var jsonObj_epc = jsonObj[x].epc.trim();
-						// console.log(listepc);
-						// console.log(jsonObj_epc);
 						if (!listepc.has(jsonObj_epc)) {
-							// console.log(123);
 							listepc.set(jsonObj_epc, jsonObj_epc);
 							var sku = store.findRecord('skucode', jsonObj[x].skucode);
-							// console.log(sku);
 							//Nếu chưa có bản ghi nào chứa skucode trả về thì insert vào grid
 							if (!sku) {
-								// console.log('no sku');
 								//chưa có thì thêm vào listcode để lấy thông tin từ server
 								// console.log(jsonObj[x]);
 								// console.log(jsonObj[x].skucode);
@@ -743,8 +738,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								//Tạo Object để lưu thông tin stockout_packinglist
 								var epc_item = new Object({ id: null });
 								epc_item.epc = jsonObj[x].epc;
-								// console.log(jsonObj[x].epc);
-								// console.log(jsonObj[x].epcstate);
 								if (jsonObj[x].epcstate == 0) {
 									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
 									epc_item.status = -1;
@@ -760,16 +753,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								epc_item.rssi = 1;
 
 								stockoutd.stockout_packinglist.push(epc_item);
-								// console.log(stockout);
 
 								//Cập nhật lại stockout trong viewModel
 								stockout.stockout_d.push(stockoutd);
-								// console.log(stockout);
 								viewModel.set('stockout', stockout);
 
 								//Thêm stockout_d vào grid
 								store.insert(0, stockoutd);
-								// console.log(stockout);
 							}
 							else {
 								// console.log(sku);
@@ -783,7 +773,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 									epc_item.extrainfo = 'Chíp không có trong kho!!! Không thể xuất';
 									epc_item.status = -1;
 									sku.set('status', -1);
-									// console.log(stockout);
 								} else {
 									epc_item.status = 0;
 									
@@ -794,22 +783,18 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 								epc_item.encryptdatetime = new Date();
 								epc_item.rssi = 1;
 								stockout_packinglist.push(epc_item);
-								// console.log(stockout_packinglist);
-
-								// sku.stockout_packinglist.push(stockout_packinglist);
+								
 								sku.set('stockout_packinglist', stockout_packinglist);
 								var totalpackagecheck = sku.get('totalpackagecheck') == null ? 0 : sku.get('totalpackagecheck');
-								// console.log(totalpackagecheck);
 								sku.set('totalpackagecheck', totalpackagecheck + 1);
 							}
 						}else {
 						// console.log('listepc.has(jsonObj_epc)');
 						// console.log(listepc);
+						}
 					}
-			}
 					//Lấy thông tin từ server
-					// console.log(stockout);
-			me.UpdateInfoSKU(listcode, store);
+					me.UpdateInfoSKU(listcode, store);
 		}
 	}, function() {
 		me.sendChannel = 'gsm5/device/' + device.data.code + '/cmd';

@@ -304,6 +304,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         this.onConfirm();
     },
     onConfirm: function () {
+        var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockinId = stockin.id;
@@ -332,6 +333,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
             // console.log(approver_userid_link);
 
             var params = new Object();
+            params.stockin = stockin;
             params.stockinId = stockinId;
             params.approver_userid_link = approver_userid_link;
 
@@ -345,15 +347,31 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     if (success) {
                         // console.log(response);
                         if (response.respcode == 200) {
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Duyệt thành công',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                            viewModel.set('stockin', response.data);
+                            if(response.message == 'EPC đã có trong kho'){
+                                Ext.Msg.show({
+									title: 'Thông báo',
+									msg: response.message,
+									buttons: Ext.MessageBox.YES,
+									buttonText: {
+										yes: 'Đóng',
+									},
+								});
+
+								var data = response.data;
+								m.setConfirmReturnData(data); // set thong tin tra ve cho grid
+                            }else{
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: 'Duyệt thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                                var data = response.data;
+                                viewModel.set('stockin', data);
+                                m.getApproverName(data.approverid_link);
+                            }
                             // m.onThoat();
                         }
                         else {
@@ -379,5 +397,65 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     }
                 })
         })
+    },
+    setConfirmReturnData: function(data){
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
+		var stockin_d = viewModel.get('stockin.stockin_d'); // data giao dien
+		var new_stockin_d = data.stockin_d; // data tra ve
+
+		// console.log(stockin_d);f
+
+		for(var i = 0; i < stockin_d.length; i++){
+			for(var j = 0; j < new_stockin_d.length; j++){
+				var stockin_d_obj = stockin_d[i];
+				var new_stockin_d_obj = new_stockin_d[j];
+				if(stockin_d_obj.id == new_stockin_d_obj.id){
+					stockin_d_obj.isPklistInStore = new_stockin_d_obj.isPklistInStore;
+					var stockin_packinglist = stockin_d_obj.stockin_packinglist;
+					var new_stockin_packinglist = new_stockin_d_obj.stockin_packinglist;
+					for(var k = 0; k < stockin_packinglist.length; k++){
+						for(var l = 0; l < new_stockin_packinglist.length; l++){
+							if(stockin_packinglist[k].id == new_stockin_packinglist[l].id){
+								stockin_packinglist[k].status = new_stockin_packinglist[l].status;
+							}
+						}
+					}
+				}
+			}
+		}
+		viewModel.set('stockin', stockin);
+
+		var StockinD_Store = viewModel.getStore('StockinD_Store');
+		StockinD_Store.removeAll();
+		StockinD_Store.insert(0, stockin_d);
+		StockinD_Store.commitChanges();
+		// console.log(stockout);
+		// console.log(stockout_d);
+	},
+    getApproverName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('Stockin_P_Edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        // console.log(stockin);
+                        stockin.userApprove_name = response.data.fullName;
+                        viewModel.set('stockin', stockin);
+                    }
+                }
+            })
     }
 })
