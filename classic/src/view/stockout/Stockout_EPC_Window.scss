@@ -1,8 +1,15 @@
-.epc-ok {
-    background-color: white;
-    color:black;
-}
-.epc-error {
-    background-color: yellow;
-    color:red;
+
+.Stockout_EPC_Window{
+    .epc-ok {
+        background-color: white;
+        color:black;
+    }
+    .epc-error {
+        background-color: yellow;
+        color:red;
+    }
+    .epc-notinstock {
+        background-color: red;
+        color:yellow;
+    }
 }
