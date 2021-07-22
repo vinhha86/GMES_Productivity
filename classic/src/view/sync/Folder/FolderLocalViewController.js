@@ -59,6 +59,9 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
         }
     },
     onUpload: function () {
+        var me = this;
+        var grid = this.getView();
+
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('FolderTreeStore');
         if (store.data.length == 1) {
@@ -73,7 +76,45 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
         }
         else {
             var params = new Object();
+            params.srcFs = viewmodel.get('pathLocal');
+            params.desFs = viewmodel.get('pathDriver');
 
+            GSmartApp.Ajax.post_demo('sync/copyfolder_to_driver', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Cập nhật thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            },
+                            fn: function(){
+                                var storeDriver = viewmodel.getStore('FolderDriverStore');
+                                storeDriver.loadFolderDriver(viewmodel.get('pathDriver'));
+
+                                var taskid = response.data;
+                                var tab = grid.up('#FolderMainView').up('#SyncView');
+                                tab.setActiveTab(1);
+
+                                me.fireEvent('ReloadTask', taskid);
+                            }
+                        });
+                    }
+                    else{
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }
+            })
         }
     }
 })

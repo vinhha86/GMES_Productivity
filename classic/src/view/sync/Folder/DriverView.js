@@ -47,6 +47,13 @@ Ext.define('GSmartApp.view.sync.Folder.DriverView', {
             layout: 'hbox',
             items: [
                 {
+                    xtype: 'button',
+                    tooltip: 'Tải lại',
+                    iconCls: 'x-fa fa-sync',
+                    margin: 3,
+                    itemId: 'btnReload'
+                },
+                {
                     xtype: 'textfield',
                     fieldLabel: "Tên thư mục",
                     margin: 3,
@@ -55,11 +62,15 @@ Ext.define('GSmartApp.view.sync.Folder.DriverView', {
                     bind: {
                         value: '{pathDriver}'
                     }
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Thêm thư mục',
+                    iconCls: 'x-fa fa-plus',
+                    margin: 3,
+                    itemId: 'btnAddFolder'
                 }
             ]
-        },
-        {
-
         }
     ]
 });

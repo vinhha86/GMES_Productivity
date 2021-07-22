@@ -11,7 +11,8 @@ Ext.define('GSmartApp.view.sync.SyncView', {
         xtype: 'FolderMainView'
     },
     {
-        title: '[2] Mã hóa/In nhãn'
+        title: '[2] Mã hóa/In nhãn',
+        xtype: 'TaskSyncMainView'
     }
     ]
 })

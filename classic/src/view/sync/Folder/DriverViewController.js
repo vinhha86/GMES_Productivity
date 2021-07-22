@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.sync.Folder.DriverViewController', {
         'DriverView': {
             itemdblclick: 'onEntryFolder',
             select: 'onSelectFolder'
+        },
+        '#btnReload' : {
+            click: 'onReload'
         }
     },
     listen: {
@@ -19,6 +22,11 @@ Ext.define('GSmartApp.view.sync.Folder.DriverViewController', {
                 'loadFolderDriverSuccess': 'onloadFolderDriverSuccess'
             }
         }
+    },
+    onReload: function(){
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('FolderDriverStore');
+        store.loadFolderDriver(viewmodel.get('pathDriver'));
     },
     onloadFolderDriverSuccess: function (path) {
         var viewmodel = this.getViewModel();
