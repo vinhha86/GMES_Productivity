@@ -52,11 +52,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 80
     },
-    {
-        text: 'Lệnh SX',
-        dataIndex: 'ordercode',
-        width: 120
-    },
+    // {
+    //     text: 'Lệnh SX',
+    //     dataIndex: 'ordercode',
+    //     width: 120
+    // },
     {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
