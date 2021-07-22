@@ -1,10 +1,11 @@
 Ext.define('GSmartApp.store.DeviceInvStore', {
     extend: 'GSmartApp.store.DeviceStore',
     alias: 'store.DeviceInvStore',
-    load_device_active: function (device_type) {
+    load_device_active: function (org_governid_link,device_type,search,) {
         var params = new Object();
         params.type = device_type;
-
+        params.search=search;
+        params.org_governid_link=org_governid_link;
         this.setProxy({
             type: 'ajax',
             actionMethods: {
