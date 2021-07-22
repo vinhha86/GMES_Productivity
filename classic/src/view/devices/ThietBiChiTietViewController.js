@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
   btnLuuTB: function () {
     var me =this;
     var viewmodel = this.getViewModel();
+
     var params = new Object();
     var ThietBi = new Object();
     ThietBi.code = viewmodel.get('thongtin_chitiet.code');
@@ -33,7 +34,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
     ThietBi.org_governid_link = viewmodel.get('thongtin_chitiet.org_governid_link');
     ThietBi.id = viewmodel.get('thongtin_chitiet.id');
     ThietBi.status = 0;
-
+  
     //kiểm tra tên thiết bị đã tồn tại chưa nếu đúng thì được thêm 
     var kt = me.CheckValidate(ThietBi.code,ThietBi.id);
     if (kt) {
@@ -71,10 +72,13 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
             });
           }
         })
+  }else{
+      
   }
   },
   //kiểm tra mã thiết bị đã tồn tại chưa ?nếu có rồi thì trả về false
   CheckValidate: function (code, id) {
+    var viewmodel = this.getViewModel();
     var store = this.getViewModel().getStore('ds_thietbi_store');
     //
     for (var i = 0; i < store.data.length; i++) {
@@ -89,6 +93,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
             yes: 'Đóng',
           }
         });
+        viewmodel.set('thongtin_chitiet.code',viewmodel.get('code_old'))
         return false;
       }
     }

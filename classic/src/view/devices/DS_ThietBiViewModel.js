@@ -31,7 +31,8 @@ Ext.define('GSmartApp.view.devices.DS_ThietBiViewModel',{
         timkiem:{
             org_governid_link:'',
             name_code:''
-        }
+        },
+        code_old:'',
     }
    
 })

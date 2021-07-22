@@ -208,6 +208,8 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
     //lấy thông tin thiết bị để hiển thị chi tiết
     onThietBiClick: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
+        viewmodel.set('code_old',record.data.code);
+      
         viewmodel.set('thongtin_chitiet.code', record.data.code);
         viewmodel.set('thongtin_chitiet.name', record.data.name);
         viewmodel.set('thongtin_chitiet.type', record.data.type);
