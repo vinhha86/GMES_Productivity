@@ -1,0 +1,98 @@
+Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
+  extend: 'Ext.app.ViewController',
+  alias: 'controller.ThietBiChiTietViewController',
+
+  init: function (view) {
+
+  },
+  control: {
+    '#Luu': {
+      click: 'btnLuuTB'
+    },
+    '#ThemMoi': {
+      click: 'btnThemMoi'
+    }
+  },
+  btnThemMoi: function () {
+    console.log('vao day r');
+    var viewmodel = this.getViewModel();
+    viewmodel.set('thongtin_chitiet.devicegroupid_link', null);
+    viewmodel.set('thongtin_chitiet.code', null);
+    viewmodel.set('thongtin_chitiet.name', null);
+    viewmodel.set('thongtin_chitiet.type', null);
+    viewmodel.set('thongtin_chitiet.id', null);
+    viewmodel.set('thongtin_chitiet.org_governid_link', null);
+  },
+  btnLuuTB: function () {
+    var me =this;
+    var viewmodel = this.getViewModel();
+    var params = new Object();
+    var ThietBi = new Object();
+    ThietBi.devicegroupid_link = viewmodel.get('thongtin_chitiet.devicegroupid_link');
+    ThietBi.code = viewmodel.get('thongtin_chitiet.code');
+    ThietBi.name = viewmodel.get('thongtin_chitiet.name');
+    ThietBi.type = viewmodel.get('thongtin_chitiet.type');
+    ThietBi.org_governid_link = viewmodel.get('thongtin_chitiet.org_governid_link');
+    ThietBi.id = viewmodel.get('thongtin_chitiet.id');
+    ThietBi.status = 0;
+
+    //kiểm tra tên thiết bị đã tồn tại chưa nếu đúng thì được thêm 
+    var kt = me.CheckValidate(ThietBi.code, "");
+    if (kt) {
+      var ArrayThietBi = [];
+      ArrayThietBi.push(ThietBi)
+      params.data = ArrayThietBi;
+     
+      GSmartApp.Ajax.postJitin('/api/v1/device/device_create', Ext.JSON.encode(params),
+        function (success, response, options) {
+          if (success) {
+            var response = Ext.decode(response.responseText);
+            if (response.respcode == 200) {
+              Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Thêm mới/sửa thành công',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                  yes: 'Đóng',
+                }
+              });
+              //load lai 
+              var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
+              ds_thietbi_tore.load_device_active();
+            }
+  
+          } else {
+            Ext.Msg.show({
+              title: 'Thông báo',
+              msg: 'Thêm mới/sửa thất bại',
+              buttons: Ext.MessageBox.YES,
+              buttonText: {
+                yes: 'Đóng',
+              }
+            });
+          }
+        })
+  }
+  },
+  //kiểm tra mã thiết bị đã tồn tại chưa ?nếu có rồi thì trả về false
+  CheckValidate: function (code, id) {
+    var store = this.getViewModel().getStore('ds_thietbi_store');
+    //
+    for (var i = 0; i < store.data.length; i++) {
+      var data = store.data.items[i].data;
+      //kiểm tra mã thiết bị không chứ id truyền vào
+      if (data.code == code && data.id != id) {
+        Ext.MessageBox.show({
+          title: "Thông báo",
+          msg: "Mã thiết bị :" + code + " đã tồn tại ở dòng " + (i + 1),
+          buttons: Ext.MessageBox.YES,
+          buttonText: {
+            yes: 'Đóng',
+          }
+        });
+        return false;
+      }
+    }
+    return true;
+  },
+})
