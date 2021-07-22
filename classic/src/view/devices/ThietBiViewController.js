@@ -28,6 +28,12 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
                     },{
                         text:'DownLoadLog',
                         iconCls:'x-fa fa-cloud-download',
+                    },{
+                        text:'Xóa',
+                        iconCls:'x-fa fa-trash',
+                        handler:function(){
+                            me.onXoaThietBi(record);
+                        }
                     }]
                 
             })
@@ -43,6 +49,12 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
                     },{
                         text:'DownLoadLog',
                         iconCls:'x-fa fa-cloud-download',
+                    },{
+                        text:'Xóa',
+                        iconCls:'x-fa fa-trash',
+                        handler:function(){
+                            me.onXoaThietBi(record);
+                        }
                     }
                 ]
             })
@@ -50,9 +62,55 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
         var position = e.getXY();
         e.stopEvent();
         menu_grid.showAt(position);
-
-
     },
+    onXoaThietBi:function(record){
+        var viewmodel = this.getViewModel();
+        var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
+        if(record.data.status==1){
+            Ext.Msg.show({
+                title:'Thông báo',
+                msg:'Không được xóa thiết bị đang hoạt động !',
+                buttons:Ext.MessageBox.YES,
+                buttonText:{
+                    yes:'Đóng'
+                }
+            })
+        }else{
+            var params = new Object();
+            params.id=record.id
+            Ext.Msg.show({
+                title:'Thông báo',
+                msg:'Bạn có muốn xóa không?',
+                buttons:Ext.MessageBox.YESNO,
+                icon:Ext.Msg.QUESTION,
+                fn:function(btn){
+                    if(btn==='yes'){
+                        GSmartApp.Ajax.postJitin('/api/v1/device/device_delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                     //load lai 
+                                    //remove dữ liệu trong store đi - > thêm dữ liệu vừa tìm kiếm vào
+                                    ds_thietbi_tore.load_device_active();
+                                    //xóa thông tin chi tiêt
+                                  
+                                    viewmodel.set('thongtin_chitiet.code', null);
+                                    viewmodel.set('thongtin_chitiet.name', null);
+                                    viewmodel.set('thongtin_chitiet.type', null);
+                                    viewmodel.set('thongtin_chitiet.id', null);
+                                    viewmodel.set('thongtin_chitiet.org_governid_link', null);
+                                  
+                                }
+                            }
+                        }) 
+                    }
+                }
+            })
+        }
+        
+    },
+
     //gán status =3 => khóa
     onKhoaThietBi:function(params){
         var viewmodel = this.getViewModel();
@@ -150,7 +208,6 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
     //lấy thông tin thiết bị để hiển thị chi tiết
     onThietBiClick: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
-        viewmodel.set('thongtin_chitiet.devicegroupid_link', record.data.devicegroupid_link);
         viewmodel.set('thongtin_chitiet.code', record.data.code);
         viewmodel.set('thongtin_chitiet.name', record.data.name);
         viewmodel.set('thongtin_chitiet.type', record.data.type);

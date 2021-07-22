@@ -23,7 +23,6 @@ Ext.define('GSmartApp.view.devices.DS_ThietBiViewModel',{
     data:{
         thongtin_chitiet:{
             id:'',
-            devicegroupid_link:'',
             code:'',
             name:'',
             type:'',

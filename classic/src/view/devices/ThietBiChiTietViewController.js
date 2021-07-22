@@ -14,9 +14,8 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
     }
   },
   btnThemMoi: function () {
-    console.log('vao day r');
+
     var viewmodel = this.getViewModel();
-    viewmodel.set('thongtin_chitiet.devicegroupid_link', null);
     viewmodel.set('thongtin_chitiet.code', null);
     viewmodel.set('thongtin_chitiet.name', null);
     viewmodel.set('thongtin_chitiet.type', null);
@@ -28,7 +27,6 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
     var viewmodel = this.getViewModel();
     var params = new Object();
     var ThietBi = new Object();
-    ThietBi.devicegroupid_link = viewmodel.get('thongtin_chitiet.devicegroupid_link');
     ThietBi.code = viewmodel.get('thongtin_chitiet.code');
     ThietBi.name = viewmodel.get('thongtin_chitiet.name');
     ThietBi.type = viewmodel.get('thongtin_chitiet.type');
@@ -37,7 +35,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
     ThietBi.status = 0;
 
     //kiểm tra tên thiết bị đã tồn tại chưa nếu đúng thì được thêm 
-    var kt = me.CheckValidate(ThietBi.code, "");
+    var kt = me.CheckValidate(ThietBi.code,ThietBi.id);
     if (kt) {
       var ArrayThietBi = [];
       ArrayThietBi.push(ThietBi)
@@ -50,13 +48,14 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
             if (response.respcode == 200) {
               Ext.Msg.show({
                 title: 'Thông báo',
-                msg: 'Thêm mới/sửa thành công',
+                msg: 'Lưu thành công',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                   yes: 'Đóng',
                 }
               });
               //load lai 
+              viewmodel.set('thongtin_chitiet.id',response.id);
               var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
               ds_thietbi_tore.load_device_active();
             }
@@ -64,7 +63,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
           } else {
             Ext.Msg.show({
               title: 'Thông báo',
-              msg: 'Thêm mới/sửa thất bại',
+              msg: 'Lưu thất bại',
               buttons: Ext.MessageBox.YES,
               buttonText: {
                 yes: 'Đóng',
@@ -84,7 +83,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
       if (data.code == code && data.id != id) {
         Ext.MessageBox.show({
           title: "Thông báo",
-          msg: "Mã thiết bị :" + code + " đã tồn tại ở dòng " + (i + 1),
+          msg: "Mã thiết bị :" + code + " đã tồn tại ở số thứ :" + (i + 1),
           buttons: Ext.MessageBox.YES,
           buttonText: {
             yes: 'Đóng',

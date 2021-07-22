@@ -10,14 +10,14 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietView', {
     {
         width: 500,
         xtype: 'combobox',
-        fieldLabel: 'Nhóm thiết bị',
         bind: {
-            store: '{nhom_thietbi_store}',
-            value: '{thongtin_chitiet.devicegroupid_link}'
+            store: '{loai_thietbi_store}',
+            value: '{thongtin_chitiet.type}'
         },
+        fieldLabel: 'Loại thiết bị',
         displayField: 'name',
         valueField: 'id',
-        allowBlank:false,
+        allowBlank: false,
     }, {
         width: 500,
         xtype: 'textfield',
@@ -34,18 +34,7 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietView', {
         required: true,
         fieldLabel: 'Tên thiết bị',
         bind: '{thongtin_chitiet.name}'
-    }, {
-        width: 500,
-        xtype: 'combobox',
-        bind: {
-            store: '{loai_thietbi_store}',
-            value: '{thongtin_chitiet.type}'
-        },
-        fieldLabel: 'Loại thiết bị',
-        displayField: 'name',
-        valueField: 'id',
-        allowBlank: false,
-    }, {
+    },  {
         width: 500,
         xtype: 'combobox',
         fieldLabel: 'Cửa hàng/Kho',
