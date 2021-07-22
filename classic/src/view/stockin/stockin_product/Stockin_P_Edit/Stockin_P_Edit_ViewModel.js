@@ -7,7 +7,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 		'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 		'GSmartApp.store.VatTypeStore', 'GSmartApp.store.CurrencyStore',
 		'GSmartApp.store.stockin.StockinStatusStore', 'GSmartApp.store.stockin.StockinStore',
-		'GSmartApp.store.porder.POrder_ListStore', 'GSmartApp.store.stockin.StockinGroupStore'],
+		'GSmartApp.store.porder.POrder_ListStore', 'GSmartApp.store.stockin.StockinGroupStore',
+	],
 	stores: {
 		DeviceInvStore: {
 			type: 'DeviceInvStore'

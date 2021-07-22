@@ -416,7 +416,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	
 								var data = response.data;
 								viewModel.set('stockout', data);
-								// console.log(data);
+                                m.getApproverName(data.approverid_link);
 							}
 							
 							// m.onThoat();
@@ -533,4 +533,30 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		}
 		// m.fireEvent('Luu');
 	},
+
+	getApproverName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('stockout_p_edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+						// console.log(stockout);
+                        stockout.userApprove_name = response.data.fullName;
+                        viewModel.set('stockout', stockout);
+                    }
+                }
+            })
+    }
 });

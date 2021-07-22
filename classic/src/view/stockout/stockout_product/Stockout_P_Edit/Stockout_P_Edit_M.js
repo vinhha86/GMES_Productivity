@@ -123,12 +123,16 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 {
                     xtype: 'textfield',
                     margin: '0 5 0 5',
-                    reference: 'stockout_shipperson',
+                    // reference: '',
                     flex: 1,
                     labelWidth: 85,
-                    fieldLabel: 'Người giao:',
-                    hideLabel: false,
-                    bind: {value:'{stockout.shipperson}'}
+                    fieldLabel: 'Người duyệt:',
+                    editable: false,
+                    readOnly: true,
+                    cls: 'notEditable',
+                    bind: {
+                        value:'{stockout.userApprove_name}'
+                    }
                 }
             ]
         },

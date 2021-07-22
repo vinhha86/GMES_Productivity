@@ -370,6 +370,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                                 });
                                 var data = response.data;
                                 viewModel.set('stockin', data);
+                                m.getApproverName(data.approverid_link);
                             }
                             // m.onThoat();
                         }
@@ -403,8 +404,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 		var stockin_d = viewModel.get('stockin.stockin_d'); // data giao dien
 		var new_stockin_d = data.stockin_d; // data tra ve
 
-		// console.log(stockin_d);
-		// console.log(new_stockin_d);
+		// console.log(stockin_d);f
 
 		for(var i = 0; i < stockin_d.length; i++){
 			for(var j = 0; j < new_stockin_d.length; j++){
@@ -433,4 +433,29 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
 		// console.log(stockout);
 		// console.log(stockout_d);
 	},
+    getApproverName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('Stockin_P_Edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        // console.log(stockin);
+                        stockin.userApprove_name = response.data.fullName;
+                        viewModel.set('stockin', stockin);
+                    }
+                }
+            })
+    }
 })
