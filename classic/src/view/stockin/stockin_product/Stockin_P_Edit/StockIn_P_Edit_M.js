@@ -107,6 +107,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 		xtype: 'container',
 		items: [{
 			xtype: 'combo',
+			itemId: 'combo_OrgFromStore',
 			valueField: 'id',
 			displayField: 'name',
 			bind: {
