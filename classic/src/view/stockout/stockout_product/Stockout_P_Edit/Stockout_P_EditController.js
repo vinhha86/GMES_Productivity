@@ -416,7 +416,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	
 								var data = response.data;
 								viewModel.set('stockout', data);
-								console.log(data);
+								// console.log(data);
 							}
 							
 							// m.onThoat();

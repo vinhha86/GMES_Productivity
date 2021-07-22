@@ -28,6 +28,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 		stripeRows: false,
 		getRowClass: function (record, index) {
 			var c = record.get('status');
+			//
+            var isPklistInStore = record.get('isPklistInStore');
+            if(isPklistInStore == null) isPklistInStore = false;
+            if(isPklistInStore == true){
+                return 'epc-instock';
+            }
 			var totalpackage = record.get('totalpackage');
 			var totalpackagecheck = record.get('totalpackagecheck');
 			if(totalpackage == null) totalpackage = 0;
