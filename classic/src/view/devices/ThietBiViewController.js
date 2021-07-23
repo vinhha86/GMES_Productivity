@@ -189,21 +189,21 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
         params.type=null;
 
 
-        //ds_thietbi_tore.load_device_active(params.org_governid_link,params.search,null);
-            GSmartApp.Ajax.postJitin('/api/v1/device/device_getactivate', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                         //load lai 
-                        //remove dữ liệu trong store đi - > thêm dữ liệu vừa tìm kiếm vào
-                        ds_thietbi_tore.removeAll();
-                        ds_thietbi_tore.add(response.data);
+        ds_thietbi_tore.load_device_active(params.org_governid_link,params.type,params.search);
+            // GSmartApp.Ajax.postJitin('/api/v1/device/device_getactivate', Ext.JSON.encode(params),
+            // function (success, response, options) {
+            //     if (success) {
+            //         var response = Ext.decode(response.responseText);
+            //         if (response.respcode == 200) {
+            //              //load lai 
+            //             //remove dữ liệu trong store đi - > thêm dữ liệu vừa tìm kiếm vào
+            //             ds_thietbi_tore.removeAll();
+            //             ds_thietbi_tore.add(response.data);
                       
-                    }
+            //         }
 
-                }
-            })     
+            //     }
+            // })     
     },
     //lấy thông tin thiết bị để hiển thị chi tiết
     onThietBiClick: function (grid, record, item, index, e, eOpts) {
