@@ -209,12 +209,19 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             editable: false,
             labelWidth: 70
         },
+        {
+            xtype: 'checkbox',
+            margin: 2,
+            inputValue: true,
+            boxLabel: 'Đã map',
+            itemId: 'checkisMap'
+        },
             '->',
         {
             html: '<div class="color-box">'
                 + '<div class="color-square po_offer"></div>&nbspĐã map'
                 + '</div>',
-            margin: '5'
+            margin: 2
         }
         ]
     }

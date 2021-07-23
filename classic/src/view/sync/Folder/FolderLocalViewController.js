@@ -80,41 +80,51 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
             params.desFs = viewmodel.get('pathDriver');
 
             GSmartApp.Ajax.post_demo('sync/copyfolder_to_driver', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        Ext.MessageBox.show({
-                            title: "Thông báo",
-                            msg: "Cập nhật thành công",
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            },
-                            fn: function(){
-                                var storeDriver = viewmodel.getStore('FolderDriverStore');
-                                storeDriver.loadFolderDriver(viewmodel.get('pathDriver'));
+                function (success, response, options) {
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Cập nhật thành công",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                },
+                                fn: function () {
+                                    var storeDriver = viewmodel.getStore('FolderDriverStore');
+                                    storeDriver.loadFolderDriver(viewmodel.get('pathDriver'));
 
-                                var taskid = response.data;
-                                var tab = grid.up('#FolderMainView').up('#SyncView');
-                                tab.setActiveTab(1);
+                                    var taskid = response.data;
+                                    var tab = grid.up('#FolderMainView').up('#SyncView');
+                                    tab.setActiveTab(1);
 
-                                me.fireEvent('ReloadTask', taskid);
-                            }
-                        });
+                                    me.fireEvent('ReloadTask', taskid);
+                                }
+                            });
+                        }
+                        else {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
+                                }
+                            });
+                        }
                     }
-                    else{
+                    else {
                         Ext.MessageBox.show({
                             title: "Thông báo",
-                            msg: response.message,
+                            msg: "Có lỗi trong quá trình xử lý dữ liệu",
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng'
                             }
                         });
                     }
-                }
-            })
+                })
         }
     }
 })

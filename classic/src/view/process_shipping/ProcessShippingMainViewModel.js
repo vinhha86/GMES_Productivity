@@ -55,7 +55,8 @@ Ext.define('GSmartApp.view.process_shipping.ProcessShippingMainViewModel', {
         IdGrant: 0,
         IsOpen: false,
         heightPOLine: '50%',
-        hiddenmap: false
+        hiddenmap: false,
+        ismap: false
     },
     formulas: {
         IdPOrder: function (get) {

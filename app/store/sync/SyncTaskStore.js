@@ -7,35 +7,35 @@ Ext.define('GSmartApp.store.sync.SyncTaskStore', {
         'name',
         'type',
         {
-            name: 'date_created', type: 'date'
-        }, 
+            name: 'date_created', type: 'date', format: 'c'
+        },
         'status',
-        'src', 
-        'des', 
+        'src',
+        'des',
         {
             name: 'last_updated', type: 'date'
         },
         {
             name: 'status_name',
-            calculate: function(data){
-                if(data.status == 0){
+            calculate: function (data) {
+                if (data.status == 0) {
                     return "Đang chạy"
                 }
-                else if(data.status == 1){
+                else if (data.status == 1) {
                     return "Đã kết thúc";
                 }
-                else if(data.status == -1){
+                else if (data.status == -1) {
                     return "Có lỗi";
                 }
             }
         },
         {
             name: 'type_name',
-            calculate: function(data){
-                if(data.type == 0){
+            calculate: function (data) {
+                if (data.type == 0) {
                     return "Thủ công"
                 }
-                else if(data.status == 1){
+                else if (data.status == 1) {
                     return "Định kỳ";
                 }
             }

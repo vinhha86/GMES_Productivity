@@ -23,7 +23,17 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         '#POLineView': {
             itemclick: 'onSelect',
             celldblclick: 'onPOLineViewCellDblClick',
+        },
+        '#checkisMap': {
+            change: 'onisMapChange'
         }
+    },
+    onisMapChange: function (chk, newValue, oldValue, eOpts) {
+        if (oldValue == null) return;
+        var me = this;
+        var viewmodel = this.getViewModel();
+        viewmodel.set('ismap', newValue);
+        me.onReload();
     },
     onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
@@ -319,8 +329,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     onReload: function () {
         var viewmodel = this.getViewModel();
+        var ismap = viewmodel.get('ismap');
         var store = viewmodel.getStore('POLineStore');
-        store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'));
+        store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
     },
     onHideView: function () {
         var grid = this.getView();

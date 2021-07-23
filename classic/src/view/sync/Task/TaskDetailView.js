@@ -23,13 +23,13 @@ Ext.define('GSmartApp.view.sync.Task.TaskDetailView', {
         align: 'center'
     }, {
         text: 'Bắt đầu',
-        dataIndex: 'start_time ',
+        dataIndex: 'start_time',
         width: 120,
         renderer: Ext.util.Format.dateRenderer('d/m/y h:m:s')
     },
     {
         text: 'Kết thúc',
-        dataIndex: 'finish_time ',
+        dataIndex: 'finish_time',
         width: 120,
         renderer: Ext.util.Format.dateRenderer('d/m/y h:m:s')
     },

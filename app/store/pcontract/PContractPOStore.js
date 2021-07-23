@@ -13,11 +13,12 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			property: 'productbuyercode'
 		}
 	],
-	getby_shipping: function (shipdate_from, shipdate_to) {
+	getby_shipping: function (shipdate_from, shipdate_to, ismap) {
 		var me = this;
 		var params = new Object();
 		params.shipdate_from = shipdate_from;
 		params.shipdate_to = shipdate_to;
+		params.ismap = ismap;
 
 		this.setProxy({
 			type: 'ajax',
@@ -315,7 +316,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,
-			timeout: 1000*60*2,
+			timeout: 1000 * 60 * 2,
 			headers: {
 				'Accept': "application/json",
 				'Content-Type': "application/json"

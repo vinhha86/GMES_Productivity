@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.sync.Task.TaskView', {
     },
     {
         text: 'Ngày tạo',
-        dataIndex: 'date_created ',
+        dataIndex: 'date_created',
         width: 120,
         renderer: Ext.util.Format.dateRenderer('d/m/y h:m:s')
     },
