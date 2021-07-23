@@ -8,15 +8,21 @@ Ext.define('GSmartApp.view.sync.Task.TaskView', {
         columnLines: true,
         rowLines: true
     },
+    allowDeselect: true,
     selModel: {
         selType: 'checkboxmodel',
         mode: 'SINGLE',
-        checkOnly: true
+        // checkOnly: true
     },
     bind: {
         store: '{SyncTaskStore}'
     },
     columns: [{
+        text: 'STT',
+        width: 50,
+        xtype: 'rownumberer',
+        align: 'center'
+    }, {
         text: 'Tên',
         dataIndex: 'name',
         width: 100

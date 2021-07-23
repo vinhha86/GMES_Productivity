@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.sync.SyncViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.SyncViewModel',
-    requires: ['GSmartApp.store.sync.FolderTreeStore', 'GSmartApp.store.sync.SyncTaskStore'],
+    requires: ['GSmartApp.store.sync.FolderTreeStore', 'GSmartApp.store.sync.SyncTaskStore', 'GSmartApp.store.sync.SyncTaskDetailStore'],
     stores: {
         FolderTreeStore: {
             type: 'FolderTreeStore'
@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.sync.SyncViewModel', {
         },
         SyncTaskStore: {
             type: 'SyncTaskStore'
+        },
+        SyncTaskDetailStore: {
+            type: 'SyncTaskDetailStore'
         }
     },
     data: {

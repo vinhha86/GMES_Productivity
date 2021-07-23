@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.sync.Task.TaskSyncMainView', {
     }, {
         region: 'center',
         border: true,
-        margin: 1
+        margin: 1,
+        xtype: 'TaskDetailView'
     }]
 });
 
