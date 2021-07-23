@@ -33,8 +33,6 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
     }, {
         xtype: 'actioncolumn',
         width: 40,
-        menuDisabled: true,
-        sortable: false,
         items: [{
             iconCls: 'x-fa fa fa-bars',
             handler: 'onMenu'
