@@ -3,7 +3,6 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietView', {
     xtype: 'ThietBiChiTietView',
 
     controller: 'ThietBiChiTietViewController',
-    padding:5,
     items: [{
         html: '<hr>'
     },
@@ -54,8 +53,12 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietView', {
             dock: 'top',
             layout: 'hbox',
             flex: 1,
+            height:38,
             //  border:'0 0 1 0',
             items: [
+               {
+                   width:3
+               },
                 {
                     width: 120,
                     xtype: 'button',
@@ -73,7 +76,6 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietView', {
                     itemId: 'Luu',
                     formBind:true
                 },
-
             ]
         }
     ]
