@@ -29,8 +29,8 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
 
         var grid = this.getView();
         var select = grid.getSelectionModel().getSelection();
-        console.log(select);
-        console.log(context);
+        // console.log(select);
+        // console.log(context);
 
         var found = select.some(item => item.get('id') == context.record.get('id'));
         if(!found){

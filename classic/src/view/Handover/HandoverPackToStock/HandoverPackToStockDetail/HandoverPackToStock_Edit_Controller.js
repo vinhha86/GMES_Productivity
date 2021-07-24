@@ -185,7 +185,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
 								}
 							});		
                             m.redirectTo("handover_pack_tostock/" + response.id + "/edit");
-                            m.getInfo(response.id);
+                            m.fireEvent('loaddata', response.id);
 
                             // m.getInfo(response.id);
                             // this.redirectTo("stockin_p_main/" + response.id + "/edit");
