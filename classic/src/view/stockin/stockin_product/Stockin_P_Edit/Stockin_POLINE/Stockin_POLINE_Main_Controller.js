@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
                 scope: this,
                 callback: function(records, operation, success) {
                     if(success){
-                        console.log(records);
+                        // console.log(records);
                         if(records.length > 0){
                             // var POLineStore = viewModel.getStore('POLineStore');
                             var grid = me.down('#Stockin_POLINE');
@@ -103,6 +103,14 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE
                 }
             });
         }else{
+            // console.log(select);
+            for(var i=0; i<select.length; i++){
+                var item = select[i];
+                if(item.get('so_luong_yeu_cau') == null){
+                    var pquantity_total = item.get('pquantity_total');
+                    item.set('so_luong_yeu_cau', pquantity_total);
+                }
+            }
             mainView.down('#Stockin_POLINE_Main').fireEvent('Chon', select, poData);
         }
         // grid.fireEvent("Chon", select[0].data);

@@ -270,8 +270,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 							var isWindow = viewModel.get('isWindow');
 							if(!isWindow){
 								me.redirectTo("stockout_p_main/" + response.id + "/edit");
+								me.fireEvent('loaddata', response.id);
 							}else{
-								me.getInfo(response.id, isConfirm);
+								me.fireEvent('loaddata', response.id);
+								// me.getInfo(response.id, isConfirm);
 							}
 							// if(stockout.id ==null)
 							// 	this.redirectTo("stockout_p_main/" + response.id + "/edit");
