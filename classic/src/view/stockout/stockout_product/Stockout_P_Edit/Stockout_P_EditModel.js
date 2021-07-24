@@ -90,7 +90,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				return true;
 		},
 		isBtnConfirmHidden: function (get) {
-			if (get('isWindow')) { console.log('here 109')
+			if (get('isWindow')) {
                 return true;
             }else
             if (get('stockout.status') < 1) {

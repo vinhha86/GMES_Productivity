@@ -272,6 +272,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                             StockinD_Store.commitChanges();
 
                             me.redirectTo("stockin_p_main/" + response.id + "/edit");
+                            me.fireEvent('loaddata', response.id);
                             // me.getInfo(response.id, isConfirm);
                             // this.redirectTo("stockin_p_main/" + response.id + "/edit");
                         }

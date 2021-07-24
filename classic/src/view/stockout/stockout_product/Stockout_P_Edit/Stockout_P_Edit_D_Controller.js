@@ -136,7 +136,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				stockoutd_new.skuid_link = data.skuid_link;
 				stockoutd_new.sizeid_link = data.sku.size_id;
 				stockoutd_new.totalpackage = data.so_luong_yeu_cau == null ? 0 : data.so_luong_yeu_cau;
-				stockoutd_new.totalpackagecheck = data.so_luong_yeu_cau == null ? 0 : data.so_luong_yeu_cau;
+				stockoutd_new.totalpackagecheck = 0;
 				list.push(stockoutd_new);
 			}
 
