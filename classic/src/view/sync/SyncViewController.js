@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.sync.SyncViewController', {
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var viewmodel = this.getViewModel();
+        //Chuyển tab thì đóng lại interval cập nhật trạng thái
+        var inteval = viewmodel.get('intervalDetail');
+        clearInterval(inteval);
         if (newCard.xtype == "FolderMainView") {
             var storeDriver = viewmodel.getStore('FolderDriverStore');
             storeDriver.loadFolderDriver(viewmodel.get('pathDriver'));

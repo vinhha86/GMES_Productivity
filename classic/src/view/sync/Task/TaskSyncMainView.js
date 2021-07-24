@@ -8,13 +8,13 @@ Ext.define('GSmartApp.view.sync.Task.TaskSyncMainView', {
         region: 'west',
         border: true,
         margin: 1,
-        width: '50%',
+        width: '60%',
         xtype: 'TaskView'
     }, {
         region: 'center',
         border: true,
         margin: 1,
-        xtype: 'TaskDetailView'
+        xtype: 'FilieTransferView'
     }]
 });
 

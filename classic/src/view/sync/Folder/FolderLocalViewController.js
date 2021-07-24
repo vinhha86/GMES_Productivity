@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
                         if (response.respcode == 200) {
                             Ext.MessageBox.show({
                                 title: "Thông báo",
-                                msg: "Cập nhật thành công",
+                                msg: "Thêm thành công",
                                 buttons: Ext.MessageBox.YES,
                                 buttonText: {
                                     yes: 'Đóng',

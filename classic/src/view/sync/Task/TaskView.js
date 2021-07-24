@@ -15,7 +15,8 @@ Ext.define('GSmartApp.view.sync.Task.TaskView', {
         // checkOnly: true
     },
     bind: {
-        store: '{SyncTaskStore}'
+        store: '{SyncTaskStore}',
+        selection: '{task_selection}'
     },
     columns: [{
         text: 'STT',
@@ -36,7 +37,13 @@ Ext.define('GSmartApp.view.sync.Task.TaskView', {
         text: 'Ngày tạo',
         dataIndex: 'date_created',
         width: 120,
-        renderer: Ext.util.Format.dateRenderer('d/m/y h:m:s')
+        renderer: Ext.util.Format.dateRenderer('d/m/y H:i:s')
+    },
+    {
+        text: 'Ngày kết thúc',
+        dataIndex: 'time_finish',
+        width: 120,
+        renderer: Ext.util.Format.dateRenderer('d/m/y H:i:s')
     },
     {
         text: 'Thư mục nguồn',

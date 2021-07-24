@@ -9,6 +9,10 @@ Ext.define('GSmartApp.store.sync.SyncTaskStore', {
         {
             name: 'date_created', type: 'date', format: 'c'
         },
+        {
+            name: 'time_finish', type: 'date', format: 'c'
+        },
+        'jobid',
         'status',
         'src',
         'des',
