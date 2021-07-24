@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     },
     bind: {
-        store: '{PContractPOList}'
+        store: '{PContractPOList}',
+        selection: '{po_selection}'
     },
     reserveScrollbar: true,
     columns: [{
@@ -103,150 +104,159 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }],
-    plugins: {
-        cellediting: {
-            clicksToEdit: 2,
-            listeners: {
-                validateedit: 'onPOListEdit'
-            }
-        },
-        rowwidget: {
-            widget:
-            {
-                xtype: 'grid',
-                itemId: 'PO_ChildList',
-                plugins: {
-                    cellediting: {
-                        clicksToEdit: 2,
-                        listeners: {
-                            validateedit: 'onPOListEdit'
-                        }
-                    }
-                },
-                features: [{
-                    ftype: 'summary',
-                    dock: 'bottom'
-                }],
-                viewConfig: {
-                    stripeRows: false
-                },
-                bind: {
-                    store: '{record.sub_po_confirm}'
-                },
-                columns: [{
-                    xtype: 'actioncolumn',
-                    width: 28,
-                    menuDisabled: true,
-                    sortable: false,
-                    align: 'center',
-                    items: [
-                        {
-                            iconCls: 'x-fa fas fa-bars violetIcon',
-                            handler: 'onMenu_PO'
-                        }
-                    ]
-                }, {
-                    text: 'STT',
-                    width: 40,
-                    xtype: 'rownumberer',
-                    align: 'center'
-                }, {
-                    text: 'PO Buyer',
-                    dataIndex: 'po_buyer',
-                    sortable: true,
-                    flex: 1,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdCls = 'po_linekh';
-                        metaData.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
-                    },
-                    editor: {
-                        allowBlank: false,
-                        selectOnFocus: false
-                    }
-                }, {
-                    text: 'Ship Mode',
-                    dataIndex: 'shipmodeid_link',
-                    width: 75,
-                    editor: {
-                        completeOnEnter: true,
-                        field: {
-                            xtype: 'combo',
-                            typeAhead: true,
-                            triggerAction: 'all',
-                            selectOnFocus: false,
-                            bind: {
-                                store: '{ShipModeStore}',
-                                value: '{shipmodeid_link}'
-                            },
-                            displayField: 'name',
-                            valueField: 'id',
-                            queryMode: 'local'
-                        }
-                    },
-                    renderer: 'renderShipping'
-                },
-                {
-                    text: 'Ngày VC',
-                    xtype: 'datecolumn',
-                    dataIndex: 'productiondate',
-                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function (value) {
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    },
-                    width: 75,
-                    editor: {
-                        xtype: 'datefield',
-                        fieldStyle: 'font-size:11px;',
-                        format: 'd/m/y',
-                        altFormats: "Y-m-d\\TH:i:s.uO",
-                    },
-                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdCls = 'po_linekh';
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    }
-                },
-                {
-                    text: 'Ngày GH',
-                    xtype: 'datecolumn',
-                    dataIndex: 'shipdate',
-                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdCls = 'po_linekh';
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    },
-                    width: 75,
-                    editor: {
-                        xtype: 'datefield',
-                        fieldStyle: 'font-size:11px;',
-                        format: 'd/m/y',
-                        altFormats: "Y-m-d\\TH:i:s.uO",
-                    },
-                },
-                {
-                    text: 'SL',
-                    align: 'end',
-                    dataIndex: 'po_quantity',
-                    width: 70,
-                    renderer: 'onRender_poquantity',
-                    editor: {
-                        xtype: 'numberfield',
-                        fieldStyle: 'font-size:11px;',
-                        hideTrigger: true,
-                        allowBlank: false,
-                        minValue: 0,
-                        maxValue: 1000000,
-                        selectOnFocus: false,
-                        decimalPrecision: 0
-                    },
-                    summaryType: 'sum', summaryRenderer: 'renderSum',
-                    align: 'end',
-                }]
-            }
+    plugins: [{
+        ptype: 'cellediting',
+        clicksToEdit: 2,
+        listeners: {
+            validateedit: 'onPOListEdit'
         }
-    },
+    }, {
+        ptype: 'rowwidget',
+        widget:
+        {
+            xtype: 'grid',
+            plugins: {
+                cellediting: {
+                    clicksToEdit: 2,
+                    listeners: {
+                        validateedit: 'onPOListEdit'
+                    }
+                },
+                gridfilters: true
+            },
+            features: [{
+                ftype: 'summary',
+                dock: 'bottom'
+            }],
+            viewConfig: {
+                stripeRows: false
+            },
+            bind: {
+                store: '{record.sub_po_confirm}'
+            },
+            columns: [{
+                xtype: 'actioncolumn',
+                width: 28,
+                menuDisabled: true,
+                sortable: false,
+                hideable: false,
+                align: 'center',
+                items: [
+                    {
+                        iconCls: 'x-fa fas fa-bars violetIcon',
+                        handler: 'onMenu_PO'
+                    }
+                ]
+            }, {
+                text: 'STT',
+                width: 40,
+                xtype: 'rownumberer',
+                align: 'center'
+            }, {
+                text: 'PO Buyer',
+                dataIndex: 'po_buyer',
+                sortable: true,
+                flex: 1,
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    metaData.tdCls = 'po_linekh';
+                    metaData.tdAttr = 'data-qtip="' + value + '"';
+                    return value;
+                },
+                hideable: false,
+                filter: {
+                    type: 'string'
+                },
+                editor: {
+                    allowBlank: false,
+                    selectOnFocus: false
+                }
+            }, {
+                text: 'Ship Mode',
+                dataIndex: 'shipmodeid_link',
+                width: 75,
+                hideable: false,
+                editor: {
+                    completeOnEnter: true,
+                    field: {
+                        xtype: 'combo',
+                        typeAhead: true,
+                        triggerAction: 'all',
+                        selectOnFocus: false,
+                        bind: {
+                            store: '{ShipModeStore}',
+                            value: '{shipmodeid_link}'
+                        },
+                        displayField: 'name',
+                        valueField: 'id',
+                        queryMode: 'local'
+                    }
+                },
+                renderer: 'renderShipping'
+            },
+            {
+                text: 'Ngày VC',
+                xtype: 'datecolumn',
+                dataIndex: 'productiondate',
+                hideable: false,
+                // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+                renderer: function (value) {
+                    var date = Ext.Date.parse(value, 'c');
+                    return Ext.Date.format(date, 'd/m/y');
+                },
+                width: 75,
+                editor: {
+                    xtype: 'datefield',
+                    fieldStyle: 'font-size:11px;',
+                    format: 'd/m/y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                },
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    metaData.tdCls = 'po_linekh';
+                    var date = Ext.Date.parse(value, 'c');
+                    return Ext.Date.format(date, 'd/m/y');
+                }
+            },
+            {
+                text: 'Ngày GH',
+                xtype: 'datecolumn',
+                dataIndex: 'shipdate',
+                hideable: false,
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    metaData.tdCls = 'po_linekh';
+                    var date = Ext.Date.parse(value, 'c');
+                    return Ext.Date.format(date, 'd/m/y');
+                },
+                width: 75,
+                editor: {
+                    xtype: 'datefield',
+                    fieldStyle: 'font-size:11px;',
+                    format: 'd/m/y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                },
+            },
+            {
+                text: 'SL',
+                align: 'end',
+                hideable: false,
+                dataIndex: 'po_quantity',
+                width: 70,
+                renderer: 'onRender_poquantity',
+                editor: {
+                    xtype: 'numberfield',
+                    fieldStyle: 'font-size:11px;',
+                    hideTrigger: true,
+                    allowBlank: false,
+                    minValue: 0,
+                    maxValue: 1000000,
+                    selectOnFocus: false,
+                    decimalPrecision: 0
+                },
+                summaryType: 'sum', summaryRenderer: 'renderSum',
+                align: 'end',
+            }]
+        }
+    }
+    ],
     dockedItems: [{
         dock: 'top',
         border: 'hbox',

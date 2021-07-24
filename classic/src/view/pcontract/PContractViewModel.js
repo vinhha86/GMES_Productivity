@@ -183,7 +183,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         text_chotdinhmuc: 'Chốt định mức',
         hidden_chotdinhmuc: true,
         disabled_chotdinhmuc: true,
-        id_mausanpham_filter: 0
+        id_mausanpham_filter: 0,
+        obj_cpoy_poline: null
     },
     formulas: {
         ishidden_addproduct: function (get) {

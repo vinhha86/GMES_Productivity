@@ -25,6 +25,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             }
         }
     },
+    selModel: {
+        type: 'cellmodel'
+    },
     columns: [{
         xtype: 'actioncolumn',
         width: 30,

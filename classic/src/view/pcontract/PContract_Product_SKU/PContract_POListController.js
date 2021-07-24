@@ -36,6 +36,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     onSelectOffer: function (rowNode, record, expandRow, eOpts) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
+        viewmodel.set('po_selection', record);
 
         grid.setLoading('Đang tải dữ liệu');
 
