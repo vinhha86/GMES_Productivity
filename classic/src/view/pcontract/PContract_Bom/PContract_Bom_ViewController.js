@@ -30,7 +30,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             click: 'onThemMoiNPL'
         },
         '#PContract_Bom_View': {
-            celldblclick: 'onCellDblClick'
+            celldblclick: 'onCellDblClick',
+            cellcontextmenu: 'onCellMenu'
         }
     },
     listen: {
@@ -41,6 +42,77 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     init: function () {
+    },
+    onCellMenu: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+        if (cellIndex == 7) {
+            var me = this;
+            var viewmodel = this.getViewModel();
+            var hiddenPaste = viewmodel.get('obj_copy_poline') == null ? true : false;
+
+            var menu_grid = new Ext.menu.Menu({
+                xtype: 'menu',
+                anchor: true,
+                minWidth: 150,
+                items: [
+                    {
+                        text: 'Copy PO Line',
+                        itemId: 'menuCopyPOline',
+                        separator: true,
+                        iconCls: 'x-fa fas fa-copy brownIcon',
+                        handler: function () {
+                            me.onCopy(record);
+                        }
+                    }, {
+                        text: 'Paste',
+                        itemId: 'menuPastePOLine',
+                        separator: true,
+                        hidden: hiddenPaste,
+                        iconCls: 'x-fa fas fa-paste redIcon',
+                        handler: function () {
+                            me.onPaste(record);
+                        }
+                    }
+                ]
+            });
+            // HERE IS THE MAIN CHANGE
+            var position = [e.getX() - 10, e.getY() - 10];
+            e.stopEvent();
+            menu_grid.showAt(position);
+            common.Check_Menu_Permission(menu_grid);
+        }
+    },
+    onCopy: function (record) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('obj_copy_poline', record);
+    },
+    onPaste: function (record) {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.pcontractid_link = viewmodel.get('PContract.id');
+        params.material_skuid_link = viewmodel.get('obj_copy_poline').get('materialid_link');
+        params.material_skuid_link_des = record.get('materialid_link');
+
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/copy_poline', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var store = viewmodel.getStore('PContractBom2Store_New');
+                        var po_line = viewmodel.get('obj_copy_poline').get('po_line');
+                        for (var i = 0; i < store.data.length; i++) {
+                            var rec = store.data.items[i];
+                            if (rec.get('materialid_link') == record.get('materialid_link')) {
+                                rec.set('po_line', po_line);
+                            }
+                        }
+                        store.commitChanges();
+                        viewmodel.set('obj_copy_poline', null);
+                    }
+                }
+            })
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var me = this;
@@ -86,14 +158,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         form.down('PContract_Bom_PO_MainView').on('SelectDone', function (data) {
             var po_line = record.get('po_line');
             po_line += ", " + data;
-            record.set('po_line', po_line);
+            if (po_line[0] == ",")
+                po_line = po_line.substr(1);
+            // record.set('po_line', po_line);
+            for (var i = 0; i < store.data.length; i++) {
+                var rec = store.data.items[i];
+                if (rec.get('materialid_link') == record.get('materialid_link')) {
+                    rec.set('po_line', po_line);
+                }
+            }
             store.commitChanges();
         });
 
         form.down('PContract_Bom_PO_MainView').on('DeSelectDone', function (data) {
             var po_line = record.get('po_line');
-            po_line = po_line.replace(', ' + data, '').replace(data + ",", '').replace(data, '');
-            record.set('po_line', po_line);
+            po_line = po_line.replace(', ' + data, '').replace(data + ", ", '').replace(data, '');
+            // record.set('po_line', po_line);
+
+            for (var i = 0; i < store.data.length; i++) {
+                var rec = store.data.items[i];
+                if (rec.get('materialid_link') == record.get('materialid_link')) {
+                    rec.set('po_line', po_line);
+                }
+            }
             store.commitChanges();
         })
     },

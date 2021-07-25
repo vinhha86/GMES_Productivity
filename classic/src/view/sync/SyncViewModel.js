@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.sync.SyncViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.SyncViewModel',
-    requires: ['GSmartApp.store.sync.FolderTreeStore', 'GSmartApp.store.sync.SyncTaskStore', 'GSmartApp.store.sync.SyncTaskDetailStore'],
+    requires: ['GSmartApp.store.sync.FolderTreeStore', 'GSmartApp.store.sync.SyncTaskStore', 'GSmartApp.store.sync.FileTransferStore'],
     stores: {
         FolderTreeStore: {
             type: 'FolderTreeStore'
@@ -12,12 +12,16 @@ Ext.define('GSmartApp.view.sync.SyncViewModel', {
         SyncTaskStore: {
             type: 'SyncTaskStore'
         },
-        SyncTaskDetailStore: {
-            type: 'SyncTaskDetailStore'
+        FileTransferStore: {
+            type: 'FileTransferStore'
         }
     },
     data: {
         pathDriver: '',
-        pathLocal: 'C:/'
+        pathLocal: 'C:/',
+        task_selection: null,
+        intervalDetail: null,
+        isAddFolder: true,
+        newFolder: 'New Folder'
     }
 });

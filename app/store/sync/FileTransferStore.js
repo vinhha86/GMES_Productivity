@@ -1,43 +1,31 @@
-Ext.define('GSmartApp.store.sync.SyncTaskDetailStore', {
+Ext.define('GSmartApp.store.sync.FileTransferStore', {
     extend: 'Ext.data.Store',
-    storeId: 'SyncTaskDetailStore',
-    alias: 'store.SyncTaskDetailStore',
+    storeId: 'FileTransferStore',
+    alias: 'store.FileTransferStore',
     fields: [
         'id',
-        'taskid_link',
+        'name',
         {
-            name: 'start_time', type: 'date', format: 'c'
+            name: 'started_at', type: 'date', format: 'c'
         },
         {
-            name: 'finish_time', type: 'date', format: 'c'
-        },
-        'status',
-        {
-            name: 'status_name',
-            calculate: function (data) {
-                if (data.status == 0) {
-                    return "Đang chạy"
-                }
-                else if (data.status == 1) {
-                    return "Đã kết thúc";
-                }
-                else if (data.status == -1) {
-                    return "Có lỗi";
-                }
-            }
+            name: 'completed_at', type: 'date', format: 'c'
         },
         {
             name: 'percent',
             calculate: function (data) {
-                if (data.percent_done == null) return 0;
-                return data.percent_done / 100;
+                if (data.percentage == null) {
+                    if (data.completed_at == null || data.completed_at == "") {
+                        return 0;
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+                return data.percentage / 100;
             }
         },
-        'percent_done',
-        'jobid',
-        {
-            name: 'last_updated', type: 'date'
-        }
+        'percentage'
     ],
     sorters: [{
         property: 'date_created',
@@ -46,9 +34,9 @@ Ext.define('GSmartApp.store.sync.SyncTaskDetailStore', {
         property: 'status',
         direction: 'ASC'
     }],
-    loadtaskdetail_by_task: function (taskid_link) {
+    LoadFileByJob: function (jobid) {
         var params = new Object();
-        params.taskid_link = taskid_link;
+        params.jobid = jobid;
 
         this.setProxy({
             type: 'ajax',

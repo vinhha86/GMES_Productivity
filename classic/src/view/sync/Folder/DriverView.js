@@ -37,8 +37,29 @@ Ext.define('GSmartApp.view.sync.Folder.DriverView', {
     },
     {
         text: 'Ngày cập nhật',
-        dataIndex: 'ModTime ',
-        width: 120
+        dataIndex: 'ModTime',
+        width: 120,
+        renderer: Ext.util.Format.dateRenderer('d/m/y H:i:s')
+    },
+    {
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            handler: 'onXoa',
+            getClass: function (v, meta, rec) {
+                if (rec.get('IsDir') == false) {
+                    return 'x-fa fas fa-trash';
+                }
+            },
+            getTip: function (value, metadata, record, row, col, store) {
+                if (record.get('IsDir') == false) {
+                    return 'Xóa';
+                }
+            }
+        }]
     }
     ],
     dockedItems: [
@@ -61,6 +82,28 @@ Ext.define('GSmartApp.view.sync.Folder.DriverView', {
                     editable: false,
                     bind: {
                         value: '{pathDriver}'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    margin: 3,
+                    width: 120,
+                    emptyText: 'Thư mục mới',
+                    allowBlank: false,
+                    bind: {
+                        value: '{newFolder}',
+                        hidden: '{isAddFolder}'
+                    }
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Lưu',
+                    iconCls: 'x-fa fa-save',
+                    margin: 3,
+                    itemId: 'btnSaveFolder',
+                    formBind: true,
+                    bind: {
+                        hidden: '{isAddFolder}'
                     }
                 },
                 {
