@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_Pkl_MainController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockin_M_Edit_Pkl_MainController',
     channelPrint: { cmd: null, dta: null },
@@ -23,7 +23,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         },
         '#cbbox_pkl_stockindId':{
             change: 'oncbbox_pkl_stockindId_change'
-        }
+        },
     },
     oncbbox_pkl_stockindId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
@@ -55,7 +55,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         var viewModel = this.getViewModel();
         grid.getSelectable().deselectAll();
         viewModel.set('selectedPklRecord', null);
-        viewModel.set('lotnumberTxt', '');
+        viewModel.set('objPkl.lotnumberTxt', '');
         this.resetForm();
 
         var maPklFilter = viewModel.get('maPklFilter') == null ? '' : viewModel.get('maPklFilter').toLowerCase();
@@ -83,21 +83,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
         
         Ext.Viewport.setMasked(false);
 
-        // viewModel.set('lotnumberTxt', '');
-        viewModel.set('packageidTxt', '');
-        viewModel.set('yTxt', '');
-        viewModel.set('mTxt', '');
-        viewModel.set('yOriginTxt', '');
-        viewModel.set('mOriginTxt', '');
+        // viewModel.set('objPkl.lotnumberTxt', '');
+        viewModel.set('objPkl.packageidTxt', '');
+        viewModel.set('objPkl.yTxt', '');
+        viewModel.set('objPkl.mTxt', '');
+        viewModel.set('objPkl.yOriginTxt', '');
+        viewModel.set('objPkl.mOriginTxt', '');
         // viewModel.set('colorTxt', stockinD.colorid_link);
         // viewModel.set('widthTxt', '');
-        viewModel.set('grossweightTxt', '');
-        viewModel.set('grossweightCheckTxt', '');
-        viewModel.set('sampleCheckTxt', '');
-        viewModel.set('widthYdsCheckTxt', '');
-        viewModel.set('widthYdsTxt', '');
-        viewModel.set('widthMetCheckTxt', '');
-        viewModel.set('widthMetTxt', '');
+        viewModel.set('objPkl.grossweightTxt', '');
+        viewModel.set('objPkl.grossweightCheckTxt', '');
+        viewModel.set('objPkl.sampleCheckTxt', '');
+        viewModel.set('objPkl.widthYdsCheckTxt', '');
+        viewModel.set('objPkl.widthYdsTxt', '');
+        viewModel.set('objPkl.widthMetCheckTxt', '');
+        viewModel.set('objPkl.widthMetTxt', '');
 
         // viewModel.set('pklSpaceTxt', null);
         // viewModel.set('pklFloorTxt', null);
@@ -107,32 +107,92 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_MainController', {
     onItemPklTap: function(list, location, eOpts ){
         var m = this;
         var viewModel = this.getViewModel();
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        var tappedRecord = location.record;
 
-        var record = location.record;
-        viewModel.set('selectedPklRecord',record);
+        if(selectedPklRecord == null){
+            var record = location.record;
+            viewModel.set('selectedPklRecord',record);
+            
+            viewModel.set('objPkl.lotnumberTxt', record.get('lotnumber'));
+            viewModel.set('objPkl.packageidTxt', record.get('packageid'));
+            viewModel.set('objPkl.yTxt', record.get('ydscheck'));
+            viewModel.set('objPkl.mTxt', record.get('met_check'));
+            viewModel.set('objPkl.yOriginTxt', record.get('ydsorigin'));
+            viewModel.set('objPkl.mOriginTxt', record.get('met_origin'));
+            viewModel.set('objPkl.colorTxt', record.get('colorid_link'));
+            viewModel.set('objPkl.grossweightTxt', record.get('grossweight'));
+            viewModel.set('objPkl.grossweightCheckTxt', record.get('grossweight_check'));
+            viewModel.set('objPkl.sampleCheckTxt', record.get('sample_check'));
+            viewModel.set('objPkl.widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
+            viewModel.set('objPkl.widthMetTxt', record.get('width_met') * 100); // m -> cm
+    
+            // set khoang info cho pkl
+            viewModel.set('objPkl.pklFloorTxt', record.get('floor'));
+            viewModel.set('objPkl.pklSpaceTxt', record.get('space'));
+            viewModel.set('objPkl.pklRowTxt', record.get('row'));
+        }else{
+            var selectable = list.getSelectable();
+            var selectRecord = selectable.getSelectedRecord();
+
+            if(selectRecord == tappedRecord){
+                // nếu ấn vào 1 record đã chọn thì bỏ chọn record này và set viewModel selectedPklRecord thành null
+                // bỏ highlight trên giao diện grid
+                setTimeout(function(){
+                    m.onGridDeselect();
+                }, 50);
+
+                viewModel.set('selectedPklRecord', null);
+
+                viewModel.set('objPkl.lotnumberTxt', null);
+                viewModel.set('objPkl.packageidTxt', null);
+                viewModel.set('objPkl.yTxt', null);
+                viewModel.set('objPkl.mTxt', null);
+                viewModel.set('objPkl.yOriginTxt', null);
+                viewModel.set('objPkl.mOriginTxt', null);
+                viewModel.set('objPkl.colorTxt', null);
+                viewModel.set('objPkl.grossweightTxt', null);
+                viewModel.set('objPkl.grossweightCheckTxt', null);
+                viewModel.set('objPkl.sampleCheckTxt', null);
+                viewModel.set('objPkl.widthMetCheckTxt', null); // m -> cm
+                viewModel.set('objPkl.widthMetTxt', null); // m -> cm
         
-        viewModel.set('lotnumberTxt', record.get('lotnumber'));
-        viewModel.set('packageidTxt', record.get('packageid'));
-        viewModel.set('yTxt', record.get('ydscheck'));
-        viewModel.set('mTxt', record.get('met_check'));
-        viewModel.set('yOriginTxt', record.get('ydsorigin'));
-        viewModel.set('mOriginTxt', record.get('met_origin'));
-        viewModel.set('colorTxt', record.get('colorid_link'));
-        // viewModel.set('widthTxt', record.get('width_check'));
-        viewModel.set('grossweightTxt', record.get('grossweight'));
-        viewModel.set('grossweightCheckTxt', record.get('grossweight_check'));
-        viewModel.set('sampleCheckTxt', record.get('sample_check'));
-        // viewModel.set('widthYdsCheckTxt', record.get('width_yds_check'));
-        // viewModel.set('widthYdsTxt', record.get('width_yds'));
-        viewModel.set('widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
-        viewModel.set('widthMetTxt', record.get('width_met') * 100); // m -> cm
+                // set khoang info cho pkl
+                viewModel.set('objPkl.pklFloorTxt', null);
+                viewModel.set('objPkl.pklSpaceTxt', null);
+                viewModel.set('objPkl.pklRowTxt', null);
 
-        // set khoang info cho pkl
-        viewModel.set('pklFloorTxt', record.get('floor'));
-        viewModel.set('pklSpaceTxt', record.get('space'));
-        viewModel.set('pklRowTxt', record.get('row'));
-        // console.log(spaceepc_link);  
-        // console.log(location.record.data);
+            }else{
+                // nếu ấn vào 1 record khác với record đã chọn, bỏ chionj record cũ và chọn record mới
+                // set viewModel selectedPklRecord thành record mới
+                var record = location.record;
+                viewModel.set('selectedPklRecord',record);
+                
+                viewModel.set('objPkl.lotnumberTxt', record.get('lotnumber'));
+                viewModel.set('objPkl.packageidTxt', record.get('packageid'));
+                viewModel.set('objPkl.yTxt', record.get('ydscheck'));
+                viewModel.set('objPkl.mTxt', record.get('met_check'));
+                viewModel.set('objPkl.yOriginTxt', record.get('ydsorigin'));
+                viewModel.set('objPkl.mOriginTxt', record.get('met_origin'));
+                viewModel.set('objPkl.colorTxt', record.get('colorid_link'));
+                viewModel.set('objPkl.grossweightTxt', record.get('grossweight'));
+                viewModel.set('objPkl.grossweightCheckTxt', record.get('grossweight_check'));
+                viewModel.set('objPkl.sampleCheckTxt', record.get('sample_check'));
+                viewModel.set('objPkl.widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
+                viewModel.set('objPkl.widthMetTxt', record.get('width_met') * 100); // m -> cm
+        
+                // set khoang info cho pkl
+                viewModel.set('objPkl.pklFloorTxt', record.get('floor'));
+                viewModel.set('objPkl.pklSpaceTxt', record.get('space'));
+                viewModel.set('objPkl.pklRowTxt', record.get('row'));
+            }
+        }
+    },
+    onGridDeselect: function(){
+        var grid = this.getView().down('#Stockin_M_Edit_Pkl');
+        var selectable = grid.getSelectable();
+        var selectRecord = selectable.getSelectedRecord();
+        selectable.deselectAll();
     },
     onPrintPkl: function () {
         console.log('onPrintPkl clicked');

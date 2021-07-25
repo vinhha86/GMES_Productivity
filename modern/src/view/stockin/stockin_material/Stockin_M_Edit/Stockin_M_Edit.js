@@ -1,10 +1,10 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_Edit',
     id: 'Stockin_M_Edit',
     reference: 'Stockin_M_Edit',
     viewModel: {
-        type: 'Stockin_M_ViewModel'
+        type: 'Stockin_M_Edit_ViewModel'
     },
     controller: 'Stockin_M_Edit_Controller',
     layout: {

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
     extend: 'Ext.dataview.DataView',
     xtype: 'Stockin_M_List',
     id: 'Stockin_M_List',

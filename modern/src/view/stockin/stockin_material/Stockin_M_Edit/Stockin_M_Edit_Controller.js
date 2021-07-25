@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_Edit_Controller',
 	init: function() {
@@ -14,12 +14,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
 		var orgtostore = this.getViewModel().getStore('OrgToStore');
 		orgtostore.loadStore_allchildren_byorg(listidtype);
 
-		var currencyStore = this.getViewModel().getStore('CurrencyStore');
-		currencyStore.loadStore();
-
-		var vattypeStore = this.getViewModel().getStore('VatTypeStore');
-		vattypeStore.loadStore();
-		
 		var stockintype = this.getViewModel().getStore('StockinTypeStore');
 		stockintype.loadStore(1, 10);
 

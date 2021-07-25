@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_ViewModel', {
     extend: 'Ext.app.ViewModel',
-	alias: 'viewmodel.Stockin_M_ViewModel',
+	alias: 'viewmodel.Stockin_M_Edit_ViewModel',
 	stores:{
 		DeviceInvStore:{
 			type :'DeviceInvStore'
@@ -34,12 +34,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		},
 		OrgToStore: {
             type: 'ListOrgStore'
-		},
-		VatTypeStore:{
-			type : 'VatTypeStore'
-		},
-		CurrencyStore: {
-			type : 'CurrencyStore'
 		},
 		StatusStore:{
 			type: 'stockinstatusstore'
@@ -104,24 +98,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		maPklFilter: '', // filter field pkl
 
 		// textfield
-		lotnumberTxt: '',
-		packageidTxt: '',
-		yTxt: '',
-		mTxt: '',
-        mOriginTxt: '',
-        yOriginTxt: '',
-        sampleCheckTxt: '',
-        colorTxt: null,
-        // widthTxt: '',
-		grossweightTxt: '',
-		grossweightCheckTxt: '',
-		widthYdsCheckTxt: '',
-		widthYdsTxt: '',
-		widthMetCheckTxt: '',
-		widthMetTxt: '',
-		pklRowTxt: null, // dãy
-		pklSpaceTxt: null, // hàng
-		pklFloorTxt: null, //tầng
+		objPkl: {
+			lotnumberTxt: '',
+			packageidTxt: '',
+			yTxt: '',
+			mTxt: '',
+			mOriginTxt: '',
+			yOriginTxt: '',
+			sampleCheckTxt: '',
+			colorTxt: null,
+			// widthTxt: '',
+			grossweightTxt: '',
+			grossweightCheckTxt: '',
+			widthYdsCheckTxt: '',
+			widthYdsTxt: '',
+			widthMetCheckTxt: '',
+			widthMetTxt: '',
+			pklRowTxt: null, // dãy
+			pklSpaceTxt: null, // hàng
+			pklFloorTxt: null, //tầng
+		},
 
 		// Stockin_M_Edit_Pkl_Recheck
 		selectedPklRecheckRecord: null, // pkl đang chọn

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_Pkl_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_Edit_Pkl_Main',
     id: 'Stockin_M_Edit_Pkl_Main',
@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{lotnumberTxt}'
+                                value: '{objPkl.lotnumberTxt}'
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType'
@@ -122,7 +122,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{packageidTxt}'
+                                value: '{objPkl.packageidTxt}'
                             },
                             // listeners: {
                             //     keyup: 'onpackageidTxtKeyup',
@@ -168,7 +168,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{mTxt}',
+                                value: '{objPkl.mTxt}',
                                 // cls: '{yTxtCls}',
                                 hidden: '{isMetColumnHidden}',
                             },
@@ -195,7 +195,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yTxt}',
+                                value: '{objPkl.yTxt}',
                                 // cls: '{yTxtCls}',
                                 hidden: '{isYdsColumnHidden}',
                             },
@@ -221,7 +221,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{mOriginTxt}',
+                                value: '{objPkl.mOriginTxt}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -243,7 +243,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yOriginTxt}',
+                                value: '{objPkl.yOriginTxt}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -386,7 +386,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthMetCheckTxt}',
+                                value: '{objPkl.widthMetCheckTxt}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -433,7 +433,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{widthMetTxt}',
+                                value: '{objPkl.widthMetTxt}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -475,7 +475,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value:'{pklRowTxt}'
+                                value:'{objPkl.pklRowTxt}'
                             },
                         },
                         {
@@ -496,7 +496,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value:'{pklSpaceTxt}'
+                                value:'{objPkl.pklSpaceTxt}'
                             },
                             // stepValue: 0.1,
                         },
@@ -518,14 +518,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Main', {
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value:'{pklFloorTxt}'
+                                value:'{objPkl.pklFloorTxt}'
                             },
                             // stepValue: 0.1,
                         },
                         {
                             xtype:'button',
                             iconCls: 'x-fa fa-plus',
-                            // itemId:'',
+                            // itemId:'btnTestDeselect',
                             ui: 'action',
                             margin: 1,
                             style: 'visibility: hidden;'

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_Pkl_Recheck_MainController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockin_M_Edit_Pkl_Recheck_MainController',
 	init: function () {
@@ -78,19 +78,54 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Pkl_Recheck_MainController', {
     onItemPklRecheckTap: function(list, location, eOpts ){
         var m = this;
         var viewModel = this.getViewModel();
+        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
+        var tappedRecord = location.record;
 
-        var record = location.record;
-        viewModel.set('selectedPklRecheckRecord', record);
+        if(selectedPklRecheckRecord == null){
+            var record = location.record;
+            viewModel.set('selectedPklRecheckRecord', record);
+    
+            // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
+            // khi click lên record ở grid sẽ lấy lại giá trị cũ
+            var newObjData = JSON.parse(JSON.stringify(record.data));
+            // chuyển khổ m -> cm
+            newObjData.width_met = newObjData.width_met * 100;
+            newObjData.width_met_check = newObjData.width_met_check * 100;
+            viewModel.set('objRecheck', newObjData);
+        } else{
+            var selectable = list.getSelectable();
+            var selectRecord = selectable.getSelectedRecord();
 
-        // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
-        // khi click lên record ở grid sẽ lấy lại giá trị cũ
-        var newObjData = JSON.parse(JSON.stringify(record.data));
-        // chuyển khổ m -> cm
-        newObjData.width_met = newObjData.width_met * 100;
-        newObjData.width_met_check = newObjData.width_met_check * 100;
-        viewModel.set('objRecheck', newObjData);
+            if(selectRecord == tappedRecord){
+                // nếu ấn vào 1 record đã chọn thì bỏ chọn record này và set viewModel selectedPklRecheckRecord thành null
+                // bỏ highlight trên giao diện grid
+                setTimeout(function(){
+                    m.onGridDeselect();
+                }, 50);
 
-        // console.log(newObjData);
+                viewModel.set('selectedPklRecheckRecord', null);
+                viewModel.set('objRecheck', null);
+            }else{
+                // nếu ấn vào 1 record khác với record đã chọn, bỏ chionj record cũ và chọn record mới
+                // set viewModel selectedPklRecord thành record mới
+                var record = location.record;
+                viewModel.set('selectedPklRecheckRecord',record);
+
+                // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
+                // khi click lên record ở grid sẽ lấy lại giá trị cũ
+                var newObjData = JSON.parse(JSON.stringify(record.data));
+                // chuyển khổ m -> cm
+                newObjData.width_met = newObjData.width_met * 100;
+                newObjData.width_met_check = newObjData.width_met_check * 100;
+                viewModel.set('objRecheck', newObjData);
+            }
+        }
+    },
+    onGridDeselect: function(){
+        var grid = this.getView().down('#Stockin_M_Edit_Pkl_Recheck');
+        var selectable = grid.getSelectable();
+        var selectRecord = selectable.getSelectedRecord();
+        selectable.deselectAll();
     },
     onCheckRecheck: function(){
         var me = this.getView();

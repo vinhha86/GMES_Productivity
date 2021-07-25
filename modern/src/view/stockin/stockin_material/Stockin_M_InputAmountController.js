@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_InputAmountController', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_InputAmountController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_InputAmountController',
     init: function() {

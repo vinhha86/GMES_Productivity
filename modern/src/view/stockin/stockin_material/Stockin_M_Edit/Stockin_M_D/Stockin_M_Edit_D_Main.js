@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Main', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_D_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_Edit_D_Main',
     id: 'Stockin_M_Edit_D_Main',

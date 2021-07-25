@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_InputAmount', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_InputAmount', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_InputAmount',
     id:'Stockin_M_InputAmount',

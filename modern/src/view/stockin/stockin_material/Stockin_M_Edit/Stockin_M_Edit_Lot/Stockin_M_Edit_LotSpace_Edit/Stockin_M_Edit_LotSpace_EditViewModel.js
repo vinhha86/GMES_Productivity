@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_LotSpace_EditViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_LotSpace_EditViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Stockin_M_Edit_LotSpace_EditViewModel',
     requires: [
