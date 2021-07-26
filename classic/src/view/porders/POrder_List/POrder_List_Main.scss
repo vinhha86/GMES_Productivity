@@ -1,10 +1,10 @@
 #porderlistmain{
     .process-free {
-        background-color: lightblue;
+        background-color: #FFFF00;
         color:black;
     }
     .process-granted {
-        background-color: white;
+        background-color: #B3E283;
         color:black;
     }
     .process-ready {
@@ -20,15 +20,15 @@
         color:yellow;
     }
     .process-running {
-        background-color: green;
+        background-color: #66DE93;
         color:yellow;
     }
-    .process-done {
-        background-color: lightgray;
-        color:blue;
-    }
+    // .process-done {
+    //     background-color: lightgray;
+    //     color:blue;
+    // }
     .process-finish {
-        background-color: rgb(159, 100, 161);
+        background-color: #064420;
         color:yellow;
     }
 
