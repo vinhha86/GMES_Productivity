@@ -9,13 +9,18 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
     },
     control: {
         'FolderLocalView': {
-            itemdblclick: 'onEntryFolder'
+            itemdblclick: 'onEntryFolder',
+            select: 'onSelectFolder',
+            deselect: 'onDeselectFolder'
         },
         '#textpathLocal': {
             specialkey: 'onSpecialkey'
         },
         '#btnUpload': {
             click: 'onUpload'
+        },
+        '#btnReload': {
+            click: 'onReload'
         }
     },
     listen: {
@@ -25,6 +30,59 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
             }
         }
 
+    },
+    onCreatedJob: function (grid, rowIndex, colIndex, item, e, record) {
+        var viewmodel = this.getViewModel();
+        var form = Ext.create('Ext.window.Window', {
+            height: 400,
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tạo lịch đồng bộ',
+            closeAction: 'destroy',
+            width: 600,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'CreatedJobView',
+                viewModel: {
+                    data: {
+                        src_path: record.get('Path'),
+                        des_path: "{driver}:" + viewmodel.get('pathDriver')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#CreatedJobView').on('ThanhCong', function () {
+            form.close();
+        })
+    },
+    onReload: function () {
+        var viewmodel = this.getViewModel();
+        var storeLocal = viewmodel.getStore('FolderTreeStore');
+        var pathLocal = viewmodel.get('pathLocal');
+        storeLocal.loadFolderLocal(pathLocal);
+    },
+    onSelectFolder: function (grid, record, index, eOpts) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('pathLocal', record.get('Path'));
+    },
+    onDeselectFolder: function (grid, record, index, eOpts) {
+        var viewmodel = this.getViewModel();
+        var path = viewmodel.get('pathLocal');
+        var lst = path.split('/');
+        path = "";
+        for (var i = 0; i < lst.length - 2; i++) {
+            path += lst[i] + "/";
+        }
+
+        viewmodel.set('pathLocal', path);
     },
     onSpecialkey: function (field, e) {
         var viewmodel = this.getViewModel();

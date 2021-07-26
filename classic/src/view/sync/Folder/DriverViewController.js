@@ -10,7 +10,8 @@ Ext.define('GSmartApp.view.sync.Folder.DriverViewController', {
     control: {
         'DriverView': {
             itemdblclick: 'onEntryFolder',
-            select: 'onSelectFolder'
+            select: 'onSelectFolder',
+            deselect: 'onDeselectFolder'
         },
         '#btnReload': {
             click: 'onReload'
@@ -142,7 +143,19 @@ Ext.define('GSmartApp.view.sync.Folder.DriverViewController', {
     },
     onSelectFolder: function (grid, record, index, eOpts) {
         var viewmodel = this.getViewModel();
-        viewmodel.set('pathDriver', record.gte('Path'));
+        viewmodel.set('pathDriver', record.get('Path'));
+    },
+    onDeselectFolder: function (grid, record, index, eOpts) {
+        var viewmodel = this.getViewModel();
+        var path = viewmodel.get('pathDriver');
+        var lst = path.split('/');
+        path = "";
+        for (var i = 0; i < lst.length - 1; i++) {
+            path += '/' + lst[i];
+        }
+        path = path.substr(1);
+
+        viewmodel.set('pathDriver', path);
     },
     onEntryFolder: function (grid, record, item, index, e, eOpts) {
         if (record.get('IsDir')) {

@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     direction: 'ASC'
                 }]
             });
-        var startDate = new Date(new Date().getTime() - 30*86400000);
+        var startDate = new Date(new Date().getTime() - 30 * 86400000);
         var cm = new Sch.data.CrudManager({
             autoLoad: false,
             resourceStore: resourceStore,
@@ -56,8 +56,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         },
                         params: {
                             listid: '13,14',
-                            startDate:  startDate,
-                            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth()+6, 1),
+                            startDate: startDate,
+                            endDate: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 6, 1),
                             PO_code: '',
                             contractcode: '',
                             Buyer: 0,
@@ -82,10 +82,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             autoAdjustTimeAxis: false,
             enableDragCreation: false,
             zoomLevels: [
-                { width: 50,    increment: 1,   resolution: 4, preset: 'year', resolutionUnit: 'MONTH' },
-                { width: 50,    increment: 1,   resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },
-                { width: 50,    increment: 1,   resolution: 1, preset: 'weekAndMonth', resolutionUnit: 'WEEK' },
-                { width: 20,   increment: 1,   resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
+                { width: 50, increment: 1, resolution: 4, preset: 'year', resolutionUnit: 'MONTH' },
+                { width: 50, increment: 1, resolution: 1, preset: 'monthAndYear', resolutionUnit: 'MONTH' },
+                { width: 50, increment: 1, resolution: 1, preset: 'weekAndMonth', resolutionUnit: 'WEEK' },
+                { width: 20, increment: 1, resolution: 1, preset: 'weekAndDayLetter', resolutionUnit: 'WEEK' },
             ],
             viewPreset: {
                 name: 'weekAndDayLetter',
@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             columnLines: true,
             rowLines: true,
             cls: 'tree-scheduler',
-            snapRelativeToEventStartDate : true,
+            snapRelativeToEventStartDate: true,
             // tooltipTpl: new Ext.XTemplate(
             //     '<ul class="eventTip">',
             //     '<li>{mahang}</li>',  
@@ -129,21 +129,21 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
             eventRenderer: function (flight, resource, meta) {
                 // if(flight.get('grant_type') == 1)
                 //     meta.cls = 'x-fa fa-exclamation-circle ';
-                if (resource.data.type >=1) {
+                if (resource.data.type >= 1) {
                     var img = "";
-                    if(null!=flight.get('icon')){
+                    if (null != flight.get('icon')) {
                         img = '<img style="margin: 0px; width: 31px; height: 31px; border: 1px solid black; left: 1px; top: 1px;" src="' + flight.get('icon') + '">';
-                        if(flight.get('grant_type') == 1)
-                            return  '<div class = "x-fa fa-exclamation-circle">'+"&nbsp;"+img+"&nbsp;"+flight.get('mahang')+'</div>';
-                        else 
-                            return  img+"&nbsp;"+flight.get('mahang');
+                        if (flight.get('grant_type') == 1)
+                            return '<div class = "x-fa fa-exclamation-circle">' + "&nbsp;" + img + "&nbsp;" + flight.get('mahang') + '</div>';
+                        else
+                            return img + "&nbsp;" + flight.get('mahang');
                     } else {
-                        return  flight.get('mahang');
+                        return flight.get('mahang');
                     }
                 } else {
                     return '&nbsp;';
                 }
-                
+
             },
             // eventBodyTemplate : '<div> </div>',
             viewConfig: {
@@ -174,13 +174,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     items: [{
                         iconCls: 'x-fa fas fa-eye',
                         handler: 'onHidden',
-                        getTip: function(value, metadata, record, row, col, store) {
-                           if(record.get('type') == 0){
-                               return 'Hiện tổ';
-                           }
-                           else {
-                               return 'Ẩn tổ';
-                           }
+                        getTip: function (value, metadata, record, row, col, store) {
+                            if (record.get('type') == 0) {
+                                return 'Hiện tổ';
+                            }
+                            else {
+                                return 'Ẩn tổ';
+                            }
                         }
                     }]
                 }
@@ -202,11 +202,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         dateRangeRestriction: false,
                         stateful: true,
                         modal: true,
-                        format           : "A3",
-                        orientation      : "landscape",
-                        range            : "visible",
-                        rowsRange : 'visible',
-                        showHeader       : false,
+                        format: "A3",
+                        orientation: "landscape",
+                        range: "visible",
+                        rowsRange: 'visible',
+                        showHeader: false,
                         showDPIField: false
                     },
                     // exportConfig: {
@@ -217,19 +217,19 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     //     showHeader: false,
                     //     showFooter: false
                     // },
-                    autoPrintAndClose   : false
+                    autoPrintAndClose: false
                 }
             ],
             l10n: {
-                loadingText : 'Đang tải dữ liệu!'
+                loadingText: 'Đang tải dữ liệu!'
             },
-            listeners : {
+            listeners: {
                 eventcontextmenu: 'onContextMenu',
                 aftereventresize: 'onResizeSchedule',
                 eventdrop: 'onEventDrop',
                 beforeeventdropfinalize: 'beforeDrop',
                 zoomchange: 'onZoomchange',
-                render : 'onSchedulerRender',
+                render: 'onSchedulerRender',
                 eventdblclick: 'onItemDblClick',
                 beforeeventdrag: 'onbeforeDrag'
             }
@@ -241,6 +241,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
 
         me.callParent();
     },
-    onDestroy : function() {
+    onDestroy: function () {
     }
 });

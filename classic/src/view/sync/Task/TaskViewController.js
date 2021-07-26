@@ -38,7 +38,6 @@ Ext.define('GSmartApp.view.sync.Task.TaskViewController', {
 
     },
     GetStatusJob: function (jobid) {
-        var grid = this.getView();
         var viewmodel = this.getViewModel();
         // var storeFile = viewmodel.getStore('FileTransferStore');
         // storeFile.LoadFileByJob(jobid)

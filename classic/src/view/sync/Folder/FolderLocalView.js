@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalView', {
         columnLines: true,
         rowLines: true
     },
+    allowDeselect: true,
     selModel: {
         selType: 'checkboxmodel',
         mode: 'SINGLE',
@@ -40,6 +41,26 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalView', {
         dataIndex: 'ModTime',
         width: 120,
         renderer: Ext.util.Format.dateRenderer('d/m/y h:m:s')
+    },
+    {
+        xtype: 'actioncolumn',
+        width: 28,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [{
+            handler: 'onCreatedJob',
+            getClass: function (v, meta, rec) {
+                if (rec.get('IsDir') && rec.get('Name') != "..") {
+                    return 'x-fa fa-tasks';
+                }
+            },
+            getTip: function (value, metadata, record, row, col, store) {
+                if (record.get('IsDir') && record.get('Name') != "..") {
+                    return 'Tạo lịch đồng bộ';
+                }
+            }
+        }]
     }
     ],
     dockedItems: [
@@ -47,6 +68,13 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalView', {
             dock: 'top',
             layout: 'hbox',
             items: [
+                {
+                    xtype: 'button',
+                    tooltip: 'Tải lại',
+                    iconCls: 'x-fa fa-sync',
+                    margin: 3,
+                    itemId: 'btnReload'
+                },
                 {
                     xtype: 'textfield',
                     fieldLabel: "Tên thư mục",

@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.sync.Folder.DriverView', {
         columnLines: true,
         rowLines: true
     },
+    allowDeselect: true,
     selModel: {
         selType: 'checkboxmodel',
         mode: 'SINGLE',

@@ -26,6 +26,10 @@ Ext.define('GSmartApp.view.sync.SyncViewController', {
             var storeTask = viewmodel.getStore('SyncTaskStore');
             storeTask.loadStore();
         }
+        else if (newCard.xtype == "SyncJobView") {
+            var store = viewmodel.getStore('SyncJobStore');
+            store.loadStore();
+        }
 
 
     }
