@@ -17,9 +17,9 @@ Ext.define('GSmartApp.view.pcontract.PContractSKU_ListProductViewCotroller', {
         viewmodel.set('IdProduct', record.data.id);
         viewmodel.set('Product_pquantity', record.data.pquantity);
         var productid_link = viewmodel.get('IdProduct');
-
+        console.log(123);
         storeSku.loadStoreByPO_and_Product(productid_link, pcontract_poid_link);
-        
+
     },
     viewImg: function (grid, metadata, rowIndex) {
         var me = this.getView();

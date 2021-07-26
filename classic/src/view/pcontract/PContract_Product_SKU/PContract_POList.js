@@ -13,8 +13,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     },
     bind: {
-        store: '{PContractPOList}',
-        selection: '{po_selection}'
+        store: '{PContractPOList}'
     },
     reserveScrollbar: true,
     columns: [{
@@ -115,6 +114,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         widget:
         {
             xtype: 'grid',
+            itemId: 'PO_ChildList',
             plugins: {
                 cellediting: {
                     clicksToEdit: 2,
