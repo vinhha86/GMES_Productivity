@@ -283,7 +283,7 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                         e.cancel = true;
                         Ext.MessageBox.show({
                             title: "Tiến độ",
-                            msg: 'Số nhập kho tnahf phẩm không được lớn hơn số nhập hoàn thiện',
+                            msg: 'Số nhập kho thành phẩm không được lớn hơn số nhập hoàn thiện',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
