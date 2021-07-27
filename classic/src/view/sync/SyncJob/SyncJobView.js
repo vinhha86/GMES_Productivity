@@ -47,7 +47,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 150,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -65,7 +64,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 220,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -78,7 +76,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 100,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -91,7 +88,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 200,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -104,7 +100,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 200,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -128,7 +123,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 70,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -141,7 +135,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 70,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -154,7 +147,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 70,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -167,7 +159,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 70,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -180,7 +171,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 70,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
@@ -193,7 +183,6 @@ Ext.define('GSmartApp.view.sync.SyncJob.SyncJobView', {
         width: 70,
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
             selectOnFocus: true,
             listeners: {
                 specialkey: 'onSpecialkey'
