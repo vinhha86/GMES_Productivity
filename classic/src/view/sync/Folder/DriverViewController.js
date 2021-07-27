@@ -2,9 +2,9 @@ Ext.define('GSmartApp.view.sync.Folder.DriverViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.DriverViewController',
     init: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('FolderDriverStore');
-        store.loadFolderDriver("");
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.getStore('FolderDriverStore');
+        // store.loadFolderDriver("");
 
     },
     control: {

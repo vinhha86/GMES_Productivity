@@ -2,7 +2,9 @@ Ext.define('GSmartApp.view.sync.SyncViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SyncViewController',
     init: function () {
-
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('SyncJobStore');
+        store.loadStore();
     },
     control: {
         'SyncView': {
