@@ -264,12 +264,26 @@ Ext.define('GSmartApp.view.pprocess.PProcessController', {
                         return false;
                     }
                     break;	  
-                case "amountstocked":
-                    if ((e.value + e.record.get('amountstockedsumprev')) > e.record.get('amountoutputsum')) {
+                case "amountpackstocked":
+                    if ((e.value + e.record.get('amountpackstockedsumprev')) > e.record.get('amountoutputsum')) {
                         e.cancel = true;
                         Ext.MessageBox.show({
                             title: "Tiến độ",
-                            msg: 'Số nhập kho không được lớn hơn Số ra chuyền',
+                            msg: 'Số nhập hoàn thiện không được lớn hơn Số ra chuyền',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        return false;
+                    }
+                    break;	 
+                case "amountstocked":
+                    if ((e.value + e.record.get('amountstockedsumprev')) > e.record.get('amountpackstockedsum')) {
+                        e.cancel = true;
+                        Ext.MessageBox.show({
+                            title: "Tiến độ",
+                            msg: 'Số nhập kho tnahf phẩm không được lớn hơn số nhập hoàn thiện',
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
