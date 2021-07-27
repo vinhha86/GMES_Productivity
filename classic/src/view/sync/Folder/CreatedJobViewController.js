@@ -27,6 +27,13 @@ Ext.define('GSmartApp.view.sync.Folder.CreatedJobViewController', {
         params.src_path = viewmodel.get('src_path');
         params.jobname = viewmodel.get('jobname');
         params.time_format = viewmodel.get('time_format');
+        params.field1 = viewmodel.get('field1');
+        params.field2 = viewmodel.get('field2');
+        params.field3 = viewmodel.get('field3');
+        params.field4 = viewmodel.get('field4');
+        params.field5 = viewmodel.get('field5');
+        params.field6 = viewmodel.get('field6');
+
         params.userid = session.id;
 
         GSmartApp.Ajax.post_demo('sync/create_syncjob', Ext.JSON.encode(params),

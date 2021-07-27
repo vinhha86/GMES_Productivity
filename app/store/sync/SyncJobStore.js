@@ -11,7 +11,17 @@ Ext.define('GSmartApp.store.sync.SyncJobStore', {
         'des_path',
         'user_created_name',
         { name: 'date_created', type: 'date', format: 'c' },
-        'user_created'
+        'user_created',
+        'status',
+        {
+            name: 'staus_name',
+            calculate: function (data) {
+                if (data.status == 0) {
+                    return "Đang tạm dừng";
+                }
+                return "Đang chạy";
+            }
+        }
     ],
     loadStore: function () {
         this.setProxy({

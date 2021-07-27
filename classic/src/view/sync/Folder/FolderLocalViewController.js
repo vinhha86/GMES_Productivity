@@ -2,10 +2,10 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.FolderLocalViewController',
     init: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('FolderTreeStore');
-        var path = viewmodel.get('pathLocal');
-        store.loadFolderLocal(path);
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.getStore('FolderTreeStore');
+        // var path = viewmodel.get('pathLocal');
+        // store.loadFolderLocal(path);
     },
     control: {
         'FolderLocalView': {
@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.sync.Folder.FolderLocalViewController', {
     onCreatedJob: function (grid, rowIndex, colIndex, item, e, record) {
         var viewmodel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
-            height: 400,
+            height: 450,
             closable: false,
             resizable: false,
             modal: true,
