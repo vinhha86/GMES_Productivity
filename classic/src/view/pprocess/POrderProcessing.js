@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
     extend: 'Ext.grid.Panel',
     xtype: 'porderprocessing',
     reference: 'porderprocessing',
+    cls: 'POrderProcessing',
     requires: [
         'GSmartApp.store.POrderProcessing',
         'Ext.Number',
@@ -124,8 +125,9 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
                 } else if (c == 4) {
                     metaData.tdCls =  'process-running';
                 } else if (c == 5) {
-                    metaData.tdCls =  'process-done';
+                    metaData.tdCls =  'process-running';
                 } else if (c == 6) {
+                    // soNgayChamGiaoHang
                     metaData.tdCls =  'process-finish';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -425,11 +427,11 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessing', {
         //         {margin: '10 0 0 10', columnWidth: 0.25, items: [{ xtype: 'checkboxfield', boxLabel: 'Kết thúc SX'}]},
         //     ]
         // }
-        { xtype: 'checkboxfield', id: 'chkGrant', reference: 'chkGrant', boxLabel:  'Chưa SX', checked: true, listeners: {change:'onCheckStatusChange'}},
+        { xtype: 'checkboxfield', id: 'chkGrant', reference: 'chkGrant', boxLabel:  '<span class="process-granted">' + 'Chưa SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
         // { xtype: 'checkboxfield', id: 'chkReady', reference: 'chkReady', boxLabel: '<span style="background-color:yellow; color:red">' + 'Chuẩn bị SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
-        { xtype: 'checkboxfield', id: 'chkSubProcess', reference: 'chkSubProcess', boxLabel: '<span style="background-color:blue; color:yellow">' + 'Công đoạn phụ' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
-        { xtype: 'checkboxfield', id: 'chkRunning', reference: 'chkRunning', boxLabel: '<span style="background-color:green; color:yellow">' + 'Đang SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
-        { xtype: 'checkboxfield', id: 'chkDone', reference: 'chkDone', boxLabel: '<span style="background-color:lightgray; color:blue">' + 'Kết thúc SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
+        { xtype: 'checkboxfield', id: 'chkSubProcess', reference: 'chkSubProcess', boxLabel: '<span class="process-subprocess">' + 'Công đoạn phụ' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
+        { xtype: 'checkboxfield', id: 'chkRunning', reference: 'chkRunning', boxLabel: '<span class="process-running">' + 'Đang SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
+        { xtype: 'checkboxfield', id: 'chkDone', reference: 'chkDone', boxLabel: '<span class="process-finish">' + 'Kết thúc SX' + '</span>', checked: true, listeners: {change:'onCheckStatusChange'}},
     ]
     }],
     // viewConfig: {

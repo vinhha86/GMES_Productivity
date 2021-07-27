@@ -68,7 +68,20 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 } else if (c == 5) {
                     metaData.tdCls =  'process-running';
                 } else if (c == 6) {
-                    metaData.tdCls =  'process-finish';
+                    var soNgayChamGiaoHang = record.get('soNgayChamGiaoHang');
+                    if(soNgayChamGiaoHang != null){
+                        if(soNgayChamGiaoHang < 0){
+                            metaData.tdCls =  'process-slow-ship-big';
+                        }else if(soNgayChamGiaoHang < 5){
+                            metaData.tdCls =  'process-slow-ship-medium';
+                        }else if(soNgayChamGiaoHang < 10){
+                            metaData.tdCls =  'process-slow-ship-small';
+                        }else{
+                            metaData.tdCls =  'process-finish';
+                        }
+                    }else{
+                        metaData.tdCls =  'process-finish';
+                    }
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -437,13 +450,13 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             items: [
                 {
                     html: '<div class="color-box">'
-                    +'<div class="color-square process-free"></div>&nbspChưa phân chuyền'
+                    +'<div class="color-square process-free"></div>&nbspChưa&nbspphân&nbspchuyền'
                     +'</div>',
                     margin: '5'
                 },
                 {
                     html: '<div class="color-box">'
-                    +'<div class="color-square process-granted"></div>&nbspĐã phân chuyền'
+                    +'<div class="color-square process-granted"></div>&nbspĐã&nbspphân&nbspchuyền'
                     +'</div>',
                     margin: '5'
                 },
@@ -455,7 +468,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // },
                 {
                     html: '<div class="color-box">'
-                    +'<div class="color-square process-running"></div>&nbspĐang SX'
+                    +'<div class="color-square process-running"></div>&nbspĐang&nbspSX'
                     +'</div>',
                     margin: '5'
                 },
@@ -467,10 +480,29 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
                 // },
                 {
                     html: '<div class="color-box">'
-                    +'<div class="color-square process-finish"></div>&nbspNhập kho xong'
+                    +'<div class="color-square process-finish"></div>&nbspNhập&nbspkho&nbspxong'
                     +'</div>',
                     margin: '5'
-                }
+                },
+                {
+                    html: '<div class="color-box">'
+                    +'<div class="color-square process-slow-ship-small"></div>&nbsp'
+                    +'</div>',
+                    margin: '5'
+                },
+                {
+                    html: '<div class="color-box">'
+                    +'<div class="color-square process-slow-ship-medium"></div>&nbsp'
+                    +'</div>',
+                    margin: '5'
+                },
+                {
+                    html: '<div class="color-box">'
+                    +'<div class="color-square process-slow-ship-big"></div>&nbspChậm&nbspgiao&nbsphàng'
+                    +'</div>',
+                    margin: '5'
+                },
+                
             ]
         }, 
         {
