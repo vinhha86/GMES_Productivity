@@ -2,11 +2,12 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.DashBoardMainViewModel',
     requires: [
-        'GSmartApp.store.BarChartOutputAmountStore',
-        'GSmartApp.store.LineChartPackStockedAmountStore',
-        'GSmartApp.store.BarChartNotInProductionStore',
-        'GSmartApp.store.PieChartMarketTypeStore',
-        'GSmartApp.store.LineChartRegisterCodeCountStore'
+        'GSmartApp.store.DashBoardView.BarChartOutputAmountStore',
+        'GSmartApp.store.DashBoardView.LineChartPackStockedAmountStore',
+        'GSmartApp.store.DashBoardView.BarChartNotInProductionStore',
+        'GSmartApp.store.DashBoardView.PieChartMarketTypeStore',
+        'GSmartApp.store.DashBoardView.LineChartRegisterCodeCountStore',
+        'GSmartApp.store.DashBoardView.POrderStatusChartStore',
     ],
     stores: {
         BarChartOutputAmountStore: {
@@ -23,6 +24,9 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainViewModel', {
         },
         LineChartRegisterCodeCountStore: {
             type: 'LineChartRegisterCodeCountStore'
+        },
+        POrderStatusChartStore: {
+            type: 'POrderStatusChartStore'
         },
     },
     data: {

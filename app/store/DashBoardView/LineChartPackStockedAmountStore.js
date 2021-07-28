@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.store.LineChartPackStockedAmountStore', {
+Ext.define('GSmartApp.store.DashBoardView.LineChartPackStockedAmountStore', {
     extend: 'Ext.data.Store',
     alias: 'store.LineChartPackStockedAmountStore',
     storeId: 'LineChartPackStockedAmountStore',

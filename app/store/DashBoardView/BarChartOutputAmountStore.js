@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.store.BarChartOutputAmountStore', {
+Ext.define('GSmartApp.store.DashBoardView.BarChartOutputAmountStore', {
     extend: 'Ext.data.Store',
     alias: 'store.BarChartOutputAmountStore',
 	storeId: 'BarChartOutputAmountStore',

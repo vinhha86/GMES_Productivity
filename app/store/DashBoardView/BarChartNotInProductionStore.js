@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.store.BarChartNotInProductionStore', {
+Ext.define('GSmartApp.store.DashBoardView.BarChartNotInProductionStore', {
     extend: 'Ext.data.Store',
     alias: 'store.BarChartNotInProductionStore',
 	storeId: 'BarChartNotInProductionStore',

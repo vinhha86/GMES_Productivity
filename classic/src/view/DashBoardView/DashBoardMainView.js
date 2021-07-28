@@ -17,19 +17,29 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
         // xtype: '',
         margin: 1,
         layout: 'hbox',
-        items:[{
-            xtype:'BarChartOutputAmount',
-            border: true,
-            margin: 1,
-            height: '100%',
-            flex: 2,
-        },{
-            xtype: 'PieChartMarketType',
-            border: true,
-            margin: 1,
-            height: '100%',
-            flex: 1,
-        }]
+        items:[
+            {
+                xtype:'POrderStatusChart',
+                border: true,
+                margin: 1,
+                height: '100%',
+                flex: 2,
+            },
+            // {
+            //     xtype:'BarChartOutputAmount',
+            //     border: true,
+            //     margin: 1,
+            //     height: '100%',
+            //     flex: 2,
+            // },
+            {
+                xtype: 'PieChartMarketType',
+                border: true,
+                margin: 1,
+                height: '100%',
+                flex: 1,
+            }
+        ]
     },{
         region: 'center',
         border: false,

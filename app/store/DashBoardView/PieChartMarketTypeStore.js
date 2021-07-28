@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.store.PieChartMarketTypeStore', {
+Ext.define('GSmartApp.store.DashBoardView.PieChartMarketTypeStore', {
     extend: 'Ext.data.Store',
     alias: 'store.PieChartMarketTypeStore',
     storeId: 'PieChartMarketTypeStore',

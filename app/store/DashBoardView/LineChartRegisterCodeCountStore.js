@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.store.LineChartRegisterCodeCountStore', {
+Ext.define('GSmartApp.store.DashBoardView.LineChartRegisterCodeCountStore', {
     extend: 'Ext.data.Store',
     alias: 'store.LineChartRegisterCodeCountStore',
     storeId: 'LineChartRegisterCodeCountStore',
