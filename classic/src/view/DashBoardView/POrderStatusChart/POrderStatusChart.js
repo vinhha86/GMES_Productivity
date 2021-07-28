@@ -12,13 +12,19 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart', {
         {
             xtype: 'POrderStatusChart_Grid',
             margin: '1',
-            flex: 1
+            flex: 1,
+            bind: {
+                hidden: '{isPOrderStatusChart_Grid_Show}'
+            }
         },
-        // {
-        //     xtype: 'POrderStatusChart_Chart',
-        //     margin: '1',
-        //     flex: 1
-        // },
+        {
+            xtype: 'POrderStatusChart_Chart',
+            margin: '1',
+            flex: 1,
+            bind: {
+                hidden: '{!isPOrderStatusChart_Grid_Show}'
+            }
+        },
     ],
     dockedItems: [{
 		dock: 'top',
@@ -30,13 +36,15 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart', {
 			{
 				xtype: 'button',
                 itemId: 'btnRefresh',
-				text: 'Làm mới',
+				// text: 'Làm mới',
+                tooltip: 'Làm mới',
 				iconCls: 'x-fa fa-refresh',
 			},
 			{
 				xtype: 'button',
                 itemId: 'btnChangeView',
-				text: 'Đổi góc nhìn',
+				// text: 'Đổi góc nhìn',
+                tooltip: 'Đổi góc nhìn',
 				iconCls: 'x-fa fa-eye',
 			}
 		]

@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart_Gri
                 },
                 columns: [
                     {
-                        text: 'PX',
+                        text: 'Phân xưởng',
                         dataIndex: 'orgName',
                         flex: 1,
                     },
