@@ -106,6 +106,13 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }, {
+        text: 'ĐVT',
+        dataIndex: 'totalpair',
+        width: 60,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 1 ? "Chiếc" : "Bộ (" + value + ")";
+        }
+    }, {
         text: 'Cắt',
         align: 'right',
         dataIndex: 'amountcut',

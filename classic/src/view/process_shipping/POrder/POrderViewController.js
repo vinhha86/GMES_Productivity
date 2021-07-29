@@ -58,6 +58,8 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
     },
     onSelectPOrder: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
+        var grid = this.getView();
+        grid.getSelectionModel().select(record, true, true);
         var porderid_link = record.get('id');
         var productid_link = record.get('productid_link');
         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
@@ -79,5 +81,16 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         var SKUBalanceStore_Mat = viewmodel.getStore('SKUBalanceStore_Mat');
         SKUBalanceStore_Mat.setGroupField('mat_sku_product_typename');
         SKUBalanceStore_Mat.loadBalancePOrder(porderid_link);
+
+        //filter mau co cua po-line chi lay san pham dc chon
+        var store = viewmodel.get('POLineSKU_Store');
+        var filters = store.getFilters();
+
+        this.ordercodeFilterField = filters.add({
+            property: 'productid_link',
+            value: productid_link,
+            anyMatch: true,
+            caseSensitive: false
+        });
     }
 })
