@@ -20,11 +20,13 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Controller', {
         var me = this.getView();
         var viewmodel = this.getViewModel();
         var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
+        var balance_limit = viewmodel.get('balance_limit');
 
         var params = new Object();
         params.pcontractid_link = viewmodel.get('pcontractid_link');
         params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
         params.list_productid = viewmodel.get('IdProduct');
+        params.balance_limit = balance_limit;
 
         me.setLoading("Đang tính cân đối");
         if (null!=params.pcontract_poid_link && 0!=params.pcontract_poid_link){

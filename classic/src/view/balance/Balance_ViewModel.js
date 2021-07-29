@@ -21,5 +21,6 @@ Ext.define('GSmartApp.view.balance.Balance_ViewModel', {
 		isAdd_Pcontract_Stockin: false,
 		ls_productid_link: null,
 		IdProduct: 0,
+		balance_limit: 0, // 0: tinh het, 1: nguyen lieu, 2: phu lieu
 	}
 })
