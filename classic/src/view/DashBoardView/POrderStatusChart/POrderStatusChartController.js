@@ -54,22 +54,22 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChartCont
     },
     onBtnChangeView: function(){
         var viewModel = this.getViewModel();
-        var mainView = Ext.getCmp('DashBoardMainView');
-        if(mainView) mainView.setLoading(true);
+        // var mainView = Ext.getCmp('DashBoardMainView');
+        // if(mainView) mainView.setLoading(true);
         var isPOrderStatusChart_Grid_Show = viewModel.get('isPOrderStatusChart_Grid_Show');
         viewModel.set('isPOrderStatusChart_Grid_Show', !isPOrderStatusChart_Grid_Show);
-        var POrderStatusChartStore = viewModel.getStore('POrderStatusChartStore');
-        POrderStatusChartStore.loadStore_async();
-        POrderStatusChartStore.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if(mainView) mainView.setLoading(false);
-                if(!success){
-                    // this.fireEvent('logout');
-                } else {
+        // var POrderStatusChartStore = viewModel.getStore('POrderStatusChartStore');
+        // POrderStatusChartStore.loadStore_async();
+        // POrderStatusChartStore.load({
+        //     scope: this,
+        //     callback: function(records, operation, success) {
+        //         if(mainView) mainView.setLoading(false);
+        //         if(!success){
+        //             // this.fireEvent('logout');
+        //         } else {
                     
-                }
-            }
-        });
+        //         }
+        //     }
+        // });
     }
 });
