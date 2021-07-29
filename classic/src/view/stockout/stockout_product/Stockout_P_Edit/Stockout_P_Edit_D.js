@@ -236,6 +236,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     emptyText: 'Không có mã hàng phù hợp.',
                 },
                 anyMatch: true,
+                minChars: 1,
                 queryMode: 'remote',
                 queryParam: 'code',		
                 enableKeyEvents : true,

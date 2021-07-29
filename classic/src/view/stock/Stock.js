@@ -77,6 +77,7 @@ Ext.define('GSmartApp.view.stock.Stock', {
                         emptyText: 'Không có mã hàng phù hợp.',
                     },
                     anyMatch: true,
+                    minChars: 1,
                     queryMode: 'remote',
                     queryParam: 'code',		
                     enableKeyEvents : true,
