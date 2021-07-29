@@ -5,9 +5,9 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChartCont
         var viewModel = this.getViewModel();
 
         var fromDate = new Date();
-        fromDate.setMonth(fromDate.getMonth() - 12);
+        fromDate.setMonth(fromDate.getMonth() - 1);
         var toDate = new Date();
-        toDate.setMonth(toDate.getMonth() + 1);
+        toDate.setMonth(toDate.getMonth() + 12);
 
         viewModel.set('fromDate', fromDate);
         viewModel.set('toDate', toDate);
