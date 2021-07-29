@@ -616,7 +616,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_Controller', {
 				viewModel: {
 					data: {
 						sourceview: 'InvoiceEdit_D',
-						searchtype: 5,
+						searchtype: 2,
 						// pcontractid_link: viewModel.get('PContract.id'),
 						// productid_link_notsearch: productid_link,
 						isAddNPL: true,
