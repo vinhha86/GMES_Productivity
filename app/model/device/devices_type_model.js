@@ -6,5 +6,6 @@ Ext.define('GSmartApp.model.device.devices_type_model', {
         {name: 'code'},
         {name: 'name'},
         {name:'id'},
+        {name:'is_rfid'},
         'idx',],
 });

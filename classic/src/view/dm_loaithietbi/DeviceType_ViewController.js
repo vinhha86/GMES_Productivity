@@ -10,27 +10,42 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewController', {
     control: {
         '#btnThemMoi': {
             click: 'ThemMoi',
+        },
+        '#Change':{
+            checkchange:'Checkchange'
         }
     },
-    onEdit: function (editor, context, e) {
-        var viewmodel = this.getViewModel()
+    //thay đổi checkbox
+    Checkchange:function(a, rowIndex, checked, record, e, eOpts){
         var me = this;
         var params = new Object();
-        //kiểm tra nếu dữ liệu khác lúc ban đầu thì thêm
-        if (context.value != context.originalValue) {
-            params.data = context.record.data;
-            //kiểm tra xem sửa ở trường nào để gán lại
-            if (context.field == "code") {
-                params.data.code = context.value;       
-            } else {
-                if (context.field == "name") params.data.name = context.value;
-            }
-             //kiểm tra nếu trùng thì không được sửa 
-             var kt = me.CheckValidate(context.value,context.record.data.id);
-             if (kt) {
-                 me.Them_CapNhat(params);
-             }
+        params.data = record.data;
+
+        if(record.previousValues.is_rfid != checked){
+            me.Them_CapNhat(params);
         }
+    },
+
+    onEdit: function (editor, context, e) {
+        var me = this;
+        var params = new Object();
+        params.data = context.record.data;
+
+              //kiểm tra nếu dữ liệu khác lúc ban đầu thì thêm
+            if (context.value != context.originalValue  ) {
+                //kiểm tra xem sửa ở trường nào để gán lại
+                if (context.field == "code") {
+                    params.data.code = context.value;       
+                } else {
+                    if (context.field == "name") params.data.name = context.value;
+                }
+                 //kiểm tra nếu trùng thì không được sửa 
+                 var kt = me.CheckValidate(context.value,context.record.data.id);
+                 if (kt) {
+                     me.Them_CapNhat(params);
+                 }
+            }
+      
     },
     onXoa: function (grid, rowIndex) {
         var viewmodel = this.getViewModel();
@@ -91,6 +106,8 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewController', {
         var device = new Object();
         device.name = viewmodel.get('device.name');
         device.code = viewmodel.get('device.code');
+        device.is_rfid = viewmodel.get('device.check') == null ? false : viewmodel.get('device.check');
+      
         params.data = device;
         if (device.name == null ||device.name == ''|| device.code == null||device.code == '') {
             viewmodel.set('device.name', null);
@@ -131,6 +148,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewController', {
                         })
                         viewmodel.set('device.name', null);
                         viewmodel.set('device.code', null);
+                        viewmodel.set('device.check', null);
 
                         //load
                         var device_typeStore = viewmodel.getStore('devices_store');

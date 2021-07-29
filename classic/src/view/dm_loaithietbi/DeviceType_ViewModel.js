@@ -11,7 +11,8 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewModel',{
     data:{
         device:{
             name:null,
-            code:null
+            code:null,
+            check:null
         }
     }
 })

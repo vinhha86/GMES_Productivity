@@ -80,7 +80,15 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
             xtype: 'textfield',
             selectOnFocus: true
             },
-    }],
+    }
+    ,{
+        text: 'Thiết bị RFID',
+        xtype:'checkcolumn',
+        dataIndex:'is_rfid',
+        flex: 1,
+        itemId:'Change'
+    }
+],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
@@ -111,6 +119,17 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
             bind:{
                 value:'{device.name}'
             }
-        }]
+        },{
+
+            xtype:'checkbox',
+            width:250,
+            margin:5,
+            fieldLabel:'Thiết bị RFID',
+            bind:{
+                value:'{device.check}'
+            }
+        }
+    
+    ]
     }],
 })
