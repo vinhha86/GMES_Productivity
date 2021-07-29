@@ -31,5 +31,11 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainViewModel', {
     },
     data: {
         isPOrderStatusChart_Grid_Show: true,
+        fromDate: null,
+        toDate: null,
+        captions: null,
+        
+    },
+    formulas: {
     }
 })

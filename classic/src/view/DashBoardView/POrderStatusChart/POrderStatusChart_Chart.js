@@ -10,37 +10,51 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart_Cha
         xtype: 'cartesian',
         width: '100%',
         height: '100%',
-        captions: {
-            // title: {
-            //     text: 'Số lượng ra chuyền/ngày tháng hiện tại',
-            //     alignTo: 'chart'
-            // },
-            subtitle: {
-                text: 'Trạng thái lệnh',
-                alignTo: 'chart'
-            }
-        },
+        // captions: {
+        //     // title: {
+        //     //     text: 'Số lượng ra chuyền/ngày tháng hiện tại',
+        //     //     alignTo: 'chart'
+        //     // },
+        //     subtitle: {
+        //         text: 'Trạng thái lệnh',
+        //         alignTo: 'chart'
+        //     }
+        // },
         theme: 'Muted',
         interactions: ['itemhighlight'],
+        // interactions: [
+        //     {
+        //         type: 'itemhighlight'
+        //     },
+        //     {
+        //         type: 'iteminfo',
+        //         tooltip: {
+        //             renderer: 'onEditTipRender'
+        //         },
+        //     }
+        // ],
         animation: {
             duration: 200
         },
         bind:{
-            store:'{POrderStatusChartStore}'
+            store:'{POrderStatusChartStore}',
+            captions: '{captions}'
         },
         legend: {
             type: 'dom',
             docked: 'bottom'
         },
         axes: [{
-            type: 'numeric3d',
+            type: 'numeric',
             position: 'left',
             fields: ['sum'],
             grid: true,
+            // maximum: 1,
+            // minimum: 1,
             // title: 'Số lượng',
             renderer: 'onAxisLabelRender'
         }, {
-            type: 'category3d',
+            type: 'category',
             position: 'bottom',
             fields: 'statusName',
             // title: {
@@ -50,12 +64,12 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart_Cha
             grid: true,
             label: {
                 rotate: {
-                    degrees: 0
+                    degrees: -20
                 }
             },
         }],
         series: {
-            type: 'bar3d',
+            type: 'bar',
             stacked: false,
             title: ['Số lượng'],
             xField: 'statusName',
@@ -65,10 +79,20 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart_Cha
                 display: 'insideEnd',
                 renderer: 'onSeriesLabelRender'
             },
-            highlight: true,
+            highlight: false,
             style: {
                 inGroupGapWidth: -7
-            }
+            },
+            tooltip: {
+                trackMouse: false,
+                // width: 140,
+                // height: 28,
+                renderer: 'onTooltipRender',
+                // renderer: function (toolTip, record, ctx) {
+                //     toolTip.setHtml(record.get('sum'));
+                // },
+            },
+            renderer: 'onBarRender',
         }
     }
     ]
