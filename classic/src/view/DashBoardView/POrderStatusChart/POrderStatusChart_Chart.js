@@ -40,10 +40,10 @@ Ext.define('GSmartApp.view.DashBoardView.POrderStatusChart.POrderStatusChart_Cha
             store:'{POrderStatusChartStore}',
             captions: '{captions}'
         },
-        legend: {
-            type: 'dom',
-            docked: 'bottom'
-        },
+        // legend: {
+        //     type: 'dom',
+        //     docked: 'bottom'
+        // },
         axes: [{
             type: 'numeric',
             position: 'left',
