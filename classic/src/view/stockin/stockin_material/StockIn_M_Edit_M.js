@@ -11,119 +11,151 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_M', {
 	items: [{
 		layout: 'hbox',
 		xtype: 'container',
-		items: [{
-			xtype: 'hiddenfield',
-			bind: {
-				value: '{stockin.id}'
+		items: [
+			{
+				xtype: 'hiddenfield',
+				bind: {
+					value: '{stockin.id}'
+				},
+			}, {
+				xtype: 'hiddenfield',
+				bind: {
+					value: '{stockin.status}'
+				},
+			}, {
+				xtype: 'combo',
+				readOnly: true,
+				editable: false,	
+				cls: 'notEditable',
+				valueField: 'id',
+				displayField: 'name',
+				bind: {
+					value: '{stockin.stockintypeid_link}',
+					store: '{StockinTypeStore}'
+				},
+				queryMode: 'local',
+				anyMatch: true,
+				margin: '5 5 0 5',
+				fieldLabel: 'Loại nhập',					
+				allowBlank: false,
+				blankText: 'Không được để trống',
+				labelWidth: 80,
+				width: 375
+			}, {
+				margin: '5 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.stockincode}'
+				},
+				readOnly: true,
+				editable: false,	
+				cls: 'notEditable',
+				fieldLabel: "Số phiếu",
+				width: 235,
+				labelWidth: 85
+			}, {
+				margin: '5 5 0 5',
+				xtype: 'datefield',
+				format: GSmartApp.util.State.get('dataFormat'),
+				altFormats: "Y-m-d\\TH:i:s.uO",
+				bind: {
+					value: '{stockin.stockindate}'
+				},			
+				editable: false,
+				fieldLabel: "Ngày nhập",
+				width: 200,
+				labelWidth: 70
+			}, 
+			{
+				margin: '5 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.usercreate_name}'
+				},
+				fieldLabel: 'Người lập',
+				editable: false,
+				readOnly: true,
+				cls: 'notEditable',
+				flex: 1,
+				labelWidth: 85,
 			},
-		}, {
-			xtype: 'hiddenfield',
-			bind: {
-				value: '{stockin.status}'
-			},
-		}, {
-			xtype: 'combo',
-			readOnly: true,
-			editable: false,	
-			cls: 'notEditable',
-			valueField: 'id',
-			displayField: 'name',
-			bind: {
-				value: '{stockin.stockintypeid_link}',
-				store: '{StockinTypeStore}'
-			},
-			queryMode: 'local',
-			anyMatch: true,
-			margin: '5 5 0 5',
-			fieldLabel: 'Loại nhập',					
-			allowBlank: false,
-			blankText: 'Không được để trống',
-			labelWidth: 80,
-			width: 375
-		}, {
-			margin: '5 5 0 5',
-			xtype: 'textfield',
-			bind: {
-				value: '{stockin.stockincode}'
-			},
-			readOnly: true,
-			editable: false,	
-			cls: 'notEditable',
-			fieldLabel: "Số phiếu",
-			width: 235,
-            labelWidth: 85
-		}, {
-			margin: '5 5 0 5',
-			xtype: 'datefield',
-			format: GSmartApp.util.State.get('dataFormat'),
-			altFormats: "Y-m-d\\TH:i:s.uO",
-			bind: {
-				value: '{stockin.stockindate}'
-			},			
-			editable: false,
-			fieldLabel: "Ngày nhập",
-			width: 200,
-            labelWidth: 70
-		}, {
-			xtype: 'combo',
-			valueField: 'id',
-			displayField: 'fullName',
-			bind: {
-				value: '{stockin.usercreateid_link}',
-				store: '{UserStore}'
-			},
-			queryMode: 'local',
-			anyMatch: true,
-			margin: '5 5 0 5',
-			readOnly: true,
-			editable: false,	
-			cls: 'notEditable',
-			flex: 1,
-            labelWidth: 85,
-			fieldLabel: 'Người lập'
-		}]
+			// {
+			// 	xtype: 'combo',
+			// 	valueField: 'id',
+			// 	displayField: 'fullName',
+			// 	bind: {
+			// 		value: '{stockin.usercreateid_link}',
+			// 		store: '{UserStore}'
+			// 	},
+			// 	queryMode: 'local',
+			// 	anyMatch: true,
+			// 	margin: '5 5 0 5',
+			// 	readOnly: true,
+			// 	editable: false,	
+			// 	cls: 'notEditable',
+			// 	flex: 1,
+			// 	labelWidth: 85,
+			// 	fieldLabel: 'Người lập'
+			// }
+		]
 	}, {
 		layout: 'hbox',
 		xtype: 'container',
 		margin: '1 0 0 0',
-		items: [{
-			xtype: 'combo',
-			valueField: 'id',
-			displayField: 'name',
-			bind: {
-				value: '{stockin.orgid_from_link}',
-				store: '{OrgFromStore}'
+		items: [
+			{
+				xtype: 'combo',
+				valueField: 'id',
+				displayField: 'name',
+				bind: {
+					value: '{stockin.orgid_from_link}',
+					store: '{OrgFromStore}'
+				},
+				queryMode: 'local',
+				anyMatch: true,
+				margin: '0 5 0 5',
+				fieldLabel: 'Nơi giao',					
+				labelWidth: 80,					
+				width: 375
+			},{
+				xtype: 'combo',
+				valueField: 'id',
+				displayField: 'name',
+				bind: {
+					value: '{stockin.orgid_to_link}',
+					store: '{OrgToStore}'
+				},
+				queryMode: 'local',
+				anyMatch: true,
+				margin: '0 5 0 5',
+				width: 445,
+				labelWidth: 85,
+				fieldLabel: 'Nơi nhận'
 			},
-			queryMode: 'local',
-			anyMatch: true,
-			margin: '0 5 0 5',
-			fieldLabel: 'Nơi giao',					
-			labelWidth: 80,					
-			width: 375
-		},{
-			xtype: 'combo',
-			valueField: 'id',
-			displayField: 'name',
-			bind: {
-				value: '{stockin.orgid_to_link}',
-				store: '{OrgToStore}'
+			{
+				margin: '0 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.userApprove_name}'
+				},
+				fieldLabel: 'Người duyệt',
+				editable: false,
+				readOnly: true,
+				cls: 'notEditable',
+				flex: 1,
+				labelWidth: 85,
 			},
-			queryMode: 'local',
-			anyMatch: true,
-			margin: '0 5 0 5',
-			width: 445,
-			labelWidth: 85,
-			fieldLabel: 'Nơi nhận'
-		},{
-			margin: '0 5 0 5',
-			xtype: 'textfield',
-			bind: {
-				value: '{stockin.shipperson}'
-			},
-			fieldLabel: 'Người giao',
-			labelWidth: 85,
-			flex: 1
-		}]
+			// {
+			// 	margin: '0 5 0 5',
+			// 	xtype: 'textfield',
+			// 	bind: {
+			// 		value: '{stockin.shipperson}'
+			// 	},
+			// 	fieldLabel: 'Người giao',
+			// 	labelWidth: 85,
+			// 	flex: 1
+			// }
+		]
 	}, {
 		layout: 'hbox',
 		xtype: 'container',

@@ -334,7 +334,39 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
         
     },
     
-    onConfirm: function(){
+    // onConfirm: function(){
+    //     var viewModel = this.getViewModel();
+    //     var stockin = viewModel.get('stockin');
+    //     var stockinId = stockin.id;
+    //     var form = Ext.create('Ext.window.Window', {
+    //         // height: 200,
+    //         width: 315,
+    //         closable: true,
+    //         resizable: false,
+    //         modal: true,
+    //         border: false,
+    //         title: 'Duyệt',
+    //         closeAction: 'destroy',
+    //         bodyStyle: 'background-color: transparent',
+    //         layout: {
+    //             type: 'fit', // fit screen for window
+    //             padding: 5
+    //         },
+    //         items: [{
+    //             xtype: 'Stockin_M_Edit_Confirm',
+    //             viewModel: {
+    //                 type: 'Stockin_M_Edit_ConfirmViewModel',
+    //                 data: {
+    //                     stockin: stockin,
+    //                     stockinId: stockinId
+    //                 }
+    //             }
+    //         }]
+    //     });
+    //     form.show();
+    // },
+    onConfirm: function () {
+        var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockinId = stockin.id;
@@ -353,16 +385,89 @@ Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_Controller', {
                 padding: 5
             },
             items: [{
-                xtype: 'Stockin_M_Edit_Confirm',
-                viewModel: {
-                    type: 'Stockin_M_Edit_ConfirmViewModel',
-                    data: {
-                        stockin: stockin,
-                        stockinId: stockinId
-                    }
-                }
+                xtype: 'Authen_Confirm',
             }]
         });
         form.show();
+
+        form.down('#Authen_Confirm').getController().on('AuthenOK', function (approver_userid_link) {
+            form.close();
+            // console.log(approver_userid_link);
+
+            var params = new Object();
+            params.stockin = stockin;
+            params.stockinId = stockinId;
+            params.approver_userid_link = approver_userid_link;
+
+            var mainView = Ext.getCmp('Stockin_P_Edit');
+            if (mainView) mainView.setLoading(true);
+
+            GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    if (mainView) mainView.setLoading(false);
+                    var response = Ext.decode(response.responseText);
+                    if (success) {
+                        // console.log(response);
+                        if (response.respcode == 200) {
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Duyệt thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                            var data = response.data;
+                            viewModel.set('stockin', data);
+                            m.getApproverName(data.approverid_link);
+                        }
+                        else {
+                            Ext.Msg.show({
+                                title: 'Duyệt thất bại',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Duyệt thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                })
+        })
+    },
+    getApproverName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('Stockin_P_Edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        // console.log(stockin);
+                        stockin.userApprove_name = response.data.fullName;
+                        viewModel.set('stockin', stockin);
+                    }
+                }
+            })
     }
 })
