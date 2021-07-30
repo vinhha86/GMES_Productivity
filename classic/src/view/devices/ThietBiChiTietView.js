@@ -13,6 +13,8 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietView', {
             store: '{loai_thietbi_store}',
             value: '{thongtin_chitiet.type}'
         },
+        queryMode:'local',
+        anyMatch: true,
         fieldLabel: 'Loại thiết bị',
         displayField: 'name',
         valueField: 'id',

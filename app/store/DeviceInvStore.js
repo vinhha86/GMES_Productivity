@@ -2,7 +2,7 @@ Ext.define('GSmartApp.store.DeviceInvStore', {
     extend: 'GSmartApp.store.DeviceStore',
     alias: 'store.DeviceInvStore',
    
-	groupField: 'deviceGroupName',
+	groupField: 'devices_Type',
     load_device_active: function (params) {
         this.setProxy({
             type: 'ajax',

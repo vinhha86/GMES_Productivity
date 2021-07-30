@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
     width: 400,
     features: [{
         ftype: 'grouping',
-        groupHeaderTpl: '{name}'
+        groupHeaderTpl: '{name}',
     }],
     columns: [
         {
@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
                     value: '{timkiem.org_governid_link}'
                 },
                 valueField: 'id',
-                queryMode: 'local',
+                queryMode:'local',
                 anyMatch: true,
                 displayField: 'name',
                 valueField: 'id'
@@ -75,7 +75,9 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
                 },
                 displayField: 'name',
                 valueField: 'id',
-                width: 385
+                width: 385,
+                queryMode:'local',
+                anyMatch: true,
             },
             {
                 layout: 'hbox',

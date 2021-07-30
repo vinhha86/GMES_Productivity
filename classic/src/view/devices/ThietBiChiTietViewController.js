@@ -65,7 +65,13 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
               //gán code cũ thành code vừa lưu thành công
               viewmodel.set('code_old',viewmodel.get('thongtin_chitiet.code'))
               var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
-              ds_thietbi_tore.load_device_active();
+
+              //giữ giá trị hiển thị vừa tìm kiếm sau khi sửa 
+              var params = new Object();
+             params.org_governid_link = viewmodel.get('timkiem.org_governid_link') == "" ? null : viewmodel.get('timkiem.org_governid_link');
+             params.search = viewmodel.get('timkiem.name_code') == "" ? null : viewmodel.get('timkiem.name_code');
+             params.type=viewmodel.get('timkiem.type');
+              ds_thietbi_tore.load_device_active(params);
             }
   
           } else {

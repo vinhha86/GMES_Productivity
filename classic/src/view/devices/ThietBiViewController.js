@@ -6,53 +6,53 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
 
     },
     control: {
-        '#ThietBiView':{
-            itemclick:'onThietBiClick'
+        '#ThietBiView': {
+            itemclick: 'onThietBiClick'
         }
     },
 
-    onMenu: function(grid, rowIndex, colIndex, item, e, record){
+    onMenu: function (grid, rowIndex, colIndex, item, e, record) {
         //var rec =grid.getStore().getAt(rowIndex);
-        var me=this;
-        var menu_grid ;
-        if(record.data.status==3){
+        var me = this;
+        var menu_grid;
+        if (record.data.status == 3) {
             //tạo menu có 2 items(khóa - download) để chọn
-            menu_grid=new Ext.menu.Menu({
-                items:[
+            menu_grid = new Ext.menu.Menu({
+                items: [
                     {
-                        text:'Mở khóa',
-                        iconCls:'x-fa fa-unlock',
-                        handler: function(){
+                        text: 'Mở khóa',
+                        iconCls: 'x-fa fa-unlock',
+                        handler: function () {
                             me.onMoKhoaThietBi(record);
                         }
-                    },{
-                        text:'DownLoadLog',
-                        iconCls:'x-fa fa-cloud-download',
-                    },{
-                        text:'Xóa',
-                        iconCls:'x-fa fa-trash',
-                        handler:function(){
+                    }, {
+                        text: 'DownLoadLog',
+                        iconCls: 'x-fa fa-cloud-download',
+                    }, {
+                        text: 'Xóa',
+                        iconCls: 'x-fa fa-trash',
+                        handler: function () {
                             me.onXoaThietBi(record);
                         }
                     }]
-                
+
             })
-        }else{
-            menu_grid=new Ext.menu.Menu({
-                items:[
+        } else {
+            menu_grid = new Ext.menu.Menu({
+                items: [
                     {
-                        text:'Khóa',
-                        iconCls:'x-fa fa-lock',
-                        handler: function(){
+                        text: 'Khóa',
+                        iconCls: 'x-fa fa-lock',
+                        handler: function () {
                             me.onKhoaThietBi(record);
                         }
-                    },{
-                        text:'DownLoadLog',
-                        iconCls:'x-fa fa-cloud-download',
-                    },{
-                        text:'Xóa',
-                        iconCls:'x-fa fa-trash',
-                        handler:function(){
+                    }, {
+                        text: 'DownLoadLog',
+                        iconCls: 'x-fa fa-cloud-download',
+                    }, {
+                        text: 'Xóa',
+                        iconCls: 'x-fa fa-trash',
+                        handler: function () {
                             me.onXoaThietBi(record);
                         }
                     }
@@ -63,129 +63,146 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
         e.stopEvent();
         menu_grid.showAt(position);
     },
-    onXoaThietBi:function(record){
+    onXoaThietBi: function (record) {
         var viewmodel = this.getViewModel();
         var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
-        if(record.data.status==1){
+        if (record.data.status == 1) {
             Ext.Msg.show({
-                title:'Thông báo',
-                msg:'Không được xóa thiết bị đang hoạt động !',
-                buttons:Ext.MessageBox.YES,
-                buttonText:{
-                    yes:'Đóng'
+                title: 'Thông báo',
+                msg: 'Không được xóa thiết bị đang hoạt động !',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
                 }
             })
-        }else{
+        } else {
             var params = new Object();
-            params.id=record.id
+            params.id = record.id
             Ext.Msg.show({
-                title:'Thông báo',
-                msg:'Bạn có muốn xóa không?',
-                buttons:Ext.MessageBox.YESNO,
-                icon:Ext.Msg.QUESTION,
-                fn:function(btn){
-                    if(btn==='yes'){
+                title: 'Thông báo',
+                msg: 'Bạn có muốn xóa không?',
+                buttons: Ext.MessageBox.YESNO,
+                icon: Ext.Msg.QUESTION,
+                fn: function (btn) {
+                    if (btn === 'yes') {
                         GSmartApp.Ajax.postJitin('/api/v1/device/xoathietbi', Ext.JSON.encode(params),
-                        function (success, response, options) {
-                            if (success) {
-                                var response = Ext.decode(response.responseText);
-                                if (response.respcode == 200) {
-                                     //load lai 
-                                     Ext.Msg.show({
-                                        title:'Thông báo',
-                                        msg:'Xóa thành công !',
-                                        buttons:Ext.MessageBox.YES,
-                                        buttonText:{
-                                            yes:'Đóng'
-                                        }
-                                    })
-                                    ds_thietbi_tore.load_device_active();
-                                    //xóa thông tin chi tiêt
-                                  
-                                    viewmodel.set('thongtin_chitiet.code', null);
-                                    viewmodel.set('thongtin_chitiet.name', null);
-                                    viewmodel.set('thongtin_chitiet.type', null);
-                                    viewmodel.set('thongtin_chitiet.id', null);
-                                    viewmodel.set('thongtin_chitiet.org_governid_link', null);
-                                    viewmodel.set('thongtin_chitiet.status', null);
-                                  
+                            function (success, response, options) {
+                                if (success) {
+                                    var response = Ext.decode(response.responseText);
+                                    if (response.respcode == 200) {
+                                        //load lai 
+                                        Ext.Msg.show({
+                                            title: 'Thông báo',
+                                            msg: 'Xóa thành công !',
+                                            buttons: Ext.MessageBox.YES,
+                                            buttonText: {
+                                                yes: 'Đóng'
+                                            }
+                                        })
+                                        //giữ giá trị hiển thị vừa tìm kiếm sau khi sửa 
+                                        var params = new Object();
+                                        params.org_governid_link = viewmodel.get('timkiem.org_governid_link') == "" ? null : viewmodel.get('timkiem.org_governid_link');
+                                        params.search = viewmodel.get('timkiem.name_code') == "" ? null : viewmodel.get('timkiem.name_code');
+                                        params.type = viewmodel.get('timkiem.type');
+                                        ds_thietbi_tore.load_device_active(params);
+                                        //xóa thông tin chi tiêt
+
+                                        viewmodel.set('thongtin_chitiet.code', null);
+                                        viewmodel.set('thongtin_chitiet.name', null);
+                                        viewmodel.set('thongtin_chitiet.type', null);
+                                        viewmodel.set('thongtin_chitiet.id', null);
+                                        viewmodel.set('thongtin_chitiet.org_governid_link', null);
+                                        viewmodel.set('thongtin_chitiet.status', null);
+
+                                    }
                                 }
-                            }
-                        }) 
+                            })
                     }
                 }
             })
         }
-        
+
     },
 
     //gán status =3 => khóa
-    onKhoaThietBi:function(params){
+    onKhoaThietBi: function (params) {
         var viewmodel = this.getViewModel();
-		GSmartApp.Ajax.postJitin('/api/v1/device/device_lock','{"id": '+params.getId()+'}',
-			function(success,response,options ) {
-				if(success){
-					var response = Ext.decode(response.responseText);
-                    if(response.respcode==200){
+        GSmartApp.Ajax.postJitin('/api/v1/device/device_lock', '{"id": ' + params.getId() + '}',
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
                         Ext.Msg.show({
-                            title:'Thông báo',
-                            msg:'Khóa thành công',
-                            buttons:Ext.MessageBox.YES,
-                            buttonText:{
-                                yes:'Đóng',
+                            title: 'Thông báo',
+                            msg: 'Khóa thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
                             }
                         })
                         var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
-                        ds_thietbi_tore.load_device_active();
+                        //giữ giá trị hiển thị vừa tìm kiếm sau khi sửa 
+                        var params = new Object();
+                        params.org_governid_link = viewmodel.get('timkiem.org_governid_link') == "" ? null : viewmodel.get('timkiem.org_governid_link');
+                        params.search = viewmodel.get('timkiem.name_code') == "" ? null : viewmodel.get('timkiem.name_code');
+                        params.type = viewmodel.get('timkiem.type');
+                        ds_thietbi_tore.load_device_active(params);
+
                     }
-				
-				//	formDevice.getForm().reset(); 
-				}else{
+
+                    //	formDevice.getForm().reset(); 
+                } else {
                     Ext.Msg.show({
-                        title:'Thông báo',
-                        msg:'Khóa thất bại',
-                        buttons:Ext.MessageBox.YES,
-                        buttonText:{
-                            yes:'Đóng'
+                        title: 'Thông báo',
+                        msg: 'Khóa thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
                         }
                     })
-					
-				}
-			})
-	},
-    
-    onMoKhoaThietBi:function(params){
+
+                }
+            })
+    },
+
+    onMoKhoaThietBi: function (params) {
         var viewmodel = this.getViewModel();
-		
-		GSmartApp.Ajax.post('/api/v1/device/device_unlock','{"id": '+params.getId()+'}',
-			function(success,response,options ) {
-				if(success){
-					var response = Ext.decode(response.responseText);
-                    if(response.respcode==200){
+
+        GSmartApp.Ajax.post('/api/v1/device/device_unlock', '{"id": ' + params.getId() + '}',
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
                         Ext.Msg.show({
-                            title:'Thông báo',
-                            msg:'Mở khóa thành công',
-                            buttons:Ext.MessageBox.YES,
-                            buttonText:{
-                                yes:'Đóng',
+                            title: 'Thông báo',
+                            msg: 'Mở khóa thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
                             }
                         })
                         var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
-                        ds_thietbi_tore.load_device_active();
+                        //giữ giá trị hiển thị vừa tìm kiếm sau khi sửa 
+                        var params = new Object();
+                        params.org_governid_link = viewmodel.get('timkiem.org_governid_link') == "" ? null : viewmodel.get('timkiem.org_governid_link');
+                        params.search = viewmodel.get('timkiem.name_code') == "" ? null : viewmodel.get('timkiem.name_code');
+                        params.type = viewmodel.get('timkiem.type');
+                        ds_thietbi_tore.load_device_active(params);
+
                     }
-				}else{
+                } else {
                     Ext.Msg.show({
-                        title:'Thông báo',
-                        msg:'Mở khóa thất bại',
-                        buttons:Ext.MessageBox.YES,
-                        buttonText:{
-                            yes:'Đóng'
+                        title: 'Thông báo',
+                        msg: 'Mở khóa thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
                         }
                     })
-				}
-			})
-	},
-    
+                }
+            })
+    },
+
     search: function () {
         var viewmodel = this.getViewModel();
         var ds_thietbi_tore = viewmodel.getStore('ds_thietbi_store');
@@ -194,17 +211,17 @@ Ext.define('GSmartApp.view.devices.ThietBiViewController', {
         //nếu giá trị bằng "" thì gán bằng null, còn không vẫn giữ nguyên giá trị
         params.org_governid_link = viewmodel.get('timkiem.org_governid_link') == "" ? null : viewmodel.get('timkiem.org_governid_link');
         params.search = viewmodel.get('timkiem.name_code') == "" ? null : viewmodel.get('timkiem.name_code');
-        params.type=viewmodel.get('timkiem.type');
-       
+        params.type = viewmodel.get('timkiem.type');
+
         ds_thietbi_tore.load_device_active(params);
-             
+
     },
     //lấy thông tin thiết bị để hiển thị chi tiết
     onThietBiClick: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
-     
-        viewmodel.set('code_old',record.data.code);
-      
+
+        viewmodel.set('code_old', record.data.code);
+
         viewmodel.set('thongtin_chitiet.code', record.data.code);
         viewmodel.set('thongtin_chitiet.name', record.data.name);
         viewmodel.set('thongtin_chitiet.type', record.data.type);
