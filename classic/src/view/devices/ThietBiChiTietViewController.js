@@ -34,8 +34,12 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
     ThietBi.type = viewmodel.get('thongtin_chitiet.type');
     ThietBi.org_governid_link = viewmodel.get('thongtin_chitiet.org_governid_link');
     ThietBi.id = viewmodel.get('thongtin_chitiet.id');
-    ThietBi.status = viewmodel.get('thongtin_chitiet.status')== null ? 0 : viewmodel.get('thongtin_chitiet.status');
-  
+    if (viewmodel.get('thongtin_chitiet.status') == null || viewmodel.get('thongtin_chitiet.status') == ""){
+      ThietBi.status = 0 ;
+    }else{
+      ThietBi.status = viewmodel.get('thongtin_chitiet.status');
+    }
+   
     //kiểm tra tên thiết bị đã tồn tại chưa nếu đúng thì được thêm 
     var kt = me.CheckValidate(ThietBi.code,ThietBi.id);
     if (kt) {
@@ -75,8 +79,6 @@ Ext.define('GSmartApp.view.devices.ThietBiChiTietViewController', {
             });
           }
         })
-  }else{
-      
   }
   },
   //kiểm tra mã thiết bị đã tồn tại chưa ?nếu có rồi thì trả về false

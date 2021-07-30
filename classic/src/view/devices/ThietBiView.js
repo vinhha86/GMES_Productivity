@@ -9,45 +9,49 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
     },
     title: 'Thông tin thiết bị',
     width: 400,
+    features: [{
+        ftype: 'grouping',
+        groupHeaderTpl: '{name}'
+    }],
     columns: [
         {
-        text: 'STT',
-        width: 50,
-        xtype: 'rownumberer',
-        align: 'center'
-    }, {
-        text: 'Mã thiết bị',
-        flex: 1,
-        align: 'center',
-        dataIndex: 'code'
-    }, {
-        text: 'Tên thiết bị',
-        flex: 1,
-        align: 'center',
-        dataIndex: 'name'
-    }, {
-        width: 40,
-        xtype: 'templatecolumn',
-        dataIndex: 'status',
-        tpl: '<tpl if="status == 1"><i class="fa fa-circle" style="color: blue;"></i><tpl elseif ="status == 0"><i class="fa fa-circle" style="color: red;"></i><tpl else><i class="fa fa-lock"></i></tpl>'
-    }, {
-        xtype: 'actioncolumn',
-        width: 40,
-        items: [{
-            iconCls: 'x-fa fa fa-bars',
-            handler: 'onMenu'
-        }]
-    }
-],
+            text: 'STT',
+            width: 50,
+            xtype: 'rownumberer',
+            align: 'center'
+        }, {
+            text: 'Mã thiết bị',
+            flex: 1,
+            align: 'center',
+            dataIndex: 'code'
+        }, {
+            text: 'Tên thiết bị',
+            flex: 1,
+            align: 'center',
+            dataIndex: 'name'
+        }, {
+            width: 40,
+            xtype: 'templatecolumn',
+            dataIndex: 'status',
+            tpl: '<tpl if="status == 1"><i class="fa fa-circle" style="color: blue;"></i><tpl elseif ="status == 0"><i class="fa fa-circle" style="color: red;"></i><tpl else><i class="fa fa-lock"></i></tpl>'
+        }, {
+            xtype: 'actioncolumn',
+            width: 40,
+            items: [{
+                iconCls: 'x-fa fa fa-bars',
+                handler: 'onMenu'
+            }]
+        }
+    ],
     dockedItems: [{
         dock: 'top',
-        border:true,
+        border: true,
         layout: {
             type: 'vbox',
         },
         items: [
             {
-                height:2   
+                height: 2
             },
             {
                 width: 385,
@@ -62,6 +66,16 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
                 anyMatch: true,
                 displayField: 'name',
                 valueField: 'id'
+            }, {
+                fieldLabel: 'Loại thiết bị',
+                xtype: 'combobox',
+                bind: {
+                    store: '{loai_thietbi_store}',
+                    value: '{timkiem.type}'
+                },
+                displayField: 'name',
+                valueField: 'id',
+                width: 385
             },
             {
                 layout: 'hbox',
@@ -84,8 +98,8 @@ Ext.define('GSmartApp.view.devices.ThietBiView', {
                         handler: 'search'
                     }
                 ]
-            },{
-                height:10   
+            }, {
+                height: 10
             }
         ]
     }]

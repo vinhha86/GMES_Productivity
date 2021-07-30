@@ -10,15 +10,13 @@ Ext.define('GSmartApp.view.devices.DS_ThietBiViewModel',{
         loai_thietbi_store:{
             type:'devices_type_store'
         },
-        nhom_thietbi_store:{
-            type:'devicegroupstore'
-        },
         ds_cuahang_kho_store:{
             type:'ListOrgStore'
         },
         ds_search:{
             type:'devicetreestore'
-        }
+        },
+        
     },
     data:{
         thongtin_chitiet:{
@@ -31,7 +29,8 @@ Ext.define('GSmartApp.view.devices.DS_ThietBiViewModel',{
         },
         timkiem:{
             org_governid_link:'',
-            name_code:''
+            name_code:'',
+            type:''
         },
         code_old:'',
     }
