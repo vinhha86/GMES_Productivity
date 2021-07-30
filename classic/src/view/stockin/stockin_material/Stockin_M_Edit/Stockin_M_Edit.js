@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.Stockin_M_Edit', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit', {
     extend: 'Ext.container.Container',
     xtype: 'Stockin_M_Edit',
     id: 'Stockin_M_Edit',

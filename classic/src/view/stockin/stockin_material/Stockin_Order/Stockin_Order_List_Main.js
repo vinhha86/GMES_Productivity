@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_Order_List_Main', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_List_Main', {
     extend: 'Ext.container.Container',
     xtype: 'Stockin_Order_List_Main',
     id:'Stockin_Order_List_Main',

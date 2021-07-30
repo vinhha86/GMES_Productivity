@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_Edit_D_PhieuKhoVaiViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit_D_PhieuKhoVai.Stockin_M_Edit_D_PhieuKhoVaiViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Stockin_M_Edit_D_PhieuKhoVaiViewModel',
     requires: [

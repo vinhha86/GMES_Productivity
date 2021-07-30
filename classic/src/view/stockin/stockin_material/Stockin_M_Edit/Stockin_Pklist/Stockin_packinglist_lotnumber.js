@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_packinglist_lotnumber', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_Pklist.Stockin_packinglist_lotnumber', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_packinglist_lotnumber',
 	id: 'Stockin_packinglist_lotnumber',

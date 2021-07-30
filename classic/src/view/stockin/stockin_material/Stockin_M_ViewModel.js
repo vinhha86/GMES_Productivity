@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_ViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockin_M_ViewModel',
 	stores:{

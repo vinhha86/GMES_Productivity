@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.stockin.StockIn_P_Order_List_Main', {
     extend: 'Ext.container.Container',
     xtype: 'StockIn_P_Order_List_Main',
-    itemnId:'StockIn_P_Order_List_Main',
+    itemId:'StockIn_P_Order_List_Main',
     layout: 'border',
     controller: 'StockIn_P_Order_List_Main_Controller',
     // viewModel: {

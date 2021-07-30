@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.PContract_Product_Select', {
+Ext.define('GSmartApp.view.stockin.stockin_material.PContract_Product_Select', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_Product_Select',
     id:'PContract_Product_Select',

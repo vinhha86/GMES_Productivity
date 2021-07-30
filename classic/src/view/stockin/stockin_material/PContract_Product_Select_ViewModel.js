@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.PContract_Product_Select_ViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_material.PContract_Product_Select_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.PContract_Product_Select_ViewModel',
     stores: {

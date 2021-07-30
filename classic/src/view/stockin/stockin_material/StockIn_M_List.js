@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.Stockin_M_List', {
+Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_M_List',
     itemId: 'Stockin_M_List',

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.PContract_Product_Select_Controller', {
+Ext.define('GSmartApp.view.stockin.stockin_material.PContract_Product_Select_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_Product_Select_Controller',
 	init: function() {
