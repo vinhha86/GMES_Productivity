@@ -4,7 +4,7 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
     requires: [
         'GSmartApp.store.WorkingProcess_Store',
         'GSmartApp.store.DeviceStore',
-        'GSmartApp.store.device.device_group_store',
+        'GSmartApp.store.device.devices_type_store',
         'GSmartApp.store.Labor.LaborStore'
     ],
     stores: {
@@ -14,8 +14,8 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
         DeviceStore: {
             type: 'DeviceStore'
         },
-        DeviceGroupStore: {
-            type: 'device_group_store'
+        DeviceTypeStore: {
+            type: 'devices_type_store'
         },
         LaborStore: {
             type: 'LaborStore'
@@ -24,14 +24,17 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
     data: {
         isDisable_themmoi: false,
         working: {
-            name: '',
-            devicerequiredid_link: '',
-            laborrequiredid_link: '',
-            timespent_standard: '',
-            techcomment: '',
-            productid_link: 0,
-            process_type : 1,
-            status: 0
+            data: {
+                name: '',
+                devicerequiredid_link: '',
+                laborrequiredid_link: '',
+                timespent_standard: '',
+                techcomment: '',
+                productid_link: 0,
+                process_type: 1,
+                status: 0,
+                id: null
+            }
         }
     }
 })

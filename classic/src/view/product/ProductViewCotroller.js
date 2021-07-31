@@ -5,7 +5,7 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
     init: function () {
         var viewmodel = this.getViewModel();
         var product = GSmartApp.util.State.get('product');
-        if(product != null){
+        if (product != null) {
             viewmodel.set('search', product);
         }
         this.onloadPage();
@@ -88,14 +88,13 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
     onViewWorkingProcess: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var rec = grid.getStore().getAt(rowIndex);
-
         var form = Ext.create('Ext.window.Window', {
             height: 600,
             closable: true,
             resizable: false,
             modal: true,
             border: false,
-            title: 'Danh sách nguyên phụ liệu sản phẩm "' + rec.data.name + '"',
+            title: 'Danh sách công đoạn chuẩn sản phẩm: "' + rec.data.buyercode + '"',
             closeAction: 'destroy',
             width: 1100,
             bodyStyle: 'background-color: transparent',
@@ -104,8 +103,14 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
                 padding: 5
             },
             items: [{
-                xtype: 'ProductBOMMainView',
-                IdProduct: rec.data.id
+                xtype: 'List_WorkingProcess_View',
+                viewModel: {
+                    data: {
+                        working: {
+                            productid_link: rec.data.id
+                        }
+                    }
+                }
             }]
         });
         form.show();
@@ -115,8 +120,8 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
         var data = new Object();
         data.name = viewmodel.get('search.name');
         data.code = viewmodel.get('search.code');
-        
-        GSmartApp.util.State.set('product',data);
+
+        GSmartApp.util.State.set('product', data);
 
         this.redirectTo("lsproduct/0/edit");
     },
@@ -125,8 +130,8 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
         var data = new Object();
         data.name = viewmodel.get('search.name');
         data.code = viewmodel.get('search.code');
-        
-        GSmartApp.util.State.set('product',data);
+
+        GSmartApp.util.State.set('product', data);
         var id = record.data.id;
         this.redirectTo("lsproduct/" + id + "/edit");
     },
@@ -136,7 +141,7 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
         data.name = viewmodel.get('search.name');
         data.code = viewmodel.get('search.code');
         console.log(data);
-        GSmartApp.util.State.set('product',data);
+        GSmartApp.util.State.set('product', data);
 
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');

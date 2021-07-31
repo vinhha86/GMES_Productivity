@@ -1,15 +1,15 @@
 Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_ViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.List_WorkingProcess_ViewController',
-    init: function() {
-        this.callParent(arguments);  
+    init: function () {
+        this.callParent(arguments);
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('WorkingProcess_Store');
         var productid_link = viewmodel.get('working.productid_link');
         store.loadby_product(productid_link);
 
-        var storeDeviceGroup = viewmodel.getStore('DeviceGroupStore');
-        storeDeviceGroup.loadStore();
+        var storeDeviceType = viewmodel.getStore('DeviceTypeStore');
+        storeDeviceType.loadStore();
 
         var storelabor = viewmodel.getStore('LaborStore');
         storelabor.loadStore();
@@ -18,35 +18,35 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         '#btnThoat': {
             click: 'onThoat'
         },
-        '#btnChon' : {
+        '#btnChon': {
             click: 'onChon'
         },
-        '#btnThemMoi' : {
+        '#btnThemMoi': {
             click: 'onThemMoi'
         },
-        '#btnHuy' : {
+        '#btnHuy': {
             click: 'onHuy'
         },
         '#btnLuu': {
             click: 'onLuu'
         },
-        '#name' : {
+        '#name': {
             specialkey: 'onSpecialkey'
         },
-        '#device' : {
+        '#device': {
             specialkey: 'onSpecialkey'
         },
-        '#labor' : {
+        '#labor': {
             specialkey: 'onSpecialkey'
         },
-        '#time' : {
+        '#time': {
             specialkey: 'onSpecialkey'
         },
-        '#comment' : {
+        '#comment': {
             specialkey: 'onSpecialkey'
         }
     },
-    renderDevice: function(value, metaData, record){
+    renderDevice: function (value, metaData, record) {
         var me = this;
         var storeDeviceGroup = me.getViewModel().getStore('storeDeviceGroup');
         console.log(storeDeviceGroup);
@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             return '';
         }
     },
-    renderLabor: function(value, metaData, record) {
+    renderLabor: function (value, metaData, record) {
         var me = this;
         var storeLabor = me.getViewModel().getStore('LaborStore');
         if (null != storeLabor && value != null) {
@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             return '';
         }
     },
-    onLuu: function(){
+    onLuu: function () {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    if(response.respcode == 200) {
+                    if (response.respcode == 200) {
                         Ext.Msg.show({
                             title: "Thông báo",
                             msg: "Lưu thành công!",
@@ -94,12 +94,18 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                             buttonText: {
                                 yes: 'Đóng'
                             },
-                            fn: function(){
+                            fn: function () {
                                 var store = viewmodel.getStore('WorkingProcess_Store');
-                                var rec = store.insert(0, response.data);
-                                grid.getSelectionModel().select(rec);
+                                console.log(params);
+                                if (params.data.id == null) {
+                                    var rec = store.insert(0, response.data);
+                                    grid.getSelectionModel().select(rec);
+                                }
+                                else {
+                                    store.load();
+                                }
 
-                                grid.down('#addWorking').getForm().reset();
+                                // grid.down('#addWorking').getForm().reset();
                                 grid.down('#name').focus();
                             }
                         });
@@ -112,12 +118,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                             buttonText: {
                                 yes: 'Đóng'
                             },
-                            fn: function(){
+                            fn: function () {
                                 grid.down('#comment').focus();
                             }
                         });
                     }
-                }else {
+                } else {
                     Ext.Msg.show({
                         title: "Thông báo",
                         msg: "Lưu thất bại!",
@@ -125,56 +131,73 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                         buttonText: {
                             yes: 'Đóng'
                         },
-                        fn: function(){
+                        fn: function () {
                             grid.down('#comment').focus();
                         }
                     });
                 }
             })
     },
-    onSpecialkey: function(field, e){
+    onSpecialkey: function (field, e) {
         var me = this.getView();
         if (e.getKey() == e.ENTER) {
             if (field.itemId == "name") {
                 me.down('#device').focus();
-              }
-              else if (field.itemId == "device") {
+            }
+            else if (field.itemId == "device") {
                 me.down('#labor').focus();
-              }
-              else if (field.itemId == "labor") {
+            }
+            else if (field.itemId == "labor") {
                 me.down('#time').focus();
-              }
-              else if (field.itemId == "time") {
+            }
+            else if (field.itemId == "time") {
                 me.down('#comment').focus();
-              }
-              else if (field.itemId == "comment") {
+            }
+            else if (field.itemId == "comment") {
                 this.onLuu();
-              }
+            }
         }
     },
-    onHuy: function() {
+    onHuy: function () {
         var me = this;
         var grid = this.getView();
+        var window = grid.up('window');
+        window.setTitle('Danh sách công đoạn');
         var viewmodel = this.getViewModel();
+        viewmodel.set('working', null);
 
         viewmodel.set('isDisable_themmoi', false);
         grid.down('#addWorking').setHidden(true);
-        grid.down('#addWorking').getForm().reset();
+        // grid.down('#addWorking').getForm().reset(); 
     },
-    onThemMoi: function(){
-        var me = this;
+    onThemMoi: function () {
         var grid = this.getView();
+        var window = grid.up('window');
+        window.setTitle('Thêm mới công đoạn');
         var viewmodel = this.getViewModel();
 
         viewmodel.set('isDisable_themmoi', true);
         grid.down('#addWorking').setHidden(false);
         grid.down('#name').focus();
     },
-    onWorkingnameKeyup: function(){
+    onUpdate: function (grid, rowIndex, colIndex, item, e, record) {
+        var grid = this.getView();
+        var window = grid.up('window');
+        window.setTitle('Cập nhật công đoạn');
+        var viewmodel = this.getViewModel();
+        console.log(record);
+        viewmodel.set('working', record.data);
+        console.log(viewmodel.get('working'));
+
+        viewmodel.set('isDisable_themmoi', true);
+        grid.down('#addWorking').setHidden(false);
+        grid.down('#name').focus();
+    },
+    onWorkingnameKeyup: function () {
         var grid = this.getView(),
-        // Access the field using its "reference" property name.
-        filterField = this.lookupReference('workingname'),
-        filters = grid.store.getFilters();
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('workingname'),
+            filters = grid.store.getFilters();
 
         if (filterField.value) {
             this.codeFilter = filters.add({
@@ -190,14 +213,14 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             this.codeFilter = null;
         }
     },
-    onThoat: function(){
+    onThoat: function () {
         this.getView().up('window').close();
     },
-    onChon: function(){
+    onChon: function () {
         var grid = this.getView();
         var select = grid.getSelectionModel().getSelection();
 
-        if(select.length == 0){
+        if (select.length == 0) {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: "Bạn chưa chọn công đoạn",
@@ -209,7 +232,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         }
         else {
             var listid = [];
-            for(var i=0; i<select.length; i++){
+            for (var i = 0; i < select.length; i++) {
                 listid.push(select[i].get('id'));
             }
             grid.fireEvent('CreateSewingCost', listid);

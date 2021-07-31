@@ -1,12 +1,12 @@
 Ext.define('GSmartApp.store.device.devices_type_store', {
-    extend: 'Ext.data.Store',
+	extend: 'Ext.data.Store',
 	alias: 'store.devices_type_store',
-    model: 'GSmartApp.model.device.devices_type_model',
-   
-    loadStore : function(){
-	
-        this.setProxy({
-			type:'ajax',
+	model: 'GSmartApp.model.device.devices_type_model',
+
+	loadStore: function () {
+
+		this.setProxy({
+			type: 'ajax',
 			actionMethods: {
 				create: 'POST',
 				read: 'POST',
@@ -27,5 +27,5 @@ Ext.define('GSmartApp.store.device.devices_type_store', {
 			}
 		});
 		this.load();
-    }
+	}
 })

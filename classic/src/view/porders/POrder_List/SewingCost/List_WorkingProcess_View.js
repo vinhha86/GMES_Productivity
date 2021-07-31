@@ -18,12 +18,33 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         checkOnly: true
     },
     viewConfig: {
-        enableTextSelection: false,
+        enableTextSelection: true,
         stripeRows: false,
         rowLines: true,
         columnLines: true
     },
     columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onUpdate'
+                },
+            ]
+        },
+        {
+            text: 'STT',
+            width: 50,
+            xtype: 'rownumberer',
+            // dataIndex: 'sortvalue',
+            align: 'center',
+            sortable: false
+        },
         {
             header: 'Tên công đoạn',
             dataIndex: 'name',
@@ -75,7 +96,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             header: 'Thời gian',
             dataIndex: 'timespent_standard',
             width: 120,
-            renderer: function(value){
+            renderer: function (value) {
                 return value == null ? "" : (value + " (s)");
             }
         },
@@ -90,32 +111,32 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         layout: 'hbox',
         items: [
             {
-                xtype:'button',
+                xtype: 'button',
                 text: 'Thoát',
                 margin: 3,
-                itemId:'btnThoat',
+                itemId: 'btnThoat',
                 iconCls: 'x-fa fa-window-close'
-            },{
-                xtype:'button',
+            }, {
+                xtype: 'button',
                 text: 'Chọn',
                 margin: 3,
-                itemId:'btnChon',
+                itemId: 'btnChon',
                 iconCls: 'x-fa fa-check'
-            },{
-                xtype:'button',
+            }, {
+                xtype: 'button',
                 text: 'Thêm công đoạn',
                 margin: 3,
-                itemId:'btnThemMoi',
+                itemId: 'btnThemMoi',
                 iconCls: 'x-fa fa-plus',
                 bind: {
-                    disabled : '{isDisable_themmoi}'
+                    disabled: '{isDisable_themmoi}'
                 }
-            },{
+            }, {
                 border: false,
-                flex : 1
+                flex: 1
             },
         ]
-    },{
+    }, {
         dock: 'top',
         xtype: 'form',
         layout: 'hbox',
@@ -147,9 +168,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             selectOnFocus: true,
             bind: {
                 value: '{working.devicerequiredid_link}',
-                store: '{DeviceGroupStore}'
+                store: '{DeviceTypeStore}'
             }
-        },{
+        }, {
             xtype: 'combo',
             margin: 1,
             fieldLabel: '',
@@ -163,7 +184,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                 value: '{working.laborrequiredid_link}',
                 store: '{LaborStore}'
             }
-        },{
+        }, {
             xtype: 'textfield',
             margin: 1,
             fieldLabel: '',
@@ -177,7 +198,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             bind: {
                 value: '{working.timespent_standard}'
             }
-        },{
+        }, {
             xtype: 'textfield',
             margin: 1,
             fieldLabel: '',
@@ -197,7 +218,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             itemId: 'btnLuu',
             tooltip: 'Lưu',
             formBind: true
-        },{
+        }, {
             xtype: 'button',
             iconCls: 'x-fa fa-arrow-circle-up',
             margin: 1,
