@@ -49,7 +49,6 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     renderDevice: function (value, metaData, record) {
         var me = this;
         var storeDeviceGroup = me.getViewModel().getStore('storeDeviceGroup');
-        console.log(storeDeviceGroup);
         if (null != storeDeviceGroup && value != null) {
             var rec = storeDeviceGroup.findRecord("id", value, 0, false, false, true);
             if (rec != null) {
@@ -96,14 +95,15 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                             },
                             fn: function () {
                                 var store = viewmodel.getStore('WorkingProcess_Store');
-                                console.log(params);
-                                if (params.data.id == null) {
-                                    var rec = store.insert(0, response.data);
-                                    grid.getSelectionModel().select(rec);
-                                }
-                                else {
-                                    store.load();
-                                }
+                                viewmodel.set('working', response.data);
+                                store.load({
+                                    callback: function (records, operation, success) {
+                                        if (success) {
+                                            var rec = store.findRecord("id", response.data.id);
+                                            grid.getSelectionModel().select(rec);
+                                        }
+                                    }
+                                });
 
                                 // grid.down('#addWorking').getForm().reset();
                                 grid.down('#name').focus();
@@ -185,13 +185,71 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         var window = grid.up('window');
         window.setTitle('Cập nhật công đoạn');
         var viewmodel = this.getViewModel();
-        console.log(record);
         viewmodel.set('working', record.data);
-        console.log(viewmodel.get('working'));
 
         viewmodel.set('isDisable_themmoi', true);
         grid.down('#addWorking').setHidden(false);
         grid.down('#name').focus();
+    },
+    onDelete: function (grid, rowIndex, colIndex, item, e, record) {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('WorkingProcess_Store');
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa công đoạn "' + record.get('name') + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var params = new Object();
+                    params.id = record.get('id');
+
+                    GSmartApp.Ajax.post('/api/v1/workingprocess/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thành công!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        },
+                                        fn: function () {
+                                            store.remove(record);
+                                        }
+                                    });
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                            } else {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: "Xóa thất bại!",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }
+            }
+        });
     },
     onWorkingnameKeyup: function () {
         var grid = this.getView(),

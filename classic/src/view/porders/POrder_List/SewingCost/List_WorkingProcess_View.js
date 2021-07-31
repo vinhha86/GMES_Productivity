@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     columns: [
         {
             xtype: 'actioncolumn',
-            width: 28,
+            width: 50,
             menuDisabled: true,
             sortable: false,
             align: 'center',
@@ -35,6 +35,10 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     iconCls: 'x-fa fas fa-bars violetIcon',
                     handler: 'onUpdate'
                 },
+                {
+                    iconCls: 'x-fa fas fa-trash violetIcon',
+                    handler: 'onDelete'
+                }
             ]
         },
         {
