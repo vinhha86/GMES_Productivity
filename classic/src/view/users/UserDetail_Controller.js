@@ -76,9 +76,11 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
         var params = new Object();
         var user = new Object();
         user = viewModel.get('User');
+        user.personnel_code=viewModel.get('User.personnel_code') == "" ? null : viewModel.get('User.personnel_code') ;
         params.user = user;
 
         delete params.user.authorities;
+        
         
         GSmartApp.Ajax.post('/api/v1/users/user_update', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -102,9 +104,10 @@ Ext.define('GSmartApp.view.users.UserDetail_Controller', {
                         });
                     }
                     else{
+                        var mes = response.message == null ? "Lưu thất bại" : response.message;
                         Ext.MessageBox.show({
                             title: "Thông báo",
-                            msg: "Lưu thất bại",
+                            msg: mes,
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',

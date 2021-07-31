@@ -41,7 +41,15 @@ Ext.define('GSmartApp.view.users.User_Info', {
                 readOnly: '{isReadOnly}'
             },
             margin: '5 5 0 1'
-        }]
+        }
+        ,{
+            xtype:'textfield',
+            fieldLabel:'Mã nhân viên',
+            flex:1,
+            margin:'5 5 0 0 ',
+            bind:'{User.personnel_code}'
+        }
+    ]
     },
     {
         layout: 'hbox',

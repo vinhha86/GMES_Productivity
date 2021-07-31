@@ -6,11 +6,12 @@ Ext.define('GSmartApp.view.users.UserDetail_ViewModel', {
             'GSmartApp.store.groupuser.GroupUser_Menu_TreeStore', 'GSmartApp.store.groupuser.GroupUser_Function_Store'],
 	data: {
         User: {
-
+            personnel_code:''
         },
         roleid_link: 0,
         menuid_link: '',
-        userid_link: null
+        userid_link: null,
+
     },
     stores: {
         OrgStore: {
