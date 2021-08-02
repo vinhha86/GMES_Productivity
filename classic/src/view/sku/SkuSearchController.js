@@ -220,6 +220,11 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
             this.InsertToInvoiceEdit_D();
         }
+
+        if (viewModel.get('sourceview') == 'Stockin_SubM_Edit_D') {
+            this.InsertToStockin_SubM_Edit_D();
+        }
+
         if (viewModel.get('sourceview') == 'Stockout_P_EditController') {
             var grid_skusearch = this.getView().items.get('grid_skusearch');
             var records = grid_skusearch.getSelection();
@@ -694,6 +699,13 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
         var records = grid_skusearch.getSelection();
         if (records.length > 0) {
             this.fireEvent("InsertToInvoiceEdit_D", records);
+        }
+    },
+    InsertToStockin_SubM_Edit_D: function(){
+        var grid_skusearch = this.getView().items.get('grid_skusearch');
+        var records = grid_skusearch.getSelection();
+        if (records.length > 0) {
+            this.fireEvent("InsertToStockin_SubM_Edit_D", records);
         }
     },
     createStockoutForCheck: function () {

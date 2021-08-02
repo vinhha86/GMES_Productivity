@@ -1,6 +1,14 @@
 Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockin_M_ViewModel',
+	requires: [
+		'GSmartApp.store.DeviceInvStore', 'GSmartApp.store.OrgStore',
+		'GSmartApp.store.SkuStore', 'GSmartApp.store.stockin.Stockin_d_Store',
+		'GSmartApp.store.stockin.StockinTypeStore',
+		'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
+		'GSmartApp.store.porder.POrder_ListStore', 'GSmartApp.store.stockin.StockinGroupStore',
+		'GSmartApp.store.unit.UnitStore'
+	],
 	stores:{
 		DeviceInvStore:{
 			type :'DeviceInvStore'
@@ -59,9 +67,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		StockinGroupStore: {
 			type: 'StockinGroupStore'
 		},
-		UnitStore: {
-            type: 'UnitStore'
-        },
         SKUStore: {
             type: 'Sku_AutoComplete'
         },

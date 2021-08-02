@@ -9,20 +9,19 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
         var StockinTypeStore = viewModel.getStore('StockinTypeStore');
         StockinTypeStore.loadStore(11, 20);
         
-        var listidtype = "13";
-        var OrgToStore = this.getViewModel().getStore('OrgToStore');
-        OrgToStore.loadStore_allchildren_byorg(listidtype);
+        var listidtypefrom = "5,19";
+        var OrgFromStore = viewModel.getStore('OrgFromStore');
+        OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
 
-        var OrgFromStore = this.getViewModel().getStore('OrgFromStore');
-        OrgFromStore.loadStore_byRoot(listidtype);
+        var OrgToStore = viewModel.getStore('OrgToStore');
+        var listidtypeto = "19";
+		OrgToStore.loadStore_allchildren_byorg(listidtypeto);
 
-        // var store = viewModel.getStore('StockinStore');
-        // store.loadStore(0, null, new Date(), 0, 0, 25, 1);
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
         viewModel.set('searchObj.stockindate_from', new Date(priorDate));
 		// me.down('#stockindate_from').setValue(new Date(priorDate));
-        // this.onSearch();
+        this.onSearch();
     },
 	listen: {
         controller: {
@@ -36,6 +35,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
     },    
     control: {
         '#Stockin_SubM_List': {
+            select: 'onStockinSelect',
             itemdblclick: 'onCapNhatdbl'
         },
         '#btnNhapMuaMoi':{
@@ -115,6 +115,50 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
             }
         });
     },
+
+    onStockincodeFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('stockincodeFilter'),
+            store = this.getViewModel().getStore('StockinStore'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.stockincodeFilter = filters.add({
+                id: 'stockincodeFilter',
+                property: 'stockincode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.stockincodeFilter) {
+            filters.remove(this.stockincodeFilter);
+            this.stockincodeFilter = null;
+        }
+    },
+    onInvoice_numberFilterKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('invoice_numberFilter'),
+            store = this.getViewModel().getStore('StockinStore'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.invoice_numberFilter = filters.add({
+                id: 'invoice_numberFilter',
+                property: 'invoice_number',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.invoice_numberFilter) {
+            filters.remove(this.invoice_numberFilter);
+            this.invoice_numberFilter = null;
+        }
+    },
+
     onNhapMuaMoi: function(){
         this.redirectTo("stockin_subm/11/create");
     },
@@ -124,5 +168,12 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
+
+    onStockinSelect: function (e, selected, eOpts) {
+        var viewmodel = this.getViewModel();
+        var StockinD_Store = viewmodel.getStore('StockinD_Store');
+        StockinD_Store.setData(selected.data.stockin_d);
+        console.log(selected.data.stockin_d);
     },
 })
