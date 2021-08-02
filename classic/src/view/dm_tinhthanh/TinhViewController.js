@@ -107,7 +107,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
             if (data.code == code && data.id!=id) {
                 Ext.MessageBox.show({
                     title: "Thông báo",
-                    msg: "Mã thiết bị :" + code + " đã tồn tại ở dòng " + (i + 1),
+                    msg: "Mã tỉnh :" + code + " đã tồn tại ở dòng " + (i + 1),
                     buttons: Ext.MessageBox.YES,
                     buttonText: {
                         yes: 'Đóng',
