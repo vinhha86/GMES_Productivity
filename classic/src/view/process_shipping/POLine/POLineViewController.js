@@ -165,7 +165,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 viewModel: {
                     data: {
                         store: store,
-                        pcontract_poid_link: pcontract_poid_link
+                        pcontract_poid_link: pcontract_poid_link,
+                        shipdate: rec.get('shipdate')
                     }
                 }
             }]

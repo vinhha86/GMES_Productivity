@@ -35,6 +35,9 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		// },
 		{ name: 'statusName', type: 'string' },
 		{ name: 'granttoorgname', type: 'string' },
+		{
+			name: 'isMap', type: 'bool'
+		}
 	],
 	loadbyOffer: function (pcontract_poid_link) {
 		var params = new Object();
@@ -246,7 +249,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				rootProperty: 'data'
 			}
 		});
-		
+
 		this.loadPage(1, {
 			scope: this,
 			callback: function (records, operation, success) {
@@ -254,9 +257,9 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 					this.fireEvent('logout');
 				}
 				else {
-					if(records.length > 0){
+					if (records.length > 0) {
 						var rec = records[0];
-						this.fireEvent('LoadSoLuongLenh',null, rec);
+						this.fireEvent('LoadSoLuongLenh', null, rec);
 					}
 				}
 			}

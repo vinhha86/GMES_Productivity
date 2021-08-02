@@ -74,26 +74,6 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			}
 		},
 		{
-			text: 'SL ĐH',
-			dataIndex: 'mat_sku_product',
-			// align:'right',
-			width: 70,
-			renderer: function (value, metaData, record) {
-				if (value == 0) return "";
-				return Ext.util.Format.number(value, '0,000')
-			}
-		},
-		{
-			text: 'SL SX',
-			dataIndex: 'mat_sku_product_total',
-			// align:'right',
-			width: 70,
-			renderer: function (value, metaData, record) {
-				if (value == 0) return "";
-				return Ext.util.Format.number(value, '0,000')
-			}
-		},
-		{
 			text: 'ĐVT',
 			dataIndex: 'mat_sku_unit_name',
 			width: 70
@@ -118,11 +98,40 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			// renderer: function (value, metaData, record) {
 			// 	return value+" %";
 			// }
+		}, {
+			text: 'SL ĐH',
+			dataIndex: 'mat_sku_product',
+			// align:'right',
+			width: 70,
+			renderer: function (value, metaData, record) {
+				if (value == 0) return "";
+				return Ext.util.Format.number(value, '0,000')
+			}
 		},
 		{
 			xtype: 'numbercolumn',
 			format: '0,000',
-			text: 'Nhu cầu',
+			text: 'Nhu cầu ĐH',
+			align: 'right',
+			dataIndex: 'mat_sku_demand_dh',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 80
+		},
+		{
+			text: 'SL SX',
+			dataIndex: 'mat_sku_product_total',
+			// align:'right',
+			width: 70,
+			renderer: function (value, metaData, record) {
+				if (value == 0) return "";
+				return Ext.util.Format.number(value, '0,000')
+			}
+		},
+		{
+			xtype: 'numbercolumn',
+			format: '0,000',
+			text: 'Nhu cầu SX',
 			align: 'right',
 			dataIndex: 'mat_sku_demand',
 			summaryType: 'sum',
