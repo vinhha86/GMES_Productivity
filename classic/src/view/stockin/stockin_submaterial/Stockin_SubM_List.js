@@ -38,9 +38,50 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List', {
                 // }
             ]
         },
-        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
-        {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
+        {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stockincodeFilter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockincodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
+        },
+        {text: 'Số Invoice', dataIndex: 'invoice_number', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'invoice_numberFilter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onInvoice_numberFilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
+        {header: 'Loại nhập', dataIndex: 'stockintype_name', width: 150},   
         {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
         {header: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
         {header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 

@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_SubM_List_D',
 	itemId: 'Stockin_SubM_List_D',
+	cls: 'Stockin_SubM_List_D',
     controller: 'Stockin_SubM_List_D_Controller',
 	columnLines: true,
 	rowLines: true,
@@ -48,7 +49,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_D', {
 					buffer: 500
 				}
 			}
-		},{
+		},
+		{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
 			flex: 1,
@@ -69,114 +71,76 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_D', {
 					buffer: 500
 				}
 			}
-		},{
-			text: 'Mô tả', 
-			dataIndex: 'sku_product_desc',
-			flex: 1,
-			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				var val = value == 'null' ? "" : value;
-				metaData.tdAttr = 'data-qtip="' + val + '"';
-				return val;
-			},
-		},{
-			text: 'Màu', 
-			dataIndex: 'sku_product_color',
-			width: 150,
-			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				var val = value == 'null' ? "" : value;
-				metaData.tdAttr = 'data-qtip="' + val + '"';
-				return val;
-			},
-		},{
+		},
+		// {
+		// 	text: 'Mô tả', 
+		// 	dataIndex: 'sku_product_desc',
+		// 	flex: 1,
+		// 	renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+		// 		var val = value == 'null' ? "" : value;
+		// 		metaData.tdAttr = 'data-qtip="' + val + '"';
+		// 		return val;
+		// 	},
+		// },
+		// {
+		// 	text: 'Màu', 
+		// 	dataIndex: 'sku_product_color',
+		// 	width: 150,
+		// 	renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+		// 		var val = value == 'null' ? "" : value;
+		// 		metaData.tdAttr = 'data-qtip="' + val + '"';
+		// 		return val;
+		// 	},
+		// },
+		{
 			text: 'Cỡ khổ', 
 			dataIndex: 'size_name',
-			width: 70
-		},{
+			width: 120
+		},
+		{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
-			width: 70,
-			// editor: {
-			// 	completeOnEnter: true,
-			// 	field: {
-			// 		xtype: 'combo',
-			// 		typeAhead: true,
-			// 		triggerAction: 'all',
-			// 		selectOnFocus: false,
-			// 		bind: {
-			// 			store: '{UnitStore}',
-			// 			// value: '{unitid_link}'
-			// 		},
-			// 		displayField: 'code',
-			// 		valueField: 'id',
-			// 		queryMode : 'local',
-			// 		editable: false,
-			// 		readOnly: true
-			// 	}
-			// },
+			width: 100,
+			editor: {
+				completeOnEnter: true,
+				field: {
+					xtype: 'combo',
+					typeAhead: false,
+					triggerAction: 'all',
+					selectOnFocus: false,
+					bind: {
+						store: '{UnitStore}',
+						// value: '{unitid_link}'
+					},
+					displayField: 'code',
+					valueField: 'id',
+					queryMode : 'local',
+					editable: false,
+					readOnly: true
+				}
+			},
 			renderer: 'renderUnit'
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'SL Y/C (M)', 
-			align:'right',
-			dataIndex: 'totalmet_origin',
+			format: '0,000',
+			text: 'SL Y/C',
+			align: 'right',
+			dataIndex: 'totalpackage',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 90,
-			bind: {
-				hidden: '{isMetColumnHidden}',
-			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
-		},{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'SL kiểm (M)', 
-			align:'right',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			dataIndex: 'totalmet_check',
-			width: 90,
-			bind: {
-				hidden: '{isMetColumnHidden}',
-			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
+			width: 80,
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'Cây kiểm', 
-			align:'right',
-			dataIndex: 'totalpackagecheck',
+			width: 90,
+			format: '0,000',
+			text: 'SL Nhập',
+			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 70,
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
-		},		
-		{
-			text: 'Danh sách LOT', 
-			// dataIndex: 'lot_list',
-			dataIndex: 'stockinDLot',
-			width: 150,
-			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-				if(value == null) value = '';
-				value = value.toUpperCase();
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
-		}
+			dataIndex: 'totalpackagecheck',
+		},
 	],
 });
 
