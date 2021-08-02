@@ -307,40 +307,42 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
             text: 'Tải ảnh',
             iconCls: 'x-fa fa-upload'
         }]
-    }, {
-        layout: 'vbox',
-        items: [{
-            xtype: 'image',
-            itemId: 'qrperson',
-            width: 130,
-            height: 130,
-            margin: 1,
-            bind: {
-                src: "{qr_person}"
-            },
-            listeners: {
-                afterrender: function (img, a, obj) {
-                    img.getEl().dom.style.border = '1px solid black';
-                }
-            }
-        }]
     },
-    {
-        layout: 'vbox',
-        items: [{
-            xtype: 'image',
-            itemId: 'qrbike',
-            width: 130,
-            height: 130,
-            margin: 1,
-            bind: {
-                src: "{qr_bike}"
-            },
-            listeners: {
-                afterrender: function (img, a, obj) {
-                    img.getEl().dom.style.border = '1px solid black';
-                }
-            }
-        }]
-    }]
+        // {
+        //     layout: 'vbox',
+        //     items: [{
+        //         xtype: 'image',
+        //         itemId: 'qrperson',
+        //         width: 130,
+        //         height: 130,
+        //         margin: 1,
+        //         bind: {
+        //             src: "{qr_person}"
+        //         },
+        //         listeners: {
+        //             afterrender: function (img, a, obj) {
+        //                 img.getEl().dom.style.border = '1px solid black';
+        //             }
+        //         }
+        //     }]
+        // },
+        // {
+        //     layout: 'vbox',
+        //     items: [{
+        //         xtype: 'image',
+        //         itemId: 'qrbike',
+        //         width: 130,
+        //         height: 130,
+        //         margin: 1,
+        //         bind: {
+        //             src: "{qr_bike}"
+        //         },
+        //         listeners: {
+        //             afterrender: function (img, a, obj) {
+        //                 img.getEl().dom.style.border = '1px solid black';
+        //             }
+        //         }
+        //     }]
+        // }
+    ]
 })
