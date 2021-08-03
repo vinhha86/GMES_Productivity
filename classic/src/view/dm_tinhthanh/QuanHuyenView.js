@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.dm_tinhthanh.QuanHuyenView', {
     extend: 'Ext.grid.Panel',
     xtype: 'QuanHuyenView',
-    id:'QuanHuyenView',
+    id: 'QuanHuyenView',
 
     controller: 'QuanHuyenViewController',
     bind: {
@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.QuanHuyenView', {
 
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }
@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.QuanHuyenView', {
         xtype: 'actioncolumn',
         width: 28,
         iconCls: 'x-fa fa-trash',
-        handler:'onXoa'
+        handler: 'onXoa'
     },
     {
         text: 'Tên ',
@@ -80,11 +80,8 @@ Ext.define('GSmartApp.view.dm_tinhthanh.QuanHuyenView', {
                 text: 'Thêm',
                 itemId: 'onThem',
                 iconCls: 'x-fa fa-plus',
-                margin: '2 2 2 0',
-                width: 80
-            }, {
-                width: 100,
-            },
+                margin: 2
+            }, ,
             {
                 xtype: 'textfield',
                 emptyText: 'Tên quận, huyện',
@@ -96,7 +93,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.QuanHuyenView', {
                 xtype: 'textfield',
                 emptyText: 'Mã quận, huyện',
                 flex: 1,
-                margin: '2 0 2 2',
+                margin: 2,
                 bind: '{Huyen.code}'
             }
         ]

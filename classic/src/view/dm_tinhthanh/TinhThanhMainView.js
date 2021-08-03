@@ -1,35 +1,35 @@
-Ext.define('GSmartApp.view.dm_tinhthanh.TinhThanhMainView',{
-    extend:'Ext.form.Panel',
-    xtype:'TinhThanhMainView',
+Ext.define('GSmartApp.view.dm_tinhthanh.TinhThanhMainView', {
+    extend: 'Ext.form.Panel',
+    xtype: 'TinhThanhMainView',
 
-    layout:'border',
-    controller:'TinhThanhMainViewController',
-    viewModel:{
-        type:'TinhThanhMainViewModel',
+    layout: 'border',
+    controller: 'TinhThanhMainViewController',
+    viewModel: {
+        type: 'TinhThanhMainViewModel',
     },
 
-    items:[
+    items: [
         {
-            region:'west',
-            xtype:'TinhView',
+            region: 'west',
+            xtype: 'TinhView',
             border: true,
-            align:'center',
-            flex:1,
-            margin:'0 30 30 30 '
+            align: 'center',
+            flex: 1,
+            margin: 1
         },
         {
-            region:'center',
-            xtype:'QuanHuyenView',
+            region: 'center',
+            xtype: 'QuanHuyenView',
             border: true,
-            flex:1,
-            margin:'0 30 30 30 '
+            flex: 1,
+            margin: 1
         },
         {
-            region:'east',
-            xtype:'XaPhuongView',
+            region: 'east',
+            xtype: 'XaPhuongView',
             border: true,
-            flex:1,
-            margin:'0 30 30 30 '
+            flex: 1,
+            margin: 1
         }
     ]
 })

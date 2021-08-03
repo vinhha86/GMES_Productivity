@@ -1,19 +1,19 @@
 Ext.define('GSmartApp.view.dm_tinhthanh.TinhView', {
     extend: 'Ext.grid.Panel',
     xtype: 'TinhView',
-    id:'TinhView',
-    
+    id: 'TinhView',
+
     title: 'Danh sách tỉnh thành',
 
     controller: 'TinhViewController',
 
-    bind:{
-        store:'{org_tinh_store}'
+    bind: {
+        store: '{org_tinh_store}'
     },
 
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }
@@ -29,47 +29,47 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhView', {
         xtype: 'actioncolumn',
         width: 28,
         iconCls: 'x-fa fa-trash',
-        handler:'onXoa'
+        handler: 'onXoa'
     },
     {
         text: 'Tên ',
         dataIndex: 'name',
-        flex: 2, 
-        items:{
-            xtype:'textfield',
-            margin:1,
-            width:'99%',
-            enableKeyEvents:true,
+        flex: 2,
+        items: {
+            xtype: 'textfield',
+            margin: 1,
+            width: '99%',
+            enableKeyEvents: true,
             reference: 'TenTinh_filter',
-            listeners:{
-                keyup:'onTenTinh_filter',
-               
+            listeners: {
+                keyup: 'onTenTinh_filter',
+
             }
         },
         editor: {
             xtype: 'textfield',
             selectOnFocus: true,
-            },
+        },
 
     }, {
         text: 'Mã ',
         dataIndex: 'code',
         flex: 1,
-        items:{
-            xtype:'textfield',
-            margin:1,
-            width:'99%',
-            enableKeyEvents:true,
-            reference:'MaTinh_filter',
-            listeners:{
-                keyup:'onMaTinh_filter',
-               
+        items: {
+            xtype: 'textfield',
+            margin: 1,
+            width: '99%',
+            enableKeyEvents: true,
+            reference: 'MaTinh_filter',
+            listeners: {
+                keyup: 'onMaTinh_filter',
+
             }
         },
         editor: {
             xtype: 'textfield',
             selectOnFocus: true,
-            },
+        },
     }
     ],
 
@@ -80,12 +80,9 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhView', {
             {
                 xtype: 'button',
                 text: 'Thêm',
-                iconCls:'x-fa fa-plus',
-                width: 80,
-                margin: '2 2 2 0',
+                iconCls: 'x-fa fa-plus',
+                margin: 2,
                 itemId: 'Them'
-            }, {
-                width: 100,
             },
             {
                 xtype: 'textfield',
@@ -98,7 +95,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhView', {
                 xtype: 'textfield',
                 emptyText: 'Mã tỉnh thành',
                 flex: 1,
-                margin: '2 0 2 2',
+                margin: 2,
                 bind: '{Tinh.code}'
             }
         ]

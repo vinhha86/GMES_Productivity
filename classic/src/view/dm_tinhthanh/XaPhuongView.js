@@ -3,20 +3,21 @@ Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongView', {
     xtype: 'XaPhuongView',
 
 
-    controller:'XaPhuongViewController',
+    controller: 'XaPhuongViewController',
     bind: {
         title: '{showTitle_Xa}',
-        store:'{org_xa_store}'
+        store: '{org_xa_store}'
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }
         }
     },
-
+    rowLines: true,
+    columnLines: true,
     columns: [{
         text: 'STT',
         xtype: 'rownumberer',
@@ -27,7 +28,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongView', {
         xtype: 'actioncolumn',
         width: 28,
         iconCls: 'x-fa fa-trash',
-        handler:'onXoa'
+        handler: 'onXoa'
     },
     {
         text: 'Tên ',
@@ -80,11 +81,8 @@ Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongView', {
                 xtype: 'button',
                 text: 'Thêm',
                 iconCls: 'x-fa fa-plus',
-                margin: '2 2 2 0',
-                width: 80,
-                itemId:'onThem'
-            }, {
-                width: 100,
+                margin: 2,
+                itemId: 'onThem'
             },
             {
                 xtype: 'textfield',
@@ -97,7 +95,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongView', {
                 xtype: 'textfield',
                 emptyText: 'Mã xã, phường',
                 flex: 1,
-                margin: '2 0 2 2',
+                margin: 2,
                 bind: '{Xa.code}'
             }
         ]
