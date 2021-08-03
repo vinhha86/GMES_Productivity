@@ -112,18 +112,34 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     var viewmodel = this.getViewModel();
     var OrgProvinceStore = viewmodel.getStore('OrgProvinceStore');
     var listid = '25';
-    OrgProvinceStore.getbyParentandType(newvalue, listid);
+   // OrgProvinceStore.getbyParentandType(newvalue, listid);
+
+   //lấy danh sách thành phố
+    OrgProvinceStore.GetOrg_By_type(listid)
   },
   onChangeThanhPho: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
     var OrgDistrictStore = viewmodel.getStore('OrgDistrictStore');
+    var OrgCommuneStore = viewmodel.getStore('OrgCommuneStore');
     var listid = '26';
-    OrgDistrictStore.getbyParentandType(newvalue, listid);
+    var Tinh_id = newvalue;
+
+    viewmodel.set('personnel.districtid_link',null);
+    viewmodel.set('personnel.communeid_link',null);
+    OrgCommuneStore.removeAll();
+
+    //lấy danh sách các huyện theo id tỉnh
+    OrgDistrictStore.getbyParentandType(Tinh_id, listid);
+
+   
   },
   onSelectQuanHuyen: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
     var OrgCommuneStore = viewmodel.getStore('OrgCommuneStore');
     var listid = '27';
-    OrgCommuneStore.getbyParentandType(newvalue, listid);
+    var Huyen_id = newvalue;
+    viewmodel.set('personnel.communeid_link',null);
+    //lây danh sách xã theo id huyện
+    OrgCommuneStore.getbyParentandType(Huyen_id, listid);
   }
 })
