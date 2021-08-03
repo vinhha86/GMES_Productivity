@@ -17,6 +17,12 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     if (viewmodel.get('personnel.id') != null) {
       this.loadImage(viewmodel.get('personnel.id'));
     }
+  //lấy giá trị
+     viewmodel.set('QuocTich.old',viewmodel.get('personnel.countryid_link'));
+    viewmodel.set('Tinh.old',viewmodel.get('personnel.provinceid_link'));
+    viewmodel.set('Huyen.old',viewmodel.get('personnel.districtid_link'));
+    viewmodel.set('Xa.old',viewmodel.get('personnel.communeid_link'));
+   
   },
   control: {
     '#cmbDonViQuanLy': {
@@ -112,34 +118,53 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     var viewmodel = this.getViewModel();
     var OrgProvinceStore = viewmodel.getStore('OrgProvinceStore');
     var listid = '25';
-   // OrgProvinceStore.getbyParentandType(newvalue, listid);
+      //lấy danh sách thành phố
+      OrgProvinceStore.GetOrg_By_type(listid)
 
-   //lấy danh sách thành phố
-    OrgProvinceStore.GetOrg_By_type(listid)
+    if(viewmodel.get('QuocTich.old') != null && viewmodel.get('QuocTich.old') != newvalue){
+      viewmodel.set('personnel.provinceid_link',null);
+      OrgProvinceStore.removeAll();
+    }else{
+      viewmodel.set('personnel.provinceid_link',viewmodel.get('Tinh.old'));
+    }
   },
   onChangeThanhPho: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
     var OrgDistrictStore = viewmodel.getStore('OrgDistrictStore');
-    var OrgCommuneStore = viewmodel.getStore('OrgCommuneStore');
+  
     var listid = '26';
     var Tinh_id = newvalue;
 
-    viewmodel.set('personnel.districtid_link',null);
-    viewmodel.set('personnel.communeid_link',null);
-    OrgCommuneStore.removeAll();
-
+    //thay đổi tỉnh 
+    //nếu tỉnh khác dữ liệu ban đầu thì set huyện,xã = null
+    //nếu tỉnh giống ban đầu thì set giá trị huyện, xã về như ban đầu.
+    if(viewmodel.get('Tinh.old') != null && viewmodel.get('Tinh.old') != newvalue){
+      viewmodel.set('personnel.districtid_link',null);
+      OrgDistrictStore.removeAll();
+    }else{
+      viewmodel.set('personnel.districtid_link',viewmodel.get('Huyen.old'));
+    }
+   
     //lấy danh sách các huyện theo id tỉnh
     OrgDistrictStore.getbyParentandType(Tinh_id, listid);
-
-   
+    
   },
   onSelectQuanHuyen: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
     var OrgCommuneStore = viewmodel.getStore('OrgCommuneStore');
     var listid = '27';
     var Huyen_id = newvalue;
-    viewmodel.set('personnel.communeid_link',null);
+
+
+    if(viewmodel.get('Huyen.old') != null && viewmodel.get('Huyen.old') != newvalue){
+      viewmodel.set('personnel.communeid_link',null);
+      OrgCommuneStore.removeAll();
+    }else {
+       viewmodel.set('personnel.communeid_link',viewmodel.get('Xa.old'));
+    }
+    
     //lây danh sách xã theo id huyện
     OrgCommuneStore.getbyParentandType(Huyen_id, listid);
+   
   }
 })

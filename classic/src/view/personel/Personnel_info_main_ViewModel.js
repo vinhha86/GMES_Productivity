@@ -41,7 +41,19 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
             id: null,
             status: 1
         },
-        isActive: false
+        isActive: false,
+        QuocTich:{
+            old:null
+        },
+        Tinh:{
+            old:null
+        },
+        Huyen:{
+            old:null
+        },
+        Xa:{
+            old:null
+        }
     },
     formulas: {
         qr_person: function (get) {
