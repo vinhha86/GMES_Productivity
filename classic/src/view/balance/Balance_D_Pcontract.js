@@ -120,6 +120,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		},
 		{
 			text: 'SL SX',
+			hidden: true,
 			dataIndex: 'mat_sku_product_total',
 			// align:'right',
 			width: 70,
@@ -131,6 +132,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		{
 			xtype: 'numbercolumn',
 			format: '0,000',
+			hidden: true,
 			text: 'Nhu cầu SX',
 			align: 'right',
 			dataIndex: 'mat_sku_demand',
