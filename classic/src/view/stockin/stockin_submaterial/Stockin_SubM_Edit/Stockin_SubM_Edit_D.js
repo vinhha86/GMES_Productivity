@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 						store: '{UnitStore}',
 						// value: '{unitid_link}'
 					},
-					displayField: 'code',
+					displayField: 'name',
 					valueField: 'id',
 					queryMode : 'local',
 					editable: true,
@@ -149,9 +149,9 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 				xtype: 'textfield',
 				maskRe: /[0-9.]/,
 				selectOnFocus: true,
-				// bind: {
-				// 	editable: '{iseditSL_YC}'
-				// }
+				bind: {
+					editable: '{iseditSL_YC}'
+				}
 			}
 		},
 		{
@@ -167,9 +167,9 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 				xtype: 'textfield',
 				maskRe: /[0-9.]/,
 				selectOnFocus: true,
-				// bind: {
-				// 	editable: '{iseditSL}'
-				// }
+				bind: {
+					editable: '{iseditSL}'
+				}
 			},
 		},
 	],

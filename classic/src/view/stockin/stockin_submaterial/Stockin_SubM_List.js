@@ -21,7 +21,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List', {
     columns: [
         {
             xtype: 'actioncolumn',
-            width: 30,
+            // width: 30,
+            width: 60,
             menuDisabled: true,
             sortable: false,
             align: 'center',
@@ -31,11 +32,11 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List', {
                     tooltip: 'Sửa phiếu',
                     handler: 'onEdit'
                 }, 
-                // {
-                //     iconCls: 'x-fa fas fa-trash-o redIcon',
-                //     tooltip: 'Xóa phiếu',
-                //     handler: 'onDelete'
-                // }
+                {
+                    iconCls: 'x-fa fas fa-trash-o redIcon',
+                    tooltip: 'Xóa phiếu',
+                    handler: 'onDelete'
+                }
             ]
         },
         {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,

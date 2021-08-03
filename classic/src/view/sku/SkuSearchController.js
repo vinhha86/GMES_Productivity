@@ -217,15 +217,15 @@ Ext.define('GSmartApp.view.sku.SkuSearchController', {
             this.InsertToFabricPrice();
         }
 
-        if (viewModel.get('sourceview') == 'InvoiceEdit_D') {
+        if (sourceview == 'InvoiceEdit_D') {
             this.InsertToInvoiceEdit_D();
         }
 
-        if (viewModel.get('sourceview') == 'Stockin_SubM_Edit_D') {
+        if (sourceview == 'Stockin_SubM_Edit_D') {
             this.InsertToStockin_SubM_Edit_D();
         }
 
-        if (viewModel.get('sourceview') == 'Stockout_P_EditController') {
+        if (sourceview == 'Stockout_P_EditController') {
             var grid_skusearch = this.getView().items.get('grid_skusearch');
             var records = grid_skusearch.getSelection();
             this.fireEvent('product_sku_selected', records);

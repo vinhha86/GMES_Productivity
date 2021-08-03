@@ -257,9 +257,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                     params.id = id;
                     GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
+                        me.setLoading(false);
+                        var response = Ext.decode(response.responseText);
                         if (success) {
-                            me.setLoading(false);
-                            var response = Ext.decode(response.responseText);
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
                             }

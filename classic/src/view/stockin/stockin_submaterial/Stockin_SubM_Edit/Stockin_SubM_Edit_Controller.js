@@ -4,12 +4,12 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 	init: function() {
         var viewModel = this.getViewModel();
 
-        if (viewModel.get('isAdd_Pcontract_Stockin')){
-            if (viewModel.get('isNewStockin'))
-                this.onNewData(null,viewModel.get('stockintypeid_link'));
-            else
-                this.getInfo(viewModel.get('stockinid_link'));
-        }
+        // if (viewModel.get('isAdd_Pcontract_Stockin')){
+        //     if (viewModel.get('isNewStockin'))
+        //         this.onNewData(null,viewModel.get('stockintypeid_link'));
+        //     else
+        //         this.getInfo(viewModel.get('stockinid_link'));
+        // }
     },
     listen: {
         controller: {
@@ -77,8 +77,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         viewModel.set('listepc', new Map());
 
         viewModel.set('stockin.stockintypeid_link', id);
-        viewModel.set('stockin.unitid_link', 1);
-        viewModel.set('stockin.status', -1);
+        viewModel.set('stockin.status', 0);
         viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 
         // set store org from
@@ -138,10 +137,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
                 // StockinProduct_Store.setData(data.stockin_product);
                 // StockinProduct_Store.commitChanges();
 
-                console.log('hererere1');
                 // set store org from
                 if(data.stockintypeid_link == 11) {// mua moi va cap bu thi là nha cung cap
-                    console.log('hererere2');
                     var orgfromstore = viewModel.getStore('OrgFromStore');
                     orgfromstore.loadStore(5, false);
                 }else if(id == 12){ // nhap dieu chuyen (kho -> kho)
@@ -237,7 +234,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
                         });		
                         if (!viewModel.get('isAdd_Pcontract_Stockin')){	
                             m.redirectTo("stockin_subm/" + response.id + "/edit");
-                            m.getInfo(response.id);
+                            m.fireEvent('loaddata', response.id);
+                            console.log('m.fireEvent(loaddata, response.id)');
                         }
                         
                         // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store

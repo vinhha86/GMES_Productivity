@@ -101,6 +101,27 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 				return true;
 			}
 			return false;
-		}
+		},
+		iseditSL: function (get) {
+			if (get('groupstockin') == 1) return true;
+			return false;
+		},
+		iseditSL_YC: function (get) {
+			//Neu la nhap theo PO thi ko cho sua SL YC
+			if (get('stockin.stockintypeid_link') == null) {
+				return false;
+			}
+			if (get('stockin.stockintypeid_link') == 11) {
+				if (get('stockin.id') == null || get('stockin.id') == 0) {
+					return true;
+				}
+				return false;
+			}
+			if (get('stockin.stockintypeid_link') == 12) {
+				return false;
+			}
+			
+			return true;
+		},
 	}
 })

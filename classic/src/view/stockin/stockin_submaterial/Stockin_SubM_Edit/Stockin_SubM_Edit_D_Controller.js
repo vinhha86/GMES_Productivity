@@ -319,67 +319,11 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 			if (null != UnitStore) {
 				var objUnit = UnitStore.data.find('id', val);
 				// console.log(objUnit.data);
-				return objUnit.data.code;
+				return objUnit.data.name;
 			}
 		}
 	},
-
-	onViewPackingList: function (grid, rowIndex, colIndex) {
-		var viewmodel = this.getViewModel();
-		var stockin = viewmodel.get('stockin');
-		var data = grid.getStore().getAt(rowIndex);
-		var stockindid_link = data.get('id');
-
-		// console.log(stockin);
-		// console.log(data);
-		// console.log(stockindid_link);
-
-		// if(isNaN(invoicedid_link)){
-		if (false) {
-			// not existed in db
-			Ext.Msg.show({
-				title: 'Thông báo',
-				msg: 'Cần lưu invoice trước khi thêm packing list cho ' + data.get('skucode'),
-				buttons: Ext.MessageBox.YES,
-				buttonText: {
-					yes: 'Đóng',
-				}
-			});
-			return;
-		} else {
-			var form = Ext.create('Ext.window.Window', {
-				height: '90%',
-				closable: true,
-				resizable: false,
-				modal: true,
-				border: false,
-				title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
-				closeAction: 'destroy',
-				width: 1200,
-				bodyStyle: 'background-color: transparent',
-				layout: {
-					type: 'fit', // fit screen for window
-					padding: 5
-				},
-				items: [{
-					xtype: 'Stockin_packinglist'
-				}],
-				viewModel: {
-					type: 'Stockin_packinglist_ViewModel',
-					data: {
-						packinglist: {
-							stockindid_link: stockindid_link,
-							stockinid_link: viewmodel.get('stockin.id'),
-							skuid_link: data.get('skuid_link')
-						},
-						stockin: stockin,
-						stockinDRec: data
-					}
-				}
-			});
-			form.show();
-		}
-	},
+	
 	onDItemEdit: function (editor, context, eOpts) {
 		// console.log('onInvoiceDItemEdit');
 		var m = this;
@@ -511,7 +455,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 						stockin_dObj.skuname = npl.get('name');
 						stockin_dObj.colorid_link = npl.get('color_id');
 						stockin_dObj.color_name = npl.get('mauSanPham');
-						stockin_dObj.size_name = npl.get('coSanPham');
+						stockin_dObj.size_name = npl.get('coKho');
 						stockin_dObj.sku_product_desc = npl.get('description');
 						stockin_dObj.sku_product_color = npl.get('mauSanPham_product');
 						stockin_dObj.totalpackage = 0;
@@ -630,7 +574,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 					iconCls: 'x-fa fas fa-edit',
 					handler: function () {
 						// console.log(record);
-						me.onViewPackingList(grid, rowIndex);
+						me.onEPCDetail(grid, rowIndex);
 					},
 				},
 				{

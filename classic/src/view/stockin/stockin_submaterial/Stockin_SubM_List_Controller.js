@@ -101,11 +101,11 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
                     me.setLoading("Đang xóa");
                     var params = new Object();
                     params.id = id;
-                    GSmartApp.Ajax.post('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_deleteid', Ext.JSON.encode(params),
                     function (success, response, options) {
+                        me.setLoading(false);
+                        var response = Ext.decode(response.responseText);
                         if (success) {
-                            me.setLoading(false);
-                            var response = Ext.decode(response.responseText);
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
                             }
