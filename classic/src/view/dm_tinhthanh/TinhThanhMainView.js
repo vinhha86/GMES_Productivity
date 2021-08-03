@@ -15,21 +15,21 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhThanhMainView',{
             border: true,
             align:'center',
             flex:1,
-            margin:5
+            margin:'0 30 30 30 '
         },
         {
             region:'center',
             xtype:'QuanHuyenView',
             border: true,
             flex:1,
-            margin:5
+            margin:'0 30 30 30 '
         },
         {
             region:'east',
             xtype:'XaPhuongView',
             border: true,
             flex:1,
-            margin:5
+            margin:'0 30 30 30 '
         }
     ]
 })

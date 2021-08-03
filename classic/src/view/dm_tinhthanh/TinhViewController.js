@@ -8,9 +8,34 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
     control:{
         '#Them':{
             click:'ThemTinh',
-
+        },
+        '#TinhView':{
+            itemclick:'ChonTinh'
         }
     },
+
+    ChonTinh: function(m,record){
+        var viewmodel = this.getViewModel();
+
+        if(viewmodel.get('old') != record.data.id ){
+        //load xa phuong
+        var xa_store = viewmodel.getStore('org_xa_store');
+        xa_store.removeAll();
+        }
+      
+        viewmodel.set('Tinh.title',record.data.name);
+        viewmodel.set('Tinh.id',record.data.id);
+        viewmodel.set('Huyen.id',null)
+        viewmodel.set('old',record.data.id)
+
+        //load quan huyen
+        var huyen_store = viewmodel.getStore('org_huyen_store');
+        var tinh_id = record.data.id;
+        var huyen_type_code = 26;
+        huyen_store.getbyParentandType(tinh_id,huyen_type_code);
+    
+    },
+
     Them_DB: function(params){
         var viewmodel = this.getViewModel();
         GSmartApp.Ajax.post('/api/v1/org/create', Ext.JSON.encode(params),
@@ -27,9 +52,13 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
                         },
 
                     });
-                    var tinh_store = viewmodel.getStore('org_store');
+                    viewmodel.set('Tinh.name',null);
+                    viewmodel.set('Tinh.code',null);
+                    //load tỉnh
+                    var tinh_store = viewmodel.getStore('org_tinh_store');
                     var tinh_type_code = 25;
                     tinh_store.GetOrg_By_type(tinh_type_code);
+
                 }
             }
             else{
@@ -48,6 +77,31 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
     },
 
     onXoa: function (grid, rowIndex) {
+        var viewmodel = this.getViewModel();
+
+        //kiểm tra xem tỉnh đấy đã có huyện chưa?
+        var params = new Object();
+        params.parentid_link=grid.getStore().getAt(rowIndex).id;
+        params.listtype=26;
+        GSmartApp.Ajax.post('/api/v1/org/getchilbytype', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if (success) {
+                var response = Ext.decode(response.responseText)
+                if (response.data.length != 0) {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Đang có dữ liệu huyện không được xóa",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        },
+                    })
+                    return ;
+                }
+            } 
+        }
+        )
+
         var params = new Object();
         var rec = grid.getStore().getAt(rowIndex);
         console.log(rec);
@@ -75,8 +129,11 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
                                         buttonText: {
                                             yes: 'Đóng',
                                         },
-    
                                     })
+                                    //load laij
+                                    var tinh_store = viewmodel.getStore('org_tinh_store');
+                                    var tinh_type_code = 25;
+                                    tinh_store.GetOrg_By_type(tinh_type_code);
                                 }
                             } else {
                                 Ext.MessageBox.show({
@@ -97,13 +154,13 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
             }
         })
     },
-    //kiểm tra mã thiết bị đã tồn tại chưa nếu có rồi thì trả về false
+    //kiểm tra mã tỉnh bị đã tồn tại chưa nếu có rồi thì trả về false
     Check_Validate: function (code,id) {
-        var store = this.getViewModel().getStore('org_store');
+        var store = this.getViewModel().getStore('org_tinh_store');
         
         for (var i = 0; i < store.data.length; i++) {
             var data = store.data.items[i].data;
-            //kiểm tra mã thiết bị không chứ id truyền vào
+            //kiểm tra mã tỉnh không chứ id truyền vào
             if (data.code == code && data.id!=id) {
                 Ext.MessageBox.show({
                     title: "Thông báo",
@@ -115,7 +172,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
                 });
                 //load lại
                 var viewmodel = this.getViewModel();
-                var tinh_store = viewmodel.getStore('org_store');
+                var tinh_store = viewmodel.getStore('org_tinh_store');
                 var tinh_type_code = 25;
                 tinh_store.GetOrg_By_type(tinh_type_code);
 
@@ -138,7 +195,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
         Tinh.orgtypeid_link=25;
 
         params.data = Tinh;
-        console.log(params);
+     
 
         if (Tinh.name == null ||Tinh.name == ''||Tinh.code == null||Tinh.code == '') {
             viewmodel.set('Tinh.name', null);
@@ -153,7 +210,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
 
             })
         } else {
-            //kiểm tra tên thiết bị đã tồn tại chưa nếu đúng thì được thêm 
+            //kiểm tra tỉnh đã tồn tại chưa nếu đúng thì được thêm 
             var kt = me.Check_Validate( Tinh.code,"");
             if (kt) {
                 this.Them_DB(params);
@@ -173,13 +230,8 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
         Tinh.parentid_link =null;
         Tinh.orgtypeid_link=25;
         Tinh.id=context.record.data.id;
-        console.log(context.record);
-
-  
 
         params.data = Tinh;
-       
-
               //kiểm tra nếu dữ liệu khác lúc ban đầu thì thêm
             if (context.value != context.originalValue  ) {
                 //kiểm tra xem sửa ở trường nào để gán lại
@@ -192,7 +244,42 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
                  var kt = me.Check_Validate(context.value,context.record.data.id);
                  if (kt) {
                      me.Them_DB(params);
+                     me.ChonTinh("",params);
                  }
             }
+    },
+    //filter - lọc
+    onTenTinh_filter:function(){
+        var filterField = this.lookupReference('TenTinh_filter');
+        filters=this.getView().store.getFilters();
+        if(filterField.value){
+            this.nameFilter = filters.add({
+                id:'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            })
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
+    },
+    onMaTinh_filter:function(){
+        filterField = this.lookupReference('MaTinh_filter');
+        filters = this.getView().store.getFilters();
+        if(filterField.value){
+            this.codeFilter = filters.add({
+                id:'codeFilter',
+                property:'code',
+                value: filterField.value,
+                anyMatch:true,
+                caseSensitive:false
+            });
+        }else if(this.codeFilter){
+            filters.remove(this.codeFilter);
+            this.codeFilter=null;
+        }
     }
 })

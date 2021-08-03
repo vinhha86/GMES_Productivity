@@ -1,43 +1,106 @@
-Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongView',{
-    extend:'Ext.grid.Panel',
-    xtype:'XaPhuongView',
+Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongView', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'XaPhuongView',
 
-    bind:{
-        title:'{showTitle_Xa}'
+
+    controller:'XaPhuongViewController',
+    bind: {
+        title: '{showTitle_Xa}',
+        store:'{org_xa_store}'
     },
-    columns:[{
-        text:'STT',
-        xtype:'rownumberer',
-        width:80,
-        align:'center'
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
+
+    columns: [{
+        text: 'STT',
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     },
     {
         xtype: 'actioncolumn',
-        width:38,
-        iconCls:'x-fa fa-trash'
+        width: 28,
+        iconCls: 'x-fa fa-trash',
+        handler:'onXoa'
     },
-   {
-       text:'Tên ',
-       dataIndex:'name',
-       flex:2,
-      
-    },{
-        text:'Mã ',
-        dataIndex:'code',
-        flex:1,
-       
-    }
-],
+    {
+        text: 'Tên ',
+        dataIndex: 'name',
+        flex: 2,
+        items: {
+            xtype: 'textfield',
+            margin: 1,
+            width: '99%',
+            enableKeyEvents: true,
+            reference: 'TenXa_filter',
+            listeners: {
+                keyup: 'onTenXa_filter',
 
-    dockedItems:[{
-        dock:'bottom',
-        items:[
+            }
+        },
+        editor: {
+            xtype: 'textfield',
+            selectOnFocus: true,
+        },
+
+    }, {
+        text: 'Mã ',
+        dataIndex: 'code',
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            margin: 1,
+            width: '99%',
+            enableKeyEvents: true,
+            reference: 'MaXa_filter',
+            listeners: {
+                keyup: 'onMaXa_filter',
+
+            }
+        },
+        editor: {
+            xtype: 'textfield',
+            selectOnFocus: true,
+        },
+
+    }
+    ],
+
+    dockedItems: [{
+        dock: 'bottom',
+        layout: 'hbox',
+        items: [
             {
-                xtype:'button',
-                text:'Thêm',
-                width:80
+                xtype: 'button',
+                text: 'Thêm',
+                iconCls: 'x-fa fa-plus',
+                margin: '2 2 2 0',
+                width: 80,
+                itemId:'onThem'
+            }, {
+                width: 100,
+            },
+            {
+                xtype: 'textfield',
+                emptyText: 'Tên xã, phường',
+                flex: 1,
+                margin: 2,
+                bind: '{Xa.name}'
+            },
+            {
+                xtype: 'textfield',
+                emptyText: 'Mã xã, phường',
+                flex: 1,
+                margin: '2 0 2 2',
+                bind: '{Xa.code}'
             }
         ]
-    }  
+    }
     ]
 })

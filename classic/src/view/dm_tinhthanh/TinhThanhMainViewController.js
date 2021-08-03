@@ -4,9 +4,11 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhThanhMainViewController',{
 
     init : function(view){
         var viewmodel = view.getViewModel();
-        var tinh_store = viewmodel.getStore('org_store');
+        //tinh thanh
+        var tinh_store = viewmodel.getStore('org_tinh_store');
         var tinh_type_code = 25;
         tinh_store.GetOrg_By_type(tinh_type_code);
+        
     }
 
 })
