@@ -72,26 +72,26 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_D', {
 				}
 			}
 		},
-		// {
-		// 	text: 'Mô tả', 
-		// 	dataIndex: 'sku_product_desc',
-		// 	flex: 1,
-		// 	renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-		// 		var val = value == 'null' ? "" : value;
-		// 		metaData.tdAttr = 'data-qtip="' + val + '"';
-		// 		return val;
-		// 	},
-		// },
-		// {
-		// 	text: 'Màu', 
-		// 	dataIndex: 'sku_product_color',
-		// 	width: 150,
-		// 	renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-		// 		var val = value == 'null' ? "" : value;
-		// 		metaData.tdAttr = 'data-qtip="' + val + '"';
-		// 		return val;
-		// 	},
-		// },
+		{
+			text: 'Mô tả', 
+			dataIndex: 'sku_product_desc',
+			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+		},
+		{
+			text: 'Màu', 
+			dataIndex: 'sku_product_color',
+			width: 150,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+		},
 		{
 			text: 'Cỡ khổ', 
 			dataIndex: 'size_name',

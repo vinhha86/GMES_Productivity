@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 						store: '{UnitStore}',
 						// value: '{unitid_link}'
 					},
-					displayField: 'name',
+					displayField: 'code',
 					valueField: 'id',
 					queryMode : 'local',
 					editable: true,

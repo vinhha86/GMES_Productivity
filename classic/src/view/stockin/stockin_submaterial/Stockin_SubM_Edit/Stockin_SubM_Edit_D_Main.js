@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         itemId:'tabmain',
         items: [
             {
-                title: 'Danh sách nguyên liệu',
+                title: 'Danh sách phụ liệu',
                 xtype: 'Stockin_SubM_Edit_D',
             },
             {

@@ -4,12 +4,12 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 	init: function() {
         var viewModel = this.getViewModel();
 
-        // if (viewModel.get('isAdd_Pcontract_Stockin')){
-        //     if (viewModel.get('isNewStockin'))
-        //         this.onNewData(null,viewModel.get('stockintypeid_link'));
-        //     else
-        //         this.getInfo(viewModel.get('stockinid_link'));
-        // }
+        if (viewModel.get('isAdd_Pcontract_Stockin')){
+            if (viewModel.get('isNewStockin'))
+                this.onNewData(null,viewModel.get('stockintypeid_link'));
+            else
+                this.getInfo(viewModel.get('stockinid_link'));
+        }
     },
     listen: {
         controller: {
@@ -49,7 +49,6 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
-
         //Lay thong tin chi tiet nguoi dung Login
         var session = GSmartApp.util.State.get('session');
         var GpayUserOrg = viewModel.getStore('GpayUserOrg');
@@ -77,7 +76,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         viewModel.set('listepc', new Map());
 
         viewModel.set('stockin.stockintypeid_link', id);
-        viewModel.set('stockin.status', 0);
+        viewModel.set('stockin.status', -1);
         viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 
         // set store org from

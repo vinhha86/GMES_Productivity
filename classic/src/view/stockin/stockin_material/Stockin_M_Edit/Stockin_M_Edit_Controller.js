@@ -60,7 +60,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
-
         //Lay thong tin chi tiet nguoi dung Login
         var session = GSmartApp.util.State.get('session');
         var GpayUserOrg = viewModel.getStore('GpayUserOrg');

@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 		'GSmartApp.store.stockin.StockinTypeStore',
 		'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 		'GSmartApp.store.porder.POrder_ListStore', 'GSmartApp.store.stockin.StockinGroupStore',
-        'GSmartApp.store.unit.UnitStore'
+        'GSmartApp.store.unit.UnitStore', 'GSmartApp.store.stockin.Stockin_product_Store',
 	],
 	stores: {
 		DeviceInvStore: {
@@ -51,6 +51,9 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 		Sku_AutoComplete: {
 			type: 'Sku_AutoComplete'
 		},
+		StockinProduct_Store:{
+			type: 'Stockin_product_Store'
+		},
 	},
 	data: {
 		urlback: '',
@@ -76,7 +79,15 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 		isBarcodeHidden: true,
 		isManualHidden: false,
 		deviceid_link: 0,
-		device: null
+		device: null,
+
+		//Chi dung cho View trong PContract
+		pcontractid_link: null,
+		stockinid_link: null,
+		stockintypeid_link: 11,
+		isAdd_Pcontract_Stockin: false,
+		isNewStockin: false,
+		//
 	},
 	formulas: {
 		isEdit: function (get) {
