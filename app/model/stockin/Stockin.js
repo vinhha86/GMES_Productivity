@@ -40,7 +40,24 @@ Ext.define('GSmartApp.model.stockin.Stockin', {
         { name: 'usercreate_name', type: 'string' },
         { name: 'timecreate', type: 'date' , dateFormat: 'c'},
         { name: 'lastuserupdateid_link', type: 'number' },
-        { name: 'lasttimeupdate', type: 'date' , dateFormat: 'c'}
+        { name: 'lasttimeupdate', type: 'date' , dateFormat: 'c'},
+        {
+            name: 'stockinProductType',
+            type: 'string',
+            convert: function (value, rec) {
+                var stockintypeid_link = rec.get('stockintypeid_link');
+                if(stockintypeid_link >= 1 && stockintypeid_link <= 10){
+                    return 'Nguyên liệu';
+                }
+                if(stockintypeid_link >= 11 && stockintypeid_link <= 20){
+                    return 'Phụ liệu';
+                }
+                if(stockintypeid_link >= 21 && stockintypeid_link <= 30){
+                    return 'Thành phẩm';
+                }
+                return 'Khác';
+            }
+		},
     ],
     hasMany : {model: 'Stockin_d', name: 'stockin_d'},
     hasMany : {model: 'Stockin_product', name: 'stockin_product'}

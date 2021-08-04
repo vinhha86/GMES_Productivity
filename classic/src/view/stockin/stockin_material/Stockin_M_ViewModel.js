@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		'GSmartApp.store.stockin.StockinTypeStore',
 		'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 		'GSmartApp.store.porder.POrder_ListStore', 'GSmartApp.store.stockin.StockinGroupStore',
-		'GSmartApp.store.unit.UnitStore'
+		'GSmartApp.store.unit.UnitStore', 'GSmartApp.store.stockin.Stockin_product_Store',
 	],
 	stores:{
 		DeviceInvStore:{
@@ -72,6 +72,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
         },
 	},
 	data: {
+		searchObj: {
+			stockindate_from: new Date(),
+			stockindate_to: new Date(),
+			orgid_from_link: null,
+			stockintypeid_link: null,
+		},
+
 		urlback:'',
 		IsformMaster:false,
 		isTabEpc:true,
@@ -99,10 +106,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		pcontractid_link: null,
 		stockinid_link: null,
 		stockintypeid_link: 1,
-		isAdd_Pcontract_Stockin: false,
+		isAdd_Pcontract_Stockin: false, // true = pcontractView
 		isNewStockin: false,
 		isCanDoiNplPopup: false, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
 		mat_skuid_link: null, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
+		isRecordNguyenLieu: true,
+		//
 	},
 	formulas: {
         isEdit: function (get) {

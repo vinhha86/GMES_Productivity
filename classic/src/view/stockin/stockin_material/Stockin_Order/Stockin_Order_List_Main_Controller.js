@@ -98,19 +98,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_
         var stockindate_from = me.down('#stockindate_from').getValue();
         var stockindate_to = me.down('#stockindate_to').getValue();
         // var stockintypeid_link = me.down('#stockintypeid_link').getValue();
+        var stockintypeid_link_from = 1;
+        var stockintypeid_link_to = 10;
         var status = [-1];
-
-        // var page = store.currentPage;
-
-        // if (limit == null) {
-        //     limit = 25;
-        // }
-
-        // if (page == null) {
-        //     page = 1;
-        // }
-        // store.loadStore(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page);
-        store.loadStore_Material(null, stockindate_from, stockindate_to, null, status, null, null, null);
+        
+        store.loadStore_Material(null, stockindate_from, stockindate_to, 
+            null, stockintypeid_link_from, stockintypeid_link_to,
+            status, null, null, null);
     },
     onStockin_Order_Code_FilterKeyup:function(){
         var viewmodel = this.getViewModel();

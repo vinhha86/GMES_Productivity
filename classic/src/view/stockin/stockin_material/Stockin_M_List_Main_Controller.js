@@ -23,7 +23,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
 
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
-		me.down('#stockindate_from').setValue(new Date(priorDate));
+        viewmodel.set('searchObj.stockindate_from', new Date(priorDate));
+        viewmodel.set('searchObj.stockindate_to', today);
+		// me.down('#stockindate_from').setValue(new Date(priorDate));
 
         // this.onSearch();
 
@@ -61,6 +63,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
     },
     onStockinSelect: function (e, selected, eOpts) {
         var viewmodel = this.getViewModel();
+        // isRecordNotNguyenLieu
+        var stockintypeid_link = selected.get('stockintypeid_link');
+        if(stockintypeid_link >= 1 && stockintypeid_link <= 10){
+            viewmodel.set('isRecordNguyenLieu', true);
+        }
+        if(stockintypeid_link >= 11 && stockintypeid_link <= 20){
+            viewmodel.set('isRecordNguyenLieu', false);
+        }
         var StockinD_Store = viewmodel.getStore('StockinD_Store');
         StockinD_Store.setData(selected.data.stockin_d);
     },
@@ -82,26 +92,36 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
 
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('StockinStore');
+        var isAdd_Pcontract_Stockin = viewmodel.get('isAdd_Pcontract_Stockin');
+        var pcontractid = viewmodel.get('pcontractid_link');
 
-        // var limit = me.down('#limitpage').getValue();
-        var orgid_from_link = me.down('#OrgFromStore').getValue();
-        var stockindate_from = me.down('#stockindate_from').getValue();
-        var stockindate_to = me.down('#stockindate_to').getValue();
-        var stockintypeid_link = me.down('#stockintypeid_link').getValue();
-        var status = [0,1,2];
-        var mat_skuid_link = viewmodel.get('mat_skuid_link');
-
-        // var page = store.currentPage;
-
-        // if (limit == null) {
-        //     limit = 25;
-        // }
-
-        // if (page == null) {
-        //     page = 1;
-        // }
-        // store.loadStore(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, limit, page);
-        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, stockintypeid_link, status, null, null, null, mat_skuid_link);
+        if(isAdd_Pcontract_Stockin){ // pcontractView
+            var orgid_from_link = viewmodel.get('searchObj.orgid_from_link');
+            var stockindate_from = viewmodel.get('searchObj.stockindate_from');
+            var stockindate_to = viewmodel.get('searchObj.stockindate_to');
+            var stockintypeid_link = viewmodel.get('searchObj.stockintypeid_link');
+            var stockintypeid_link_from = 1;
+            var stockintypeid_link_to = 20;
+            var status = [0,1,2];
+            store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
+                stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
+                status, pcontractid, null, null, mat_skuid_link);
+        }
+        if(!isAdd_Pcontract_Stockin){ // nhap kho view
+            var orgid_from_link = viewmodel.get('searchObj.orgid_from_link');
+            var stockindate_from = viewmodel.get('searchObj.stockindate_from');
+            var stockindate_to = viewmodel.get('searchObj.stockindate_to');
+            var stockintypeid_link = viewmodel.get('searchObj.stockintypeid_link');
+            var stockintypeid_link_from = 1;
+            var stockintypeid_link_to = 10;
+            var status = [0,1,2];
+            var mat_skuid_link = viewmodel.get('mat_skuid_link');
+    
+            store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
+                stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
+                status, null, null, null, mat_skuid_link);
+        }
+        
         var StockinD_Store = viewmodel.getStore('StockinD_Store');
         if(null!=StockinD_Store) StockinD_Store.removeAll();
     },
@@ -141,22 +161,28 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             form.show();
 
             // bắt event load lại store, LuuPhieuNhapThanhCong
-            form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
-                var StockinStore = viewmodel.getStore('StockinStore');
-                StockinStore.load();
-                var StockinD_Store = viewmodel.getStore('StockinD_Store');
-                StockinD_Store.removeAll();
-            });
+            if(form.down('#Stockin_M_Edit')){
+                form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
+            if(form.down('#Stockin_SubM_Edit')){
+                form.down('#Stockin_SubM_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
         } else {
             this.redirectTo('stockin_m_main/1/create');
         }        
     },
-    onNhapDieuChuyen: function(){
-        this.redirectTo('stockin_m_main/2/create');
-    },
-    onCapNhatdbl: function(m, record, item, index, e, eOpts){
+    onNhapMuaMoiPhuLieu: function(){
         var viewmodel = this.getViewModel();
-        var id = record.data.id;
         if (viewmodel.get('isAdd_Pcontract_Stockin')){
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -173,9 +199,78 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                     padding: 5
                 },
                 items: [{
-                    xtype: 'Stockin_M_Edit',
+                    xtype: 'Stockin_SubM_Edit',
                     viewModel: {
-                        type: 'Stockin_M_ViewModel',
+                        type: 'Stockin_SubM_Edit_ViewModel',
+                        data: {
+                            isNewStockin: true,
+                            isAdd_Pcontract_Stockin: true,
+                            pcontractid_link: viewmodel.get('pcontractid_link'),
+                            stockintypeid_link: 11,
+                        }
+                    }
+                }]
+            });            
+            form.show();
+
+            // bắt event load lại store, LuuPhieuNhapThanhCong
+            if(form.down('#Stockin_M_Edit')){
+                form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
+            if(form.down('#Stockin_SubM_Edit')){
+                form.down('#Stockin_SubM_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
+        } 
+        // else {
+        //     this.redirectTo('stockin_subm/11/create');
+        // }
+    },
+    onNhapDieuChuyen: function(){
+        this.redirectTo('stockin_m_main/2/create');
+    },
+    onCapNhatdbl: function(m, record, item, index, e, eOpts){
+        var viewmodel = this.getViewModel();
+        var id = record.data.id;
+        var stockintypeid_link = record.get('stockintypeid_link');
+        var xtype_window = '';
+        var viewModel_window  = '';
+        if(stockintypeid_link >= 1 && stockintypeid_link <= 10){ // nguyen lieu
+            xtype_window = 'Stockin_M_Edit';
+            viewModel_window = 'Stockin_M_ViewModel';
+        }
+        if(stockintypeid_link >= 11 && stockintypeid_link <= 20){ // phu lieu
+            xtype_window = 'Stockin_SubM_Edit';
+            viewModel_window = 'Stockin_SubM_Edit_ViewModel';
+        }
+        if (viewmodel.get('isAdd_Pcontract_Stockin')){
+            var form = Ext.create('Ext.window.Window', {
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Phiếu nhập kho',
+                closeAction: 'destroy',
+                height: Ext.getBody().getViewSize().height * .99,
+                width: Ext.getBody().getViewSize().width * .95,
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: xtype_window,
+                    viewModel: {
+                        type: viewModel_window,
                         data: {
                             isNewStockin: false,
                             isAdd_Pcontract_Stockin: true,
@@ -187,13 +282,23 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             });            
             form.show();
 
-             // bắt event load lại store, LuuPhieuNhapThanhCong
-             form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
-                var StockinStore = viewmodel.getStore('StockinStore');
-                StockinStore.load();
-                var StockinD_Store = viewmodel.getStore('StockinD_Store');
-                StockinD_Store.removeAll();
-            });
+            // bắt event load lại store, LuuPhieuNhapThanhCong
+            if(form.down('#Stockin_M_Edit')){
+                form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
+            if(form.down('#Stockin_SubM_Edit')){
+                form.down('#Stockin_SubM_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
         } else {
             this.redirectTo("stockin_m_main/" + id + "/edit");
         }
@@ -202,6 +307,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         var viewmodel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
+        var stockintypeid_link = rec.get('stockintypeid_link');
+        var xtype_window = '';
+        var viewModel_window  = '';
+        if(stockintypeid_link >= 1 && stockintypeid_link <= 10){ // nguyen lieu
+            xtype_window = 'Stockin_M_Edit';
+            viewModel_window = 'Stockin_M_ViewModel';
+        }
+        if(stockintypeid_link >= 11 && stockintypeid_link <= 20){ // phu lieu
+            xtype_window = 'Stockin_SubM_Edit';
+            viewModel_window = 'Stockin_SubM_Edit_ViewModel';
+        }
+        // console.log(rec);
         if (viewmodel.get('isAdd_Pcontract_Stockin')){
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -218,9 +335,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                     padding: 5
                 },
                 items: [{
-                    xtype: 'Stockin_M_Edit',
+                    xtype: xtype_window,
                     viewModel: {
-                        type: 'Stockin_M_ViewModel',
+                        type: viewModel_window,
                         data: {
                             isAdd_Pcontract_Stockin: true,
                             stockinid_link: id,
@@ -230,6 +347,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                 }]
             });            
             form.show();
+
+            // bắt event load lại store, LuuPhieuNhapThanhCong
+            if(form.down('#Stockin_M_Edit')){
+                form.down('#Stockin_M_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
+            if(form.down('#Stockin_SubM_Edit')){
+                form.down('#Stockin_SubM_Edit').getController().on('LuuPhieuNhapThanhCong', function () {
+                    var StockinStore = viewmodel.getStore('StockinStore');
+                    StockinStore.load();
+                    var StockinD_Store = viewmodel.getStore('StockinD_Store');
+                    StockinD_Store.removeAll();
+                });
+            }
         } else {
             this.redirectTo("stockin_m_main/" + id + "/edit");
         }
@@ -262,6 +397,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                         if (success) {
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
+                            }else{
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    },
+                                });
                             }
                         }
                 })
@@ -369,11 +513,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         }
     },
     onPContract_Stockin: function (pcontractid) {
-        console.log(pcontractid);
+        // console.log(pcontractid);
         var viewmodel = this.getViewModel();
         viewmodel.set('pcontractid_link', pcontractid);
-        var status = [-1,0,1,2];
         var store = viewmodel.getStore('StockinStore');
-        store.loadStore_Material(null, null, null, null, status, pcontractid, null, null);
+        var stockintypeid_link_from = 1;
+        var stockintypeid_link_to = 20;
+        var status = [-1,0,1,2];
+        store.loadStore_Material(null, null, null, 
+            null, stockintypeid_link_from, stockintypeid_link_to,
+            status, pcontractid, null, null);
     },
 })

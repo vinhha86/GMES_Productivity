@@ -319,7 +319,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 			if (null != UnitStore) {
 				var objUnit = UnitStore.data.find('id', val);
 				// console.log(objUnit.data);
-				return objUnit.data.name;
+				return objUnit.data.code;
 			}
 		}
 	},
@@ -499,7 +499,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 					data: {
 						pcontractid_link: viewModel.get('pcontractid_link'),
 						ls_productid_link: ls_productid_link,
-						balance_limit: 1, // 0: tinh het, 1: nguyen lieu, 2: phu lieu
+						balance_limit: 2, // 0: tinh het, 1: nguyen lieu, 2: phu lieu
 					}
 				}
 			}]

@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 }
             },
             {
-                margin: '0 5 5 0',
+                margin: '0 5 5 5',
                 xtype:'button',
                 text:  "Đóng",
                 iconCls: 'x-fa fa-window-close',

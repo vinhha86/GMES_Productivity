@@ -32,20 +32,20 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
                 text:  "Quay lại",
                 iconCls: 'x-fa fa-backward',
                 itemId: 'btnBack',
-                // bind: {
-                //     hidden: '{isAdd_Pcontract_Stockin}'
-                // }
+                bind: {
+                    hidden: '{isAdd_Pcontract_Stockin}'
+                }
             },
-            // {
-            //     margin: '0 5 5 0',
-            //     xtype:'button',
-            //     text:  "Đóng",
-            //     iconCls: 'x-fa fa-window-close',
-            //     itemId: 'btnClose',
-            //     bind: {
-            //         hidden: '{!isAdd_Pcontract_Stockin}'
-            //     }
-            // },
+            {
+                margin: '0 5 5 5',
+                xtype:'button',
+                text:  "Đóng",
+                iconCls: 'x-fa fa-window-close',
+                itemId: 'btnClose',
+                bind: {
+                    hidden: '{!isAdd_Pcontract_Stockin}'
+                }
+            },
             {
                 margin: '0 5 5 0',
                 xtype:'button',

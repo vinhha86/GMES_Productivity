@@ -108,6 +108,15 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
                         if (success) {
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
+                            }else{
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    },
+                                });
                             }
                         }
                 })

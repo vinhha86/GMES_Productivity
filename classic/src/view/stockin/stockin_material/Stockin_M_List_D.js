@@ -103,24 +103,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
 			width: 70,
-			// editor: {
-			// 	completeOnEnter: true,
-			// 	field: {
-			// 		xtype: 'combo',
-			// 		typeAhead: true,
-			// 		triggerAction: 'all',
-			// 		selectOnFocus: false,
-			// 		bind: {
-			// 			store: '{UnitStore}',
-			// 			// value: '{unitid_link}'
-			// 		},
-			// 		displayField: 'code',
-			// 		valueField: 'id',
-			// 		queryMode : 'local',
-			// 		editable: false,
-			// 		readOnly: true
-			// 	}
-			// },
 			renderer: 'renderUnit'
 		},
 		{
@@ -133,13 +115,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			summaryRenderer: 'renderSum',
 			width: 90,
 			bind: {
-				hidden: '{isMetColumnHidden}',
+				hidden: '{!isRecordNguyenLieu}',
 			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
 		},{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -150,50 +127,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			dataIndex: 'totalmet_check',
 			width: 90,
 			bind: {
-				hidden: '{isMetColumnHidden}',
+				hidden: '{!isRecordNguyenLieu}',
 			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'SL Y/C (Y)', 
-		// 	align:'right',
-		// 	dataIndex: 'totalydsorigin',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 80,
-		// 	bind: {
-		// 		hidden: '{isYdsColumnHidden}',
-		// 	},
-		// 	// editor:{
-		// 	// 	xtype:'textfield',
-		// 	// 	maskRe: /[0-9]/,
-		// 	// 	selectOnFocus: true
-		// 	// },
-		// },
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'SL kiểm (Y)', 
-		// 	align:'right',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	dataIndex: 'totalydscheck',
-		// 	width: 85,
-		// 	bind: {
-		// 		hidden: '{isYdsColumnHidden}',
-		// 	},
-		// 	// editor:{
-		// 	// 	xtype:'textfield',
-		// 	// 	maskRe: /[0-9]/,
-		// 	// 	selectOnFocus: true
-		// 	// },
-		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
@@ -203,15 +139,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			width: 70,
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9]/,
-			// 	selectOnFocus: true
-			// },
+			bind: {
+				hidden: '{!isRecordNguyenLieu}',
+			},
 		},		
 		{
-			text: 'Danh sách LOT', 
-			// dataIndex: 'lot_list',
+			text: 'Danh sách LOT',
 			dataIndex: 'stockinDLot',
 			width: 150,
 			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
@@ -220,7 +153,36 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
 			},
-		}
+			bind: {
+				hidden: '{!isRecordNguyenLieu}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format: '0,000',
+			text: 'SL Y/C',
+			align: 'right',
+			dataIndex: 'totalpackage',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 80,
+			bind: {
+				hidden: '{isRecordNguyenLieu}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			width: 90,
+			format: '0,000',
+			text: 'SL Nhập',
+			align: 'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalpackagecheck',
+			bind: {
+				hidden: '{isRecordNguyenLieu}',
+			},
+		},
 	],
 });
 

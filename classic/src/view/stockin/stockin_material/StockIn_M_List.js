@@ -13,10 +13,23 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
     },
     features: [
         {
+            id: 'group',
+            ftype: 'groupingsummary',
+            groupHeaderTpl: '<b>{name}</b>',
+            hideGroupedHeader: false,
+            enableGroupingMenu: false,
+        },
+        {
             ftype: 'summary',
             dock: 'bottom'
         }
     ],
+    // features: [
+    //     {
+    //         ftype: 'summary',
+    //         dock: 'bottom'
+    //     }
+    // ],
     columns: [
         {
             xtype: 'actioncolumn',
@@ -112,13 +125,36 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
         xtype: 'toolbar',
         border: false,
         items: [
+        // {
+        //     xtype: 'button',
+        //     margin: 3,
+        //     text: 'Lập phiếu mới',
+        //     iconCls: 'x-fa fa-plus',
+        //     itemId: 'btnAdd_Pcontract_Stockin',
+        //     handler: 'onNhapMuaMoi',
+        //     bind: {
+        //         hidden: '{!isAdd_Pcontract_Stockin}'
+        //     }
+        // },
         {
             xtype: 'button',
             margin: 3,
             text: 'Lập phiếu mới',
-            iconCls: 'x-fa fa-plus',
-            itemId: 'btnAdd_Pcontract_Stockin',
-            handler: 'onNhapMuaMoi',
+            iconCls: 'x-fa fa-bars',
+            menu: [
+                {
+                    itemId: 'btnNhapMuaMoi', // id:1
+                    // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    text: 'Nguyên liệu',
+                    handler: 'onNhapMuaMoi'
+                },
+                {
+                    itemId: 'btnNhapMuaMoiPhuLieu', // id:11
+                    // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    text: 'Phụ liệu',
+                    handler: 'onNhapMuaMoiPhuLieu'
+                },
+            ],
             bind: {
                 hidden: '{!isAdd_Pcontract_Stockin}'
             }
@@ -174,25 +210,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
             margin: 3,
             itemId: 'stockindate_from',
             xtype: 'datefield',
-            value: new Date(),
+            // value: new Date(),
             format:'d/m/Y',
             fieldLabel: 'Nhập từ ngày:',
             labelWidth: 86,
             width: 215,
             bind: {
+                value: '{searchObj.stockindate_from}',
                 hidden: '{isAdd_Pcontract_Stockin}'
             }
         }, 
         {
             itemId: 'stockindate_to',
             xtype: 'datefield',
-            value: new Date(),
+            // value: new Date(),
             margin: 3,
             format:'d/m/Y',
             fieldLabel: 'đến ngày:',
             labelWidth: 65,
             width: 195,
             bind: {
+                value: '{searchObj.stockindate_to}',
                 hidden: '{isAdd_Pcontract_Stockin}'
             }
         },        
@@ -202,7 +240,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
             emptyText: 'Nơi xuất',
             bind:{
                 store: '{OrgFromStore}',
-                hidden: '{isAdd_Pcontract_Stockin}'
+                value: '{searchObj.orgid_from_link}',
+                hidden: '{isAdd_Pcontract_Stockin}',
             },
             queryMode: 'local',
             margin: 3,
@@ -229,7 +268,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
             emptyText: 'Loại nhập kho',
             bind:{
                 store: '{StockinTypeStore}',
-                hidden: '{isAdd_Pcontract_Stockin}'
+                value: '{searchObj.stockintypeid_link}',
+                hidden: '{isAdd_Pcontract_Stockin}',
             },
             queryMode: 'local',
             anyMatch: true,

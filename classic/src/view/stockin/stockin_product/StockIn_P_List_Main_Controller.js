@@ -223,12 +223,4 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
             }
         }
     },
-    onPContract_Stockin: function (pcontractid) {
-        console.log(pcontractid);
-        var viewmodel = this.getViewModel();
-        viewmodel.set('pcontractid_link', pcontractid);
-        var status = [-1,0,1,2];
-        var store = viewmodel.getStore('StockinStore');
-        store.loadStore_Material(null, null, null, null, status, pcontractid, null, null);
-    },
 })
