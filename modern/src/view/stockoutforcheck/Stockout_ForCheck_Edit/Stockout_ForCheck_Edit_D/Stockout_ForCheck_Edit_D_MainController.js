@@ -241,7 +241,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D_MainControl
             if (success) {
                 if (response.respcode == 200) {
                     Ext.toast('Lưu thông tin thành công', 3000);
-                    this.redirectTo("stockout_m/" + response.id + "/edit");
+                    // this.redirectTo("stockout_m/" + response.id + "/edit");
+                    this.redirectTo("stockout_m");
                     // m.getInfo(response.id);
                 }else{
                     Ext.toast('Lưu thông tin thất bại', 3000);
