@@ -7,8 +7,8 @@ Ext.define('GSmartApp.store.personnel.PersonnelStatus_Store', {
 		{name: 'name',  type: 'string'}
 	],
 	data: [{
-        name: 'Hoạt động', id: 1
+        name: 'Đi làm', id: 1
     },{
-        name: 'Dừng hoạt động', id: 0
+        name: 'Nghỉ việc', id: 0
     }]
 });

@@ -45,7 +45,25 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     },
     '#checkmoto': {
       change: 'onCheckMotoBike'
-    }
+    },
+   '#NgaySinh':{
+     change:'onNgaySinh'
+   },
+  //  '#TGCongTac':{
+  //   change:'onTGCongTac'
+  //  }
+   
+  },
+  // onTGCongTac:function(combo, newvalue, oldValue, e){
+    
+  // },
+  onNgaySinh:function(combo, newvalue, oldValue, e){
+    var now = new Date();
+    var time = now - newvalue;
+    var tuoi = ((((time/1000)/60)/60)/24)/360;
+
+    var viewmodel = this.getViewModel();
+    viewmodel.set('personnel.age',tuoi.toFixed(2))
   },
   onCheckMotoBike: function (chk, newVal, oldVal, e) {
     var viewmodel = this.getViewModel();
