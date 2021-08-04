@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Order_List',
     xtype: 'Stockin_SubM_Order_List',
     itemId: 'Stockin_SubM_Order_List',
     reference: 'Stockin_SubM_Order_List',
+    controller: 'Stockin_SubM_Order_List_Controller',
     viewConfig: {
         stripeRows: false,
         columnLines: true,
@@ -18,28 +19,69 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Order_List',
         }
     ],
     columns: [
-        {
-            xtype: 'actioncolumn',
-            width: 30,
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            items: [
-                {
-                    iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
-                    tooltip: 'Sửa phiếu',
-                    handler: 'onEdit'
-                }, 
-                // {
-                //     iconCls: 'x-fa fas fa-trash-o redIcon',
-                //     tooltip: 'Xóa phiếu',
-                //     handler: 'onDelete'
-                // }
-            ]
+        // {
+        //     xtype: 'actioncolumn',
+        //     width: 30,
+        //     menuDisabled: true,
+        //     sortable: false,
+        //     align: 'center',
+        //     items: [
+        //         {
+        //             iconCls: 'x-fa fas fa-pencil-square-o greenIcon',
+        //             tooltip: 'Sửa phiếu',
+        //             handler: 'onEdit'
+        //         }, 
+        //         // {
+        //         //     iconCls: 'x-fa fas fa-trash-o redIcon',
+        //         //     tooltip: 'Xóa phiếu',
+        //         //     handler: 'onDelete'
+        //         // }
+        //     ]
+        // },
+        {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stockin_order_code_filter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockin_Order_Code_FilterKeyup',
+                    buffer: 500
+                }
+            },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
         },
-        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
-        {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
+        {text: 'Số Invoice', dataIndex: 'invoice_number', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'stockin_order_invoice_filter',
+                width: 115,
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockin_Order_Invoice_FilterKeyup',
+                    buffer: 500
+                }
+            },
+        },
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
+        {header: 'Loại nhập', dataIndex: 'stockintype_name', width: 150},    
         {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
         {header: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
         {header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 
@@ -55,28 +97,33 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Order_List',
             margin: 3,
             itemId: 'stockindate_from_order',
             xtype: 'datefield',
-            value: new Date(),
             format:'d/m/Y',
             fieldLabel: 'Nhập từ ngày:',
             labelWidth: 86,
             width: 215,
+            bind: {
+                value: '{searchObj.stockindate_from}'
+            }
         }, 
         {
             itemId: 'stockindate_to_order',
             xtype: 'datefield',
-            value: new Date(),
             margin: 3,
             format:'d/m/Y',
             fieldLabel: 'đến ngày:',
             labelWidth: 65,
             width: 195,
+            bind: {
+                value: '{searchObj.stockindate_to}'
+            }
         },
         {
             itemId: 'OrgFromStore_order',
             xtype: 'combobox',
             emptyText: 'Nơi xuất',
             bind:{
-                store: '{OrgFromStore}'
+                store: '{OrgFromStore}',
+                value: '{searchObj.orgid_from_link}'
             },
             queryMode: 'local',
             anyMatch: true,
@@ -88,7 +135,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Order_List',
             xtype: 'combobox',
             emptyText: 'Loại nhập kho',
             bind:{
-                store: '{StockinTypeStore}'
+                store: '{StockinTypeStore}',
+                value: '{searchObj.stockintypeid_link}'
             },
             queryMode: 'local',
             anyMatch: true,

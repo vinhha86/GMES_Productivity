@@ -91,7 +91,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         viewModel.set('stockin.status', -1);
         viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 
-
 		var UnitStore = viewModel.getStore('UnitStore');
 		UnitStore.loadStore();
 

@@ -128,30 +128,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			dataIndex: 'size_name',
 			width: 70
 		},
-		// {
-		// 	text: 'ĐVT', 
-		// 	dataIndex: 'unitid_link',
-		// 	width: 70,
-		// 	editor: {
-		// 		completeOnEnter: true,
-		// 		field: {
-		// 			xtype: 'combo',
-		// 			typeAhead: true,
-		// 			triggerAction: 'all',
-		// 			selectOnFocus: false,
-		// 			bind: {
-		// 				store: '{UnitStore}',
-		// 				// value: '{unitid_link}'
-		// 			},
-		// 			displayField: 'code',
-		// 			valueField: 'id',
-		// 			queryMode : 'local',
-		// 			editable: false,
-		// 			readOnly: true
-		// 		}
-		// 	},
-		// 	renderer: 'renderUnit'
-		// },
 		{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
@@ -167,55 +143,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 				return "";
 			},
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'N.W', 
-		// 	align:'right',
-		// 	dataIndex: 'netweight',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 70
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'G.W', 
-		// 	align:'right',
-		// 	dataIndex: 'grossweight',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 70
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'M3', 
-		// 	align:'right',
-		// 	dataIndex: 'm3',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 70
-		// },
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000',
-		// 	text: 'Đơn giá', 
-		// 	align:'right',
-		// 	dataIndex: 'unitprice',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/
-		// 	},
-		// 	width: 85
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000',
-		// 	text: 'Thành tiền', 
-		// 	align:'right',
-		// 	dataIndex: 'totalprice',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 100
-		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',

@@ -9,7 +9,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Main_Control
             tabchange: 'onTabChange'
         }
     },
-    onTabChange: function (tabPanel, newCard, oldCard, eOpts) { console.log(newCard);
+    onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
+        //  console.log(newCard);
         var me = this;
         if (newCard.xtype == "Stockin_SubM_List_Main") {
             me.fireEvent('Reload_Stockin_SubM_List');

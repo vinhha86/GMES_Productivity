@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
         viewModel.set('searchObj.stockindate_from', new Date(priorDate));
-		// me.down('#stockindate_from').setValue(new Date(priorDate));
+        
         this.onSearch();
     },
 	listen: {
@@ -62,11 +62,15 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
         var stockintypeid_link = searchObj.stockintypeid_link;
         var stockintypeid_link_from = 11;
         var stockintypeid_link_to = 20;
-        var status = [-1,0,1,2];
+        var status = [0,1,2];
 
-        store.loadStore_Product(orgid_from_link, stockindate_from, stockindate_to, 
-            stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to,
-            status, null, null);
+        // store.loadStore_Product(orgid_from_link, stockindate_from, stockindate_to, 
+        //     stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to,
+        //     status, null, null);
+
+        store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
+            stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
+            status, null, null, null, null);
     },
     onThemMoi: function(){
         this.redirectTo('stockin_subm/create');

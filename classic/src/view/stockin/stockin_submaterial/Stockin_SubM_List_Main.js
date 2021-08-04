@@ -18,7 +18,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Main', 
         {
             region: 'south',
             margin: 1,
-            height: '50%',
+            height: '40%',
             xtype: 'Stockin_SubM_List_D'
         },
     ],

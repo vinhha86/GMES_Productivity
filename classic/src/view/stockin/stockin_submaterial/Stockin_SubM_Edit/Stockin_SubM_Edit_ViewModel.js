@@ -114,11 +114,17 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 			return false;
 		},
 		iseditSL: function (get) {
+			if(get('isAdd_Pcontract_Stockin')){
+				return false;
+			}
 			if (get('groupstockin') == 1) return true;
 			return false;
 		},
 		iseditSL_YC: function (get) {
 			//Neu la nhap theo PO thi ko cho sua SL YC
+			if(get('isAdd_Pcontract_Stockin')){
+				return true;
+			}
 			if (get('stockin.stockintypeid_link') == null) {
 				return false;
 			}

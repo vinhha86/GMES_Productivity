@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List', {
         {
             xtype: 'actioncolumn',
             // width: 30,
-            width: 60,
+            width: 50,
             menuDisabled: true,
             sortable: false,
             align: 'center',

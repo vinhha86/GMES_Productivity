@@ -63,8 +63,42 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             form.close();					
         })
     },
-	onXoa: function(){
+	onXoa: function(grid, rowIndex, colIndex, item, e, record){
+		var me = this.getView();
+        var viewmodel = this.getViewModel();
 
+		var rec = grid.getStore().getAt(rowIndex);
+        var name = rec.get('product_code');
+		var productid_link = rec.get('productid_link');
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa "' + name + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    grid.getStore().remove(rec);
+					var stockin_product = viewmodel.get('stockin.stockin_product');
+					for(var i=0; i<stockin_product.length; i++){
+						if(stockin_product[i].productid_link == productid_link){
+							stockin_product.splice(i,1);
+							break;
+						}
+					}
+					
+					var StockinProduct_Store = viewmodel.getStore('StockinProduct_Store');
+					StockinProduct_Store.removeAll();
+					StockinProduct_Store.insert(0, stockin_product);
+					viewmodel.set('stockin.stockin_product', stockin_product);
+                }
+
+            }
+        });
 	},
 	onFilterValueMaSPKeyup: function () {
         var viewmodel = this.getViewModel();

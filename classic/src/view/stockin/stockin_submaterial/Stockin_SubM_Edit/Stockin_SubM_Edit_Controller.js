@@ -133,8 +133,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
                 }
                 store.setData(data.stockin_d);
                 store.commitChanges();
-                // StockinProduct_Store.setData(data.stockin_product);
-                // StockinProduct_Store.commitChanges();
+                StockinProduct_Store.setData(data.stockin_product);
+                StockinProduct_Store.commitChanges();
 
                 // set store org from
                 if(data.stockintypeid_link == 11) {// mua moi va cap bu thi là nha cung cap

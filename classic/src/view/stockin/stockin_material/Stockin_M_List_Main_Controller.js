@@ -103,6 +103,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             var stockintypeid_link_from = 1;
             var stockintypeid_link_to = 20;
             var status = [0,1,2];
+            var mat_skuid_link = viewmodel.get('mat_skuid_link');
             store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
                 stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
                 status, pcontractid, null, null, mat_skuid_link);
