@@ -132,6 +132,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     }, {
                         xtype: 'textfield',
                         fieldLabel: 'Nơi cấp :',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
                         labelAlign: 'left',
                         labelWidth: 78,
                         flex: 1,
