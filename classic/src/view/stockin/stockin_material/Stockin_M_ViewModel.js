@@ -112,6 +112,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		mat_skuid_link: null, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
 		isRecordNguyenLieu: true,
 		//
+		
 	},
 	formulas: {
         isEdit: function (get) {
@@ -156,6 +157,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 				return true;
 			}
 			return false;
-		}
+		},
+		isTypeMuaMoiNguyenPhuLieu: function (get){
+			if(get('stockin.stockintypeid_link') ==1){
+				return true;
+			}
+			return false;
+		},
     }
 })

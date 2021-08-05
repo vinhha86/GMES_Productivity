@@ -215,8 +215,19 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var stockin = viewModel.get('stockin');
 
         // Kiem tra noi giao co trong danh muc
-        // var isNoiGiaoExist = m.checkNoiGiao();
-        // console.log();
+        var isNoiGiaoExist = m.checkNoiGiao();
+        // console.log(isNoiGiaoExist);
+        if(!isNoiGiaoExist){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Nơi giao chưa có trong hệ thống! Ấn dấu + để thêm nơi giao.',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
 
 
         var stockin_d = stockin.stockin_d;
@@ -339,14 +350,32 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         
     },
     
-    // isNoiGiaoExist: function(){
-    //     var isExist = false;
-    //     var viewModel = this.getViewModel();
-    //     var stockin = viewModel.get('stockin');
-    //     var store = viewModel.getStore('');
+    checkNoiGiao: function(){
+        var isExist = false;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        orgid_from_link = stockin.orgid_from_link;
+        var store = viewModel.getStore('OrgFromStore');
+        var data = store.getData().items;
+        
+        if(typeof orgid_from_link == 'string'){ // user type
+            for(var i = 0; i < data.length; i++){
+                var item = data[i];
+                if(item.get('name').toLowerCase() == orgid_from_link.toLowerCase()){
+                    isExist = true;
+                    viewModel.set('stockin.orgid_from_link', item.get('id'));
+                    break;
+                }
+            }
+        }else{ // user select
+            isExist = true;
+        }
 
-    //     return isExist;
-    // },
+        // console.log(orgid_from_link);
+        // console.log(data);
+
+        return isExist;
+    },
     onConfirm: function () {
         var m = this;
         var viewModel = this.getViewModel();

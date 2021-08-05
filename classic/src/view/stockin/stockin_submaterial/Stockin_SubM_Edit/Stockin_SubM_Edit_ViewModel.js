@@ -140,5 +140,11 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 			
 			return true;
 		},
+		isTypeMuaMoiNguyenPhuLieu: function (get){
+			if(get('stockin.stockintypeid_link') ==11){
+				return true;
+			}
+			return false;
+		},
 	}
 })

@@ -116,8 +116,46 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 				margin: '0 5 0 5',
 				fieldLabel: 'Nơi giao',					
 				labelWidth: 80,					
-				width: 375
-			},{
+				width: 375,
+				bind: {
+					hidden: '{isTypeMuaMoiNguyenPhuLieu}'
+				}
+			},
+			{
+				layout: 'hbox',
+				xtype: 'container',
+				margin: '0 5 0 5',
+				border: false,
+				width: 375,
+				items:[
+					{
+						xtype: 'combo',
+						valueField: 'id',
+						displayField: 'name',
+						bind: {
+							value: '{stockin.orgid_from_link}',
+							store: '{OrgFromStore}'
+						},
+						queryMode: 'local',
+						anyMatch: true,
+						// margin: '0 5 0 5',
+						fieldLabel: 'Nơi giao',					
+						labelWidth: 80,					
+						width: 340
+					},
+					{
+						xtype:'button',
+						margin: '0 0 0 2',
+						itemId:'btnAddNoiGiao',
+						iconCls: 'x-fa fa-plus',
+						width: 30
+					}
+				],
+				bind: {
+					hidden: '{!isTypeMuaMoiNguyenPhuLieu}'
+				}
+			},
+			{
 				xtype: 'combo',
 				valueField: 'id',
 				displayField: 'name',

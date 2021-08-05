@@ -32,7 +32,109 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		},
 		'#btnInvoice_Search':{
             click: 'onInvoice_Search'
+        },
+        '#btnAddNoiGiao':{
+            click: 'onBtnAddNoiGiao'
         }
+    },
+    onBtnAddNoiGiao: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        orgid_from_link = stockin.orgid_from_link;
+        var store = viewModel.getStore('OrgFromStore');
+        var data = store.getData().items;
+
+        var isExist = false;
+        
+        if(typeof orgid_from_link == 'string'){ // user type
+            for(var i = 0; i < data.length; i++){
+                var item = data[i];
+                if(item.get('name').toLowerCase() == orgid_from_link.toLowerCase()){
+                    isExist = true;
+                    viewModel.set('stockin.orgid_from_link', item.get('id'));
+                    break;
+                }
+            }
+        }else{ // user select
+            isExist = true;
+        }
+
+        if(!isExist){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn có chắc chắn thêm nhà cung cấp "' + orgid_from_link + '" ?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        m.themNoiGiao(orgid_from_link);
+                    }
+                }
+            });
+        }
+    },
+    themNoiGiao: function(orgid_from_link){
+        var name = orgid_from_link;
+
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        var data = new Object();
+        data.id = null;
+        data.parentid_link=1;
+        data.code = name;
+        data.name = name;
+        data.orgtypeid_link = 5;
+        data.status = 1;
+
+        params.data = data;
+
+        GSmartApp.Ajax.post('/api/v1/orgmenu/createOrg', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        // console.log(response);
+                        var orgfromstore = viewModel.getStore('OrgFromStore');
+                        var org = response.org;
+                        orgfromstore.insert(0,org);
+                        viewModel.set('stockin.orgid_from_link', org.id);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Lưu thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lưu thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     },
     onSelectCurency: function(combo, record, eOpts ){
        var viewModel = this.getViewModel();

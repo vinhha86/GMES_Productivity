@@ -33,7 +33,6 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         '#btnClose':{
             click: 'onCloseButton'
         },
-        
     },
     onUrlBack: function(type){
         
@@ -186,6 +185,21 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         params.data = [];
         var stockin = viewModel.get('stockin');
 
+        // Kiem tra noi giao co trong danh muc
+        var isNoiGiaoExist = m.checkNoiGiao();
+        // console.log(isNoiGiaoExist);
+        if(!isNoiGiaoExist){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Nơi giao chưa có trong hệ thống! Ấn dấu + để thêm nơi giao.',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
         var stockin_d = stockin.stockin_d;
         if(stockin_d != null){
             for(var i = 0; i < stockin_d.length; i++){
@@ -306,37 +320,33 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
         
     },
     
-    // onConfirm: function(){
-    //     var viewModel = this.getViewModel();
-    //     var stockin = viewModel.get('stockin');
-    //     var stockinId = stockin.id;
-    //     var form = Ext.create('Ext.window.Window', {
-    //         // height: 200,
-    //         width: 315,
-    //         closable: true,
-    //         resizable: false,
-    //         modal: true,
-    //         border: false,
-    //         title: 'Duyệt',
-    //         closeAction: 'destroy',
-    //         bodyStyle: 'background-color: transparent',
-    //         layout: {
-    //             type: 'fit', // fit screen for window
-    //             padding: 5
-    //         },
-    //         items: [{
-    //             xtype: 'Stockin_SubM_Edit_Confirm',
-    //             viewModel: {
-    //                 type: 'Stockin_SubM_Edit_ConfirmViewModel',
-    //                 data: {
-    //                     stockin: stockin,
-    //                     stockinId: stockinId
-    //                 }
-    //             }
-    //         }]
-    //     });
-    //     form.show();
-    // },
+    checkNoiGiao: function(){
+        var isExist = false;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        orgid_from_link = stockin.orgid_from_link;
+        var store = viewModel.getStore('OrgFromStore');
+        var data = store.getData().items;
+        
+        if(typeof orgid_from_link == 'string'){ // user type
+            for(var i = 0; i < data.length; i++){
+                var item = data[i];
+                if(item.get('name').toLowerCase() == orgid_from_link.toLowerCase()){
+                    isExist = true;
+                    viewModel.set('stockin.orgid_from_link', item.get('id'));
+                    break;
+                }
+            }
+        }else{ // user select
+            isExist = true;
+        }
+
+        // console.log(orgid_from_link);
+        // console.log(data);
+
+        return isExist;
+    },
+
     onConfirm: function () {
         var m = this;
         var viewModel = this.getViewModel();

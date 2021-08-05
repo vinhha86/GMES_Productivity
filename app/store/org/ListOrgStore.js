@@ -2,8 +2,9 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
     extend: 'Ext.data.Store',
 	alias: 'store.ListOrgStore',
 	storeId: 'ListOrgStore',
+    idProperty: 'idx',
 	fields: [
-		{name: 'id', type: 'int'},
+		// {name: 'id', type: 'int'},
 		{name: 'code',  type: 'string'},
         {name: 'name',   type: 'string'},
 		{name: 'orgtypeid_link',   type: 'int'},
