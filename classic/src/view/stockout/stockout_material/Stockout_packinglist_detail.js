@@ -122,11 +122,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			dataIndex: 'widthcheck',
             flex: 1,
 			align:'right',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
@@ -156,11 +156,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			align:'right',
             summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
@@ -195,11 +195,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 			align:'right',
             summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			editor:{
-				xtype:'textfield',
-				maskRe: /[0-9.]/,
-				selectOnFocus: true
-			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
 			renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
@@ -236,137 +236,137 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_detail', {
 		// 		selectOnFocus: true
 		// 	}
         // },
-		{ 
-			xtype: 'actioncolumn',
-			reference: 'stockout_contextmenu',
-			width: 25,
-			menuDisabled: true,
-			sortable: false,
-			items: [
-			{
-				iconCls: 'x-fa fas fa-trash',
-				tooltip: 'Xóa',
-				handler: 'onXoa'
-			}
-		]
-		}   	
+		// { 
+		// 	xtype: 'actioncolumn',
+		// 	reference: 'stockout_contextmenu',
+		// 	width: 25,
+		// 	menuDisabled: true,
+		// 	sortable: false,
+		// 	items: [
+		// 		{
+		// 			iconCls: 'x-fa fas fa-trash',
+		// 			tooltip: 'Xóa',
+		// 			handler: 'onXoa'
+		// 		}
+		// 	]
+		// }
 	],
-	dockedItems: [{
-		dock: 'top',
-        xtype: 'toolbar',
-		items: [
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'lotnumber',
-			emptyText: 'Số lot',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			// maskRe: /[0-9]/,		
-            bind:{
-				value: '{packinglist.lotnumber}'
-            }
-		},
-        {
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'packageid',
-			emptyText: 'Cây số',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9]/,		
-            bind:{
-				value: '{packinglist.packageid}'
-            }
-		},
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: 1,
-		// 	itemId:'netweight',
-		// 	emptyText: 'N.W',
-		// 	flex: 1,
-		// 	labelWidth: 0,
-		// 	hideLabel: true,	
-		// 	maskRe: /[0-9.]/,		
-        //     bind:{
-		// 		value: '{packinglist.netweight}'
-        //     }
-        // },
-        // {
-		// 	xtype: 'textfield',
-		// 	margin: 1,
-		// 	itemId:'grossweight',
-		// 	emptyText: 'G.W',
-		// 	flex: 1,
-		// 	labelWidth: 0,
-		// 	hideLabel: true,
-		// 	maskRe: /[0-9.]/,
-        //     bind:{
-		// 		value: '{packinglist.grossweight}'
-        //     }
-		// },
-		// {
-		// 	xtype: 'textfield',
-		// 	margin: 1,
-		// 	itemId:'m3',
-		// 	emptyText: 'M3',
-		// 	flex: 1,
-		// 	labelWidth: 0,
-		// 	hideLabel: true,
-		// 	maskRe: /[0-9.]/,
-        //     bind:{
-		// 		value: '{packinglist.m3}'
-        //     }
-        // },
-		{
-			xtype: 'textfield',
-			margin: 1,
-			itemId:'widthorigin',
-			emptyText: 'Khổ',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.widthorigin}'
-            }
-        },
-        {
-			xtype: 'textfield',
-			itemId:'met_origin',
-			emptyText: 'SL xuất (m)',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.met_origin}',
-				hidden: '{isMetColumnHidden}',
-            }
-		},		
-        {
-			xtype: 'textfield',
-			itemId:'ydsorigin',
-			emptyText: 'SL xuất (y)',
-			width: 120,
-			labelWidth: 0,
-			hideLabel: true,
-			maskRe: /[0-9.]/,
-            bind:{
-				value: '{packinglist.ydsorigin}',
-				hidden: '{isYdsColumnHidden}',
-            }
-		},		
-		{
-			tooltip: 'Thêm',
-			margin: '0 5 0 5',
-			itemId: 'btnThemPKL',
-			iconCls: 'x-fa fa-plus',
-			weight: 30
-		} 		
-	]
-	}]
+	// dockedItems: [{
+	// 	dock: 'top',
+    //     xtype: 'toolbar',
+	// 	items: [
+    //     {
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'lotnumber',
+	// 		emptyText: 'Số lot',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		// maskRe: /[0-9]/,		
+    //         bind:{
+	// 			value: '{packinglist.lotnumber}'
+    //         }
+	// 	},
+    //     {
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'packageid',
+	// 		emptyText: 'Cây số',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9]/,		
+    //         bind:{
+	// 			value: '{packinglist.packageid}'
+    //         }
+	// 	},
+	// 	// {
+	// 	// 	xtype: 'textfield',
+	// 	// 	margin: 1,
+	// 	// 	itemId:'netweight',
+	// 	// 	emptyText: 'N.W',
+	// 	// 	flex: 1,
+	// 	// 	labelWidth: 0,
+	// 	// 	hideLabel: true,	
+	// 	// 	maskRe: /[0-9.]/,		
+    //     //     bind:{
+	// 	// 		value: '{packinglist.netweight}'
+    //     //     }
+    //     // },
+    //     // {
+	// 	// 	xtype: 'textfield',
+	// 	// 	margin: 1,
+	// 	// 	itemId:'grossweight',
+	// 	// 	emptyText: 'G.W',
+	// 	// 	flex: 1,
+	// 	// 	labelWidth: 0,
+	// 	// 	hideLabel: true,
+	// 	// 	maskRe: /[0-9.]/,
+    //     //     bind:{
+	// 	// 		value: '{packinglist.grossweight}'
+    //     //     }
+	// 	// },
+	// 	// {
+	// 	// 	xtype: 'textfield',
+	// 	// 	margin: 1,
+	// 	// 	itemId:'m3',
+	// 	// 	emptyText: 'M3',
+	// 	// 	flex: 1,
+	// 	// 	labelWidth: 0,
+	// 	// 	hideLabel: true,
+	// 	// 	maskRe: /[0-9.]/,
+    //     //     bind:{
+	// 	// 		value: '{packinglist.m3}'
+    //     //     }
+    //     // },
+	// 	{
+	// 		xtype: 'textfield',
+	// 		margin: 1,
+	// 		itemId:'widthorigin',
+	// 		emptyText: 'Khổ',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9.]/,
+    //         bind:{
+	// 			value: '{packinglist.widthorigin}'
+    //         }
+    //     },
+    //     {
+	// 		xtype: 'textfield',
+	// 		itemId:'met_origin',
+	// 		emptyText: 'SL xuất (m)',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9.]/,
+    //         bind:{
+	// 			value: '{packinglist.met_origin}',
+	// 			hidden: '{isMetColumnHidden}',
+    //         }
+	// 	},		
+    //     {
+	// 		xtype: 'textfield',
+	// 		itemId:'ydsorigin',
+	// 		emptyText: 'SL xuất (y)',
+	// 		width: 120,
+	// 		labelWidth: 0,
+	// 		hideLabel: true,
+	// 		maskRe: /[0-9.]/,
+    //         bind:{
+	// 			value: '{packinglist.ydsorigin}',
+	// 			hidden: '{isYdsColumnHidden}',
+    //         }
+	// 	},		
+	// 	{
+	// 		tooltip: 'Thêm',
+	// 		margin: '0 5 0 5',
+	// 		itemId: 'btnThemPKL',
+	// 		iconCls: 'x-fa fa-plus',
+	// 		weight: 30
+	// 	} 		
+	// ]
+	// }]
 });
 
