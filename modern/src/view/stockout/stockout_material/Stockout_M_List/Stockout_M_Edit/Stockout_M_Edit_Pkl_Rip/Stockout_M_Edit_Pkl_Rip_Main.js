@@ -107,6 +107,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             bind: {
                                 value: '{objRip.lotnumber}'
                             },
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -129,7 +132,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                                 value: '{objRip.packageid}'
                             },
                             listeners: {
-                                focusleave: 'onlotnumberTxtAndpackageidTxtRipleave'
+                                focusleave: 'onlotnumberTxtAndpackageidTxtRipleave',
+                                focus: 'onFocus'
                             },
                             stepValue: 0.1,
                         },

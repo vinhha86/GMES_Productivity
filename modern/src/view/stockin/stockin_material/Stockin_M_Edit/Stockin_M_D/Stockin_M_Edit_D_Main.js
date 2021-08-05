@@ -76,7 +76,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value: '{lotNumberTxt}'
                             },
                             listeners: {
-                                change: 'onlotNumberTxtType'
+                                change: 'onlotNumberTxtType',
+                                focus: 'onFocus'
                             }
                         },
                         {
@@ -100,6 +101,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value: '{cayNumberTxt}'
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
@@ -135,6 +139,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value: '{yNumberTxt}'
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -157,6 +164,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value: '{canNumberTxt}'
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',

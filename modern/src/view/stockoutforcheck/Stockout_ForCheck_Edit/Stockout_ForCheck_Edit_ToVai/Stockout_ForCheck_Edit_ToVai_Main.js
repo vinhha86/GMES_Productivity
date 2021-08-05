@@ -111,7 +111,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType',
-                                focusenter: 'onlotnumberTxtAndpackageidTxtenter'
+                                focusenter: 'onlotnumberTxtAndpackageidTxtenter',
+                                focus: 'onFocus'
                             }
                         },
                         {
@@ -136,7 +137,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             listeners: {
                                 focusleave: 'onlotnumberTxtAndpackageidTxtleave',
-                                focusenter: 'onlotnumberTxtAndpackageidTxtenter'
+                                focusenter: 'onlotnumberTxtAndpackageidTxtenter',
+                                focus: 'onFocus'
                             },
                             stepValue: 0.1,
                         },
@@ -184,6 +186,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -207,6 +212,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -229,6 +237,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
@@ -267,6 +278,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -290,6 +304,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -312,6 +329,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
@@ -350,6 +370,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 // hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             margin: 1,

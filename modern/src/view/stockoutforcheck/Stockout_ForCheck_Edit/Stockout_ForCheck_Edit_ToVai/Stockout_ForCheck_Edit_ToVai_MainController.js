@@ -21,6 +21,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             tap: 'ontest'
         }
     },
+    onFocus: function(textfield, e, eOpts){
+        // console.log(textfield);
+        // console.log(textfield.getPlaceholder());
+        var placeholder = textfield.getPlaceholder();
+        var tip = Ext.create('Ext.tip.ToolTip', {
+            target: textfield,
+            html: placeholder,
+        });
+        tip.show();
+    },
     ontest: function(){
         var viewModel = this.getViewModel();
         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');

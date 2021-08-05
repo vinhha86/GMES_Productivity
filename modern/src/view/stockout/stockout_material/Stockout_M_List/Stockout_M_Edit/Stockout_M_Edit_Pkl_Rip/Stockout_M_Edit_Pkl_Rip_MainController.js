@@ -15,6 +15,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             change: 'oncbbox_pklRip_stockoutdId_change'
         }
     },
+    onFocus: function(textfield, e, eOpts){
+        // console.log(textfield);
+        // console.log(textfield.getPlaceholder());
+        var placeholder = textfield.getPlaceholder();
+        var tip = Ext.create('Ext.tip.ToolTip', {
+            target: textfield,
+            html: placeholder,
+        });
+        tip.show();
+    },
     oncbbox_pklRip_stockoutdId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
         var pklRip_stockoutdId = viewModel.get('pklRip_stockoutdId');
@@ -295,6 +305,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         }
     },
     onPklRipTextfieldFocus: function(txtfield, e, eOpts){
+        this.onFocus(txtfield, e, eOpts);
         // set viewmodel currentEditField (txtfield đang edit)
         var viewModel = this.getViewModel();
         var itemId = txtfield.getItemId();

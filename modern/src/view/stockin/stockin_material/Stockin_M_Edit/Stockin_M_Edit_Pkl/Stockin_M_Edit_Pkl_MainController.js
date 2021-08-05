@@ -25,6 +25,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             change: 'oncbbox_pkl_stockindId_change'
         },
     },
+    onFocus: function(textfield, e, eOpts){
+        // console.log(textfield);
+        // console.log(textfield.getPlaceholder());
+        var placeholder = textfield.getPlaceholder();
+        var tip = Ext.create('Ext.tip.ToolTip', {
+            target: textfield,
+            html: placeholder,
+        });
+        tip.show();
+    },
     oncbbox_pkl_stockindId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
         // var pkl_stockindId = viewModel.get('pkl_stockindId');

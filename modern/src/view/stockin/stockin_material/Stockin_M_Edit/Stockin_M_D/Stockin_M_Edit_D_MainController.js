@@ -13,6 +13,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             itemsingletap: 'onStockin_M_Edit_DItemTap'
 		},
 	},
+    onFocus: function(textfield, e, eOpts){
+        // console.log(textfield);
+        // console.log(textfield.getPlaceholder());
+        var placeholder = textfield.getPlaceholder();
+        var tip = Ext.create('Ext.tip.ToolTip', {
+            target: textfield,
+            html: placeholder,
+        });
+        tip.show();
+    },
 	onStockin_M_Edit_DItemTap: function(dataView, index, target, record, e, eOpts){
         var me = this.getView();
         var m = this;

@@ -137,6 +137,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     bind: {
                         value:'{lotRow}'
                     },
+                    listeners: {
+                        focus: 'onFocus'
+                    }
                 },
                 {
                     xtype: 'numberfield',
@@ -159,6 +162,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         value:'{lotSpace}'
                     },
                     // stepValue: 0.1,
+                    listeners: {
+                        focus: 'onFocus'
+                    }
                 },
                 {
                     xtype: 'numberfield',
@@ -181,6 +187,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         value:'{lotFloor}'
                     },
                     // stepValue: 0.1,
+                    listeners: {
+                        focus: 'onFocus'
+                    }
                 },
                 {
                     xtype: 'numberfield',
@@ -203,6 +212,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         value:'{lotAmount}'
                     },
                     // stepValue: 0.1,
+                    listeners: {
+                        focus: 'onFocus'
+                    }
                 },
                 {
                     xtype:'button',

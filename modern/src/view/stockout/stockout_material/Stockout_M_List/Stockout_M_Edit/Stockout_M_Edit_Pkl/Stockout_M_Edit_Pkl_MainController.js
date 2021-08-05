@@ -25,6 +25,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
             change: 'oncbbox_pkl_stockoutdId_change'
         }
     },
+    onFocus: function(textfield, e, eOpts){
+        // console.log(textfield);
+        // console.log(textfield.getPlaceholder());
+        var placeholder = textfield.getPlaceholder();
+        var tip = Ext.create('Ext.tip.ToolTip', {
+            target: textfield,
+            html: placeholder,
+        });
+        tip.show();
+    },
     oncbbox_pkl_stockoutdId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
         // var pkl_stockoutdId = viewModel.get('pkl_stockoutdId');

@@ -101,7 +101,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value: '{objPkl.lotnumberTxt}'
                             },
                             listeners: {
-                                change: 'onlotnumberTxtType'
+                                change: 'onlotnumberTxtType',
+                                focus: 'onFocus'
                             }
                         },
                         {
@@ -129,6 +130,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             //     buffer: 1000
                             // },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
@@ -174,7 +178,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onmTxtFocusleave'
+                                focusleave: 'onmTxtFocusleave',
+                                focus: 'onFocus'
                             }
                         },
                         {
@@ -201,7 +206,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onyTxtFocusleave'
+                                focusleave: 'onyTxtFocusleave',
+                                focus: 'onFocus'
                             }
                         },
                         {
@@ -225,6 +231,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -247,6 +256,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
@@ -391,7 +403,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onwidthMetCheckTxtFocusleave'
+                                focusleave: 'onwidthMetCheckTxtFocusleave',
+                                focus: 'onFocus'
                             }
                         },
                         // {
@@ -437,6 +450,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
@@ -477,6 +493,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             bind: {
                                 value:'{objPkl.pklRowTxt}'
                             },
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -499,6 +518,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value:'{objPkl.pklSpaceTxt}'
                             },
                             // stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype: 'numberfield',
@@ -521,6 +543,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value:'{objPkl.pklFloorTxt}'
                             },
                             // stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus'
+                            }
                         },
                         {
                             xtype:'button',
