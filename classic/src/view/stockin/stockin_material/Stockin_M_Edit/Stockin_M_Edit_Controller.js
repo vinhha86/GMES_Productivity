@@ -214,6 +214,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         params.data = [];
         var stockin = viewModel.get('stockin');
 
+        // Kiem tra noi giao co trong danh muc
+        // var isNoiGiaoExist = m.checkNoiGiao();
+        // console.log();
+
+
         var stockin_d = stockin.stockin_d;
         if(stockin_d != null){
             for(var i = 0; i < stockin_d.length; i++){
@@ -313,6 +318,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             StockinProduct_Store.commitChanges();
 
                             viewModel.set('stockin', data);
+                            // console.log(data);
+                            m.getCreateName(data.usercreateid_link);
 
                             m.fireEvent('LuuPhieuNhapThanhCong');
                         }
@@ -332,36 +339,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         
     },
     
-    // onConfirm: function(){
+    // isNoiGiaoExist: function(){
+    //     var isExist = false;
     //     var viewModel = this.getViewModel();
     //     var stockin = viewModel.get('stockin');
-    //     var stockinId = stockin.id;
-    //     var form = Ext.create('Ext.window.Window', {
-    //         // height: 200,
-    //         width: 315,
-    //         closable: true,
-    //         resizable: false,
-    //         modal: true,
-    //         border: false,
-    //         title: 'Duyệt',
-    //         closeAction: 'destroy',
-    //         bodyStyle: 'background-color: transparent',
-    //         layout: {
-    //             type: 'fit', // fit screen for window
-    //             padding: 5
-    //         },
-    //         items: [{
-    //             xtype: 'Stockin_M_Edit_Confirm',
-    //             viewModel: {
-    //                 type: 'Stockin_M_Edit_ConfirmViewModel',
-    //                 data: {
-    //                     stockin: stockin,
-    //                     stockinId: stockinId
-    //                 }
-    //             }
-    //         }]
-    //     });
-    //     form.show();
+    //     var store = viewModel.getStore('');
+
+    //     return isExist;
     // },
     onConfirm: function () {
         var m = this;
@@ -467,5 +451,30 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     }
                 }
             })
-    }
+    },
+    getCreateName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('Stockin_M_Edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        // console.log(stockin);
+                        stockin.usercreate_name = response.data.fullName;
+                        viewModel.set('stockin', stockin);
+                    }
+                }
+            })
+    },
 })

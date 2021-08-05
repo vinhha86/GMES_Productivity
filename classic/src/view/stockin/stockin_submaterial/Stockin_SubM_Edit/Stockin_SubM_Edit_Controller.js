@@ -286,6 +286,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
                             StockinProduct_Store.commitChanges();
 
                             viewModel.set('stockin', data);
+                            m.getCreateName(data.usercreateid_link);
 
                             m.fireEvent('LuuPhieuNhapThanhCong');
                         }
@@ -440,5 +441,30 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
                     }
                 }
             })
-    }
+    },
+    getCreateName: function(userid){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var params = new Object();
+        params.id = userid;
+
+        var mainView = Ext.getCmp('Stockin_M_Edit');
+        if (mainView) mainView.setLoading(true);
+
+        GSmartApp.Ajax.post('/api/v1/users/user_getinfo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        // console.log(response);
+                        // console.log(stockin);
+                        stockin.usercreate_name = response.data.fullName;
+                        viewModel.set('stockin', stockin);
+                    }
+                }
+            })
+    },
 })
