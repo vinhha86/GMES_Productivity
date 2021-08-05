@@ -19,7 +19,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         stripeRows: false,
         getRowClass: function(record, index) {
             var c = record.get('status');
-            if (c == -1) {
+			var totalmet_origin = record.get('totalmet_origin') == null ? 0 : record.get('totalmet_origin');
+			var totalmet_check = record.get('totalmet_check') == null ? 0 : record.get('totalmet_check');
+            // if (c == -1) {
+			if(totalmet_origin > totalmet_check){
                 return 'epc-error';
             }
             else {
