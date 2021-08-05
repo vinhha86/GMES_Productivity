@@ -309,8 +309,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 
         // check textfield
         if(stockin.unitid_link == 3){
-            if(packageidTxt == '' || yTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 3000);
+            if(packageidTxt == '' || yTxt == '' || widthMetCheckTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
                 return;
             }
             if(isNaN(yTxt)){
@@ -319,8 +319,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             }
         }
         if(stockin.unitid_link == 1){
-            if(packageidTxt == '' || mTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 3000);
+            if(packageidTxt == '' || mTxt == '' || widthMetCheckTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
                 return;
             }
             if(isNaN(mTxt)){

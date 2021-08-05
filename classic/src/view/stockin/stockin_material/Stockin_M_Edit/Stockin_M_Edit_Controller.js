@@ -229,6 +229,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             return;
         }
 
+        if(stockin.orgid_from_link == null || stockin.orgid_from_link == ''){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Không được bỏ trống nơi giao',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
+        if(stockin.orgid_to_link == null || stockin.orgid_to_link == '' || isNaN(stockin.orgid_to_link)){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Không được bỏ trống nơi nhận',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
 
         var stockin_d = stockin.stockin_d;
         if(stockin_d != null){

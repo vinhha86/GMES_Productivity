@@ -83,6 +83,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var viewModel = this.getViewModel();
         var stockinLot = viewModel.get('stockinLot');
 
+        if(stockinLot.lot_number == null || stockinLot.lot_number == ''){
+            Ext.toast('Thiếu thông tin Số Lot', 3000);
+            return;
+        }
+        if(stockinLot.totalpackage == null || stockinLot.totalpackage == ''){
+            Ext.toast('Thiếu thông tin Số Cây', 3000);
+            return;
+        }
+        if(stockinLot.totalmet == null || stockinLot.totalmet == ''){
+            Ext.toast('Thiếu thông tin Độ dài', 3000);
+            return;
+        }
+        if(stockinLot.totalyds == null || stockinLot.totalyds == ''){
+            Ext.toast('Thiếu thông tin Độ dài', 3000);
+            return;
+        }
+        if(stockinLot.grossweight == null || stockinLot.grossweight == ''){
+            Ext.toast('Thiếu thông tin Cân nặng', 3000);
+            return;
+        }
+
         me.setMasked({
             xtype: 'loadmask',
             message: 'Đang lưu'

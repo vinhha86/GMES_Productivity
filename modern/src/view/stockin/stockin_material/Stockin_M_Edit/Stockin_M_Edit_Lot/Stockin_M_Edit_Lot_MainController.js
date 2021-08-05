@@ -181,8 +181,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             lotFloor = 'x';
             numberOfEmptyField++;
         }
-        if(lotAmount == null || lotAmount == ''){
-            lotAmount = 0;
+        if(lotAmount == null || lotAmount == '' || lotAmount <= 0){
+            Ext.toast('Phải điền sl cây vải lớn hơn 0', 1000);
+            return;
+            // lotAmount = 0;
         }
 
         if(numberOfEmptyField !=0 && numberOfEmptyField != 3){

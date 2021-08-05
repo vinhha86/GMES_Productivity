@@ -139,7 +139,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 						queryMode: 'local',
 						anyMatch: true,
 						// margin: '0 5 0 5',
-						fieldLabel: 'Nơi giao',					
+						fieldLabel: 'Nơi giao('+ '<span style="color:red">*</span>' + ')',
 						labelWidth: 80,					
 						width: 340
 					},
@@ -168,7 +168,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 				margin: '0 5 0 5',
 				width: 445,
 				labelWidth: 85,
-				fieldLabel: 'Nơi nhận'
+				fieldLabel: 'Nơi nhận('+ '<span style="color:red">*</span>' + ')',
 			},
 			{
 				margin: '0 5 0 5',
