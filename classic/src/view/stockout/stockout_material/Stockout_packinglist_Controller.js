@@ -83,6 +83,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_Controller', {
         var warehouselist = Ext.getCmp('Stockout_packinglist_warehouse');
         var ws_select = warehouselist.getSelectionModel().getSelection();
 
+        console.log(ws_select);
+
         var stockoutid_link = viewModel.get('packinglist.stockoutid_link');
         var stockoutdid_link = viewModel.get('packinglist.stockoutdid_link');
 
@@ -98,7 +100,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_packinglist_Controller', {
             packinglistObj.stockoutdid_link = stockoutdid_link;
             packinglistObj.skuid_link = ws_select[i].data.skuid_link;
             packinglistObj.colorid_link = ws_select[i].data.colorid_link;
-            packinglistObj.color_name = ws_select[i].data.color_name;
+            packinglistObj.color_name = ws_select[i].data.colorname;
             packinglistObj.lotnumber = ws_select[i].data.lotnumber;
             packinglistObj.packageid = ws_select[i].data.packageid;
             packinglistObj.widthcheck = ws_select[i].data.width;
