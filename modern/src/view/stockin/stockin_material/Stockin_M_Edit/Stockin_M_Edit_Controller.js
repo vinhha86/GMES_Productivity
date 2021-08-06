@@ -46,11 +46,28 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         '#btnLuu':{
             tap: 'onSave'
         },
+        // '#btnShowToken':{
+        //     tap: 'onBtnShowToken'
+        // },
+        // '#btnDeleteToken':{
+        //     tap: 'onBtnDeleteToken'
+        // },
         '#TabView':{
             activeItemchange: 'onTabViewActiveItemchange'
         },
     },
-    onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
+    // config.setToken(null);
+    onBtnShowToken: function(){
+        console.log(config.getToken());
+        console.log(GSmartApp.util.State.get('session'));
+    },
+    onBtnDeleteToken: function(){
+        config.setToken(null);
+        GSmartApp.util.State.set('session', null);
+        console.log(config.getToken());
+        console.log(GSmartApp.util.State.get('session'));
+    },
+    onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){ console.log("onTabViewActiveItemchange");
         var m = this;
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
@@ -62,7 +79,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             case 'DS vải':
                 var selectedDRecord = viewModel.get('selectedDRecord');
                 var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-                // Stockin_d_Store.loadStore_byStockinId(stockinid_link); // loadStore_byStockinId_async
+                // Stockin_d_Store.loadStore_byStockinId(stockinid_link);
                 Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
                 Stockin_d_Store.load({
                     scope: this,
@@ -276,7 +293,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 
                 setTimeout(function(){
                     me.onSort();
-                }, 1000);
+                }, 100);
             }
 		})
     },
@@ -421,11 +438,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     onSort: function(){
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-        Stockin_d_Store.getSorters().add({
-            property: 'skucode',
-            direction: 'ASC'
-        });
+        // var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
+        // Stockin_d_Store.getSorters().add({
+        //     property: 'skucode',
+        //     direction: 'ASC'
+        // });
 
         var StockinLotStore = viewModel.getStore('StockinLotStore');
         StockinLotStore.getSorters().add({

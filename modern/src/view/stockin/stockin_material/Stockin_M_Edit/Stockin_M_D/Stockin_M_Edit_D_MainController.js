@@ -199,15 +199,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     },
     reloadStore: function(){
         var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
         var selectedDRecord = viewModel.get('selectedDRecord');
+
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang tải'
+        });
 
         var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
         Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
         Stockin_d_Store.load({
             scope: this,
             callback: function(records, operation, success) {
+                me.setMasked(false);
                 if(!success){
                     this.fireEvent('logout');
                 } else {
