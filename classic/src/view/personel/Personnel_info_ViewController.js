@@ -17,12 +17,18 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     if (viewmodel.get('personnel.id') != null) {
       this.loadImage(viewmodel.get('personnel.id'));
     }
-  //lấy giá trị
-     viewmodel.set('QuocTich.old',viewmodel.get('personnel.countryid_link'));
-    viewmodel.set('Tinh.old',viewmodel.get('personnel.provinceid_link'));
-    viewmodel.set('Huyen.old',viewmodel.get('personnel.districtid_link'));
-    viewmodel.set('Xa.old',viewmodel.get('personnel.communeid_link'));
-   
+    //lấy giá trị 
+    viewmodel.set('QuocTich.old', viewmodel.get('personnel.countryid_link'));
+    viewmodel.set('Tinh.old', viewmodel.get('personnel.provinceid_link'));
+    viewmodel.set('Huyen.old', viewmodel.get('personnel.districtid_link'));
+    viewmodel.set('Xa.old', viewmodel.get('personnel.communeid_link'));
+    viewmodel.set('Thon.old', viewmodel.get('personnel.village'));
+    //trạng thái đi làm - 
+    viewmodel.set('TrangThai.old', viewmodel.get('personnel.status'));
+    viewmodel.set('NghiViec.old', viewmodel.get('personnel.date_endworking'));
+    viewmodel.set('NgayVaoCty.old', viewmodel.get('personnel.date_startworking'));
+    viewmodel.set('TGCongTac.old', viewmodel.get('personnel.time_work'));
+
   },
   control: {
     '#cmbDonViQuanLy': {
@@ -37,6 +43,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     '#cmbQuanHuyen': {
       change: 'onSelectQuanHuyen'
     },
+    '#cmbXa': {
+      change: 'onXa'
+    },
     '#btnUploadImage': {
       click: 'onUploadImage'
     },
@@ -46,24 +55,124 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     '#checkmoto': {
       change: 'onCheckMotoBike'
     },
-   '#NgaySinh':{
-     change:'onNgaySinh'
-   },
-  //  '#TGCongTac':{
-  //   change:'onTGCongTac'
-  //  }
-   
+    '#NgaySinh': {
+      change: 'onNgaySinh'
+    },
+    '#NgayVaoCty': {
+      change: 'onTG_LamCty'
+    },
+    '#NgayNghiViec': {
+      change: 'onTG_NghiCty',
+    },
+    '#TrangThai': {
+      change: 'onTrangThai'
+    }
   },
-  // onTGCongTac:function(combo, newvalue, oldValue, e){
-    
-  // },
-  onNgaySinh:function(combo, newvalue, oldValue, e){
+
+  /**
+   * 
+   *thời gian công tác theo thời gian vào công ty làm việc
+   */
+  onTG_LamCty: function (combo, newvalue, oldValue, e) {
+    var viewmodel = this.getViewModel();
+    //nếu ngày vào công ty trống =>thời gian làm tại công ty trống
+    if (!newvalue) {
+      viewmodel.set('personnel.time_work', null);
+    } else {
+      //nếu trạng thái là đi làm
+      if (viewmodel.get('personnel.status') == 0) {
+        var now = new Date();
+        var time = now - newvalue;
+        var time_work = ((((time / 1000) / 60) / 60) / 24) / 30;
+        var viewmodel = this.getViewModel();
+        viewmodel.set('personnel.time_work', time_work.toFixed(1))
+      } else {
+        //trạng thái là nghỉ việc
+        var date_endworking = viewmodel.get('personnel.date_endworking');
+        var value = new Date(date_endworking);
+        var time = value - newvalue;
+        var time_work = ((((time / 1000) / 60) / 60) / 24) / 30;
+        viewmodel.set('personnel.time_work', time_work.toFixed(1))
+
+      }
+    }
+  },
+
+  /**
+   *   thời gian công tác theo thời gian vào làm - ngày nghỉ việc tại  cty
+   */
+  onTG_NghiCty: function (combo, newvalue, oldValue, e) {
+    var viewmodel = this.getViewModel();
+
+    //ngày vào công ty
+    var date_startworking = viewmodel.get('personnel.date_startworking');
+    var value = new Date(date_startworking)
+    if (viewmodel.get('personnel.status') == 1) {
+      //nếu ngày vào trống => thời gian làm tại công ty trống
+      if (!date_startworking && !newvalue || !date_startworking || !newvalue) {
+        viewmodel.set('personnel.time_work', null)
+      } else {
+        var time = newvalue - value;
+        var time_work = ((((time / 1000) / 60) / 60) / 24) / 30;
+        var viewmodel = this.getViewModel();
+        viewmodel.set('personnel.time_work', time_work.toFixed(1))
+      }
+    }
+
+  },
+  /**
+   Thay đổi trạng thái
+   */
+  onTrangThai: function (combo, newvalue, oldValue, e) {
+    var me = this;
+    var viewmodel = this.getViewModel();
+
+    //trạng thái thay đổi khác với trạng thái ban đầu
+    if (newvalue != viewmodel.get('TrangThai.old')) {
+      //đi làm
+      if (newvalue == 0) {
+      //  viewmodel.set('personnel.date_endworking', null);
+        var date_startworking = viewmodel.get('personnel.date_startworking');
+        if (date_startworking) {
+          var value = new Date(date_startworking)
+          me.onTG_LamCty("", value);
+        }
+      }
+      //nghỉ việc
+      if (newvalue == 1) {
+        var date_endworking = viewmodel.get('personnel.date_endworking');
+        if (date_endworking) {
+          var value = new Date(date_endworking)
+          me.onTG_NghiCty("", value);
+        }
+      }
+    }
+    //trạng thái ban đầu
+    else {
+      if (newvalue == 0) {
+        //viewmodel.set('personnel.date_endworking', null);
+        //viewmodel.set('personnel.date_startworking', viewmodel.get('NgayVaoCty.old'));
+
+        var date_startworking = viewmodel.get('personnel.date_startworking');
+        if (date_startworking) {
+          var value = new Date(date_startworking)
+          me.onTG_LamCty("", value);
+        }
+      } else {
+        viewmodel.set('personnel.date_endworking', viewmodel.get('NghiViec.old'));
+        viewmodel.set('personnel.date_startworking', viewmodel.get('NgayVaoCty.old'));
+      }
+
+    }
+  },
+  onNgaySinh: function (combo, newvalue, oldValue, e) {
     var now = new Date();
     var time = now - newvalue;
-    var tuoi = ((((time/1000)/60)/60)/24)/360;
+    var tuoi = ((((time / 1000) / 60) / 60) / 24) / 360;
 
     var viewmodel = this.getViewModel();
-    viewmodel.set('personnel.age',tuoi.toFixed(2))
+    viewmodel.set('personnel.age', tuoi.toFixed(2))
+
   },
   onCheckMotoBike: function (chk, newVal, oldVal, e) {
     var viewmodel = this.getViewModel();
@@ -135,37 +244,40 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
   onSelectQuocTich: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
     var OrgProvinceStore = viewmodel.getStore('OrgProvinceStore');
-    var listid = '25';
+
+    if (!newvalue) {
+      viewmodel.set('personnel.provinceid_link', null);
+      OrgProvinceStore.removeAll();
+
+    } else {
+      viewmodel.set('personnel.provinceid_link', viewmodel.get('Tinh.old'));
+
+      var listid = '25';
       //lấy danh sách thành phố
       OrgProvinceStore.GetOrg_By_type(listid)
-
-    if(viewmodel.get('QuocTich.old') != null && viewmodel.get('QuocTich.old') != newvalue){
-      viewmodel.set('personnel.provinceid_link',null);
-      OrgProvinceStore.removeAll();
-    }else{
-      viewmodel.set('personnel.provinceid_link',viewmodel.get('Tinh.old'));
     }
+
   },
   onChangeThanhPho: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
     var OrgDistrictStore = viewmodel.getStore('OrgDistrictStore');
-  
+
     var listid = '26';
     var Tinh_id = newvalue;
 
     //thay đổi tỉnh 
     //nếu tỉnh khác dữ liệu ban đầu thì set huyện,xã = null
     //nếu tỉnh giống ban đầu thì set giá trị huyện, xã về như ban đầu.
-    if(viewmodel.get('Tinh.old') != null && viewmodel.get('Tinh.old') != newvalue){
-      viewmodel.set('personnel.districtid_link',null);
+    if (viewmodel.get('Tinh.old') != null && viewmodel.get('Tinh.old') != newvalue) {
+      viewmodel.set('personnel.districtid_link', null);
       OrgDistrictStore.removeAll();
-    }else{
-      viewmodel.set('personnel.districtid_link',viewmodel.get('Huyen.old'));
+    } else {
+      viewmodel.set('personnel.districtid_link', viewmodel.get('Huyen.old'));
     }
-   
+
     //lấy danh sách các huyện theo id tỉnh
     OrgDistrictStore.getbyParentandType(Tinh_id, listid);
-    
+
   },
   onSelectQuanHuyen: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
@@ -174,15 +286,25 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     var Huyen_id = newvalue;
 
 
-    if(viewmodel.get('Huyen.old') != null && viewmodel.get('Huyen.old') != newvalue){
-      viewmodel.set('personnel.communeid_link',null);
+    if (viewmodel.get('Huyen.old') != null && viewmodel.get('Huyen.old') != newvalue) {
+      viewmodel.set('personnel.communeid_link', null);
       OrgCommuneStore.removeAll();
-    }else {
-       viewmodel.set('personnel.communeid_link',viewmodel.get('Xa.old'));
+
+    } else {
+      viewmodel.set('personnel.communeid_link', viewmodel.get('Xa.old'));
     }
-    
+
     //lây danh sách xã theo id huyện
     OrgCommuneStore.getbyParentandType(Huyen_id, listid);
-   
+
+  },
+  onXa: function (combo, newvalue, oldValue, e) {
+
+    var viewmodel = this.getViewModel();
+    if (newvalue == null) {
+      viewmodel.set('personnel.village', null);
+    } else {
+      viewmodel.set('personnel.village', viewmodel.get('Thon.old'));
+    }
   }
 })

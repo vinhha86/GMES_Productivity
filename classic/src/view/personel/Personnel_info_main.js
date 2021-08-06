@@ -11,15 +11,18 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main', {
         region: 'north',
         title: 'Thông tin chung',
         xtype: 'Personnel_info',
-        height: 250,
+        height: 350,
         border: true,
-        margin: 1
+        margin: 1,
+
+       
     },{
         region: 'center',
         title: 'Quá trình công tác',
         xtype: 'Personnel_history',
         border: true,
-        margin: 1
+        margin: 1,
+        
     }],
     dockedItems: [{
         layout: 'hbox',

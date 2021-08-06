@@ -108,8 +108,9 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewController', {
         device.code = viewmodel.get('device.code');
         device.is_rfid = viewmodel.get('device.check') == null ? false : viewmodel.get('device.check');
       
+       
         params.data = device;
-        if (device.name == null ||device.name == ''|| device.code == null||device.code == '') {
+        if (device.name == null ||device.name.trim() == ''|| device.code == null||device.code.trim() == '') {
             viewmodel.set('device.name', null);
             viewmodel.set('device.code', null);
             Ext.MessageBox.show({

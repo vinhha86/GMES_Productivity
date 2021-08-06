@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.XaPhuongViewController',{
         Xa.orgtypeid_link=27;
 
         params.data = Xa;
-        if(Xa.name == null ||Xa.name == ''||Xa.code == null||Xa.code == ''){
+        if(Xa.name == null ||Xa.name.trim() == ''||Xa.code == null||Xa.code.trim() == ''){
             viewmodel.set('Xa.name', null);
             viewmodel.set('Xa.code', null);
 

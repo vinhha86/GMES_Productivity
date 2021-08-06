@@ -197,7 +197,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.TinhViewController',{
         params.data = Tinh;
      
 
-        if (Tinh.name == null ||Tinh.name == ''||Tinh.code == null||Tinh.code == '') {
+        if (Tinh.name == null ||Tinh.name.trim() == ''||Tinh.code == null||Tinh.code.trim() == '') {
             viewmodel.set('Tinh.name', null);
             viewmodel.set('Tinh.code', null);
             Ext.MessageBox.show({

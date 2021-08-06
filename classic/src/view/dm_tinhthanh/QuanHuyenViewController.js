@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.dm_tinhthanh.QuanHuyenViewController',{
         Huyen.orgtypeid_link=26;
 
         params.data = Huyen;
-        if(Huyen.name == null ||Huyen.name == ''||Huyen.code == null||Huyen.code == ''){
+        if(Huyen.name == null ||Huyen.name.trim() == ''||Huyen.code == null||Huyen.code.trim() == ''){
             viewmodel.set('Huyen.name', null);
             viewmodel.set('Huyen.code', null);
 

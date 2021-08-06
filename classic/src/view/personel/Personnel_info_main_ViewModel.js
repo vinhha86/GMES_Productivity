@@ -53,6 +53,21 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
         },
         Xa:{
             old:null
+        },
+        Thon:{
+            old:null
+        },
+        TrangThai:{
+            old:null
+        },
+        NghiViec:{
+            old:null
+        },
+        NgayVaoCty:{
+            old:null
+        },
+        TGCongTac:{
+            old:null
         }
     },
     formulas: {

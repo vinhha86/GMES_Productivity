@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     xtype: 'textfield',
                     itemId: 'code',
                     labelWidth: 78,
-                    fieldLabel: 'Mã NV:',
+                    fieldLabel: 'Mã NV ('+ '<span style="color:red">*</span>' + ') ',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     flex: 1,
@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 }, {
                     xtype: 'textfield',
                     labelWidth: 78,
-                    fieldLabel: 'Họ và tên',
+                    fieldLabel: 'Họ và tên ('+ '<span style="color:red">*</span>' + ')',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     flex: 1,
@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 }, {
                     xtype: 'combo',
                     labelWidth: 78,
-                    fieldLabel: 'Giới tính',
+                    fieldLabel: 'Giới tính ('+ '<span style="color:red">*</span>' + ')',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -74,47 +74,48 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.email}'
                     }
-                }
+                }, {
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Điện thoại',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    maskRe: /[0-9]/,
+                    bind: {
+                        value: '{personnel.tel}'
+                    }
+                }, {
+                    xtype: 'numberfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Tuổi:',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    readOnly:true,
+                    bind: {
+                        value: '{personnel.age}'
+                    }
+                }, {
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Số CMT ('+ '<span style="color:red">*</span>' + ')',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    bind: {
+                        value: '{personnel.idnumber}'
+                    }
+                },
+
             ]
             }, {
                 layout: 'vbox',
                 items: [
-                    {
-                        xtype: 'textfield',
-                        labelWidth: 78,
-                        fieldLabel: 'Điện thoại',
-                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                        fieldStyle: 'font-size:11px;',
-                        flex: 1,
-                        margin: 1,
-                        maskRe: /[0-9]/,
-                        bind: {
-                            value: '{personnel.tel}'
-                        }
-                    },{
-                        xtype: 'numberfield',
-                        labelWidth: 78,
-                        fieldLabel: 'Tuổi:',
-                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                        fieldStyle: 'font-size:11px;',
-                        flex: 1,
-                        margin: 1,
-                        readOnly:true,
-                        bind: {
-                            value: '{personnel.age}'
-                        }
-                    },{
-                        xtype: 'textfield',
-                        labelWidth: 78,
-                        fieldLabel: 'Số CMT:',
-                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                        fieldStyle: 'font-size:11px;',
-                        flex: 1,
-                        margin: 1,
-                        bind: {
-                            value: '{personnel.idnumber}'
-                        }
-                    }, {
+                  {
                         xtype: 'datefield',
                         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                         fieldStyle: 'font-size:11px;',
@@ -141,99 +142,108 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         bind: {
                             value: '{personnel.place_idnumber}'
                         }
+                    },{
+                        xtype: 'combo',
+                        itemId: 'cmbQuocTich',
+                        queryMode: 'local',
+                        anyMatch: true,
+                        labelWidth: 78,
+                        fieldLabel: 'Quốc tịch',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        displayField: 'name',
+                        valueField: 'id',
+                        flex: 1,
+                        margin: 1,
+                        bind: {
+                            value: '{personnel.countryid_link}',
+                            store: '{OrgCountryStore}'
+                        }
+                    }, {
+                        xtype: 'combo',
+                        itemId: 'cmbThanhPho',
+                        queryMode: 'local',
+                        anyMatch: true,
+                        labelWidth: 78,
+                        fieldLabel: 'Tỉnh, TP ('+ '<span style="color:red">*</span>' + ')',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        displayField: 'name',
+                        valueField: 'id',
+                        flex: 1,
+                        margin: 1,
+                        bind: {
+                            value: '{personnel.provinceid_link}',
+                            store: '{OrgProvinceStore}'
+                        }
+                    }, {
+                        xtype: 'combo',
+                        itemId: 'cmbQuanHuyen',
+                        labelWidth: 78,
+                        fieldLabel: 'Huyện ('+ '<span style="color:red">*</span>' + ')',
+                        queryMode: 'local',
+                        anyMatch: true,
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        displayField: 'name',
+                        valueField: 'id',
+                        flex: 1,
+                        margin: 1,
+                        bind: {
+                            value: '{personnel.districtid_link}',
+                            store: '{OrgDistrictStore}'
+                        }
+                    }, {
+                        xtype: 'combo',
+                        labelWidth: 78,
+                        fieldLabel: 'Xã ('+ '<span style="color:red">*</span>' + ')',
+                        queryMode: 'local',
+                        anyMatch: true,
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        displayField: 'name',
+                        valueField: 'id',
+                        flex: 1,
+                        margin: 1,
+                        bind: {
+                            value: '{personnel.communeid_link}',
+                            store: '{OrgCommuneStore}'
+                        }
+                    },,{
+                        xtype: 'textfield',
+                        labelWidth: 78,
+                        fieldLabel: 'Thôn ('+ '<span style="color:red">*</span>' + ')',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        flex: 1,
+                        margin: 1,
+                        bind: {
+                            value: '{personnel.village}'
+                        }
+                    } ,{
+                        xtype: 'checkbox',
+                        labelWidth: 78,
+                        fieldLabel: 'Xe đạp',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        flex: 1,
+                        margin: 1,
+                        inputValue: true,
+                        itemId: 'checkmoto',
+                        bind: {
+                            value: '{personnel.isbike}'
+                        }
                     }
             ]
             }, {
                 layout: 'vbox',
                 items: [{
                     xtype: 'combo',
-                    itemId: 'cmbQuocTich',
-                    queryMode: 'local',
-                    anyMatch: true,
-                    labelWidth: 78,
-                    fieldLabel: 'Quốc tịch',
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    displayField: 'name',
-                    valueField: 'id',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.countryid_link}',
-                        store: '{OrgCountryStore}'
-                    }
-                }, {
-                    xtype: 'combo',
-                    itemId: 'cmbThanhPho',
-                    queryMode: 'local',
-                    anyMatch: true,
-                    labelWidth: 78,
-                    fieldLabel: 'Tỉnh, TP',
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    displayField: 'name',
-                    valueField: 'id',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.provinceid_link}',
-                        store: '{OrgProvinceStore}'
-                    }
-                }, {
-                    xtype: 'combo',
-                    itemId: 'cmbQuanHuyen',
-                    labelWidth: 78,
-                    fieldLabel: 'Quận, huyện',
-                    queryMode: 'local',
-                    anyMatch: true,
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    displayField: 'name',
-                    valueField: 'id',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.districtid_link}',
-                        store: '{OrgDistrictStore}'
-                    }
-                }, {
-                    xtype: 'combo',
-                    labelWidth: 78,
-                    fieldLabel: 'Xã',
-                    queryMode: 'local',
-                    anyMatch: true,
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    displayField: 'name',
-                    valueField: 'id',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.communeid_link}',
-                        store: '{OrgCommuneStore}'
-                    }
-                },,{
-                    xtype: 'textfield',
-                    labelWidth: 78,
-                    fieldLabel: 'Thôn:',
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.village}'
-                    }
-                }
-            ]
-            }, {
-                layout: 'vbox',
-                items: [ {
-                    xtype: 'combo',
                     itemId: 'cmbDonViQuanLy',
                     queryMode: 'local',
                     anyMatch: true,
                     labelWidth: 78,
-                    fieldLabel: 'ĐV Quản lý',
+                    fieldLabel: 'ĐV Quản lý ('+ '<span style="color:red">*</span>' + ')',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -249,7 +259,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     labelWidth: 78,
                     queryMode: 'local',
                     anyMatch: true,
-                    fieldLabel: 'Phòng ban',
+                    fieldLabel: 'Phòng ban ('+ '<span style="color:red">*</span>' + ')',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -264,7 +274,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 {
                     xtype: 'combo',
                     labelWidth: 78,
-                    fieldLabel: 'Loại Nh.viên',
+                    fieldLabel: 'Loại NV ('+ '<span style="color:red">*</span>' + ')',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -278,8 +288,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 }, 
                 {
                     xtype: 'combo',
+                    itemId:'TrangThai',
                     labelWidth: 78,
-                    fieldLabel: 'Trạng thái',
+                    fieldLabel: 'Trạng thái ('+ '<span style="color:red">*</span>' + ')',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     displayField: 'name',
@@ -290,20 +301,162 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         value: '{personnel.status}',
                         store: '{PersonnelStatus_Store}'
                     }
-                }, {
-                    xtype: 'checkbox',
+                },
+                    {
+                    xtype: 'datefield',
+                    itemId:'NgayVaoCty',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    fieldLabel: 'Ngày vào CT:',
+                    labelAlign: 'left',
                     labelWidth: 78,
-                    fieldLabel: 'Xe đạp',
+                    flex: 1,
+                    margin: 1,
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{personnel.date_startworking}'
+                    }
+                },{
+                    xtype: 'datefield',
+                    itemId:'NgayNghiViec',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    fieldLabel: 'Ngày nghỉ việc:',
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    flex: 1,
+                    margin: 1,
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{personnel.date_endworking}'
+                    }
+                },{
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Lý do nghỉ:',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     flex: 1,
                     margin: 1,
-                    inputValue: true,
-                    itemId: 'checkmoto',
                     bind: {
-                        value: '{personnel.isbike}'
+                        value: '{personnel.reason}'
                     }
-                }]
+                }, {
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Biển số xe',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    bind: {
+                        value: '{personnel.bike_number}',
+                        editable: '{personnel.is_motobike}'
+                    }
+                }
+            ]
+            }, {
+                layout: 'vbox',
+                items: [  
+                {
+                    xtype: 'datefield',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    fieldLabel: 'Ngày kí HĐTV:',
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    flex: 1,
+                    margin: 1,
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{personnel.date_probation_contract}'
+                    }
+                },{
+                    xtype: 'datefield',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    fieldLabel: 'Ngày kí HĐ TH:',
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    flex: 1,
+                    margin: 1,
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{personnel.date_limit_contract}'
+                    }
+                },
+                {
+                    xtype: 'datefield',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    fieldLabel: 'NK HĐ KTH:',
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    flex: 1,
+                    margin: 1,
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{personnel.date_unlimit_contract}'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    itemId:'TGCongTac',
+                    fieldLabel: 'Thời gian CT',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    readOnly:true,
+                    margin: 1,
+                    bind: {
+                        value: '{personnel.time_work}'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Loại sức khỏe',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    bind: {
+                        value: '{personnel.healthinfo}'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    labelWidth: 78,
+                    fieldLabel: 'Số sổ BH',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    bind: {
+                        value: '{personnel.insurance_number}'
+                    }
+                },{
+                    xtype: 'datefield',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    fieldLabel: 'Ngày đóng BH:',
+                    labelAlign: 'left',
+                    labelWidth: 78,
+                    flex: 1,
+                    margin: 1,
+                    format: 'd/m/Y',
+                    altFormats: "Y-m-d\\TH:i:s.uO",
+                    bind: {
+                        value: '{personnel.date_insurance}'
+                    }
+                }
+            ]
             }]
         }, {
             layout: 'hbox',
@@ -318,167 +471,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     value: '{personnel.address}'
                 },
                 width: 763
-            }, {
-                xtype: 'textfield',
-                labelWidth: 78,
-                fieldLabel: 'Biển số xe',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                flex: 1,
-                margin: 1,
-                bind: {
-                    value: '{personnel.bike_number}',
-                    editable: '{personnel.is_motobike}'
-                }
             }]
         }]
-    },{
-        layout: 'vbox',
-        items: [
-            {
-                xtype: 'datefield',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                fieldLabel: 'Ngày vào công ty:',
-                labelAlign: 'left',
-                labelWidth: 78,
-                flex: 1,
-                margin: 1,
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                bind: {
-                    value: '{personnel.date_startworking}'
-                }
-            },
-            {
-                xtype: 'datefield',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                fieldLabel: 'Ngày nghỉ việc:',
-                labelAlign: 'left',
-                labelWidth: 78,
-                flex: 1,
-                margin: '3 0 3 0',
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                bind: {
-                    value: '{personnel.date_endwordking}'
-                }
-            },{
-                xtype: 'textfield',
-                labelWidth: 78,
-                fieldLabel: 'Lý do nghỉ việc',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                flex: 1,
-                margin: 1,
-                bind: {
-                    value: '{personnel.reason}'
-                }
-            },{
-                xtype: 'datefield',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                fieldLabel: 'Ngày kí HĐ t.việc:',
-                labelAlign: 'left',
-                labelWidth: 78,
-                flex: 1,
-                margin: 1,
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                bind: {
-                    value: '{personnel.date_probation_contract}'
-                }
-            },{
-                xtype: 'datefield',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                fieldLabel: 'Ngày kí HĐ có thời hạn:',
-                labelAlign: 'left',
-                labelWidth: 78,
-                flex: 1,
-                margin: 1,
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                bind: {
-                    value: '{personnel.date_limit_contract}'
-                }
-            }
-
-        ]
-    },{
-        layout:'vbox',
-        items:[
-            {
-                xtype: 'datefield',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                fieldLabel: 'Ngày kí HĐ KTH:',
-                labelAlign: 'left',
-                labelWidth: 60,
-                flex: 1,
-                margin: 1,
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                bind: {
-                    value: '{personnel.date_unlimit_contract}'
-                }
-            },
-            {
-                xtype: 'textfield',
-                labelWidth: 60,
-                itemId:'TGCongTac',
-                fieldLabel: 'TG công tác',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                flex: 1,
-                readOnly:true,
-                margin: 1,
-                bind: {
-                    value: '{personnel.time_work}'
-                }
-            },
-            {
-                xtype: 'textfield',
-                labelWidth: 60,
-                fieldLabel: 'Loại sức khỏe',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                flex: 1,
-                margin: 1,
-                bind: {
-                    value: '{personnel.healthinfo}'
-                }
-            },
-            {
-                xtype: 'textfield',
-                labelWidth: 60,
-                fieldLabel: 'Số sổ bảo hiểm',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                flex: 1,
-                margin: 1,
-                bind: {
-                    value: '{personnel.insurance_number}'
-                }
-            },{
-                xtype: 'datefield',
-                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                fieldStyle: 'font-size:11px;',
-                fieldLabel: 'Ngày đóng bảo hiểm:',
-                labelAlign: 'left',
-                labelWidth: 60,
-                flex: 1,
-                margin: 1,
-                format: 'd/m/Y',
-                altFormats: "Y-m-d\\TH:i:s.uO",
-                bind: {
-                    value: '{personnel.date_insurance}'
-                }
-            }
-        ]
     },
-    
     {
         layout: 'vbox',
         items: [{

@@ -96,7 +96,8 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
             xtype: 'button',
             margin: 5,
             text: 'Thêm mới',
-            width: 90,
+            width: 120,
+            iconCls:'x-fa fa-plus',
             itemId: 'btnThemMoi'
         },{
             xtype:'textfield',
