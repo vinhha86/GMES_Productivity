@@ -853,6 +853,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		var stockin = viewmodel.get('stockin');
 		var data = grid.getStore().getAt(rowIndex);
 
+		if(stockin.status != null && stockin.status >= 1){
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: "Phiếu nhập đã được duyệt nhập",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				}
+			});
+			return;
+		}
+
 		Ext.Msg.show({
 			title: 'Thông báo',
 			msg: 'Bạn có chắc chắn xóa nguyên phụ liệu ' + data.get('skucode') + '?',

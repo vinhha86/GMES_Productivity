@@ -166,7 +166,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
                                 }else{
                                     Ext.MessageBox.show({
                                         title: "Thông báo",
-                                        msg: "Xóa thất bại: " + response.msg,
+                                        msg: "Xóa thất bại: " + response.message,
                                         buttons: Ext.MessageBox.YES,
                                         buttonText: {
                                             yes: 'Đóng',
@@ -176,7 +176,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
                             }else{
                                 Ext.MessageBox.show({
                                     title: "Thông báo",
-                                    msg: "Xóa thất bại: " + response.msg,
+                                    msg: "Xóa thất bại: " + response.message,
                                     buttons: Ext.MessageBox.YES,
                                     buttonText: {
                                         yes: 'Đóng',

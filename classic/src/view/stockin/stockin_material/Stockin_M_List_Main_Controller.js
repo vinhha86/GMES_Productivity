@@ -408,6 +408,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                                     },
                                 });
                             }
+                        }else{
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: "Xoá thất bại",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                },
+                            });
                         }
                 })
                 }

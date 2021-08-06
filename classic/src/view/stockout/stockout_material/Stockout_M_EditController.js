@@ -798,6 +798,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var stockout = viewmodel.get('stockout');
         var data = grid.getStore().getAt(rowIndex);
 
+		if(stockout.status != null && stockout.status >= 1){
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: "Phiếu xuất đã được duyệt xuất",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				}
+			});
+			return;
+		}
+
 		Ext.Msg.show({
 			title: 'Thông báo',
 			msg: 'Bạn có chắc chắn xóa nguyên phụ liệu ' + data.get('skucode') + '?',
