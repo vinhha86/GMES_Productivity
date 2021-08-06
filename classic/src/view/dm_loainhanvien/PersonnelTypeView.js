@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.dm_loainhanvien.PersonnelTypeView',{
                     xtype:'textfield',
                     emptyText:'Tên loại nhân viên',
                     margin:5,
-                    flex:1,
+                    width: 250,
                     bind:{
                         value:'{personnel_type.name}'
                     }
