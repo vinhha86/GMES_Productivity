@@ -109,7 +109,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value: '{objRecheck.lotnumber}'
                             },
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -186,7 +187,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -214,7 +216,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -240,7 +243,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -266,7 +270,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -307,7 +312,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -333,7 +339,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -420,7 +427,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -446,7 +454,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {

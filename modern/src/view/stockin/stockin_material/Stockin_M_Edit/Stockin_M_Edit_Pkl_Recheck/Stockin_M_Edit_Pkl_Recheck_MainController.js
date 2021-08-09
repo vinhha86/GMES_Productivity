@@ -19,14 +19,201 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         }
     },
     onFocus: function(textfield, e, eOpts){
-        // console.log(textfield);
-        // console.log(textfield.getPlaceholder());
+        //
+        this.setTooltip(textfield);
+    },
+    onFocusLeave: function(textfield, event, eOpts ){
+        //
+        this.removeTooltip();
+        //
+        this.showSelectValueWindow(textfield);
+    },
+    setTooltip: function(textfield){
+        var viewModel = this.getViewModel();
         var placeholder = textfield.getPlaceholder();
         var tip = Ext.create('Ext.tip.ToolTip', {
             target: textfield,
             html: placeholder,
         });
         tip.show();
+        viewModel.set('fieldTooltip', tip);
+    },
+    removeTooltip: function(){
+        var viewModel = this.getViewModel();
+        var fieldTooltip = viewModel.get('fieldTooltip');
+        if(fieldTooltip){
+            fieldTooltip.close();
+        }
+    },
+    showSelectValueWindow: function(textfield, event){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var placeholder = textfield.getPlaceholder();
+        // console.log(textfield);
+        // console.log(placeholder);
+
+        var oldValue = '';
+        if(placeholder == 'Dài kiểm (M)'){
+            oldValue = viewModel.get('objRecheck.met_check');
+        }else 
+        if(placeholder == 'Dài phiếu (M)'){
+            oldValue = viewModel.get('objRecheck.met_origin');
+        }else 
+        if(placeholder == 'Dài kiểm (Y)'){
+            oldValue = viewModel.get('objRecheck.ydscheck');
+        }else 
+        if(placeholder == 'Dài phiếu (Y)'){
+            oldValue = viewModel.get('objRecheck.ydsorigin');
+        }else 
+        if(placeholder == 'Cân kiểm'){
+            oldValue = viewModel.get('objRecheck.grossweight_check');
+        }else 
+        if(placeholder == 'Cân phiếu'){
+            oldValue = viewModel.get('objRecheck.grossweight');
+        }else 
+        if(placeholder == 'Khổ kiểm (cm)'){
+            oldValue = viewModel.get('objRecheck.width_met_check');
+        }else 
+        if(placeholder == 'Khổ phiếu (cm)'){
+            oldValue = viewModel.get('objRecheck.width_met');
+        }else
+        {
+            return;
+        }
+
+        if(
+            oldValue != null 
+            && oldValue != '' 
+            && oldValue != 0 
+            && !isNaN(oldValue)
+        ){
+            if (Ext.os.is.iOS) { // ios
+                if(
+                    !((oldValue/100 - Math.floor(oldValue/100)) == 0) 
+                    && ((oldValue - Math.floor(oldValue)) == 0)
+                ){ // ios value ko chia het cho 100
+                    var listValue = [];
+                    var value1 = { value: oldValue};
+                    var value2 = { value: oldValue/10};
+                    var value3 = { value: oldValue/100};
+    
+                    listValue.push(value1);
+                    listValue.push(value2);
+                    listValue.push(value3);
+    
+                    var dialog = Ext.create({
+                        xtype: 'dialog',
+                        itemId: 'dialog',
+                        title: '' + placeholder,
+                        width: 300,
+                        height: 200,
+                        // maxWidth: 300,
+                        // maxHeight: 600,
+                        header: true,
+                        closable: true,
+                        closeAction: 'destroy',
+                        maximizable: false,
+                        maskTapHandler: function(){
+                            // console.log('mask tapped');
+                            if(dialog){
+                                dialog.close();
+                                me.setMasked(false);
+                            }
+                        },
+                        bodyPadding: '1',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            border: false,
+                            xtype: 'Stockin_ValueSelect',
+                            viewModel: {
+                                data: {
+                                    listValue: listValue
+                                }
+                            }
+                        }],
+                    });
+                    dialog.show();
+    
+                    dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
+                        // console.log('selectValue: ' + selectValue);
+                        if(placeholder == 'Dài kiểm (M)'){
+                            viewModel.set('objRecheck.met_check', selectValue);
+                        }else 
+                        if(placeholder == 'Dài phiếu (M)'){
+                            viewModel.set('objRecheck.met_origin', selectValue);
+                        }else 
+                        if(placeholder == 'Dài kiểm (Y)'){
+                            viewModel.set('objRecheck.ydscheck', selectValue);
+                        }else 
+                        if(placeholder == 'Dài phiếu (Y)'){
+                            viewModel.set('objRecheck.ydsorigin', selectValue);
+                        }else 
+                        if(placeholder == 'Cân kiểm'){
+                            viewModel.set('objRecheck.grossweight_check', selectValue);
+                        }else 
+                        if(placeholder == 'Cân phiếu'){
+                            viewModel.set('objRecheck.grossweight', selectValue);
+                        }else 
+                        if(placeholder == 'Khổ kiểm (cm)'){
+                            viewModel.set('objRecheck.width_met_check', selectValue);
+                        }else 
+                        if(placeholder == 'Khổ phiếu (cm)'){
+                            viewModel.set('objRecheck.width_met', selectValue);
+                        }
+                        dialog.close();
+                    });
+                }else{ // ios value chia het cho 100
+                    // oldValue
+                    // if(placeholder == 'Dài kiểm (M)'){
+                    //     var mTxt = viewModel.get('objPkl.mTxt');
+                    //     var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+                    //     if(mOriginTxt == null || mOriginTxt == ''){
+                    //         viewModel.set('objPkl.mOriginTxt', mTxt);
+                    //     }
+                    // }else if(placeholder == 'Dài kiểm (Y)'){
+                    //     var yTxt = viewModel.get('objPkl.yTxt');
+                    //     var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+                    //     if(yOriginTxt == null || yOriginTxt == ''){
+                    //         viewModel.set('objPkl.yOriginTxt', yTxt);
+                    //     }
+                    // }else if(placeholder == 'Khổ kiểm (cm)'){
+                    //     var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+                    //     var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+                    //     if(widthMetTxt == null || widthMetTxt == ''){
+                    //         viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
+                    //     }
+                    // }
+                }
+            }else{ // ko phai ios
+                // oldValue
+                // if(placeholder == 'Dài kiểm (M)'){
+                //     var mTxt = viewModel.get('objPkl.mTxt');
+                //     var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+                //     if(mOriginTxt == null || mOriginTxt == ''){
+                //         viewModel.set('objPkl.mOriginTxt', mTxt);
+                //     }
+                // }else if(placeholder == 'Dài kiểm (Y)'){
+                //     var yTxt = viewModel.get('objPkl.yTxt');
+                //     var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+                //     if(yOriginTxt == null || yOriginTxt == ''){
+                //         viewModel.set('objPkl.yOriginTxt', yTxt);
+                //     }
+                // }else if(placeholder == 'Khổ kiểm (cm)'){
+                //     var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+                //     var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+                //     if(widthMetTxt == null || widthMetTxt == ''){
+                //         viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
+                //     }
+                // }
+            }
+        }
+        // console.log("Version " + Ext.os.version);
     },
     oncbbox_pklRecheck_stockindId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
@@ -274,6 +461,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         field.setValue(newValue.toUpperCase());
     },
     onlotnumberTxtAndpackageidTxtRecheckleave: function(textfield, event, eOpts){
+        //
+        this.onFocusLeave(textfield);
+        //
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
