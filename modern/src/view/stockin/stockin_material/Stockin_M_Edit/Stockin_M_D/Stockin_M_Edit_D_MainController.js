@@ -80,7 +80,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 var dialog = Ext.create({
                     xtype: 'dialog',
                     itemId: 'dialog',
-                    title: 'Chọn giá trị',
+                    // title: 'Chọn giá trị',
+                    title: placeholder,
                     width: 300,
                     height: 200,
                     // maxWidth: 300,

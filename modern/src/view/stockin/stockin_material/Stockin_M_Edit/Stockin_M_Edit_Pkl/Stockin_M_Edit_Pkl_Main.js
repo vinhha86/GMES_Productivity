@@ -102,7 +102,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType',
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -131,7 +132,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             // },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -178,8 +180,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onmTxtFocusleave',
-                                focus: 'onFocus'
+                                // focusleave: 'onmTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -206,8 +209,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onyTxtFocusleave',
-                                focus: 'onFocus'
+                                // focusleave: 'onyTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -232,7 +236,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
                             }
                         },
                         {
@@ -257,7 +262,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
                             }
                         },
                         {
@@ -403,8 +409,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onwidthMetCheckTxtFocusleave',
-                                focus: 'onFocus'
+                                // focusleave: 'onwidthMetCheckTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         // {
@@ -451,7 +458,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -494,7 +502,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                                 value:'{objPkl.pklRowTxt}'
                             },
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -519,7 +528,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             // stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -544,7 +554,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             },
                             // stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
