@@ -67,8 +67,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         console.log(config.getToken());
         console.log(GSmartApp.util.State.get('session'));
     },
-    onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){ console.log("onTabViewActiveItemchange");
+    onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var stockinid_link = viewModel.get('stockin.id');
         var lot_stockindId = viewModel.get('lot_stockindId');
@@ -80,6 +81,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 var selectedDRecord = viewModel.get('selectedDRecord');
                 var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
                 // Stockin_d_Store.loadStore_byStockinId(stockinid_link);
+                // Stockin_d_Store.removeAll();
                 Stockin_d_Store.loadStore_byStockinId_async(stockinid_link);
                 Stockin_d_Store.load({
                     scope: this,
@@ -109,6 +111,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 if(lot_stockindId != null){
                     var selectedLotRecord = viewModel.get('selectedLotRecord');
                     var StockinLotStore = viewModel.getStore('StockinLotStore');
+                    // StockinLotStore.removeAll();
                     StockinLotStore.loadStore_byStockinDId_async(lot_stockindId);
                     StockinLotStore.load({
                         scope: this,
@@ -116,6 +119,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             if(!success){
                                 this.fireEvent('logout');
                             } else {
+                                // me.down('#Stockin_M_Edit_Lot').refresh(); console.log('here');
                                 if(selectedLotRecord != null){
                                     var stockinlotid_link = selectedLotRecord.get('id');
                                     var storeItems = StockinLotStore.getData().items;
@@ -141,6 +145,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
                     // StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
+                    // StockinPklStore.removeAll();
                     StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, -1);
                     StockinPklStore.load({
                         scope: this,
@@ -173,6 +178,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
                     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
                     // StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
+                    // StockinPklRecheckStore.removeAll();
                     StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, 2);
                     StockinPklRecheckStore.load({
                         scope: this,

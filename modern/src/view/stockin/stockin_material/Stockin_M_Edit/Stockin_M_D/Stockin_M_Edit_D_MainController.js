@@ -14,16 +14,119 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		},
 	},
     onFocus: function(textfield, e, eOpts){
-        // console.log(textfield);
-        // console.log(textfield.getPlaceholder());
+        //
+        this.setTooltip(textfield);
+    },
+    onFocusLeave: function(textfield, event, eOpts ){
+        //
+        this.removeTooltip();
+        //
+        this.showSelectValueWindow(textfield);
+    },
+    setTooltip: function(textfield){
+        var viewModel = this.getViewModel();
         var placeholder = textfield.getPlaceholder();
         var tip = Ext.create('Ext.tip.ToolTip', {
             target: textfield,
             html: placeholder,
         });
         tip.show();
+        viewModel.set('fieldTooltip', tip);
     },
-	onStockin_M_Edit_DItemTap: function(dataView, index, target, record, e, eOpts){
+    removeTooltip: function(){
+        var viewModel = this.getViewModel();
+        var fieldTooltip = viewModel.get('fieldTooltip');
+        if(fieldTooltip){
+            fieldTooltip.close();
+        }
+    },
+    showSelectValueWindow: function(textfield, event){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var placeholder = textfield.getPlaceholder();
+        // console.log(textfield);
+        // console.log(placeholder);
+
+        var oldValue = '';
+        if(placeholder == 'Tổng độ dài'){
+            oldValue = viewModel.get('yNumberTxt');
+        }else if(placeholder == 'Tổng cân nặng'){
+            oldValue = viewModel.get('canNumberTxt');
+        }else{
+            return;
+        }
+
+        if(
+            oldValue != null 
+            && oldValue != '' 
+            && oldValue != 0 
+            && !isNaN(oldValue)
+            && ((oldValue - Math.floor(oldValue)) == 0)
+            && !((oldValue/100 - Math.floor(oldValue/100)) == 0)
+        ){
+            if (Ext.os.is.iOS) {
+                var listValue = [];
+                var value1 = { value: oldValue};
+                var value2 = { value: oldValue/10};
+                var value3 = { value: oldValue/100};
+
+                listValue.push(value1);
+                listValue.push(value2);
+                listValue.push(value3);
+
+                var dialog = Ext.create({
+                    xtype: 'dialog',
+                    itemId: 'dialog',
+                    title: 'Chọn giá trị',
+                    width: 300,
+                    height: 200,
+                    // maxWidth: 300,
+                    // maxHeight: 600,
+                    header: true,
+                    closable: true,
+                    closeAction: 'destroy',
+                    maximizable: false,
+                    maskTapHandler: function(){
+                        // console.log('mask tapped');
+                        if(dialog){
+                            dialog.close();
+                            me.setMasked(false);
+                        }
+                    },
+                    bodyPadding: '1',
+                    layout: {
+                        type: 'fit', // fit screen for window
+                        padding: 5
+                    },
+                    items: [{
+                        border: false,
+                        xtype: 'Stockin_ValueSelect',
+                        viewModel: {
+                            data: {
+                                listValue: listValue
+                            }
+                        }
+                    }],
+                });
+                dialog.show();
+
+                dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
+                    // console.log('selectValue: ' + selectValue);
+                    if(placeholder == 'Tổng độ dài'){
+                        viewModel.set('yNumberTxt', selectValue);
+                    }else if(placeholder == 'Tổng cân nặng'){
+                        viewModel.set('canNumberTxt', selectValue);
+                    }
+                    dialog.close();
+                });
+            }
+        }
+        // console.log("Version " + Ext.os.version);
+    },
+    onStockin_M_Edit_DItemTap: function(dataView, index, target, record, e, eOpts){
         var me = this.getView();
         var m = this;
 		var viewModel = this.getViewModel();

@@ -129,6 +129,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 
 		// phong to, thu gon
 		IsformMaster: true,
+		// tooltip
+		fieldTooltip: null,
 	},
 	formulas: {
         isEdit: function (get) {
