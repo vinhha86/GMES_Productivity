@@ -309,6 +309,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             bind: {
                                 // value: '{grossweightCheckTxtRecheck}',
                                 value: '{objRecheck.grossweight_check}',
+                                hidden: '{isKgColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
@@ -336,6 +337,63 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             bind: {
                                 // value: '{grossweightTxtRecheck}',
                                 value: '{objRecheck.grossweight}',
+                                hidden: '{isKgColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lbsCheckTxtRecheck',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Lbs kiểm',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                // value: '{grossweightCheckTxtRecheck}',
+                                value: '{objRecheck.grossweight_lbs_check}',
+                                hidden: '{isLbsColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lbsTxtRecheck',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Lbs phiếu',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                // value: '{grossweightTxtRecheck}',
+                                value: '{objRecheck.grossweight_lbs}',
+                                hidden: '{isLbsColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {

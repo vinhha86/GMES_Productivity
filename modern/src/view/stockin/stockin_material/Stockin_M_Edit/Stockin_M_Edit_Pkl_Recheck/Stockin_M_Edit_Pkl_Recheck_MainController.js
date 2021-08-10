@@ -74,6 +74,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         if(placeholder == 'Cân phiếu'){
             oldValue = viewModel.get('objRecheck.grossweight');
         }else 
+        if(placeholder == 'Lbs kiểm'){
+            oldValue = viewModel.get('objRecheck.grossweight_lbs_check');
+        }else 
+        if(placeholder == 'Lbs phiếu'){
+            oldValue = viewModel.get('objRecheck.grossweight_lbs');
+        }else 
         if(placeholder == 'Khổ kiểm (cm)'){
             oldValue = viewModel.get('objRecheck.width_met_check');
         }else 
@@ -103,9 +109,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     listValue.push(value1);
                     listValue.push(value2);
                     listValue.push(value3);
+
+                    var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
+                    if(Stockin_ValueSelect_window) return;
     
+                    // create window
                     var dialog = Ext.create({
                         xtype: 'dialog',
+                        id: 'Stockin_ValueSelect_window',
                         itemId: 'dialog',
                         title: '' + placeholder,
                         width: 300,
@@ -159,6 +170,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         }else 
                         if(placeholder == 'Cân phiếu'){
                             viewModel.set('objRecheck.grossweight', selectValue);
+                        }else 
+                        if(placeholder == 'Lbs kiểm'){
+                            viewModel.set('objRecheck.grossweight_lbs_check', selectValue);
+                        }else 
+                        if(placeholder == 'Lbs phiếu'){
+                            viewModel.set('objRecheck.grossweight_lbs', selectValue);
                         }else 
                         if(placeholder == 'Khổ kiểm (cm)'){
                             viewModel.set('objRecheck.width_met_check', selectValue);
@@ -375,28 +392,51 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         if(objRecheck.sample_check == null || objRecheck.sample_check == '') objRecheck.sample_check = 0;
         if(objRecheck.grossweight_check == null || objRecheck.grossweight_check == '') objRecheck.grossweight_check = 0;
         if(objRecheck.grossweight == null || objRecheck.grossweight == '' || objRecheck.grossweight == 0) objRecheck.grossweight = objRecheck.grossweight_check;
+        if(objRecheck.grossweight_lbs_check == null || objRecheck.grossweight_lbs_check == '') objRecheck.grossweight_lbs_check = 0;
+        if(objRecheck.grossweight_lbs == null || objRecheck.grossweight_lbs == '' || objRecheck.grossweight_lbs == 0) objRecheck.grossweight_lbs = objRecheck.grossweight_lbs_check;
         if(objRecheck.width_met_check == null || objRecheck.width_met_check == '') objRecheck.width_met_check = 0;
         if(objRecheck.width_met == null || objRecheck.width_met == '' || objRecheck.width_met == 0) widthMetTxt = objRecheck.width_met_check;
 
-        if(stockin.unitid_link == 3){
-            // có y
-            objRecheck.ydscheck = parseFloat(objRecheck.ydscheck);
-            objRecheck.met_check = objRecheck.ydscheck * 0.9144;
-            objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
-            objRecheck.met_origin = objRecheck.ydsorigin * 0.9144;
-        }
-        if(stockin.unitid_link == 1){
-            // có m
+        if(stockin.unitid_link == 1 || stockin.unitid_link == 4 || stockin.unitid_link == 5){
+            // met
             objRecheck.met_check = parseFloat(objRecheck.met_check);
             objRecheck.ydscheck = objRecheck.met_check / 0.9144;
             objRecheck.met_origin = parseFloat(objRecheck.met_origin);
             objRecheck.ydsorigin = objRecheck.met_origin / 0.9144;
         }
+        if(stockin.unitid_link == 3){
+            // yrd
+            objRecheck.ydscheck = parseFloat(objRecheck.ydscheck);
+            objRecheck.met_check = objRecheck.ydscheck * 0.9144;
+            objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
+            objRecheck.met_origin = objRecheck.ydsorigin * 0.9144;
+        }
+        if(stockin.unitid_link == 4 || stockin.unitid_link == 1 || stockin.unitid_link == 3){
+            // kg
+            objRecheck.grossweight_check = parseFloat(objRecheck.grossweight_check);
+            objRecheck.grossweight_lbs_check = objRecheck.grossweight_check * 2.20462;
+            objRecheck.grossweight = parseFloat(objRecheck.grossweight);
+            objRecheck.grossweight_lbs = objRecheck.grossweight * 2.20462;
+        }
+        if(stockin.unitid_link == 5){
+            // lbs
+            objRecheck.grossweight_lbs_check = parseFloat(objRecheck.grossweight_lbs_check);
+            objRecheck.grossweight_check = objRecheck.grossweight_lbs_check / 2.20462;
+            objRecheck.grossweight_lbs = parseFloat(objRecheck.grossweight_lbs);
+            objRecheck.grossweight = objRecheck.grossweight_lbs / 2.20462;
+        }
+        
 
         objRecheck.met_check = parseFloat(objRecheck.met_check);
         objRecheck.ydscheck = parseFloat(objRecheck.ydscheck);
         objRecheck.met_origin = parseFloat(objRecheck.met_origin);
         objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
+
+        objRecheck.grossweight_lbs_check = parseFloat(objRecheck.grossweight_lbs_check);
+        objRecheck.grossweight_check = parseFloat(objRecheck.grossweight_check);
+        objRecheck.grossweight_lbs = parseFloat(objRecheck.grossweight_lbs);
+        objRecheck.grossweight = parseFloat(objRecheck.grossweight);
+
         objRecheck.width_met_check = parseFloat(objRecheck.width_met_check / 100);
         objRecheck.width_yds_check = parseFloat(objRecheck.width_met_check / 0.9144);
         objRecheck.width_met = parseFloat(objRecheck.width_met / 100);
