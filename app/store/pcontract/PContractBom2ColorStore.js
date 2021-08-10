@@ -64,7 +64,7 @@ Ext.define('GSmartApp.store.pcontract.PContractBom2ColorStore', {
 			},
 			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom2/getbom_by_product',
 			paramsAsJson: true,
-			timeout: 120*1000,
+			timeout: 120 * 1000,
 			extraParams: params,
 			noCache: false,
 			headers: {
@@ -102,7 +102,42 @@ Ext.define('GSmartApp.store.pcontract.PContractBom2ColorStore', {
 			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom2/getbom_by_product',
 			paramsAsJson: true,
 			extraParams: params,
-			timeout: 120*1000,
+			timeout: 120 * 1000,
+			noCache: false,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				processRawResponse: function (response) {
+					if (response.responseJson != null) {
+						me.fireEvent('loaddone', response.responseJson.isbomdone);
+					}
+				}
+			}
+		});
+		this.load();
+	},
+
+	load_bom_by_product_multithread: function (pcontractid_link, productid_link) {
+		var me = this;
+		var params = new Object();
+		params.productid_link = productid_link;
+		params.pcontractid_link = pcontractid_link;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom2/getbom_by_product_multithread',
+			paramsAsJson: true,
+			extraParams: params,
+			timeout: 120 * 1000,
 			noCache: false,
 			headers: {
 				'Accept': "application/json",

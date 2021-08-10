@@ -608,7 +608,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
 
                     model.addFields(fieldnew);
                     storeBOM.removeFilter();
-                    storeBOM.load_bom_by_product_withcallback(pcontractid_link, productid_link);
+                    storeBOM.load_bom_by_product_multithread(pcontractid_link, productid_link);
+                    // storeBOM.load_bom_by_product_withcallback(pcontractid_link, productid_link);
                 }
             })
     },
