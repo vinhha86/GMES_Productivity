@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         //
         this.removeTooltip();
         //
-        this.showSelectValueWindow(textfield);
+        this.showSelectValueWindow(textfield, event);
     },
     setTooltip: function(textfield){
         var viewModel = this.getViewModel();
@@ -111,7 +111,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     listValue.push(value3);
 
                     var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
-                    if(Stockin_ValueSelect_window) return;
+                    if(Stockin_ValueSelect_window) {
+                        event.stopEvent();
+                        me.focus(false);
+                        return;
+                    }
     
                     // create window
                     var dialog = Ext.create({

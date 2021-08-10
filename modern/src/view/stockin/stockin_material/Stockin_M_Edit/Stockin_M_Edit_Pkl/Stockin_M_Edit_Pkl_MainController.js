@@ -116,9 +116,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     listValue.push(value1);
                     listValue.push(value2);
                     listValue.push(value3);
+
+                    var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
+                    if(Stockin_ValueSelect_window) {
+                        me.focus(false);
+                        return;
+                    }
     
                     var dialog = Ext.create({
                         xtype: 'dialog',
+                        id: 'Stockin_ValueSelect_window',
                         itemId: 'dialog',
                         title: '' + placeholder,
                         width: 300,
