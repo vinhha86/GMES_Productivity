@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.store.dictionary.dictionary_type_store',{
+Ext.define('GSmartApp.store.dictionary.dictionary_store',{
     extend:'Ext.data.Store',
-    alias:'store.dictionary_type_store',
-    model:'GSmartApp.model.dictionary_type.dictionary_type_model',
+    alias:'store.dictionary_store',
+    model:'GSmartApp.model.dictionary.dictionary_type_model',
 
     loadStore: function(){
 		this.setProxy({
@@ -12,7 +12,7 @@ Ext.define('GSmartApp.store.dictionary.dictionary_type_store',{
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/dictionary_type/load_dictionary_type',
+			url: config.getAppBaseUrl()+'/api/v1/dictionary/load',
 			noCache: false,
 			headers :{
 				'Accept': "application/json", 

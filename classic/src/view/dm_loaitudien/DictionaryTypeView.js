@@ -1,5 +1,5 @@
 
-Ext.define('GSmartApp.view.dm_loaithietbi.DictionaryTypeView', {
+Ext.define('GSmartApp.view.dm_loaitudien.DictionaryTypeView', {
     extend: 'Ext.grid.Panel',
     xtype: 'DictionaryTypeView',
 
