@@ -41,6 +41,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     '<div class="content1-sub1" style={[this.getDisplayY(values)]}>{totalydscheck:number("000.00")}</div>' +
                 '</div>' +
 
+                '<div class="content1" style={[this.getDisplayKg(values)]}>' +
+                    '<div class="content1-sub1" style={[this.getDisplayKg(values)]}>Cân phiếu:</div>'+ // Y
+                    '<div class="content1-sub1" style={[this.getDisplayKg(values)]}>{grossweight:number("000.00")}</div>' +
+                    '<div class="content1-sub1" style={[this.getDisplayKg(values)]}>Cân kiểm:</div>'+ // Y
+                    '<div class="content1-sub1" style={[this.getDisplayKg(values)]}>{netweight:number("000.00")}</div>' +
+                '</div>' +
+
+                '<div class="content1" style={[this.getDisplayLbs(values)]}>' +
+                    '<div class="content1-sub1" style={[this.getDisplayLbs(values)]}>Lbs phiếu:</div>'+ // Y
+                    '<div class="content1-sub1" style={[this.getDisplayLbs(values)]}>{grossweight_lbs:number("000.00")}</div>' +
+                    '<div class="content1-sub1" style={[this.getDisplayLbs(values)]}>Lbs kiểm:</div>'+ // Y
+                    '<div class="content1-sub1" style={[this.getDisplayLbs(values)]}>{netweight_lbs:number("000.00")}</div>' +
+                '</div>' +
+
                 '<div class="content2">'+
                     '<div class="content2-sub1">Lot:</div>'+
                     '<div class="content2-sub2">{[this.getStockinDLotUpperCase(values)]}</div>' +
@@ -56,6 +70,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             },
             getDisplayY: function (values) {
                 if (values.unitid_link != 3) { // không phải yds, ẩn
+                    return 'display:none;padding-bottom:0px;';
+                }
+            },
+            getDisplayKg: function (values) {
+                if (values.unitid_link != 4) { // không phải kg, ẩn
+                    return 'display:none;padding-bottom:0px;';
+                }
+            },
+            getDisplayLbs: function (values) {
+                if (values.unitid_link != 5) { // không phải lbs, ẩn
                     return 'display:none;padding-bottom:0px;';
                 }
             },

@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 		'GSmartApp.store.porder.POrder_ListStore', 'GSmartApp.store.stockin.StockinGroupStore',
 		'GSmartApp.store.unit.UnitStore', 'GSmartApp.store.stockin.Stockin_product_Store',
+		'GSmartApp.store.GpayUserOrg', 'GSmartApp.store.Sku_AutoComplete'
 	],
 	stores:{
 		DeviceInvStore:{
@@ -31,12 +32,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		OrgToStore: {
             type: 'ListOrgStore'
 		},
-		VatTypeStore:{
-			type : 'VatTypeStore'
-		},
-		CurrencyStore: {
-			type : 'CurrencyStore'
-		},
+		// VatTypeStore:{
+		// 	type : 'VatTypeStore'
+		// },
+		// CurrencyStore: {
+		// 	type : 'CurrencyStore'
+		// },
 		StatusStore:{
 			type: 'stockinstatusstore'
 		},
@@ -148,6 +149,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
                 return true;
             }else 
             if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+		isKgColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 4){
+                return false;
+            }
+            return true;
+        },
+		isLbsColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 5){
                 return false;
             }
             return true;

@@ -45,10 +45,21 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         }, 
         {
             xtype: 'numberfield',
-            label: 'Cân nặng:',
+            itemId: 'kg',
+            label: 'Kg:',
             bind: {
-                value: '{stockinLot.grossweight}'
+                value: '{stockinLot.grossweight}',
+                hidden: '{isKgColumnHidden}',
             },
-        }, 
+        },
+        {
+            xtype: 'numberfield',
+            itemId: 'lbs',
+            label: 'Lbs:',
+            bind: {
+                value: '{stockinLot.grossweight_lbs}',
+                hidden: '{isLbsColumnHidden}',
+            },
+        },
     ]
 });

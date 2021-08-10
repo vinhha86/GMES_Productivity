@@ -80,7 +80,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         }else 
         if(placeholder == 'Khổ phiếu (cm)'){
             oldValue = viewModel.get('objPkl.widthMetTxt');
-        }else{
+        }else
+        if(placeholder == 'Cân kiểm'){
+            oldValue = viewModel.get('objPkl.grossweightCheckTxt');
+        }else 
+        if(placeholder == 'Cân phiếu'){
+            oldValue = viewModel.get('objPkl.grossweightTxt');
+        }else
+        if(placeholder == 'Lbs kiểm'){
+            oldValue = viewModel.get('objPkl.grossweightLbsCheckTxt');
+        }else 
+        if(placeholder == 'Lbs phiếu'){
+            oldValue = viewModel.get('objPkl.grossweightLbsTxt');
+        }else
+        {
             return;
         }
 
@@ -172,6 +185,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             }
                         }else if(placeholder == 'Khổ phiếu (cm)'){
                             viewModel.set('objPkl.widthMetTxt', selectValue);
+                        }else if(placeholder == 'Cân kiểm'){
+                            viewModel.set('objPkl.grossweightCheckTxt', selectValue);
+                            // set if null
+                            var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+                            var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+                            if(grossweightTxt == null || grossweightTxt == ''){
+                                viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+                            }
+                        }else 
+                        if(placeholder == 'Cân phiếu'){
+                            viewModel.set('objPkl.grossweightTxt', selectValue);
+                        }else
+                        if(placeholder == 'Lbs kiểm'){
+                            viewModel.set('objPkl.grossweightLbsCheckTxt', selectValue);
+                            // set if null
+                            var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+                            var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+                            if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+                                viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+                            }
+                        }else 
+                        if(placeholder == 'Lbs phiếu'){
+                            viewModel.set('objPkl.grossweightLbsTxt', selectValue);
                         }
                         dialog.close();
                     });
@@ -183,13 +219,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         if(mOriginTxt == null || mOriginTxt == ''){
                             viewModel.set('objPkl.mOriginTxt', mTxt);
                         }
-                    }else if(placeholder == 'Dài kiểm (Y)'){
+                    }else 
+                    if(placeholder == 'Dài kiểm (Y)'){
                         var yTxt = viewModel.get('objPkl.yTxt');
                         var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
                         if(yOriginTxt == null || yOriginTxt == ''){
                             viewModel.set('objPkl.yOriginTxt', yTxt);
                         }
-                    }else if(placeholder == 'Khổ kiểm (cm)'){
+                    }else 
+                    if(placeholder == 'Cân kiểm'){
+                        var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+                        var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+                        if(grossweightTxt == null || grossweightTxt == ''){
+                            viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+                        }
+                    }else 
+                    if(placeholder == 'Lbs kiểm'){
+                        var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+                        var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+                        if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+                            viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+                        }
+                    }else 
+                    if(placeholder == 'Khổ kiểm (cm)'){
                         var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
                         var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
                         if(widthMetTxt == null || widthMetTxt == ''){
@@ -205,13 +257,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     if(mOriginTxt == null || mOriginTxt == ''){
                         viewModel.set('objPkl.mOriginTxt', mTxt);
                     }
-                }else if(placeholder == 'Dài kiểm (Y)'){
+                }else 
+                if(placeholder == 'Dài kiểm (Y)'){
                     var yTxt = viewModel.get('objPkl.yTxt');
                     var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
                     if(yOriginTxt == null || yOriginTxt == ''){
                         viewModel.set('objPkl.yOriginTxt', yTxt);
                     }
-                }else if(placeholder == 'Khổ kiểm (cm)'){
+                }else 
+                if(placeholder == 'Cân kiểm'){
+                    var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+                    var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+                    if(grossweightTxt == null || grossweightTxt == ''){
+                        viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+                    }
+                }else 
+                if(placeholder == 'Lbs kiểm'){
+                    var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+                    var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+                    if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+                        viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+                    }
+                }else 
+                if(placeholder == 'Khổ kiểm (cm)'){
                     var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
                     var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
                     if(widthMetTxt == null || widthMetTxt == ''){
@@ -290,6 +358,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         // viewModel.set('widthTxt', '');
         viewModel.set('objPkl.grossweightTxt', '');
         viewModel.set('objPkl.grossweightCheckTxt', '');
+        viewModel.set('objPkl.grossweightLbsTxt', '');
+        viewModel.set('objPkl.grossweightLbsCheckTxt', '');
         viewModel.set('objPkl.sampleCheckTxt', '');
         viewModel.set('objPkl.widthYdsCheckTxt', '');
         viewModel.set('objPkl.widthYdsTxt', '');
@@ -310,6 +380,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         if(selectedPklRecord == null){
             var record = location.record;
             viewModel.set('selectedPklRecord',record);
+
+            console.log(record);
             
             viewModel.set('objPkl.lotnumberTxt', record.get('lotnumber'));
             viewModel.set('objPkl.packageidTxt', record.get('packageid'));
@@ -320,6 +392,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             viewModel.set('objPkl.colorTxt', record.get('colorid_link'));
             viewModel.set('objPkl.grossweightTxt', record.get('grossweight'));
             viewModel.set('objPkl.grossweightCheckTxt', record.get('grossweight_check'));
+            viewModel.set('objPkl.grossweightLbsTxt', record.get('grossweight_lbs'));
+            viewModel.set('objPkl.grossweightLbsCheckTxt', record.get('grossweight_lbs_check'));
             viewModel.set('objPkl.sampleCheckTxt', record.get('sample_check'));
             viewModel.set('objPkl.widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
             viewModel.set('objPkl.widthMetTxt', record.get('width_met') * 100); // m -> cm
@@ -350,6 +424,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 viewModel.set('objPkl.colorTxt', null);
                 viewModel.set('objPkl.grossweightTxt', null);
                 viewModel.set('objPkl.grossweightCheckTxt', null);
+                viewModel.set('objPkl.grossweightLbsTxt', null);
+                viewModel.set('objPkl.grossweightLbsCheckTxt', null);
                 viewModel.set('objPkl.sampleCheckTxt', null);
                 viewModel.set('objPkl.widthMetCheckTxt', null); // m -> cm
                 viewModel.set('objPkl.widthMetTxt', null); // m -> cm
@@ -374,6 +450,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 viewModel.set('objPkl.colorTxt', record.get('colorid_link'));
                 viewModel.set('objPkl.grossweightTxt', record.get('grossweight'));
                 viewModel.set('objPkl.grossweightCheckTxt', record.get('grossweight_check'));
+                viewModel.set('objPkl.grossweightLbsTxt', record.get('grossweight_lbs'));
+                viewModel.set('objPkl.grossweightLbsCheckTxt', record.get('grossweight_lbs_check'));
                 viewModel.set('objPkl.sampleCheckTxt', record.get('sample_check'));
                 viewModel.set('objPkl.widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
                 viewModel.set('objPkl.widthMetTxt', record.get('width_met') * 100); // m -> cm
@@ -477,10 +555,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var mTxt = viewModel.get('objPkl.mTxt');
         var yOriginTxt = viewModel.get('objPkl.yOriginTxt') == null ? viewModel.get('objPkl.yTxt') : viewModel.get('objPkl.yOriginTxt');
         var mOriginTxt = viewModel.get('objPkl.mOriginTxt') == null ? viewModel.get('objPkl.mTxt') : viewModel.get('objPkl.mOriginTxt');
-        var colorTxt = viewModel.get('objPkl.colorTxt');
-        var sampleCheckTxt = viewModel.get('objPkl.sampleCheckTxt');
-        var grossweightTxt = viewModel.get('objPkl.grossweightTxt'); null ? viewModel.get('objPkl.grossweightCheckTxt') : viewModel.get('objPkl.grossweightTxt');
+        
         var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+        var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+        var grossweightTxt = viewModel.get('objPkl.grossweightTxt') == null ? viewModel.get('objPkl.grossweightCheckTxt') : viewModel.get('objPkl.grossweightTxt');
+        var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt') == null ? viewModel.get('objPkl.grossweightLbsCheckTxt') : viewModel.get('objPkl.grossweightLbsTxt');
+        
+        var sampleCheckTxt = viewModel.get('objPkl.sampleCheckTxt');
         var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
         var widthMetTxt = viewModel.get('objPkl.widthMetTxt') == null ? viewModel.get('objPkl.widthMetCheckTxt') : viewModel.get('objPkl.widthMetTxt');
         var pklRowTxt = viewModel.get('objPkl.pklRowTxt');
@@ -495,7 +576,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         }
 
         // check textfield
-        if(stockin.unitid_link == 3){
+        if(stockin.unitid_link == 1){ // met
+            if(packageidTxt == '' || mTxt == '' || widthMetCheckTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
+                return;
+            }
+            if(isNaN(mTxt)){
+                Ext.toast('Số M phải là số', 3000);
+                return;
+            }
+        }
+        if(stockin.unitid_link == 3){ // yds
             if(packageidTxt == '' || yTxt == '' || widthMetCheckTxt == ''){
                 Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
                 return;
@@ -505,12 +596,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 return;
             }
         }
-        if(stockin.unitid_link == 1){
-            if(packageidTxt == '' || mTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
+        if(stockin.unitid_link == 4){ // kg
+            if(packageidTxt == '' || grossweightCheckTxt == '' || widthMetCheckTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 3000);
                 return;
             }
-            if(isNaN(mTxt)){
+            if(isNaN(grossweightCheckTxt)){
+                Ext.toast('Số M phải là số', 3000);
+                return;
+            }
+        }
+        if(stockin.unitid_link == 5){ // lbs
+            if(packageidTxt == '' || grossweightLbsCheckTxt == '' || widthMetCheckTxt == ''){
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 3000);
+                return;
+            }
+            if(isNaN(grossweightLbsCheckTxt)){
                 Ext.toast('Số M phải là số', 3000);
                 return;
             }
@@ -532,20 +633,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 3000);
             return;
         }
-        // var spaceepc_link = 'D' + pklRowTxt + 'H' + pklSpaceTxt + 'T' + pklFloorTxt;
-        // var spaceepc_link = 'D-' + pklRowTxt + '|H-' + pklSpaceTxt + '|T-' + pklFloorTxt + '|';
-
-        // check lotnumber tồn tại
-        // console.log(selectedDRecord);
-        // var stockin_lot = selectedDRecord.get('stockin_lot');
-        // if(stockin_lot == null) stockin_lot = [];
-        // var isLotnumberExist = stockin_lot.some(
-        //     item => item.lot_number.toUpperCase() == lotnumberTxt.toUpperCase()
-        // );
-        // if(!isLotnumberExist){
-        //     Ext.toast('Số lot ko tồn tại', 3000);
-        //     return;
-        // }
 
         // tạo obj
         if(yTxt == null || yTxt == '') yTxt = 0;
@@ -553,8 +640,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         if(yOriginTxt == null || yOriginTxt == '' || yOriginTxt == 0) yOriginTxt = yTxt;
         if(mOriginTxt == null || mOriginTxt == '' || mOriginTxt == 0) mOriginTxt = mTxt;
         if(sampleCheckTxt == null || sampleCheckTxt == '') sampleCheckTxt = 0;
+
         if(grossweightCheckTxt == null || grossweightCheckTxt == '') grossweightCheckTxt = 0;
         if(grossweightTxt == null || grossweightTxt == '' || grossweightTxt == 0) grossweightTxt = grossweightCheckTxt;
+        if(grossweightLbsCheckTxt == null || grossweightLbsCheckTxt == '') grossweightLbsCheckTxt = 0;
+        if(grossweightLbsTxt == null || grossweightLbsTxt == '' || grossweightLbsTxt == 0) grossweightLbsTxt = grossweightLbsCheckTxt;
+        
         if(widthMetCheckTxt == null || widthMetCheckTxt == '') widthMetCheckTxt = 0;
         if(widthMetTxt == null || widthMetTxt == '' || widthMetTxt == 0) widthMetTxt = widthMetCheckTxt;
 
@@ -569,8 +660,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         objData.colorid_link = selectedDRecord.get('colorid_link');;
         // objData.widthTxt = widthTxt;
         objData.sample_check = sampleCheckTxt;
-        objData.grossweight = grossweightTxt;
-        objData.grossweight_check = grossweightCheckTxt;
         objData.width_met_check = widthMetCheckTxt / 100;
         objData.width_met = widthMetTxt / 100;
         objData.width_yds_check = objData.width_met_check / 0.9144;
@@ -585,25 +674,44 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         objData.space = pklSpaceTxt;
         objData.floor = pklFloorTxt;
 
+
+        if(stockin.unitid_link == 1 || stockin.unitid_link == null){
+            // met
+            objData.met_check = parseFloat(mTxt);
+            objData.ydscheck = objData.met_check / 0.9144;
+            objData.met_origin = parseFloat(mOriginTxt);
+            objData.ydsorigin = objData.met_origin / 0.9144;
+        }
         if(stockin.unitid_link == 3){
-            // có y
+            // yds
             objData.ydscheck = parseFloat(yTxt);
             objData.met_check = objData.ydscheck * 0.9144;
             objData.ydsorigin = parseFloat(yOriginTxt);
             objData.met_origin = objData.ydsorigin * 0.9144;
         }
-        if(stockin.unitid_link == 1 || stockin.unitid_link == null){
-            // có m
-            objData.met_check = parseFloat(mTxt);
-            objData.ydscheck = objData.met_check / 0.9144;
-            objData.met_origin = parseFloat(mOriginTxt);
-            objData.ydsorigin = objData.met_origin / 0.9144;
+        if(stockin.unitid_link == 4){
+            // kg
+            objData.grossweight_check = parseFloat(grossweightCheckTxt);
+            objData.grossweight = parseFloat(grossweightTxt);
+            objData.grossweight_lbs_check = objData.grossweight_check * 2.20462;
+            objData.grossweight_lbs = objData.grossweight * 2.20462;
+        }
+        if(stockin.unitid_link == 5){
+            // lbs
+            objData.grossweight_lbs_check = parseFloat(grossweightLbsCheckTxt);
+            objData.grossweight_lbs = parseFloat(grossweightLbsTxt);
+            objData.grossweight_check = objData.grossweight_lbs_check / 2.20462;
+            objData.grossweight = objData.grossweight_lbs / 2.20462;
         }
 
         objData.met_check = parseFloat(objData.met_check);
         objData.ydscheck = parseFloat(objData.ydscheck);
         objData.met_origin = parseFloat(objData.met_origin);
         objData.ydsorigin = parseFloat(objData.ydsorigin);
+        objData.grossweight_lbs_check = parseFloat(objData.grossweight_lbs_check);
+        objData.grossweight_lbs = parseFloat(objData.grossweight_lbs);
+        objData.grossweight_check = parseFloat(objData.grossweight_check);
+        objData.grossweight = parseFloat(objData.grossweight);
         objData.width_met_check = parseFloat(objData.width_met_check);
         objData.width_yds_check = parseFloat(objData.width_yds_check);
         objData.width_met = parseFloat(objData.width_met);

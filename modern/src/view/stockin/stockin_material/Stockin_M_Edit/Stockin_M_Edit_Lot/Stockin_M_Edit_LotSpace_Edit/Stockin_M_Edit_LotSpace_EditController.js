@@ -31,6 +31,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         '#totalyds': { // đây là totalyds của lot
             keyup: 'onDoDaiChange',
         },
+        '#kg': { // đây là totalmet của lot
+            keyup: 'onKhoiLuongChange',
+        },
+        '#lbs': { // đây là totalyds của lot
+            keyup: 'onKhoiLuongChange',
+        },
         '#lot_number': { // đây là lot_number của lot
             change: 'onlotNumberTxtType',
         }
@@ -91,16 +97,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             Ext.toast('Thiếu thông tin Số Cây', 3000);
             return;
         }
-        if(stockinLot.totalmet == null || stockinLot.totalmet == ''){
+        if(stockinLot.totalmet === null || stockinLot.totalmet === ''){
+            console.log(stockinLot.totalmet);
             Ext.toast('Thiếu thông tin Độ dài', 3000);
             return;
         }
-        if(stockinLot.totalyds == null || stockinLot.totalyds == ''){
+        if(stockinLot.totalyds === null || stockinLot.totalyds === ''){
+            console.log(stockinLot.totalyds);
             Ext.toast('Thiếu thông tin Độ dài', 3000);
             return;
         }
-        if(stockinLot.grossweight == null || stockinLot.grossweight == ''){
-            Ext.toast('Thiếu thông tin Cân nặng', 3000);
+        if(stockinLot.grossweight === null || stockinLot.grossweight === ''){
+            Ext.toast('Thiếu thông tin khối lượng', 3000);
+            return;
+        }
+        if(stockinLot.grossweight_lbs === null || stockinLot.grossweight_lbs === ''){
+            Ext.toast('Thiếu thông tin khối lượng', 3000);
             return;
         }
 
@@ -315,6 +327,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 
         viewModel.set('stockinLot.totalmet', stockinLot.totalmet);
         viewModel.set('stockinLot.totalyds', stockinLot.totalyds);
+
+        // console.log(stockinLot);
+    },
+    onKhoiLuongChange: function(numberfield, e, eOpts){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockinLot = viewModel.get('stockinLot');
+
+        var itemId = numberfield.getItemId();
+        if(itemId == 'kg'){
+            if(stockinLot.grossweight == null) stockinLot.grossweight = 0;
+            stockinLot.grossweight_lbs = stockinLot.grossweight * 2.20462;
+            stockinLot.grossweight_lbs = parseFloat(stockinLot.grossweight_lbs);
+        }
+        if(itemId == 'lbs'){
+            if(stockinLot.grossweight_lbs == null) stockinLot.grossweight_lbs = 0;
+            stockinLot.grossweight = stockinLot.grossweight_lbs / 2.20462;
+            stockinLot.grossweight = parseFloat(stockinLot.grossweight);
+        }
+
+        viewModel.set('stockinLot.grossweight', stockinLot.grossweight);
+        viewModel.set('stockinLot.grossweight_lbs', stockinLot.grossweight_lbs);
 
         // console.log(stockinLot);
     },

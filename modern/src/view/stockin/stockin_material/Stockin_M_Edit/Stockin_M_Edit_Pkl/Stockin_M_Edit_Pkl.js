@@ -145,6 +145,32 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             
             return grossweight + ' / ' + grossweight_check;
         },
+        bind: {
+            hidden: '{isKgColumnHidden}',
+        },
+    },
+    {
+        text: 'Kiểm lbs', 
+        flex: 1,
+        dataIndex: 'grossweight_lbs_check',
+        align: 'center',
+        renderer: function(value, record, dataIndex, cell, column) {
+            if(value == null) value = 0;
+            var grossweight_lbs_check = record.get('grossweight_lbs_check') == null ? 0 : record.get('grossweight_lbs_check');
+            var grossweight_lbs = record.get('grossweight_lbs') == null ? 0 : record.get('grossweight_lbs');
+            if (grossweight_lbs == grossweight_lbs_check) {
+                cell.setCls('cellGreen');
+            } else if (grossweight_lbs < grossweight_lbs_check) {
+                cell.setCls('cellYellow');
+            } else{
+                cell.setCls('cellRed');
+            }
+            
+            return grossweight_lbs + ' / ' + grossweight_lbs_check;
+        },
+        bind: {
+            hidden: '{isLbsColumnHidden}',
+        },
     },
     ],
 });

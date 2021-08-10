@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             if(unitid_link == null){
                 return true;
             }else 
-            if(unitid_link == 1){
+            if(unitid_link == 1 || unitid_link == 4 || unitid_link == 5){
                 return false;
             }
             return true;
@@ -37,6 +37,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 return true;
             }else 
             if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+        isKgColumnHidden: function (get) {
+            var unitid_link = get('unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 4 || unitid_link == 1 || unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+        isLbsColumnHidden: function (get) {
+            var unitid_link = get('unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 5){
                 return false;
             }
             return true;

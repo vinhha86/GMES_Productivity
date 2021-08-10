@@ -110,6 +110,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			// widthTxt: '',
 			grossweightTxt: '',
 			grossweightCheckTxt: '',
+			grossweightLbsTxt: '',
+			grossweightLbsCheckTxt: '',
 			widthYdsCheckTxt: '',
 			widthYdsTxt: '',
 			widthMetCheckTxt: '',
@@ -150,12 +152,32 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 return true;
             }
         },
+		isDoDaiFieldHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 1 || unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+		isTrongLuongFieldHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 4 || unitid_link == 5){
+                return false;
+            }
+            return true;
+        },
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockin.unitid_link');
             if(unitid_link == null){
                 return true;
             }else 
-            if(unitid_link == 1){
+            if(unitid_link == 1 || unitid_link == 4 || unitid_link == 5){
                 return false;
             }
             return true;
@@ -170,6 +192,68 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             }
             return true;
         },
+		isKgColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 4 || unitid_link == 1 || unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+        isLbsColumnHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 5){
+                return false;
+            }
+            return true;
+        },
+
+		isPklMetFieldHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+		isPklYdsFieldHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+		isPklKgFieldHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 4){
+                return false;
+            }
+            return true;
+        },
+		isPklLbsFieldHidden: function (get) {
+            var unitid_link = get('stockin.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 5){
+                return false;
+            }
+            return true;
+        },
+
 		isStockin_M_Edit_PHidden: function (get) {
 			var stockinD = get('stockinD');
 			if(stockinD != null){

@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var orgstore = viewModel.getStore('OrgStore');
         if (null!=orgstore) orgstore.loadStore(5);
 
-		var userStore = this.getViewModel().getStore('UserStore');
+		var userStore = viewModel.getStore('UserStore');
 		userStore.loadStore();
 
-		var listidtype = "13,3";
+		// var listidtype = "13,3";
         // var listidtype = "4,8,9,11,12";
 		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
 		// orgfromstore.loadStore_byRoot(listidtype);
@@ -17,14 +17,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		// var orgtostore = viewModel.getStore('OrgToStore');
 		// orgtostore.loadStore_allchildren_byorg(listidtype);
 
-		var currencyStore = viewModel.getStore('CurrencyStore');
-		currencyStore.loadStore();
-
-		var vattypeStore = viewModel.getStore('VatTypeStore');
-		vattypeStore.loadStore();
-		
 		var stockintype = viewModel.getStore('StockinTypeStore');
 		stockintype.loadStore(1, 10);
+
+        var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
+        this.filterUnitStore();
+        this.sortUnitStore();
 	},
 	control:{
 		'#loaitien':{
@@ -35,7 +34,30 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         },
         '#btnAddNoiGiao':{
             click: 'onBtnAddNoiGiao'
-        }
+        },
+    },
+    filterUnitStore: function(){
+        var viewModel = this.getViewModel();
+        var UnitStore = viewModel.getStore('UnitStore');
+        UnitStore.clearFilter();
+        UnitStore.filterBy(function(rec) {
+            var isOk = false;
+            if(
+                rec.get('unittype') == 0 || rec.get('unittype') == 1
+            ){
+                isOk = true;
+            }
+            return isOk;
+        });
+    },
+    sortUnitStore: function(){
+        var viewModel = this.getViewModel();
+        var UnitStore = viewModel.getStore('UnitStore');
+        UnitStore.getSorters().removeAll();
+        UnitStore.getSorters().add({
+            property: 'unittype',
+            direction: 'ASC'
+        });
     },
     onBtnAddNoiGiao: function(){
         var m = this;
@@ -280,29 +302,4 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             m.onInvoice_Search();
         }
     },
-
-    onSelectUnit: function(combo, record, eOpts){
-        // console.log('onSelectUnit');
-        // console.log(record);
-        var viewmodel = this.getViewModel();
-        var stockin = viewmodel.get('stockin'); // stockin_d // stockin_packinglist
-        var unitid_link = record.get('id');
-
-        var stockin_d = stockin.stockin_d;
-		if(stockin_d != null){
-			for(var i = 0; i < stockin_d.length; i++){
-                var stockinD_data = stockin_d[i];
-				stockin_d[i].unitid_link = unitid_link;
-
-                if(stockin.unitid_link == 1){
-                    stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met*stockinD_data.unitprice,2);
-                }else if(stockin.unitid_link == 3){
-                    stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds*stockinD_data.unitprice,2);
-                }
-
-			}
-		}
-        // console.log(stockin);
-        viewmodel.set('stockin', stockin);
-    }
 })

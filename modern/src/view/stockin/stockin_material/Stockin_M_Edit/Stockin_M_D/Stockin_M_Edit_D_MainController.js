@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var oldValue = '';
         if(placeholder == 'Tổng độ dài'){
             oldValue = viewModel.get('yNumberTxt');
-        }else if(placeholder == 'Tổng cân nặng'){
+        }else if(placeholder == 'Tổng khối lượng'){
             oldValue = viewModel.get('canNumberTxt');
         }else{
             return;
@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     // console.log('selectValue: ' + selectValue);
                     if(placeholder == 'Tổng độ dài'){
                         viewModel.set('yNumberTxt', selectValue);
-                    }else if(placeholder == 'Tổng cân nặng'){
+                    }else if(placeholder == 'Tổng khối lượng'){
                         viewModel.set('canNumberTxt', selectValue);
                     }
                     dialog.close();
@@ -173,8 +173,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         // check form info
         if(lotNumberTxt == '') {Ext.toast('Chưa nhập lot', 1000); return;}
         if(cayNumberTxt == '') {Ext.toast('Chưa nhập số cây', 1000); return;}
-        if(yNumberTxt == '') {Ext.toast('Chưa nhập số Y', 1000); return;}
-        if(canNumberTxt == '') {Ext.toast('Chưa nhập số cân nặng', 1000); return;}
+        if(stockin.unitid_link == 1 || stockin.unitid_link == 3){
+            if(yNumberTxt == '') {Ext.toast('Chưa nhập độ dài', 1000); return;}
+        }
+        if(stockin.unitid_link == 4 || stockin.unitid_link == 5){
+            if(canNumberTxt == '') {Ext.toast('Chưa nhập khối lượng', 1000); return;}
+        }
 
         // check stockin_lot tồn tại chưa
         var stockin_lot = selectedDRecord.get('stockin_lot');
@@ -195,8 +199,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         newLotObj.lot_number = lotNumberTxt;
         newLotObj.totalpackage = cayNumberTxt;
         newLotObj.totalpackagecheck = 0;
-        newLotObj.grossweight = canNumberTxt;
-        newLotObj.grossweight_check = 0;
         newLotObj.totalydscheck = 0;
         newLotObj.totalmetcheck = 0;
         newLotObj.totalpackagepklist = 0;
@@ -207,13 +209,42 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         newLotObj.stockindid_link = selectedDRecord.get('id');
 
         // thêm sl yêu cầu
-        if(stockin.unitid_link == 3){
-            var ydsorigin = parseFloat(yNumberTxt);
-            var met_origin =  parseFloat(Ext.util.Format.number(ydsorigin * 0.9144, '0.00'));
-            newLotObj.totalyds = ydsorigin;
-            newLotObj.totalmet = met_origin;
+        if(yNumberTxt == null || yNumberTxt == '') yNumberTxt = 0;
+        if(canNumberTxt == null || canNumberTxt == '') canNumberTxt = 0;
+
+        if(stockin.unitid_link == 1 || stockin.unitid_link == 3){
+            if(stockin.unitid_link == 3){ // yds
+                var ydsorigin = parseFloat(yNumberTxt);
+                var met_origin =  parseFloat(Ext.util.Format.number(ydsorigin * 0.9144, '0.00'));
+                newLotObj.totalyds = ydsorigin;
+                newLotObj.totalmet = met_origin;
+            }
+            if(stockin.unitid_link == 1){ // m
+                var met_origin = parseFloat(yNumberTxt);
+                var ydsorigin =  parseFloat(Ext.util.Format.number(met_origin / 0.9144, '0.00'));
+                newLotObj.totalyds = ydsorigin;
+                newLotObj.totalmet = met_origin;
+            }
+            // mặc định là kg
+            var grossweight = parseFloat(canNumberTxt);
+            var grossweight_lbs = parseFloat(Ext.util.Format.number(grossweight * 2.20462, '0.00'));
+            newLotObj.grossweight = grossweight;
+            newLotObj.grossweight_lbs = grossweight_lbs;
         }
-        if(stockin.unitid_link == 1){
+        if(stockin.unitid_link == 4 || stockin.unitid_link == 5){
+            if(stockin.unitid_link == 4){ // kg
+                var grossweight = parseFloat(canNumberTxt);
+                var grossweight_lbs = parseFloat(Ext.util.Format.number(grossweight * 2.20462, '0.00'));
+                newLotObj.grossweight = grossweight;
+                newLotObj.grossweight_lbs = grossweight_lbs;
+            }
+            if(stockin.unitid_link == 5){ // lbs
+                var grossweight_lbs = parseFloat(canNumberTxt);
+                var grossweight = parseFloat(Ext.util.Format.number(grossweight_lbs / 2.20462, '0.00'));
+                newLotObj.grossweight = grossweight;
+                newLotObj.grossweight_lbs = grossweight_lbs;
+            }
+            // mặc định là met
             var met_origin = parseFloat(yNumberTxt);
             var ydsorigin =  parseFloat(Ext.util.Format.number(met_origin / 0.9144, '0.00'));
             newLotObj.totalyds = ydsorigin;

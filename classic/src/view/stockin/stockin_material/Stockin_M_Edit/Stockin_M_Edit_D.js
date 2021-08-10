@@ -18,12 +18,34 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         stripeRows: false,
         getRowClass: function(record, index) {
             var c = record.get('status');
-            if (c == -1) {
-                return 'epc-error';
-            }
-            else {
-                return 'epc-ok';
-            }
+
+			var totalmet_origin = record.get('totalmet_origin') == null ? 0 : record.get('totalmet_origin');
+			var totalmet_check = record.get('totalmet_check') == null ? 0 : record.get('totalmet_check');
+			var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+			var netweight = record.get('netweight') == null ? 0 : record.get('netweight');
+
+			if(
+				totalmet_origin == 0
+				&& totalmet_check == 0
+				&& grossweight == 0
+				&& netweight == 0
+			){
+				return 'epc-ok';
+			}
+			if(totalmet_check >= totalmet_origin && totalmet_check > 0){
+				return 'epc-ok';
+			}
+			if(netweight >= grossweight && netweight > 0){
+				return 'epc-ok';
+			}
+			return 'epc-error';
+
+            // if (c == -1) {
+            //     return 'epc-error';
+            // }
+            // else {
+            //     return 'epc-ok';
+            // }
         }                     
     },
 	plugins: {
@@ -52,25 +74,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 },            
             ]
         },
-		// { 
-		// 	xtype: 'actioncolumn',
-		// 	reference: 'stockin_contextmenu',
-		// 	width: 25,
-		// 	menuDisabled: true,
-		// 	sortable: false,
-		// 	items: [
-		// 		// {
-		// 		// 	iconCls: 'x-fa fas fa-bars violetIcon',
-		// 		// 	tooltip:'Chi tiết chíp',
-		// 		// 	handler: 'onEPCDetail'
-		// 		// },
-		// 		{
-		// 			iconCls: 'x-fa fas fa-bars violetIcon',
-		// 			tooltip:'PackingList',
-		// 			handler: 'onViewPackingList'
-		// 		},
-		// 	]
-		// },  			
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',
@@ -128,21 +131,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			dataIndex: 'size_name',
 			width: 70
 		},
-		{
-			text: 'ĐVT', 
-			dataIndex: 'unitid_link',
-			width: 70,
-			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-				if(value == null) value = 1;
-				if(value == 1){
-					return 'MÉT';
-				}
-				if(value == 3){
-					return 'YARD'
-				}
-				return "";
-			},
-		},
+		// {
+		// 	text: 'ĐVT', 
+		// 	dataIndex: 'unitid_link',
+		// 	width: 70,
+		// 	renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+		// 		if(value == null) value = 1;
+		// 		if(value == 1){
+		// 			return 'MÉT';
+		// 		}
+		// 		if(value == 3){
+		// 			return 'YARD'
+		// 		}
+		// 		if(value == 4){
+		// 			return 'KG';
+		// 		}
+		// 		if(value == 5){
+		// 			return 'POUND'
+		// 		}
+		// 		return "";
+		// 	},
+		// },
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -160,7 +169,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 				maskRe: /[0-9.]/,
 				selectOnFocus: true
 			},
-		},{
+		},
+		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
 			text: 'SL kiểm (M)', 
@@ -216,6 +226,78 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		},
 		{
 			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (KG)', 
+			align:'right',
+			dataIndex: 'grossweight',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 80,
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (KG)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'netweight',
+			width: 85,
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (lbs)', 
+			align:'right',
+			dataIndex: 'grossweight_lbs',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 80,
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (lbs)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'netweight_lbs',
+			width: 85,
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
+		},
+		{
+			xtype: 'numbercolumn',
 			format:'0,000',
 			text: 'Cây kiểm', 
 			align:'right',
@@ -228,7 +310,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			// 	maskRe: /[0-9.]/,
 			// 	selectOnFocus: true
 			// },
-		},		
+		},
 		{
 			text: 'Danh sách LOT', 
 			// dataIndex: 'lot_list',

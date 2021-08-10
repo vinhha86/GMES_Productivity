@@ -176,40 +176,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             bind: {
                                 value: '{objPkl.mTxt}',
                                 // cls: '{yTxtCls}',
-                                hidden: '{isMetColumnHidden}',
+                                hidden: '{isPklMetFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 // focusleave: 'onmTxtFocusleave',
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
-                            xtype: 'numberfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            itemId: 'yTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Dài kiểm (Y)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.yTxt}',
-                                // cls: '{yTxtCls}',
-                                hidden: '{isYdsColumnHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                // focusleave: 'onyTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave'
                             }
@@ -232,12 +203,41 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             // cls: 'notEditable',
                             bind: {
                                 value: '{objPkl.mOriginTxt}',
-                                hidden: '{isMetColumnHidden}',
+                                hidden: '{isPklMetFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'yTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Dài kiểm (Y)',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.yTxt}',
+                                // cls: '{yTxtCls}',
+                                hidden: '{isPklYdsFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                // focusleave: 'onyTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -258,7 +258,116 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             // cls: 'notEditable',
                             bind: {
                                 value: '{objPkl.yOriginTxt}',
-                                hidden: '{isYdsColumnHidden}',
+                                hidden: '{isPklYdsFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'canCheckTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Cân kiểm',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.grossweightCheckTxt}',
+                                hidden: '{isPklKgFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                // focusleave: 'oncanCheckTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'canTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Cân phiếu',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.grossweightTxt}',
+                                hidden: '{isPklKgFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lbsCheckTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Lbs kiểm',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.grossweightLbsCheckTxt}',
+                                hidden: '{isPklLbsFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lbsTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Lbs phiếu',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.grossweightLbsTxt}',
+                                hidden: '{isPklLbsFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
@@ -314,7 +423,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 //             // clearable: false,
                 //             // cls: 'notEditable',
                 //             bind: {
-                //                 value: '{grossweightCheckTxt}',
+                //                 value: '{objPkl.grossweightCheckTxt}',
                 //             },
                 //             stepValue: 0.1,
                 //             listeners: {
@@ -339,22 +448,88 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 //             // clearable: false,
                 //             // cls: 'notEditable',
                 //             bind: {
-                //                 value: '{grossweightTxt}',
+                //                 value: '{objPkl.grossweightTxt}',
                 //             },
                 //             stepValue: 0.1,
                 //         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-trash',
-                        //     itemId:'btnDeletePkl',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     focusable: false,
-                        //     bind: {
-                        //         disabled: '{!isPklSelected}',
-                        //     },
-                        //     // style: 'visibility: hidden;'
-                        // },
+                //         {
+                //             xtype:'button',
+                //             iconCls: 'x-fa fa-trash',
+                //             // itemId:'btnDeletePkl',
+                //             ui: 'action',
+                //             margin: 1,
+                //             focusable: false,
+                //             // bind: {
+                //             //     disabled: '{!isPklSelected}',
+                //             // },
+                //             style: 'visibility: hidden;'
+                //         },
+                //     ]
+                // },
+                // {
+                //     layout: 'hbox',
+                //     border: false,
+                //     width: '100%',
+                //     items:[
+                //         {
+                //             xtype: 'numberfield',
+                //             margin: 1,
+                //             border: true,
+                //             cls: 'my-textfield',
+                //             itemId: 'canCheckTxt',
+                //             // label: 'Màu:',
+                //             // labelWidth: 85,
+                //             flex: 1,
+                //             minWidth: 80,
+                //             // maxWidth: 130,
+                //             textAlign: 'left',
+                //             placeholder: 'Lbs kiểm',
+                //             // editable: false,
+                //             // readOnly: true,
+                //             // clearable: false,
+                //             // cls: 'notEditable',
+                //             bind: {
+                //                 value: '{objPkl.grossweightLbsCheckTxt}',
+                //             },
+                //             stepValue: 0.1,
+                //             listeners: {
+                //                 focusleave: 'oncanCheckTxtFocusleave'
+                //             }
+                //         },
+                //         {
+                //             xtype: 'numberfield',
+                //             margin: 1,
+                //             border: true,
+                //             cls: 'my-textfield',
+                //             itemId: 'canTxt',
+                //             // label: 'Màu:',
+                //             // labelWidth: 85,
+                //             flex: 1,
+                //             minWidth: 80,
+                //             // maxWidth: 130,
+                //             textAlign: 'left',
+                //             placeholder: 'Lbs phiếu',
+                //             // editable: false,
+                //             // readOnly: true,
+                //             // clearable: false,
+                //             // cls: 'notEditable',
+                //             bind: {
+                //                 value: '{objPkl.grossweightLbsTxt}',
+                //             },
+                //             stepValue: 0.1,
+                //         },
+                //         {
+                //             xtype:'button',
+                //             iconCls: 'x-fa fa-trash',
+                //             // itemId:'btnDeletePkl',
+                //             ui: 'action',
+                //             margin: 1,
+                //             focusable: false,
+                //             // bind: {
+                //             //     disabled: '{!isPklSelected}',
+                //             // },
+                //             style: 'visibility: hidden;'
+                //         },
                 //     ]
                 // },
                 {

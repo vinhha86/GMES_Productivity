@@ -138,7 +138,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{yNumberTxt}'
+                                value: '{yNumberTxt}',
+                                hidden: '{isDoDaiFieldHidden}'
                             },
                             stepValue: 0.1,
                             listeners: {
@@ -158,13 +159,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                             // minWidth: 80,
                             // maxWidth: 200,
                             textAlign: 'left',
-                            placeholder: 'Tổng cân nặng',
+                            placeholder: 'Tổng khối lượng',
                             // editable: false,
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{canNumberTxt}'
+                                value: '{canNumberTxt}',
+                                hidden: '{isTrongLuongFieldHidden}'
                             },
                             stepValue: 0.1,
                             listeners: {

@@ -3,17 +3,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     alias: 'controller.Stockin_M_Edit_Controller',
 	init: function() {
         var viewModel = this.getViewModel();
-		var UnitStore = viewModel.getStore('UnitStore');
-		UnitStore.loadStore();
-		var UnitStoreFilters = UnitStore.getFilters();
-		if (!this.UnitStoreFilters) {
-            this.UnitStoreFilters = UnitStoreFilters.add({
-                id: 'UnitStoreFilters',
-                property: 'unittype',
-                value: 0,
-                exactMatch: true,
-            });
-        }
+		// var UnitStore = viewModel.getStore('UnitStore');
+		// UnitStore.loadStore();
+		// var UnitStoreFilters = UnitStore.getFilters();
+		// if (!this.UnitStoreFilters) {
+        //     this.UnitStoreFilters = UnitStoreFilters.add({
+        //         id: 'UnitStoreFilters',
+        //         property: 'unittype',
+        //         value: 0,
+        //         exactMatch: true,
+        //     });
+        // }
 
         if (viewModel.get('isAdd_Pcontract_Stockin')){
             if (viewModel.get('isNewStockin'))
@@ -120,18 +120,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var m = this;
         var viewModel = this.getViewModel();
 
-		var UnitStore = viewModel.getStore('UnitStore');
-		UnitStore.loadStore_async();
-        UnitStore.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if(!success){
-                    this.fireEvent('logout');
-                } else {
-                    m.getInfo(id);
-                }
-            }
-        });
+        m.getInfo(id);
+
+		// var UnitStore = viewModel.getStore('UnitStore');
+		// UnitStore.loadStore_async();
+        // UnitStore.load({
+        //     scope: this,
+        //     callback: function(records, operation, success) {
+        //         if(!success){
+        //             this.fireEvent('logout');
+        //         } else {
+        //             m.getInfo(id);
+        //         }
+        //     }
+        // });
     },
     onBackPage: function(){
         this.redirectTo('stockin_m');

@@ -274,6 +274,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			},
 			{
 				xtype:'combo',
+				itemId: 'UnitStoreCombo',
 				fieldLabel: 'Đ/vị tính',
 				bind:{
 					store: '{UnitStore}',
@@ -286,9 +287,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             	labelWidth: 70,
 				queryMode: 'local',
 				anyMatch: true,
-				listeners: {
-					select: 'onSelectUnit'
-				},
 			},
 			{
 				margin: '0 5 0 5',

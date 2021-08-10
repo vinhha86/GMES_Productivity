@@ -292,8 +292,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 								record.set('colorid_link', sku.colorid_link);
 								record.set('p_skuid_link', sku.productid_link);
 								record.set('skutypeid_link', sku.skutypeid_link);
-								record.set('unitid_link', sku.unitid_link);
-								record.set('unit_name', sku.unit_name);
+								// record.set('unitid_link', sku.unitid_link);
+								// record.set('unit_name', sku.unit_name);
 								record.set('porder_year', sku.porder_year);
 								record.set('unitprice', sku.unitprice);
 							}
@@ -535,12 +535,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		if (context.field == 'totalpackage') {
 			stockinD_data.totalpackage = parseFloat(stockinD_data.totalpackage);
 		}
-		if (context.field == 'netweight') {
-			stockinD_data.netweight = parseFloat(stockinD_data.netweight);
-		}
-		if (context.field == 'grossweight') {
-			stockinD_data.grossweight = parseFloat(stockinD_data.grossweight);
-		}
 		if (context.field == 'm3') {
 			stockinD_data.m3 = parseFloat(stockinD_data.m3);
 		}
@@ -562,36 +556,36 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		if (context.field == 'totalydscheck') {
 			stockinD_data.totalydscheck = parseFloat(stockinD_data.totalydscheck);
 		}
+		if (context.field == 'netweight') {
+			stockinD_data.netweight = parseFloat(stockinD_data.netweight);
+		}
+		if (context.field == 'grossweight') {
+			stockinD_data.grossweight = parseFloat(stockinD_data.grossweight);
+		}
+		if (context.field == 'netweight_lbs') {
+			stockinD_data.netweight = parseFloat(stockinD_data.netweight);
+		}
+		if (context.field == 'grossweight_lbs') {
+			stockinD_data.grossweight = parseFloat(stockinD_data.grossweight);
+		}
 
-		if (stockin.unitid_link == 1) {
-			if (context.field == 'met' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")) {
-				// console.log('yds');
-				stockinD_data.yds = Ext.Number.roundToPrecision(stockinD_data.met / 0.9144, 2);
-				stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met * stockinD_data.unitprice, 2);
-			}
-			if (context.field == 'unitprice' && (stockinD_data.met != null || stockinD_data.met != "")) {
-				// console.log('unitprice');
-				stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.met * stockinD_data.unitprice, 2);
-			}
-
+		if (stockin.unitid_link == 1) { // met
 			if (context.field == 'totalmet_origin') {
 				stockinD_data.totalydsorigin = Ext.Number.roundToPrecision(stockinD_data.totalmet_origin / 0.9144, 2);
 			}
-		} else if (stockin.unitid_link == 3) {
-			if (context.field == 'yds' && (stockinD_data.unitprice != null || stockinD_data.unitprice != "")) {
-				// console.log('yds');
-				stockinD_data.met = Ext.Number.roundToPrecision(stockinD_data.yds * 0.9144, 2);
-				stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds * stockinD_data.unitprice, 2);
-			}
-			if (context.field == 'unitprice' && (stockinD_data.yds != null || stockinD_data.yds != "")) {
-				// console.log('unitprice');
-				stockinD_data.totalamount = Ext.Number.roundToPrecision(stockinD_data.yds * stockinD_data.unitprice, 2);
-			}
-
+		} else if (stockin.unitid_link == 3) { // yds
 			if (context.field == 'totalydsorigin') {
 				stockinD_data.totalmet_origin = Ext.Number.roundToPrecision(stockinD_data.totalydsorigin * 0.9144, 2);
 			}
-		}
+		} else if (stockin.unitid_link == 4) { // kg
+			if (context.field == 'grossweight') {
+				stockinD_data.grossweight_lbs = Ext.Number.roundToPrecision(stockinD_data.grossweight * 2.20462, 2);
+			}
+		} else if (stockin.unitid_link == 5) { // pound
+			if (context.field == 'grossweight_lbs') {
+				stockinD_data.grossweight = Ext.Number.roundToPrecision(stockinD_data.grossweight_lbs / 2.20462, 2);
+			}
+		} 
 
 		store.commitChanges();
 	},
@@ -649,21 +643,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 						stockin_dObj.color_name = npl.get('mauSanPham');
 						stockin_dObj.size_name = npl.get('coSanPham');
 						stockin_dObj.totalpackage = 0;
-						stockin_dObj.netweight = 0;
-						stockin_dObj.grossweight = 0;
+						stockin_dObj.netweight_lbs = 0;
+						stockin_dObj.grossweight_lbs = 0;
 						stockin_dObj.m3 = 0;
 						stockin_dObj.unitprice = 0;
 						stockin_dObj.totalamount = 0;
 						stockin_dObj.yds = 0;
-						stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+						// stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
 
 						stockin_dObj.totalmet_origin = 0;
 						stockin_dObj.totalmet_check = 0;
 						stockin_dObj.totalydsorigin = 0;
-						stockin_dObj.totalydscheck = 0;
-
-						// stockin_dObj.unitid_link = invoice_d.get('unitid_link');
-						// stockin_dObj.unit_name = invoice_d.get('unitname');
+						stockin_dObj.totalydscheck = 0;s
+						stockin_dObj.netweight = 0;
+						stockin_dObj.grossweight = 0;
+						stockin_dObj.netweight_lbs = 0;
+						stockin_dObj.grossweight_lbs = 0;
 
 						stockin_d.push(stockin_dObj);
 					}
@@ -682,7 +677,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		var StockinProduct_Store = viewModel.getStore('StockinProduct_Store')
 		for (var i = 0; i < StockinProduct_Store.data.length; i++) {
 			var the_product = StockinProduct_Store.data.items[i].data;
-			console.log(the_product.productid_link);
+			// console.log(the_product.productid_link);
 			ls_productid_link[i] = the_product.productid_link;
 		}
 		var form = Ext.create('Ext.window.Window', {
@@ -736,18 +731,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 					stockin_dObj.size_name = npl.get('mat_sku_size_name');
 
 					stockin_dObj.totalpackage = 0;
-					stockin_dObj.netweight = 0;
-					stockin_dObj.grossweight = 0;
 					stockin_dObj.m3 = 0;
 					stockin_dObj.unitprice = 0;
 					stockin_dObj.totalamount = 0;
 					stockin_dObj.yds = 0;
-					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+					// stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
 
 					stockin_dObj.totalmet_origin = 0;
 					stockin_dObj.totalmet_check = 0;
 					stockin_dObj.totalydsorigin = 0;
 					stockin_dObj.totalydscheck = 0;
+					stockin_dObj.netweight = 0;
+					stockin_dObj.grossweight = 0;
+					stockin_dObj.netweight_lbs = 0;
+					stockin_dObj.grossweight_lbs = 0;
 					stockin_dObj.status = -1;
 
 					// stockin_dObj.unitid_link = invoice_d.get('unitid_link');
@@ -1048,7 +1045,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		newObj.status = -1;
 		newObj.stockin_packinglist = [];
 		newObj.stockinid_link = stockin.id;
-		newObj.unitid_link = stockin.unitid_link;
+		// newObj.unitid_link = stockin.unitid_link;
 		newObj.totalmet_check = 0;
 		newObj.totalmet_origin = 0;
 		newObj.totalpackage = 0;
@@ -1057,6 +1054,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		newObj.totalprice = 0;
 		newObj.totalydscheck = 0;
 		newObj.totalydsorigin = 0;
+		newObj.grossweight = 0;
+		newObj.netweight = 0;
+		newObj.grossweight_lbs = 0;
+		newObj.netweight_lbs = 0;
 
 		stockin_d.push(newObj);
 		store.setData([]);
