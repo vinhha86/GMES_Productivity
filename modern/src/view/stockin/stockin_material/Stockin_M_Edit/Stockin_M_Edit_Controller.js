@@ -206,6 +206,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     cbbox_pklRecheck_stockindId.setValue(pklRecheck_stockindId);
                 }
                 break;
+            case 'DS SP':
+                var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
+                StockinProduct_Store.loadStore_byStockinId(stockinid_link);
+                break;
             default: 
                 console.log('tab title không tồn tại');
                 break;

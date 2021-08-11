@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     extend: 'Ext.grid.Grid',
     xtype: 'Stockin_M_Edit_Product',
     itemId: 'Stockin_M_Edit_Product',
+    cls: 'Stockin_M_Edit_Product',
     // viewModel: {
     //     type: 'HandoverDetailViewModel'
     // },
@@ -30,7 +31,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     },
 
     bind: {
-        store:'{stockin.stockin_product}'
+        store:'{StockinProduct_Store}'
     },
 
     columns: [{
@@ -42,7 +43,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     {
         text: 'Mã SP', 
         flex: 1,
-        dataIndex: 'productBuyercode'
+        dataIndex: 'product_code'
     },
     ],
 });

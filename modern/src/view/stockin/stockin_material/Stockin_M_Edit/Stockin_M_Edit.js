@@ -134,6 +134,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         flex: 1,
                     }]
                 },
+                {
+                    title: 'DS SP',
+                    layout: 'hbox',
+                    flex: 1,
+                    items:[{
+                        xtype: 'Stockin_M_Edit_Product',
+                        flex: 1,
+                    }]
+                },
             ],
             // tabBar: {
             //     items: [{
