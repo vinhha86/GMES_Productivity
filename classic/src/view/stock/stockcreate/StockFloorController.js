@@ -17,7 +17,13 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockFloorController', {
     },
     onAfterrender: function(){
         var me = this.getView();
-        me.down('#txtFieldSpaceEpc').focus();
+        var viewModel = this.getViewModel();
+        var isTxtFieldSpaceNameDisable = viewModel.get('isTxtFieldSpaceNameDisable');
+        if(isTxtFieldSpaceNameDisable){
+            me.down('#txtFieldFloorId').focus();
+        }else{
+            me.down('#txtFieldSpaceName').focus();
+        }
     },
     onloadPage: function(){
         var viewModel = this.getViewModel();
@@ -28,20 +34,20 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockFloorController', {
         var record = viewModel.get('record');
         // edit
         var isEdit = viewModel.get('isEdit');
-        if(record.get('type')  == 3){ // thêm hàng
+        if(record.get('type')  == 3){ // thêm tầng
             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
             viewModel.set('spaceObj.rowid_link', record.get('id'));
             viewModel.set('spaceObj.isCreateNew', true);
             //
             viewModel.set('isTxtFieldSpaceNameDisable', false);
-        }else if(record.get('type') == 4){ // thêm tầng
+        }else if(record.get('type') == 4){ // thêm khoang
             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
             viewModel.set('spaceObj.rowid_link', record.get('rowid_link'));
             viewModel.set('spaceObj.spacename', record.get('spacename'));
             viewModel.set('spaceObj.isCreateNew', true);
             //
             viewModel.set('isTxtFieldSpaceNameDisable', true);
-        }else if(record.get('type') == 5){ // sửa tầng
+        }else if(record.get('type') == 5){ // sửa khoang
             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
             viewModel.set('spaceObj.spaceepc', record.get('spaceepc'));
             viewModel.set('spaceObj.spaceepc_old', record.get('spaceepc'));
@@ -70,7 +76,6 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockFloorController', {
         var spaceObj = viewModel.get('spaceObj');
         if(
             spaceObj.orgid_link == null || spaceObj.orgid_link == '' || 
-            spaceObj.spaceepc == null || spaceObj.spaceepc == '' || 
             spaceObj.spacename == null || spaceObj.spacename == '' || 
             spaceObj.floorid == null || spaceObj.floorid == ''
             ){
@@ -84,7 +89,6 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockFloorController', {
             });
             if(spaceObj.floorid == null || spaceObj.floorid) me.down('#txtFieldFloorId').focus();
             if(spaceObj.spacename == null || spaceObj.spacename) me.down('#txtFieldSpaceName').focus();
-            if(spaceObj.spaceepc == null || spaceObj.spaceepc) me.down('#txtFieldSpaceEpc').focus();
             return;
         }
 

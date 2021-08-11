@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockSpace', {
         xtype:'textfield',
         itemId: 'txtFieldSpacename',
         margin: 5,
-        fieldLabel: 'Hàng ('+ '<span style="color:red">*</span>' + ')',
+        fieldLabel: 'Tầng ('+ '<span style="color:red">*</span>' + ')',
         // allowBlank: false,
         // blankText : 'Không được để trống',
         maxLength: 20,

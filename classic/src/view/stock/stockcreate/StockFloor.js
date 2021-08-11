@@ -23,28 +23,30 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockFloor', {
         allowBlank: false,
         readOnly: true,
         hidden: true,
-    },{
-        // width:400,
-        flex: 1,
-        xtype:'textfield',
-        itemId: 'txtFieldSpaceEpc',
-        margin: 5,
-        fieldLabel: 'EPC ('+ '<span style="color:red">*</span>' + ')',
-        allowBlank: false,
-        blankText : 'Không được để trống',
-        maxLength: 100,
-        maxLengthText: 'Tối đa 100 ký tự',
-        bind:{
-            value:'{spaceObj.spaceepc}'
-        },
-        labelWidth: 105
-    },{
+    },
+    // {
+    //     // width:400,
+    //     flex: 1,
+    //     xtype:'textfield',
+    //     itemId: 'txtFieldSpaceEpc',
+    //     margin: 5,
+    //     fieldLabel: 'EPC ('+ '<span style="color:red">*</span>' + ')',
+    //     allowBlank: false,
+    //     blankText : 'Không được để trống',
+    //     maxLength: 100,
+    //     maxLengthText: 'Tối đa 100 ký tự',
+    //     bind:{
+    //         value:'{spaceObj.spaceepc}'
+    //     },
+    //     labelWidth: 105
+    // },
+    {
         // width:400,
         flex: 1,
         xtype:'textfield',
         itemId: 'txtFieldSpaceName',
         margin: 5,
-        fieldLabel: 'Hàng ('+ '<span style="color:red">*</span>' + ')',
+        fieldLabel: 'Tầng ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         blankText : 'Không được để trống',
         maxLength: 10,
@@ -61,7 +63,7 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockFloor', {
         xtype:'textfield',
         itemId: 'txtFieldFloorId',
         margin: 5,
-        fieldLabel: 'Tầng ('+ '<span style="color:red">*</span>' + ')',
+        fieldLabel: 'Khoang ('+ '<span style="color:red">*</span>' + ')',
         allowBlank: false,
         maxLength: 2,
         maxLengthText: 'Tối đa 2 ký tự',

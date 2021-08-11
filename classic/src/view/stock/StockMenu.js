@@ -45,11 +45,12 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
             }
             if(record.data.type == 4){
                 metaData.iconCls = 'x-fa fa-square-o';
-                return 'Hàng ' + value;
+                return 'Tầng ' + value; // Hàng
             }
             if(record.data.type == 5){
                 metaData.iconCls = 'x-fa fa-minus-square-o';
-                return 'Tầng ' + value + ' (' + record.get('spaceepc') + ')';
+                // return 'Khoang ' + value + ' (' + record.get('spaceepc') + ')'; // Tầng
+                return 'Khoang ' + value; // Tầng
             }
             return value;
         }                     

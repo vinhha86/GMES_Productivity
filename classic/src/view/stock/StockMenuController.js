@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             }
         }
 
-        if(record.get('type') == 5){ // tầng
+        if(record.get('type') == 5){ // khoang
             var spaceepc = record.get('spaceepc');
             var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
@@ -92,14 +92,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             var menu_grid = new Ext.menu.Menu({ items:
                 [
                     {
-                        text: 'Thêm hàng',
-                        itemId: 'btn_themHang',
+                        text: 'Thêm tầng',
+                        itemId: 'btn_themTang',
                         separator: true,
                         // margin: '5 0 0',
                         iconCls: 'x-fa fas fa-minus-square-o',
                         handler: function(){
                             console.log(record);
-                            m.themHang(record, false);
+                            m.themTang(record, false);
                         }
                     },
                     {
@@ -141,75 +141,31 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             e.stopEvent();
             menu_grid.showAt(position);
         }
-        if(record.get('type') == 4){ // hàng
+        if(record.get('type') == 4){ // tầng
             var menu_grid = new Ext.menu.Menu({ items:
                 [
                     {
-                        text: 'Thêm Tầng',
-                        itemId: 'btn_themTang',
+                        text: 'Thêm khoang',
+                        itemId: 'btn_themKhoang',
                         separator: true,
                         // margin: '5 0 0',
                         iconCls: 'x-fa fas fa-minus-square-o',
                         handler: function(){
                             console.log(record);
                             //
-                            m.themTang(record, false);
+                            m.themKhoang(record, false);
                         }
                     },
-                    {
-                        text: 'Sửa hàng',
-                        itemId: 'btn_suaHang',
-                        separator: true,
-                        // margin: '5 0 0',
-                        iconCls: 'x-fa fas fa-minus-square-o',
-                        handler: function(){
-                            console.log(record);
-                            //
-                            m.suaHang(record, true);
-                        }
-                    },
-                    {
-                        text: 'Xoá hàng',
-                        itemId: 'btn_XoaHang',
-                        separator: true,
-                        // margin: '5 0 0',
-                        iconCls: 'x-fa fas fa-trash',
-                        handler: function(){
-                            console.log(record);
-                            //
-                            Ext.Msg.show({
-                                title:'Thông báo',
-                                message:'Bạn có chắc chắn xoá hàng?',
-                                buttons: Ext.Msg.YESNO,
-                                icon: Ext.Msg.QUESTION,
-                                fn: function(btn) {
-                                    if (btn === 'yes') {
-                                        m.xoaHang(record);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                ]
-                });
-            var position = e.getXY();
-            e.stopEvent();
-            menu_grid.showAt(position);
-        }
-
-        if(record.get('type') == 5){ // hàng
-            var menu_grid = new Ext.menu.Menu({ items:
-                [
                     {
                         text: 'Sửa tầng',
-                        itemId: 'btn_SuaTang',
+                        itemId: 'btn_suaTang',
                         separator: true,
                         // margin: '5 0 0',
-                        iconCls: 'x-fa fas fa-trash',
+                        iconCls: 'x-fa fas fa-minus-square-o',
                         handler: function(){
                             console.log(record);
                             //
-                            m.themTang(record, true);
+                            m.suaTang(record, true);
                         }
                     },
                     {
@@ -229,6 +185,50 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                                 fn: function(btn) {
                                     if (btn === 'yes') {
                                         m.xoaTang(record);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                ]
+                });
+            var position = e.getXY();
+            e.stopEvent();
+            menu_grid.showAt(position);
+        }
+
+        if(record.get('type') == 5){ // tầng
+            var menu_grid = new Ext.menu.Menu({ items:
+                [
+                    {
+                        text: 'Sửa khoang',
+                        itemId: 'btn_SuaKhoang',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-trash',
+                        handler: function(){
+                            console.log(record);
+                            //
+                            m.themKhoang(record, true);
+                        }
+                    },
+                    {
+                        text: 'Xoá khoang',
+                        itemId: 'btn_XoaKhoang',
+                        separator: true,
+                        // margin: '5 0 0',
+                        iconCls: 'x-fa fas fa-trash',
+                        handler: function(){
+                            console.log(record);
+                            //
+                            Ext.Msg.show({
+                                title:'Thông báo',
+                                message:'Bạn có chắc chắn xoá khoang?',
+                                buttons: Ext.Msg.YESNO,
+                                icon: Ext.Msg.QUESTION,
+                                fn: function(btn) {
+                                    if (btn === 'yes') {
+                                        m.xoaKhoang(record);
                                     }
                                 }
                             });
@@ -366,14 +366,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             })
     },
 
-    suaHang: function(record, isEdit){
+    suaTang: function(record, isEdit){
         var me = this.getView();
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             // height: 300,
             // width: 400,
             closable: true,
-            title: 'Chi tiết hàng : ',
+            title: 'Chi tiết tầng : ',
             resizable: false,
             modal: true,
             border: false,
@@ -425,14 +425,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             form.close();
         })
     },
-    themHang: function(record, isEdit){
+    themTang: function(record, isEdit){
         var me = this.getView();
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             // height: 300,
             // width: 400,
             closable: true,
-            title: 'Chi tiết hàng : ',
+            title: 'Chi tiết tầng : ',
             resizable: false,
             modal: true,
             border: false,
@@ -468,7 +468,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             // console.log(response);
         })
     },
-    xoaHang: function(record){
+    xoaTang: function(record){
         var m = this;
         var me = this.getView();
         var treePanel = Ext.getCmp('stock').down('StockMenu');
@@ -525,14 +525,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             })
     },
 
-    themTang: function(record, isEdit){
+    themKhoang: function(record, isEdit){
         var me = this.getView();
         var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             // height: 300,
             // width: 400,
             closable: true,
-            title: 'Chi tiết tầng : ',
+            title: 'Chi tiết khoang : ',
             resizable: false,
             modal: true,
             border: false,
@@ -588,7 +588,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 stockfloorObj.visible = true;
                 nodeSpace.appendChild(stockfloorObj);
             }else
-            // nếu tree đã có tầng (edit)
+            // nếu tree đã có khoang (edit)
             if(!isFloorNew){
                 var node = StockTreeStore.findNode('idString', '5;' + spaceObj.spaceepc_old);
                 node.data.name = stockspace.floorid;
@@ -603,7 +603,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             form.close();
         })
     },
-    xoaTang: function(record){
+    xoaKhoang: function(record){
         var m = this;
         var me = this.getView();
         var treePanel = Ext.getCmp('stock').down('StockMenu');
@@ -635,12 +635,12 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                         var isSpaceDelete = response.isSpaceDelete;
                         
                         var StockTreeStore = viewModel.getStore('StockTreeStore');
-                        var nodeHang = StockTreeStore.findNode('idString', record.get('parentIdString'));
-                        nodeHang.removeChild(record);
+                        var nodeTang = StockTreeStore.findNode('idString', record.get('parentIdString'));
+                        nodeTang.removeChild(record);
 
-                        if(isSpaceDelete){ // console.log(nodeHang);
-                            var nodeDay = StockTreeStore.findNode('idString', nodeHang.get('parentIdString'));
-                            nodeDay.removeChild(nodeHang);
+                        if(isSpaceDelete){ // console.log(nodeTang);
+                            var nodeDay = StockTreeStore.findNode('idString', nodeTang.get('parentIdString'));
+                            nodeDay.removeChild(nodeTang);
                         }
 
                         treePanel.reconfigure(StockTreeStore);

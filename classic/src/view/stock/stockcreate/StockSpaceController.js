@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.stock.stockcreate.StockSpaceController', {
         var record = viewModel.get('record');
         // edit
         var isEdit = viewModel.get('isEdit');
-        if(isEdit){ // record: hang
+        if(isEdit){ // record: tầng
             viewModel.set('spaceObj.orgid_link', record.get('orgid_link'));
             viewModel.set('spaceObj.spacename', record.get('spacename'));
             viewModel.set('spaceObj.spacename_old', record.get('spacename'));
