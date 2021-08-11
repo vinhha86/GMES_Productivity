@@ -133,6 +133,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		IsformMaster: true,
 		// tooltip
 		fieldTooltip: null,
+		//
+		isStockin_ValueSelect_window_open: false,
 	},
 	formulas: {
         isEdit: function (get) {

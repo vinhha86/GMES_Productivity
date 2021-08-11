@@ -82,11 +82,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 listValue.push(value2);
                 listValue.push(value3);
 
-                var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
-                if(Stockin_ValueSelect_window) {
-                    me.focus(false);
+                // var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
+                // if(Stockin_ValueSelect_window) {
+                //     me.focus(false);
+                //     return;
+                // }
+                var isStockin_ValueSelect_window_open = viewModel.get('isStockin_ValueSelect_window_open');
+                // console.log(isStockin_ValueSelect_window_open);
+                if(isStockin_ValueSelect_window_open){
                     return;
                 }
+                viewModel.set('isStockin_ValueSelect_window_open', true);
 
                 var dialog = Ext.create({
                     xtype: 'dialog',
@@ -107,6 +113,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         if(dialog){
                             dialog.close();
                             me.setMasked(false);
+                            setTimeout(function(){
+                                viewModel.set('isStockin_ValueSelect_window_open', false);
+                            }, 200);
                         }
                     },
                     bodyPadding: '1',
@@ -134,6 +143,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                         viewModel.set('canNumberTxt', selectValue);
                     }
                     dialog.close();
+                    setTimeout(function(){
+                        viewModel.set('isStockin_ValueSelect_window_open', false);
+                    }, 200);
                 });
             }
         }
