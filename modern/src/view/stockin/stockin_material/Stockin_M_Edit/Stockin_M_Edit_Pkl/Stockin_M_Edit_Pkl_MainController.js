@@ -676,6 +676,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         objData.met_check = mTxt;
         objData.ydsorigin = yOriginTxt;
         objData.met_origin = mOriginTxt;
+        objData.grossweight_check = grossweightCheckTxt;
+        objData.grossweight = grossweightTxt;
+        objData.grossweight_lbs_check = grossweightLbsCheckTxt;
+        objData.grossweight_lbs = grossweightLbsTxt;
         objData.colorid_link = selectedDRecord.get('colorid_link');;
         // objData.widthTxt = widthTxt;
         objData.sample_check = sampleCheckTxt;
