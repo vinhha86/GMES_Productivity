@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                     editable: false,
                     readOnly: true,
                     bind:{
-                        value:'{spaceepcid_link}',
+                        value:'{space}',
                         disabled: '{!isSpaceSelected}'
                     },
                     // label: 'Số lượng:',

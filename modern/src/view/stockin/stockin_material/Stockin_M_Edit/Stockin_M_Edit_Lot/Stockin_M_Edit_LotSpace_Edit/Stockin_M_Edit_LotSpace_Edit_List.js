@@ -45,9 +45,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             flex: 1,
             dataIndex: 'spaceepcid_link',
             renderer: function(value, record, dataIndex, cell, column) {
-                var spaceepcid_link = record.get('spaceepcid_link');
+                // var spaceepcid_link = record.get('spaceepcid_link');
+                // var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
+                // return spaceepcid_link + ' (' + totalpackage + ')';
+                var spaceInfo = record.get('spaceInfo');
+                var space = record.get('space');
                 var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
-                return spaceepcid_link + ' (' + totalpackage + ')';
+                return space + ' (' + totalpackage + ')';
+                // return spaceInfo;
             },
         },
         {

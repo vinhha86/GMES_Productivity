@@ -17,7 +17,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 
         // thông tin khoang
         selectedSpaceRecord: null, // khoang đang chọn
-		spaceepcid_link: null, // khoang
+		spaceepcid_link: null, // khoang, bỏ
+        space: null, // khoang
 		totalpackage: null, // sl cây khoang
     },
     formulas: {

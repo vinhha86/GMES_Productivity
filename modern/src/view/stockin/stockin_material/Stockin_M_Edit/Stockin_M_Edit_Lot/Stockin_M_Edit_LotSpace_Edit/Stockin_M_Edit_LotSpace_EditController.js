@@ -257,7 +257,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var m = this;
         var viewModel = this.getViewModel();
 
-        viewModel.set('spaceepcid_link', null);
+        viewModel.set('space', null);
         viewModel.set('totalpackage', null);
     },
     onLotSpaceTap:function(grid, location, eOpts){
@@ -267,7 +267,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var record = location.record;
 
         viewModel.set('selectedSpaceRecord', record);
-        viewModel.set('spaceepcid_link', record.get('spaceepcid_link'))
+        viewModel.set('space', record.get('space'))
         viewModel.set('totalpackage', record.get('totalpackage'));
 
         // console.log(record);
@@ -298,7 +298,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         var viewModel = this.getViewModel();
         var stockinLot = viewModel.get('stockinLot');
         var selectedSpaceRecord = viewModel.get('selectedSpaceRecord');
-        var spaceepcid_link = viewModel.get('spaceepcid_link');
 		var totalpackage = viewModel.get('totalpackage');
 
         if(totalpackage == null || totalpackage == '') totalpackage = 0;

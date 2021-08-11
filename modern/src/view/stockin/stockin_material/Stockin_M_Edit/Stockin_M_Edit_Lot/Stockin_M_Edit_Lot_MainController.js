@@ -311,11 +311,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         }
 
         if(numberOfEmptyField !=0 && numberOfEmptyField != 3){
-            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 3000);
+            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, tầng, khoang', 3000);
             return;
         }
 
-        var spaceepcid_link = 'D-' + lotRow + '|H-' + lotSpace + '|T-' + lotFloor + '|';
+        var spaceepcid_link = 'D-' + lotRow + '|T-' + lotSpace + '|K-' + lotFloor + '|';
 
         //
         me.setMasked({
