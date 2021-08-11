@@ -131,27 +131,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			dataIndex: 'size_name',
 			width: 70
 		},
-		// {
-		// 	text: 'ĐVT', 
-		// 	dataIndex: 'unitid_link',
-		// 	width: 70,
-		// 	renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-		// 		if(value == null) value = 1;
-		// 		if(value == 1){
-		// 			return 'MÉT';
-		// 		}
-		// 		if(value == 3){
-		// 			return 'YARD'
-		// 		}
-		// 		if(value == 4){
-		// 			return 'KG';
-		// 		}
-		// 		if(value == 5){
-		// 			return 'POUND'
-		// 		}
-		// 		return "";
-		// 	},
-		// },
+		{
+			text: 'ĐVT', 
+			dataIndex: 'unitid_link',
+			width: 70,
+			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) value = 1;
+				if(value == 1){
+					return 'MÉT';
+				}
+				if(value == 3){
+					return 'YARD'
+				}
+				if(value == 4){
+					return 'KG';
+				}
+				if(value == 5){
+					return 'POUND'
+				}
+				return "";
+			},
+		},
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',

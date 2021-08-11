@@ -292,7 +292,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 								record.set('colorid_link', sku.colorid_link);
 								record.set('p_skuid_link', sku.productid_link);
 								record.set('skutypeid_link', sku.skutypeid_link);
-								// record.set('unitid_link', sku.unitid_link);
+								record.set('unitid_link', sku.unitid_link);
 								// record.set('unit_name', sku.unit_name);
 								record.set('porder_year', sku.porder_year);
 								record.set('unitprice', sku.unitprice);
@@ -649,7 +649,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 						stockin_dObj.unitprice = 0;
 						stockin_dObj.totalamount = 0;
 						stockin_dObj.yds = 0;
-						// stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+						stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
 
 						stockin_dObj.totalmet_origin = 0;
 						stockin_dObj.totalmet_check = 0;
@@ -735,7 +735,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 					stockin_dObj.unitprice = 0;
 					stockin_dObj.totalamount = 0;
 					stockin_dObj.yds = 0;
-					// stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
 
 					stockin_dObj.totalmet_origin = 0;
 					stockin_dObj.totalmet_check = 0;
@@ -1045,7 +1045,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 		newObj.status = -1;
 		newObj.stockin_packinglist = [];
 		newObj.stockinid_link = stockin.id;
-		// newObj.unitid_link = stockin.unitid_link;
+		newObj.unitid_link = stockin.unitid_link;
 		newObj.totalmet_check = 0;
 		newObj.totalmet_origin = 0;
 		newObj.totalpackage = 0;

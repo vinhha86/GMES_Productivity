@@ -35,6 +35,25 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         '#btnAddNoiGiao':{
             click: 'onBtnAddNoiGiao'
         },
+        '#UnitStoreCombo':{
+            select: 'onUnitStoreComboSelect'
+        },
+    },
+    onUnitStoreComboSelect: function(cbbox, newValue, eOpts){
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var stockin_d = viewModel.get('stockin.stockin_d');
+        if(stockin_d != null){
+            for(var i = 0; i < stockin_d.length; i++){
+                stockin_d[i].unitid_link = stockin.unitid_link;
+            }
+            var StockinD_Store = viewModel.getStore('StockinD_Store');
+		    if (StockinD_Store) {
+                StockinD_Store.removeAll();
+                StockinD_Store.insert(0, stockin_d);
+                StockinD_Store.commitChanges();
+            }
+        }
     },
     filterUnitStore: function(){
         var viewModel = this.getViewModel();
