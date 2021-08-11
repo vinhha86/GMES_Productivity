@@ -102,11 +102,13 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List', {
                 menu: [
                     {
                         itemId: 'btnNhapMuaMoi', // id:11
+                        iconCls: 'x-fa fa-plus',
                         text: 'Nhập mua mới',
                         // handler: 'onNhapMuaMoi'
                     },
                     {
                         itemId: 'btnNhapDieuChuyen', // id:12
+                        iconCls: 'x-fa fa-plus',
                         text: 'Nhập điều chuyển',
                         // handler: 'onNhapDieuChuyen'
                     },

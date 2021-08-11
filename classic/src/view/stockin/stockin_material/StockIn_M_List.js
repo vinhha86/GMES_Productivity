@@ -144,13 +144,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
             menu: [
                 {
                     itemId: 'btnNhapMuaMoi', // id:1
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    iconCls: 'x-fa fa-plus',
                     text: 'Nguyên liệu',
                     handler: 'onNhapMuaMoi'
                 },
                 {
                     itemId: 'btnNhapMuaMoiPhuLieu', // id:11
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    iconCls: 'x-fa fa-plus',
                     text: 'Phụ liệu',
                     handler: 'onNhapMuaMoiPhuLieu'
                 },
@@ -167,40 +167,40 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
             menu: [
                 {
                     itemId: 'btnNhapMuaMoi', // id:1
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    iconCls: 'x-fa fa-plus',
                     text: 'Nhập mua mới',
                     handler: 'onNhapMuaMoi'
                 },
                 {
                     itemId: 'btnNhapDieuChuyen', // id:2
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    iconCls: 'x-fa fa-plus',
                     text: 'Nhập điều chuyển',
                     handler: 'onNhapDieuChuyen'
                 },
-                {
-                    itemId: 'btnNhapGiaCong', // id:4
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
-                    text: 'Nhập vải trả lại từ gia công',
-                    // handler: 'onNhapMuaMoi'
-                },
-                {
-                    itemId: 'btnNhapToCat', // id:3
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
-                    text: 'Nhập vải thừa từ tổ cắt',
-                    // handler: 'onNhapMuaMoi'
-                },
-                {
-                    itemId: 'btnNhapMau', // id:6
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
-                    text: 'Nhập mẫu',
-                    // handler: 'onNhapMuaMoi'
-                },
-                {
-                    itemId: 'btnNhapCungCap', // id:5
-                    // iconCls: 'fa fa-file-pdf-o greenIcon',
-                    text: 'Nhập cấp bù từ nhà cung cấp',
-                    // handler: 'onNhapMuaMoi'
-                },
+                // {
+                //     itemId: 'btnNhapGiaCong', // id:4
+                //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                //     text: 'Nhập vải trả lại từ gia công',
+                //     // handler: 'onNhapMuaMoi'
+                // },
+                // {
+                //     itemId: 'btnNhapToCat', // id:3
+                //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                //     text: 'Nhập vải thừa từ tổ cắt',
+                //     // handler: 'onNhapMuaMoi'
+                // },
+                // {
+                //     itemId: 'btnNhapMau', // id:6
+                //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                //     text: 'Nhập mẫu',
+                //     // handler: 'onNhapMuaMoi'
+                // },
+                // {
+                //     itemId: 'btnNhapCungCap', // id:5
+                //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                //     text: 'Nhập cấp bù từ nhà cung cấp',
+                //     // handler: 'onNhapMuaMoi'
+                // },
             ],
             bind: {
                 hidden: '{isAdd_Pcontract_Stockin}'

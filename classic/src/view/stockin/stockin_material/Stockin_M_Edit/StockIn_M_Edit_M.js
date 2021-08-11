@@ -141,7 +141,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 						// margin: '0 5 0 5',
 						fieldLabel: 'Nơi giao('+ '<span style="color:red">*</span>' + ')',
 						labelWidth: 80,					
-						width: 340
+						width: 343
 					},
 					{
 						xtype:'button',
@@ -237,7 +237,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 						},
 						fieldLabel: 'Số Invoice',					
 						labelWidth: 80,
-						width: 340,
+						width: 343,
 						enableKeyEvents : true,
 						listeners: {
 							keypress: 'onPressEnterBtnInvoice_Search'

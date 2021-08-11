@@ -244,6 +244,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                 }
             }
 
+            // nếu không có npl, ko cho Lưu
+            if(stockin_d == null || stockin_d.length == 0){
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: 'Danh sách không có sản phẩm',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                return;
+            }
+
             var params = new Object();
             params.data = [];
             params.data.push(stockin);

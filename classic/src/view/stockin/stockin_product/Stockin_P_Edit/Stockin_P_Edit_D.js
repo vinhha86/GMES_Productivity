@@ -198,7 +198,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			xtype: 'combo',
 			margin: '0 5 0 5',
 			itemId: 'Sku_AutoComplete',
-			fieldLabel: 'Mã hàng',
+			fieldLabel: 'Mã NPL',
 			width: 350,
 			labelWidth: 70,
 			hideLabel: false,
@@ -210,8 +210,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			displayField: 'code',
 			valueField: 'id',
 			listConfig: {
-				loadingText: 'Tải mã hàng...',
-				emptyText: 'Không có mã hàng phù hợp.',
+				loadingText: 'Tải mã NPL...',
+				emptyText: 'Không có mã NPL phù hợp.',
 			},
 			anyMatch: true,
 			minChars: 1,
@@ -220,7 +220,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			enableKeyEvents: true,
 		},
 		{
-			tooltip: 'Thêm SP',
+			tooltip: 'Thêm NPL',
 			margin: '0 0 0 5',
 			iconCls: 'x-fa fa-plus',
 			weight: 30,

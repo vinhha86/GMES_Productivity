@@ -283,6 +283,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
                 }
             }
         }
+
+        // nếu không có npl, ko cho Lưu
+        if(stockin_d == null || stockin_d.length == 0){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Danh sách không có nguyên phụ liệu',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
         // console.log(stockin);
         params.data.push(stockin);
         me.setLoading("Đang lưu dữ liệu");

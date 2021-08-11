@@ -141,7 +141,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin
 						// margin: '0 5 0 5',
 						fieldLabel: 'Nơi giao('+ '<span style="color:red">*</span>' + ')',
 						labelWidth: 80,					
-						width: 340
+						width: 343
 					},
 					{
 						xtype:'button',
