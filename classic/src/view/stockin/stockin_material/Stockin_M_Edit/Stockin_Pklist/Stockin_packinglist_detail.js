@@ -182,6 +182,90 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_Pklis
 			},
         },
 		{
+			text: 'Cân phiếu', 
+            dataIndex: 'grossweight',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+        },
+		{
+			text: 'Cân kiểm', 
+            dataIndex: 'grossweight_check',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+        },
+		{
+			text: 'Lbs phiếu', 
+            dataIndex: 'grossweight_lbs',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+        },
+		{
+			text: 'Lbs kiểm', 
+            dataIndex: 'grossweight_lbs_check',
+            flex: 1,
+			align:'right',
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+			renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+				return Ext.util.Format.number(value, '0,000.00');
+			},
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+        },
+		{
 			text: 'Ghi chú', 
             dataIndex: 'comment',
             flex: 2,
