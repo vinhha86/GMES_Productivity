@@ -22,15 +22,16 @@ Ext.define('GSmartApp.view.dm_chucvu.PersonnelPositionViewController', {
         var Personnel_Position = new Object();
         Personnel_Position.name = viewmodel.get('personnelPos.name');
         Personnel_Position.name_en = viewmodel.get('personnelPos.name_en');
-        Personnel_Position.name_en = viewmodel.get('personnelPos.code');
+        Personnel_Position.code = viewmodel.get('personnelPos.code');
         Personnel_Position.id=null;
         params.data = Personnel_Position;
         var Personnel_Position_Name = viewmodel.get('personnelPos.name');
+        var Personnel_Position_Code = viewmodel.get('personnelPos.code');
         
-        if(!Personnel_Position_Name || !Personnel_Position_Name.trim() ){
+        if(!Personnel_Position_Name || !Personnel_Position_Name.trim() ||!Personnel_Position_Code ||!Personnel_Position_Code.trim()){
             Ext.MessageBox.show({
                 title: "Thông báo",
-                msg: "Tên chức vụ không được để trống !",
+                msg: "Tên chức vụ hoặc mã chức vụ không được để trống !",
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',

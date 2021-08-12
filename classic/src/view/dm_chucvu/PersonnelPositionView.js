@@ -137,7 +137,7 @@ Ext.define('GSmartApp.view.dm_chucvu.PersonnelPositionView', {
             width: 250,
             emptyText: 'Mã chức vụ',
             bind:{
-                value:'{personnelPos.name_en}'
+                value:'{personnelPos.code}'
             }
         }
     ]
