@@ -731,6 +731,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 						Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
 						this.redirectTo("stockout_m/" + response.id + "/edit");
 						m.getInfo(response.id);
+					}else{
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Lỗi duyệt phiếu: ' + response.message,
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});		
 					}
 				} else {
 					var response = Ext.decode(response.responseText);
