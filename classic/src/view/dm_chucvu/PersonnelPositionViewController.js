@@ -37,8 +37,13 @@ Ext.define('GSmartApp.view.dm_chucvu.PersonnelPositionViewController', {
                     yes: 'Đóng',
                 },
             });
-        }else{
-            me.Them_DB(params);
+        }else {
+            //kiểm tra mã chức vụ đã tồn tại chưa nếu đúng thì được thêm 
+            var kt = me.CheckValidate(Personnel_Position.code,"");
+            if (kt) {
+                this.Them_DB(params);
+            }
+
         }
     },
     /**
@@ -90,7 +95,12 @@ Ext.define('GSmartApp.view.dm_chucvu.PersonnelPositionViewController', {
 
         //kiểm tra nếu dữ liệu khác lúc ban đầu thì thêm
         if (context.value != context.originalValue) {
-            me.Them_DB(params);
+            //kiểm tra nếu trùng thì không được sửa 
+            var kt = me.CheckValidate(context.value,context.record.data.id);
+            if (kt) {
+                me.Them_DB(params);
+            }
+            
         }
     },
      /**
@@ -146,6 +156,27 @@ Ext.define('GSmartApp.view.dm_chucvu.PersonnelPositionViewController', {
                 }
             }
         })
+    },
+    //kiểm tra mã chức vụ đã tồn tại chưa nếu có rồi thì trả về false
+    CheckValidate: function (code,id) {
+        var store = this.getViewModel().getStore('personnel_position_store');
+        
+        for (var i = 0; i < store.data.length; i++) {
+            var data = store.data.items[i].data;
+            //kiểm tra mã chức không chứ id truyền vào
+            if (data.code == code && data.id!=id) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: "Mã chức vụ :" + code + " đã tồn tại ở dòng " + (i + 1),
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                return false;
+            }
+        }
+        return true;
     },
     /**
      * filter
