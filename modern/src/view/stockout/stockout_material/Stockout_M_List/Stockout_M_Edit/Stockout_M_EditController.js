@@ -210,7 +210,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 
                 setTimeout(function(){
                     me.onSort();
-                }, 500);
+                }, 50);
 
                 // console.log(stockout);
             }
