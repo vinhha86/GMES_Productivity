@@ -35,6 +35,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 
 		// phong to, thu gon
 		IsformMaster: true,
+        // tooltip
+        fieldTooltip: null,
 	},
 	formulas: {
         isEdit: function (get) {

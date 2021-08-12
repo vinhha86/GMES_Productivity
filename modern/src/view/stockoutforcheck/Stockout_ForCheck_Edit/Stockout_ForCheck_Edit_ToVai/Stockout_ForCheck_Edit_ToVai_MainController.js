@@ -22,15 +22,146 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         }
     },
     onFocus: function(textfield, e, eOpts){
-        // console.log(textfield);
-        // console.log(textfield.getPlaceholder());
+        //
+        this.setTooltip(textfield);
+    },
+    onFocusLeave: function(textfield, event, eOpts ){
+        //
+        this.removeTooltip();
+        //
+        this.showSelectValueWindow(textfield);
+    },
+    setTooltip: function(textfield){
+        var viewModel = this.getViewModel();
         var placeholder = textfield.getPlaceholder();
         var tip = Ext.create('Ext.tip.ToolTip', {
             target: textfield,
             html: placeholder,
         });
         tip.show();
+        viewModel.set('fieldTooltip', tip);
     },
+    removeTooltip: function(){
+        var viewModel = this.getViewModel();
+        var fieldTooltip = viewModel.get('fieldTooltip');
+        if(fieldTooltip){
+            fieldTooltip.close();
+        }
+    },
+    showSelectValueWindow: function(textfield, event){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var placeholder = textfield.getPlaceholder();
+        // console.log(textfield);
+        // console.log(placeholder);
+
+        var oldValue = '';
+        if(placeholder == 'Dài kiểm (M)'){
+            oldValue = viewModel.get('objPkl.met_check');
+        }else 
+        if(placeholder == 'Dài kiểm (Y)'){
+            oldValue = viewModel.get('objPkl.yds_check');
+        }else 
+        if(placeholder == 'Vải lỗi (M)'){
+            oldValue = viewModel.get('objPkl.met_err');
+        }else 
+        {
+            return;
+        }
+
+        if(
+            oldValue != null 
+            && oldValue != '' 
+            && oldValue != 0 
+            && !isNaN(oldValue)
+        ){
+            if (Ext.os.is.iOS) { // ios
+                if(
+                    !((oldValue/100 - Math.floor(oldValue/100)) == 0) 
+                    && ((oldValue - Math.floor(oldValue)) == 0)
+                ){ // ios value ko chia het cho 100
+                    var listValue = [];
+                    var value1 = { value: oldValue};
+                    var value2 = { value: oldValue/10};
+                    var value3 = { value: oldValue/100};
+    
+                    listValue.push(value1);
+                    listValue.push(value2);
+                    listValue.push(value3);
+
+                    var isStockin_ValueSelect_window_open = viewModel.get('isStockin_ValueSelect_window_open');
+                    if(isStockin_ValueSelect_window_open){
+                        return;
+                    }
+                    viewModel.set('isStockin_ValueSelect_window_open', true);
+    
+                    var dialog = Ext.create({
+                        xtype: 'dialog',
+                        id: 'Stockin_ValueSelect_window',
+                        itemId: 'dialog',
+                        title: '' + placeholder,
+                        width: 300,
+                        height: 200,
+                        // maxWidth: 300,
+                        // maxHeight: 600,
+                        header: true,
+                        closable: true,
+                        closeAction: 'destroy',
+                        maximizable: false,
+                        maskTapHandler: function(){
+                            // console.log('mask tapped');
+                            if(dialog){
+                                dialog.close();
+                                me.setMasked(false);
+                                setTimeout(function(){
+                                    viewModel.set('isStockin_ValueSelect_window_open', false);
+                                }, 200);
+                            }
+                        },
+                        bodyPadding: '1',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            border: false,
+                            xtype: 'Stockin_ValueSelect',
+                            viewModel: {
+                                data: {
+                                    listValue: listValue
+                                }
+                            }
+                        }],
+                    });
+                    dialog.show();
+    
+                    dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
+                        // console.log('selectValue: ' + selectValue);
+                        if(placeholder == 'Dài kiểm (M)'){
+                            viewModel.set('objPkl.met_check', selectValue);
+                        }else if(placeholder == 'Dài kiểm (Y)'){
+                            viewModel.set('objPkl.yds_check', selectValue);
+                        }else if(placeholder == 'Vải lỗi (M)'){
+                            viewModel.set('objPkl.met_err', selectValue);
+                        }
+                        dialog.close();
+                        setTimeout(function(){
+                            viewModel.set('isStockin_ValueSelect_window_open', false);
+                        }, 200);
+                    });
+                }else{ // ios value chia het cho 100
+                    // oldValue
+                }
+            }else{ // ko phai ios
+                // oldValue
+            }
+        }
+        // console.log("Version " + Ext.os.version);
+    },
+
     ontest: function(){
         var viewModel = this.getViewModel();
         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
@@ -263,6 +394,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         viewModel.set('isPklTextfieldFocus', true);
     },
     onlotnumberTxtAndpackageidTxtleave: function(textfield, event, eOpts){
+        //
+        this.onFocusLeave(textfield);
+        //
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
@@ -317,10 +451,18 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
 
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
-                                var responseObj = response.data[0];
-                                var objPkl = m.setDataObjPkl(responseObj);
-                                viewModel.set('objPkl', objPkl);
+                                // var responseObj = response.data[0];
+                                // var objPkl = m.setDataObjPkl(responseObj);
+                                // viewModel.set('objPkl', objPkl);
 
+                                var responseObjs = response.data;
+                                if(responseObjs.length == 1){ // tim dc 1 cay vai duy nhat
+                                    var responseObj = response.data[0];
+                                    var objPkl = m.setDataObjPkl(responseObj);
+                                    viewModel.set('objPkl', objPkl);
+                                }else if(responseObjs.length > 1){ // tim dc 2 cay vai tro len, hien popup chon
+                                    m.popUpSelectCayVai(responseObjs);
+                                }
                                 // bỏ highlight
                                 var grid = me.down('#Stockout_ForCheck_Edit_ToVai');
                                 grid.getSelectable().deselectAll();
@@ -354,7 +496,118 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         return objPkl;
     },
 
-    reloadStore: function(){
+    popUpSelectCayVai: function(responseObjs){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+        var storeData = WarehouseCheckStore.getData().items;
+        
+        // tao array cua popup window
+        var popUpWindowData = [];
+        for(var i = 0; i < responseObjs.length; i++){
+            var isExistInStore = false;
+            for(var j = 0; j < storeData.length; j++){
+                if(responseObjs[i].epc === storeData[j].data.epc){
+                    isExistInStore = true;
+                    break;
+                }
+            }
+            if(!isExistInStore){
+                popUpWindowData.push(responseObjs[i]);
+            }
+        }
+
+        if(popUpWindowData.length == 1){
+            var responseObj = popUpWindowData[0];
+            var objPkl = m.setDataObjPkl(responseObj);
+            viewModel.set('objPkl', objPkl);
+        }else if(popUpWindowData.length > 1){
+            // popup
+            m.popUpSelectCayVaiWindow(popUpWindowData);
+        }
+        // console.log(responseObjs);
+        // console.log(storeData);
+        // console.log(popUpWindowData);
+    },
+    popUpSelectCayVaiWindow:function(popUpWindowData){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        console.log(popUpWindowData);
+
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang tải'
+        });
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            // id: 'Stockout_ForCheck_Warehouse_Select',
+            itemId: 'dialog',
+            title: 'Chọn cây vải',
+            width: 400,
+            height: 500,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            
+            items: [
+                // {
+                //     layout: 'vbox',
+                //     flex: 1,
+                //     items:[
+                //         {
+                //             margin: 1,
+                //             flex: 1,
+                //             xtype: 'Stockout_ForCheck_Warehouse_Select',
+                //             viewModel: {
+                //                 data: {
+                //                     listValue: popUpWindowData
+                //                 }
+                //             }
+                //         },
+                //     ]
+                // },
+                {
+                    border: false,
+                    xtype: 'Stockout_ForCheck_Warehouse_Select',
+                    viewModel: {
+                        data: {
+                            listValue: popUpWindowData
+                        }
+                    }
+                }
+            ],
+        });
+        dialog.show();
+
+        dialog.down('#Stockout_ForCheck_Warehouse_Select').getController().on('onSelectValue', function (selectValue) {
+            // console.log(selectValue);
+            var responseObj = selectValue.data;
+            var objPkl = m.setDataObjPkl(responseObj);
+            viewModel.set('objPkl', objPkl);
+
+            me.setMasked(false);
+            dialog.close();
+        });
+    },
+    reloadStore:function(){
         var m = this;
         var viewModel = this.getViewModel();
         var stockoutorderid_link = viewModel.get('stockout_order.id');
