@@ -112,7 +112,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             listeners: {
                                 change: 'onlotnumberTxtType',
                                 focusenter: 'onlotnumberTxtAndpackageidTxtenter',
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -187,7 +188,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -213,7 +215,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -238,7 +241,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -279,7 +283,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -305,7 +310,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -330,7 +336,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -371,7 +378,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
