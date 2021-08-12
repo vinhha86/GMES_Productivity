@@ -46,8 +46,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
 
         GSmartApp.Ajax.post('/api/v1/pcontract_po/getPOLine_Confirm', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
-                    grid.setLoading(false);
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         record.set('sub_po_confirm', response.data);
@@ -121,6 +121,60 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             filters.remove(this.POFilter);
             this.POFilter = null;
         }
+    },
+    onPOChilFilterKeyup: function (text, e, eOpts) {
+        var filterField = this.lookupReference('POFilterChil'),
+            PContract_POList = text.up('gridpanel');
+        store = PContract_POList.getStore(),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.POFilterChil = filters.add({
+                id: 'POFilterChil',
+                property: 'po_buyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.POFilterChil) {
+            filters.remove(this.POFilterChil);
+            this.POFilterChil = null;
+        }
+    },
+    onXoaPOLine: function (record, rowIndex) {
+        var grid = this.getView();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách PO Line',
+            closeAction: 'destroy',
+            height: 440,
+            width: 800,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'ListPO_ConfimView',
+                viewModel: {
+                    data: {
+                        pcontract_poid_link: record.get('id')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ListPO_ConfimView').on('XoaThanhCong', function () {
+            form.close();
+            var widget = grid.getPlugin('rowwidget');
+            widget.toggleRow(rowIndex, record);
+        })
     },
     onDownloadTemplate: function () {
         var me = this;
@@ -196,9 +250,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         }
 
     },
-    onUpload: function (record) {
+    onUpload: function (record, rowIndex) {
         var viewmodel = this.getViewModel();
         viewmodel.set('pcontract_po_parentid_link', record.get('id'));
+        viewmodel.set('record_upload', record);
+        viewmodel.set('index_upload', rowIndex);
         var me = this.getView();
         me.down('#fileUploadPO').fileInputEl.dom.click();
     },
@@ -227,8 +283,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             }
                         });
                     }
-                    var store = viewmodel.getStore('PContractPOList');
-                    store.load();
+                    var rowIndex = viewmodel.get('index_upload');
+                    var record = viewmodel.get('record_upload');
+
+                    var widget = grid.getPlugin('rowwidget');
+                    widget.toggleRow(rowIndex, record);
                 }
             })
     },
@@ -488,7 +547,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-pencil brownIcon',
                     handler: function () {
-                        var record = this.parentMenu.record;
                         me.onEdit(record, true);
                     },
                 }, {
@@ -498,7 +556,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-trash redIcon',
                     handler: function () {
-                        var record = this.parentMenu.record;
                         me.onXoaPO(record);
                     }
                 }
@@ -507,7 +564,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         // HERE IS THE MAIN CHANGE
         var position = [e.getX() - 10, e.getY() - 10];
         e.stopEvent();
-        menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
@@ -526,7 +582,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-pencil brownIcon',
                     handler: function () {
-                        var record = this.parentMenu.record;
                         me.onEdit(record);
                     },
                 },
@@ -568,7 +623,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-upload brownIcon',
                     handler: function () {
-                        var record = this.parentMenu.record;
                         if (record.get('po_buyer') == 'TBD') {
                             Ext.MessageBox.show({
                                 title: "Thông báo",
@@ -580,8 +634,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             });
                         }
                         else {
-                            me.onUpload(record);
+                            me.onUpload(record, rowIndex);
                         }
+                    }
+                },
+                {
+                    text: 'Xóa PO Line',
+                    itemId: 'btnDelPO_PContract_POListChil',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function () {
+                        me.onXoaPOLine(record, rowIndex);
                     }
                 },
                 '-',
@@ -600,7 +664,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         // HERE IS THE MAIN CHANGE
         var position = [e.getX() - 10, e.getY() - 10];
         e.stopEvent();
-        menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },

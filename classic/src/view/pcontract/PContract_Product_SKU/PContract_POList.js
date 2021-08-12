@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         align: 'center',
         items: [
             {
-                iconCls: 'x-fa fas fa-bars violetIcon',
+                iconCls: 'x-fa fas fa-bars offerIcon',
                 handler: 'onMenu_PO_Parent'
             }
         ]
@@ -111,6 +111,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         }
     }, {
         ptype: 'rowwidget',
+        id: 'rowwidget',
         widget:
         {
             xtype: 'grid',
@@ -121,8 +122,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     listeners: {
                         validateedit: 'onPOListEdit'
                     }
-                },
-                gridfilters: true
+                }
             },
             features: [{
                 ftype: 'summary',
@@ -143,7 +143,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 align: 'center',
                 items: [
                     {
-                        iconCls: 'x-fa fas fa-bars violetIcon',
+                        iconCls: 'x-fa fas fa-bars linekhIcon',
                         handler: 'onMenu_PO'
                     }
                 ]
@@ -157,14 +157,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 dataIndex: 'po_buyer',
                 sortable: true,
                 flex: 1,
+                items: {
+                    xtype: 'textfield',
+                    fieldStyle: "",
+                    reference: 'POFilterChil',
+                    width: '99%',
+                    flex: 1,
+                    margin: 2,
+                    enableKeyEvents: true,
+                    listeners: {
+                        keyup: 'onPOChilFilterKeyup',
+                        buffer: 500
+                    }
+                },
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                     metaData.tdCls = 'po_linekh';
                     metaData.tdAttr = 'data-qtip="' + value + '"';
                     return value;
-                },
-                hideable: false,
-                filter: {
-                    type: 'string'
                 },
                 editor: {
                     allowBlank: false,

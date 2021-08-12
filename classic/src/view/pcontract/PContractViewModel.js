@@ -184,7 +184,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         hidden_chotdinhmuc: true,
         disabled_chotdinhmuc: true,
         id_mausanpham_filter: 0,
-        obj_cpoy_poline: null
+        obj_cpoy_poline: null,
+        record_upload: 0,
+        index_upload: 0
     },
     formulas: {
         ishidden_addproduct: function (get) {
