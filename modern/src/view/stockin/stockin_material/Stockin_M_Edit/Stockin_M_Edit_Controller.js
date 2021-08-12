@@ -303,7 +303,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 
                 setTimeout(function(){
                     me.onSort();
-                }, 100);
+                }, 50);
             }
 		})
     },
@@ -448,11 +448,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
     onSort: function(){
         var me = this.getView();
         var viewModel = this.getViewModel();
-        // var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
-        // Stockin_d_Store.getSorters().add({
-        //     property: 'skucode',
-        //     direction: 'ASC'
-        // });
+        var Stockin_d_Store = viewModel.getStore('Stockin_d_Store');
+        Stockin_d_Store.getSorters().add({
+            property: 'skucode',
+            direction: 'ASC'
+        });
 
         var StockinLotStore = viewModel.getStore('StockinLotStore');
         StockinLotStore.getSorters().add({

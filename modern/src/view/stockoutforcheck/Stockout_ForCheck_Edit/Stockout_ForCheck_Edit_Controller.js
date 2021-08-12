@@ -187,7 +187,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
 
                 setTimeout(function(){
                     me.onSort();
-                }, 1000);
+                }, 50);
             }
 		})
     },

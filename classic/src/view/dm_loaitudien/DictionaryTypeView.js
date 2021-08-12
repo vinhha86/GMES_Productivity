@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.dm_loaitudien.DictionaryTypeView', {
 
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }
