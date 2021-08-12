@@ -172,7 +172,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                             },
                             fieldLabel: 'Số yêu cầu',					
                             labelWidth: 80,
-                            width: 340,
+                            width: 343,
                             enableKeyEvents : true,
                             listeners: {
                                 keypress: 'onPressEnterBtnStockoutOrder_Search'
@@ -216,9 +216,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     },
                     valueField: 'id',
                     displayField: 'name',
-                    margin: '0 5 0 0',
-                    labelWidth: 90,
-                    width: 220,
+                    margin: '0 5 0 5',
+                    labelWidth: 85,
+                    width: 235,
                     queryMode: 'local',
                     anyMatch: true,
                     listeners: {
@@ -234,8 +234,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     },
                     readOnly: true,
                     fieldLabel: "Trạng thái",
-                    width: 235,
-                    labelWidth: 85
+                    width: 200,
+                    labelWidth: 70
                 }
             ]
         }
