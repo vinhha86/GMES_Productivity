@@ -1,13 +1,13 @@
 Ext.define('GSmartApp.view.org.ListOrgViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.ListOrgViewModel',
-    requires: ['GSmartApp.store.org.ListOrgMenuTreeStore', 'GSmartApp.store.OrgTypeStore','GSmartApp.store.ColorStore'],
+    requires: ['GSmartApp.store.org.ListOrgMenuTreeStore', 'GSmartApp.store.org.OrgTypeStore', 'GSmartApp.store.ColorStore'],
     stores: {
         MenuStore: {
             type: 'ListOrgMenuTreeStore'
         },
         OrgTypeStore: {
-            type: 'orgtypestore'
+            type: 'OrgTypeStore'
         },
         ColorStore: {
             type: 'ColorStore'
@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
         id: 0,
         parentid_link: null,
         titleName: '',
-        currentRec:null,
+        currentRec: null,
         isDisplayInactive: false,
         // Form
         code: null,
@@ -40,24 +40,24 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
         title: function (get) {
             if (get('id') == 0 && get('parentid_link') == null) {
                 return 'Chi tiết đơn vị';
-            }else if(get('id') == 0 && get('parentid_link') != null){
+            } else if (get('id') == 0 && get('parentid_link') != null) {
                 return 'Thêm mới đơn vị trực thuộc \'' + this.get('titleName') + '\'';
             }
             else {
                 return this.get('titleName');
             }
         },
-        btnThemState: function(get){
-            if (get('id')==0){
+        btnThemState: function (get) {
+            if (get('id') == 0) {
                 return 1;
-            }else{
+            } else {
                 return null;
             }
         },
-        isProductionLine: function(get){
-            if (get('orgtypeid_link')==14){
+        isProductionLine: function (get) {
+            if (get('orgtypeid_link') == 14) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         },

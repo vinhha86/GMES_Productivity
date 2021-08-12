@@ -1,43 +1,43 @@
 Ext.define('GSmartApp.store.org.OrgTypeStore', {
 	extend: 'Ext.data.Store',
 	alias: 'store.OrgTypeStore',
-	model:'GSmartApp.model.org.orgtype_model',
+	model: 'GSmartApp.model.org.orgtype_model',
 	// // idProperty: 'idx',
 	// fields: [
 	// 	'name',
 	// 	'name_en',
 	// ],
-	loadStore(){
+	loadStore() {
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/orgtype/getAllOrgType',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/orgtype/getAllOrgType',
+			paramsAsJson: true,
 			//extraParams : params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	
-	
+
+
 });
