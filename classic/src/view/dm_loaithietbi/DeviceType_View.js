@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
     
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }

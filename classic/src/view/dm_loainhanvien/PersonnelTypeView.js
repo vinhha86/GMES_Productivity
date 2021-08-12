@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.dm_loainhanvien.PersonnelTypeView',{
     },
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }

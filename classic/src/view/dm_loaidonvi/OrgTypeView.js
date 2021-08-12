@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
     
     plugins: {
         cellediting: {
-            clicksToEdit: 1,
+            clicksToEdit: 2,
             listeners: {
                 edit: 'onEdit'
             }
@@ -36,7 +36,14 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
         width: 50,
         xtype: 'rownumberer',
         align: 'center'
-    }, {
+    }, 
+    {
+        text: 'Mã loại đơn vị',
+        width: 100,
+        dataIndex:'id',
+        align: 'center'
+    },
+    {
         text: 'Tên loại đơn vị',
         dataIndex: 'name',
         flex: 1,
