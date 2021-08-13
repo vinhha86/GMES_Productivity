@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'stockincodeFilter',
-                width: 115,
+                width: '98%',
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'invoice_numberFilter',
-                width: 115,
+                width: '98%',
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
@@ -95,10 +95,96 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
             dataIndex: 'stockindate',
             width: 90
         },
-        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 100},    
-        {text: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
-        {text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
-        {text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120},    
+        {
+            text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 150,
+            items: {
+                xtype: 'combobox',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                editable: false,
+                readOnly: false,
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local',
+                anyMatch: true,
+                // enableKeyEvents: true,
+                listeners: {
+                    // keyup: 'onStockincodeFilterKeyup',
+                    // buffer: 500,
+                    select: 'onStockinTypeFilterKeyup',
+                },
+                bind:{
+                    store: '{StockinTypeStore}',
+                    value: '{stockinTypeComboValue}',
+                },
+                matchFieldWidth: false,
+                listConfig: {
+                    listeners: {
+                        beforeshow: function(picker) {
+                            picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                }
+            },
+        },    
+        {
+            text: 'Nơi giao', dataIndex: 'orgfrom_name', flex: 1,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrgFromFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{orgFromFilterValue}',
+                },
+            },
+        },    
+        {
+            text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrgToFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{orgToFilterValue}',
+                },
+            },
+        },
+        {
+            text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUsercreateFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{UsercreateFilterValue}',
+                },
+            },
+        },    
         // {
         //     text: 'Số lượng',
         //     xtype: 'numbercolumn',
@@ -109,14 +195,28 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
         // },
         {
             text: 'Trạng thái', dataIndex: 'statusString', width: 120,
-            // renderer: function(value, metaData, record){
-            //     switch(value){
-            //         case -1: return 'Chưa kiểm tra đủ';
-            //         case 0: return 'Đã kiểm tra đủ';
-            //         case 1: return 'Đã duyệt';
-            //     }
-            //     return '';
-            // }
+            items: {
+                xtype: 'combobox',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                editable: false,
+                readOnly: false,
+                displayField: 'text',
+                valueField: 'id',
+                queryMode: 'local',
+                anyMatch: true,
+                // enableKeyEvents: true,
+                listeners: {
+                    // keyup: 'onStockincodeFilterKeyup',
+                    // buffer: 500,
+                    select: 'onStatusFilterKeyup',
+                },
+                bind:{
+                    store:'{listStatusArray}',
+                    value: '{statusComboValue}',
+                },
+            },
         },    
     ],
     dockedItems: [{
@@ -237,7 +337,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
         {
             itemId: 'OrgFromStore',
             xtype: 'combobox',
-            emptyText: 'Nơi xuất',
+            emptyText: 'Nơi giao',
             bind:{
                 store: '{OrgFromStore}',
                 value: '{searchObj.orgid_from_link}',

@@ -81,21 +81,120 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             },
         },
         { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
-        { header: 'Loại xuất kho', dataIndex: 'stockouttype_name', width: 150 },
-        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
-        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
-        // { header: 'Tổng tiền', dataIndex: 'totalprice', width: 110},   
-        { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
+        { 
+            header: 'Loại xuất kho', dataIndex: 'stockouttype_name', width: 150,
+            items: {
+                xtype: 'combobox',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                editable: false,
+                readOnly: false,
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local',
+                anyMatch: true,
+                // enableKeyEvents: true,
+                listeners: {
+                    // keyup: 'onStockincodeFilterKeyup',
+                    // buffer: 500,
+                    select: 'onStockoutTypeFilterKeyup',
+                },
+                bind:{
+                    store: '{StockoutTypeStore}',
+                    value: '{stockoutTypeComboValue}',
+                },
+                matchFieldWidth: false,
+                listConfig: {
+                    listeners: {
+                        beforeshow: function(picker) {
+                            picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                }
+            },
+        },
+        { 
+            header: 'Nơi giao', dataIndex: 'org_from_name', flex: 1,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrgFromFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{orgFromFilterValue}',
+                },
+            },
+        },
+        { 
+            header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1, 
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrgToFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{orgToFilterValue}',
+                },
+            },
+        },
+        { 
+            header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120, 
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUsercreateFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{UsercreateFilterValue}',
+                },
+            },
+        },
         {
             text: 'Trạng thái', dataIndex: 'statusString', width: 120,
-            // renderer: function(value, metaData, record){
-            //     switch(value){
-            //         case -1: return 'Chưa kiểm tra đủ';
-            //         case 0: return 'Đã kiểm tra đủ';
-            //         case 1: return 'Đã duyệt';
-            //     }
-            //     return '';
-            // }
+            items: {
+                xtype: 'combobox',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                editable: false,
+                readOnly: false,
+                displayField: 'text',
+                valueField: 'id',
+                queryMode: 'local',
+                anyMatch: true,
+                // enableKeyEvents: true,
+                listeners: {
+                    // keyup: 'onStockincodeFilterKeyup',
+                    // buffer: 500,
+                    select: 'onStatusFilterKeyup',
+                },
+                bind:{
+                    store:'{listStatusArray}',
+                    value: '{statusComboValue}',
+                },
+            },
         },  
     ],
     dockedItems: [{

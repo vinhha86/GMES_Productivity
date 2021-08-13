@@ -71,6 +71,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
         isRFIDHidden: true,
 		isBarcodeHidden: true,
 		isManualHidden: false,
+
+        //ds trang thai, loai nhap combobox, filter list phieu nhap
+		listStatusArray: [
+            {'id': -2, 'text': 'Chưa nhặt hàng'},
+			{'id': -1, 'text': 'Đang nhặt hàng'},
+			{'id': 0, 'text': 'Đang kiểm tra'},
+			{'id': 1, 'text': 'Đã duyệt'},
+            {'id': 2, 'text': 'Đã nhận hàng'},
+		],
+		statusComboValue: null,
+		stockoutTypeComboValue: null,
+		orgFromFilterValue: null,
+		orgToFilterValue: null,
+		UsercreateFilterValue: null,
 	},
 	formulas: {
         isEdit: function (get) {

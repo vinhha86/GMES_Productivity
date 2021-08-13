@@ -82,8 +82,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
 
         // var limit = me.down('#limitpage').getValue();
         var stockouttypeid = me.down('#stockouttypeid').getValue();
-        var stockindate_from = me.down('#stockoutdate_from').getValue();
-        var stockindate_to = me.down('#stockoutdate_to').getValue();
+        var stockoutdate_from = me.down('#stockoutdate_from').getValue();
+        var stockoutdate_to = me.down('#stockoutdate_to').getValue();
         // var OrgToStore = me.down('#OrgToStore').getValue();
         // var OrgFromStore = me.down('#OrgFromStore').getValue();
         var stockoutcode = '';
@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         // if (page == null) {
         //     page = 1;
         // }
-        store.loadByDate_Material(stockouttypeid, stockoutcode, stockindate_from, stockindate_to, null, null,
+        store.loadByDate_Material(stockouttypeid, stockoutcode, stockoutdate_from, stockoutdate_to, null, null,
             orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link);
 
         var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
@@ -233,6 +233,113 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         else if (this.stockout_order_codeFilter) {
             filters.remove(this.stockout_order_codeFilter);
             this.stockout_order_codeFilter = null;
+        }
+    },
+    onStatusFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('statusComboValue');
+        var store = viewModel.getStore('Stockout');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.statusFilter = filters.add({
+                id: 'statusFilter',
+                property: 'status',
+                value: filterValue,
+                exactMatch: true,
+                // anyMatch: true,
+                // caseSensitive: false
+            });
+        }
+        else if (this.statusFilter) {
+            filters.remove(this.statusFilter);
+            this.statusFilter = null;
+        }
+        console.log('here');
+        console.log(filterValue);
+    },
+    onStockoutTypeFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('stockoutTypeComboValue');
+        var store = viewModel.getStore('Stockout');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.stockoutTypeFilter = filters.add({
+                id: 'stockoutTypeFilter',
+                property: 'stockouttypeid_link',
+                value: filterValue,
+                exactMatch: true,
+                // anyMatch: true,
+                // caseSensitive: false
+            });
+        }
+        else if (this.stockoutTypeFilter) {
+            filters.remove(this.stockoutTypeFilter);
+            this.stockoutTypeFilter = null;
+        }
+    },
+    onOrgFromFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgFromFilterValue');
+        var store = viewModel.getStore('Stockout');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgFromFilter = filters.add({
+                id: 'orgFromFilter',
+                property: 'orgfrom_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.orgFromFilter) {
+            filters.remove(this.orgFromFilter);
+            this.orgFromFilter = null;
+        }
+    },
+    onOrgToFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgToFilterValue');
+        var store = viewModel.getStore('Stockout');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgToFilter = filters.add({
+                id: 'orgToFilter',
+                property: 'orgto_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.orgToFilter) {
+            filters.remove(this.orgToFilter);
+            this.orgToFilter = null;
+        }
+    },
+    onUsercreateFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('UsercreateFilterValue');
+        var store = viewModel.getStore('Stockout');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.UsercreateFilter = filters.add({
+                id: 'UsercreateFilter',
+                property: 'usercreate_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.UsercreateFilter) {
+            filters.remove(this.UsercreateFilter);
+            this.UsercreateFilter = null;
         }
     },
 });

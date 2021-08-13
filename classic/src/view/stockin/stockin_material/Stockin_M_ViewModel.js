@@ -112,8 +112,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		isCanDoiNplPopup: false, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
 		mat_skuid_link: null, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
 		isRecordNguyenLieu: true,
-		//
-		
+		//ds trang thai, loai nhap combobox, filter list phieu nhap
+		listStatusArray: [
+			{'id': -1, 'text': 'Chưa kiểm tra'},
+			{'id': 0, 'text': 'Đang kiểm tra'},
+			{'id': 1, 'text': 'Đã duyệt'},
+			// {'id': 2, 'text': 'Đã đồng bộ'},
+			// {'id': -2, 'text': 'Đã xóa'},
+		],
+		statusComboValue: null,
+		stockinTypeComboValue: null,
+		orgFromFilterValue: null,
+		orgToFilterValue: null,
+		UsercreateFilterValue: null,
+
 	},
 	formulas: {
         isEdit: function (get) {

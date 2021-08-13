@@ -424,6 +424,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         });
     },
 
+    // stockin
     onStockincodeFilterKeyup:function(){
         var grid = this.getView(),
             // Access the field using its "reference" property name.
@@ -466,7 +467,115 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             this.invoice_numberFilter = null;
         }
     },
+    onStatusFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('statusComboValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
 
+        if (filterValue != null) {
+            this.statusFilter = filters.add({
+                id: 'statusFilter',
+                property: 'status',
+                value: filterValue,
+                exactMatch: true,
+                // anyMatch: true,
+                // caseSensitive: false
+            });
+        }
+        else if (this.statusFilter) {
+            filters.remove(this.statusFilter);
+            this.statusFilter = null;
+        }
+        console.log('here');
+        console.log(filterValue);
+    },
+    onStockinTypeFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('stockinTypeComboValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.stockinTypeFilter = filters.add({
+                id: 'stockinTypeFilter',
+                property: 'stockintypeid_link',
+                value: filterValue,
+                exactMatch: true,
+                // anyMatch: true,
+                // caseSensitive: false
+            });
+        }
+        else if (this.stockinTypeFilter) {
+            filters.remove(this.stockinTypeFilter);
+            this.stockinTypeFilter = null;
+        }
+    },
+    onOrgFromFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgFromFilterValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgFromFilter = filters.add({
+                id: 'orgFromFilter',
+                property: 'orgfrom_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.orgFromFilter) {
+            filters.remove(this.orgFromFilter);
+            this.orgFromFilter = null;
+        }
+    },
+    onOrgToFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgToFilterValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgToFilter = filters.add({
+                id: 'orgToFilter',
+                property: 'orgto_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.orgToFilter) {
+            filters.remove(this.orgToFilter);
+            this.orgToFilter = null;
+        }
+    },
+    onUsercreateFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('UsercreateFilterValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.UsercreateFilter = filters.add({
+                id: 'UsercreateFilter',
+                property: 'usercreate_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.UsercreateFilter) {
+            filters.remove(this.UsercreateFilter);
+            this.UsercreateFilter = null;
+        }
+    },
+    
+    // stockind
     onFilterValueMaNPLKeyup: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('StockinD_Store');
