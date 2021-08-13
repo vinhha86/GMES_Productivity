@@ -57,18 +57,96 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_
             dataIndex: 'stockindate',
             width: 90
         },
-        {text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 100},    
-        {text: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
-        {text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
-        {text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120},    
-        // {
-        //     text: 'Số lượng',
-        //     xtype: 'numbercolumn',
-        //     format: '0,000',
-        //     align: 'right',
-        //     dataIndex: 'totalpackage',
-        //     flex: 1
-        // },
+        {
+            text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 100,
+            items: {
+                xtype: 'combobox',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                editable: false,
+                readOnly: false,
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local',
+                anyMatch: true,
+                // enableKeyEvents: true,
+                listeners: {
+                    // keyup: 'onStockincodeFilterKeyup',
+                    // buffer: 500,
+                    select: 'onStockinTypeFilterKeyup',
+                },
+                bind:{
+                    store: '{StockinTypeStore}',
+                    value: '{stockinTypeComboValue_order}',
+                },
+                matchFieldWidth: false,
+                listConfig: {
+                    listeners: {
+                        beforeshow: function(picker) {
+                            picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                }
+            },
+        },    
+        {
+            text: 'Nơi giao', dataIndex: 'orgfrom_name', flex: 1,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrgFromFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{orgFromFilterValue_order}',
+                },
+            },
+        },    
+        {
+            text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrgToFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{orgToFilterValue_order}',
+                },
+            },
+        },
+        {
+            text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120,
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUsercreateFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{UsercreateFilterValue_order}',
+                },
+            },
+        },
         {
             text: 'Trạng thái', dataIndex: 'statusString', width: 120,
             // renderer: function(value, metaData, record){

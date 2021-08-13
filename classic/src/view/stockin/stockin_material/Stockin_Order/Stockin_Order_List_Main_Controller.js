@@ -106,6 +106,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_
             null, stockintypeid_link_from, stockintypeid_link_to,
             status, null, null, null);
     },
+
+    // stockin_order
     onStockin_Order_Code_FilterKeyup:function(){
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('Stockin_Order_Store');
@@ -148,7 +150,92 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_
             this.stockin_order_invoice_filter = null;
         }
     },
+    onStockinTypeFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('stockinTypeComboValue_order');
+        var store = viewModel.getStore('Stockin_Order_Store');
+        var filters = store.getFilters();
 
+        if (filterValue != null) {
+            this.stockinTypeFilter = filters.add({
+                id: 'stockinTypeFilter',
+                property: 'stockintypeid_link',
+                value: filterValue,
+                exactMatch: true,
+                // anyMatch: true,
+                // caseSensitive: false
+            });
+        }
+        else if (this.stockinTypeFilter) {
+            filters.remove(this.stockinTypeFilter);
+            this.stockinTypeFilter = null;
+        }
+    },
+    onOrgFromFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgFromFilterValue_order');
+        var store = viewModel.getStore('Stockin_Order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgFromFilter = filters.add({
+                id: 'orgFromFilter',
+                property: 'orgfrom_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.orgFromFilter) {
+            filters.remove(this.orgFromFilter);
+            this.orgFromFilter = null;
+        }
+    },
+    onOrgToFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgToFilterValue_order');
+        var store = viewModel.getStore('Stockin_Order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgToFilter = filters.add({
+                id: 'orgToFilter',
+                property: 'orgto_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.orgToFilter) {
+            filters.remove(this.orgToFilter);
+            this.orgToFilter = null;
+        }
+    },
+    onUsercreateFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('UsercreateFilterValue_order');
+        var store = viewModel.getStore('Stockin_Order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.UsercreateFilter = filters.add({
+                id: 'UsercreateFilter',
+                property: 'usercreate_name',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.UsercreateFilter) {
+            filters.remove(this.UsercreateFilter);
+            this.UsercreateFilter = null;
+        }
+    },
+
+    // stockin_order_d
     onFilterValueMaNPLKeyup: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('Stockin_Order_D_Store');

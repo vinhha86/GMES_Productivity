@@ -194,6 +194,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                     store:'{listStatusArray}',
                     value: '{statusComboValue}',
                 },
+                matchFieldWidth: false,
+                listConfig: {
+                    listeners: {
+                        beforeshow: function(picker) {
+                            picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                }
             },
         },  
     ],

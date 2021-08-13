@@ -125,6 +125,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		orgFromFilterValue: null,
 		orgToFilterValue: null,
 		UsercreateFilterValue: null,
+		//ds trang thai, loai nhap combobox, filter list yeu cau nhap
+		stockinTypeComboValue_order: null,
+		orgFromFilterValue_order: null,
+		orgToFilterValue_order: null,
+		UsercreateFilterValue_order: null,
 
 	},
 	formulas: {
