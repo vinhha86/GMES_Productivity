@@ -35,6 +35,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
 
 		// phong to, thu gon
 		IsformMaster: true,
+        // tooltip
+        fieldTooltip: null,
 	},
 	formulas: {
         isMetColumnHidden: function (get) {

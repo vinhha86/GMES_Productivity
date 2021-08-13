@@ -64,6 +64,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_MainController', {
                 rec.get('orgfrom_name').toLowerCase().includes(value) ||
                 rec.get('stockintype_name').toLowerCase().includes(value) ||
                 rec.get('stockinProductString').toLowerCase().includes(value) || 
+                rec.get('reason').toLowerCase().includes(value) || 
                 rec.get('totalpackage').toString().includes(value) || 
                 Ext.Date.format(rec.get('invoice_date'),'d/m/y').toLowerCase().includes(value)
                 

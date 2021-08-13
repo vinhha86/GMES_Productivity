@@ -26,15 +26,151 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         }
     },
     onFocus: function(textfield, e, eOpts){
-        // console.log(textfield);
-        // console.log(textfield.getPlaceholder());
+        //
+        this.setTooltip(textfield);
+    },
+    onFocusLeave: function(textfield, event, eOpts ){
+        //
+        this.removeTooltip();
+        //
+        // this.showSelectValueWindow(textfield, event);
+    },
+    setTooltip: function(textfield){
+        var viewModel = this.getViewModel();
         var placeholder = textfield.getPlaceholder();
         var tip = Ext.create('Ext.tip.ToolTip', {
             target: textfield,
             html: placeholder,
         });
         tip.show();
+        viewModel.set('fieldTooltip', tip);
     },
+    removeTooltip: function(){
+        var viewModel = this.getViewModel();
+        var fieldTooltip = viewModel.get('fieldTooltip');
+        if(fieldTooltip){
+            fieldTooltip.close();
+        }
+    },
+    showSelectValueWindow: function(textfield, event){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var placeholder = textfield.getPlaceholder();
+        // console.log(textfield);
+        // console.log(placeholder);
+
+        var oldValue = '';
+        if(placeholder == 'Dài kiểm (M)'){
+            oldValue = viewModel.get('objRecheck.met_check');
+        }else 
+        if(placeholder == 'Dài phiếu (M)'){
+            oldValue = viewModel.get('objRecheck.met_origin');
+        }else
+        {
+            return;
+        }
+
+        if(
+            oldValue != null 
+            && oldValue != '' 
+            && oldValue != 0 
+            && !isNaN(oldValue)
+        ){
+            if (Ext.os.is.iOS) { // ios
+                if(
+                    !((oldValue/100 - Math.floor(oldValue/100)) == 0) 
+                    && ((oldValue - Math.floor(oldValue)) == 0)
+                ){ // ios value ko chia het cho 100
+                    var listValue = [];
+                    var value1 = { value: oldValue};
+                    var value2 = { value: oldValue/10};
+                    var value3 = { value: oldValue/100};
+    
+                    listValue.push(value1);
+                    listValue.push(value2);
+                    listValue.push(value3);
+
+                    // var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
+                    // if(Stockin_ValueSelect_window) {
+                    //     event.stopEvent();
+                    //     me.focus(false);
+                    //     return;
+                    // }
+                    var isStockin_ValueSelect_window_open = viewModel.get('isStockin_ValueSelect_window_open');
+                    // console.log(isStockin_ValueSelect_window_open);
+                    if(isStockin_ValueSelect_window_open){
+                        return;
+                    }
+                    viewModel.set('isStockin_ValueSelect_window_open', true);
+    
+                    // create window
+                    var dialog = Ext.create({
+                        xtype: 'dialog',
+                        id: 'Stockin_ValueSelect_window',
+                        itemId: 'dialog',
+                        title: '' + placeholder,
+                        width: 300,
+                        height: 200,
+                        // maxWidth: 300,
+                        // maxHeight: 600,
+                        header: true,
+                        closable: true,
+                        closeAction: 'destroy',
+                        maximizable: false,
+                        maskTapHandler: function(){
+                            // console.log('mask tapped');
+                            if(dialog){
+                                dialog.close();
+                                me.setMasked(false);
+                                setTimeout(function(){
+                                    viewModel.set('isStockin_ValueSelect_window_open', false);
+                                }, 200);
+                            }
+                        },
+                        bodyPadding: '1',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            border: false,
+                            xtype: 'Stockin_ValueSelect',
+                            viewModel: {
+                                data: {
+                                    listValue: listValue
+                                }
+                            }
+                        }],
+                    });
+                    dialog.show();
+    
+                    dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
+                        // console.log('selectValue: ' + selectValue);
+                        // if(placeholder == 'Dài kiểm (M)'){
+                        //     viewModel.set('objRecheck.met_check', selectValue);
+                        // }else 
+                        // if(placeholder == 'Dài phiếu (M)'){
+                        //     viewModel.set('objRecheck.met_origin', selectValue);
+                        // }
+                        dialog.close();
+                        setTimeout(function(){
+                            viewModel.set('isStockin_ValueSelect_window_open', false);
+                        }, 200);
+                        
+                    });
+                }else{ // ios value chia het cho 100
+                    
+                }
+            }else{ // ko phai ios
+                
+            }
+        }
+        // console.log("Version " + Ext.os.version);
+    },
+
     oncbbox_pkl_stockoutdId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
         // var pkl_stockoutdId = viewModel.get('pkl_stockoutdId');
@@ -318,61 +454,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
         // console.log(newValue.toUpperCase());
         viewModel.set('lotnumberTxt', newValue.toUpperCase());
         field.setValue(newValue.toUpperCase());
-    },
-    onmTxtFocusleave: function(textfield, event, eOpts){
-        // var me = this.getView();
-        // var m = this;
-        // var viewModel = this.getViewModel();
-
-        // var mTxt = viewModel.get('mTxt');
-        // var mOriginTxt = viewModel.get('mOriginTxt');
-        // if(mOriginTxt == null || mOriginTxt == ''){
-        //     viewModel.set('mOriginTxt', mTxt);
-        // }
-    },
-    onyTxtFocusleave: function(textfield, event, eOpts){
-        // var me = this.getView();
-        // var m = this;
-        // var viewModel = this.getViewModel();
-
-        // var yTxt = viewModel.get('yTxt');
-        // var yOriginTxt = viewModel.get('yOriginTxt');
-        // if(yOriginTxt == null || yOriginTxt == ''){
-        //     viewModel.set('yOriginTxt', yTxt);
-        // }
-    },
-    oncanCheckTxtFocusleave: function(textfield, event, eOpts){
-        // var me = this.getView();
-        // var m = this;
-        // var viewModel = this.getViewModel();
-
-        // var grossweightCheckTxt = viewModel.get('grossweightCheckTxt');
-        // var grossweightTxt = viewModel.get('grossweightTxt');
-        // if(grossweightTxt == null || grossweightTxt == ''){
-        //     viewModel.set('grossweightTxt', grossweightCheckTxt);
-        // }
-    },
-    onwidthYdsCheckTxtFocusleave: function(textfield, event, eOpts){
-        // var me = this.getView();
-        // var m = this;
-        // var viewModel = this.getViewModel();
-
-        // var widthYdsCheckTxt = viewModel.get('widthYdsCheckTxt');
-        // var widthYdsTxt = viewModel.get('widthYdsTxt');
-        // if(widthYdsTxt == null || widthYdsTxt == ''){
-        //     viewModel.set('widthYdsTxt', widthYdsCheckTxt);
-        // }
-    },
-    onwidthMetCheckTxtFocusleave: function(textfield, event, eOpts){
-        // var me = this.getView();
-        // var m = this;
-        // var viewModel = this.getViewModel();
-
-        // var widthMetCheckTxt = viewModel.get('widthMetCheckTxt');
-        // var widthMetTxt = viewModel.get('widthMetTxt');
-        // if(widthMetTxt == null || widthMetTxt == ''){
-        //     viewModel.set('widthMetTxt', widthMetCheckTxt);
-        // }
     },
     onlotnumberTxtAndpackageidTxtenter: function(){
         var me = this.getView();

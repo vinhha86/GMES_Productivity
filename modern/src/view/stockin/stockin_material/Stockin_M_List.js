@@ -44,6 +44,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
                 '</div>' +
 
                 '<div class="content2">'+
+                    '<div class="content2-sub1"><b>Lý do nhập:</b></div>'+
+                    '<div class="content2-sub2">{reason}</div>' +
+                '</div>' +
+
+                '<div class="content2">'+
                     '<div class="content2-sub1"><b>Người lập:</b></div>'+
                     '<div class="content2-sub2">{usercreate_name}</div>' +
                 '</div>' +

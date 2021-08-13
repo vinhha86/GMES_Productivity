@@ -102,7 +102,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType',
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -180,8 +181,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onmTxtFocusleave',
-                                focus: 'onFocus'
+                                // focusleave: 'onmTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -208,8 +210,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onyTxtFocusleave',
-                                focus: 'onFocus'
+                                // focusleave: 'onyTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -234,7 +237,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -259,7 +263,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -303,8 +308,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focusleave: 'onwidthMetCheckTxtFocusleave',
-                                focus: 'onFocus'
+                                // focusleave: 'onwidthMetCheckTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -329,7 +335,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M
                             },
                             stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
