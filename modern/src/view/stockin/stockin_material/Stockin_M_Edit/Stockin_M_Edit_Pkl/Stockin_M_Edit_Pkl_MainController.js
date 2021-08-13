@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         //
         this.removeTooltip();
         //
-        this.showSelectValueWindow(textfield);
+        // this.showSelectValueWindow(textfield);
     },
     setTooltip: function(textfield){
         var viewModel = this.getViewModel();

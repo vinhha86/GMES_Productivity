@@ -26,9 +26,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
                 // '<div class="content1-sub2"><b>Ngày Invoice:</b> {invoice_date:date("m/d/Y")}</div>' +
                 // '</div>' +
 
-                '<div class="content2">'+
-                    '<div class="content2-sub1"><b>Loại nhập:</b></div>'+
-                    '<div class="content2-sub2">{stockintype_name}</div>' +
+                '<div class="content1">'+
+                    '<div class="content1-sub1"><b>Loại nhập:</b></div>'+
+                    '<div class="content1-sub1">{stockintype_name}</div>' +
+                    '<div class="content1-sub1"><b>Tổng số kiện:</b></div>'+
+                    '<div class="content1-sub1">{totalpackage}</div>' +
                 '</div>' +
 
                 '<div class="content2">'+

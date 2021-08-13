@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         //
         this.removeTooltip();
         //
-        this.showSelectValueWindow(textfield);
+        // this.showSelectValueWindow(textfield);
     },
     setTooltip: function(textfield){
         var viewModel = this.getViewModel();

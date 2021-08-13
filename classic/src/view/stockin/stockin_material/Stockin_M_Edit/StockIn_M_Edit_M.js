@@ -194,29 +194,46 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
 			// 	flex: 1
 			// }
 		]
-	}, {
+	}, 
+
+	// here
+	{
 		layout: 'hbox',
 		xtype: 'container',
 		margin: '1 0 0 0',
-		items: [{
-			margin: '0 5 0 5',
-			xtype: 'textfield',
-			bind: {
-				value: '{stockin.reason}'
+		items: [
+			{
+				margin: '0 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.totalpackage}'
+				},
+				fieldLabel: 'Tổng số kiện',					
+				labelWidth: 80,
+				width: 375,
+				maskRe: /[0-9]/
 			},
-			fieldLabel: 'Lý do nhập',					
-			labelWidth: 80,
-			width: 375
-		},{
-			margin: '0 5 0 5',
-			xtype: 'textfield',
-			bind: {
-				value: '{stockin.extrainfo}'
+			{
+				margin: '0 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.reason}'
+				},
+				fieldLabel: 'Lý do nhập',					
+				labelWidth: 85,
+				width: 445
 			},
-			fieldLabel: 'Kèm theo',
-			flex: 1,
-            labelWidth: 85
-		},]
+			{
+				margin: '0 5 0 5',
+				xtype: 'textfield',
+				bind: {
+					value: '{stockin.extrainfo}'
+				},
+				fieldLabel: 'Kèm theo',
+				flex: 1,
+				labelWidth: 85
+			},
+		]
 	},
 	{
 		layout: 'hbox',

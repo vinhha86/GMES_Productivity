@@ -231,6 +231,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             return;
         }
 
+        // if(isNaN(stockin.totalpackage)){
+        //     Ext.MessageBox.show({
+        //         title: "Thông báo",
+        //         msg: 'Số kiện tổng phải là số',
+        //         buttons: Ext.MessageBox.YES,
+        //         buttonText: {
+        //             yes: 'Đóng',
+        //         }
+        //     });
+        //     return;
+        // }
+
         if(stockin.orgid_from_link == null || stockin.orgid_from_link == ''){
             Ext.MessageBox.show({
                 title: "Thông báo",
