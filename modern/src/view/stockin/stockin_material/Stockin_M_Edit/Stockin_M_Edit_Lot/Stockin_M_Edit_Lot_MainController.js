@@ -327,6 +327,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         params.stockinlotid_link = stockinlotid_link;
         params.spaceepcid_link = spaceepcid_link
         params.totalpackage = lotAmount;
+        params.stockinid_link = stockinid_link;
 
         GSmartApp.Ajax.postJitin('/api/v1/stockin_lot_space/stockin_lot_space_create', Ext.JSON.encode(params),
             function (success, response, options) {
