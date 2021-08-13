@@ -21,8 +21,10 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuViewController', {
             id=select[0].data.id;
             text_vi=select[0].data.text_vi;
         }
+        console.log(id);
+        console.log(text_vi);
         var form = Ext.create('Ext.window.Window',{
-            height:250,
+            height:300,
             width:300,
             closable:true,
             resizable:false,
