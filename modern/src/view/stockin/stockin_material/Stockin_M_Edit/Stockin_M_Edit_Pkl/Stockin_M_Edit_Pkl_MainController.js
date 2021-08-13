@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
         //
         this.removeTooltip();
         //
-        // this.showSelectValueWindow(textfield);
+        this.showSelectValueWindow(textfield);
     },
     setTooltip: function(textfield){
         var viewModel = this.getViewModel();
@@ -97,213 +97,255 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edi
             return;
         }
 
+        // if(
+        //     oldValue != null 
+        //     && oldValue != '' 
+        //     && oldValue != 0 
+        //     && !isNaN(oldValue)
+        // ){
+        //     if (Ext.os.is.iOS) { // ios
+        //         if(
+        //             !((oldValue/100 - Math.floor(oldValue/100)) == 0) 
+        //             && ((oldValue - Math.floor(oldValue)) == 0)
+        //         ){ // ios value ko chia het cho 100
+        //             var listValue = [];
+        //             var value1 = { value: oldValue};
+        //             var value2 = { value: oldValue/10};
+        //             var value3 = { value: oldValue/100};
+    
+        //             listValue.push(value1);
+        //             listValue.push(value2);
+        //             listValue.push(value3);
+
+        //             // var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
+        //             // if(Stockin_ValueSelect_window) {
+        //             //     me.focus(false);
+        //             //     return;
+        //             // }
+        //             var isStockin_ValueSelect_window_open = viewModel.get('isStockin_ValueSelect_window_open');
+        //             // console.log(isStockin_ValueSelect_window_open);
+        //             if(isStockin_ValueSelect_window_open){
+        //                 return;
+        //             }
+        //             viewModel.set('isStockin_ValueSelect_window_open', true);
+    
+        //             var dialog = Ext.create({
+        //                 xtype: 'dialog',
+        //                 id: 'Stockin_ValueSelect_window',
+        //                 itemId: 'dialog',
+        //                 title: '' + placeholder,
+        //                 width: 300,
+        //                 height: 200,
+        //                 // maxWidth: 300,
+        //                 // maxHeight: 600,
+        //                 header: true,
+        //                 closable: true,
+        //                 closeAction: 'destroy',
+        //                 maximizable: false,
+        //                 maskTapHandler: function(){
+        //                     // console.log('mask tapped');
+        //                     if(dialog){
+        //                         dialog.close();
+        //                         me.setMasked(false);
+        //                         setTimeout(function(){
+        //                             viewModel.set('isStockin_ValueSelect_window_open', false);
+        //                         }, 200);
+        //                     }
+        //                 },
+        //                 bodyPadding: '1',
+        //                 layout: {
+        //                     type: 'fit', // fit screen for window
+        //                     padding: 5
+        //                 },
+        //                 items: [{
+        //                     border: false,
+        //                     xtype: 'Stockin_ValueSelect',
+        //                     viewModel: {
+        //                         data: {
+        //                             listValue: listValue
+        //                         }
+        //                     }
+        //                 }],
+        //             });
+        //             dialog.show();
+    
+        //             dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
+        //                 // console.log('selectValue: ' + selectValue);
+        //                 if(placeholder == 'Dài kiểm (M)'){
+        //                     viewModel.set('objPkl.mTxt', selectValue);
+        //                     // set if null
+        //                     var mTxt = viewModel.get('objPkl.mTxt');
+        //                     var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+        //                     if(mOriginTxt == null || mOriginTxt == ''){
+        //                         viewModel.set('objPkl.mOriginTxt', mTxt);
+        //                     }
+        //                 }else if(placeholder == 'Dài phiếu (M)'){
+        //                     viewModel.set('objPkl.mOriginTxt', selectValue);
+        //                 }else if(placeholder == 'Dài kiểm (Y)'){
+        //                     viewModel.set('objPkl.yTxt', selectValue);
+        //                     // set if null
+        //                     var yTxt = viewModel.get('objPkl.yTxt');
+        //                     var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+        //                     if(yOriginTxt == null || yOriginTxt == ''){
+        //                         viewModel.set('objPkl.yOriginTxt', yTxt);
+        //                     }
+        //                 }else if(placeholder == 'Dài phiếu (Y)'){
+        //                     viewModel.set('objPkl.yOriginTxt', selectValue);
+        //                 }else if(placeholder == 'Khổ kiểm (cm)'){
+        //                     viewModel.set('objPkl.widthMetCheckTxt', selectValue);
+        //                     // set if null
+        //                     var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+        //                     var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+        //                     if(widthMetTxt == null || widthMetTxt == ''){
+        //                         viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
+        //                     }
+        //                 }else if(placeholder == 'Khổ phiếu (cm)'){
+        //                     viewModel.set('objPkl.widthMetTxt', selectValue);
+        //                 }else if(placeholder == 'Cân kiểm'){
+        //                     viewModel.set('objPkl.grossweightCheckTxt', selectValue);
+        //                     // set if null
+        //                     var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+        //                     var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+        //                     if(grossweightTxt == null || grossweightTxt == ''){
+        //                         viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+        //                     }
+        //                 }else 
+        //                 if(placeholder == 'Cân phiếu'){
+        //                     viewModel.set('objPkl.grossweightTxt', selectValue);
+        //                 }else
+        //                 if(placeholder == 'Lbs kiểm'){
+        //                     viewModel.set('objPkl.grossweightLbsCheckTxt', selectValue);
+        //                     // set if null
+        //                     var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+        //                     var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+        //                     if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+        //                         viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+        //                     }
+        //                 }else 
+        //                 if(placeholder == 'Lbs phiếu'){
+        //                     viewModel.set('objPkl.grossweightLbsTxt', selectValue);
+        //                 }
+        //                 dialog.close();
+        //                 setTimeout(function(){
+        //                     viewModel.set('isStockin_ValueSelect_window_open', false);
+        //                 }, 200);
+        //             });
+        //         }else{ // ios value chia het cho 100
+        //             // oldValue
+        //             if(placeholder == 'Dài kiểm (M)'){
+        //                 var mTxt = viewModel.get('objPkl.mTxt');
+        //                 var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+        //                 if(mOriginTxt == null || mOriginTxt == ''){
+        //                     viewModel.set('objPkl.mOriginTxt', mTxt);
+        //                 }
+        //             }else 
+        //             if(placeholder == 'Dài kiểm (Y)'){
+        //                 var yTxt = viewModel.get('objPkl.yTxt');
+        //                 var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+        //                 if(yOriginTxt == null || yOriginTxt == ''){
+        //                     viewModel.set('objPkl.yOriginTxt', yTxt);
+        //                 }
+        //             }else 
+        //             if(placeholder == 'Cân kiểm'){
+        //                 var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+        //                 var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+        //                 if(grossweightTxt == null || grossweightTxt == ''){
+        //                     viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+        //                 }
+        //             }else 
+        //             if(placeholder == 'Lbs kiểm'){
+        //                 var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+        //                 var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+        //                 if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+        //                     viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+        //                 }
+        //             }else 
+        //             if(placeholder == 'Khổ kiểm (cm)'){
+        //                 var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+        //                 var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+        //                 if(widthMetTxt == null || widthMetTxt == ''){
+        //                     viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
+        //                 }
+        //             }
+        //         }
+        //     }else{ // ko phai ios
+        //         // oldValue
+        //         if(placeholder == 'Dài kiểm (M)'){
+        //             var mTxt = viewModel.get('objPkl.mTxt');
+        //             var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+        //             if(mOriginTxt == null || mOriginTxt == ''){
+        //                 viewModel.set('objPkl.mOriginTxt', mTxt);
+        //             }
+        //         }else 
+        //         if(placeholder == 'Dài kiểm (Y)'){
+        //             var yTxt = viewModel.get('objPkl.yTxt');
+        //             var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+        //             if(yOriginTxt == null || yOriginTxt == ''){
+        //                 viewModel.set('objPkl.yOriginTxt', yTxt);
+        //             }
+        //         }else 
+        //         if(placeholder == 'Cân kiểm'){
+        //             var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+        //             var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+        //             if(grossweightTxt == null || grossweightTxt == ''){
+        //                 viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+        //             }
+        //         }else 
+        //         if(placeholder == 'Lbs kiểm'){
+        //             var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+        //             var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+        //             if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+        //                 viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+        //             }
+        //         }else 
+        //         if(placeholder == 'Khổ kiểm (cm)'){
+        //             var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+        //             var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+        //             if(widthMetTxt == null || widthMetTxt == ''){
+        //                 viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
+        //             }
+        //         }
+        //     }
+        // }
         if(
             oldValue != null 
             && oldValue != '' 
             && oldValue != 0 
             && !isNaN(oldValue)
         ){
-            if (Ext.os.is.iOS) { // ios
-                if(
-                    !((oldValue/100 - Math.floor(oldValue/100)) == 0) 
-                    && ((oldValue - Math.floor(oldValue)) == 0)
-                ){ // ios value ko chia het cho 100
-                    var listValue = [];
-                    var value1 = { value: oldValue};
-                    var value2 = { value: oldValue/10};
-                    var value3 = { value: oldValue/100};
-    
-                    listValue.push(value1);
-                    listValue.push(value2);
-                    listValue.push(value3);
-
-                    // var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
-                    // if(Stockin_ValueSelect_window) {
-                    //     me.focus(false);
-                    //     return;
-                    // }
-                    var isStockin_ValueSelect_window_open = viewModel.get('isStockin_ValueSelect_window_open');
-                    // console.log(isStockin_ValueSelect_window_open);
-                    if(isStockin_ValueSelect_window_open){
-                        return;
-                    }
-                    viewModel.set('isStockin_ValueSelect_window_open', true);
-    
-                    var dialog = Ext.create({
-                        xtype: 'dialog',
-                        id: 'Stockin_ValueSelect_window',
-                        itemId: 'dialog',
-                        title: '' + placeholder,
-                        width: 300,
-                        height: 200,
-                        // maxWidth: 300,
-                        // maxHeight: 600,
-                        header: true,
-                        closable: true,
-                        closeAction: 'destroy',
-                        maximizable: false,
-                        maskTapHandler: function(){
-                            // console.log('mask tapped');
-                            if(dialog){
-                                dialog.close();
-                                me.setMasked(false);
-                                setTimeout(function(){
-                                    viewModel.set('isStockin_ValueSelect_window_open', false);
-                                }, 200);
-                            }
-                        },
-                        bodyPadding: '1',
-                        layout: {
-                            type: 'fit', // fit screen for window
-                            padding: 5
-                        },
-                        items: [{
-                            border: false,
-                            xtype: 'Stockin_ValueSelect',
-                            viewModel: {
-                                data: {
-                                    listValue: listValue
-                                }
-                            }
-                        }],
-                    });
-                    dialog.show();
-    
-                    dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
-                        // console.log('selectValue: ' + selectValue);
-                        if(placeholder == 'Dài kiểm (M)'){
-                            viewModel.set('objPkl.mTxt', selectValue);
-                            // set if null
-                            var mTxt = viewModel.get('objPkl.mTxt');
-                            var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
-                            if(mOriginTxt == null || mOriginTxt == ''){
-                                viewModel.set('objPkl.mOriginTxt', mTxt);
-                            }
-                        }else if(placeholder == 'Dài phiếu (M)'){
-                            viewModel.set('objPkl.mOriginTxt', selectValue);
-                        }else if(placeholder == 'Dài kiểm (Y)'){
-                            viewModel.set('objPkl.yTxt', selectValue);
-                            // set if null
-                            var yTxt = viewModel.get('objPkl.yTxt');
-                            var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
-                            if(yOriginTxt == null || yOriginTxt == ''){
-                                viewModel.set('objPkl.yOriginTxt', yTxt);
-                            }
-                        }else if(placeholder == 'Dài phiếu (Y)'){
-                            viewModel.set('objPkl.yOriginTxt', selectValue);
-                        }else if(placeholder == 'Khổ kiểm (cm)'){
-                            viewModel.set('objPkl.widthMetCheckTxt', selectValue);
-                            // set if null
-                            var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
-                            var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
-                            if(widthMetTxt == null || widthMetTxt == ''){
-                                viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
-                            }
-                        }else if(placeholder == 'Khổ phiếu (cm)'){
-                            viewModel.set('objPkl.widthMetTxt', selectValue);
-                        }else if(placeholder == 'Cân kiểm'){
-                            viewModel.set('objPkl.grossweightCheckTxt', selectValue);
-                            // set if null
-                            var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
-                            var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
-                            if(grossweightTxt == null || grossweightTxt == ''){
-                                viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
-                            }
-                        }else 
-                        if(placeholder == 'Cân phiếu'){
-                            viewModel.set('objPkl.grossweightTxt', selectValue);
-                        }else
-                        if(placeholder == 'Lbs kiểm'){
-                            viewModel.set('objPkl.grossweightLbsCheckTxt', selectValue);
-                            // set if null
-                            var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
-                            var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
-                            if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
-                                viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
-                            }
-                        }else 
-                        if(placeholder == 'Lbs phiếu'){
-                            viewModel.set('objPkl.grossweightLbsTxt', selectValue);
-                        }
-                        dialog.close();
-                        setTimeout(function(){
-                            viewModel.set('isStockin_ValueSelect_window_open', false);
-                        }, 200);
-                    });
-                }else{ // ios value chia het cho 100
-                    // oldValue
-                    if(placeholder == 'Dài kiểm (M)'){
-                        var mTxt = viewModel.get('objPkl.mTxt');
-                        var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
-                        if(mOriginTxt == null || mOriginTxt == ''){
-                            viewModel.set('objPkl.mOriginTxt', mTxt);
-                        }
-                    }else 
-                    if(placeholder == 'Dài kiểm (Y)'){
-                        var yTxt = viewModel.get('objPkl.yTxt');
-                        var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
-                        if(yOriginTxt == null || yOriginTxt == ''){
-                            viewModel.set('objPkl.yOriginTxt', yTxt);
-                        }
-                    }else 
-                    if(placeholder == 'Cân kiểm'){
-                        var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
-                        var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
-                        if(grossweightTxt == null || grossweightTxt == ''){
-                            viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
-                        }
-                    }else 
-                    if(placeholder == 'Lbs kiểm'){
-                        var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
-                        var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
-                        if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
-                            viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
-                        }
-                    }else 
-                    if(placeholder == 'Khổ kiểm (cm)'){
-                        var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
-                        var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
-                        if(widthMetTxt == null || widthMetTxt == ''){
-                            viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
-                        }
-                    }
+            if(placeholder == 'Dài kiểm (M)'){
+                var mTxt = viewModel.get('objPkl.mTxt');
+                var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+                if(mOriginTxt == null || mOriginTxt == ''){
+                    viewModel.set('objPkl.mOriginTxt', mTxt);
                 }
-            }else{ // ko phai ios
-                // oldValue
-                if(placeholder == 'Dài kiểm (M)'){
-                    var mTxt = viewModel.get('objPkl.mTxt');
-                    var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
-                    if(mOriginTxt == null || mOriginTxt == ''){
-                        viewModel.set('objPkl.mOriginTxt', mTxt);
-                    }
-                }else 
-                if(placeholder == 'Dài kiểm (Y)'){
-                    var yTxt = viewModel.get('objPkl.yTxt');
-                    var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
-                    if(yOriginTxt == null || yOriginTxt == ''){
-                        viewModel.set('objPkl.yOriginTxt', yTxt);
-                    }
-                }else 
-                if(placeholder == 'Cân kiểm'){
-                    var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
-                    var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
-                    if(grossweightTxt == null || grossweightTxt == ''){
-                        viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
-                    }
-                }else 
-                if(placeholder == 'Lbs kiểm'){
-                    var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
-                    var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
-                    if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
-                        viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
-                    }
-                }else 
-                if(placeholder == 'Khổ kiểm (cm)'){
-                    var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
-                    var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
-                    if(widthMetTxt == null || widthMetTxt == ''){
-                        viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
-                    }
+            }else 
+            if(placeholder == 'Dài kiểm (Y)'){
+                var yTxt = viewModel.get('objPkl.yTxt');
+                var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+                if(yOriginTxt == null || yOriginTxt == ''){
+                    viewModel.set('objPkl.yOriginTxt', yTxt);
+                }
+            }else 
+            if(placeholder == 'Cân kiểm'){
+                var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+                var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+                if(grossweightTxt == null || grossweightTxt == ''){
+                    viewModel.set('objPkl.grossweightTxt', grossweightCheckTxt);
+                }
+            }else 
+            if(placeholder == 'Lbs kiểm'){
+                var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+                var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+                if(grossweightLbsTxt == null || grossweightLbsTxt == ''){
+                    viewModel.set('objPkl.grossweightLbsTxt', grossweightLbsCheckTxt);
+                }
+            }else 
+            if(placeholder == 'Khổ kiểm (cm)'){
+                var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+                var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+                if(widthMetTxt == null || widthMetTxt == ''){
+                    viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
                 }
             }
         }
