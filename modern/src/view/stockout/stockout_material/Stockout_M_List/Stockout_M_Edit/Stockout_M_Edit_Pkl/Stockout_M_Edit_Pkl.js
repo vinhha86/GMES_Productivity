@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M_Edit.Stockout_M_Edit_Pkl.Stockout_M_Edit_Pkl', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m_edit.stockout_m_edit_pkl.Stockout_M_Edit_Pkl', {
     extend: 'Ext.grid.Grid',
     xtype: 'Stockout_M_Edit_Pkl',
     itemId: 'Stockout_M_Edit_Pkl',

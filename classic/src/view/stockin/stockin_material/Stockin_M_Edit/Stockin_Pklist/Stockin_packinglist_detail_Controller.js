@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_Pklist.Stockin_packinglist_detail_Controller', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklist.Stockin_packinglist_detail_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_packinglist_detail_Controller',
     init: function () {

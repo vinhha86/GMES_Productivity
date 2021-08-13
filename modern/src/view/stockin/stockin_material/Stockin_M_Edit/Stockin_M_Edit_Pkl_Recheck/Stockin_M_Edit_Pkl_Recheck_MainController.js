@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_Pkl_Recheck_MainController', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edit_Pkl_Recheck_MainController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockin_M_Edit_Pkl_Recheck_MainController',
 	init: function () {

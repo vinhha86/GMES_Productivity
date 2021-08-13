@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M_List_MainController', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.Stockout_M_List_MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_M_List_MainController',
     init: function() {

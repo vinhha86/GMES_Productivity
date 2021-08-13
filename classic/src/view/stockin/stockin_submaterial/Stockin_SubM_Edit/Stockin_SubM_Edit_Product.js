@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin_SubM_Edit_Product', {
+Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin_SubM_Edit_Product', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_SubM_Edit_Product',
     id:'Stockin_SubM_Edit_Product',

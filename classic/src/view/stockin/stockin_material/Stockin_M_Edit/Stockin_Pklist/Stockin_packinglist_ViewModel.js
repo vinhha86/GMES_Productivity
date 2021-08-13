@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_Pklist.Stockin_packinglist_ViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklist.Stockin_packinglist_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Stockin_packinglist_ViewModel',
     requires: [

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Order.Stockout_Order_D', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_order.Stockout_Order_D', {
     extend: 'Ext.dataview.DataView',
     xtype: 'Stockout_Order_D',
     itemId: 'Stockout_Order_D',

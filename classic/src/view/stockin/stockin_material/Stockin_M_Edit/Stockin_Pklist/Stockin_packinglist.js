@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_Pklist.Stockin_packinglist', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklist.Stockin_packinglist', {
     extend: 'Ext.container.Container',
     xtype: 'Stockin_packinglist',
     id: 'Stockin_packinglist',

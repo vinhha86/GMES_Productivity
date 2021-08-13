@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE.Stockin_POLINE_Main_Controller', {
+Ext.define('GSmartApp.view.stockin.stockin_product.stockin_p_edit.stockin_POLINE.Stockin_POLINE_Main_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_POLINE_Main_Controller',
 	init: function() {

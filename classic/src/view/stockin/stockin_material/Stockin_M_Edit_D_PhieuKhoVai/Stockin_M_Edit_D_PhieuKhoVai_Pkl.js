@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit_D_PhieuKhoVai.Stockin_M_Edit_D_PhieuKhoVai_Pkl', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit_d_phieukhovai.Stockin_M_Edit_D_PhieuKhoVai_Pkl', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_M_Edit_D_PhieuKhoVai_Pkl',
 	itemId: 'Stockin_M_Edit_D_PhieuKhoVai_Pkl',

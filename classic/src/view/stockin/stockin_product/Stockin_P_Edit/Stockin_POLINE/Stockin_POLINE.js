@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit.Stockin_POLINE.Stockin_POLINE', {
+Ext.define('GSmartApp.view.stockin.stockin_product.stockin_p_edit.stockin_POLINE.Stockin_POLINE', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_POLINE',
     itemId: 'Stockin_POLINE',

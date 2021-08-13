@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin_SubM_Edit_Controller', {
+Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin_SubM_Edit_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_SubM_Edit_Controller',
 	init: function() {

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_LotSpace_Edit_Info', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edit_LotSpace_Edit_Info', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_Edit_LotSpace_Edit_Info',
     itemId: 'Stockin_M_Edit_LotSpace_Edit_Info',

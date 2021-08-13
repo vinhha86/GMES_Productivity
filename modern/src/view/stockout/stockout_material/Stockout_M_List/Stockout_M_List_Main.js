@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_M_List.Stockout_M_List_Main', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.Stockout_M_List_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockout_M_List_Main',
     id: 'Stockout_M_List_Main',

@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_List_Main_Controller', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_List_Main_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_Order_List_Main_Controller',
     isActivate: false,

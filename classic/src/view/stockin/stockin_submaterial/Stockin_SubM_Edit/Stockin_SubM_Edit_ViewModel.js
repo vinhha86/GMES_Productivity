@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_Edit.Stockin_SubM_Edit_ViewModel', {
+Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin_SubM_Edit_ViewModel', {
 	extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockin_SubM_Edit_ViewModel',
 	requires: ['GSmartApp.store.DeviceInvStore', 'GSmartApp.store.OrgStore',

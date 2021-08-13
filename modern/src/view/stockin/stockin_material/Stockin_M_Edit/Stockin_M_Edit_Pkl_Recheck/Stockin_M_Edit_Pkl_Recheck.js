@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_M_Edit_Pkl_Recheck', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edit_Pkl_Recheck', {
     extend: 'Ext.grid.Grid',
     xtype: 'Stockin_M_Edit_Pkl_Recheck',
     itemId: 'Stockin_M_Edit_Pkl_Recheck',

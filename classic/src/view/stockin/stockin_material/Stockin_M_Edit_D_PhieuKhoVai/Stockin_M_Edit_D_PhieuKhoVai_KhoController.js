@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit_D_PhieuKhoVai.Stockin_M_Edit_D_PhieuKhoVai_KhoController', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit_d_phieukhovai.Stockin_M_Edit_D_PhieuKhoVai_KhoController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_Edit_D_PhieuKhoVai_KhoController',
     init: function () {

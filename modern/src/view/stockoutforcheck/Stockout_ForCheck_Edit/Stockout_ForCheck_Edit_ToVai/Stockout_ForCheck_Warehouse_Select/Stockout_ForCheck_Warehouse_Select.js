@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit.Stockout_ForCheck_Edit_ToVai.Stockout_ForCheck_Warehouse_Select', {
+Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit.stockout_forcheck_edit_tovai.Stockout_ForCheck_Warehouse_Select', {
     extend: 'Ext.dataview.List',
     xtype: 'Stockout_ForCheck_Warehouse_Select',
     itemId: 'Stockout_ForCheck_Warehouse_Select',

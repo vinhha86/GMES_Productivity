@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Edit.Stockin_ValueSelect.Stockin_ValueSelect', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_valueselect.Stockin_ValueSelect', {
     extend: 'Ext.dataview.List',
     xtype: 'Stockin_ValueSelect',
     itemId: 'Stockin_ValueSelect',
