@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         var stockintype = viewmodel.getStore('StockinTypeStore');
         if (null!=stockintype) stockintype.loadStore(1, 10);
         
-        var listidtype = "13";
+        var listidtype = "3,5";
         // var listidtype = "4,8,9,11,12";
         var orgtostore = viewmodel.getStore('OrgToStore');
         if (null!=orgtostore) orgtostore.loadStore_allchildren_byorg(listidtype);
@@ -35,6 +35,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             // load store theo npl
             m.onSearch();
         }
+        this.sortStore();
+
     },
 	listen: {
         controller: {
@@ -104,7 +106,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             var stockintypeid_link_to = 20;
             var status = [0,1,2];
             var mat_skuid_link = viewmodel.get('mat_skuid_link');
-            store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
+            store.loadStore_Material_pcontract(orgid_from_link, stockindate_from, stockindate_to, 
                 stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
                 status, pcontractid, null, null, mat_skuid_link);
         }
@@ -574,7 +576,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             this.UsercreateFilter = null;
         }
     },
-    
+
     // stockind
     onFilterValueMaNPLKeyup: function () {
         var viewmodel = this.getViewModel();
@@ -639,8 +641,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         var stockintypeid_link_from = 1;
         var stockintypeid_link_to = 20;
         var status = [-1,0,1,2];
-        store.loadStore_Material(null, null, null, 
+        store.loadStore_Material_pcontract(null, null, null, 
             null, stockintypeid_link_from, stockintypeid_link_to,
             status, pcontractid, null, null);
     },
+    sortStore: function(){
+        var viewmodel = this.getViewModel();
+        var StockinStore = viewmodel.getStore('StockinStore');
+        StockinStore.getSorters().removeAll();
+        StockinStore.getSorters().add({
+            property: 'status',
+            direction: 'ASC '
+        },{
+            property: 'stockindate',
+            direction: 'DESC'
+        });
+    }
 })

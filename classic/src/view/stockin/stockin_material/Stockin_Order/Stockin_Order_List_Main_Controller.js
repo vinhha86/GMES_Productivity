@@ -25,6 +25,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_
 		me.down('#stockindate_from').setValue(new Date(priorDate));
 
         // this.onSearch();
+        this.sortStore();
     },
 	listen: {
         controller: {
@@ -292,4 +293,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_Order.Stockin_Order_
             }
         }
     },
+    sortStore: function(){
+        var viewmodel = this.getViewModel();
+        var Stockin_Order_Store = viewmodel.getStore('Stockin_Order_Store');
+        Stockin_Order_Store.getSorters().removeAll();
+        Stockin_Order_Store.getSorters().add({
+            property: 'status',
+            direction: 'ASC '
+        },{
+            property: 'stockindate',
+            direction: 'DESC'
+        });
+    }
 })

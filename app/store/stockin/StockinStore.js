@@ -143,5 +143,60 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 				}
 			}
 		});
+	},
+	loadStore_Material_pcontract: function(orgid_from_link, 
+		stockindate_from, 
+		stockindate_to, 
+		stockintypeid_link, 
+		stockintypeid_link_from, 
+		stockintypeid_link_to, 
+		status, 
+		pcontractid_link,
+		limit, 
+		page,
+		skuid_link){
+		var me=this;
+		var params = new Object();
+		params.orgid_from_link = orgid_from_link;
+		params.stockindate_from = stockindate_from;
+		params.stockindate_to = stockindate_to;
+		params.stockintypeid_link = stockintypeid_link;
+		params.stockintypeid_link_from = stockintypeid_link_from;
+		params.stockintypeid_link_to = stockintypeid_link_to;
+		params.status = status;
+		params.pcontractid_link = pcontractid_link;
+		params.skuid_link = skuid_link;
+
+		me.pageSize = limit;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin()+'/api/v1/stockin/stockin_material_list_pcontract',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				totalProperty: 'totalCount'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 this.fireEvent('logout');
+				}
+			}
+		});
 	}
 });
