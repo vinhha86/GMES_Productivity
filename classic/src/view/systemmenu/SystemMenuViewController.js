@@ -9,12 +9,18 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuViewController', {
     control: {
         "#onThemMoi":{
             click: 'ThemMoi'
-        }
+        },
     },
     ThemMoi:function(){
-        var viewmodel=this.getViewModel();
+        var select = this.getView().getSelectionModel().getSelection();
+        var id ;
+        if(select.length == 0){
+         id =null;
+        }else{
+            id=select[0].data.id;
+        }
         var form = Ext.create('Ext.window.Window',{
-            height:300,
+            height:250,
             width:300,
             closable:true,
             resizable:false,
@@ -29,7 +35,14 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuViewController', {
             },
             items:[
                 {
-                    xtype:'SystemMenuAddView'
+                    xtype:'SystemMenuAddView',
+                    viewModel: {
+                        data:{
+                            Menu:{
+                                parent_id:id
+                                }
+                        }
+                    }
                 }
             ]
         });

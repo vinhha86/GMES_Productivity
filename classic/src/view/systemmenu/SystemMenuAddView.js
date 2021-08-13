@@ -8,18 +8,6 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddView', {
     },
     items:[
         {
-            xtype: 'combobox',
-            fieldLabel: 'Menu Cha',
-            queryMode: 'local',
-            bind:{
-                store:'{MenuStore}',
-                value: '{Menu.parent_id}'
-            },
-            displayField:'text_vi',
-            valueField: 'id',
-            margin : 5,
-        },
-        {
             xtype:'textfield',
             fieldLabel:'Menu thêm mới:',
             margin: 5,

@@ -2,9 +2,6 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.SystemMenuAddViewController',
     init: function () {
-        var viewModel = this.getViewModel();
-        var store = viewModel.getStore('MenuStore');
-        store.loadStore();
     },
    control: {
        '#exit':{
@@ -25,12 +22,7 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddViewController', {
         Menu.id = viewmodel.get('Menu.id');
         Menu.xtype = viewmodel.get('Menu.xtype');
         Menu.icon = viewmodel.get('Menu.icon');
-        Menu.parent_id=viewmodel.get('Menu.parent_id') == "" ? null: viewmodel.get('Menu.parent_id');
-        // if(!viewmodel.get('Menu.parent_id')){
-        //     Menu.checked=true; 
-        // }else{
-        //     Menu.checked=false;
-        // }
+        Menu.parent_id=viewmodel.get('Menu.parent_id') ;
 
         params.data = Menu;
         console.log(Menu);
@@ -46,14 +38,22 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddViewController', {
                             buttonText: {
                                 yes: 'Đóng',
                             },
-    
                         });
                    
                         //load 
                         var store = viewmodel.getStore('MenuStore');
                         store.loadStore_byrole(0);
-           
+                    }else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
                     }
+
                 } else {
                     Ext.Msg.show({
                         title: 'Thông báo',
