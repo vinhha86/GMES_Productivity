@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.systemmenu.SystemMenuAddView', {
     extend: 'Ext.form.Panel',
     xtype: 'SystemMenuAddView',
-   
+    id:'SystemMenuAddView',
     controller:'SystemMenuAddViewController',
     viewModel:{
         type:'SystemMenuAddViewModel'
@@ -47,14 +47,16 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddView', {
                 iconCls: 'x-fa fa-save',
                 margin: 5,
                 itemId: 'onThemMoi',
-                formBind: true
+                formBind: true,
+                text:'Lưu'
             },
             {
                 xtype: 'button',
                 align: 'center',
                 iconCls: 'x-fa fa-sign-out',
                 margin: 5,
-                itemId: 'exit'
+                itemId: 'exit',
+                text:'Thoát'
             }
             ]
         }
