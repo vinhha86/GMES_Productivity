@@ -9,7 +9,14 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddView', {
     items:[
         {
             xtype:'textfield',
-            fieldLabel:'Menu thêm mới:',
+            fieldLabel:'Menu cha:',
+            margin: 5,
+            bind:'{Menu.text}',
+            readOnly:true
+        },
+        {
+            xtype:'textfield',
+            fieldLabel:'Menu TM:',
             margin: 5,
             bind:'{Menu.text_vi}'
         },

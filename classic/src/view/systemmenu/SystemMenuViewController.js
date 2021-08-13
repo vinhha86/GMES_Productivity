@@ -16,8 +16,10 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuViewController', {
         var id ;
         if(select.length == 0){
          id =null;
+         text_vi=null;
         }else{
             id=select[0].data.id;
+            text_vi=select[0].data.text_vi;
         }
         var form = Ext.create('Ext.window.Window',{
             height:250,
@@ -39,7 +41,8 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuViewController', {
                     viewModel: {
                         data:{
                             Menu:{
-                                parent_id:id
+                                parent_id:id,
+                                text:text_vi
                                 }
                         }
                     }

@@ -18,15 +18,15 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuView', {
 
         flex: 1
     },{
-        text:'id',
+        text:'Id',
         dataIndex:'id',
         flex: 1
     },{
-        text:'xtype',
+        text:'Xtype',
         dataIndex:'viewType',
         flex: 1
     },{
-        text:'icon',
+        text:'Icon',
         dataIndex:'iconCls',
         flex: 1
     }

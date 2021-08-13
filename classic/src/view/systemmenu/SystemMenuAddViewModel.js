@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.systemmenu.SystemMenuAddViewModel', {
    
     data:{
         Menu:{
-            parent_id:''
+            parent_id:'',
+            text:''
         }
     }
 })
