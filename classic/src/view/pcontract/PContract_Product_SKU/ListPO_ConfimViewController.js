@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.pcontract.ListPO_ConfimViewController', {
             var params = new Object();
             var list = [];
             for (var i = 0; i < select.length; i++) {
-                list.push(select[i].get('id'));
+                list.push(select[i].data);
             }
             params.listid = list;
 
