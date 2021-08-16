@@ -16,14 +16,149 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         }
     },
     onFocus: function(textfield, e, eOpts){
-        // console.log(textfield);
-        // console.log(textfield.getPlaceholder());
+        //
+        this.setTooltip(textfield);
+    },
+    onFocusLeave: function(textfield, event, eOpts ){
+        //
+        this.removeTooltip();
+        //
+        // this.showSelectValueWindow(textfield, event);
+    },
+    setTooltip: function(textfield){
+        var viewModel = this.getViewModel();
         var placeholder = textfield.getPlaceholder();
         var tip = Ext.create('Ext.tip.ToolTip', {
             target: textfield,
             html: placeholder,
         });
         tip.show();
+        viewModel.set('fieldTooltip', tip);
+    },
+    removeTooltip: function(){
+        var viewModel = this.getViewModel();
+        var fieldTooltip = viewModel.get('fieldTooltip');
+        if(fieldTooltip){
+            fieldTooltip.close();
+        }
+    },
+    showSelectValueWindow: function(textfield, event){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var placeholder = textfield.getPlaceholder();
+        // console.log(textfield);
+        // console.log(placeholder);
+
+        var oldValue = '';
+        if(placeholder == 'Dài kiểm (M)'){
+            oldValue = viewModel.get('objRecheck.met_check');
+        }else 
+        if(placeholder == 'Dài phiếu (M)'){
+            oldValue = viewModel.get('objRecheck.met_origin');
+        }else
+        {
+            return;
+        }
+
+        if(
+            oldValue != null 
+            && oldValue != '' 
+            && oldValue != 0 
+            && !isNaN(oldValue)
+        ){
+            if (Ext.os.is.iOS) { // ios
+                if(
+                    !((oldValue/100 - Math.floor(oldValue/100)) == 0) 
+                    && ((oldValue - Math.floor(oldValue)) == 0)
+                ){ // ios value ko chia het cho 100
+                    var listValue = [];
+                    var value1 = { value: oldValue};
+                    var value2 = { value: oldValue/10};
+                    var value3 = { value: oldValue/100};
+    
+                    listValue.push(value1);
+                    listValue.push(value2);
+                    listValue.push(value3);
+
+                    // var Stockin_ValueSelect_window = Ext.getCmp("Stockin_ValueSelect_window");
+                    // if(Stockin_ValueSelect_window) {
+                    //     event.stopEvent();
+                    //     me.focus(false);
+                    //     return;
+                    // }
+                    var isStockin_ValueSelect_window_open = viewModel.get('isStockin_ValueSelect_window_open');
+                    // console.log(isStockin_ValueSelect_window_open);
+                    if(isStockin_ValueSelect_window_open){
+                        return;
+                    }
+                    viewModel.set('isStockin_ValueSelect_window_open', true);
+    
+                    // create window
+                    var dialog = Ext.create({
+                        xtype: 'dialog',
+                        id: 'Stockin_ValueSelect_window',
+                        itemId: 'dialog',
+                        title: '' + placeholder,
+                        width: 300,
+                        height: 200,
+                        // maxWidth: 300,
+                        // maxHeight: 600,
+                        header: true,
+                        closable: true,
+                        closeAction: 'destroy',
+                        maximizable: false,
+                        maskTapHandler: function(){
+                            // console.log('mask tapped');
+                            if(dialog){
+                                dialog.close();
+                                me.setMasked(false);
+                                setTimeout(function(){
+                                    viewModel.set('isStockin_ValueSelect_window_open', false);
+                                }, 200);
+                            }
+                        },
+                        bodyPadding: '1',
+                        layout: {
+                            type: 'fit', // fit screen for window
+                            padding: 5
+                        },
+                        items: [{
+                            border: false,
+                            xtype: 'Stockin_ValueSelect',
+                            viewModel: {
+                                data: {
+                                    listValue: listValue
+                                }
+                            }
+                        }],
+                    });
+                    dialog.show();
+    
+                    dialog.down('#Stockin_ValueSelect').getController().on('onSelectValue', function (selectValue) {
+                        // console.log('selectValue: ' + selectValue);
+                        // if(placeholder == 'Dài kiểm (M)'){
+                        //     viewModel.set('objRecheck.met_check', selectValue);
+                        // }else 
+                        // if(placeholder == 'Dài phiếu (M)'){
+                        //     viewModel.set('objRecheck.met_origin', selectValue);
+                        // }
+                        dialog.close();
+                        setTimeout(function(){
+                            viewModel.set('isStockin_ValueSelect_window_open', false);
+                        }, 200);
+                        
+                    });
+                }else{ // ios value chia het cho 100
+                    
+                }
+            }else{ // ko phai ios
+                
+            }
+        }
+        // console.log("Version " + Ext.os.version);
     },
     oncbbox_pklRip_stockoutdId_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
@@ -134,8 +269,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         ){
             var currentEditField = viewModel.get('currentEditField');
             currentEditField = '#' + currentEditField;
-            var txtfield = me.down(currentEditField);
-            m.onPklRipTextfieldFocusLeave(txtfield);
+            var textfield = me.down(currentEditField);
+            m.onPklRipTextfieldFocusLeave(textfield);
         }
         
         // quy đổi met <-> yds
@@ -217,6 +352,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         field.setValue(newValue.toUpperCase());
     },
     onlotnumberTxtAndpackageidTxtRipleave: function(textfield, event, eOpts){
+        //
+        this.onFocusLeave(textfield);
+        //
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
@@ -268,14 +406,14 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
 
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
-                                var responseObj = response.data[0];
-                                responseObj.met_check = responseObj.met_check == null ? 0 : responseObj.met_check;
-                                responseObj.ydscheck = responseObj.ydscheck == null ? 0 : responseObj.ydscheck;
-                                responseObj.met_remain = responseObj.met_remain == null ? 0 : responseObj.met_remain;
-                                responseObj.yds_remain = responseObj.yds_remain == null ? 0 : responseObj.yds_remain;
-                                responseObj.met_remain_and_check = responseObj.met_remain_and_check == null ? 0 : responseObj.met_remain_and_check;
-                                responseObj.yds_remain_and_check = responseObj.yds_remain_and_check == null ? 0 : responseObj.yds_remain_and_check;
-                                viewModel.set('objRip', responseObj);
+                                var responseObjs = response.data;
+                                if(responseObjs.length == 1){ // tim dc 1 cay vai duy nhat
+                                    var responseObj = response.data[0];
+                                    var objRip = m.setDataObjPkl(responseObj);
+                                    viewModel.set('objRip', objRip);
+                                }else if(responseObjs.length > 1){ // tim dc 2 cay vai tro len, hien popup chon
+                                    m.popUpSelectCayVai(responseObjs);
+                                }
 
                                 // bỏ highlight
                                 var grid = me.down('#Stockout_M_Edit_Pkl_Rip');
@@ -291,7 +429,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                                     }
                                 }
                                 //
-                                console.log(responseObj);
+                                // console.log(responseObj);
                             }
                             
                         }else{
@@ -304,25 +442,28 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             })        
         }
     },
-    onPklRipTextfieldFocus: function(txtfield, e, eOpts){
-        this.onFocus(txtfield, e, eOpts);
-        // set viewmodel currentEditField (txtfield đang edit)
+    onPklRipTextfieldFocus: function(textfield, e, eOpts){
+        this.onFocus(textfield, e, eOpts);
+        // set viewmodel currentEditField (textfield đang edit)
         var viewModel = this.getViewModel();
-        var itemId = txtfield.getItemId();
+        var itemId = textfield.getItemId();
         viewModel.set('isTextFieldFocus', true);
         viewModel.set('currentEditField', itemId);
     },
-    onPklRipTextfieldFocusLeave: function(txtfield, e, eOpts){
-        // update các txtfield còn lại
-        // console.log(txtfield);
-        // console.log(txtfield.getItemId());
+    onPklRipTextfieldFocusLeave: function(textfield, e, eOpts){
+        //
+        this.onFocusLeave(textfield);
+        //
+        // update các textfield còn lại
+        // console.log(textfield);
+        // console.log(textfield.getItemId());
         var viewModel = this.getViewModel();
         viewModel.set('isTextFieldFocus', false);
         var itemId = '';
-        if(txtfield == null){
+        if(textfield == null){
             itemId = 'metCheck';
         }else{
-            itemId = txtfield.getItemId();
+            itemId = textfield.getItemId();
         }
 
         var objRip = viewModel.get('objRip');
@@ -399,6 +540,111 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         }
         viewModel.set('objRip', objRip);
     },
+    setDataObjPkl:function(objPkl){
+        objPkl.met_check = objPkl.met_check == null ? 0 : objPkl.met_check;
+        objPkl.ydscheck = objPkl.ydscheck == null ? 0 : objPkl.ydscheck;
+        objPkl.met_remain = objPkl.met_remain == null ? 0 : objPkl.met_remain;
+        objPkl.yds_remain = objPkl.yds_remain == null ? 0 : objPkl.yds_remain;
+        objPkl.met_remain_and_check = objPkl.met_remain_and_check == null ? 0 : objPkl.met_remain_and_check;
+        objPkl.yds_remain_and_check = objPkl.yds_remain_and_check == null ? 0 : objPkl.yds_remain_and_check;
+        return objPkl;
+    },
+    popUpSelectCayVai: function(responseObjs){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockout_pklist_rip = viewModel.getStore('stockout_pklist_rip');
+        var storeData = stockout_pklist_rip.getData().items;
+        
+        // tao array cua popup window
+        var popUpWindowData = [];
+        for(var i = 0; i < responseObjs.length; i++){
+            var isExistInStore = false;
+            for(var j = 0; j < storeData.length; j++){
+                if(responseObjs[i].epc === storeData[j].data.epc){
+                    isExistInStore = true;
+                    break;
+                }
+            }
+            if(!isExistInStore){
+                popUpWindowData.push(responseObjs[i]);
+            }
+        }
+
+        if(popUpWindowData.length == 1){
+            var responseObj = popUpWindowData[0];
+            var objRip = m.setDataObjPkl(responseObj);
+            viewModel.set('objRip', objRip);
+        }else if(popUpWindowData.length > 1){
+            // popup
+            m.popUpSelectCayVaiWindow(popUpWindowData);
+        }
+        // console.log(responseObjs);
+        // console.log(storeData);
+        // console.log(popUpWindowData);
+    },
+    popUpSelectCayVaiWindow:function(popUpWindowData){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        console.log(popUpWindowData);
+
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang tải'
+        });
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            // id: 'Stockout_ForCheck_Warehouse_Select',
+            itemId: 'dialog',
+            title: 'Chọn cây vải',
+            width: 400,
+            height: 500,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            
+            items: [
+                {
+                    border: false,
+                    xtype: 'Stockout_M_Edit_Pkl_Rip_Select',
+                    viewModel: {
+                        data: {
+                            listValue: popUpWindowData
+                        }
+                    }
+                }
+            ],
+        });
+        dialog.show();
+
+        dialog.down('#Stockout_M_Edit_Pkl_Rip_Select').getController().on('onSelectValue', function (selectValue) {
+            // console.log(selectValue);
+            var responseObj = selectValue.data;
+            var objRip = m.setDataObjPkl(responseObj);
+            viewModel.set('objRip', objRip);
+
+            me.setMasked(false);
+            dialog.close();
+        });
+    },
+
     reloadStore: function(){
         var m = this;
         var viewModel = this.getViewModel();
