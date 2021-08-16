@@ -204,7 +204,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		},
 		isStatusComboValueTriggerHidden: function (get){
 			var statusComboValue = get('statusComboValue');
-			console.log('statusComboValue: ' + statusComboValue);
             if(statusComboValue == null || statusComboValue == ''){
                 return true;
             }
