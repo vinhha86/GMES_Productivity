@@ -108,7 +108,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                                 value: '{objRip.lotnumber}'
                             },
                             listeners: {
-                                focus: 'onFocus'
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {

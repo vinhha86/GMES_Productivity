@@ -17,11 +17,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit.stockout_forc
                 '<div class="content1">' +
                     '<div class="content1-sub1"><b>Invoice:</b></div>'+
                     '<div class="content1-sub2"><b>{invoice}</b></div>' +
+                    // '<div class="content1-sub2">{invoice}</div>' +
                 '</div>' +
 
                 '<div class="content1">' +
                     '<div class="content1-sub1"><b>Ngày nhập:</b></div>'+
-                    '<div class="content1-sub2"><b>{timecreate:date("d/m/y")}</b></div>' +
+                    // '<div class="content1-sub2"><b>{timecreate:date("d/m/y")}</b></div>' +
+                    '<div class="content1-sub2">{timecreate:date("d/m/y")}</div>' +
                 '</div>' +
 
                 // '<div class="content2">'+
@@ -30,10 +32,20 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit.stockout_forc
                 // '</div>' +
 
                 '<div class="content1">' +
-                    '<div class="content1-sub1">Số Lot:</div>'+ // Y
+                    '<div class="content1-sub1"><b>Số Lot:</b></div>'+
+                    // '<div class="content1-sub1"><b>{lotnumber}</b></div>' +
                     '<div class="content1-sub1">{lotnumber}</div>' +
-                    '<div class="content1-sub1">Số cây:</div>'+ // Y
+                    '<div class="content1-sub1"><b>Số cây:</b></div>'+
+                    // '<div class="content1-sub1"><b>{packageid}</b></div>' +
                     '<div class="content1-sub1">{packageid}</div>' +
+                '</div>' +
+                '<div class="content1">' +
+                    '<div class="content1-sub1"><b>Met:</b></div>'+
+                    // '<div class="content1-sub1"><b>{met}</b></div>' +
+                    '<div class="content1-sub1">{met}</div>' +
+                    '<div class="content1-sub1"><b>Khổ(cm):</b></div>'+
+                    // '<div class="content1-sub1"><b>{width_met*100}</b></div>' +
+                    '<div class="content1-sub1">{width_met*100}</div>' +
                 '</div>' +
             '</div>',
         '</tpl>'

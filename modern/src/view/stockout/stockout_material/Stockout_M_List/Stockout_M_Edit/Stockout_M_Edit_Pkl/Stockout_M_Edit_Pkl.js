@@ -82,7 +82,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             
             met_check = Ext.util.Format.number(met_check, '0.00');
             met_origin = Ext.util.Format.number(met_origin, '0.00');
-            return met_origin + ' / ' + met_check;
+            // return met_origin + ' / ' + met_check;
+            return met_check;
         },
         bind: {
             hidden: '{isMetColumnHidden}',
@@ -108,7 +109,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             
             ydscheck = Ext.util.Format.number(ydscheck, '0.00');
             ydsorigin = Ext.util.Format.number(ydsorigin, '0.00');
-            return ydsorigin + ' / ' + ydscheck;
+            // return ydsorigin + ' / ' + ydscheck;
+            return ydscheck;
         },
         bind: {
             hidden: '{isYdsColumnHidden}',
@@ -134,7 +136,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             
             widthcheck = Ext.util.Format.number(widthcheck * 100, '0.00');
             widthorigin = Ext.util.Format.number(widthorigin * 100, '0.00');
-            return widthorigin + ' / ' + widthcheck;
+            // return widthorigin + ' / ' + widthcheck;
+            return widthcheck;
         },
     },
     // {

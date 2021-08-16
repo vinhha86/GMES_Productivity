@@ -534,7 +534,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        console.log(popUpWindowData);
+        // console.log(popUpWindowData);
 
         me.setMasked({
             xtype: 'loadmask',
@@ -568,22 +568,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             },
             
             items: [
-                // {
-                //     layout: 'vbox',
-                //     flex: 1,
-                //     items:[
-                //         {
-                //             margin: 1,
-                //             flex: 1,
-                //             xtype: 'Stockout_ForCheck_Warehouse_Select',
-                //             viewModel: {
-                //                 data: {
-                //                     listValue: popUpWindowData
-                //                 }
-                //             }
-                //         },
-                //     ]
-                // },
                 {
                     border: false,
                     xtype: 'Stockout_ForCheck_Warehouse_Select',

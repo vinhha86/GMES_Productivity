@@ -463,6 +463,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
 
     },
     onlotnumberTxtAndpackageidTxtleave: function(textfield, event, eOpts){
+        //
+        this.onFocusLeave(textfield);
+        //
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
@@ -517,16 +520,25 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                         if (response.respcode == 200) {
                             if(response.data.length == 0){
                                 // Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
-                                Ext.toast('Cây vải không tồn tại hoặc chưa xuất', 3000);
+                                Ext.toast('Không tìm thấy cây vải có số lot và cây này', 3000);
                                 viewModel.set('objPkl', null);
                                 viewModel.set('objPkl.lotnumber', lotnumber);
                                 viewModel.set('objPkl.packageid', packageid);
 
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
-                                var responseObj = response.data[0];
-                                var objPkl = m.setDataObjPkl(responseObj);
-                                viewModel.set('objPkl', objPkl);
+                                // var responseObj = response.data[0];
+                                // var objPkl = m.setDataObjPkl(responseObj);
+                                // viewModel.set('objPkl', objPkl);
+
+                                var responseObjs = response.data;
+                                if(responseObjs.length == 1){ // tim dc 1 cay vai duy nhat
+                                    var responseObj = response.data[0];
+                                    var objPkl = m.setDataObjPkl(responseObj);
+                                    viewModel.set('objPkl', objPkl);
+                                }else if(responseObjs.length > 1){ // tim dc 2 cay vai tro len, hien popup chon
+                                    m.popUpSelectCayVai(responseObjs);
+                                }
 
                                 // bỏ highlight
                                 var grid = me.down('#Stockout_M_Edit_Pkl');
@@ -555,6 +567,101 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         objPkl.status = 0;
         if(objPkl.unitid_link == null) objPkl.unitid_link = 1;
         return objPkl;
+    },
+    popUpSelectCayVai: function(responseObjs){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockout_pklist = viewModel.getStore('stockout_pklist');
+        var storeData = stockout_pklist.getData().items;
+        
+        // tao array cua popup window
+        var popUpWindowData = [];
+        for(var i = 0; i < responseObjs.length; i++){
+            var isExistInStore = false;
+            for(var j = 0; j < storeData.length; j++){
+                if(responseObjs[i].epc === storeData[j].data.epc){
+                    isExistInStore = true;
+                    break;
+                }
+            }
+            if(!isExistInStore){
+                popUpWindowData.push(responseObjs[i]);
+            }
+        }
+
+        if(popUpWindowData.length == 1){
+            var responseObj = popUpWindowData[0];
+            var objPkl = m.setDataObjPkl(responseObj);
+            viewModel.set('objPkl', objPkl);
+        }else if(popUpWindowData.length > 1){
+            // popup
+            m.popUpSelectCayVaiWindow(popUpWindowData);
+        }
+        // console.log(responseObjs);
+        // console.log(storeData);
+        // console.log(popUpWindowData);
+    },
+    popUpSelectCayVaiWindow:function(popUpWindowData){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        console.log(popUpWindowData);
+
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang tải'
+        });
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            // id: 'Stockout_ForCheck_Warehouse_Select',
+            itemId: 'dialog',
+            title: 'Chọn cây vải',
+            width: 400,
+            height: 500,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                // console.log('mask tapped');
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            
+            items: [
+                {
+                    border: false,
+                    xtype: 'Stockout_ForCheck_Warehouse_Select',
+                    viewModel: {
+                        data: {
+                            listValue: popUpWindowData
+                        }
+                    }
+                }
+            ],
+        });
+        dialog.show();
+
+        dialog.down('#Stockout_ForCheck_Warehouse_Select').getController().on('onSelectValue', function (selectValue) {
+            // console.log(selectValue);
+            var responseObj = selectValue.data;
+            var objPkl = m.setDataObjPkl(responseObj);
+            viewModel.set('objPkl', objPkl);
+
+            me.setMasked(false);
+            dialog.close();
+        });
     },
 
     reloadStore: function(){
