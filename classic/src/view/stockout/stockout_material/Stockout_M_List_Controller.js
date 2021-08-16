@@ -255,8 +255,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
             filters.remove(this.statusFilter);
             this.statusFilter = null;
         }
-        console.log('here');
-        console.log(filterValue);
+        // console.log('here');
+        // console.log(filterValue);
     },
     onStockoutTypeFilterKeyup:function(){
         var viewModel = this.getViewModel();
@@ -341,5 +341,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
             filters.remove(this.UsercreateFilter);
             this.UsercreateFilter = null;
         }
+    },
+
+    onStatusComboValueTriggerClick: function(){
+        var viewmodel = this.getViewModel();
+        var statusComboValue = viewmodel.get('statusComboValue');
+        viewmodel.set('statusComboValue', null);
+        this.onStatusFilterKeyup();
+        // console.log(statusComboValue);
+    },
+    onStockoutTypeComboValueTriggerClick: function(){
+        var viewmodel = this.getViewModel();
+        var stockoutTypeComboValue = viewmodel.get('stockoutTypeComboValue');
+        viewmodel.set('stockoutTypeComboValue', null);
+        this.onStockoutTypeFilterKeyup();
+        // console.log(stockinTypeComboValue);
     },
 });

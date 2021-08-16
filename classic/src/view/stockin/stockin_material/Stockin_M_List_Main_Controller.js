@@ -45,6 +45,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             },
             'Stockin_M_Main_Controller': {
                 Reload_StockinList: 'onSearch'
+            },
+            '#statusComboValueTrigger': {
+                click: 'onStatusComboValueTriggerClick'
             }
         }
     },    
@@ -489,8 +492,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             filters.remove(this.statusFilter);
             this.statusFilter = null;
         }
-        console.log('here');
-        console.log(filterValue);
+        // console.log('here');
+        // console.log(filterValue);
     },
     onStockinTypeFilterKeyup:function(){
         var viewModel = this.getViewModel();
@@ -656,5 +659,21 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             property: 'stockindate',
             direction: 'DESC'
         });
-    }
+    },
+
+    //
+    onStatusComboValueTriggerClick: function(){
+        var viewmodel = this.getViewModel();
+        var statusComboValue = viewmodel.get('statusComboValue');
+        viewmodel.set('statusComboValue', null);
+        this.onStatusFilterKeyup();
+        // console.log(statusComboValue);
+    },
+    onStockinTypeComboValueTriggerClick: function(){
+        var viewmodel = this.getViewModel();
+        var stockinTypeComboValue = viewmodel.get('stockinTypeComboValue');
+        viewmodel.set('stockinTypeComboValue', null);
+        this.onStockinTypeFilterKeyup();
+        // console.log(stockinTypeComboValue);
+    },
 })

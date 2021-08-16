@@ -49,7 +49,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         //     align: 'center'
         // },
         { 
-            header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150,
+            header: 'Số phiếu', dataIndex: 'stockoutcode', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -65,7 +70,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             },
         },
         { 
-            header: 'Số YCX', dataIndex: 'stockout_order_code', width: 150,
+            header: 'Số YCX', dataIndex: 'stockout_order_code', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -80,9 +90,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 }
             },
         },
-        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 120 },
+        { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         { 
             header: 'Loại xuất kho', dataIndex: 'stockouttype_name', width: 150,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'combobox',
                 width: '98%',
@@ -111,11 +126,28 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                             picker.minWidth = picker.up('combobox').getSize().width;
                         }
                     }
+                },
+                triggers: {
+                    clear: {
+                        cls: 'x-form-clear-trigger',
+                        weight: 1,
+                        handler: 'onStockoutTypeComboValueTriggerClick',
+                        bind: {
+                            // hidden: '{!isStatusComboValueTriggerHidden}',
+                            // hidden: '{isStatusComboValueTriggerHidden}',
+                            // hidden: '{!statusComboValue}',
+                        }
+                    }
                 }
             },
         },
         { 
             header: 'Nơi giao', dataIndex: 'org_from_name', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 // fieldStyle: "",
@@ -135,6 +167,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         },
         { 
             header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 // fieldStyle: "",
@@ -154,6 +191,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         },
         { 
             header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 // fieldStyle: "",
@@ -173,6 +215,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
         },
         {
             text: 'Trạng thái', dataIndex: 'statusString', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'combobox',
                 width: '98%',
@@ -199,6 +246,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                     listeners: {
                         beforeshow: function(picker) {
                             picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                },
+                triggers: {
+                    clear: {
+                        cls: 'x-form-clear-trigger',
+                        weight: 1,
+                        handler: 'onStatusComboValueTriggerClick',
+                        bind: {
+                            // hidden: '{!isStatusComboValueTriggerHidden}',
+                            // hidden: '{isStatusComboValueTriggerHidden}',
+                            // hidden: '{!statusComboValue}',
                         }
                     }
                 }

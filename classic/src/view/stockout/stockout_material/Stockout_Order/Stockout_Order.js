@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
             align: 'center'
         },
         { 
-            header: 'Mã SP', dataIndex: 'porder_product_buyercode', width: 120, 
+            header: 'Mã SP', dataIndex: 'porder_product_buyercode', flex: 1, 
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 var val = value == 'null' ? "" : value;
                 metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -48,20 +48,23 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
             },
             items: {
                 xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'porder_product_buyercodeFilter',
-                width: 115,
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {
                     keyup: 'onPorder_product_buyercodeFilterKeyup',
                     buffer: 500
-                }
+                },
+                bind:{
+                    value: '{porder_product_buyercodeFilterValue}',
+                },
             },
         },
         { 
-            header: 'Lệnh SX', dataIndex: 'porder_code', width: 120,
+            header: 'Lệnh SX', dataIndex: 'porder_code', flex: 1,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 var val = value == 'null' ? "" : value;
                 metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -69,32 +72,113 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
             },
             items: {
                 xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'porder_codeFilter',
-                width: 115,
+                // fieldStyle: "",
+                // reference: 'porder_codeFilter',
+                width: '98%',
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
                 listeners: {
                     keyup: 'onPorder_codeFilterKeyup',
                     buffer: 500
-                }
+                },
+                bind:{
+                    value: '{porder_codeFilterValue}',
+                },
             },
         },
-        { header: 'Số phiếu', dataIndex: 'stockout_order_code', flex: 1 },
-        { header: 'Loại phiếu', dataIndex: 'typename', width: 140 },
-        { header: 'Ngày xuất', dataIndex: 'orderdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
-        { header: 'Nơi xuất', dataIndex: 'org_from_name', width: 150 },
-        { header: 'Nơi nhận', dataIndex: 'org_to_name', width: 150 },
-        {
-            text: 'Trạng thái',
-            dataIndex: 'statusName',
-            width: 120,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            }
-        }
+        { 
+            header: 'Số phiếu', dataIndex: 'stockout_order_code', flex: 1, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'stockout_order_codeFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStockout_order_codeFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{stockout_order_codeFilterValue}',
+                },
+            },
+        },
+        { 
+            header: 'Loại phiếu', dataIndex: 'typename', width: 140, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+        },
+        { 
+            header: 'Ngày xuất', dataIndex: 'orderdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90,
+        },
+        { 
+            header: 'Nơi xuất', dataIndex: 'org_from_name', width: 150, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'stockout_order_codeFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrg_from_nameFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{org_from_nameFilterValue}',
+                },
+            },
+        },
+        { 
+            header: 'Nơi nhận', dataIndex: 'org_to_name', width: 150, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'stockout_order_codeFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onOrg_to_nameFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{org_to_nameFilterValue}',
+                },
+            },
+        },
+        // {
+        //     text: 'Trạng thái',
+        //     dataIndex: 'statusName',
+        //     width: 120,
+        //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        //         metaData.tdAttr = 'data-qtip="' + value + '"';
+        //         return value;
+        //     }
+        // }
     ],
     dockedItems: [{
         dock: 'top',

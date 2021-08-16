@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
             width: 90
         },
         {
-            text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 100,
+            text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 150,
             items: {
                 xtype: 'combobox',
                 width: '98%',
@@ -85,6 +85,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
                     listeners: {
                         beforeshow: function(picker) {
                             picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                },
+                triggers: {
+                    clear: {
+                        cls: 'x-form-clear-trigger',
+                        weight: 1,
+                        handler: 'onStockinTypeComboValue_orderTriggerClick',
+                        bind: {
+                            // hidden: '{!isStatusComboValueTriggerHidden}',
+                            // hidden: '{isStatusComboValueTriggerHidden}',
+                            // hidden: '{!statusComboValue}',
                         }
                     }
                 }

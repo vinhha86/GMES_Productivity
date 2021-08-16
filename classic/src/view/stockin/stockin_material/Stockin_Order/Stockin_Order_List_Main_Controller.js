@@ -304,5 +304,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
             property: 'stockindate',
             direction: 'DESC'
         });
-    }
+    },
+
+    //
+    onStockinTypeComboValue_orderTriggerClick: function(){
+        var viewmodel = this.getViewModel();
+        var stockinTypeComboValue_order = viewmodel.get('stockinTypeComboValue_order');
+        viewmodel.set('stockinTypeComboValue_order', null);
+        this.onStockinTypeFilterKeyup();
+        // console.log(stockinTypeComboValue);
+    },
 })

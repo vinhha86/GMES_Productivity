@@ -56,6 +56,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         // var stockouttypeid = me.down('#stockouttypeid').getValue();
         var fromDate = me.down('#stockoutorderdate_from').getValue();
         var toDate = me.down('#stockoutorderdate_to').getValue();
+        var status = 0;
         // var OrgToStore = me.down('#OrgToStore').getValue();
         // var OrgFromStore = me.down('#OrgFromStore').getValue();
         // var stockoutcode = '';
@@ -74,7 +75,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         //     page = 1;
         // }
 
-        store.loadStore_byPage(fromDate, toDate, null, null, null);
+        store.loadStore_byPage(fromDate, toDate, null, null, status);
     },
 
     onMenu_StockoutOrderList: function (grid, rowIndex, colIndex, item, e, record) {
@@ -126,17 +127,16 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
 
     // filter
     onPorder_product_buyercodeFilterKeyup:function(){
-        var grid = this.getView(),
-            // Access the field using its "reference" property name.
-            filterField = this.lookupReference('porder_product_buyercodeFilter'),
-            store = this.getViewModel().getStore('Stockout_order_Store'),
-            filters = store.getFilters();
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('porder_product_buyercodeFilterValue');
+        var store = this.getViewModel().getStore('Stockout_order_Store');
+        var filters = store.getFilters();
 
-        if (filterField.value) {
+        if (filterValue != null) {
             this.porder_product_buyercodeFilter = filters.add({
                 id: 'porder_product_buyercodeFilter',
                 property: 'porder_product_buyercode',
-                value: filterField.value,
+                value: filterValue,
                 anyMatch: true,
                 caseSensitive: false
             });
@@ -145,19 +145,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
             filters.remove(this.porder_product_buyercodeFilter);
             this.porder_product_buyercodeFilter = null;
         }
+
+        // console.log(filterValue);
     },
     onPorder_codeFilterKeyup:function(){
-        var grid = this.getView(),
-            // Access the field using its "reference" property name.
-            filterField = this.lookupReference('porder_codeFilter'),
-            store = this.getViewModel().getStore('Stockout_order_Store'),
-            filters = store.getFilters();
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('porder_codeFilterValue');
+        var store = this.getViewModel().getStore('Stockout_order_Store');
+        var filters = store.getFilters();
 
-        if (filterField.value) {
+        if (filterValue != null) {
             this.porder_codeFilter = filters.add({
                 id: 'porder_codeFilter',
                 property: 'porder_code',
-                value: filterField.value,
+                value: filterValue,
                 anyMatch: true,
                 caseSensitive: false
             });
@@ -165,6 +166,66 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         else if (this.porder_codeFilter) {
             filters.remove(this.porder_codeFilter);
             this.porder_codeFilter = null;
+        }
+    },
+    onStockout_order_codeFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('stockout_order_codeFilterValue');
+        var store = this.getViewModel().getStore('Stockout_order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.porder_codeFilter = filters.add({
+                id: 'stockout_order_codeFilter',
+                property: 'stockout_order_code',
+                value: filterValue,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.stockout_order_codeFilter) {
+            filters.remove(this.stockout_order_codeFilter);
+            this.stockout_order_codeFilter = null;
+        }
+    },
+    onOrg_from_nameFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('org_from_nameFilterValue');
+        var store = this.getViewModel().getStore('Stockout_order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.org_from_nameFilter = filters.add({
+                id: 'org_from_nameFilter',
+                property: 'org_from_name',
+                value: filterValue,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.org_from_nameFilter) {
+            filters.remove(this.org_from_nameFilter);
+            this.org_from_nameFilter = null;
+        }
+    },
+    onOrg_to_nameFilterKeyup:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('org_to_nameFilterValue');
+        var store = this.getViewModel().getStore('Stockout_order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.org_to_nameFilter = filters.add({
+                id: 'org_to_nameFilter',
+                property: 'org_to_name',
+                value: filterValue,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.org_to_nameFilter) {
+            filters.remove(this.org_to_nameFilter);
+            this.org_to_nameFilter = null;
         }
     },
 });

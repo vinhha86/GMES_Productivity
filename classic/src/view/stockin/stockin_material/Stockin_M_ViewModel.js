@@ -202,5 +202,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 			}
 			return false;
 		},
+		isStatusComboValueTriggerHidden: function (get){
+			var statusComboValue = get('statusComboValue');
+			console.log('statusComboValue: ' + statusComboValue);
+            if(statusComboValue == null || statusComboValue == ''){
+                return true;
+            }
+            return false;
+		}
     }
 })
