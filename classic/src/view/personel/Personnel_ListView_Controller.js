@@ -13,8 +13,54 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         },
         '#btnPrint_Personnel': {
             click: 'onPrint'
-        }
+        },
+        '#fileUpload': {
+            change: 'onSelect'
+        },
+        '#splbtn_Upload': {
+            click: 'onUpload'
+        },
     },
+    onUpload: function () {
+        var me = this.getView();
+        me.down('#fileUpload').fileInputEl.dom.click();
+    },
+    onSelect: function (m, value) {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/upload_personnel/personnel', data, 3 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Upload Thành Công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }
+            })
+    },
+
     onPrint: function () {
         var grid = this.getView();
         var viewmodel = this.getViewModel();

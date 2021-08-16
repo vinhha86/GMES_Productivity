@@ -102,7 +102,25 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             text: 'Print',
             iconCls: 'x-fa fa-print',
             itemId: 'btnPrint_Personnel',
-        }, '->', {
+        },{
+            xtype: 'filefield',
+            buttonOnly: true,
+            hidden: true,
+            itemId: 'fileUpload',
+            width: 35,
+            height: 32,
+            margin: 3
+        },
+        {
+            xtype: 'button',
+            margin: 1,
+            text: 'Upload',
+            iconCls: 'x-fa fa-upload',
+            itemId: 'splbtn_Upload',
+            tooltip: 'Upload nhân viên',
+        }
+        
+        , '->', {
             xtype: 'checkbox',
             margin: '1 5 1 1',
             boxLabel: 'Xem tất cả',
