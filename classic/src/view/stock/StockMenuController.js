@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         viewModel.set('rowObj', new Object());
     },
     onloadDetail: function( grid, record, item, index, e, eOpts){
-        console.log(record);
+        // console.log(record);
         var viewModel = this.getViewModel();
 
         // Trong trường hợp xoá tay combo box (bỏ filter)
@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         if(maHangId == null){
             var WarehouseStore = viewModel.get('WarehouseStore');
             var filters = WarehouseStore.getFilters();
-            console.log(filters);
+            // console.log(filters);
             if(filters.items.length > 0){
                 for(var i = 0; i < filters.items.length; i++){
                     var filterObj = filters.items[i];

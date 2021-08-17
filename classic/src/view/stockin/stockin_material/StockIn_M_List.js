@@ -261,10 +261,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
                         cls: 'x-form-clear-trigger',
                         weight: 1,
                         handler: 'onStatusComboValueTriggerClick',
+                        reference: 'statusComboValueTrigger',
                         bind: {
-                            // hidden: '{!isStatusComboValueTriggerHidden}',
-                            // hidden: '{isStatusComboValueTriggerHidden}',
-                            // hidden: '{!statusComboValue}',
+                            hidden: '{statusComboValueTrigger.value==""}'
                         }
                     }
                 }

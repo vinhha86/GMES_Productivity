@@ -5,8 +5,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
     reference: 'StockMaterialList',
     controller: 'StockMaterialListController',
     selModel: {
-        selType: 'rowmodel',
-        mode: 'SINGLE'
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
     },
     viewConfig: {
         stripeRows: false,
@@ -145,6 +145,23 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
                 return value;
             },
         },
-]
+    ],
+    dockedItems:[
+        {
+            layout:'hbox',
+            border: false,
+            dock:'bottom',
+            items:[
+                {
+                    xtype: 'button',
+                    itemId: 'btnChuyenKhoang',
+                    iconCls: 'x-fa fa-random',
+                    tooltip: 'Chuyển khoang',
+                    text: 'Chuyển khoang',
+                    margin: '5 1 5 1',
+                },
+            ]
+        }
+    ],
 });
 
