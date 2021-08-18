@@ -56,8 +56,8 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
             WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
-            console.log('in here');
-            console.log(WarehouseStore.getData());
+            // console.log('in here');
+            // console.log(WarehouseStore.getData());
         }
     },
     onContextMenu: function(tree, record, item, index, e, eOpts ) {
