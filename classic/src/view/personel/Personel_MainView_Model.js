@@ -12,6 +12,9 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
     },
     data: {
         isviewall : false, // bind checkbox xem tat ca
-        isdisabled: false
+        isdisabled: false,
+        donvi:{
+            id:null
+        }
     }
 })

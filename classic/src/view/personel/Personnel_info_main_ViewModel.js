@@ -42,9 +42,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
             status: 1
         },
         isActive: false,
-        QuocTich:{
-            old:null
-        },
         Tinh:{
             old:null
         },

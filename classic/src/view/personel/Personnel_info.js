@@ -65,10 +65,13 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 },{
                     xtype: 'textfield',
                     labelWidth: 78,
+                    anyMatch: true,
+                    hidden: true,
                     fieldLabel: 'Email:',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
                     flex: 1,
+                    
                     margin: 1,
                     vtype: 'email',
                     bind: {
@@ -122,7 +125,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         fieldLabel: 'Ngày cấp CMT:',
                         labelAlign: 'left',
                         labelWidth: 78,
-                        itemId: 'NgaySinh',
                         flex: 1,
                         margin: 1,
                         format: 'd/m/Y',
@@ -149,6 +151,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         anyMatch: true,
                         labelWidth: 78,
                         fieldLabel: 'Quốc tịch',
+                        hidden: true,
                         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                         fieldStyle: 'font-size:11px;',
                         displayField: 'name',
@@ -156,7 +159,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         flex: 1,
                         margin: 1,
                         bind: {
-                            value: '{personnel.countryid_link}',
+                            value: '{person.countryid_link}',
                             store: '{OrgCountryStore}'
                         }
                     }, {
@@ -209,7 +212,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                             value: '{personnel.communeid_link}',
                             store: '{OrgCommuneStore}'
                         }
-                    },,{
+                    },{
                         xtype: 'textfield',
                         labelWidth: 78,
                         fieldLabel: 'Thôn ('+ '<span style="color:red">*</span>' + ')',
@@ -220,20 +223,20 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         bind: {
                             value: '{personnel.village}'
                         }
-                    } ,{
-                        xtype: 'checkbox',
+                    } ,
+                    {
+                        xtype: 'textfield',
                         labelWidth: 78,
-                        fieldLabel: 'Xe đạp',
+                        fieldLabel: 'Loại sức khỏe',
                         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                         fieldStyle: 'font-size:11px;',
                         flex: 1,
                         margin: 1,
-                        inputValue: true,
-                        itemId: 'checkmoto',
                         bind: {
-                            value: '{personnel.isbike}'
+                            value: '{personnel.healthinfo}'
                         }
                     }
+                    
             ]
             }, {
                 layout: 'vbox',
@@ -343,18 +346,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.reason}'
                     }
-                }, {
-                    xtype: 'textfield',
-                    labelWidth: 78,
-                    fieldLabel: 'Biển số xe',
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.bike_number}',
-                        editable: '{personnel.is_motobike}'
-                    }
                 }
             ]
             }, {
@@ -421,18 +412,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 {
                     xtype: 'textfield',
                     labelWidth: 78,
-                    fieldLabel: 'Loại sức khỏe',
-                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                    fieldStyle: 'font-size:11px;',
-                    flex: 1,
-                    margin: 1,
-                    bind: {
-                        value: '{personnel.healthinfo}'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    labelWidth: 78,
                     fieldLabel: 'Số sổ BH',
                     labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                     fieldStyle: 'font-size:11px;',
@@ -455,6 +434,19 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     bind: {
                         value: '{personnel.date_insurance}'
                     }
+                },{
+                    xtype: 'checkbox',
+                    labelWidth: 78,
+                    fieldLabel: 'Xe đạp',
+                    labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                    fieldStyle: 'font-size:11px;',
+                    flex: 1,
+                    margin: 1,
+                    inputValue: true,
+                    itemId: 'checkmoto',
+                    bind: {
+                        value: '{personnel.isbike}'
+                    }
                 }
             ]
             }]
@@ -471,8 +463,22 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                     value: '{personnel.address}'
                 },
                 width: 763
-            }]
-        }]
+            }, {
+                xtype: 'textfield',
+                labelWidth: 78,
+                fieldLabel: 'Biển số xe',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                flex: 1,
+                margin: 1,
+                bind: {
+                    value: '{personnel.bike_number}',
+                    editable: '{personnel.is_motobike}'
+                }
+            }
+        ]
+        }
+    ]
     },
     {
         layout: 'vbox',

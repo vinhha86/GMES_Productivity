@@ -22,14 +22,30 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         },
     },
     onUpload: function () {
+        var viewmodel = this.getViewModel();
         var me = this.getView();
-        me.down('#fileUpload').fileInputEl.dom.click();
+        var donvi=viewmodel.get('donvi.id');
+        if(!donvi){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: "Bạn chưa chọn đơn vị!",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }else{
+            me.down('#fileUpload').fileInputEl.dom.click();
+        }
     },
     onSelect: function (m, value) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
+
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('orgmanageid_link', viewmodel.get('donvi.id'));
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/upload_personnel/personnel', data, 3 * 60 * 1000,
             function (success, response, options) {
@@ -46,6 +62,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                                 yes: 'Đóng'
                             }
                         });
+                        //load lai ds
+                        var store = viewModel.getStore('Personnel_Store');
+                        store.load();
                     }
                     else {
                         Ext.Msg.show({
@@ -59,6 +78,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                     }
                 }
             })
+       
     },
 
     onPrint: function () {

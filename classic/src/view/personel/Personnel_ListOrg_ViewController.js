@@ -15,6 +15,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         params.isviewall = viewModel.get('isviewall');
         params.orgid_link = record.get('id');
 
+        viewModel.set('donvi.id',record.data.id);
         //neu loai = 13 la xuong sx thi xem tat ca trong xuong
         // = 1: xem toan bo cong ty hoac nhung nguoi chi thuoc Tru so chinh
         // con lai la xem trong to hoac phong ban
@@ -39,6 +40,20 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         var viewModel = this.getViewModel();
         var storeMenu = viewModel.getStore('OrgStore');
         storeMenu.loadStore();
+
+        this.activeOnlyFilter = Ext.create('Ext.util.Filter', {
+            id: 'activeOnlyFilter',
+            property: 'status',
+            value: 1
+        });
+        storeMenu.getFilters().add(this.activeOnlyFilter);
+        storeMenu.getSorters().add({
+            property: 'orgtypeid_link',
+            direction: 'ASC'
+        }, {
+            property: 'id',
+            direction: 'ASC'
+        });
 
         storeMenu.getSorters().add('orgtypeid_link');
         storeMenu.getSorters().add('is_manufacturer');

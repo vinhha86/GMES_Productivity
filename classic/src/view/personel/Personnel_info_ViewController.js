@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
   alias: 'controller.Personnel_info_ViewController',
   init: function () {
     var viewmodel = this.getViewModel();
-
+    viewmodel.set('person.countryid_link',"Việt Nam");
     var TypeStore = viewmodel.getStore('PersonnelTypeStore');
     TypeStore.loadStore();
 
@@ -18,7 +18,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
       this.loadImage(viewmodel.get('personnel.id'));
     }
     //lấy giá trị 
-    viewmodel.set('QuocTich.old', viewmodel.get('personnel.countryid_link'));
     viewmodel.set('Tinh.old', viewmodel.get('personnel.provinceid_link'));
     viewmodel.set('Huyen.old', viewmodel.get('personnel.districtid_link'));
     viewmodel.set('Xa.old', viewmodel.get('personnel.communeid_link'));

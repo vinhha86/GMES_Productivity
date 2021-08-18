@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main', {
         region: 'north',
         title: 'Thông tin chung',
         xtype: 'Personnel_info',
-        height: 350,
+        height: 320,
         border: true,
         margin: 1,
 
