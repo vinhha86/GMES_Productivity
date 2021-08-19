@@ -2,16 +2,16 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
     extend: 'Ext.grid.Panel',
     xtype: 'OrgTypeView',
 
-    
-    controller:'OrgTypeViewController',
-    viewModel:{
-        type:  'OrgTypeViewModel'
-      },
-    bind:{
+
+    controller: 'OrgTypeViewController',
+    viewModel: {
+        type: 'OrgTypeViewModel'
+    },
+    bind: {
         store: '{orgtype_store}'
     },
-    
-    
+
+
     plugins: {
         cellediting: {
             clicksToEdit: 2,
@@ -36,11 +36,11 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
         width: 50,
         xtype: 'rownumberer',
         align: 'center'
-    }, 
+    },
     {
         text: 'Mã loại đơn vị',
         width: 100,
-        dataIndex:'id',
+        dataIndex: 'id',
         align: 'center'
     },
     {
@@ -63,8 +63,8 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
         editor: {
             xtype: 'textfield',
             selectOnFocus: true,
-          
-            },
+
+        },
     }, {
         text: 'Tên loại đơn vị (Tiếng Anh)',
         dataIndex: 'name_en',
@@ -83,12 +83,12 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
             }
         },
         editor: {
-           
+
             xtype: 'textfield',
             selectOnFocus: true
-            },
+        },
     }
-],
+    ],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
@@ -97,27 +97,27 @@ Ext.define('GSmartApp.view.dm_loaidonvi.OrgTypeView', {
             margin: 5,
             text: 'Thêm mới',
             width: 120,
-            iconCls:'x-fa fa-plus',
+            iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi'
-        },{
-            xtype:'textfield',
-            itemId:'txtCode',
+        }, {
+            xtype: 'textfield',
+            itemId: 'txtCode',
             margin: 5,
             width: 250,
             emptyText: 'Tên loại đơn vị',
-            bind:{
-                value:'{org.name}'
+            bind: {
+                value: '{org.name}'
             }
-        },{
-            xtype:'textfield',
-            itemId:'txtName',
+        }, {
+            xtype: 'textfield',
+            itemId: 'txtName',
             margin: 5,
             width: 250,
             emptyText: 'Tên loại đơn vị (Tiếng Anh)',
-            bind:{
-                value:'{org.name_en}'
+            bind: {
+                value: '{org.name_en}'
             }
         }
-    ]
+        ]
     }],
 })

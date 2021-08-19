@@ -135,7 +135,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			url: config.getAppBaseUrl() + '/api/v1/porderlist/getallbysearch',
 			paramsAsJson: true,
 			noCache: false,
-			timeout: 60000,
+			timeout: 120000,
 			extraParams: params,
 			headers: {
 				'Accept': "application/json",
@@ -151,9 +151,6 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				this.fireEvent('loadStoreBySearch_Done');
-				if (!success) {
-					this.fireEvent('logout');
-				}
 			}
 		});
 	},

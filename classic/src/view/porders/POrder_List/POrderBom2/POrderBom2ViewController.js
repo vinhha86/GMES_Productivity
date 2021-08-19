@@ -40,12 +40,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                         mes = "Đồng bộ thất bại";
                     }
                     else {
+                        if (!response.isbomdone) {
+                            mes = response.message;
+                        }
                         var store = viewmodel.getStore('POrderBom2Store');
                         store.load();
                     }
                 } else {
                     mes = "Đồng bộ thất bại";
                 }
+
                 Ext.Msg.show({
                     title: "Thông báo",
                     msg: mes,
