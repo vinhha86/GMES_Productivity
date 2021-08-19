@@ -3,13 +3,14 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
     xtype: 'StockMaterialList',
     itemId: 'StockMaterialList',
     controller: 'StockMaterialListController',
-    viewModel: {
-        type: 'StockMaterialListViewModel',
-    },
+    // viewModel: {
+    //     type: 'StockMaterialListViewModel',
+    // },
     cls: 'StockMaterialList',
 
     // height: 400,
-    width: 400,
+    // width: 400,
+    width: '99%',
     // loadingHeight: 400,
     // itemTpl: '{epc}',
 
@@ -40,7 +41,6 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
                 // '<div class="content1">' +
                 //     '<div class="content1-sub1"><b>Invoice:</b></div>'+
                 //     '<div class="content1-sub2">{invoice}</div>' +
-                //     // '<div class="content1-sub2">{invoice}</div>' +
                 // '</div>' +
 
                 // '<div class="content1">' +
@@ -55,16 +55,16 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
                 // '</div>' +
 
                 '<div class="content1">' +
+                    '<div class="content1-sub1"><b>Đơn hàng:</b></div>'+
+                    '<div class="content1-sub1">{contractcode}</div>' +
+                    '<div class="content1-sub1"><b>Khổ(cm):</b></div>'+
+                    '<div class="content1-sub1">{width_met*100}</div>' +
+                '</div>' +
+                '<div class="content1">' +
                     '<div class="content1-sub1"><b>Met:</b></div>'+
                     '<div class="content1-sub1">{met}</div>' +
                     '<div class="content1-sub1"><b>Yard:</b></div>'+
                     '<div class="content1-sub1">{yds}</div>' +
-                '</div>' +
-                '<div class="content1">' +
-                    '<div class="content1-sub1"><b>Khổ(cm):</b></div>'+
-                    '<div class="content1-sub1">{width_met*100}</div>' +
-                    '<div class="content1-sub1"><b>Đơn hàng:</b></div>'+
-                    '<div class="content1-sub1">{contractcode}</div>' +
                 '</div>' +
 
             '</div>',
@@ -72,7 +72,20 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
     ),
 
     grouped: false,
+    selectable:{
+        mode: 'multi'
+    },
     bind: {
         store: '{WarehouseStore}'
-    }
+    },
+    
+//     items: [{
+//         xtype:'button',
+//         iconCls: 'x-fa fa-plus',
+//         itemId:'btnChuyenKhoang',
+//         text: 'Chuyển khoang',
+//         ui: 'action',
+//         margin: 1,
+//         scrollDock: 'end'
+//    }]
 });

@@ -2,52 +2,25 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockMenuController',
 
-    // destroy: function() {
-    //     Ext.destroy(this.dialog);
+    control: {
+        '#StockMenu': {
+            leafchildtap: 'onLeafChildTap',
+            itemtap : 'onItemTap'
+        },
+    },
 
-    //     this.callParent();
-    // },
-
-    // hideDialog: function() {
-    //     var dialog = this.dialog;
-
-    //     if (dialog) {
-    //         dialog.hide();
-    //     }
-    // },
-
-    // showDialog: function() {
-    //     var dialog = this.dialog,
-    //         view;
-
-    //     if (!dialog) {
-    //         view = this.getView();
-    //         dialog = Ext.apply({
-    //             ownerCmp: view
-    //         }, view.dialog);
-
-    //         this.dialog = dialog = Ext.create(dialog);
-    //     }
-
-    //     dialog.show();
-    // },
-
-    // onCancel: function() {
-    //     var viewModel = this.getViewModel(),
-    //         node = viewModel.get('selectedNode');
-
-    //     this.hideDialog();
-
-    //     if (node) {
-    //         node.reject();
-    //     }
-    // },
-
-    // onOK: function() {
-    //     this.hideDialog();
-    // },
-
-    onLeafChildTap: function(nestedlist, location) {
+    onItemTap: function(nestedList, list, index, target, record, e, eOpts){
+        var viewModel = this.getViewModel();
+        if(viewModel.get('root') == null){
+            viewModel.set('root', record);
+        }
+        // console.log(record);
+    },
+    onLeafChildTap: function(nestedlist, location) { 
+        // console.log(location);
+        // console.log(location.record);
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var record = location.record;
         // this.showDialog();
@@ -56,18 +29,8 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         // row -> space -> floor
         viewModel.set('selectedNode', record);
 
-        // if(record.get('type') == 5){ // khoang
-        //     var spaceepc = record.get('spaceepc');
-        //     var stockid_link = record.get('orgid_link');
-        //     var WarehouseStore = viewModel.getStore('WarehouseStore');
-        //     WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
-        // }
-        // if(record.get('type') == 3 && record.get('khoangKhongXacDinh') == true){ // khoang KXD
-        //     var spaceepc = null;
-        //     var stockid_link = record.get('orgid_link');
-        //     var WarehouseStore = viewModel.getStore('WarehouseStore');
-        //     WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
-        // }
+        var maHangFilter = viewModel.get('maHangFilter');
+        var donHangFilter = viewModel.get('donHangFilter');
 
         if(record.get('type') === 5 || record.get('khoangKhongXacDinh') === true){
             var dialog = Ext.create({
@@ -77,6 +40,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 title: 'DS cây vải',
                 width: '100%',
                 height: '100%',
+                zIndex: 1,
                 // maxWidth: 300,
                 // maxHeight: 600,
                 header: true,
@@ -84,7 +48,6 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 closeAction: 'destroy',
                 maximizable: false,
                 maskTapHandler: function(){
-                    // console.log('mask tapped');
                     if(dialog){
                         dialog.close();
                         me.setMasked(false);
@@ -97,10 +60,13 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 },
                 items: [{
                     border: false,
-                    xtype: 'StockMaterialList',
+                    xtype: 'StockMaterialList_Main',
+                    // xtype: 'StockMaterialList',
                     viewModel: {
                         data: {
-                            record: record
+                            record: record,
+                            maHangFilter: maHangFilter,
+                            donHangFilter: donHangFilter,
                         }
                     }
                 }],

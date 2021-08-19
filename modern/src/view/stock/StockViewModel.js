@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
     alias: 'viewmodel.StockViewModel',
     requires: [ 
         'GSmartApp.store.stock.StockTreeStore',
-        'GSmartApp.store.warehouse.WarehouseStore'
+        'GSmartApp.store.warehouse.WarehouseStore',
+        'GSmartApp.store.Sku_AutoComplete'
     ],
     stores: {
         StockTreeStore: {
@@ -21,6 +22,9 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         WarehouseStore: {
             type: 'WarehouseStore'
         },
+		Sku_AutoComplete: {
+			type :'Sku_AutoComplete'
+		},
     },
     data: {
         searchObj: {
@@ -30,6 +34,10 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         },
 
         selectedNode: null,
+        root: null,
+
+        maHangFilter: null,
+        donHangFilter: null,
     },
     formulas: {
 

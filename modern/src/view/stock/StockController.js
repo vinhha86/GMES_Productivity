@@ -5,21 +5,21 @@ Ext.define('GSmartApp.view.stock.StockController', {
         this.onloadPage();
     },
     control: {
-        // '#btnSearch': {
-        //     click: 'onloadPage'
-        // },
-        // '#btnResetTree': {
-        //     click: 'onResetTree'
-        // },
-        // '#txtMaHang': {
-        //     specialkey: 'onSpecialkey'
-        // },
-        // '#txtDonHang': {
-        //     specialkey: 'onSpecialkey'
-        // },
         '#btnBack':{
             tap: 'onBackPage'
         },
+        '#Sku_AutoCompleteCbo': {
+            beforeQuery: 'Sku_AutoComplete_beforeQuery'
+        },
+        '#btnResetTree': {
+            tap: 'onResetTree'
+        },
+        '#btnSearch': {
+            tap: 'onloadPage'
+        },
+        // '#btnBackNode': {
+        //     tap: 'onbtnBackNode'
+        // }
     },
     listen: {
         store: {
@@ -28,11 +28,49 @@ Ext.define('GSmartApp.view.stock.StockController', {
             }
         }
     },
+    Sku_AutoComplete_beforeQuery: function(){ 
+        var viewModel = this.getViewModel();
+        var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
+        var typeFrom = 20;
+        var typeTo = 30;
+        // console.log(Sku_AutoComplete.getProxy());
+
+        var combobox = this.getView().down('#Sku_AutoCompleteCbo');
+        // console.log(combobox);
+        // console.log(combobox.getQueryParam());
+        // console.log(combobox.getInputValue());
+
+        if(combobox.getInputValue() === null || combobox.getInputValue() === ''){
+            Sku_AutoComplete.proxy.extraParams = {
+                typeFrom: typeFrom,
+                typeTo: typeTo,
+                code: ''
+            }
+        }else{
+            Sku_AutoComplete.proxy.extraParams = {
+                typeFrom: typeFrom,
+                typeTo: typeTo,
+                code: combobox.getInputValue()
+            }
+        }
+        
+    },
+    // onbtnBackNode: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+
+    //     var StockMenu = Ext.getCmp('StockMenu');
+    //     var root = viewModel.get('root');
+    //     console.log(root);
+    //     if(root != null)StockMenu.goToNode(root.parentNode);
+    // },
     onBackPage: function(){
         // console.log('onBackPage');   
         this.redirectTo("mobilemenu");
     },
     onloadPage: function () {
+        var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
         //
@@ -48,24 +86,30 @@ Ext.define('GSmartApp.view.stock.StockController', {
         //     xtype: 'loadmask',
         //     message: 'Đang tải'
         // });
+
         var StockTreeStore = viewModel.getStore('StockTreeStore');
-        StockTreeStore.loadStore(maHangId, donHang);
-        // StockTreeStore.loadStore_async(maHangId, donHang);
-        // StockTreeStore.load({
-		// 	scope: this,
-		// 	callback: function(records, operation, success) {
-        //         me.setMasked(false);
-		// 		if(!success){
-		// 			 this.fireEvent('logout');
-		// 		} else {
-        //             var session = GSmartApp.util.State.get('session');
-        //             if(session.orgid_link != 1 && session.orgid_link != null){
-        //                 viewModel.set('porderSearchObj.donvi', session.orgid_link);
-        //                 viewModel.set('iscombo_DonVi_editable', false);
-        //             }
-		// 		}
-		// 	}
-        // });
+        StockTreeStore.loadStore_async(maHangId, donHang);
+        StockTreeStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+                // me.setMasked(false);
+				if(!success){
+                    Ext.toast('Lấy thông tin thất bại', 1000);
+					this.fireEvent('logout');
+				} else {
+                    // console.log('callback success');
+                    var StockMenu = Ext.getCmp('StockMenu');
+                    var root = viewModel.get('root');
+                    // console.log(root);
+                    if(root != null)StockMenu.goToNode(root.parentNode);
+
+                    // filter cho window ds cay vai
+                    viewModel.set('maHangFilter', maHangId);
+                    viewModel.set('donHangFilter', donHang);
+				}
+			}
+        });
+        // StockTreeStore.loadStore(maHangId, donHang);
         StockTreeStore.getSorters().add({
             property: 'khoangKhongXacDinh',
             direction: 'ASC'
@@ -74,36 +118,39 @@ Ext.define('GSmartApp.view.stock.StockController', {
             direction: 'ASC'
         });
 
-        var WarehouseStore = viewModel.get('WarehouseStore');
-        WarehouseStore.getSorters().removeAll();
-        WarehouseStore.getSorters().add({
-            property: 'contractcode',
-            direction: 'ASC'
-        },{
-            property: 'skucode',
-            direction: 'ASC'
-        },{
-            property: 'colorname',
-            direction: 'ASC'
-        });
-        // store.clearFilter();
-        WarehouseStore.removeAll();
+        // var WarehouseStore = viewModel.get('WarehouseStore');
+        // WarehouseStore.getSorters().removeAll();
+        // WarehouseStore.getSorters().add({
+        //     property: 'contractcode',
+        //     direction: 'ASC'
+        // },{
+        //     property: 'skucode',
+        //     direction: 'ASC'
+        // },{
+        //     property: 'colorname',
+        //     direction: 'ASC'
+        // });
+        // // store.clearFilter();
+        // WarehouseStore.removeAll();
     },
     onResetTree: function(){
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        // viewModel.set('searchObj.maHang', null);
+        viewModel.set('searchObj.maHang', null);
         viewModel.set('searchObj.maHangId', null);
         viewModel.set('searchObj.donHang', null);
         var WarehouseStore = viewModel.get('WarehouseStore');
         WarehouseStore.clearFilter();
         WarehouseStore.removeAll();
 
+        viewModel.set('maHangFilter', null);
+        viewModel.set('donHangFilter', null);
+
         this.onloadPage();
     },
     onloadStore_Done: function () {
-        console.log('onloadStore_Done');
+        // console.log('onloadStore_Done');
         this.getView().setMasked(false);
     },
     // filter cho danh sach npl (theo 2 txt field maHang va donHang)
@@ -128,24 +175,24 @@ Ext.define('GSmartApp.view.stock.StockController', {
         }
     },
     onSelectMaHangId: function(combo, record, eOpts){
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('WarehouseStore');
-        var filters = store.getFilters();
+        // var viewmodel = this.getViewModel();
+        // var store = viewmodel.get('WarehouseStore');
+        // var filters = store.getFilters();
 
-        var maHangId = viewmodel.get('searchObj.maHangId');
-        if(isNaN(maHangId)) maHangId = null;
+        // var maHangId = viewmodel.get('searchObj.maHangId');
+        // if(isNaN(maHangId)) maHangId = null;
 
-        if (maHangId) {
-            this.ValueFilterFieldmaHangId = filters.add({
-                id: 'ValueFilterFieldmaHangId',
-                property: 'skuid_link',
-                value: maHangId,
-                exactMatch: true,
-            });
-        }
-        else if (this.ValueFilterFieldmaHangId) {
-            filters.remove(this.ValueFilterFieldmaHangId);
-            this.ValueFilterFieldmaHangId = null;
-        }
+        // if (maHangId) {
+        //     this.ValueFilterFieldmaHangId = filters.add({
+        //         id: 'ValueFilterFieldmaHangId',
+        //         property: 'skuid_link',
+        //         value: maHangId,
+        //         exactMatch: true,
+        //     });
+        // }
+        // else if (this.ValueFilterFieldmaHangId) {
+        //     filters.remove(this.ValueFilterFieldmaHangId);
+        //     this.ValueFilterFieldmaHangId = null;
+        // }
     }
 })

@@ -11,5 +11,8 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListViewModel', {
 	},
 	data: {
 		record: null,
+
+		maHangFilter: null,
+        donHangFilter: null,
 	},
 })

@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stock.StockMenu', {
     extend: 'Ext.dataview.NestedList',
     xtype: 'StockMenu',
+    id: 'StockMenu',
     controller: 'StockMenuController',
 
     requires: [
@@ -48,6 +49,7 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
     // },
 
     title: 'Phân xưởng',
+    emptyText: 'Không có dữ liệu',
     displayField: 'nameMobile',
     useTitleAsBackText: false,
     backText: '',
@@ -60,6 +62,7 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
     },
 
     listeners: {
-        leafchildtap: 'onLeafChildTap'
+        // leafchildtap: 'onLeafChildTap',
+        // itemtap : 'onItemTap'
     }
 });

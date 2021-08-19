@@ -29,5 +29,33 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
             var WarehouseStore = viewModel.getStore('WarehouseStore');
             WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
         }
+        
+        // 
+        this.filterWarehouseStore();
+        
+    },
+    filterWarehouseStore: function(){
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('WarehouseStore');
+
+        var maHangFilter = viewModel.get('maHangFilter');
+        var donHangFilter = viewModel.get('donHangFilter') == null ? '' : viewModel.get('donHangFilter').toLowerCase();
+        store.clearFilter();
+        store.filterBy(function(rec) { //toLowerCase() // includes()
+            var isOK = true;
+            var contractcode = rec.get('contractcode') == null ? '' : rec.get('contractcode').toLowerCase();
+            if(
+                !contractcode.includes(donHangFilter)
+            ){
+                isOK = false;
+                return isOK;
+            }
+            if(maHangFilter != null && rec.get('skuid_link') != maHangFilter){
+                isOK = false;
+                return isOK;
+            }
+
+            return isOK;
+        });
     }
 })
