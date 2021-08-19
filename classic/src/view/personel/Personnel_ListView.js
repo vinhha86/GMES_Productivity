@@ -40,7 +40,20 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        }
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnel_name',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onpersonnel_name',
+                buffer: 500
+            }
+        },
     }, {
         text: 'Mã NV',
         dataIndex: 'code',
@@ -49,6 +62,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
+       
     }, {
         text: 'Số CMT',
         dataIndex: 'idnumber',

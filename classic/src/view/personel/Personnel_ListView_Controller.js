@@ -62,9 +62,6 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                                 yes: 'Đóng'
                             }
                         });
-                        //load lai ds
-                        var store = viewmodel.getStore('Personnel_Store');
-                        store.load();
                     }
                     else {
                         Ext.Msg.show({
@@ -76,6 +73,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                             }
                         });
                     }
+                    //load lai ds
+                        var store = viewmodel.getStore('Personnel_Store');
+                        store.load();
                 }
             })
        
@@ -167,5 +167,25 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             store.load();
             form.close();
         });
+    },
+
+    onpersonnel_name:function(){
+      let  filterField=this.lookupReference('personnel_name');
+        filters =this.getView().store.getFilters();
+        if(filterField.value){
+            this.nameFilter=filters.add({
+                id:'nameFilter',
+                property:'fullname',
+                value:filterField.value,
+                anyMatch:true,
+                caseSensitive:false
+            });
+        }else{
+            if(this.nameFilter){
+                filters.remove(this.nameFilter);
+                this.nameFilter = null;
+            }
+        }
     }
+   
 })
