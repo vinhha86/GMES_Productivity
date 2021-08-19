@@ -63,7 +63,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                             }
                         });
                         //load lai ds
-                        var store = viewModel.getStore('Personnel_Store');
+                        var store = viewmodel.getStore('Personnel_Store');
                         store.load();
                     }
                     else {
