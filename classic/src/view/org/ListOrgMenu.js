@@ -68,22 +68,37 @@ Ext.define('GSmartApp.view.org.ListOrgMenu', {
     listeners: {
        itemcontextmenu: 'onContextMenu'
     },
-    dockedItems: [{
-        dock: 'top',
-        layout: 'hbox',
-        border: false,
-        items: [{
-            xtype: 'checkbox',
-            fieldLabel: 'Hiện đơn vị không hoạt động ',
-            labelWidth: 200,
-            labelAlign: 'right',
-            bind: {
-                value:'{isDisplayInactive}'
-            },
-            listeners: {
-                change: 'onchkboxchange'
-            }
-        }]
-    }]
+    dockedItems: [
+        {
+            dock: 'top',
+            layout: 'hbox',
+            border: false,
+            items: [{
+                xtype: 'checkbox',
+                fieldLabel: 'Hiện đơn vị không hoạt động ',
+                labelWidth: 200,
+                labelAlign: 'right',
+                bind: {
+                    value:'{isDisplayInactive}'
+                },
+                listeners: {
+                    change: 'onchkboxchange'
+                }
+            }]
+        },
+        // {
+        //     dock: 'bottom',
+        //     layout: 'hbox',
+        //     border: false,
+        //     items: [{
+        //         xtype:'button',
+        //         // text: 'Làm mới',
+        //         tooltip: 'Làm mới',
+        //         margin: 3,
+        //         itemId:'btnRefresh',
+        //         iconCls: 'x-fa fa-refresh',
+        //     }]
+        // }
+    ]
 });
 

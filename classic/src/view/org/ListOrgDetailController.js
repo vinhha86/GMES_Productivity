@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         '#btnLuu': {
             click: 'onLuu'
         },
+        '#btnXoa': {
+            click: 'onXoa'
+        },
         '#btnThemDonViTrucThuoc': {
             click: 'onThemTrucThuoc'
         }
@@ -33,6 +36,117 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         viewModel.set('parentid_link',viewModel.get('id'));
         viewModel.set('id',0);
         this.emptyForm();
+    },
+    onXoa: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa đơn vị "' + currentRec.name + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    m.Xoa();
+                }else{
+                    return;
+                }
+            }
+        });
+    },
+    Xoa: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var currentRec = viewModel.get('currentRec');
+
+        me.setLoading(true);
+
+        var params = new Object();
+        params.id = currentRec.id;
+        params.msgtype = "ORG_DELETE";
+        params.message = "Xoá org";
+
+        GSmartApp.Ajax.post('/api/v1/orgmenu/deleteOrg', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Xoá thành công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        // remove from tree
+                        m.removeFromTree(currentRec);
+                        // reset form
+                        m.setDataNull();
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Xoá thất bại',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Xoá thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+    },
+    removeFromTree: function(currentRec){
+        var viewModel = this.getViewModel();
+        var storeMenu = viewModel.getStore('MenuStore');
+        var id = currentRec.id;
+
+        var node = storeMenu.findNode('id', id, true, true, false);
+        storeMenu.remove(node);
+    },
+    setDataNull: function() {
+        var viewModel = this.getViewModel();
+        // console.log(record.data);
+        viewModel.set('currentRec', null);
+        viewModel.set('id', null);
+        viewModel.set('titleName', null);
+        viewModel.set('parentid_link', null);
+        //
+        viewModel.set('code', null);
+        viewModel.set('name', null);
+        viewModel.set('city', null);
+        viewModel.set('address', null);
+        viewModel.set('contactperson', null);
+        viewModel.set('email', null);
+        viewModel.set('phone', null);
+        viewModel.set('linecost', null);
+        viewModel.set('orgtypeid_link', null);
+        viewModel.set('colorid_link', null);
+        viewModel.set('status', null);
+        viewModel.set('costpersec', null);
+        viewModel.set('is_manufacturer', null);
+        //
+        viewModel.set('fieldState', false);
     },
     onLuu: function () {
         var m = this;
@@ -263,5 +377,6 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                     }
                 }
             })
-    }
+    },
+
 })

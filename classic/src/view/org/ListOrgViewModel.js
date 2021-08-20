@@ -61,5 +61,12 @@ Ext.define('GSmartApp.view.org.ListOrgViewModel', {
                 return false;
             }
         },
+        isBtnXoaHidden: function (get) {
+            if (get('id') == 0 || get('id') == null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 })

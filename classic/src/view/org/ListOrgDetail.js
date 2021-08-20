@@ -217,6 +217,15 @@ Ext.define('GSmartApp.view.org.ListOrgDetail', {
         },{
             flex:1,
             border: false
+        },{
+            xtype:'button',
+            text: 'Xoá',
+            margin: 3,
+            itemId:'btnXoa',
+            iconCls: 'x-fa fa-trash',
+            bind: {
+                hidden: '{isBtnXoaHidden}'
+            }
         },]
     }]
 })

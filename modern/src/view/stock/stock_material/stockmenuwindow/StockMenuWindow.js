@@ -9,6 +9,7 @@ Ext.define('GSmartApp.view.stock.stockmenuwindow.StockMenuWindow', {
     ],
 
     title: 'Phân xưởng',
+    emptyText: 'Không có dữ liệu',
     displayField: 'nameMobile',
     useTitleAsBackText: false,
     backText: '',

@@ -7,7 +7,15 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
     control: {
         '#ListOrgMenu': {
             itemclick: 'onloadDetail'
+        },
+        '#btnRefresh': {
+            click: 'onRefresh'
         }
+    },
+    onRefresh: function(){
+        var viewModel = this.getViewModel();
+        var storeMenu = viewModel.getStore('MenuStore');
+        storeMenu.load();
     },
     onloadDetail: function (grid, record, item, index, e, eOpts) {
         var viewModel = this.getViewModel();
@@ -148,6 +156,64 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
     },
     onContextMenu: function (tree, record, item, index, e, eOpts) {
         var me = this;
+        //Tong cong ty
+        if (record.data.orgtypeid_link == 1) {
+            var menu_grid = new Ext.menu.Menu({
+                items:
+                    [
+                        {
+                            text: 'Thêm Phân xưởng',
+                            itemId: 'btnAddFactory_ListOrgMenu',
+                            separator: true,
+                            // margin: '5 0 0',
+                            iconCls: 'x-fa fas fa-industry',
+                            handler: function () {
+                                console.log(record);
+                                // var record = this.parentMenu.record;
+                                // me.onPOPriceEdit(record);
+                                var viewModel = me.getViewModel();
+                                viewInfo = Ext.getCmp('ListOrgDetail');
+                                viewInfo.getController().emptyForm();
+                                viewModel.set('id', 0);
+                                viewModel.set('parentid_link', record.id);
+                                //
+                                viewModel.set('orgtypeid_link', 13);
+                                viewModel.set('status', true);
+                                viewModel.set('is_manufacturer', 0);
+                                //
+                                viewModel.set('fieldState', true);
+                                viewModel.set('titleName', record.data.name);
+                            },
+                        }, {
+                            text: 'Thêm Đơn vị gia công',
+                            itemId: 'btnAddManufacturer_ListOrgMenu',
+                            separator: true,
+                            // margin: '5 0 0',
+                            iconCls: 'x-fa fas fa-handshake',
+                            handler: function () {
+                                console.log(record);
+                                // var record = this.parentMenu.record;
+                                // me.onPOPriceEdit(record);
+                                var viewModel = me.getViewModel();
+                                viewInfo = Ext.getCmp('ListOrgDetail');
+                                viewInfo.getController().emptyForm();
+                                viewModel.set('id', 0);
+                                viewModel.set('parentid_link', record.id);
+                                //
+                                viewModel.set('orgtypeid_link', 13);
+                                viewModel.set('status', true);
+                                viewModel.set('is_manufacturer', 1);
+                                //
+                                viewModel.set('fieldState', true);
+                                viewModel.set('titleName', record.data.name);
+                            },
+                        },
+                    ]
+            });
+            var position = e.getXY();
+            e.stopEvent();
+            menu_grid.showAt(position);
+        }
         //Phan xuong
         if (record.data.orgtypeid_link == 13) {
             var menu_grid = new Ext.menu.Menu({
@@ -587,64 +653,6 @@ Ext.define('GSmartApp.view.org.ListOrgMenuController', {
                             iconCls: 'x-fa fas fa-trash',
                             handler: function () {
                                 me.deleteProductionLine(record.data);
-                            },
-                        },
-                    ]
-            });
-            var position = e.getXY();
-            e.stopEvent();
-            menu_grid.showAt(position);
-        }
-        //Tong cong ty
-        if (record.data.orgtypeid_link == 1) {
-            var menu_grid = new Ext.menu.Menu({
-                items:
-                    [
-                        {
-                            text: 'Thêm Phân xưởng',
-                            itemId: 'btnAddFactory_ListOrgMenu',
-                            separator: true,
-                            // margin: '5 0 0',
-                            iconCls: 'x-fa fas fa-industry',
-                            handler: function () {
-                                console.log(record);
-                                // var record = this.parentMenu.record;
-                                // me.onPOPriceEdit(record);
-                                var viewModel = me.getViewModel();
-                                viewInfo = Ext.getCmp('ListOrgDetail');
-                                viewInfo.getController().emptyForm();
-                                viewModel.set('id', 0);
-                                viewModel.set('parentid_link', record.id);
-                                //
-                                viewModel.set('orgtypeid_link', 13);
-                                viewModel.set('status', true);
-                                viewModel.set('is_manufacturer', 0);
-                                //
-                                viewModel.set('fieldState', true);
-                                viewModel.set('titleName', record.data.name);
-                            },
-                        }, {
-                            text: 'Thêm Đơn vị gia công',
-                            itemId: 'btnAddManufacturer_ListOrgMenu',
-                            separator: true,
-                            // margin: '5 0 0',
-                            iconCls: 'x-fa fas fa-handshake',
-                            handler: function () {
-                                console.log(record);
-                                // var record = this.parentMenu.record;
-                                // me.onPOPriceEdit(record);
-                                var viewModel = me.getViewModel();
-                                viewInfo = Ext.getCmp('ListOrgDetail');
-                                viewInfo.getController().emptyForm();
-                                viewModel.set('id', 0);
-                                viewModel.set('parentid_link', record.id);
-                                //
-                                viewModel.set('orgtypeid_link', 13);
-                                viewModel.set('status', true);
-                                viewModel.set('is_manufacturer', 1);
-                                //
-                                viewModel.set('fieldState', true);
-                                viewModel.set('titleName', record.data.name);
                             },
                         },
                     ]
