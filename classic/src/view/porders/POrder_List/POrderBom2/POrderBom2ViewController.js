@@ -40,6 +40,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                         mes = "Đồng bộ thất bại";
                     }
                     else {
+                        console.log(response.isbomdone);
                         if (!response.isbomdone) {
                             mes = response.message;
                         }
@@ -182,21 +183,21 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
 
                     var storeBOM = grid.getStore();
 
-                    var model = storeBOM.getModel();
-                    var fields = model.getFields();
-                    for (var i = 0; i < fields.length; i++) {
-                        if (i > 21) {
-                            model.removeFields(fields[i].name);
-                        }
-                    }
+                    // var model = storeBOM.getModel();
+                    // var fields = model.getFields();
+                    // for (var i = 0; i < fields.length; i++) {
+                    //     if (i > 21) {
+                    //         model.removeFields(fields[i].name);
+                    //     }
+                    // }
 
-                    var fieldnew = [];
-                    for (var i = 0; i < listid.length; i++) {
-                        fieldnew.push({ name: listid[i], type: 'number' });
-                    }
+                    // var fieldnew = [];
+                    // for (var i = 0; i < listid.length; i++) {
+                    //     fieldnew.push({ name: listid[i], type: 'number' });
+                    // }
 
-                    model.addFields(fieldnew);
-                    storeBOM.removeFilter();
+                    // model.addFields(fieldnew);
+                    // storeBOM.removeFilter();
 
                     storeBOM.getbom_by_porder(porderid_link);
                 }

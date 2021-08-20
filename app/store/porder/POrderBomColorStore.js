@@ -103,6 +103,7 @@ Ext.define('GSmartApp.store.pcontract.POrderBomColorStore', {
 			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
+			timeout: 60000,
 			headers: {
 				'Accept': "application/json",
 				'Content-Type': "application/json"
@@ -112,13 +113,6 @@ Ext.define('GSmartApp.store.pcontract.POrderBomColorStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-			}
-		});
+		this.load();
 	}
 });
