@@ -17,6 +17,26 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
             click: 'onThemKeHoach'
         }
     },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('ProductStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'product_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
     onHideNPL: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('width_npl', 0);

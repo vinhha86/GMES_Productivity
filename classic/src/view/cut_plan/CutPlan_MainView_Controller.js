@@ -5,19 +5,19 @@ Ext.define('GSmartApp.view.cut_plan.CutPlan_MainView_Controller', {
         var me = this;
         var viewmodel = this.getViewModel();
         var porder = viewmodel.get('porder');
-        
+
         var productStore = viewmodel.getStore('ProductStore');
-        productStore.load_by_type_and_pcontract(20, porder.pcontractid_link);
+        productStore.load_by_type_and_pcontract_product(20, porder.pcontractid_link, porder.productid_link);
         productStore.setGroupField('producttype_name');
 
-        
+
     },
     control: {
-        '#btnThoat' : {
+        '#btnThoat': {
             click: 'onThoat'
         }
     },
-    onThoat: function(){
-       this.fireEvent('Thoat');
+    onThoat: function () {
+        this.fireEvent('Thoat');
     }
 })

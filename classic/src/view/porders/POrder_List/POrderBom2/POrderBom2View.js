@@ -88,9 +88,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2View', {
             xtype: 'textfield',
             maskRe: /[0-9.]/,
             selectOnFocus: true
-        },
-        renderer: function (value, metaData, record) {
-            return value + " %";
         }
     }],
     dockedItems: [{

@@ -22,7 +22,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
         store.load();
     },
     onDongBo: function () {
-        var me = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         grid.setLoading('Đang đồng bộ');
@@ -40,12 +39,11 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                         mes = "Đồng bộ thất bại";
                     }
                     else {
-                        console.log(response.isbomdone);
                         if (!response.isbomdone) {
                             mes = response.message;
                         }
                         var store = viewmodel.getStore('POrderBom2Store');
-                        store.load();
+                        store.getbom_by_porder(viewmodel.get('porder.id'));
                     }
                 } else {
                     mes = "Đồng bộ thất bại";
@@ -126,11 +124,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                                 width: 65,
                                 format: '0.0000',
                                 align: 'right',
-                                editor: {
-                                    xtype: 'textfield',
-                                    selectOnFocus: true,
-                                    maskRe: /[0-9.]/
-                                },
                                 renderer: function (value, metaData, record) {
                                     if (value == 0) return "";
                                     return Ext.util.Format.number(value, '0.0000')
@@ -183,22 +176,22 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
 
                     var storeBOM = grid.getStore();
 
-                    // var model = storeBOM.getModel();
-                    // var fields = model.getFields();
-                    // for (var i = 0; i < fields.length; i++) {
-                    //     if (i > 21) {
-                    //         model.removeFields(fields[i].name);
-                    //     }
-                    // }
+                    var model = storeBOM.getModel();
+                    var fields = model.getFields();
+                    for (var i = 0; i < fields.length; i++) {
+                        if (i > 21) {
+                            model.removeFields(fields[i].name);
+                        }
+                    }
 
-                    // var fieldnew = [];
-                    // for (var i = 0; i < listid.length; i++) {
-                    //     fieldnew.push({ name: listid[i], type: 'number' });
-                    // }
+                    var fieldnew = [];
+                    for (var i = 0; i < listid.length; i++) {
+                        fieldnew.push({ name: listid[i], type: 'number' });
+                    }
 
-                    // model.addFields(fieldnew);
+                    model.addFields(fieldnew);
                     // storeBOM.removeFilter();
-
+                    // console.log(storeBOM)
                     storeBOM.getbom_by_porder(porderid_link);
                 }
             })

@@ -9,26 +9,38 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
         columnLines: true,
         rowLines: true
     },
-    bind:{
-        store:'{ProductStore}'
+    bind: {
+        store: '{ProductStore}'
     },
     features: [{
-        ftype:'grouping',
+        ftype: 'grouping',
         groupHeaderTpl: '{name}'
     }],
-    columns:[{
+    columns: [{
         text: 'STT',
         width: 45,
         xtype: 'rownumberer',
         align: 'center'
-    },{
+    }, {
         text: 'Mã NPL',
         dataIndex: 'product_code',
         width: 120,
         locked: true,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            margin: 1,
+            reference: 'ValueFilterFieldMaNPL',
+            width: '99%',
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onFilterValueMaNPLKeyup',
+                buffer: 500
+            }
         }
     },
     // {
@@ -45,54 +57,54 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
         text: 'Màu NPL',
         dataIndex: 'mauSanPham',
         width: 150,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
+    }, {
         text: 'Cỡ khổ',
         dataIndex: 'coSanPham',
         width: 60,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    },{
+    }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
         width: 120,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     }],
-    dockedItems:[{
-        dock:'top',
-        xtype:'toolbar',
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 35,
-        items:[{
-            xtype:'displayfield',
+        items: [{
+            xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth : 0,
+            labelWidth: 0,
             value: 'Danh sách NPL'
         },
-		'->'
-		,
-		{
-            xtype:'button',
-            itemId:'btnAdd_CutPlan',
+            '->'
+            ,
+        {
+            xtype: 'button',
+            itemId: 'btnAdd_CutPlan',
             ui: 'header',
             margin: '10 5 0 0',
-			text: 'Tạo kế hoạch',
+            text: 'Tạo kế hoạch',
             iconCls: 'x-fa fa-plus'
         },
         {
-            xtype:'button',
-            itemId:'btnHideNPL',
+            xtype: 'button',
+            itemId: 'btnHideNPL',
             ui: 'header',
             margin: '10 5 0 0',
-			text: 'Ẩn',
+            text: 'Ẩn',
             iconCls: 'x-fa fa-eye'
         }
         ]

@@ -320,7 +320,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onFilterValueMaNPLKeyup: function () {
         var viewmodel = this.getViewModel();
-        var store = viewmodel.get('PContractBom2Store_New');
+        var store = viewmodel.getStore('PContractBom2Store_New');
         var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
             filters = store.getFilters();
 
@@ -586,7 +586,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                         grid.headerCt.insert(length, column);
                         length++;
                     }
-                    console.log(grid.headerCt.gridDataColumns[0])
                     grid.headerCt.gridDataColumns[0].locked = true;
                     grid.headerCt.gridDataColumns[1].locked = true;
                     grid.headerCt.gridDataColumns[2].locked = true;
