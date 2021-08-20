@@ -20,6 +20,7 @@ Ext.define('GSmartApp.model.warehouse.WarehouseModel', {
         'material_product_id_link',
         'material_skuid_link',
         'imgproduct',
-        'stockName'
+        'stockName',
+        { name: 'timecreate', type: 'date' , dateFormat: 'c'},    
     ]
 });

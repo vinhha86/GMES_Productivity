@@ -7,6 +7,7 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_Main', {
     viewModel: {
         type: 'StockMaterialListViewModel',
     },
+    cls: 'StockMaterialList_Main',
     layout: {
         type: 'vbox',
         align: 'stretch'
@@ -19,6 +20,37 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_Main', {
     ],
 
     items:[
+        {
+            layout: 'hbox',
+            // flex: 1,
+            items:[
+                {
+                    xtype: 'textfield',
+                    itemId: 'materialListFilter',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: '1',
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Tìm kiếm nhanh',
+                    // editable: false,
+                    // readOnly: true,
+                    clearable: false,
+                    cls: 'searchField',
+                    bind: {
+                        value: '{materialListFilter}'
+                    },
+                    listeners: {
+                        keyup: 'filterWarehouseStore',
+                        buffer: 500
+                    }
+                },
+            ]
+        },
         {
             margin: 1,
             flex: 1,
