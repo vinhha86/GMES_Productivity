@@ -76,8 +76,8 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
         GSmartApp.Ajax.post('/api/v1/orgmenu/deleteOrg', Ext.JSON.encode(params),
             function (success, response, options) {
                 me.setLoading(false);
+                var response = Ext.decode(response.responseText);
                 if (success) {
-                    var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.Msg.show({
                             title: 'Thông báo',
@@ -92,7 +92,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                         // reset form
                         m.setDataNull();
                     }
-                    else {
+                    else { console.log('up');
                         Ext.Msg.show({
                             title: 'Xoá thất bại',
                             msg: response.message,
@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.org.ListOrgDetailController', {
                         });
                     }
 
-                } else {
+                } else { console.log('down');
                     Ext.Msg.show({
                         title: 'Xoá thất bại',
                         msg: null,
