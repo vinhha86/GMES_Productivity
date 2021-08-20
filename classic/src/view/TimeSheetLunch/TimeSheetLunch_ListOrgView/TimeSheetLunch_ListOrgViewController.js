@@ -82,6 +82,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         var OrgStore = viewModel.getStore('OrgStore');
         OrgStore.loadStore();
 
+        this.activeOnlyFilter = Ext.create('Ext.util.Filter', {
+            id: 'activeOnlyFilter',
+            property: 'status',
+            value: 1
+        });
+        OrgStore.getFilters().add(this.activeOnlyFilter);
+        
         OrgStore.getSorters().add('orgtypeid_link');
         OrgStore.getSorters().add('is_manufacturer');
         OrgStore.getSorters().add('id');

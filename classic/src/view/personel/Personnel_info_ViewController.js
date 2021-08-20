@@ -236,7 +236,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
       listid = "1";
     }
     else {
-      listid = '22,14,8,9,17';
+      listid = '22,14,8,9,17,19,20,21,22,23,28,29,30,31,32,33,34,35,36,37,38,39,221';
     }
     OrgStore.getbyParentandType(newvalue, listid);
   },
