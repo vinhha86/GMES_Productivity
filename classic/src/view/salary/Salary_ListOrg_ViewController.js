@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
     onloadDetail: function( grid, record, item, index, e, eOpts){
         var viewmodel = this.getViewModel();
         viewmodel.set('selected_orgid',record.get('id'));
-
+       // viewmodel.set('orgid_link',record.get('id'));
         //Lay thong tin lương Basic
         var SalBasicStore = viewmodel.getStore('SalBasicStore');
         SalBasicStore.removeAll();
@@ -74,7 +74,15 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
         
         //Xoa thong tin Vi tri cong viec
         var SalTypeLaborLevelStore = viewmodel.getStore('SalTypeLaborLevelStore');
-        SalTypeLaborLevelStore.removeAll();        
+        SalTypeLaborLevelStore.removeAll();   
+        
+        //lay thong tin ca lam viec
+        console.log(record.get('id'));
+        var viewModel = this.getViewModel();
+        var TimesheetShiftTypeStore = viewModel.getStore('TimeShiftStore');
+        TimesheetShiftTypeStore.loadStorebyOrgid_link(record.get('id'));
+       
+       
     },
     onload: function () {
         var me = this.getView();

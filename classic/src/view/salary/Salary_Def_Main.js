@@ -29,7 +29,12 @@ Ext.define('GSmartApp.view.salary.Salary_Def_Main', {
             {
                 title: 'Phụ cấp khác',
                 xtype: 'Salary_DefCom_Labor_Main'
+            },
+            {
+                title: 'Ca làm việc',
+                xtype: 'TimesheetShiftTypeMainView'
             }
+            
         ]            
     }]
 })

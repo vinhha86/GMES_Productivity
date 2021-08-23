@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Salary_MainView_Model',
-    requires: ['GSmartApp.store.org.ListOrgMenuTreeStore'],
+    requires: ['GSmartApp.store.org.ListOrgMenuTreeStore','GSmartApp.store.timesheetshifttype.TimesheetShiftTypeStore'],
     stores: {
         OrgStore: {
             type: 'ListOrgMenuTreeStore'
@@ -29,7 +29,10 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
         } ,
         SalComPositionStore: {
             type: 'SalComPositionStore'
-        }                        
+        },
+        TimeShiftStore:{
+            type:'TimesheetShiftTypeStore'
+        }          
     },
     data: {
         selected_tab: null,
@@ -47,6 +50,8 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
             overtime_weekend: null,
             overtime_holiday: null,
             overtime_night: null,
-        }
+        },
+       // TimeShift:null,
+        orgid_link:null
     }
 })
