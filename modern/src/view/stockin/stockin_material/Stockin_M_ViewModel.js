@@ -172,13 +172,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
             }
             return true;
         },
-		isStockin_M_Edit_PHidden: function (get) {
-			var stockinD = get('stockinD');
-			if(stockinD != null){
-                return false;
-			}
-			return true
-		},
 		isPklSelected: function (get) {
 			var selectedPklRecord = get('selectedPklRecord');
 			if(selectedPklRecord == null){

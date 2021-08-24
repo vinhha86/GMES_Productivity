@@ -3,10 +3,11 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 	alias: 'store.StockinPklStore',
 	model: 'GSmartApp.model.stockin.Stockin_pklist',
 
-	loadStore_byStockinDIdAndGreaterThanStatus: function(stockindid_link, status){
+	loadStore_byStockinDIdAndGreaterThanStatus: function(stockindid_link, lotnumber, status){
 		var me=this;
 		var params = new Object();
 		params.stockindid_link = stockindid_link;
+		params.lotnumber = lotnumber;
         params.status = status;
 		
 		this.setProxy({
@@ -40,10 +41,11 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 			}
 		});
 	},
-	loadStore_byStockinDIdAndGreaterThanStatus_async: function(stockindid_link, status){
+	loadStore_byStockinDIdAndGreaterThanStatus_async: function(stockindid_link, lotnumber, status){
 		var me=this;
 		var params = new Object();
 		params.stockindid_link = stockindid_link;
+		params.lotnumber = lotnumber;
         params.status = status;
 		
 		this.setProxy({

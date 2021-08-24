@@ -74,6 +74,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var stockinid_link = viewModel.get('stockin.id');
         var lot_stockindId = viewModel.get('lot_stockindId');
         var pkl_stockindId = viewModel.get('pkl_stockindId');
+        var cbbox_lotnumber_value = viewModel.get('cbbox_lotnumber_value'); // console.log(cbbox_lotnumber_value);
         var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
 
         switch(value.title){
@@ -141,12 +142,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 }
                 break;
             case 'Kiểm cây':
-                if(pkl_stockindId != null){
+                // console.log('cbbox_lotnumber_value: ' + cbbox_lotnumber_value);
+                if(pkl_stockindId != null && cbbox_lotnumber_value != null){
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
                     // StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
                     // StockinPklStore.removeAll();
-                    StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, -1);
+                    StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, cbbox_lotnumber_value, -1);
                     StockinPklStore.load({
                         scope: this,
                         callback: function(records, operation, success) {
@@ -164,6 +166,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                             viewModel.set('selectedPklRecord', item);
                                         }
                                     }
+                                }
+
+                                if(cbbox_lotnumber_value != null){
+                                    me.down('#cbbox_lotnumber').setValue(cbbox_lotnumber_value);
                                 }
                             }
                         }
@@ -262,7 +268,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         console.log(viewModel.get('stockin'));
     },
     onLoadData:function(id,type){
-        console.log('onLoadData: ' + id + ' ' + type);
+        // console.log('onLoadData: ' + id + ' ' + type);
         var viewModel = this.getViewModel();
 
         this.getInfo(id);

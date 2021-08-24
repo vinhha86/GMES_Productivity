@@ -2,7 +2,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockController',
     init: function () {
-        this.onloadPage();
+        this.onload();
     },
     control: {
         '#btnBack':{
@@ -69,6 +69,41 @@ Ext.define('GSmartApp.view.stock.StockController', {
         // console.log('onBackPage');   
         this.redirectTo("mobilemenu");
     },
+    onload: function () {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var StockTreeStore = viewModel.getStore('StockTreeStore');
+        StockTreeStore.loadStore_async(null, null);
+        StockTreeStore.load({
+			scope: this,
+			callback: function(records, operation, success) {
+                // me.setMasked(false);
+				if(!success){
+                    Ext.toast('Lấy thông tin thất bại', 1000);
+					this.fireEvent('logout');
+				} else {
+                    // console.log('callback success');
+                    var StockMenu = Ext.getCmp('StockMenu');
+                    var root = viewModel.get('root');
+                    // console.log(root);
+                    if(root != null)StockMenu.goToNode(root.parentNode);
+
+                    // filter cho window ds cay vai
+                    viewModel.set('maHangFilter', maHangId);
+                    viewModel.set('donHangFilter', donHang);
+				}
+			}
+        });
+        StockTreeStore.getSorters().add({
+            property: 'khoangKhongXacDinh',
+            direction: 'ASC'
+        },{
+            property: 'name',
+            direction: 'ASC'
+        });
+    },
     onloadPage: function () {
         var m = this;
         var me = this.getView();
@@ -110,28 +145,13 @@ Ext.define('GSmartApp.view.stock.StockController', {
 			}
         });
         // StockTreeStore.loadStore(maHangId, donHang);
-        StockTreeStore.getSorters().add({
-            property: 'khoangKhongXacDinh',
-            direction: 'ASC'
-        },{
-            property: 'name',
-            direction: 'ASC'
-        });
-
-        // var WarehouseStore = viewModel.get('WarehouseStore');
-        // WarehouseStore.getSorters().removeAll();
-        // WarehouseStore.getSorters().add({
-        //     property: 'contractcode',
+        // StockTreeStore.getSorters().add({
+        //     property: 'khoangKhongXacDinh',
         //     direction: 'ASC'
         // },{
-        //     property: 'skucode',
-        //     direction: 'ASC'
-        // },{
-        //     property: 'colorname',
+        //     property: 'name',
         //     direction: 'ASC'
         // });
-        // // store.clearFilter();
-        // WarehouseStore.removeAll();
     },
     onResetTree: function(){
         var me = this.getView();
