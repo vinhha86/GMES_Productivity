@@ -84,6 +84,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 60000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -97,6 +98,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 		this.load({
 			scope: this,
 			callback: function(records, operation, success) {
+				this.fireEvent('loadStore_byStockinDId_Done');
 				if(!success){
 					 this.fireEvent('logout');
 				}
@@ -120,6 +122,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 60000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"

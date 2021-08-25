@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edit_pkl_detail.Stockin_M_Edit_Pkl_Detail', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edit_pkl_recheck_detail.Stockin_M_Edit_Pkl_Recheck_Detail', {
     extend: 'Ext.form.Panel',
-    xtype: 'Stockin_M_Edit_Pkl_Detail',
-    itemId: 'Stockin_M_Edit_Pkl_Detail',
-    reference: 'Stockin_M_Edit_Pkl_Detail',
-    controller: 'Stockin_M_Edit_Pkl_Detail_Controller',
+    xtype: 'Stockin_M_Edit_Pkl_Recheck_Detail',
+    itemId: 'Stockin_M_Edit_Pkl_Recheck_Detail',
+    reference: 'Stockin_M_Edit_Pkl_Recheck_Detail',
+    controller: 'Stockin_M_Edit_Pkl_Recheck_Detail_Controller',
     viewModel: {
-        type: 'Stockin_M_Edit_Pkl_Detail_ViewModel'
+        type: 'Stockin_M_Edit_Pkl_Recheck_Detail_ViewModel'
     },
     layout: {
         type: 'vbox',
@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'packageidTxt',
+                            itemId: 'packageidTxtRecheck',
                             label: 'Số cây:',
                             labelWidth: 130,
                             flex: 1,
@@ -46,17 +46,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.packageidTxt}'
+                                // value: '{packageidTxtRecheck}'
+                                value: '{objRecheck.packageid}',
+                                editable: '{isPackageIdEditable}',
+                                readOnly: '{!isPackageIdEditable}',
                             },
-                            // listeners: {
-                            //     keyup: 'onpackageidTxtKeyup',
-                            //     buffer: 1000
-                            // },
-                            stepValue: 0.1,
                             listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
+                                focusleave: 'onlotnumberTxtAndpackageidTxtRecheckleave',
+                                focus: 'onFocus'
+                            },
+                            stepValue: 0.1,
                         },
                         {
                             xtype:'button',
@@ -67,10 +66,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // width: 45,
                             margin: 1,
                             iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
+                            itemId:'btnCheckRecheck',
                             ui: 'action',
-                            focusable: false
-                        },
+                            bind: {
+                                disabled: '{!isobjRecheckSelected}'
+                            },
+                        },   
                     ]
                 },
                 {
@@ -83,7 +84,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'mTxt',
+                            itemId: 'mTxtRecheck',
                             label: 'Dài kiểm (M):',
                             labelWidth: 130,
                             flex: 1,
@@ -96,25 +97,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.mTxt}',
+                                // value: '{mTxtRecheck}',
+                                value: '{objRecheck.met_check}',
                                 // cls: '{yTxtCls}',
-                                hidden: '{isPklMetFieldHidden}',
+                                hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
-                                // focusleave: 'onmTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'yTxt',
-                            label: 'Dài kiểm (Y)',
+                            itemId: 'yTxtRecheck',
+                            label: 'Dài kiểm (Y):',
                             labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
@@ -126,74 +126,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.yTxt}',
+                                // value: '{yTxtRecheck}',
+                                value: '{objRecheck.ydscheck}',
                                 // cls: '{yTxtCls}',
-                                hidden: '{isPklYdsFieldHidden}',
+                                hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
-                                // focusleave: 'onyTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype: 'numberfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            itemId: 'canCheckTxt',
-                            label: 'Cân kiểm',
-                            labelWidth: 130,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Cân kiểm',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.grossweightCheckTxt}',
-                                hidden: '{isPklKgFieldHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                // focusleave: 'oncanCheckTxtFocusleave',
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave',
-                            }
-                        },
-                        
-                        {
-                            xtype: 'numberfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            itemId: 'lbsCheckTxt',
-                            label: 'Lbs kiểm:',
-                            labelWidth: 130,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Lbs kiểm',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.grossweightLbsCheckTxt}',
-                                hidden: '{isPklLbsFieldHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave',
-                            }
-                        },
-                        
                         {
                             xtype:'button',
                             iconCls: 'x-fa fa-trash',
@@ -206,7 +149,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             },
                             // style: 'visibility: hidden;'
                         },
-                        
                     ]
                 },
                 {
@@ -219,7 +161,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'mOriginTxt',
+                            itemId: 'mOriginTxtRecheck',
                             label: 'Dài phiếu (M):',
                             labelWidth: 130,
                             flex: 1,
@@ -231,13 +173,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.mOriginTxt}',
-                                hidden: '{isPklMetFieldHidden}',
+                                // value: '{mOriginTxtRecheck}',
+                                value: '{objRecheck.met_origin}',
+                                hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -245,7 +188,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'yOriginTxt',
+                            itemId: 'yOriginTxtRecheck',
                             label: 'Dài phiếu (Y):',
                             labelWidth: 130,
                             flex: 1,
@@ -257,13 +200,57 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.yOriginTxt}',
-                                hidden: '{isPklYdsFieldHidden}',
+                                // value: '{yOriginTxtRecheck}',
+                                value: '{objRecheck.ydsorigin}',
+                                hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'canCheckTxtRecheck',
+                            label: 'Cân kiểm:',
+                            labelWidth: 130,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Cân kiểm',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                // value: '{grossweightCheckTxtRecheck}',
+                                value: '{objRecheck.grossweight_check}',
+                                hidden: '{isKgColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -271,7 +258,50 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'canTxt',
+                            itemId: 'lbsCheckTxtRecheck',
+                            label: 'Lbs kiểm:',
+                            labelWidth: 130,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Lbs kiểm',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                // value: '{grossweightCheckTxtRecheck}',
+                                value: '{objRecheck.grossweight_lbs_check}',
+                                hidden: '{isLbsColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'canTxtRecheck',
                             label: 'Cân phiếu:',
                             labelWidth: 130,
                             flex: 1,
@@ -284,13 +314,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.grossweightTxt}',
-                                hidden: '{isPklKgFieldHidden}',
+                                // value: '{grossweightTxtRecheck}',
+                                value: '{objRecheck.grossweight}',
+                                hidden: '{isKgColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
@@ -298,7 +329,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'lbsTxt',
+                            itemId: 'lbsTxtRecheck',
                             label: 'Lbs phiếu:',
                             labelWidth: 130,
                             flex: 1,
@@ -311,42 +342,37 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.grossweightLbsTxt}',
-                                hidden: '{isPklLbsFieldHidden}',
+                                // value: '{grossweightTxtRecheck}',
+                                value: '{objRecheck.grossweight_lbs}',
+                                hidden: '{isLbsColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave',
+                                focusleave: 'onFocusLeave'
                             }
                         },
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-print',
-                            itemId:'btnPrintPkl',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
                             ui: 'action',
                             margin: 1,
-                            focusable: false,
-                            bind: {
-                                disabled: '{!isPklSelected}',
-                            },
                             style: 'visibility: hidden;'
                         },
                     ]
                 },
-
                 {
                     layout: 'hbox',
                     border: false,
                     width: '100%',
                     items:[
-                        
                         {
                             xtype: 'numberfield',
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'widthMetCheckTxt',
+                            itemId: 'widthMetCheckTxtRecheck',
                             label: 'Khổ kiểm (cm):',
                             labelWidth: 130,
                             flex: 1,
@@ -358,12 +384,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.widthMetCheckTxt}',
+                                // value: '{widthMetCheckTxtRecheck}',
+                                value: '{objRecheck.width_met_check}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
-                                // focusleave: 'onwidthMetCheckTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave'
                             }
@@ -371,7 +397,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         {
                             xtype:'button',
                             iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
+                            // itemId:'',
                             ui: 'action',
                             margin: 1,
                             style: 'visibility: hidden;'
@@ -388,7 +414,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'widthMetTxt',
+                            itemId: 'widthMetTxtRecheck',
                             label: 'Khổ phiếu (cm):',
                             labelWidth: 130,
                             flex: 1,
@@ -400,7 +426,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.widthMetTxt}',
+                                // value: '{widthMetTxtRecheck}',
+                                value: '{objRecheck.width_met}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -412,130 +439,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         {
                             xtype:'button',
                             iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
-                    ]
-                },
-
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
-                        {
-                            xtype: 'textfield',
-                            itemId: 'pklRowTxt',
-                            label: 'Dãy:',
-                            labelWidth: 130,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Dãy',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{objPkl.pklRowTxt}'
-                            },
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
-                        {
-                            xtype: 'numberfield',
-                            itemId: 'pklSpaceTxt',
-                            label: 'Tầng:',
-                            labelWidth: 130,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Tầng',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{objPkl.pklSpaceTxt}'
-                            },
-                            // stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
-                        {
-                            xtype: 'numberfield',
-                            itemId: 'pklFloorTxt',
-                            label: 'Khoang:',
-                            labelWidth: 130,
-                            margin: 1,
-                            // padding: 6,
-                            flex: 1,
-                            // width: '100%',
-                            // minWidth: 80,
-                            // maxWidth: 200,
-                            textAlign: 'left',
-                            placeholder: 'Khoang',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value:'{objPkl.pklFloorTxt}'
-                            },
-                            // stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
+                            // itemId:'',
                             ui: 'action',
                             margin: 1,
                             style: 'visibility: hidden;'

@@ -24,16 +24,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         },
         '#cbbox_pkl_stockindId':{
             change: 'oncbbox_pkl_stockindId_change',
-            // select: 'oncbbox_pkl_stockindId_change',
         },
         '#cbbox_lotnumber':{
             change: 'oncbbox_lotnumber_change',
-            // select: 'oncbbox_lotnumber_change',
         },
         '#btnThemMoiPkl': {
             tap: 'onbtnThemMoiPkl'
         }
     },
+    // listen: {
+    //     store: {
+    //       'StockinLotStore': {
+    //             'loadStore_byStockinDId_Done': 'onloadStore_byStockinDId_Done'
+    //         }
+    //     }
+    // },
+    // onloadStore_byStockinDId_Done: function(){
+    //     Ext.Viewport.setMasked(false);
+    // },
     onFocus: function(textfield, e, eOpts){
         //
         this.setTooltip(textfield);
@@ -160,6 +168,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             viewModel.set('cbbox_lotnumber_value', null);
             me.down('#cbbox_lotnumber').setValue(null);
 
+            // Ext.Viewport.setMasked({ xtype: 'loadmask' });
             var StockinLotStore = viewModel.getStore('StockinLotStore');
             StockinLotStore.loadStore_byStockinDId(newValue);
 
@@ -177,22 +186,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         }
     },
     oncbbox_lotnumber_change: function(cbbox, newValue, oldValue, eOpts){
-        // console.log('oncbbox_lotnumber_change');
         var viewModel = this.getViewModel();
-        // var pkl_stockindId = viewModel.get('pkl_stockindId');
+
         if(newValue != null && newValue != ''){
             var pkl_stockindId = viewModel.get('pkl_stockindId');
-            var selection = cbbox.getSelection();
-            var lot_number = selection.get('lot_number');
-            // console.log(lot_number);
+            // var selection = cbbox.getSelection();
+            // var lot_number = selection.get('lot_number');
+            var lot_number = newValue;
 
             var StockinPklStore = viewModel.getStore('StockinPklStore');
             StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, lot_number, -1);
 
-            if(cbbox.getSelection() != null){
+            // if(cbbox.getSelection() != null){
                 viewModel.set('cbbox_lotnumber_value', lot_number);
-                // console.log('cbbox_lotnumber_value: ' + lot_number);
-            }
+            // }
 
             // bỏ selectedRecord
             viewModel.set('selectedLotRecord', null);
@@ -210,11 +217,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var cbbox_lotnumber_value = viewModel.get('cbbox_lotnumber_value');
 
         if(selectedDRecord == null){
-            Ext.toast('Bạn chưa chọn loại NPL', 1000);
+            Ext.toast('Bạn chưa chọn loại NPL', 2000);
             return;
         }
         if(cbbox_lotnumber_value == null){
-            Ext.toast('Bạn chưa chọn số lot', 1000);
+            Ext.toast('Bạn chưa chọn số lot', 2000);
             return;
         }
 
@@ -278,11 +285,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var cbbox_lotnumber_value = viewModel.get('cbbox_lotnumber_value');
 
         if(selectedDRecord == null){
-            Ext.toast('Bạn chưa chọn loại NPL', 1000);
+            Ext.toast('Bạn chưa chọn loại NPL', 2000);
             return;
         }
         if(cbbox_lotnumber_value == null){
-            Ext.toast('Bạn chưa chọn số lot', 1000);
+            Ext.toast('Bạn chưa chọn số lot', 2000);
             return;
         }
 
@@ -416,7 +423,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             var record = location.record;
             viewModel.set('selectedPklRecord',record);
 
-            console.log(record);
+            // console.log(record);
             
             viewModel.set('objPkl.lotnumberTxt', record.get('lotnumber'));
             viewModel.set('objPkl.packageidTxt', record.get('packageid'));
@@ -514,7 +521,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         if(selectedPklRecord == null || isNaN(selectedPklRecord.get('id'))){
-            Ext.toast('Cần chọn cây vải', 3000);
+            Ext.toast('Cần chọn cây vải', 2000);
             return;
         }
 
@@ -566,14 +573,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 var response = Ext.decode(response.responseText);
                 myview.setMasked(false);
                 if (success) {
-                    Ext.toast('Xoá thành công', 3000);
+                    Ext.toast('Xoá thành công', 2000);
                     viewModel.set('selectedPklRecord', null);
                     m.reloadStore();
                     m.resetForm();
                     myview.down('#packageidTxt').focus();
 
                 } else {
-                    Ext.toast('Lỗi xoá pkl: ' + response.message, 3000);
+                    Ext.toast('Lỗi xoá pkl: ' + response.message, 2000);
                 }
         })        
     },
@@ -594,7 +601,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             viewModel.set('objPkl.lotnumberTxt', lot_number.toUpperCase());
             lotnumberTxt = lot_number.toUpperCase();
         }else{
-            Ext.toast('Cần chọn số lot vải', 3000);
+            Ext.toast('Cần chọn số lot vải', 2000);
             return;
         }
 
@@ -619,48 +626,48 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         // check combo đã chọn chưa
         var pkl_stockindId = viewModel.get('pkl_stockindId');
         if(pkl_stockindId == '' || pkl_stockindId == null){
-            Ext.toast('Cần chọn loại vải', 3000);
+            Ext.toast('Cần chọn loại vải', 2000);
             return;
         }
 
         // check textfield
         if(stockin.unitid_link == 1){ // met
             if(packageidTxt == '' || mTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 2000);
                 return;
             }
             if(isNaN(mTxt)){
-                Ext.toast('Số M phải là số', 3000);
+                Ext.toast('Số M phải là số', 2000);
                 return;
             }
         }
         if(stockin.unitid_link == 3){ // yds
             if(packageidTxt == '' || yTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 3000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 2000);
                 return;
             }
             if(isNaN(yTxt)){
-                Ext.toast('Số Y phải là số', 3000);
+                Ext.toast('Số Y phải là số', 2000);
                 return;
             }
         }
         if(stockin.unitid_link == 4){ // kg
             if(packageidTxt == '' || grossweightCheckTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 3000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
                 return;
             }
             if(isNaN(grossweightCheckTxt)){
-                Ext.toast('Số M phải là số', 3000);
+                Ext.toast('Số M phải là số', 2000);
                 return;
             }
         }
         if(stockin.unitid_link == 5){ // lbs
             if(packageidTxt == '' || grossweightLbsCheckTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 3000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
                 return;
             }
             if(isNaN(grossweightLbsCheckTxt)){
-                Ext.toast('Số M phải là số', 3000);
+                Ext.toast('Số M phải là số', 2000);
                 return;
             }
         }
@@ -678,7 +685,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         }
         
         if(numberOfEmptyField !=0 && numberOfEmptyField != 3){
-            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 3000);
+            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 2000);
             return;
         }
 
@@ -821,12 +828,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                             myview.down('#packageidTxt').focus();
                         }
                     }else{
-                        Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
+                        Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
                     }
                 } else {
                     Ext.Viewport.setMasked(false);
                     var response = Ext.decode(response.responseText);
-                    Ext.toast('Lỗi kiểm cây: ' + response.message, 3000);
+                    Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
                 }
         })        
     },
@@ -914,11 +921,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                             me.reloadStore();
                         }
                     } else {
-                        Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 3000);
+                        Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 2000);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
-                    Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 3000);
+                    Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 2000);
                 }
         }) 
     },
@@ -1017,10 +1024,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
         var cbbox_lotnumber = me.down('#cbbox_lotnumber');
         var selection = cbbox_lotnumber.getSelection();
-        var lot_number = null;
-        if(selection != null){
-            lot_number = selection.get('lot_number');
-        }
+        var lot_number = viewModel.get('cbbox_lotnumber_value');
+        // var lot_number = null;
+        // if(selection != null){
+        //     lot_number = selection.get('lot_number');
+        // }
 
         var StockinPklStore = viewModel.getStore('StockinPklStore');
         StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, lot_number, -1);

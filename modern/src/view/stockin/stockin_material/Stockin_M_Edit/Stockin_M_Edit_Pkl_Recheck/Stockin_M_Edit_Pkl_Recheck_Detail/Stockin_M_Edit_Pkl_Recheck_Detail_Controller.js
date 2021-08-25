@@ -1,40 +1,27 @@
-Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edit_Pkl_Recheck_MainController', {
+Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edit_pkl_recheck_detail.Stockin_M_Edit_Pkl_Recheck_Detail_Controller', {
 	extend: 'Ext.app.ViewController',
-	alias: 'controller.Stockin_M_Edit_Pkl_Recheck_MainController',
+	alias: 'controller.Stockin_M_Edit_Pkl_Recheck_Detail_Controller',
+    channelPrint: { cmd: null, dta: null },
 	init: function () {
-		
+        var m = this;
+		var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        if(selectedPklRecord != null){
+            m.onSetFormData();
+        }
 	},
     control: {
-        '#btnResetFormRecheck':{
+        '#btnResetForm':{
             tap: 'onbtnResetFormRecheck'
         },
         '#btnCheckRecheck':{
             tap: 'onCheckRecheck'
         },
-        '#Stockin_M_Edit_Pkl_Recheck':{
-            // childtap: 'onItemPklRecheckTap',
-            childtap: 'onItemPklRecheckTapDetail'
+        '#btnDeletePkl':{
+            tap: 'onDeletePkl'
         },
-        '#cbbox_pklRecheck_stockindId':{
-            change: 'oncbbox_pklRecheck_stockindId_change'
-        },
-        '#cbbox_lotnumber_recheck':{
-            change: 'oncbbox_lotnumber_recheck_change',
-        },
-        '#btnThemMoiPklRecheck': {
-            tap: 'onbtnThemMoiPklRecheck'
-        }
     },
-    // listen: {
-    //     store: {
-    //       'StockinLotStore': {
-    //             'loadStore_byStockinDId_Done': 'onloadStore_byStockinDId_Done'
-    //         }
-    //     }
-    // },
-    // onloadStore_byStockinDId_Done: function(){
-    //     Ext.Viewport.setMasked(false);
-    // },
     onFocus: function(textfield, e, eOpts){
         //
         this.setTooltip(textfield);
@@ -220,48 +207,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         
                     });
                 }else{ // ios value chia het cho 100
-                    // oldValue
-                    // if(placeholder == 'Dài kiểm (M)'){
-                    //     var mTxt = viewModel.get('objPkl.mTxt');
-                    //     var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
-                    //     if(mOriginTxt == null || mOriginTxt == ''){
-                    //         viewModel.set('objPkl.mOriginTxt', mTxt);
-                    //     }
-                    // }else if(placeholder == 'Dài kiểm (Y)'){
-                    //     var yTxt = viewModel.get('objPkl.yTxt');
-                    //     var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
-                    //     if(yOriginTxt == null || yOriginTxt == ''){
-                    //         viewModel.set('objPkl.yOriginTxt', yTxt);
-                    //     }
-                    // }else if(placeholder == 'Khổ kiểm (cm)'){
-                    //     var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
-                    //     var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
-                    //     if(widthMetTxt == null || widthMetTxt == ''){
-                    //         viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
-                    //     }
-                    // }
                 }
             }else{ // ko phai ios
-                // oldValue
-                // if(placeholder == 'Dài kiểm (M)'){
-                //     var mTxt = viewModel.get('objPkl.mTxt');
-                //     var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
-                //     if(mOriginTxt == null || mOriginTxt == ''){
-                //         viewModel.set('objPkl.mOriginTxt', mTxt);
-                //     }
-                // }else if(placeholder == 'Dài kiểm (Y)'){
-                //     var yTxt = viewModel.get('objPkl.yTxt');
-                //     var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
-                //     if(yOriginTxt == null || yOriginTxt == ''){
-                //         viewModel.set('objPkl.yOriginTxt', yTxt);
-                //     }
-                // }else if(placeholder == 'Khổ kiểm (cm)'){
-                //     var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
-                //     var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
-                //     if(widthMetTxt == null || widthMetTxt == ''){
-                //         viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
-                //     }
-                // }
             }
         }
         // console.log("Version " + Ext.os.version);
@@ -335,8 +282,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             return;
         }
 
-        var objRecheck = new Object();
-        objRecheck.lotnumber = cbbox_lotnumber_value;
+        var objPkl = new Object();
+        objPkl.lotnumberTxt = cbbox_lotnumber_value;
 
         var dialog = Ext.create({
             xtype: 'dialog',
@@ -371,7 +318,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         stockin: stockin,
                         selectedDRecord: selectedDRecord,
                         selectedPklRecord: null,
-                        objRecheck: objRecheck
+                        objPkl: objPkl
                     }
                 }
             }],
@@ -380,116 +327,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
         dialog.down('#Stockin_M_Edit_Pkl_Recheck_Detail').getController().on('reloadStore', function (objData) {
             m.reloadStore();
-        });
-    },
-    onItemPklRecheckTapDetail: function(list, location, eOpts){
-        // console.log(location);
-        var record = location.record;
-
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-
-        var stockin = viewModel.get('stockin');
-        var selectedDRecord = viewModel.get('selectedDRecord');
-        var cbbox_lotnumber_value = viewModel.get('cbbox_lotnumber_value');
-
-        if(selectedDRecord == null){
-            Ext.toast('Bạn chưa chọn loại NPL', 2000);
-            return;
-        }
-        if(cbbox_lotnumber_value == null){
-            Ext.toast('Bạn chưa chọn số lot', 2000);
-            return;
-        }
-
-        var objRecheck = new Object();
-
-        var dialog = Ext.create({
-            xtype: 'dialog',
-            // id: 'StockMenuWindow_Main_dialog',
-            itemId: 'Stockin_M_Edit_Pkl_Recheck_Detail_dialog',
-            title: 'Chi tiết cây vải',
-            width: '90%',
-            height: '60%',
-            zIndex: null,
-            // maxWidth: 300,
-            // maxHeight: 600,
-            header: true,
-            closable: true,
-            closeAction: 'destroy',
-            maximizable: false,
-            maskTapHandler: function(){
-                if(dialog){
-                    dialog.close();
-                    me.setMasked(false);
-                }
-            },
-            bodyPadding: '1',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                border: false,
-                xtype: 'Stockin_M_Edit_Pkl_Recheck_Detail',
-                viewModel: {
-                    data: {
-                        stockin: stockin,
-                        selectedDRecord: selectedDRecord,
-                        selectedPklRecord: record,
-                        objRecheck: objRecheck
-                    }
-                }
-            }],
-            listeners: {
-                destroy: {
-                    fn: function(){ 
-                        if(Ext.Msg){
-                            Ext.Msg.close();
-                        }
-                    }
-                },
-            },
-        });
-        dialog.show();
-
-        dialog.down('#Stockin_M_Edit_Pkl_Recheck_Detail').getController().on('reloadStore', function (objData) {
-            m.reloadStore();
-        });
-        dialog.down('#Stockin_M_Edit_Pkl_Recheck_Detail').getController().on('close', function (objData) {
-            dialog.close();
-        });
-    },
-
-    onmaPklRecheckFilterKeyup: function (){
-        var grid = this.getView().down('#Stockin_M_Edit_Pkl_Recheck'),
-            // Access the field using its "reference" property name.
-            filterField = this.getView().down('#maPklRecheckFilter'),
-            store = grid.store,
-            filters = grid.store.getFilters();
-
-        var viewModel = this.getViewModel();
-        grid.getSelectable().deselectAll();
-        viewModel.set('lotnumberTxtRecheck', '');
-        this.resetFormRecheck();
-
-        var maPklFilter = viewModel.get('maPklRecheckFilter') == null ? '' : viewModel.get('maPklRecheckFilter').toLowerCase();
-        store.clearFilter();
-        store.filterBy(function(rec) { //toLowerCase() // includes()
-            var isByLotOK = false;
-            if(
-                rec.get('lotnumber').toLowerCase().includes(maPklFilter)
-            ){
-                isByLotOK = true;
-            }
-            if(
-                isByLotOK
-            ){
-                return true;
-            }else{
-                return false;
-            }
         });
     },
     resetFormRecheck: function(){
@@ -499,73 +336,103 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         viewModel.set('objRecheck', null);
         viewModel.set('objRecheck.lotnumber', lotnumber);
     },
-    onItemPklRecheckTap: function(list, location, eOpts ){
+    onSetFormData: function(){
         var m = this;
         var viewModel = this.getViewModel();
-        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
-        var tappedRecord = location.record;
+        var record = viewModel.get('selectedPklRecord');
+        
+        var objRecheck = JSON.parse(JSON.stringify(record.data));
+        // chuyển khổ m -> cm
+        objRecheck.width_met = objRecheck.width_met * 100;
+        objRecheck.width_met_check = objRecheck.width_met_check * 100;
 
-        if(selectedPklRecheckRecord == null){
-            var record = location.record;
-            viewModel.set('selectedPklRecheckRecord', record);
-    
-            // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
-            // khi click lên record ở grid sẽ lấy lại giá trị cũ
-            var newObjData = JSON.parse(JSON.stringify(record.data));
-            // chuyển khổ m -> cm
-            newObjData.width_met = newObjData.width_met * 100;
-            newObjData.width_met_check = newObjData.width_met_check * 100;
-            viewModel.set('objRecheck', newObjData);
-        } else{
-            var selectable = list.getSelectable();
-            var selectRecord = selectable.getSelectedRecord();
+        viewModel.set('objRecheck', objRecheck);
+    },
+    onDeletePkl: function () {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
 
-            if(selectRecord == tappedRecord){
-                // nếu ấn vào 1 record đã chọn thì bỏ chọn record này và set viewModel selectedPklRecheckRecord thành null
-                // bỏ highlight trên giao diện grid
-                setTimeout(function(){
-                    m.onGridDeselect();
-                }, 50);
-
-                viewModel.set('selectedPklRecheckRecord', null);
-                viewModel.set('objRecheck', null);
-            }else{
-                // nếu ấn vào 1 record khác với record đã chọn, bỏ chionj record cũ và chọn record mới
-                // set viewModel selectedPklRecord thành record mới
-                var record = location.record;
-                viewModel.set('selectedPklRecheckRecord',record);
-
-                // copy obj, để thay đổi thông tin ko ảnh hưởng đến view model
-                // khi click lên record ở grid sẽ lấy lại giá trị cũ
-                var newObjData = JSON.parse(JSON.stringify(record.data));
-                // chuyển khổ m -> cm
-                newObjData.width_met = newObjData.width_met * 100;
-                newObjData.width_met_check = newObjData.width_met_check * 100;
-                viewModel.set('objRecheck', newObjData);
-            }
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        if(selectedPklRecord == null || isNaN(selectedPklRecord.get('id'))){
+            Ext.toast('Cần chọn cây vải', 2000);
+            return;
         }
+
+        var msgWindow = Ext.Msg.show({
+            title: 'Thông báo',
+            message: 'Bạn có chắc chắn xoá?',
+            width: 300,
+            closable: false,
+            zIndex: 2,
+            modal: false,
+            // masked: true,
+            // maskTapHandler: function(){
+            //     if(msgWindow){
+            //         msgWindow.close();
+            //         me.setMasked(false);
+            //     }
+            // },
+            buttons: [{
+                text: 'Thoát',
+                itemId: 'no'
+            }, {
+                text: 'Xoá',
+                itemId: 'yes'
+            }],
+            fn: function (buttonValue, inputText, showConfig) {
+                if(buttonValue == 'no'){
+                    if(msgWindow){
+                        msgWindow.close();
+                    }
+                }
+                if(buttonValue == 'yes'){
+                    m.deletePkl();
+                }
+            },
+            icon: Ext.Msg.QUESTION,
+        });
+        // console.log(selectedPklRecord);
     },
-    onGridDeselect: function(){
-        var grid = this.getView().down('#Stockin_M_Edit_Pkl_Recheck');
-        var selectable = grid.getSelectable();
-        var selectRecord = selectable.getSelectedRecord();
-        selectable.deselectAll();
+    deletePkl: function(){
+        var myview = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        var id = selectedPklRecord.get('id');
+
+        myview.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang xoá'
+        });
+
+        var params = new Object();
+        params.id = id;
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_delete_check10', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                myview.setMasked(false);
+                if (success) {
+                    Ext.toast('Xoá thành công', 2000);
+                    m.fireEvent('reloadStore');
+                    m.fireEvent('close');
+
+                } else {
+                    Ext.toast('Lỗi xoá pkl: ' + response.message, 2000);
+                }
+        })        
     },
-    onCheckRecheck: function(){
+    onCheckRecheck: function(){ 
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
-        // var selectedDRecord = viewModel.get('selectedDRecord');
-        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
         var objRecheck = viewModel.get('objRecheck');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
 
-        // check combo đã chọn chưa
-        var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
-        if(pklRecheck_stockindId == '' || pklRecheck_stockindId == null){
-            Ext.toast('Cần chọn loại vải', 2000);
-            return;
-        }
+        // console.log(objRecheck); 
+        // return;
 
         if(objRecheck.id == null){
             Ext.toast('Không tìm thấy cây vải có số lot và cây này', 2000);
@@ -573,23 +440,76 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         }
 
         // check textfield
-        if(stockin.unitid_link == 3){
-            if(objRecheck.packageid == '' || objRecheck.ydscheck == ''){
-                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 2000);
+        if(stockin.unitid_link == 3){ // yrd
+            if(objRecheck.packageid == '' || objRecheck.ydscheck == '' || objRecheck.grossweight_check == '' || objRecheck.width_met_check == ''){
+                Ext.toast('Thiếu thông tin Số cây, độ dài, khối lượng hoặc khổ', 2000);
                 return;
             }
             if(isNaN(objRecheck.ydscheck)){
                 Ext.toast('Số Y phải là số', 2000);
                 return;
             }
+            if(isNaN(objRecheck.grossweight_check)){
+                Ext.toast('Khối lượng phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.width_met_check)){
+                Ext.toast('Khổ phải là số', 2000);
+                return;
+            }
         }
-        if(stockin.unitid_link == 1){
-            if(objRecheck.packageid == '' || objRecheck.met_check == ''){
-                Ext.toast('Thiếu thông tin Số cây hoặc độ dài', 2000);
+        if(stockin.unitid_link == 1){ // met
+            if(objRecheck.packageid == '' || objRecheck.met_check == '' || objRecheck.grossweight_check == '' || objRecheck.width_met_check == ''){
+                Ext.toast('Thiếu thông tin Số cây, độ dài, khối lượng hoặc khổ', 2000);
                 return;
             }
             if(isNaN(objRecheck.met_check)){
                 Ext.toast('Số M phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.grossweight_check)){
+                Ext.toast('Khối lượng phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.width_met_check)){
+                Ext.toast('Khổ phải là số', 2000);
+                return;
+            }
+        }
+
+        if(stockin.unitid_link == 4){ // kg
+            if(objRecheck.packageid == '' || objRecheck.met_check == '' || objRecheck.grossweight_check == '' || objRecheck.width_met_check == ''){
+                Ext.toast('Thiếu thông tin Số cây, độ dài, khối lượng hoặc khổ', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.met_check)){
+                Ext.toast('Số M phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.grossweight_check)){
+                Ext.toast('Khối lượng phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.width_met_check)){
+                Ext.toast('Khổ phải là số', 2000);
+                return;
+            }
+        }
+        if(stockin.unitid_link == 5){ // lbs
+            if(objRecheck.packageid == '' || objRecheck.met_check == '' || objRecheck.grossweight_lbs_check == '' || objRecheck.width_met_check == ''){
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.met_check)){
+                Ext.toast('Số M phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.grossweight_lbs_check)){
+                Ext.toast('Khối lượng phải là số', 2000);
+                return;
+            }
+            if(isNaN(objRecheck.width_met_check)){
+                Ext.toast('Khổ phải là số', 2000);
                 return;
             }
         }
@@ -597,15 +517,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         // tạo obj
         if(objRecheck.ydscheck == null || objRecheck.ydscheck == '') objRecheck.ydscheck = 0;
         if(objRecheck.met_check == null || objRecheck.met_check == '') objRecheck.met_check = 0;
-        if(objRecheck.ydsorigin == null || objRecheck.ydsorigin == '' || objRecheck.ydsorigin == 0) objRecheck.ydsorigin = objRecheck.ydscheck;
-        if(objRecheck.met_origin == null || objRecheck.met_origin == '' || objRecheck.met_origin == 0) objRecheck.met_origin = objRecheck.met_check;
+        if(objRecheck.ydsorigin == null || objRecheck.ydsorigin == '' || objRecheck.ydsorigin == 0) objRecheck.ydsorigin = 0;
+        if(objRecheck.met_origin == null || objRecheck.met_origin == '' || objRecheck.met_origin == 0) objRecheck.met_origin = 0;
         if(objRecheck.sample_check == null || objRecheck.sample_check == '') objRecheck.sample_check = 0;
         if(objRecheck.grossweight_check == null || objRecheck.grossweight_check == '') objRecheck.grossweight_check = 0;
-        if(objRecheck.grossweight == null || objRecheck.grossweight == '' || objRecheck.grossweight == 0) objRecheck.grossweight = objRecheck.grossweight_check;
+        if(objRecheck.grossweight == null || objRecheck.grossweight == '' || objRecheck.grossweight == 0) objRecheck.grossweight = 0;
         if(objRecheck.grossweight_lbs_check == null || objRecheck.grossweight_lbs_check == '') objRecheck.grossweight_lbs_check = 0;
-        if(objRecheck.grossweight_lbs == null || objRecheck.grossweight_lbs == '' || objRecheck.grossweight_lbs == 0) objRecheck.grossweight_lbs = objRecheck.grossweight_lbs_check;
+        if(objRecheck.grossweight_lbs == null || objRecheck.grossweight_lbs == '' || objRecheck.grossweight_lbs == 0) objRecheck.grossweight_lbs = 0;
         if(objRecheck.width_met_check == null || objRecheck.width_met_check == '') objRecheck.width_met_check = 0;
-        if(objRecheck.width_met == null || objRecheck.width_met == '' || objRecheck.width_met == 0) widthMetTxt = objRecheck.width_met_check;
+        if(objRecheck.width_met == null || objRecheck.width_met == '' || objRecheck.width_met == 0) widthMetTxt = 0;
 
         if(stockin.unitid_link == 1 || stockin.unitid_link == 4 || stockin.unitid_link == 5){
             // met
@@ -675,15 +595,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         }else{
                             Ext.toast('Lưu thành công', 2000);
                             var data = response.data;
-                            
-                            // bỏ highlight
-                            var grid = me.down('#Stockin_M_Edit_Pkl_Recheck');
-                            grid.getSelectable().deselectAll();
-                            viewModel.set('selectedPklRecheckRecord', null);
 
-                            m.reloadStore();
-                            m.resetFormRecheck();
-                            m.getView().down('#packageidTxtRecheck').focus();
+                            if(selectedPklRecord == null){
+                                // them moi
+                                m.fireEvent('reloadStore');
+                                m.resetFormRecheck();
+                                m.getView().down('#packageidTxtRecheck').focus();
+                            }else{
+                                // edit
+                                m.fireEvent('reloadStore');
+                            }
                         }
                         // console.log(response);
                     }else{
@@ -694,8 +615,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     Ext.toast('Lưu thất bại: ' + response.message, 2000);
                 }
         })
-
-        
     },
     onbtnResetFormRecheck: function(){
         var m = this;
@@ -718,7 +637,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var m = this;
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
-        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+
+        if(selectedPklRecord != null){
+            return;
+        }
 
         var lotnumber = viewModel.get('objRecheck.lotnumber');
         var packageid = viewModel.get('objRecheck.packageid');
@@ -758,7 +681,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
                             if(response.data.length == 0){
-                                Ext.toast('Không tìm thấy cây vải có số lot và cây này', 2000);
+                                Ext.toast('Không tìm thấy cây vải có số lot và cây này hoặc cây vải đã được kiểm', 2000);
                                 viewModel.set('objRecheck', null);
                                 viewModel.set('objRecheck.lotnumber', lotnumber);
                                 viewModel.set('objRecheck.packageid', packageid);
@@ -770,22 +693,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                 responseObj.width_met = responseObj.width_met * 100;
                                 responseObj.width_met_check = responseObj.width_met_check * 100;
                                 viewModel.set('objRecheck', responseObj);
-
-                                // bỏ highlight
-                                var grid = me.down('#Stockin_M_Edit_Pkl_Recheck');
-                                grid.getSelectable().deselectAll();
-                                // highlight nếu cây vải có trong danh sách 10%
-                                var storeItems = viewModel.getStore('StockinPklRecheckStore').getData().items;
-                                for(var i=0; i<storeItems.length; i++){
-                                    var item = storeItems[i];
-                                    if(item.get('id') == responseObj.id){
-                                        grid.getSelectable().select(item);
-                                        viewModel.set('selectedPklRecheckRecord', item);
-                                        // console.log(item);
-                                    }
-                                }
-                                //
-                                // console.log(responseObj);
                             }
                             
                         }else{
@@ -798,45 +705,4 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             })        
         }
     },
-
-    reloadStore: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var stockinid_link = viewModel.get('stockin.id');
-        var pklRecheck_stockindId = viewModel.get('pkl_stockindId');
-        var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
-
-        var cbbox_lotnumber_recheck = me.down('#cbbox_lotnumber_recheck');
-        var selection = cbbox_lotnumber_recheck.getSelection();
-        var lot_number = viewModel.get('cbbox_lotnumber_value');
-        // var lot_number = null;
-        // if(selection != null){
-        //     lot_number = selection.get('lot_number');
-        // }
-
-        var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
-        StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, lot_number, 2);
-        StockinPklRecheckStore.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if(!success){
-                    this.fireEvent('logout');
-                } else {
-                    if(selectedPklRecheckRecord != null){
-                        var stockinpklid_link = selectedPklRecheckRecord.get('id');
-                        var storeItems = StockinPklRecheckStore.getData().items;
-                        for(var i=0; i<storeItems.length; i++){
-                            var item = storeItems[i];
-                            if(item.get('id') == stockinpklid_link){
-                                var grid = m.getView().down('#Stockin_M_Edit_Pkl_Recheck');
-                                grid.getSelectable().select(item);
-                                viewModel.set('selectedPklRecheckRecord', item);
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
 })

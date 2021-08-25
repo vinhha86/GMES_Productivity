@@ -196,12 +196,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         viewModel.set('objPkl.pklSpaceTxt', record.get('space'));
         viewModel.set('objPkl.pklRowTxt', record.get('row'));
     },
-    onGridDeselect: function(){
-        var grid = this.getView().down('#Stockin_M_Edit_Pkl');
-        var selectable = grid.getSelectable();
-        var selectRecord = selectable.getSelectedRecord();
-        selectable.deselectAll();
-    },
     onPrintPkl: function () {
         console.log('onPrintPkl clicked');
         // popup here
@@ -213,7 +207,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
 
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         if(selectedPklRecord == null || isNaN(selectedPklRecord.get('id'))){
-            Ext.toast('Cần chọn cây vải', 1000);
+            Ext.toast('Cần chọn cây vải', 2000);
             return;
         }
 
@@ -223,6 +217,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             width: 300,
             closable: false,
             zIndex: 2,
+            modal: false,
             // masked: true,
             // maskTapHandler: function(){
             //     if(msgWindow){
@@ -271,7 +266,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 var response = Ext.decode(response.responseText);
                 myview.setMasked(false);
                 if (success) {
-                    Ext.toast('Xoá thành công', 1000);
+                    Ext.toast('Xoá thành công', 2000);
                     // viewModel.set('selectedPklRecord', null);
                     // m.reloadStore();
                     // m.resetForm();
@@ -280,7 +275,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     m.fireEvent('close');
 
                 } else {
-                    Ext.toast('Lỗi xoá pkl: ' + response.message, 1000);
+                    Ext.toast('Lỗi xoá pkl: ' + response.message, 2000);
                 }
         })        
     },
@@ -314,48 +309,48 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         // check combo đã chọn chưa
         var pkl_stockindId = selectedDRecord.get('id');
         if(pkl_stockindId == '' || pkl_stockindId == null){
-            Ext.toast('Cần chọn loại vải', 1000);
+            Ext.toast('Cần chọn loại vải', 2000);
             return;
         }
 
         // check textfield
         if(stockin.unitid_link == 1){ // met
             if(packageidTxt == '' || mTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 1000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 2000);
                 return;
             }
             if(isNaN(mTxt)){
-                Ext.toast('Số M phải là số', 1000);
+                Ext.toast('Số M phải là số', 2000);
                 return;
             }
         }
         if(stockin.unitid_link == 3){ // yds
             if(packageidTxt == '' || yTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 1000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 2000);
                 return;
             }
             if(isNaN(yTxt)){
-                Ext.toast('Số Y phải là số', 1000);
+                Ext.toast('Số Y phải là số', 2000);
                 return;
             }
         }
         if(stockin.unitid_link == 4){ // kg
             if(packageidTxt == '' || grossweightCheckTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 1000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
                 return;
             }
             if(isNaN(grossweightCheckTxt)){
-                Ext.toast('Số M phải là số', 1000);
+                Ext.toast('Số M phải là số', 2000);
                 return;
             }
         }
         if(stockin.unitid_link == 5){ // lbs
             if(packageidTxt == '' || grossweightLbsCheckTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 1000);
+                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
                 return;
             }
             if(isNaN(grossweightLbsCheckTxt)){
-                Ext.toast('Số M phải là số', 1000);
+                Ext.toast('Số M phải là số', 2000);
                 return;
             }
         }
@@ -373,7 +368,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         }
         
         if(numberOfEmptyField !=0 && numberOfEmptyField != 3){
-            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 1000);
+            Ext.toast('Phải điền tất cả hoặc bỏ trống tất cả thông tin dãy, hàng, tầng', 2000);
             return;
         }
 
@@ -509,7 +504,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         } else {
                             //Reload danh sach Pklist va Reset cac o nhap lieu
                             Ext.Viewport.setMasked(false);
-                            Ext.toast('Lưu thành công', 1000);
+                            Ext.toast('Lưu thành công', 2000);
                             if(selectedPklRecord == null){
                                 // them moi
                                 me.fireEvent('reloadStore');
@@ -522,12 +517,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         }
 
                     }else{
-                        Ext.toast('Lỗi kiểm cây: ' + response.message, 1000);
+                        Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
                     }
                 } else {
                     Ext.Viewport.setMasked(false);
                     var response = Ext.decode(response.responseText);
-                    Ext.toast('Lỗi kiểm cây: ' + response.message, 1000);
+                    Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
                 }
         })        
     },
@@ -607,18 +602,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     if (response.respcode == 200) {
                         if (response.status == 2){//In tem OK
                             //In Success --> Reload danh sach Pklist va Reset cac o nhap lieu
-                            me.reloadStore();
-                            me.resetForm();
+                            // me.reloadStore();
+                            // me.resetForm();
+                            if(selectedPklRecord == null){
+                                // them moi
+                                me.fireEvent('reloadStore');
+                                me.resetForm();
+                                myview.down('#packageidTxt').focus();
+                            }else{
+                                // edit
+                                me.fireEvent('reloadStore');
+                            }
                         } else {
                             Ext.Msg.alert('Thông báo', 'Lỗi máy in:' + response.err_msg, Ext.emptyFn);
                             me.reloadStore();
                         }
                     } else {
-                        Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 1000);
+                        Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 2000);
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
-                    Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 1000);
+                    Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 2000);
                 }
         }) 
     },

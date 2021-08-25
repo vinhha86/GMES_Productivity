@@ -17,7 +17,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
     markDirty: true,
     columnLines: true,
     striped: false,
-    infinite: false,
+    variableHeights: true,
     width: '100%',
 
     plugins: {

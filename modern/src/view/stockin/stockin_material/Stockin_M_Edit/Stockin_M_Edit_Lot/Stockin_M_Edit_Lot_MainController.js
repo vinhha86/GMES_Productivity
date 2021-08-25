@@ -177,19 +177,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
         if(location.record.get('stockinLotSpace') == null) location.record.set('stockinLotSpace', '');
         viewModel.set('selectedLotRecord', location.record);
-        console.log(location.record);
 
         // lotnumberTxt
         var selectedPklRecord = viewModel.get('selectedPklRecord');
-        console.log(selectedPklRecord);
-
-        if(selectedPklRecord == null){
-            viewModel.set('lotnumberTxt', location.record.get('lot_number'));
-        }
+        viewModel.set('cbbox_lotnumber_value', location.record.get('lot_number'));
 
         // objRecheck.lotnumber
         var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
-        console.log(selectedPklRecord);
 
         if(selectedPklRecheckRecord == null){
             viewModel.set('objRecheck.lotnumber', location.record.get('lot_number'));

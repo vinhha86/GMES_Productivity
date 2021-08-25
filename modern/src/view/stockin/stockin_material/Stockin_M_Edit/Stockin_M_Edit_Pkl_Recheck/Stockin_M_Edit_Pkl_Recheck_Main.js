@@ -43,29 +43,61 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     padding: 2,
                 },
                 {
-                    xtype: 'textfield',
-                    itemId: 'maPklRecheckFilter',
-                    // label: 'Mã hàng:',
-                    // labelWidth: 85,
-                    margin: '5 5 1 5',
-                    // padding: 6,
-                    flex: 1,
-                    // width: '100%',
-                    // minWidth: 80,
-                    // maxWidth: 200,
-                    textAlign: 'left',
-                    placeholder: 'Tìm kiếm nhanh ... (theo lot)',
-                    // editable: false,
-                    // readOnly: true,
-                    clearable: false,
-                    cls: 'searchField',
-                    bind: {
-                        value: '{maPklRecheckFilter}'
+                    xtype: 'combobox',
+                    itemId: 'cbbox_lotnumber_recheck',
+                    // reference: 'cboorgto',
+                    editable: false,
+                    readOnly: true,
+                    // cls: 'notEditable',
+                    bind:{
+                        store:'{StockinLotStore}',
+                        // value:'{cbbox_lotnumber_value}'
                     },
-                    listeners: {
-                        keyup: 'onmaPklRecheckFilterKeyup',
-                        buffer: 500
-                    }
+                    displayField: 'lot_number',
+                    valueField: 'lot_number',
+                    // label: 'Nơi giao:',
+                    // disabled: true,
+                    labelWidth: 85,
+                    flex: 1,
+                    padding: 2,
+                },
+                // {
+                //     xtype: 'textfield',
+                //     itemId: 'maPklRecheckFilter',
+                //     // label: 'Mã hàng:',
+                //     // labelWidth: 85,
+                //     margin: '5 5 1 5',
+                //     // padding: 6,
+                //     flex: 1,
+                //     // width: '100%',
+                //     // minWidth: 80,
+                //     // maxWidth: 200,
+                //     textAlign: 'left',
+                //     placeholder: 'Tìm kiếm nhanh ... (theo lot)',
+                //     // editable: false,
+                //     // readOnly: true,
+                //     clearable: false,
+                //     cls: 'searchField',
+                //     bind: {
+                //         value: '{maPklRecheckFilter}'
+                //     },
+                //     listeners: {
+                //         keyup: 'onmaPklRecheckFilterKeyup',
+                //         buffer: 500
+                //     }
+                // },
+                {
+                    xtype:'button',
+                    // text: 'Xác nhận',
+                    // flex: 1,
+                    // minWidth: 80,
+                    // maxWidth: 130,
+                    // width: 45,
+                    margin: 1,
+                    iconCls: 'x-fa fa-plus',
+                    itemId:'btnThemMoiPklRecheck',
+                    ui: 'action',
+                    focusable: false
                 },
             ]
         },
@@ -77,10 +109,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         },
         {
             xtype: 'container',
-            // flex:1,
-            // height: 100,
-            // docked: 'bottom',
             layout: 'vbox',
+            hidden: true,
             items:[
                 {
                     layout: 'hbox',

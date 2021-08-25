@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         // value:'{cbbox_lotnumber_value}'
                     },
                     displayField: 'lot_number',
-                    valueField: 'id',
+                    valueField: 'lot_number',
                     // label: 'Nơi giao:',
                     // disabled: true,
                     labelWidth: 85,
@@ -83,7 +83,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 //         buffer: 500
                 //     }
                 // },
-
                 {
                     xtype:'button',
                     // text: 'Xác nhận',

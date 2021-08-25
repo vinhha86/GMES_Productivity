@@ -142,12 +142,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 }
                 break;
             case 'Kiểm cây':
-                // console.log('cbbox_lotnumber_value: ' + cbbox_lotnumber_value);
                 if(pkl_stockindId != null && cbbox_lotnumber_value != null){
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
-                    // StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus(pkl_stockindId, -1);
-                    // StockinPklStore.removeAll();
                     StockinPklStore.loadStore_byStockinDIdAndGreaterThanStatus_async(pkl_stockindId, cbbox_lotnumber_value, -1);
                     StockinPklStore.load({
                         scope: this,
@@ -168,24 +165,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                     }
                                 }
 
-                                if(cbbox_lotnumber_value != null){
-                                    me.down('#cbbox_lotnumber').setValue(cbbox_lotnumber_value);
-                                }
+                                // if(cbbox_lotnumber_value != null){
+                                //     me.down('#cbbox_lotnumber').setValue(cbbox_lotnumber_value);
+                                // }
                             }
                         }
                     });
 
-                    var cbbox_pkl_stockindId = m.getView().down('#cbbox_pkl_stockindId');
-                    cbbox_pkl_stockindId.setValue(pkl_stockindId);
+                    if(pkl_stockindId != null){
+                        me.down('#cbbox_pkl_stockindId').setValue(pkl_stockindId);
+                    }
+                    if(cbbox_lotnumber_value != null){
+                        me.down('#cbbox_lotnumber').setValue(cbbox_lotnumber_value);
+                    }
                 }
                 break;
             case 'Kiểm 10%':
-                if(pklRecheck_stockindId != null){
+                if(pklRecheck_stockindId != null && cbbox_lotnumber_value != null){
                     var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
                     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
-                    // StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(pklRecheck_stockindId, 2);
-                    // StockinPklRecheckStore.removeAll();
-                    StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, 2);
+                    StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, cbbox_lotnumber_value, 2);
                     StockinPklRecheckStore.load({
                         scope: this,
                         callback: function(records, operation, success) {
@@ -204,12 +203,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                         }
                                     }
                                 }
+
+                                // if(cbbox_lotnumber_value != null){
+                                //     me.down('#cbbox_lotnumber_recheck').setValue(cbbox_lotnumber_value);
+                                // }
                             }
                         }
                     });
 
-                    var cbbox_pklRecheck_stockindId = m.getView().down('#cbbox_pklRecheck_stockindId');
-                    cbbox_pklRecheck_stockindId.setValue(pklRecheck_stockindId);
+                    if(pklRecheck_stockindId != null){
+                        me.down('#cbbox_pklRecheck_stockindId').setValue(pklRecheck_stockindId);
+                    }
+                    if(cbbox_lotnumber_value != null){
+                        me.down('#cbbox_lotnumber_recheck').setValue(cbbox_lotnumber_value);
+                    }
                 }
                 break;
             case 'DS SP':

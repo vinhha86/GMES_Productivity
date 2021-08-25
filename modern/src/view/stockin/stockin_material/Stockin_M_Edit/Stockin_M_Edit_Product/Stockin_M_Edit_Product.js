@@ -18,6 +18,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     markDirty: true,
     columnLines: true,
     striped: false,
+    variableHeights: true,
 
     plugins: {
         gridcellediting: {

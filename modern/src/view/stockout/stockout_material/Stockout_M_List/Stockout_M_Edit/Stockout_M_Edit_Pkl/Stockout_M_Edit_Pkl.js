@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
     markDirty: true,
     columnLines: true,
     striped: false,
-    infinite: false,
+    variableHeights: true,
     width: '100%',
 
     plugins: {

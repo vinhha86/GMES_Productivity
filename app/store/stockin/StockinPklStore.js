@@ -22,6 +22,7 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 60000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -60,6 +61,7 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 60000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -72,10 +74,11 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 		});
 	},
 
-    loadStore_byStockinDIdAndEqualStatus: function(stockindid_link, status){
+    loadStore_byStockinDIdAndEqualStatus: function(stockindid_link, lotnumber, status){
 		var me=this;
 		var params = new Object();
 		params.stockindid_link = stockindid_link;
+		params.lotnumber = lotnumber;
         params.status = status;
 		
 		this.setProxy({
@@ -90,6 +93,7 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 60000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
@@ -109,10 +113,11 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 			}
 		});
 	},
-	loadStore_byStockinDIdAndEqualStatus_async: function(stockindid_link, status){
+	loadStore_byStockinDIdAndEqualStatus_async: function(stockindid_link, lotnumber, status){
 		var me=this;
 		var params = new Object();
 		params.stockindid_link = stockindid_link;
+		params.lotnumber = lotnumber;
         params.status = status;
 		
 		this.setProxy({
@@ -127,6 +132,7 @@ Ext.define('GSmartApp.store.stockin.StockinPklStore', {
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
+			timeout: 60000,
 			headers :{
 				'Accept': "application/json", 
 				'Content-Type':"application/json"
