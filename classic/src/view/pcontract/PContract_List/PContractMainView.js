@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     }, {
         text: 'Mã đơn hàng',
         dataIndex: 'contractcode',
-        width: 120,
+        flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'contractcodeFilterField',
-            width: 116,
+            width: '99%',
             margin: 2,
             enableKeyEvents: true,
             listeners: {
@@ -99,7 +99,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     {
         text: 'Thị trường',
         dataIndex: 'marketTypeName',
-        flex: 1,
+        width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;

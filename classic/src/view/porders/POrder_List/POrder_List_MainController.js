@@ -6,10 +6,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var viewModel = this.getViewModel();
 
         var VendorStore = viewModel.getStore('POrder_ListVendorStore');
-        VendorStore.loadStore();
+        VendorStore.loadStore(11);
         VendorStore.sort('vendorname', 'ASC');
         var BuyerStore = viewModel.getStore('POrder_ListBuyerStore');
-        BuyerStore.loadStore();
+        BuyerStore.loadStore(12);
         BuyerStore.sort('buyername', 'ASC');
         var ListStatusStore = viewModel.getStore('POrder_ListStatusStore');
         ListStatusStore.loadStore();

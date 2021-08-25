@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.RFID.demoRFID.stock.stockout.StockoutViewController',
             params.data = lst;
             params.store_id = id_invstore;
 
-            var url = 'demorfid/create_stockout';
+            var url = '  ';
 
             GSmartApp.Ajax.post_demo(url, Ext.JSON.encode(params),
                 function (success, response, options) {

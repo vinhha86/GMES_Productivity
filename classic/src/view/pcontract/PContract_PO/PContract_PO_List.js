@@ -85,15 +85,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             return value;
         }
     }, {
-        text: 'PO Vendor',
-        dataIndex: 'po_vendor',
-        width: 100,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            metaData.tdCls = 'po_offer';
-            return value;
-        }
-    }, {
         text: 'SL',
         align: 'right',
         dataIndex: 'po_quantity',
@@ -118,15 +109,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
             return Ext.util.Format.date(value, 'd/m/y');
         },
         dataIndex: 'matdate',
-        width: 70
-    },
-    {
-        text: 'Ngày VC',
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            metaData.tdCls = 'po_offer';
-            return Ext.util.Format.date(value, 'd/m/y');
-        },
-        dataIndex: 'productiondate',
         width: 70
     },
     {
@@ -170,6 +152,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     store: '{record.sub_po_plan}',
                     // title: 'Danh sách hàng xuất'
                 },
+                features: [{
+                    ftype: 'summary',
+                    groupHeaderTpl: 'Tổng',
+                    dock: 'bottom'
+                }],
                 columns: [{
                     xtype: 'actioncolumn',
                     width: 28,
@@ -205,32 +192,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                         return value;
                     }
                 }, {
-                    text: 'PO Vendor',
-                    dataIndex: 'po_vendor',
-                    width: 100,
-                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdCls = 'po_linekh';
-                        return value;
-                    }
-                }, {
                     text: 'SL',
                     align: 'end',
                     dataIndex: 'po_quantity',
                     width: 70,
+                    summaryType: 'sum',
+                    summaryRenderer: function (value, summaryData, dataIndex) {
+                        return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    },
                     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                         metaData.tdCls = 'po_linekh';
                         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
                     }
                 },
-                // {
-                //     text:'YCSX',
-                //     align: 'end',
-                //     dataIndex:'amount_org',
-                //     width: 70,
-                //     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                //         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                //     }
-                // },
                 {
                     text: 'Ngày giao',
                     dataIndex: 'shipdate',
@@ -251,22 +225,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     },
                     dataIndex: 'matdate',
                     width: 70
-                }, {
-                    text: 'Ngày VC',
-                    hidden: true,
-                    // renderer: Ext.util.Format.dateRenderer('d/m/y'),
-                    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                        metaData.tdCls = 'po_linekh';
-                        var date = Ext.Date.parse(value, 'c');
-                        return Ext.Date.format(date, 'd/m/y');
-                    },
-                    dataIndex: 'productiondate',
-                    width: 70
-                }, {
-                    text: 'Số ngày SX',
-                    dataIndex: 'productiondays',
-                    width: 65,
-                    hidden: true
                 }, {
                     text: 'Phân xưởng',
                     dataIndex: 'factories',

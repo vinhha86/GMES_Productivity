@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
     xtype: 'PContract_PO_Main',
     id: 'PContract_PO_Main',
     itemId: 'PContract_PO_Main',
-    controller: 'PContract_POController',    
+    controller: 'PContract_POController',
     // viewModel: {
     //     type: 'PContract_POViewModel'
     // },    
@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
         {
             region: 'center',
             layout: 'border',
-            items:[
+            items: [
                 {
                     // region: 'north',
                     region: 'center',
@@ -31,21 +31,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
                 // }
             ]
 
-        }, 
+        },
         {
             region: 'west',
-            width: 300,
+            width: 370,
             xtype: 'PContract_PO_ProductList',
             border: true,
             margin: 1
-        },
-        // {
-        //     xtype: 'PContract_PO_Factories',
-        //     id: 'panel_factories',
-        //     width: '30%',
-        //     region: 'east',
-        //     border: true,
-        //     hidden: true  
-        // }  
+        }
     ]
 })

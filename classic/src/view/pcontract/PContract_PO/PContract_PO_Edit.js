@@ -10,43 +10,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
     },
     items: [
         {
-            id: 'panel_cmp',
-            xtype: 'Report_CMP',
-            border: true,
-            margin: 1,
-            hidden: true
-        },
-        {
-            id: 'panel_salaryfund',
-            xtype: 'Report_SalaryFund',
-            border: true,
-            margin: 1,
-            hidden: true
-        },
-        {
-            region: 'center',
-            id: 'panel_schedule',
-            layout: 'border',
-            hidden: true,
-            items: [
-                {
-                    xtype: 'FilterBar',
-                    region: 'north',
-                    height: 45,
-                    margin: 1
-                },
-                {
-                    region: 'center',
-                    xtype: 'Schedule_plan_View',
-                    readOnly: true,
-                    border: true,
-                    margin: 1,
-                    // hidden: true
-                }
-            ]
-
-        },
-        {
             id: 'panel_po',
             layout: 'border',
             items: [
@@ -198,41 +161,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit', {
             },
             iconCls: 'x-fa fa-save',
             itemId: 'btnLuuTroLy'
-        }, {
-            flex: 1
-        },
-        {
-            xtype: 'button',
-            margin: 5,
-            iconCls: 'x-fa fa-bars',
-            hidden: true,
-            menu: [
-                {
-                    text: 'Chào giá',
-                    iconCls: 'x-fa fa-shopping-basket',
-                    weight: 30,
-                    handler: 'onShowKHGH'
-                },
-                {
-                    text: 'Tổng hợp CMP',
-                    iconCls: 'x-fa fa-dollar',
-                    weight: 30,
-                    handler: 'onShowCMP'
-                },
-                {
-                    text: 'Tổng hợp Salary Fund',
-                    iconCls: 'x-fa fa-money',
-                    weight: 30,
-                    handler: 'onShowSalaryFund'
-                },
-                {
-                    text: 'Bảng kế hoạch',
-                    iconCls: 'x-fa fa-sliders',
-                    weight: 30,
-                    handler: 'onShowSchedule'
-                },
-            ]
-        },
+        }
         ]
     }]
 })

@@ -64,14 +64,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-			}
-		});
+		this.load();
 	},
 	loadStore: function () {
 		var params = new Object();
@@ -97,19 +90,12 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-			}
-		});
+		this.load();
 	},
 	loadStoreBySearch: function (pobuyer, povendor, style, contractcode,
 		buyerid, vendorid, factoryid,
 		golivedatefrom, golivedateto,
-		status, limit, page) {
+		status, limit) {
 		var me = this;
 		var params = new Object();
 		params.pobuyer = pobuyer;
@@ -133,6 +119,54 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl() + '/api/v1/porderlist/getallbysearch',
+			paramsAsJson: true,
+			noCache: false,
+			timeout: 120000,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data',
+				// totalProperty: 'totalCount'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function (records, operation, success) {
+				this.fireEvent('loadStoreBySearch_Done');
+			}
+		});
+	},
+	loadStoreBySearchOrigin: function (pobuyer, povendor, style, contractcode,
+		buyerid, vendorid, factoryid,
+		golivedatefrom, golivedateto,
+		status, limit) {
+		var me = this;
+		var params = new Object();
+		params.pobuyer = pobuyer;
+		params.povendor = povendor;
+		params.style = style;
+		params.contractcode = contractcode;
+		params.buyerid = buyerid;
+		params.vendorid = vendorid;
+		params.factoryid = factoryid;
+		params.golivedatefrom = golivedatefrom;
+		params.golivedateto = golivedateto;
+		params.status = status;
+		me.pageSize = limit;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/porderlist/getallbysearch_origin',
 			paramsAsJson: true,
 			noCache: false,
 			timeout: 120000,
@@ -182,14 +216,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 				totalProperty: 'totalCount'
 			}
 		});
-		this.loadPage(1, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-			}
-		});
+		this.load();
 	},
 	loadStoreByPordercode_Async: function (pordercode, granttoorgid_link) {
 		var me = this;
@@ -250,14 +277,9 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		this.loadPage(1, {
 			scope: this,
 			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-				else {
-					if (records.length > 0) {
-						var rec = records[0];
-						this.fireEvent('LoadSoLuongLenh', null, rec);
-					}
+				if (records.length > 0) {
+					var rec = records[0];
+					this.fireEvent('LoadSoLuongLenh', null, rec);
 				}
 			}
 		});
@@ -324,9 +346,6 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 			callback: function (records, operation, success) {
 				// this.fireEvent('loadStoreBySearch_Done');
 				this.fireEvent('POrder_ListStore_Done');
-				if (!success) {
-					this.fireEvent('logout');
-				}
 			}
 		});
 	},

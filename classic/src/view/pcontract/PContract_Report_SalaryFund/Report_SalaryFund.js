@@ -4,11 +4,11 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
     controller: 'Report_SalaryFund_Controller',
     viewModel: {
         type: 'Report_SalaryFund_ViewModel'
-    },  
+    },
     requires: [
         'Ext.pivot.plugin.Exporter',
         'Ext.pivot.plugin.Configurator'
-    ],      
+    ],
     // title: 'Bảng Tổng hợp CMP',
     // width: 750,
     // height: 350,
@@ -22,12 +22,12 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
     selModel: {
         type: 'rowmodel'
     },
-    bind:{
-        store:'{SalaryFundReportStore}'
+    bind: {
+        store: '{SalaryFundReportStore}'
     },
     plugins: {
         pivotexporter: true
-    },       
+    },
     // Set this to false if multiple dimensions are configured on leftAxis and
     // you want to automatically expand the row groups when calculations are ready.
     enableLocking: true,
@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
             header: 'Tổng',
             aggregator: 'sum',
             width: 100,
-            renderer: function(value){
+            renderer: function (value) {
                 return Ext.util.Format.number(value, '0,000');
             }
             // flex:1
@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
             {
                 dataIndex: 'year',
                 header: 'Năm'
-            },            
+            },
             {
                 dataIndex: 'month',
                 header: 'Tháng',
@@ -101,44 +101,45 @@ Ext.define('GSmartApp.view.pcontract.Report_SalaryFund', {
         dock: 'top',
         xtype: 'toolbar',
         items: [
-        {
-            xtype:'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth : 0,
-            value: 'Bảng Tổng hợp quỹ lương (Salary Fund)'
-        },
-        '->'
-        ,            
-        {
-            xtype: 'combobox',
-            id: 'Report_SalaryFund_cmpoption',
-            width: 200,
-            editable: false,
-            //margin: '0 5 0 5',
-            fieldLabel: 'Nhìn trước:',
-            labelWidth : 70,
-            store: {
-                type: 'CMPOptionStore'
+            {
+                xtype: 'displayfield',
+                fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                labelWidth: 0,
+                value: 'Bảng Tổng hợp quỹ lương (Salary Fund)'
             },
-            displayField: 'name',
-            valueField: 'id'
-        },{
-            tooltip: 'Tải lại bảng CMP',
-            iconCls: 'x-fa fa-refresh',
-            weight: 30,
-            handler: 'onRefreshTap'
-        },{
-            tooltip: 'Xuất Excel',
-            iconCls: 'x-fa fa-file-excel-o',
-            weight: 30,
-            handler: 'onExportExcel'
-        },{
-            tooltip: 'Zoom',
-            iconCls: 'x-fa fa-arrows-h',
-            weight: 30,
-            handler: 'onZoom'
-        }
-    ]
+            '->'
+            ,
+            {
+                xtype: 'combobox',
+                id: 'Report_SalaryFund_cmpoption',
+                width: 200,
+                editable: false,
+                //margin: '0 5 0 5',
+                fieldLabel: 'Nhìn trước:',
+                labelWidth: 70,
+                store: {
+                    type: 'CMPOptionStore'
+                },
+                displayField: 'name',
+                valueField: 'id'
+            }, {
+                tooltip: 'Tải lại bảng CMP',
+                iconCls: 'x-fa fa-refresh',
+                weight: 30,
+                handler: 'onRefreshTap'
+            }, {
+                tooltip: 'Xuất Excel',
+                iconCls: 'x-fa fa-file-excel-o',
+                weight: 30,
+                handler: 'onExportExcel'
+            }, {
+                tooltip: 'Zoom',
+                iconCls: 'x-fa fa-arrows-h',
+                weight: 30,
+                handler: 'onZoom',
+                hidden: true
+            }
+        ]
     }],
     listeners: {
         pivotgroupexpand: 'onPivotGroupExpand',
