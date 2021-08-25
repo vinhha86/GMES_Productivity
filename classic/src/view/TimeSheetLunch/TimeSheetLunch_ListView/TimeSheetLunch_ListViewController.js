@@ -5,16 +5,16 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var viewModel = this.getViewModel();
     },
     control: {
-        '#btnConfirm' : {
+        '#btnConfirm': {
             click: 'onConfirm'
         },
-        '#btnUnconfirm' : {
+        '#btnUnconfirm': {
             click: 'onUnconfirm'
         }
     },
-    onEditCheckBox: function(editor, context, e){},
-    onBeforecheckchange:function(column, rowIndex, checked, record, e, eOpts){},
-    onHeaderClick: function(grid, column, e, t, eOpts){
+    onEditCheckBox: function (editor, context, e) { },
+    onBeforecheckchange: function (column, rowIndex, checked, record, e, eOpts) { },
+    onHeaderClick: function (grid, column, e, t, eOpts) {
         var m = this;
         var viewModel = this.getViewModel();
 
@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             }
         });
     },
-    onHeaderClickConfirm: function(column, checked, dataIndex){
+    onHeaderClickConfirm: function (column, checked, dataIndex) {
         var m = this;
         var viewModel = this.getViewModel();
 
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // TimeSheetLunchStore.rejectChanges();
 
         // store empty
-        if(TimeSheetLunchStore.getData().items.length == 0){
+        if (TimeSheetLunchStore.getData().items.length == 0) {
             return;
         }
         // neu ngay la hom qua thi khong duoc edit
@@ -60,14 +60,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // }
         // neu da xac nhan thi khong duoc edit
         var status = TimeSheetLunchStore.getData().items[0].data.status;
-        if(status == 1){
+        if (status == 1) {
             return;
         }
 
         // checked workingShift
-        if(dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3'){
+        if (dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3') {
             var lunchShift = '';
-            switch(dataIndex){
+            switch (dataIndex) {
                 case 'workingShift1':
                     lunchShift = 'lunchShift1';
                     break;
@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     lunchShift = 'lunchShift3';
                     break;
             }
-            TimeSheetLunchStore.each(function(rec){
+            TimeSheetLunchStore.each(function (rec) {
                 // console.log(rec);
                 rec.set(dataIndex, checked);
                 rec.set(lunchShift, checked);
@@ -110,7 +110,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // }
 
         var data = new Array();
-        TimeSheetLunchStore.each(function(rec){
+        TimeSheetLunchStore.each(function (rec) {
             var recData = rec.data;
             var obj = new Object();
             obj.lunchShift1 = recData.lunchShift1;
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         });
         m.saveRecord(data);
     },
-    onCheckchange:function(column, rowIndex, checked, record, e, eOpts){
+    onCheckchange: function (column, rowIndex, checked, record, e, eOpts) {
         // console.log(column);
         // console.log(record);
         var m = this;
@@ -145,84 +145,84 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // }
 
         // neu da xac nhan thi khong duoc edit
-        if(record.get('status') == 1){
+        if (record.get('status') == 1) {
             TimeSheetLunchStore.rejectChanges();
             return;
         }
 
         // neu chua check ca thi khong check an
-        if(dataIndex == 'lunchShift1' && record.get('workingShift1') == false){
+        if (dataIndex == 'lunchShift1' && record.get('workingShift1') == false) {
             TimeSheetLunchStore.rejectChanges();
             return;
         }
-        if(dataIndex == 'lunchShift2' && record.get('workingShift2') == false){
+        if (dataIndex == 'lunchShift2' && record.get('workingShift2') == false) {
             TimeSheetLunchStore.rejectChanges();
             return;
         }
-        if(dataIndex == 'lunchShift3' && record.get('workingShift3') == false){
+        if (dataIndex == 'lunchShift3' && record.get('workingShift3') == false) {
             TimeSheetLunchStore.rejectChanges();
             return;
         }
 
         // neu check ca thi check an
-        if(dataIndex == 'workingShift1'){
+        if (dataIndex == 'workingShift1') {
             record.set('lunchShift1', checked);
         }
-        if(dataIndex == 'workingShift2'){
+        if (dataIndex == 'workingShift2') {
             record.set('lunchShift2', checked);
         }
-        if(dataIndex == 'workingShift3'){
+        if (dataIndex == 'workingShift3') {
             record.set('lunchShift3', checked);
         }
 
         // neu check tu 2 ca tro len
-        if(
-            (dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3') 
+        if (
+            (dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3')
             &&
             (
-            (record.get('workingShift1') && record.get('workingShift2')) ||
-            (record.get('workingShift2') && record.get('workingShift3')) ||
-            (record.get('workingShift1') && record.get('workingShift3'))
+                (record.get('workingShift1') && record.get('workingShift2')) ||
+                (record.get('workingShift2') && record.get('workingShift3')) ||
+                (record.get('workingShift1') && record.get('workingShift3'))
             )
-            && 
+            &&
             checked
-            ){
-                Ext.Msg.show({
-                    title: 'Thông báo',
-                    msg: 'Nhân viên đã đi làm 1 ca, tiếp tục?',
-                    buttons: Ext.Msg.YESNO,
-                    icon: Ext.Msg.QUESTION,
-                    buttonText: {
-                        yes: 'Có',
-                        no: 'Không'
-                    },
-                    fn: function (btn) {
-                        if (btn === 'no') {
-                            TimeSheetLunchStore.rejectChanges();
-                            isOk = false;
-                            return;
-                        }else{
-                            var recData = record.data;
-                            var data = new Array();
-                            var obj = new Object();
-                            obj.lunchShift1 = recData.lunchShift1;
-                            obj.lunchShift2 = recData.lunchShift2;
-                            obj.lunchShift3 = recData.lunchShift3;
-                            obj.personnelCode = recData.personnelCode;
-                            obj.personnelFullname = recData.personnelFullname;
-                            obj.personnelid_link = recData.personnelid_link;
-                            obj.workingShift1 = recData.workingShift1;
-                            obj.workingShift2 = recData.workingShift2;
-                            obj.workingShift3 = recData.workingShift3;
-                            obj.workingdate = recData.workingdate;
-                            obj.dataIndex = dataIndex;
-                            data.push(obj);
+        ) {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Nhân viên đã đi làm 1 ca, tiếp tục?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'no') {
+                        TimeSheetLunchStore.rejectChanges();
+                        isOk = false;
+                        return;
+                    } else {
+                        var recData = record.data;
+                        var data = new Array();
+                        var obj = new Object();
+                        obj.lunchShift1 = recData.lunchShift1;
+                        obj.lunchShift2 = recData.lunchShift2;
+                        obj.lunchShift3 = recData.lunchShift3;
+                        obj.personnelCode = recData.personnelCode;
+                        obj.personnelFullname = recData.personnelFullname;
+                        obj.personnelid_link = recData.personnelid_link;
+                        obj.workingShift1 = recData.workingShift1;
+                        obj.workingShift2 = recData.workingShift2;
+                        obj.workingShift3 = recData.workingShift3;
+                        obj.workingdate = recData.workingdate;
+                        obj.dataIndex = dataIndex;
+                        data.push(obj);
 
-                            m.saveRecord(data);
-                        }
+                        m.saveRecord(data);
                     }
-                });
-        }else{
+                }
+            });
+        } else {
             var recData = record.data;
             var data = new Array();
             var obj = new Object();
@@ -238,17 +238,17 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             obj.workingdate = recData.workingdate;
             obj.dataIndex = dataIndex;
             data.push(obj);
-            
+
             m.saveRecord(data);
         }
         // TimeSheetLunchStore.rejectChanges();
     },
-    saveRecord: function(data){
+    saveRecord: function (data) {
         // console.log(dataIndex);
         // console.log(recData);
 
         var viewModel = this.getViewModel();
-        var me=this.getView();
+        var me = this.getView();
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
 
         var params = new Object();
@@ -277,19 +277,19 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     TimeSheetLunchStore.rejectChanges();
                     me.setLoading(false);
                 }
-        })
+            })
     },
-    onConfirm: function(){
+    onConfirm: function () {
         var status = 1;
         this.updateStatus(status);
     },
-    onUnconfirm: function(){
+    onUnconfirm: function () {
         var status = 0;
         this.updateStatus(status);
     },
-    updateStatus: function(status){
+    updateStatus: function (status) {
         var viewModel = this.getViewModel();
-        var me=this.getView();
+        var me = this.getView();
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
         var workingdate = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
         var orgid_link = viewModel.get('orgid_link');
@@ -317,10 +317,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         TimeSheetLunchStore.load();
 
                         // set hidden btnConfirm
-                        if(status == 1){
+                        if (status == 1) {
                             viewModel.set('isBtnConfirmHidden', true);
                             viewModel.set('isBtnUnconfirmHidden', false);
-                        }else{
+                        } else {
                             viewModel.set('isBtnConfirmHidden', false);
                             viewModel.set('isBtnUnconfirmHidden', true);
                         }
@@ -338,12 +338,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     });
                     me.setLoading(false);
                 }
-        })
+            })
     },
-    onPersonnelCodeFilterKeyup: function(){
-        var grid = this.getView(),
-            // Access the field using its "reference" property name.
-            filterField = this.lookupReference('personnelCodeFilter'),
+    onPersonnelCodeFilterKeyup: function () {
+        var filterField = this.lookupReference('personnelCodeFilter'),
             filters = this.getView().store.getFilters();
 
         if (filterField.value) {
@@ -360,7 +358,25 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             this.personnelCodeFilter = null;
         }
     },
-    onPersonnelFullnameFilterKeyup: function(){
+    onPersonnelRegCodeFilterKeyup: function () {
+        var filterField = this.lookupReference('personnelRegCodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.personnelRegCodeFilter = filters.add({
+                id: 'personnelRegCodeFilter',
+                property: 'register_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.personnelRegCodeFilter) {
+            filters.remove(this.personnelRegCodeFilter);
+            this.personnelRegCodeFilter = null;
+        }
+    },
+    onPersonnelFullnameFilterKeyup: function () {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('personnelFullnameFilter'),

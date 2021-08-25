@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         text: 'Mã NV',
         dataIndex: 'personnelCode',
         width: 100,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         },
@@ -47,11 +47,31 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             }
         }
     }, {
+        text: 'Mã đăng ký',
+        dataIndex: 'register_code',
+        width: 100,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnelRegCodeFilter',
+            width: 96,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPersonnelRegCodeFilterKeyup',
+                buffer: 500
+            }
+        }
+    }, {
         text: 'Họ và tên',
         dataIndex: 'personnelFullname',
         // flex: 1,
         width: 200,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         },
@@ -72,7 +92,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         text: 'Ca 1',
         flex: 1,
         columns: [
-            { 
+            {
                 xtype: 'checkcolumn',
                 text: 'Đi làm',
                 dataIndex: 'workingShift1',
@@ -84,8 +104,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                     checkchange: 'onCheckchange',
                     headerclick: 'onHeaderClick'
                 }
-            }, 
-            { 
+            },
+            {
                 xtype: 'checkcolumn',
                 text: 'Ăn',
                 dataIndex: 'lunchShift1',
@@ -104,7 +124,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         text: 'Ca 2',
         flex: 1,
         columns: [
-            { 
+            {
                 xtype: 'checkcolumn',
                 text: 'Đi làm',
                 dataIndex: 'workingShift2',
@@ -116,8 +136,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                     checkchange: 'onCheckchange',
                     headerclick: 'onHeaderClick'
                 }
-            }, 
-            { 
+            },
+            {
                 xtype: 'checkcolumn',
                 text: 'Ăn',
                 dataIndex: 'lunchShift2',
@@ -136,7 +156,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         text: 'Ca 3',
         flex: 1,
         columns: [
-            { 
+            {
                 xtype: 'checkcolumn',
                 text: 'Đi làm',
                 dataIndex: 'workingShift3',
@@ -148,8 +168,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                     checkchange: 'onCheckchange',
                     headerclick: 'onHeaderClick'
                 }
-            }, 
-            { 
+            },
+            {
                 xtype: 'checkcolumn',
                 text: 'Ăn',
                 dataIndex: 'lunchShift3',
