@@ -16,17 +16,17 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
     onLoad: function(){
         var viewModel = this.getViewModel();
         var record = viewModel.get('record');
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        WarehouseStore.setGroupField(null);
 
         if(record.get('type') == 5){ // khoang
             var spaceepc = record.get('spaceepc');
             var stockid_link = record.get('orgid_link');
-            var WarehouseStore = viewModel.getStore('WarehouseStore');
             WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
         }
         if(record.get('type') == 3 && record.get('khoangKhongXacDinh') == true){ // khoang KXD
             var spaceepc = null;
             var stockid_link = record.get('orgid_link');
-            var WarehouseStore = viewModel.getStore('WarehouseStore');
             WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
         }
         

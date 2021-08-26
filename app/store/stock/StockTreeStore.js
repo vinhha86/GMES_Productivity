@@ -25,6 +25,31 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 				}
             	return rec.get('name');;
             }
+        },
+		{
+            name    : 'iconCls', 
+            convert : function (value, rec) {
+				if(rec.get('type') == 0)
+                    return 'x-fa fa-building iconColor';
+                if(rec.get('type') == 1)
+					return 'x-fa fa-industry iconColor';
+                if(rec.get('type') == 2)
+					return 'x-fa fa-home iconColor';
+                if(rec.get('type') == 3){
+                    if(rec.get('khoangKhongXacDinh') == true){
+                        return 'x-fa fa-minus-square-o iconColor';
+                    }else{
+                        return'x-fa fa-bars iconColor';
+                    }
+                }
+                if(rec.get('type') == 4){
+                    return 'x-fa fa-square-o iconColor';
+                }
+                if(rec.get('type') == 5){
+                    return 'x-fa fa-minus-square-o iconColor';
+                }
+				return '';
+            }
         }
 	],
 	expanded: true,

@@ -6,10 +6,87 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
 	},
 	control: {
         '#btnChuyenKhoang':{
-            tap: 'onBtnChuyenKhoang'
+            // tap: 'onBtnChuyenKhoang', // stocktree
+            tap: 'onBtnChuyenKhoangTap',
         },
 	},
-    onBtnChuyenKhoang: function(){
+
+    onBtnChuyenKhoangTap: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var objStock = viewModel.get('objStock');
+        var record = viewModel.get('record');
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        var StockMaterialList = me.down('#StockMaterialList');
+        var selectable = StockMaterialList.getSelectable();
+        var selection = selectable.getSelection().getSelected();
+
+        //
+        // console.log(record); return;
+
+        //
+        if(selection.length == 0){
+            Ext.toast('Bạn cần chọn cây vải', 2000);
+            return;
+        }
+        
+        //
+        var count = 0;
+        if(objStock.row !== null || objStock.row !== ''){
+            count++;
+        }
+        if(objStock.space !== null || objStock.space !== ''){
+            count++;
+        }
+        if(objStock.floor !== null || objStock.floor !== ''){
+            count++;
+        }
+        if(count>0 && count<3){
+            Ext.toast('Cần điền đủ thông tin dãy, tầng, khoang hoặc bỏ trống tất cả', 2000);
+            return;
+        }
+
+        //
+        var selectionList = new Array();
+        for(var i = 0; i < selection.items.length; i++) {
+            selectionList.push(selection.items[i].data);
+        }
+
+        var stockTreeObj = new Object();
+        // stockTreeObj.floorid = selectedStock.floorid;
+        // stockTreeObj.orgid_link = record.orgid_link;
+        // stockTreeObj.rowid_link = selectedStock.rowid_link;
+        // stockTreeObj.spacename = selectedStock.spacename;
+
+        var params = new Object();
+        params.selection = selectionList;
+        params.selectedStock = stockTreeObj;
+        params.orgid_link = record.get('orgid_link');
+        if(count == 3){
+            params.row = objStock.row;
+            params.space = objStock.space;
+            params.floor = objStock.floor;
+        }
+
+        GSmartApp.Ajax.postJitin('/api/v1/stock/change_stock', Ext.JSON.encode(params),
+            function (success, response, options) {
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if (response.respcode == 200) {
+                        var WarehouseStore = viewModel.getStore('WarehouseStore');
+                        WarehouseStore.load();
+                        m.fireEvent('reloadStore');
+                    }else{
+                        Ext.toast("Lưu chuyển khoang thất bại: " + response.message, 2000);
+                    }
+                } else {
+                    Ext.toast("Lưu chuyển khoang thất bại", 2000);
+                }
+            })
+    },
+
+    onBtnChuyenKhoang: function(){ // stocktree
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -18,15 +95,12 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
         var selectable = StockMaterialList.getSelectable();
         var selection = selectable.getSelection().getSelected();
 
-        // console.log(selection);
-
         if(selection.length == 0){
-            Ext.toast('Bạn cần chọn cây vải', 1000);
+            Ext.toast('Bạn cần chọn cây vải', 2000);
             return;
         }else{
             m.showStockListWindow(selection);
         }
-        // console.log(selectionModel.getSelection());    
     },
     showStockListWindow: function(selection){
         var m = this;
@@ -100,10 +174,10 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
                             WarehouseStore.load();
                             dialog.close();
                         }else{
-                            Ext.toast("Lưu chuyển khoang thất bại", 1000);
+                            Ext.toast("Lưu chuyển khoang thất bại", 2000);
                         }
                     } else {
-                        Ext.toast("Lưu chuyển khoang thất bại", 1000);
+                        Ext.toast("Lưu chuyển khoang thất bại", 2000);
                     }
                 })
         });

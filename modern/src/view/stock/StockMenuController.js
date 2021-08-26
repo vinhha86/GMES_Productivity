@@ -4,12 +4,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
 
     control: {
         '#StockMenu': {
-            leafchildtap: 'onLeafChildTap',
-            itemtap : 'onItemTap'
+            // leafchildtap: 'onLeafChildTap', // NestedList
+            // itemtap : 'onItemTap', // NestedList
+            childtap: 'onChildTap',
         },
     },
 
-    onItemTap: function(nestedList, list, index, target, record, e, eOpts){
+    // NestedList
+    onItemTap: function(nestedList, list, index, target, record, e, eOpts){ 
         var viewModel = this.getViewModel();
         if(viewModel.get('root') == null){
             viewModel.set('root', record);
@@ -81,5 +83,70 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             //     // }, 200);
             // });
         }
+    },
+
+    // gridtree
+    onChildTap: function(gridtree, location, eOpts){
+        var record = location.record;
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var maHangFilter = viewModel.get('maHangFilter');
+        var donHangFilter = viewModel.get('donHangFilter');
+
+        if(record.get('type') === 5 || record.get('khoangKhongXacDinh') === true){
+            var dialog = Ext.create({
+                xtype: 'dialog',
+                id: 'StockMaterialList_window',
+                itemId: 'StockMaterialList_window',
+                title: 'DS cây vải',
+                width: '100%',
+                height: '100%',
+                zIndex: 1,
+                // maxWidth: 300,
+                // maxHeight: 600,
+                header: true,
+                closable: true,
+                closeAction: 'destroy',
+                maximizable: false,
+                maskTapHandler: function(){
+                    if(dialog){
+                        dialog.close();
+                        me.setMasked(false);
+                    }
+                },
+                bodyPadding: '1',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    border: false,
+                    xtype: 'StockMaterialList_Main',
+                    // xtype: 'StockMaterialList',
+                    viewModel: {
+                        data: {
+                            record: record,
+                            maHangFilter: maHangFilter,
+                            donHangFilter: donHangFilter,
+                        }
+                    }
+                }],
+            });
+            dialog.show();
+    
+            dialog.down('#StockMaterialList_Main').getController().on('reloadStore', function () {
+                m.reloadStore();
+            });
+        }
+
+        // console.log(record);
+    },
+
+    reloadStore:function(){
+        var viewModel = this.getViewModel();
+        var StockTreeStore = viewModel.getStore('StockTreeStore');
+        StockTreeStore.load();
     }
 });

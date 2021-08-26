@@ -61,14 +61,105 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_Main', {
             // flex: 1,
             items:[
                 {
+                    xtype: 'textfield',
+                    itemId: 'pklRowTxt',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Dãy',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{objStock.row}'
+                    },
+                    // listeners: {
+                    //     focus: 'onFocus',
+                    //     focusleave: 'onFocusLeave'
+                    // }
+                },
+                {
+                    xtype: 'numberfield',
+                    itemId: 'pklSpaceTxt',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Tầng',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{objStock.space}'
+                    },
+                    // stepValue: 0.1,
+                    // listeners: {
+                    //     focus: 'onFocus',
+                    //     focusleave: 'onFocusLeave'
+                    // }
+                },
+                {
+                    xtype: 'numberfield',
+                    itemId: 'pklFloorTxt',
+                    // label: 'Mã hàng:',
+                    // labelWidth: 85,
+                    margin: 1,
+                    // padding: 6,
+                    flex: 1,
+                    // width: '100%',
+                    // minWidth: 80,
+                    // maxWidth: 200,
+                    textAlign: 'left',
+                    placeholder: 'Khoang',
+                    // editable: false,
+                    // readOnly: true,
+                    // clearable: false,
+                    // cls: 'notEditable',
+                    bind: {
+                        value:'{objStock.floor}'
+                    },
+                    // stepValue: 0.1,
+                    // listeners: {
+                    //     focus: 'onFocus',
+                    //     focusleave: 'onFocusLeave'
+                    // }
+                },
+                {
                     xtype:'button',
                     iconCls: 'x-fa fa-random',
                     itemId:'btnChuyenKhoang',
-                    text: 'Chuyển khoang',
+                    // text: 'Chuyển khoang',
                     ui: 'action',
                     margin: 1,
                 },    
             ]
         },
+        // {
+        //     layout: 'hbox',
+        //     // flex: 1,
+        //     items:[
+        //         {
+        //             xtype:'button',
+        //             iconCls: 'x-fa fa-random',
+        //             itemId:'btnChuyenKhoang',
+        //             text: 'Chuyển khoang',
+        //             ui: 'action',
+        //             margin: 1,
+        //         },    
+        //     ]
+        // },
     ]
 });

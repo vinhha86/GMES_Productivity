@@ -1,68 +1,90 @@
 Ext.define('GSmartApp.view.stock.StockMenu', {
-    extend: 'Ext.dataview.NestedList',
+    extend: 'Ext.grid.Tree',
     xtype: 'StockMenu',
     id: 'StockMenu',
+    cls: 'StockMenu',
     controller: 'StockMenuController',
+    width: '100%',
+    height: '100%',
 
     requires: [
         'Ext.Dialog'
     ],
 
-    // height: 400,
-    // width: 300,
-
-    // dialog: {
-    //     xtype: 'dialog',
-    //     title: 'Dialog',
-
-    //     closable: true,
-    //     defaultFocus: 'textfield',
-    //     maskTapHandler: 'onCancel',
-
-    //     bodyPadding: 20,
-    //     maxWidth: 200,
-
-    //     items: [{
-    //         xtype: 'textfield',
-    //         reference: 'textField',
-    //         name: 'text',
-    //         label: 'Name',
-    //         bind: '{selectedNode.name}'
-    //     }],
-
-    //     // We are using standard buttons on the button
-    //     // toolbar, so their text and order are consistent.
-    //     buttons: {
-    //         ok: 'onOK',
-    //         cancel: 'onCancel'
-    //     }
-    // },
-
-    // store: {
-    //     type: 'tree',
-    //     model: 'KitchenSink.model.Cars',
-    //     root: {},
-    //     proxy: {
-    //         type: 'ajax',
-    //         url: 'data/carregions.json'
-    //     }
-    // },
-
-    title: 'Phân xưởng',
-    emptyText: 'Không có dữ liệu',
-    displayField: 'nameMobile',
-    useTitleAsBackText: false,
-    backText: '',
-    backButton: {
-        iconCls: 'x-fa fa-arrow-left',
-    },
-
+    rootVisible: false,
+    striped: false,
+    hideHeaders: true,
+    expanderOnly: false,
     bind:{
         store:'{StockTreeStore}'
     },
 
-    listeners: {
-        // leafchildtap: 'onLeafChildTap',
-        // itemtap : 'onItemTap'
-    }
+    columns:[
+        {
+            // text:'Khoang',
+            dataIndex:'name',
+            xtype: 'treecolumn',
+            flex: 1,
+            renderer: function (value, record, dataIndex, cell, column) {
+                // iconCls set trong store
+                if(record.get('type') == 0){
+                    // metaData.iconCls = 'x-fa fa-building';
+                }
+                if(record.get('type') == 1){
+                    // metaData.iconCls = 'x-fa fa-industry';
+                }
+                if(record.get('type') == 2){
+                    // metaData.iconCls = 'x-fa fa-home';
+                }
+                if(record.get('type') == 3){
+                    if(record.get('khoangKhongXacDinh') == true){
+                        // metaData.iconCls = 'x-fa fa-minus-square-o';
+                        return 'Khoang ' + value;
+                    }
+                    if(record.get('khoangKhongXacDinh') == false){
+                        // metaData.iconCls = 'x-fa fa-bars';
+                        return 'Dãy ' + value;
+                    }
+                }
+                if(record.get('type') == 4){
+                    // metaData.iconCls = 'x-fa fa-square-o';
+                    return 'Tầng ' + value; // Tầng
+                }
+                if(record.get('type') == 5){
+                    // metaData.iconCls = 'x-fa fa-minus-square-o';
+                    return 'Khoang ' + value; // Khoang
+                }
+                return value;
+            }                     
+        },
+],
 });
+
+// Ext.define('GSmartApp.view.stock.StockMenu', {
+//     extend: 'Ext.dataview.NestedList',
+//     xtype: 'StockMenu',
+//     id: 'StockMenu',
+//     controller: 'StockMenuController',
+
+//     requires: [
+//         'Ext.Dialog'
+//     ],
+
+//     title: 'Phân xưởng',
+//     emptyText: 'Không có dữ liệu',
+//     displayField: 'nameMobile',
+//     useTitleAsBackText: false,
+//     backText: '',
+//     backButton: {
+//         iconCls: 'x-fa fa-arrow-left',
+//     },
+
+//     bind:{
+//         store:'{StockTreeStore}'
+//     },
+
+//     listeners: {
+//         // leafchildtap: 'onLeafChildTap',
+//         // itemtap : 'onItemTap'
+//     }
+// });
