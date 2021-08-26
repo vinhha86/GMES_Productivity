@@ -33,13 +33,13 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
         
         //
         var count = 0;
-        if(objStock.row !== null || objStock.row !== ''){
+        if(objStock.row !== null && objStock.row !== ''){
             count++;
         }
-        if(objStock.space !== null || objStock.space !== ''){
+        if(objStock.space !== null && objStock.space !== ''){
             count++;
         }
-        if(objStock.floor !== null || objStock.floor !== ''){
+        if(objStock.floor !== null && objStock.floor !== ''){
             count++;
         }
         if(count>0 && count<3){

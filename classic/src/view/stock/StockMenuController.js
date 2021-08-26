@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
     onloadDetail: function( grid, record, item, index, e, eOpts){
         // console.log(record);
         var viewModel = this.getViewModel();
+        viewModel.set('record', record);
 
         // Trong trường hợp xoá tay combo box (bỏ filter)
         var maHangId = viewModel.get('searchObj.maHangId');
