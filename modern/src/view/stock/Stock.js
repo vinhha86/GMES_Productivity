@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.stock.Stock', {
                             margin: '1',
                             itemId:'Sku_AutoCompleteCbo',
                             // fieldLabel: 'Mã hàng',
-                            label: 'Mã hàng:',
+                            label: 'Mã NPL:',
                             // width: 350,
                             flex: 1,
                             labelWidth: 100,

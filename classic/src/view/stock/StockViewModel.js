@@ -49,6 +49,12 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
             isCreateNew: false,
         },
 
+        objStock: {
+			row: null,
+			space: null,
+			floor: null
+		},
+
         isTxtFieldSpaceNameDisable: false,
     },
     formulas: {

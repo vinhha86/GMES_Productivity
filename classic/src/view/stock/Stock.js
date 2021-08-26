@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.stock.Stock', {
                     xtype: 'combo',
                     margin: '5 1 5 1',
                     itemId:'txtMaHangId',
-                    fieldLabel: 'Mã hàng',
+                    fieldLabel: 'Mã NPL',
                     width: 350,
                     labelWidth: 70,
                     hideLabel: false,			

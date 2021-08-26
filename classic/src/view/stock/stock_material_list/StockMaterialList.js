@@ -153,6 +153,44 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             dock:'bottom',
             items:[
                 {
+                    xtype:'textfield',
+                    // itemId: 'code',
+                    // margin: 5,
+                    fieldLabel: 'Dãy',
+                    bind:{
+                        value :'{objStock.row}'
+                    },
+                    width: 140,
+                    labelWidth: 35,
+                    margin: '5 1 5 1',
+                },
+                {
+                    xtype:'textfield',
+                    // itemId: 'code',
+                    // margin: 5,
+                    fieldLabel: 'Tầng',
+                    bind:{
+                        value :'{objStock.space}'
+                    },
+                    width: 140,
+                    labelWidth: 35,
+                    margin: '5 5 5 1',
+                    maskRe: /[0-9]/,
+                },
+                {
+                    xtype:'textfield',
+                    // itemId: 'code',
+                    // margin: 5,
+                    fieldLabel: 'Khoang',
+                    bind:{
+                        value :'{objStock.floor}'
+                    },
+                    width: 150,
+                    labelWidth: 45,
+                    margin: '5 5 5 1',
+                    maskRe: /[0-9]/,
+                },
+                {
                     xtype: 'button',
                     itemId: 'btnChuyenKhoang',
                     iconCls: 'x-fa fa-random',
