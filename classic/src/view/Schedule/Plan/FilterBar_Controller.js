@@ -31,7 +31,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         panel_plan.setStartDate(viewmodel.get('schedule.startDate'));
         panel_plan.setEndDate(viewmodel.get('schedule.endDate'));
     },
-
+    onCollapse: function () {
+        var panel_orderungranted = Ext.getCmp('Schedule_plan_POrderUnGranted');
+        var plugin
+    },
     onZoomOut: function () {
         var viewmodel = this.getViewModel();
         var panel_plan = Ext.getCmp('treeplan');
