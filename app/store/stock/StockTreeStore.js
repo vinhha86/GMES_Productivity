@@ -83,9 +83,6 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				this.fireEvent('loadStore_Done');
-				if (!success) {
-					this.fireEvent('logout');
-				}
 			}
 		});
 	},

@@ -2,7 +2,6 @@ Ext.define('GSmartApp.view.stock.StockController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.StockController',
     init: function () {
-        this.onload();
     },
     control: {
         '#btnBack':{
@@ -19,7 +18,10 @@ Ext.define('GSmartApp.view.stock.StockController', {
         },
         // '#btnBackNode': {
         //     tap: 'onbtnBackNode'
-        // }
+        // },
+        '#stock': {
+            painted: 'onpainted', // sau khi load giao dien
+        },
     },
     listen: {
         store: {
@@ -27,6 +29,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
                 'loadStore_Done': 'onloadStore_Done'
             }
         }
+
     },
     Sku_AutoComplete_beforeQuery: function(){ 
         var viewModel = this.getViewModel();
@@ -69,33 +72,21 @@ Ext.define('GSmartApp.view.stock.StockController', {
         // console.log('onBackPage');   
         this.redirectTo("mobilemenu");
     },
+    onpainted: function(){
+        this.onload();
+    },
     onload: function () {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var StockTreeStore = viewModel.getStore('StockTreeStore');
-        StockTreeStore.loadStore_async(null, null);
-        StockTreeStore.load({
-			scope: this,
-			callback: function(records, operation, success) {
-                // me.setMasked(false);
-				if(!success){
-                    Ext.toast('Lấy thông tin thất bại', 1000);
-					this.fireEvent('logout');
-				} else {
-                    // console.log('callback success');
-                    var StockMenu = Ext.getCmp('StockMenu');
-                    var root = viewModel.get('root');
-                    // console.log(root);
-                    if(root != null)StockMenu.goToNode(root.parentNode);
+        // me.setMasked({
+        //     xtype: 'loadmask',
+        //     message: 'Đang tải'
+        // });
 
-                    // filter cho window ds cay vai
-                    viewModel.set('maHangFilter', maHangId);
-                    viewModel.set('donHangFilter', donHang);
-				}
-			}
-        });
+        var StockTreeStore = viewModel.getStore('StockTreeStore');
+        StockTreeStore.loadStore(null, null);
         StockTreeStore.getSorters().add({
             property: 'khoangKhongXacDinh',
             direction: 'ASC'
@@ -132,11 +123,9 @@ Ext.define('GSmartApp.view.stock.StockController', {
                     Ext.toast('Lấy thông tin thất bại', 1000);
 					this.fireEvent('logout');
 				} else {
-                    // console.log('callback success');
-                    var StockMenu = Ext.getCmp('StockMenu');
-                    var root = viewModel.get('root');
-                    // console.log(root);
-                    if(root != null)StockMenu.goToNode(root.parentNode);
+                    // var StockMenu = Ext.getCmp('StockMenu');
+                    // var root = viewModel.get('root');
+                    // if(root != null)StockMenu.goToNode(root.parentNode);
 
                     // filter cho window ds cay vai
                     viewModel.set('maHangFilter', maHangId);
@@ -144,14 +133,6 @@ Ext.define('GSmartApp.view.stock.StockController', {
 				}
 			}
         });
-        // StockTreeStore.loadStore(maHangId, donHang);
-        // StockTreeStore.getSorters().add({
-        //     property: 'khoangKhongXacDinh',
-        //     direction: 'ASC'
-        // },{
-        //     property: 'name',
-        //     direction: 'ASC'
-        // });
     },
     onResetTree: function(){
         var me = this.getView();
@@ -170,8 +151,9 @@ Ext.define('GSmartApp.view.stock.StockController', {
         this.onloadPage();
     },
     onloadStore_Done: function () {
-        // console.log('onloadStore_Done');
-        this.getView().setMasked(false);
+        var me = this.getView();
+        console.log('onloadStore_Done event');
+        me.setMasked(false);
     },
     // filter cho danh sach npl (theo 2 txt field maHang va donHang)
     onDonHangFilterKeyup: function () {

@@ -49,6 +49,7 @@ Ext.define('GSmartApp.view.stock.Stock', {
                             },
                             anyMatch: true,
                             minChars: 1,
+                            forceSelection: true,
                             queryMode: 'remote',
                             queryParam: 'code',		
                             multiSelect: false,
