@@ -312,6 +312,17 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                         me.onShowBalance(record);
                     }
                 },
+                {
+                    text: 'Thông tin đơn hàng',
+                    itemId: 'btnBalance',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-info blueIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onShowInfo(record);
+                    }
+                }
             ]
         });
         // HERE IS THE MAIN CHANGE
@@ -370,4 +381,31 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         });
         form.show();
     },
+    onShowInfo: function (rec) {
+        var id = rec.get('id');
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thông tin chào giá',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .60,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'PContractInfo_View',
+                viewModel: {
+                    data: {
+                        pcontractid_link: id
+                    }
+                }
+            }]
+        });
+        form.show();
+    }
 })

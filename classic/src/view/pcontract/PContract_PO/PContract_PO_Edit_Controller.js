@@ -45,9 +45,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         productStore.load({
             scope: this,
             callback: function (records, operation, success) {
-                if (!success) {
-                    this.fireEvent('logout');
-                } else {
+                if (success) {
                     var productStore = viewmodel.getStore('ProductStore');
                     this.enablePrice(productStore.getAt(0));
 

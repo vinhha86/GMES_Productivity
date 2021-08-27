@@ -11,6 +11,7 @@ Ext.define('GSmartApp.model.pcontract.PContractPO', {
 		{ name: 'po_vendor', type: 'string' },
 		{ name: 'productid_link', type: 'int' },
 		{ name: 'po_quantity', type: 'int' },
+		{ name: 'po_quantity_set', type: 'int' },
 		{ name: 'unitid_link', type: 'int' },
 		{ name: 'shipdate', type: 'date', dateFormat: 'c' },
 		{ name: 'matdate', type: 'date', dateFormat: 'c' },

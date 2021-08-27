@@ -15,6 +15,11 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     bind: {
         store: '{PContractPOList}'
     },
+    features: [{
+        ftype: 'summary',
+        groupHeaderTpl: 'Tổng',
+        dock: 'bottom'
+    }],
     columns: [{
         text: 'STT',
         width: 40,
@@ -37,26 +42,9 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
             return value;
         }
     }, {
-        text: 'PO Vendor',
-        dataIndex: 'po_vendor',
-        width: 100,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    }, {
         text: 'Mã SP (Buyer)',
         dataIndex: 'productbuyercode',
         width: 120,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },
-    {
-        text: 'Mã SP (Vendor)',
-        dataIndex: 'productvendorcode',
-        width: 105,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -67,20 +55,38 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         align: 'right',
         dataIndex: 'po_quantity',
         width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+        summaryType: 'count',
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
+        summaryRenderer: function (value, summaryData, dataIndex) {
+            return '<div style="color:red; font-size:9px; font-weight: bold; align: right">Tổng: ' + Ext.util.Format.number(value, '0,000') + ' SP</div>';
+        }
+    }, {
+        text: 'SL bộ',
+        align: 'right',
+        dataIndex: 'po_quantity_set',
+        width: 70,
+        summaryType: 'count',
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
+        summaryRenderer: function (value, summaryData, dataIndex) {
+            return '<div style="color:red; font-size:9px; font-weight: bold; align: right">Tổng: ' + Ext.util.Format.number(value, '0,000') + ' bộ</div>';
         }
     }, {
         text: 'Ngày giao',
         dataIndex: 'shipdate',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 70
+        width: 80
     },
     {
         text: 'Ngày NPL',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         dataIndex: 'matdate',
-        width: 70
+        width: 80
     },
     {
         text: 'Ngày VC',

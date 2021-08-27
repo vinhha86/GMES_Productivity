@@ -130,6 +130,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
         // me.IdPContract = id;
 
         var infoView = me.down('#PContractInfoView');
+        console
         infoView.IdPContract = id;
         infoView.getController().loadInfo(id);
 
