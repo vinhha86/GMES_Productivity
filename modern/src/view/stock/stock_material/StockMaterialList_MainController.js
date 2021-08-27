@@ -216,11 +216,11 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
 
             if(
                 !rec.get('skucode').toLowerCase().includes(materialListFilter) &&
-                !rec.get('colorname').toLowerCase().includes(materialListFilter) &&
+                // !rec.get('colorname').toLowerCase().includes(materialListFilter) &&
                 !rec.get('lotnumber').toLowerCase().includes(materialListFilter) &&
-                !rec.get('invoice').toLowerCase().includes(materialListFilter) &&
-                !rec.get('contractcode').toLowerCase().includes(materialListFilter) &&
-                !Ext.Date.format(rec.get('timecreate'),'d/m/y').toLowerCase().includes(materialListFilter)
+                // !rec.get('invoice').toLowerCase().includes(materialListFilter) &&
+                !rec.get('contractcode').toLowerCase().includes(materialListFilter)
+                // !Ext.Date.format(rec.get('timecreate'),'d/m/y').toLowerCase().includes(materialListFilter)
             ){
                 isOK = false;
                 return isOK;

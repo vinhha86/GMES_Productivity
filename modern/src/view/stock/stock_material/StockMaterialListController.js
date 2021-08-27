@@ -5,14 +5,24 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
 		this.onLoad();
 	},
 	control: {
-        // '#Stockout_ForCheck_Warehouse_Select':{
-        //     childtap: 'onChildTap'
-        // },
+        '#StockMaterialList': {
+            // childtap: 'onChildTap'
+        }
 	},
-    onChildTap: function(list, location, eOpts){
-        // console.log(location);
-        this.fireEvent('onSelectValue', location.record)
-    },
+    // onChildTap: function(list, location, eOpts){
+    //     var isNotSelectionTap = 1 === location.columnIndex;
+
+    //     console.log(isNotSelectionTap);
+    //     console.log(list);
+    //     console.log(location);
+
+    //     if(isNotSelectionTap){
+    //         console.log('in here');
+    //         list.suspendEvents(false);
+    //         return;
+    //     }
+    //     list.setDisableSelection(isNotSelectionTap);    
+    // },
     onLoad: function(){
         var viewModel = this.getViewModel();
         var record = viewModel.get('record');
@@ -32,7 +42,23 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
         
         // 
         this.filterWarehouseStore();
+        this.sortWarehouseStore();
         
+    },
+    sortWarehouseStore: function(){
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('WarehouseStore');
+
+        store.getSorters().add({
+            property: 'skucode',
+            direction: 'ASC'
+        },{
+            property: 'lotnumber',
+            direction: 'ASC'
+        },{
+            property: 'packageid',
+            direction: 'ASC'
+        });
     },
     filterWarehouseStore: function(){
         var viewModel = this.getViewModel();
