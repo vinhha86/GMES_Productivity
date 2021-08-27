@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_Edit_Pkl_Recheck_Detail',
     itemId: 'Stockin_M_Edit_Pkl_Recheck_Detail',
+    cls: 'Stockin_M_Edit_Pkl_Recheck_Detail',
     reference: 'Stockin_M_Edit_Pkl_Recheck_Detail',
     controller: 'Stockin_M_Edit_Pkl_Recheck_Detail_Controller',
     viewModel: {
@@ -29,6 +30,50 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     width: '100%',
                     items:[
                         {
+                            xtype: 'textfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'packageidTxtRecheck',
+                            label: 'Số LOT:',
+                            labelWidth: 130,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số LOT',
+                            editable: false,
+                            readOnly: true,
+                            clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objRecheck.lotnumber}',
+                            },
+                            stepValue: 0.1,
+                        },
+                        // {
+                        //     xtype:'button',
+                        //     // text: 'Xác nhận',
+                        //     // flex: 1,
+                        //     // minWidth: 80,
+                        //     // maxWidth: 130,
+                        //     // width: 45,
+                        //     margin: 1,
+                        //     iconCls: 'x-fa fa-check',
+                        //     itemId:'btnCheckRecheck',
+                        //     ui: 'action',
+                        //     bind: {
+                        //         disabled: '{!isobjRecheckSelected}'
+                        //     },
+                        // },   
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
@@ -46,7 +91,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{packageidTxtRecheck}'
                                 value: '{objRecheck.packageid}',
                                 editable: '{isPackageIdEditable}',
                                 readOnly: '{!isPackageIdEditable}',
@@ -57,21 +101,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            // text: 'Xác nhận',
-                            // flex: 1,
-                            // minWidth: 80,
-                            // maxWidth: 130,
-                            // width: 45,
-                            margin: 1,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheckRecheck',
-                            ui: 'action',
-                            bind: {
-                                disabled: '{!isobjRecheckSelected}'
-                            },
-                        },   
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{isBtnDeletePklHidden}',
+                        //     },
+                        //     // style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -97,9 +138,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{mTxtRecheck}',
                                 value: '{objRecheck.met_check}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -126,9 +165,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{yTxtRecheck}',
                                 value: '{objRecheck.ydscheck}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -137,18 +174,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-trash',
-                            itemId:'btnDeletePkl',
-                            ui: 'action',
-                            margin: 1,
-                            focusable: false,
-                            bind: {
-                                disabled: '{isBtnDeletePklHidden}',
-                            },
-                            // style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{isBtnDeletePklHidden}',
+                        //     },
+                        //     // style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -173,7 +210,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{mOriginTxtRecheck}',
                                 value: '{objRecheck.met_origin}',
                                 hidden: '{isMetColumnHidden}',
                             },
@@ -200,7 +236,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{yOriginTxtRecheck}',
                                 value: '{objRecheck.ydsorigin}',
                                 hidden: '{isYdsColumnHidden}',
                             },
@@ -210,14 +245,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -243,7 +278,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{grossweightCheckTxtRecheck}',
                                 value: '{objRecheck.grossweight_check}',
                                 hidden: '{isKgColumnHidden}',
                             },
@@ -271,7 +305,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{grossweightCheckTxtRecheck}',
                                 value: '{objRecheck.grossweight_lbs_check}',
                                 hidden: '{isLbsColumnHidden}',
                             },
@@ -281,14 +314,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -314,7 +347,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{grossweightTxtRecheck}',
                                 value: '{objRecheck.grossweight}',
                                 hidden: '{isKgColumnHidden}',
                             },
@@ -342,7 +374,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{grossweightTxtRecheck}',
                                 value: '{objRecheck.grossweight_lbs}',
                                 hidden: '{isLbsColumnHidden}',
                             },
@@ -352,14 +383,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -384,9 +415,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{widthMetCheckTxtRecheck}',
                                 value: '{objRecheck.width_met_check}',
-                                // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
@@ -394,14 +423,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -426,9 +455,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                // value: '{widthMetTxtRecheck}',
                                 value: '{objRecheck.width_met}',
-                                // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
@@ -436,14 +463,53 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
+                    ]
+                },
+
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
+                            text: 'Xoá',
+                            margin: 5,
+                            // padding: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-trash',
+                            itemId:'btnDeletePkl',
                             ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
+                            focusable: false,
+                            bind: {
+                                disabled: '{isBtnDeletePklHidden}',
+                            },
                         },
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            // padding: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheckRecheck',
+                            ui: 'action',
+                            focusable: false,
+                            bind: {
+                                disabled: '{!isobjRecheckSelected}'
+                            },
+                        },   
                     ]
                 },
             ]

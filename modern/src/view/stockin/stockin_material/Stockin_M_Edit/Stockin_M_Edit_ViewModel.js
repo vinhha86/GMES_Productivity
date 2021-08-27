@@ -148,6 +148,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 		fieldTooltip: null,
 		//
 		isStockin_ValueSelect_window_open: false,
+
+
+		// TEST
+		testfieldValue: null,
 	},
 	formulas: {
         isEdit: function (get) {
@@ -281,6 +285,19 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 return false;
 			}
 			return true
+		},
+
+
+
+		// TEST
+		testfieldXtype: function(get){
+			if (Ext.os.is.iOS) {
+				return 'textfield';
+			}
+			if (Ext.os.is.Android) {
+				return 'numberfield';
+			}
+			return 'numberfield';
 		}
     },
 

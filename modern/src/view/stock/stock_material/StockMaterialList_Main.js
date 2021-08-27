@@ -60,6 +60,14 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_Main', {
             layout: 'hbox',
             // flex: 1,
             items:[
+                // {
+                //     xtype:'button',
+                //     iconCls: 'x-fa fa-arrow-left',
+                //     itemId:'btnThoat',
+                //     // text: 'Chuyển khoang',
+                //     ui: 'action',
+                //     margin: 1,
+                // },
                 {
                     xtype: 'textfield',
                     itemId: 'pklRowTxt',
@@ -161,5 +169,15 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_Main', {
         //         },    
         //     ]
         // },
+    ],
+    tbar: [
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-arrow-left',
+            itemId:'btnBack',
+            ui: 'action',
+        },
+        '->'
+        ,
     ]
 });

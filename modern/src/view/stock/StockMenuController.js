@@ -100,13 +100,14 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 xtype: 'dialog',
                 id: 'StockMaterialList_window',
                 itemId: 'StockMaterialList_window',
-                title: 'DS cây vải',
+                // title: 'DS cây vải',
                 width: '100%',
                 height: '100%',
                 zIndex: 1,
                 // maxWidth: 300,
                 // maxHeight: 600,
-                header: true,
+                border: false,
+                header: false,
                 closable: true,
                 closeAction: 'destroy',
                 maximizable: false,
@@ -138,6 +139,12 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
     
             dialog.down('#StockMaterialList_Main').getController().on('reloadStore', function () {
                 m.reloadStore();
+            });
+            dialog.down('#StockMaterialList_Main').getController().on('close', function () {
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
             });
         }
 

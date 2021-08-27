@@ -9,8 +9,17 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
             // tap: 'onBtnChuyenKhoang', // stocktree
             tap: 'onBtnChuyenKhoangTap',
         },
+        '#btnBack':{
+            tap: 'onbtnBack',
+        },
 	},
 
+    onbtnBack:function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        m.fireEvent('close');
+    },
     onBtnChuyenKhoangTap: function(){
         var m = this;
         var me = this.getView();

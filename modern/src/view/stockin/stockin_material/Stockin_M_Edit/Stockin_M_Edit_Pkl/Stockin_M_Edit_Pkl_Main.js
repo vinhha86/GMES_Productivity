@@ -42,9 +42,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 {
                     xtype: 'combobox',
                     itemId: 'cbbox_lotnumber',
-                    // reference: 'cboorgto',
-                    editable: false,
-                    readOnly: true,
+                    anyMatch: true,
+                    minChars: 1,
+                    queryMode: 'local',
+                    forceSelection: true,
+                    // editable: false,
+                    // readOnly: true,
                     // cls: 'notEditable',
                     bind:{
                         store:'{StockinLotStore}',
@@ -586,6 +589,57 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     ]
                 },
             ]
-        }
+        },
+
+        // {
+        //     xtype: 'container',
+        //     layout: 'vbox',
+        //     // hidden: true,
+        //     items:[
+        //         {
+        //             layout: 'hbox',
+        //             border: false,
+        //             width: '100%',
+        //             items:[
+        //                 {
+        //                     // xtype: 'textfield',
+        //                     margin: 1,
+        //                     border: true,
+        //                     cls: 'my-textfield',
+        //                     itemId: 'testfield',
+        //                     // label: 'Màu:',
+        //                     // labelWidth: 85,
+        //                     flex: 1,
+        //                     minWidth: 80,
+        //                     // maxWidth: 130,
+        //                     textAlign: 'left',
+        //                     placeholder: 'testfield',
+        //                     // editable: false,
+        //                     // readOnly: true,
+        //                     // clearable: false,
+        //                     // cls: 'notEditable',
+        //                     inputMask: /[0-9.]/,
+        //                     bind: {
+        //                         value: '{testfieldValue}',
+        //                         // xtype: '{testfieldXtype}', // xtype ko bind dc
+        //                     },
+        //                 },
+        //                 {
+        //                     xtype:'button',
+        //                     // text: 'Xác nhận',
+        //                     // flex: 1,
+        //                     // minWidth: 80,
+        //                     // maxWidth: 130,
+        //                     // width: 45,
+        //                     margin: 1,
+        //                     iconCls: 'x-fa fa-check',
+        //                     itemId:'btnTestfield',
+        //                     ui: 'action',
+        //                     focusable: false
+        //                 },
+        //             ]
+        //         },
+        //     ]
+        // }
     ]
 });

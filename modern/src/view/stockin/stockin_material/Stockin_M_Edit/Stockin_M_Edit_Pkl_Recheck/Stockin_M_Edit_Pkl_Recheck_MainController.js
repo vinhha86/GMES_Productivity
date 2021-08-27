@@ -19,7 +19,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             change: 'oncbbox_pklRecheck_stockindId_change'
         },
         '#cbbox_lotnumber_recheck':{
-            change: 'oncbbox_lotnumber_recheck_change',
+            // change: 'oncbbox_lotnumber_recheck_change',
+            select: 'oncbbox_lotnumber_recheck_change',
         },
         '#btnThemMoiPklRecheck': {
             tap: 'onbtnThemMoiPklRecheck'
@@ -37,11 +38,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     // },
     onFocus: function(textfield, e, eOpts){
         //
-        this.setTooltip(textfield);
+        // this.setTooltip(textfield);
     },
     onFocusLeave: function(textfield, event, eOpts ){
         //
-        this.removeTooltip();
+        // this.removeTooltip();
         //
         // this.showSelectValueWindow(textfield, event);
     },
@@ -297,7 +298,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     },
     oncbbox_lotnumber_recheck_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
-        
+        newValue = newValue.get('lot_number');
+
         if(newValue != null && newValue != ''){ // console.log(newValue);
             var pklRecheck_stockindId = viewModel.get('pklRecheck_stockindId');
             // var selection = cbbox.getSelection();
@@ -344,7 +346,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             itemId: 'Stockin_M_Edit_Pkl_Recheck_Detail_dialog',
             title: 'Thêm mới cây vải',
             width: '90%',
-            height: '60%',
+            // height: '60%',
             zIndex: 1,
             // maxWidth: 300,
             // maxHeight: 600,
@@ -411,7 +413,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             itemId: 'Stockin_M_Edit_Pkl_Recheck_Detail_dialog',
             title: 'Chi tiết cây vải',
             width: '90%',
-            height: '60%',
+            // height: '60%',
             zIndex: null,
             // maxWidth: 300,
             // maxHeight: 600,

@@ -27,11 +27,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
     },
     onFocus: function(textfield, e, eOpts){
         //
-        this.setTooltip(textfield);
+        // this.setTooltip(textfield);
     },
     onFocusLeave: function(textfield, event, eOpts ){
         //
-        this.removeTooltip();
+        // this.removeTooltip();
         //
         this.showSelectValueWindow(textfield);
     },
@@ -475,6 +475,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             xtype: 'loadmask',
             message: 'Đang in tem'
         });
+        myview.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang lưu'
+        });
 
 		var me = this;
         var viewModel = this.getViewModel();
@@ -494,7 +498,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         params.rfid_enable = config.getPrint_rfid_enable();
         GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/pklist_create', Ext.JSON.encode(params),
             function (success, response, options) {
-                // me.setLoading(false);
+                myview.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {

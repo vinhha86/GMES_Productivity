@@ -45,9 +45,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 {
                     xtype: 'combobox',
                     itemId: 'cbbox_lotnumber_recheck',
-                    // reference: 'cboorgto',
-                    editable: false,
-                    readOnly: true,
+                    anyMatch: true,
+                    minChars: 1,
+                    queryMode: 'local',
+                    forceSelection: true,
+                    // editable: false,
+                    // readOnly: true,
                     // cls: 'notEditable',
                     bind:{
                         store:'{StockinLotStore}',

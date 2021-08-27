@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
     extend: 'Ext.form.Panel',
     xtype: 'Stockin_M_Edit_Pkl_Detail',
     itemId: 'Stockin_M_Edit_Pkl_Detail',
+    cls: 'Stockin_M_Edit_Pkl_Detail',
     reference: 'Stockin_M_Edit_Pkl_Detail',
     controller: 'Stockin_M_Edit_Pkl_Detail_Controller',
     viewModel: {
@@ -23,6 +24,47 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             xtype: 'container',
             layout: 'vbox',
             items:[
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lotnumberTxt',
+                            label: 'Số LOT:',
+                            labelWidth: 130,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số LOT',
+                            editable: false,
+                            readOnly: true,
+                            clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.lotnumberTxt}'
+                            },
+                        },
+                        // {
+                        //     xtype:'button',
+                        //     // text: 'Xác nhận',
+                        //     // flex: 1,
+                        //     // minWidth: 80,
+                        //     // maxWidth: 130,
+                        //     // width: 45,
+                        //     margin: 1,
+                        //     iconCls: 'x-fa fa-check',
+                        //     itemId:'btnCheck',
+                        //     ui: 'action',
+                        //     focusable: false
+                        // },
+                    ]
+                },
                 {
                     layout: 'hbox',
                     border: false,
@@ -58,19 +100,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            // text: 'Xác nhận',
-                            // flex: 1,
-                            // minWidth: 80,
-                            // maxWidth: 130,
-                            // width: 45,
-                            margin: 1,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
-                            ui: 'action',
-                            focusable: false
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{isBtnDeletePklHidden}',
+                        //     },
+                        //     // style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -193,20 +234,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave',
                             }
                         },
-                        
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-trash',
-                            itemId:'btnDeletePkl',
-                            ui: 'action',
-                            margin: 1,
-                            focusable: false,
-                            bind: {
-                                disabled: '{isBtnDeletePklHidden}',
-                            },
-                            // style: 'visibility: hidden;'
-                        },
-                        
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-print',
+                        //     itemId:'btnPrintPkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{!isPklSelected}',
+                        //     },
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -320,18 +359,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave',
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-print',
-                            itemId:'btnPrintPkl',
-                            ui: 'action',
-                            margin: 1,
-                            focusable: false,
-                            bind: {
-                                disabled: '{!isPklSelected}',
-                            },
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'btnTestDeselect',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
 
@@ -368,14 +403,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'btnTestDeselect',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -409,14 +444,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'btnTestDeselect',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
 
@@ -450,14 +485,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'btnTestDeselect',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -491,14 +526,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'btnTestDeselect',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
                 {
@@ -532,13 +567,50 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'btnTestDeselect',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
+                    ]
+                },
+
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'btnTestDeselect',
+                            text: 'Xoá',
+                            margin: 5,
+                            // padding: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-trash',
+                            itemId:'btnDeletePkl',
                             ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
+                            focusable: false,
+                            bind: {
+                                disabled: '{isBtnDeletePklHidden}',
+                            },
+                            // style: 'visibility: hidden;'
+                        },
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            // padding: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
+                            ui: 'action',
+                            focusable: false
                         },
                     ]
                 },

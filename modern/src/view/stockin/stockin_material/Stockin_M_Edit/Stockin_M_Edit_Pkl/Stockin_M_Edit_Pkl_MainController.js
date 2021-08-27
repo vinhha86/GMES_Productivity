@@ -26,10 +26,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             change: 'oncbbox_pkl_stockindId_change',
         },
         '#cbbox_lotnumber':{
-            change: 'oncbbox_lotnumber_change',
+            // change: 'oncbbox_lotnumber_change',
+            select: 'oncbbox_lotnumber_change',
         },
         '#btnThemMoiPkl': {
             tap: 'onbtnThemMoiPkl'
+        },
+        '#btnTestfield': {
+            tap: 'onbtnTestfield'
         }
     },
     // listen: {
@@ -42,6 +46,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     // onloadStore_byStockinDId_Done: function(){
     //     Ext.Viewport.setMasked(false);
     // },
+    onbtnTestfield: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var testfield = me.down('#testfield');
+        var testfieldValue = viewModel.get('testfieldValue');
+        console.log(testfield);
+        console.log(testfieldValue);
+    },
     onFocus: function(textfield, e, eOpts){
         //
         this.setTooltip(textfield);
@@ -187,6 +201,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     },
     oncbbox_lotnumber_change: function(cbbox, newValue, oldValue, eOpts){
         var viewModel = this.getViewModel();
+        newValue = newValue.get('lot_number');
 
         if(newValue != null && newValue != ''){
             var pkl_stockindId = viewModel.get('pkl_stockindId');
@@ -234,7 +249,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             itemId: 'Stockin_M_Edit_Pkl_Detail_dialog',
             title: 'Thêm mới cây vải',
             width: '90%',
-            height: '60%',
+            // height: '60%',
             zIndex: 1,
             // maxWidth: 300,
             // maxHeight: 600,
@@ -302,7 +317,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             itemId: 'Stockin_M_Edit_Pkl_Detail_dialog',
             title: 'Chi tiết cây vải',
             width: '90%',
-            height: '60%',
+            // height: '60%',
             zIndex: null,
             // maxWidth: 300,
             // maxHeight: 600,
