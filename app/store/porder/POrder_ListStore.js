@@ -33,7 +33,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 		// 	}
 		// }
 		// },
-		{ name: 'statusName', type: 'string' },
+		{ name: '	', type: 'string' },
 		{ name: 'granttoorgname', type: 'string' },
 		{
 			name: 'isMap', type: 'bool'

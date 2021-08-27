@@ -153,12 +153,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
             status = [];
         } else status = me.down('#txtstatus').getValue();
 
-
-        var limit = me.down('#limitpage').getValue();
         var page = 1;
-        if (limit == null) {
-            limit = 50;
-        }
         // if (page == null) {
         //     page = 1;
         // }
@@ -166,7 +161,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
             buyerid, vendorid, factoryid,
             golivedatefrom, golivedateto,
-            status, limit, page);
+            status, 1000, page);
 
         // me.down('#topDock').setCollapsed(true);
     },

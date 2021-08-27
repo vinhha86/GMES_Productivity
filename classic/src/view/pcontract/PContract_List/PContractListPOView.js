@@ -54,27 +54,34 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'SL',
         align: 'right',
         dataIndex: 'po_quantity',
-        width: 70,
-        summaryType: 'count',
+        width: 80,
+        summaryType: 'sum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
         summaryRenderer: function (value, summaryData, dataIndex) {
-            return '<div style="color:red; font-size:9px; font-weight: bold; align: right">Tổng: ' + Ext.util.Format.number(value, '0,000') + ' SP</div>';
+            return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     }, {
-        text: 'SL bộ',
+        text: 'ĐVT',
+        dataIndex: 'totalpair',
+        width: 60,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 1 ? "Chiếc" : "Bộ (" + value + ")";
+        }
+    }, {
+        text: 'SL SP',
         align: 'right',
-        dataIndex: 'po_quantity_set',
-        width: 70,
-        summaryType: 'count',
+        dataIndex: 'po_quantity_sp',
+        width: 80,
+        summaryType: 'sum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
         summaryRenderer: function (value, summaryData, dataIndex) {
-            return '<div style="color:red; font-size:9px; font-weight: bold; align: right">Tổng: ' + Ext.util.Format.number(value, '0,000') + ' bộ</div>';
+            return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     }, {
         text: 'Ngày giao',
