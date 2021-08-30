@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO.Price.Provider.PContract_PO_Ed
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     var record = viewModel.get('record');
                     var providerid_link = record.data.providerid_link;

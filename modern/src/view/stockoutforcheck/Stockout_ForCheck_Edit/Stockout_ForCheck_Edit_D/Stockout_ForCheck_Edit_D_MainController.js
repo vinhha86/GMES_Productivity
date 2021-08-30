@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D_MainControl
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     var storeItems = Stockout_order_d_store.getData().items;
                     for(var i=0; i<storeItems.length; i++){

@@ -38,7 +38,7 @@ Ext.define('GSmartApp.store.fobprice.fobpricestore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

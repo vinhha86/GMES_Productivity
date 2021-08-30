@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.handover.HandoverDetailPorderSearchController', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     // console.log(POrder_ListStore.getData());
                     var items = POrder_ListStore.getData().items;

@@ -73,7 +73,7 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});
@@ -107,7 +107,7 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});
@@ -155,7 +155,7 @@ Ext.define('GSmartApp.store.handover.HandoverStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

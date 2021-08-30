@@ -145,7 +145,7 @@ Ext.define('GSmartApp.view.tagencode.Encode_Edit_D_Controller', {
 						scope: this,
 						callback: function(records, operation, success) {
 							if(!success){
-								 this.fireEvent('logout');
+								 // this.fireEvent('logout');
 							} 
 							else {
 								if (records.length > 0){

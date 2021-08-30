@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_Controller', {
             scope: this,
             callback: function (records, operation, success) {
                 if (!success) {
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     var filterField = m.lookupReference('stockout_orderFilter');
                     filterField.setValue(stockout_order_code);
@@ -120,7 +120,7 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_Controller', {
             scope: this,
             callback: function (records, operation, success) {
                 if (!success) {
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } 
                 else {
                     console.log(records);

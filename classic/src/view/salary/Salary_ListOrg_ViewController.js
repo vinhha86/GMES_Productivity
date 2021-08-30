@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					if (records.length > 0){
                         var record = records[0];

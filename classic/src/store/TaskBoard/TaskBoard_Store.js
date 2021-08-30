@@ -28,7 +28,7 @@ Ext.define('GSmartApp.store.TaskBoard.TaskBoard_Store', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.handover.HandoverLineToPrint_Detail_PorderSearchContr
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     // console.log(records);
                     var items = POrder_ListStore.getData().items;

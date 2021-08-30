@@ -6,9 +6,14 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
 	},
 	control: {
         '#StockMaterialList': {
-            // childtap: 'onChildTap'
+            // childtap: 'onChildTap',
+            painted: 'onPainted'
         }
 	},
+    onPainted: function(sender, element, eOpts){
+        sender.suspendEvents(false);
+        // sender.setDisableSelection(true);
+    },
     // onChildTap: function(list, location, eOpts){
     //     var isNotSelectionTap = 1 === location.columnIndex;
 

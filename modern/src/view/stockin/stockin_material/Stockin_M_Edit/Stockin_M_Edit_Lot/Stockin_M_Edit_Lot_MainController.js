@@ -398,7 +398,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     if(selectedLotRecord != null){
                         var stockinlotid_link = selectedLotRecord.get('id');

@@ -36,7 +36,7 @@ Ext.define('GSmartApp.store.device.device_store', {
 			callback: function(records, operation, success) {
 				// callback.call(records, operation, success);
 				if(!success){
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 			   }
 			}
 		});
@@ -73,7 +73,7 @@ Ext.define('GSmartApp.store.device.device_store', {
 			callback: function(records, operation, success) {
 				// callback.call(records, operation, success);
 				if(!success){
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 			   }
 			}
 		});

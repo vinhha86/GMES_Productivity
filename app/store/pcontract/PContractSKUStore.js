@@ -73,7 +73,7 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 				else {
 					var tabcolor = Ext.getCmp('PContractProduct_Bom_TabColorView').getController();

@@ -34,7 +34,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});
@@ -100,7 +100,7 @@ Ext.define('GSmartApp.store.stockin.StockinLotStore', {
 			callback: function(records, operation, success) {
 				this.fireEvent('loadStore_byStockinDId_Done');
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

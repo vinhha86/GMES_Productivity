@@ -485,7 +485,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
                             scope: this,
                             callback: function(records, operation, success) {
                                 if(!success){
-                                    this.fireEvent('logout');
+                                    // this.fireEvent('logout');
                                 } else {
                                     var HandoverDetail_ProductGrid = Ext.getCmp('HandoverCutToline_Detail_ProductGrid');
                                     var HandoverProductStoreData = HandoverProductStore.getData();
@@ -606,7 +606,7 @@ Ext.define('GSmartApp.view.handover.HandoverCutToline_Detail_Controller', {
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     var params=new Object();
                     params.handoverid_link = handoverid_link;

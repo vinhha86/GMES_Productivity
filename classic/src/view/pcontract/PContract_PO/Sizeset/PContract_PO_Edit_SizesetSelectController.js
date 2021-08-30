@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetSelectController',
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     //remove sizeset that have been selected to PO
                     var priceStore = p_viewmodel.getStore('PriceStore');

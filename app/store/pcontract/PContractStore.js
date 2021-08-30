@@ -43,17 +43,7 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 				totalProperty: 'totalCount'
 			}
 		});
-		this.loadPage(page, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-				// else{
-				// 	console.log(records);
-				// }
-			}
-		});
+		this.load();
 	},
 	loadStore: function (productbuyer_code, po_code, orgbuyerid_link, orgvendorid_link,
 		contractbuyer_code, contractbuyer_yearfrom, contractbuyer_yearto) {
@@ -88,17 +78,7 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 				rootProperty: 'data',
 			}
 		});
-		this.loadPage(1, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-				else {
-					GSmartApp.util.State.clear('po');
-				}
-			}
-		});
+		this.load();
 	},
 	findByContractcode: function (contractcode) {
 		var me = this;
@@ -126,16 +106,6 @@ Ext.define('GSmartApp.store.pcontract.PContractStore', {
 				rootProperty: 'data',
 			}
 		});
-		this.loadPage(1, {
-			scope: this,
-			callback: function (records, operation, success) {
-				if (!success) {
-					this.fireEvent('logout');
-				}
-				// else{
-				// 	console.log(records);
-				// }
-			}
-		});
+		this.load();
 	}
 });

@@ -27,11 +27,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
     },
     onFocus: function(textfield, e, eOpts){
         //
-        // this.setTooltip(textfield);
+        this.setTooltip(textfield);
     },
     onFocusLeave: function(textfield, event, eOpts ){
         //
-        // this.removeTooltip();
+        this.removeTooltip();
         //
         this.showSelectValueWindow(textfield);
     },

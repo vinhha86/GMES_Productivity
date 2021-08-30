@@ -418,7 +418,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Edit_Controller'
                 callback: function (records, operation, success) {
                     if(mainView) mainView.setMasked(false);
                     if (!success) {
-                        this.fireEvent('logout');
+                        // this.fireEvent('logout');
                     } else {
                         // filter
                         // var CutPlanRowStoreFilter = CutPlanRowStore.getFilters();

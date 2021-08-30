@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrder_SizeColorPickup_Controller
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 				else{
 					this.refreshSizeColorList();

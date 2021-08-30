@@ -76,7 +76,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -109,7 +109,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 				else {
 					this.fireEvent('done', records[0]);
@@ -146,7 +146,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -180,7 +180,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -214,7 +214,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -278,7 +278,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 				else {
 					GSmartApp.util.State.clear('product');
@@ -318,7 +318,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -355,7 +355,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -392,7 +392,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -429,7 +429,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -466,7 +466,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -507,7 +507,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			callback: function (records, operation, success) {
 				m.setLoading(false);
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -550,7 +550,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			callback: function (records, operation, success) {
 				m.setLoading(false);
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
