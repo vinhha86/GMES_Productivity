@@ -46,7 +46,7 @@ Ext.define('GSmartApp.store.contractbuyer.ContractBuyerStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					console.log(records);
 				}
@@ -91,7 +91,7 @@ Ext.define('GSmartApp.store.contractbuyer.ContractBuyerStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 				// else{
 				// 	console.log(records);
@@ -127,7 +127,7 @@ Ext.define('GSmartApp.store.contractbuyer.ContractBuyerStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

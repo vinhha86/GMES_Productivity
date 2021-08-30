@@ -37,7 +37,7 @@ Ext.define('GSmartApp.store.encode.porder_encode_store', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

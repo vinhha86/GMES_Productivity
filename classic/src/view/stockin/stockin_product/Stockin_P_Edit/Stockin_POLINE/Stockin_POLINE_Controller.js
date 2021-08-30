@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.stockin_p_edit.stockin_POLINE
 			callback: function(records, operation, success) {
 				if(mainView) mainView.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 				}
 			}

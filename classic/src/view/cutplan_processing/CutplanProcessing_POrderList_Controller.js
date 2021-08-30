@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     var session = GSmartApp.util.State.get('session');
                     if(session.orgid_link != 1 && session.orgid_link != null){
@@ -104,7 +104,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
             callback: function (records, operation, success) {
                 if(mainView) mainView.setLoading(false);
                 if (!success) {
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } 
                 else {
                     // 
@@ -165,7 +165,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList_Contr
                     scope: this,
                     callback: function (records, operation, success) {
                         if (!success) {
-                            this.fireEvent('logout');
+                            // this.fireEvent('logout');
                         } 
                         else {
                             if(porderId != null){

@@ -121,7 +121,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
                 // me.setMasked(false);
 				if(!success){
                     Ext.toast('Lấy thông tin thất bại', 1000);
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				} else {
                     // var StockMenu = Ext.getCmp('StockMenu');
                     // var root = viewModel.get('root');

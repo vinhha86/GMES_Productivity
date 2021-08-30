@@ -214,7 +214,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 				callback: function(records, operation, success) {
 					if(mainView) mainView.setLoading(false);
 					if(!success){
-						 this.fireEvent('logout');
+						 // this.fireEvent('logout');
 					} else {
 					}
 				}
@@ -308,7 +308,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			callback: function(records, operation, success) {
 				if(mainView) mainView.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 				}
 			}

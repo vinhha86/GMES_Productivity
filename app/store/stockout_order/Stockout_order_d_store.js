@@ -62,7 +62,7 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_d_store', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

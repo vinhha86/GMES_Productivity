@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                     scope: this,
                     callback: function(records, operation, success) {
                         if(!success){
-                            this.fireEvent('logout');
+                            // this.fireEvent('logout');
                         } else {
                             if(selectedDRecord != null){
                                 var storeItems = Stockout_order_d_store.getData().items;
@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
-                                this.fireEvent('logout');
+                                // this.fireEvent('logout');
                             } else {
                                 if(selectedPklRecord != null){
                                     var id = selectedPklRecord.get('id');
@@ -143,7 +143,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     
                 }

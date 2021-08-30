@@ -55,7 +55,7 @@ Ext.define('GSmartApp.store.DashBoardView.PieChartMarketTypeStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					// console.log(records);
 				}

@@ -194,7 +194,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 				callback: function(records, operation, success) {
 					if(mainView) mainView.setLoading(false);
 					if(!success){
-						 this.fireEvent('logout');
+						 // this.fireEvent('logout');
 					} else {
 					}
 				}
@@ -290,7 +290,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_M_Controller', {
 			callback: function(records, operation, success) {
 				if(mainView) mainView.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 				}
 			}

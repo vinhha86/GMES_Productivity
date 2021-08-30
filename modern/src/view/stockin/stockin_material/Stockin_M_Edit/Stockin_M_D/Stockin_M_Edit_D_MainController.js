@@ -370,7 +370,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             callback: function(records, operation, success) {
                 me.setMasked(false);
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     if(selectedDRecord != null){
                         var storeItems = Stockin_d_Store.getData().items;

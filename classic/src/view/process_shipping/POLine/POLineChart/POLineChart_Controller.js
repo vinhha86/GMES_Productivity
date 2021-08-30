@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineChart.POLineChart_Contr
             callback: function(records, operation, success) {
                 me.setLoading(false);
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 }
                 else{
                     store.removeAll();

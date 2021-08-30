@@ -109,7 +109,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -145,7 +145,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -181,7 +181,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -217,7 +217,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});

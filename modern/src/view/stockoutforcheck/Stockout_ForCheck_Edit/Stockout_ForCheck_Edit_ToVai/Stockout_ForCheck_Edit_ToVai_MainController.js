@@ -604,7 +604,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     if(selectedPklRecord != null){
                         var id = selectedPklRecord.get('id');

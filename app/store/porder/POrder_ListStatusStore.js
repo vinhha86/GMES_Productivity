@@ -47,7 +47,7 @@ Ext.define('GSmartApp.store.porder.POrder_ListStatusStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

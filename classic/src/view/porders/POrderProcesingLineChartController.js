@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.porders.POrderProcesingLineChartController', {
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 }
                 else{
                     for (var i = 0; i < LineChartStore.data.length; i++) {

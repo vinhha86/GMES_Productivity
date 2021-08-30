@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     if(selectedDRecord != null){
                         var storeItems = Stockout_d_Store.getData().items;

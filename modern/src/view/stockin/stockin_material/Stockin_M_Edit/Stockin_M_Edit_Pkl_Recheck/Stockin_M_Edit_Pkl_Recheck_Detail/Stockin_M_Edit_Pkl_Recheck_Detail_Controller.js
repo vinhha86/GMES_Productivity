@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         var m = this;
 		var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
+        var objRecheck = viewModel.get('objRecheck');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         if(selectedPklRecord != null){
             m.onSetFormData();
@@ -38,6 +39,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         var tip = Ext.create('Ext.tip.ToolTip', {
             target: textfield,
             html: placeholder,
+            zIndex: 2
         });
         tip.show();
         viewModel.set('fieldTooltip', tip);

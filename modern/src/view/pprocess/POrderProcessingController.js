@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingController', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     //Tai du lieu tien do cua phan xuong dau tien trong danh sach Factory
                     if (records.length > 0){

@@ -27,6 +27,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     xtype: 'combobox',
                     itemId: 'cbbox_pklRecheck_stockindId',
                     // reference: 'cboorgto',
+                    forceSelection: true,
                     editable: false,
                     readOnly: true,
                     // cls: 'notEditable',

@@ -33,7 +33,7 @@ Ext.define('GSmartApp.store.org.OrgTypeStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});

@@ -161,7 +161,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			callback: function(records, operation, success) {
 				if(mainView) mainView.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					console.log(records);
 					if (null!=records[0].data.org_grant_id_link){
