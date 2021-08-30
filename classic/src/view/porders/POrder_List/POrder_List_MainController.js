@@ -204,7 +204,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-bell yellowIcon',
                     handler: function () {
-                        var record = this.parentMenu.record;
                         if (record.get('status') > 0 && record.get('status') < 4) {   // 2   
                             Ext.Msg.show({
                                 title: 'Thông báo',
@@ -239,7 +238,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-stop violetIcon',
                     handler: function () {
-                        var record = this.parentMenu.record;
                         // console.log(record.data.id);
                         if (record.get('status') > 4) {     // 6
                             Ext.Msg.show({
@@ -268,14 +266,56 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
                             });
                         }
                     }
+                },
+                {
+                    text: 'Kế hoạch cắt',
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-cut violetIcon',
+                    handler: function () {
+                        me.onCutPlan(record);
+                    }
                 }
             ]
         });
         // HERE IS THE MAIN CHANGE
         var position = [e.getX() - 10, e.getY() - 10];
         e.stopEvent();
-        menu_grid.record = record;
         menu_grid.showAt(position);
+    },
+    onCutPlan: function (record) {
+        console.log(record);
+        var viewmodel = this.getViewModel();
+        var porderid_link = record.get('id');
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: false,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch cắt',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'CutPlan_MainView',
+                viewModel: {
+                    data: {
+                        porderid_link: porderid_link,
+                        porder: record.data
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#CutPlan_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
     },
     updatePorderStatus: function (porderid_link, status) {
         var me = this.getView();

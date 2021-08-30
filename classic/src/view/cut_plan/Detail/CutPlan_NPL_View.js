@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
     extend: 'Ext.grid.Panel',
     xtype: 'CutPlan_NPL_View',
-    id: 'CutPlan_NPL_View',
+    itemId: 'CutPlan_NPL_View',
     controller: 'CutPlan_NPL_ViewCotroller',
     viewConfig: {
         stripeRows: false,
@@ -88,24 +88,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth: 0,
             value: 'Danh sách NPL'
-        },
-            '->'
-            ,
-        {
-            xtype: 'button',
-            itemId: 'btnAdd_CutPlan',
-            ui: 'header',
-            margin: '10 5 0 0',
-            text: 'Tạo kế hoạch',
-            iconCls: 'x-fa fa-plus'
-        },
-        {
-            xtype: 'button',
-            itemId: 'btnHideNPL',
-            ui: 'header',
-            margin: '10 5 0 0',
-            text: 'Ẩn',
-            iconCls: 'x-fa fa-eye'
         }
         ]
     }]

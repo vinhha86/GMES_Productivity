@@ -1,18 +1,18 @@
 Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
     extend: 'Ext.grid.Panel',
     xtype: 'CutPlan_View',
+    itemId: 'CutPlan_View',
     controller: 'CutPlan_ViewController',
-    colorid_link: 0,
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
-        rowLines: true,        
+        rowLines: true,
         getRowClass: function (record, index) {
             if (record.data.type == 2) {
                 return "po_accept";
             }
-            else if (record.data.type == 1){
+            else if (record.data.type == 1) {
                 return "po_wrongamount"
             }
         }
@@ -37,41 +37,19 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         items: [
             {
                 handler: 'onXoa',
-                getClass: function(v, meta, rec) {
+                getClass: function (v, meta, rec) {
                     if (rec.get('type') == 0) {
                         return 'x-fa fas fa-trash';
                     }
                 },
-                getTip: function(value, metadata, record, row, col, store) {
-                    if(record.get('type') == 0){
+                getTip: function (value, metadata, record, row, col, store) {
+                    if (record.get('type') == 0) {
                         return 'Xóa';
                     }
-                 }
+                }
             }
         ]
-    },
-    {
-        xtype: 'actioncolumn',
-        width: 28,
-        menuDisabled: true,
-        sortable: false,
-        align: 'center',
-        items: [
-            {
-                handler: 'onLock',
-                getClass: function(v, meta, rec) {
-                    if (rec.get('type') == 0) {
-                        return 'x-fa fas fa-lock';
-                    }
-                },
-                getTip: function(value, metadata, record, row, col, store) {
-                    if(record.get('type') == 0){
-                        return 'Giữ cây vải';
-                    }
-                 }
-            }
-        ]
-    },{
+    }, {
         text: 'Sơ đồ',
         dataIndex: 'name',
         width: 120,
@@ -207,62 +185,23 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',
-        items:[{
+        xtype: 'toolbar',
+        padding: '0 0 10 5',
+        height: 35,
+        items: [{
             xtype: 'button',
-            text: 'DS NPL',
-            iconCls: 'x-fa fa-forward',
-            itemId: 'btnShowNPL',
+            itemId: 'btnAdd_CutPlan',
+            ui: 'header',
             margin: 2,
-            bind: {
-                hidden: '{!isHiddenNPL}'
-            }
-        },{
+            text: 'Tạo kế hoạch',
+            iconCls: 'x-fa fa-plus'
+        }, {
             xtype: 'button',
             margin: 2,
+            ui: 'header',
             text: 'Thêm sơ đồ',
             itemId: 'btnThemSoDo',
             iconCls: 'x-fa fa-plus'
-        },{
-            flex: 1
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Mã NPL',
-            readOnly: true,
-            labelWidth: 60,
-            width: 160,
-            bind: {
-                value: '{npl.product_code}'
-            },
-            margin: 2
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Tên NPL',
-            readOnly: true,
-            labelWidth: 60,
-            bind: {
-                value: '{npl.product_name}'
-            },
-            margin: 2
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Màu NPL',
-            labelWidth: 70,
-            width: 200,
-            readOnly: true,
-            bind: {
-                value: '{npl.mauSanPham}'
-            },
-            margin: 2
-        },{
-            xtype: 'textfield',
-            fieldLabel: 'Cỡ khổ',            
-            labelWidth: 60,
-            readOnly: true,
-            width: 150,
-            bind: {
-                value: '{npl.coSanPham}'
-            },
-            margin: 2
         }]
     }]
 });

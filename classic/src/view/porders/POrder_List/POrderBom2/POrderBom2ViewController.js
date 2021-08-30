@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
     onReloadBOM: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrderBom2Store');
-        store.load();
+        store.getbom_by_porder(viewmodel.get('porder.id'));
     },
     onDongBo: function () {
         var grid = this.getView();

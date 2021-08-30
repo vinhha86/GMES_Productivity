@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
             },
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
+                return '<div style ="font-size:9px">' + value + '</div>';
             },
             cellTpl: [
                 '<tpl for="lines">',
@@ -78,6 +78,29 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_ProductList', {
                 '</tpl>',
                 '</div>'
             ]
+        },
+        {
+            text: 'Mã SP vendor',
+            dataIndex: 'vendorcode',
+            align: 'left',
+            width: 90,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'styleVendorCodeFilter',
+                width: '99%',
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStyleVendorCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                value = value == null ? "" : value;
+                return '<div style ="font-size:9px">' + value + '</div>';
+            }
         },
         {
             text: 'SL',

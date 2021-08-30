@@ -2,16 +2,7 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_WareHouse_ViewController',
     extend: 'Ext.app.ViewController',
     alias: 'controller.Cutplan_WareHouse_ViewController',
     init: function () {
-        var grid = this.getView();
-        grid.setLoading('Đang tải dữ liệu');
 
-        var viewmodel = this.getViewModel();
-        var storecutplan_warehouse = viewmodel.getStore('WarehouseCutplanStore');
-        var cutplanrowid_link = viewmodel.get('cutplanrowid_link');
-
-        storecutplan_warehouse.loadby_cutplan(cutplanrowid_link, function (records, operation, success) {
-            grid.setLoading(false);
-        })
     },
     control: {
         '#btnAdd_material': {
@@ -25,9 +16,9 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_WareHouse_ViewController',
         var warehouse_grid = grid.up('Cutplan_Warehouse_MainView').down('Stockout_order_warehouse_View');
         warehouse_grid.setLoading("Đang tải dữ liệu");
 
-        var material_skuid_link = viewmodel.get('material_skuid_link');
+        var material_skuid_link = viewmodel.get('npl.id');
         var org_from_id_link = null;
-        var porderid_link = viewmodel.get('porderid_link');
+        var porderid_link = viewmodel.get('porder.id');
         var type = viewmodel.get('type.type');
         var stockout_orderid_link = null;
 

@@ -4,9 +4,9 @@ Ext.define('GSmartApp.view.warehouse.cut_plan.Cutplan_Warehouse_MainView', {
     id: 'Cutplan_Warehouse_MainView',
     layout: 'border',
     controller: 'Cutplan_Warehouse_MainView_Controller',
-    viewModel: {
-        type: 'Cutplan_WareHouse_ViewModel'
-    },
+    // viewModel: {
+    //     type: 'Cutplan_WareHouse_ViewModel'
+    // },
     items: [
         {
             region: 'west',
@@ -28,12 +28,6 @@ Ext.define('GSmartApp.view.warehouse.cut_plan.Cutplan_Warehouse_MainView', {
         dock: 'bottom',
         layout: 'hbox',
         items: [{
-            xtype: 'button',
-            text: 'Thoát',
-            itemId: 'btnThoat',
-            iconCls: 'x-fa fa-window-close',
-            margin: 5
-        }, {
             layout: 'hbox',
             border: false,
             items: [{
