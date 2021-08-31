@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
     //     type:'Salary_MainView_Model'
     // },
     bind: {
-        store: '{TimeShiftStore}'
+        store: '{TimesheetShiftTypeOrgStore}'
     },
 
     columns: [{
