@@ -7,16 +7,6 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_Main_Controller', {
 		if (null!=UnitStore) UnitStore.loadStore();
     },
     control: {
-        '#Stockout_M_List': {
-            select: 'onStockoutSelect'
-        },
-    },
-    onStockoutSelect: function (e, selected, eOpts) {
-        // console.log(selected);
-        var viewmodel = this.getViewModel();
-        var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
-        StockoutD_Store.removeAll();
-        StockoutD_Store.setData(selected.data.stockout_d);
     },
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;

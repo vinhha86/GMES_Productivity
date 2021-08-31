@@ -47,7 +47,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
             click: 'onStockoutNew'
         },
         '#Stockout_M_List': {
-            itemdblclick: 'onCapNhat'
+            itemdblclick: 'onCapNhat',
+            select: 'onStockoutSelect'
         },
         '#limitpage': {
             specialkey: 'onSpecialkey'
@@ -94,20 +95,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var statuses = [-2,-1, 0, 1, 2];
         var mat_skuid_link = viewmodel.get('mat_skuid_link');
 
-        // var page = store.currentPage;
-
-        // if (limit == null) {
-        //     limit = 100;
-        // }
-
-        // if (page == null) {
-        //     page = 1;
-        // }
         store.loadByDate_Material(stockouttypeid, stockoutcode, stockoutdate_from, stockoutdate_to, null, null,
             orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link);
 
         var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
         if(null!=StockoutD_Store) StockoutD_Store.removeAll();
+    },
+    onStockoutSelect: function (e, selected, eOpts) {
+        // console.log(selected);
+        var viewmodel = this.getViewModel();
+        var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
+        StockoutD_Store.removeAll();
+        // StockoutD_Store.setData(selected.data.stockout_d);
+        StockoutD_Store.loadByStockoutID(selected.data.id);
     },
     renderCell: function (value, record) {
         if (null == value) value = 0;
