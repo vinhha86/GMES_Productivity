@@ -63,7 +63,7 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_pkl_Store', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

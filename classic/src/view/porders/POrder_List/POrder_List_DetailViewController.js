@@ -41,13 +41,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailViewController'
         var porderid_link = viewmodel.get('porder.id');
         var porder = viewmodel.get('porder');
 
-        var productiondate_plan = Ext.Date.parse(porder.productiondate_plan, 'c');
-        if (productiondate_plan == null) productiondate_plan = new Date(porder.productiondate_plan);
-        var golivedate = Ext.Date.parse(porder.golivedate, 'c');
-        if (golivedate == null) productiondate_plan = new Date(porder.golivedate);
-        porder.productiondate_plan = productiondate_plan;
-        porder.golivedate = golivedate;
-
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,

@@ -116,7 +116,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     // },    
     {
         text: 'Ngày lập',
-        dataIndex: 'contractdate',
+        dataIndex: 'datecreated',
         width: 75,
         renderer: Ext.util.Format.dateRenderer('d/m/y')
     },

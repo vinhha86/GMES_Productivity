@@ -9,12 +9,5 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewModel', {
             type: 'TimesheetShiftTypeStore'
         },
     },
-    data:{
-        // id: null,
-        // name: null,
-        // timefrom: null,
-        // timeto: null,
-        // checkboxfrom: -1,
-        // checkboxto: -1
-    }
+   
 })

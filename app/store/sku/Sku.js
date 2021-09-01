@@ -79,16 +79,17 @@ Ext.define('GSmartApp.store.Sku', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	load_by_type_and_pcontract_product(type, pcontractid_link, productid_link) {
+	load_by_type_and_pcontract_product(type, pcontractid_link, productid_link, colorid_link) {
 		var params = new Object();
 		params.producttypeid_link = type;
 		params.pcontractid_link = pcontractid_link;
 		params.productid_link = productid_link;
+		params.colorid_link = colorid_link;
 
 		this.setProxy({
 			type: 'ajax',
@@ -98,7 +99,7 @@ Ext.define('GSmartApp.store.Sku', {
 				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom/getlist_npl_by_pcontract_product',
+			url: config.getAppBaseUrl() + '/api/v1/pcontractproductbom/getlist_npl_by_pcontract_product_color',
 			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
@@ -115,7 +116,7 @@ Ext.define('GSmartApp.store.Sku', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});

@@ -377,7 +377,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POrderController', {
             scope: this,
             callback: function(records, operation, success) {
                 if(!success){
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     for(i=0;i<records.length;i++){
                         //Tao lenh sx cho tung san pham con

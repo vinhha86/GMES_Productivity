@@ -4,11 +4,6 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_Warehouse_MainView_Control
     init: function () {
 
     },
-    control: {
-        '#btnThoat': {
-            click: 'onThoat'
-        }
-    },
     listen: {
         controller: {
             'Stockout_order_warehouse_ViewController': {
@@ -16,7 +11,7 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_Warehouse_MainView_Control
             }
         }
     },
-    onAddMat: function(data){
+    onAddMat: function (data) {
         var viewmodel = this.getViewModel();
         var params = new Object();
         params.data = data;
@@ -41,8 +36,5 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_Warehouse_MainView_Control
                     });
                 }
             })
-    },
-    onThoat: function () {
-        this.fireEvent("Thoat");
     }
 })

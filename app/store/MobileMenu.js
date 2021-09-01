@@ -66,7 +66,7 @@ Ext.define('GSmartApp.store.MobileMenu', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					//  this.fireEvent('logout');
 				}
 			}
 		});

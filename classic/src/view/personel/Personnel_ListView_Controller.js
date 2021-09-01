@@ -20,6 +20,77 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         '#splbtn_Upload': {
             click: 'onUpload'
         },
+        '#splbtn_ThemCa':{
+            click:'onThemCaLamViec'
+        }
+    },
+    onThemCaLamViec:function(){
+        var me = this;
+        var select = this.getView().getSelectionModel().getSelection();
+        if(select.length == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: "Bạn chưa chọn nhân viên!",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }
+        var form = Ext.create('Ext.window.Window',{
+            hieght:250,
+            width:300,
+            closable:true,
+            resizeable:false,
+            modal:true,
+            border:false,
+            title:'Chọn ca làm việc mặc định',
+            closeAction:'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout:{
+                type:'fit',
+                padding:5
+            },
+            items:[
+                {
+                    xtype:'ShiftAddView',
+                    viewModel:{
+                        data:{
+                            select:select
+                        }
+                    }
+                }
+            ]
+        })
+        form.show();
+        form.down('#ShiftAddView').on('Thanhcong',function(){
+            form.close();
+            //load lai trang
+            me.onload();
+        })
+    },
+    onload:function(){
+        var viewModel = this.getViewModel();
+        var params = new Object();
+        params.isviewall = viewModel.get('isviewall');
+        params.orgid_link = viewModel.get('donvi.id');
+
+        if(viewModel.get('orgtypeid_link') == 13){
+             params.ismanager = true;     
+             viewModel.set('isdisabled', true);       
+        }
+        else if (viewModel.get('orgtypeid_link') == 1){
+            params.ismanager = true;
+            viewModel.set('isdisabled', false);
+        }
+        else {
+            params.ismanager = false;
+            viewModel.set('isdisabled', true);
+        }
+
+        var StorePersonel = viewModel.getStore('Personnel_Store');
+        StorePersonel.loadStore_byOrg(params.orgid_link , params.ismanager, params.isviewall);
     },
     onUpload: function () {
         var viewmodel = this.getViewModel();

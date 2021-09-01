@@ -57,7 +57,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} 
 			}
 		});
@@ -161,7 +161,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

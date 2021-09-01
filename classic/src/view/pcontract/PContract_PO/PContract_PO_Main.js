@@ -34,7 +34,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Main', {
         },
         {
             region: 'west',
-            width: 370,
+            width: 400,
             xtype: 'PContract_PO_ProductList',
             border: true,
             margin: 1

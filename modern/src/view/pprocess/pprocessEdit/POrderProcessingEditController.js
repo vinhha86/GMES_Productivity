@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.pprocess.POrderProcessingEditController', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
                     // set data cho view
                     if (records.length > 0){

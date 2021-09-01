@@ -30,7 +30,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoLenh
                 scope: this,
                 callback: function(records, operation, success) {
                     if(!success){
-                        this.fireEvent('logout');
+                        // this.fireEvent('logout');
                     }
                     else{
                         // console.log(POrderLineChartStore);

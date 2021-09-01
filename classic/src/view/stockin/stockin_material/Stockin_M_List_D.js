@@ -12,15 +12,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false,
-        getRowClass: function(record, index) {
-            var c = record.get('status');
-            if (c == -1) {
-                return 'epc-error';
-            }
-            else {
-                return 'epc-ok';
-            }
-        }                     
+        // getRowClass: function(record, index) {
+        //     var c = record.get('status');
+        //     if (c == -1) {
+        //         return 'epc-error';
+        //     }
+        //     else {
+        //         return 'epc-ok';
+        //     }
+        // }                     
     },
 	// plugins: {
     //     cellediting: {

@@ -43,7 +43,7 @@ Ext.define('GSmartApp.store.groupuser.GroupUser_Menu_TreeStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});
@@ -78,7 +78,7 @@ Ext.define('GSmartApp.store.groupuser.GroupUser_Menu_TreeStore', {
 			scope: this,
 			callback: function (records, operation, success) {
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				}
 			}
 		});

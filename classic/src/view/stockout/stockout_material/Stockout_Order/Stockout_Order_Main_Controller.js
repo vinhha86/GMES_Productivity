@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
                 urlBack: 'onOrderSearch',
             },
             'Stockout_M_Main_Controller': {
-                Reload_StockoutOrderList: 'onOrderSearch'
+                onReload_StockoutOrderList: 'onOrderSearch'
             }
         }
     },
@@ -57,25 +57,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         var fromDate = me.down('#stockoutorderdate_from').getValue();
         var toDate = me.down('#stockoutorderdate_to').getValue();
         var status = 0;
-        // var OrgToStore = me.down('#OrgToStore').getValue();
-        // var OrgFromStore = me.down('#OrgFromStore').getValue();
-        // var stockoutcode = '';
-        // var orgid_from_link = null;
-        // var orgid_to_link = null;
-        // var stockouttypefrom = 1;
-        // var stockouttypeto = 10;
-
-        var page = store.currentPage;
-
-        // if (limit == null) {
-        //     limit = 25;
-        // }
-
-        // if (page == null) {
-        //     page = 1;
-        // }
 
         store.loadStore_byPage(fromDate, toDate, null, null, status);
+        var storeDetail = viewModel.getStore('Stockout_order_d_Store');
+        if(storeDetail) storeDetail.removeAll();
     },
 
     onMenu_StockoutOrderList: function (grid, rowIndex, colIndex, item, e, record) {

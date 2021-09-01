@@ -8,7 +8,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
     //     type:'Salary_MainView_Model'
     // },
     bind: {
-        store: '{TimeShiftStore}'
+        store: '{TimesheetShiftTypeOrgStore}'
     },
 
     columns: [{
@@ -43,7 +43,15 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
         text: 'Đến',
         dataIndex: 'to',
         width: 100
-    }],
+    },{
+        xtype: 'checkcolumn',
+        text: 'Hôm sau',
+        dataIndex:'checkboxto',
+        margin: 5,
+        labelWidth: 70,
+        width: 120,
+    }
+],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',

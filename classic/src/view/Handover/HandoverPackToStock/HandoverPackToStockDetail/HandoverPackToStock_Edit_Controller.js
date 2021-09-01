@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.handover.HandoverPackToStock_Edit_Controller', {
 			callback: function(records, operation, success) {
                 if(mainView) mainView.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					if (null!=records[0].data.org_grant_id_link){
                         viewModel.set('stockin.orgid_from_link', records[0].data.org_grant_id_link);

@@ -40,8 +40,9 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
     // },
     onload: function () {
         var viewmodel = this.getViewModel();
-        var TimesheetShiftTypeStore = viewmodel.getStore('TimeShiftStore');
-        TimesheetShiftTypeStore.loadStore();
+        var id = viewmodel.get('orgid_link')
+        var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
+        TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
     },
     onThoat: function () {
         this.getView().up('window').close();
@@ -54,22 +55,21 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         var orgid = viewModel.get('TimeShift.orgid_link');
 
         var id = viewModel.get('id');
-        var name = viewModel.get('name');
+        var timesheet_shift_type_id_link = viewModel.get('TimeShift.name');
         var timefrom = this.lookup('timefrom');
         var timeto = this.lookup('timeto');
         var checkboxfrom = this.lookup('checkboxfrom');
         var checkboxto = this.lookup('checkboxto');
-
-
+        
         var params = new Object();
         params.id = id;
-        params.name = name;
+        params.timesheet_shift_type_id_link = timesheet_shift_type_id_link;
         params.timefrom = timefrom.getValue();
         params.timeto = timeto.getValue();
         params.checkboxfrom = checkboxfrom.getValue();
         params.checkboxto = checkboxto.getValue();
-        params.orgid_link = orgid == null? orgid_link:orgid;
-   
+        params.orgid_link = orgid == null ? orgid_link : orgid;
+
         if(!params.orgid_link){
             Ext.Msg.show({
                 title: 'Thông báo',
@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             });
             return;
         }else{
-                GSmartApp.Ajax.post('/api/v1/timesheetshifttype/create', Ext.JSON.encode(params),
+                GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/create', Ext.JSON.encode(params),
                 function (success, response, options) {
                     if (success) {
                         var res = Ext.decode(response.responseText);
@@ -100,12 +100,6 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
                             }else{
                                 form.fireEvent("updatethanhcong");
                             }
-                           
-                            // var viewmodel = this.getViewModel();
-                            // var orgid_link = viewmodel.get('selected_orgid');
-                            // var TimesheetShiftTypeStore = viewmodel.getStore('TimeShiftStore');
-                            // TimesheetShiftTypeStore.loadStorebyOrgid_link(orgid_link);
-                            //  me.up('window').close();
                         }
                         else {
                             Ext.Msg.show({

@@ -52,7 +52,7 @@ Ext.define('GSmartApp.store.TimeSheetSumStore', {
 			callback: function (records, operation, success) {
 				m.setLoading(false);
 				if (!success) {
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 				} else {
 					// console.log(records);
 				}

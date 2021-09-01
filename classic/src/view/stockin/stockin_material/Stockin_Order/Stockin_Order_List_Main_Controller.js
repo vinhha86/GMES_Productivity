@@ -49,7 +49,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
     onStockin_Order_Select: function (e, selected, eOpts) {
         var viewmodel = this.getViewModel();
         var Stockin_Order_D_Store = viewmodel.getStore('Stockin_Order_D_Store');
-        Stockin_Order_D_Store.setData(selected.data.stockin_d);
+        // Stockin_Order_D_Store.setData(selected.data.stockin_d);
+        Stockin_Order_D_Store.loadStore_byStockinId(selected.data.id);
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         var viewmodel = this.getViewModel();

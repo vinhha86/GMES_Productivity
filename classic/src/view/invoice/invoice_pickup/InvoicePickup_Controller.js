@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.invoice.InvoicePickup_Controller', {
             scope: this,
             callback: function (records, operation, success) {
                 if (!success) {
-                    this.fireEvent('logout');
+                    // this.fireEvent('logout');
                 } else {
                     var filterField = m.lookupReference('invoicenumberFilter');
                     filterField.setValue(invoicenumber);

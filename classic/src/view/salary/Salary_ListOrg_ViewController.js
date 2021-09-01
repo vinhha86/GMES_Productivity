@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					if (records.length > 0){
                         var record = records[0];
@@ -77,12 +77,10 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
         SalTypeLaborLevelStore.removeAll();   
         
         //lay thong tin ca lam viec
-        console.log(record.get('id'));
         var viewModel = this.getViewModel();
-        var TimesheetShiftTypeStore = viewModel.getStore('TimeShiftStore');
-        TimesheetShiftTypeStore.loadStorebyOrgid_link(record.get('id'));
-       
-       
+        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
+        TimesheetShiftTypeOrgStore.loadStorebyOrgid_link(record.get('id'));
+    
     },
     onload: function () {
         var me = this.getView();

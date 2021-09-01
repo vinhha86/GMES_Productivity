@@ -77,7 +77,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             viewmodel.set('isRecordNguyenLieu', false);
         }
         var StockinD_Store = viewmodel.getStore('StockinD_Store');
-        StockinD_Store.setData(selected.data.stockin_d);
+        // StockinD_Store.setData(selected.data.stockin_d);
+        StockinD_Store.loadStore_byStockinId(selected.data.id);
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -647,6 +648,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         store.loadStore_Material_pcontract(null, null, null, 
             null, stockintypeid_link_from, stockintypeid_link_to,
             status, pcontractid, null, null);
+
+        var StockinD_Store = viewmodel.getStore('StockinD_Store');
+        StockinD_Store.removeAll();
     },
     sortStore: function(){
         var viewmodel = this.getViewModel();

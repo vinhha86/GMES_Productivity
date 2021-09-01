@@ -29,7 +29,7 @@ Ext.define('GSmartApp.store.dictionary.dictionary_type_store',{
 			callback: function(records, operation, success) {
 				// callback.call(records, operation, success);
 				if(!success){
-					this.fireEvent('logout');
+					// this.fireEvent('logout');
 			   }
 			}
 		});

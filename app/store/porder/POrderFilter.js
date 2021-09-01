@@ -197,7 +197,7 @@ Ext.define('GSmartApp.store.POrderFilter', {
 							yes: 'Đóng',
 						},
 						fn: function () {
-							this.fireEvent('logout');
+							// this.fireEvent('logout');
 						}
 					});
 				}

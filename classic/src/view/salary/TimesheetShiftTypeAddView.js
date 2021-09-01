@@ -8,15 +8,19 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
         layout: 'hbox',
         width: '100%',
         items: [{
-            xtype: 'textfield',
+            xtype: 'combobox',
             margin: 5,
             fieldLabel: 'Tên ca',
-            reference: 'name',
+           // reference: 'name',
             allowBlank: false,
             flex:1,
             labelWidth: 90,
+            displayField: 'name',
+            valueField: 'id',
+            queryMode: 'local',
             bind: {
-                value: '{name}'
+                value: '{TimeShift.name}',
+                store:'TimesheetShiftTypeStore'
             }
         },{
             margin: 5,

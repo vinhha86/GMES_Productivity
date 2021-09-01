@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     scope: this,
                     callback: function(records, operation, success) {
                         if(!success){
-                            this.fireEvent('logout');
+                            // this.fireEvent('logout');
                         } else {
                             if(selectedDRecord != null){
                                 var storeItems = Stockin_d_Store.getData().items;
@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
-                                this.fireEvent('logout');
+                                // this.fireEvent('logout');
                             } else {
                                 // me.down('#Stockin_M_Edit_Lot').refresh(); console.log('here');
                                 if(selectedLotRecord != null){
@@ -142,6 +142,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 }
                 break;
             case 'Kiểm cây':
+                if(pkl_stockindId != null){
+                    me.down('#cbbox_pkl_stockindId').setValue(pkl_stockindId);
+                }
                 if(pkl_stockindId != null && cbbox_lotnumber_value != null){
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
                     var StockinPklStore = viewModel.getStore('StockinPklStore');
@@ -150,7 +153,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
-                                this.fireEvent('logout');
+                                // this.fireEvent('logout');
                             } else {
                                 if(selectedPklRecord != null){
                                     var stockinpklid_link = selectedPklRecord.get('id');
@@ -172,15 +175,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         }
                     });
 
-                    if(pkl_stockindId != null){
-                        me.down('#cbbox_pkl_stockindId').setValue(pkl_stockindId);
-                    }
                     if(cbbox_lotnumber_value != null){
                         me.down('#cbbox_lotnumber').setValue(cbbox_lotnumber_value);
                     }
                 }
                 break;
             case 'Kiểm 10%':
+                if(pklRecheck_stockindId != null){
+                    me.down('#cbbox_pklRecheck_stockindId').setValue(pklRecheck_stockindId);
+                }
                 if(pklRecheck_stockindId != null && cbbox_lotnumber_value != null){
                     var selectedPklRecheckRecord = viewModel.get('selectedPklRecheckRecord');
                     var StockinPklRecheckStore = viewModel.getStore('StockinPklRecheckStore');
@@ -189,7 +192,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         scope: this,
                         callback: function(records, operation, success) {
                             if(!success){
-                                this.fireEvent('logout');
+                                // this.fireEvent('logout');
                             } else {
                                 if(selectedPklRecheckRecord != null){
                                     var stockinpklid_link = selectedPklRecheckRecord.get('id');
@@ -210,10 +213,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                             }
                         }
                     });
-
-                    if(pklRecheck_stockindId != null){
-                        me.down('#cbbox_pklRecheck_stockindId').setValue(pklRecheck_stockindId);
-                    }
+                    
                     if(cbbox_lotnumber_value != null){
                         me.down('#cbbox_lotnumber_recheck').setValue(cbbox_lotnumber_value);
                     }

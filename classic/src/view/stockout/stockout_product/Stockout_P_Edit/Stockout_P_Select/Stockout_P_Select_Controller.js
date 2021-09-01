@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Select_Controller', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					var Stockout = viewmodel.getStore('Stockout');
 					if (null!=records[0].data.org_grant_id_link)

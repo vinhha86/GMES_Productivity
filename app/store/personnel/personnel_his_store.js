@@ -32,7 +32,7 @@ Ext.define('GSmartApp.store.personnel.personnel_his_store', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				}
 			}
 		});

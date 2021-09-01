@@ -73,7 +73,7 @@ Ext.define('GSmartApp.store.SalarySumStore', {
 			callback: function(records, operation, success) {
 				m.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					// console.log(records);
 				}
@@ -113,7 +113,7 @@ Ext.define('GSmartApp.store.SalarySumStore', {
 			callback: function(records, operation, success) {
 				m.setLoading(false);
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					// console.log(records);
 				}

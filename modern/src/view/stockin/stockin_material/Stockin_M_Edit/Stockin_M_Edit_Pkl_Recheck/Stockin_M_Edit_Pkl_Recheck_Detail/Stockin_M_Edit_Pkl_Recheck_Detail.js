@@ -34,9 +34,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            itemId: 'packageidTxtRecheck',
-                            label: 'Số LOT:',
-                            labelWidth: 130,
+                            itemId: 'lotnumberTxtRecheck',
+                            // label: 'Số LOT:',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -47,40 +47,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objRecheck.lotnumber}',
+                                value: '{objRecheck.lotnumber}'
                             },
-                            stepValue: 0.1,
                         },
-                        // {
-                        //     xtype:'button',
-                        //     // text: 'Xác nhận',
-                        //     // flex: 1,
-                        //     // minWidth: 80,
-                        //     // maxWidth: 130,
-                        //     // width: 45,
-                        //     margin: 1,
-                        //     iconCls: 'x-fa fa-check',
-                        //     itemId:'btnCheckRecheck',
-                        //     ui: 'action',
-                        //     bind: {
-                        //         disabled: '{!isobjRecheckSelected}'
-                        //     },
-                        // },   
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'packageidTxtRecheck',
-                            label: 'Số cây:',
-                            labelWidth: 130,
+                            // label: 'Số cây:',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -101,18 +78,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             },
                             stepValue: 0.1,
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-trash',
-                        //     itemId:'btnDeletePkl',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     focusable: false,
-                        //     bind: {
-                        //         disabled: '{isBtnDeletePklHidden}',
-                        //     },
-                        //     // style: 'visibility: hidden;'
-                        // },
                     ]
                 },
                 {
@@ -126,8 +91,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'mTxtRecheck',
-                            label: 'Dài kiểm (M):',
-                            labelWidth: 130,
+                            // label: 'Dài kiểm (M):',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -153,8 +118,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'yTxtRecheck',
-                            label: 'Dài kiểm (Y):',
-                            labelWidth: 130,
+                            // label: 'Dài kiểm (Y):',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -174,33 +139,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-trash',
-                        //     itemId:'btnDeletePkl',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     focusable: false,
-                        //     bind: {
-                        //         disabled: '{isBtnDeletePklHidden}',
-                        //     },
-                        //     // style: 'visibility: hidden;'
-                        // },
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
+                        //////////////////////////////////
                         {
                             xtype: 'numberfield',
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
                             itemId: 'mOriginTxtRecheck',
-                            label: 'Dài phiếu (M):',
-                            labelWidth: 130,
+                            // label: 'Dài phiếu (M):',
+                            // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
@@ -225,8 +172,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             cls: 'my-textfield',
                             margin: 1,
                             itemId: 'yOriginTxtRecheck',
-                            label: 'Dài phiếu (Y):',
-                            labelWidth: 130,
+                            // label: 'Dài phiếu (Y):',
+                            // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
@@ -245,14 +192,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-plus',
-                        //     // itemId:'',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     style: 'visibility: hidden;'
-                        // },
                     ]
                 },
                 {
@@ -266,8 +205,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'canCheckTxtRecheck',
-                            label: 'Cân kiểm:',
-                            labelWidth: 130,
+                            // label: 'Cân kiểm:',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -293,8 +232,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'lbsCheckTxtRecheck',
-                            label: 'Lbs kiểm:',
-                            labelWidth: 130,
+                            // label: 'Lbs kiểm:',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -314,29 +253,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-plus',
-                        //     // itemId:'',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     style: 'visibility: hidden;'
-                        // },
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
+                        //////////////////////////////////
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'canTxtRecheck',
-                            label: 'Cân phiếu:',
-                            labelWidth: 130,
+                            // label: 'Cân phiếu:',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -362,8 +287,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             border: true,
                             cls: 'my-textfield',
                             itemId: 'lbsTxtRecheck',
-                            label: 'Lbs phiếu:',
-                            labelWidth: 130,
+                            // label: 'Lbs phiếu:',
+                            // labelWidth: 130,
                             flex: 1,
                             minWidth: 80,
                             // maxWidth: 130,
@@ -383,14 +308,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-plus',
-                        //     // itemId:'',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     style: 'visibility: hidden;'
-                        // },
                     ]
                 },
                 {
@@ -404,8 +321,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             cls: 'my-textfield',
                             margin: 1,
                             itemId: 'widthMetCheckTxtRecheck',
-                            label: 'Khổ kiểm (cm):',
-                            labelWidth: 130,
+                            // label: 'Khổ kiểm (cm):',
+                            // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
@@ -423,29 +340,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-plus',
-                        //     // itemId:'',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     style: 'visibility: hidden;'
-                        // },
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
                         {
                             xtype: 'numberfield',
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
                             itemId: 'widthMetTxtRecheck',
-                            label: 'Khổ phiếu (cm):',
-                            labelWidth: 130,
+                            // label: 'Khổ phiếu (cm):',
+                            // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
@@ -463,17 +365,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        // {
-                        //     xtype:'button',
-                        //     iconCls: 'x-fa fa-plus',
-                        //     // itemId:'',
-                        //     ui: 'action',
-                        //     margin: 1,
-                        //     style: 'visibility: hidden;'
-                        // },
                     ]
                 },
-
                 {
                     layout: 'hbox',
                     border: false,

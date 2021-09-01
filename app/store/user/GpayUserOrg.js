@@ -80,7 +80,7 @@ Ext.define('GSmartApp.store.GpayUserOrg', {
 			scope: this,
 			callback: function(records, operation, success) {
 				if(!success){
-					 this.fireEvent('logout');
+					 // this.fireEvent('logout');
 				} else {
 					// console.log(records);
 				}

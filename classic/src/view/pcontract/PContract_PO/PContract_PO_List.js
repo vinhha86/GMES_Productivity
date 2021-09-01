@@ -79,7 +79,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
                     metaData.tdCls = "po_wrongamount";
                 }
                 else {
-                    metaData.tdCls = 'po_offer';
+                    metaData.tdCls = 'po_uncomfim';
                 }
             }
             return value;
@@ -269,7 +269,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_List', {
         border: false,
         items: [{
             html: '<div class="color-box">'
-                + '<div class="color-square po_free"></div>&nbspChưa chốt'
+                + '<div class="color-square po_uncomfim"></div>&nbspChưa chốt'
                 + '</div>',
             margin: '5'
         }, {
