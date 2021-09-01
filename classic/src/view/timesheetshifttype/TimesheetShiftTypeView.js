@@ -7,15 +7,14 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
     },
     controller: 'TimesheetShiftTypeViewController',
     reference: 'TimesheetShiftTypeView',
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
+    plugins: {
+        cellediting: {
+            clicksToEdit: 2,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
     },
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1
-    //     }
-    // },
     viewConfig: {
         stripeRows: true,
         columnLines: true,
@@ -31,12 +30,8 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
         sortable: false,
         align: 'center',
         items: [{
-            iconCls: 'x-fa fas fa-edit',
-            tooltip: "Chi tiết",
-            handler: 'onCapNhat',
-        },{
             iconCls: 'x-fa fas fa-trash',
-            tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
+            tooltip:"Xóa",
             handler: 'onXoa'
         }]
     },{
@@ -45,17 +40,49 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
         xtype: 'rownumberer',
         align: 'center'
     }, {
-        text: 'Tên ca',
+        text: 'Tên ca làm việc',
         dataIndex: 'name',
         flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'NameFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onNameFilter',
+                buffer: 500
+            }
+        },
+        editor: {
+            xtype: 'textfield',
+            selectOnFocus: true,
+
+        },
     }, {
-        text: 'Từ',
-        dataIndex: 'from',
-        width: 100
-    }, {
-        text: 'Đến',
-        dataIndex: 'to',
-        width: 100
+        text: 'Mã ca làm việc',
+        dataIndex: 'code',
+        flex: 1,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'CodeFilter',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onCodeFilter',
+                buffer: 500
+            }
+        },
+        editor: {
+            xtype: 'textfield',
+            selectOnFocus: true,
+
+        },
     }],
     dockedItems: [{
         dock: 'bottom',
@@ -70,18 +97,27 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
                 iconCls: 'x-fa fa-plus',
                 itemId: 'btnThemMoi'
             },
-            // {
-            //     xtype: 'button',
-            //     margin: 5,
-            //     text: 'Xoá',
-            //     width: 110,
-            //     iconCls: 'x-fa fa-trash',
-            //     itemId: 'btnXoa'
-            // },
             {
-                flex: 1,
-                border: false
-            },
+                xtype: 'textfield',
+                itemId: 'txtCode',
+                margin: 5,
+                width: 250,
+                allowBlank: true,
+                emptyText: 'Tên ca làm việc',
+                bind: {
+                    value: '{shift.name}'
+                }
+            }, {
+                xtype: 'textfield',
+                itemId: 'txtName',
+                margin: 5,
+                width: 250,
+                allowBlank: false,
+                emptyText: 'Mã ca làm việc',
+                bind: {
+                    value: '{shift.code}'
+                }
+            }
         ]
     }]
 });

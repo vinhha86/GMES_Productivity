@@ -3,36 +3,24 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
     alias: 'controller.TimesheetShiftTypeMainViewController',
 
     init:function(view){
-        this.onload();
         
     },
     control:{
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
-        '#TimesheetShiftTypeMainView':{
-            itemdblclick: 'CapNhat'
-        }
     },
-    onload: function () {
-        var viewModel = this.getViewModel();
-        var TimesheetShiftTypeStore = viewModel.getStore('TimeShiftStore');
-        TimesheetShiftTypeStore.loadStore();
 
-    },
     onloadAfter:function(){
         var viewmodel = this.getViewModel();
         var orgid_link = viewmodel.get('selected_orgid');
-        var TimesheetShiftTypeStore = viewmodel.getStore('TimeShiftStore');
+        var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeOrgStore');
         TimesheetShiftTypeStore.loadStorebyOrgid_link(orgid_link);
     },
   
     onThemMoi:function(){
         var viewmodel = this.getViewModel();
         var orgid_link = viewmodel.get('selected_orgid');
-        
-        console.log(viewmodel.get('selected_orgid'));
-      //  console.log(x);
         this.Showinfo(null,orgid_link);
     },
     onCapNhat:function(grid, rowIndex, colIndex){
@@ -41,12 +29,9 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var rec = grid.getStore().getAt(rowIndex);
         this.itemDetail(rec.data,orgid_link);
     },
-    CapNhat:function(m, record, item, index, e, eOpts){
-        var viewmodel = this.getViewModel();
-        var orgid_link = viewmodel.get('selected_orgid');
-        this.itemDetail(record.data,orgid_link)
-    },
+   
     itemDetail: function(data,orgid_link){
+        console.log(data);
         var me =this;
         var id = data.id;
         var name = data.name;
@@ -54,8 +39,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var dateto = data.dateto;
         var checkboxfrom = data.checkboxfrom;
         var checkboxto = data.checkboxto;
-
-        var viewModel = this.getViewModel();
+        var viewmodel = this.getViewModel();
         //var me = this.getView();
         var form = Ext.create('Ext.window.Window', {
             height: 230,
@@ -77,13 +61,16 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                 viewModel: {
                     type: 'Salary_MainView_Model',
                     data:{
-                        id: id,
-                        name: name,
-                        timefrom: datefrom,
-                        timeto: dateto,
-                        checkboxfrom: checkboxfrom,
-                        checkboxto: checkboxto,
-                        orgid_link:orgid_link
+                        TimeShift:{
+                            name:name,
+                        },
+                            id:id,
+                            timefrom: datefrom,
+                            timeto: dateto,
+                            checkboxfrom: checkboxfrom,
+                            checkboxto: checkboxto,
+                            orgid_link:orgid_link
+                        
                     }
                 },
             }]
@@ -92,16 +79,15 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         form.down('#TimesheetShiftTypeAddView').on("updatethanhcong", function () {
             console.log('tat')
             form.close();
-            //load lai trang.
-            me.onloadAfter();
+           //load lai
+           me.onloadAfter();
         })
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this;
         var rec = grid.getStore().getAt(rowIndex);
-        var id = rec.get('id');
-        var data = [];
-        data.push({'id': id});
+        var params = new Object();
+        params.id = rec.data.id;
         Ext.Msg.show({
             title: 'Thông báo',
             msg: 'Bạn có chắc chắn xóa ?',
@@ -113,18 +99,14 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
             },
             fn: function (btn) {
                 if (btn === 'yes') {
-                    me.Xoa(data);
+                    me.Xoa(params);
                 }
             }
         });
     },
-    Xoa: function (data) {
+    Xoa: function (params) {
         var me = this.getView();
-        me.setLoading("Đang xóa dữ liệu");
-        var params = new Object();
-        params.data = data;
-
-        GSmartApp.Ajax.post('/api/v1/timesheetshifttype/delete', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/delete', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     Ext.MessageBox.show({
@@ -190,7 +172,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         form.show();
         form.down('#TimesheetShiftTypeAddView').on("thanhcong", function () {
             form.close();
-            //load lai trang.
+            //load lai
             me.onloadAfter();
         })
     }

@@ -80,6 +80,12 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
+    }, 
+    {
+        text: 'Ca làm việc MĐ',
+        dataIndex: 'shiftName',
+        width: 130,
+        
     },
     {
         text: 'Cấp bậc',
@@ -132,6 +138,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             iconCls: 'x-fa fa-upload',
             itemId: 'splbtn_Upload',
             tooltip: 'Upload nhân viên',
+        },
+        {
+            xtype: 'button',
+            margin: 1,
+            text: 'Ca làm việc MĐ',
+            iconCls: 'x-fa fa-plus',
+            itemId: 'splbtn_ThemCa',
+            tooltip: 'Chọn ca làm việc mặc định',
         }
         
         , '->', {

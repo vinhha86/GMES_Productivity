@@ -8,114 +8,106 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
-        '#btnXoa': {
-            click: 'onXoaNhieu'
-        },
-        '#TimesheetShiftTypeView': {
-            itemdblclick: 'onItemdblclick'
+       
+    },
+    onThemMoi: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        var shift = new Object();
+        shift.name = viewmodel.get('shift.name');
+        shift.code = viewmodel.get('shift.code');
+
+        params.data = shift;
+ 
+        if (shift.name == null || shift.name.trim() == '' || shift.code == null || shift.code.trim() == '') {
+            viewmodel.set('shift.name', null);
+            viewmodel.set('shift.code', null);
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Thông tin ca làm việc phải điền đấy đủ",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+            })
+        } else {
+            //kiểm tra tên loại nghỉ việc đã tồn tại chưa nếu đúng thì được thêm 
+            var kt = me.CheckValidate(shift.code, "");
+            if (kt) {
+                this.Them_DB(params);
+            }
         }
     },
-    onThemMoi: function(m, record, item, index, e, eOpts){
-        var viewModel = this.getViewModel();
-        var me = this.getView();
-        var form = Ext.create('Ext.window.Window', {
-            height: 230,
-            width: 400,
-            closable: true,
-            title: 'Thêm mới ca làm việc',
-            resizable: false,
-            modal: true,
-            border: false,
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                border: false,
-                xtype: 'TimesheetShiftTypeFormView',
-                viewModel: {
-                    type: 'TimesheetShiftTypeViewModel',
-                    data:{
-                        id: 0,
-                        name: null,
-                        timefrom: null,
-                        timeto: null,
-                        checkboxfrom: -1,
-                        checkboxto: -1
-                    }
-                },
-            }]
-        });
-        form.show();
-    },
-    onCapNhat: function(grid, rowIndex, colIndex){
-        var rec = grid.getStore().getAt(rowIndex);
-        // console.log(rec.data);
-        this.itemDetail(rec.data);
-    },
-    onItemdblclick: function(m, record, item, index, e, eOpts){
-        // console.log(record.data);
-        this.itemDetail(record.data);
-    },
-    itemDetail: function(data){
-        var id = data.id;
-        var name = data.name;
-        var datefrom = data.datefrom;
-        var dateto = data.dateto;
-        var checkboxfrom = data.checkboxfrom;
-        var checkboxto = data.checkboxto;
+    Them_DB(params) {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttype/add_timesheetshifttype', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Lưu thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            },
 
-        var viewModel = this.getViewModel();
-        var me = this.getView();
-        var form = Ext.create('Ext.window.Window', {
-            height: 230,
-            width: 400,
-            closable: true,
-            title: 'Thông tin ca làm việc',
-            resizable: false,
-            modal: true,
-            border: false,
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                border: false,
-                xtype: 'TimesheetShiftTypeFormView',
-                viewModel: {
-                    type: 'TimesheetShiftTypeViewModel',
-                    data:{
-                        id: id,
-                        name: name,
-                        timefrom: datefrom,
-                        timeto: dateto,
-                        checkboxfrom: checkboxfrom,
-                        checkboxto: checkboxto
+                        })
+                        viewmodel.set('shift.name', null);
+                        viewmodel.set('shift.code', null);
+                        //load
+                       me.onloadPage();
                     }
-                },
-            }]
-        });
-        form.show();
+                } else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: "Lưu thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+
+            })
+    },
+
+    onEdit: function (editor, context, e) {
+        var me = this;
+        var params = new Object();
+        params.data = context.record.data;
+
+        //kiểm tra nếu dữ liệu khác lúc ban đầu thì thêm
+        if (context.value != context.originalValue) {
+            //kiểm tra xem sửa ở trường nào để gán lại
+            if (context.field == "name") {
+                params.data.name = context.value;
+            } else {
+                if (context.field == "code") {
+                    params.data.code = context.value;
+                }
+            }
+            //kiểm tra nếu trùng thì không được sửa 
+            var kt = me.CheckValidate(context.value, context.record.data.id);
+            if (kt) {
+                me.Them_DB(params);
+            }
+        }
+
     },
     onloadPage: function () {
-        var me = this.getView();
-        var t = this;
-
         var viewmodel = this.getViewModel();
         var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
         TimesheetShiftTypeStore.loadStore();
-        TimesheetShiftTypeStore.getSorters().add('name');
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this;
         var rec = grid.getStore().getAt(rowIndex);
-        var id = rec.get('id');
-        var data = [];
-        data.push({'id': id});
+        var params = new Object();
+        params.data = rec.data;
         Ext.Msg.show({
             title: 'Thông báo',
             msg: 'Bạn có chắc chắn xóa ?',
@@ -127,18 +119,15 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
             },
             fn: function (btn) {
                 if (btn === 'yes') {
-                    me.Xoa(data);
+                    me.Xoa(params);
                 }
             }
         });
     },
-    Xoa: function (data) {
-        var me = this.getView();
-        me.setLoading("Đang xóa dữ liệu");
-        var params = new Object();
-        params.data = data;
+    Xoa: function (params) {
+        var me = this;
 
-        GSmartApp.Ajax.post('/api/v1/timesheetshifttype/delete', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttype/delete_timesheetshifttype', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     Ext.MessageBox.show({
@@ -149,9 +138,8 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
                             yes: 'Đóng',
                         }
                     });
-
-                    var store = me.getStore();
-                    store.load();
+                    //load
+                    me.onloadPage();
                 } else {
                     Ext.Msg.show({
                         title: "Thông báo",
@@ -162,42 +150,78 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
                         }
                     });
                 }
-                me.setLoading(false);
             })
     },
-    onXoaNhieu: function(){
-        var m = this.getView();
-        var me = this;
-        var data = [];
-        var select = m.getSelectionModel().getSelection();
-        if(select.length == 0){
-            Ext.Msg.show({
-                title: "Thông báo",
-                msg: "Phải chọn ít nhất một ca làm việc",
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-            });
-            return;
-        }
-        for (var i = 0; i < select.length; i++) {
-            data.push({'id': select[i].data.id});
-        }
-        Ext.Msg.show({
-            title: 'Thông báo',
-            msg: 'Bạn có chắc chắn xóa ?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            buttonText: {
-                yes: 'Có',
-                no: 'Không'
-            },
-            fn: function (btn) {
-                if (btn === 'yes') {
-                    me.Xoa(data);
-                }
+    CheckValidate: function (name_code, id) {
+        var me =this;
+        var store = this.getViewModel().getStore('TimesheetShiftTypeStore');
+
+        for (var i = 0; i < store.data.length; i++) {
+            var data = store.data.items[i].data;
+            //kiểm tra tên ca làm việc không chứ id truyền vào 
+            if ((data.name == name_code || data.name.toLowerCase() == name_code.toLowerCase()) && data.id != id) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: "Ca làm việc :" + name + " đã tồn tại ở dòng " + (i + 1),
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                me.onloadPage();
+                return false;
             }
-        });
+            //kiểm tra mã ca làm việc không chứ id truyền vào 
+            if ((data.code == name_code || data.code.toLowerCase() == name_code.toLowerCase()) && data.id != id) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: "Mã ca làm việc :" + code + " đã tồn tại ở dòng " + (i + 1),
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                me.onloadPage();
+                return false;
+            }
+        }
+        return true;
     },
+    //lọc - filter
+    onNameFilter: function () {
+        let filterField = this.lookupReference('NameFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
+    },
+    onCodeFilter: function () {
+        let filterField = this.lookupReference('CodeFilter'),
+            filters = this.getView().store.getFilters();
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    }
 })
