@@ -16,6 +16,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         params.orgid_link = record.get('id');
 
         viewModel.set('donvi.id',record.data.id);
+        viewModel.set('orgtypeid_link',record.get('orgtypeid_link'));
         //neu loai = 13 la xuong sx thi xem tat ca trong xuong
         // = 1: xem toan bo cong ty hoac nhung nguoi chi thuoc Tru so chinh
         // con lai la xem trong to hoac phong ban
