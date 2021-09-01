@@ -220,8 +220,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             modal: false,
             // masked: true,
             // maskTapHandler: function(){
-            //     if(msgWindow){
-            //         msgWindow.close();
+            //     if(Ext.Msg){
+            //         Ext.Msg.hide();
             //         me.setMasked(false);
             //     }
             // },
@@ -234,8 +234,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             }],
             fn: function (buttonValue, inputText, showConfig) {
                 if(buttonValue == 'no'){
-                    if(msgWindow){
-                        msgWindow.close();
+                    if(Ext.Msg){
+                        Ext.Msg.hide();
                     }
                 }
                 if(buttonValue == 'yes'){

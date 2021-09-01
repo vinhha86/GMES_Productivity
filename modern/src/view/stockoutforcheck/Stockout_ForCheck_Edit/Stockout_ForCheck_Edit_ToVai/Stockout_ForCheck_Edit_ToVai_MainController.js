@@ -242,7 +242,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                 destroy: {
                     fn: function(){ 
                         if(Ext.Msg){
-                            Ext.Msg.close();
+                            Ext.Msg.hide();
                         }
                     }
                 },
@@ -317,7 +317,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
                 destroy: {
                     fn: function(){ 
                         if(Ext.Msg){
-                            Ext.Msg.close();
+                            Ext.Msg.hide();
                         }
                     }
                 },

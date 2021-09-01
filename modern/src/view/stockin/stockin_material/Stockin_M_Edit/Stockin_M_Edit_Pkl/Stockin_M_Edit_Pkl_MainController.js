@@ -352,7 +352,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 destroy: {
                     fn: function(){ 
                         if(Ext.Msg){
-                            Ext.Msg.close();
+                            Ext.Msg.hide();
                         }
                     }
                 },

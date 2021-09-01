@@ -206,7 +206,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         }
         if(stockout_order.unitid_link == null) stockout_order.unitid_link = 1;
         if(stockout_order.unitid_link == 3){
-            if(objPkl.width_check == '' || objPkl.yds_check == ''){
+            if(objPkl.width_check == '' || objPkl.width_check == null || objPkl.yds_check == '' || objPkl.yds_check == null){
                 Ext.toast('Thiếu thông tin khổ hoặc độ dài', 3000);
                 return;
             }
@@ -216,7 +216,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
             }
         }
         if(stockout_order.unitid_link == 1){
-            if(objPkl.width_check == '' || objPkl.met_check == ''){
+            if(objPkl.width_check == '' || objPkl.width_check == null || objPkl.met_check == '' || objPkl.met_check == null){
                 Ext.toast('Thiếu thông tin khổ hoặc độ dài', 3000);
                 return;
             }
@@ -524,8 +524,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
             // modal: true,
             // masked: true,
             // maskTapHandler: function(){
-            //     if(msgWindow){
-            //         msgWindow.close();
+            //     if(Ext.Msg){
+            //         Ext.Msg.hide();
             //         me.setMasked(false);
             //     }
             // },
@@ -538,8 +538,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
             }],
             fn: function (buttonValue, inputText, showConfig) {
                 if(buttonValue == 'no'){
-                    if(msgWindow){
-                        msgWindow.close();
+                    if(Ext.Msg){
+                        Ext.Msg.hide();
                     }
                 }
                 if(buttonValue == 'yes'){
