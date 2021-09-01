@@ -95,6 +95,7 @@ Ext.define('GSmartApp.store.SalarySumStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl()+'/api/v1/salarysum/salary_sum_calculate',
+			timeout: 120000,
 			paramsAsJson:true,
 			extraParams : params,
 			noCache: false,
