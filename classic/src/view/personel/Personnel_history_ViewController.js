@@ -89,15 +89,24 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
         });
         form.show();
 
-        form.down('#Personnel_his_detail').getController().on('Thoat', function (orgid_link) {
+        form.down('#Personnel_his_detail').getController().on('Thoat', function (his) {
             var store = viewmodel.getStore('PersonnelHis_Store');
             store.load();
-            if(orgid_link != null){
-                viewmodel.set('personnel.orgid_link', orgid_link);
+            
+            
+            if(his.orgid_link != null){
+                viewmodel.set('personnel.orgid_link', his.orgid_link);
+            }
+            if(his.positionid_link != null){
+                viewmodel.set('personnel.positionid_link', his.positionid_link);
+            }
+            if(his.levelid_link != null){
+                viewmodel.set('personnel.levelid_link', his.levelid_link);
             }
             form.close();
         })
     },
+    
     onEditPos: function () {
         var me = this;
         var viewmodel = this.getViewModel();

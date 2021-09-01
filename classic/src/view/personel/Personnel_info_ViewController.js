@@ -13,7 +13,12 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
 
     var OrgCountryStore = viewmodel.getStore('OrgCountryStore');
     OrgCountryStore.loadStore(24, false);
-
+    //store chức vụ
+    var Personnel_Position_Store = viewmodel.getStore('Personnel_Position_Store');
+    Personnel_Position_Store.loadStore();
+    //store cấp bậc
+    var LaborStore = viewmodel.getStore('LaborStore');
+    LaborStore.loadStore();
     if (viewmodel.get('personnel.id') != null) {
       this.loadImage(viewmodel.get('personnel.id'));
     }

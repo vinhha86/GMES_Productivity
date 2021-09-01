@@ -20,6 +20,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         valueField: 'id',
         labelWidth: 105,
         width: '100%',
+        queryMode:'local',
         bind: {
             store : '{PositionStore}',
             hidden: '{!isPosition}',
@@ -35,6 +36,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         valueField: 'id',
         labelWidth: 105,
         width: '100%',
+        queryMode:'local',
         bind: {
             store : '{LaborStore}',
             hidden: '{!isLevel}',
@@ -51,6 +53,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         valueField: 'id',
         labelWidth: 105,
         width: '100%',
+        queryMode:'local',
         bind: {
             store : '{OrgStore}',
             hidden: '{!isOrg}',
@@ -79,6 +82,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         xtype: 'combo',
         itemId: 'cboSalType',
         editable: false,
+        queryMode:'local',
         margin: 5,
         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
         fieldStyle: 'font-size:11px;',
@@ -98,6 +102,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail', {
         itemId: 'cboSalLevel',
         editable: false,
         margin: 5,
+        queryMode:'local',
         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
         fieldStyle: 'font-size:11px;',
         fieldLabel: 'Bậc lương',

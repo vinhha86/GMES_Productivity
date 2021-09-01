@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
     alias: 'viewmodel.Personnel_info_main_ViewModel',
     requires: ['GSmartApp.store.gender.GenderStore', 'GSmartApp.store.org.ListOrgStore',
         'GSmartApp.store.personnel.PersonnelType_Store', 'GSmartApp.store.personnel.PersonnelStatus_Store',
-        'GSmartApp.store.personnel.personnel_his_store'],
+        'GSmartApp.store.personnel.personnel_his_store','GSmartApp.store.personnel.Personnel_Position_Store',
+        'GSmartApp.store.Labor.LaborStore' ],
     stores: {
         GenderStore: {
             type: 'GenderStore'
@@ -34,12 +35,19 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main_ViewModel', {
         },
         PersonnelHis_Store: {
             type: 'personnel_his_store'
-        }
+        },
+        Personnel_Position_Store : {
+            type:'Personnel_Position_Store'
+        },
+        LaborStore: {
+            type: 'LaborStore'
+        },
     },
     data: {
         personnel: {
             id: null,
-            status: 1
+            status: 1,
+            levelid_link:null
         },
         isActive: false,
         Tinh:{
