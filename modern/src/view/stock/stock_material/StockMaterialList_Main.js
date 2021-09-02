@@ -177,6 +177,12 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_Main', {
             itemId:'btnBack',
             ui: 'action',
         },
+        {
+            xtype:'button',
+            iconCls: 'x-fa fa-home',
+            itemId:'btnHome',
+            ui: 'action',
+        },    
         '->'
         ,
     ]

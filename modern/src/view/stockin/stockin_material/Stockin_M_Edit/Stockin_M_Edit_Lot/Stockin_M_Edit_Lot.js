@@ -21,9 +21,23 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         },
     },
 
-    selectable: {
+    // selectable: {
+    //     rows: true,
+    //     cells: false
+    // },
+
+    selectable:{
+        mode: 'single',
         rows: true,
-        cells: false
+        checkbox: true,
+        checkboxColumnIndex: 0,
+        // checkboxDefaults: {
+        //     xtype: 'selectioncolumn',
+        //     text: null,
+        //     width: 30
+        // },
+        checkboxSelect: true,
+        // checkOnly : true,
     },
 
     bind: {

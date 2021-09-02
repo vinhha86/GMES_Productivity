@@ -146,6 +146,13 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                     me.setMasked(false);
                 }
             });
+            dialog.down('#StockMaterialList_Main').getController().on('close-gohome', function () {
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                    m.redirectTo("mobilemenu");
+                }
+            });
         }
 
         // console.log(record);

@@ -12,8 +12,16 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
         '#btnBack':{
             tap: 'onbtnBack',
         },
+        '#btnHome':{
+            tap: 'onBtnHomeTap',
+        },
 	},
-
+    onBtnHomeTap: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        m.fireEvent('close-gohome');
+    },
     onbtnBack:function(){
         var m = this;
         var me = this.getView();

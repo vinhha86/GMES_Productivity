@@ -109,6 +109,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 });
                 break;
             case 'Kiểm lot':
+                // console.log(cbbox_lotnumber_value);
                 if(lot_stockindId != null){
                     var selectedLotRecord = viewModel.get('selectedLotRecord');
                     var StockinLotStore = viewModel.getStore('StockinLotStore');
@@ -121,12 +122,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                 // this.fireEvent('logout');
                             } else {
                                 // me.down('#Stockin_M_Edit_Lot').refresh(); console.log('here');
-                                if(selectedLotRecord != null){
-                                    var stockinlotid_link = selectedLotRecord.get('id');
+                                if(cbbox_lotnumber_value != null){
+                                    // var stockinlotid_link = selectedLotRecord.get('id');
                                     var storeItems = StockinLotStore.getData().items;
                                     for(var i=0; i<storeItems.length; i++){
                                         var item = storeItems[i];
-                                        if(item.get('id') == stockinlotid_link){
+                                        // if(item.get('id') == stockinlotid_link){
+                                        if(item.get('lot_number') == cbbox_lotnumber_value){
                                             var grid = m.getView().down('#Stockin_M_Edit_Lot');
                                             grid.getSelectable().select(item);
                                             viewModel.set('selectedLotRecord', item);

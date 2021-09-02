@@ -104,13 +104,24 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
             dataIndex: 'skucode'
         }, 
         {
-            text: 'Số LOT - Số cây',
+            text: 'Dài (m) - Khổ',
             flex: 1,
-            dataIndex: 'lotnumber',
+            minWidth: 100,
+            dataIndex: 'met',
             renderer: function(value, record){
-                return record.get('lotnumber') + ' - ' + record.get('packageid');
+                var met = record.get('met') == null ? 0 : record.get('met');
+                var width_met = record.get('width_met') == null ? 0 : record.get('width_met');
+                return met + ' - ' + width_met*100;
             }
-        },
+        }, 
+        // {
+        //     text: 'Số LOT - Số cây',
+        //     flex: 1,
+        //     dataIndex: 'lotnumber',
+        //     renderer: function(value, record){
+        //         return record.get('lotnumber') + ' - ' + record.get('packageid');
+        //     }
+        // },
     ]
 });
 
