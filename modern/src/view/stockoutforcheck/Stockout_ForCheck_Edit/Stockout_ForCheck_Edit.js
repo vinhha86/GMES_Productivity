@@ -94,6 +94,32 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
                     }],
                 }
             ],
+            bind: {
+                hidden: '{isTabToVaiHidden}'
+            }
+        },
+        {
+            xtype: 'tabpanel',
+            itemId: 'TabView2',
+            // height: '100%',
+            // width: '100%',
+            flex: 1,
+            hidden: true,
+            items: 
+            [
+                {
+                    title: 'DS vải',
+                    layout: 'hbox',
+                    flex: 1,
+                    items: [{
+                        xtype: 'Stockout_ForCheck_Edit_D_Main',
+                        flex: 1,
+                    }],
+                },
+            ],
+            bind: {
+                hidden: '{!isTabToVaiHidden}'
+            }
         }
     ],
     tbar: [

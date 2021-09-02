@@ -64,6 +64,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                         buffer: 500
                     }
                 },
+                {
+                    xtype:'button',
+                    // text: 'Xác nhận',
+                    // flex: 1,
+                    // minWidth: 80,
+                    // maxWidth: 130,
+                    // width: 45,
+                    margin: 1,
+                    iconCls: 'x-fa fa-plus',
+                    itemId:'btnThemMoiPkl',
+                    ui: 'action',
+                    focusable: false,
+                },
             ]
         },
         {
@@ -74,6 +87,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         {
             xtype: 'container',
             layout: 'vbox',
+            hidden: true,
             items:[
                 {
                     layout: 'hbox',

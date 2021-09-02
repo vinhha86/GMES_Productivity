@@ -1,9 +1,13 @@
-Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m_edit.stockout_m_edit_pkl.Stockout_M_Edit_Pkl_Detail', {
     extend: 'Ext.form.Panel',
-    xtype: 'Stockout_ForCheck_Edit_ToVai_Main',
-    itemId: 'Stockout_ForCheck_Edit_ToVai_Main',
-    // reference: 'Stockout_ForCheck_Edit_ToVai_Main',
-    controller: 'Stockout_ForCheck_Edit_ToVai_MainController',
+    xtype: 'Stockout_M_Edit_Pkl_Detail',
+    itemId: 'Stockout_M_Edit_Pkl_Detail',
+    cls: 'Stockout_M_Edit_Pkl_Detail',
+    reference: 'Stockout_M_Edit_Pkl_Detail',
+    controller: 'Stockout_M_Edit_Pkl_Detail_Controller',
+    viewModel: {
+        type: 'Stockout_M_Edit_Pkl_Detail_ViewModel'
+    },
     layout: {
         type: 'vbox',
         align: 'stretch'
@@ -18,85 +22,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
     items:[
         {
             xtype: 'container',
-            // flex:1,
-            // height: 100,
-            // docked: 'bottom',
-            layout: 'hbox',
-            items:[
-                {
-                    xtype: 'combobox',
-                    itemId: 'cbbox_pkl_stockout_order_dId',
-                    // reference: 'cboorgto',
-                    editable: false,
-                    readOnly: true,
-                    // cls: 'notEditable',
-                    bind:{
-                        store:'{Stockout_order_d_store}',
-                        value:'{pkl_stockout_order_dId}'
-                    },
-                    displayField: 'skucode',
-                    valueField: 'id',
-                    // label: 'Nơi giao:',
-                    // disabled: true,
-                    labelWidth: 85,
-                    flex: 1,
-                    padding: 2,
-                    // hidden: true
-                },
-                {
-                    xtype: 'textfield',
-                    itemId: 'maPklFilter',
-                    // label: 'Mã hàng:',
-                    // labelWidth: 85,
-                    margin: '5 5 1 5',
-                    // padding: 6,
-                    flex: 1,
-                    // width: '100%',
-                    // minWidth: 80,
-                    // maxWidth: 200,
-                    textAlign: 'left',
-                    placeholder: 'Tìm kiếm nhanh ... (theo lot)',
-                    // editable: false,
-                    // readOnly: true,
-                    clearable: false,
-                    cls: 'searchField',
-                    bind: {
-                        value: '{maPklFilter}'
-                    },
-                    listeners: {
-                        keyup: 'onmaPklFilterKeyup',
-                        buffer: 500
-                    }
-                },
-                {
-                    xtype:'button',
-                    // text: 'Xác nhận',
-                    // flex: 1,
-                    // minWidth: 80,
-                    // maxWidth: 130,
-                    // width: 45,
-                    margin: 1,
-                    iconCls: 'x-fa fa-plus',
-                    itemId:'btnThemMoiPklToVai',
-                    ui: 'action',
-                    focusable: false,
-                },
-            ]
-        },
-        
-        {
-            margin: 1,
-            flex: 1,
-            xtype: 'Stockout_ForCheck_Edit_ToVai',
-        },
-
-        {
-            xtype: 'container',
-            // flex:1,
-            // height: 100,
-            // docked: 'bottom',
             layout: 'vbox',
-            hidden: true,
             items:[
                 {
                     layout: 'hbox',
@@ -121,11 +47,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.lotnumber}'
+                                value: '{objPkl.lotnumber}',
+                                editable: '{isEditable}',
+                                readOnly: '{isReadOnly}',
+                                cls: '{fieldClass}',
                             },
                             listeners: {
                                 change: 'onlotnumberTxtType',
-                                focusenter: 'onlotnumberTxtAndpackageidTxtenter',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave'
                             }
@@ -148,30 +76,35 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.packageid}'
+                                value: '{objPkl.packageid}',
+                                editable: '{isEditable}',
+                                readOnly: '{isReadOnly}',
+                                cls: '{fieldClass}',
                             },
                             listeners: {
-                                focusleave: 'onlotnumberTxtAndpackageidTxtleave',
                                 focusenter: 'onlotnumberTxtAndpackageidTxtenter',
+                                focusleave: 'onlotnumberTxtAndpackageidTxtleave',
                                 focus: 'onFocus'
                             },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            // text: 'Xác nhận',
-                            // flex: 1,
-                            // minWidth: 80,
-                            // maxWidth: 130,
-                            // width: 45,
-                            margin: 1,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
-                            ui: 'action',
-                            bind: {
-                                disabled: '{isbtnCheckDisabled}'
-                            }
-                        },   
+                        // {
+                        //     xtype:'button',
+                        //     // text: 'Xác nhận',
+                        //     // flex: 1,
+                        //     // minWidth: 80,
+                        //     // maxWidth: 130,
+                        //     // width: 45,
+                        //     margin: 1,
+                        //     iconCls: 'x-fa fa-check',
+                        //     itemId:'btnCheck',
+                        //     ui: 'action',
+                        //     focusable: false,
+                        //     // disabled: true,
+                        //     bind: {
+                        //         disabled: '{isFocusTxtField}'
+                        //     }
+                        // },
                     ]
                 },
                 {
@@ -184,11 +117,68 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            // itemId: 'mTxt',
+                            itemId: 'mTxt',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
                             minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Dài kiểm (M)',
+                            editable: false,
+                            readOnly: true,
+                            // clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.met_check}',
+                                // cls: '{yTxtCls}',
+                                hidden: '{isMetColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                // focusleave: 'onmTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'objPkl.ydscheck',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Dài kiểm (Y)',
+                            editable: false,
+                            readOnly: true,
+                            // clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.ydscheck}',
+                                // cls: '{yTxtCls}',
+                                hidden: '{isYdsColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                // focusleave: 'onyTxtFocusleave',
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            border: true,
+                            cls: 'my-textfield',
+                            margin: 1,
+                            itemId: 'mOriginTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
                             // maxWidth: 130,
                             textAlign: 'left',
                             placeholder: 'Dài phiếu (M)',
@@ -208,14 +198,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                         },
                         {
                             xtype: 'numberfield',
-                            margin: 1,
                             border: true,
                             cls: 'my-textfield',
-                            // itemId: 'yTxt',
+                            margin: 1,
+                            itemId: 'yOriginTxt',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
-                            minWidth: 80,
                             // maxWidth: 130,
                             textAlign: 'left',
                             placeholder: 'Dài phiếu (Y)',
@@ -224,11 +213,57 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.yds_origin}',
+                                value: '{objPkl.ydsorigin}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePkl',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{!isPklSelected}',
+                        //     },
+                        //     // style: 'visibility: hidden;'
+                        // },
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype: 'numberfield',
+                            border: true,
+                            cls: 'my-textfield',
+                            margin: 1,
+                            itemId: 'widthMetCheckTxt',
+                            // label: 'Màu:',
+                            // labelWidth: 85,
+                            flex: 1,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Khổ kiểm (cm)',
+                            editable: false,
+                            readOnly: true,
+                            // clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.widthcheck}',
+                                // hidden: '{isMetColumnHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                // focusleave: 'onwidthMetCheckTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave'
                             }
@@ -238,7 +273,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             border: true,
                             cls: 'my-textfield',
                             margin: 1,
-                            // itemId: 'widthMetCheckTxt',
+                            itemId: 'widthMetTxt',
                             // label: 'Màu:',
                             // labelWidth: 85,
                             flex: 1,
@@ -250,7 +285,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.width_origin}',
+                                value: '{objPkl.widthorigin}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -259,162 +294,54 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_Main', 
                                 focusleave: 'onFocusLeave'
                             }
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
+
                 {
                     layout: 'hbox',
                     border: false,
                     width: '100%',
                     items:[
                         {
-                            xtype: 'numberfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            // itemId: 'mTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Dài kiểm (M)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.met_check}',
-                                hidden: '{isMetColumnHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
-                            xtype: 'numberfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            // itemId: 'yTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Dài kiểm (Y)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.yds_check}',
-                                hidden: '{isYdsColumnHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
-                            xtype: 'numberfield',
-                            border: true,
-                            cls: 'my-textfield',
-                            margin: 1,
-                            // itemId: 'widthMetCheckTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Khổ kiểm (cm)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.width_check}',
-                                // hidden: '{isMetColumnHidden}',
-                            },
-                            stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
-                        },
-                        {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            itemId:'btnTest',
+                            text: 'Xoá',
+                            margin: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-trash',
+                            itemId:'btnDeletePkl',
                             ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
-                    ]
-                },
-                {
-                    layout: 'hbox',
-                    border: false,
-                    width: '100%',
-                    items:[
-                        {
-                            xtype: 'numberfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            // itemId: 'yTxt',
-                            // label: 'Màu:',
-                            // labelWidth: 85,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Vải lỗi (M)',
-                            // editable: false,
-                            // readOnly: true,
-                            // clearable: false,
-                            // cls: 'notEditable',
+                            focusable: false,
                             bind: {
-                                value: '{objPkl.met_err}',
-                                // hidden: '{isYdsColumnHidden}',
+                                disabled: '{isBtnDeletePklHidden}',
                             },
-                            stepValue: 0.1,
-                            listeners: {
-                                focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
-                            }
+                            // style: 'visibility: hidden;'
                         },
                         {
-                            margin: 1,
                             flex: 1,
                         },
                         {
                             xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            itemId:'btnTest',
+                            text: 'Lưu',
+                            margin: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
                             ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                            // bind: {
+                            //     disabled: '{isbtnCheckDisabled}'
+                            // }
+                        },   
                     ]
                 },
             ],
-            
-            // bind: { // ẩn nhập liệu nếu là vào từ view xuất kho
-            //     hidden: '{isTabToVaiHidden}'
-            // }
         }
     ]
 });

@@ -1,10 +1,10 @@
-Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.Stockout_ForCheck_Edit_ToVai_Detail_Controller', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m_edit.stockout_m_edit_pkl.Stockout_M_Edit_Pkl_Detail_Controller', {
 	extend: 'Ext.app.ViewController',
-	alias: 'controller.Stockout_ForCheck_Edit_ToVai_Detail_Controller',
+	alias: 'controller.Stockout_M_Edit_Pkl_Detail_Controller',
 	init: function () {
         var m = this;
 		var viewModel = this.getViewModel();
-        var stockout_order = viewModel.get('stockout_order');
+        var stockout = viewModel.get('stockout');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         if(selectedPklRecord != null){
             m.onSetFormData();
@@ -14,8 +14,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         '#btnCheck':{
             tap: 'onCheck'
         },
-        '#btnDeletePklToVai':{
-            tap: 'onBtnDeletePklToVai'
+        '#btnDeletePkl':{
+            tap: 'onBtnDeletePkl'
         },
     },
     onFocus: function(textfield, e, eOpts){
@@ -159,167 +159,33 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         }
         // console.log("Version " + Ext.os.version);
     },
-
     onSetFormData: function(){
-        var me = this.getView();
+        var m = this;
         var viewModel = this.getViewModel();
         var record = viewModel.get('selectedPklRecord');
 
+        // dung timeout vi conflict voi ham onlotnumberTxtAndpackageidTxtleave
         setTimeout(function(){
             var newObjData = JSON.parse(JSON.stringify(record.data));
-            newObjData.width_check = newObjData.width_check * 100;
-            newObjData.width_origin = newObjData.width_origin * 100;
+            newObjData.widthcheck = newObjData.widthcheck * 100;
+            newObjData.widthorigin = newObjData.widthorigin * 100;
             viewModel.set('objPkl', newObjData);
-            me.setMasked(false);
         }, 100);
     },
     onlotnumberTxtType: function(field, newValue, oldValue, eOpts){
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
+        // console.log(newValue.toUpperCase());
         viewModel.set('objPkl.lotnumber', newValue.toUpperCase());
         field.setValue(newValue.toUpperCase());
     },
-    onCheck: function(){
+    onlotnumberTxtAndpackageidTxtenter: function(){
         var me = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
-        var stockout_order = viewModel.get('stockout_order');
-        var selectedDRecord = viewModel.get('selectedDRecord');
-        var selectedPklRecord = viewModel.get('selectedPklRecord');
-        var objPkl = viewModel.get('objPkl');
+        viewModel.set('isFocusTxtField', true);
 
-        // console.log(objPkl);
-        // if(objPkl.id == null){
-        //     Ext.toast('Không tìm thấy cây vải có số lot và cây này', 2000);
-        //     return;
-        // }
-
-        // check textfield
-        if(objPkl.packageid == null || objPkl.packageid == ''){
-            Ext.toast('Thiếu thông tin số cây', 2000);
-            return;
-        }
-        if(objPkl.lotnumber == null || objPkl.lotnumber == ''){
-            Ext.toast('Thiếu thông tin số lot', 2000);
-            return;
-        }
-        if(stockout_order.unitid_link == null) stockout_order.unitid_link = 1;
-        if(stockout_order.unitid_link == 3){
-            if(objPkl.width_check == '' || objPkl.width_check == null || objPkl.yds_check == '' || objPkl.yds_check == null){
-                Ext.toast('Thiếu thông tin khổ hoặc độ dài', 2000);
-                return;
-            }
-            if(isNaN(objPkl.yds_check)){
-                Ext.toast('Số Y phải là số', 2000);
-                return;
-            }
-        }
-        if(stockout_order.unitid_link == 1){
-            if(objPkl.width_check == '' || objPkl.width_check == null || objPkl.met_check == '' || objPkl.met_check == null){
-                Ext.toast('Thiếu thông tin khổ hoặc độ dài', 2000);
-                return;
-            }
-            if(isNaN(objPkl.met_check)){
-                Ext.toast('Số M phải là số', 2000);
-                return;
-            }
-        }
-
-        
-        // tạo obj
-        if(objPkl.yds_check == null || objPkl.yds_check == '') objPkl.yds_check = 0;
-        if(objPkl.met_check == null || objPkl.met_check == '') objPkl.met_check = 0;
-        if(objPkl.yds_origin == null || objPkl.yds_origin == '' || objPkl.yds_origin == 0) objPkl.yds_origin = objPkl.yds_check;
-        if(objPkl.met_origin == null || objPkl.met_origin == '' || objPkl.met_origin == 0) objPkl.met_origin = objPkl.met_check;
-        
-        if(objPkl.width_check == null || objPkl.width_check == '') objPkl.width_check = 0;
-        if(objPkl.width_origin == null || objPkl.width_origin == '' || objPkl.width_origin == 0) objPkl.width_origin = objPkl.width_check;
-        if(objPkl.met_err == null || objPkl.met_err == '') objPkl.met_err = 0;
-
-        if(stockout_order.unitid_link == 3){
-            // có y
-            objPkl.yds_check = parseFloat(objPkl.yds_check);
-            objPkl.met_check = objPkl.yds_check * 0.9144;
-            objPkl.yds_origin = parseFloat(objPkl.yds_origin);
-            objPkl.met_origin = objPkl.yds_origin * 0.9144;
-
-            objPkl.width_check = parseFloat(objPkl.width_check);
-            objPkl.width_origin = parseFloat(objPkl.width_origin);
-        }
-        if(stockout_order.unitid_link == 1){
-            // có m
-            objPkl.met_check = parseFloat(objPkl.met_check);
-            objPkl.yds_check = objPkl.met_check / 0.9144;
-            objPkl.met_origin = parseFloat(objPkl.met_origin);
-            objPkl.yds_origin = objPkl.met_origin / 0.9144;
-
-            objPkl.width_check = parseFloat(objPkl.width_check);
-            objPkl.width_origin = parseFloat(objPkl.width_origin);
-        }
-
-        objPkl.met_check = parseFloat(objPkl.met_check);
-        objPkl.yds_check = parseFloat(objPkl.yds_check);
-        objPkl.met_origin = parseFloat(objPkl.met_origin);
-        objPkl.yds_origin = parseFloat(objPkl.yds_origin);
-        objPkl.width_check = parseFloat(objPkl.width_check / 100);
-        objPkl.width_origin = parseFloat(objPkl.width_origin / 100);
-
-        var stockoutorderid_link = stockout_order.id;
-        var stockoutorderdid_link = selectedDRecord.get('id');
-
-        me.setMasked({
-            xtype: 'loadmask',
-            message: 'Đang lưu'
-        })
-
-        var params = new Object();
-        params.warehouse_check = objPkl;
-        params.stockoutorderid_link = stockoutorderid_link;
-        params.stockoutorderdid_link = stockoutorderdid_link;
-
-        GSmartApp.Ajax.postJitin('/api/v1/warehouse/updateToVai', Ext.JSON.encode(params),
-            function (success, response, options) {
-                // me.setLoading(false);
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    me.setMasked(false);
-                    if (response.respcode == 200) {
-                        if(response.message == 'Không tồn tại cây vải trong kho'){
-                            Ext.toast('Lưu thất bại: ' + response.message, 2000);
-                        }else{
-                            Ext.toast('Lưu thành công', 2000);
-                            var data = response.data;
-
-                            m.fireEvent('reloadStore');
-                            if(selectedPklRecord == null){
-                                m.resetForm();
-                                m.getView().down('#packageidTxt').focus();
-                            }
-                        }
-                        // console.log(response);
-                    }else{
-                        Ext.toast('Lưu thất bại: ' + response.message, 2000);
-                    }
-                } else {
-                    var response = Ext.decode(response.responseText);
-                    Ext.toast('Lưu thất bại: ' + response.message, 2000);
-                }
-        })
-    },
-
-    resetForm: function(){
-        var m = this;
-        var viewModel = this.getViewModel();
-        var lotnumber = viewModel.get('objPkl.lotnumber');
-        viewModel.set('objPkl', null);
-        viewModel.set('objPkl.lotnumber', lotnumber);
-    },
-    onlotnumberTxtAndpackageidTxtenter: function(textfield, event, eOpts){
-        var me = this.getView();
-        var m = this;
-        var viewModel = this.getViewModel();
-        viewModel.set('isPklTextfieldFocus', true);
     },
     onlotnumberTxtAndpackageidTxtleave: function(textfield, event, eOpts){
         //
@@ -329,32 +195,34 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         var m = this;
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
+        viewModel.set('isFocusTxtField', false);
+
+        viewModel.set('isPklTextfieldFocus', false);
+        var lotnumber = viewModel.get('objPkl.lotnumber');
+        var packageid = viewModel.get('objPkl.packageid');
 
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         if(selectedPklRecord != null){
             return;
         }
 
-        viewModel.set('isPklTextfieldFocus', false);
-        var lotnumber = viewModel.get('objPkl.lotnumber');
-        var packageid = viewModel.get('objPkl.packageid');
-
-        // nếu đang chọn 1 record thì edit, ko tìm trên db, return
-        // if(selectedPklRecord != null){
-        //     return;
-        // }
+        if(selectedDRecord == null){
+            viewModel.set('objPkl', null);
+            viewModel.set('objPkl.lotnumber', lotnumber);
+            Ext.toast('Cần chọn nguyên phụ liệu', 2000);
+            return;
+        }
 
         if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
-            lotnumber == null || packageid == null ||
-            selectedDRecord == null
+            lotnumber == null || packageid == null
         ){
             viewModel.set('objPkl', null);
             viewModel.set('objPkl.lotnumber', lotnumber);
             viewModel.set('objPkl.packageid', packageid);
             return;
         }else{ // tìm cây vải theo lot và package
-            var skuid_link = selectedDRecord.get('material_skuid_link');
+            var skuid_link = selectedDRecord.get('skuid_link');
 
             me.setMasked({
                 xtype: 'loadmask',
@@ -366,7 +234,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
             params.lotnumber = lotnumber;
             params.packageid = packageid;
 
-            GSmartApp.Ajax.postJitin('/api/v1/warehouse/getByLotAndPackageId', Ext.JSON.encode(params),
+            GSmartApp.Ajax.postJitin('/api/v1/warehouse/getByLotAndPackageIdForStockout', Ext.JSON.encode(params),
                 function (success, response, options) {
                     // me.setLoading(false);
                     me.setMasked(false);
@@ -405,30 +273,38 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         }
     },
     setDataObjPkl:function(objPkl){
-        // skuid_link, colorid_link, lotnumber, packageid, 
-        // ydsorigin, ydscheck, metorigin, metcheck, 
-        // grossweight, epc,
-        // width_yds_check, width_yds, width_met_check, width_met
+        // widthorigin, widthcheck, ydsorigin, ydscheck, met_origin, met_check, packageid, lotnumber, warehousestatus
         // console.log(objPkl);
-        objPkl.warehouseid_link = objPkl.id;
-        objPkl.id = null;
-        objPkl.yds_origin = objPkl.yds;
-        objPkl.yds_check = null;
+        objPkl.widthorigin = objPkl.width_met * 100;
+        objPkl.widthcheck = objPkl.width_met * 100;
+        objPkl.ydsorigin = objPkl.yds;
+        objPkl.ydscheck = objPkl.yds;
         objPkl.met_origin = objPkl.met;
-        objPkl.met_check = null;
+        objPkl.met_check = objPkl.met;
+        objPkl.warehousestatus = objPkl.status;
+        objPkl.status = 0;
         if(objPkl.unitid_link == null) objPkl.unitid_link = 1;
-        // width
-        objPkl.width_origin = objPkl.width_met * 100;
-        objPkl.width_check = null;
         return objPkl;
     },
     popUpSelectCayVai: function(responseObjs){
         var m = this;
         var viewModel = this.getViewModel();
-
-        // // tao array cua popup window
+        // var stockout_pklist = viewModel.getStore('stockout_pklist');
+        // var storeData = stockout_pklist.getData().items;
+        
+        // tao array cua popup window
         var popUpWindowData = [];
         for(var i = 0; i < responseObjs.length; i++){
+            // var isExistInStore = false;
+            // for(var j = 0; j < storeData.length; j++){
+            //     if(responseObjs[i].epc === storeData[j].data.epc){
+            //         isExistInStore = true;
+            //         break;
+            //     }
+            // }
+            // if(!isExistInStore){
+            //     popUpWindowData.push(responseObjs[i]);
+            // }
             popUpWindowData.push(responseObjs[i]);
         }
 
@@ -507,7 +383,139 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
             dialog.close();
         });
     },
-    onBtnDeletePklToVai: function(){
+    resetForm: function(){
+        var myview = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        
+        var lotnumber = viewModel.get('objPkl.lotnumber');
+        viewModel.set('objPkl', null);
+        viewModel.set('objPkl.lotnumber', lotnumber);
+    },
+
+    onCheck: function(){
+        var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        var objPkl = viewModel.get('objPkl');
+
+        // check textfield
+        if(objPkl.packageid == null || objPkl.packageid == ''){
+            Ext.toast('Thiếu thông tin số cây', 2000);
+            return;
+        }
+        if(objPkl.lotnumber == null || objPkl.lotnumber == ''){
+            Ext.toast('Thiếu thông tin số lot', 2000);
+            return;
+        }
+        if(stockout.unitid_link == null) stockout.unitid_link = 1;
+        if(stockout.unitid_link == 3){
+            if(objPkl.widthcheck == '' || objPkl.ydscheck == '' || objPkl.widthcheck == null || objPkl.ydscheck == null){
+                Ext.toast('Thiếu thông tin khổ hoặc độ dài', 2000);
+                return;
+            }
+            if(isNaN(objPkl.ydscheck)){
+                Ext.toast('Số Y phải là số', 2000);
+                return;
+            }
+        }
+        if(stockout.unitid_link == 1){
+            if(objPkl.widthcheck == '' || objPkl.met_check == '' || objPkl.widthcheck == null || objPkl.met_check == null){
+                Ext.toast('Thiếu thông tin khổ hoặc độ dài', 2000);
+                return;
+            }
+            if(isNaN(objPkl.met_check)){
+                Ext.toast('Số M phải là số', 2000);
+                return;
+            }
+        }
+
+        // widthorigin, widthcheck, ydsorigin, ydscheck, met_origin, met_check, packageid, lotnumber
+        
+        // tạo obj
+        if(objPkl.ydscheck == null || objPkl.ydscheck == '') objPkl.ydscheck = 0;
+        if(objPkl.met_check == null || objPkl.met_check == '') objPkl.met_check = 0;
+        if(objPkl.ydsorigin == null || objPkl.ydsorigin == '' || objPkl.ydsorigin == 0) objPkl.ydsorigin = objPkl.ydscheck;
+        if(objPkl.met_origin == null || objPkl.met_origin == '' || objPkl.met_origin == 0) objPkl.met_origin = objPkl.met_check;
+        if(objPkl.grossweight == null || objPkl.grossweight == '' || objPkl.grossweight == 0) objPkl.grossweight = 0;
+        if(objPkl.widthcheck == null || objPkl.widthcheck == '') objPkl.widthcheck = 0;
+        if(objPkl.widthorigin == null || objPkl.widthorigin == '' || objPkl.widthorigin == 0) objPkl.widthorigin = objPkl.widthcheck;
+
+        if(stockout.unitid_link == 3){
+            // có y
+            objPkl.ydscheck = parseFloat(objPkl.ydscheck);
+            objPkl.met_check = objPkl.ydscheck * 0.9144;
+            objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
+            objPkl.met_origin = objPkl.ydsorigin * 0.9144;
+
+            objPkl.widthcheck = parseFloat(objPkl.widthcheck);
+            objPkl.widthorigin = parseFloat(objPkl.widthorigin);
+        }
+        if(stockout.unitid_link == 1){
+            // có m
+            objPkl.met_check = parseFloat(objPkl.met_check);
+            objPkl.ydscheck = objPkl.met_check / 0.9144;
+            objPkl.met_origin = parseFloat(objPkl.met_origin);
+            objPkl.ydsorigin = objPkl.met_origin / 0.9144;
+
+            objPkl.widthcheck = parseFloat(objPkl.widthcheck);
+            objPkl.widthorigin = parseFloat(objPkl.widthorigin);
+        }
+
+        objPkl.met_check = parseFloat(objPkl.met_check);
+        objPkl.ydscheck = parseFloat(objPkl.ydscheck);
+        objPkl.met_origin = parseFloat(objPkl.met_origin);
+        objPkl.ydsorigin = parseFloat(objPkl.ydsorigin);
+        objPkl.widthcheck = parseFloat(objPkl.widthcheck / 100);
+        objPkl.widthorigin = parseFloat(objPkl.widthorigin / 100);
+
+        objPkl.stockoutid_link = stockout.id;
+        objPkl.stockoutdid_link = selectedDRecord.get('id');
+
+        // console.log(objPkl);
+
+        me.setMasked({
+            xtype: 'loadmask',
+            message: 'Đang lưu'
+        })
+
+        var params = new Object();
+        params.data_pklist = objPkl;
+
+        GSmartApp.Ajax.postJitin('/api/v1/stockout_pklist/pklist_create_single', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    me.setMasked(false);
+                    if (response.respcode == 200) {
+                        if(response.message == 'Không tồn tại cây vải trong kho'){
+                            Ext.toast('Lưu thất bại: ' + response.message, 2000);
+                        }else{
+                            Ext.toast('Lưu thành công', 2000);
+                            var data = response.data;
+
+                            m.fireEvent('reloadStore');
+                            if(selectedPklRecord == null){
+                                m.resetForm();
+                                m.getView().down('#packageidTxt').focus();
+                            }
+                        }
+                        // console.log(response);
+                    }else{
+                        Ext.toast('Lưu thất bại: ' + response.message, 2000);
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.toast('Lưu thất bại: ' + response.message, 2000);
+                }
+        })
+    },
+
+    onBtnDeletePkl: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -552,9 +560,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         var viewModel = this.getViewModel();
 
         var selectedPklRecord = viewModel.get('selectedPklRecord');
-        var stockout_order = viewModel.get('stockout_order');
-        var stockoutorderid_link = stockout_order.id;
-        var warehouse_check = selectedPklRecord.data;
+        var id = selectedPklRecord.get('id');
 
         // myview.setMasked({
         //     xtype: 'loadmask',
@@ -562,10 +568,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         // });
 
         var params = new Object();
-        params.stockoutorderid_link = stockoutorderid_link;
-        params.warehouse_check = warehouse_check;
+        params.id = id;
 
-        GSmartApp.Ajax.postJitin('/api/v1/warehouse/deleteToVai', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockout_pklist/pklist_delete_rip', Ext.JSON.encode(params),
             function (success, response, options) {
                 var response = Ext.decode(response.responseText);
                 myview.setMasked(false);

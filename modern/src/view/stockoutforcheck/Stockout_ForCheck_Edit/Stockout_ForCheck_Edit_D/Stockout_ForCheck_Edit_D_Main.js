@@ -1,8 +1,8 @@
 Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_D_Main', {
     extend: 'Ext.form.Panel',
     xtype: 'Stockout_ForCheck_Edit_D_Main',
-    id: 'Stockout_ForCheck_Edit_D_Main',
-    reference: 'Stockout_ForCheck_Edit_D_Main',
+    itemId: 'Stockout_ForCheck_Edit_D_Main',
+    // reference: 'Stockout_ForCheck_Edit_D_Main',
     controller: 'Stockout_ForCheck_Edit_D_MainController',
     layout: {
         type: 'vbox',

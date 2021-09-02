@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
             viewModel.set('is_stockout_m_view', tempObj.is_stockout_m_view);
             GSmartApp.util.State.set('tempObj', null);
 
-            // ẩn tay tab tở vải nếu vào từ view xuất kho
+            // ẩn tab tở vải nếu vào từ view xuất kho
             // var view = this.getView().down('#TabView');
             // var tabToVai = view.down('#Stockout_ForCheck_Edit_ToVai_Main');
             // tabToVai.tab.hide();
@@ -202,8 +202,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
             direction: 'ASC'
         });
 
-        var Stockout_order_pkl_Store = viewmodel.getStore('Stockout_order_pkl_Store');
-        Stockout_order_pkl_Store.getSorters().add({
+        var WarehouseCheckStore = viewmodel.getStore('WarehouseCheckStore');
+        WarehouseCheckStore.getSorters().add({
             property: 'lotnumber',
             direction: 'ASC'
         },{

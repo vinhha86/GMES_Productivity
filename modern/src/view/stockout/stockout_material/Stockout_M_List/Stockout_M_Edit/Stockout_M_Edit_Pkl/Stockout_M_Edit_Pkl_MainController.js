@@ -18,8 +18,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         '#btnDeletePkl':{
             tap: 'onDeletePkl'
         },
+        '#btnThemMoiPkl': {
+            tap: 'onbtnThemMoiPkl'
+        },
         '#Stockout_M_Edit_Pkl':{
-            childtap: 'onItemPklTap'
+            // childtap: 'onItemPklTap',
+            childtap: 'onItemPklTapDetail'
         },
         '#cbbox_pkl_stockoutdId':{
             change: 'oncbbox_pkl_stockoutdId_change'
@@ -185,6 +189,157 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             }
         }
     },
+
+    onbtnThemMoiPkl: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockout = viewModel.get('stockout');
+        var pkl_stockoutdId = viewModel.get('pkl_stockoutdId');
+        var selectedDRecord = viewModel.get('selectedDRecord');
+
+        if(pkl_stockoutdId == null){
+            Ext.toast('Bạn chưa chọn loại NPL', 2000);
+            return;
+        }
+        
+        var objPkl = new Object();
+        // objPkl.lotnumberTxt = cbbox_lotnumber_value;
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            // id: 'StockMenuWindow_Main_dialog',
+            itemId: 'Stockout_M_Edit_Pkl_Detail_dialog',
+            title: 'Thêm mới cây vải',
+            width: '90%',
+            // height: '60%',
+            zIndex: 1,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'Stockout_M_Edit_Pkl_Detail',
+                viewModel: {
+                    data: {
+                        stockout: stockout,
+                        pkl_stockoutdId: pkl_stockoutdId,
+                        selectedDRecord: selectedDRecord,
+                        selectedPklRecord: null,
+                        objPkl: objPkl
+                    }
+                }
+            }],
+            listeners: {
+                destroy: {
+                    fn: function(){ 
+                        if(Ext.Msg){
+                            Ext.Msg.hide();
+                        }
+                    }
+                },
+            },
+        });
+        dialog.show();
+
+        dialog.down('#Stockout_M_Edit_Pkl_Detail').getController().on('reloadStore', function (objData) {
+            m.reloadStore();
+        });
+    },
+    onItemPklTapDetail: function(list, location, eOpts){
+        console.log(location);
+        var record = location.record;
+
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockout = viewModel.get('stockout');
+        var pkl_stockoutdId = viewModel.get('pkl_stockoutdId');
+        var selectedDRecord = viewModel.get('selectedDRecord');
+
+        if(pkl_stockoutdId == null){
+            Ext.toast('Bạn chưa chọn loại NPL', 2000);
+            return;
+        }
+        
+        var objPkl = new Object();
+        // objPkl.lotnumberTxt = cbbox_lotnumber_value;
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            // id: 'StockMenuWindow_Main_dialog',
+            itemId: 'Stockout_M_Edit_Pkl_Detail_dialog',
+            title: 'Chi tiết cây vải',
+            width: '90%',
+            // height: '60%',
+            zIndex: 1,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'Stockout_M_Edit_Pkl_Detail',
+                viewModel: {
+                    data: {
+                        stockout: stockout,
+                        pkl_stockoutdId: pkl_stockoutdId,
+                        selectedDRecord: selectedDRecord,
+                        selectedPklRecord: record,
+                        objPkl: objPkl
+                    }
+                }
+            }],
+            listeners: {
+                destroy: {
+                    fn: function(){ 
+                        if(Ext.Msg){
+                            Ext.Msg.hide();
+                        }
+                    }
+                },
+            },
+        });
+        dialog.show();
+
+        dialog.down('#Stockout_M_Edit_Pkl_Detail').getController().on('reloadStore', function (objData) {
+            m.reloadStore();
+        });
+        dialog.down('#Stockout_M_Edit_Pkl_Detail').getController().on('close', function (objData) {
+            dialog.close();
+        });
+
+    },
+
     onmaPklFilterKeyup: function (){
         var grid = this.getView().down('#Stockout_M_Edit_Pkl'),
             // Access the field using its "reference" property name.

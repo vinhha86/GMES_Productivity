@@ -290,7 +290,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             maximizable: false,
             maskTapHandler: function(){
                 if(dialog){
-                    console.log('hererherherhe');
                     dialog.close();
                     me.setMasked(false);
                 }

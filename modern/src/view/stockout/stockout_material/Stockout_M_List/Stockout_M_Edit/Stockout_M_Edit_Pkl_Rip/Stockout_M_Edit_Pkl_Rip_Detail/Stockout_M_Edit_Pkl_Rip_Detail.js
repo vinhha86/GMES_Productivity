@@ -1,9 +1,13 @@
-Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m_edit.stockout_m_edit_pkl_rip.Stockout_M_Edit_Pkl_Rip_Main', {
+Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m_edit.stockout_m_edit_pkl.Stockout_M_Edit_Pkl_Rip_Detail', {
     extend: 'Ext.form.Panel',
-    xtype: 'Stockout_M_Edit_Pkl_Rip_Main',
-    itemId: 'Stockout_M_Edit_Pkl_Rip_Main',
-    reference: 'Stockout_M_Edit_Pkl_Rip_Main',
-    controller: 'Stockout_M_Edit_Pkl_Rip_MainController',
+    xtype: 'Stockout_M_Edit_Pkl_Rip_Detail',
+    itemId: 'Stockout_M_Edit_Pkl_Rip_Detail',
+    cls: 'Stockout_M_Edit_Pkl_Rip_Detail',
+    reference: 'Stockout_M_Edit_Pkl_Rip_Detail',
+    controller: 'Stockout_M_Edit_Pkl_Rip_Detail_Controller',
+    viewModel: {
+        type: 'Stockout_M_Edit_Pkl_Rip_Detail_ViewModel'
+    },
     layout: {
         type: 'vbox',
         align: 'stretch'
@@ -18,83 +22,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
     items:[
         {
             xtype: 'container',
-            // flex:1,
-            // height: 100,
-            // docked: 'bottom',
-            layout: 'hbox',
-            items:[
-                {
-                    xtype: 'combobox',
-                    itemId: 'cbbox_pklRip_stockoutdId',
-                    // reference: 'cboorgto',
-                    editable: false,
-                    readOnly: true,
-                    // cls: 'notEditable',
-                    bind:{
-                        store:'{Stockout_d}',
-                        value:'{pklRip_stockoutdId}'
-                    },
-                    displayField: 'skucode',
-                    valueField: 'id',
-                    // label: 'Nơi giao:',
-                    // disabled: true,
-                    labelWidth: 85,
-                    flex: 1,
-                    padding: 2,
-                },
-                {
-                    xtype: 'textfield',
-                    itemId: 'maPklRipFilter',
-                    // label: 'Mã hàng:',
-                    // labelWidth: 85,
-                    margin: '5 5 1 5',
-                    // padding: 6,
-                    flex: 1,
-                    // width: '100%',
-                    // minWidth: 80,
-                    // maxWidth: 200,
-                    textAlign: 'left',
-                    placeholder: 'Tìm kiếm nhanh ... (theo lot)',
-                    // editable: false,
-                    // readOnly: true,
-                    clearable: false,
-                    cls: 'searchField',
-                    bind: {
-                        value: '{maPklRipFilter}'
-                    },
-                    listeners: {
-                        keyup: 'onmaPklRipFilterKeyup',
-                        buffer: 500
-                    }
-                },
-                {
-                    xtype:'button',
-                    // text: 'Xác nhận',
-                    // flex: 1,
-                    // minWidth: 80,
-                    // maxWidth: 130,
-                    // width: 45,
-                    margin: 1,
-                    iconCls: 'x-fa fa-plus',
-                    itemId:'btnThemMoiPklRip',
-                    ui: 'action',
-                    focusable: false,
-                },
-            ]
-        },
-        
-        {
-            margin: 1,
-            flex: 1,
-            xtype: 'Stockout_M_Edit_Pkl_Rip',
-        },
-        {
-            xtype: 'container',
-            // flex:1,
-            // height: 100,
-            // docked: 'bottom',
             layout: 'vbox',
-            hidden: true,
             items:[
                 {
                     layout: 'hbox',
@@ -119,7 +47,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objRip.lotnumber}'
+                                value: '{objRip.lotnumber}',
+                                editable: '{isEditable}',
+                                readOnly: '{isReadOnly}',
+                                cls: '{fieldClass}',
                             },
                             listeners: {
                                 focus: 'onFocus',
@@ -144,7 +75,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objRip.packageid}'
+                                value: '{objRip.packageid}',
+                                editable: '{isEditable}',
+                                readOnly: '{isReadOnly}',
+                                cls: '{fieldClass}',
                             },
                             listeners: {
                                 focusleave: 'onlotnumberTxtAndpackageidTxtRipleave',
@@ -152,21 +86,21 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                             },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            // text: 'Xác nhận',
-                            // flex: 1,
-                            // minWidth: 80,
-                            // maxWidth: 130,
-                            // width: 45,
-                            margin: 1,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheckRip',
-                            ui: 'action',
-                            bind: {
-                                disabled: '{!isobjRipSelected}'
-                            }
-                        },   
+                        // {
+                        //     xtype:'button',
+                        //     // text: 'Xác nhận',
+                        //     // flex: 1,
+                        //     // minWidth: 80,
+                        //     // maxWidth: 130,
+                        //     // width: 45,
+                        //     margin: 1,
+                        //     iconCls: 'x-fa fa-check',
+                        //     itemId:'btnCheckRip',
+                        //     ui: 'action',
+                        //     bind: {
+                        //         disabled: '{!isobjRipSelected}'
+                        //     }
+                        // },   
                     ]
                 },
                 {
@@ -280,17 +214,54 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                             },
                             stepValue: 0.1,
                         },
-                        {
-                            xtype:'button',
-                            iconCls: 'x-fa fa-plus',
-                            // itemId:'',
-                            ui: 'action',
-                            margin: 1,
-                            style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     iconCls: 'x-fa fa-plus',
+                        //     // itemId:'',
+                        //     ui: 'action',
+                        //     margin: 1,
+                        //     style: 'visibility: hidden;'
+                        // },
                     ]
                 },
-            ]
+
+                {
+                    layout: 'hbox',
+                    border: false,
+                    width: '100%',
+                    items:[
+                        {
+                            xtype:'button',
+                            text: 'Xoá',
+                            margin: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-trash',
+                            itemId:'btnDeletePklRip',
+                            ui: 'action',
+                            focusable: false,
+                            bind: {
+                                disabled: '{isBtnDeletePklHidden}',
+                            },
+                            // style: 'visibility: hidden;'
+                        },
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheckRip',
+                            ui: 'action',
+                            // bind: {
+                            //     disabled: '{isbtnCheckDisabled}'
+                            // }
+                        },   
+                    ]
+                },
+            ],
         }
     ]
 });
