@@ -117,7 +117,7 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
                     } else {
                         Ext.Msg.show({
                             title: "Thông báo",
-                            msg: "Ngày quyết định không được nhỏ hơn ngày quyết định trước !",
+                            msg: response.message,
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',
