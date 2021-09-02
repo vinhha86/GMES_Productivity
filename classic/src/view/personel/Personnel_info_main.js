@@ -43,6 +43,19 @@ Ext.define('GSmartApp.view.personel.Personnel_info_main', {
             itemId: 'btnLuu',
             iconCls: 'x-fa fa-save',
             formBind: true
-        }]
+        },{
+            flex:1
+        },
+        
+        {
+            xtype: 'button',
+            text: 'Xóa',
+            margin: 1,
+            itemId: 'btnXoa',
+            iconCls: 'x-fa fa-trash',
+           
+        }
+    
+    ]
     }]
 })

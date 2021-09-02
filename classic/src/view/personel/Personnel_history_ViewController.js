@@ -20,14 +20,14 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
             click: 'onEditSalary'
         },
     },
-    getTitle: function(id, itype){
-        var name ="", type="";
-        if(id==null)
+    getTitle: function (id, itype) {
+        var name = "", type = "";
+        if (id == null)
             name = "Thêm mới ";
-        else 
+        else
             name = "Cập nhật ";
 
-        switch(itype){
+        switch (itype) {
             case 1:
                 type = "chức vụ";
                 break;
@@ -39,12 +39,29 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
                 break;
             case 4:
                 type = "ngạch, bậc lương";
-                break;                
-            default: 
+                break;
+            default:
                 "";
         }
 
         return name + type;
+    },
+    onEdit: function (grid, rowIndex) {
+        var me = this;
+        var viewmodel = this.getViewModel();
+
+        var rec = grid.getStore().getAt(rowIndex);
+        var isPos = false, isLevel = false, isOrg = false, isSalary = false;
+        if (rec.get('type') == 1)
+            isPos = true;
+        else if (rec.get('type') == 2)
+            isLevel = true
+        else if (rec.get('type') == 3)
+            isOrg = true;
+        else
+            isSalary = true;
+        me.OpenShowDetail(isPos, isLevel, isOrg, isSalary, rec.get('type'), viewmodel.get('personnel.id'), rec.get('id'),
+            rec.get('positionid_link'), rec.get('levelid_link'), rec.get('orgid_link'), rec.get('decision_number'), rec.get('decision_date'));
     },
     OpenShowDetail: function (isPosition, isLevel, isOrg, isSalary, type, personnelid_link, id, positionid_link, levelid_link, orgid_link, decision_number, decision_date) {
         var me = this;
@@ -77,7 +94,7 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
                             personnelid_link: personnelid_link,
                             positionid_link: positionid_link,
                             levelid_link: levelid_link,
-                            orgid_link : orgid_link,
+                            orgid_link: orgid_link,
                             decision_date: decision_date,
                             decision_number: decision_number,
                             id: id
@@ -92,21 +109,21 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
         form.down('#Personnel_his_detail').getController().on('Thoat', function (his) {
             var store = viewmodel.getStore('PersonnelHis_Store');
             store.load();
-            
-            
-            if(his.orgid_link != null){
+
+
+            if (his.orgid_link != null) {
                 viewmodel.set('personnel.orgid_link', his.orgid_link);
             }
-            if(his.positionid_link != null){
+            if (his.positionid_link != null) {
                 viewmodel.set('personnel.positionid_link', his.positionid_link);
             }
-            if(his.levelid_link != null){
+            if (his.levelid_link != null) {
                 viewmodel.set('personnel.levelid_link', his.levelid_link);
             }
             form.close();
         })
     },
-    
+
     onEditPos: function () {
         var me = this;
         var viewmodel = this.getViewModel();
@@ -182,23 +199,8 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
         }
 
         me.OpenShowDetail(false, false, false, true, 4, viewmodel.get('personnel.id'), null, null, null, null, null, null);
-    },    
-    onEdit: function(grid, rowIndex){
-        var me = this;
-        var viewmodel = this.getViewModel();
-
-        var rec = grid.getStore().getAt(rowIndex);
-        var isPos = true, isLevel = true, isOrg = true;
-        if(rec.get('type') == 1)
-            isPos = false;
-        else if (rec.get('type') ==2)
-            isLevel = false
-        else 
-            isOrg = false;
-
-        me.OpenShowDetail(isPos, isLevel, isOrg, rec.get('type'), viewmodel.get('personnel.id'), rec.get('id'),
-        rec.get('positionid_link'), rec.get('levelid_link'), rec.get('orgid_link'),rec.get('decision_number'),rec.get('decision_date'));
     },
+
     onDelete: function (grid, rowIndex, colIndex) {
         var viewmodel = this.getViewModel();
 
@@ -208,29 +210,55 @@ Ext.define('GSmartApp.view.personel.Personnel_history_ViewController', {
         params.personnelid_link = viewmodel.get('personnel.id');
         params.id = rec.get('id');
 
-        GSmartApp.Ajax.post('/api/v1/personnel/delete_his_person', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    if (response.respcode == 200) {
-                        var store = viewmodel.getStore('PersonnelHis_Store');
-                        store.load();
+        Ext.Msg.show({
+            
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            //chọn button có
+            fn: function (btn) {
+                if (btn === 'yes') {
+                   
 
-                        if(rec.get('type') == 3){
-                            viewmodel.set('personnel.orgid_link', response.orgid_link);
-                        }
-                    }
+                    GSmartApp.Ajax.post('/api/v1/personnel/delete_his_person', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    var store = viewmodel.getStore('PersonnelHis_Store');
+                                    store.load();
+
+                                    if (rec.get('type') == 3) {
+                                        viewmodel.set('personnel.orgid_link', response.orgid_link);
+                                    }
+                                    if (rec.get('type') == 1) {
+                                        viewmodel.set('personnel.positionid_link', response.positionid_link);
+                                    }
+                                    if (rec.get('type') == 2) {
+                                        viewmodel.set('personnel.levelid_link', response.levelid_link);
+                                    }
+                                }
+                            }
+                            else {
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: "Có lỗi trong quá trình xóa dữ liệu",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                        })
+
                 }
-                else {
-                    Ext.MessageBox.show({
-                        title: "Thông báo",
-                        msg: "Có lỗi trong quá trình xóa dữ liệu",
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-            })
+            }
+        })
+
     }
 })

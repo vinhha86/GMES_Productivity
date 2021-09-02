@@ -113,7 +113,18 @@ Ext.define('GSmartApp.view.personel.Personnel_his_detail_ViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: "Cập nhật thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                       
                         me.fireEvent('Thoat', his);
+                   
+                        
                     } else {
                         Ext.Msg.show({
                             title: "Thông báo",
