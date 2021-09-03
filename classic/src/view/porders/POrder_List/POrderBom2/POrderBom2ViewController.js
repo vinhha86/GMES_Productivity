@@ -152,24 +152,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                                 }
                             }]
                         })
-
-                        // var column = Ext.create('Ext.grid.column.Number', {
-                        //     text: listtitle[i],
-                        //     xtype: 'numbercolumn',
-                        //     dataIndex: listid[i].toString(),
-                        //     width: 65,
-                        //     format: '0.0000',
-                        //     align: 'right',
-                        //     editor: {
-                        //         xtype: 'textfield',
-                        //         selectOnFocus: true,
-                        //         maskRe: /[0-9.]/
-                        //     },
-                        //     renderer: function (value, metaData, record) {
-                        //         if (value == 0) return "";
-                        //         return Ext.util.Format.number(value, '0.0000')
-                        //     }
-                        // });
                         grid.headerCt.insert(length, column);
                         length++;
                     }
@@ -190,8 +172,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrderBom2.POrderBom2ViewControll
                     }
 
                     model.addFields(fieldnew);
-                    // storeBOM.removeFilter();
-                    // console.log(storeBOM)
                     storeBOM.getbom_by_porder(porderid_link);
                 }
             })
