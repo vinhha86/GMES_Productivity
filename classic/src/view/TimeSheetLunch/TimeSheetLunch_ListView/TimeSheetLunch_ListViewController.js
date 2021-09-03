@@ -12,6 +12,76 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             click: 'onUnconfirm'
         }
     },
+    CreateColumns:function(data){
+       
+        var viewmodel = this.getViewModel();
+        var grid = this.getView();
+        var length = 4;
+        //xóa cột sinh động
+        for (var i = 0; i < grid.headerCt.items.length; i++) {
+            if (i > length - 1) {
+                grid.headerCt.remove(i);
+                i--;
+            }
+        }
+        var listtitle = [];
+     //   var listid = [];
+        var params = new Object();
+        params.orgid_link = data;
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link', Ext.JSON.encode(params),
+        function (success, response, options) {
+            grid.setLoading(false);
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                if (response.respcode == 200) {
+                  
+                    for (var i = 0; i < response.data.length; i++){
+                        var data = response.data[i];
+                        listtitle.push(data.name.trim());
+
+                    }
+
+                    for (var i = 0; i < listtitle.length; i++) {
+                        if ("" + listtitle[i] == "") continue;
+
+                        var column = Ext.create('Ext.grid.column.Column', {
+                            text: listtitle[i],
+                            columns: [ {
+                                xtype: 'checkcolumn',
+                                text: 'Đi làm',
+                                dataIndex: 'workingShift1',
+                                headerCheckbox: true,
+                                flex: 1,
+                                // width: 75,
+                                listeners: {
+                                    beforecheckchange: 'onBeforecheckchange',
+                                    checkchange: 'onCheckchange',
+                                    headerclick: 'onHeaderClick'
+                                }
+                            },
+                            {
+                                xtype: 'checkcolumn',
+                                text: 'Ăn',
+                                dataIndex: 'lunchShift1',
+                                // headerCheckbox: true,
+                                flex: 1,
+                                // width: 50,
+                                listeners: {
+                                    beforecheckchange: 'onBeforecheckchange',
+                                    checkchange: 'onCheckchange',
+                                    // headerclick: 'onHeaderClick'
+                                }
+                            }]
+                        })
+                        grid.headerCt.insert(length, column);
+                        length++;
+                    }
+                }
+            } 
+        })
+
+
+    },
     onEditCheckBox: function (editor, context, e) { },
     onBeforecheckchange: function (column, rowIndex, checked, record, e, eOpts) { },
     onHeaderClick: function (grid, column, e, t, eOpts) {

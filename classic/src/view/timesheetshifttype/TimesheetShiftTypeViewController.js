@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
             })
         } else {
             //kiểm tra tên loại nghỉ việc đã tồn tại chưa nếu đúng thì được thêm 
-            var kt = me.CheckValidate(shift.code, "");
+            var kt = me.CheckValidate( shift.name,shift.code, "");
             if (kt) {
                 this.Them_DB(params);
             }
@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
                 }
             }
             //kiểm tra nếu trùng thì không được sửa 
-            var kt = me.CheckValidate(context.value, context.record.data.id);
+            var kt = me.CheckValidate( params.data.name,  params.data.code,context.record.data.id);
             if (kt) {
                 me.Them_DB(params);
             }
@@ -152,14 +152,14 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
                 }
             })
     },
-    CheckValidate: function (name_code, id) {
+    CheckValidate: function (name,code, id) {
         var me =this;
         var store = this.getViewModel().getStore('TimesheetShiftTypeStore');
 
         for (var i = 0; i < store.data.length; i++) {
             var data = store.data.items[i].data;
             //kiểm tra tên ca làm việc không chứ id truyền vào 
-            if ((data.name == name_code || data.name.toLowerCase() == name_code.toLowerCase()) && data.id != id) {
+            if ((data.name == name || data.name.toLowerCase() == name.toLowerCase()) && data.id != id) {
                 Ext.MessageBox.show({
                     title: "Thông báo",
                     msg: "Ca làm việc :" + name + " đã tồn tại ở dòng " + (i + 1),
@@ -172,7 +172,7 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
                 return false;
             }
             //kiểm tra mã ca làm việc không chứ id truyền vào 
-            if ((data.code == name_code || data.code.toLowerCase() == name_code.toLowerCase()) && data.id != id) {
+            if ((data.code == code || data.code.toLowerCase() == code.toLowerCase()) && data.id != id) {
                 Ext.MessageBox.show({
                     title: "Thông báo",
                     msg: "Mã ca làm việc :" + code + " đã tồn tại ở dòng " + (i + 1),

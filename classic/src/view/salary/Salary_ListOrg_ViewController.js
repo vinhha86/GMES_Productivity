@@ -35,6 +35,7 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
                         viewmodel.set('org_sal_basic.overtime_weekend',record.data.overtime_weekend);
                         viewmodel.set('org_sal_basic.overtime_holiday',record.data.overtime_holiday);
                         viewmodel.set('org_sal_basic.overtime_night',record.data.overtime_night);
+                        viewmodel.set('org_sal_basic.date_cal_sal',record.data.date_cal_sal);
                     } else {
                         viewmodel.set('org_sal_basic.id',null);
                         viewmodel.set('org_sal_basic.sal_basic',null);
@@ -45,6 +46,7 @@ Ext.define('GSmartApp.view.salary.Salary_ListOrg_ViewController', {
                         viewmodel.set('org_sal_basic.overtime_weekend',null);
                         viewmodel.set('org_sal_basic.overtime_holiday',null);
                         viewmodel.set('org_sal_basic.overtime_night',null);
+                        viewmodel.set('org_sal_basic.date_cal_sal',null);
                     }
 				}
 			}

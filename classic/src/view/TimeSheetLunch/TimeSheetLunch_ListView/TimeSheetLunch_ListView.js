@@ -88,102 +88,103 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 buffer: 500
             }
         }
-    }, {
-        text: 'Ca 1',
-        flex: 1,
-        columns: [
-            {
-                xtype: 'checkcolumn',
-                text: 'Đi làm',
-                dataIndex: 'workingShift1',
-                headerCheckbox: true,
-                flex: 1,
-                // width: 75,
-                listeners: {
-                    beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange',
-                    headerclick: 'onHeaderClick'
-                }
-            },
-            {
-                xtype: 'checkcolumn',
-                text: 'Ăn',
-                dataIndex: 'lunchShift1',
-                // headerCheckbox: true,
-                flex: 1,
-                // width: 50,
-                listeners: {
-                    beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange',
-                    // headerclick: 'onHeaderClick'
-                }
-            }
-        ]
-    },
-    {
-        text: 'Ca 2',
-        flex: 1,
-        columns: [
-            {
-                xtype: 'checkcolumn',
-                text: 'Đi làm',
-                dataIndex: 'workingShift2',
-                headerCheckbox: true,
-                flex: 1,
-                // width: 75,
-                listeners: {
-                    beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange',
-                    headerclick: 'onHeaderClick'
-                }
-            },
-            {
-                xtype: 'checkcolumn',
-                text: 'Ăn',
-                dataIndex: 'lunchShift2',
-                // headerCheckbox: true,
-                flex: 1,
-                // width: 50,
-                listeners: {
-                    beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange',
-                    // headerclick: 'onHeaderClick'
-                }
-            }
-        ]
-    },
-    {
-        text: 'Ca 3',
-        flex: 1,
-        columns: [
-            {
-                xtype: 'checkcolumn',
-                text: 'Đi làm',
-                dataIndex: 'workingShift3',
-                headerCheckbox: true,
-                flex: 1,
-                // width: 75,
-                listeners: {
-                    beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange',
-                    headerclick: 'onHeaderClick'
-                }
-            },
-            {
-                xtype: 'checkcolumn',
-                text: 'Ăn',
-                dataIndex: 'lunchShift3',
-                // headerCheckbox: true,
-                flex: 1,
-                // width: 50,
-                listeners: {
-                    beforecheckchange: 'onBeforecheckchange',
-                    checkchange: 'onCheckchange',
-                    // headerclick: 'onHeaderClick'
-                }
-            }
-        ]
-    }
+    }, 
+    // {
+    //     text: 'Ca 1',
+    //     flex: 1,
+    //     columns: [
+    //         {
+    //             xtype: 'checkcolumn',
+    //             text: 'Đi làm',
+    //             dataIndex: 'workingShift1',
+    //             headerCheckbox: true,
+    //             flex: 1,
+    //             // width: 75,
+    //             listeners: {
+    //                 beforecheckchange: 'onBeforecheckchange',
+    //                 checkchange: 'onCheckchange',
+    //                 headerclick: 'onHeaderClick'
+    //             }
+    //         },
+    //         {
+    //             xtype: 'checkcolumn',
+    //             text: 'Ăn',
+    //             dataIndex: 'lunchShift1',
+    //             // headerCheckbox: true,
+    //             flex: 1,
+    //             // width: 50,
+    //             listeners: {
+    //                 beforecheckchange: 'onBeforecheckchange',
+    //                 checkchange: 'onCheckchange',
+    //                 // headerclick: 'onHeaderClick'
+    //             }
+    //         }
+    //     ]
+    // },
+    // {
+    //     text: 'Ca 2',
+    //     flex: 1,
+    //     columns: [
+    //         {
+    //             xtype: 'checkcolumn',
+    //             text: 'Đi làm',
+    //             dataIndex: 'workingShift2',
+    //             headerCheckbox: true,
+    //             flex: 1,
+    //             // width: 75,
+    //             listeners: {
+    //                 beforecheckchange: 'onBeforecheckchange',
+    //                 checkchange: 'onCheckchange',
+    //                 headerclick: 'onHeaderClick'
+    //             }
+    //         },
+    //         {
+    //             xtype: 'checkcolumn',
+    //             text: 'Ăn',
+    //             dataIndex: 'lunchShift2',
+    //             // headerCheckbox: true,
+    //             flex: 1,
+    //             // width: 50,
+    //             listeners: {
+    //                 beforecheckchange: 'onBeforecheckchange',
+    //                 checkchange: 'onCheckchange',
+    //                 // headerclick: 'onHeaderClick'
+    //             }
+    //         }
+    //     ]
+    // },
+    // {
+    //     text: 'Ca 3',
+    //     flex: 1,
+    //     columns: [
+    //         {
+    //             xtype: 'checkcolumn',
+    //             text: 'Đi làm',
+    //             dataIndex: 'workingShift3',
+    //             headerCheckbox: true,
+    //             flex: 1,
+    //             // width: 75,
+    //             listeners: {
+    //                 beforecheckchange: 'onBeforecheckchange',
+    //                 checkchange: 'onCheckchange',
+    //                 headerclick: 'onHeaderClick'
+    //             }
+    //         },
+    //         {
+    //             xtype: 'checkcolumn',
+    //             text: 'Ăn',
+    //             dataIndex: 'lunchShift3',
+    //             // headerCheckbox: true,
+    //             flex: 1,
+    //             // width: 50,
+    //             listeners: {
+    //                 beforecheckchange: 'onBeforecheckchange',
+    //                 checkchange: 'onCheckchange',
+    //                 // headerclick: 'onHeaderClick'
+    //             }
+    //         }
+    //     ]
+    // }
     ],
     dockedItems: [{
         dock: 'bottom',

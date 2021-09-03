@@ -53,17 +53,35 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_SalBasic', {
             {
                 xtype: 'numberfield',
                 allowDecimals: false,
-                minValue: 0,
-                maxValue: 30,
+                minValue: 5,
+                maxValue: 7,
                 itemId: 'workingdays',
                 labelWidth: 140,
-                fieldLabel: 'Số ngày làm việc (1 tháng)',
+                fieldLabel: 'Số ngày làm việc (1 tuần)',
                 labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                 fieldStyle: 'font-size:11px;',
                 width: 220,
                 margin: 5,
                 bind: {
                     value: '{org_sal_basic.workingdays}'
+                },
+                listeners:{
+                    focusleave: 'onUpdateSalBasic'
+                }
+
+            },
+            {
+                xtype: 'datefield',
+                //itemId: 'workingdays',
+               // labelWidth: 140,
+                fieldLabel: 'Ngày chốt lương',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                format: 'd/m/Y',
+                width: 220,
+                margin: 5,
+                bind: {
+                    value: '{org_sal_basic.date_cal_sal}'
                 },
                 listeners:{
                     focusleave: 'onUpdateSalBasic'

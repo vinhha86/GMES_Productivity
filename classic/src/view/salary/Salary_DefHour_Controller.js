@@ -234,6 +234,7 @@ Ext.define('GSmartApp.view.salary.Salary_DefHour_Controller', {
             params.overtime_weekend = null!=viewmodel.get('org_sal_basic.overtime_weekend')?parseFloat(viewmodel.get('org_sal_basic.overtime_weekend').toString().replace(/,/gi,'')):null;
             params.overtime_holiday = null!=viewmodel.get('org_sal_basic.overtime_holiday')?parseFloat(viewmodel.get('org_sal_basic.overtime_holiday').toString().replace(/,/gi,'')):null;
             params.overtime_night = null!=viewmodel.get('org_sal_basic.overtime_night')?parseFloat(viewmodel.get('org_sal_basic.overtime_night').toString().replace(/,/gi,'')):null;
+            params.date_cal_sal = viewmodel.get('org_sal_basic.date_cal_sal');
 
             GSmartApp.Ajax.post('/api/v1/salary/salbasic_update', Ext.JSON.encode(params),
             function (success, response, options) {
