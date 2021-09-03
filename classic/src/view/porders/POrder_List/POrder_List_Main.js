@@ -208,192 +208,177 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_Main', {
             layout: 'hbox',
             border: false,
             width: '100%',
-            items: [{
-                xtype: 'textfield',
-                itemId: 'txtstyle',
-                // fieldLabel: 'Chú thích',
-                margin: 2,
-                width: 210,
-                fieldLabel: "Mã SP (Buyer)",
-                labelWidth: 90,
-                allowBlank: true
-            },
-            {
-                xtype: 'textfield',
-                itemId: 'txtpobuyer',
-                // fieldLabel: 'Chú thích',
-                margin: 2,
-                allowBlank: true,
-                width: 210,
-                fieldLabel: "PO Buyer",
-                labelWidth: 90,
-            },
-            {
-                xtype: 'combobox',
-                itemId: 'txtbuyerid',
-                bind: {
-                    store: '{POrder_ListBuyerStore}'
+            items: [
+                {
+                    xtype: 'textfield',
+                    itemId: 'txtstyle',
+                    // fieldLabel: 'Chú thích',
+                    margin: 2,
+                    width: 210,
+                    fieldLabel: "Mã SP (Buyer)",
+                    labelWidth: 90,
+                    allowBlank: true,
+                    bind: {
+                        value: '{objSearch.style}'
+                    }
                 },
-                displayField: 'code',
-                valueField: 'id',
-                queryMode: 'local',
-                anyMatch: true,
-                editable: true,
-                allowBlank: true,
-                margin: 2,
-                // width: 210,
-                flex: 1,
-                fieldLabel: "Buyer",
-                labelWidth: 70,
-            },
-            {
-                xtype: 'combobox',
-                itemId: 'txtvendorid',
-                bind: {
-                    store: '{POrder_ListVendorStore}'
+                {
+                    xtype: 'textfield',
+                    itemId: 'txtpobuyer',
+                    // fieldLabel: 'Chú thích',
+                    margin: 2,
+                    allowBlank: true,
+                    width: 210,
+                    fieldLabel: "PO Buyer",
+                    labelWidth: 90,
+                    bind: {
+                        value: '{objSearch.pobuyer}'
+                    }
                 },
-                displayField: 'code',
-                valueField: 'id',
-                queryMode: 'local',
-                anyMatch: true,
-                editable: true,
-                allowBlank: true,
-                margin: 2,
-                // width: 210,
-                flex: 1,
-                fieldLabel: "Vendor",
-                labelWidth: 90,
-            },
-            {
-                xtype: 'combobox',
-                itemId: 'txtfactoryid',
-                bind: {
-                    store: '{ListOrgStore}'
+                {
+                    xtype: 'combobox',
+                    itemId: 'txtbuyerid',
+                    bind: {
+                        store: '{POrder_ListBuyerStore}',
+                        value: '{objSearch.buyerid}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    queryMode: 'local',
+                    anyMatch: true,
+                    editable: true,
+                    allowBlank: true,
+                    margin: 2,
+                    // width: 210,
+                    flex: 1,
+                    fieldLabel: "Buyer",
+                    labelWidth: 70,
                 },
-                displayField: 'name',
-                valueField: 'id',
-                queryMode: 'local',
-                anyMatch: true,
-                editable: true,
-                allowBlank: true,
-                margin: 2,
-                // width: 210,
-                flex: 1,
-                fieldLabel: "P/Xưởng",
-                labelWidth: 70,
-            },
-                // {
-                //     xtype:'textfield',
-                //     itemId:'txtpovendor',
-                //     // fieldLabel: 'Chú thích',
-                //     margin: 2,
-                //     // flex: 1,
-                //     width: 130,
-                //     allowBlank: true,
-                //     blankText: 'PO vendor',
-                //     emptyText: 'PO vendor'
-                // },
-                // {
-                //     xtype:'datefield',
-                //     itemId:'txtdatefrom',
-                //     reference: 'startdate',
-                //     format: 'd/m/Y',
-                //     margin: 2,
-                //     // flex: 1,
-                //     width: 125,
-                //     emptyText: 'Tạo lệnh từ',
-                //     hidden: true
-                // },
-                // {
-                //     xtype:'datefield',
-                //     itemId:'txtdateto',
-                //     reference: 'enddate',
-                //     format: 'd/m/Y',
-                //     margin: 2,
-                //     // flex: 1,
-                //     width: 135,
-                //     emptyText: 'Tạo lệnh đến',
-                //     hidden: true
-                // },
-                // {flex: 1}
+                {
+                    xtype: 'combobox',
+                    itemId: 'txtvendorid',
+                    bind: {
+                        store: '{POrder_ListVendorStore}',
+                        value: '{objSearch.vendorid}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    queryMode: 'local',
+                    anyMatch: true,
+                    editable: true,
+                    allowBlank: true,
+                    margin: 2,
+                    // width: 210,
+                    flex: 1,
+                    fieldLabel: "Vendor",
+                    labelWidth: 90,
+                },
+                {
+                    xtype: 'combobox',
+                    itemId: 'txtfactoryid',
+                    bind: {
+                        store: '{ListOrgStore}',
+                        value: '{objSearch.factoryid}'
+                    },
+                    displayField: 'name',
+                    valueField: 'id',
+                    queryMode: 'local',
+                    anyMatch: true,
+                    editable: true,
+                    allowBlank: true,
+                    margin: 2,
+                    // width: 210,
+                    flex: 1,
+                    fieldLabel: "P/Xưởng",
+                    labelWidth: 70,
+                },
             ]
         },
         {
             layout: 'hbox',
             border: false,
             width: '100%',
-            items: [{
-                xtype: 'datefield',
-                itemId: 'txtgolivedatefrom',
-                reference: 'golivedatefrom',
-                format: 'd/m/y',
-                margin: 2,
-                // flex: 1,
-                width: 210,
-                emptyText: 'Ngày giao từ',
-                fieldLabel: "Ngày giao từ",
-                labelWidth: 90,
-                value: new Date(new Date().getTime() - 30 * 86400000),
-                // hidden: true
-            },
-            {
-                xtype: 'datefield',
-                itemId: 'txtgolivedateto',
-                reference: 'golivedateto',
-                format: 'd/m/y',
-                margin: 2,
-                // flex: 1,
-                width: 210,
-                emptyText: 'Ngày giao đến',
-                fieldLabel: "Ngày giao đến",
-                labelWidth: 90,
-                value: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 6, 1),
-                // hidden: true
-            },
-            {
-                xtype: 'combobox',
-                itemId: 'txtstatus',
-                bind: {
-                    store: '{POrder_ListStatusStore}'
+            items: [
+                {
+                    xtype: 'datefield',
+                    itemId: 'txtgolivedatefrom',
+                    reference: 'golivedatefrom',
+                    format: 'd/m/y',
+                    margin: 2,
+                    // flex: 1,
+                    width: 210,
+                    emptyText: 'Ngày giao từ',
+                    fieldLabel: "Ngày giao từ",
+                    labelWidth: 90,
+                    // value: new Date(new Date().getTime() - 30 * 86400000),
+                    bind: {
+                        value: '{objSearch.golivedatefrom}'
+                    }
+                    // hidden: true
                 },
-                displayField: 'name',
-                valueField: 'id',
-                // value: [1, 2, 3, 0, -1],
-                value: [1, 2],
-                queryMode: 'local',
-                anyMatch: true,
-                editable: true,
-                allowBlank: true,
-                multiSelect: true,
-                emptyText: 'Trạng thái',
-                fieldLabel: "Trạng thái",
-                labelWidth: 70,
-                margin: 2,
-                // width: 210,
-                flex: 1
-            },
-            {
-                xtype: 'textfield',
-                itemId: 'txtcontractcode',
-                // fieldLabel: 'Chú thích',
-                margin: 2,
-                allowBlank: true,
-                // width: 210,
-                fieldLabel: "Mã đơn hàng",
-                labelWidth: 90,
-                flex: 1
-            },
-            {
-                xtype: 'button',
-                margin: 2,
-                text: '',
-                // width: 210,
-                iconCls: 'x-fa fa-search',
-                itemId: 'btnTimKiem',
-                tooltip: 'Tìm kiếm',
-                flex: 1
-            },
-                // {flex: 1}
+                {
+                    xtype: 'datefield',
+                    itemId: 'txtgolivedateto',
+                    reference: 'golivedateto',
+                    format: 'd/m/y',
+                    margin: 2,
+                    // flex: 1,
+                    width: 210,
+                    emptyText: 'Ngày giao đến',
+                    fieldLabel: "Ngày giao đến",
+                    labelWidth: 90,
+                    // value: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 6, 1),
+                    bind: {
+                        value: '{objSearch.golivedateto}'
+                    }
+                },
+                {
+                    xtype: 'combobox',
+                    itemId: 'txtstatus',
+                    bind: {
+                        store: '{POrder_ListStatusStore}',
+                        value: '{objSearch.status}'
+                    },
+                    displayField: 'name',
+                    valueField: 'id',
+                    // value: [1, 2, 3, 0, -1],
+                    // value: [1, 2],
+                    queryMode: 'local',
+                    anyMatch: true,
+                    editable: true,
+                    allowBlank: true,
+                    multiSelect: true,
+                    emptyText: 'Trạng thái',
+                    fieldLabel: "Trạng thái",
+                    labelWidth: 70,
+                    margin: 2,
+                    // width: 210,
+                    flex: 1
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'txtcontractcode',
+                    // fieldLabel: 'Chú thích',
+                    margin: 2,
+                    allowBlank: true,
+                    // width: 210,
+                    fieldLabel: "Mã đơn hàng",
+                    labelWidth: 90,
+                    flex: 1,
+                    bind: {
+                        value: '{objSearch.contractcode}'
+                    },
+                },
+                {
+                    xtype: 'button',
+                    margin: 2,
+                    text: '',
+                    // width: 210,
+                    iconCls: 'x-fa fa-search',
+                    itemId: 'btnTimKiem',
+                    tooltip: 'Tìm kiếm',
+                    flex: 1
+                },
             ]
         }]
     },

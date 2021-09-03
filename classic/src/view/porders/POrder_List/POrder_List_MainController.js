@@ -15,6 +15,18 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         ListStatusStore.loadStore();
         var ListOrgStore = viewModel.getStore('ListOrgStore');
         ListOrgStore.loadStore(13, null);
+
+        //
+        var objSearchPorder = GSmartApp.util.State.get('objSearchPorder');
+        if (objSearchPorder != null) {
+            objSearchPorder.golivedatefrom = new Date(objSearchPorder.golivedatefrom);
+            objSearchPorder.golivedateto = new Date(objSearchPorder.golivedateto);
+            viewModel.set('objSearch', objSearchPorder);
+            GSmartApp.util.State.set('objSearchPorder', null);
+        }else{
+            viewModel.set('objSearch.golivedatefrom', new Date(new Date().getTime() - 30 * 86400000));
+            viewModel.set('objSearch.golivedateto', new Date((new Date()).getFullYear(), (new Date()).getMonth() + 6, 1));
+        }
     },
     control: {
         '#porderlistmain': {
@@ -23,9 +35,6 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         },
         '#btnTimKiem': {
             click: 'onBtnTimKiem'
-        },
-        '#limitpage': {
-            specialkey: 'onSpecialkey'
         },
     },
     listen: {
@@ -38,75 +47,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
     onloadStoreBySearch_Done: function () {
         this.getView().setLoading(false);
     },
-    onSpecialkey: function (field, e) {
-        var me = this;
-        if (field.itemId == "limitpage") {
-            var viewModel = this.getViewModel();
-            var store = viewModel.getStore('POrder_ListStore');
-            store.currentPage = 1;
-        }
-        if (e.getKey() == e.ENTER) {
-            me.onloadPage();
-        }
-    },
-    onloadPage: function () {
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var store = viewModel.getStore('POrder_ListStore');
-        //
-        var pobuyer, povendor, style, contractcode, buyerid, vendorid, orderdatefrom, orderdateto;
-        var golivedatefrom, golivedateto, status;
-        if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
-            pobuyer = "";
-        } else pobuyer = me.down('#txtpobuyer').getValue();
-        if (null == me.down('#txtpovendor') || me.down('#txtpovendor').getValue() == "") {
-            povendor = "";
-        } else povendor = me.down('#txtpovendor').getValue();
-        if (me.down('#txtstyle').getValue() == "" || me.down('#txtstyle').getValue() == null) {
-            style = "";
-        } else style = me.down('#txtstyle').getValue();
-        if (me.down('#txtcontractcode').getValue() == "" || me.down('#txtcontractcode').getValue() == null) {
-            contractcode = "";
-        } else contractcode = me.down('#txtcontractcode').getValue();
-        if (me.down('#txtbuyerid').getValue() == "") {
-            buyerid = null;
-        } else buyerid = me.down('#txtbuyerid').getValue();
-        if (me.down('#txtvendorid').getValue() == "") {
-            vendorid = null;
-        } else vendorid = me.down('#txtvendorid').getValue();
-        if (me.down('#txtfactoryid').getValue() == "") {
-            factoryid = null;
-        } else factoryid = me.down('#txtfactoryid').getValue();
-        // if (me.down('#txtdatefrom').getValue() == "") {
-        //     orderdatefrom = null;
-        // }else orderdatefrom = me.down('#txtdatefrom').getValue();
-        // if (me.down('#txtdateto').getValue() == "") {
-        //     orderdateto = null;
-        // }else orderdateto = me.down('#txtdateto').getValue();
-        if (me.down('#txtgolivedatefrom').getValue() == "") {
-            golivedatefrom = null;
-        } else golivedatefrom = me.down('#txtgolivedatefrom').getValue();
-        if (me.down('#txtgolivedateto').getValue() == "") {
-            golivedateto = null;
-        } else golivedateto = me.down('#txtgolivedateto').getValue();
-        if (me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == "") {
-            status = [];
-        } else status = me.down('#txtstatus').getValue();
-        var limit = me.down('#limitpage').getValue();
-        var page = store.currentPage;
-        if (limit == null) {
-            limit = 50;
-        }
-        if (page == null) {
-            page = 1;
-        }
-
-        store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
-            buyerid, vendorid, factoryid,
-            golivedatefrom, golivedateto,
-            status, limit, page);
-
-    },
+    
     onBtnTimKiem: function () {
         var me = this.getView();
         me.setLoading("Đang tải dữ liệu");
@@ -114,77 +55,63 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('POrder_ListStore');
         //
-        var pobuyer, povendor, style, contractcode, buyerid, vendorid, orderdatefrom, orderdateto;
-        var golivedatefrom, golivedateto, status;
-        if (me.down('#txtpobuyer').getValue() == "" || me.down('#txtpobuyer').getValue() == null) {
-            pobuyer = "";
-        } else pobuyer = me.down('#txtpobuyer').getValue();
-        if (null == me.down('#txtpovendor') || me.down('#txtpovendor').getValue() == "") {
-            povendor = "";
-        } else povendor = me.down('#txtpovendor').getValue();
-        if (me.down('#txtstyle').getValue() == "" || me.down('#txtstyle').getValue() == null) {
-            style = "";
-        } else style = me.down('#txtstyle').getValue();
-        if (me.down('#txtcontractcode').getValue() == "" || me.down('#txtcontractcode').getValue() == null) {
-            contractcode = "";
-        } else contractcode = me.down('#txtcontractcode').getValue();
-        if (me.down('#txtbuyerid').getValue() == "") {
-            buyerid = null;
-        } else buyerid = me.down('#txtbuyerid').getValue();
-        if (me.down('#txtvendorid').getValue() == "") {
-            vendorid = null;
-        } else vendorid = me.down('#txtvendorid').getValue();
-        if (me.down('#txtfactoryid').getValue() == "") {
-            factoryid = null;
-        } else factoryid = me.down('#txtfactoryid').getValue();
-        // if (me.down('#txtdatefrom').getValue() == "") {
-        //     orderdatefrom = null;
-        // }else orderdatefrom = me.down('#txtdatefrom').getValue();
-        // if (me.down('#txtdateto').getValue() == "") {
-        //     orderdateto = null;
-        // }else orderdateto = me.down('#txtdateto').getValue();
-        if (me.down('#txtgolivedatefrom').getValue() == "") {
-            golivedatefrom = null;
-        } else golivedatefrom = me.down('#txtgolivedatefrom').getValue();
-        if (me.down('#txtgolivedateto').getValue() == "") {
-            golivedateto = null;
-        } else golivedateto = me.down('#txtgolivedateto').getValue();
-        if (me.down('#txtstatus').getValue() == null || me.down('#txtstatus').getValue() == "") {
-            status = [];
-        } else status = me.down('#txtstatus').getValue();
 
-        var page = 1;
-        // if (page == null) {
-        //     page = 1;
-        // }
+        var objSearch = viewModel.get('objSearch'); console.log(objSearch);
+        var pobuyer = objSearch.pobuyer;
+        var povendor = objSearch.povendor;
+        var style = objSearch.style;
+        var contractcode = objSearch.contractcode;
+        var buyerid = objSearch.buyerid;
+        var vendorid = objSearch.vendorid;
+        var factoryid = objSearch.factoryid;
+        var orderdatefrom = objSearch.orderdatefrom;
+        var orderdateto = objSearch.orderdateto;
+        var golivedatefrom = objSearch.golivedatefrom;
+        var golivedateto = objSearch.golivedateto;
+        var status = objSearch.status;
+
+        if (pobuyer == "" || pobuyer == null) {
+            pobuyer = "";
+        }
+        if (povendor == "" || povendor == null) {
+            povendor = "";
+        }
+        if (style == "" || style == null) {
+            style = "";
+        }
+        if (contractcode == "" || contractcode == null) {
+            contractcode = "";
+        }
+        if (buyerid == "") {
+            buyerid = null;
+        }
+        if (vendorid == "") {
+            vendorid = null;
+        }
+        if (factoryid == "") {
+            factoryid = null;
+        }
+        if (golivedatefrom == "") {
+            golivedatefrom = null;
+        }
+        if (golivedateto == "") {
+            golivedateto = null;
+        }
+        if (status == null || status == "") {
+            status = [];
+        }
 
         store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
             buyerid, vendorid, factoryid,
             golivedatefrom, golivedateto,
-            status, 1000, page);
-
-        // me.down('#topDock').setCollapsed(true);
+            status, 500, 1);
     },
-    // onPOBuyerFilterKeyup:function(){
-    //     var grid = this.getView(),
-    //         filterField = this.lookupReference('POBuyerFilter'),
-    //         filters = this.getView().store.getFilters();
-
-    //     if (filterField.value) {
-    //         this.POBuyerFilter = filters.add({
-    //             id: 'POBuyerFilter',
-    //             property: 'po_buyer',
-    //             value: filterField.value,
-    //             anyMatch: true,
-    //             caseSensitive: false
-    //         });
-    //     }
-    //     else if (this.POBuyerFilter) {
-    //         filters.remove(this.POBuyerFilter);
-    //         this.POBuyerFilter = null;
-    //     }
-    // },
     onitemdblclick: function (m, record, item, index, e, eOpts) {
+        var viewModel = this.getViewModel();
+        var objSearch = viewModel.get('objSearch');
+        GSmartApp.util.State.set('objSearchPorder', objSearch);
+        console.log(objSearch);
+
         var id = record.data.id;
         this.redirectTo("porderlistmain/" + id + "/edit");
     },

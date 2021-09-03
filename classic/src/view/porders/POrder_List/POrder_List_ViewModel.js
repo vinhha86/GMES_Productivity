@@ -24,5 +24,23 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_ViewModel', {
         ListOrgStore: {
             type: 'ListOrgStore'
         },
+    },
+    data: {
+        objSearch: {
+            pobuyer: null,
+            povendor: null,
+            style: null,
+            contractcode: null,
+            buyerid: null,
+            vendorid: null,
+            factoryid: null,
+            orderdatefrom: null,
+            orderdateto: null,
+            // golivedatefrom: new Date(new Date().getTime() - 30 * 86400000),
+            // golivedateto: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 6, 1),
+            golivedatefrom: null,
+            golivedateto: null,
+            status: [1, 2],
+        }
     }
 })
