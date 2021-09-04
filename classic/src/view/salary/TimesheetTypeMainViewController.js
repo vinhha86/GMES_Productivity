@@ -39,6 +39,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var dateto = data.dateto;
         var checkboxfrom = data.checkboxfrom;
         var checkboxto = data.checkboxto;
+        var timesheet_shift_type_id_link = data.timesheet_shift_type_id_link;
         var viewmodel = this.getViewModel();
         //var me = this.getView();
         var form = Ext.create('Ext.window.Window', {
@@ -63,14 +64,15 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                     data:{
                         TimeShift:{
                             name:name,
+                            timesheet_shift_type_id_link:timesheet_shift_type_id_link
                         },
                             id:id,
                             timefrom: datefrom,
                             timeto: dateto,
                             checkboxfrom: checkboxfrom,
                             checkboxto: checkboxto,
-                            orgid_link:orgid_link
-                        
+                            orgid_link:orgid_link,
+                            
                     }
                 },
             }]

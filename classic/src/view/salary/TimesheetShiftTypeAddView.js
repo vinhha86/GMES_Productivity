@@ -19,8 +19,9 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             valueField: 'id',
             queryMode: 'local',
             bind: {
-                value: '{TimeShift.name}',
-                store:'TimesheetShiftTypeStore'
+                store:'TimesheetShiftTypeStore',
+                value: '{TimeShift.timesheet_shift_type_id_link}',
+               
             }
         },{
             margin: 5,

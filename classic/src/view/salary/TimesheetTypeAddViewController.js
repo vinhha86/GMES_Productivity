@@ -41,8 +41,11 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
     onload: function () {
         var viewmodel = this.getViewModel();
         var id = viewmodel.get('orgid_link')
+        // var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
+        // TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
         var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
-        TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
+        TimesheetShiftTypeStore.loadStore();
+      //  loadStore
     },
     onThoat: function () {
         this.getView().up('window').close();
@@ -55,7 +58,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         var orgid = viewModel.get('TimeShift.orgid_link');
 
         var id = viewModel.get('id');
-        var timesheet_shift_type_id_link = viewModel.get('TimeShift.name');
+        var timesheet_shift_type_id_link = viewModel.get('TimeShift.timesheet_shift_type_id_link');
         var timefrom = this.lookup('timefrom');
         var timeto = this.lookup('timeto');
         var checkboxfrom = this.lookup('checkboxfrom');
@@ -70,6 +73,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         params.checkboxto = checkboxto.getValue();
         params.orgid_link = orgid == null ? orgid_link : orgid;
 
+        console.log(params);
         if(!params.orgid_link){
             Ext.Msg.show({
                 title: 'Thông báo',
