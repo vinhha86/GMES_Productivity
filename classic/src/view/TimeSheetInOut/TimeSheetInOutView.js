@@ -73,14 +73,37 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
                     },
                 },
                 {
+                    xtype:'timefield',
+                    labelWidth:35,
+                    width:135,
+                    fieldLabel:'Giờ',
+                    margin:5,
+                    format: 'H:i',
+                    value: '00:00',
+                    bind:{
+                        value: '{timesheetinout.to_hour}',
+                    },
+                },
+                {
                     xtype:'datefield',
                     labelWidth:65,
                     fieldLabel:'Đến ngày',
-                   // value: new Date(),
                     format: 'd/m/Y',
                     itemId:'onFromDate',
                     bind:{
                         value: '{timesheetinout.fromdate}',
+                    },
+                    margin:5
+                },
+                {
+                    xtype:'timefield',
+                    labelWidth:35,
+                    width:135,
+                    fieldLabel:'Giờ',
+                    format: 'H:i',
+                    value: '00:00',
+                    bind:{
+                        value: '{timesheetinout.from_hour}',
                     },
                     margin:5
                 },
