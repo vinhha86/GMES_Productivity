@@ -24,5 +24,7 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         isBtnConfirmHiddenDisabled: true,
         isBtnUnconfirmHidden: true,
         isBtnUnconfirmHiddenDisabled: true,
+
+        numberShift:null
     }
 })
