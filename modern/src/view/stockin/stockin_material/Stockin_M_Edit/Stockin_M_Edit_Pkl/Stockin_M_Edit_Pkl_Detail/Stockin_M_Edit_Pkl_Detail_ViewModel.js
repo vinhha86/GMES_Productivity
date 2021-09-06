@@ -183,6 +183,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
 			}
 			return false;
 		},
+        isIos: function(get){
+			if(Ext.os.is.iOS){
+				// console.log('ios');
+				return true;
+			}
+			// console.log('not ios');
+			return false;
+		},
     },
 
 	

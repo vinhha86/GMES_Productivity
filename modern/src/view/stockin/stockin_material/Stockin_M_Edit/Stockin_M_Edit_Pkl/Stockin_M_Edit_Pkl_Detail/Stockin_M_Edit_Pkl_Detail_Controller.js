@@ -291,17 +291,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         var packageidTxt = viewModel.get('objPkl.packageidTxt');
         var yTxt = viewModel.get('objPkl.yTxt');
         var mTxt = viewModel.get('objPkl.mTxt');
-        var yOriginTxt = viewModel.get('objPkl.yOriginTxt') == null ? viewModel.get('objPkl.yTxt') : viewModel.get('objPkl.yOriginTxt');
-        var mOriginTxt = viewModel.get('objPkl.mOriginTxt') == null ? viewModel.get('objPkl.mTxt') : viewModel.get('objPkl.mOriginTxt');
+        var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+        var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+        // var yOriginTxt = viewModel.get('objPkl.yOriginTxt') == null ? viewModel.get('objPkl.yTxt') : viewModel.get('objPkl.yOriginTxt');
+        // var mOriginTxt = viewModel.get('objPkl.mOriginTxt') == null ? viewModel.get('objPkl.mTxt') : viewModel.get('objPkl.mOriginTxt');
         
         var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
         var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
-        var grossweightTxt = viewModel.get('objPkl.grossweightTxt') == null ? viewModel.get('objPkl.grossweightCheckTxt') : viewModel.get('objPkl.grossweightTxt');
-        var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt') == null ? viewModel.get('objPkl.grossweightLbsCheckTxt') : viewModel.get('objPkl.grossweightLbsTxt');
+        var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+        var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+        // var grossweightTxt = viewModel.get('objPkl.grossweightTxt') == null ? viewModel.get('objPkl.grossweightCheckTxt') : viewModel.get('objPkl.grossweightTxt');
+        // var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt') == null ? viewModel.get('objPkl.grossweightLbsCheckTxt') : viewModel.get('objPkl.grossweightLbsTxt');
         
         var sampleCheckTxt = viewModel.get('objPkl.sampleCheckTxt');
         var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
-        var widthMetTxt = viewModel.get('objPkl.widthMetTxt') == null ? viewModel.get('objPkl.widthMetCheckTxt') : viewModel.get('objPkl.widthMetTxt');
+        var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+        // var widthMetTxt = viewModel.get('objPkl.widthMetTxt') == null ? viewModel.get('objPkl.widthMetCheckTxt') : viewModel.get('objPkl.widthMetTxt');
         var pklRowTxt = viewModel.get('objPkl.pklRowTxt');
         var pklSpaceTxt = viewModel.get('objPkl.pklSpaceTxt');
         var pklFloorTxt = viewModel.get('objPkl.pklFloorTxt');
@@ -314,43 +319,75 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         }
 
         // check textfield
+        if(packageidTxt == '' || packageidTxt == null){
+            Ext.toast('Thiếu thông tin Số cây', 2000);
+            return;
+        }
         if(stockin.unitid_link == 1){ // met
-            if(packageidTxt == '' || mTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 2000);
-                return;
+            if(mTxt == '' || mTxt == null || isNaN(mTxt)){
+                if(mTxt !== 0){
+                    Ext.toast('Số M kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(mTxt)){
-                Ext.toast('Số M phải là số', 2000);
-                return;
+            if(mOriginTxt == '' || mOriginTxt == null || isNaN(mOriginTxt)){
+                if(mOriginTxt !== 0){
+                    Ext.toast('Số M phiếu phải là số', 2000);
+                    return;
+                }
             }
         }
         if(stockin.unitid_link == 3){ // yds
-            if(packageidTxt == '' || yTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc độ dài', 2000);
-                return;
+            if(yTxt == '' || yTxt == null || isNaN(yTxt)){
+                if(yTxt !== 0){
+                    Ext.toast('Số Y phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(yTxt)){
-                Ext.toast('Số Y phải là số', 2000);
-                return;
+            if(yOriginTxt == '' || yOriginTxt == null || isNaN(yOriginTxt)){
+                if(yOriginTxt !== 0){
+                    Ext.toast('Số Y phiếu phải là số', 2000);
+                    return;
+                }
             }
         }
         if(stockin.unitid_link == 4){ // kg
-            if(packageidTxt == '' || grossweightCheckTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
-                return;
+            if(grossweightCheckTxt == '' || grossweightCheckTxt == null || isNaN(grossweightCheckTxt)){
+                if(grossweightCheckTxt !== 0){
+                    Ext.toast('Cân kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(grossweightCheckTxt)){
-                Ext.toast('Số M phải là số', 2000);
-                return;
+            if(grossweightTxt == '' || grossweightTxt == null || isNaN(grossweightTxt)){
+                if(grossweightTxt !== 0){
+                    Ext.toast('Cân phiếu phải là số', 2000);
+                    return;
+                }
             }
         }
         if(stockin.unitid_link == 5){ // lbs
-            if(packageidTxt == '' || grossweightLbsCheckTxt == '' || widthMetCheckTxt == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
+            if(grossweightLbsCheckTxt == '' || grossweightLbsCheckTxt == null || isNaN(grossweightLbsCheckTxt)){
+                if(grossweightLbsCheckTxt !== 0){
+                    Ext.toast('Lbs kiểm phải là số', 2000);
+                    return;
+                }
+            }
+            if(grossweightLbsTxt == '' || grossweightLbsTxt == null || isNaN(grossweightLbsTxt)){
+                if(grossweightLbsTxt !== 0){
+                    Ext.toast('Lbs phiếu phải là số', 2000);
+                    return;
+                }
+            }
+        }
+        if(widthMetCheckTxt == '' || widthMetCheckTxt == null || isNaN(widthMetCheckTxt)){
+            if(widthMetCheckTxt !== 0){
+                Ext.toast('Số khổ kiểm phải là số', 2000);
                 return;
             }
-            if(isNaN(grossweightLbsCheckTxt)){
-                Ext.toast('Số M phải là số', 2000);
+        }
+        if(widthMetTxt == '' || widthMetTxt == null || isNaN(widthMetTxt)){
+            if(widthMetTxt !== 0){
+                Ext.toast('Số khổ phiếu phải là số', 2000);
                 return;
             }
         }

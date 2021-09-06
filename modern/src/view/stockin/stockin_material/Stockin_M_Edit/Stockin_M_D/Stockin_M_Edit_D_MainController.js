@@ -180,7 +180,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var stockinid_link = viewModel.get('stockin.id');
 
         if(selectedDRecord == null){ // chưa chọn vải
-            Ext.toast('Chưa chọn mã vải', 1000);
+            Ext.toast('Chưa chọn mã vải', 2000);
             return;
         }
 
@@ -190,13 +190,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var canNumberTxt = viewModel.get('canNumberTxt');
 
         // check form info
-        if(lotNumberTxt == '') {Ext.toast('Chưa nhập lot', 1000); return;}
-        if(cayNumberTxt == '') {Ext.toast('Chưa nhập số cây', 1000); return;}
+        if(lotNumberTxt == '') {Ext.toast('Chưa nhập lot', 2000); return;}
+        if(cayNumberTxt == '') {Ext.toast('Chưa nhập số cây', 2000); return;}
         if(stockin.unitid_link == 1 || stockin.unitid_link == 3){
-            if(yNumberTxt == '') {Ext.toast('Chưa nhập độ dài', 1000); return;}
+            // if(yNumberTxt == '') {Ext.toast('Chưa nhập độ dài', 2000); return;}
+            if(yNumberTxt == '') {Ext.toast('Độ dài phải là số', 2000); return;}
+            if(isNaN(yNumberTxt)) {Ext.toast('Độ dài phải là số', 2000); return;}
         }
         if(stockin.unitid_link == 4 || stockin.unitid_link == 5){
-            if(canNumberTxt == '') {Ext.toast('Chưa nhập khối lượng', 1000); return;}
+            // if(canNumberTxt == '') {Ext.toast('Chưa nhập khối lượng', 2000); return;}
+            if(canNumberTxt == '') {Ext.toast('Khối lượng phải là số', 2000); return;}
+            if(isNaN(canNumberTxt)) {Ext.toast('Khối lượng phải là số', 2000); return;}
         }
 
         // check stockin_lot tồn tại chưa
@@ -206,7 +210,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 var stockin_lotRec = stockin_lot[i];
                 if(stockin_lotRec.lot_number.toUpperCase() == lotNumberTxt.toUpperCase() && stockin_lotRec.materialid_link == selectedDRecord.get('skuid_link')){
                     // lot cho sku đã tồn tại, ko Thêm
-                    Ext.toast('Đã tồn tại lot của mã vải', 1000);
+                    Ext.toast('Đã tồn tại lot của mã vải', 2000);
                     return;
                 }
             }

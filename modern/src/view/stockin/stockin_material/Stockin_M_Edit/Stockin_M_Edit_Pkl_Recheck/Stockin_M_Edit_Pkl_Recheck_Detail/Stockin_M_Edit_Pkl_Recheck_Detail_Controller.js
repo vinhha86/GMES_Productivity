@@ -226,8 +226,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         var m = this;
         var viewModel = this.getViewModel();
         var record = viewModel.get('selectedPklRecord');
-        
-        var objRecheck = JSON.parse(JSON.stringify(record.data));
+        var data = record.data;
+        m.SetFormData(data);
+    },
+    SetFormData: function(data){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var objRecheck = JSON.parse(JSON.stringify(data));
         // chuyển khổ m -> cm
         objRecheck.width_met = objRecheck.width_met * 100;
         objRecheck.width_met_check = objRecheck.width_met_check * 100;
@@ -326,76 +331,126 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         }
 
         // check textfield
+
+        if(objRecheck.packageid == '' || objRecheck.packageid == null){
+            Ext.toast('Thiếu thông tin Số cây', 2000);
+            return;
+        }
         if(stockin.unitid_link == 3){ // yrd
-            if(objRecheck.packageid == '' || objRecheck.ydscheck == '' || objRecheck.grossweight_check == '' || objRecheck.width_met_check == ''){
-                Ext.toast('Thiếu thông tin Số cây, độ dài, khối lượng hoặc khổ', 2000);
-                return;
+            if(objRecheck.ydscheck == '' || objRecheck.ydscheck == null || isNaN(objRecheck.ydscheck)){
+                if(objRecheck.ydscheck !== 0){
+                    Ext.toast('Số Y kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.ydscheck)){
-                Ext.toast('Số Y phải là số', 2000);
-                return;
+            if(objRecheck.ydsorigin == '' || objRecheck.ydsorigin == null || isNaN(objRecheck.ydsorigin)){
+                if(objRecheck.ydsorigin !== 0){
+                    Ext.toast('Số Y phiếu phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.grossweight_check)){
-                Ext.toast('Khối lượng phải là số', 2000);
-                return;
+            if(objRecheck.grossweight_check == '' || objRecheck.grossweight_check == null || isNaN(objRecheck.grossweight_check)){
+                if(objRecheck.grossweight_check !== 0){
+                    Ext.toast('Cân kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.width_met_check)){
-                Ext.toast('Khổ phải là số', 2000);
-                return;
+            if(objRecheck.grossweight == '' || objRecheck.grossweight == null || isNaN(objRecheck.grossweight)){
+                if(objRecheck.grossweight !== 0){
+                    Ext.toast('Cân phiếu phải là số', 2000);
+                    return;
+                }
             }
         }
         if(stockin.unitid_link == 1){ // met
-            if(objRecheck.packageid == '' || objRecheck.met_check == '' || objRecheck.grossweight_check == '' || objRecheck.width_met_check == ''){
-                Ext.toast('Thiếu thông tin Số cây, độ dài, khối lượng hoặc khổ', 2000);
-                return;
+            if(objRecheck.met_check == '' || objRecheck.met_check == null || isNaN(objRecheck.met_check)){
+                if(objRecheck.met_check !== 0){
+                    Ext.toast('Số M kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.met_check)){
-                Ext.toast('Số M phải là số', 2000);
-                return;
+            if(objRecheck.met_origin == '' || objRecheck.met_origin == null || isNaN(objRecheck.met_origin)){
+                if(objRecheck.met_origin !== 0){
+                    Ext.toast('Số M phiếu phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.grossweight_check)){
-                Ext.toast('Khối lượng phải là số', 2000);
-                return;
+            if(objRecheck.grossweight_check == '' || objRecheck.grossweight_check == null || isNaN(objRecheck.grossweight_check)){
+                if(objRecheck.grossweight_check !== 0){
+                    Ext.toast('Cân kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.width_met_check)){
-                Ext.toast('Khổ phải là số', 2000);
-                return;
+            if(objRecheck.grossweight == '' || objRecheck.grossweight == null || isNaN(objRecheck.grossweight)){
+                if(objRecheck.grossweight !== 0){
+                    Ext.toast('Cân phiếu phải là số', 2000);
+                    return;
+                }
             }
         }
 
         if(stockin.unitid_link == 4){ // kg
-            if(objRecheck.packageid == '' || objRecheck.met_check == '' || objRecheck.grossweight_check == '' || objRecheck.width_met_check == ''){
-                Ext.toast('Thiếu thông tin Số cây, độ dài, khối lượng hoặc khổ', 2000);
-                return;
+            if(objRecheck.met_check == '' || objRecheck.met_check == null || isNaN(objRecheck.met_check)){
+                if(objRecheck.met_check !== 0){
+                    Ext.toast('Số M kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.met_check)){
-                Ext.toast('Số M phải là số', 2000);
-                return;
+            if(objRecheck.met_origin == '' || objRecheck.met_origin == null || isNaN(objRecheck.met_origin)){
+                if(objRecheck.met_origin !== 0){
+                    Ext.toast('Số M phiếu phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.grossweight_check)){
-                Ext.toast('Khối lượng phải là số', 2000);
-                return;
+            if(objRecheck.grossweight_check == '' || objRecheck.grossweight_check == null || isNaN(objRecheck.grossweight_check)){
+                if(objRecheck.grossweight_check !== 0){
+                    Ext.toast('Cân kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objRecheck.width_met_check)){
-                Ext.toast('Khổ phải là số', 2000);
+            if(objRecheck.grossweight == '' || objRecheck.grossweight == null || isNaN(objRecheck.grossweight)){
+                if(objRecheck.grossweight !== 0){
+                    Ext.toast('Cân phiếu phải là số', 2000);
+                    return;
+                }
+            }
+            
+        }
+        if(stockin.unitid_link == 5){ // lbs
+            if(objRecheck.met_check == '' || objRecheck.met_check == null || isNaN(objRecheck.met_check)){
+                if(objRecheck.met_check !== 0){
+                    Ext.toast('Số M kiểm phải là số', 2000);
+                    return;
+                }
+            }
+            if(objRecheck.met_origin == '' || objRecheck.met_origin == null || isNaN(objRecheck.met_origin)){
+                if(objRecheck.met_origin !== 0){
+                    Ext.toast('Số M phiếu phải là số', 2000);
+                    return;
+                }
+            }
+            if(objRecheck.grossweight_lbs_check == '' || objRecheck.grossweight_lbs_check == null || isNaN(objRecheck.grossweight_lbs_check)){
+                if(objRecheck.grossweight_lbs_check !== 0){
+                    Ext.toast('Lbs kiểm phải là số', 2000);
+                    return;
+                }
+            }
+            if(objRecheck.grossweight_lbs == '' || objRecheck.grossweight_lbs == null || isNaN(objRecheck.grossweight_lbs)){
+                if(objRecheck.grossweight_lbs !== 0){
+                    Ext.toast('Lbs phiếu phải là số', 2000);
+                    return;
+                }
+            }
+        }
+        if(objRecheck.width_met_check == '' || objRecheck.width_met_check == null || isNaN(objRecheck.width_met_check)){
+            if(objRecheck.width_met_check !== 0){
+                Ext.toast('Khổ kiểm phải là số', 2000);
                 return;
             }
         }
-        if(stockin.unitid_link == 5){ // lbs
-            if(objRecheck.packageid == '' || objRecheck.met_check == '' || objRecheck.grossweight_lbs_check == '' || objRecheck.width_met_check == ''){
-                Ext.toast('Thiếu thông tin Số cây, khổ hoặc khối lượng', 2000);
-                return;
-            }
-            if(isNaN(objRecheck.met_check)){
-                Ext.toast('Số M phải là số', 2000);
-                return;
-            }
-            if(isNaN(objRecheck.grossweight_lbs_check)){
-                Ext.toast('Khối lượng phải là số', 2000);
-                return;
-            }
-            if(isNaN(objRecheck.width_met_check)){
-                Ext.toast('Khổ phải là số', 2000);
+        if(objRecheck.width_met == '' || objRecheck.width_met == null || isNaN(objRecheck.width_met)){
+            if(objRecheck.width_met !== 0){
+                Ext.toast('Khổ phiếu phải là số', 2000);
                 return;
             }
         }
@@ -481,7 +536,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         }else{
                             Ext.toast('Lưu thành công', 2000);
                             var data = response.data;
-
                             if(selectedPklRecord == null){
                                 // them moi
                                 m.fireEvent('reloadStore');
@@ -490,6 +544,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             }else{
                                 // edit
                                 m.fireEvent('reloadStore');
+                                m.SetFormData(data);
                             }
                         }
                         // console.log(response);

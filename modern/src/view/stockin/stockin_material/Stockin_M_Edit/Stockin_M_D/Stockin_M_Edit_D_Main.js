@@ -116,9 +116,89 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         },    
                     ]
                 },
+
+                // ios
                 {
                     layout: 'hbox',
                     // flex: 1,
+                    bind: {
+                        hidden: '{!isIos}'
+                    },
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            // itemId: 'maNPLFilter',
+                            // label: 'Mã hàng:',
+                            // labelWidth: 85,
+                            margin: 1,
+                            // padding: 6,
+                            flex: 1,
+                            // width: '100%',
+                            // minWidth: 80,
+                            // maxWidth: 200,
+                            textAlign: 'left',
+                            placeholder: 'Tổng độ dài',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{yNumberTxt}',
+                                hidden: '{isDoDaiFieldHidden}'
+                            },
+                            stepValue: 0.1,
+                            inputType: 'number',
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            },
+                        },
+                        {
+                            xtype: 'textfield',
+                            // itemId: 'maNPLFilter',
+                            // label: 'Mã hàng:',
+                            // labelWidth: 85,
+                            margin: 1,
+                            // padding: 6,
+                            flex: 1,
+                            // width: '100%',
+                            // minWidth: 80,
+                            // maxWidth: 200,
+                            textAlign: 'left',
+                            placeholder: 'Tổng khối lượng',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{canNumberTxt}',
+                                hidden: '{isTrongLuongFieldHidden}'
+                            },
+                            stepValue: 0.1,
+                            inputType: 'number',
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype:'button',
+                            iconCls: 'x-fa fa-plus',
+                            // itemId:'',
+                            ui: 'action',
+                            margin: 1,
+                            style: 'visibility: hidden;'
+                        },
+                    ]
+                },
+
+                // not ios
+                {
+                    layout: 'hbox',
+                    // flex: 1,
+                    bind: {
+                        hidden: '{isIos}'
+                    },
                     items:[
                         {
                             xtype: 'numberfield',

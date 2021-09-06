@@ -15,7 +15,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     requires: [
         'Ext.Toast',
         'Ext.Responsive',
-        'Ext.dataview.listswiper.ListSwiper'
+        'Ext.dataview.listswiper.ListSwiper',
+        'Ext.field.InputMask'
     ],
 
     items: [

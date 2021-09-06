@@ -16,6 +16,44 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Main', {
             height: '100%',
             layout: 'vbox',
             items: [
+                // {
+                //     layout: 'hbox',
+                //     defaults: {
+                //         margin: 5
+                //     },
+                //     items: [
+                //         // {
+                //         //     // xtype: 'textfield',
+                //         //     xtype: 'numberfield',
+                //         //     // itemId: 'maNPLFilter',
+                //         //     label: 'Test:',
+                //         //     labelWidth: 70,
+                //         //     // margin: 1,
+                //         //     // padding: 6,
+                //         //     flex: 1,
+                //         //     // width: '100%',
+                //         //     // minWidth: 80,
+                //         //     // maxWidth: 200,
+                //         //     textAlign: 'left',
+                //         //     placeholder: 'Test',
+                //         //     // editable: false,
+                //         //     // readOnly: true,
+                //         //     // clearable: false,
+                //         //     // cls: 'notEditable',
+                //         //     bind: {
+
+                //         //     },
+                //         //     stepValue: 0.1,
+                //         //     // inputType: 'number'
+                //         // },
+                //         // {
+                //         //     margin: 1,
+                //         //     flex: 1,
+                //         //     xtype: 'Stockin_M_Edit_Pkl_Detail',
+                //         // }
+                //     ]
+                // },
+
                 {
                     layout: 'hbox',
                     defaults: {
