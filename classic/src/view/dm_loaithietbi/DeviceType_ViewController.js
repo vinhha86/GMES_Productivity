@@ -213,7 +213,7 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewController', {
             filters = this.getView().store.getFilters();
 
         if (filterField.value) {
-            this.codeFilter = filters.add({
+            this.nameFilter = filters.add({
                 id: 'nameFilter',
                 property: 'name',
                 value: filterField.value,
@@ -221,9 +221,9 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_ViewController', {
                 caseSensitive: false
             });
         }
-        else if (this.codeFilter) {
-            filters.remove(this.codeFilter);
-            this.codeFilter = null;
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
         }
     },
 
