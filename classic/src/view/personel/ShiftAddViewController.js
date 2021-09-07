@@ -3,8 +3,10 @@ Ext.define('GSmartApp.view.personel.ShiftAddViewController', {
     alias: 'controller.ShiftAddViewController',
     init: function (view) {
         var viewmodel= view.getViewModel();
+        console.log(viewmodel.get('orgid_link'));
+        var id_donvi = viewmodel.get('orgid_link');
         var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
-        TimesheetShiftTypeStore.loadStore();
+        TimesheetShiftTypeStore.loadStoreShiftbyOrgid_link(id_donvi);
     },
     control: {
         '#exit': {
@@ -18,6 +20,7 @@ Ext.define('GSmartApp.view.personel.ShiftAddViewController', {
         this.getView().up('window').close();
     },
     onLuu:function(){
+        var grid = this.getView();
         var form = this.getView();
         var viewmodel = this.getViewModel();
         var timesheet_absence_type_id_link= viewmodel.get('Shift.id');
@@ -30,9 +33,10 @@ Ext.define('GSmartApp.view.personel.ShiftAddViewController', {
         var params = new Object();
         params.data = data;
         params.timesheet_absence_type_id_link =timesheet_absence_type_id_link;
-
+        grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.post('/api/v1/personnel/addshift_personnel', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {

@@ -25,6 +25,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         }
     },
     onThemCaLamViec:function(){
+        var viewModel = this.getViewModel();
+        var orgid_link = viewModel.get('donvi.id');
+        console.log(orgid_link);
         var me = this;
         var select = this.getView().getSelectionModel().getSelection();
         if(select.length == 0){
@@ -56,8 +59,10 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                 {
                     xtype:'ShiftAddView',
                     viewModel:{
+                        
                         data:{
-                            select:select
+                            select:select,
+                            orgid_link:orgid_link
                         }
                     }
                 }
