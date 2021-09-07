@@ -88,5 +88,13 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
 			}
 			return 'notEditable';
 		},
+        isIos: function(get){
+			if(Ext.os.is.iOS){
+				// console.log('ios');
+				return true;
+			}
+			// console.log('not ios');
+			return false;
+		},
     }
 })

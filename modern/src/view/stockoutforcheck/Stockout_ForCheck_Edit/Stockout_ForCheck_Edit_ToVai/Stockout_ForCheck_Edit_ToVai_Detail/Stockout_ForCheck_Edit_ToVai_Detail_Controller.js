@@ -206,22 +206,24 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         }
         if(stockout_order.unitid_link == null) stockout_order.unitid_link = 1;
         if(stockout_order.unitid_link == 3){
-            if(objPkl.width_check == '' || objPkl.width_check == null || objPkl.yds_check == '' || objPkl.yds_check == null){
-                Ext.toast('Thiếu thông tin khổ hoặc độ dài', 2000);
-                return;
-            }
-            if(isNaN(objPkl.yds_check)){
-                Ext.toast('Số Y phải là số', 2000);
-                return;
+            if(objPkl.yds_check == '' || objPkl.yds_check == null || isNaN(objPkl.yds_check)){
+                if(objPkl.yds_check !== 0){
+                    Ext.toast('Số Y kiểm phải là số', 2000);
+                    return;
+                }
             }
         }
         if(stockout_order.unitid_link == 1){
-            if(objPkl.width_check == '' || objPkl.width_check == null || objPkl.met_check == '' || objPkl.met_check == null){
-                Ext.toast('Thiếu thông tin khổ hoặc độ dài', 2000);
-                return;
+            if(objPkl.met_check == '' || objPkl.met_check == null || isNaN(objPkl.met_check)){
+                if(objPkl.met_check !== 0){
+                    Ext.toast('Số M kiểm phải là số', 2000);
+                    return;
+                }
             }
-            if(isNaN(objPkl.met_check)){
-                Ext.toast('Số M phải là số', 2000);
+        }
+        if(objPkl.width_check == '' || objPkl.width_check == null  || isNaN(objPkl.width_check)){
+            if(objPkl.width_check !== 0){
+                Ext.toast('Khổ kiểm phải là số', 2000);
                 return;
             }
         }
@@ -262,8 +264,12 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         objPkl.yds_check = parseFloat(objPkl.yds_check);
         objPkl.met_origin = parseFloat(objPkl.met_origin);
         objPkl.yds_origin = parseFloat(objPkl.yds_origin);
-        objPkl.width_check = parseFloat(objPkl.width_check / 100);
-        objPkl.width_origin = parseFloat(objPkl.width_origin / 100);
+        // objPkl.width_check = parseFloat(objPkl.width_check / 100);
+        // objPkl.width_origin = parseFloat(objPkl.width_origin / 100);
+
+        var objPklReq = JSON.parse(JSON.stringify(objPkl));
+        objPklReq.width_check = parseFloat(objPklReq.width_check / 100);
+        objPklReq.width_origin = parseFloat(objPklReq.width_origin / 100);
 
         var stockoutorderid_link = stockout_order.id;
         var stockoutorderdid_link = selectedDRecord.get('id');
@@ -274,7 +280,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         })
 
         var params = new Object();
-        params.warehouse_check = objPkl;
+        params.warehouse_check = objPklReq;
         params.stockoutorderid_link = stockoutorderid_link;
         params.stockoutorderdid_link = stockoutorderdid_link;
 

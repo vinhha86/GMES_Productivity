@@ -6,11 +6,20 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit.stockout_forc
 	},
 	control: {
         '#Stockout_ForCheck_Warehouse_Select':{
-            childtap: 'onChildTap'
+            // childtap: 'onChildTap',
+            select: 'onChildTap',
         },
 	},
-    onChildTap: function(list, location, eOpts){
-        // console.log(location);
-        this.fireEvent('onSelectValue', location.record)
-    }
+    // onChildTap: function(list, location, eOpts){
+    //     // console.log(location);
+    //     var m = this;
+    //     setTimeout(function(){
+    //         m.fireEvent('onSelectValue', location.record)
+    //     }, 50);
+    //     // this.fireEvent('onSelectValue', location.record)
+    // },
+    onChildTap: function(list, selected, eOpts){
+        // console.log(selected);
+        this.fireEvent('onSelectValue', selected)
+    },
 })
