@@ -134,7 +134,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     if (null != flight.get('icon')) {
                         img = '<img style="margin: 0px; width: 31px; height: 31px; border: 1px solid black; left: 1px; top: 1px;" src="' + flight.get('icon') + '">';
                         if (flight.get('grant_type') == 1)
-                            return '<div class = "x-fa fa-exclamation-circle">' + "&nbsp;" + img + "&nbsp;" + flight.get('mahang') + '</div>';
+                            if (flight.get('is_show_image'))
+                                return '<div class = "x-fa fa-exclamation-circle">' + "&nbsp;" + img + "&nbsp;" + flight.get('mahang') + '</div>';
+                            else
+                                return '<div class = "x-fa fa-exclamation-circle">' + "&nbsp;" + flight.get('mahang') + '</div>';
                         else
                             return img + "&nbsp;" + flight.get('mahang');
                     } else {
