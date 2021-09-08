@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                                     listeners: {
                                         beforecheckchange: 'onBeforecheckchange',
                                         checkchange: 'onCheckchange',
-                                        // headerclick: 'onHeaderClick'
+                                        headerclick: 'onHeaderClick'
                                     }
                                 }]
                             })
@@ -133,29 +133,53 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         if (status == 1) {
             return;
         }
+        console.log(dataIndex);
+        var col = dataIndex.substr(dataIndex.length - 1);
 
-        // checked workingShift
-        if (dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3') {
-            var lunchShift = '';
-            switch (dataIndex) {
-                case 'workingShift1':
-                    lunchShift = 'lunchShift1';
-                    break;
-                case 'workingShift2':
-                    lunchShift = 'lunchShift2';
-                    break;
-                case 'workingShift3':
-                    lunchShift = 'lunchShift3';
-                    break;
-            }
+        var lunchShift = "lunchShift" + col;
+        var workingShift = "workingShift" + col;
+        console.log(lunchShift);
+
+
+        // checked lunchShift
+        // chọn tất cả ăn 
+        if (dataIndex == lunchShift) {
             TimeSheetLunchStore.each(function (rec) {
-                // console.log(rec);
-                rec.set(dataIndex, checked);
+                rec.set(lunchShift, checked);
+            });
+        } else {
+            // checked workingShift
+            //chọn tất cả (header)đi làm - ăn cũng được chọn theo
+            TimeSheetLunchStore.each(function (rec) {
+                rec.set(workingShift, checked);
                 rec.set(lunchShift, checked);
             });
         }
 
-        // checked lunchShift
+
+
+        // checked workingShift
+        // if (dataIndex == 'workingShift1' || dataIndex == 'workingShift2' || dataIndex == 'workingShift3') {
+        //     var lunchShift = '';
+        //     switch (dataIndex) {
+        //         case 'workingShift1':
+        //             lunchShift = 'lunchShift1';
+        //             break;
+        //         case 'workingShift2':
+        //             lunchShift = 'lunchShift2';
+        //             break;
+        //         case 'workingShift3':
+        //             lunchShift = 'lunchShift3';
+        //             break;
+        //     }
+        //     TimeSheetLunchStore.each(function (rec) {
+        //          console.log(rec);
+        //         rec.set(dataIndex, checked);
+        //         rec.set(lunchShift, checked);
+        //     });
+        // }
+
+        // // checked lunchShift
         // if(dataIndex == 'lunchShift1' || dataIndex == 'lunchShift2' || dataIndex == 'lunchShift3'){
         //     var workingShift = '';
         //     switch(dataIndex){
@@ -178,12 +202,20 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         //         }
         //     });
         // }
+        // TimeSheetLunchStore.each(function(rec){
+        //     // console.log(rec);
+        //     // chi edit lunch khi working == true
+
+        //         rec.set(dataIndex, checked);
+        //         // rec.set(workingShift, checked);
+
+        // });
 
         var data = new Array();
         TimeSheetLunchStore.each(function (rec) {
             var recData = rec.data;
             var obj = new Object();
-            var col = dataIndex.substr(dataIndex.length - 1);
+
 
             for (var i = 1; i <= col; i++) {
                 var lunchShift = "lunchShift" + i;
