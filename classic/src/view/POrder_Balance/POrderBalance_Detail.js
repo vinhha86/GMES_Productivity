@@ -31,57 +31,70 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail', {
     bind:{
         store:'{POrderBalanceStore}'
     },
-    columns:[{
-    //     xtype: 'actioncolumn',
-    //     width: 28,
-    //     menuDisabled: true,
-    //     sortable: false,
-    //     align: 'center',
-    //     items: [
-    //         {
-    //             iconCls: 'x-fa fas fa-bars violetIcon',
-    //             handler: 'onMenu_PO'
-    //         },            
-    //         // {
-    //         //     iconCls: 'x-fa fas fa-trash',
-    //         //     tooltip: 'Xóa',
-    //         //     handler: 'onXoa'
-    //         // },{
-    //         //     iconCls: 'x-fa fas fa-list',
-    //         //     tooltip: 'Chi tiết',
-    //         //     handler: 'onEdit'
-    //         // },{
-    //         //     iconCls: 'x-fa fas fa-check',
-    //         //     tooltip: 'Chốt đơn',
-    //         //     handler: 'onAccept'
-    //         // }
-    //     ]
-    // },{
-        text: 'STT',
-        width: 40,
-        xtype: 'rownumberer',
-        align: 'center'
-    },{
-        text:'Vị trí',
-        dataIndex:'balance_name',
-        width: 150,
-    },{
-        text:'Danh sách công đoạn',
-        dataIndex:'workingprocess_name',
-        flex: 1,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    },{
-        text:'Tổng thời gian',
-        align: 'right',
-        dataIndex:'timespent_standard',
-        width: 80,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            return value + ' (s)';
-        }
-    }],
+    columns:[
+        {
+            text: 'STT',
+            width: 40,
+            xtype: 'rownumberer',
+            align: 'center',
+            sortable: false
+        },
+        {
+            text:'Cụm công đoạn',
+            dataIndex:'balance_name',
+            width: 150,
+            sortable: false
+        },
+        {
+            text:'Danh sách công đoạn',
+            dataIndex:'workingprocess_name',
+            flex: 1,
+            sortable: false,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
+        {
+            text:'Tổng thời gian',
+            align: 'right',
+            dataIndex:'timespent_standard',
+            width: 80,
+            sortable: false,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                return value + ' (s)';
+            }
+        },
+        {
+            xtype: 'actioncolumn',
+            width: 30,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            sortable: false,
+            items: [
+                // {
+                //     iconCls: 'x-fa fas fa-bars violetIcon',
+                //     handler: 'onMenu_PO'
+                // },            
+                {
+                    iconCls: 'x-fa fas fa-trash',
+                    tooltip: 'Xóa cụm công đoạn',
+                    handler: 'onBtnXoaViTri'
+                },
+                // {
+                //     iconCls: 'x-fa fas fa-list',
+                //     tooltip: 'Chi tiết',
+                //     handler: 'onEdit'
+                // },
+                // {
+                //     iconCls: 'x-fa fas fa-check',
+                //     tooltip: 'Chốt đơn',
+                //     handler: 'onAccept'
+                // }
+            ]
+        },
+    ],
     plugins: {
         rowwidget: {
             widget: 
@@ -104,7 +117,7 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail', {
                 bind: {
                     store: '{record.porderBalanceProcesses}',
                     // title: 'Danh sách hàng xuất'
-				},
+                },
                 columns:[{
                 //     xtype: 'actioncolumn',
                 //     width: 28,
@@ -152,8 +165,8 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail', {
                         return value + ' (s)';
                     }
                 }]				
-			}
-		}
+            }
+        }
     },
     dockedItems:[{
         dock:'top',
