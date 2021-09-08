@@ -73,8 +73,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
 
         GSmartApp.Ajax.post('/api/v1/porder_req/getby_offer_product', Ext.JSON.encode(params),
             function (success, response, options) {
+                grid.setLoading(false);
                 if (success) {
-                    grid.setLoading(false);
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         record.set('porder_req', response.data);
