@@ -1,33 +1,36 @@
 Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
-    extend : 'Ext.form.TextField',
-    xtype  : 'FilterFieldPorder',
+    extend: 'Ext.form.TextField',
+    xtype: 'FilterFieldPorder',
 
-    enableKeyEvents : true,
-    store    : null,
-    property : '',
+    enableKeyEvents: true,
+    store: null,
+    property: '',
 
-    initComponent : function () {
+    initComponent: function () {
         this.callParent(arguments);
     },
 
-    triggers : {
-        clear : {
-            cls     : 'fa-times',
-            handler : function () {
+    triggers: {
+        clear: {
+            cls: 'fa-times',
+            handler: function () {
                 this.doHighlight('');
                 this.setValue('');
             },
-            scope   : 'this'
+            scope: 'this'
         }
     },
 
-    onKeyUp : function (e) {
-        var value = this.getValue();
+    onKeyUp: function (e) {
+        if (e.keyCode == e.ENTER) {
+            var value = this.getValue();
 
-        this.doHighlight(value);
+            this.doHighlight(value);
+        }
     },
 
-    doHighlight : function (value) {
+    doHighlight: function (value) {
+        console.log(value);
         var store = this.store;
         if (!value) {
             store.clearFilter();
@@ -35,25 +38,30 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
             //     task.set('Cls', task.get('cls'));
             // })
         } else {
-            store.each(function(task) {
-                if(task.get('productbuyercode') != null){
-                    if (task.get('productbuyercode').indexOf(value) >= 0) {
-                        task.set('Cls', task.get('cls')+ ' match');
-                        Ext.getCmp('treeplan').getSchedulingView().scrollEventIntoView(task, true, true);
-                        Ext.getCmp('treeplan').getEventSelectionModel().select(task);
+            var rec = null;
+            store.each(function (task) {
+                if (task.get('productbuyercode') != null) {
+                    console.log(task.get('productbuyercode').toLowerCase());
+                    if (task.get('productbuyercode').toLowerCase().includes(value.toLowerCase())) {
+                        task.set('Cls', task.get('cls') + ' match');
+                        rec = task;
                     } else {
                         task.set('Cls', task.get('cls'));
                     }
                 }
             });
+            if (rec) {
+                Ext.getCmp('treeplan').getSchedulingView().scrollEventIntoView(rec, true, true);
+                Ext.getCmp('treeplan').getEventSelectionModel().select(rec);
+            }
         }
 
         Ext.getCmp('treeplan')[value.length > 0 ? 'addCls' : 'removeCls']('highlighting');
     },
 
-    listeners : {
-        keyup  : 'onKeyUp',
-        buffer : 200
+    listeners: {
+        keyup: 'onKeyUp',
+        buffer: 200
     }
 
 });

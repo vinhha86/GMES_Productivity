@@ -71,7 +71,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         var tabs = Ext.getCmp('Schedule_plan_POrderUnGranted');
         for (var i = 0; i < tabs.items.length; i++) {
             var item = tabs.items[i];
-            console.log(item);
             item.tab.hide();
         }
     },

@@ -50,6 +50,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     requestConfig: {
                         url: config.getAppBaseUrl() + '/api/v1/schedule/getplan',
                         method: 'POST',
+                        timeout: 120000,
                         headers: {
                             'Accept': "application/json",
                             'Content-Type': "application/json"

@@ -205,8 +205,18 @@ Ext.define('GSmartApp.view.Schedule.Plan.ScheduleItemInfo.ScheduleItemInfo', {
                 fieldStyle: 'font-size:11px;text-align:right',
                 textAlign: 'right',
             }, {
-                flex: 1,
+                xtype: 'textfield',
                 margin: '2 5 2 5',
+                fieldLabel: 'Số lượng',
+                editable: false,
+                readOnly: true,
+                bind: {
+                    value: '{record.totalpackage}'
+                },
+                flex: 1,
+                labelWidth: 90,
+                fieldStyle: 'font-size:11px;text-align:right',
+                textAlign: 'right',
             }]
         },
     ],
