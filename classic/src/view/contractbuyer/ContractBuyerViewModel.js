@@ -6,11 +6,11 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerViewModel', {
         ContractBuyerStore: {
             type: 'ContractBuyerStore'
         },
-        EndBuyer:{
-            type : 'ListOrgStore'
+        EndBuyer: {
+            type: 'ListOrgStore'
         },
-        Vendor:{
-            type : 'ListOrgStore'
+        Vendor: {
+            type: 'ListOrgStore'
         },
         ContractBuyerYearsStore: {
             type: 'ContractBuyerStore'
@@ -19,7 +19,9 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerViewModel', {
     data: {
         id: 0,
         contract_code: '',
-        currentRec : null
+        currentRec: {
+            file_contract_name: ''
+        }
     },
     formulas: {
         title: function (get) {

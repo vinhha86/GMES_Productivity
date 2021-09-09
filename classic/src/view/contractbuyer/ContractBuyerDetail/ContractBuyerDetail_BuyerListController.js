@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail_BuyerListController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.ContractBuyerDetail_BuyerListController',
-    init: function(){
+    init: function () {
         var viewModel = this.getViewModel();
         var contractBuyerDs = viewModel.get('contractBuyerDs');
         this.loadBuyer(contractBuyerDs);
@@ -12,18 +12,18 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         },
         '#btnAdd': {
             click: 'onAdd'
-        },
+        }
     },
     onThoat: function () {
         this.getView().up('window').close();
     },
-    loadBuyer: function(contractBuyerDs){
+    loadBuyer: function (contractBuyerDs) {
         var viewModel = this.getViewModel();
         var ListEndBuyer = viewModel.getStore('ListEndBuyer');
 
         var buyerIds = new Array();
-        if(contractBuyerDs != null){
-            for(var i = 0; i < contractBuyerDs.length; i++){
+        if (contractBuyerDs != null) {
+            for (var i = 0; i < contractBuyerDs.length; i++) {
                 buyerIds.push(contractBuyerDs[i].buyerid_link);
             }
         }
@@ -32,12 +32,12 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         ListEndBuyer.getSorters().remove('id');
         ListEndBuyer.getSorters().add('code');
     },
-    onAdd: function(){
+    onAdd: function () {
         var m = this.getView();
         var viewModel = this.getViewModel();
         // var ListEndBuyer = viewModel.getStore('ListEndBuyer');
         var select = m.getSelectionModel().getSelection();
-        if(select.length == 0){
+        if (select.length == 0) {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: "Phải chọn ít nhất một Buyer",
@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         this.fireEvent("AddBuyer", select);
         this.onThoat();
     },
-    onCodeFilterKeyup:function(){
+    onCodeFilterKeyup: function () {
         var grid = this.getView(),
             // Access the field using its "reference" property name.
             filterField = this.lookupReference('codeFilter'),
