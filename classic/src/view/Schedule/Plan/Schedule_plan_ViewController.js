@@ -58,6 +58,49 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         });
         me.undoManager.start();
     },
+    onShowHideImage: function (record) {
+        var grid = this.getView();
+        var params = new Object();
+        params.pordergrantid_link = record.data.porder_grantid_link;
+        params.is_show = record.data.is_show_image ? false : true;
+
+        GSmartApp.Ajax.post('/api/v1/schedule/showhide_image', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var eventStore = grid.down('#treeplan').getCrudManager().getEventStore();
+                        eventStore.remove(record);
+
+                        record.set('is_show_image', params.is_show);
+                        eventStore.insert(0, record);
+                        // var reccord = eventStore.getAt(0);
+
+                        grid.down('#treeplan').getSchedulingView().scrollEventIntoView(record, true, true);
+                        grid.down('#treeplan').getEventSelectionModel().select(record);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
         var me = this;
         var schedule = this.getView();
@@ -70,6 +113,13 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
 
         var menu_grid = new Ext.menu.Menu({
             items: [{
+                text: eventRecord.get('is_show_image') ? "Ẩn ảnh" : "Hiện ảnh",
+                iconCls: 'x-fa fa-eye',
+                handler: function () {
+                    me.onShowHideImage(eventRecord);
+                }
+            },
+            {
                 text: 'Sản phẩm',
                 itemId: 'Schedule_ProductInfo',
                 iconCls: 'x-fa fa-shopping-bag',
@@ -340,7 +390,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         form.show();
 
         form.down('#GridBreakPlan_View').getController().on('BreakPorder', function (data) {
-            console.log(data);
             rec.set('EndDate', data.old_data.EndDate);
             rec.set('duration', data.old_data.duration);
             rec.set('productivity', data.old_data.productivity);

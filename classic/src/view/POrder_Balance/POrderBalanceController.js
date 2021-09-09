@@ -41,6 +41,76 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
         });
         form.show();
     },
+    onBtnXoaViTri: function(grid, rowIndex, colIndex){
+        grid.setLoading('Đang xóa dữ liệu');
+        var viewmodel = this.getViewModel();
+        var POrderBalanceStore = viewmodel.getStore('POrderBalanceStore');
+        var PorderSewingCostStore = viewmodel.getStore('PorderSewingCostStore');
+
+        var rec = POrderBalanceStore.getAt(rowIndex);
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa cụm công đoạn ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var params = new Object();
+                    params.id = rec.get('id');
+
+                    GSmartApp.Ajax.post('/api/v1/porder_balance/delete', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            grid.setLoading(false);
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thành công",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        },
+                                        fn: function () {
+                                            // POrderBalanceStore.remove(rec);
+                                            POrderBalanceStore.load();
+                                            PorderSewingCostStore.load();
+                                        }
+                                    });
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                            }
+                            else {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: "Xóa thất bại",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }else{
+                    grid.setLoading(false);
+                }
+            }
+        });
+    },
     onBeforeDropBalanceDetailSubToSub: function(node, data, overModel, dropPosition, dropHandlers, eOpts){
         console.log('SubToSub');
         console.log(data); // drag data
@@ -49,10 +119,10 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
 
         var me = this;
 
-        if(overModel == null) {
-            dropHandlers.cancelDrop();
-            return;
-        }
+        // if(overModel == null) {
+        //     dropHandlers.cancelDrop();
+        //     return;
+        // }
         if(data == null) {
             dropHandlers.cancelDrop();
             return;
@@ -125,10 +195,10 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
 
         var me = this;
 
-        if(overModel == null) {
-            dropHandlers.cancelDrop();
-            return;
-        }
+        // if(overModel == null) {
+        //     dropHandlers.cancelDrop();
+        //     return;
+        // }
         if(data == null) {
             dropHandlers.cancelDrop();
             return;
@@ -243,6 +313,6 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
                     dropHandlers.cancelDrop();
                 }
             })
-    }
+    },
 
 });

@@ -164,7 +164,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         var window = grid.up('window');
         window.setTitle('Danh sách công đoạn');
         var viewmodel = this.getViewModel();
+        var productid_link = viewmodel.get('working.productid_link');
         viewmodel.set('working', null);
+        viewmodel.set('working.productid_link', productid_link);
 
         viewmodel.set('isDisable_themmoi', false);
         grid.down('#addWorking').setHidden(true);

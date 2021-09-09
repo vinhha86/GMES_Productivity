@@ -120,8 +120,8 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             {
                 tooltip: 'Thêm công đoạn',
                 iconCls: 'x-fa fa-plus',
+                itemId:'btnThemCongDoan',
                 weight: 30,
-                handler: 'onThemMoi'
             },
             {
                 xtype:'button',
@@ -139,8 +139,23 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 // ui: 'header',
                 tooltip: 'Cân bằng chuyền',
                 // iconCls: 'x-fa fa-check greenIcon',
-                handler: 'onBtnPorderBalance',
-            }        
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Tải file mẫu (quy trình công nghệ)',
+                itemId: 'btnDownloadTmpFile',
+                // margin: 3,
+                // text: 'Mẫu file quy trình công nghệ',
+                iconCls: 'x-fa fa-download',
+            },
+            {
+                xtype: 'button',
+                tooltip: 'Upload file (quy trình công nghệ)',
+                itemId: 'btnUploadTmpFile',
+                // margin: 3,
+                // text: 'Mẫu file quy trình công nghệ',
+                iconCls: 'x-fa fa-upload',
+            },
         ]
     }]
 });

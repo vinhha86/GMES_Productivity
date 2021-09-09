@@ -4,6 +4,22 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     init: function () {
         this.callParent(arguments);
     },
+
+    control: {
+        '#btnThemCongDoan': {
+            click: 'onThemMoi',
+        },
+        '#btnPorderBalance': {
+            click: 'onBtnPorderBalance'
+        },
+        '#btnDownloadTmpFile': {
+            click: 'onbtnDownloadTmpFile'
+        },
+        '#btnUploadTmpFile': {
+            click: 'onbtnUploadTmpFile'
+        },
+    },
+
     renderSum: function (value, summaryData, dataIndex) {
         return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
@@ -63,7 +79,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                             else {
                                 Ext.Msg.show({
                                     title: "Thông báo",
-                                    msg: "Lưu thất bại",
+                                    msg: "Xóa thất bại",
                                     buttons: Ext.MessageBox.YES,
                                     buttonText: {
                                         yes: 'Đóng'
@@ -71,6 +87,8 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                                 });
                             }
                         })
+                }else{
+                    grid.setLoading(false);
                 }
             }
         });
@@ -240,5 +258,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
             }]
         });
         form.show();
-    }
+    },
+    onbtnDownloadTmpFile: function(){
+        console.log('download template file QTCN');
+    },
+    onbtnUploadTmpFile: function(){
+        console.log('upload file QTCN');
+    },
 });
