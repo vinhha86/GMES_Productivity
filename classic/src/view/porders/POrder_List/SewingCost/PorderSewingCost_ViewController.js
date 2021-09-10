@@ -3,6 +3,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     alias: 'controller.PorderSewingCost_ViewController',
     init: function () {
         this.callParent(arguments);
+        var viewModel = this.getViewModel();
+        var PorderSewingCostStore = viewModel.get('PorderSewingCostStore');
+        PorderSewingCostStore.setGroupField('porderbalance_name');
     },
 
     control: {

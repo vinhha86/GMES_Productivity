@@ -11,10 +11,30 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
         store: '{PorderSewingCostStore}'
     },
     selModel: 'rowmodel',
-    features: [{
-        ftype: 'summary',
-        dock: 'bottom'
-    }],
+    features: [
+        {
+            id: 'group',
+            ftype: 'groupingsummary',
+            // groupHeaderTpl: '<b>Cụm công đoạn: {name}</b>',
+            groupHeaderTpl: [
+                '<div><b>{name:this.formatName}</b></div>',
+                {
+                    formatName: function(name) {
+                        if(name != null && name != ''){
+                            return 'Cụm công đoạn: ' + Ext.String.trim(name);
+                        }
+                        return '&nbsp';
+                    }
+                }
+            ],
+            hideGroupedHeader: false,
+            enableGroupingMenu: false,
+        },
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        },
+    ],
     viewConfig: {
         enableTextSelection: false,
         stripeRows: false,
@@ -29,6 +49,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             } 
         }
     },
+    
     columns: [
         {
             text: 'STT',
