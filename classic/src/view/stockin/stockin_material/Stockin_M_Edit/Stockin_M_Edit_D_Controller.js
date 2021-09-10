@@ -171,6 +171,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 									totalpackage: 1,
 									orgrootid_link: session.rootorgid_link,
 									skucode: jsonObj[x].skucode,
+									skuCode: jsonObj[x].skucode,
 									lastuserupdateid_link: session.id,
 									timecreate: new Date()
 								});
@@ -284,6 +285,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
 							if(record != null){
 								record.set('skuname', sku.name);
+								record.set('skuCode', sku.code);
 								record.set('skuid_link', sku.id);
 								record.set('sku_product_code', sku.product_code);
 								record.set('sizeid_link', sku.sizeid_link);
@@ -442,7 +444,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				resizable: false,
 				modal: true,
 				border: false,
-				title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
+				title: 'Chi tiết Packing List - SKU : ' + data.get('skuCode'),
 				closeAction: 'destroy',
 				width: 1200,
 				bodyStyle: 'background-color: transparent',
@@ -638,6 +640,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 						var stockin_dObj = new Object();
 						stockin_dObj.skuid_link = npl.get('id');
 						stockin_dObj.skucode = npl.get('code');
+						stockin_dObj.skuCode = npl.get('code');
 						stockin_dObj.skuname = npl.get('name');
 						stockin_dObj.colorid_link = npl.get('color_id');
 						stockin_dObj.color_name = npl.get('mauSanPham');
@@ -654,7 +657,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 						stockin_dObj.totalmet_origin = 0;
 						stockin_dObj.totalmet_check = 0;
 						stockin_dObj.totalydsorigin = 0;
-						stockin_dObj.totalydscheck = 0;s
+						stockin_dObj.totalydscheck = 0;
 						stockin_dObj.netweight = 0;
 						stockin_dObj.grossweight = 0;
 						stockin_dObj.netweight_lbs = 0;
@@ -723,6 +726,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 					var stockin_dObj = new Object();
 					stockin_dObj.skuid_link = npl.get('mat_skuid_link');
 					stockin_dObj.skucode = npl.get('mat_sku_code');
+					stockin_dObj.skuCode = npl.get('mat_sku_code');
 					stockin_dObj.skuname = npl.get('mat_sku_name');
 					stockin_dObj.sku_product_desc = npl.get('mat_sku_desc');
 
@@ -823,7 +827,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 			resizable: false,
 			modal: true,
 			border: false,
-			title: 'Phiếu đo khổ vải : ' + data.get('skucode'),
+			title: 'Phiếu đo khổ vải : ' + data.get('skuCode'),
 			closeAction: 'destroy',
 			width: 1200,
 			bodyStyle: 'background-color: transparent',
@@ -864,7 +868,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
 		Ext.Msg.show({
 			title: 'Thông báo',
-			msg: 'Bạn có chắc chắn xóa nguyên phụ liệu ' + data.get('skucode') + '?',
+			msg: 'Bạn có chắc chắn xóa nguyên phụ liệu ' + data.get('skuCode') + '?',
 			buttons: Ext.Msg.YESNO,
 			icon: Ext.Msg.QUESTION,
 			buttonText: {
@@ -1040,6 +1044,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 		newObj.sku_product_color = data.product_color;
 		newObj.sku_product_desc = data.product_desc;
 		newObj.skucode = data.code;
+		newObj.skuCode = data.code;
 		newObj.skuid_link = data.id;
 		newObj.skuname = data.name;
 		newObj.status = -1;
@@ -1083,7 +1088,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         if (filterField.value) {
             this.ValueFilterFieldMaNPL = filters.add({
                 id: 'ValueFilterFieldMaNPL',
-                property: 'skucode',
+                property: 'skuCode',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false

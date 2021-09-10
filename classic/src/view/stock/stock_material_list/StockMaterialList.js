@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         // },
         {
             text: 'Mã NPL',
-            dataIndex: 'skucode',
+            dataIndex: 'skuCode',
             // flex: 1,
             width: 180,
             align: 'center',

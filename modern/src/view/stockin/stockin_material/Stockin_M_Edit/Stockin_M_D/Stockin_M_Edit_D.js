@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             '<div class="content">' +
                 '<div class="content1">' +
                     '<div class="content1-sub1"><b>Mã:</b></div>'+
-                    '<div class="content1-sub2"><b>{skucode}</b></div>' +
+                    '<div class="content1-sub2"><b>{skuCode}</b></div>' +
                     // '<div class="content1-sub1">'+
                     //     '<button class="button" type="button">C.tiết</button>'+
                     // '</div>' +

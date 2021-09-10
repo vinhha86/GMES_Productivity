@@ -247,7 +247,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         if (filterField.value) {
             this.ValueFilterFieldMaNPL = filters.add({
                 id: 'ValueFilterFieldMaNPL',
-                property: 'skucode',
+                property: 'skuCode',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false

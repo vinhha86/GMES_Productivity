@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         store:'{Stockin_d_Store}',
                         value:'{pklRecheck_stockindId}'
                     },
-                    displayField: 'skucode',
+                    displayField: 'skuCode',
                     valueField: 'id',
                     // label: 'Nơi giao:',
                     // disabled: true,

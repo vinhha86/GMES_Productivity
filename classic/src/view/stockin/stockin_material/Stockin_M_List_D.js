@@ -38,7 +38,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 		{
 			text: 'Mã NPL', 
 			flex: 1,
-			dataIndex: 'skucode',
+			dataIndex: 'skuCode',
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;
 				metaData.tdAttr = 'data-qtip="' + val + '"';

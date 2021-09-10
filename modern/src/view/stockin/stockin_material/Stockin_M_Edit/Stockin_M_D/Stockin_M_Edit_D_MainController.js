@@ -228,7 +228,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         newLotObj.space = '';
         newLotObj.status = -1;
         newLotObj.materialid_link = selectedDRecord.get('skuid_link');
-        newLotObj.skucode = selectedDRecord.get('skucode');
+        newLotObj.skucode = selectedDRecord.get('skuCode');
         newLotObj.stockindid_link = selectedDRecord.get('id');
 
         // thêm sl yêu cầu
@@ -336,7 +336,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         if (filterField.getValue()) {
             this.maNPLFilter = filters.add({
                 id: 'maNPLFilter',
-                property: 'skucode',
+                property: 'skuCode',
                 value: filterField.getValue(),
                 anyMatch: true,
                 caseSensitive: false

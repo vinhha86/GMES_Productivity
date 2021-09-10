@@ -109,7 +109,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_D_Contr
         if (filterField.value) {
             this.ValueFilterFieldMaNPL = filters.add({
                 id: 'ValueFilterFieldMaNPL',
-                property: 'skucode',
+                property: 'skuCode',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false

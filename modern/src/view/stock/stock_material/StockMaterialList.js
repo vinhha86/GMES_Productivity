@@ -29,7 +29,7 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
 
                     '<div class="content1">' +
                         '<div class="content1-sub1"><b>Mã NPL::</b></div>'+
-                        '<div class="content1-sub2">{skucode}</div>' +
+                        '<div class="content1-sub2">{skuCode}</div>' +
                     '</div>' +
 
                     '<div class="content1">' +
@@ -101,7 +101,7 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
             text: 'Mã NPL',
             flex: 1,
             minWidth: 100,
-            dataIndex: 'skucode'
+            dataIndex: 'skuCode'
         }, 
         {
             text: 'Dài (m) - Khổ',

@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialListController
         var viewModel = this.getViewModel();
         var WarehouseStore = viewModel.getStore('WarehouseStore');
         WarehouseStore.getSorters().add({
-            property: 'skucode',
+            property: 'skuCode',
             direction: 'ASC'
         },{
             property: 'contractcode',

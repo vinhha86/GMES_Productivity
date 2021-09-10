@@ -223,7 +223,7 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList_MainController
             }
 
             if(
-                !rec.get('skucode').toLowerCase().includes(materialListFilter) &&
+                !rec.get('skuCode').toLowerCase().includes(materialListFilter) &&
                 // !rec.get('colorname').toLowerCase().includes(materialListFilter) &&
                 !rec.get('lotnumber').toLowerCase().includes(materialListFilter) &&
                 // !rec.get('invoice').toLowerCase().includes(materialListFilter) &&
