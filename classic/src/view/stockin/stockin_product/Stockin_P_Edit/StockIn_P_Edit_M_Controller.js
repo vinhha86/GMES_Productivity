@@ -101,6 +101,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 			var stockind_new = new Object();
 			stockind_new.id = null;
 			stockind_new.skucode = data_stockout.skucode;
+			stockind_new.skuCode = data_stockout.skucode;
 			stockind_new.skuname = data_stockout.skuname;
 			stockind_new.sku_product_code = data_stockout.product_code;
 			// stockind_new.product_name = data.productname;
@@ -226,6 +227,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 				var stockind_new = new Object();
 				stockind_new.id = null;
 				stockind_new.skucode = data.skuCode;
+				stockind_new.skuCode = data.skuCode;
 				stockind_new.skuname = data.skuName;
 				stockind_new.sku_product_code = data.productcode;
 				stockind_new.product_name = data.productname;
@@ -268,6 +270,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 						var stockind_new = new Object();
 						stockind_new.id = null;
 						stockind_new.skucode = data.skuCode;
+						stockind_new.skuCode = data.skuCode;
 						stockind_new.skuname = data.skuName;
 						stockind_new.sku_product_code = data.productcode;
 						stockind_new.product_name = data.productname;
@@ -338,6 +341,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 						var stockind_new = new Object();
 						stockind_new.id = null;
 						stockind_new.skucode = data.skucode;
+						stockind_new.skuCode = data.skucode;
 						stockind_new.skuname = data.skuname;
 						stockind_new.sku_product_code = data.sku_product_code;
 						stockind_new.product_name = data.product_name;

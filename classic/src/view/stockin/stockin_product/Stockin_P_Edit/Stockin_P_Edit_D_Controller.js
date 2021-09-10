@@ -75,6 +75,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				var stockind_new = new Object();
 				stockind_new.id = null;
 				stockind_new.skucode = data.code;
+				stockind_new.skuCode = data.code;
 				stockind_new.sku_product_code = data.product_code;
 				stockind_new.skuname = data.name;
 				stockind_new.product_name = data.product_name;
@@ -256,6 +257,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										totalpackagecheck: 1,
 										orgrootid_link: session.rootorgid_link,
 										skucode: jsonObj[x].skucode,
+										skuCode: jsonObj[x].skucode,
 										lastuserupdateid_link: session.id,
 										timecreate: new Date(),
 										stockin_packinglist: []
@@ -334,6 +336,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 										totalpackagecheck: 1,
 										orgrootid_link: session.rootorgid_link,
 										skucode: jsonObj[x].skucode,
+										skuCode: jsonObj[x].skucode,
 										lastuserupdateid_link: session.id,
 										timecreate: new Date(),
 										stockin_packinglist: []
@@ -474,6 +477,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 
 							if(record != null){
 								record.set('skuname', sku.name);
+								record.set('skuCode', sku.code);
 								record.set('skuid_link', sku.id);
 								record.set('sku_product_code', sku.product_code);
 								record.set('sizeid_link', sku.sizeid_link);
@@ -581,6 +585,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 		var stockin_dObj = new Object();
 		stockin_dObj.skuid_link = data.id;
 		stockin_dObj.skucode = data.code;
+		stockin_dObj.skuCode = data.code;
 		stockin_dObj.skuname = data.name;
 		stockin_dObj.sku_product_code = data.product_code;
 		stockin_dObj.colorid_link = data.color_id;
@@ -645,7 +650,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 
 		Ext.Msg.show({
 			title: 'Thông báo',
-			msg: 'Bạn có chắc chắn xóa thành phẩm ' + data.get('skucode') + '?',
+			msg: 'Bạn có chắc chắn xóa thành phẩm ' + data.get('skuCode') + '?',
 			buttons: Ext.Msg.YESNO,
 			icon: Ext.Msg.QUESTION,
 			buttonText: {

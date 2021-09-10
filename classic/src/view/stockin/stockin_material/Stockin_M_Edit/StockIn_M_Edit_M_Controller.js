@@ -244,6 +244,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     var stockin_dObj = new Object();
                     stockin_dObj.skuid_link = invoice_d.get('skuid_link');
                     stockin_dObj.skucode = invoice_d.get('skucode');
+                    stockin_dObj.skuCode = invoice_d.get('skucode');
                     stockin_dObj.skuname = invoice_d.get('skuname');
                     stockin_dObj.color_name = invoice_d.get('color_name');
                     stockin_dObj.colorid_link = invoice_d.get('colorid_link');
@@ -277,6 +278,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                         stockin_packinglistObj.sizenumber = pkl.sizenumber;
                         stockin_packinglistObj.skuid_link = pkl.skuid_link;
                         stockin_packinglistObj.skucode = pkl.skucode;
+                        stockin_packinglistObj.skuCode = pkl.skucode;
                         stockin_packinglistObj.skuname = pkl.skuname;
                         stockin_packinglistObj.lotnumber = pkl.lotnumber;
                         stockin_packinglistObj.packageid = pkl.packageid;
