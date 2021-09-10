@@ -39,22 +39,34 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
         {
             header: 'Tên công đoạn',
             dataIndex: 'workingprocess_name',
-            flex: 1
+            flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             header: 'Thiết bị',
             dataIndex: 'device_name',
-            width: 120
+            width: 120,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             header: 'Bậc thợ',
             dataIndex: 'laborlevel_name',
-            width: 120
+            width: 135,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             header: 'Thời gian',
             dataIndex: 'timespent_standard',
-            width: 120,
+            width: 100,
             renderer: function(value){
                 return value == null ? "" : (value + " (s)");
             }
@@ -62,13 +74,17 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
         {
             header: 'Chú thích',
             dataIndex: 'techcomment',
-            flex: 1
+            flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
         },
         {
             header: 'Đơn giá',
             dataIndex: 'cost',
             align: 'right',
-            width: 120,
+            width: 100,
             renderer: 'rendernumber',
             editor:{
                 xtype:'textfield',
@@ -79,11 +95,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             }
         },
         {
-            header: 'Số lượng',
+            header: 'S/lượng',
             dataIndex: 'amount',
             align: 'right',
             width: 90,
-            renderer: 'rendernumber',
+            renderer: 'rendernumberint',
             editor:{
                 xtype:'textfield',
                 maskRe: /[0-9]/,
@@ -95,7 +111,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
         {
             header: 'Tổng giá',
             dataIndex: 'totalcost',
-            width: 120,
+            width: 130,
             align: 'right',
             summaryType: 'sum', 
             summaryRenderer: 'renderSum',
@@ -155,6 +171,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 // margin: 3,
                 // text: 'Mẫu file quy trình công nghệ',
                 iconCls: 'x-fa fa-upload',
+            },
+            {
+                xtype: 'filefield',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'fileUpload',
             },
         ]
     }]

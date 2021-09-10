@@ -178,7 +178,7 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail', {
             xtype: 'button',
             margin: 5,
             // text: 'Thêm vị trí',
-            tooltip: 'Thêm vị trí',
+            tooltip: 'Thêm cụm công đoạn',
             iconCls: 'x-fa fa-plus',
             // width: 90,
             itemId: 'btnThemViTri',

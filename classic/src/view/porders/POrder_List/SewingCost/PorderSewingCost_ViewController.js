@@ -18,6 +18,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         '#btnUploadTmpFile': {
             click: 'onbtnUploadTmpFile'
         },
+        '#fileUpload': {
+            change: 'onSelectFileUpload'
+        },
     },
 
     renderSum: function (value, summaryData, dataIndex) {
@@ -25,6 +28,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     },
     rendernumber: function (value, metaData, record, rowIdx, colIdx, stor) {
         return value == 0 ? "" : Ext.util.Format.number(value, '0,000.000');
+    },
+    rendernumberint: function (value, metaData, record, rowIdx, colIdx, stor) {
+        return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
     },
     onXoa: function (grid, rowIndex, colIndex) {
         grid.setLoading('Đang xóa dữ liệu');
@@ -263,6 +269,62 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         console.log('download template file QTCN');
     },
     onbtnUploadTmpFile: function(){
-        console.log('upload file QTCN');
+        var viewModel = this.getViewModel();
+        var m = this;
+        var me = this.getView();
+        me.down('#fileUpload').fileInputEl.dom.click();
+    },
+    onSelectFileUpload: function (filefield, value) {
+        var grid = this.getView();
+        var viewModel = this.getViewModel();
+        var porderid_link = viewModel.get('IdPOrder');
+
+        var data = new FormData();
+        data.append('file', filefield.fileInputEl.dom.files[0]);
+        data.append('porderid_link', porderid_link);
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/pordersewingcost/upload_porders_sewingcost', data, 3 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                filefield.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Upload Thành Công',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                        //load lai ds
+                        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+                        PorderSewingCostStore.load();
+                    }
+                    else {
+                        // console.log('fail 1');
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }else{
+                    // console.log('fail 2');
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Upload thất bại. Xin kiểm tra lại kết nối mạng',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+       
     },
 });

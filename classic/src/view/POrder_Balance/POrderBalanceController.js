@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
             resizable: false,
             modal: true,
             border: false,
-            title: 'Thêm vị trí',
+            title: 'Thêm cụm công đoạn',
             closeAction: 'destroy',
             bodyStyle: 'background-color: transparent',
             layout: {
