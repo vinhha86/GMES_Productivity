@@ -24,6 +24,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         '#btnThemMoi': {
             click: 'onThemMoi'
         },
+        '#btnXoa': {
+            click: 'onXoa'
+        },
         '#btnHuy': {
             click: 'onHuy'
         },
@@ -297,5 +300,87 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             }
             grid.fireEvent('CreateSewingCost', listid);
         }
+    },
+    onXoa: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var WorkingProcess_Store = viewModel.getStore('WorkingProcess_Store');
+        var selection = me.getSelectionModel().getSelection();
+        // console.log(selection);
+        if(selection.length == 0){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn công đoạn",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var idList = new Array();
+                    for(var i = 0; i < selection.length; i++) {
+                        idList.push(selection[i].get('id'));
+                    }
+
+                    me.setLoading(true);
+
+                    var params = new Object();
+                    params.idList = idList;
+
+                    GSmartApp.Ajax.post('/api/v1/workingprocess/delete_multi', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            me.setLoading(false);
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thành công!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        },
+                                    });
+                                    WorkingProcess_Store.load();
+                                    m.fireEvent('reloadStore');
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                            } else {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: "Xóa thất bại!",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }
+            }
+        });
     }
 });

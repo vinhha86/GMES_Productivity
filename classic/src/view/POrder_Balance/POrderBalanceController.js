@@ -11,7 +11,18 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
         var POrderBalanceStore = viewModel.getStore('POrderBalanceStore');
         POrderBalanceStore.loadStore(porderid_link);
     },
+
+    control: {
+        '#btnXoaViTriMulti': {
+            click: 'onBtnXoaViTriMulti',
+        },
+        '#btnThemViTri': {
+            click: 'onBtnThemViTri'
+        },
+    },
+
     onBtnThemViTri: function(){
+        var m = this;
         var viewModel = this.getViewModel();
         var porderid_link = viewModel.get('porderid_link');
         // console.log('porderid_link : ' + porderid_link);
@@ -40,8 +51,98 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
             }]
         });
         form.show();
+
+        form.down('#POrderBalance_Detail_AddPosition').getController().on('reloadPOrderBalanceStore', function(){
+            var POrderBalanceStore = viewModel.get('POrderBalanceStore');
+            POrderBalanceStore.load();
+            form.close();
+        })
+    },
+    onBtnXoaViTriMulti: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var POrderBalanceStore = viewModel.getStore('POrderBalanceStore');
+        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+        var selection = me.down('#POrderBalance_Detail').getSelectionModel().getSelection();
+        // console.log(selection);
+        if(selection.length == 0){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn cụm công đoạn",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var idList = new Array();
+                    for(var i = 0; i < selection.length; i++) {
+                        idList.push(selection[i].get('id'));
+                    }
+
+                    me.setLoading(true);
+
+                    var params = new Object();
+                    params.idList = idList;
+
+                    GSmartApp.Ajax.post('/api/v1/porder_balance/delete_multi', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            me.setLoading(false);
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thành công!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        },
+                                    });
+                                    POrderBalanceStore.load();
+                                    PorderSewingCostStore.load();
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                            } else {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: "Xóa thất bại!",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }
+            }
+        });
     },
     onBtnXoaViTri: function(grid, rowIndex, colIndex){
+        var m = this;
         grid.setLoading('Đang xóa dữ liệu');
         var viewmodel = this.getViewModel();
         var POrderBalanceStore = viewmodel.getStore('POrderBalanceStore');

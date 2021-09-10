@@ -15,6 +15,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         '#btnPorderBalance': {
             click: 'onBtnPorderBalance'
         },
+        '#btnDeletePorderSewingCost': {
+            click: 'onbtnDeletePorderSewingCost'
+        },
         '#btnDownloadTmpFile': {
             click: 'onbtnDownloadTmpFile'
         },
@@ -37,8 +40,8 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     },
     onXoa: function (grid, rowIndex, colIndex) {
         grid.setLoading('Đang xóa dữ liệu');
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PorderSewingCostStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('PorderSewingCostStore');
 
         var rec = grid.getStore().getAt(rowIndex);
 
@@ -102,11 +105,92 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
             }
         });
     },
+    onbtnDeletePorderSewingCost: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+        var selection = me.getSelectionModel().getSelection();
+        // console.log(selection);
+        if(selection.length == 0){
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn công đoạn",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var idList = new Array();
+                    for(var i = 0; i < selection.length; i++) {
+                        idList.push(selection[i].get('id'));
+                    }
+
+                    me.setLoading(true);
+
+                    var params = new Object();
+                    params.idList = idList;
+
+                    GSmartApp.Ajax.post('/api/v1/pordersewingcost/delete_multi', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            me.setLoading(false);
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thành công!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        },
+                                    });
+                                    PorderSewingCostStore.load();
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Xóa thất bại!",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                            } else {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: "Xóa thất bại!",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }
+            }
+        });
+    },
     onEdit: function (editor, context, e) {
         var grid = this.getView();
         var me = this;
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PorderSewingCostStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('PorderSewingCostStore');
 
         if (context.value == context.originalValue) {
             return;
@@ -237,6 +321,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                     }
                 })
         })
+
+        form.down('#List_WorkingProcess_View').getController().on('reloadStore', function () {
+            var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+            PorderSewingCostStore.load();
+        })
     },
     onBtnPorderBalance: function(){
         var viewModel = this.getViewModel();
@@ -264,7 +353,15 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                         porderid_link: porderid_link,
                     }
                 }
-            }]
+            }],
+            listeners: {
+                destroy: {
+                    fn: function(){ 
+                        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+                        if(PorderSewingCostStore) PorderSewingCostStore.load();
+                    }
+                },
+            }
         });
         form.show();
     },

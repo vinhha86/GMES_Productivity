@@ -24,10 +24,10 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail', {
             beforedrop: 'onBeforeDropWorkingProcess'
         }
     },
-    // selModel: {
-    //     //selType: 'checkboxmodel',
-    //     mode: 'SINGLE'
-    // },
+    selModel: {
+        selType: 'checkboxmodel',
+        checkOnly: true
+    },
     bind:{
         store:'{POrderBalanceStore}'
     },
@@ -178,11 +178,20 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail', {
             xtype: 'button',
             margin: 5,
             // text: 'Thêm vị trí',
+            tooltip: 'Xoá cụm công đoạn',
+            iconCls: 'x-fa fa-trash',
+            // width: 90,
+            itemId: 'btnXoaViTriMulti',
+            // handler: 'onBtnThemViTri'
+        },{
+            xtype: 'button',
+            margin: 5,
+            // text: 'Thêm vị trí',
             tooltip: 'Thêm cụm công đoạn',
             iconCls: 'x-fa fa-plus',
             // width: 90,
             itemId: 'btnThemViTri',
-            handler: 'onBtnThemViTri'
+            // handler: 'onBtnThemViTri'
         }]
     }]
 });

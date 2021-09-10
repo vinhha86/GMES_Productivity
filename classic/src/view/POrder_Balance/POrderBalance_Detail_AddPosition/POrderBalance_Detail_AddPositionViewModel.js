@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Detail_AddPositionViewMo
     ],
     data: {
         porderid_link: null,
-        amount: 1
+        amount: 1,
+        name: null,
     }
 })

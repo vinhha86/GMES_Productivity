@@ -10,7 +10,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
     bind: {
         store: '{PorderSewingCostStore}'
     },
-    selModel: 'rowmodel',
+    // selModel: 'rowmodel',
+    selModel: {
+        selType: 'checkboxmodel',
+        checkOnly: true
+    },
     features: [
         {
             id: 'group',
@@ -177,6 +181,14 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 tooltip: 'Cân bằng chuyền',
                 // iconCls: 'x-fa fa-check greenIcon',
             },
+            // {
+            //     xtype: 'button',
+            //     tooltip: 'Tải file mẫu (quy trình công nghệ tiêu chuẩn)',
+            //     itemId: 'btnDownloadTmpFileStandard',
+            //     // margin: 3,
+            //     // text: 'Mẫu file quy trình công nghệ',
+            //     iconCls: 'x-fa fa-download',
+            // },
             {
                 xtype: 'button',
                 tooltip: 'Tải file mẫu (quy trình công nghệ)',
@@ -199,6 +211,15 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 hidden: true,
                 itemId: 'fileUpload',
             },
+            '->',
+            {
+                xtype: 'button',
+                tooltip: 'Xoá',
+                itemId: 'btnDeletePorderSewingCost',
+                // margin: 3,
+                // text: 'Mẫu file quy trình công nghệ',
+                iconCls: 'x-fa fa-trash',
+            }
         ]
     }]
 });

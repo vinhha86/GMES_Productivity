@@ -136,6 +136,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     disabled: '{isDisable_themmoi}'
                 }
             }, {
+                xtype: 'button',
+                text: 'Xoá',
+                margin: 3,
+                itemId: 'btnXoa',
+                iconCls: 'x-fa fa-trash',
+            }, {
                 border: false,
                 flex: 1
             },
