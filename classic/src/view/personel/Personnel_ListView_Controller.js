@@ -1,8 +1,7 @@
 Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Personnel_ListView_Controller',
-    init: function () {
-
+    init: function (view) {
     },
     control: {
         '#btnThemMoi_Personnel': {
@@ -23,6 +22,32 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         '#splbtn_ThemCa':{
             click:'onThemCaLamViec'
         }
+    },
+  
+    onFilterOrgnameFilter:function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('orgnameComboValue');
+        console.log(filterValue);
+        var store = viewModel.getStore('Personnel_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgFilter = filters.add({
+                id: 'orgFilter',
+                property: 'orgid_link',
+                value: filterValue,
+                exactMatch: true,
+            });
+        }
+        else if (this.orgFilter) {
+            filters.remove(this.orgFilter);
+            this.orgFilter = null;
+        }
+    },
+    onOrgNameComboValueTriggerClick: function(){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('orgnameComboValue', null);
+        this.onFilterOrgnameFilter();
     },
     onThemCaLamViec:function(){
         var viewModel = this.getViewModel();

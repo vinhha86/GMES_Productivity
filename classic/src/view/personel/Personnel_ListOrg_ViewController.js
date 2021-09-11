@@ -35,6 +35,19 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
 
         var StorePersonel = viewModel.getStore('Personnel_Store');
         StorePersonel.loadStore_byOrg(params.orgid_link , params.ismanager, params.isviewall);
+
+        //load list phong ban - để filter
+       
+      
+        var orgStore = viewModel.getStore('ListOrgStore');
+        var listid = '';
+        if (record.data.id == 1) {
+            listid = "1";
+        }
+        else {
+            listid = '22,14,8,9,17,19,20,21,22,23,28,29,30,31,32,33,34,35,36,37,38,39,221';
+        }
+        orgStore.getbyParentandType(record.data.id, listid);
     },
     onload: function () {
         var me = this.getView();
@@ -59,5 +72,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         storeMenu.getSorters().add('orgtypeid_link');
         storeMenu.getSorters().add('is_manufacturer');
         storeMenu.getSorters().add('id');
+
+        
     }
 })

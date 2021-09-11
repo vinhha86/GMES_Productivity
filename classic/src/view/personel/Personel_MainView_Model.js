@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Personel_MainView_Model',
-    requires: ['GSmartApp.store.org.ListOrgMenuTreeStore', 'GSmartApp.store.personnel.Personnel_Store','GSmartApp.store.timesheetshifttype.TimesheetShiftTypeStore'],
+    requires: ['GSmartApp.store.org.ListOrgMenuTreeStore', 'GSmartApp.store.personnel.Personnel_Store','GSmartApp.store.timesheetshifttype.TimesheetShiftTypeStore',
+    'GSmartApp.store.org.ListOrgStore'],
     stores: {
         OrgStore: {
             type: 'ListOrgMenuTreeStore'
@@ -11,7 +12,10 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
         },
         TimesheetShiftTypeStore:{
             type:'TimesheetShiftTypeStore'
-        }
+        },
+        ListOrgStore: {
+            type: 'ListOrgStore'
+        },
     },
     data: {
         isviewall : false, // bind checkbox xem tat ca
@@ -19,6 +23,9 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
         orgtypeid_link:null,
         donvi:{
             id:null
-        }
+        },
+
+        orgnameComboValue:null
+       
     }
 })

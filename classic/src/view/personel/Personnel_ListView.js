@@ -62,7 +62,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-       
+
     }, {
         text: 'Số CMT',
         dataIndex: 'idnumber',
@@ -73,28 +73,53 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         }
     },
     {
-        text: 'Đơn vị trực thuộc',
-        dataIndex: 'orgname',
-        flex: 1,
+            
+        text: 'Phòng ban', dataIndex: 'orgname', width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
+            var val = value == 'null' ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + val + '"';
+            return val;
+        },
+        items: {
+            xtype: 'combobox',
+            width: '98%',
+            flex: 1,
+            margin: 2,
+            editable: false,
+            readOnly: false,
+            displayField: 'name',
+            valueField: 'id',
+            queryMode: 'local',
+            anyMatch: true,
+            listeners: {
+                select: 'onFilterOrgnameFilter',
+            },
+            bind:{
+                store: '{ListOrgStore}',
+                value: '{orgnameComboValue}',
+            },
+            matchFieldWidth: false,
+            listConfig: {
+                listeners: {
+                    beforeshow: function(picker) {
+                        picker.minWidth = picker.up('combobox').getSize().width;
+                    }
+                }
+            },
+            triggers: {
+                clear: {
+                    cls: 'x-form-clear-trigger',
+                    weight: 1,
+                    handler: 'onOrgNameComboValueTriggerClick',
+                }
+            }
+        },
     }, 
     {
         text: 'Ca làm việc MĐ',
         dataIndex: 'shiftName',
         width: 130,
-        
-    },
-    {
-        text: 'Cấp bậc',
-        dataIndex: 'contractBuyerYear',
-        width: 75,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
+
     },
     {
         text: 'Chức vụ',
@@ -122,7 +147,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             text: 'Print',
             iconCls: 'x-fa fa-print',
             itemId: 'btnPrint_Personnel',
-        },{
+        }, {
             xtype: 'filefield',
             buttonOnly: true,
             hidden: true,
@@ -147,8 +172,8 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             itemId: 'splbtn_ThemCa',
             tooltip: 'Chọn ca làm việc mặc định',
         }
-        
-        , '->', {
+
+            , '->', {
             xtype: 'checkbox',
             margin: '1 5 1 1',
             boxLabel: 'Xem tất cả',
