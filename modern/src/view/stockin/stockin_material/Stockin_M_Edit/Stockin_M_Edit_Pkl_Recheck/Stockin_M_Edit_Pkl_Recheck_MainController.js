@@ -354,6 +354,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
+            top: 10,
+            left: '5%',
+            right: '5%',
             maskTapHandler: function(){
                 if(dialog){
                     dialog.close();
@@ -421,6 +424,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
+            top: 10,
+            left: '5%',
+            right: '5%',
             maskTapHandler: function(){
                 if(dialog){
                     dialog.close();

@@ -16,7 +16,103 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_MainController', {
         },
         '#btnBack': {
             tap: 'onBtnBackTap'
+        },
+        '#btnTest': {
+            tap: 'onbtnTestTap'
         }
+    },
+    onbtnTestTap: function(){
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            // id: 'StockMenuWindow_Main_dialog',
+            itemId: 'testtest',
+            title: 'Thêm mới cây vải',
+            width: '90%',
+            // height: '60%',
+            zIndex: 1,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            header: true,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            // centered: true,
+            top: 10,
+            left: '5%',
+            right: '5%',
+            maskTapHandler: function(){
+                if(dialog){
+                    dialog.close();
+                    // me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'textfield',
+                flex: 1,
+                inputType: 'number'
+            },{
+                border: false,
+                xtype: 'button',
+                flex: 1,
+                text: 'btn',
+                listeners: {
+                    tap: function(){
+                        var msgWindow = Ext.Msg.show({
+                            title: 'Thông báo',
+                            message: 'Bạn có chắc chắn xoá?',
+                            width: 300,
+                            closable: false,
+                            zIndex: 2,
+                            modal: false,
+                            // masked: true,
+                            // maskTapHandler: function(){
+                            //     if(Ext.Msg){
+                            //         Ext.Msg.hide();
+                            //         me.setMasked(false);
+                            //     }
+                            // },
+                            buttons: [{
+                                text: 'Thoát',
+                                itemId: 'no'
+                            }, {
+                                text: 'Xoá',
+                                itemId: 'yes'
+                            }],
+                            fn: function (buttonValue, inputText, showConfig) {
+                                if(buttonValue == 'no'){
+                                    if(Ext.Msg){
+                                        Ext.Msg.hide();
+                                    }
+                                }
+                                if(buttonValue == 'yes'){
+                                    if(Ext.Msg){
+                                        Ext.Msg.hide();
+                                    }
+                                }
+                            },
+                            icon: Ext.Msg.QUESTION,
+                            listeners: {
+                                beforeshow: {
+                                    fn: function(){ 
+                                        console.log('click el');
+                                        if(msgWindow){
+                                            msgWindow.setY(10);
+                                        }
+                                    }
+                                },
+                            }
+                        });
+                    }
+                }
+            }],
+        });
+        dialog.show();
     },
     loadData: function(){
         var m = this;

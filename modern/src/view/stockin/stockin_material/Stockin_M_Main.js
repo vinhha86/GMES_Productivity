@@ -142,6 +142,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_Main', {
                 },
                 '->'
                 ,
+                // {
+                //     xtype:'button',
+                //     iconCls: 'x-fa fa-arrow-right',
+                //     itemId:'btnTest',
+                //     ui: 'action',
+                // },
             ]            
         }
     ]

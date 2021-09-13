@@ -210,6 +210,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
+            top: 10,
+            left: '5%',
+            right: '5%',
             maskTapHandler: function(){
                 if(dialog){
                     dialog.close();
@@ -284,6 +287,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
+            top: 10,
+            left: '5%',
+            right: '5%',
             maskTapHandler: function(){
                 if(dialog){
                     dialog.close();

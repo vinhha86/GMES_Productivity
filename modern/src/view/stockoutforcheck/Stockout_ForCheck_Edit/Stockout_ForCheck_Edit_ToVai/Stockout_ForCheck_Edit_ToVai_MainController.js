@@ -214,6 +214,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
+            top: 10,
+            left: '5%',
+            right: '5%',
             maskTapHandler: function(){
                 if(dialog){
                     dialog.close();
@@ -288,6 +291,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             closable: true,
             closeAction: 'destroy',
             maximizable: false,
+            top: 10,
+            left: '5%',
+            right: '5%',
             maskTapHandler: function(){
                 if(dialog){
                     dialog.close();
