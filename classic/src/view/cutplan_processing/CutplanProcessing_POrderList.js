@@ -129,7 +129,7 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_POrderList', {
                         emptyText: 'Không có mã SP phù hợp.',
                     },
                     anyMatch: true,
-                    minChars: 1,
+                    minChars: 2,
                     queryMode: 'remote',
                     queryParam: 'buyercode',		
                     enableKeyEvents : true,

@@ -8,6 +8,20 @@
         width: 100%;
     }
 
+    .x-title-wrap-el .x-text-el{
+        padding: 5px 2px;
+        white-space: normal !important;
+        // word-break: break-all;
+        word-break: break-word;
+    }
+
+    .x-gridcell-body-el {
+        padding: 5px 2px;
+        white-space: normal !important;
+        word-break: break-all;
+        // word-break: break-word;
+    }
+
     .content{
         //
         // border-bottom: 1px solid lightgray;

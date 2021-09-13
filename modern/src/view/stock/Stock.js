@@ -41,14 +41,14 @@ Ext.define('GSmartApp.view.stock.Stock', {
                             //     type: 'Sku_AutoComplete',
                             //     // pageSize: 10
                             // },
-                            displayField: 'code',
+                            displayField: 'skuCode_color',
                             valueField: 'id',
                             listConfig: {
                                 loadingText: 'Tải mã hàng...',
                                 emptyText: 'Không có mã hàng phù hợp.',
                             },
                             anyMatch: true,
-                            minChars: 1,
+                            minChars: 2,
                             forceSelection: true,
                             queryMode: 'remote',
                             queryParam: 'code',		

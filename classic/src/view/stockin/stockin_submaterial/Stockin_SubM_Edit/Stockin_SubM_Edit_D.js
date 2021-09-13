@@ -267,7 +267,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 					emptyText: 'Không có mã NPL phù hợp.',
 				},
 				anyMatch: true,
-				minChars: 1,
+				minChars: 2,
 				queryMode: 'remote',
 				queryParam: 'code',
 				enableKeyEvents: true,

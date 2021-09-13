@@ -13,6 +13,7 @@ Ext.define('GSmartApp.model.warehouse.WarehouseModel', {
         'packageid',
         'colorid_link',
         'color_name',
+        'colorname',
         'yds',
         'width',
         'met',
@@ -21,6 +22,19 @@ Ext.define('GSmartApp.model.warehouse.WarehouseModel', {
         'material_skuid_link',
         'imgproduct',
         'stockName',
-        { name: 'timecreate', type: 'date' , dateFormat: 'c'},    
+        { name: 'timecreate', type: 'date' , dateFormat: 'c'},
+        {
+            name: 'skuCode_color',
+            convert : function (value, rec) {
+                var result = '';
+                if(rec.get('skuCode') != null){
+                    result += rec.get('skuCode');
+                    if(rec.get('colorname') != null){
+                        result += ' - ' + rec.get('colorname');
+                    }
+                }
+            	return result;
+            }
+        },
     ]
 });

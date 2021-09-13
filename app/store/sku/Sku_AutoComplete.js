@@ -26,7 +26,20 @@ Ext.define('GSmartApp.store.Sku_AutoComplete', {
         'saleprice',
         'discountpercent',
         'vatpercent',
-        'productid_link' 
+        'productid_link',
+        {
+            name: 'skuCode_color',
+            convert : function (value, rec) {
+                var result = '';
+                if(rec.get('code') != null){
+                    result += rec.get('code');
+                    if(rec.get('color_name') != null){
+                        result += ' - ' + rec.get('color_name');
+                    }
+                }
+            	return result;
+            }
+        },
     ],
     // autoLoad: true,
     proxy: {

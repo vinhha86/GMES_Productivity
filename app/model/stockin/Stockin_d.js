@@ -42,6 +42,19 @@ Ext.define('GSmartApp.model.stockin.Stockin_d', {
                 return (null == data.unitprice ?'0':data.totalpackage * data.unitprice);
             }
         },
+        {
+            name: 'skuCode_color',
+            convert : function (value, rec) {
+                var result = '';
+                if(rec.get('skuCode') != null){
+                    result += rec.get('skuCode');
+                    if(rec.get('color_name') != null){
+                        result += ' (' + rec.get('color_name') + ')';
+                    }
+                }
+            	return result;
+            }
+        },
         'status',
         'totalmet_origin',
         'totalmet_check'

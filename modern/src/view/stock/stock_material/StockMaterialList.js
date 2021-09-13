@@ -101,7 +101,15 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
             text: 'Mã NPL',
             flex: 1,
             minWidth: 100,
-            dataIndex: 'skuCode'
+            dataIndex: 'skuCode',
+            align: 'center',
+        }, 
+        {
+            text: 'Màu',
+            flex: 1,
+            minWidth: 100,
+            dataIndex: 'colorname',
+            align: 'center',
         }, 
         {
             text: 'Dài (m) - Khổ',
@@ -112,7 +120,8 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
                 var met = record.get('met') == null ? 0 : record.get('met');
                 var width_met = record.get('width_met') == null ? 0 : record.get('width_met');
                 return met + ' - ' + width_met*100;
-            }
+            },
+            align: 'center',
         }, 
         // {
         //     text: 'Số LOT - Số cây',
