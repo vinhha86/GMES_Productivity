@@ -21,9 +21,66 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         },
         '#splbtn_ThemCa':{
             click:'onThemCaLamViec'
+        },
+        '#splbtn_Download':{
+            click:'onDownload_Template'
         }
     },
-  
+    onDownload_Template: function () {
+        var me = this;
+        var params = new Object();
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_personnel', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_DSNhanVien.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    saveByteArray: function (reportName, byte) {
+        var me = this;
+        byte = this.base64ToArrayBuffer(byte);
+
+        var blob = new Blob([byte], { type: "application/xlsx" });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    },
+    base64ToArrayBuffer: function (base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    },
+   
     onFilterOrgnameFilter:function(){
         var viewModel = this.getViewModel();
         var filterValue = viewModel.get('orgnameComboValue');

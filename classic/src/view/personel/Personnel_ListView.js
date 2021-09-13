@@ -167,6 +167,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         {
             xtype: 'button',
             margin: 1,
+            text: 'Tải file mẫu',
+            iconCls: 'x-fa fa-download',
+            itemId: 'splbtn_Download',
+            tooltip: 'Download file nhân viên',
+        },
+        {
+            xtype: 'button',
+            margin: 1,
             text: 'Ca làm việc MĐ',
             iconCls: 'x-fa fa-plus',
             itemId: 'splbtn_ThemCa',
