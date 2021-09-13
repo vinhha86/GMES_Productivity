@@ -91,7 +91,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
     loadInfo: function (id){
         var me = this;
         if(id == 0 || id == null){
-            me.loadNew();
+            //me.loadNew();
         }else{
             me.loadRecord(id);
         }
@@ -184,18 +184,18 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         var me = this.getView();
         me.down('#personnelCodeList').setValue(newValue);
     },
-    setDefaultTime: function(){
-        var me = this.getView();
-        GSmartApp.Ajax.post('/api/v1/timesheetshifttype/getShift1ForAbsence', Ext.JSON.encode(),
-            function (success, response, options) {
-                var response = Ext.decode(response.responseText);
-                if (success) {
-                    // console.log(response);
-                    me.down('#timefrom').setValue(response.timeFrom);
-                    me.down('#timeto').setValue(response.timeTo);
-                }
-            })
-    },
+    // setDefaultTime: function(){
+    //     var me = this.getView();
+    //     GSmartApp.Ajax.post('/api/v1/timesheetshifttype/getShift1ForAbsence', Ext.JSON.encode(),
+    //         function (success, response, options) {
+    //             var response = Ext.decode(response.responseText);
+    //             if (success) {
+    //                 // console.log(response);
+    //                 me.down('#timefrom').setValue(response.timeFrom);
+    //                 me.down('#timeto').setValue(response.timeTo);
+    //             }
+    //         })
+    // },
     onConfirm: function(){
         var me = this;
         Ext.Msg.show({
