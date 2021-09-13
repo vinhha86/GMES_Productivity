@@ -102,12 +102,13 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
                     value: '{currentRec.url}'
                 },
                 width: 400,
-                labelWidth: 120
+                labelWidth: 120,
+                itemId: 'textLinkContract'
             }, {
                 xtype: 'button',
                 iconCls: 'x-fa fa-forward',
                 text: 'Đến trang hợp đồng',
-                itemId: 'btnUrl',
+                itemId: 'btnUrl_Contract',
                 margin: 5
             }]
         }, {
@@ -133,7 +134,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
                 buttonText: 'Tải báo giá',
                 buttonOnly: true,
                 hidden: true,
-                itemId: 'fileUpload',
+                itemId: 'fileUpload_Contract',
                 width: 35,
                 height: 32,
                 margin: 3
@@ -141,7 +142,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
                 xtype: 'button',
                 iconCls: 'x-fa fa-download',
                 text: 'Download file',
-                itemId: 'btnDownload',
+                itemId: 'btnDownload_Contract',
                 margin: 5
             }]
         }, {

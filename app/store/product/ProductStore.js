@@ -219,10 +219,11 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 			}
 		});
 	},
-	loadStore_bypairid_Async: function (id) {
+	loadStore_bypairid_Async: function (id, pcontractid_link) {
 		var me = this;
 		var params = new Object();
 		params.product_pairid_link = id;
+		params.pcontractid_link = pcontractid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

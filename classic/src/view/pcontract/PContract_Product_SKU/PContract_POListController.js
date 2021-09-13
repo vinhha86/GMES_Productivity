@@ -314,7 +314,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var productid_link = rec.data.productid_link;
 
         var productStore = viewModel.getStore('PContractProduct_PO_Store');
-        productStore.loadStore_bypairid_Async(productid_link, rec.data.po_quantity, true);
+        var pcontractid_link = viewModel.get('PContract.id');
+        productStore.loadStore_bypairid_Async(productid_link, rec.data.po_quantity, true, pcontractid_link);
         productStore.load({
             scope: this,
             callback: function (records, operation, success) {
@@ -377,7 +378,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             plan_linerequired: data[0].plan_linerequired,
                             pairamount: data[0].pairamount
                         },
-                        width_PContract_PO_Edit_Porder_Req: 0
+                        width_PContract_PO_Edit_Porder_Req: 0,
+                        pcontractid_link: viewmodel.get('PContract.id')
                     }
                 }
             }]
@@ -461,7 +463,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         productpairid_link: rec.get('productid_link'),
                         isHidden_req: isHidden_req == null ? false : true,
                         productid_link: rec.get('productid_link'),
-                        width_PContract_PO_Edit_Porder_Req: 0
+                        width_PContract_PO_Edit_Porder_Req: 0,
+                        pcontractid_link: viewModel.get('PContract.id')
                     }
                 }
             }]

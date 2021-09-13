@@ -899,7 +899,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                             status: rec.get('status'),
                             productiondate: rec.get('productiondate')
                         },
-                        pcontract_po_productivity: plan_productivity
+                        pcontract_po_productivity: plan_productivity,
+                        pcontractid_link: rec.get('pcontractid_link')
                     }
                 }
             }]
@@ -979,7 +980,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
                         },
                         pcontract_po_productivity: plan_productivity,
                         width_PContract_PO_Edit_Porder_Req: 270,
-                        ishidden_luu_linegiaohang: false
+                        ishidden_luu_linegiaohang: false,
+                        pcontractid_link: rec.get('pcontractid_link')
                     }
                 }
             }]

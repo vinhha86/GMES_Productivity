@@ -15,6 +15,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         contract_date.getPicker().monthYearFormat = 'm-Y';
         var contract_date_finish = this.lookupReference('contract_date_finish');
         contract_date_finish.getPicker().monthYearFormat = 'm-Y';
+
+        common.Check_Object_Permission();
     },
     listen: {
         controller: {
@@ -36,16 +38,16 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         '#btnThemMoiBuyer': {
             click: 'ThemMoiBuyer'
         },
-        '#btnUrl': {
+        '#btnUrl_Contract': {
             click: 'onForward'
         },
         '#btnUpload': {
             click: 'onUpload'
         },
-        '#fileUpload': {
+        '#fileUpload_Contract': {
             change: 'onSelect'
         },
-        '#btnDownload': {
+        '#btnDownload_Contract': {
             click: 'onDownload'
         }
     },
