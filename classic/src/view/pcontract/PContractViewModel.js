@@ -102,6 +102,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         PContractProductTreeStore: {
             type: 'PContractProductTreeStore'
         },
+        PContractProductTreeStoreBalance: {
+            type: 'PContractProductTreeStore'
+        },
         PContractPOList: {
             type: 'PContractPOStore'
         },
@@ -186,7 +189,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         id_mausanpham_filter: 0,
         obj_cpoy_poline: null,
         record_upload: 0,
-        index_upload: 0
+        index_upload: 0,
+
+        isHiddenbalance: true //an nut tinh can doi 
     },
     formulas: {
         ishidden_addproduct: function (get) {

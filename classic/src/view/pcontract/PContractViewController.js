@@ -98,6 +98,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                 }
                 else if (newCard.xtype == 'Balance_Main_Pcontract') {
                     viewmodel.set('isHidden_btnLuu', true);
+                    var storeproduct = viewmodel.getStore('PContractProductTreeStoreBalance');
+                    storeproduct.loadStore(viewmodel.get('PContract.id'), viewmodel.get('productid_link_filter'));
                 }
                 else if (newCard.xtype == 'Stockin_M_List_Main') {
                     // console.log('Stockin_M_List_Main')

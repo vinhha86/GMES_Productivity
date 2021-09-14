@@ -228,7 +228,10 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 				iconCls: 'x-fa fa-calculator',
 				handler: 'onCalBalance_OneProduct'
 			}
-		]
+		],
+		bind: {
+			hidden: '{isHiddenbalance == null ? false : isHiddenbalance}'
+		}
 	}],
 });
 
