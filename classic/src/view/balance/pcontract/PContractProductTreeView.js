@@ -37,7 +37,9 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
             },
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
-                return '<div style ="font-size:9px">' + value + '</div>';
+                if (record.get('children').length > 0)
+                    return '<div style ="background: #f5e6e6">' + value + ' (SP Bộ)</div>';
+                return "<div>" + value + "</div>";
             },
             cellTpl: [
                 '<tpl for="lines">',
@@ -74,21 +76,6 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
                 '</tpl>',
                 '</div>'
             ]
-        },
-        {
-            text: 'SL',
-            dataIndex: 'amount',
-            align: 'right',
-            width: 70,
-            summaryType: 'sum',
-            summaryRenderer: function (value, summaryData, dataIndex) {
-                return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
-            },
-            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                metaData.tdCls = 'po_linekh';
-                var value = value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                return '<div style ="font-size:9px">' + value + '</div>'
-            }
         }
     ],
     dockedItems: [{
