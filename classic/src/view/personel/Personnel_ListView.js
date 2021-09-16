@@ -119,14 +119,19 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Ca làm việc MĐ',
         dataIndex: 'shiftName',
         width: 130,
-
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
     },
     {
         text: 'Chức vụ',
-        dataIndex: 'contractTypeName',
+        dataIndex: 'position',
         flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
+            if(value!=null){
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+            }
             return value;
         }
     }
