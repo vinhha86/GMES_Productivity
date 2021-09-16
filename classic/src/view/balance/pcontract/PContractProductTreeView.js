@@ -29,6 +29,7 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
                 reference: 'styleCodeFilter',
                 width: '99%',
                 margin: 2,
+                emptyText: 'Lọc mã sản phẩm',
                 enableKeyEvents: true,
                 listeners: {
                     keyup: 'onStyleCodeFilterKeyup',
@@ -38,8 +39,8 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 if (record.get('children').length > 0)
-                    return '<div style ="background: #f5e6e6">' + value + ' (SP Bộ)</div>';
-                return "<div>" + value + "</div>";
+                    return '<div style ="font-size:9px;background: #f5e6e6">' + value + ' (SP Bộ)</div>';
+                return '<div style ="font-size:9px">' + value + "</div>";
             },
             cellTpl: [
                 '<tpl for="lines">',

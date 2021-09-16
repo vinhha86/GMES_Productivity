@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 	columns: [
 		{
 			text: 'Mã NPL',
-			flex: 1,
+			width: 150,
 			dataIndex: 'mat_sku_code',
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -44,12 +44,13 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 					keyup: 'onFilterValueMaNPLKeyup',
 					buffer: 500
 				}
-			}
+			},
+			locked: true
 		},
 		{
 			text: 'Màu NPL',
 			dataIndex: 'mat_sku_color_name',
-			flex: 1,
+			width: 150,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value == 'ALL' ? "" : value;
@@ -58,7 +59,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		{
 			text: 'Thành phần vải',
 			dataIndex: 'mat_sku_desc',
-			flex: 1,
+			width: 150,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
