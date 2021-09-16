@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.personel.ShiftAddViewController', {
         TimesheetShiftTypeStore.loadStoreShiftbyOrgid_link(id_donvi);
     },
     control: {
-        '#exit': {
+        '#Exit': {
             click: 'onClick'
         },
         '#Luu': {
