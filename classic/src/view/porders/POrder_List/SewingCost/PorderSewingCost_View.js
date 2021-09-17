@@ -174,6 +174,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 weight: 30,
             },
             {
+                tooltip: 'Copy công đoạn sản phẩm',
+                iconCls: 'x-fa fa-copy',
+                itemId:'btnCopyCongDoan',
+                weight: 30,
+            },
+            {
                 xtype:'button',
                 text: 'Chốt quy trình công nghệ',
                 itemId:'btnConfirmSewingCost',

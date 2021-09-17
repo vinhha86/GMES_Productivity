@@ -7,6 +7,6 @@ Ext.define('GSmartApp.model.ProductSewingCost', {
             calculate: function(data){
                 return data.cost * data.amount;
             }
-        },'workingprocess_name', 'timespent_standard', 'laborlevel_name', 'devicegroup_name', 'techcomment'
+        },'workingprocess_name', 'timespent_standard', 'laborlevel_name', 'devicegroup_name', 'techcomment',
     ]
 });

@@ -12,6 +12,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         '#btnThemCongDoan': {
             click: 'onThemMoi',
         },
+        '#btnCopyCongDoan': {
+            click: 'onCopyCongDoan',
+        },
         '#btnPorderBalance': {
             click: 'onBtnPorderBalance'
         },
@@ -38,6 +41,77 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     rendernumberint: function (value, metaData, record, rowIdx, colIdx, stor) {
         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
     },
+
+    onCopyCongDoan: function(){
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var productid_link = viewModel.get('porder.productid_link');
+        var porderid_link = viewModel.get('porder.id');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn copy danh sách công đoạn chuẩn của sản phẩm (danh sách hiện tại sẽ bị xoá)?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var params = new Object();
+                    params.productid_link = productid_link;
+                    params.porderid_link = porderid_link;
+
+                    me.setLoading(true);
+
+                    GSmartApp.Ajax.post('/api/v1/pordersewingcost/copy_productsewingcost_default', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            me.setLoading(false);
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode == 200) {
+                                    console.log('here');
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Copy thành công",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        },
+                                    });
+                                    console.log('here2');
+                                    var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+                                    PorderSewingCostStore.load();
+                                }
+                                else {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: "Copy thất bại",
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                            }
+                            else {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: "Copy thất bại",
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }else{
+                    grid.setLoading(false);
+                }
+            }
+        });
+    },
+
     onXoa: function (grid, rowIndex, colIndex) {
         grid.setLoading('Đang xóa dữ liệu');
         var viewModel = this.getViewModel();
