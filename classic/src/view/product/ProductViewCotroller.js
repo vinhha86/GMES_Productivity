@@ -85,27 +85,59 @@ Ext.define('GSmartApp.view.product.ProductViewCotroller', {
 
         store.loadProduct_ByPage(limit, page, name, code);
     },
+    // onViewWorkingProcess: function (grid, rowIndex, colIndex) {
+    //     var me = this.getView();
+    //     var rec = grid.getStore().getAt(rowIndex);
+    //     var form = Ext.create('Ext.window.Window', {
+    //         height: 600,
+    //         closable: true,
+    //         resizable: false,
+    //         modal: true,
+    //         border: false,
+    //         title: 'Danh sách công đoạn chuẩn sản phẩm: "' + rec.data.buyercode + '"',
+    //         closeAction: 'destroy',
+    //         width: 1100,
+    //         bodyStyle: 'background-color: transparent',
+    //         layout: {
+    //             type: 'fit', // fit screen for window
+    //             padding: 5
+    //         },
+    //         items: [{
+    //             xtype: 'List_WorkingProcess_View',
+    //             viewModel: {
+    //                 data: {
+    //                     sourceview: 'ProductView',
+    //                     working: {
+    //                         productid_link: rec.data.id
+    //                     }
+    //                 }
+    //             }
+    //         }]
+    //     });
+    //     form.show();
+    // },
     onViewWorkingProcess: function (grid, rowIndex, colIndex) {
         var me = this.getView();
         var rec = grid.getStore().getAt(rowIndex);
         var form = Ext.create('Ext.window.Window', {
-            height: 600,
+            height: '90%',
+            width: '90%',
             closable: true,
             resizable: false,
             modal: true,
             border: false,
-            title: 'Danh sách công đoạn chuẩn sản phẩm: "' + rec.data.buyercode + '"',
+            title: 'Danh sách công đoạn sản phẩm: "' + rec.data.buyercode + '"',
             closeAction: 'destroy',
-            width: 1100,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
                 padding: 5
             },
             items: [{
-                xtype: 'List_WorkingProcess_View',
+                xtype: 'ProductSewingCost_View',
                 viewModel: {
                     data: {
+                        productid_link: rec.data.id,
                         working: {
                             productid_link: rec.data.id
                         }

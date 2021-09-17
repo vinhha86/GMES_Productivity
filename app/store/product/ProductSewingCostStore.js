@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.store.WorkingProcess_Store', {
+Ext.define('GSmartApp.store.product.ProductSewingCostStore', {
     extend: 'Ext.data.Store',
-    storeId: 'WorkingProcess_Store',
-    alias: 'store.WorkingProcess_Store',
+    storeId: 'ProductSewingCostStore',
+    alias: 'store.ProductSewingCostStore',
 
-    model: 'GSmartApp.model.WorkingProcess_Model',
+    model: 'GSmartApp.model.ProductSewingCost',
        
     sorters: [{
-        property: 'name',
+        property: 'workingprocess_name',
         direction: 'ASC'
     }],
     loadby_product: function(productid_link){
@@ -22,7 +22,7 @@ Ext.define('GSmartApp.store.WorkingProcess_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/workingprocess/getby_product',
+			url: config.getAppBaseUrl()+'/api/v1/productsewingcost/getby_product',
 			paramsAsJson:true,
 			noCache: false,
 			extraParams : params,
@@ -36,11 +36,11 @@ Ext.define('GSmartApp.store.WorkingProcess_Store', {
 			}
 		});
 		this.load();
-    },
-	loadby_porder: function(porderid_link){
+	},
+	loadByProductUnused: function(productid_link){
         var me=this;
 		var params = new Object();
-		params.porderid_link = porderid_link;
+		params.productid_link = productid_link;
 
 		this.setProxy({
 			type: 'ajax',
@@ -50,7 +50,7 @@ Ext.define('GSmartApp.store.WorkingProcess_Store', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/workingprocess/getby_porder',
+			url: config.getAppBaseUrl()+'/api/v1/productsewingcost/getby_product_notin_product_balance',
 			paramsAsJson:true,
 			noCache: false,
 			extraParams : params,
@@ -64,5 +64,5 @@ Ext.define('GSmartApp.store.WorkingProcess_Store', {
 			}
 		});
 		this.load();
-    }
+	},
 });

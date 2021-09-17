@@ -1,14 +1,17 @@
-Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View', {
+Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_View', {
     extend: 'Ext.grid.Panel',
-    xtype: 'PorderSewingCost_View',
-    id: 'PorderSewingCost_View',
+    xtype: 'ProductSewingCost_View',
+    itemId: 'ProductSewingCost_View',
     requires: [
         'Ext.grid.Panel'
     ],
     border: true,
-    controller: 'PorderSewingCost_ViewController',
+    controller: 'ProductSewingCost_ViewController',
+    viewModel: {
+        type: 'ProductSewingCost_ViewModel'
+    },
     bind: {
-        store: '{PorderSewingCostStore}'
+        store: '{ProductSewingCostStore}'
     },
     // selModel: 'rowmodel',
     selModel: {
@@ -173,19 +176,19 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
                 itemId:'btnThemCongDoan',
                 weight: 30,
             },
-            {
-                xtype:'button',
-                text: 'Chốt quy trình công nghệ',
-                itemId:'btnConfirmSewingCost',
-                // ui: 'header',
-                tooltip: 'Chốt quy trình công nghệ',
-                iconCls: 'x-fa fa-check greenIcon',
-                // handler: 'onFactoriesTap',
-            },
+            // {
+            //     xtype:'button',
+            //     text: 'Chốt quy trình công nghệ',
+            //     itemId:'btnConfirmSewingCost',
+            //     // ui: 'header',
+            //     tooltip: 'Chốt quy trình công nghệ',
+            //     iconCls: 'x-fa fa-check greenIcon',
+            //     // handler: 'onFactoriesTap',
+            // },
             {
                 xtype:'button',
                 text: 'Cụm công đoạn',
-                itemId:'btnPorderBalance',
+                itemId:'btnProductBalance',
                 // ui: 'header',
                 tooltip: 'Cụm công đoạn',
                 // iconCls: 'x-fa fa-check greenIcon',
@@ -224,7 +227,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_View',
             {
                 xtype: 'button',
                 tooltip: 'Xoá',
-                itemId: 'btnDeletePorderSewingCost',
+                itemId: 'btnDeleteProductSewingCost',
                 // margin: 3,
                 // text: 'Mẫu file quy trình công nghệ',
                 iconCls: 'x-fa fa-trash',

@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.porders.SewingCost.POrder_List.List_WorkingProcess_Vi
         }
     },
     data: {
+        sourceview: null,
         isDisable_themmoi: false,
         working: {
             data: {
