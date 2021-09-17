@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
   alias: 'controller.Personnel_info_ViewController',
   init: function () {
     var viewmodel = this.getViewModel();
-    viewmodel.set('person.countryid_link',"Việt Nam");
+    viewmodel.set('person.countryid_link', "Việt Nam");
     var TypeStore = viewmodel.getStore('PersonnelTypeStore');
     TypeStore.loadStore();
 
@@ -135,7 +135,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     if (newvalue != viewmodel.get('TrangThai.old')) {
       //đi làm
       if (newvalue == 0) {
-      //  viewmodel.set('personnel.date_endworking', null);
+        //  viewmodel.set('personnel.date_endworking', null);
         var date_startworking = viewmodel.get('personnel.date_startworking');
         if (date_startworking) {
           var value = new Date(date_startworking)
@@ -243,6 +243,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     else {
       listid = '22,14,8,9,17,19,20,21,22,23,28,29,30,31,32,33,34,35,36,37,38,39,221';
     }
+    console.log(newvalue);
     OrgStore.getbyParentandType(newvalue, listid);
   },
   onSelectQuocTich: function (combo, newvalue, oldValue, e) {

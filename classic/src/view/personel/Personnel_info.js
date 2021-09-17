@@ -257,7 +257,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         labelWidth: 78,
                         queryMode: 'local',
                         anyMatch: true,
-                        fieldLabel: 'Phòng ban ',
+                        fieldLabel: 'Phòng ban/tổ ',
                         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                         fieldStyle: 'font-size:11px;',
                         displayField: 'name',
@@ -277,7 +277,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 items: [
                     {
                         xtype: 'combo',
-                        itemId: 'cmbDonViQuanLy',
+                        itemId: 'cmbChucVu',
                         queryMode: 'local',
                         anyMatch: true,
                         labelWidth: 78,
@@ -310,7 +310,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                             value: '{personnel.levelid_link}',
                             store: '{LaborStore}'
                         }
-                    },{
+                    }, {
                         xtype: 'combo',
                         labelWidth: 78,
                         queryMode: 'local',

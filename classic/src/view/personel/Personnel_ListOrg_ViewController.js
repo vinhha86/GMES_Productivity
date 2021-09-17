@@ -9,22 +9,22 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
             itemclick: 'onloadDetail'
         }
     },
-    onloadDetail: function( grid, record, item, index, e, eOpts){
+    onloadDetail: function (grid, record, item, index, e, eOpts) {
         var viewModel = this.getViewModel();
         var params = new Object();
         params.isviewall = viewModel.get('isviewall');
         params.orgid_link = record.get('id');
 
-        viewModel.set('donvi.id',record.data.id);
-        viewModel.set('orgtypeid_link',record.get('orgtypeid_link'));
+        viewModel.set('donvi.id', record.data.id);
+        viewModel.set('orgtypeid_link', record.get('orgtypeid_link'));
         //neu loai = 13 la xuong sx thi xem tat ca trong xuong
         // = 1: xem toan bo cong ty hoac nhung nguoi chi thuoc Tru so chinh
         // con lai la xem trong to hoac phong ban
-        if(record.get('orgtypeid_link') == 13){
-             params.ismanager = true;     
-             viewModel.set('isdisabled', true);       
+        if (record.get('orgtypeid_link') == 13) {
+            params.ismanager = true;
+            viewModel.set('isdisabled', true);
         }
-        else if (record.get('orgtypeid_link') == 1){
+        else if (record.get('orgtypeid_link') == 1) {
             params.ismanager = true;
             viewModel.set('isdisabled', false);
         }
@@ -34,11 +34,10 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         }
 
         var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(params.orgid_link , params.ismanager, params.isviewall);
+        StorePersonel.loadStore_byOrg(params.orgid_link, params.ismanager, params.isviewall);
 
-        //load list phong ban - để filter
-       
-      
+        //load list phong ban - để filter     
+
         var orgStore = viewModel.getStore('ListOrgStore');
         var listid = '';
         if (record.data.id == 1) {
@@ -48,6 +47,10 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
             listid = '22,14,8,9,17,19,20,21,22,23,28,29,30,31,32,33,34,35,36,37,38,39,221';
         }
         orgStore.getbyParentandType(record.data.id, listid);
+
+        //load danh sách chức vụ
+        var positionStore = viewModel.getStore('Personnel_Position_Store');
+        positionStore.loadByOrg(record.get('id'));
     },
     onload: function () {
         var me = this.getView();
@@ -73,6 +76,6 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         storeMenu.getSorters().add('is_manufacturer');
         storeMenu.getSorters().add('id');
 
-        
+
     }
 })

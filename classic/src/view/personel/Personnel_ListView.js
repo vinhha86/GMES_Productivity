@@ -11,6 +11,10 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     bind: {
         store: '{Personnel_Store}'
     },
+    features: [{
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
     selModel: {
         selType: 'checkboxmodel',
         mode: 'MULTI',
@@ -54,6 +58,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                 buffer: 500
             }
         },
+        summaryType: 'count',
+        summaryRenderer: function (value) {
+            if (null == value) value = 0;
+            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' nhân viên</div>';
+        }
     }, {
         text: 'Mã NV',
         dataIndex: 'code',
@@ -61,8 +70,20 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnel_code',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onpersonnel_code',
+                buffer: 500
+            }
         }
-
     }, {
         text: 'Số CMT',
         dataIndex: 'idnumber',
@@ -70,6 +91,19 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnel_cmt',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onpersonnel_cmt',
+                buffer: 500
+            }
         }
     },
     {
@@ -113,15 +147,28 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                     handler: 'onOrgNameComboValueTriggerClick',
                 }
             }
-        },
+        }
     },
     {
         text: 'Ca làm việc MĐ',
         dataIndex: 'shiftName',
-        width: 130,
+        width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'personnel_shiftName',
+            width: '99%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onpersonnel_shiftName',
+                buffer: 500
+            }
         }
     },
     {
@@ -132,6 +179,40 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             value = value == null ? "" : value;
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'combobox',
+            width: '98%',
+            flex: 1,
+            margin: 2,
+            editable: false,
+            readOnly: false,
+            displayField: 'name',
+            valueField: 'id',
+            queryMode: 'local',
+            anyMatch: true,
+            listeners: {
+                select: 'onPositionFilter',
+            },
+            bind: {
+                store: '{Personnel_Position_Store}',
+                value: '{positionid_link}',
+            },
+            matchFieldWidth: false,
+            listConfig: {
+                listeners: {
+                    beforeshow: function (picker) {
+                        picker.minWidth = picker.up('combobox').getSize().width;
+                    }
+                }
+            },
+            triggers: {
+                clear: {
+                    cls: 'x-form-clear-trigger',
+                    weight: 1,
+                    handler: 'onPositionTriggerClick',
+                }
+            }
         }
     }
     ],

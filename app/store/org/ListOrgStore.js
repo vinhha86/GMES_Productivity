@@ -1,171 +1,171 @@
 Ext.define('GSmartApp.store.org.ListOrgStore', {
-    extend: 'Ext.data.Store',
+	extend: 'Ext.data.Store',
 	alias: 'store.ListOrgStore',
 	storeId: 'ListOrgStore',
-    idProperty: 'idx',
+	idProperty: 'idx',
 	fields: [
 		// {name: 'id', type: 'int'},
-		{name: 'code',  type: 'string'},
-        {name: 'name',   type: 'string'},
-		{name: 'orgtypeid_link',   type: 'int'},
-		{name: 'countryid_link',   type: 'int'},
-        {name: 'city', type: 'string'},
-        {name: 'address',   type: 'string'},
-        {name: 'gpslat',   type: 'number'},
-        {name: 'gpslong',   type: 'number'},
-        {name: 'mainbizid_link',   type: 'int'},
-		{name: 'timezone',   type: 'int'},
-		{name: 'contactperson',   type: 'string'},
-		{name: 'email',   type: 'string'},
-        {name: 'langid_link',   type: 'int'},
-        {name: 'status',   type: 'int'},
-		{name: 'parentid_link',   type: 'int'},
-		{name: 'phone',   type: 'string'},
-		{name: 'rootid_link',   type: 'int'},
-		{name: 'parentcode',   type: 'string'},
+		{ name: 'code', type: 'string' },
+		{ name: 'name', type: 'string' },
+		{ name: 'orgtypeid_link', type: 'int' },
+		{ name: 'countryid_link', type: 'int' },
+		{ name: 'city', type: 'string' },
+		{ name: 'address', type: 'string' },
+		{ name: 'gpslat', type: 'number' },
+		{ name: 'gpslong', type: 'number' },
+		{ name: 'mainbizid_link', type: 'int' },
+		{ name: 'timezone', type: 'int' },
+		{ name: 'contactperson', type: 'string' },
+		{ name: 'email', type: 'string' },
+		{ name: 'langid_link', type: 'int' },
+		{ name: 'status', type: 'int' },
+		{ name: 'parentid_link', type: 'int' },
+		{ name: 'phone', type: 'string' },
+		{ name: 'rootid_link', type: 'int' },
+		{ name: 'parentcode', type: 'string' },
 		{
-            name    : 'nameParent', 
-            convert : function (value, rec) {
-				if(rec.get('parentcode') == null || rec.get('parentcode') == '')
+			name: 'nameParent',
+			convert: function (value, rec) {
+				if (rec.get('parentcode') == null || rec.get('parentcode') == '')
 					return rec.get('name');
-            	return rec.get('name') + ' (' + rec.get('parentcode') + ')';
-            }
-        }
+				return rec.get('name') + ' (' + rec.get('parentcode') + ')';
+			}
+		}
 	],
-	loadStore:function(type, isAll){
-		var me=this;
-		if(isAll == null)
-		isAll = false;
+	loadStore: function (type, isAll) {
+		var me = this;
+		if (isAll == null)
+			isAll = false;
 		var params = new Object();
 		params.orgtypeid_link = type;
 		params.isAll = isAll;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeId',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgByTypeId',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
+			callback: function (records, operation, success) {
+				if (!success) {
 					//  this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	GetOrg_By_type:function(type){
+	GetOrg_By_type: function (type) {
 		var params = new Object();
 		params.list_type_id = type;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getby_listtype',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/getby_listtype',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadStore_Async:function(type, isAll){
-		var me=this;
-		if(isAll == null)
-		isAll = false;
+	loadStore_Async: function (type, isAll) {
+		var me = this;
+		if (isAll == null)
+			isAll = false;
 		var params = new Object();
 		params.orgtypeid_link = type;
 		params.isAll = isAll;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeId',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgByTypeId',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-	},	
-	loadStore_allchildren_byorg(listid){
+	},
+	loadStore_allchildren_byorg(listid) {
 		//Lấy tất cả các Org có loại trong danh sách listid và under Org của User đang đăng nhập
 		var params = new Object();
 		params.listid = listid;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getallchildrenbyorg',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getallchildrenbyorg',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadStore_allchildren_byorg_async(listid, isincludemyself){
+	loadStore_allchildren_byorg_async(listid, isincludemyself) {
 		//Lấy tất cả các Org có loại trong danh sách listid và under Org của User đang đăng nhập
 		var params = new Object();
 		params.listid = listid;
@@ -173,143 +173,143 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getallchildrenbyorg',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getallchildrenbyorg',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-	},	
-	loadStoreByOrgId(id){
+	},
+	loadStoreByOrgId(id) {
 		var params = new Object();
 		params.id = id;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgById',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgById',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadOrg_Request: function(pcontract_poid_link, callback) {
-		var me=this;
+	loadOrg_Request: function (pcontract_poid_link, callback) {
+		var me = this;
 		var params = new Object();
 		params.pcontract_poid_link = pcontract_poid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			 url: config.getAppBaseUrl()+'/api/v1/org/get_orgreq',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/get_orgreq',
+			paramsAsJson: true,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			extraParams: params,
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
+			callback: function (records, operation, success) {
 				callback.call(records, operation, success);
 			}
 		});
 	},
-	loadOrg_NotRequest: function(pcontract_poid_link) {
-		var me=this;
+	loadOrg_NotRequest: function (pcontract_poid_link) {
+		var me = this;
 		var params = new Object();
 		params.pcontract_poid_link = pcontract_poid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			 url: config.getAppBaseUrl()+'/api/v1/org/get_orgnotreq',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/get_orgnotreq',
+			paramsAsJson: true,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			extraParams: params,
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadToSX:function(parentid_link){
+	loadToSX: function (parentid_link) {
 		var params = new Object();
 		params.id = parentid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/tosxbyparent',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/tosxbyparent',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -317,25 +317,25 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 		});
 		this.load();
 	},
-	getbyParent:function(parentid_link){
+	getbyParent: function (parentid_link) {
 		var params = new Object();
 		params.id = parentid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getbyparent',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/getbyparent',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -343,26 +343,26 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 		});
 		this.load();
 	},
-	getbyParentandType:function(parentid_link, listtype){
+	getbyParentandType: function (parentid_link, listtype) {
 		var params = new Object();
 		params.parentid_link = parentid_link;
 		params.listtype = listtype;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getchilbytype',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/getchilbytype',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
@@ -370,348 +370,348 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 		});
 		this.load();
 	},
-	loadToSX_Async:function(parentid_link){
+	loadToSX_Async: function (parentid_link) {
 		var params = new Object();
 		params.id = parentid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/tosxbyparent',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/org/tosxbyparent',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
 	},
-	loadStore_byRoot(listid){
+	loadStore_byRoot(listid) {
 		//Lấy tất cả các Org có loại trong danh sách listid và under RootOrg, trừ Org của User đang đăng nhập
 		var params = new Object();
 		params.listid = listid;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getallbyroot_notuser',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getallbyroot_notuser',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadStoreAll(){
+	loadStoreAll() {
 		var params = new Object();
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/findAll',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/findAll',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadStoreByOrgTypeString(orgtypestring){
-		var params = new Object();
-		params.orgtypestring = orgtypestring;
-		this.setProxy({
-			type: 'ajax',
-			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
-				destroy: 'POST'
-			},
-			url: config.getAppBaseUrl()+'/api/v1/org/findOrgByOrgTypeString',
-			paramsAsJson:true,
-			extraParams: params,
-			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
-			reader: {
-				type: 'json',
-				rootProperty: 'data'
-			}
-		});
-		this.loadPage(1,{
-			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
-				}
-			}
-		});
-	},
-	loadStoreByOrgTypeString_Async(orgtypestring){
+	loadStoreByOrgTypeString(orgtypestring) {
 		var params = new Object();
 		params.orgtypestring = orgtypestring;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/findOrgByOrgTypeString',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/findOrgByOrgTypeString',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1, {
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
+				}
+			}
+		});
+	},
+	loadStoreByOrgTypeString_Async(orgtypestring) {
+		var params = new Object();
+		params.orgtypestring = orgtypestring;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/org/findOrgByOrgTypeString',
+			paramsAsJson: true,
+			extraParams: params,
+			noCache: false,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
 	},
-	loadStoreByPorderIdLink(porderid_link){
+	loadStoreByPorderIdLink(porderid_link) {
 		var params = new Object();
 		params.id = porderid_link;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByPorderIdLink',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgByPorderIdLink',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadStoreForContractBuyerBuyerList(buyerIds){
+	loadStoreForContractBuyerBuyerList(buyerIds) {
 		var params = new Object();
 		params.buyerIds = buyerIds;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgForContractBuyerBuyerList',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgForContractBuyerBuyerList',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadVendorStoreByBuyerId(buyerId){
+	loadVendorStoreByBuyerId(buyerId) {
 		var params = new Object();
 		params.id = buyerId;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgForVendorStoreByBuyerId',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgForVendorStoreByBuyerId',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
+			callback: function (records, operation, success) {
+				if (!success) {
 					//  this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadOrgByTypeKho(){
+	loadOrgByTypeKho() {
 		var params = new Object();
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeKho',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgByTypeKho',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadOrgByTypeAndUser(orgtypeList){ // array [1,2,3]
+	loadOrgByTypeAndUser(orgtypeList) { // array [1,2,3]
 		var params = new Object();
 		params.orgtypeList = orgtypeList;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeAndUser',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgByTypeAndUser',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});
 	},
-	loadOrgByTypeBanCat(orgtypeList){ // array [1,2,3]
+	loadOrgByTypeBanCat(orgtypeList) { // array [1,2,3]
 		var params = new Object();
 		params.orgtypeList = orgtypeList;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/org/getOrgByTypeBanCatAndUser',
-			paramsAsJson:true,
+			url: config.getAppBaseUrl() + '/api/v1/org/getOrgByTypeBanCatAndUser',
+			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});

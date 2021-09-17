@@ -19,11 +19,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         '#splbtn_Upload': {
             click: 'onUpload'
         },
-        '#splbtn_ThemCa':{
-            click:'onThemCaLamViec'
+        '#splbtn_ThemCa': {
+            click: 'onThemCaLamViec'
         },
-        '#splbtn_Download':{
-            click:'onDownload_Template'
+        '#splbtn_Download': {
+            click: 'onDownload_Template'
         }
     },
     onDownload_Template: function () {
@@ -80,8 +80,36 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         }
         return bytes;
     },
-   
-    onFilterOrgnameFilter:function(){
+    onPositionFilter: function (cmb, rec, e) {
+        var viewModel = this.getViewModel();
+        var filterValue = rec.get('id');
+        console.log(filterValue);
+        var store = viewModel.getStore('Personnel_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.orgPosition = filters.add({
+                id: 'orgPosition',
+                property: 'positionid_link',
+                value: filterValue,
+                exactMatch: true,
+            });
+        }
+        else if (this.orgPosition) {
+            filters.remove(this.orgPosition);
+            this.orgPosition = null;
+        }
+    },
+    onPositionTriggerClick: function () {
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('Personnel_Store');
+        var filters = store.getFilters();
+        if (this.orgPosition != null)
+            filters.remove(this.orgPosition);
+        this.orgPosition = null;
+        viewModel.set('positionid_link', 0);
+    },
+    onFilterOrgnameFilter: function () {
         var viewModel = this.getViewModel();
         var filterValue = viewModel.get('orgnameComboValue');
         console.log(filterValue);
@@ -101,18 +129,18 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             this.orgFilter = null;
         }
     },
-    onOrgNameComboValueTriggerClick: function(){
+    onOrgNameComboValueTriggerClick: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('orgnameComboValue', null);
         this.onFilterOrgnameFilter();
     },
-    onThemCaLamViec:function(){
+    onThemCaLamViec: function () {
         var viewModel = this.getViewModel();
         var orgid_link = viewModel.get('donvi.id');
         console.log(orgid_link);
         var me = this;
         var select = this.getView().getSelectionModel().getSelection();
-        if(select.length == 0){
+        if (select.length == 0) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: "Bạn chưa chọn nhân viên!",
@@ -123,51 +151,51 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             });
             return;
         }
-        var form = Ext.create('Ext.window.Window',{
-            hieght:250,
-            width:300,
-            closable:true,
-            resizeable:false,
-            modal:true,
-            border:false,
-            title:'Chọn ca làm việc mặc định',
-            closeAction:'destroy',
+        var form = Ext.create('Ext.window.Window', {
+            hieght: 250,
+            width: 300,
+            closable: true,
+            resizeable: false,
+            modal: true,
+            border: false,
+            title: 'Chọn ca làm việc mặc định',
+            closeAction: 'destroy',
             bodyStyle: 'background-color: transparent',
-            layout:{
-                type:'fit',
-                padding:5
+            layout: {
+                type: 'fit',
+                padding: 5
             },
-            items:[
+            items: [
                 {
-                    xtype:'ShiftAddView',
-                    viewModel:{
-                        
-                        data:{
-                            select:select,
-                            orgid_link:orgid_link
+                    xtype: 'ShiftAddView',
+                    viewModel: {
+
+                        data: {
+                            select: select,
+                            orgid_link: orgid_link
                         }
                     }
                 }
             ]
         })
         form.show();
-        form.down('#ShiftAddView').on('Thanhcong',function(){
+        form.down('#ShiftAddView').on('Thanhcong', function () {
             form.close();
             //load lai trang
             me.onload();
         })
     },
-    onload:function(){
+    onload: function () {
         var viewModel = this.getViewModel();
         var params = new Object();
         params.isviewall = viewModel.get('isviewall');
         params.orgid_link = viewModel.get('donvi.id');
 
-        if(viewModel.get('orgtypeid_link') == 13){
-             params.ismanager = true;     
-             viewModel.set('isdisabled', true);       
+        if (viewModel.get('orgtypeid_link') == 13) {
+            params.ismanager = true;
+            viewModel.set('isdisabled', true);
         }
-        else if (viewModel.get('orgtypeid_link') == 1){
+        else if (viewModel.get('orgtypeid_link') == 1) {
             params.ismanager = true;
             viewModel.set('isdisabled', false);
         }
@@ -177,13 +205,13 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         }
 
         var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(params.orgid_link , params.ismanager, params.isviewall);
+        StorePersonel.loadStore_byOrg(params.orgid_link, params.ismanager, params.isviewall);
     },
     onUpload: function () {
         var viewmodel = this.getViewModel();
         var me = this.getView();
-        var donvi=viewmodel.get('donvi.id');
-        if(!donvi){
+        var donvi = viewmodel.get('donvi.id');
+        if (!donvi) {
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: "Bạn chưa chọn đơn vị!",
@@ -193,7 +221,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                 }
             });
             return;
-        }else{
+        } else {
             me.down('#fileUpload').fileInputEl.dom.click();
         }
     },
@@ -232,11 +260,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
                         });
                     }
                     //load lai ds
-                        var store = viewmodel.getStore('Personnel_Store');
-                        store.load();
+                    var store = viewmodel.getStore('Personnel_Store');
+                    store.load();
                 }
             })
-       
+
     },
 
     onPrint: function () {
@@ -327,23 +355,78 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         });
     },
 
-    onpersonnel_name:function(){
-      let  filterField=this.lookupReference('personnel_name');
-        filters =this.getView().store.getFilters();
-        if(filterField.value){
-            this.nameFilter=filters.add({
-                id:'nameFilter',
-                property:'fullname',
-                value:filterField.value,
-                anyMatch:true,
-                caseSensitive:false
+    onpersonnel_name: function () {
+        var filterField = this.lookupReference('personnel_name');
+        filters = this.getView().store.getFilters();
+        if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'fullname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
             });
-        }else{
-            if(this.nameFilter){
+        } else {
+            if (this.nameFilter) {
                 filters.remove(this.nameFilter);
                 this.nameFilter = null;
             }
         }
+    },
+
+    onpersonnel_code: function () {
+        var filterField = this.lookupReference('personnel_code');
+        filters = this.getView().store.getFilters();
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        } else {
+            if (this.codeFilter) {
+                filters.remove(this.codeFilter);
+                this.codeFilter = null;
+            }
+        }
+    },
+    onpersonnel_cmt: function () {
+        var filterField = this.lookupReference('personnel_cmt');
+        filters = this.getView().store.getFilters();
+        if (filterField.value) {
+            this.idnumber = filters.add({
+                id: 'idnumber',
+                property: 'idnumber',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        } else {
+            if (this.idnumber) {
+                filters.remove(this.idnumber);
+                this.idnumber = null;
+            }
+        }
+    },
+    onpersonnel_shiftName: function () {
+        var filterField = this.lookupReference('personnel_shiftName');
+        filters = this.getView().store.getFilters();
+        if (filterField.value) {
+            this.shiftName = filters.add({
+                id: 'shiftName',
+                property: 'shiftName',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        } else {
+            if (this.shiftName) {
+                filters.remove(this.shiftName);
+                this.shiftName = null;
+            }
+        }
     }
-   
+
 })
