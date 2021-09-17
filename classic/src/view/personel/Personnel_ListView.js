@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         }
     },
     {
-            
+
         text: 'Phòng ban', dataIndex: 'orgname', width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
@@ -94,14 +94,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             listeners: {
                 select: 'onFilterOrgnameFilter',
             },
-            bind:{
+            bind: {
                 store: '{ListOrgStore}',
                 value: '{orgnameComboValue}',
             },
             matchFieldWidth: false,
             listConfig: {
                 listeners: {
-                    beforeshow: function(picker) {
+                    beforeshow: function (picker) {
                         picker.minWidth = picker.up('combobox').getSize().width;
                     }
                 }
@@ -114,7 +114,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                 }
             }
         },
-    }, 
+    },
     {
         text: 'Ca làm việc MĐ',
         dataIndex: 'shiftName',
@@ -129,9 +129,8 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         dataIndex: 'position',
         flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            if(value!=null){
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-            }
+            value = value == null ? "" : value;
+            metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     }
