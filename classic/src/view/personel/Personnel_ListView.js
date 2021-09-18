@@ -150,7 +150,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         }
     },
     {
-        text: 'Ca làm việc MĐ',
+        text: 'Ca MĐ',
         dataIndex: 'shiftName',
         width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
