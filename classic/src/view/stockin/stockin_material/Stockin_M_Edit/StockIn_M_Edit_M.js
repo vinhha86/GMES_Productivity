@@ -103,24 +103,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 		xtype: 'container',
 		margin: '1 0 0 0',
 		items: [
-			{
-				xtype: 'combo',
-				valueField: 'id',
-				displayField: 'name',
-				bind: {
-					value: '{stockin.orgid_from_link}',
-					store: '{OrgFromStore}'
-				},
-				queryMode: 'local',
-				anyMatch: true,
-				margin: '0 5 0 5',
-				fieldLabel: 'Nơi giao('+ '<span style="color:red">*</span>' + ')',
-				labelWidth: 80,					
-				width: 375,
-				bind: {
-					hidden: '{isTypeMuaMoiNguyenPhuLieu}'
-				}
-			},
+			// {
+			// 	xtype: 'combo',
+			// 	valueField: 'id',
+			// 	displayField: 'name',
+			// 	bind: {
+			// 		value: '{stockin.orgid_from_link}',
+			// 		store: '{OrgFromStore}'
+			// 	},
+			// 	queryMode: 'local',
+			// 	anyMatch: true,
+			// 	margin: '0 5 0 5',
+			// 	fieldLabel: 'Nơi giao('+ '<span style="color:red">*</span>' + ')',
+			// 	labelWidth: 80,					
+			// 	width: 375,
+			// 	bind: {
+			// 		hidden: '{isTypeMuaMoiNguyenPhuLieu}'
+			// 	}
+			// },
 			{
 				layout: 'hbox',
 				xtype: 'container',
@@ -134,21 +134,25 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 						displayField: 'name',
 						bind: {
 							value: '{stockin.orgid_from_link}',
-							store: '{OrgFromStore}'
+							store: '{OrgFromStore}',
+							width: '{isTypeMuaMoiNguyenPhuLieu}'
 						},
 						queryMode: 'local',
 						anyMatch: true,
 						// margin: '0 5 0 5',
 						fieldLabel: 'Nơi giao('+ '<span style="color:red">*</span>' + ')',
 						labelWidth: 80,					
-						width: 343
+						// width: 343
 					},
 					{
 						xtype:'button',
 						margin: '0 0 0 2',
 						itemId:'btnAddNoiGiao',
 						iconCls: 'x-fa fa-plus',
-						width: 30
+						width: 30,
+						bind: {
+							hidden: '{isBtnAddNoiGiaoHidden}'
+						}
 					}
 				],
 				bind: {

@@ -196,11 +196,23 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 			}
 			return false;
 		},
+		// isTypeMuaMoiNguyenPhuLieu: function (get){
+		// 	if(get('stockin.stockintypeid_link') ==1){
+		// 		return true;
+		// 	}
+		// 	return false;
+		// },
 		isTypeMuaMoiNguyenPhuLieu: function (get){
 			if(get('stockin.stockintypeid_link') ==1){
-				return true;
+				return 343;
 			}
-			return false;
+			return 375;
+		},
+		isBtnAddNoiGiaoHidden: function (get){
+			if(get('stockin.stockintypeid_link') ==1){
+				return false;
+			}
+			return true;
 		},
 		isStatusComboValueTriggerHidden: function (get){
 			var statusComboValue = get('statusComboValue');
