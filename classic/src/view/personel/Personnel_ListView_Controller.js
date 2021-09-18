@@ -24,7 +24,21 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         },
         '#splbtn_Download': {
             click: 'onDownload_Template'
+        },
+        '#onThoiVu': {
+            change: 'onThoiVu'
         }
+    },
+    //thay đổi checkbox
+    onThoiVu: function () {
+        var viewmodel = this.getViewModel();
+        console.log(viewmodel.get('isviewallThoiVu'));
+        var orgid_link = viewmodel.get('donvi.id');
+        var isviewall = viewmodel.get('isviewall');
+        var isviewallThoiVu = viewmodel.get('isviewallThoiVu');
+        var StorePersonel = viewmodel.getStore('Personnel_Store');
+        StorePersonel.loadStore_byOrg_PersonType(orgid_link, true  , isviewall,isviewallThoiVu );
+
     },
     onDownload_Template: function () {
         var me = this;

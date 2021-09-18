@@ -66,7 +66,26 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     buffer: 500
                 }
             }
-        }, {
+        },
+        {
+            header: 'Mã công đoạn',
+            dataIndex: 'code',
+            width: 150,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'workingcode',
+                width: '99%',
+                // flex: 1,
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onWorkingcodeKeyup',
+                    buffer: 500
+                }
+            }
+        }, 
+        {
             header: 'Thiết bị',
             // dataIndex: 'devicerequiredid_link',
             dataIndex: 'device_name',
@@ -164,6 +183,20 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             itemId: 'name',
             bind: {
                 value: '{working.name}'
+            }
+        },
+        {
+            xtype: 'textfield',
+            margin: 1,
+            fieldLabel: '',
+            emptyText: 'Mã công đoạn',
+            width: 150,
+            allowBlank: false,
+            blankText: 'Trường bắt buộc nhập',
+            selectOnFocus: true,
+            itemId: 'code',
+            bind: {
+                value: '{working.code}'
             }
         },
         {

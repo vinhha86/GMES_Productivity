@@ -266,7 +266,18 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             tooltip: 'Chọn ca làm việc mặc định',
         }
 
-            , '->', {
+            , '->',
+            {
+                xtype: 'checkbox',
+                margin: '1 5 1 1',
+                boxLabel: 'Thời vụ',
+                labelAlign: 'right',
+                itemId:'onThoiVu',
+                bind: {
+                    value: '{isviewallThoiVu}',
+                }
+            },
+            {
             xtype: 'checkbox',
             margin: '1 5 1 1',
             boxLabel: 'Xem tất cả',

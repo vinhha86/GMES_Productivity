@@ -1,25 +1,24 @@
-Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewController', {
+Ext.define('GSmartApp.view.product.ProductSewingCost.ProductSewingCost_ViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.PorderSewingCost_ViewController',
+    alias: 'controller.ProductSewingCost_ViewController',
     init: function () {
-        this.callParent(arguments);
+        // this.callParent(arguments);
         var viewModel = this.getViewModel();
-        var PorderSewingCostStore = viewModel.get('PorderSewingCostStore');
-        PorderSewingCostStore.setGroupField('porderbalance_name');
+        var productid_link = viewModel.get('productid_link');
+        var ProductSewingCostStore = viewModel.get('ProductSewingCostStore');
+        ProductSewingCostStore.setGroupField('productbalance_name');
+        ProductSewingCostStore.loadby_product(productid_link);
     },
 
     control: {
         '#btnThemCongDoan': {
             click: 'onThemMoi',
         },
-        '#btnCopyCongDoan': {
-            click: 'onCopyCongDoan',
+        '#btnProductBalance': {
+            click: 'onBtnProductBalance'
         },
-        '#btnPorderBalance': {
-            click: 'onBtnPorderBalance'
-        },
-        '#btnDeletePorderSewingCost': {
-            click: 'onbtnDeletePorderSewingCost'
+        '#btnDeleteProductSewingCost': {
+            click: 'onbtnDeleteProductSewingCost'
         },
         '#btnDownloadTmpFile': {
             click: 'onbtnDownloadTmpFile'
@@ -41,81 +40,10 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     rendernumberint: function (value, metaData, record, rowIdx, colIdx, stor) {
         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
     },
-
-    onCopyCongDoan: function(){
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var productid_link = viewModel.get('porder.productid_link');
-        var porderid_link = viewModel.get('porder.id');
-        Ext.Msg.show({
-            title: 'Thông báo',
-            msg: 'Bạn có chắc chắn copy danh sách công đoạn chuẩn của sản phẩm (danh sách hiện tại sẽ bị xoá)?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            buttonText: {
-                yes: 'Có',
-                no: 'Không'
-            },
-            fn: function (btn) {
-                if (btn === 'yes') {
-                    var params = new Object();
-                    params.productid_link = productid_link;
-                    params.porderid_link = porderid_link;
-
-                    me.setLoading(true);
-
-                    GSmartApp.Ajax.post('/api/v1/pordersewingcost/copy_productsewingcost_default', Ext.JSON.encode(params),
-                        function (success, response, options) {
-                            me.setLoading(false);
-                            if (success) {
-                                var response = Ext.decode(response.responseText);
-                                if (response.respcode == 200) {
-                                    console.log('here');
-                                    Ext.Msg.show({
-                                        title: "Thông báo",
-                                        msg: "Copy thành công",
-                                        buttons: Ext.MessageBox.YES,
-                                        buttonText: {
-                                            yes: 'Đóng'
-                                        },
-                                    });
-                                    console.log('here2');
-                                    var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
-                                    PorderSewingCostStore.load();
-                                }
-                                else {
-                                    Ext.Msg.show({
-                                        title: "Thông báo",
-                                        msg: "Copy thất bại",
-                                        buttons: Ext.MessageBox.YES,
-                                        buttonText: {
-                                            yes: 'Đóng'
-                                        }
-                                    });
-                                }
-                            }
-                            else {
-                                Ext.Msg.show({
-                                    title: "Thông báo",
-                                    msg: "Copy thất bại",
-                                    buttons: Ext.MessageBox.YES,
-                                    buttonText: {
-                                        yes: 'Đóng'
-                                    }
-                                });
-                            }
-                        })
-                }else{
-                    grid.setLoading(false);
-                }
-            }
-        });
-    },
-
     onXoa: function (grid, rowIndex, colIndex) {
         grid.setLoading('Đang xóa dữ liệu');
         var viewModel = this.getViewModel();
-        var store = viewModel.getStore('PorderSewingCostStore');
+        var store = viewModel.getStore('ProductSewingCostStore');
 
         var rec = grid.getStore().getAt(rowIndex);
 
@@ -133,7 +61,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                     var params = new Object();
                     params.id = rec.get('id');
 
-                    GSmartApp.Ajax.post('/api/v1/pordersewingcost/delete', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.post('/api/v1/productsewingcost/delete', Ext.JSON.encode(params),
                         function (success, response, options) {
                             grid.setLoading(false);
                             if (success) {
@@ -179,11 +107,11 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
             }
         });
     },
-    onbtnDeletePorderSewingCost: function(){
+    onbtnDeleteProductSewingCost: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
+        var ProductSewingCostStore = viewModel.getStore('ProductSewingCostStore');
         var selection = me.getSelectionModel().getSelection();
         // console.log(selection);
         if(selection.length == 0){
@@ -219,7 +147,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                     var params = new Object();
                     params.idList = idList;
 
-                    GSmartApp.Ajax.post('/api/v1/pordersewingcost/delete_multi', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.post('/api/v1/productsewingcost/delete_multi', Ext.JSON.encode(params),
                         function (success, response, options) {
                             me.setLoading(false);
                             if (success) {
@@ -233,7 +161,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                                             yes: 'Đóng'
                                         },
                                     });
-                                    PorderSewingCostStore.load();
+                                    ProductSewingCostStore.load();
                                 }
                                 else {
                                     Ext.Msg.show({
@@ -264,7 +192,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         var grid = this.getView();
         var me = this;
         var viewModel = this.getViewModel();
-        var store = viewModel.getStore('PorderSewingCostStore');
+        var store = viewModel.getStore('ProductSewingCostStore');
 
         if (context.value == context.originalValue) {
             return;
@@ -275,7 +203,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         var params = new Object();
         params.data = context.record.data;
 
-        GSmartApp.Ajax.post('/api/v1/pordersewingcost/update', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/productsewingcost/update', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
                 if (success) {
@@ -315,8 +243,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     },
     onThemMoi: function () {
         var viewModel = this.getViewModel();
-        var productid_link = viewModel.get('porder.productid_link');
-        var porderid_link = viewModel.get('porder.id');
+        var productid_link = viewModel.get('productid_link');
         var form = Ext.create('Ext.window.Window', {
             height: 400,
             closable: true,
@@ -336,8 +263,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                 xtype: 'List_WorkingProcess_View',
                 viewModel: {
                     data: {
-                        sourceview: 'PorderSewingCost_View',
-                        porderid_link: porderid_link,
+                        sourceview: 'ProductView',
                         working : {
                             productid_link: productid_link
                         }
@@ -349,12 +275,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
 
         form.down('#List_WorkingProcess_View').on('CreateSewingCost', function (data) {
             var params = new Object();
-            params.porderid_link = porderid_link;
+            params.productid_link = productid_link;
             params.list_working = data;
 
             form.setLoading('Đang lưu dữ liệu');
 
-            GSmartApp.Ajax.post('/api/v1/pordersewingcost/create', Ext.JSON.encode(params),
+            GSmartApp.Ajax.post('/api/v1/productsewingcost/create', Ext.JSON.encode(params),
                 function (success, response, options) {
                     form.setLoading(false);
                     if (success) {
@@ -369,7 +295,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                                 },
                                 fn: function () {
                                     form.close();
-                                    var store = viewModel.getStore('PorderSewingCostStore');
+                                    var store = viewModel.getStore('ProductSewingCostStore');
                                     store.load();
                                 }
                             });
@@ -399,14 +325,13 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
         })
 
         form.down('#List_WorkingProcess_View').getController().on('reloadStore', function () {
-            var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
-            PorderSewingCostStore.load();
+            var ProductSewingCostStore = viewModel.getStore('ProductSewingCostStore');
+            ProductSewingCostStore.load();
         })
     },
-    onBtnPorderBalance: function(){
+    onBtnProductBalance: function(){
         var viewModel = this.getViewModel();
-        var porderid_link = viewModel.get('IdPOrder');
-        // console.log('porderid_link : ' + porderid_link);
+        var productid_link = viewModel.get('productid_link');
         var form = Ext.create('Ext.window.Window', {
             height: '90%',
             width: '95%',
@@ -422,19 +347,21 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                 padding: 5
             },
             items: [{
-                xtype: 'POrderBalance',
+                xtype: 'ProductBalance',
                 viewModel: {
-                    type: 'POrderBalanceViewModel',
+                    type: 'ProductBalanceViewModel',
                     data: {
-                        porderid_link: porderid_link,
+                        productid_link: productid_link,
                     }
                 }
             }],
             listeners: {
                 destroy: {
                     fn: function(){ 
-                        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
-                        if(PorderSewingCostStore) PorderSewingCostStore.load();
+                        console.log('here here here');
+                        var ProductSewingCostStore = viewModel.getStore('ProductSewingCostStore');
+                        if(ProductSewingCostStore) ProductSewingCostStore.load();
+                        console.log('here here here 2');
                     }
                 },
             }
@@ -450,13 +377,13 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     onSelectFileUpload: function (filefield, value) {
         var grid = this.getView();
         var viewModel = this.getViewModel();
-        var porderid_link = viewModel.get('IdPOrder');
+        var productid_link = viewModel.get('productid_link');
 
         var data = new FormData();
         data.append('file', filefield.fileInputEl.dom.files[0]);
-        data.append('porderid_link', porderid_link);
+        data.append('productid_link', productid_link);
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload_timeout('/api/v1/pordersewingcost/upload_porders_sewingcost', data, 3 * 60 * 1000,
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/productsewingcost/upload_product_sewingcost', data, 3 * 60 * 1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 filefield.reset();
@@ -472,8 +399,8 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
                             }
                         });
                         //load lai ds
-                        var PorderSewingCostStore = viewModel.getStore('PorderSewingCostStore');
-                        PorderSewingCostStore.load();
+                        var ProductSewingCostStore = viewModel.getStore('ProductSewingCostStore');
+                        ProductSewingCostStore.load();
                     }
                     else {
                         // console.log('fail 1');
@@ -503,12 +430,12 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.PorderSewingCost_ViewCo
     onbtnDownloadTmpFile: function(){
         var me = this;
         var params = new Object();
-        GSmartApp.Ajax.post('/api/v1/pordersewingcost/download_temp_pordersewingcost', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/productsewingcost/download_temp_productsewingcost', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        me.saveByteArray("Template_PorderSewingCost.xlsx", response.data);
+                        me.saveByteArray("Template_ProductSewingCost.xlsx", response.data);
                     }
                     else {
                         Ext.Msg.show({

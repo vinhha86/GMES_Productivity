@@ -4,9 +4,16 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     init: function () {
         this.callParent(arguments);
         var viewmodel = this.getViewModel();
+        var sourceview = viewmodel.get('sourceview');
         var store = viewmodel.getStore('WorkingProcess_Store');
         var productid_link = viewmodel.get('working.productid_link');
-        store.loadby_product(productid_link);
+        if(sourceview == 'ProductView'){
+            store.loadby_product(productid_link);
+        }
+        if(sourceview == 'PorderSewingCost_View'){
+            var porderid_link = viewmodel.get('porderid_link');
+            store.loadby_porder(porderid_link);
+        }
 
         var storeDeviceType = viewmodel.getStore('DeviceTypeStore');
         storeDeviceType.loadStore();
@@ -34,6 +41,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             click: 'onLuu'
         },
         '#name': {
+            specialkey: 'onSpecialkey'
+        },
+        '#code': {
             specialkey: 'onSpecialkey'
         },
         '#device': {
@@ -80,14 +90,26 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     onLuu: function () {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
+        var sourceview = viewmodel.get('sourceview');
 
         var params = new Object();
         params.data = viewmodel.get('working');
+        params.data.name = params.data.name.trim();
+        params.data.code = params.data.code.trim();
 
-        GSmartApp.Ajax.post('/api/v1/workingprocess/create', Ext.JSON.encode(params),
+        var api = '';
+        if(sourceview == 'ProductView'){
+            api = '/api/v1/workingprocess/create';
+        }
+        if(sourceview == 'PorderSewingCost_View'){
+            api = '/api/v1/workingprocess/create_porderworkingprocess';
+            params.data.porderid_link = viewmodel.get('porderid_link');
+        }
+
+        GSmartApp.Ajax.post(api, Ext.JSON.encode(params),
             function (success, response, options) {
+                var response = Ext.decode(response.responseText);
                 if (success) {
-                    var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         Ext.Msg.show({
                             title: "Thông báo",
@@ -116,7 +138,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     else {
                         Ext.Msg.show({
                             title: "Thông báo",
-                            msg: "Lưu thất bại!",
+                            msg: response.message,
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng'
@@ -145,6 +167,9 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         var me = this.getView();
         if (e.getKey() == e.ENTER) {
             if (field.itemId == "name") {
+                me.down('#code').focus();
+            }
+            if (field.itemId == "code") {
                 me.down('#device').focus();
             }
             else if (field.itemId == "device") {
@@ -198,6 +223,14 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
     },
     onDelete: function (grid, rowIndex, colIndex, item, e, record) {
         var viewmodel = this.getViewModel();
+        var sourceview = viewmodel.get('sourceview');
+        var api = '';
+        if(sourceview == 'ProductView'){
+            api = '/api/v1/workingprocess/delete';
+        }
+        if(sourceview == 'PorderSewingCost_View'){
+            api = '/api/v1/workingprocess/delete_porderworkingprocess';
+        }
         var store = viewmodel.getStore('WorkingProcess_Store');
 
         Ext.Msg.show({
@@ -214,7 +247,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     var params = new Object();
                     params.id = record.get('id');
 
-                    GSmartApp.Ajax.post('/api/v1/workingprocess/delete', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.post(api, Ext.JSON.encode(params),
                         function (success, response, options) {
                             if (success) {
                                 var response = Ext.decode(response.responseText);
@@ -263,9 +296,29 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
             filters = grid.store.getFilters();
 
         if (filterField.value) {
+            this.nameFilter = filters.add({
+                id: 'nameFilter',
+                property: 'name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.nameFilter) {
+            filters.remove(this.nameFilter);
+            this.nameFilter = null;
+        }
+    },
+    onWorkingcodeKeyup: function () {
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('workingcode'),
+            filters = grid.store.getFilters();
+
+        if (filterField.value) {
             this.codeFilter = filters.add({
                 id: 'codeFilter',
-                property: 'name',
+                property: 'code',
                 value: filterField.value,
                 anyMatch: true,
                 caseSensitive: false
@@ -305,6 +358,14 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var sourceview = viewModel.get('sourceview');
+        var api = '';
+        if(sourceview == 'ProductView'){
+            api = '/api/v1/workingprocess/delete_multi';
+        }
+        if(sourceview == 'PorderSewingCost_View'){
+            api = '/api/v1/workingprocess/delete_multi_porderworkingprocess';
+        }
         var WorkingProcess_Store = viewModel.getStore('WorkingProcess_Store');
         var selection = me.getSelectionModel().getSelection();
         // console.log(selection);
@@ -341,7 +402,7 @@ Ext.define('GSmartApp.view.porders.POrderList.SewingCost.List_WorkingProcess_Vie
                     var params = new Object();
                     params.idList = idList;
 
-                    GSmartApp.Ajax.post('/api/v1/workingprocess/delete_multi', Ext.JSON.encode(params),
+                    GSmartApp.Ajax.post(api, Ext.JSON.encode(params),
                         function (success, response, options) {
                             me.setLoading(false);
                             if (success) {
