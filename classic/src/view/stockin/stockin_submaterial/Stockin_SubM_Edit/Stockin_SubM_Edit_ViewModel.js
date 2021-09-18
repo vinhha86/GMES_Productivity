@@ -140,11 +140,23 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 			
 			return true;
 		},
+		// isTypeMuaMoiNguyenPhuLieu: function (get){
+		// 	if(get('stockin.stockintypeid_link') ==11){
+		// 		return true;
+		// 	}
+		// 	return false;
+		// },
 		isTypeMuaMoiNguyenPhuLieu: function (get){
 			if(get('stockin.stockintypeid_link') ==11){
-				return true;
+				return 343;
 			}
-			return false;
+			return 375;
+		},
+		isBtnAddNoiGiaoHidden: function (get){
+			if(get('stockin.stockintypeid_link') ==11){
+				return false;
+			}
+			return true;
 		},
 	}
 })
