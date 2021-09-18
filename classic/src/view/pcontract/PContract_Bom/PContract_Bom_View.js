@@ -288,6 +288,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                     disabled: '{disabled_chotdinhmuc}',
                     hidden: '{hidden_chotdinhmuc}'
                 }
+            },
+            {
+                xtype: 'button',
+                itemId: 'btnDeleteBOM',
+                tooltip: 'Xóa định mức cân đối',
+                text: 'Xóa định mức',
+                iconCls: 'x-fa fa-trash redIcon',
+                bind: {
+                    disabled: '{disabled_chotdinhmuc}',
+                    hidden: '{hidden_chotdinhmuc}'
+                }
             }
         ]
     }]

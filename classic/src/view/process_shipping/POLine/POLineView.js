@@ -13,6 +13,10 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     bind: {
         store: '{POLineStore}'
     },
+    features: [{
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
     columns: [{
         xtype: 'actioncolumn',
         width: 28,
@@ -104,6 +108,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
+        summaryType: 'count',
+        summaryRenderer: function (value) {
+            if (null == value) value = 0;
+            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     }, {
         text: 'ĐVT',

@@ -32,6 +32,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#PContract_Bom_View': {
             celldblclick: 'onCellDblClick',
             cellcontextmenu: 'onCellMenu'
+        },
+        '#btnDeleteBOM': {
+            click: 'onDeleteBom'
         }
     },
     listen: {
@@ -42,6 +45,56 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     init: function () {
+    },
+    onDeleteBom: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractBom2Store_New');
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa định mức ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    var params = new Object();
+                    params.pcontractid_link = viewmodel.get('PContract.id');
+                    params.productid_link = viewmodel.get('IdProduct');
+                    GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/delete_bom', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode != 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng'
+                                        }
+                                    });
+                                }
+                                else {
+                                    store.removeAll();
+                                }
+                            } else {
+                                var response = Ext.decode(response.responseText);
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: 'Xóa thất bại',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng'
+                                    }
+                                });
+                            }
+                        })
+                }
+            }
+        });
     },
     onCellMenu: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         if (cellIndex == 7) {
