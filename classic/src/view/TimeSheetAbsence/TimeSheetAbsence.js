@@ -123,6 +123,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             emptyText:'Đơn vị',
             bind: {
                 store : '{ListOrgStore}'
+                
             },
             valueField: 'id',
             displayField: 'name',
