@@ -8,8 +8,9 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
         TimeSheetAbsenceStore.loadStore();
 
+        //lấy danh sách đơn vị theo user quản lý
         var ListOrgStore = viewModel.getStore('ListOrgStore');
-        ListOrgStore.loadStore(13, null);
+        ListOrgStore.loadOrg_ByOrgType(13);
         var TimeSheetAbsenceTypeStore = viewModel.getStore('TimeSheetAbsenceTypeStore');
         TimeSheetAbsenceTypeStore.loadStore();
     },

@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         this.loadInfo(id);
 
         var ListOrgStore = viewModel.getStore('ListOrgStore');
-        ListOrgStore.loadStore(13, null);
+        ListOrgStore.loadOrg_ByOrgType(13);
         var TimeSheetAbsenceTypeStore = viewModel.getStore('TimeSheetAbsenceTypeStore');
         TimeSheetAbsenceTypeStore.loadStore();
 
@@ -166,7 +166,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         // load ds tổ
         var viewModel = this.getViewModel();
         var ListProductionLineStore = viewModel.getStore('ListProductionLineStore');
-        ListProductionLineStore.getbyParent(newValue);
+        ListProductionLineStore.loadOrgByParent(newValue);
     },
     onProductionLineListChange: function(cbbox, newValue, oldValue, eOpts){
         // console.log(newValue);

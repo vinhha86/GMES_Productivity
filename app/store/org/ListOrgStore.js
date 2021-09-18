@@ -69,6 +69,40 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 			}
 		});
 	},
+	//lấy danh sách org(đơn vị))theo user quản lý
+	loadOrg_ByOrgType: function (type) {
+		var params = new Object();
+		params.orgtypeid_link = type;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/org/loadOrg_ByOrgType',
+			paramsAsJson: true,
+			extraParams: params,
+			noCache: false,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1, {
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					//  this.fireEvent('logout');
+				}
+			}
+		});
+	},
 	GetOrg_By_type: function (type) {
 		var params = new Object();
 		params.list_type_id = type;
@@ -329,6 +363,33 @@ Ext.define('GSmartApp.store.org.ListOrgStore', {
 				destroy: 'POST'
 			},
 			url: config.getAppBaseUrl() + '/api/v1/org/getbyparent',
+			paramsAsJson: true,
+			extraParams: params,
+			noCache: false,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	},
+	//lấy danh sách tổ(đơn vị con: nếu có) theo user quản lý
+	loadOrgByParent: function (parentid_link) {
+		var params = new Object();
+		params.id = parentid_link;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/org/loadOrgByParent',
 			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
