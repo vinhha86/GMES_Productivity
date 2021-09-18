@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
 
     var OrgManagerStore = viewmodel.getStore('OrgManagerStore');
     var listid = '1,13';
-    OrgManagerStore.loadStore_allchildren_byorg(listid);
+    OrgManagerStore.loadStore(13,false);
 
     var OrgCountryStore = viewmodel.getStore('OrgCountryStore');
     OrgCountryStore.loadStore(24, false);
