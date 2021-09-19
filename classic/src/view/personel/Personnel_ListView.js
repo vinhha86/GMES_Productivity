@@ -267,27 +267,30 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         }
 
             , '->',
-            {
-                xtype: 'checkbox',
-                margin: '1 5 1 1',
-                boxLabel: 'Thời vụ',
-                labelAlign: 'right',
-                itemId:'onThoiVu',
-                bind: {
-                    value: '{isviewallThoiVu}',
+        {
+            xtype: 'combo',
+            labelWidth: 78,
+            fieldLabel: 'Loại nhân viên',
+            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+            fieldStyle: 'font-size:11px;',
+            displayField: 'name',
+            valueField: 'id',
+            width: 300,
+            margin: 1,
+            itemId: 'cmbLoaiNV',
+            bind: {
+                value: '{personnel.personnel_typeid_link}',
+                store: '{PersonnelTypeStore}'
+            },
+            triggers: {
+                clear: {
+                    cls: 'x-form-clear-trigger',
+                    weight: 1,
+                    handler: 'onLoaiNVTriggerClick',
                 }
             }
-        //     {
-        //     xtype: 'checkbox',
-        //     margin: '1 5 1 1',
-        //     boxLabel: 'Xem tất cả',
-        //     labelAlign: 'right',
-        //     bind: {
-        //         value: '{isviewall}',
-        //         disabled: '{isdisabled}'
-        //     }
-        // }
-    ]
+        }
+        ]
     }
     ]
 });

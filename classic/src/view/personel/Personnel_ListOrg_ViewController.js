@@ -11,10 +11,6 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
     },
     onloadDetail: function (grid, record, item, index, e, eOpts) {
         var viewModel = this.getViewModel();
-        var params = new Object();
-        params.isviewall = viewModel.get('isviewall');
-        params.orgid_link = record.get('id');
-        params.isviewallThoiVu = viewModel.get('isviewallThoiVu')
         viewModel.set('donvi.id', record.data.id);
         viewModel.set('orgtypeid_link', record.get('orgtypeid_link'));
         //neu loai = 13 la xuong sx thi xem tat ca trong xuong
@@ -32,9 +28,11 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         //     params.ismanager = false;
         //     viewModel.set('isdisabled', true);
         // }
+        var personel_typeid_link = viewModel.get('personnel.personnel_typeid_link');
+        var orgid_link = viewModel.get('donvi.id');
 
         var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(params.orgid_link, params.isviewallThoiVu );
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link);
         //load list phong ban - để filter     
 
         var orgStore = viewModel.getStore('ListOrgStore');

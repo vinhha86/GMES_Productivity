@@ -2,6 +2,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Personnel_ListView_Controller',
     init: function (view) {
+        var viewmodel = this.getViewModel();
+        var storeLoaiNV = viewmodel.getStore('PersonnelTypeStore');
+        storeLoaiNV.loadStore();
     },
     control: {
         '#btnThemMoi_Personnel': {
@@ -25,19 +28,25 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         '#splbtn_Download': {
             click: 'onDownload_Template'
         },
-        '#onThoiVu': {
-            change: 'onThoiVu'
+        '#cmbLoaiNV': {
+            select: 'onSelectLoaiNV'
         }
     },
-    //thay đổi checkbox
-    onThoiVu: function () {
+    onLoaiNVTriggerClick: function () {
         var viewmodel = this.getViewModel();
-        console.log(viewmodel.get('isviewallThoiVu'));
+        viewmodel.set('personnel.personnel_typeid_link', 0);
         var orgid_link = viewmodel.get('donvi.id');
-        var isviewallThoiVu = viewmodel.get('isviewallThoiVu');
-        var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link  ,isviewallThoiVu );
 
+        var StorePersonel = viewmodel.getStore('Personnel_Store');
+        StorePersonel.loadStore_byOrg(orgid_link, 0);
+    },
+    onSelectLoaiNV: function (cmb, rec, e) {
+        var viewmodel = this.getViewModel();
+        var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
+        var orgid_link = viewmodel.get('donvi.id');
+
+        var StorePersonel = viewmodel.getStore('Personnel_Store');
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link);
     },
     onDownload_Template: function () {
         var me = this;
@@ -201,7 +210,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     onload: function () {
         var viewModel = this.getViewModel();
         var params = new Object();
-    //    params.isviewall = viewModel.get('isviewall');
+        //    params.isviewall = viewModel.get('isviewall');
         params.orgid_link = viewModel.get('donvi.id');
         var isviewallThoiVu = viewmodel.get('isviewallThoiVu');
         // if (viewModel.get('orgtypeid_link') == 13) {
