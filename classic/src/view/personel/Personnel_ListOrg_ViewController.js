@@ -20,21 +20,21 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         //neu loai = 13 la xuong sx thi xem tat ca trong xuong
         // = 1: xem toan bo cong ty hoac nhung nguoi chi thuoc Tru so chinh
         // con lai la xem trong to hoac phong ban
-        if (record.get('orgtypeid_link') == 13) {
-            params.ismanager = true;
-            viewModel.set('isdisabled', true);
-        }
-        else if (record.get('orgtypeid_link') == 1) {
-            params.ismanager = true;
-            viewModel.set('isdisabled', false);
-        }
-        else {
-            params.ismanager = false;
-            viewModel.set('isdisabled', true);
-        }
+        // if (record.get('orgtypeid_link') == 13) {
+        //     params.ismanager = true;
+        //     viewModel.set('isdisabled', true);
+        // }
+        // else if (record.get('orgtypeid_link') == 1) {
+        //     params.ismanager = true;
+        //     viewModel.set('isdisabled', false);
+        // }
+        // else {
+        //     params.ismanager = false;
+        //     viewModel.set('isdisabled', true);
+        // }
 
         var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg_PersonType(params.orgid_link, params.ismanager, params.isviewall, params.isviewallThoiVu );
+        StorePersonel.loadStore_byOrg(params.orgid_link, params.isviewallThoiVu );
         //load list phong ban - để filter     
 
         var orgStore = viewModel.getStore('ListOrgStore');

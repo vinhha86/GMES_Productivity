@@ -55,7 +55,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
     }, {
         text: 'Họ tên',
         dataIndex: 'personnelFullname',
-        width: 120,
+       // width: 120,
+        flex:1,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -63,34 +64,26 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
     }, {
         text: 'Từ ngày',
         dataIndex: 'absencedate_from',
-        flex: 1,
-        // width: 130,
+       // flex: 1,
+         width: 130,
         align: 'center',
         renderer: Ext.util.Format.dateRenderer('d/m/Y H:i')
     }, {
         text: 'Đến ngày',
         dataIndex: 'absencedate_to',
-        flex: 1,
-        // width: 130,
+       // flex: 1,
+        width: 130,
         align: 'center',
         renderer: Ext.util.Format.dateRenderer('d/m/Y H:i')
     }, {
         text: 'Loại nghỉ',
         dataIndex: 'timesheetAbsenceType',
-        width: 80,
+        width: 100,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
-    }, {
-        text: 'Lý do',
-        dataIndex: 'absence_reason',
-        width: 80,
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        }
-    }, {
+    },  {
         text: 'Người xác nhận',
         dataIndex: 'userApprove',
         width: 120,
@@ -101,8 +94,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
     }, {
         text: 'Ngày xác nhận',
         dataIndex: 'timeapprove',
-        flex: 1,
-        // width: 130,
+      //  flex: 1,
+         width: 130,
         align: 'center',
         renderer: Ext.util.Format.dateRenderer('d/m/Y H:m')
     }],
@@ -131,7 +124,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             queryMode: 'local',
             anyMatch: true,
             margin: '5 1 5 0',
-            width: 100
+            width: 120
         },{
             xtype:'textfield',
             labelWidth: 0,
@@ -145,25 +138,35 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             margin: '5 1 5 0',
             emptyText: "Họ tên",
             itemId: 'personnelName',
-            width: 120
+            width: 140
         },{
             xtype: 'datefield',
             labelWidth: 0,
+            fieldLabel:'Từ:',
             emptyText:'Từ ngày',
+            labelWidth: 30,
             itemId: 'datefrom',
             reference: 'datefrom',
             format:'d/m/Y',
             margin: '5 1 5 0',
-            width: 130
+            width: 170,
+            bind:{
+                value: '{timesheetabsence.fromdate}',
+            },
         },{
             xtype: 'datefield',
             labelWidth: 0,
+            fieldLabel:'Đến:',
+            labelWidth: 40,
             emptyText:'Đến ngày',
             itemId: 'dateto',
             reference: 'dateto',
             format:'d/m/Y',
             margin: '5 1 5 0',
-            width: 130
+            width: 170,
+            bind:{
+                value: '{timesheetabsence.todate}',
+            },
         },{
             xtype: 'combo',
             labelWidth: 0,
@@ -177,7 +180,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             queryMode: 'local',
             anyMatch: true,
             margin: '5 1 5 0',
-            width: 130
+            width: 150
         },{
             xtype: 'button',
             margin: '5 1 5 1',

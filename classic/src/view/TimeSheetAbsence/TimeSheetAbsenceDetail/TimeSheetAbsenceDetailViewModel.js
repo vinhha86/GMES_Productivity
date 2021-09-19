@@ -27,12 +27,12 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailViewModel', {
         absencedate_to: null,
         absence_reason: null,
         absencetypeid_link: null,
-
+     //   personnelfullname:null,
         orgFactoryId: null, // hiển thị đơn vị
         orgProductionLineId: null, // hiẻn thị tổ
 
         isConfirm: true,
-
+        isEdit:false,
         isBtnConfirmHidden: true
     },
 })

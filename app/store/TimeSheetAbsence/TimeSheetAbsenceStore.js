@@ -16,9 +16,11 @@ Ext.define('GSmartApp.store.TimeSheetAbsence.TimeSheetAbsenceStore', {
         {name: 'timeapprove', type: 'date', dateFormat: 'c'},
     ],
     pageSize: 25,
-    loadStore:function(){
+    loadStore:function(datefrom,dateto){
 		var me=this;
 		var params = new Object();
+		params.datefrom=datefrom;
+		params.dateto=dateto;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

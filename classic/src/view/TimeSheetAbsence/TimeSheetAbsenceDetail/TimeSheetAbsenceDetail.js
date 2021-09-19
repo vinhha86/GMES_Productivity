@@ -13,7 +13,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             fieldLabel: 'Đơn vị',
             bind: {
                 store : '{ListOrgStore}',
-                value: '{orgFactoryId}'
+                value: '{orgFactoryId}',
+                readOnly: '{isEdit}'
             },
             valueField: 'id',
             displayField: 'name',
@@ -32,7 +33,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             fieldLabel: 'Tổ',
             bind: {
                 store : '{ListProductionLineStore}',
-                value: '{orgProductionLineId}'
+                value: '{orgProductionLineId}',
+                readOnly: '{isEdit}'
             },
             valueField: 'id',
             displayField: 'name',
@@ -55,7 +57,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             fieldLabel: 'Mã nhân viên ('+ '<span style="color:red">*</span>' + ')',
             bind: {
                 store : '{Personnel_Store}',
-                value: '{personnelid_link}'
+                value: '{personnelid_link}',
+                readOnly: '{isEdit}'
             },
             valueField: 'id',
             displayField: 'code',
@@ -74,7 +77,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             fieldLabel: 'Họ tên ('+ '<span style="color:red">*</span>' + ')',
             bind: {
                 store : '{Personnel_Store}',
-                value: '{personnelid_link}'
+                value: '{personnelfullname}',
+                readOnly: '{isEdit}'
             },
             valueField: 'id',
             displayField: 'fullname',
@@ -119,7 +123,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             format: 'H:i',
             // minValue: '1:30 AM',
             // maxValue: '9:15 PM',
-            // value: '10:00',
+             value: '00:00',
             listeners: {
                 // change: 'onChange'
             }
@@ -155,7 +159,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetail', {
             format: 'H:i',
             // minValue: '1:30 AM',
             // maxValue: '9:15 PM',
-            // value: '12:00',
+             value: '23:59',
             listeners: {
                 // change: 'onChange'
             }

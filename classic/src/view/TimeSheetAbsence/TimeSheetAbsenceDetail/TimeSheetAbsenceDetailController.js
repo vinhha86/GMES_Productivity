@@ -41,6 +41,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         
         var id = viewModel.get('id');
         var personnelid_link = viewModel.get('personnelid_link');
+        var personnelfullname = viewModel.get('personnelfullname');
+        
         // var absencedate_from = viewModel.get('absencedate_from');
         // var absencedate_to = viewModel.get('absencedate_to');
         var absencedate_from = me.down('#absencedate_from').getValue();
@@ -52,9 +54,21 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         var absence_reason = viewModel.get('absence_reason');
         var absencetypeid_link = viewModel.get('absencetypeid_link');
 
+        if(personnelid_link==null || personnelfullname==null || absencetypeid_link==null){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Phải điền đầy đủ thông tin!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
         var params = new Object();
         params.id = id;
         params.personnelid_link = personnelid_link;
+        params.personnelfullname = personnelfullname;
         params.absencedate_from = absencedate_from;
         params.absencedate_to = absencedate_to;
         params.timefrom = timefrom;
@@ -62,10 +76,38 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         params.absence_reason = absence_reason;
         params.absencetypeid_link = absencetypeid_link;
 
-        console.log(params);
+        console.log(personnelfullname);
+        if(absencedate_to-absencedate_from<0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Đến ngày không được nhỏ hơn từ ngày!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return; 
+        }else{
+            console.log(timeto- timefrom);
+
+            if(timeto- timefrom <= 0){
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Thời gian không hợp lệ!',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                return; 
+            }
+        }
+       
         GSmartApp.Ajax.post('/api/v1/timesheetabsence/save', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
+                    var response = Ext.decode(response.responseText);
+                   if (response.respcode == 200){
                     Ext.Msg.show({
                         title: 'Thông báo',
                         msg: 'Lưu thành công',
@@ -76,6 +118,17 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
                     });
                     TimeSheetAbsenceStore.load();
                     m.onThoat();
+                   }else{
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                   }
+                    
                 } else {
                     Ext.Msg.show({
                         title: 'Thông báo',
@@ -102,7 +155,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         m.setDefaultTime();
     },
     loadRecord: function(id){
-        // console.log(id);
+         console.log(id);
         var me = this.getView();
         var viewModel = this.getViewModel();
         var params = new Object();
@@ -112,6 +165,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
                 var response = Ext.decode(response.responseText);
                 if (success) {
                     console.log(response);
+                   
                     // id: null,
                     // personnelid_link: null,
                     // absencedate_from: null,
@@ -122,6 +176,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
                     // orgFactoryId: null, // hiển thị đơn vị
                     // orgProductionLineId: null, // hiẻn thị tổ
                     viewModel.set('personnelid_link', response.personnelid_link);
+                    viewModel.set('personnelfullname', response.personnelfullname);
                     // viewModel.set('absencedate_from', response.absencedate_from);
                     // viewModel.set('absencedate_to', response.absencedate_to);
                     viewModel.set('absence_reason', response.absence_reason);
@@ -129,7 +184,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
                     viewModel.set('orgFactoryId', response.orgFactoryId);
                     viewModel.set('orgProductionLineId', response.orgProductionLineId);
                     viewModel.set('isConfirm', response.isConfirm);
-
+                    console.log(viewModel.get('personnelfullname'));
                     var ListProductionLineStore = viewModel.getStore('ListProductionLineStore');
                     ListProductionLineStore.getbyParent(response.orgFactoryId);
 
@@ -165,24 +220,40 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         // console.log(newValue);
         // load ds tổ
         var viewModel = this.getViewModel();
+        if(oldValue !=null && newValue !=oldValue){
+            viewModel.set('orgProductionLineId',null);
+        }
         var ListProductionLineStore = viewModel.getStore('ListProductionLineStore');
         ListProductionLineStore.loadOrgByParent(newValue);
     },
     onProductionLineListChange: function(cbbox, newValue, oldValue, eOpts){
         // console.log(newValue);
+       //  console.log(oldValue);
         var viewModel = this.getViewModel();
+        if(oldValue !=null && newValue !=oldValue){
+            viewModel.set('personnelid_link',null);
+            viewModel.set('personnelfullname',null);
+        }
+ 
         var Personnel_Store = viewModel.getStore('Personnel_Store');
         Personnel_Store.loadStore_byOrg(newValue, false, false);
     },
     onPersonnelCodeListChange: function(cbbox, newValue, oldValue, eOpts){
-        // console.log(newValue);
         var me = this.getView();
-        me.down('#personnelNameList').setValue(newValue);
+        var viewmdoel = this.getViewModel();
+        viewmdoel.set('personnelfullname',newValue.data.fullname);
+      
+       // me.down('#personnelNameList').setValue(newValue);
+       // me.down('#personnelCodeList').setValue(newValue);
     },
     onPersonnelNameListChange: function(cbbox, newValue, oldValue, eOpts){
-        // console.log(newValue);
+         console.log(newValue);
         var me = this.getView();
-        me.down('#personnelCodeList').setValue(newValue);
+        var viewmdoel = this.getViewModel();
+        viewmdoel.set('personnelid_link',newValue.data.id);
+        viewmdoel.set('personnelfullname',newValue.data.fullname);
+      //  me.down('#personnelCodeList').setValue(newValue);
+        //me.down('#personnelNameList').setValue(newValue);
     },
     // setDefaultTime: function(){
     //     var me = this.getView();
@@ -215,7 +286,10 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
         });
     },
     Confirm: function(){
+        var m = this;
         var viewModel = this.getViewModel();
+        var TimeSheetAbsenceView = Ext.getCmp('TimeSheetAbsence');
+        var TimeSheetAbsenceStore = TimeSheetAbsenceView.getViewModel().getStore('TimeSheetAbsenceStore');
         var id = viewModel.get('id');
         var params = new Object();
         params.id = id;
@@ -232,6 +306,9 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
                         }
                     });
                     viewModel.set('isConfirm', true);
+                    //load laij
+                    TimeSheetAbsenceStore.load();
+                    m.onThoat();
                 } else {
                     Ext.Msg.show({
                         title: 'Thông báo',

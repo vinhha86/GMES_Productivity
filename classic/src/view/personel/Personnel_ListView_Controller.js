@@ -34,10 +34,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         var viewmodel = this.getViewModel();
         console.log(viewmodel.get('isviewallThoiVu'));
         var orgid_link = viewmodel.get('donvi.id');
-        var isviewall = viewmodel.get('isviewall');
         var isviewallThoiVu = viewmodel.get('isviewallThoiVu');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg_PersonType(orgid_link, true  , isviewall,isviewallThoiVu );
+        StorePersonel.loadStore_byOrg(orgid_link  ,isviewallThoiVu );
 
     },
     onDownload_Template: function () {
@@ -202,24 +201,25 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
     onload: function () {
         var viewModel = this.getViewModel();
         var params = new Object();
-        params.isviewall = viewModel.get('isviewall');
+    //    params.isviewall = viewModel.get('isviewall');
         params.orgid_link = viewModel.get('donvi.id');
+        var isviewallThoiVu = viewmodel.get('isviewallThoiVu');
+        // if (viewModel.get('orgtypeid_link') == 13) {
+        //     params.ismanager = true;
+        //     viewModel.set('isdisabled', true);
+        // }
+        // else if (viewModel.get('orgtypeid_link') == 1) {
+        //     params.ismanager = true;
+        //     viewModel.set('isdisabled', false);
+        // }
+        // else {
+        //     params.ismanager = false;
+        //     viewModel.set('isdisabled', true);
+        // }
 
-        if (viewModel.get('orgtypeid_link') == 13) {
-            params.ismanager = true;
-            viewModel.set('isdisabled', true);
-        }
-        else if (viewModel.get('orgtypeid_link') == 1) {
-            params.ismanager = true;
-            viewModel.set('isdisabled', false);
-        }
-        else {
-            params.ismanager = false;
-            viewModel.set('isdisabled', true);
-        }
 
         var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(params.orgid_link, params.ismanager, params.isviewall);
+        StorePersonel.loadStore_byOrg(params.orgid_link, isviewallThoiVu);
     },
     onUpload: function () {
         var viewmodel = this.getViewModel();
