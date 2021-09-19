@@ -276,17 +276,18 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                 bind: {
                     value: '{isviewallThoiVu}',
                 }
-            },
-            {
-            xtype: 'checkbox',
-            margin: '1 5 1 1',
-            boxLabel: 'Xem tất cả',
-            labelAlign: 'right',
-            bind: {
-                value: '{isviewall}',
-                disabled: '{isdisabled}'
             }
-        }]
+        //     {
+        //     xtype: 'checkbox',
+        //     margin: '1 5 1 1',
+        //     boxLabel: 'Xem tất cả',
+        //     labelAlign: 'right',
+        //     bind: {
+        //         value: '{isviewall}',
+        //         disabled: '{isdisabled}'
+        //     }
+        // }
+    ]
     }
     ]
 });
