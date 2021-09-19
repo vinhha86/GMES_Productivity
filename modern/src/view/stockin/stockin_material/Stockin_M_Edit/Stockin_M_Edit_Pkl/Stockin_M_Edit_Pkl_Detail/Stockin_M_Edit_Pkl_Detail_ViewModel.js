@@ -32,8 +32,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
 			pklSpaceTxt: null, // tầng
 			pklFloorTxt: null, // khoang
 		},
-        slcankiem: null,
-        dschuakiem: null,
+        slcankiem: '',
+        dschuakiem: '',
         //
         isKiemcay_CheckEnable: true,
 		IsformMaster:false,
