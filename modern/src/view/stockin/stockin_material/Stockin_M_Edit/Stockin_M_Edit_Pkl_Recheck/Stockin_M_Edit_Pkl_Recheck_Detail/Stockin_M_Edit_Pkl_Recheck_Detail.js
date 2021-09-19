@@ -30,27 +30,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     width: '100%',
                     items:[
                         {
-                            xtype: 'textfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            itemId: 'lotnumberTxtRecheck',
-                            // label: 'Số LOT:',
-                            // labelWidth: 130,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Số LOT',
-                            editable: false,
-                            readOnly: true,
-                            clearable: false,
-                            cls: 'notEditable',
-                            bind: {
-                                value: '{objRecheck.lotnumber}'
-                            },
-                        },
-                        {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
@@ -77,6 +56,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focus: 'onFocus'
                             },
                             stepValue: 0.1,
+                        },
+                        {
+                            xtype: 'textfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lotnumberTxtRecheck',
+                            // label: 'Số LOT:',
+                            // labelWidth: 130,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số LOT',
+                            editable: false,
+                            readOnly: true,
+                            clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objRecheck.lotnumber}'
+                            },
                         },
                     ]
                 },
@@ -693,6 +693,23 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     items:[
                         {
                             xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            // padding: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheckRecheck',
+                            ui: 'action',
+                            focusable: false,
+                            bind: {
+                                disabled: '{!isobjRecheckSelected}'
+                            },
+                        },
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
                             text: 'Xoá',
                             margin: 5,
                             // padding: 5,
@@ -705,23 +722,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 disabled: '{isBtnDeletePklHidden}',
                             },
                         },
-                        {
-                            flex: 1,
-                        },
-                        {
-                            xtype:'button',
-                            text: 'Lưu',
-                            margin: 5,
-                            // padding: 5,
-                            width: 100,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheckRecheck',
-                            ui: 'action',
-                            focusable: false,
-                            bind: {
-                                disabled: '{!isobjRecheckSelected}'
-                            },
-                        },   
                     ]
                 },
             ]

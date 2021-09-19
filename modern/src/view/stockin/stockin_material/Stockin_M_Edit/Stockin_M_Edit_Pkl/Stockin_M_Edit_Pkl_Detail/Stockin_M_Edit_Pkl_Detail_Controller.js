@@ -5,11 +5,19 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
 	init: function () {
         var m = this;
 		var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockin');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         if(selectedPklRecord != null){
             m.onSetFormData();
         }
+        m.setLot_RollNotCheck_Info();
+        
+        // var stockin = viewModel.get('stockin');
+        // var selectedDRecord = viewModel.get('selectedDRecord');
+        // var objPkl = viewModel.get('objPkl');
+
+        // console.log(stockin);
+        // console.log(selectedDRecord);
+        // console.log(objPkl);
 	},
     control: {
         '#btnResetForm':{
@@ -161,10 +169,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         viewModel.set('objPkl.grossweightLbsTxt', '');
         viewModel.set('objPkl.grossweightLbsCheckTxt', '');
         viewModel.set('objPkl.sampleCheckTxt', '');
-        viewModel.set('objPkl.widthYdsCheckTxt', '');
-        viewModel.set('objPkl.widthYdsTxt', '');
-        viewModel.set('objPkl.widthMetCheckTxt', '');
-        viewModel.set('objPkl.widthMetTxt', '');
+        // viewModel.set('objPkl.widthYdsCheckTxt', '');
+        // viewModel.set('objPkl.widthYdsTxt', '');
+        // viewModel.set('objPkl.widthMetCheckTxt', '');
+        // viewModel.set('objPkl.widthMetTxt', '');
 
         // viewModel.set('pklSpaceTxt', null);
         // viewModel.set('pklFloorTxt', null);
@@ -279,6 +287,45 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 }
         })        
     },
+    setLot_RollNotCheck_Info: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockin = viewModel.get('stockin');
+        var selectedDRecord = viewModel.get('selectedDRecord');
+        var objPkl = viewModel.get('objPkl');
+
+        var stockinid_link = stockin.id;
+        var stockindid_link = selectedDRecord.get('id');
+        var lotnumber = objPkl.lotnumberTxt;
+
+        var params = new Object();
+        params.stockinid_link = stockinid_link;
+        params.stockindid_link = stockindid_link;
+        params.lotnumber = lotnumber;
+        
+        GSmartApp.Ajax.postJitin('/api/v1/stockin_pklist/lot_rollnotcheck_info', Ext.JSON.encode(params),
+            function (success, response, options) {
+                // myview.setMasked(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+					   console.log(response);
+                       viewModel.set('slcankiem', response.total);
+                       viewModel.set('dschuakiem', response.list_not_check);
+                    }else{
+                        // Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
+                        console.log('fail');
+                    }
+                } else {
+                    // Ext.Viewport.setMasked(false);
+                    // var response = Ext.decode(response.responseText);
+                    // Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
+                        console.log('fail network');
+                }
+        })        
+    },
     onCheck: function(){
         var m = this;
         var me = this.getView();
@@ -332,8 +379,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             }
             if(mOriginTxt == '' || mOriginTxt == null || isNaN(mOriginTxt)){
                 if(mOriginTxt !== 0){
-                    Ext.toast('Số M phiếu phải là số', 2000);
-                    return;
+                    // Ext.toast('Số M phiếu phải là số', 2000);
+                    // return;
+                    mOriginTxt = mTxt;
                 }
             }
         }
@@ -346,8 +394,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             }
             if(yOriginTxt == '' || yOriginTxt == null || isNaN(yOriginTxt)){
                 if(yOriginTxt !== 0){
-                    Ext.toast('Số Y phiếu phải là số', 2000);
-                    return;
+                    // Ext.toast('Số Y phiếu phải là số', 2000);
+                    // return;
+                    yOriginTxt = yTxt;
                 }
             }
         }
@@ -360,8 +409,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             }
             if(grossweightTxt == '' || grossweightTxt == null || isNaN(grossweightTxt)){
                 if(grossweightTxt !== 0){
-                    Ext.toast('Cân phiếu phải là số', 2000);
-                    return;
+                    // Ext.toast('Cân phiếu phải là số', 2000);
+                    // return;
+                    grossweightTxt = grossweightCheckTxt;
                 }
             }
         }
@@ -374,8 +424,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             }
             if(grossweightLbsTxt == '' || grossweightLbsTxt == null || isNaN(grossweightLbsTxt)){
                 if(grossweightLbsTxt !== 0){
-                    Ext.toast('Lbs phiếu phải là số', 2000);
-                    return;
+                    // Ext.toast('Lbs phiếu phải là số', 2000);
+                    // return;
+                    grossweightLbsTxt = grossweightLbsCheckTxt;
                 }
             }
         }
@@ -387,8 +438,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         }
         if(widthMetTxt == '' || widthMetTxt == null || isNaN(widthMetTxt)){
             if(widthMetTxt !== 0){
-                Ext.toast('Số khổ phiếu phải là số', 2000);
-                return;
+                // Ext.toast('Số khổ phiếu phải là số', 2000);
+                // return;
+                widthMetTxt = widthMetCheckTxt;
             }
         }
 
@@ -549,11 +601,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             if(selectedPklRecord == null){
                                 // them moi
                                 me.fireEvent('reloadStore');
+                                me.setLot_RollNotCheck_Info();
                                 me.resetForm();
                                 myview.down('#packageidTxt').focus();
                             }else{
                                 // edit
                                 me.fireEvent('reloadStore');
+                                me.setLot_RollNotCheck_Info();
                             }
                         }
 

@@ -30,27 +30,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     width: '100%',
                     items:[
                         {
-                            xtype: 'textfield',
-                            margin: 1,
-                            border: true,
-                            cls: 'my-textfield',
-                            itemId: 'lotnumberTxt',
-                            // label: 'Số LOT:',
-                            // labelWidth: 130,
-                            flex: 1,
-                            minWidth: 80,
-                            // maxWidth: 130,
-                            textAlign: 'left',
-                            placeholder: 'Số LOT',
-                            editable: false,
-                            readOnly: true,
-                            clearable: false,
-                            cls: 'notEditable',
-                            bind: {
-                                value: '{objPkl.lotnumberTxt}'
-                            },
-                        },
-                        {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
@@ -80,6 +59,28 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 focusleave: 'onFocusLeave'
                             }
                         },
+                        {
+                            xtype: 'textfield',
+                            margin: 1,
+                            border: true,
+                            cls: 'my-textfield',
+                            itemId: 'lotnumberTxt',
+                            // label: 'Số LOT:',
+                            // labelWidth: 130,
+                            flex: 1,
+                            minWidth: 80,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Số LOT',
+                            editable: false,
+                            readOnly: true,
+                            clearable: false,
+                            cls: 'notEditable',
+                            bind: {
+                                value: '{objPkl.lotnumberTxt}'
+                            },
+                        },
+                        
                     ]
                 },
 
@@ -775,6 +776,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     items:[
                         {
                             xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            // padding: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
+                            ui: 'action',
+                            focusable: false
+                        },
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
                             text: 'Xoá',
                             margin: 5,
                             // padding: 5,
@@ -788,23 +803,62 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             },
                             // style: 'visibility: hidden;'
                         },
-                        {
-                            flex: 1,
-                        },
-                        {
-                            xtype:'button',
-                            text: 'Lưu',
-                            margin: 5,
-                            // padding: 5,
-                            width: 100,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
-                            ui: 'action',
-                            focusable: false
-                        },
+                        
                     ]
                 },
             ]
         }
-    ]
+    ],
+    bbar: [
+        {
+            xtype:'container',
+            flex: 1,
+            layout: 'vbox',
+            items: [{
+                xtype: 'textfield',
+                margin: 1,
+                border: true,
+                cls: 'my-textfield',
+                itemId: 'slcankiem',
+                // label: 'SL cần kiểm:',
+                // labelWidth: 130,
+                labelWidth: '100%',
+                flex: 1,
+                minWidth: 80,
+                // maxWidth: 130,
+                textAlign: 'left',
+                placeholder: 'SL cần kiểm',
+                editable: false,
+                readOnly: true,
+                clearable: false,
+                cls: 'lblField',
+                bind: {
+                    // value: '{slcankiem}',
+                    label: 'SL cần kiểm: ' + '{slcankiem}'
+                },
+            },{
+                xtype: 'textfield',
+                margin: 1,
+                border: true,
+                cls: 'my-textfield',
+                itemId: 'dschuakiem',
+                // label: 'DS chưa kiểm:',
+                // labelWidth: 130,
+                labelWidth: '100%',
+                flex: 1,
+                minWidth: 80,
+                // maxWidth: 130,
+                textAlign: 'left',
+                placeholder: 'DS chưa kiểm',
+                editable: false,
+                readOnly: true,
+                clearable: false,
+                cls: 'lblField',
+                bind: {
+                    // value: '{dschuakiem}',
+                    label: 'DS chưa kiểm: ' + '{dschuakiem}'
+                },
+            }]
+        },
+    ],
 });
