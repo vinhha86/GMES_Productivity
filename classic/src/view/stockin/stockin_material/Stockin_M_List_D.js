@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_M_List_D',
 	itemId: 'Stockin_M_List_D',
+	cls: 'Stockin_M_List_D',
 	columnLines: true,
 	rowLines: true,
 	border: true,
@@ -12,15 +13,30 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false,
-        // getRowClass: function(record, index) {
-        //     var c = record.get('status');
-        //     if (c == -1) {
-        //         return 'epc-error';
-        //     }
-        //     else {
-        //         return 'epc-ok';
-        //     }
-        // }                     
+        getRowClass: function(record, index) {
+            var c = record.get('status');
+
+			var totalmet_origin = record.get('totalmet_origin') == null ? 0 : record.get('totalmet_origin');
+			var totalmet_check = record.get('totalmet_check') == null ? 0 : record.get('totalmet_check');
+			var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+			var netweight = record.get('netweight') == null ? 0 : record.get('netweight');
+
+			if(
+				totalmet_origin == 0
+				&& totalmet_check == 0
+				&& grossweight == 0
+				&& netweight == 0
+			){
+				return 'epc-ok';
+			}
+			if(totalmet_check >= totalmet_origin && totalmet_check > 0){
+				return 'epc-ok';
+			}
+			if(netweight >= grossweight && netweight > 0){
+				return 'epc-ok';
+			}
+			return 'epc-error';
+        }                     
     },
 	// plugins: {
     //     cellediting: {
