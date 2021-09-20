@@ -117,6 +117,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
                     }
                 );
             }
+            stockind.stockin_lot.sort(
+                function(a, b){
+                    if(a.lot_number < b.lot_number){
+                        return -1;
+                    }
+                    if(a.lot_number > b.lot_number){
+                        return 1;
+                    }
+                    return
+                }
+            );
         }
 
         // console.log(data); 

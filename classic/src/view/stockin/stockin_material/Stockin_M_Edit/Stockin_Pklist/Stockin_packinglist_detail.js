@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			text: 'Số Lot',
 			dataIndex: 'lot_number',
 			sortable: true,
-			flex: 1,
+			width: 200,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;
 				var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
@@ -58,22 +58,194 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			},
 		},
 		{
-			text: 'SL Invoice',
-			dataIndex: 'totalpackage',
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Invoice(M)',
+			dataIndex: 'totalmet',
 			sortable: true,
-			flex: 1,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+			bind: {
+                hidden: '{isMetColumnHidden}',
+            },
 		},
 		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Kiểm dài (M)',
+			dataIndex: 'totalmetcheck',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+			bind: {
+                hidden: '{isMetColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Invoice(Y)',
+			dataIndex: 'totalyds',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+            bind: {
+                hidden: '{isYdsColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Kiểm dài (Y)',
+			dataIndex: 'totalydscheck',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+            bind: {
+                hidden: '{isYdsColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Invoice(cân)',
+			dataIndex: 'grossweight',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+            bind: {
+                hidden: '{isKgColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Kiểm cân',
+			dataIndex: 'grossweight_check',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+            bind: {
+                hidden: '{isKgColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Invoice(lbs)',
+			dataIndex: 'grossweight_lbs',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+            bind: {
+                hidden: '{isYdsColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'Kiểm lbs',
+			dataIndex: 'grossweight_lbs_check',
+			sortable: true,
+			width: 150,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+            bind: {
+                hidden: '{isYdsColumnHidden}',
+            },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL yêu cầu',
+			dataIndex: 'totalpackage',
+			sortable: true,
+			width: 100,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
 			text: 'SL xếp khoang',
 			dataIndex: 'totalpackagecheck',
 			sortable: true,
-			flex: 1,
+			width: 100,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
 		},
 		{
+			xtype: 'numbercolumn',
+			format:'0,000',
 			text: 'SL kiểm',
 			dataIndex: 'totalpackagepklist',
 			sortable: true,
+			width: 100,
+			align:'end',
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+		},
+		{
+			text: 'DS cây vải chưa kiểm',
+			dataIndex: 'list_not_check',
+			sortable: true,
 			flex: 1,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == 'null' ? "" : value;
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				// return val;
+				return '<div style="white-space:normal !important;">'+ val +'</div>';;
+			},
 		},
 	],
     plugins: [
