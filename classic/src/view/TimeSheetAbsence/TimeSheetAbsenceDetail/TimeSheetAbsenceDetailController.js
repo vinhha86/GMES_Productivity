@@ -189,7 +189,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceDetailController', {
                     ListProductionLineStore.getbyParent(response.orgFactoryId);
 
                     var Personnel_Store = viewModel.getStore('Personnel_Store');
-                    Personnel_Store.loadStore_byOrg(response.orgProductionLineId, false, false);
+                    Personnel_Store.loadStore_byOrg(response.orgProductionLineId, 0);
 
                     var startDate = Ext.Date.parse(response.absencedate_from, 'c');
                     if (null == startDate) startDate = new Date(response.absencedate_from);

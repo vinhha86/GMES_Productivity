@@ -208,27 +208,12 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         })
     },
     onload: function () {
-        var viewModel = this.getViewModel();
-        var params = new Object();
-        //    params.isviewall = viewModel.get('isviewall');
-        params.orgid_link = viewModel.get('donvi.id');
-        var isviewallThoiVu = viewmodel.get('isviewallThoiVu');
-        // if (viewModel.get('orgtypeid_link') == 13) {
-        //     params.ismanager = true;
-        //     viewModel.set('isdisabled', true);
-        // }
-        // else if (viewModel.get('orgtypeid_link') == 1) {
-        //     params.ismanager = true;
-        //     viewModel.set('isdisabled', false);
-        // }
-        // else {
-        //     params.ismanager = false;
-        //     viewModel.set('isdisabled', true);
-        // }
+        var viewmodel = this.getViewModel();
+        var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
+        var orgid_link = viewmodel.get('donvi.id');
 
-
-        var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(params.orgid_link, isviewallThoiVu);
+        var StorePersonel = viewmodel.getStore('Personnel_Store');
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link);
     },
     onUpload: function () {
         var viewmodel = this.getViewModel();
