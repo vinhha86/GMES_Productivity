@@ -46,6 +46,59 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         click: 'CreatePackingList'
       }
     },
+    renderLot: function (value, metaData, record, rowIdx, colIdx, store) {
+      var viewModel = this.getViewModel();
+      var stockin = viewModel.get('stockin');
+      var unitid_link = stockin.unitid_link;
+      
+      if(unitid_link == 1){ // m
+        var totalmetcheck = record.get('totalmetcheck') == null ? 0 : record.get('totalmetcheck');
+        var totalmet = record.get('totalmet') == null ? 0 : record.get('totalmet');
+        if (totalmet == totalmetcheck) {
+          metaData.tdCls = 'cellGreen';
+        } else if (totalmet < totalmetcheck) {
+          metaData.tdCls = 'cellYellow';
+        } else{
+          metaData.tdCls = 'cellRed';
+        }
+      }
+      if(unitid_link == 3){ // yrd
+        var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
+        var totalyds = record.get('totalyds') == null ? 0 : record.get('totalyds');
+        if (totalyds == totalydscheck) {
+          metaData.tdCls = 'cellGreen';
+        } else if (totalyds < totalydscheck) {
+          metaData.tdCls = 'cellYellow';
+        } else{
+          metaData.tdCls = 'cellRed';
+        }
+      }
+      if(unitid_link == 4){ // kg
+        var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
+        var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+        if (grossweight == grossweight_check) {
+          metaData.tdCls = 'cellGreen';
+        } else if (grossweight < grossweight_check) {
+          metaData.tdCls = 'cellYellow';
+        } else{
+          metaData.tdCls = 'cellRed';
+        }
+      }
+      if(unitid_link == 5){ // lbs
+        var grossweight_lbs_check = record.get('grossweight_lbs_check') == null ? 0 : record.get('grossweight_lbs_check');
+        var grossweight_lbs = record.get('grossweight_lbs') == null ? 0 : record.get('grossweight_lbs');
+        if (grossweight_lbs == grossweight_lbs_check) {
+          metaData.tdCls = 'cellGreen';
+        } else if (grossweight_lbs < grossweight_lbs_check) {
+          metaData.tdCls = 'cellYellow';
+        } else{
+          metaData.tdCls = 'cellRed';
+        }
+      }
+
+      metaData.tdAttr = 'data-qtip="' + value + '"';
+      return value;
+    },
     renderSum: function (value) {
       if (null == value) value = 0;
       return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';

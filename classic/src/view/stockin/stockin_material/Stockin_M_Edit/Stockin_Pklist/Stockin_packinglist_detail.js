@@ -38,24 +38,25 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			dataIndex: 'lot_number',
 			sortable: true,
 			width: 200,
-			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				var val = value == 'null' ? "" : value;
-				var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
-                var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
-                var totalpackagepklist = record.get('totalpackagepklist') == null ? 0 : record.get('totalpackagepklist');
-				if (totalpackage == totalpackagecheck || totalpackage == totalpackagepklist) {
-                    // cell.setCls('cellGreen');
-					metaData.tdCls = 'cellGreen';
-                } else if (totalpackage < totalpackagecheck || totalpackage < totalpackagepklist) {
-                    // cell.setCls('cellYellow');
-					metaData.tdCls = 'cellYellow';
-                } else{
-                    // cell.setCls('cellRed');
-					metaData.tdCls = 'cellRed';
-                }
-				metaData.tdAttr = 'data-qtip="' + val + '"';
-				return val;
-			},
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	var val = value == 'null' ? "" : value;
+			// 	var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
+            //     var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
+            //     var totalpackagepklist = record.get('totalpackagepklist') == null ? 0 : record.get('totalpackagepklist');
+			// 	if (totalpackage == totalpackagecheck || totalpackage == totalpackagepklist) {
+            //         // cell.setCls('cellGreen');
+			// 		metaData.tdCls = 'cellGreen';
+            //     } else if (totalpackage < totalpackagecheck || totalpackage < totalpackagepklist) {
+            //         // cell.setCls('cellYellow');
+			// 		metaData.tdCls = 'cellYellow';
+            //     } else{
+            //         // cell.setCls('cellRed');
+			// 		metaData.tdCls = 'cellRed';
+            //     }
+			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+			// 	return val;
+			// },
+			renderer: 'renderLot'
 		},
 		{
 			xtype: 'numbercolumn',
