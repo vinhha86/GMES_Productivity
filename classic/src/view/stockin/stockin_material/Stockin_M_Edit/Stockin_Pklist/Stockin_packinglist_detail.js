@@ -173,7 +173,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			// 	return val;
 			// },
             bind: {
-                hidden: '{isYdsColumnHidden}',
+                hidden: '{isLbsColumnHidden}',
             },
 		},
 		{
@@ -190,7 +190,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			// 	return val;
 			// },
             bind: {
-                hidden: '{isYdsColumnHidden}',
+                hidden: '{isLbsColumnHidden}',
             },
 		},
 		{
