@@ -3,14 +3,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
     alias: 'viewmodel.Stockin_packinglist_ViewModel',
     requires: [
         // 'GSmartApp.store.invoice.invoice_pkl_lotnumber_store', 
-        // 'GSmartApp.store.invoice.invoice_packinglist_store'
+        'GSmartApp.store.stockin.StockinPklStore'
     ],
     stores:{
         LotStore: {
             // type: 'invoice_pkl_lotnumber_store'
         },
         PackingListStore: {
-            // type: 'invoice_packinglist_store'
+            type: 'StockinPklStore'
         }
     },
 	data: {
