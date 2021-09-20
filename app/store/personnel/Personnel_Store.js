@@ -8,9 +8,10 @@ Ext.define('GSmartApp.store.personnel.Personnel_Store', {
 		direction: 'ASC',
 		property: 'code'
 	}],
-	loadStore_byOrg(orgid_link, personnel_typeid_link) {
+	loadStore_byOrg(orgid_link, personnel_typeid_link,status) {
 		var params = new Object();
 		params.orgid_link = orgid_link;
+		params.status=status;
 		//	params.ismanager = ismanager;
 		params.personnel_typeid_link = personnel_typeid_link;
 		this.setProxy({

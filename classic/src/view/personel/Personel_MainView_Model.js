@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
     alias: 'viewmodel.Personel_MainView_Model',
     requires: ['GSmartApp.store.org.ListOrgMenuTreeStore', 'GSmartApp.store.personnel.Personnel_Store',
         'GSmartApp.store.timesheetshifttype.TimesheetShiftTypeStore',
-        'GSmartApp.store.org.ListOrgStore', 'GSmartApp.store.personnel.Personnel_Position_Store', 'GSmartApp.store.personnel.PersonnelType_Store'],
+        'GSmartApp.store.org.ListOrgStore', 'GSmartApp.store.personnel.Personnel_Position_Store', 'GSmartApp.store.personnel.PersonnelType_Store',
+        'GSmartApp.store.personnel.PersonnelStatus_Store'],
     stores: {
         OrgStore: {
             type: 'ListOrgMenuTreeStore'
@@ -22,6 +23,9 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
         },
         PersonnelTypeStore: {
             type: 'PersonnelType_Store'
+        },
+        PersonnelStatus_Store:{
+            type:'PersonnelStatus_Store'
         }
     },
     data: {
@@ -32,7 +36,6 @@ Ext.define('GSmartApp.view.personel.Personel_MainView_Model', {
         donvi: {
             id: null
         },
-
         orgnameComboValue: null
 
     }

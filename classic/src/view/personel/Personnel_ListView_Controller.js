@@ -5,6 +5,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         var viewmodel = this.getViewModel();
         var storeLoaiNV = viewmodel.getStore('PersonnelTypeStore');
         storeLoaiNV.loadStore();
+        viewmodel.set('personnel.status',0);
     },
     control: {
         '#btnThemMoi_Personnel': {
@@ -30,23 +31,43 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
         },
         '#cmbLoaiNV': {
             select: 'onSelectLoaiNV'
+        },
+        '#cmbTinhTrang':{
+            select:'onSelectTangThai'
         }
+    },
+    onSelectTangThai:function(){
+        var viewmodel = this.getViewModel();
+        var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
+        var orgid_link = viewmodel.get('donvi.id');
+        var status= viewmodel.get('personnel.status');
+        var StorePersonel = viewmodel.getStore('Personnel_Store');
+        console.log(status);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
+    },
+    onTrangThaiTriggerClick:function(){
+        var viewmodel = this.getViewModel();
+        viewmodel.set('personnel.status', null);
+        var orgid_link = viewmodel.get('donvi.id');
+        var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
+        var StorePersonel = viewmodel.getStore('Personnel_Store');
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,3);
     },
     onLoaiNVTriggerClick: function () {
         var viewmodel = this.getViewModel();
         viewmodel.set('personnel.personnel_typeid_link', 0);
         var orgid_link = viewmodel.get('donvi.id');
-
+        var status= viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, 0);
+        StorePersonel.loadStore_byOrg(orgid_link, 0,status);
     },
     onSelectLoaiNV: function (cmb, rec, e) {
         var viewmodel = this.getViewModel();
         var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
         var orgid_link = viewmodel.get('donvi.id');
-
+        var status= viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
     },
     onDownload_Template: function () {
         var me = this;

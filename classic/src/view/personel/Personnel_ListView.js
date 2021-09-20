@@ -260,22 +260,45 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         {
             xtype: 'button',
             margin: 1,
-            text: 'Ca làm việc MĐ',
+            text: 'Ca MĐ',
             iconCls: 'x-fa fa-plus',
             itemId: 'splbtn_ThemCa',
             tooltip: 'Chọn ca làm việc mặc định',
         }
 
             , '->',
+            {
+                xtype: 'combo',
+                labelWidth: 30,
+                fieldLabel: 'TT',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                displayField: 'name',
+                valueField: 'id',
+                width: 200,
+                margin: 1,
+                itemId: 'cmbTinhTrang',
+                bind: {
+                    value: '{personnel.status}',
+                    store: '{PersonnelStatus_Store}'
+                },
+                triggers: {
+                    clear: {
+                        cls: 'x-form-clear-trigger',
+                        weight: 1,
+                        handler: 'onTrangThaiTriggerClick',
+                    }
+                }
+            },
         {
             xtype: 'combo',
-            labelWidth: 78,
-            fieldLabel: 'Loại nhân viên',
+            labelWidth: 50,
+            fieldLabel: 'Loại NV',
             labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
             fieldStyle: 'font-size:11px;',
             displayField: 'name',
             valueField: 'id',
-            width: 300,
+            width: 200,
             margin: 1,
             itemId: 'cmbLoaiNV',
             bind: {

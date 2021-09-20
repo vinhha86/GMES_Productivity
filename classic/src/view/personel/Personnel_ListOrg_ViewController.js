@@ -30,9 +30,9 @@ Ext.define('GSmartApp.view.personel.Personnel_ListOrg_ViewController', {
         // }
         var personel_typeid_link = viewModel.get('personnel.personnel_typeid_link');
         var orgid_link = viewModel.get('donvi.id');
-
+        var personel_status = viewModel.get('personnel.status');
         var StorePersonel = viewModel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,personel_status);
         //load list phong ban - để filter     
 
         var orgStore = viewModel.getStore('ListOrgStore');
