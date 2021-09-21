@@ -36,8 +36,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         },
         invoice: null,
         invoiceDRec: null,
-        // stockin: null,
-        // stockinDRec: null,
+        stockin: null,
+        stockinDRec: null,
     },
     formulas: {
 		isMetColumnHidden: function (get) {

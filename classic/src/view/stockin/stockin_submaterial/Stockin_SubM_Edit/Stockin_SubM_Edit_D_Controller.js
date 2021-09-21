@@ -462,6 +462,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 						stockin_dObj.sku_product_desc = npl.get('description');
 						stockin_dObj.sku_product_color = npl.get('mauSanPham_product');
 						stockin_dObj.totalpackage = 0;
+						stockin_dObj.unitid_link = 2; // pcs
 						stockin_d.push(stockin_dObj);
 					}
 				}
@@ -540,7 +541,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 					stockin_dObj.unitprice = 0;
 					stockin_dObj.totalamount = 0;
 					stockin_dObj.yds = 0;
-					stockin_dObj.unitid_link = stockin.unitid_link == null ? 1 : stockin.unitid_link;
+					stockin_dObj.unitid_link = stockin.unitid_link == null ? 2 : stockin.unitid_link;
 
 					stockin_dObj.totalmet_origin = 0;
 					stockin_dObj.totalmet_check = 0;
@@ -785,6 +786,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 		stockin_dObj.totalpackage = null;
 		stockin_dObj.totalpackagecheck = null;
 		stockin_dObj.stockin_packinglist = [];
+		stockin_dObj.unitid_link = 2;
 
 		stockin_d.push(stockin_dObj);
 		store.setData([]);

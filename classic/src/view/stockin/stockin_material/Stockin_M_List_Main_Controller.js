@@ -68,6 +68,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
     },
     onStockinSelect: function (e, selected, eOpts) {
         var viewmodel = this.getViewModel();
+        viewmodel.set('stockin', selected.data);
+        // console.log(selected);
+
         // isRecordNotNguyenLieu
         var stockintypeid_link = selected.get('stockintypeid_link');
         if(stockintypeid_link >= 1 && stockintypeid_link <= 10){
@@ -378,6 +381,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
     },
     onDelete: function(grid, rowIndex){
         var me = this.getView();
+        var viewModel = this.getViewModel();
         
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');
@@ -404,6 +408,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                         if (success) {
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
+                                var StockinD_Store = viewModel.getStore('StockinD_Store');
+                                StockinD_Store.removeAll();
                             }else{
                                 Ext.Msg.show({
                                     title: 'Thông báo',

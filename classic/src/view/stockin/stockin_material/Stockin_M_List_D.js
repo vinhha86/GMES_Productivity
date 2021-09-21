@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_M_List_D',
 	itemId: 'Stockin_M_List_D',
+    controller: 'Stockin_M_List_D_Controller',
 	cls: 'Stockin_M_List_D',
 	columnLines: true,
 	rowLines: true,
@@ -15,24 +16,39 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
         stripeRows: false,
         getRowClass: function(record, index) {
             var c = record.get('status');
+			var unitid_link = record.get('unitid_link');
 
 			var totalmet_origin = record.get('totalmet_origin') == null ? 0 : record.get('totalmet_origin');
 			var totalmet_check = record.get('totalmet_check') == null ? 0 : record.get('totalmet_check');
+			var totalydsorigin = record.get('totalydsorigin') == null ? 0 : record.get('totalydsorigin');
+			var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
 			var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
 			var netweight = record.get('netweight') == null ? 0 : record.get('netweight');
+			var grossweight_lbs = record.get('grossweight_lbs') == null ? 0 : record.get('grossweight_lbs');
+			var netweight_lbs = record.get('netweight_lbs') == null ? 0 : record.get('netweight_lbs');
 
 			if(
 				totalmet_origin == 0
 				&& totalmet_check == 0
 				&& grossweight == 0
 				&& netweight == 0
+				&& totalydsorigin == 0
+				&& totalydscheck == 0
+				&& grossweight_lbs == 0
+				&& netweight_lbs == 0
 			){
 				return 'epc-ok';
 			}
-			if(totalmet_check >= totalmet_origin && totalmet_check > 0){
+			if(totalmet_check >= totalmet_origin && totalmet_check > 0 && (unitid_link == null || unitid_link == 1)){
 				return 'epc-ok';
 			}
-			if(netweight >= grossweight && netweight > 0){
+			if(totalydscheck >= totalydsorigin && totalydscheck > 0 && unitid_link == 3){
+				return 'epc-ok';
+			}
+			if(netweight >= grossweight && netweight > 0 && unitid_link == 4){
+				return 'epc-ok';
+			}
+			if(netweight_lbs >= grossweight_lbs && netweight_lbs > 0 && unitid_link == 5){
 				return 'epc-ok';
 			}
 			return 'epc-error';
@@ -51,6 +67,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 		store: '{StockinD_Store}'
 	},
 	columns: [
+		{
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_Stockin_M_List_D_List'
+                },            
+            ],
+			bind: {
+				hidden: '{!isRecordNguyenLieu}',
+			},
+        },
 		{
 			text: 'Mã NPL', 
 			flex: 1,
@@ -121,6 +153,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			width: 70,
 			renderer: 'renderUnit'
 		},
+
 		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
@@ -131,9 +164,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			summaryRenderer: 'renderSum',
 			width: 90,
 			bind: {
-				hidden: '{!isRecordNguyenLieu}',
+				hidden: '{!isRecordNguyenLieuMet}',
 			},
-		},{
+		},
+		{
 			xtype: 'numbercolumn',
 			format:'0,000.00',
 			text: 'SL kiểm (M)', 
@@ -143,9 +177,88 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D', {
 			dataIndex: 'totalmet_check',
 			width: 90,
 			bind: {
-				hidden: '{!isRecordNguyenLieu}',
+				hidden: '{!isRecordNguyenLieuMet}',
 			},
 		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (Y)', 
+			align:'right',
+			dataIndex: 'totalydsorigin',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 90,
+			bind: {
+				hidden: '{!isRecordNguyenLieuYds}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (Y)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalydscheck',
+			width: 90,
+			bind: {
+				hidden: '{!isRecordNguyenLieuYds}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (KG)', 
+			align:'right',
+			dataIndex: 'grossweight',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 90,
+			bind: {
+				hidden: '{!isRecordNguyenLieuKg}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (KG)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'netweight',
+			width: 90,
+			bind: {
+				hidden: '{!isRecordNguyenLieuKg}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (lbs)', 
+			align:'right',
+			dataIndex: 'grossweight',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 90,
+			bind: {
+				hidden: '{!isRecordNguyenLieuLbs}',
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (lbs)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'netweight',
+			width: 90,
+			bind: {
+				hidden: '{!isRecordNguyenLieuLbs}',
+			},
+		},
+
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',

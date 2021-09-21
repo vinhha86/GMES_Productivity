@@ -56,6 +56,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
 			// 	return val;
 			// },
+            summaryType: 'count',
+            summaryRenderer: 'renderCount',
 			renderer: 'renderLot'
 		},
 		{
@@ -66,6 +68,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -83,6 +87,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -100,6 +106,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -117,6 +125,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -134,6 +144,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -151,6 +163,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -168,6 +182,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -185,6 +201,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 150,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -202,6 +220,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 100,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderCount',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -216,6 +236,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 100,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderCount',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -230,6 +252,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: true,
 			width: 100,
 			align:'end',
+			summaryType: 'sum',
+			summaryRenderer: 'renderCount',
 			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 			// 	var val = value == 'null' ? "" : value;
 			// 	metaData.tdAttr = 'data-qtip="' + val + '"';

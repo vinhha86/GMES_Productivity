@@ -32,12 +32,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		OrgToStore: {
             type: 'ListOrgStore'
 		},
-		// VatTypeStore:{
-		// 	type : 'VatTypeStore'
-		// },
-		// CurrencyStore: {
-		// 	type : 'CurrencyStore'
-		// },
 		StatusStore:{
 			type: 'stockinstatusstore'
 		},
@@ -220,6 +214,82 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
                 return true;
             }
             return false;
-		}
+		},
+		isRecordNguyenLieuMet: function (get){
+			var isRecordNguyenLieu = get('isRecordNguyenLieu');
+			if(!isRecordNguyenLieu) {
+				return false;
+			}
+
+			var stockin = get('stockin');
+			if(stockin != null){
+				var unitid_link = stockin.unitid_link;
+				if(unitid_link != null){
+					if(unitid_link == 1){
+						return true;
+					}
+					return false;
+				}
+				return false;
+			}
+            return false;
+		},
+		isRecordNguyenLieuYds: function (get){
+			var isRecordNguyenLieu = get('isRecordNguyenLieu');
+			if(!isRecordNguyenLieu) {
+				return false;
+			}
+
+			var stockin = get('stockin');
+			if(stockin != null){
+				var unitid_link = stockin.unitid_link;
+				if(unitid_link != null){
+					if(unitid_link == 3){
+						return true;
+					}
+					return false;
+				}
+				return false;
+			}
+            return false;
+		},
+		isRecordNguyenLieuKg: function (get){
+			var isRecordNguyenLieu = get('isRecordNguyenLieu');
+			if(!isRecordNguyenLieu) {
+				return false;
+			}
+
+			var stockin = get('stockin');
+			if(stockin != null){
+				var unitid_link = stockin.unitid_link;
+				if(unitid_link != null){
+					if(unitid_link == 4){
+						return true;
+					}
+					return false;
+				}
+				return false;
+			}
+            return false;
+		},
+		isRecordNguyenLieuLbs: function (get){
+			var isRecordNguyenLieu = get('isRecordNguyenLieu');
+			if(!isRecordNguyenLieu) {
+				return false;
+			}
+
+			var stockin = get('stockin');
+			if(stockin != null){
+				var unitid_link = stockin.unitid_link;
+				if(unitid_link != null){
+					if(unitid_link == 5){
+						return true;
+					}
+					return false;
+				}
+				return false;
+			}
+            return false;
+		},
     }
 })

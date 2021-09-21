@@ -105,7 +105,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
     },
     renderCount: function (value) {
       if (null == value) value = 0;
-      return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + value + '</div>';
+      return '<div style="font-weight: bold; color:darkred;">' + value + '</div>';
     },
     onSpecialkey: function (field, e) {
       var viewModel = this.getViewModel();
