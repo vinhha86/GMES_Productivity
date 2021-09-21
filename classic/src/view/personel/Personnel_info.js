@@ -327,6 +327,18 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         //     value: '{personnel.orgid_link}',
                         //     store: '{OrgStore}'
                         // }
+                    }, {
+                        xtype: 'textfield',
+                        labelWidth: 78,
+                        fieldLabel: 'Số tài khoản:',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        flex: 1,
+                        margin: 1,
+                        maskRe: /[0-9]/,
+                        bind: {
+                            value: '{personnel.account_number}'
+                        }
                     },
                     {
                         xtype: 'combo',
@@ -388,17 +400,6 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         altFormats: "Y-m-d\\TH:i:s.uO",
                         bind: {
                             value: '{personnel.date_endworking}'
-                        }
-                    }, {
-                        xtype: 'textfield',
-                        labelWidth: 78,
-                        fieldLabel: 'Lý do nghỉ:',
-                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
-                        fieldStyle: 'font-size:11px;',
-                        flex: 1,
-                        margin: 1,
-                        bind: {
-                            value: '{personnel.reason}'
                         }
                     }
                 ]
@@ -475,6 +476,17 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                             value: '{personnel.insurance_number}'
                         }
                     }, {
+                        xtype: 'textfield',
+                        labelWidth: 78,
+                        fieldLabel: 'Số sổ HK:',
+                        labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                        fieldStyle: 'font-size:11px;',
+                        flex: 1,
+                        margin: 1,
+                        bind: {
+                            value: '{personnel.household_number}'
+                        }
+                    }, {
                         xtype: 'datefield',
                         labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
                         fieldStyle: 'font-size:11px;',
@@ -516,7 +528,18 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                 bind: {
                     value: '{personnel.address}'
                 },
-                width: 763
+                width: 508
+            }, {
+                xtype: 'textfield',
+                labelWidth: 78,
+                fieldLabel: 'Lý do nghỉ:',
+                labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                fieldStyle: 'font-size:11px;',
+                flex: 1,
+                margin: 1,
+                bind: {
+                    value: '{personnel.reason}'
+                }
             },
             {
                 xtype: 'textfield',
