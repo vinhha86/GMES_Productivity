@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockin_M_List',
     itemId: 'Stockin_M_List',
+    cls: 'Stockin_M_List',
     reference: 'Stockin_M_List',
     viewConfig: {
         stripeRows: false,
@@ -49,6 +50,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
         {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 var val = value == 'null' ? "" : value;
+                var status = record.get('status');
+                if(status == -1){
+                    metaData.tdCls =  'rowYellow';
+                }
+                if(status == 0){
+                    metaData.tdCls =  'rowWhite';
+                }
+                if(status == 1){
+                    metaData.tdCls =  'rowGreen';
+                }
                 metaData.tdAttr = 'data-qtip="' + val + '"';
                 return val;
             },
