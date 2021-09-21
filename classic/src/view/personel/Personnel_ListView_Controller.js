@@ -228,13 +228,14 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView_Controller', {
             me.onload();
         })
     },
+
     onload: function () {
         var viewmodel = this.getViewModel();
         var personel_typeid_link = viewmodel.get('personnel.personnel_typeid_link');
         var orgid_link = viewmodel.get('donvi.id');
-
+        var status= viewmodel.get('personnel.status');
         var StorePersonel = viewmodel.getStore('Personnel_Store');
-        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link);
+        StorePersonel.loadStore_byOrg(orgid_link, personel_typeid_link,status);
     },
     onUpload: function () {
         var viewmodel = this.getViewModel();
