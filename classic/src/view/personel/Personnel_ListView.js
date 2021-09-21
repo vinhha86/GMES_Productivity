@@ -40,7 +40,8 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     }, {
         text: 'Họ và tên',
         dataIndex: 'fullname',
-        flex: 1,
+       // flex: 1,
+       width: 122,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -87,7 +88,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     }, {
         text: 'Số CMT',
         dataIndex: 'idnumber',
-        width: 100,
+        width: 80,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -106,9 +107,10 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
             }
         }
     },
+  
     {
 
-        text: 'Phòng ban', dataIndex: 'orgname', width: 150,
+        text: 'Phòng ban', dataIndex: 'orgname', width: 120,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -174,7 +176,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
     {
         text: 'Chức vụ',
         dataIndex: 'position',
-        flex: 1,
+      //  flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             value = value == null ? "" : value;
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -214,7 +216,19 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
                 }
             }
         }
+    },
+    {
+        text: 'Ngày đi làm',
+        dataIndex: 'date_startworking',
+        width: 80,
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+    },  {
+        text: 'Ngày nghỉ việc',
+        dataIndex: 'date_endworking',
+        width: 80,
+        renderer: Ext.util.Format.dateRenderer('d/m/Y'),
     }
+
     ],
     dockedItems: [{
         dock: 'top',
