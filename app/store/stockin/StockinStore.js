@@ -99,7 +99,10 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 		pcontractid_link,
 		limit, 
 		page,
-		skuid_link){
+		skuid_link,
+		pcontract,
+		product
+		){
 		var me=this;
 		var params = new Object();
 		params.orgid_from_link = orgid_from_link;
@@ -111,6 +114,8 @@ Ext.define('GSmartApp.store.stockin.StockinStore', {
 		params.status = status;
 		params.pcontractid_link = pcontractid_link;
 		params.skuid_link = skuid_link;
+		params.pcontract = pcontract;
+		params.product = product;
 
 		me.pageSize = limit;
 		this.setProxy({

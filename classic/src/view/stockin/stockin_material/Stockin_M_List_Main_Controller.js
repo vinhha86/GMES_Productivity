@@ -122,6 +122,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             var stockindate_from = viewmodel.get('searchObj.stockindate_from');
             var stockindate_to = viewmodel.get('searchObj.stockindate_to');
             var stockintypeid_link = viewmodel.get('searchObj.stockintypeid_link');
+            var pcontract = viewmodel.get('searchObj.pcontract');
+            var product = viewmodel.get('searchObj.product');
             var stockintypeid_link_from = 1;
             var stockintypeid_link_to = 10;
             var status = [0,1,2];
@@ -129,7 +131,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
     
             store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
                 stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
-                status, null, null, null, mat_skuid_link);
+                status, null, null, null, mat_skuid_link, pcontract, product);
         }
         
         var StockinD_Store = viewmodel.getStore('StockinD_Store');

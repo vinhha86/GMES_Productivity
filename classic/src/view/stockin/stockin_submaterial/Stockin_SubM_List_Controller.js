@@ -70,7 +70,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.Stockin_SubM_List_Control
 
         store.loadStore_Material(orgid_from_link, stockindate_from, stockindate_to, 
             stockintypeid_link, stockintypeid_link_from, stockintypeid_link_to, 
-            status, null, null, null, null);
+            status, null, null, null, null, null, null);
     },
     onThemMoi: function(){
         this.redirectTo('stockin_subm/create');

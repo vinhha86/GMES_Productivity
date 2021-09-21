@@ -72,6 +72,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 			stockindate_to: new Date(),
 			orgid_from_link: null,
 			stockintypeid_link: null,
+			pcontract: null, // string
+			product: null, // string
 		},
 
 		urlback:'',

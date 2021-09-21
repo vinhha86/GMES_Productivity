@@ -129,7 +129,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_MainController', {
         // StockinStore.loadStore(null, fromDate, toDate, null, -1, 100, 1);
         StockinStore.loadStore_Material(null, fromDate, toDate, 
             null, stockintypeid_link_from, stockintypeid_link_to,
-            status, null, 100, 1);
+            status, null, 100, 1, null, null, null);
         StockinStore.getSorters().add({
             property: 'stockindate',
             direction: 'DESC'

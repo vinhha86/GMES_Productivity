@@ -106,7 +106,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         
         store.loadStore_Material(null, stockindate_from, stockindate_to, 
             null, stockintypeid_link_from, stockintypeid_link_to,
-            status, null, null, null);
+            status, null, null, null, null, null, null);
     },
 
     // stockin_order
