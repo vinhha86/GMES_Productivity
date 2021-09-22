@@ -56,6 +56,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
         UnitStore: {
             type: 'UnitStore'
         },
+		UnitWidthStore: {
+            type: 'UnitStore'
+        },
 		GpayUserOrg: {
             type: 'GpayUserOrg'
         },

@@ -307,6 +307,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
 							return Ext.util.Format.number(value * 100, '0,000.00');
 						},
+						bind: {
+							hidden: '{isCmColumnHidden}',
+						},
 					},
 					{
 						text: 'Khổ thực tế (cm)', 
@@ -317,6 +320,37 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 							// if(value ==0) return "";
 							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
 							return Ext.util.Format.number(value * 100, '0,000.00');
+						},
+						bind: {
+							hidden: '{isCmColumnHidden}',
+						},
+					},
+					{
+						text: 'Khổ (inch)', 
+						dataIndex: 'width_yds',
+						flex: 1,
+						align:'right',
+						renderer: function (value, metaData, record) {
+							// if(value ==0) return "";
+							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+							return Ext.util.Format.number(value * 36, '0,000.00');
+						},
+						bind: {
+							hidden: '{isInchColumnHidden}',
+						},
+					},
+					{
+						text: 'Khổ thực tế (inch)', 
+						dataIndex: 'width_yds_check',
+						flex: 1,
+						align:'right',
+						renderer: function (value, metaData, record) {
+							// if(value ==0) return "";
+							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+							return Ext.util.Format.number(value * 36, '0,000.00');
+						},
+						bind: {
+							hidden: '{isInchColumnHidden}',
 						},
 					},
 					{

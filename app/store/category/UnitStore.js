@@ -6,7 +6,21 @@ Ext.define('GSmartApp.store.unit.UnitStore', {
 		{name: 'id', type: 'int'},
 		{name: 'code',  type: 'string'},
         {name: 'name',   type: 'string'},
-		{name: 'name_en',   type: 'string'}
+		{name: 'name_en',   type: 'string'},
+		{
+            name: 'name_width',
+            type: 'string',
+            convert: function (value, rec) {
+                var id = rec.get('id');
+                if(id == 1){
+                    return 'CM';
+                }
+                if(id == 3){
+                    return 'INCH';
+                }
+                return rec.get('name');;
+            }
+		},
 	],
 	sorters: [{
         direction: 'ASC',

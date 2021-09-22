@@ -87,6 +87,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
         viewModel.set('stockin.stockintypeid_link', id);
         viewModel.set('stockin.unitid_link', 1);
+        viewModel.set('stockin.width_unitid_link', 1);
         viewModel.set('stockin.status', -1);
         viewModel.set('stockin.pcontractid_link', viewModel.get('pcontractid_link'));
 

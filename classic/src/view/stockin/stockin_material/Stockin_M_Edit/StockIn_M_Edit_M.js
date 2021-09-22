@@ -214,8 +214,21 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				},
 				fieldLabel: 'Tổng số kiện',					
 				labelWidth: 80,
-				width: 375,
+				width: 155,
 				maskRe: /[0-9]/
+			},
+			{
+				margin: '0 5 0 5',
+				xtype: 'datefield',
+				format: GSmartApp.util.State.get('dataFormat'),
+				altFormats: "Y-m-d\\TH:i:s.uO",
+				bind: {
+					value: '{stockin.invoice_date}'
+				},
+				editable: false,
+				labelWidth: 85,
+				width: 210,
+				fieldLabel: "Ngày Invoice"
 			},
 			{
 				margin: '0 5 0 5',
@@ -281,19 +294,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				]
 			},
 			{
-				margin: '0 5 0 5',
-				xtype: 'datefield',
-				format: GSmartApp.util.State.get('dataFormat'),
-				altFormats: "Y-m-d\\TH:i:s.uO",
-				bind: {
-					value: '{stockin.invoice_date}'
-				},
-				editable: false,
-				labelWidth: 85,
-				width: 235,
-				fieldLabel: "Ngày Invoice"
-			},
-			{
 				xtype:'combo',
 				itemId: 'UnitStoreCombo',
 				fieldLabel: 'Đ/vị tính',
@@ -304,10 +304,28 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				valueField: 'id',
 				displayField: 'name',
 				margin: '0 5 0 5',
-				width: 200,
+				width: 225,
+            	labelWidth: 85,
+				queryMode: 'local',
+				anyMatch: true,
+				editable: false
+			},
+			{
+				xtype:'combo',
+				itemId: 'UnitStoreWidthCombo',
+				fieldLabel: 'Đ/vị khổ',
+				bind:{
+					store: '{UnitWidthStore}',
+					value: '{stockin.width_unitid_link}'
+				},
+				valueField: 'id',
+				displayField: 'name_width',
+				margin: '0 5 0 5',
+				width: 210,
             	labelWidth: 70,
 				queryMode: 'local',
 				anyMatch: true,
+				editable: false
 			},
 			{
 				margin: '0 5 0 5',

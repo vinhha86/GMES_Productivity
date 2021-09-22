@@ -24,6 +24,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 		UnitStore.loadStore();
         this.filterUnitStore();
         this.sortUnitStore();
+
+        var UnitWidthStore = viewModel.getStore('UnitWidthStore');
+		UnitWidthStore.loadStore();
+        this.filterUnitWidthStore();
+        this.sortUnitWidthStore();
 	},
 	control:{
 		'#loaitien':{
@@ -74,6 +79,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         var UnitStore = viewModel.getStore('UnitStore');
         UnitStore.getSorters().removeAll();
         UnitStore.getSorters().add({
+            property: 'unittype',
+            direction: 'ASC'
+        });
+    },
+    filterUnitWidthStore: function(){
+        var viewModel = this.getViewModel();
+        var UnitWidthStore = viewModel.getStore('UnitWidthStore');
+        UnitWidthStore.clearFilter();
+        UnitWidthStore.filterBy(function(rec) {
+            var isOk = false;
+            if(
+                rec.get('unittype') == 0
+            ){
+                isOk = true;
+            }
+            return isOk;
+        });
+    },
+    sortUnitWidthStore: function(){
+        var viewModel = this.getViewModel();
+        var UnitWidthStore = viewModel.getStore('UnitWidthStore');
+        UnitWidthStore.getSorters().removeAll();
+        UnitWidthStore.getSorters().add({
             property: 'unittype',
             direction: 'ASC'
         });
