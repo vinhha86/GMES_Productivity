@@ -193,10 +193,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         },
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockin.unitid_link');
-            if(unitid_link == null){
-                return true;
-            }else 
-            if(unitid_link == 1 || unitid_link == 4 || unitid_link == 5){
+            // if(unitid_link == null){
+            //     return true;
+            // }else 
+            // if(unitid_link == 1 || unitid_link == 4 || unitid_link == 5){
+			if(unitid_link == 1 || unitid_link == null){
                 return false;
             }
             return true;
@@ -205,7 +206,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             var unitid_link = get('stockin.unitid_link');
             if(unitid_link == null){
                 return true;
-            }else 
+            } 
             if(unitid_link == 3){
                 return false;
             }
@@ -215,8 +216,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             var unitid_link = get('stockin.unitid_link');
             if(unitid_link == null){
                 return true;
-            }else 
-            if(unitid_link == 4 || unitid_link == 1 || unitid_link == 3){
+            } 
+            // if(unitid_link == 4 || unitid_link == 1 || unitid_link == 3){
+			if(unitid_link == 4){
                 return false;
             }
             return true;
@@ -225,8 +227,28 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             var unitid_link = get('stockin.unitid_link');
             if(unitid_link == null){
                 return true;
-            }else 
+            } 
             if(unitid_link == 5){
+                return false;
+            }
+            return true;
+        },
+		isCmColumnHidden: function (get) {
+            var width_unitid_link = get('stockin.width_unitid_link');
+            if(width_unitid_link == null){
+                return false;
+            } 
+            if(width_unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+        isInchColumnHidden: function (get) {
+            var width_unitid_link = get('stockin.width_unitid_link');
+            if(width_unitid_link == null){
+                return true;
+            } 
+            if(width_unitid_link == 3){
                 return false;
             }
             return true;

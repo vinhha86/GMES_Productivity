@@ -133,6 +133,29 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             }
             return true;
         },
+        isPklCmFieldHidden: function (get) {
+            // return false;
+            var width_unitid_link = get('stockin.width_unitid_link');
+            if(width_unitid_link == null){
+                return false;
+            }else 
+            if(width_unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+		isPklInchFieldHidden: function (get) {
+            // return false;
+            var width_unitid_link = get('stockin.width_unitid_link');
+            if(width_unitid_link == null){
+                return true;
+            }else 
+            if(width_unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
+
 		isPklSelected: function (get) {
 			var selectedPklRecord = get('selectedPklRecord');
 			if(selectedPklRecord == null){

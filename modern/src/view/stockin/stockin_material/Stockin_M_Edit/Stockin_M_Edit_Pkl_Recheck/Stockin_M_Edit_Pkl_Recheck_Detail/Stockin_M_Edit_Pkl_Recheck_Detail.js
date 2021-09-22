@@ -352,6 +352,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // cls: 'notEditable',
                             bind: {
                                 value: '{objRecheck.width_met_check}',
+                                hidden: '{isPklCmFieldHidden}',
                             },
                             stepValue: 0.1,
                             inputType: 'number',
@@ -378,6 +379,61 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // cls: 'notEditable',
                             bind: {
                                 value: '{objRecheck.width_met}',
+                                hidden: '{isPklCmFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            inputType: 'number',
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype: 'textfield',
+                            border: true,
+                            cls: 'my-textfield',
+                            margin: 1,
+                            itemId: 'widthYdsCheckTxtRecheck',
+                            // label: 'Khổ kiểm (cm):',
+                            // labelWidth: 130,
+                            flex: 1,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Khổ kiểm (inch)',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objRecheck.width_yds_check}',
+                                hidden: '{isPklInchFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            inputType: 'number',
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave'
+                            }
+                        },
+                        {
+                            xtype: 'textfield',
+                            border: true,
+                            cls: 'my-textfield',
+                            margin: 1,
+                            itemId: 'widthYdsTxtRecheck',
+                            // label: 'Khổ phiếu (cm):',
+                            // labelWidth: 130,
+                            flex: 1,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Khổ phiếu (inch)',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            bind: {
+                                value: '{objRecheck.width_yds}',
+                                hidden: '{isPklInchFieldHidden}',
                             },
                             stepValue: 0.1,
                             inputType: 'number',

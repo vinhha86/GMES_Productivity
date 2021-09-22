@@ -236,6 +236,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         // chuyển khổ m -> cm
         objRecheck.width_met = objRecheck.width_met * 100;
         objRecheck.width_met_check = objRecheck.width_met_check * 100;
+        objRecheck.width_yds = (objRecheck.width_yds * 36).toFixed(2);;
+        objRecheck.width_yds_check = (objRecheck.width_yds_check * 36).toFixed(2);;
 
         viewModel.set('objRecheck', objRecheck);
     },
@@ -336,7 +338,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             Ext.toast('Thiếu thông tin Số cây', 2000);
             return;
         }
-        if(stockin.unitid_link == 3){ // yrd
+        if(stockin.unitid_link == 3){ // yds
             if(objRecheck.ydscheck == '' || objRecheck.ydscheck == null || isNaN(objRecheck.ydscheck)){
                 if(objRecheck.ydscheck !== 0){
                     Ext.toast('Số Y kiểm phải là số', 2000);
@@ -442,16 +444,34 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 }
             }
         }
-        if(objRecheck.width_met_check == '' || objRecheck.width_met_check == null || isNaN(objRecheck.width_met_check)){
-            if(objRecheck.width_met_check !== 0){
-                Ext.toast('Khổ kiểm phải là số', 2000);
-                return;
+
+        if(stockin.width_unitid_link == null || stockin.width_unitid_link == 1){ // cm
+            if(objRecheck.width_met_check == '' || objRecheck.width_met_check == null || isNaN(objRecheck.width_met_check)){
+                if(objRecheck.width_met_check !== 0){
+                    Ext.toast('Khổ kiểm (cm) phải là số', 2000);
+                    return;
+                }
+            }
+            if(objRecheck.width_met == '' || objRecheck.width_met == null || isNaN(objRecheck.width_met)){
+                if(objRecheck.width_met !== 0){
+                    Ext.toast('Khổ phiếu (cm) phải là số', 2000);
+                    return;
+                }
             }
         }
-        if(objRecheck.width_met == '' || objRecheck.width_met == null || isNaN(objRecheck.width_met)){
-            if(objRecheck.width_met !== 0){
-                Ext.toast('Khổ phiếu phải là số', 2000);
-                return;
+
+        if(stockin.width_unitid_link == 3){ // inch
+            if(objRecheck.width_yds_check == '' || objRecheck.width_yds_check == null || isNaN(objRecheck.width_yds_check)){
+                if(objRecheck.width_yds_check !== 0){
+                    Ext.toast('Khổ kiểm (inch) phải là số', 2000);
+                    return;
+                }
+            }
+            if(objRecheck.width_yds == '' || objRecheck.width_yds == null || isNaN(objRecheck.width_yds)){
+                if(objRecheck.width_met !== 0){
+                    Ext.toast('Khổ phiếu (inch) phải là số', 2000);
+                    return;
+                }
             }
         }
         
@@ -467,6 +487,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         if(objRecheck.grossweight_lbs == null || objRecheck.grossweight_lbs == '' || objRecheck.grossweight_lbs == 0) objRecheck.grossweight_lbs = 0;
         if(objRecheck.width_met_check == null || objRecheck.width_met_check == '') objRecheck.width_met_check = 0;
         if(objRecheck.width_met == null || objRecheck.width_met == '' || objRecheck.width_met == 0) widthMetTxt = 0;
+        if(objRecheck.width_yds_check == null || objRecheck.width_yds_check == '') objRecheck.width_yds_check = 0;
+        if(objRecheck.width_yds == null || objRecheck.width_yds == '' || objRecheck.width_yds == 0) widthYrdTxt = 0;
 
         if(stockin.unitid_link == 1 || stockin.unitid_link == 4 || stockin.unitid_link == 5){
             // met
@@ -476,7 +498,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
             objRecheck.ydsorigin = objRecheck.met_origin / 0.9144;
         }
         if(stockin.unitid_link == 3){
-            // yrd
+            // yds
             objRecheck.ydscheck = parseFloat(objRecheck.ydscheck);
             objRecheck.met_check = objRecheck.ydscheck * 0.9144;
             objRecheck.ydsorigin = parseFloat(objRecheck.ydsorigin);
@@ -508,10 +530,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         objRecheck.grossweight_lbs = parseFloat(objRecheck.grossweight_lbs);
         objRecheck.grossweight = parseFloat(objRecheck.grossweight);
 
-        objRecheck.width_met_check = parseFloat(objRecheck.width_met_check / 100);
-        objRecheck.width_yds_check = parseFloat(objRecheck.width_met_check / 0.9144);
-        objRecheck.width_met = parseFloat(objRecheck.width_met / 100);
-        objRecheck.width_yds = parseFloat(objRecheck.width_met / 0.9144);
+        if(stockin.width_unitid_link == null || stockin.width_unitid_link == 1){ // cm
+            objRecheck.width_met_check = parseFloat(objRecheck.width_met_check / 100);
+            objRecheck.width_yds_check = parseFloat(objRecheck.width_met_check / 0.9144);
+            objRecheck.width_met = parseFloat(objRecheck.width_met / 100);
+            objRecheck.width_yds = parseFloat(objRecheck.width_met / 0.9144);
+        }
+        if(stockin.width_unitid_link == 3){ // inch
+            objRecheck.width_yds_check = parseFloat(objRecheck.width_yds_check / 36);
+            objRecheck.width_met_check = parseFloat(objRecheck.width_yds_check * 0.9144);
+            objRecheck.width_yds = parseFloat(objRecheck.width_yds / 36);
+            objRecheck.width_met = parseFloat(objRecheck.width_yds * 0.9144);
+        }
 
         //
         // console.log(objRecheck);
@@ -630,10 +660,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 var responseObj = response.data[0];
+                                // console.log(responseObj);
+                                // console.log(responseObj.width_yds);
+                                // console.log(responseObj.width_yds * 36);
                                 // chuyển khổ m -> cm
                                 responseObj.width_met = responseObj.width_met * 100;
                                 responseObj.width_met_check = responseObj.width_met_check * 100;
+                                responseObj.width_yds = (responseObj.width_yds * 36).toFixed(2);
+                                responseObj.width_yds_check = (responseObj.width_yds_check * 36).toFixed(2);
                                 viewModel.set('objRecheck', responseObj);
+
+                                // console.log(responseObj);
                             }
                             
                         }else{

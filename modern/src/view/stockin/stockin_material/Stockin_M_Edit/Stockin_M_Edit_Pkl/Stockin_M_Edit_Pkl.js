@@ -147,5 +147,55 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 hidden: '{isLbsColumnHidden}',
             },
         },
+        {
+            text: 'Khổ (cm)', 
+            flex: 1,
+            dataIndex: 'width_met_check',
+            align: 'center',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(value == null) value = 0;
+                var width_met_check = record.get('width_met_check') == null ? 0 : record.get('width_met_check');
+                var width_met = record.get('width_met') == null ? 0 : record.get('width_met');
+                // if (width_met_check == width_met) {
+                //     cell.setCls('cellGreen');
+                // } else if (width_met < width_met_check) {
+                //     cell.setCls('cellYellow');
+                // } else{
+                //     cell.setCls('cellRed');
+                // }
+                
+                // return width_met + ' / ' + width_met_check;
+                // return width_met_check;
+                return Ext.util.Format.number(width_met_check * 100, '0,000.00');
+            },
+            bind: {
+                hidden: '{isCmColumnHidden}',
+            },
+        },
+        {
+            text: 'Khổ (inch)', 
+            flex: 1,
+            dataIndex: 'width_yds_check',
+            align: 'center',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(value == null) value = 0;
+                var width_yds_check = record.get('width_yds_check') == null ? 0 : record.get('width_yds_check');
+                var width_yds = record.get('width_yds') == null ? 0 : record.get('width_yds');
+                // if (width_yds == width_yds_check) {
+                //     cell.setCls('cellGreen');
+                // } else if (width_yds < width_yds_check) {
+                //     cell.setCls('cellYellow');
+                // } else{
+                //     cell.setCls('cellRed');
+                // }
+                
+                // return width_yds + ' / ' + width_yds_check;
+                // return width_yds_check;
+                return Ext.util.Format.number(width_yds_check * 36, '0,000.00');
+            },
+            bind: {
+                hidden: '{isInchColumnHidden}',
+            },
+        },
     ],
 });

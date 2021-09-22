@@ -90,6 +90,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         if(placeholder == 'Khổ phiếu (cm)'){
             oldValue = viewModel.get('objPkl.widthMetTxt');
         }else
+        if(placeholder == 'Khổ kiểm (inch)'){
+            oldValue = viewModel.get('objPkl.widthYdsCheckTxt');
+        }else 
+        if(placeholder == 'Khổ phiếu (inch)'){
+            oldValue = viewModel.get('objPkl.widthYdsTxt');
+        }else
         if(placeholder == 'Cân kiểm'){
             oldValue = viewModel.get('objPkl.grossweightCheckTxt');
         }else 
@@ -145,6 +151,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 if(widthMetTxt == null || widthMetTxt == ''){
                     viewModel.set('objPkl.widthMetTxt', widthMetCheckTxt);
                 }
+            }else 
+            if(placeholder == 'Khổ kiểm (inch)'){
+                var widthYdsCheckTxt = viewModel.get('objPkl.widthYdsCheckTxt');
+                var widthYdsTxt = viewModel.get('objPkl.widthYdsTxt');
+                if(widthYdsTxt == null || widthYdsTxt == ''){
+                    viewModel.set('objPkl.widthYdsTxt', widthYdsCheckTxt);
+                }
             }
         }
         // console.log("Version " + Ext.os.version);
@@ -198,6 +211,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         viewModel.set('objPkl.sampleCheckTxt', record.get('sample_check'));
         viewModel.set('objPkl.widthMetCheckTxt', record.get('width_met_check')  * 100); // m -> cm
         viewModel.set('objPkl.widthMetTxt', record.get('width_met') * 100); // m -> cm
+        viewModel.set('objPkl.widthYdsCheckTxt', (record.get('width_yds_check')  * 36).toFixed(2)); // yds -> inch
+        viewModel.set('objPkl.widthYdsTxt', (record.get('width_yds')  * 36).toFixed(2)); // yds -> inch
 
         // set khoang info cho pkl
         viewModel.set('objPkl.pklFloorTxt', record.get('floor'));
@@ -311,7 +326,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-					   console.log(response);
+					//    console.log(response);
                        viewModel.set('slcankiem', response.total);
                        viewModel.set('dschuakiem', response.list_not_check);
                     }else{
@@ -340,19 +355,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         var mTxt = viewModel.get('objPkl.mTxt');
         var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
         var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
-        // var yOriginTxt = viewModel.get('objPkl.yOriginTxt') == null ? viewModel.get('objPkl.yTxt') : viewModel.get('objPkl.yOriginTxt');
-        // var mOriginTxt = viewModel.get('objPkl.mOriginTxt') == null ? viewModel.get('objPkl.mTxt') : viewModel.get('objPkl.mOriginTxt');
         
         var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
         var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
         var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
         var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
-        // var grossweightTxt = viewModel.get('objPkl.grossweightTxt') == null ? viewModel.get('objPkl.grossweightCheckTxt') : viewModel.get('objPkl.grossweightTxt');
-        // var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt') == null ? viewModel.get('objPkl.grossweightLbsCheckTxt') : viewModel.get('objPkl.grossweightLbsTxt');
         
         var sampleCheckTxt = viewModel.get('objPkl.sampleCheckTxt');
         var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
         var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+        var widthYdsCheckTxt = viewModel.get('objPkl.widthYdsCheckTxt');
+        var widthYdsTxt = viewModel.get('objPkl.widthYdsTxt');
         // var widthMetTxt = viewModel.get('objPkl.widthMetTxt') == null ? viewModel.get('objPkl.widthMetCheckTxt') : viewModel.get('objPkl.widthMetTxt');
         var pklRowTxt = viewModel.get('objPkl.pklRowTxt');
         var pklSpaceTxt = viewModel.get('objPkl.pklSpaceTxt');
@@ -430,17 +443,36 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 }
             }
         }
-        if(widthMetCheckTxt == '' || widthMetCheckTxt == null || isNaN(widthMetCheckTxt)){
-            if(widthMetCheckTxt !== 0){
-                Ext.toast('Số khổ kiểm phải là số', 2000);
-                return;
+        console.log(stockin.width_unitid_link);
+        if(stockin.width_unitid_link == null || stockin.width_unitid_link == 1){ // cm
+            if(widthMetCheckTxt == '' || widthMetCheckTxt == null || isNaN(widthMetCheckTxt)){
+                if(widthMetCheckTxt !== 0){
+                    Ext.toast('Số khổ kiểm (cm) phải là số', 2000);
+                    return;
+                }
+            }
+            if(widthMetTxt == '' || widthMetTxt == null || isNaN(widthMetTxt)){
+                if(widthMetTxt !== 0){
+                    // Ext.toast('Số khổ phiếu phải là số', 2000);
+                    // return;
+                    widthMetTxt = widthMetCheckTxt;
+                }
             }
         }
-        if(widthMetTxt == '' || widthMetTxt == null || isNaN(widthMetTxt)){
-            if(widthMetTxt !== 0){
-                // Ext.toast('Số khổ phiếu phải là số', 2000);
-                // return;
-                widthMetTxt = widthMetCheckTxt;
+        if(stockin.width_unitid_link == 3){ // inch
+            if(widthYdsCheckTxt == '' || widthYdsCheckTxt == null || isNaN(widthYdsCheckTxt)){
+                if(widthYdsCheckTxt !== 0){
+                    console.log(widthYdsCheckTxt);
+                    Ext.toast('Số khổ kiểm (inch) phải là số', 2000);
+                    return;
+                }
+            }
+            if(widthYdsTxt == '' || widthYdsTxt == null || isNaN(widthYdsTxt)){
+                if(widthYdsTxt !== 0){
+                    // Ext.toast('Số khổ phiếu phải là số', 2000);
+                    // return;
+                    widthYdsTxt = widthYdsCheckTxt;
+                }
             }
         }
 
@@ -475,6 +507,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         
         if(widthMetCheckTxt == null || widthMetCheckTxt == '') widthMetCheckTxt = 0;
         if(widthMetTxt == null || widthMetTxt == '' || widthMetTxt == 0) widthMetTxt = widthMetCheckTxt;
+        if(widthYdsCheckTxt == null || widthYdsCheckTxt == '') widthYdsCheckTxt = 0;
+        if(widthYdsTxt == null || widthYdsTxt == '' || widthYdsTxt == 0) widthYdsTxt = widthYdsCheckTxt;
 
         var objData = new Object();
         objData.id = null;
@@ -491,10 +525,21 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         objData.colorid_link = selectedDRecord.get('colorid_link');;
         // objData.widthTxt = widthTxt;
         objData.sample_check = sampleCheckTxt;
-        objData.width_met_check = widthMetCheckTxt / 100;
-        objData.width_met = widthMetTxt / 100;
-        objData.width_yds_check = objData.width_met_check / 0.9144;
-        objData.width_yds = objData.width_met / 0.9144;
+
+        if(stockin.width_unitid_link == null || stockin.width_unitid_link == 1){ // cm
+            objData.width_met_check = widthMetCheckTxt / 100;
+            objData.width_met = widthMetTxt / 100;
+            objData.width_yds_check = objData.width_met_check / 0.9144;
+            objData.width_yds = objData.width_met / 0.9144;
+        }
+        if(stockin.width_unitid_link == 3){ // inch
+            objData.width_yds_check = widthYdsCheckTxt / 36;
+            objData.width_yds = widthYdsTxt / 36;
+            objData.width_met_check = objData.width_yds_check * 0.9144;
+            objData.width_met = objData.width_yds * 0.9144;
+        }
+
+
         objData.unitid_link = stockin.unitid_link;
         objData.stockinid_link = stockin.id;
         objData.stockindid_link = pkl_stockindId;
