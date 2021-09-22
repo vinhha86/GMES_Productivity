@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Họ và tên',
         dataIndex: 'fullname',
        // flex: 1,
-       width: 122,
+       width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -177,6 +177,7 @@ Ext.define('GSmartApp.view.personel.Personnel_ListView', {
         text: 'Chức vụ',
         dataIndex: 'position',
       //  flex: 1,
+        width:270,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             value = value == null ? "" : value;
             metaData.tdAttr = 'data-qtip="' + value + '"';
