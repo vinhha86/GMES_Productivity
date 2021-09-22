@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         store: '{POLineStore}'
     },
     features: [{
-        ftype: 'summary',
+        ftype: 'groupingsummary',
         dock: 'bottom'
     }],
     columns: [{
@@ -84,6 +84,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
                 keyup: 'onFilterPOKeyup',
                 buffer: 500
             }
+        },
+        summaryType: 'count',
+        summaryRenderer: function (value) {
+            if (null == value) value = 0;
+            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
         }
     },
     {
@@ -109,7 +114,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
-        summaryType: 'count',
+        summaryType: 'sum',
         summaryRenderer: function (value) {
             if (null == value) value = 0;
             return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';

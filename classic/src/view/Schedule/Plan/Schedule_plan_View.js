@@ -148,6 +148,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                         }
 
                     } else {
+                        if (flight.get('grant_type') == 1) {
+                            return '<div class = "x-fa fa-exclamation-circle">' + "&nbsp;" + flight.get('mahang') + '</div>';
+                        }
                         return flight.get('mahang');
                     }
                 } else {
@@ -172,7 +175,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                 {
                     xtype: 'treecolumn', //this is so we know which column will show the tree
                     text: 'Nhà máy',
-                    width: 170,
+                    width: 200,
                     sortable: false,
                     dataIndex: 'Name'
                 },
@@ -181,6 +184,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_View', {
                     width: 26,
                     menuDisabled: true,
                     sortable: false,
+                    hidden: true,
                     items: [{
                         iconCls: 'x-fa fas fa-eye',
                         handler: 'onHidden',

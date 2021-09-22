@@ -1,10 +1,10 @@
 Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
     extend: 'Ext.container.Container',
     xtype: 'DashBoardMainView',
-    id:'DashBoardMainView',
+    id: 'DashBoardMainView',
     reference: 'DashBoardMainView',
     controller: 'DashBoardMainViewController',
-    requires: [ 'Ext.chart.*' ],
+    requires: ['Ext.chart.*'],
     viewModel: {
         type: 'DashBoardMainViewModel'
     },
@@ -17,9 +17,9 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
         // xtype: '',
         margin: 1,
         layout: 'hbox',
-        items:[
+        items: [
             {
-                xtype:'POrderStatusChart',
+                xtype: 'POrderStatusChart',
                 border: true,
                 margin: 1,
                 height: '100%',
@@ -40,32 +40,24 @@ Ext.define('GSmartApp.view.DashBoardView.DashBoardMainView', {
                 flex: 1,
             }
         ]
-    },{
+    }, {
         region: 'center',
         border: false,
         height: '50%',
-        // title: 'Cennter',
-        // xtype: '',
         margin: 1,
         layout: 'hbox',
-        items:[{
-            xtype: 'BarChartNotInProduction',
+        items: [{
+            xtype: 'PContractChartView',
             border: true,
             margin: 1,
             height: '100%',
-            flex: 1,
-        },{
-            xtype:'LineChartPackStockedAmount',
-            border: true,
-            margin: 1,
-            height: '100%',
-            flex: 1,
-        },{
+            flex: 2
+        }, {
             xtype: 'LineChartRegisterCodeCount',
             border: true,
             margin: 1,
             height: '100%',
-            flex: 1,
+            flex: 1
         }]
-    }] 
+    }]
 })

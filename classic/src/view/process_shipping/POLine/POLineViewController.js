@@ -332,6 +332,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var viewmodel = this.getViewModel();
         var ismap = viewmodel.get('ismap');
         var store = viewmodel.getStore('POLineStore');
+        store.setGroupField('productbuyercode');
         store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
     },
     onHideView: function () {
