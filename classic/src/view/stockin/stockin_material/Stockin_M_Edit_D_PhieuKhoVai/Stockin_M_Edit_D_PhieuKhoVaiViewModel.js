@@ -33,5 +33,25 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit_d_phieukhovai
             }
             return true;
         },
+        isCmColumnHidden: function (get) {
+            var width_unitid_link = get('stockin.width_unitid_link');
+            if(width_unitid_link == null){
+                return false;
+            }else 
+            if(width_unitid_link == 1){
+                return false;
+            }
+            return true;
+        },
+        isInchColumnHidden: function (get) {
+            var width_unitid_link = get('stockin.width_unitid_link');
+            if(width_unitid_link == null){
+                return true;
+            }else 
+            if(width_unitid_link == 3){
+                return false;
+            }
+            return true;
+        },
     }
 })

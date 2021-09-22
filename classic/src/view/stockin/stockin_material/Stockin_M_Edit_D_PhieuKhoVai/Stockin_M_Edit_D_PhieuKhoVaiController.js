@@ -72,12 +72,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit_d_phieukhovai
         var khoArr = new Array();
         for(var i = 0; i < data.length; i++){
             var width_met_check = data[i].width_met_check == null ? 0 : data[i].width_met_check;
+            var width_yds_check = data[i].width_yds_check == null ? 0 : data[i].width_yds_check;
             data[i].width_met_check = width_met_check;
+            data[i].width_yds_check = width_yds_check;
 
             var found = khoArr.some(item => item.width_met_check == width_met_check);
             if(!found){
                 var item = new Object();
                 item.width_met_check = width_met_check;
+                item.width_yds_check = width_yds_check;
                 item.stockindid_link = data[i].stockindid_link;
                 khoArr.push(item);
             }

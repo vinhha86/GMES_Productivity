@@ -28,12 +28,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit_d_phieukhovai
             summaryType: 'count',
 			summaryRenderer: 'renderCount',
             bind:{
-                // hidden: '{isMetColumnHidden}'
+                hidden: '{isCmColumnHidden}'
             },
             renderer: function (value, metaData, record) {
 				// if(value ==0) return "";
 				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
 				return Ext.util.Format.number(value * 100, '0,000.00');
+			},
+		},
+        {
+			text: 'Khổ (inch)', 
+			dataIndex: 'width_yds_check',
+            flex: 1,
+            summaryType: 'count',
+			summaryRenderer: 'renderCount',
+            bind:{
+                hidden: '{isInchColumnHidden}'
+            },
+            renderer: function (value, metaData, record) {
+				// if(value ==0) return "";
+				metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+				return Ext.util.Format.number(value * 36, '0,000.00');
 			},
 		},
 	],
