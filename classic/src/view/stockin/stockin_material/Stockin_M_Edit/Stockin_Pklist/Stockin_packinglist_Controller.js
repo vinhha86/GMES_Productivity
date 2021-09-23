@@ -4,12 +4,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 	init: function() {
         var viewModel = this.getViewModel();
         // this.setPklData(); // old
-        this.loadPklGroupedData(); // new
+        // this.loadPklGroupedData(); // new
     },
     control: {
         '#btnThoat': {
             click: 'onExit'
+        },
+        '#Stockin_packinglist': {
+            afterrender: 'onAfterrender'
         }
+    },
+    onAfterrender: function(){
+        this.loadPklGroupedData(); // new
     },
     onExit: function(){
         this.getView().up('window').close();
@@ -40,14 +46,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 
         var PackingListStore = viewModel.get('PackingListStore');
 
-        // console.log(stockin);
-        // console.log(stockinDRec);
-        if(isNaN(stockinDRec.get('id'))){
-            return;
-        }
-
         var stockinid_link = stockin.id;
-        var stockindid_link = stockinDRec.get('id')
+        var stockindid_link = null;
+
+        if(stockinDRec != null){
+            if(isNaN(stockinDRec.get('id'))){
+                return;
+            }else{
+                stockindid_link = stockinDRec.get('id')
+            }
+        }
 
         var params = new Object();
 		params.stockinid_link = stockinid_link;
@@ -130,15 +138,75 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
             );
         }
 
-        // console.log(data); 
-        var stockind = data[0];
-        if(stockind.stockin_lot != null) {
-            // console.log(stockind.stockin_lot); 
-            PackingListStore.setData(stockind.stockin_lot);
-        }
-
-        // PackingListStore.insert(0, data);
-        // PackingListStore.setData(data);
+        PackingListStore.setData(data);
         me.setLoading(false);
-    }
+
+        //
+        // if(data.length == 1){
+        //     var grid = me.down('#Stockin_packinglist_detail'); console.log(grid);
+        //     var view = grid.getView();
+        //     var rowWidget = grid.getPlugin('rowwidget1'); console.log(rowWidget);
+        //     var data = grid.getStore().getRange(); console.log(data);
+        //     data.forEach(function(record){
+        //         console.log('here here');
+        //         rowWidget.toggleRow(view.getRow(record), record);
+        //     }); 
+        // }
+
+    },
+    // setPklGroupedData: function(data){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var stockin = viewModel.get('stockin');
+    //     var stockinDRec = viewModel.get('stockinDRec');
+    //     var PackingListStore = viewModel.get('PackingListStore');
+
+    //     // d
+    //     for(var i=0; i<data.length; i++) {
+    //         var stockind = data[i];
+    //         var stockin_lotArr = stockind.stockin_lot;
+    //         var stockin_packinglistArr = stockind.stockin_packinglist;
+
+    //         // lot
+    //         for(var j=0; j<stockin_lotArr.length; j++){
+    //             var stockin_lot = stockin_lotArr[j];
+    //             stockin_lot.stockin_packinglist = new Array();
+    //             //pkl
+    //             for(var k=0; k<stockin_packinglistArr.length; k++){
+    //                 var stockin_packinglist = stockin_packinglistArr[k];
+    //                 if(stockin_packinglist.lotnumber == stockin_lot.lot_number){
+    //                     stockin_lot.stockin_packinglist.push(stockin_packinglist);
+    //                 }
+    //             }
+    //             stockin_lot.stockin_packinglist.sort(
+    //                 function(a, b){
+    //                     return a.packageid - b.packageid;
+    //                 }
+    //             );
+    //         }
+    //         stockind.stockin_lot.sort(
+    //             function(a, b){
+    //                 if(a.lot_number < b.lot_number){
+    //                     return -1;
+    //                 }
+    //                 if(a.lot_number > b.lot_number){
+    //                     return 1;
+    //                 }
+    //                 return
+    //             }
+    //         );
+    //     }
+
+    //     // console.log(data); 
+    //     var stockind = data[0];
+    //     if(stockind.stockin_lot != null) {
+    //         // console.log(stockind.stockin_lot); 
+    //         PackingListStore.setData(stockind.stockin_lot);
+    //     }
+
+    //     // PackingListStore.insert(0, data);
+    //     // PackingListStore.setData(data);
+    //     me.setLoading(false);
+    // }
 })

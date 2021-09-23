@@ -44,6 +44,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         '#btnClose': {
             click: 'onCloseButton'
         },
+        '#btnChiTietCayVai': {
+            click: 'onbtnChiTietCayVai'
+        }
 
     },
     onUrlBack: function (type) {
@@ -557,4 +560,35 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 }
             })
     },
+    onbtnChiTietCayVai: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Chi tiết Packing List - SKU :',
+            closeAction: 'destroy',
+            width: 1200,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockin_packinglist'
+            }],
+            viewModel: {
+                type: 'Stockin_packinglist_ViewModel',
+                data: {
+                    stockin: stockin,
+                }
+            }
+        });
+        form.show();
+    }
 })
