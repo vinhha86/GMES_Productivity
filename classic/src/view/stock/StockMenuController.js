@@ -298,11 +298,28 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
                 stockrowObj.idString = '3;' + stockrow.id;
                 stockrowObj.leaf = true;
                 stockrowObj.name = stockrow.code;
+                stockrowObj.name_sort = stockrowObj.name
                 stockrowObj.orgid_link = stockrow.orgid_link;
                 stockrowObj.parentId = stockrow.orgid_link;
                 stockrowObj.parentIdString = '2;' + stockrow.orgid_link;
                 stockrowObj.type = 3;
                 stockrowObj.visible = true;
+
+                var name = stockrowObj.name_sort.trim();
+                if(name.length >= 2){
+                    var subStr1 = name.substring(0, 1);
+                    var subStr2 = name.substring(1, 2);
+                    if(!isNaN(subStr1) && isNaN(subStr2)){
+                        stockrowObj.name_sort = '0' + name;
+                    }
+                }else
+                if(name.length == 1){
+                    var subStr1 = name.substring(0, 1);
+                    if(!isNaN(subStr1)){
+                        stockrowObj.name_sort = '0' + name;
+                    }
+                }
+
                 parentNode.appendChild(stockrowObj);
             }
 
