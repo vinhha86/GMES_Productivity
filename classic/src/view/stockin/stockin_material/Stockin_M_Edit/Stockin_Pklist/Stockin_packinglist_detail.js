@@ -34,253 +34,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 	// new
 	columns: [
 		{
-			text: 'Số Lot',
-			dataIndex: 'lot_number',
+			text: 'Mã vải',
+			dataIndex: 'skuCode',
 			sortable: true,
-			width: 200,
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	var totalpackagecheck = record.get('totalpackagecheck') == null ? 0 : record.get('totalpackagecheck');
-            //     var totalpackage = record.get('totalpackage') == null ? 0 : record.get('totalpackage');
-            //     var totalpackagepklist = record.get('totalpackagepklist') == null ? 0 : record.get('totalpackagepklist');
-			// 	if (totalpackage == totalpackagecheck || totalpackage == totalpackagepklist) {
-            //         // cell.setCls('cellGreen');
-			// 		metaData.tdCls = 'cellGreen';
-            //     } else if (totalpackage < totalpackagecheck || totalpackage < totalpackagepklist) {
-            //         // cell.setCls('cellYellow');
-			// 		metaData.tdCls = 'cellYellow';
-            //     } else{
-            //         // cell.setCls('cellRed');
-			// 		metaData.tdCls = 'cellRed';
-            //     }
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            summaryType: 'count',
-            summaryRenderer: 'renderCount',
-			renderer: 'renderLot'
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Invoice(M)',
-			dataIndex: 'totalmet',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-			bind: {
-                hidden: '{isMetColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Kiểm dài (M)',
-			dataIndex: 'totalmetcheck',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-			bind: {
-                hidden: '{isMetColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Invoice(Y)',
-			dataIndex: 'totalyds',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            bind: {
-                hidden: '{isYdsColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Kiểm dài (Y)',
-			dataIndex: 'totalydscheck',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            bind: {
-                hidden: '{isYdsColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Invoice(cân)',
-			dataIndex: 'grossweight',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            bind: {
-                hidden: '{isKgColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Kiểm cân',
-			dataIndex: 'grossweight_check',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            bind: {
-                hidden: '{isKgColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Invoice(lbs)',
-			dataIndex: 'grossweight_lbs',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            bind: {
-                hidden: '{isLbsColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000.00',
-			text: 'Kiểm lbs',
-			dataIndex: 'grossweight_lbs_check',
-			sortable: true,
-			width: 150,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderSum',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-            bind: {
-                hidden: '{isLbsColumnHidden}',
-            },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL yêu cầu',
-			dataIndex: 'totalpackage',
-			sortable: true,
-			width: 100,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderCount',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL xếp khoang',
-			dataIndex: 'totalpackagecheck',
-			sortable: true,
-			width: 100,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderCount',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-		},
-		{
-			xtype: 'numbercolumn',
-			format:'0,000',
-			text: 'SL kiểm',
-			dataIndex: 'totalpackagepklist',
-			sortable: true,
-			width: 100,
-			align:'end',
-			summaryType: 'sum',
-			summaryRenderer: 'renderCount',
-			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-			// 	var val = value == 'null' ? "" : value;
-			// 	metaData.tdAttr = 'data-qtip="' + val + '"';
-			// 	return val;
-			// },
-		},
-		{
-			text: 'DS cây vải chưa kiểm',
-			dataIndex: 'list_not_check',
-			sortable: true,
-			flex: 1,
-			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				var val = value == 'null' ? "" : value;
-				metaData.tdAttr = 'data-qtip="' + val + '"';
-				// return val;
-				return '<div style="white-space:normal !important;">'+ val +'</div>';;
-			},
+			flex: 1
+            // summaryType: 'count',
+            // summaryRenderer: 'renderCount',
+			// renderer: 'renderLot'
 		},
 	],
     plugins: [
 		{
 			ptype: 'rowwidget',
-			// id: 'rowwidget',
+			id: 'rowwidget1',
+			// itemId: 'rowwidget1',
 			widget:
 			{
 				xtype: 'grid',
-				// itemId: 'level2',
+				itemId: 'level1',
 				features: [{
 					ftype: 'summary',
 					dock: 'bottom'
@@ -289,211 +60,914 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					stripeRows: false
 				},
 				bind: {
-					store: '{record.stockin_packinglist}'
+					store: '{record.stockin_lot}'
 				},
 				columns: [
 					{
-						text: 'Cây số', 
-						dataIndex: 'packageid',
-						width: 50,
+						text: 'Số Lot',
+						dataIndex: 'lot_number',
+						sortable: true,
+						width: 200,
+						summaryType: 'count',
+						summaryRenderer: 'renderCount',
+						renderer: 'renderLot'
 					},
 					{
-						text: 'Khổ (cm)', 
-						dataIndex: 'width_met',
-						flex: 1,
-						align:'right',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
-							return Ext.util.Format.number(value * 100, '0,000.00');
-						},
-						bind: {
-							hidden: '{isCmColumnHidden}',
-						},
-					},
-					{
-						text: 'Khổ thực tế (cm)', 
-						dataIndex: 'width_met_check',
-						flex: 1,
-						align:'right',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
-							return Ext.util.Format.number(value * 100, '0,000.00');
-						},
-						bind: {
-							hidden: '{isCmColumnHidden}',
-						},
-					},
-					{
-						text: 'Khổ (inch)', 
-						dataIndex: 'width_yds',
-						flex: 1,
-						align:'right',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
-							return Ext.util.Format.number(value * 36, '0,000.00');
-						},
-						bind: {
-							hidden: '{isInchColumnHidden}',
-						},
-					},
-					{
-						text: 'Khổ thực tế (inch)', 
-						dataIndex: 'width_yds_check',
-						flex: 1,
-						align:'right',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
-							return Ext.util.Format.number(value * 36, '0,000.00');
-						},
-						bind: {
-							hidden: '{isInchColumnHidden}',
-						},
-					},
-					{
-						text: 'Dài phiếu (m)', 
-						dataIndex: 'met_origin',
-						flex: 1,
-						align:'right',
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Invoice(M)',
+						dataIndex: 'totalmet',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isMetColumnHidden}',
 						},
 					},
 					{
-						text: 'Dài kiểm (m)', 
-						dataIndex: 'met_check',
-						flex: 1,
-						align:'right',
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Kiểm dài (M)',
+						dataIndex: 'totalmetcheck',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isMetColumnHidden}',
 						},
 					},
 					{
-						text: 'Dài phiếu (y)', 
-						dataIndex: 'ydsorigin',
-						flex: 1,
-						align:'right',
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Invoice(Y)',
+						dataIndex: 'totalyds',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isYdsColumnHidden}',
 						},
 					},
 					{
-						text: 'Dài kiểm (y)', 
-						dataIndex: 'ydscheck',
-						flex: 1,
-						align:'right',
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Kiểm dài (Y)',
+						dataIndex: 'totalydscheck',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isYdsColumnHidden}',
 						},
 					},
 					{
-						text: 'Cân phiếu', 
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Invoice(cân)',
 						dataIndex: 'grossweight',
-						flex: 1,
-						align:'right',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isKgColumnHidden}',
 						},
 					},
 					{
-						text: 'Cân kiểm', 
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Kiểm cân',
 						dataIndex: 'grossweight_check',
-						flex: 1,
-						align:'right',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isKgColumnHidden}',
 						},
 					},
 					{
-						text: 'Lbs phiếu', 
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Invoice(lbs)',
 						dataIndex: 'grossweight_lbs',
-						flex: 1,
-						align:'right',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isLbsColumnHidden}',
 						},
 					},
 					{
-						text: 'Lbs kiểm', 
+						xtype: 'numbercolumn',
+						format:'0,000.00',
+						text: 'Kiểm lbs',
 						dataIndex: 'grossweight_lbs_check',
-						flex: 1,
-						align:'right',
+						sortable: true,
+						width: 150,
+						align:'end',
 						summaryType: 'sum',
 						summaryRenderer: 'renderSum',
-						renderer: function (value, metaData, record) {
-							// if(value ==0) return "";
-							metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
-							return Ext.util.Format.number(value, '0,000.00');
-						},
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
 						bind: {
 							hidden: '{isLbsColumnHidden}',
 						},
 					},
 					{
-						text: 'Ghi chú', 
-						dataIndex: 'comment',
-						flex: 2,
-						editor:{
-							xtype:'textfield',
-							selectOnFocus: true
-						}
+						xtype: 'numbercolumn',
+						format:'0,000',
+						text: 'SL yêu cầu',
+						dataIndex: 'totalpackage',
+						sortable: true,
+						width: 100,
+						align:'end',
+						summaryType: 'sum',
+						summaryRenderer: 'renderCount',
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
+					},
+					{
+						xtype: 'numbercolumn',
+						format:'0,000',
+						text: 'SL xếp khoang',
+						dataIndex: 'totalpackagecheck',
+						sortable: true,
+						width: 100,
+						align:'end',
+						summaryType: 'sum',
+						summaryRenderer: 'renderCount',
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
+					},
+					{
+						xtype: 'numbercolumn',
+						format:'0,000',
+						text: 'SL kiểm',
+						dataIndex: 'totalpackagepklist',
+						sortable: true,
+						width: 100,
+						align:'end',
+						summaryType: 'sum',
+						summaryRenderer: 'renderCount',
+						// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+						// 	var val = value == 'null' ? "" : value;
+						// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+						// 	return val;
+						// },
+					},
+					{
+						text: 'DS cây vải chưa kiểm',
+						dataIndex: 'list_not_check',
+						sortable: true,
+						flex: 1,
+						renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+							var val = value == 'null' ? "" : value;
+							metaData.tdAttr = 'data-qtip="' + val + '"';
+							// return val;
+							return '<div style="white-space:normal !important;">'+ val +'</div>';;
+						},
 					},
 				],
+				plugins: [
+					{
+						ptype: 'rowwidget',
+						id: 'rowwidget2',
+						// itemId: 'rowwidget2',
+						widget:
+						{
+							xtype: 'grid',
+							itemId: 'level2',
+							features: [{
+								ftype: 'summary',
+								dock: 'bottom'
+							}],
+							viewConfig: {
+								stripeRows: false
+							},
+							bind: {
+								store: '{record.stockin_packinglist}'
+							},
+							columns: [
+								{
+									text: 'Cây số', 
+									dataIndex: 'packageid',
+									width: 50,
+								},
+								{
+									text: 'Khổ (cm)', 
+									dataIndex: 'width_met',
+									flex: 1,
+									align:'right',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+										return Ext.util.Format.number(value * 100, '0,000.00');
+									},
+									bind: {
+										hidden: '{isCmColumnHidden}',
+									},
+								},
+								{
+									text: 'Khổ thực tế (cm)', 
+									dataIndex: 'width_met_check',
+									flex: 1,
+									align:'right',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+										return Ext.util.Format.number(value * 100, '0,000.00');
+									},
+									bind: {
+										hidden: '{isCmColumnHidden}',
+									},
+								},
+								{
+									text: 'Khổ (inch)', 
+									dataIndex: 'width_yds',
+									flex: 1,
+									align:'right',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+										return Ext.util.Format.number(value * 36, '0,000.00');
+									},
+									bind: {
+										hidden: '{isInchColumnHidden}',
+									},
+								},
+								{
+									text: 'Khổ thực tế (inch)', 
+									dataIndex: 'width_yds_check',
+									flex: 1,
+									align:'right',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+										return Ext.util.Format.number(value * 36, '0,000.00');
+									},
+									bind: {
+										hidden: '{isInchColumnHidden}',
+									},
+								},
+								{
+									text: 'Dài phiếu (m)', 
+									dataIndex: 'met_origin',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isMetColumnHidden}',
+									},
+								},
+								{
+									text: 'Dài kiểm (m)', 
+									dataIndex: 'met_check',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isMetColumnHidden}',
+									},
+								},
+								{
+									text: 'Dài phiếu (y)', 
+									dataIndex: 'ydsorigin',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isYdsColumnHidden}',
+									},
+								},
+								{
+									text: 'Dài kiểm (y)', 
+									dataIndex: 'ydscheck',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isYdsColumnHidden}',
+									},
+								},
+								{
+									text: 'Cân phiếu', 
+									dataIndex: 'grossweight',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isKgColumnHidden}',
+									},
+								},
+								{
+									text: 'Cân kiểm', 
+									dataIndex: 'grossweight_check',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isKgColumnHidden}',
+									},
+								},
+								{
+									text: 'Lbs phiếu', 
+									dataIndex: 'grossweight_lbs',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isLbsColumnHidden}',
+									},
+								},
+								{
+									text: 'Lbs kiểm', 
+									dataIndex: 'grossweight_lbs_check',
+									flex: 1,
+									align:'right',
+									summaryType: 'sum',
+									summaryRenderer: 'renderSum',
+									renderer: function (value, metaData, record) {
+										// if(value ==0) return "";
+										metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										return Ext.util.Format.number(value, '0,000.00');
+									},
+									bind: {
+										hidden: '{isLbsColumnHidden}',
+									},
+								},
+								{
+									text: 'Ghi chú', 
+									dataIndex: 'comment',
+									flex: 2,
+									editor:{
+										xtype:'textfield',
+										selectOnFocus: true
+									}
+								},
+							],
+						}
+					}
+				],
+				viewConfig: {
+					listeners: {
+						expandbody: 'onexpandbodySub',
+						collapsebody: 'oncollapsebodySub',
+					}
+				}
 			}
 		}
     ],
+	viewConfig: {
+		listeners: {
+			expandbody: 'onexpandbody',
+			collapsebody: 'oncollapsebody',
+		}
+	}
+
+	// change
+	// columns: [
+	// 	{
+	// 		text: 'Số Lot',
+	// 		dataIndex: 'lot_number',
+	// 		sortable: true,
+	// 		width: 200,
+    //         summaryType: 'count',
+    //         summaryRenderer: 'renderCount',
+	// 		renderer: 'renderLot'
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Invoice(M)',
+	// 		dataIndex: 'totalmet',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+	// 		bind: {
+    //             hidden: '{isMetColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Kiểm dài (M)',
+	// 		dataIndex: 'totalmetcheck',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+	// 		bind: {
+    //             hidden: '{isMetColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Invoice(Y)',
+	// 		dataIndex: 'totalyds',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+    //         bind: {
+    //             hidden: '{isYdsColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Kiểm dài (Y)',
+	// 		dataIndex: 'totalydscheck',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+    //         bind: {
+    //             hidden: '{isYdsColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Invoice(cân)',
+	// 		dataIndex: 'grossweight',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+    //         bind: {
+    //             hidden: '{isKgColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Kiểm cân',
+	// 		dataIndex: 'grossweight_check',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+    //         bind: {
+    //             hidden: '{isKgColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Invoice(lbs)',
+	// 		dataIndex: 'grossweight_lbs',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+    //         bind: {
+    //             hidden: '{isLbsColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000.00',
+	// 		text: 'Kiểm lbs',
+	// 		dataIndex: 'grossweight_lbs_check',
+	// 		sortable: true,
+	// 		width: 150,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderSum',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+    //         bind: {
+    //             hidden: '{isLbsColumnHidden}',
+    //         },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000',
+	// 		text: 'SL yêu cầu',
+	// 		dataIndex: 'totalpackage',
+	// 		sortable: true,
+	// 		width: 100,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderCount',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000',
+	// 		text: 'SL xếp khoang',
+	// 		dataIndex: 'totalpackagecheck',
+	// 		sortable: true,
+	// 		width: 100,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderCount',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+	// 	},
+	// 	{
+	// 		xtype: 'numbercolumn',
+	// 		format:'0,000',
+	// 		text: 'SL kiểm',
+	// 		dataIndex: 'totalpackagepklist',
+	// 		sortable: true,
+	// 		width: 100,
+	// 		align:'end',
+	// 		summaryType: 'sum',
+	// 		summaryRenderer: 'renderCount',
+	// 		// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 		// 	var val = value == 'null' ? "" : value;
+	// 		// 	metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 		// 	return val;
+	// 		// },
+	// 	},
+	// 	{
+	// 		text: 'DS cây vải chưa kiểm',
+	// 		dataIndex: 'list_not_check',
+	// 		sortable: true,
+	// 		flex: 1,
+	// 		renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+	// 			var val = value == 'null' ? "" : value;
+	// 			metaData.tdAttr = 'data-qtip="' + val + '"';
+	// 			// return val;
+	// 			return '<div style="white-space:normal !important;">'+ val +'</div>';;
+	// 		},
+	// 	},
+	// ],
+    // plugins: [
+	// 	{
+	// 		ptype: 'rowwidget',
+	// 		// id: 'rowwidget',
+	// 		widget:
+	// 		{
+	// 			xtype: 'grid',
+	// 			// itemId: 'level2',
+	// 			features: [{
+	// 				ftype: 'summary',
+	// 				dock: 'bottom'
+	// 			}],
+	// 			viewConfig: {
+	// 				stripeRows: false
+	// 			},
+	// 			bind: {
+	// 				store: '{record.stockin_packinglist}'
+	// 			},
+	// 			columns: [
+	// 				{
+	// 					text: 'Cây số', 
+	// 					dataIndex: 'packageid',
+	// 					width: 50,
+	// 				},
+	// 				{
+	// 					text: 'Khổ (cm)', 
+	// 					dataIndex: 'width_met',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value * 100, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isCmColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Khổ thực tế (cm)', 
+	// 					dataIndex: 'width_met_check',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value * 100, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isCmColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Khổ (inch)', 
+	// 					dataIndex: 'width_yds',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value * 36, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isInchColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Khổ thực tế (inch)', 
+	// 					dataIndex: 'width_yds_check',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value * 100, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value * 36, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isInchColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Dài phiếu (m)', 
+	// 					dataIndex: 'met_origin',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isMetColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Dài kiểm (m)', 
+	// 					dataIndex: 'met_check',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isMetColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Dài phiếu (y)', 
+	// 					dataIndex: 'ydsorigin',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isYdsColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Dài kiểm (y)', 
+	// 					dataIndex: 'ydscheck',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isYdsColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Cân phiếu', 
+	// 					dataIndex: 'grossweight',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isKgColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Cân kiểm', 
+	// 					dataIndex: 'grossweight_check',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isKgColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Lbs phiếu', 
+	// 					dataIndex: 'grossweight_lbs',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isLbsColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Lbs kiểm', 
+	// 					dataIndex: 'grossweight_lbs_check',
+	// 					flex: 1,
+	// 					align:'right',
+	// 					summaryType: 'sum',
+	// 					summaryRenderer: 'renderSum',
+	// 					renderer: function (value, metaData, record) {
+	// 						// if(value ==0) return "";
+	// 						metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+	// 						return Ext.util.Format.number(value, '0,000.00');
+	// 					},
+	// 					bind: {
+	// 						hidden: '{isLbsColumnHidden}',
+	// 					},
+	// 				},
+	// 				{
+	// 					text: 'Ghi chú', 
+	// 					dataIndex: 'comment',
+	// 					flex: 2,
+	// 					editor:{
+	// 						xtype:'textfield',
+	// 						selectOnFocus: true
+	// 					}
+	// 				},
+	// 			],
+	// 		}
+	// 	}
+    // ],
 
 
 	// // old

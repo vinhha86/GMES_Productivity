@@ -44,7 +44,19 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
       },
       '#btnThemPKL': {
         click: 'CreatePackingList'
-      }
+      },
+    },
+    oncollapsebody: function (rowNode, record, expandRow, eOpts){
+      Ext.defer(function() { eOpts.view.refreshSize(true) }, 50);
+    },
+    onexpandbody: function (rowNode, record, expandRow, eOpts){
+      Ext.defer(function() { eOpts.view.refreshSize(true) }, 50);
+    },
+    oncollapsebodySub: function (rowNode, record, expandRow, eOpts){
+      Ext.defer(function() { eOpts.view.refreshSize(true) }, 50);
+    },
+    onexpandbodySub: function (rowNode, record, expandRow, eOpts){
+      Ext.defer(function() { eOpts.view.refreshSize(true) }, 50);
     },
     renderLot: function (value, metaData, record, rowIdx, colIdx, store) {
       var viewModel = this.getViewModel();

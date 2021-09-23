@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                     }
                                 },{
                                     xtype: 'textfield',
-                                    label: 'Đ/vị tính:',
+                                    label: 'Đ/vị dài:',
                                     labelWidth: 85,
                                     flex: 1,
                                     textAlign: 'left',

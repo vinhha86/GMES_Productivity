@@ -296,7 +296,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 			{
 				xtype:'combo',
 				itemId: 'UnitStoreCombo',
-				fieldLabel: 'Đ/vị tính',
+				fieldLabel: 'Đ/vị dài',
 				bind:{
 					store: '{UnitStore}',
 					value: '{stockin.unitid_link}'

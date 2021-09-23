@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                                     }
                                 },{
                                     xtype: 'textfield',
-                                    label: 'Đ/vị tính:',
+                                    label: 'Đ/vị dài:',
                                     labelWidth: 85,
                                     flex: 1,
                                     textAlign: 'left',

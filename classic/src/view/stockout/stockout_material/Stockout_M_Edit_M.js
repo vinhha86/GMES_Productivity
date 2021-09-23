@@ -209,7 +209,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 // },
                 {
                     xtype:'combo',
-                    fieldLabel: 'Đ/vị tính',
+                    fieldLabel: 'Đ/vị dài',
                     bind:{
                         store: '{UnitStore}',
                         value: '{stockout.unitid_link}'

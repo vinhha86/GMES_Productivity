@@ -60,19 +60,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             {
                 flex:1
             },
+            // {
+            //     margin: '0 5 5 0',
+            //     xtype:'button',
+            //     text:  'In phiếu',
+            //     iconCls: 'x-fa fa-print',
+            //     itemId: 'btnStockin_Print'
+            // },
+            // {
+            //     margin: '0 5 5 0',
+            //     xtype:'button',
+            //     text:  'Đồng bộ kế toán',
+            //     iconCls: 'x-fa fa-refresh',
+            //     itemId: 'btnStockin_Sync'
+            // },
             {
                 margin: '0 5 5 0',
                 xtype:'button',
-                text:  'In phiếu',
+                text:  'Báo cáo kiểm vải',
                 iconCls: 'x-fa fa-print',
-                itemId: 'btnStockin_Print'
-            },
-            {
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  'Đồng bộ kế toán',
-                iconCls: 'x-fa fa-refresh',
-                itemId: 'btnStockin_Sync'
+                itemId: 'btnChiTietCayVai'
             },
             {
                 margin: '0 5 5 0',

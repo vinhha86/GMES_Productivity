@@ -8,6 +8,37 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 		'idString',
 		'name',
 		{
+            name    : 'name_sort', 
+            convert : function (value, rec) {
+				if(rec.get('type') == 3){
+					if(!rec.get('khoangKhongXacDinh') == true){
+						var name = rec.get('name').trim();
+						if(name.length == 1){
+							var subStr1 = name.substring(0, 1);
+							if(!isNaN(subStr1)){
+								name = '0' + name;
+							}
+						}else
+						if(name.length >= 2){
+							var subStr1 = name.substring(0, 1);
+							var subStr2 = name.substring(1, 2);
+							if(!isNaN(subStr1) && isNaN(subStr2)){
+								name = '0' + name;
+							}
+						}
+						return name;
+					}
+				}
+				// if(rec.get('type') == 4){
+				// 	return 'Tầng ' + rec.get('name');
+				// }
+				// if(rec.get('type') == 5){
+				// 	return 'Khoang ' + rec.get('name');
+				// }
+            	return rec.get('name');;
+            }
+        },
+		{
             name    : 'nameMobile', 
             convert : function (value, rec) {
 				if(rec.get('type') == 3){

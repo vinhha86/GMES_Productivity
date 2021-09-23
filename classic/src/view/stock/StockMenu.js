@@ -40,6 +40,15 @@ Ext.define('GSmartApp.view.stock.StockMenu', {
                     return 'Khoang ' + value;
                 }else{
                     metaData.iconCls = 'x-fa fa-bars';
+
+                    // var value = value.trim();
+                    // if(value.length == 2){
+                    //     var subStr = value.substring(0, 1);
+                    //     if(!isNaN(subStr)){
+                    //         value = '0' + value;
+                    //     }
+                    // }
+
                     return 'Dãy ' + value;
                 }
             }

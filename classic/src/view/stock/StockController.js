@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
             property: 'khoangKhongXacDinh',
             direction: 'ASC'
         },{
-            property: 'name',
+            property: 'name_sort',
             direction: 'ASC'
         });
 
