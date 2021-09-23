@@ -3,15 +3,16 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
     alias: 'controller.TimeSheetAbsenceController',
     init: function () {
         var me = this.getView();
+        var session = GSmartApp.util.State.get('session');
+        if (session.orgid_link != 1) {
+            me.down('#orgFactoryList').setValue(session.orgid_link);
+        }
         var viewModel = this.getViewModel();
-        var limit = me.down('#limitpage').getValue();
         var orgFactory = me.down('#orgFactoryList').getValue();
         var personnelCode = me.down('#personnelCode').getValue();
         var personnelName = me.down('#personnelName').getValue();
         var timeSheetAbsenceType = me.down('#timeSheetAbsenceTypeList').getValue();
-        if (limit == null) {
-            limit = 25;
-        }
+
         if (page == null) {
             page = 1;
         }
@@ -31,19 +32,19 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         var date = new Date();
         viewModel.set('timesheetabsence.fromdate', date);
         viewModel.set('timesheetabsence.todate', date);
-        var datefrom =viewModel.get('timesheetabsence.fromdate');
-        var dateto =viewModel.get('timesheetabsence.todate');
+        var datefrom = viewModel.get('timesheetabsence.fromdate');
+        var dateto = viewModel.get('timesheetabsence.todate');
         //lấy từ 00:00 cửa ngày từ
-        var fromdate_hour = datefrom.toDateString() + " 00:00" ;
+        var fromdate_hour = datefrom.toDateString() + " 00:00";
         var datefrom_hour = new Date(fromdate_hour);
         //var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
 
         //lấy 23:59 của ngày đến
-        var todate_hour = dateto.toDateString() + " 23:59" ;
+        var todate_hour = dateto.toDateString() + " 23:59";
         var dateto_hour = new Date(todate_hour);
         var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
-        TimeSheetAbsenceStore.loadStore_ByPage(limit, page, 
-            orgFactory, personnelCode, personnelName, datefrom_hour, dateto_hour, timeSheetAbsenceType);    
+        TimeSheetAbsenceStore.loadStore_ByPage(25, page,
+            orgFactory, personnelCode, personnelName, datefrom_hour, dateto_hour, timeSheetAbsenceType);
 
         var page = TimeSheetAbsenceStore.currentPage;
         if (page == null) {
@@ -119,21 +120,20 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
                 me.setLoading(false);
             })
     },
-    onloadPage: function() {
+    onloadPage: function () {
         var me = this.getView();
 
         var viewModel = this.getViewModel();
         var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
 
-        var limit = me.down('#limitpage').getValue();
+        var limit = 25;
         var orgFactory = me.down('#orgFactoryList').getValue();
         var personnelCode = me.down('#personnelCode').getValue();
         var personnelName = me.down('#personnelName').getValue();
         var datefrom = me.down('#datefrom').getValue();
         var dateto = me.down('#dateto').getValue();
-        console.log(personnelCode);
-        console.log(personnelName);
-        if(dateto-datefrom<0){
+
+        if (dateto - datefrom < 0) {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: "Ngày đến không hợp lệ!",
@@ -179,7 +179,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         if (timeSheetAbsenceType == null) {
             timeSheetAbsenceType = 0;
         }
-        if(datefrom == null||dateto == null){
+        if (datefrom == null || dateto == null) {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: "Ngày tìm kiếm không được để trống!",
@@ -191,20 +191,20 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
             return;
         }
         //lấy từ 00:00 cửa ngày từ
-        var fromdate_hour = datefrom.toDateString() + " 00:00" ;
+        var fromdate_hour = datefrom.toDateString() + " 00:00";
         var datefrom_hour = new Date(fromdate_hour);
-      
+
 
         //lấy 23:59 của ngày đến
-        var todate_hour = dateto.toDateString() + " 23:59" ;
+        var todate_hour = dateto.toDateString() + " 23:59";
         var dateto_hour = new Date(todate_hour);
         var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
-        TimeSheetAbsenceStore.loadStore_ByPage(limit, page, 
+        TimeSheetAbsenceStore.loadStore_ByPage(limit, page,
             orgFactory, personnelCode, personnelName, datefrom_hour, dateto_hour, timeSheetAbsenceType
-            );
-            
+        );
+
     },
-    onThemMoi: function(){
+    onThemMoi: function () {
         var viewModel = this.getViewModel();
         var me = this.getView();
         var form = Ext.create('Ext.window.Window', {
@@ -234,7 +234,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         });
         form.show();
     },
-    onCapNhatdbl: function(m, record, item, index, e, eOpts) {
+    onCapNhatdbl: function (m, record, item, index, e, eOpts) {
         var id = record.data.id;
         var form = Ext.create('Ext.window.Window', {
             height: 400,
@@ -258,7 +258,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
                     data: {
                         id: id,
                         isBtnConfirmHidden: false,
-                        isEdit:true,
+                        isEdit: true,
                     }
                 }
             }]
@@ -289,7 +289,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
                     type: 'TimeSheetAbsenceDetailViewModel',
                     data: {
                         id: id,
-                        isEdit:true,
+                        isEdit: true,
                     }
                 }
             }]
