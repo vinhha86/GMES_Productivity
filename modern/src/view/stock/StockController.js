@@ -142,9 +142,13 @@ Ext.define('GSmartApp.view.stock.StockController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
 
+        if(donHang == ''){
+            donHang = null;
+        }
+
         var params = new Object();
         params.maHangId = maHangId ;
-        params.donHang = donHang ;
+        params.donHang = donHang;
         GSmartApp.Ajax.postJitin('/api/v1/stock/stockmenu_space_list',Ext.JSON.encode(params),
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
