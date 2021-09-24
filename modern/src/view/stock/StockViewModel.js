@@ -38,8 +38,16 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
 
         maHangFilter: null,
         donHangFilter: null,
+
+        dskhoang: '',
     },
     formulas: {
-
+        isdskhoangHidden: function (get) {
+            dskhoang = get('dskhoang');
+            if(dskhoang != null && dskhoang != ''){
+                return false;
+            }
+            return true;
+        }
     }
 })

@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stock.Stock', {
     extend: 'Ext.Container',
     xtype: 'Stock',
     id: 'stock',
+    cls: 'Stock',
     reference: 'Stock',
     viewModel: {
         type: 'StockViewModel'
@@ -122,7 +123,50 @@ Ext.define('GSmartApp.view.stock.Stock', {
                     flex: 1,
                     xtype: 'StockMenu',
                 },
+                {
+                    margin: 1,
+                    // flex: 1,
+                    width: '100%',
+                    xtype: 'container',
+                    bind: {
+                        hidden: '{isdskhoangHidden}',
+                        html: '{dskhoang}'
+                    }
+                }
             ],
+            // bbar: [
+            //     {
+            //         xtype:'container',
+            //         flex: 1,
+            //         layout: 'vbox',
+            //         items: [{
+            //             xtype: 'textfield',
+            //             margin: 1,
+            //             border: true,
+            //             cls: 'my-textfield',
+            //             itemId: 'dskhoang',
+            //             // label: 'DS chưa kiểm:',
+            //             // labelWidth: 130,
+            //             labelWidth: '100%',
+            //             flex: 1,
+            //             minWidth: 80,
+            //             // maxWidth: 130,
+            //             textAlign: 'left',
+            //             placeholder: 'DS khoang',
+            //             editable: false,
+            //             readOnly: true,
+            //             clearable: false,
+            //             cls: 'lblField',
+            //             bind: {
+            //                 // value: '{dschuakiem}',
+            //                 label: '{dskhoang}',
+            //             },
+            //         }],
+            //         bind: {
+            //             hidden: '{isdskhoangHidden}'
+            //         }
+            //     },
+            // ],
             tbar: [
                 {
                     xtype:'button',

@@ -133,6 +133,37 @@ Ext.define('GSmartApp.view.stock.StockController', {
 				}
 			}
         });
+
+        //
+        this.loadDsKhoang(maHangId, donHang);
+    },
+    loadDsKhoang: function(maHangId, donHang){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        params.maHangId = maHangId ;
+        params.donHang = donHang ;
+        GSmartApp.Ajax.postJitin('/api/v1/stock/stockmenu_space_list',Ext.JSON.encode(params),
+		function(success,response,options ) {
+            var response = Ext.decode(response.responseText);
+            if(response.respcode == 200) {
+                var space_list = response.space_list;
+                var dskhoang = '';
+                if(space_list != null){
+                    for(var i=0;i<space_list.length;i++) {
+                        if(dskhoang == ''){
+                            dskhoang+='<div>' + space_list[i] + '</div>';
+                        }else{
+                            dskhoang+='<div>' + space_list[i] + '</div>';
+                        }
+                    }
+                }
+                viewModel.set('dskhoang', dskhoang);
+                // console.log(response);
+            }
+		})
     },
     onResetTree: function(){
         var me = this.getView();
