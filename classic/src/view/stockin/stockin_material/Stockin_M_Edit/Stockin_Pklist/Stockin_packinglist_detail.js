@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 	id: 'Stockin_packinglist_detail',
 	cls: 'Stockin_packinglist_detail',
 	requires: [
-		'Ext.grid.plugin.CellEditing'
+		'Ext.grid.plugin.CellEditing',
+		'Ext.grid.plugin.Exporter',
 	],
 	controller: 'Stockin_packinglist_detail_Controller',
 	columnLines: true,
@@ -37,13 +38,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			text: 'Mã vải',
 			dataIndex: 'skuCode',
 			sortable: true,
-			flex: 1
+			flex: 1,
             // summaryType: 'count',
             // summaryRenderer: 'renderCount',
-			// renderer: 'renderLot'
+			renderer: 'renderStockinD'
 		},
 	],
     plugins: [
+		{
+			ptype: 'gridexporter',
+			// gridexporter: true
+		},
 		{
 			ptype: 'rowwidget',
 			id: 'rowwidget1',
@@ -59,10 +64,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 				viewConfig: {
 					stripeRows: false
 				},
+				selModel: {
+					selType: 'rowmodel',
+					mode: 'SINGLE'
+				},
 				bind: {
 					store: '{record.stockin_lot}'
 				},
 				columns: [
+					{
+						xtype: 'actioncolumn',
+						width: 30,
+						menuDisabled: true,
+						sortable: false,
+						align: 'center',
+						items: [{
+							iconCls: 'x-fa fas fa-random',
+							tooltip: "Đổi loại nguyên phụ liệu",
+							handler: 'onChangeSku'
+						}]
+					},
 					{
 						text: 'Số Lot',
 						dataIndex: 'lot_number',
@@ -521,7 +542,47 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			expandbody: 'onexpandbody',
 			collapsebody: 'oncollapsebody',
 		}
-	}
+	},
+
+	dockedItems: [{
+        dock: 'bottom',
+        layout: 'hbox',
+        border: false,
+        items: [
+			{
+				flex: 1
+			},
+			// {
+			// 	// ui: 'default-toolbar',
+			// 	xtype: 'button',
+			// 	cls: 'dock-tab-btn',
+			// 	text: 'Export to ...',
+			// 	menu: {
+			// 		defaults: {
+			// 			handler: 'exportTo'
+			// 		},
+			// 		items: [
+			// 			{
+			// 				text: 'Excel xlsx',
+			// 				cfg: {
+			// 					type: 'excel07',
+			// 					ext: 'xlsx',
+			// 					includeGroups: true,
+			// 					includeSummary: true
+			// 				}
+			// 			}
+			// 		]
+			// 	}
+			// },
+			{
+				margin: 1,
+				xtype:'button',
+				text:  'Thoát',
+				iconCls: 'x-fa fa-window-close',
+				itemId: 'btnThoat'
+			}
+		]
+    }]
 
 	// change
 	// columns: [

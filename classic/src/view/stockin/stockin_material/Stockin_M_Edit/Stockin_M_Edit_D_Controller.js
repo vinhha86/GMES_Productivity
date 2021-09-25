@@ -3,8 +3,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 	alias: 'controller.Stockin_M_Edit_D_Controller',
 	channel: { cmd: null, dta: null },
 	init: function () {
-		var devicestore = this.getViewModel().getStore('DeviceInvStore');
+		var viewModel = this.getViewModel();
+		var devicestore = viewModel.getStore('DeviceInvStore');
 		devicestore.loadStore(3);
+
+		var StockinD_Store = viewModel.get('StockinD_Store');
+		StockinD_Store.getSorters().add({
+			property: 'skuCode',
+            direction: 'ASC'
+		});
 	},
 	control: {
 		'#btnThuGon': {
@@ -416,6 +423,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 	},
 
 	onViewPackingList: function (grid, rowIndex, colIndex) {
+		var m = this;
+		var me = this.getView();
 		var viewmodel = this.getViewModel();
 		var stockin = viewmodel.get('stockin');
 		var data = grid.getStore().getAt(rowIndex);
@@ -469,6 +478,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				}
 			});
 			form.show();
+
+			form.down('#Stockin_packinglist').getController().on('reloadStockinD_Store', function () {
+				// console.log('reloadStockinD_Store event outside view single');
+				var Stockin_M_Edit_View = me.up('#Stockin_M_Edit')
+				if(Stockin_M_Edit_View){
+					var Stockin_M_Edit_Controller = Stockin_M_Edit_View.getController();
+					Stockin_M_Edit_Controller.getInfo(stockin.id);
+				}
+				// getInfo
+			});
 		}
 	},
 

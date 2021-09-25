@@ -7,9 +7,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         // this.loadPklGroupedData(); // new
     },
     control: {
-        '#btnThoat': {
-            click: 'onExit'
-        },
+        // '#btnThoat': {
+        //     click: 'onExit'
+        // },
         '#Stockin_packinglist': {
             afterrender: 'onAfterrender'
         }
@@ -20,6 +20,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
     onExit: function(){
         this.getView().up('window').close();
     },
+
     setPklData: function(){
         var viewModel = this.getViewModel();
         var PackingListStore = viewModel.get('PackingListStore');
@@ -94,7 +95,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 
 			})
     },
-    setPklGroupedData: function(data){
+    setPklGroupedData: function(data){ // new 3lv
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -154,7 +155,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         // }
 
     },
-    // setPklGroupedData: function(data){
+    // setPklGroupedData: function(data){ // old 2lv
     //     var m = this;
     //     var me = this.getView();
     //     var viewModel = this.getViewModel();

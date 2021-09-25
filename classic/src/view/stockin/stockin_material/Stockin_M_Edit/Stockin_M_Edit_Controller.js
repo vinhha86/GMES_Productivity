@@ -562,6 +562,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     },
     onbtnChiTietCayVai: function(){
         var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
 
@@ -590,5 +591,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             }
         });
         form.show();
+        
+        form.down('#Stockin_packinglist').getController().on('reloadStockinD_Store', function () {
+            // console.log('reloadStockinD_Store event outside view all');
+            m.getInfo(stockin.id);
+            // getInfo
+        });
     }
 })
