@@ -297,7 +297,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                     iconCls: 'x-fa fas fa-calculator greenIcon',
                     handler: function () {
                         var record = this.parentMenu.record;
-                        // me.onPOInfoEdit(record);
+                        me.onShowRecon(record);
                     }
                 },
                 '-',
@@ -399,6 +399,33 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             },
             items: [{
                 xtype: 'PContractInfo_View',
+                viewModel: {
+                    data: {
+                        pcontractid_link: id
+                    }
+                }
+            }]
+        });
+        form.show();
+    },
+    onShowRecon: function (rec) {
+        var id = rec.get('id');
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Quyết toán đơn hàng',
+            closeAction: 'destroy',
+            height: Ext.getBody().getViewSize().height * .95,
+            width: Ext.getBody().getViewSize().width * .95,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Recon_Main_Pcontract',
                 viewModel: {
                     data: {
                         pcontractid_link: id
