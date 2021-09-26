@@ -171,6 +171,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_D_Controller'
 				}
 			});
 			form.show();
+
+			form.down('#Stockin_packinglist').getController().on('reloadStockinD_Store', function () {
+				// console.log('reloadStockinD_Store event outside view single outside');
+				var StockinD_Store = viewmodel.get('StockinD_Store');
+				StockinD_Store.load();
+			});
 		}
 	},
     onViewPhieuKhoVai: function (grid, rowIndex) {
