@@ -548,6 +548,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 		var store = me.getStore();
 		var stockinD_data = context.record.data;
 
+		if(stockin.status != null && stockin.status >= 1){
+			Ext.MessageBox.show({
+				title: "Thông báo",
+				msg: "Phiếu nhập đã được duyệt nhập",
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				}
+			});
+			return;
+		}
+
 		if (context.value == "" || context.value == context.originalValue || isNaN(context.value)) {
 			store.rejectChanges();
 			return;

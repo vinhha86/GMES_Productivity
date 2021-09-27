@@ -43,15 +43,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 				itemId: 'btnThoat'
 			},
 			{
-				flex: 1
-			},
-			{
 				margin: 3,
 				xtype:'button',
 				text:  'Lưu',
 				iconCls: 'x-fa fa-save',
 				itemId: 'btnLuu'
-			}
+			},
+			{
+				flex: 1
+			},
 		]
     }]
 });
