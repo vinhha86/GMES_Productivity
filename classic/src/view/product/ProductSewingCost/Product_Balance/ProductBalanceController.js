@@ -13,6 +13,9 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.Product_Balance.ProductBala
     },
 
     control: {
+        '#btnSapXepCumCongDoan': {
+            click: 'onBtnSapXepCumCongDoan'
+        },
         '#btnXoaViTriMulti': {
             click: 'onBtnXoaViTriMulti',
         },
@@ -20,7 +23,42 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.Product_Balance.ProductBala
             click: 'onBtnThemViTri'
         },
     },
+    onBtnSapXepCumCongDoan: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var productid_link = viewModel.get('productid_link');
 
+        var form = Ext.create('Ext.window.Window', {
+            // height: 400,
+            width: 400,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Sắp xếp cụm công đoạn',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'ProductBalance_Sort_View',
+                viewModel: {
+                    data: {
+                        productid_link: productid_link,
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#ProductBalance_Sort_View').getController().on('reloadProductBalanceStore', function(){
+            var ProductBalanceStore = viewModel.get('ProductBalanceStore');
+            ProductBalanceStore.load();
+            // form.close();
+        })
+    },
     onBtnThemViTri: function(){
         var m = this;
         var viewModel = this.getViewModel();

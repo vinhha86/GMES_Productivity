@@ -172,27 +172,41 @@ Ext.define('GSmartApp.view.product.ProductSewingCost.Product_Balance.ProductBala
         dock:'top',
         layout:'hbox',
         border: false,
-        items:[{
-            flex: 1,
-        },{
-            xtype: 'button',
-            margin: 5,
-            // text: 'Thêm vị trí',
-            tooltip: 'Xoá cụm công đoạn',
-            iconCls: 'x-fa fa-trash',
-            // width: 90,
-            itemId: 'btnXoaViTriMulti',
-            // handler: 'onBtnThemViTri'
-        },{
-            xtype: 'button',
-            margin: 5,
-            // text: 'Thêm vị trí',
-            tooltip: 'Thêm cụm công đoạn',
-            iconCls: 'x-fa fa-plus',
-            // width: 90,
-            itemId: 'btnThemViTri',
-            // handler: 'onBtnThemViTri'
-        }]
+        items:[
+            {
+                flex: 1,
+            },
+            {
+                xtype: 'button',
+                margin: 5,
+                // text: 'Thêm vị trí',
+                tooltip: 'Sắp xếp cụm công đoạn',
+                iconCls: 'x-fa fa-random',
+                // width: 90,
+                itemId: 'btnSapXepCumCongDoan',
+                // handler: 'onBtnThemViTri'
+            },
+            {
+                xtype: 'button',
+                margin: 5,
+                // text: 'Thêm vị trí',
+                tooltip: 'Xoá cụm công đoạn',
+                iconCls: 'x-fa fa-trash',
+                // width: 90,
+                itemId: 'btnXoaViTriMulti',
+                // handler: 'onBtnThemViTri'
+            },
+            {
+                xtype: 'button',
+                margin: 5,
+                // text: 'Thêm vị trí',
+                tooltip: 'Thêm cụm công đoạn',
+                iconCls: 'x-fa fa-plus',
+                // width: 90,
+                itemId: 'btnThemViTri',
+                // handler: 'onBtnThemViTri'
+            }
+        ]
     }]
 });
 
