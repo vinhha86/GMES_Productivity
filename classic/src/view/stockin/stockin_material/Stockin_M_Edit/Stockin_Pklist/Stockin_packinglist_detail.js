@@ -515,14 +515,31 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 										hidden: '{isLbsColumnHidden}',
 									},
 								},
+								// {
+								// 	text: 'Ghi chú', 
+								// 	dataIndex: 'comment',
+								// 	flex: 2,
+								// 	editor:{
+								// 		xtype:'textfield',
+								// 		selectOnFocus: true
+								// 	}
+								// },
 								{
-									text: 'Ghi chú', 
-									dataIndex: 'comment',
+									text: 'Dãy, tầng, khoang', 
+									dataIndex: 'spaceepc_link',
 									flex: 2,
-									editor:{
-										xtype:'textfield',
-										selectOnFocus: true
-									}
+									renderer: function (value, metaData, record) {
+										// metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0,000.00') + '"';
+										// return Ext.util.Format.number(value, '0,000.00');
+										var result = '';
+										if(value == null || value == ''){
+											result = 'Thiếu thông tin khoang chứa';
+											metaData.tdCls =  'cellYellow';
+											return result;
+										}
+										result = record.get('row') + '-' + record.get('space') + '-' + record.get('floor');
+										return result;
+									},
 								},
 							],
 						}
