@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     id: 'Stockin_M_Edit',
     controller: 'Stockin_M_Edit_Controller',
     viewModel: 'Stockin_M_ViewModel',
-	layout: {
+    reference: 'Stockin_M_Edit_Classic',
+    layout: {
         type: 'vbox',
         pack: 'start',
         align: 'stretch'
@@ -24,75 +25,76 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         {
             xtype: 'container',
             height: 35,
-            layout:'hbox',
-            items:[
-            {
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  "Quay lại",
-                iconCls: 'x-fa fa-backward',
-                itemId: 'btnBack',
-                bind: {
-                    hidden: '{isAdd_Pcontract_Stockin}'
-                }
-            },
-            {
-                margin: '0 5 5 5',
-                xtype:'button',
-                text:  "Đóng",
-                iconCls: 'x-fa fa-window-close',
-                itemId: 'btnClose',
-                bind: {
-                    hidden: '{!isAdd_Pcontract_Stockin}'
-                }
-            },
-            {
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  "Duyệt",
-                iconCls: 'x-fa fa-check',
-                itemId: 'btnConfirm',
-                bind: {
-                    hidden: '{isBtnConfirmHidden}'
+            layout: 'hbox',
+            items: [
+                {
+                    margin: '0 5 5 0',
+                    xtype: 'button',
+                    text: "Quay lại",
+                    iconCls: 'x-fa fa-backward',
+                    itemId: 'btnBack',
+                    bind: {
+                        hidden: '{isAdd_Pcontract_Stockin}'
+                    }
                 },
-                // hidden: true
-            },
-            {
-                flex:1
-            },
-            // {
-            //     margin: '0 5 5 0',
-            //     xtype:'button',
-            //     text:  'In phiếu',
-            //     iconCls: 'x-fa fa-print',
-            //     itemId: 'btnStockin_Print'
-            // },
-            // {
-            //     margin: '0 5 5 0',
-            //     xtype:'button',
-            //     text:  'Đồng bộ kế toán',
-            //     iconCls: 'x-fa fa-refresh',
-            //     itemId: 'btnStockin_Sync'
-            // },
-            {
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  'Báo cáo kiểm vải',
-                iconCls: 'x-fa fa-print',
-                itemId: 'btnChiTietCayVai'
-            },
-            {
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  'Lưu',
-                iconCls: 'x-fa fa-floppy-o',
-                itemId: 'btnLuu',
-                bind: {
-                    // disabled: '{isStart}',
-                    hidden: '{isBtnLuuHidden}'
+                {
+                    margin: '0 5 5 5',
+                    xtype: 'button',
+                    text: "Đóng",
+                    iconCls: 'x-fa fa-window-close',
+                    itemId: 'btnClose',
+                    bind: {
+                        hidden: '{!isAdd_Pcontract_Stockin}'
+                    }
+                },
+                {
+                    margin: '0 5 5 0',
+                    xtype: 'button',
+                    text: "Duyệt",
+                    iconCls: 'x-fa fa-check',
+                    itemId: 'btnDuyetPhieuNhapNPL_classic',
+                    reference: 'btnDuyetPhieuNhapNPL_classic',
+                    bind: {
+                        hidden: '{isBtnConfirmHidden}'
+                    },
+                    // hidden: true
+                },
+                {
+                    flex: 1
+                },
+                // {
+                //     margin: '0 5 5 0',
+                //     xtype:'button',
+                //     text:  'In phiếu',
+                //     iconCls: 'x-fa fa-print',
+                //     itemId: 'btnStockin_Print'
+                // },
+                // {
+                //     margin: '0 5 5 0',
+                //     xtype:'button',
+                //     text:  'Đồng bộ kế toán',
+                //     iconCls: 'x-fa fa-refresh',
+                //     itemId: 'btnStockin_Sync'
+                // },
+                {
+                    margin: '0 5 5 0',
+                    xtype: 'button',
+                    text: 'Báo cáo kiểm vải',
+                    iconCls: 'x-fa fa-print',
+                    itemId: 'btnChiTietCayVai'
+                },
+                {
+                    margin: '0 5 5 0',
+                    xtype: 'button',
+                    text: 'Lưu',
+                    iconCls: 'x-fa fa-floppy-o',
+                    itemId: 'btnLuu',
+                    bind: {
+                        // disabled: '{isStart}',
+                        hidden: '{isBtnLuuHidden}'
+                    }
                 }
-            }
-        ]
-        }        
-    ] 
+            ]
+        }
+    ]
 });

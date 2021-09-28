@@ -250,11 +250,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         }
 
     },
-    onUpload: function (record, rowIndex) {
+    onUpload: function (record, rowIndex, type) {
         var viewmodel = this.getViewModel();
         viewmodel.set('pcontract_po_parentid_link', record.get('id'));
         viewmodel.set('record_upload', record);
         viewmodel.set('index_upload', rowIndex);
+        viewmodel.set('type_upload', type);
         var me = this.getView();
         me.down('#fileUploadPO').fileInputEl.dom.click();
     },
@@ -265,7 +266,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         data.append('file', m.fileInputEl.dom.files[0]);
         data.append('pcontractid_link', viewmodel.get('PContract.id'));
         data.append('parentid_link', viewmodel.get('pcontract_po_parentid_link'));
-
+        // var url = 
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_po', data, 2 * 60 * 1000,
             function (success, response, options) {
@@ -637,8 +638,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             });
                         }
                         else {
-                            me.onUpload(record, rowIndex);
+                            me.onUpload(record, rowIndex, "CM");
                         }
+                    },
+                    bind: {
+                        hidden: '{PContract.contracttypeid_link == 1 ? false : true}'
+                    }
+                },
+                {
+                    text: 'Upload File PO Line FOB(Excel)',
+                    itemId: 'btnUpload_PO',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-upload brownIcon',
+                    handler: function () {
+                        if (record.get('po_buyer') == 'TBD') {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: "Bạn không được upload cho PO có mã TBD! Bạn phải cập nhật số PO trước khi upload",
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng'
+                                }
+                            });
+                        }
+                        else {
+                            me.onUpload(record, rowIndex, "FOB");
+                        }
+                    },
+                    bind: {
+                        hidden: '{PContract.contracttypeid_link == 2 ? false : true}'
                     }
                 },
                 {

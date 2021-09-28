@@ -77,7 +77,9 @@ Ext.define('GSmartApp.view.DashBoardChart.PContractChart.PContractChartView', {
                 value: '{year}'
             },
             displayField: 'name',
-            valueField: 'id'
+            valueField: 'id',
+            width: 150,
+            labelWidth: 60
         }, {
             xtype: 'radiogroup',
             itemId: 'rdoType',

@@ -28,7 +28,7 @@ Ext.define('GSmartApp.view.personel.BaoCaoVangMat.BaoCaoVangMat_listOrgViewContr
         var s_date = me.down('#date').getRawValue();
         var lst = s_date.split('/');
 
-        var date = new Date(lst[2], lst[1], lst[0], 0, 0, 0);
+        var date = new Date(lst[2], lst[1] - 1, lst[0], 0, 0, 0);
         store.loadByOrgAndDate(date, orgid_link);
     }
 })

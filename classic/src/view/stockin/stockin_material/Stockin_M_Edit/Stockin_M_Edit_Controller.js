@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     alias: 'controller.Stockin_M_Edit_Controller',
     init: function () {
         var viewModel = this.getViewModel();
+        common.Check_Object_Permission();
         // var UnitStore = viewModel.getStore('UnitStore');
         // UnitStore.loadStore();
         // var UnitStoreFilters = UnitStore.getFilters();
@@ -38,7 +39,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         '#btnLuu': {
             click: 'onSave'
         },
-        '#btnConfirm': {
+        '#btnDuyetPhieuNhapNPL_classic': {
             click: 'onConfirm'
         },
         '#btnClose': {
@@ -560,7 +561,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 }
             })
     },
-    onbtnChiTietCayVai: function(){
+    onbtnChiTietCayVai: function () {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -591,7 +592,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             }
         });
         form.show();
-        
+
         form.down('#Stockin_packinglist').getController().on('reloadStockinD_Store', function () {
             // console.log('reloadStockinD_Store event outside view all');
             m.getInfo(stockin.id);

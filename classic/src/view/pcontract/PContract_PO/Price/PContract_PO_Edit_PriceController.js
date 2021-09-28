@@ -225,7 +225,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 // console.log(priceD_data.lost_ratio);
                 // console.log(priceD_data.quota);
                 // console.log(priceD_data.unitprice);
-                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota * priceD_data.unitprice * (priceD_data.lost_ratio / 100 + 1), 3);
+                priceD_data.price = Ext.Number.roundToPrecision(priceD_data.quota * priceD_data.unitprice * (priceD_data.lost_ratio / 100 + 1), 4);
             }
 
         }
@@ -313,11 +313,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         if (sum_quantity > 0) {
             for (var k = 0; k < priceStore.data.length; k++) {
                 var price_SizesetALL = priceStore.data.items[k].data;
-                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp / sum_quantity, 3);
-                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob / sum_quantity, 3);
+                price_SizesetALL.price_cmp = Ext.Number.roundToPrecision(sum_price_cmp / sum_quantity, 4);
+                price_SizesetALL.price_fob = Ext.Number.roundToPrecision(sum_price_fob / sum_quantity, 4);
                 price_SizesetALL.price_sewingtarget = Math.round(sum_price_sewingtarget / sum_quantity);
                 price_SizesetALL.price_sewingcost = Math.round(sum_price_sewingcost / sum_quantity);
-                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice / sum_quantity, 3);
+                price_SizesetALL.totalprice = Ext.Number.roundToPrecision(sum_totalprice / sum_quantity, 4);
                 // console.log(price_SizesetALL);
                 //cap nhat detail dai co All
 
@@ -517,7 +517,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         form.show();
 
         form.getController().on('AddMaterialIdLink', function (rec) {
-            console.log(rec);
             var pcontract_price_d_skus = record.get('pcontract_price_d_sku');
             var found;
             if (pcontract_price_d_skus == null) {
