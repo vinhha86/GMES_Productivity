@@ -6,5 +6,8 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewViewModel', {
         PriceStore: {
             type: 'fobpricestore'
         }
+    },
+    data: {
+        
     }
 })

@@ -12,15 +12,29 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         }
     },
     ThemMoi_CapNhat: function (params) {
+        var m = this;
         var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PriceStore = viewModel.getStore('PriceStore');
         GSmartApp.Ajax.post('/api/v1/fobprice/create', Ext.JSON.encode(params),
             function (success, response, options) {
+                var response = Ext.decode(response.responseText);
                 if (success) {
-                    var store = me.getViewModel().getStore('PriceStore');
-                    if (params.data.id == 0 || params.data.id == null) {                        
-                        me.down('#txtThemMoi').reset();
+                    if(response.respcode == 200){
+                        if (params.data.id == 0 || params.data.id == null) {                        
+                            me.down('#txtThemMoi').reset();
+                        }
+                    }else{
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: "Thêm mới thất bại: " + response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
                     }
-                    store.loadStore();
+                    PriceStore.loadStore();
                 } else {
                     Ext.MessageBox.show({
                         title: "Thông báo",
@@ -30,7 +44,7 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
                             yes: 'Đóng',
                         }
                     });
-                    store.rejectChanges();
+                    PriceStore.loadStore();
                 }
                 me.setLoading(false);
             })
@@ -251,4 +265,39 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceViewController', {
         params.data = record.data;
         this.ThemMoi_CapNhat(params);
     },
+    onFobEdit: function (editor, context, eOpts) {
+        var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+        var PriceStore = viewModel.getStore('PriceStore');
+
+
+		if (context.field == 'name') {
+			if (context.value == "" || context.value == context.originalValue) {
+                PriceStore.rejectChanges();
+                return;
+            }
+		}
+        if (context.field == 'lost_percent') {
+			if (context.value == context.originalValue) {
+                PriceStore.rejectChanges();
+                return;
+            }
+		}
+        if (context.field == 'price') {
+			if (context.value == context.originalValue) {
+                PriceStore.rejectChanges();
+                return;
+            }
+		}
+
+        // console.log(context);
+        var record = context.record.data;
+
+        var params = new Object();
+        params.data = record;
+
+        me.setLoading("Đang lưu dữ liệu");
+        this.ThemMoi_CapNhat(params);
+    }
 })

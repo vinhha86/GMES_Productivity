@@ -12,7 +12,11 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
     // },
     plugins: {
         cellediting: {
-            clicksToEdit: 1
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onFobEdit',
+                // beforeedit: 'onBeforeFobEdit'
+            }     
         }
     },
     reference: 'FOBPriceView',
@@ -59,19 +63,48 @@ Ext.define('GSmartApp.view.fobprice.FOBPriceView', {
                 buffer: 500
             }
         },
-        editor: {
-            completeOnEnter: true,
-            field: {
-                xtype: 'textfield',
-                allowBlank: false,
-                blankText:'Không được để trống tên giá',
-                itemId:'txtName',
-                listeners:{
-                    change:'onChange',
-                    focusleave:'onFocusLeave'
-                }
-            }
-        }
+        // editor: {
+        //     completeOnEnter: true,
+        //     field: {
+        //         xtype: 'textfield',
+        //         allowBlank: false,
+        //         blankText:'Không được để trống tên giá',
+        //         itemId:'txtName',
+        //         listeners:{
+        //             change:'onChange',
+        //             focusleave:'onFocusLeave'
+        //         }
+        //     }
+        // }
+        editor:{
+            xtype:'textfield',
+            // maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
+    },{
+        xtype: 'numbercolumn',
+		format:'0,000.00',
+        text:'Hao hụt',
+        dataIndex:'lost_percent',
+        flex: 1,
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true,
+            maxLength: 10
+        },
+    },{
+        xtype: 'numbercolumn',
+		format:'0,000',
+        text:'Giá',
+        dataIndex:'price',
+        flex: 1,
+        editor:{
+            xtype:'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true,
+            maxLength: 10
+        },
     },{ 
         xtype: 'checkcolumn',
         text: 'Mặc định',
