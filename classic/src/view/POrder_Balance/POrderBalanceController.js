@@ -13,6 +13,9 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
     },
 
     control: {
+        '#btnSapXepCumCongDoan': {
+            click: 'onBtnSapXepCumCongDoan'
+        },
         '#btnXoaViTriMulti': {
             click: 'onBtnXoaViTriMulti',
         },
@@ -20,7 +23,42 @@ Ext.define('GSmartApp.view.POrder_Balance.POrderBalanceController', {
             click: 'onBtnThemViTri'
         },
     },
+    onBtnSapXepCumCongDoan: function(){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var porderid_link = viewModel.get('porderid_link');
 
+        var form = Ext.create('Ext.window.Window', {
+            // height: 400,
+            width: 400,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Sắp xếp cụm công đoạn',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrderBalance_Sort_View',
+                viewModel: {
+                    data: {
+                        porderid_link: porderid_link,
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#POrderBalance_Sort_View').getController().on('reloadPOrderBalanceStore', function(){
+            var POrderBalanceStore = viewModel.get('POrderBalanceStore');
+            POrderBalanceStore.load();
+            // form.close();
+        })
+    },
     onBtnThemViTri: function(){
         var m = this;
         var viewModel = this.getViewModel();
