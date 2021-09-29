@@ -89,6 +89,35 @@ Ext.define('GSmartApp.view.stock.Stock', {
                             //     buffer: 500
                             // }
                         },
+                    ]
+                },
+                {
+                    layout: 'hbox',
+                    defaults: {
+                        margin: 5
+                    },
+                    items: [
+                        {
+                            xtype:'textfield',
+                            margin: '1',
+                            // emptyText: "Đơn hàng",
+                            itemId: 'txtMaSP',
+                            reference: 'ValueFilterFieldMaSP',
+                            // fieldLabel: 'Đơn hàng',
+                            label: 'Mã SP:',
+                            // width: 250,
+                            flex: 1,
+                            labelWidth: 100,
+                            // flex: 1,
+                            bind: {
+                                value: '{searchObj.maSP}'
+                            },
+                            enableKeyEvents: true,
+                            // listeners: {
+                            //     keyup: 'onDonHangFilterKeyup',
+                            //     buffer: 500
+                            // }
+                        },
                         {
                             xtype: 'button',
                             // text: 'Thoát',

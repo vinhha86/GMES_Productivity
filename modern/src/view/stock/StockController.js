@@ -104,6 +104,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
         // var maHang = searchObj.maHang == null ? null : searchObj.maHang.trim();
         var maHangId = searchObj.maHangId;
         var donHang = searchObj.donHang == null ? null : searchObj.donHang.trim();
+        var maSP = searchObj.maSP == null ? null : searchObj.maSP.trim();
         //
         if(isNaN(maHangId)) maHangId = null;
         //
@@ -114,7 +115,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
         // });
 
         var StockTreeStore = viewModel.getStore('StockTreeStore');
-        StockTreeStore.loadStore_async(maHangId, donHang);
+        StockTreeStore.loadStore_async(maHangId, donHang, maSP);
         StockTreeStore.load({
 			scope: this,
 			callback: function(records, operation, success) {
@@ -130,14 +131,15 @@ Ext.define('GSmartApp.view.stock.StockController', {
                     // filter cho window ds cay vai
                     viewModel.set('maHangFilter', maHangId);
                     viewModel.set('donHangFilter', donHang);
+                    viewModel.set('maSPFilter', maSP);
 				}
 			}
         });
 
         //
-        this.loadDsKhoang(maHangId, donHang);
+        this.loadDsKhoang(maHangId, donHang, maSP);
     },
-    loadDsKhoang: function(maHangId, donHang){
+    loadDsKhoang: function(maHangId, donHang, maSP){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -145,10 +147,14 @@ Ext.define('GSmartApp.view.stock.StockController', {
         if(donHang == ''){
             donHang = null;
         }
+        if(maSP == ''){
+            maSP = null;
+        }
 
         var params = new Object();
         params.maHangId = maHangId ;
         params.donHang = donHang;
+        params.maSP = maSP;
         GSmartApp.Ajax.postJitin('/api/v1/stock/stockmenu_space_list',Ext.JSON.encode(params),
 		function(success,response,options ) {
             var response = Ext.decode(response.responseText);
@@ -176,12 +182,14 @@ Ext.define('GSmartApp.view.stock.StockController', {
         viewModel.set('searchObj.maHang', null);
         viewModel.set('searchObj.maHangId', null);
         viewModel.set('searchObj.donHang', null);
+        viewModel.set('searchObj.maSP', null);
         var WarehouseStore = viewModel.get('WarehouseStore');
         WarehouseStore.clearFilter();
         WarehouseStore.removeAll();
 
         viewModel.set('maHangFilter', null);
         viewModel.set('donHangFilter', null);
+        viewModel.set('maSPFilter', null);
 
         this.onloadPage();
     },

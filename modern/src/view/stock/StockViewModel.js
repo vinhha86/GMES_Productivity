@@ -30,7 +30,8 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
         searchObj: {
             maHang: null,
             maHangId: null,
-            donHang: null
+            donHang: null,
+            maSP: null,
         },
 
         selectedNode: null,
@@ -38,6 +39,7 @@ Ext.define('GSmartApp.view.stock.StockViewModel', {
 
         maHangFilter: null,
         donHangFilter: null,
+        maSPFilter: null,
 
         dskhoang: '',
     },

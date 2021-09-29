@@ -34,15 +34,19 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
         var WarehouseStore = viewModel.getStore('WarehouseStore');
         WarehouseStore.setGroupField(null);
 
+        var maSPFilter = viewModel.get('maSPFilter') == null ? '' : viewModel.get('maSPFilter');
+
         if(record.get('type') == 5){ // khoang
             var spaceepc = record.get('spaceepc');
             var stockid_link = record.get('orgid_link');
-            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            // WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            WarehouseStore.loadBySpaceEpc_stock_buyercode(spaceepc, maSPFilter, stockid_link);
         }
         if(record.get('type') == 3 && record.get('khoangKhongXacDinh') == true){ // khoang KXD
             var spaceepc = null;
             var stockid_link = record.get('orgid_link');
-            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            // WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            WarehouseStore.loadBySpaceEpc_stock_buyercode(spaceepc, maSPFilter, stockid_link);
         }
         
         // 
@@ -55,7 +59,13 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialListController', {
         var store = viewModel.getStore('WarehouseStore');
 
         store.getSorters().add({
+            property: 'contractcode',
+            direction: 'ASC'
+        },{
             property: 'skucode',
+            direction: 'ASC'
+        },{
+            property: 'colorname',
             direction: 'ASC'
         },{
             property: 'lotnumber',
