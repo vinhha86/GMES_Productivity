@@ -29,6 +29,7 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
         var viewModel = this.getViewModel();
         viewModel.set('record', record);
 
+        var maSP = viewModel.get('searchObj.maSP') == null ? '' : viewModel.get('searchObj.maSP');
         // Trong trường hợp xoá tay combo box (bỏ filter)
         var maHangId = viewModel.get('searchObj.maHangId');
         if(maHangId == null){
@@ -50,13 +51,15 @@ Ext.define('GSmartApp.view.stock.StockMenuController', {
             var spaceepc = record.get('spaceepc');
             var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
-            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            // WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            WarehouseStore.loadBySpaceEpc_stock_buyercode(spaceepc, maSP, stockid_link);
         }
         if(record.get('type') == 3 && record.get('khoangKhongXacDinh') == true){ // khoang KXD
             var spaceepc = null;
             var stockid_link = record.get('orgid_link');
             var WarehouseStore = viewModel.getStore('WarehouseStore');
-            WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            // WarehouseStore.loadBySpaceEpc(spaceepc, stockid_link);
+            WarehouseStore.loadBySpaceEpc_stock_buyercode(spaceepc, maSP, stockid_link);
             // console.log('in here');
             // console.log(WarehouseStore.getData());
         }

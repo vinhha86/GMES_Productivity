@@ -107,6 +107,26 @@ Ext.define('GSmartApp.view.stock.Stock', {
                     }
                 },
                 {
+                    xtype:'textfield',
+                    labelWidth: 0,
+                    margin: '5 1 5 1',
+                    // emptyText: "Đơn hàng",
+                    itemId: 'txtMaSP',
+                    reference: 'ValueFilterFieldMaSP',
+                    fieldLabel: 'Mã SP',
+                    width: 250,
+                    labelWidth: 70,
+                    // flex: 1,
+                    bind: {
+                        value: '{searchObj.maSP}'
+                    },
+                    enableKeyEvents: true,
+                    // listeners: {
+                    //     keyup: 'onMaSPFilterKeyup',
+                    //     buffer: 500
+                    // }
+                },
+                {
                     xtype: 'button',
                     // text: 'Thoát',
                     itemId: 'btnSearch',

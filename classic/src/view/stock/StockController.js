@@ -33,12 +33,13 @@ Ext.define('GSmartApp.view.stock.StockController', {
         // var maHang = searchObj.maHang == null ? null : searchObj.maHang.trim();
         var maHangId = searchObj.maHangId;
         var donHang = searchObj.donHang == null ? null : searchObj.donHang.trim();
+        var maSP = searchObj.maSP == null ? null : searchObj.maSP.trim();
         //
         if(isNaN(maHangId)) maHangId = null;
         //
         me.setLoading("Đang tải dữ liệu");
         var StockTreeStore = viewModel.getStore('StockTreeStore');
-        StockTreeStore.loadStore(maHangId, donHang);
+        StockTreeStore.loadStore(maHangId, donHang, maSP);
         StockTreeStore.getSorters().add({
             property: 'khoangKhongXacDinh',
             direction: 'ASC'
@@ -58,6 +59,12 @@ Ext.define('GSmartApp.view.stock.StockController', {
         },{
             property: 'colorname',
             direction: 'ASC'
+        },{
+            property: 'lotnumber',
+            direction: 'ASC'
+        },{
+            property: 'packageid',
+            direction: 'ASC'
         });
         // store.clearFilter();
         WarehouseStore.removeAll();
@@ -69,6 +76,7 @@ Ext.define('GSmartApp.view.stock.StockController', {
         // viewModel.set('searchObj.maHang', null);
         viewModel.set('searchObj.maHangId', null);
         viewModel.set('searchObj.donHang', null);
+        viewModel.set('searchObj.maSP', null);
         var WarehouseStore = viewModel.get('WarehouseStore');
         WarehouseStore.clearFilter();
         WarehouseStore.removeAll();
@@ -105,6 +113,26 @@ Ext.define('GSmartApp.view.stock.StockController', {
             this.ValueFilterFieldDonHang = null;
         }
     },
+    // onMaSPFilterKeyup: function () {
+    //     var viewmodel = this.getViewModel();
+    //     var store = viewmodel.get('WarehouseStore');
+    //     var filterField = this.lookupReference('ValueFilterFieldMaSP'),
+    //         filters = store.getFilters();
+
+    //     if (filterField.value) {
+    //         this.ValueFilterFieldMaSP = filters.add({
+    //             id: 'ValueFilterFieldMaSP',
+    //             property: 'contractcode',
+    //             value: filterField.value,
+    //             anyMatch: true,
+    //             caseSensitive: false
+    //         });
+    //     }
+    //     else if (this.ValueFilterFieldMaSP) {
+    //         filters.remove(this.ValueFilterFieldMaSP);
+    //         this.ValueFilterFieldMaSP = null;
+    //     }
+    // },
     onSelectMaHangId: function(combo, record, eOpts){
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('WarehouseStore');

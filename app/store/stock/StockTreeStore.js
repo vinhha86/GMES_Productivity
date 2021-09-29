@@ -84,11 +84,12 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
         }
 	],
 	expanded: true,
-	loadStore: function (maHangId, donHang) {
+	loadStore: function (maHangId, donHang, maSP) {
 		var me = this;
 		var params = new Object();
 		params.maHangId = maHangId;
 		params.donHang = donHang;
+		params.maSP = maSP;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
@@ -120,11 +121,12 @@ Ext.define('GSmartApp.store.stock.StockTreeStore', {
 			}
 		});
 	},
-	loadStore_async: function (maHangId, donHang) {
+	loadStore_async: function (maHangId, donHang, maSP) {
 		var me = this;
 		var params = new Object();
 		params.maHangId = maHangId;
 		params.donHang = donHang;
+		params.maSP = maSP;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
