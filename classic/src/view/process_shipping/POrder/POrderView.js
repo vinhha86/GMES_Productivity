@@ -57,12 +57,12 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
         {
             text: 'Phân xưởng',
             width: 90,
-            dataIndex: 'granttoorgcode'
+            dataIndex: 'xuongSX'
         },
         {
             text: 'Tổ',
             width: 90,
-            dataIndex: 'granttoorgcode'
+            dataIndex: 'xuongTo'
         },
         {
             text: 'SL',

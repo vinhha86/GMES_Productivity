@@ -60,7 +60,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrderViewController', {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
         grid.getSelectionModel().select(record, true, true);
-        var porderid_link = record.get('id');
+        var porderid_link = record.get('porderid_link');
         var productid_link = record.get('productid_link');
         var pcontract_poid_link = viewmodel.get('pcontract_poid_link');
         viewmodel.set('porderid_link', porderid_link);
