@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Invoice(M)',
+						text: 'Dài phiếu (M)',
 						dataIndex: 'totalmet',
 						sortable: true,
 						width: 150,
@@ -115,7 +115,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Kiểm dài (M)',
+						text: 'Dài kiểm (M)',
 						dataIndex: 'totalmetcheck',
 						sortable: true,
 						width: 150,
@@ -134,7 +134,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Invoice(Y)',
+						text: 'Dài phiếu (Y)',
 						dataIndex: 'totalyds',
 						sortable: true,
 						width: 150,
@@ -153,7 +153,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Kiểm dài (Y)',
+						text: 'Dài kiểm (Y)',
 						dataIndex: 'totalydscheck',
 						sortable: true,
 						width: 150,
@@ -172,7 +172,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Invoice(cân)',
+						text: 'Cân phiếu',
 						dataIndex: 'grossweight',
 						sortable: true,
 						width: 150,
@@ -191,7 +191,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Kiểm cân',
+						text: 'Cân kiểm',
 						dataIndex: 'grossweight_check',
 						sortable: true,
 						width: 150,
@@ -210,7 +210,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Invoice(lbs)',
+						text: 'Lbs phiếu',
 						dataIndex: 'grossweight_lbs',
 						sortable: true,
 						width: 150,
@@ -229,7 +229,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					{
 						xtype: 'numbercolumn',
 						format:'0,000.00',
-						text: 'Kiểm lbs',
+						text: 'Lbs kiểm',
 						dataIndex: 'grossweight_lbs_check',
 						sortable: true,
 						width: 150,

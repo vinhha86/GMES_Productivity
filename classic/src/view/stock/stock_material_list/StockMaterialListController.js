@@ -31,6 +31,10 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialListController
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
     },
+    renderCount: function (value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
     onBtnChuyenKhoang: function(){
         var m = this;
         var me = this.getView();

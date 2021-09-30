@@ -27,10 +27,10 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_List', {
                 //     '<div class="content2-sub2">{stockintype_name}</div>' +
                 // '</div>' +
 
-                // '<div class="content2">'+
-                //     '<div class="content2-sub1"><b>Nơi xuất:</b></div>'+
-                //     '<div class="content2-sub2">{orgfrom_name}</div>' +
-                // '</div>' +
+                '<div class="content2">'+
+                    '<div class="content2-sub1"><b>S/phẩm:</b></div>'+
+                    '<div class="content2-sub2">{porder_product_buyercode}</div>' +
+                '</div>' +
 
                 // '<div class="content2">'+
                 //     '<div class="content2-sub1"><b>S/phẩm:</b></div>'+

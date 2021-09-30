@@ -44,6 +44,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
                 meta.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
+            summaryType: 'count',
+            summaryRenderer: 'renderCount'
         },
         {
             text: 'Màu',

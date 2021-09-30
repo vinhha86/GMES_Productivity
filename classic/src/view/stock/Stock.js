@@ -84,7 +84,15 @@ Ext.define('GSmartApp.view.stock.Stock', {
                     listeners: {
                         select: 'onSelectMaHangId'
                         // keypress: 'onPressEnterSkucode'
-                    }
+                    },
+                    matchFieldWidth: false,
+                    listConfig: {
+                        listeners: {
+                            beforeshow: function(picker) {
+                                picker.minWidth = picker.up('combobox').getSize().width;
+                            }
+                        }
+                    },
                 },
                 {
                     xtype:'textfield',

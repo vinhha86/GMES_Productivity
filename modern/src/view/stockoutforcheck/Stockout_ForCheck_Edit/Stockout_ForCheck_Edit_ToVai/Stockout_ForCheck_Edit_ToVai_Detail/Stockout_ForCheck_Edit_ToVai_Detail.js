@@ -615,6 +615,21 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                     items:[
                         {
                             xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
+                            ui: 'action',
+                            // bind: {
+                            //     disabled: '{isbtnCheckDisabled}'
+                            // }
+                        },   
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
                             text: 'Xoá',
                             margin: 5,
                             width: 100,
@@ -627,21 +642,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             },
                             // style: 'visibility: hidden;'
                         },
-                        {
-                            flex: 1,
-                        },
-                        {
-                            xtype:'button',
-                            text: 'Lưu',
-                            margin: 5,
-                            width: 100,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
-                            ui: 'action',
-                            // bind: {
-                            //     disabled: '{isbtnCheckDisabled}'
-                            // }
-                        },   
                     ]
                 },
             ],

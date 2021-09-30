@@ -53,6 +53,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainController', {
                 rec.get('org_from_name').toLowerCase().includes(value) ||
                 rec.get('org_to_name').toLowerCase().includes(value) ||
                 rec.get('stockout_order_code').toLowerCase().includes(value) ||
+                rec.get('porder_product_buyercode').toLowerCase().includes(value) ||
                 Ext.Date.format(rec.get('timecreate'),'d/m/y').toLowerCase().includes(value)
                 
             ){
