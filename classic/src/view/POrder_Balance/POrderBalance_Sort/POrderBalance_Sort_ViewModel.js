@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.POrder_Balance..POrderBalance_Sort_ViewModel', {
+Ext.define('GSmartApp.view.POrder_Balance.POrderBalance_Sort_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.POrderBalance_Sort_ViewModel',
     requires: [
