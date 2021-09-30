@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
     reference: 'POrderView',
     viewConfig: {
         rowLines: true,
-        columnLines: true,        
+        columnLines: true,
         enableTextSelection: true
     },
     // selModel: {
@@ -17,51 +17,56 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrderView', {
         store: '{POrder_ListStore}'
     },
     columns: [
-        {
-            text: 'Mã lệnh',
-            dataIndex: 'ordercode',
-            flex: 1,
-            renderer: function (value, metaData, record, rowIndex) {
-                var c = record.get('status');
-                if (c == 0) {
-                    metaData.tdCls = 'process-free';
-                } else if (c == 1) {
-                    metaData.tdCls = 'process-granted';
-                } else if (c == 2) {
-                    metaData.tdCls = 'process-ready';
-                } else if (c == 3) {
-                    metaData.tdCls = 'process-subprocess';
-                } else if (c == 4) {
-                    metaData.tdCls = 'process-running';
-                } else if (c == 5) {
-                    metaData.tdCls = 'process-done';
-                } else if (c == 6) {
-                    metaData.tdCls = 'process-finish';
-                }
-                metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            },
-            items: {
-                xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'ordercodeFilterField',
-                width: '98%',
-                margin: 1,
-                enableKeyEvents: true,
-                listeners: {
-                    keyup: 'onOrderCodeFilterKeyup',
-                    buffer: 500
-                }
-            }
-        },
+        // {
+        //     text: 'Mã lệnh',
+        //     dataIndex: 'ordercode',
+        //     flex: 1,
+        //     renderer: function (value, metaData, record, rowIndex) {
+        //         var c = record.get('status');
+        //         if (c == 0) {
+        //             metaData.tdCls = 'process-free';
+        //         } else if (c == 1) {
+        //             metaData.tdCls = 'process-granted';
+        //         } else if (c == 2) {
+        //             metaData.tdCls = 'process-ready';
+        //         } else if (c == 3) {
+        //             metaData.tdCls = 'process-subprocess';
+        //         } else if (c == 4) {
+        //             metaData.tdCls = 'process-running';
+        //         } else if (c == 5) {
+        //             metaData.tdCls = 'process-done';
+        //         } else if (c == 6) {
+        //             metaData.tdCls = 'process-finish';
+        //         }
+        //         metaData.tdAttr = 'data-qtip="' + value + '"';
+        //         return value;
+        //     },
+        //     items: {
+        //         xtype: 'textfield',
+        //         fieldStyle: "",
+        //         reference: 'ordercodeFilterField',
+        //         width: '98%',
+        //         margin: 1,
+        //         enableKeyEvents: true,
+        //         listeners: {
+        //             keyup: 'onOrderCodeFilterKeyup',
+        //             buffer: 500
+        //         }
+        //     }
+        // },
         {
             text: 'Phân xưởng',
             width: 90,
             dataIndex: 'granttoorgcode'
         },
         {
-            text: 'SL KH',
-            dataIndex: 'totalorder',
+            text: 'Tổ',
+            width: 90,
+            dataIndex: 'granttoorgcode'
+        },
+        {
+            text: 'SL',
+            dataIndex: 'grantamount',
             renderer: function (value) {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             },

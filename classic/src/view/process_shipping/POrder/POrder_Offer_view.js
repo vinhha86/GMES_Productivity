@@ -13,7 +13,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'SIMPLE',
+        mode: 'SINGLE',
         checkOnly: true
     },
     bind: {
@@ -21,89 +21,56 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_List.POrder_Offer_view
     },
     columns: [
         {
-            text: 'Mã lệnh',
-            dataIndex: 'ordercode',
-            width: 150,
-            renderer: function (value, metaData, record, rowIndex) {
-                // var viewmodel = this.getViewModel();
-                // var shipdate_line = record.get('shipdate');
-                // var shipdate = viewmodel.get('shipdate');
-                // console.log(shipdate_line);
-                // console.log(shipdate);
-                // var day = Ext.Date.diff(shipdate_line, shipdate, "d");
-                // console.log(day);
-                // var c = record.get('status');
-                // if (c == 0) {
-                //     metaData.tdCls = 'process-free';
-                // } else if (c == 1) {
-                //     metaData.tdCls = 'process-granted';
-                // } else if (c == 2) {
-                //     metaData.tdCls = 'process-ready';
-                // } else if (c == 3) {
-                //     metaData.tdCls = 'process-subprocess';
-                // } else if (c == 4) {
-                //     metaData.tdCls = 'process-running';
-                // } else if (c == 5) {
-                //     metaData.tdCls = 'process-done';
-                // } else if (c == 6) {
-                //     metaData.tdCls = 'process-finish';
-                // }
-                // metaData.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            },
-            items: {
-                xtype: 'textfield',
-                fieldStyle: "",
-                reference: 'ordercodeFilterField',
-                width: '99%',
-                margin: 2,
-                enableKeyEvents: true,
-                listeners: {
-                    keyup: 'onOrderCodeFilterKeyup',
-                    buffer: 500
-                }
-            }
+            text: 'Mã sản phẩm',
+            dataIndex: 'productcode',
+            width: 150
         },
         {
             text: 'Phân xưởng',
             width: 90,
-            dataIndex: 'granttoorgcode'
+            dataIndex: 'donvi'
         },
+        // {
+        //     text: 'Ngày NPL về',
+        //     width: 90,
+        //     renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        //     dataIndex: 'matdate'
+        // },
+        // {
+        //     text: 'Ngày RC',
+        //     width: 70,
+        //     renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        //     dataIndex: 'productiondate'
+        // },
         {
-            text: 'Ngày NPL về',
+            text: 'Ngày bắt đầu KH',
             width: 90,
             renderer: Ext.util.Format.dateRenderer('d/m/y'),
-            dataIndex: 'matdate'
+            dataIndex: 'start_date_plan'
         },
         {
-            text: 'Ngày RC',
-            width: 70,
-            renderer: Ext.util.Format.dateRenderer('d/m/y'),
-            dataIndex: 'productiondate'
-        },
-        {
-            text: 'Ngày giao KH',
+            text: 'Ngày kết thúc KH',
             width: 90,
             renderer: Ext.util.Format.dateRenderer('d/m/y'),
-            dataIndex: 'shipdate'
+            dataIndex: 'finish_date_plan'
         },
         {
             text: 'Tổ chuyền',
             flex: 1,
-            dataIndex: 'grantName',
+            dataIndex: 'granttoorgcode',
             renderer: function (value, metaData, record, rowIndex) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
         },
         {
-            text: 'SL KH',
-            dataIndex: 'totalorder',
+            text: 'SL Kế hoạch',
+            dataIndex: 'totalamount_tt',
             renderer: function (value) {
                 return Ext.util.Format.number(parseFloat(value), '0,000');
             },
             // flex: 1,
-            width: 60,
+            width: 75,
             align: 'end'
         }, {
             text: 'Đã map',

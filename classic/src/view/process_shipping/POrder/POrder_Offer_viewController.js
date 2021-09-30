@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_Offer_viewController',
     },
     onChon: function () {
         var viewmodel = this.getViewModel();
-
+        var m = this;
         var grid = this.getView();
         var select = grid.getSelectionModel().getSelection();
 
@@ -60,20 +60,18 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_Offer_viewController',
         else {
             grid.setLoading('Đang xử lý');
             var params = new Object();
-            var list = [];
-            for (var i = 0; i < select.length; i++) {
-                list.push(select[i].data);
-            }
             params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
-            params.data = list;
+            params.pordergrantid_link = select[0].get('id');
 
-            GSmartApp.Ajax.post('/api/v1/porderpoline/add_porder', Ext.JSON.encode(params),
+            GSmartApp.Ajax.post('/api/v1/porderpoline/add_pordergrant', Ext.JSON.encode(params),
                 function (success, response, options) {
                     grid.setLoading(false);
                     if (success) {
                         var response = Ext.decode(response.responseText);
                         if (response.respcode == 200) {
+                            m.fireEvent('UpdatePorder', response.porderinfo, response.amount, response.endDate, select[0].get('id'), response.duration);
                             grid.fireEvent('Chon');
+
                         }
                         else {
                             Ext.Msg.show({

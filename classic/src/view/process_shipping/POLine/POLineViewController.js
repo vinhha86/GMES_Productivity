@@ -111,6 +111,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                                 yes: 'Đóng'
                             }
                         });
+                        me.fireEvent('UpdatePorder', response.porderinfo, response.amount, response.endDate, response.pordergrantid_link, response.duration);
+
 
                         var store = grid.getStore();
                         store.load({
@@ -151,7 +153,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             resizable: false,
             modal: true,
             border: false,
-            title: 'Danh sách lệnh sản xuất của chào giá',
+            title: 'Danh sách Kế hoạch trên biểu đồ',
             closeAction: 'destroy',
             height: 600,
             width: 900,
@@ -176,7 +178,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         form.down('#POrder_Offer_view').getController().on('Thoat', function () {
             form.close();
         });
-        var record = viewmodel.get('poline_selection');
 
         form.down('#POrder_Offer_view').on('Chon', function () {
             var store = viewmodel.getStore('POLineStore');
@@ -191,7 +192,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         grid.setLoading('Đang tải dữ liệu');
         var params = new Object();
         params.pcontract_poid_link = rec.get('id');
-        GSmartApp.Ajax.post('/api/v1/porder/getby_po_line', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/porder_grant/getby_poconfirm', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
                 if (success) {
@@ -203,7 +204,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                         else {
                             Ext.Msg.show({
                                 title: 'Thông báo',
-                                msg: 'Bạn có muốn sinh lệnh cho line giao hàng thực tế!',
+                                msg: 'Tất cả kế hoạch hiện có trên biểu đồ đã được maps! Bạn có muốn thêm kế hoạch trên biểu đồ cho line giao hàng đang chọn?',
                                 buttons: Ext.Msg.YESNO,
                                 icon: Ext.Msg.QUESTION,
                                 buttonText: {
