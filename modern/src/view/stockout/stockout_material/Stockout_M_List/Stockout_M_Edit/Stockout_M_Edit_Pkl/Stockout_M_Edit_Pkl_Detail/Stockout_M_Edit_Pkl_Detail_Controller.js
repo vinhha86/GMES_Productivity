@@ -570,7 +570,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
         var params = new Object();
         params.id = id;
 
-        GSmartApp.Ajax.postJitin('/api/v1/stockout_pklist/pklist_delete_rip', Ext.JSON.encode(params),
+        GSmartApp.Ajax.postJitin('/api/v1/stockout_pklist/pklist_delete', Ext.JSON.encode(params),
             function (success, response, options) {
                 var response = Ext.decode(response.responseText);
                 myview.setMasked(false);

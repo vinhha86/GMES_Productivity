@@ -2,8 +2,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_M_List_Controller',
     init: function () {
-        // this.callParent(arguments);
+        var m = this;
         var me = this.getView();
+        var viewModel = this.getViewModel();
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
         if(null!=StockoutType) StockoutType.loadStore(null, 10);
 
@@ -16,7 +17,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
 
         var today = new Date();
         var priorDate = new Date().setDate(today.getDate() - 30);
-        me.down('#stockoutdate_from').setValue(new Date(priorDate));
+        viewModel.set('searchObj.stockoutdate_from', new Date(priorDate));
+        viewModel.set('searchObj.stockoutdate_to', today);
+        // me.down('#stockoutdate_from').setValue(new Date(priorDate));
 
         this.onSearch();
 
@@ -66,8 +69,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     onSpecialkey: function (field, e) {
         var me = this;
         if (field.itemId == "limitpage") {
-            var viewmodel = this.getViewModel();
-            var store = viewmodel.getStore('Stockout');
+            var viewModel = this.getViewModel();
+            var store = viewModel.getStore('Stockout');
             store.currentPage = 1;
         }
         if (e.getKey() == e.ENTER) {
@@ -78,13 +81,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var me = this.getView();
         var t = this;
 
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('Stockout');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('Stockout');
 
         // var limit = me.down('#limitpage').getValue();
-        var stockouttypeid = me.down('#stockouttypeid').getValue();
-        var stockoutdate_from = me.down('#stockoutdate_from').getValue();
-        var stockoutdate_to = me.down('#stockoutdate_to').getValue();
+        var stockouttypeid = viewModel.get('searchObj.stockouttypeid_link');
+        var stockoutdate_from = viewModel.get('searchObj.stockoutdate_from');
+        var stockoutdate_to = viewModel.get('searchObj.stockoutdate_to');
+        var product = viewModel.get('searchObj.product');
         // var OrgToStore = me.down('#OrgToStore').getValue();
         // var OrgFromStore = me.down('#OrgFromStore').getValue();
         var stockoutcode = '';
@@ -93,18 +97,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var stockouttypefrom = 1;
         var stockouttypeto = 10;
         var statuses = [-2,-1, 0, 1, 2];
-        var mat_skuid_link = viewmodel.get('mat_skuid_link');
+        var mat_skuid_link = viewModel.get('mat_skuid_link');
 
         store.loadByDate_Material(stockouttypeid, stockoutcode, stockoutdate_from, stockoutdate_to, null, null,
-            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link);
+            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link, product);
 
-        var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
+        var StockoutD_Store = viewModel.getStore('StockoutD_Store');
         if(null!=StockoutD_Store) StockoutD_Store.removeAll();
     },
     onStockoutSelect: function (e, selected, eOpts) {
         // console.log(selected);
-        var viewmodel = this.getViewModel();
-        var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
+        var viewModel = this.getViewModel();
+        var StockoutD_Store = viewModel.getStore('StockoutD_Store');
         StockoutD_Store.removeAll();
         // StockoutD_Store.setData(selected.data.stockout_d);
         StockoutD_Store.loadByStockoutID(selected.data.id);
@@ -344,16 +348,16 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     },
 
     onStatusComboValueTriggerClick: function(){
-        var viewmodel = this.getViewModel();
-        var statusComboValue = viewmodel.get('statusComboValue');
-        viewmodel.set('statusComboValue', null);
+        var viewModel = this.getViewModel();
+        var statusComboValue = viewModel.get('statusComboValue');
+        viewModel.set('statusComboValue', null);
         this.onStatusFilterKeyup();
         // console.log(statusComboValue);
     },
     onStockoutTypeComboValueTriggerClick: function(){
-        var viewmodel = this.getViewModel();
-        var stockoutTypeComboValue = viewmodel.get('stockoutTypeComboValue');
-        viewmodel.set('stockoutTypeComboValue', null);
+        var viewModel = this.getViewModel();
+        var stockoutTypeComboValue = viewModel.get('stockoutTypeComboValue');
+        viewModel.set('stockoutTypeComboValue', null);
         this.onStockoutTypeFilterKeyup();
         // console.log(stockinTypeComboValue);
     },

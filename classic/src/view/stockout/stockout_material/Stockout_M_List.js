@@ -336,8 +336,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 width: 215,
                 format:'d/m/Y',
                 itemId: 'stockoutdate_from',
-                value: new Date(),  // defaults to today
-                // value: Ext.Date.add (new Date(),Ext.Date.DAY,-5),  // defaults to today
+                // value: new Date(),  // defaults to today
+                bind: {
+                    value: '{searchObj.stockoutdate_from}',
+                }
             },
             {
                 xtype: 'datefield',
@@ -347,7 +349,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 width: 195,
                 format:'d/m/Y',
                 itemId: 'stockoutdate_to',
-                value: new Date(),  // defaults to today
+                // value: new Date(),  // defaults to today
+                bind: {
+                    value: '{searchObj.stockoutdate_to}',
+                }
             },
             // {
             //     itemId: 'OrgToStore',
@@ -382,8 +387,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 displayField: 'name',
                 valueField: 'id',
                 bind: {
-                    store: '{StockoutTypeStore}'
+                    store: '{StockoutTypeStore}',
+                    value: '{searchObj.stockouttypeid_link}',
                 }
+            },
+            {
+                itemId: 'productString',
+                xtype: 'textfield',
+                emptyText: 'Sản phẩm',
+                width: 140,
+                bind:{
+                    value: '{searchObj.product}',
+                },
+                margin: 3,
             },
             {
                 tooltip: 'Tìm phiếu xuất',

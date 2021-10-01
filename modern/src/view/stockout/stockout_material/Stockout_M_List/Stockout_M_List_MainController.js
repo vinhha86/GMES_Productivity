@@ -44,6 +44,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.Stockout_M
             if(
                 rec.get('stockoutcode').toLowerCase().includes(value) ||
                 rec.get('stockout_order_code').toLowerCase().includes(value) ||
+                rec.get('porder_product_buyercode').toLowerCase().includes(value) ||
                 rec.get('org_to_name').toLowerCase().includes(value) ||
                 rec.get('statusString').toLowerCase().includes(value) || 
                 Ext.Date.format(rec.get('stockoutdate'),'d/m/y').toLowerCase().includes(value)

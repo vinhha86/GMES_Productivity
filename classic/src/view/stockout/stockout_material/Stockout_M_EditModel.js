@@ -55,6 +55,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
         },
 	},
 	data: {
+        searchObj: {
+			stockoutdate_from: new Date(),
+			stockoutdate_to: new Date(),
+			stockouttypeid_link: null,
+			product: null, // string
+		},
+
         stockout: {
 			stockoutd: [],
 			id: null

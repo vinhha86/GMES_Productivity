@@ -208,23 +208,26 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         if(stockout_order.unitid_link == 3){
             if(objPkl.yds_check == '' || objPkl.yds_check == null || isNaN(objPkl.yds_check)){
                 if(objPkl.yds_check !== 0){
-                    Ext.toast('Số Y kiểm phải là số', 2000);
-                    return;
+                    // Ext.toast('Số Y kiểm phải là số', 2000);
+                    // return;
+                    objPkl.yds_check = objPkl.yds_origin;
                 }
             }
         }
         if(stockout_order.unitid_link == 1){
             if(objPkl.met_check == '' || objPkl.met_check == null || isNaN(objPkl.met_check)){
                 if(objPkl.met_check !== 0){
-                    Ext.toast('Số M kiểm phải là số', 2000);
-                    return;
+                    // Ext.toast('Số M kiểm phải là số', 2000);
+                    // return;
+                    objPkl.met_check = objPkl.met_origin;
                 }
             }
         }
         if(objPkl.width_check == '' || objPkl.width_check == null  || isNaN(objPkl.width_check)){
             if(objPkl.width_check !== 0){
-                Ext.toast('Khổ kiểm phải là số', 2000);
-                return;
+                // Ext.toast('Khổ kiểm phải là số', 2000);
+                // return;
+                objPkl.width_check = objPkl.width_origin;
             }
         }
 
