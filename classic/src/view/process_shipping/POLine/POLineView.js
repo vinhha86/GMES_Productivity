@@ -15,7 +15,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     },
     features: [{
         ftype: 'groupingsummary',
-        dock: 'bottom'
+        dock: 'bottom',
+        groupHeaderTpl: '{name}'
     }],
     columns: [{
         xtype: 'actioncolumn',
@@ -56,11 +57,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 80
     },
-    // {
-    //     text: 'Lệnh SX',
-    //     dataIndex: 'ordercode',
-    //     width: 120
-    // },
     {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
@@ -86,7 +82,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             }
         },
         summaryType: 'count',
-        summaryRenderer: function (value) {
+        summaryRenderer: function (value, record) {
+            console.log(record);
             if (null == value) value = 0;
             return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
         }
@@ -115,7 +112,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
         summaryType: 'sum',
-        summaryRenderer: function (value) {
+        summaryRenderer: function (value, meta, record) {
             if (null == value) value = 0;
             return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }

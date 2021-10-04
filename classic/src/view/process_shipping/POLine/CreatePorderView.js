@@ -83,12 +83,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderView', {
                 {
                     xtype: 'textfield',
                     margin: 2,
-                    fieldLabel: 'Số ngày',
-                    itemId: 'duration',
-                    maskRe: /[0-9.]/,
+                    fieldLabel: 'NS Xưởng',
+                    itemId: 'productivity',
                     enableKeyEvents: true,
+                    maskRe: /[0-9.]/,
                     bind: {
-                        value: '{duration}'
+                        value: '{productivity}'
                     },
                     labelWidth: 120,
                     flex: 1,
@@ -98,12 +98,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderView', {
                 }, {
                     xtype: 'textfield',
                     margin: 2,
-                    fieldLabel: 'NS Xưởng',
-                    itemId: 'productivity',
-                    enableKeyEvents: true,
+                    fieldLabel: 'Số ngày',
+                    itemId: 'duration',
                     maskRe: /[0-9.]/,
+                    enableKeyEvents: true,
                     bind: {
-                        value: '{productivity}'
+                        value: '{duration}'
                     },
                     labelWidth: 120,
                     flex: 1,

@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewModel', {
     },
     data: {
         startdate: new Date(),
-        pcontract_poid_link: 0
+        pcontract_poid_link: 0,
+        productid_link: 0
     }
 })

@@ -62,6 +62,7 @@ Ext.define('GSmartApp.view.process_shipping.POrder.POrder_Offer_viewController',
             var params = new Object();
             params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
             params.pordergrantid_link = select[0].get('id');
+            params.productid_link = viewmodel.get('productid_link');
 
             GSmartApp.Ajax.post('/api/v1/porderpoline/add_pordergrant', Ext.JSON.encode(params),
                 function (success, response, options) {

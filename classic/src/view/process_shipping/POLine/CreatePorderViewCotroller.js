@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
         var OrgStore = viewmodel.getStore('OrgStore');
         OrgStore.loadStore_allchildren_byorg(listidtype);
 
-        me.loadInfo();
+        // me.loadInfo();
     },
     control: {
         '#cmbOrg': {
@@ -25,7 +25,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
             collapse: 'onDateChange'
         },
         '#duration': {
-            specialkey: 'onSpecialkey'
+            specialkey: 'onSpecialkey',
+
         },
         '#productivity': {
             specialkey: 'onSpecialkey'
@@ -36,17 +37,18 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
     },
     onChon: function () {
         var params = new Object();
-        var viewmode = this.getViewModel();
+        var viewmodel = this.getViewModel();
         var view = this.getView();
 
-        params.startdate = viewmode.get('startdate');
-        params.enddate = viewmode.get('enddate');
-        params.quantity = viewmode.get('quantity');
-        params.duration = viewmode.get('duration');
-        params.productivity = viewmode.get('productivity');
-        params.orgid_link = viewmode.get('orgid_link');
-        params.orggrantid_link = viewmode.get('orggrantid_link');
-        params.pcontract_poid_link = viewmode.get('pcontract_poid_link');
+        params.startdate = viewmodel.get('startdate');
+        params.enddate = viewmodel.get('enddate');
+        params.quantity = viewmodel.get('quantity');
+        params.duration = viewmodel.get('duration');
+        params.productivity = viewmodel.get('productivity');
+        params.orgid_link = viewmodel.get('orgid_link');
+        params.orggrantid_link = viewmodel.get('orggrantid_link');
+        params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        params.productid_link = viewmodel.get('productid_link');
 
         GSmartApp.Ajax.post('/api/v1/schedule/create_porder_and_grant', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -60,7 +62,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
     },
     onSpecialkey: function (field, e) {
         var me = this;
-        if (e.getKey() == e.ENTER) {
+        if (e.getKey() == e.ENTER || e.getKey() == 9) {
             if (field.itemId == "duration") {
                 me.onDurationChange();
             }
@@ -140,7 +142,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
 
         var grantStore = viewmodel.getStore('OrgGrantStore');
         var parentid_link = record.get('id');
-        grantStore.getbyParent(parentid_link);
+        grantStore.getbyParentandType(parentid_link, "14");
     },
     onThoat: function () {
         this.getView().up('window').close();

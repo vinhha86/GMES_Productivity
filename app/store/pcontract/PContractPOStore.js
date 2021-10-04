@@ -10,6 +10,10 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		},
 		{
 			direction: 'ASC',
+			property: 'po_buyer'
+		},
+		{
+			direction: 'ASC',
 			property: 'productbuyercode'
 		}
 	],

@@ -96,7 +96,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var me = this;
         grid.setLoading('Đang xử lý');
         var params = new Object();
-        params.pcontract_poid_link = rec.get('id');
+        params.pcontract_poid_link = rec.get('pcontract_poid_link');
+        params.productid_link = rec.get('productid_link');
+
         GSmartApp.Ajax.post('/api/v1/porderpoline/delete_porder', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
@@ -145,7 +147,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 }
             })
     },
-    onShowPorderList: function (store, pcontract_poid_link, rec) {
+    onShowPorderList: function (store, pcontract_poid_link, rec, productid_link) {
         var viewmodel = this.getViewModel();
         var me = this;
         var form = Ext.create('Ext.window.Window', {
@@ -168,7 +170,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     data: {
                         store: store,
                         pcontract_poid_link: pcontract_poid_link,
-                        shipdate: rec.get('shipdate')
+                        shipdate: rec.get('shipdate'),
+                        productid_link: productid_link
                     }
                 }
             }]
@@ -191,7 +194,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var me = this;
         grid.setLoading('Đang tải dữ liệu');
         var params = new Object();
-        params.pcontract_poid_link = rec.get('id');
+        params.pcontract_poid_link = rec.get('pcontract_poid_link');
         GSmartApp.Ajax.post('/api/v1/porder_grant/getby_poconfirm', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
@@ -199,7 +202,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         if (response.data.length > 0) {
-                            me.onShowPorderList(response.data, rec.get('id'), rec);
+                            me.onShowPorderList(response.data, rec.get('pcontract_poid_link'), rec, rec.get('productid_link'));
                         }
                         else {
                             Ext.Msg.show({
@@ -266,7 +269,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                         enddate: rec.get('shipdate'),
                         productname: rec.get('productbuyercode'),
                         quantity: rec.get('po_quantity'),
-                        pcontract_poid_link: rec.get('id')
+                        pcontract_poid_link: rec.get('pcontract_poid_link'),
+                        productid_link: rec.get('productid_link')
                     }
                 }
             }]
@@ -333,7 +337,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var viewmodel = this.getViewModel();
         var ismap = viewmodel.get('ismap');
         var store = viewmodel.getStore('POLineStore');
-        store.setGroupField('productbuyercode');
+        store.setGroupField('productbuyercode_parent');
         store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
     },
     onHideView: function () {
