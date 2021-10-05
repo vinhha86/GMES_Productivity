@@ -348,8 +348,10 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     onSelect: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         var storeSKU = viewmodel.getStore('POLineSKU_Store');
-        var pcontractid_link = record.get('pcontractid_link');
-        var pcontractpoid_link = record.get('id');
+        var productid_link = record.get('productid_link');
+        var pcontractpoid_link = record.get('pcontract_poid_link');
+        console.log(pcontractpoid_link);
+
         viewmodel.set('pcontract_poid_link', pcontractpoid_link);
         viewmodel.set('porderid_link', 0);
 
@@ -361,7 +363,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var storeCanDoi = viewmodel.getStore('SKUBalanceStore_Mat');
         storeCanDoi.removeAll();
 
-        storeSKU.loadStoreByPO(pcontractid_link, pcontractpoid_link);
+        storeSKU.loadStoreByPO_and_Product(productid_link, pcontractpoid_link);
 
         var storePOrder = viewmodel.getStore('POrder_ListStore');
         storePOrder.POrderPOLine_loadby_po(pcontractpoid_link);

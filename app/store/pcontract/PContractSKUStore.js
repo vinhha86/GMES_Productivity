@@ -178,7 +178,6 @@ Ext.define('GSmartApp.store.pcontract.PContractSKUStore', {
 		var params = new Object();
 		params.productid_link = productid_link;
 		params.pcontract_poid_link = pcontract_poid_link;
-		params.material_skuid_link = material_skuid_link;
 
 		this.setProxy({
 			type: 'ajax',
