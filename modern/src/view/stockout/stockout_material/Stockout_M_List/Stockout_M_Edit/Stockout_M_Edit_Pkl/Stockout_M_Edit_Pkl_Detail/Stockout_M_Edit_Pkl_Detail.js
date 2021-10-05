@@ -312,6 +312,21 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                     items:[
                         {
                             xtype:'button',
+                            text: 'Lưu',
+                            margin: 5,
+                            width: 100,
+                            iconCls: 'x-fa fa-check',
+                            itemId:'btnCheck',
+                            ui: 'action',
+                            // bind: {
+                            //     disabled: '{isbtnCheckDisabled}'
+                            // }
+                        },
+                        {
+                            flex: 1,
+                        },
+                        {
+                            xtype:'button',
                             text: 'Xoá',
                             margin: 5,
                             width: 100,
@@ -324,21 +339,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.stockout_m_list.stockout_m
                             },
                             // style: 'visibility: hidden;'
                         },
-                        {
-                            flex: 1,
-                        },
-                        {
-                            xtype:'button',
-                            text: 'Lưu',
-                            margin: 5,
-                            width: 100,
-                            iconCls: 'x-fa fa-check',
-                            itemId:'btnCheck',
-                            ui: 'action',
-                            // bind: {
-                            //     disabled: '{isbtnCheckDisabled}'
-                            // }
-                        },   
                     ]
                 },
             ],
