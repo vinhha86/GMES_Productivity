@@ -24,14 +24,20 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var sourceView = viewModel.get('sourceView');
         var eventRecord = viewModel.get('eventRecord');
         var porder_grantid_link = viewModel.get('porder_grantid_link');
+        var startDate = eventRecord.get('startDate');
+        var endDate = eventRecord.get('endDate');
 
-        console.log(sourceView);
-        console.log(eventRecord);
-        console.log(porder_grantid_link);
+        // console.log(sourceView);
+        // console.log(eventRecord);
+        // console.log(porder_grantid_link);
+        // console.log(startDate);
+        // console.log(endDate);
+
+        // return;
 
         var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         if(sourceView == 'SchedulePlan'){
-            POrderGrant_SKU_PlanStore.loadStore_byPorderGrant('');
+            POrderGrant_SKU_PlanStore.loadStore_byPorderGrant(porder_grantid_link, startDate, endDate);
         }
     },
 
@@ -62,7 +68,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                 params.salratio = record.get('salratio');
                 params.salamount = record.get('salamount');
         
-                GSmartApp.Ajax.post('/api/v1/salary/saltype_level_update', Ext.JSON.encode(params),
+                GSmartApp.Ajax.post('/api/v1/porder_grant_sku_plan/porder_grant_sku_plan_update', Ext.JSON.encode(params),
                     function (success, response, options) {
                         if (!success) {
                             var response = Ext.decode(response.responseText);
@@ -190,9 +196,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             })
         }
     },    
-    onSalTypeLevel_Edit:function(editor, e){
+    onAmount_Edit:function(editor, context){
         // e.record.data[e.field] = e.value;
-        e.record.commit();
+        console.log(context);
+        // context.record.commit();
     },
     onSaveSal_DefHour: function(){
         var viewmodel = this.getViewModel();

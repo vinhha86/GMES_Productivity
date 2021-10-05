@@ -6,7 +6,22 @@ Ext.define('GSmartApp.store.porder.POrderGrant_SKU_PlanStore', {
     fields: [
 		'idx',
 		{name: 'id', type: 'int'},
+		{name: 'skuCode', type: 'string'},
+		{name: 'mauSanPham', type: 'string'},
+		{name: 'coSanPham', type: 'string'},
 		{name: 'date',   type: 'date', dateFormat: 'c'},
+		{
+            name: 'date_string',
+            calculate: function(data) {
+                return Ext.Date.format(data.date,'d/m');
+            }
+        },
+		{
+            name: 'skuCode_string',
+            convert: function (value, rec) {
+				return rec.get('skuCode') + ' - ' + rec.get('mauSanPham') + ' - ' + rec.get('coSanPham');
+			}
+        },
 		{name: 'porder_grant_skuid_link',   type: 'int'},
 		{name: 'amount',   type: 'int'},
 	],
@@ -50,9 +65,11 @@ Ext.define('GSmartApp.store.porder.POrderGrant_SKU_PlanStore', {
 			}
 		});
 	},
-	loadStore_byPorderGrant:function(porder_grantid_link){
+	loadStore_byPorderGrant:function(porder_grantid_link, startDate, endDate){
 		var params = new Object();
 		params.porder_grantid_link = porder_grantid_link;
+		params.dateFrom = startDate;
+		params.dateTo = endDate;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             // 'percentage', 'uniform'
             defaultUpdater: 'overwrite',
             listeners: {
-                validateedit: 'onSalTypeLevel_Edit'
+                validateedit: 'onAmount_Edit'
             }       
         }        
     },       
@@ -54,8 +54,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
 
         // Set layout type to "outline". If this config is missing then the default
         // layout is "outline"
-        viewLayoutType: 'compact',
-        textRowLabels: 'Ngạch lương',
+        viewLayoutType: 'outline',
+        textRowLabels: 'Mã SP',
         compactViewColumnWidth: 180,
         rowGrandTotalsPosition: 'none',
         colGrandTotalsPosition: 'none',
@@ -64,36 +64,26 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         // Configure the aggregate dimensions. Multiple dimensions are supported.
         aggregate: [
             {
-                dataIndex: 'salratio',
-                header: 'HS',
-                width: 50,
-                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 100, selectOnFocus: false},
-                // renderer: function(value){
-                //     return Ext.util.Format.number(value, '0,000');
-                // }
-            },     
-            {
-                dataIndex: 'salamount',
-                header: 'Lương',
-                // aggregator: 'sum',
-                width: 80,
-                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 1000000000, selectOnFocus: false},
+                dataIndex: 'amount',
+                // header: 'HS',
+                width: 100,
+                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 99999, selectOnFocus: false},
                 renderer: function(value){
                     return Ext.util.Format.number(value, '0,000');
                 }
-            }
+            },
         ],
 
         // Configure the left axis dimensions that will be used to generate
         // the grid rows
         leftAxis: [
             {
-                sortIndex: 'saltypeid_link',
-                dataIndex: 'saltype_name',
-                header: 'Ngạch lương',
+                sortIndex: 'porder_grant_skuid_link',
+                dataIndex: 'skuCode_string',
+                header: 'Mã SP(Buyer) - Màu - Cỡ',
                 sortable: false,
-                width: 180
-            }
+                width: 400
+            },
         ],
 
         /**
@@ -107,48 +97,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
          */
         topAxis: [
             {
-                dataIndex: 'sallevel_name',
-                header: 'Bậc lương',
+                sortIndex: 'date',
+                dataIndex: 'date_string',
+                header: 'Ngày',
                 // labelRenderer: 'monthLabelRenderer'
             }
         ]
     },
     dockedItems: [
-        // {
-        //     dock: 'top',
-        //     xtype: 'toolbar',
-        //     padding: '0 0 10 5',
-        //     height: 40,
-        //     items: [
-        //         {
-        //             xtype: 'combobox',
-        //             itemId: 'cboToChuyenKHVaoChuyen',
-        //             bind: {
-        //                 // store: '{POrder_ListBuyerStore}',
-        //                 // value: '{objSearch.buyerid}'
-        //             },
-        //             displayField: 'code',
-        //             valueField: 'id',
-        //             queryMode: 'local',
-        //             anyMatch: true,
-        //             editable: true,
-        //             allowBlank: true,
-        //             margin: 2,
-        //             width: 210,
-        //             // flex: 1,
-        //             fieldLabel: "Tổ chuyền",
-        //             labelWidth: 70,
-        //         },
-        //         // '->'
-        //         // ,            
-        //         // {
-        //         //     tooltip: 'Thêm ngạch lương',
-        //         //     iconCls: 'x-fa fa-plus',
-        //         //     weight: 30,
-        //         //     handler: 'onAddSalType'
-        //         // }
-        //     ]
-        // },
         {
             dock: 'bottom',
             layout: 'hbox',
@@ -165,10 +121,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         }
     ],
     listeners: {
-        pivotgroupexpand: 'onPivotGroupExpand',
-        pivotgroupcollapse: 'onPivotGroupCollapse',
+        // pivotgroupexpand: 'onPivotGroupExpand',
+        // pivotgroupcollapse: 'onPivotGroupCollapse',
         pivotupdate: 'onPivotUpdate',
-        pivotitemclick: 'onPivotItemClick'
+        // pivotitemclick: 'onPivotItemClick'
     },
 });
 
