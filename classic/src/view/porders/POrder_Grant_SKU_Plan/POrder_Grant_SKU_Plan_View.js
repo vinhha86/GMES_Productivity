@@ -57,15 +57,16 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         viewLayoutType: 'outline',
         textRowLabels: 'Mã SP',
         compactViewColumnWidth: 180,
-        rowGrandTotalsPosition: 'none',
-        colGrandTotalsPosition: 'none',
+        rowGrandTotalsPosition: 'last',
+        colGrandTotalsPosition: 'last',
         textGrandTotalTpl: 'Tổng:',
         textTotalTpl: 'Tổng ({name})',
         // Configure the aggregate dimensions. Multiple dimensions are supported.
         aggregate: [
             {
                 dataIndex: 'amount',
-                // header: 'HS',
+                header: 'Tổng',
+                aggregator: 'sum',
                 width: 100,
                 editor: {
                     xtype: 'numberfield',
@@ -88,7 +89,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             {
                 sortIndex: 'porder_grant_skuid_link',
                 dataIndex: 'skuCode_string',
-                header: 'Mã SP(Buyer) - Màu - Cỡ',
+                header: 'Mã SP(Buyer) - Màu - Cỡ - Số lượng tổng',
                 sortable: false,
                 width: 400
             },

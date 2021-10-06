@@ -19,7 +19,7 @@ Ext.define('GSmartApp.store.porder.POrderGrant_SKU_PlanStore', {
 		{
             name: 'skuCode_string',
             convert: function (value, rec) {
-				return rec.get('skuCode') + ' - ' + rec.get('mauSanPham') + ' - ' + rec.get('coSanPham');
+				return rec.get('skuCode') + ' - ' + rec.get('mauSanPham') + ' - ' + rec.get('coSanPham') + ' - ' + rec.get('porderGrant_SKU_grantamount');
 			}
         },
 		{name: 'porder_grant_skuid_link',   type: 'int'},
