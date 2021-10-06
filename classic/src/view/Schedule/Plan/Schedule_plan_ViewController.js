@@ -249,6 +249,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     me.porderGrantBalance(eventRecord);
                 }
+            },
+            {
+                text: 'Kế hoạch vào chuyền',
+                itemId: 'Schedule_KHVC',
+                iconCls: 'x-fa fa-calendar-minus',
+                handler: function () {
+                    me.porderGrantSkuPlan(eventRecord);
+                }
             }
             ]
         })
@@ -1195,6 +1203,38 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     data: {
                         porderid_link: porderid_link,
                         pordergrantid_link: pordergrantid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+    },
+
+    porderGrantSkuPlan: function (eventRecord) {
+        var sourceView = 'SchedulePlan'
+        var porder_grantid_link = eventRecord.data.porder_grantid_link;
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '95%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch vào chuyền',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrder_Grant_SKU_Plan_View',
+                viewModel: {
+                    data: {
+                        sourceView: sourceView,
+                        eventRecord: eventRecord,
+                        porder_grantid_link: porder_grantid_link
                     }
                 }
             }]

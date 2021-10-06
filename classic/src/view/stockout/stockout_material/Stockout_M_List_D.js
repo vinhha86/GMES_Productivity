@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.Stockout_M_List_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockout_M_List_D',
 	id: 'Stockout_M_List_D',
+    controller: 'Stockout_M_List_D_Controller',
 	columnLines: true,
 	rowLines: true,
 	border: true,
