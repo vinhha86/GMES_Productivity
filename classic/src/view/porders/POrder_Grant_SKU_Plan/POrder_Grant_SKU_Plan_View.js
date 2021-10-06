@@ -67,7 +67,15 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
                 dataIndex: 'amount',
                 // header: 'HS',
                 width: 100,
-                editor: {xtype: 'numberfield', hideTrigger:true, allowBlank: false, maxValue: 99999, selectOnFocus: false},
+                editor: {
+                    xtype: 'numberfield',
+                    hideTrigger:true, 
+                    allowBlank: false, 
+                    maxValue: 99999, 
+                    minValue: 0,
+                    maskRe: /[0-9]/,
+                    selectOnFocus: false
+                },
                 renderer: function(value){
                     return Ext.util.Format.number(value, '0,000');
                 }

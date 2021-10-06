@@ -100,6 +100,7 @@ Ext.define('GSmartApp.store.porder.POrderGrant_SKU_PlanStore', {
 				} else {
 					// console.log(records);
 				}
+				this.fireEvent('loadStore_byPorderGrant_Done');
 			}
 		});
 	},

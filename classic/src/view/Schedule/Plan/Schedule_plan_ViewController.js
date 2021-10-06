@@ -250,14 +250,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     me.porderGrantBalance(eventRecord);
                 }
             },
-            // {
-            //     text: 'Kế hoạch vào chuyền',
-            //     itemId: 'Schedule_KHVC',
-            //     iconCls: 'x-fa fa-calendar-minus',
-            //     handler: function () {
-            //         me.porderGrantSkuPlan(eventRecord);
-            //     }
-            // }
+            {
+                text: 'Kế hoạch vào chuyền',
+                itemId: 'Schedule_KHVC',
+                iconCls: 'x-fa fa-calendar-minus',
+                handler: function () {
+                    me.porderGrantSkuPlan(eventRecord);
+                }
+            }
             ]
         })
         e.stopEvent();
