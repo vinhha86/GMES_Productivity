@@ -2,38 +2,195 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.POLineViewController',
     init: function () {
-        var me = this;
-        var viewmodel = this.getViewModel();
-        var current = new Date();
-        viewmodel.set('shipdate_to', new Date(current.getFullYear(), current.getMonth() + 3, current.getDate()));
-        viewmodel.set('shipdate_from', new Date(current.getFullYear(), current.getMonth() - 1, current.getDate()));
 
-        me.onReload();
     },
     control: {
-        '#shipdate_to': {
-            collapse: 'onReload'
-        },
-        '#shipdate_from': {
-            collapse: 'onReload'
-        },
-        '#hideView': {
-            click: 'onHideView'
-        },
         '#POLineView': {
-            itemclick: 'onSelect',
-            celldblclick: 'onPOLineViewCellDblClick',
+            itemclick: 'onSelect'
         },
-        '#checkisMap': {
-            change: 'onisMapChange'
+        '#cmbProduct': {
+            select: 'onSelectProduct'
+        },
+        '#checkSPBo': {
+            change: 'onCheckChange'
+        },
+        '#cmbMauSP': {
+            select: 'onSelectMauSP'
+        },
+        '#cmbDaiCoSP': {
+            select: 'onSelectMauSP'
+        },
+        '#btnMap': {
+            click: 'onMap'
+        },
+        '#btnHuyMap': {
+            click: 'onHuyMap'
         }
     },
-    onisMapChange: function (chk, newValue, oldValue, eOpts) {
-        if (oldValue == null) return;
+    onHuyMap: function () {
+        var grid = this.getView();
         var me = this;
+
+        var select = grid.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn line',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else if (select.length == 1) {
+            if (!select[0].get('ismap')) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: 'Line chưa được Map vào biểu đồ',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+            else {
+                Ext.Msg.show({
+                    title: "Thông báo",
+                    msg: 'Bạn có chắc chắn muốn hủy Map Line ?',
+                    buttons: Ext.MessageBox.YESNO,
+                    buttonText: {
+                        yes: 'Có',
+                        no: 'Không'
+                    },
+                    fn: function (btn) {
+                        if (btn === 'yes') {
+                            me.CancelMap(select[0]);
+                        }
+                    }
+                });
+            }
+
+        }
+        else {
+            for (var i = 0; i < select.length; i++) {
+                var check = false;
+                if (!select[i].get('ismap')) {
+                    check = true;
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Không được Hủy map line chưa được maps vào biểu đồ',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    break;
+                }
+            }
+            if (!check) { }
+        }
+    },
+    onMap: function () {
+        var grid = this.getView();
+        var me = this;
+
+        var select = grid.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn line',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else if (select.length == 1) {
+            if (select[0].get('ismap')) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: 'Line đã được Map vào biểu đồ',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+            else
+                me.ShowCreatePorder(select[0]);
+        }
+        else {
+            for (var i = 0; i < select.length; i++) {
+                var check = false;
+                console.log(select[i]);
+                if (select[i].get('ismap')) {
+                    check = true;
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Không được Map line đã được maps vào biểu đồ',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    break;
+                }
+            }
+            if (!check)
+                me.ShowCreateManyPorder();
+        }
+    },
+    onClearFilterDaiCo: function () {
         var viewmodel = this.getViewModel();
-        viewmodel.set('ismap', newValue);
-        me.onReload();
+        viewmodel.set('sizesetid_link', null);
+        var productid_link = viewmodel.get('productid_link');
+        var POStore = viewmodel.getStore('POLineStore');
+        var colorid_link = viewmodel.get('colorid_link');
+        var sizesetid_link = viewmodel.get('sizesetid_link');
+
+        POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
+    },
+    onClearFilter: function () {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('colorid_link', null);
+        var productid_link = viewmodel.get('productid_link');
+        var POStore = viewmodel.getStore('POLineStore');
+        var colorid_link = viewmodel.get('colorid_link');
+        var sizesetid_link = viewmodel.get('sizesetid_link');
+
+        POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
+    },
+    onSelectMauSP: function () {
+        var viewmodel = this.getViewModel();
+        var productid_link = viewmodel.get('productid_link');
+        var POStore = viewmodel.getStore('POLineStore');
+        var colorid_link = viewmodel.get('colorid_link');
+        var sizesetid_link = viewmodel.get('sizesetid_link');
+
+        POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
+    },
+    onCheckChange: function () {
+        var viewmodel = this.getViewModel();
+        var productStore = viewmodel.getStore('ProductStore');
+        var is_pair = viewmodel.get('is_pair');
+        productStore.loadProductSingle("", is_pair);
+    },
+    onSelectProduct: function (cmb, rec, e) {
+        var productid_link = rec.get('id');
+        var attributeid_link = 4;
+
+        var viewmodel = this.getViewModel();
+        var storeMauSP = viewmodel.getStore('MauSanPhamStore');
+        storeMauSP.loadByProductAndAttribute(productid_link, attributeid_link);
+
+        var DaiCoStore = viewmodel.getStore('DaiCoSanPhamStore');
+        DaiCoStore.loadbyProduct(productid_link);
+
+        var POStore = viewmodel.getStore('POLineStore');
+        var colorid_link = viewmodel.get('colorid_link');
+        var sizesetid_link = viewmodel.get('sizesetid_link');
+
+        POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
     },
     onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
@@ -285,6 +442,29 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             form.close();
         })
     },
+    ShowCreateManyPorder: function () {
+        var viewmodel = this.getViewModel();
+        var me = this;
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tạo lệnh sản xuất',
+            closeAction: 'destroy',
+            height: 300,
+            width: 600,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'CreateManyPorderView'
+            }]
+        });
+        form.show();
+    },
     onCreateStockoutP: function (rec) {
         // var viewmodel = this.getViewModel();
         // var grid = this.getView();
@@ -340,11 +520,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         store.setGroupField('productbuyercode_parent');
         store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
     },
-    onHideView: function () {
-        var grid = this.getView();
-        var main = grid.up('#ProcessShippingMainView').up('#Schedule_Plan_Porder_MainView').getLayout();
-        main.setActiveItem(0);
-    },
     onSelect: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         var storeSKU = viewmodel.getStore('POLineSKU_Store');
@@ -356,17 +531,17 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         viewmodel.set('porderid_link', 0);
 
         //remove het grid porder-sku
-        var store_porder_sku = viewmodel.getStore('porderSKUStore');
-        store_porder_sku.removeAll();
+        // var store_porder_sku = viewmodel.getStore('porderSKUStore');
+        // store_porder_sku.removeAll();
 
         //remove bang can doi
-        var storeCanDoi = viewmodel.getStore('SKUBalanceStore_Mat');
-        storeCanDoi.removeAll();
+        // var storeCanDoi = viewmodel.getStore('SKUBalanceStore_Mat');
+        // storeCanDoi.removeAll();
 
-        storeSKU.loadStoreByPO_and_Product(productid_link, pcontractpoid_link);
+        // storeSKU.loadStoreByPO_and_Product(productid_link, pcontractpoid_link);
 
-        var storePOrder = viewmodel.getStore('POrder_ListStore');
-        storePOrder.POrderPOLine_loadby_po(pcontractpoid_link);
+        // var storePOrder = viewmodel.getStore('POrder_ListStore');
+        // storePOrder.POrderPOLine_loadby_po(pcontractpoid_link);
     },
     onFilterMaSPKeyup: function () {
         var viewmodel = this.getViewModel();

@@ -2,16 +2,16 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
     extend: 'Ext.grid.Panel',
     xtype: 'DeviceType_View',
 
-    
-    controller:'DeviceType_ViewController',
-    viewModel:{
-        type:  'DeviceType_ViewModel'
-      },
-    bind:{
+
+    controller: 'DeviceType_ViewController',
+    viewModel: {
+        type: 'DeviceType_ViewModel'
+    },
+    bind: {
         store: '{devices_store}'
     },
-    
-    
+
+
     plugins: {
         cellediting: {
             clicksToEdit: 2,
@@ -56,8 +56,8 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
         editor: {
             xtype: 'textfield',
             selectOnFocus: true,
-          
-            },
+
+        },
     }, {
         text: 'Tên loại thiết bị',
         dataIndex: 'name',
@@ -76,19 +76,19 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
             }
         },
         editor: {
-           
+
             xtype: 'textfield',
             selectOnFocus: true
-            },
+        },
     }
-    ,{
+        , {
         text: 'Thiết bị RFID',
-        xtype:'checkcolumn',
-        dataIndex:'is_rfid',
+        xtype: 'checkcolumn',
+        dataIndex: 'is_rfid',
         flex: 1,
-        itemId:'Change'
+        itemId: 'Change'
     }
-],
+    ],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',
@@ -97,40 +97,39 @@ Ext.define('GSmartApp.view.dm_loaithietbi.DeviceType_View', {
             margin: 5,
             text: 'Thêm mới',
             width: 120,
-            iconCls:'x-fa fa-plus',
+            iconCls: 'x-fa fa-plus',
             itemId: 'btnThemMoi'
-        },{
-            xtype:'textfield',
-            itemId:'txtCode',
+        }, {
+            xtype: 'textfield',
+            itemId: 'txtCode',
             margin: 5,
-          
+
             width: 250,
             allowBlank: true,
             emptyText: 'Mã loại thiết bị',
-            bind:{
-                value:'{device.code}'
+            bind: {
+                value: '{device.code}'
             }
-        },{
-            xtype:'textfield',
-            itemId:'txtName',
+        }, {
+            xtype: 'textfield',
+            itemId: 'txtName',
             margin: 5,
             width: 250,
             allowBlank: false,
             emptyText: 'Tên loại thiết bị',
-            bind:{
-                value:'{device.name}'
+            bind: {
+                value: '{device.name}'
             }
-        },{
-
-            xtype:'checkbox',
-            width:250,
-            margin:5,
-            fieldLabel:'Thiết bị RFID',
-            bind:{
-                value:'{device.check}'
+        }, {
+            xtype: 'checkbox',
+            width: 250,
+            margin: 5,
+            fieldLabel: 'Thiết bị RFID',
+            bind: {
+                value: '{device.check}'
             }
         }
-    
-    ]
+
+        ]
     }],
 })

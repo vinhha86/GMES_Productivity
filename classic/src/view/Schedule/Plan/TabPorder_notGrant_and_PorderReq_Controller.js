@@ -105,7 +105,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         var viewmodel = this.getViewModel();
         var grid = this.getView();
         grid.setLoading("Đang tải dữ liệu");
-        console.log(newCard);
         if (newCard.xtype == "Schedule_POrderReq_View") {
             var store_req = viewmodel.getStore('PContractrPoductPOStore');
             store_req.getOffers_byOrg_noLoad();
@@ -124,6 +123,12 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
             store.loadFree_groupby_product(golive_from, golive_to, function (records, operation, success) {
                 grid.setLoading(false);
             });
+        }
+        else if (newCard.xtype == "POLineView") {
+            var viewmodel = this.getViewModel();
+            var productStore = viewmodel.getStore('ProductStore');
+            var is_pair = viewmodel.get('is_pair');
+            productStore.loadProductSingle("", is_pair);
         }
         grid.setLoading(false);
     },

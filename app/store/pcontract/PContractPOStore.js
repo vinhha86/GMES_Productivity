@@ -17,12 +17,11 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			property: 'productbuyercode'
 		}
 	],
-	getby_shipping: function (shipdate_from, shipdate_to, ismap) {
-		var me = this;
+	getby_shipping: function (productid_link, colorid_link, sizesetid_link) {
 		var params = new Object();
-		params.shipdate_from = shipdate_from;
-		params.shipdate_to = shipdate_to;
-		params.ismap = ismap;
+		params.productid_link = productid_link;
+		params.colorid_link = colorid_link;
+		params.sizesetid_link = sizesetid_link;
 
 		this.setProxy({
 			type: 'ajax',

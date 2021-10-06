@@ -6,14 +6,15 @@ Ext.define('GSmartApp.view.Schuedule.Plan.TabPorder_notGrant_and_PorderReq', {
     items: [{
         title: 'Lệnh chưa phân chuyền',
         xtype: 'POrderUnGranted' //GSmartApp.view.porders.POrderUnGranted
-    },{
+    }, {
         title: 'Yêu cầu xếp kế hoạch',
         xtype: 'Schedule_POrderReq_View' //GSmartApp.view.porders.Porder_Req
     },
-    // {
-    //     title: 'Đã xếp kế hoạch',
-    //     xtype: 'Porder_Req_Granted' //GSmartApp.view.porders.Porder_Req_Granted
-    // },
+    {
+        title: 'Lệnh thực tế',
+        xtype: 'POLineView',
+        id: 'POLineView_khsx'//GSmartApp.view.porders.Porder_Req_Granted
+    },
     {
         title: 'Lệnh thay đổi',
         xtype: 'PorderChange_Productivity' //GSmartApp.view.porders.PorderChange_Productivity

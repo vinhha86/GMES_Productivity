@@ -13,6 +13,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     bind: {
         store: '{POLineStore}'
     },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+        checkOnly: true
+    },
     features: [{
         ftype: 'groupingsummary',
         dock: 'bottom',
@@ -23,6 +28,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         width: 28,
         menuDisabled: true,
         sortable: false,
+        hidden: true,
         align: 'center',
         items: [
             {
@@ -37,18 +43,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        },
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            margin: 1,
-            reference: 'filterMaSP',
-            width: '99%',
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onFilterMaSPKeyup',
-                buffer: 500
-            }
         }
     },
     {
@@ -122,116 +116,78 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 1 ? "Chiếc" : "Bộ (" + value + ")";
         }
-    }, {
-        text: 'Cắt',
-        align: 'right',
-        dataIndex: 'amountcut',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    }, {
-        text: 'VC',
-        align: 'right',
-        tooltip: 'Vào chuyền',
-        dataIndex: 'amountinputsum',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    }, {
-        text: 'RC',
-        align: 'right',
-        tooltip: 'Ra chuyền',
-        dataIndex: 'amountoutputsum',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    },
-    {
-        text: 'HT',
-        align: 'right',
-        tooltip: 'Hoàn thiện',
-        dataIndex: 'amountpackstockedsum',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    },
-    {
-        text: 'TP',
-        align: 'right',
-        tooltip: 'Thành phẩm',
-        dataIndex: 'amountstockedsum',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    },
-    // {
-    //     text: 'Đóng gói',
-    //     align: 'right',
-    //     dataIndex: 'amountpackedsum',
-    //     width: 70,
-    //     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-    //         return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-    //     }
-    // },
-    {
-        text: 'GH',
-        align: 'right',
-        tooltip: 'Giao hàng',
-        // dataIndex: 'amountpackedsum',
-        dataIndex: 'amountgiaohang',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        }
-    },
+    }
     ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
         layout: 'hbox',
         items: [{
-            xtype: 'datefield',
-            fieldLabel: "Danh sách PO Line (Nhịp giao hàng) từ ngày",
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelStyle: "font-weight: bold; font-size: 14px; color: black;",
-            bind: {
-                value: '{shipdate_from}'
-            },
-            format: 'd/m/Y',
-            altFormats: "Y-m-d\\TH:i:s.uO",
-            itemId: 'shipdate_from',
-            width: 470,
-            margin: 2,
-            editable: false,
-            labelWidth: 330
-        },
-        {
-            xtype: 'datefield',
-            fieldLabel: "Đến ngày",
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelStyle: "font-weight: bold; font-size: 14px; color: black;",
-            bind: {
-                value: '{shipdate_to}'
-            },
-            format: 'd/m/Y',
-            altFormats: "Y-m-d\\TH:i:s.uO",
-            itemId: 'shipdate_to',
-            width: 210,
-            margin: 2,
-            editable: false,
-            labelWidth: 70
-        },
-        {
             xtype: 'checkbox',
             margin: 2,
-            inputValue: true,
-            boxLabel: 'Đã map',
-            itemId: 'checkisMap'
+            labelWidth: 50,
+            fieldLabel: 'SP Bộ',
+            bind: {
+                value: '{is_pair}'
+            },
+            itemId: 'checkSPBo',
+            hidden: true
+        }, {
+            xtype: 'combo',
+            fieldLabel: 'Mã sản phẩm',
+            bind: {
+                store: '{ProductStore}',
+                value: '{productid_link}'
+            },
+            displayField: 'buyercode',
+            valueField: 'id',
+            margin: 2,
+            minChars: 4,
+            queryMode: 'remote',
+            queryParam: 'buyercode',
+            itemId: 'cmbProduct'
+        },
+        {
+            xtype: 'combo',
+            bind: {
+                store: '{MauSanPhamStore}',
+                value: '{colorid_link}'
+            },
+            displayField: 'value',
+            margin: 2,
+            valueField: 'id',
+            queryMode: 'local',
+            width: 250,
+            anyMatch: true,
+            itemId: 'cmbMauSP',
+            triggers: {
+                clear: {
+                    cls: 'x-form-clear-trigger',
+                    weight: -1,
+                    handler: 'onClearFilter'
+                }
+            }
+        },
+        {
+            xtype: 'combo',
+            bind: {
+                store: '{DaiCoSanPhamStore}',
+                value: '{sizesetid_link}'
+            },
+            displayField: 'name',
+            margin: 2,
+            valueField: 'id',
+            queryMode: 'local',
+            width: 250,
+            anyMatch: true,
+            itemId: 'cmbDaiCoSP',
+            triggers: {
+                clear: {
+                    cls: 'x-form-clear-trigger',
+                    weight: -1,
+                    handler: 'onClearFilterDaiCo'
+                }
+            }
         },
             '->',
         {
@@ -241,6 +197,24 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             margin: 2
         }
         ]
+    },
+    {
+        dock: 'bottom',
+        layout: 'hbox',
+        xtype: 'toolbar',
+        items: [{
+            xtype: 'button',
+            margin: 2,
+            iconCls: 'x-fa fas fa-link brownIcon',
+            text: 'Maps',
+            itemId: 'btnMap'
+        }, {
+            xtype: 'button',
+            margin: 2,
+            iconCls: 'x-fa fas fa-undo brownIcon',
+            text: 'Hủy Map',
+            itemId: 'btnHuyMap'
+        }]
     }
     ]
 });

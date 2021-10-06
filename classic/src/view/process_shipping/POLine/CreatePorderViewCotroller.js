@@ -29,7 +29,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
 
         },
         '#productivity': {
-            specialkey: 'onSpecialkey'
+            specialkey: 'onSpecialkey',
+            focusleave: 'onFocusleave'
         },
         '#btnChon': {
             click: 'onChon'
@@ -59,6 +60,10 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
                     }
                 }
             })
+    },
+    onFocusleave: function () {
+        var me = this;
+        me.onProductivityChange();
     },
     onSpecialkey: function (field, e) {
         var me = this;
