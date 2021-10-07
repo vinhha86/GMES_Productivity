@@ -5,9 +5,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
 
     },
     control: {
-        '#POLineView': {
-            itemclick: 'onSelect'
-        },
         '#cmbProduct': {
             select: 'onSelectProduct'
         },
@@ -42,35 +39,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 }
             });
         }
-        else if (select.length == 1) {
-            if (!select[0].get('ismap')) {
-                Ext.MessageBox.show({
-                    title: "Thông báo",
-                    msg: 'Line chưa được Map vào biểu đồ',
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng',
-                    }
-                });
-            }
-            else {
-                Ext.Msg.show({
-                    title: "Thông báo",
-                    msg: 'Bạn có chắc chắn muốn hủy Map Line ?',
-                    buttons: Ext.MessageBox.YESNO,
-                    buttonText: {
-                        yes: 'Có',
-                        no: 'Không'
-                    },
-                    fn: function (btn) {
-                        if (btn === 'yes') {
-                            me.CancelMap(select[0]);
-                        }
-                    }
-                });
-            }
-
-        }
         else {
             for (var i = 0; i < select.length; i++) {
                 var check = false;
@@ -87,7 +55,22 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     break;
                 }
             }
-            if (!check) { }
+            if (!check) {
+                Ext.Msg.show({
+                    title: "Thông báo",
+                    msg: 'Bạn có chắc chắn muốn hủy Map Line ?',
+                    buttons: Ext.MessageBox.YESNO,
+                    buttonText: {
+                        yes: 'Có',
+                        no: 'Không'
+                    },
+                    fn: function (btn) {
+                        if (btn === 'yes') {
+                            me.CancelMap(select);
+                        }
+                    }
+                });
+            }
         }
     },
     onMap: function () {
@@ -105,24 +88,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 }
             });
         }
-        else if (select.length == 1) {
-            if (select[0].get('ismap')) {
-                Ext.MessageBox.show({
-                    title: "Thông báo",
-                    msg: 'Line đã được Map vào biểu đồ',
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng',
-                    }
-                });
-            }
-            else
-                me.ShowCreatePorder(select[0]);
-        }
         else {
             for (var i = 0; i < select.length; i++) {
                 var check = false;
-                console.log(select[i]);
                 if (select[i].get('ismap')) {
                     check = true;
                     Ext.MessageBox.show({
@@ -136,8 +104,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     break;
                 }
             }
-            if (!check)
-                me.ShowCreateManyPorder();
+            if (!check) {
+                var productcode = select[0].get('productbuyercode');
+                me.ShowCreateManyPorder(productcode, select);
+            }
+
         }
     },
     onClearFilterDaiCo: function () {
@@ -253,10 +224,13 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var me = this;
         grid.setLoading('Đang xử lý');
         var params = new Object();
-        params.pcontract_poid_link = rec.get('pcontract_poid_link');
-        params.productid_link = rec.get('productid_link');
+        var list = [];
+        for (var i = 0; i < rec.length; i++) {
+            list.push(rec[i].data);
+        }
+        params.data = list;
 
-        GSmartApp.Ajax.post('/api/v1/porderpoline/delete_porder', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/porderpoline/delete_many_porder', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
                 if (success) {
@@ -270,16 +244,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                                 yes: 'Đóng'
                             }
                         });
-                        me.fireEvent('UpdatePorder', response.porderinfo, response.amount, response.endDate, response.pordergrantid_link, response.duration);
+                        me.fireEvent('DeleteGrant', response.list_grantid_link);
 
 
                         var store = grid.getStore();
-                        store.load({
-                            callback: function () {
-                                grid.getSelectionModel().select(rec, true, true);
-                                me.onSelect(null, rec);
-                            }
-                        });
+                        store.load();
                     }
                     else {
                         Ext.Msg.show({
@@ -342,7 +311,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         form.down('#POrder_Offer_view').on('Chon', function () {
             var store = viewmodel.getStore('POLineStore');
             store.load();
-            me.onSelect(null, rec);
             form.close();
         });
     },
@@ -434,17 +402,25 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         });
         form.show();
 
-        form.down('#CreatePorderView').on('Create', function (data) {
+        form.down('#CreatePorderView').on('Create', function (data, orgid_link, orggrantid_link) {
             if (data != null)
-                me.fireEvent('AddPlan', data);
+                me.fireEvent('AddPlan', data, orgid_link, orggrantid_link);
             var store = viewmodel.getStore('POLineStore');
             store.load();
             form.close();
         })
     },
-    ShowCreateManyPorder: function () {
-        var viewmodel = this.getViewModel();
+    onHiddenList: function () {
+        var filter = Ext.getCmp('FilterBar').getController();
+        filter.onGrantToOrgTap();
+    },
+    onSearchTap: function () {
+        var grid = this.getView();
+        grid.getStore().load();
+    },
+    ShowCreateManyPorder: function (productcode, select) {
         var me = this;
+        var viewmodel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -452,7 +428,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             border: false,
             title: 'Tạo lệnh sản xuất',
             closeAction: 'destroy',
-            height: 300,
+            height: 200,
             width: 600,
             bodyStyle: 'background-color: transparent',
             layout: {
@@ -460,10 +436,24 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 padding: 5
             },
             items: [{
-                xtype: 'CreateManyPorderView'
+                xtype: 'CreateManyPorderView',
+                viewModel: {
+                    data: {
+                        productname: productcode,
+                        list_po: select
+                    }
+                }
             }]
         });
         form.show();
+
+        form.down('#CreateManyPorderView').on('Create', function (data, orgid_link, orggrantid_link, remove) {
+            if (data != null)
+                me.fireEvent('AddManyPlan', data, orgid_link, orggrantid_link, remove);
+            var store = viewmodel.getStore('POLineStore');
+            store.load();
+            form.close();
+        })
     },
     onCreateStockoutP: function (rec) {
         // var viewmodel = this.getViewModel();
@@ -519,29 +509,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var store = viewmodel.getStore('POLineStore');
         store.setGroupField('productbuyercode_parent');
         store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
-    },
-    onSelect: function (grid, record, item, index, e, eOpts) {
-        var viewmodel = this.getViewModel();
-        var storeSKU = viewmodel.getStore('POLineSKU_Store');
-        var productid_link = record.get('productid_link');
-        var pcontractpoid_link = record.get('pcontract_poid_link');
-        console.log(pcontractpoid_link);
-
-        viewmodel.set('pcontract_poid_link', pcontractpoid_link);
-        viewmodel.set('porderid_link', 0);
-
-        //remove het grid porder-sku
-        // var store_porder_sku = viewmodel.getStore('porderSKUStore');
-        // store_porder_sku.removeAll();
-
-        //remove bang can doi
-        // var storeCanDoi = viewmodel.getStore('SKUBalanceStore_Mat');
-        // storeCanDoi.removeAll();
-
-        // storeSKU.loadStoreByPO_and_Product(productid_link, pcontractpoid_link);
-
-        // var storePOrder = viewmodel.getStore('POrder_ListStore');
-        // storePOrder.POrderPOLine_loadby_po(pcontractpoid_link);
     },
     onFilterMaSPKeyup: function () {
         var viewmodel = this.getViewModel();

@@ -23,7 +23,29 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderViewCotroller
         }
     },
     onChon: function () {
+        var view = this.getView();
+        var params = new Object();
+        var viewmodel = this.getViewModel();
+        params.productivity = viewmodel.get('productivity');
+        params.orgid_link = viewmodel.get('orgid_link');
+        params.orggrantid_link = viewmodel.get('orggrantid_link');
 
+        var list = [];
+        for (var i = 0; i < viewmodel.get('list_po').length; i++) {
+            var rec = viewmodel.get('list_po')[i].data;
+            list.push(rec);
+        }
+        params.list_pcontract_po = list;
+
+        GSmartApp.Ajax.post('/api/v1/schedule/create_many_porder_and_grant', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        view.fireEvent('Create', response.data, viewmodel.get('orgid_link'), viewmodel.get('orggrantid_link'), response.remove);
+                    }
+                }
+            })
     },
     onSelectDV: function (cmb, record, e) {
         var viewmodel = this.getViewModel();

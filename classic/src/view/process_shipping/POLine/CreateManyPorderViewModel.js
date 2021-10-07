@@ -11,6 +11,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderViewModel', {
         }
     },
     data: {
-
+        list_po: []
     }
 })

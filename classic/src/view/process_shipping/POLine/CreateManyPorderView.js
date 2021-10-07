@@ -24,62 +24,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderView', {
                     },
                     labelWidth: 120,
                     flex: 1
-                }, {
-                    xtype: 'textfield',
-                    margin: 2,
-                    fieldLabel: 'Số lượng',
-                    maskRe: /[0-9.]/,
-                    bind: {
-                        value: '{quantity}'
-                    },
-                    readOnly: true,
-                    labelWidth: 120,
-                    flex: 1
-                }
-            ]
-        },
-        {
-            layout: 'hbox',
-            items: [
-                {
-                    xtype: 'datefield',
-                    margin: 2,
-                    fieldLabel: "Ngày bắt đầu",
-                    bind: {
-                        value: '{startdate}'
-                    },
-                    format: 'd/m/Y',
-                    altFormats: "Y-m-d\\TH:i:s.uO",
-                    editable: false,
-                    itemId: 'date_startdate',
-                    labelWidth: 120,
-                    flex: 1,
-                    allowBlank: false,
-                    blankText: 'Không được để trống',
-                    msgTarget: 'under'
                 },
-                {
-                    xtype: 'datefield',
-                    margin: 2,
-                    fieldLabel: "Ngày kết thúc",
-                    bind: {
-                        value: '{enddate}'
-                    },
-                    format: 'd/m/Y',
-                    altFormats: "Y-m-d\\TH:i:s.uO",
-                    editable: false,
-                    itemId: 'date_enddate',
-                    labelWidth: 120,
-                    flex: 1,
-                    allowBlank: false,
-                    blankText: 'Không được để trống',
-                    msgTarget: 'under'
-                }
-            ]
-        },
-        {
-            layout: 'hbox',
-            items: [
                 {
                     xtype: 'textfield',
                     margin: 2,
@@ -89,21 +34,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderView', {
                     maskRe: /[0-9.]/,
                     bind: {
                         value: '{productivity}'
-                    },
-                    labelWidth: 120,
-                    flex: 1,
-                    allowBlank: false,
-                    blankText: 'Không được để trống',
-                    msgTarget: 'under'
-                }, {
-                    xtype: 'textfield',
-                    margin: 2,
-                    fieldLabel: 'Số ngày',
-                    itemId: 'duration',
-                    maskRe: /[0-9.]/,
-                    enableKeyEvents: true,
-                    bind: {
-                        value: '{duration}'
                     },
                     labelWidth: 120,
                     flex: 1,

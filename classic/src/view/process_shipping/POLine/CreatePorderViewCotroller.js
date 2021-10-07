@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreatePorderViewCotroller', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        view.fireEvent('Create', response.data);
+                        view.fireEvent('Create', response.data, viewmodel.get('orgid_link'), viewmodel.get('orggrantid_link'));
                     }
                 }
             })

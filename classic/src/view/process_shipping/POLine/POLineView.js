@@ -123,6 +123,17 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         xtype: 'toolbar',
         layout: 'hbox',
         items: [{
+            tooltip: 'Làm mới danh sách',
+            iconCls: 'x-fa fa-refresh',
+            weight: 30,
+            handler: 'onSearchTap'
+        },
+        {
+            tooltip: 'Ẩn danh sách',
+            iconCls: 'x-fa fa-eye',
+            weight: 30,
+            handler: 'onHiddenList'
+        }, {
             xtype: 'checkbox',
             margin: 2,
             labelWidth: 50,

@@ -24,17 +24,77 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             },
             'POLineViewController': {
                 'AddPlan': 'onAddPlan',
-                'UpdatePorder': 'onUpdatePorder'
+                'AddManyPlan': 'onAddManyPlan',
+                'UpdatePorder': 'onUpdatePorder',
+                'DeleteGrant': 'onDeleteGrant'
             },
             'POrder_Offer_viewController': {
                 'UpdatePorder': 'onUpdatePorder'
             }
         }
     },
-    onAddPlan: function (data) {
+    onDeleteGrant: function (listid) {
         var view = this.getView().down('#treeplan');
-        var crudManager = view.getCrudManager();
-        crudManager.load();
+        var store = view.getCrudManager().getEventStore();
+        for (var i = 0; i < listid.length; i++) {
+            var record = store.findRecord('porder_grantid_link', listid[i]);
+            store.remove(record);
+        }
+    },
+    onAddManyPlan: function (data, orgid_link, orggrantid_link, remove) {
+        var view = this.getView().down('#treeplan');
+        var store = view.getCrudManager().getEventStore();
+        var storeDV = view.getCrudManager().getResourceStore();
+        var resourceid = 0;
+        //lay id xuogn tu cay don vi
+        for (var i = 0; i < storeDV.data.length; i++) {
+            var rec = storeDV.data.items[i];
+            if (rec.get('id_origin') == orgid_link) {
+                for (var j = 0; j < rec.get('children').length; j++) {
+                    var rec_chil = rec.get('children')[j];
+                    if (rec_chil.id_origin == orggrantid_link) {
+                        resourceid = rec_chil.id;
+                    }
+                }
+            }
+        }
+
+        for (var i = 0; i < remove.length; i++) {
+            var record = store.findRecord('porder_grantid_link', remove[i]);
+            store.remove(record);
+        }
+
+        var record = null;
+        for (var i = 0; i < data.length; i++) {
+            data[i].resourceId = resourceid;
+            data[i].ResourceId = resourceid;
+            record = store.insert(0, data[i]);
+        }
+        view.getSchedulingView().scrollEventIntoView(record[0], true, true);
+        view.getEventSelectionModel().select(record[0]);
+    },
+    onAddPlan: function (data, orgid_link, orggrantid_link) {
+        var view = this.getView().down('#treeplan');
+        var store = view.getCrudManager().getEventStore();
+        var storeDV = view.getCrudManager().getResourceStore();
+        var resourceid = 0;
+        //lay id xuogn tu cay don vi
+        for (var i = 0; i < storeDV.data.length; i++) {
+            var rec = storeDV.data.items[i];
+            if (rec.get('id_origin') == orgid_link) {
+                for (var j = 0; j < rec.get('children').length; j++) {
+                    var rec_chil = rec.get('children')[j];
+                    if (rec_chil.id_origin == orggrantid_link) {
+                        resourceid = rec_chil.id;
+                    }
+                }
+            }
+        }
+
+        data.resourceId = resourceid;
+        var record = store.insert(0, data);
+        view.getSchedulingView().scrollEventIntoView(record[0], true, true);
+        view.getEventSelectionModel().select(record[0]);
     },
     onUpdatePorder: function (porderinfo, amount, endDate, porder_grantid_link, duration) {
         var view = this.getView().down('#treeplan');
@@ -243,6 +303,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             },
             {
+                text: 'Hủy map',
+                itemId: 'menuCancelMap',
+                iconCls: 'x-fa fa-ban',
+                hidden: !ishidden_delete,
+                handler: function () {
+                    me.cancel_map(scheduler, eventRecord);
+                }
+            },
+            {
                 text: 'Bố trí công nhân',
                 itemId: 'Schedule_Personnel',
                 iconCls: 'x-fa fa-balance-scale',
@@ -263,6 +332,65 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         e.stopEvent();
         menu_grid.showAt(e.getXY());
         common.Check_Menu_Permission(menu_grid);
+    },
+    cancel_map: function (scheduler) {
+        var grid = this.getView();
+        scheduler.setLoading('Đang xử lý');
+        var records = scheduler.getEventSelectionModel().selected;
+        var params = new Object();
+        var list = [];
+        for (var i = 0; i < records.length; i++) {
+            var data = new Object();
+            data.pcontract_poid_link = records.items[i].data.pcontract_poid_link;
+            data.productid_link = records.items[i].data.productid_link;
+            list.push(data);
+        }
+        params.data = list;
+        GSmartApp.Ajax.post('/api/v1/porderpoline/delete_many_porder', Ext.JSON.encode(params),
+            function (success, response, options) {
+                scheduler.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Thành công!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                        var view = grid.down('#treeplan');
+                        var store = view.getCrudManager().getEventStore();
+                        var list = [];
+                        for (var i = 0; i < records.length; i++) {
+                            var rec = records.items[i];
+                            list.push(rec);
+                        }
+                        store.remove(list);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Có lỗi trong quá trình xử lý dữ liệu!',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Có lỗi trong quá trình xử lý dữ liệu!',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
     },
     cancel_pordergrant: function (rec) {
         var grid = this.getView();
