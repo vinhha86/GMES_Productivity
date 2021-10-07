@@ -160,6 +160,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         },
         {
             xtype: 'combo',
+            hidden: true,
             bind: {
                 store: '{MauSanPhamStore}',
                 value: '{colorid_link}'
@@ -181,6 +182,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         },
         {
             xtype: 'combo',
+            hidden: true,
             bind: {
                 store: '{DaiCoSanPhamStore}',
                 value: '{sizesetid_link}'
