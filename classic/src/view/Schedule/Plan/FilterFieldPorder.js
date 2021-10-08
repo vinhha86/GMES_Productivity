@@ -41,7 +41,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
             var rec = null;
             store.each(function (task) {
                 if (task.get('productbuyercode') != null) {
-                    console.log(task.get('productbuyercode').toLowerCase());
                     if (task.get('productbuyercode').toLowerCase().includes(value.toLowerCase())) {
                         task.set('Cls', task.get('cls') + ' match');
                         rec = task;

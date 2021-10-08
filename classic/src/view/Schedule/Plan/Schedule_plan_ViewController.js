@@ -306,7 +306,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 text: 'Hủy map',
                 itemId: 'menuCancelMap',
                 iconCls: 'x-fa fa-ban',
-                hidden: !ishidden_delete,
+                hidden: eventRecord.get('status') == 2 ? false : true,
                 handler: function () {
                     me.cancel_map(scheduler, eventRecord);
                 }

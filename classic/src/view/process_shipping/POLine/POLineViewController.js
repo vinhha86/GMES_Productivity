@@ -440,7 +440,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 viewModel: {
                     data: {
                         productname: productcode,
-                        list_po: select
+                        list_po: select,
+                        colorid_link: viewmodel.get('colorid_link'),
+                        sizesetid_link: viewmodel.get('sizesetid_link')
                     }
                 }
             }]

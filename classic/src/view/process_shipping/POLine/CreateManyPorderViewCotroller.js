@@ -29,6 +29,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderViewCotroller
         params.productivity = viewmodel.get('productivity');
         params.orgid_link = viewmodel.get('orgid_link');
         params.orggrantid_link = viewmodel.get('orggrantid_link');
+        params.colorid_link = viewmodel.get('colorid_link') == null ? 0 : viewmodel.get('colorid_link');
+        params.sizesetid_link = viewmodel.get('sizesetid_link') == null ? 0 : viewmodel.get('sizesetid_link');
 
         var list = [];
         for (var i = 0; i < viewmodel.get('list_po').length; i++) {

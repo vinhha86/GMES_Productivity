@@ -120,94 +120,83 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
     ],
     dockedItems: [{
         dock: 'top',
-        xtype: 'toolbar',
-        layout: 'hbox',
+        layout: 'vbox',
         items: [{
-            tooltip: 'Làm mới danh sách',
-            iconCls: 'x-fa fa-refresh',
-            weight: 30,
-            handler: 'onSearchTap'
+            layout: 'hbox',
+            xtype: 'toolbar',
+            items: [{
+                tooltip: 'Làm mới danh sách',
+                iconCls: 'x-fa fa-refresh',
+                weight: 30,
+                handler: 'onSearchTap'
+            },
+            {
+                tooltip: 'Ẩn danh sách',
+                iconCls: 'x-fa fa-eye',
+                weight: 30,
+                handler: 'onHiddenList'
+            }, {
+                xtype: 'combo',
+                fieldLabel: 'Mã sản phẩm',
+                bind: {
+                    store: '{ProductStore}',
+                    value: '{productid_link}'
+                },
+                displayField: 'buyercode',
+                valueField: 'id',
+                margin: 2,
+                minChars: 4,
+                queryMode: 'remote',
+                queryParam: 'buyercode',
+                itemId: 'cmbProduct'
+            }]
         },
         {
-            tooltip: 'Ẩn danh sách',
-            iconCls: 'x-fa fa-eye',
-            weight: 30,
-            handler: 'onHiddenList'
-        }, {
-            xtype: 'checkbox',
-            margin: 2,
-            labelWidth: 50,
-            fieldLabel: 'SP Bộ',
-            bind: {
-                value: '{is_pair}'
-            },
-            itemId: 'checkSPBo',
-            hidden: true
-        }, {
-            xtype: 'combo',
-            fieldLabel: 'Mã sản phẩm',
-            bind: {
-                store: '{ProductStore}',
-                value: '{productid_link}'
-            },
-            displayField: 'buyercode',
-            valueField: 'id',
-            margin: 2,
-            minChars: 4,
-            queryMode: 'remote',
-            queryParam: 'buyercode',
-            itemId: 'cmbProduct'
-        },
-        {
-            xtype: 'combo',
-            hidden: true,
-            bind: {
-                store: '{MauSanPhamStore}',
-                value: '{colorid_link}'
-            },
-            displayField: 'value',
-            margin: 2,
-            valueField: 'id',
-            queryMode: 'local',
-            width: 250,
-            anyMatch: true,
-            itemId: 'cmbMauSP',
-            triggers: {
-                clear: {
-                    cls: 'x-form-clear-trigger',
-                    weight: -1,
-                    handler: 'onClearFilter'
+            layout: 'hbox',
+            items: [
+                {
+                    xtype: 'combo',
+                    bind: {
+                        store: '{MauSanPhamStore}',
+                        value: '{colorid_link}'
+                    },
+                    displayField: 'value',
+                    margin: 2,
+                    valueField: 'id',
+                    queryMode: 'local',
+                    width: 250,
+                    anyMatch: true,
+                    itemId: 'cmbMauSP',
+                    triggers: {
+                        clear: {
+                            cls: 'x-form-clear-trigger',
+                            weight: -1,
+                            handler: 'onClearFilter'
+                        }
+                    }
+                },
+                {
+                    xtype: 'combo',
+                    bind: {
+                        store: '{DaiCoSanPhamStore}',
+                        value: '{sizesetid_link}'
+                    },
+                    displayField: 'name',
+                    margin: 2,
+                    valueField: 'id',
+                    queryMode: 'local',
+                    width: 250,
+                    anyMatch: true,
+                    itemId: 'cmbDaiCoSP',
+                    triggers: {
+                        clear: {
+                            cls: 'x-form-clear-trigger',
+                            weight: -1,
+                            handler: 'onClearFilterDaiCo'
+                        }
+                    }
                 }
-            }
-        },
-        {
-            xtype: 'combo',
-            hidden: true,
-            bind: {
-                store: '{DaiCoSanPhamStore}',
-                value: '{sizesetid_link}'
-            },
-            displayField: 'name',
-            margin: 2,
-            valueField: 'id',
-            queryMode: 'local',
-            width: 250,
-            anyMatch: true,
-            itemId: 'cmbDaiCoSP',
-            triggers: {
-                clear: {
-                    cls: 'x-form-clear-trigger',
-                    weight: -1,
-                    handler: 'onClearFilterDaiCo'
-                }
-            }
-        },
-            '->',
-        {
-            html: '<div class="color-box">'
-                + '<div class="color-square po_offer"></div>&nbspĐã map'
-                + '</div>',
-            margin: 2
+            ]
         }
         ]
     },
@@ -227,6 +216,12 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             iconCls: 'x-fa fas fa-undo brownIcon',
             text: 'Hủy Map',
             itemId: 'btnHuyMap'
+        },
+            '->', {
+            html: '<div class="color-box">'
+                + '<div class="color-square po_offer"></div>&nbspĐã map'
+                + '</div>',
+            margin: 2
         }]
     }
     ]
