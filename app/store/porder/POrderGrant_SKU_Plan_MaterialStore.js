@@ -1,29 +1,29 @@
-Ext.define('GSmartApp.store.porder.POrderGrant_SKU_PlanStore', {
+Ext.define('GSmartApp.store.porder.POrderGrant_SKU_Plan_MaterialStore', {
 	extend: 'Ext.data.Store',
-	storeId: 'POrderGrant_SKU_PlanStore',
-	alias: 'store.POrderGrant_SKU_PlanStore',
+	storeId: 'POrderGrant_SKU_Plan_MaterialStore',
+	alias: 'store.POrderGrant_SKU_Plan_MaterialStore',
 	idProperty: 'idx',
     fields: [
 		'idx',
 		{name: 'id', type: 'int'},
-		{name: 'skuCode', type: 'string'},
-		{name: 'mauSanPham', type: 'string'},
-		{name: 'coSanPham', type: 'string'},
-		{name: 'date',   type: 'date', dateFormat: 'c'},
-		{
-            name: 'date_string',
-            calculate: function(data) {
-                return Ext.Date.format(data.date,'d/m');
-            }
-        },
-		{
-            name: 'skuCode_string',
-            convert: function (value, rec) {
-				return rec.get('skuCode') + ' - ' + rec.get('mauSanPham') + ' - ' + rec.get('coSanPham') + ' - ' + rec.get('porderGrant_SKU_grantamount');
-			}
-        },
-		{name: 'porder_grant_skuid_link',   type: 'int'},
-		{name: 'amount',   type: 'int'},
+		// {name: 'skuCode', type: 'string'},
+		// {name: 'mauSanPham', type: 'string'},
+		// {name: 'coSanPham', type: 'string'},
+		// {name: 'date',   type: 'date', dateFormat: 'c'},
+		// {
+        //     name: 'date_string',
+        //     calculate: function(data) {
+        //         return Ext.Date.format(data.date,'d/m');
+        //     }
+        // },
+		// {
+        //     name: 'skuCode_string',
+        //     convert: function (value, rec) {
+		// 		return rec.get('skuCode') + ' - ' + rec.get('mauSanPham') + ' - ' + rec.get('coSanPham') + ' - ' + rec.get('porderGrant_SKU_grantamount');
+		// 	}
+        // },
+		// {name: 'porder_grant_skuid_link',   type: 'int'},
+		// {name: 'amount',   type: 'int'},
 	],
 	loadStore:function(porder_grant_skuid_link){
 		var params = new Object();

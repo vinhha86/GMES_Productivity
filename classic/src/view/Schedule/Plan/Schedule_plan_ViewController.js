@@ -1357,7 +1357,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 padding: 5
             },
             items: [{
-                xtype: 'POrder_Grant_SKU_Plan_View',
+                xtype: 'POrder_Grant_SKU_Plan_Main_View',
                 viewModel: {
                     data: {
                         sourceView: sourceView,
@@ -1368,6 +1368,10 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             }]
         });
         form.show();
+
+        form.down('#POrder_Grant_SKU_Plan_Main_View').getController().on('Thoat', function (productivity) {
+            form.close();
+        })
     },
 
     // event Item Click

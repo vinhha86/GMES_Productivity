@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var store = viewModel.getStore('POrder_ListStore');
         //
 
-        var objSearch = viewModel.get('objSearch'); console.log(objSearch);
+        var objSearch = viewModel.get('objSearch'); // console.log(objSearch);
         var pobuyer = objSearch.pobuyer;
         var povendor = objSearch.povendor;
         var style = objSearch.style;

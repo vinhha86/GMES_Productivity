@@ -162,6 +162,26 @@ Ext.define('GSmartApp.Ajax', {
 			}
 		});
 	},
+	postUpload_timeout_Jitin: function (url, rawdata, timeout, callback) {
+		var me = this;
+		Ext.Ajax.request({
+			url: config.getAppBaseUrl_Jitin() + url,
+			method: 'POST',
+			cors: true,
+			rawData: rawdata,
+			headers: {
+				'Content-Type': null
+			},
+			timeout: timeout,
+			useDefaultXhrHeader: false,
+			success: function (response, options) {
+				callback.call(me, true, response, options);
+			},
+			failure: function (response, options) {
+				callback.call(me, false, response, options);
+			}
+		});
+	},
 	setProxy: function (store, url, params, callback) {
 		var me = this;
 
