@@ -3,9 +3,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
     xtype: 'POrder_Grant_SKU_Plan_View',
     itemId:'POrder_Grant_SKU_Plan_View',
     controller: 'POrder_Grant_SKU_Plan_Controller',
-    viewModel: {
-        type: 'POrder_Grant_SKU_Plan_ViewModel'
-    },
+    // viewModel: {
+    //     type: 'POrder_Grant_SKU_Plan_ViewModel'
+    // },
     requires: [
         'Ext.pivot.plugin.Exporter',
         'Ext.pivot.plugin.Configurator',
@@ -113,22 +113,6 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             }
         ]
     },
-    dockedItems: [
-        {
-            dock: 'bottom',
-            layout: 'hbox',
-            border: false,
-            items: [
-                {
-                    margin: 1,
-                    xtype:'button',
-                    text:  'Thoát',
-                    iconCls: 'x-fa fa-window-close',
-                    itemId: 'btnThoat'
-                }
-            ]
-        }
-    ],
     listeners: {
         // pivotgroupexpand: 'onPivotGroupExpand',
         // pivotgroupcollapse: 'onPivotGroupCollapse',

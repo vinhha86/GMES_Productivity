@@ -156,6 +156,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_MainController', {
         store.clearFilter();
         store.filterBy(function(rec) { //toLowerCase() // includes()
             if(
+                rec.get('stockincode').toLowerCase().includes(value) ||
                 rec.get('invoice_number').toLowerCase().includes(value) ||
                 rec.get('orgfrom_name').toLowerCase().includes(value) ||
                 rec.get('stockintype_name').toLowerCase().includes(value) ||

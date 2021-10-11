@@ -1,5 +1,5 @@
 Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklist.Stockin_packinglist', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
     xtype: 'Stockin_packinglist',
     id: 'Stockin_packinglist',
     controller: 'Stockin_packinglist_Controller',
@@ -27,69 +27,48 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
                     margin: 1
                 }
             ]
-        },
-        // {
-        //     xtype: 'container',
-        //     height: 35,
-        //     layout:'hbox',
-        //     items:[
-        //         {
-        //             flex:1
-        //         },
-        //         {
-        //             // ui: 'default-toolbar',
-        //             xtype: 'button',
-        //             cls: 'dock-tab-btn',
-        //             text: 'Export to ...',
-        //             menu: {
-        //                 defaults: {
-        //                     handler: 'exportTo'
-        //                 },
-        //                 items: [{
-        //                     text: 'Excel xlsx',
-        //                     cfg: {
-        //                         type: 'excel07',
-        //                         ext: 'xlsx',
-        //                         includeGroups: true,
-        //                         includeSummary: true
-        //                     }
-        //                 }, {
-        //                     text: 'Excel xml',
-        //                     cfg: {
-        //                         type: 'excel03',
-        //                         ext: 'xml',
-        //                         includeGroups: true,
-        //                         includeSummary: true
-        //                     }
-        //                 }, {
-        //                     text: 'CSV',
-        //                     cfg: {
-        //                         type: 'csv'
-        //                     }
-        //                 }, {
-        //                     text: 'TSV',
-        //                     cfg: {
-        //                         type: 'tsv',
-        //                         ext: 'csv'
-        //                     }
-        //                 }, {
-        //                     text: 'HTML',
-        //                     cfg: {
-        //                         type: 'html',
-        //                         includeGroups: true,
-        //                         includeSummary: true
-        //                     }
-        //                 }]
-        //             }
-        //         },
-        //         {
-        //             margin: 1,
-        //             xtype:'button',
-        //             text:  'Thoát',
-        //             iconCls: 'x-fa fa-window-close',
-        //             itemId: 'btnThoat'
-        //         }
-        //     ]
-        // }        
+        }, 
+    ],
+    dockedItems: [
+        {
+            dock: 'bottom',
+            layout: 'hbox',
+            border: false,
+            items: [
+                {
+                    margin: 3,
+                    xtype:'button',
+                    text:  'Thoát',
+                    iconCls: 'x-fa fa-window-close',
+                    itemId: 'btnThoat'
+                },
+                {
+                    margin: 3,
+                    xtype: 'button',
+                    tooltip: 'Tải file mẫu',
+                    itemId: 'btnDownloadTmpFile',
+                    iconCls: 'x-fa fa-download',
+                    bind: {
+                        hidden: '{isUploadBtnHidden}'
+                    }
+                },
+                {
+                    margin: 3,
+                    xtype: 'button',
+                    tooltip: 'Upload file',
+                    itemId: 'btnUploadTmpFile',
+                    iconCls: 'x-fa fa-upload',
+                    bind: {
+                        hidden: '{isUploadBtnHidden}'
+                    }
+                },
+                {
+                    xtype: 'filefield',
+                    buttonOnly: true,
+                    hidden: true,
+                    itemId: 'fileUpload',
+                },
+            ]
+        }
     ],
 });

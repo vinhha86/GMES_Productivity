@@ -63,6 +63,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             var record = POrderGrant_SKU_PlanStore.data.items[i];
             // console.log(record);
             if (null != record.modified){
+                console.log(record);
                 // me.setLoading(true);
                 //Update to DB
                 var params = new Object();
@@ -103,7 +104,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
     }, 
     onAmount_Edit:function(editor, context){
         // e.record.data[e.field] = e.value;
-        console.log(context);
+        // console.log(context);
         if (context.record.get('leftAxisKey') == "grandtotal" || context.column.text == "Tổng") {
             context.cancel = true;
             return false;

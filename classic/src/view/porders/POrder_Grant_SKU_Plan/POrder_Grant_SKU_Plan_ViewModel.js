@@ -3,10 +3,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
     alias: 'viewmodel.POrder_Grant_SKU_Plan_ViewModel',
     requires: [
         'GSmartApp.store.porder.POrderGrant_SKU_PlanStore',
+        'GSmartApp.store.porder.POrderGrant_SKU_Plan_MaterialStore',
     ],
     stores: {
         POrderGrant_SKU_PlanStore: {
             type: 'POrderGrant_SKU_PlanStore'
+        },
+        POrderGrant_SKU_Plan_MaterialStore: {
+            type: 'POrderGrant_SKU_Plan_MaterialStore'
         },
     },
     data: {

@@ -449,13 +449,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 		} else {
 			var form = Ext.create('Ext.window.Window', {
 				height: '90%',
+				width: '90%',
 				closable: true,
 				resizable: false,
 				modal: true,
 				border: false,
 				title: 'Chi tiết Packing List - SKU : ' + data.get('skuCode'),
 				closeAction: 'destroy',
-				width: 1200,
 				bodyStyle: 'background-color: transparent',
 				layout: {
 					type: 'fit', // fit screen for window

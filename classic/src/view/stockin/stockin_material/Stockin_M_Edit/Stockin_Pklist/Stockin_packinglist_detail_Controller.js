@@ -8,36 +8,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			property: 'skuCode',
             direction: 'ASC'
 		});
-
-		// var stockinDRec = viewModel.get('stockinDRec');
-		// var pklist = stockinDRec.get('stockin_packinglist');
-		// if(pklist == null){
-		//   pklist = new Array();
-		// }
-
-		// // console.log(pklist);
-		// var pklistStoreArray = new Array();
-		// for(var i=0; i < pklist.length; i++){
-		//     pklistStoreArray.push(pklist[i]);
-		// }
-		// PackingListStore.setData(pklistStoreArray);
 	},
 	control: {
-		'#btnThoat': {
-			click: 'onExit'
-		},
 		'#lotnumber': {
 			specialkey: 'onSpecialkey'
 		},
 		'#packageid': {
 			specialkey: 'onSpecialkey'
 		},
-		// '#netweight': {
-		//   specialkey: 'onSpecialkey'
-		// },
-		// '#grossweight': {
-		//   specialkey: 'onSpecialkey'
-		// },
 		'#met_origin': {
 			specialkey: 'onSpecialkey'
 		},
@@ -54,19 +32,20 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			click: 'CreatePackingList'
 		},
 	},
-	onExit: function () {
-		this.getView().up('window').close();
-	},
 	oncollapsebody: function (rowNode, record, expandRow, eOpts) {
+		// console.log(eOpts);
 		Ext.defer(function () { eOpts.view.refreshSize(true) }, 50);
 	},
 	onexpandbody: function (rowNode, record, expandRow, eOpts) {
+		// console.log(eOpts);
 		Ext.defer(function () { eOpts.view.refreshSize(true) }, 50);
 	},
 	oncollapsebodySub: function (rowNode, record, expandRow, eOpts) {
+		// console.log(eOpts);
 		Ext.defer(function () { eOpts.view.refreshSize(true) }, 50);
 	},
 	onexpandbodySub: function (rowNode, record, expandRow, eOpts) {
+		// console.log(eOpts);
 		Ext.defer(function () { eOpts.view.refreshSize(true) }, 50);
 	},
 	renderStockinD: function (value, metaData, record, rowIdx, colIdx, store) {

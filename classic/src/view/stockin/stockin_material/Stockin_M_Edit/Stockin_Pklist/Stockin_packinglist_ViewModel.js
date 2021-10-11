@@ -40,6 +40,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         stockinDRec: null,
     },
     formulas: {
+        isUploadBtnHidden: function(get){
+            var stockinDRec = get('stockinDRec');
+            if(stockinDRec != null){
+                if(isNaN(stockinDRec.get('id'))){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            return true;
+        },
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockin.unitid_link');
             if(unitid_link == null){
