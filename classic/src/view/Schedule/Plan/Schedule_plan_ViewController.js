@@ -180,7 +180,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         if (schedule.readOnly) return;
 
         var ishidden_delete = true;
-        if (eventRecord.data.status == -1)
+        if (eventRecord.data.status == -1 || eventRecord.get('status') == 2)
             ishidden_delete = false;
 
         var menu_grid = new Ext.menu.Menu({
