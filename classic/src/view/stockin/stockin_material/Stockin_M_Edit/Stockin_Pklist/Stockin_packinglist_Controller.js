@@ -28,23 +28,23 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         this.getView().up('window').close();
     },
 
-    setPklData: function(){
-        var viewModel = this.getViewModel();
-        var PackingListStore = viewModel.get('PackingListStore');
-        var stockinDRec = viewModel.get('stockinDRec');
-        var pklist = stockinDRec.get('stockin_packinglist');
-        if(pklist == null){
-            pklist = new Array();
-        }
-        var pklistStoreArray = new Array();
-        for(var i=0; i < pklist.length; i++){
-            pklistStoreArray.push(pklist[i]);
-        }
-        PackingListStore.setData(pklistStoreArray); // console.log(pklistStoreArray);
+    // setPklData: function(){
+    //     var viewModel = this.getViewModel();
+    //     var PackingListStore = viewModel.get('PackingListStore');
+    //     var stockinDRec = viewModel.get('stockinDRec');
+    //     var pklist = stockinDRec.get('stockin_packinglist');
+    //     if(pklist == null){
+    //         pklist = new Array();
+    //     }
+    //     var pklistStoreArray = new Array();
+    //     for(var i=0; i < pklist.length; i++){
+    //         pklistStoreArray.push(pklist[i]);
+    //     }
+    //     PackingListStore.setData(pklistStoreArray); // console.log(pklistStoreArray);
 
-        PackingListStore.getSorters().add('lotnumber');
-        PackingListStore.getSorters().add('packageid');
-    },
+    //     PackingListStore.getSorters().add('lotnumber');
+    //     PackingListStore.getSorters().add('packageid');
+    // },
     loadPklGroupedData: function(){
         var m = this;
         var me = this.getView();
@@ -108,6 +108,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockinDRec = viewModel.get('stockinDRec');
+        var LotStore = viewModel.get('LotStore');
         var PackingListStore = viewModel.get('PackingListStore');
 
         // d
@@ -146,12 +147,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
             );
         }
 
-        PackingListStore.setData(data);
-        // PackingListStore.removeAll();
-        // PackingListStore.insert(0, data);
-        console.log(data);
+        LotStore.setData(data[0].stockin_lot);
+        LotStore.getSorters().add({
+            property: 'lot_number',
+            direction: 'ASC'
+        });
+        // PackingListStore.setData(data);
+        // console.log(data);
         me.setLoading(false);
-        // Ext.getCmp('Stockin_packinglist').getView().refresh();
 
     },
     ////

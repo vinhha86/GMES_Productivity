@@ -2,12 +2,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockin_packinglist_detail_Controller',
 	init: function () {
-		var viewModel = this.getViewModel();
-		var PackingListStore = viewModel.getStore('PackingListStore');
-		PackingListStore.getSorters().add({
-			property: 'skuCode',
-            direction: 'ASC'
-		});
+		// var viewModel = this.getViewModel();
+		// var PackingListStore = viewModel.getStore('PackingListStore');
+		// PackingListStore.getSorters().add({
+		// 	property: 'skuCode',
+        //     direction: 'ASC'
+		// });
 	},
 	control: {
 		'#lotnumber': {
