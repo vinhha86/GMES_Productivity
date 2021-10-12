@@ -544,6 +544,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 		var viewModel = this.getViewModel();
 		var stockin = viewModel.get('stockin');
 		var stockinDRec = viewModel.get('stockinDRec');
+		var PackingListStore = viewModel.getStore('PackingListStore');
 
 		var params = new Object();
 		params.stockinlotid_link = data.get('id');
@@ -577,6 +578,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 									yes: 'Đóng',
 								}
 							});
+							PackingListStore.removeAll();
 							var Stockin_packinglist_view = me.up('#Stockin_packinglist');
 							if(Stockin_packinglist_view){
 								var Stockin_packinglist_Controller = Stockin_packinglist_view.getController();
