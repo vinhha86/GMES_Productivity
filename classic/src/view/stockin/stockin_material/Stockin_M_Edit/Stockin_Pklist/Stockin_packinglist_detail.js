@@ -40,6 +40,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 			sortable: false,
 			align: 'center',
 			items: [{
+				iconCls: 'x-fa fas fa-trash',
+				tooltip: "Xóa Lot vải",
+				handler: 'onDeleteLot'
+			},{
 				iconCls: 'x-fa fas fa-random',
 				tooltip: "Đổi loại nguyên phụ liệu",
 				handler: 'onChangeSku'
@@ -287,6 +291,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 					store: '{record.stockin_packinglist}'
 				},
 				columns: [
+					{
+						xtype: 'actioncolumn',
+						width: 30,
+						menuDisabled: true,
+						sortable: false,
+						align: 'center',
+						items: [{
+							iconCls: 'x-fa fas fa-trash',
+							tooltip: "Xóa cây vải",
+							handler: 'onDeletePklist'
+						}]
+					},
 					{
 						text: 'Cây số', 
 						dataIndex: 'packageid',

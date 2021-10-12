@@ -17,8 +17,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 		return '<div style="font-weight: bold; color:darkred;"> Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
 	},
 	onSelectlot: function (grid, record, item, index, e, eOpts) {
-		console.log(record);
+		// console.log(record);
 		var viewModel = this.getViewModel();
+		viewModel.set('curentLot', record);
 		var PackingListStore = viewModel.getStore('PackingListStore');
 		PackingListStore.removeAll();
 		PackingListStore.insert(0,record);

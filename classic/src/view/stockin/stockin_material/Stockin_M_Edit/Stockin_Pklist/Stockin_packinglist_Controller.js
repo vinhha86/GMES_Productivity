@@ -152,8 +152,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
             property: 'lot_number',
             direction: 'ASC'
         });
-        // PackingListStore.setData(data);
-        // console.log(data);
+
+        var curentLot = viewModel.get('curentLot');
+        if(curentLot != null){
+            var curentLotId = curentLot.get('id');
+            var lotStoreRecord = LotStore.findRecord('id', curentLotId, 0, false, true, true);
+            if(lotStoreRecord != null){ 
+                me.down('#Stockin_packinglist_lotnumber').getSelectionModel().select(lotStoreRecord, true);
+                me.down('#Stockin_packinglist_lotnumber').getController().onSelectlot(null, lotStoreRecord);;
+            }
+        }
+
         me.setLoading(false);
 
     },
