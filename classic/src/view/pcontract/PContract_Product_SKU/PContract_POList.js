@@ -38,10 +38,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
         flex: 1,
-        editor: {
-            allowBlank: false,
-            selectOnFocus: false
-        },
         items: {
             xtype: 'textfield',
             fieldStyle: "",

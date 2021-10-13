@@ -259,6 +259,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var me = this.getView();
         me.down('#fileUploadPO').fileInputEl.dom.click();
     },
+    onUpload_FOB: function (record, rowIndex, type) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('pcontract_po_parentid_link', record.get('id'));
+        viewmodel.set('record_upload', record);
+        viewmodel.set('index_upload', rowIndex);
+        viewmodel.set('type_upload', type);
+        var me = this.getView();
+        me.down('#fileUploadPO').fileInputEl.dom.click();
+    },
     onSelect: function (m, value) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
@@ -266,9 +275,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         data.append('file', m.fileInputEl.dom.files[0]);
         data.append('pcontractid_link', viewmodel.get('PContract.id'));
         data.append('parentid_link', viewmodel.get('pcontract_po_parentid_link'));
-        // var url = 
+        var url = '/api/v1/pcontract_po/upload_po';
+
+        if (viewmodel.get('type_upload') == "FOB") {
+            url = '/api/v1/upload/upload_po_fob';
+        }
+
         grid.setLoading("Đang tải dữ liệu");
-        GSmartApp.Ajax.postUpload_timeout('/api/v1/pcontract_po/upload_po', data, 2 * 60 * 1000,
+        GSmartApp.Ajax.postUpload_timeout(url, data, 2 * 60 * 1000,
             function (success, response, options) {
                 grid.setLoading(false);
                 m.reset();
@@ -306,7 +320,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     },
     onSelectPO: function (m, rec) {
         var grid = this.getView();
-        grid.setLoading("Đang tải dữ liệu");
 
         var viewModel = this.getViewModel();
         viewModel.set('isDisable_btnThemSKU', false);
@@ -320,7 +333,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         productStore.load({
             scope: this,
             callback: function (records, operation, success) {
-                grid.setLoading(false);
 
                 var record = productStore.getAt(0);
                 var skuView = Ext.getCmp('PContractSKUView');
