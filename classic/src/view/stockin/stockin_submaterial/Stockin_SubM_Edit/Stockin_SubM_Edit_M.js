@@ -17,12 +17,14 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 				bind: {
 					value: '{stockin.id}'
 				},
-			}, {
+			}, 
+			{
 				xtype: 'hiddenfield',
 				bind: {
 					value: '{stockin.status}'
 				},
-			}, {
+			}, 
+			{
 				xtype: 'combo',
 				readOnly: true,
 				editable: false,	
@@ -41,7 +43,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 				blankText: 'Không được để trống',
 				labelWidth: 80,
 				width: 375
-			}, {
+			}, 
+			{
 				margin: '5 5 0 5',
 				xtype: 'textfield',
 				bind: {
@@ -53,7 +56,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 				fieldLabel: "Số phiếu",
 				width: 235,
 				labelWidth: 85
-			}, {
+			}, 
+			{
 				margin: '5 5 0 5',
 				xtype: 'datefield',
 				format: GSmartApp.util.State.get('dataFormat'),
@@ -291,6 +295,19 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 				width: 235,
 				fieldLabel: "Ngày Invoice"
 			},
+			{
+				margin: '0 5 0 5',
+				xtype: 'datefield',
+				format: GSmartApp.util.State.get('dataFormat'),
+				altFormats: "Y-m-d\\TH:i:s.uO",
+				bind: {
+					value: '{stockin.expected_date}'
+				},			
+				editable: false,
+				fieldLabel: "Dự kiến về",
+				width: 200,
+				labelWidth: 70
+			}, 
 			{
 				margin: '0 5 0 5',
 				xtype: 'textfield',

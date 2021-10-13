@@ -17,12 +17,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				bind: {
 					value: '{stockin.id}'
 				},
-			}, {
+			}, 
+			{
 				xtype: 'hiddenfield',
 				bind: {
 					value: '{stockin.status}'
 				},
-			}, {
+			}, 
+			{
 				xtype: 'combo',
 				readOnly: true,
 				editable: false,	
@@ -41,7 +43,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				blankText: 'Không được để trống',
 				labelWidth: 80,
 				width: 375
-			}, {
+			}, 
+			{
 				margin: '5 5 0 5',
 				xtype: 'textfield',
 				bind: {
@@ -53,7 +56,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				fieldLabel: "Số phiếu",
 				width: 235,
 				labelWidth: 85
-			}, {
+			}, 
+			{
 				margin: '5 5 0 5',
 				xtype: 'datefield',
 				format: GSmartApp.util.State.get('dataFormat'),
@@ -79,24 +83,21 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 				flex: 1,
 				labelWidth: 85,
 			},
-			// {
-			// 	xtype: 'combo',
-			// 	valueField: 'id',
-			// 	displayField: 'fullName',
-			// 	bind: {
-			// 		value: '{stockin.usercreateid_link}',
-			// 		store: '{UserStore}'
-			// 	},
-			// 	queryMode: 'local',
-			// 	anyMatch: true,
-			// 	margin: '5 5 0 5',
-			// 	readOnly: true,
-			// 	editable: false,	
-			// 	cls: 'notEditable',
-			// 	flex: 1,
-			// 	labelWidth: 85,
-			// 	fieldLabel: 'Người lập'
-			// }
+			{
+				margin: '5 5 0 5',
+				xtype: 'textfield',
+				itemId: 'statusString',
+				bind: {
+					value: '{stockin.statusString}'
+				},
+				readOnly: true,
+				editable: false,	
+				cls: 'notEditable',
+				// fieldLabel: "Trạng thái",
+				// labelWidth: 85,
+				// flex: 1,
+				width: 150,
+			}
 		]
 	}, {
 		layout: 'hbox',
@@ -329,18 +330,31 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 			},
 			{
 				margin: '0 5 0 5',
-				xtype: 'textfield',
-				itemId: 'statusString',
+				xtype: 'datefield',
+				format: GSmartApp.util.State.get('dataFormat'),
+				altFormats: "Y-m-d\\TH:i:s.uO",
 				bind: {
-					value: '{stockin.statusString}'
-				},
-				readOnly: true,
-				editable: false,	
-				cls: 'notEditable',
-				fieldLabel: "Trạng thái",
-				labelWidth: 85,
-				flex: 1
-			}
+					value: '{stockin.expected_date}'
+				},			
+				editable: false,
+				fieldLabel: "Dự kiến về",
+				flex: 1,
+				labelWidth: 85
+			}, 
+			// {
+			// 	margin: '0 5 0 5',
+			// 	xtype: 'textfield',
+			// 	itemId: 'statusString',
+			// 	bind: {
+			// 		value: '{stockin.statusString}'
+			// 	},
+			// 	readOnly: true,
+			// 	editable: false,	
+			// 	cls: 'notEditable',
+			// 	fieldLabel: "Trạng thái",
+			// 	labelWidth: 85,
+			// 	flex: 1
+			// }
 		]
 	}]
 });
