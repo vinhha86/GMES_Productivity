@@ -334,61 +334,65 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                             m.redirectTo("stockin_m_main/" + response.id + "/edit");
                             m.getInfo(response.id);
                         }
-
-                        // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
                         if (viewModel.get('isAdd_Pcontract_Stockin')) {
-                            var data = response.data;
-
-                            // Danh sách nguyên liệu
-                            var StockinD_Store = viewModel.getStore('StockinD_Store');
-                            var StockinD_Store_data = StockinD_Store.getData().items;
-                            // console.log(StockinD_Store_data);
-                            // console.log(data.stockin_d);
-                            // skuname, sku_product_desc, sku_product_color, size_name
-                            for (var i = 0; i < data.stockin_d.length; i++) {
-                                for (var j = 0; j < StockinD_Store_data.length; j++) {
-                                    if (StockinD_Store_data[j].get('skuid_link') == data.stockin_d[i].skuid_link) {
-                                        // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
-                                        data.stockin_d[i].skuname = StockinD_Store_data[j].get('skuname');
-                                        data.stockin_d[i].sku_product_desc = StockinD_Store_data[j].get('sku_product_desc');
-                                        data.stockin_d[i].sku_product_color = StockinD_Store_data[j].get('sku_product_color');
-                                        data.stockin_d[i].size_name = StockinD_Store_data[j].get('size_name');
-                                    }
-                                }
-                            }
-                            // StockinD_Store.setData(data.stockin_d);
-                            StockinD_Store.removeAll();
-                            StockinD_Store.insert(0, data.stockin_d);
-                            StockinD_Store.commitChanges();
-
-                            // Danh sách sản phẩm
-                            var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
-                            var StockinProduct_Store_data = StockinProduct_Store.getData().items;
-                            // console.log(StockinD_Store_data);
-                            // console.log(data.stockin_d);
-                            // skuname, sku_product_desc, sku_product_color, size_name
-                            for (var i = 0; i < data.stockin_product.length; i++) {
-                                for (var j = 0; j < StockinProduct_Store_data.length; j++) {
-                                    if (StockinProduct_Store_data[j].get('productid_link') == data.stockin_product[i].productid_link) {
-                                        // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
-                                        data.stockin_product[i].product_code = StockinProduct_Store_data[j].get('product_code');
-                                        data.stockin_product[i].product_desc = StockinProduct_Store_data[j].get('product_desc');
-                                        data.stockin_product[i].product_name = StockinProduct_Store_data[j].get('product_name');
-                                    }
-                                }
-                            }
-
-                            // StockinProduct_Store.setData(data.stockin_product);
-                            StockinProduct_Store.removeAll();
-                            StockinProduct_Store.insert(0, data.stockin_product);
-                            StockinProduct_Store.commitChanges();
-
-                            viewModel.set('stockin', data);
-                            // console.log(data);
-                            m.getCreateName(data.usercreateid_link);
-
+                            m.getInfo(response.id);
                             m.fireEvent('LuuPhieuNhapThanhCong');
                         }
+
+                        // // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
+                        // if (viewModel.get('isAdd_Pcontract_Stockin')) {
+                        //     var data = response.data;
+
+                        //     // Danh sách nguyên liệu
+                        //     var StockinD_Store = viewModel.getStore('StockinD_Store');
+                        //     var StockinD_Store_data = StockinD_Store.getData().items;
+                        //     // console.log(StockinD_Store_data);
+                        //     // console.log(data.stockin_d);
+                        //     // skuname, sku_product_desc, sku_product_color, size_name
+                        //     for (var i = 0; i < data.stockin_d.length; i++) {
+                        //         for (var j = 0; j < StockinD_Store_data.length; j++) {
+                        //             if (StockinD_Store_data[j].get('skuid_link') == data.stockin_d[i].skuid_link) {
+                        //                 // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
+                        //                 data.stockin_d[i].skuname = StockinD_Store_data[j].get('skuname');
+                        //                 data.stockin_d[i].sku_product_desc = StockinD_Store_data[j].get('sku_product_desc');
+                        //                 data.stockin_d[i].sku_product_color = StockinD_Store_data[j].get('sku_product_color');
+                        //                 data.stockin_d[i].size_name = StockinD_Store_data[j].get('size_name');
+                        //             }
+                        //         }
+                        //     }
+                        //     // StockinD_Store.setData(data.stockin_d);
+                        //     StockinD_Store.removeAll();
+                        //     StockinD_Store.insert(0, data.stockin_d); console.log(data.stockin_d);
+                        //     StockinD_Store.commitChanges();
+
+                        //     // Danh sách sản phẩm
+                        //     var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
+                        //     var StockinProduct_Store_data = StockinProduct_Store.getData().items;
+                        //     // console.log(StockinD_Store_data);
+                        //     // console.log(data.stockin_d);
+                        //     // skuname, sku_product_desc, sku_product_color, size_name
+                        //     for (var i = 0; i < data.stockin_product.length; i++) {
+                        //         for (var j = 0; j < StockinProduct_Store_data.length; j++) {
+                        //             if (StockinProduct_Store_data[j].get('productid_link') == data.stockin_product[i].productid_link) {
+                        //                 // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
+                        //                 data.stockin_product[i].product_code = StockinProduct_Store_data[j].get('product_code');
+                        //                 data.stockin_product[i].product_desc = StockinProduct_Store_data[j].get('product_desc');
+                        //                 data.stockin_product[i].product_name = StockinProduct_Store_data[j].get('product_name');
+                        //             }
+                        //         }
+                        //     }
+
+                        //     // StockinProduct_Store.setData(data.stockin_product);
+                        //     StockinProduct_Store.removeAll();
+                        //     StockinProduct_Store.insert(0, data.stockin_product);
+                        //     StockinProduct_Store.commitChanges();
+
+                        //     viewModel.set('stockin', data);
+                        //     // console.log(data);
+                        //     m.getCreateName(data.usercreateid_link);
+
+                        //     m.fireEvent('LuuPhieuNhapThanhCong');
+                        // }
                     }
                 } else {
                     var response = Ext.decode(response.responseText);

@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
         invoiceDRec: null,
         stockin: null,
         stockinDRec: null,
+        curentLot: null,
     },
     formulas: {
         isUploadBtnHidden: function(get){

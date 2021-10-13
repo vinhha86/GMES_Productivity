@@ -56,7 +56,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onlotnumberTxtAndpackageidTxtleave',
+                                // focusleave: 'onFocusLeave',
                             }
                         },
                         {

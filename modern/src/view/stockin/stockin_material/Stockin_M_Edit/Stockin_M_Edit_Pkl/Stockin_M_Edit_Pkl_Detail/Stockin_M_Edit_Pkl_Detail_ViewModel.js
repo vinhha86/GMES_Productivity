@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         selectedDRecord: null,
         selectedPklRecord: null,
 		objPkl: {
+            id: null,
 			lotnumberTxt: '',
 			packageidTxt: '',
 			yTxt: '',
