@@ -19,9 +19,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         checkOnly: true
     },
     features: [{
-        ftype: 'groupingsummary',
-        dock: 'bottom',
-        groupHeaderTpl: '{name}'
+        ftype: 'summary',
+        dock: 'bottom'
     }],
     columns: [{
         xtype: 'actioncolumn',
