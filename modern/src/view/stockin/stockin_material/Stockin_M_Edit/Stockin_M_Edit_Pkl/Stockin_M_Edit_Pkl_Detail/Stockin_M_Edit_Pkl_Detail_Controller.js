@@ -679,8 +679,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 me.fireEvent('reloadStore');
                                 me.setLot_RollNotCheck_Info();
                                 me.resetForm();
-
-                                myview.down('#packageidTxt').focus();
+                                Ext.defer(function () { myview.down('#packageidTxt').focus(); }, 50);
                             }else{
                                 // edit
                                 me.fireEvent('reloadStore');
