@@ -63,9 +63,25 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             },
         },
         {
+            text: 'Sản phẩm',
+            dataIndex: 'stockinProductString',
+            // flex: 1,
+            width: 150,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        {
             text: 'Dài (m)',
             dataIndex: 'met',
-            flex: 1,
+            // flex: 1,
+            width: 75,
             align: 'center',
             renderer: function(value, meta, record){
                 if(value == null || isNaN(value)){
@@ -81,7 +97,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         {
             text: 'Dài (y)',
             dataIndex: 'yds',
-            flex: 1,
+            // flex: 1,
+            width: 75,
             align: 'center',
             renderer: function(value, meta, record){
                 if(value == null || isNaN(value)){
@@ -96,7 +113,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         {
             text: 'Khổ cỡ(cm)',
             dataIndex: 'width_met',
-            flex: 1,
+            // flex: 1,
+            width: 75,
             align: 'center',
             renderer: function(value, meta, record){
                 if(value == null){
@@ -108,7 +126,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         {
             text: 'Số lot',
             dataIndex: 'lotnumber',
-            flex: 1,
+            // flex: 1,
+            width: 150,
             align: 'center',
             renderer: function(value, meta, record){
                 if(value == null){
@@ -122,7 +141,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         {
             text: 'Số cây',
             dataIndex: 'packageid',
-            flex: 1,
+            // flex: 1,
+            width: 75,
             align: 'center',
             renderer: function(value, meta, record){
                 if(value == null){
@@ -136,7 +156,8 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
         {
             text: 'Đơn hàng',
             dataIndex: 'contractcode',
-            flex: 1,
+            // flex: 1,
+            width: 150,
             align: 'center',
             renderer: function(value, meta, record,){
                 if(value == null){
