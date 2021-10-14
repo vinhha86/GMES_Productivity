@@ -249,6 +249,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         viewModel.set('objPkl.pklFloorTxt', record.get('floor'));
         viewModel.set('objPkl.pklSpaceTxt', record.get('space'));
         viewModel.set('objPkl.pklRowTxt', record.get('row'));
+
+        //
+        m.onFieldKeyUp();
     },
     onPrintPkl: function () {
         console.log('onPrintPkl clicked');
