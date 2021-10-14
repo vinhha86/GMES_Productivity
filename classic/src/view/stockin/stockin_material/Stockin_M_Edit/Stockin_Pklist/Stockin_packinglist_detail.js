@@ -35,7 +35,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_pklis
 	columns: [
 		{
 			xtype: 'actioncolumn',
-			width: 30,
+			width: 60,
 			menuDisabled: true,
 			sortable: false,
 			align: 'center',
