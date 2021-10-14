@@ -45,6 +45,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.packageidTxt}'
                             },
@@ -75,6 +77,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             readOnly: true,
                             clearable: false,
                             cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.lotnumberTxt}'
                             },
@@ -108,6 +112,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.mTxt}',
                                 hidden: '{isPklMetFieldHidden}',
@@ -136,6 +142,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.yTxt}',
                                 hidden: '{isPklYdsFieldHidden}',
@@ -164,6 +172,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightCheckTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -192,6 +202,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightLbsCheckTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -219,6 +231,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.mOriginTxt}',
                                 hidden: '{isPklMetFieldHidden}',
@@ -245,6 +259,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.yOriginTxt}',
                                 hidden: '{isPklYdsFieldHidden}',
@@ -272,6 +288,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -299,6 +317,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightLbsTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -335,6 +355,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthMetCheckTxt}',
                                 hidden: '{isPklCmFieldHidden}',
@@ -361,6 +383,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthMetTxt}',
                                 hidden: '{isPklCmFieldHidden}',
@@ -386,6 +410,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthYdsCheckTxt}',
                                 hidden: '{isPklInchFieldHidden}',
@@ -412,6 +438,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthYdsTxt}',
                                 hidden: '{isPklInchFieldHidden}',
@@ -451,6 +479,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.mTxt}',
                                 hidden: '{isPklMetFieldHidden}',
@@ -479,6 +509,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.yTxt}',
                                 hidden: '{isPklYdsFieldHidden}',
@@ -506,6 +538,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightCheckTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -533,6 +567,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightLbsCheckTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -559,6 +595,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.mOriginTxt}',
                                 hidden: '{isPklMetFieldHidden}',
@@ -584,6 +622,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.yOriginTxt}',
                                 hidden: '{isPklYdsFieldHidden}',
@@ -610,6 +650,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -636,6 +678,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightLbsTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -671,6 +715,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthMetCheckTxt}',
                                 hidden: '{isPklCmFieldHidden}',
@@ -696,6 +742,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthMetTxt}',
                                 hidden: '{isPklCmFieldHidden}',
@@ -720,6 +768,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthYdsCheckTxt}',
                                 hidden: '{isPklInchFieldHidden}',
@@ -745,6 +795,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthYdsTxt}',
                                 hidden: '{isPklInchFieldHidden}',
@@ -779,6 +831,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value:'{objPkl.pklRowTxt}'
                             },
@@ -804,6 +858,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value:'{objPkl.pklSpaceTxt}'
                             },
@@ -830,6 +886,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value:'{objPkl.pklFloorTxt}'
                             },
