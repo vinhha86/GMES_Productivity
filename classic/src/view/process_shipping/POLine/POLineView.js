@@ -79,6 +79,19 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             if (null == value) value = 0;
             return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
         }
+    }, {
+        text: 'SL Y/C',
+        align: 'right',
+        dataIndex: 'po_quantity',
+        width: 70,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
+        summaryType: 'sum',
+        summaryRenderer: function (value, meta, record) {
+            if (null == value) value = 0;
+            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+        }
     },
     {
         text: 'Đóng gói',
@@ -96,19 +109,6 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
         dataIndex: 'portFrom'
     },
     {
-        text: 'SL Y/C',
-        align: 'right',
-        dataIndex: 'po_quantity',
-        width: 70,
-        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-        },
-        summaryType: 'sum',
-        summaryRenderer: function (value, meta, record) {
-            if (null == value) value = 0;
-            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
-        }
-    }, {
         text: 'ĐVT',
         dataIndex: 'totalpair',
         width: 60,
@@ -214,6 +214,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             margin: 2,
             iconCls: 'x-fa fas fa-undo brownIcon',
             text: 'Hủy Map',
+            hidden: true,
             itemId: 'btnHuyMap'
         },
             '->', {

@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderViewModel', {
     data: {
         list_po: [],
         colorid_link: 0,
-        sizesetid_link: 0
+        sizesetid_link: 0,
+        isMerger: true
     }
 })

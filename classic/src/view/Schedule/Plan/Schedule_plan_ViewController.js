@@ -818,10 +818,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             var grant_des = null;
             for (var i = 0; i < listEvent.length; i++) {
                 var event = listEvent[i];
-
-                if (event.get('porderid_link') == record.get('porderid_link') &&
-                    ((record.get('StartDate') >= event.get('StartDate') && record.get('StartDate') <= event.get('EndDate')) ||
-                        (record.get('EndDate') >= event.get('StartDate') && record.get('EndDate') <= event.get('EndDate')))) {
+                if (event.get('productid_link') == record.get('productid_link') && event.get('pcontractid_link') == record.get('pcontractid_link') &&
+                    (record.get('StartDate') <= event.get('EndDate') &&
+                        record.get('EndDate') >= event.get('StartDate'))) {
                     count++;
                     if (event.get('porder_grantid_link') != record.get('porder_grantid_link'))
                         grant_des = event;
