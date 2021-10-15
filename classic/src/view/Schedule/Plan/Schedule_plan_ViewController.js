@@ -334,16 +334,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         common.Check_Menu_Permission(menu_grid);
     },
     cancel_map: function (scheduler) {
+        var me = this;
         var grid = this.getView();
         scheduler.setLoading('Đang xử lý');
         var records = scheduler.getEventSelectionModel().selected;
         var params = new Object();
         var list = [];
         for (var i = 0; i < records.length; i++) {
-            var data = new Object();
-            data.pcontract_poid_link = records.items[i].data.pcontract_poid_link;
-            data.productid_link = records.items[i].data.productid_link;
-            list.push(data);
+            console.log(records.items[i].data);
+            list.push(records.items[i].data.porder_grantid_link);
         }
         params.data = list;
         GSmartApp.Ajax.post('/api/v1/porderpoline/delete_many_porder', Ext.JSON.encode(params),
@@ -368,6 +367,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                             list.push(rec);
                         }
                         store.remove(list);
+
+                        me.fireEvent('CancelDone')
                     }
                     else {
                         Ext.Msg.show({

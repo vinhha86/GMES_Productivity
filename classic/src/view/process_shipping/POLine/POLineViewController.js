@@ -24,6 +24,22 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             click: 'onHuyMap'
         }
     },
+    listen: {
+        controller: {
+            'Schedule_plan_ViewController': {
+                'CancelDone': 'onReload'
+            }
+        }
+    },
+    onReload: function () {
+        var viewmodel = this.getViewModel();
+        var productid_link = viewmodel.get('productid_link');
+        var POStore = viewmodel.getStore('POLineStore');
+        var colorid_link = viewmodel.get('colorid_link');
+        var sizesetid_link = viewmodel.get('sizesetid_link');
+
+        POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
+    },
     onHuyMap: function () {
         var grid = this.getView();
         var me = this;
@@ -151,6 +167,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var attributeid_link = 4;
 
         var viewmodel = this.getViewModel();
+        viewmodel.set('productid_link', productid_link);
         var storeMauSP = viewmodel.getStore('MauSanPhamStore');
         storeMauSP.loadByProductAndAttribute(productid_link, attributeid_link);
 
@@ -505,13 +522,13 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             // form.close();
         });
     },
-    onReload: function () {
-        var viewmodel = this.getViewModel();
-        var ismap = viewmodel.get('ismap');
-        var store = viewmodel.getStore('POLineStore');
-        store.setGroupField('productbuyercode_parent');
-        store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
-    },
+    // onReload: function () {
+    //     var viewmodel = this.getViewModel();
+    //     var ismap = viewmodel.get('ismap');
+    //     var store = viewmodel.getStore('POLineStore');
+    //     store.setGroupField('productbuyercode_parent');
+    //     store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
+    // },
     onFilterMaSPKeyup: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('POLineStore');

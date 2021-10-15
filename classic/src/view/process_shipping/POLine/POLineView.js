@@ -127,7 +127,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
                 tooltip: 'Làm mới danh sách',
                 iconCls: 'x-fa fa-refresh',
                 weight: 30,
-                handler: 'onSearchTap'
+                handler: 'onReload'
             },
             {
                 tooltip: 'Ẩn danh sách',
