@@ -28,8 +28,13 @@ Ext.define('GSmartApp.view.stock.stock_material.StockMaterialList', {
                     // '</div>' +
 
                     '<div class="content1">' +
-                        '<div class="content1-sub1"><b>Mã NPL::</b></div>'+
+                        '<div class="content1-sub1"><b>Mã NPL:</b></div>'+
                         '<div class="content1-sub2">{skuCode}</div>' +
+                    '</div>' +
+
+                    '<div class="content1">' +
+                        '<div class="content1-sub1"><b>Sản phẩm:</b></div>'+
+                        '<div class="content1-sub2">{stockinProductString}</div>' +
                     '</div>' +
 
                     '<div class="content1">' +

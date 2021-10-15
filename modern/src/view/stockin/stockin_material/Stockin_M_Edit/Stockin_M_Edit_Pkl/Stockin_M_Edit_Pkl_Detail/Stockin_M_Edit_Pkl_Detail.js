@@ -33,7 +33,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'packageidTxt',
                             // label: 'Số cây:',
                             // labelWidth: 130,
@@ -46,6 +45,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.packageidTxt}'
                             },
@@ -64,7 +65,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'lotnumberTxt',
                             // label: 'Số LOT:',
                             // labelWidth: 130,
@@ -77,6 +77,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             readOnly: true,
                             clearable: false,
                             cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.lotnumberTxt}'
                             },
@@ -98,8 +100,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
-                            itemId: 'mTxt',
+                            itemId: 'mTxtIos',
                             // label: 'Dài kiểm (M):',
                             // labelWidth: 130,
                             flex: 1,
@@ -111,9 +112,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.mTxt}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isPklMetFieldHidden}',
                             },
                             stepValue: 0.1,
@@ -121,15 +123,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 // focusleave: 'onmTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
-                            itemId: 'yTxt',
+                            itemId: 'yTxtIos',
                             // label: 'Dài kiểm (Y)',
                             // labelWidth: 130,
                             flex: 1,
@@ -141,9 +143,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.yTxt}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isPklYdsFieldHidden}',
                             },
                             stepValue: 0.1,
@@ -151,15 +154,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 // focusleave: 'onyTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
-                            itemId: 'canCheckTxt',
+                            itemId: 'canCheckTxtIos',
                             // label: 'Cân kiểm',
                             // labelWidth: 130,
                             flex: 1,
@@ -171,6 +174,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightCheckTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -181,14 +186,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 // focusleave: 'oncanCheckTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
-                            itemId: 'lbsCheckTxt',
+                            itemId: 'lbsCheckTxtIos',
                             // label: 'Lbs kiểm:',
                             // labelWidth: 130,
                             flex: 1,
@@ -200,6 +205,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightLbsCheckTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -209,15 +216,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         ////////////////////////////////////
                         {
                             xtype: 'textfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'mOriginTxt',
+                            itemId: 'mOriginTxtIos',
                             // label: 'Dài phiếu (M):',
                             // labelWidth: 130,
                             flex: 1,
@@ -228,6 +235,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.mOriginTxt}',
                                 hidden: '{isPklMetFieldHidden}',
@@ -237,14 +246,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'yOriginTxt',
+                            itemId: 'yOriginTxtIos',
                             // label: 'Dài phiếu (Y):',
                             // labelWidth: 130,
                             flex: 1,
@@ -255,6 +264,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.yOriginTxt}',
                                 hidden: '{isPklYdsFieldHidden}',
@@ -264,14 +275,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
-                            itemId: 'canTxt',
+                            itemId: 'canTxtIos',
                             // label: 'Cân phiếu:',
                             // labelWidth: 130,
                             flex: 1,
@@ -283,6 +294,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -292,14 +305,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
-                            itemId: 'lbsTxt',
+                            itemId: 'lbsTxtIos',
                             // label: 'Lbs phiếu:',
                             // labelWidth: 130,
                             flex: 1,
@@ -311,6 +324,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightLbsTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -320,6 +335,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                     ]
@@ -336,10 +352,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         {
                             xtype: 'textfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'widthMetCheckTxt',
-                            // label: 'Khổ kiểm (cm):',
+                            itemId: 'widthMetCheckTxtIos',
                             // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
@@ -349,6 +363,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthMetCheckTxt}',
                                 hidden: '{isPklCmFieldHidden}',
@@ -356,17 +372,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             stepValue: 0.1,
                             inputType: 'number',
                             listeners: {
-                                // focusleave: 'onwidthMetCheckTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'widthMetTxt',
+                            itemId: 'widthMetTxtIos',
                             // label: 'Khổ phiếu (cm):',
                             // labelWidth: 130,
                             flex: 1,
@@ -377,6 +392,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthMetTxt}',
                                 hidden: '{isPklCmFieldHidden}',
@@ -385,16 +402,15 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             inputType: 'number',
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'widthYdsCheckTxt',
-                            // label: 'Khổ kiểm (cm):',
+                            itemId: 'widthYdsCheckTxtIos',
                             // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
@@ -404,6 +420,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthYdsCheckTxt}',
                                 hidden: '{isPklInchFieldHidden}',
@@ -411,17 +429,16 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             stepValue: 0.1,
                             inputType: 'number',
                             listeners: {
-                                // focusleave: 'onwidthMetCheckTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'textfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
-                            itemId: 'widthYdsTxt',
+                            itemId: 'widthYdsTxtIos',
                             // label: 'Khổ phiếu (cm):',
                             // labelWidth: 130,
                             flex: 1,
@@ -432,6 +449,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthYdsTxt}',
                                 hidden: '{isPklInchFieldHidden}',
@@ -440,7 +459,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             inputType: 'number',
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                     ]
@@ -459,7 +479,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'mTxt',
                             // label: 'Dài kiểm (M):',
                             // labelWidth: 130,
@@ -472,23 +491,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.mTxt}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isPklMetFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 // focusleave: 'onmTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'yTxt',
                             // label: 'Dài kiểm (Y)',
                             // labelWidth: 130,
@@ -501,23 +521,24 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.yTxt}',
-                                // cls: '{yTxtCls}',
                                 hidden: '{isPklYdsFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 // focusleave: 'onyTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'canCheckTxt',
                             // label: 'Cân kiểm',
                             // labelWidth: 130,
@@ -530,6 +551,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightCheckTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -539,13 +562,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 // focusleave: 'oncanCheckTxtFocusleave',
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'lbsCheckTxt',
                             // label: 'Lbs kiểm:',
                             // labelWidth: 130,
@@ -558,6 +581,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.grossweightLbsCheckTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -566,13 +591,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         ////////////////////////////////////
                         {
                             xtype: 'numberfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
                             itemId: 'mOriginTxt',
                             // label: 'Dài phiếu (M):',
@@ -585,6 +610,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.mOriginTxt}',
                                 hidden: '{isPklMetFieldHidden}',
@@ -593,12 +620,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
                             itemId: 'yOriginTxt',
                             // label: 'Dài phiếu (Y):',
@@ -611,6 +638,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.yOriginTxt}',
                                 hidden: '{isPklYdsFieldHidden}',
@@ -619,13 +648,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'canTxt',
                             // label: 'Cân phiếu:',
                             // labelWidth: 130,
@@ -638,6 +667,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightTxt}',
                                 hidden: '{isPklKgFieldHidden}',
@@ -646,13 +677,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             margin: 1,
                             border: true,
-                            cls: 'my-textfield',
                             itemId: 'lbsTxt',
                             // label: 'Lbs phiếu:',
                             // labelWidth: 130,
@@ -665,6 +696,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.grossweightLbsTxt}',
                                 hidden: '{isPklLbsFieldHidden}',
@@ -673,6 +706,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             listeners: {
                                 focus: 'onFocus',
                                 focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                     ]
@@ -689,10 +723,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         {
                             xtype: 'numberfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
                             itemId: 'widthMetCheckTxt',
-                            // label: 'Khổ kiểm (cm):',
                             // labelWidth: 130,
                             flex: 1,
                             // maxWidth: 130,
@@ -702,21 +734,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
                             bind: {
                                 value: '{objPkl.widthMetCheckTxt}',
-                                // hidden: '{isMetColumnHidden}',
+                                hidden: '{isPklCmFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
-                                // focusleave: 'onwidthMetCheckTxtFocusleave',
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                         {
                             xtype: 'numberfield',
                             border: true,
-                            cls: 'my-textfield',
                             margin: 1,
                             itemId: 'widthMetTxt',
                             // label: 'Khổ phiếu (cm):',
@@ -729,14 +762,72 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value: '{objPkl.widthMetTxt}',
-                                // hidden: '{isMetColumnHidden}',
+                                hidden: '{isPklCmFieldHidden}',
                             },
                             stepValue: 0.1,
                             listeners: {
                                 focus: 'onFocus',
-                                focusleave: 'onFocusLeave'
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            border: true,
+                            margin: 1,
+                            itemId: 'widthYdsCheckTxt',
+                            // labelWidth: 130,
+                            flex: 1,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Khổ kiểm (inch)',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            tabIndex: 1,
+                            focusable: true,
+                            bind: {
+                                value: '{objPkl.widthYdsCheckTxt}',
+                                hidden: '{isPklInchFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
+                            }
+                        },
+                        {
+                            xtype: 'numberfield',
+                            border: true,
+                            margin: 1,
+                            itemId: 'widthYdsTxt',
+                            // label: 'Khổ phiếu (cm):',
+                            // labelWidth: 130,
+                            flex: 1,
+                            // maxWidth: 130,
+                            textAlign: 'left',
+                            placeholder: 'Khổ phiếu (inch)',
+                            // editable: false,
+                            // readOnly: true,
+                            // clearable: false,
+                            // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
+                            bind: {
+                                value: '{objPkl.widthYdsTxt}',
+                                hidden: '{isPklInchFieldHidden}',
+                            },
+                            stepValue: 0.1,
+                            listeners: {
+                                focus: 'onFocus',
+                                focusleave: 'onFocusLeave',
+                                keyup: 'onFieldKeyUp',
                             }
                         },
                     ]
@@ -763,6 +854,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value:'{objPkl.pklRowTxt}'
                             },
@@ -788,6 +881,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value:'{objPkl.pklSpaceTxt}'
                             },
@@ -814,6 +909,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                             // readOnly: true,
                             // clearable: false,
                             // cls: 'notEditable',
+                            tabIndex: null,
+                            focusable: false,
                             bind: {
                                 value:'{objPkl.pklFloorTxt}'
                             },
@@ -830,6 +927,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     border: false,
                     width: '100%',
                     items:[
+                        {
+                            xtype: 'textfield',
+                            itemId: 'focusField',
+                            hidden: true,
+                        },
                         {
                             xtype:'button',
                             text: 'Lưu',
@@ -874,7 +976,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 xtype: 'textfield',
                 margin: 1,
                 border: true,
-                cls: 'my-textfield',
                 itemId: 'slcankiem',
                 // label: 'SL cần kiểm:',
                 // labelWidth: 130,
@@ -896,7 +997,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 xtype: 'textfield',
                 margin: 1,
                 border: true,
-                cls: 'my-textfield',
                 itemId: 'dschuakiem',
                 // label: 'DS chưa kiểm:',
                 // labelWidth: 130,

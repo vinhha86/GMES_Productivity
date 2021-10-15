@@ -9,6 +9,19 @@
         }
     }
 
+    .redField{
+        .x-input-el{
+            // background-color: rgb(255, 180, 180);
+            color: red;
+        }
+    }
+    .whiteField{
+        .x-input-el{
+            // background-color: rgb(255, 255, 255);
+            color: black;
+        }
+    }
+
     .x-input-el{
         // padding: 5px 5px;
         font-size: 13px;

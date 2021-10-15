@@ -20,9 +20,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         // console.log(objPkl);
 	},
     control: {
-        '#btnResetForm':{
-            tap: 'onbtnResetForm'
-        },
         '#btnCheck':{
             tap: 'onCheck'
         },
@@ -166,6 +163,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         var myview = this.getView();
         var m = this;
         var viewModel = this.getViewModel();
+        var objPkl = viewModel.get('objPkl');
         
         Ext.Viewport.setMasked(false);
 
@@ -190,8 +188,40 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
 
         // viewModel.set('pklSpaceTxt', null);
         // viewModel.set('pklFloorTxt', null);
-        myview.down('#packageidTxt').focus();
+        // myview.down('#packageidTxt').focus();
+        // console.log(objPkl);
+    },
+    resetFormKeepWidth: function(){
+        var myview = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+        var objPkl = viewModel.get('objPkl');
+        
+        Ext.Viewport.setMasked(false);
 
+        // viewModel.set('objPkl.lotnumberTxt', '');
+        viewModel.set('objPkl.id', null);
+        // viewModel.set('objPkl.packageidTxt', '');
+        viewModel.set('objPkl.yTxt', '');
+        viewModel.set('objPkl.mTxt', '');
+        viewModel.set('objPkl.yOriginTxt', '');
+        viewModel.set('objPkl.mOriginTxt', '');
+        // viewModel.set('colorTxt', stockinD.colorid_link);
+        // viewModel.set('widthTxt', '');
+        viewModel.set('objPkl.grossweightTxt', '');
+        viewModel.set('objPkl.grossweightCheckTxt', '');
+        viewModel.set('objPkl.grossweightLbsTxt', '');
+        viewModel.set('objPkl.grossweightLbsCheckTxt', '');
+        viewModel.set('objPkl.sampleCheckTxt', '');
+        // viewModel.set('objPkl.widthYdsCheckTxt', '');
+        // viewModel.set('objPkl.widthYdsTxt', '');
+        // viewModel.set('objPkl.widthMetCheckTxt', '');
+        // viewModel.set('objPkl.widthMetTxt', '');
+
+        // viewModel.set('pklSpaceTxt', null);
+        // viewModel.set('pklFloorTxt', null);
+        // myview.down('#packageidTxt').focus();
+        // console.log(objPkl);
     },
     onSetFormData: function(){
         var m = this;
@@ -219,6 +249,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         viewModel.set('objPkl.pklFloorTxt', record.get('floor'));
         viewModel.set('objPkl.pklSpaceTxt', record.get('space'));
         viewModel.set('objPkl.pklRowTxt', record.get('row'));
+
+        //
+        m.onFieldKeyUp();
     },
     onPrintPkl: function () {
         console.log('onPrintPkl clicked');
@@ -291,10 +324,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 myview.setMasked(false);
                 if (success) {
                     Ext.toast('Xoá thành công', 2000);
-                    // viewModel.set('selectedPklRecord', null);
-                    // m.reloadStore();
-                    // m.resetForm();
-                    // myview.down('#packageidTxt').focus();
                     m.fireEvent('reloadStore');
                     m.fireEvent('close');
 
@@ -345,6 +374,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
     onCheck: function(){
         var m = this;
         var me = this.getView();
+
+        // me.down('#focusField').focus();
+
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var selectedDRecord = viewModel.get('selectedDRecord');
@@ -444,7 +476,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                 }
             }
         }
-        console.log(stockin.width_unitid_link);
+        // console.log(stockin.width_unitid_link);
         if(stockin.width_unitid_link == null || stockin.width_unitid_link == 1){ // cm
             if(widthMetCheckTxt == '' || widthMetCheckTxt == null || isNaN(widthMetCheckTxt)){
                 if(widthMetCheckTxt !== 0){
@@ -650,14 +682,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                                 me.fireEvent('reloadStore');
                                 me.setLot_RollNotCheck_Info();
                                 me.resetForm();
-                                myview.down('#packageidTxt').focus();
+                                Ext.defer(function () { myview.down('#packageidTxt').focus(); }, 50);
                             }else{
                                 // edit
                                 me.fireEvent('reloadStore');
                                 me.setLot_RollNotCheck_Info();
                             }
                         }
-
+                        me.onFieldKeyUp();
                     }else{
                         Ext.toast('Lỗi kiểm cây: ' + response.message, 2000);
                     }
@@ -744,13 +776,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     if (response.respcode == 200) {
                         if (response.status == 2){//In tem OK
                             //In Success --> Reload danh sach Pklist va Reset cac o nhap lieu
-                            // me.reloadStore();
-                            // me.resetForm();
                             if(selectedPklRecord == null){
                                 // them moi
                                 me.fireEvent('reloadStore');
                                 me.resetForm();
-                                myview.down('#packageidTxt').focus();
                             }else{
                                 // edit
                                 me.fireEvent('reloadStore');
@@ -767,12 +796,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                     Ext.toast('Lỗi kiểm tra kết quả in: ' + response.message, 2000);
                 }
         }) 
-    },
-    onbtnResetForm: function(){
-        var m = this;
-        var viewModel = this.getViewModel();
-        // viewModel.set('objPkl.lotnumberTxt', '');
-        m.resetForm();
     },
     onlotnumberTxtType: function(field, newValue, oldValue, eOpts){
         var me = this.getView();
@@ -865,6 +888,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         //
         var me = this.getView();
         var m = this;
+
+        // me.down('#focusField').focus();
+
         var viewModel = this.getViewModel();
         var selectedDRecord = viewModel.get('selectedDRecord');
 
@@ -879,12 +905,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
 
         if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
-            lotnumber == null || packageid == null ||
-            selectedDRecord == null
+            lotnumber == null || packageid == null
         ){
-            viewModel.set('objPkl', null);
-            viewModel.set('objPkl.lotnumberTxt', lotnumber);
-            viewModel.set('objPkl.packageidTxt', packageid);
+            m.resetFormKeepWidth();
+            Ext.defer(function () { me.down('#packageidTxt').focus(); }, 50);
             return;
         }else{ // tìm cây vải theo lot và package
             var skuid_link = selectedDRecord.get('skuid_link');
@@ -913,10 +937,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         if (response.respcode == 200) {
                             if(response.data.length == 0){
                                 // Ext.toast('Không tìm thấy cây vải có số lot và cây này', 2000);
-                                viewModel.set('objPkl', null);
-                                viewModel.set('objPkl.lotnumberTxt', lotnumber);
-                                viewModel.set('objPkl.packageidTxt', packageid);
-
+                                // viewModel.set('objPkl.id', null);
+                                // viewModel.set('objPkl.lotnumberTxt', lotnumber);
+                                // viewModel.set('objPkl.packageidTxt', packageid);
+                                m.resetFormKeepWidth();
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 var responseObj = response.data[0];
@@ -927,6 +951,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
                         }else{
                             // Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 2000);
                         }
+                        m.onFieldKeyUp();
                     } else {
                         var response = Ext.decode(response.responseText);
                         // Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 2000);
@@ -936,19 +961,39 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
     },
     setDataObjPkl:function(objPkl){
         var viewModel = this.getViewModel();
-        var pklRowTxt = viewModel.get('objPkl.pklRowTxt');
-        var pklSpaceTxt = viewModel.get('objPkl.pklSpaceTxt');
-        var pklFloorTxt = viewModel.get('objPkl.pklFloorTxt');
 
         objPkl.lotnumberTxt = objPkl.lotnumber;
         objPkl.packageidTxt = objPkl.packageid;
         objPkl.mOriginTxt = objPkl.met_origin;
+        objPkl.mTxt = objPkl.met_check;
         objPkl.yOriginTxt = objPkl.ydsorigin;
+        objPkl.yTxt = objPkl.ydscheck;
         objPkl.grossweightTxt = objPkl.grossweight;
+        objPkl.grossweightCheckTxt = objPkl.grossweight_check;
         objPkl.grossweightLbsTxt = objPkl.grossweight_lbs;
+        objPkl.grossweightLbsCheckTxt = objPkl.grossweight_lbs_check;
+        
         objPkl.widthMetTxt = objPkl.width_met == null ? '' : objPkl.width_met * 100;
         objPkl.widthYdsTxt = objPkl.width_yds == null ? '' : (objPkl.width_yds * 36).toFixed(2);
+        
         //
+        var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+        var widthYdsCheckTxt = viewModel.get('objPkl.widthYdsCheckTxt');
+        if(objPkl.width_met_check != null && objPkl.width_met_check != ''){
+            objPkl.widthMetCheckTxt = objPkl.width_met_check == null ? '' : objPkl.width_met_check * 100;
+        }else{
+            objPkl.widthMetCheckTxt = widthMetCheckTxt;
+        }
+        if(objPkl.width_yds_check != null && objPkl.width_yds_check != ''){
+            objPkl.widthYdsCheckTxt = objPkl.width_yds_check == null ? '' : (objPkl.width_yds_check * 36).toFixed(2);
+        }else{
+            objPkl.widthYdsCheckTxt = widthYdsCheckTxt;
+        }
+
+        //
+        var pklRowTxt = viewModel.get('objPkl.pklRowTxt');
+        var pklSpaceTxt = viewModel.get('objPkl.pklSpaceTxt');
+        var pklFloorTxt = viewModel.get('objPkl.pklFloorTxt');
         if(objPkl.row != null && objPkl.row != ''){
             objPkl.pklRowTxt = objPkl.row;
         }else{
@@ -964,7 +1009,84 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         }else{
             objPkl.pklFloorTxt = pklFloorTxt;
         }
-        // console.log(objPkl);
         return objPkl;
     },
+
+    onFieldKeyUp: function( thisField, e, eOpts){
+        var m = this;
+        var viewModel = this.getViewModel();
+        var me = this.getView();
+
+        var mOriginTxt = viewModel.get('objPkl.mOriginTxt');
+        var mTxt = viewModel.get('objPkl.mTxt');
+        if(mOriginTxt != null && mOriginTxt != '' && mTxt != null && mTxt != ''){
+            if(mTxt < mOriginTxt){
+                me.down('#mTxt').setCls('redField');
+                me.down('#mTxtIos').setCls('redField');
+            }else{
+                me.down('#mTxt').setCls('whiteField');
+                me.down('#mTxtIos').setCls('whiteField');
+            }
+        }
+
+        var yOriginTxt = viewModel.get('objPkl.yOriginTxt');
+        var yTxt = viewModel.get('objPkl.yTxt');
+        if(yOriginTxt != null && yOriginTxt != '' && yTxt != null && yTxt != ''){
+            if(yTxt < yOriginTxt){
+                me.down('#yTxt').setCls('redField');
+                me.down('#yTxtIos').setCls('redField');
+            }else{
+                me.down('#yTxt').setCls('whiteField');
+                me.down('#yTxtIos').setCls('whiteField');
+            }
+        }
+
+        var grossweightTxt = viewModel.get('objPkl.grossweightTxt');
+        var grossweightCheckTxt = viewModel.get('objPkl.grossweightCheckTxt');
+        if(grossweightTxt != null && grossweightTxt != '' && grossweightCheckTxt != null && grossweightCheckTxt != ''){
+            if(grossweightCheckTxt < grossweightTxt){
+                me.down('#canCheckTxt').setCls('redField');
+                me.down('#canCheckTxtIos').setCls('redField');
+            }else{
+                me.down('#canCheckTxt').setCls('whiteField');
+                me.down('#canCheckTxtIos').setCls('whiteField');
+            }
+        }
+
+        var grossweightLbsTxt = viewModel.get('objPkl.grossweightLbsTxt');
+        var grossweightLbsCheckTxt = viewModel.get('objPkl.grossweightLbsCheckTxt');
+        if(grossweightLbsTxt != null && grossweightLbsTxt != '' && grossweightLbsCheckTxt != null && grossweightLbsCheckTxt != ''){
+            if(grossweightLbsCheckTxt < grossweightLbsTxt){
+                me.down('#lbsCheckTxt').setCls('redField');
+                me.down('#lbsCheckTxtIos').setCls('redField');
+            }else{
+                me.down('#lbsCheckTxt').setCls('whiteField');
+                me.down('#lbsCheckTxtIos').setCls('whiteField');
+            }
+        }
+
+        var widthMetTxt = viewModel.get('objPkl.widthMetTxt');
+        var widthMetCheckTxt = viewModel.get('objPkl.widthMetCheckTxt');
+        if(widthMetTxt != null && widthMetTxt != '' && widthMetCheckTxt != null && widthMetCheckTxt != ''){
+            if(widthMetCheckTxt < widthMetTxt){
+                me.down('#widthMetCheckTxt').setCls('redField');
+                me.down('#widthMetCheckTxtIos').setCls('redField');
+            }else{
+                me.down('#widthMetCheckTxt').setCls('whiteField');
+                me.down('#widthMetCheckTxtIos').setCls('whiteField');
+            }
+        }
+
+        var widthYdsTxt = viewModel.get('objPkl.widthYdsTxt');
+        var widthYdsCheckTxt = viewModel.get('objPkl.widthYdsCheckTxt');
+        if(widthYdsTxt != null && widthYdsTxt != '' && widthYdsCheckTxt != null && widthYdsCheckTxt != ''){
+            if(widthYdsCheckTxt < widthYdsTxt){
+                me.down('#widthYdsCheckTxt').setCls('redField');
+                me.down('#widthYdsCheckTxtIos').setCls('redField');
+            }else{
+                me.down('#widthYdsCheckTxt').setCls('whiteField');
+                me.down('#widthYdsCheckTxtIos').setCls('whiteField');
+            }
+        }
+    }
 })
