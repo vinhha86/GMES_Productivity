@@ -341,7 +341,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         var params = new Object();
         var list = [];
         for (var i = 0; i < records.length; i++) {
-            console.log(records.items[i].data);
             list.push(records.items[i].data.porder_grantid_link);
         }
         params.data = list;

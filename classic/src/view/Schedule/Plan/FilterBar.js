@@ -125,56 +125,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             }
         },
         {
-            xtype: 'textfield',
-            emptyText: 'PO',
-            // fieldLabel: 'PO:',
-            labelWidth: 30,
-            width: 110,
-            bind: {
-                value: '{schedule.PO}'
-            }
-        },
-        {
-            xtype: 'textfield',
-            emptyText: 'Mã đơn hàng',
-            // fieldLabel: 'Mã đơn hàng:',
-            labelWidth: 30,
-            width: 110,
-            bind: {
-                value: '{schedule.contractcode}'
-            }
-        },
-        {
-            xtype: 'combo',
-            queryMode: 'local',
-            anyMatch: true,
-            valueField: 'id',
-            displayField: 'name',
-            bind: {
-                store: '{EndBuyer}',
-                value: '{schedule.buyer}'
-            },
-            itemId: 'orgbuyerid_link',
-            emptyText: 'Buyer',
-            labelWidth: 40,
-            width: 120
-        },
-        {
-            xtype: 'combo',
-            queryMode: 'local',
-            anyMatch: true,
-            valueField: 'id',
-            displayField: 'name',
-            bind: {
-                store: '{Vender}',
-                value: '{schedule.vendor}'
-            },
-            emptyText: 'Vendor',
-            // fieldLabel: 'Vendor:',
-            labelWidth: 50,
-            width: 120
-        },
-        {
             xtype: 'button',
             tooltip: 'Tìm kiếm',
             // text: 'Zoom in',
