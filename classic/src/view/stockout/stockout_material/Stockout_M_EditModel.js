@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 	'GSmartApp.store.stockout.StockoutTypeStore',
 	'GSmartApp.store.UserListStore', 'GSmartApp.store.org.ListOrgStore',
 	'GSmartApp.store.VatTypeStore', 'GSmartApp.store.CurrencyStore',
-	'GSmartApp.store.Stockout', 'GSmartApp.store.stockout_order.Stockout_order_Store'],
+	'GSmartApp.store.Stockout', 'GSmartApp.store.stockout_order.Stockout_order_Store',
+    'GSmartApp.store.Product_AutoComplete'],
     stores: {
         DeviceInvStore:{
 			type :'DeviceInvStore'
@@ -53,6 +54,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
         SKUStore: {
             type: 'Sku_AutoComplete'
         },
+		Product_AutoComplete: {
+			type :'Product_AutoComplete'
+		},
 	},
 	data: {
         searchObj: {
@@ -64,7 +68,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 
         stockout: {
 			stockoutd: [],
-			id: null
+			id: null,
+            productid_link: null,
+            pcontract_productid_link: null,
+            product_buyercode: null,
 		},
 		listepc: new Map(),
         isStart:false,

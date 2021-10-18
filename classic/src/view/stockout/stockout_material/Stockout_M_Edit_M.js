@@ -236,7 +236,35 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     fieldLabel: "Trạng thái",
                     width: 200,
                     labelWidth: 70
-                }
+                },
+                {
+                    xtype: 'combo',
+                    itemId:'Product_AutoComplete',
+                    fieldLabel: 'Sản phẩm',
+                    margin: '0 5 0 5',
+                    labelWidth: 85,
+                    flex: 1,
+                    hideLabel: false,	
+                    hideTrigger: true,
+                    bind:{
+                        store: '{Product_AutoComplete}',
+                        value: '{stockout.product_buyercode}'
+                    },
+                    displayField: 'buyercode',
+                    valueField: 'buyercode',
+                    listConfig: {
+                        loadingText: 'Tải mã SP...',
+                        emptyText: 'Không có mã SP phù hợp.',
+                    },
+                    anyMatch: true,
+                    minChars: 2,
+                    queryMode: 'remote',
+                    queryParam: 'buyercode',		
+                    enableKeyEvents : true,
+                    // listeners: {
+                    //     keypress: 'onPressEnterSkucode'
+                    // }
+                },
             ]
         }
     ]

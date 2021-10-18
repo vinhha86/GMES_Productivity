@@ -293,36 +293,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                         text: 'Xuất NPL cho nhà cắt',
                         handler: 'onXuatCat'
                     },
-                    {
-                        // itemId: 'btnNhapGiaCong', // id:3
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất gia công',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapToCat', // id:5
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất mẫu',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapMau', // id:4
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất trả nhà cung cấp',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapCungCap', // id:7
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất tiêu huỷ',
-                        // handler: 'onNhapMuaMoi'
-                    },
-                    {
-                        // itemId: 'btnNhapCungCap', // id:2
-                        // iconCls: 'fa fa-file-pdf-o greenIcon',
-                        text: 'Xuất điều chuyển nội bộ',
-                        handler: 'onXuatDieuChuyenNoiBo'
-                    },
+                    // {
+                    //     // itemId: 'btnNhapGiaCong', // id:3
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất gia công',
+                    //     // handler: 'onNhapMuaMoi'
+                    // },
+                    // {
+                    //     // itemId: 'btnNhapToCat', // id:5
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất mẫu',
+                    //     // handler: 'onNhapMuaMoi'
+                    // },
+                    // {
+                    //     // itemId: 'btnNhapMau', // id:4
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất trả nhà cung cấp',
+                    //     // handler: 'onNhapMuaMoi'
+                    // },
+                    // {
+                    //     // itemId: 'btnNhapCungCap', // id:7
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất tiêu huỷ',
+                    //     // handler: 'onNhapMuaMoi'
+                    // },
+                    // {
+                    //     // itemId: 'btnNhapCungCap', // id:2
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất điều chuyển nội bộ',
+                    //     handler: 'onXuatDieuChuyenNoiBo'
+                    // },
                 ],
                 // bind: {
                 //     hidden: '{isNhapmoi}'
