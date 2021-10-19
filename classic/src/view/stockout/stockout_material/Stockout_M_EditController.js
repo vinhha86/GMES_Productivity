@@ -147,7 +147,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 					OrgToStore.loadStoreByOrgTypeString('3');
 				}
 
-				console.log(stockout);
+				// console.log(stockout);
             }
 		})
     },
@@ -604,14 +604,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	onViewPackingList: function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
         var stockout = viewmodel.get('stockout');
-		console.log(stockout);
+		// console.log(stockout);
         var data = grid.getStore().getAt(rowIndex);
         var stockoutdid_link = data.get('id');
-
-        // console.log(stockout);
-        // console.log(data);
-        // console.log(stockoutdid_link);
-
+		
         // if(isNaN(invoicedid_link)){
         if(false){
             // not existed in db
@@ -642,7 +638,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 items: [{
                     xtype: 'Stockout_packinglist',
 					viewModel: {
-						// type: 'Stockout_packinglist_ViewModel',
 						data: {
 							packinglist: {
 								stockoutdid_link: stockoutdid_link,
@@ -918,7 +913,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		})
 	},
 	onStockout_M_Edit_D_Itemclick: function(grid, record, item, index, e, eOpts){
-		console.log(record.data);
+		// console.log(record.data);
 	},
 	checkSkuInDList: function(selectedRecord){
 		var me = this;

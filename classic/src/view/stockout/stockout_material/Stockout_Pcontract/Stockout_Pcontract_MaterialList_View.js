@@ -1,12 +1,12 @@
-Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract_MaterialList.Stockout_Pcontract_MaterialList_View', {
+Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockout_Pcontract_MaterialList_View', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockout_Pcontract_MaterialList_View',
     itemId: 'Stockout_Pcontract_MaterialList_View',
     reference: 'Stockout_Pcontract_MaterialList_View',
     controller: 'Stockout_Pcontract_MaterialList_Controller',
-    viewModel:{
-        type:'Stockout_Pcontract_MaterialList_ViewModel'
-    },
+    // viewModel:{
+    //     type:'Stockout_Pcontract_ViewModel'
+    // },
     viewConfig: {
         stripeRows: false,
         enableTextSelection: false,
@@ -56,12 +56,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract_Materia
         border: false,
         dock:'bottom',
         items:[
+            // {
+            //     xtype:'button',
+            //     text: 'Thoát',
+            //     margin: 3,
+            //     itemId:'btnThoat',
+            //     iconCls: 'x-fa fa-window-close'
+            // },
             {
-                xtype:'button',
-                text: 'Thoát',
-                margin: 3,
-                itemId:'btnThoat',
-                iconCls: 'x-fa fa-window-close'
+                flex:1,
+                border: false
             },
             {
                 xtype:'button',
@@ -69,10 +73,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract_Materia
                 margin: 3,
                 itemId:'btnSelect',
                 iconCls: 'x-fa fa-plus'
-            },
-            {
-                flex:1,
-                border: false
             },
         ]
     }]

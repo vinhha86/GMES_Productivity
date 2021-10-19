@@ -50,69 +50,56 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         var viewModel = this.getViewModel();
         var Product_AutoComplete = viewModel.getStore('Product_AutoComplete');
 
-        // console.log(record);
         var productid_link = record.get('id');
+        viewModel.set('stockout.productid_link', productid_link);
 
-        me.setLoading(true);
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách nguyên liệu',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_Pcontract_Main_View',
+                viewModel: {
+                    data: {
+                        productid_link: productid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+        form.down('#Stockout_Pcontract_View').getController().on('Thoat', function () {
+            form.close();
+        });
+        form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL', function (select, pcontractid_link, productid_link) {
 
-        var params = new Object();
-        params.productid_link = productid_link ;
-        GSmartApp.Ajax.post('/api/v1/pcontract/getByProduct',Ext.JSON.encode(params),
-		function(success,response,options ) {
-            me.setLoading(false);
-            var response = Ext.decode(response.responseText);
-            if(response.respcode == 200) {
-				// console.log(response);
-                var data = response.data;
-                if(data.length == 0){
-                    Ext.MessageBox.show({
-						title: "Thông báo",
-						msg: 'Sản phẩm không có trong đơn hàng nào',
-						buttons: Ext.MessageBox.YES,
-						buttonText: {
-							yes: 'Đóng',
-						}
-					});
-                    return;
-                }
-                if(data.length == 1){
-                    // 1 don hang
-                    m.found1Pcontract(data, productid_link);
-                }
-                if(data.length > 1){
-                    // nhieu don hang
-                    m.foundMultiPcontract(data, productid_link);
-                }
+            for(var i=0; i<select.length; i++){
+                var isExist = m.checkSkuInDList(select[i]);
+				if(isExist){ // thông báo
+					// Ext.Msg.show({
+                    //     title: 'Thông báo',
+                    //     msg: 'Đã có loại vải này trong danh sách',
+                    //     buttons: Ext.MessageBox.YES,
+                    //     buttonText: {
+                    //         yes: 'Đóng',
+                    //     }
+                    // });
+				}else{ // thêm
+					m.addSkuToDList(select[i]);
+				}
             }
-		})
-    },
-    found1Pcontract: function(data, productid_link){
-        // console.log('found 1 Pcontract');
-        // console.log(data);
-
-        var m = this;
-        var me = this.getView();
-        var viewModel= this.getViewModel();
-
-        var pcontract = data[0];
-        var pcontractid_link = pcontract.id;
-
-        viewModel.set('stockout.productid_link', productid_link);
-        viewModel.set('stockout.pcontractid_link', pcontractid_link);
-
-        m.getPcontractProductId(pcontractid_link, productid_link);
-        m.showMaterialList(pcontractid_link, productid_link);
-    },
-    foundMultiPcontract: function(data, productid_link){
-        // console.log('found multi Pcontract');
-        // console.log(data);
-
-        var m = this;
-        var me = this.getView();
-        var viewModel= this.getViewModel();
-        viewModel.set('stockout.productid_link', productid_link);
-
-        m.showPcontractList(data);
+            m.getPcontractProductId(pcontractid_link, productid_link);
+            form.close();
+        });
     },
     getPcontractProductId: function(pcontractid_link, productid_link){
         var m = this;
@@ -135,109 +122,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
             }
 		})
     },
-    showMaterialList: function(pcontractid_link, productid_link){
-        var m = this;
-        var me = this.getView();
-        var viewModel= this.getViewModel();
-        
-        var form = Ext.create('Ext.window.Window', {
-            height: 600,
-            width: 900,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Danh sách nguyên liệu',
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'Stockout_Pcontract_MaterialList_View',
-                viewModel: {
-                    data: {
-                        pcontractid_link: pcontractid_link,
-                        productid_link: productid_link
-                    }
-                }
-            }]
-        });
-        form.show();
-
-        form.down('#Stockout_Pcontract_MaterialList_View').getController().on('Thoat', function () {
-            form.close();
-        });
-
-        form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL', function (select) {
-            // console.log(select);
-
-            for(var i=0; i<select.length; i++){
-                var isExist = m.checkSkuInDList(select[i]);
-				if(isExist){ // thông báo
-					// Ext.Msg.show({
-                    //     title: 'Thông báo',
-                    //     msg: 'Đã có loại vải này trong danh sách',
-                    //     buttons: Ext.MessageBox.YES,
-                    //     buttonText: {
-                    //         yes: 'Đóng',
-                    //     }
-                    // });
-				}else{ // thêm
-					m.addSkuToDList(select[i]);
-				}
-            }
-
-            form.close();
-        });
-    },
-    showPcontractList: function(storeData){
-        var m = this;
-        var me = this.getView();
-        var viewModel= this.getViewModel();
-
-        var form = Ext.create('Ext.window.Window', {
-            height: 600,
-            width: 900,
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Danh sách đơn hàng',
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'Stockout_Pcontract_View',
-                viewModel: {
-                    data: {
-                        storeData: storeData
-                    }
-                }
-            }]
-        });
-        form.show();
-
-        form.down('#Stockout_Pcontract_View').getController().on('Thoat', function () {
-            form.close();
-        });
-
-        form.down('#Stockout_Pcontract_View').getController().on('ThemDonHang', function (select) {
-            // console.log(select);
-            if(select.length > 0){
-                var pcontractid_link = select[0].get('id');
-                var productid_link = viewModel.get('stockout.productid_link');
-                viewModel.set('stockout.pcontractid_link', pcontractid_link);
-                m.showMaterialList(pcontractid_link, productid_link);
-            }
-            form.close();
-        });
-    },
-
     checkSkuInDList: function(selectedRecord){
         // console.log(selectedRecord);
         // return;

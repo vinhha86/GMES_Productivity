@@ -2,14 +2,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.Stockout_Pcontract_ViewModel',
     requires: [
-        'GSmartApp.store.pcontract.PContractStore'
+        'GSmartApp.store.pcontract.PContractStore',
+        'GSmartApp.store.stockout.Stockout_d'
     ],
     stores: {
         PContractStore:{
 			type: 'PContractStore'
 		},
+        StockoutD_Store:{
+			type: 'Stockout_d'
+		},
     },
     data: {
-        storeData: null,
+        pcontractid_link: null,
+        productid_link: null,
     }
 })

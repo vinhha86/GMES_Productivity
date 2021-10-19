@@ -4,19 +4,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
     itemId: 'Stockout_Pcontract_View',
     reference: 'Stockout_Pcontract_View',
     controller: 'Stockout_Pcontract_Controller',
-    viewModel:{
-        type:'Stockout_Pcontract_ViewModel'
-    },
+    // viewModel:{
+    //     type:'Stockout_Pcontract_ViewModel'
+    // },
     viewConfig: {
         stripeRows: false,
         enableTextSelection: false,
         columnLines: true,
         rowLines: true,
     },
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'SINGLE'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'SINGLE'
+    // },
     // features: [
     //     {
     //         id: 'group',
@@ -58,17 +58,17 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
                 itemId:'btnThoat',
                 iconCls: 'x-fa fa-window-close'
             },
-            {
-                xtype:'button',
-                text: 'Chọn đơn hàng',
-                margin: 3,
-                itemId:'btnSelect',
-                iconCls: 'x-fa fa-plus'
-            },
-            {
-                flex:1,
-                border: false
-            },
+            // {
+            //     xtype:'button',
+            //     text: 'Chọn đơn hàng',
+            //     margin: 3,
+            //     itemId:'btnSelect',
+            //     iconCls: 'x-fa fa-plus'
+            // },
+            // {
+            //     flex:1,
+            //     border: false
+            // },
         ]
     }]
 });
