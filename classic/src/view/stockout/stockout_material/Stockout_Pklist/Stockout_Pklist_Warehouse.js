@@ -13,10 +13,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         columnLines: true,
         rowLines: true,
     },
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
     // features: [
     //     {
     //         id: 'group',
@@ -30,6 +30,14 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         store:'{WarehouseStore}'
     },
     columns:[
+        {
+            xtype: 'checkcolumn',
+            dataIndex: 'isChecked',
+            // text: 'MyCheck',
+            listeners: {
+                checkchange: 'onCheckcolumnCheckChange'
+            }
+        },
         { 
             header: 'Số Lot', 
             dataIndex: 'lotnumber', 

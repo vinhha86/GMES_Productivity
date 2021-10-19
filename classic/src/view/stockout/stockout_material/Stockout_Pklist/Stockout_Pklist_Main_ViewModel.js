@@ -17,5 +17,17 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         stockout: null,
         stockoutDRec: null,
         storeData: null,
+
+        //
+        totalcay: 0,
+        totaldai: 0,
+    },
+    formulas:{
+        isBtnSelectHidden: function (get) {
+            if(get('stockout.status') >= 1){
+                return true;
+            }
+            return false;
+        },
     }
 })

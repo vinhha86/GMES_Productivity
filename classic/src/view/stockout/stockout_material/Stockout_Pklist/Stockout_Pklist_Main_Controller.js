@@ -21,26 +21,26 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
     onThoat: function(){
         this.fireEvent('Thoat');
     },
-    onSelect: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        // var ListEndBuyer = viewModel.getStore('ListEndBuyer');
-        var select = me.getSelectionModel().getSelection();
-        if (select.length == 0) {
-            Ext.Msg.show({
-                title: "Thông báo",
-                msg: "Phải chọn một đơn hàng",
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-            });
-            return;
-        }
-        this.fireEvent("ThemDonHang", select);
-        // this.onThoat();
-    },
+    // onSelect: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     // var ListEndBuyer = viewModel.getStore('ListEndBuyer');
+    //     var select = me.getSelectionModel().getSelection();
+    //     if (select.length == 0) {
+    //         Ext.Msg.show({
+    //             title: "Thông báo",
+    //             msg: "Phải chọn một đơn hàng",
+    //             buttons: Ext.MessageBox.YES,
+    //             buttonText: {
+    //                 yes: 'Đóng',
+    //             }
+    //         });
+    //         return;
+    //     }
+    //     this.fireEvent("ThemDonHang", select);
+    //     // this.onThoat();
+    // },
     onAfterrender: function(){
         var m = this;
         var me = this.getView();
@@ -154,5 +154,31 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                 StockoutD_Store.insert(0, dataMaterial);
             }
 		})
-    }
+    },
+    onSelect: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var StockStore = viewModel.getStore('StockStore');
+        var StockStoreData = StockStore.getData();
+
+        var listCayVaiThem = new Array();
+
+        var items = StockStoreData.items;
+        var totalcay = 0;
+        var totaldai = 0;
+        for(var i=0; i<items.length; i++){
+            var khoang = items[i];
+            var warehouseList = khoang.get('warehouseList');
+            for(var j=0;j< warehouseList.length; j++){
+                if(warehouseList[j].isChecked){
+                    totalcay++;
+                    totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
+                    listCayVaiThem.push(warehouseList[j]);
+                }
+            }
+        }
+
+        m.fireEvent('ThemCayVai', listCayVaiThem, totalcay, totaldai);
+    },
 })

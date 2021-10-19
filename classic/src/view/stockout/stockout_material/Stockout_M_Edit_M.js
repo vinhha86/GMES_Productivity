@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
     extend: 'Ext.container.Container',
     xtype: 'Stockout_M_Edit_M',
     controller: 'Stockout_M_Edit_M_Controller',
+    cls: 'Stockout_M_Edit_M',
     layout: {
         type: 'vbox',
         align: 'stretch'
@@ -19,6 +20,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     fieldLabel: 'Loại xuất:',
                     readOnly: true,
                     editable: false,
+                    cls: 'notEditable',
                     displayField: 'name',
                     valueField: 'id',
                     bind: {
@@ -37,6 +39,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     labelWidth: 85,
                     fieldLabel: 'Số phiếu:',
                     readOnly: true,
+                    cls: 'notEditable',
                     bind: {
                         value:'{stockout.stockoutcode}'
                     }
@@ -56,19 +59,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     }
                 },
                 {
-                    xtype: 'combo',
+                    xtype: 'textfield',
                     margin: '5 5 0 5',
-                    reference: 'stockout_usercreateid_link',
+                    reference: 'stockout_shipperson',
                     flex: 1,
                     labelWidth: 85,
-                    valueField: 'id',
-			        displayField: 'fullName',
-                    fieldLabel: 'Người xuất:',
+                    fieldLabel: 'Người lập:',
                     readOnly: true,
+                    cls: 'notEditable',
+                    hideLabel: false,
                     bind: {
-                        value: '{stockout.usercreateid_link}',
-                        store: '{UserStore}'
-                    },
+                        value: '{stockout.usercreate_name}'
+                    }
                 }
             ]
         },
@@ -115,11 +117,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     reference: 'stockout_shipperson',
                     flex: 1,
                     labelWidth: 85,
-                    fieldLabel: 'Người nhận:',
+                    fieldLabel: 'Người duyệt:',
                     readOnly: true,
+                    cls: 'notEditable',
                     hideLabel: false,
                     bind: {
-                        value:'{stockout.shipperson}'
+                        value: '{stockout.userApprove_name}'
                     }
                 }
             ]

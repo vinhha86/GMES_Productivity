@@ -107,5 +107,47 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                 StockoutD_Store.insert(0, dataMaterial);
             }
 		})
+    },
+    onCheckcolumnCheckChange: function(checkcolumn, rowIndex, checked, record, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var StockStore = viewModel.getStore('StockStore');
+        var StockStoreData = StockStore.getData();
+        m.recalculateTotal();
+
+        // console.log(record);
+        // console.log(StockStoreData);
+        // return;
+        // if (checked) {
+        //     // uncheck the second checkbox
+        //     record.set('ac2', false)
+        // }else{
+
+        // }
+    },
+    recalculateTotal: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var StockStore = viewModel.getStore('StockStore');
+        var StockStoreData = StockStore.getData();
+        // console.log(StockStoreData);
+        var items = StockStoreData.items;
+        var totalcay = 0;
+        var totaldai = 0;
+        for(var i=0; i<items.length; i++){
+            var khoang = items[i];
+            var warehouseList = khoang.get('warehouseList');
+            for(var j=0;j< warehouseList.length; j++){
+                if(warehouseList[j].isChecked){
+                    totalcay++;
+                    totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
+                }
+            }
+        }
+
+        viewModel.set('totalcay', totalcay);
+        viewModel.set('totaldai', totaldai);
     }
 })

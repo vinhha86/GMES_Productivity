@@ -49,7 +49,54 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                     text: 'Thêm Packinglist',
                     margin: 3,
                     itemId:'btnSelect',
-                    iconCls: 'x-fa fa-plus'
+                    iconCls: 'x-fa fa-plus',
+                    bind: {
+                        hidden: '{isBtnSelectHidden}'
+                    }
+                },
+                {
+                    margin: 3,
+                    flex: 1,
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    // fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                    labelWidth: 0,
+                    bind: {
+                        value: 'Tổng số cây vải:'
+                    },
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    fieldStyle: "font-weight: bold; color: black;",
+                    labelWidth: 0,
+                    bind: {
+                        value: '{totalcay}' + ' cây'
+                    },
+                },
+                {
+                    margin: 3,
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    // fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                    labelWidth: 0,
+                    value: 'Tổng độ dài:'
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    fieldStyle: "font-weight: bold; color: black;",
+                    labelWidth: 0,
+                    bind: {
+                        value: '{totaldai}' + ' m'
+                    },
+                },
+                {
+                    margin: '3 6 3 6',
                 },
             ]
         }

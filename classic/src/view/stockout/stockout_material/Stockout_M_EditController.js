@@ -84,21 +84,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		viewModel.set('stockout.vat_exchangerate', record.data.exrate);
 	 },
 	 onSelectGroupStockout: function(combo, record, eOpts){
-		var viewmodel = this.getViewModel();
+		var viewModel = this.getViewModel();
 		if (record.get('id') == 1) {
-			viewmodel.set('isRFIDHidden', true);
-			viewmodel.set('isBarcodeHidden', true);
-			viewmodel.set('isManualHidden', false);
+			viewModel.set('isRFIDHidden', true);
+			viewModel.set('isBarcodeHidden', true);
+			viewModel.set('isManualHidden', false);
 		}
 		if (record.get('id') == 2) {
-			viewmodel.set('isRFIDHidden', true);
-			viewmodel.set('isBarcodeHidden', false);
-			viewmodel.set('isManualHidden', true);
+			viewModel.set('isRFIDHidden', true);
+			viewModel.set('isBarcodeHidden', false);
+			viewModel.set('isManualHidden', true);
 		}
 		if (record.get('id') == 3) {
-			viewmodel.set('isRFIDHidden', false);
-			viewmodel.set('isBarcodeHidden', true);
-			viewmodel.set('isManualHidden', true);
+			viewModel.set('isRFIDHidden', false);
+			viewModel.set('isBarcodeHidden', true);
+			viewModel.set('isManualHidden', true);
 		}
 	},	 
 	onDeviceChange:function( combo, newValue, oldValue, eOpts){
@@ -486,7 +486,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 							stockoutd.stockoutpklist.push(epc_item);
 
-							//Cập nhật lại stockin trong viewmodel
+							//Cập nhật lại stockin trong viewModel
 							stockout.stockoutd.push(stockoutd);
 							console.log(stockoutd);
 							viewModel.set('stockout', stockout);
@@ -602,8 +602,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	},
 	
 	onViewPackingList: function(grid, rowIndex, colIndex){
-        var viewmodel = this.getViewModel();
-        var stockout = viewmodel.get('stockout');
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
 		// console.log(stockout);
         var data = grid.getStore().getAt(rowIndex);
         var stockoutdid_link = data.get('id');
@@ -647,6 +647,76 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 }],
             });
             form.show();
+
+			form.down('#Stockout_Pklist_Main').getController().on('ThemCayVai', function (listCayVaiThem, totalcay, totaldai) {
+
+				// console.log(listCayVaiThem);
+				// console.log(totalcay);
+				// console.log(totaldai);
+				// console.log(stockout);
+
+				var stockout_d = stockout.stockout_d;
+				for(var i=0; i < stockout_d.length; i++){
+					if(stockout_d[i].skuid_link == data.get('skuid_link')){
+						var totalpackage = 0;
+						var totalpackagecheck = 0;
+						var totalydsorigin = 0;
+						var totalydscheck = 0;
+						var totalmet_origin = 0;
+						var totalmet_check = 0;
+
+						stockout_d[i].stockout_packinglist = [];
+						for(var j=0;j< listCayVaiThem.length; j++){
+							var cayVaiThem = listCayVaiThem[j];
+							var cayVaiMoi = new Object();
+							cayVaiMoi.skuid_link = cayVaiThem.skuid_link;
+							cayVaiMoi.lotnumber = cayVaiThem.lotnumber;
+							cayVaiMoi.packageid = cayVaiThem.packageid;
+							cayVaiMoi.ydsorigin = cayVaiThem.yds;
+							cayVaiMoi.ydscheck = cayVaiThem.yds;
+							cayVaiMoi.widthorigin = cayVaiThem.width_met;
+							cayVaiMoi.widthcheck = cayVaiThem.width_met;
+							cayVaiMoi.grossweight = cayVaiThem.grossweight;
+							cayVaiMoi.netweight = cayVaiThem.netweight;
+							cayVaiMoi.epc = cayVaiThem.epc;
+							cayVaiMoi.status = 0;
+							cayVaiMoi.rssi = 1;
+							cayVaiMoi.met_origin = cayVaiThem.met;
+							cayVaiMoi.met_check = cayVaiThem.met;
+							cayVaiMoi.colorid_link = cayVaiThem.colorid_link;
+							cayVaiMoi.unitid_link = cayVaiThem.unitid_link;
+							cayVaiMoi.warehousestatus = cayVaiThem.status;
+							stockout_d[i].stockout_packinglist.push(cayVaiMoi);
+
+							totalpackage++;
+							totalpackagecheck++;
+							totalydsorigin+=cayVaiMoi.ydsorigin == null ? 0 : cayVaiMoi.ydsorigin;
+							totalydscheck+=cayVaiMoi.ydscheck == null ? 0 : cayVaiMoi.ydscheck;
+							totalmet_origin+=cayVaiMoi.met_origin == null ? 0 : cayVaiMoi.met_origin;
+							totalmet_check+=cayVaiMoi.met_check == null ? 0 : cayVaiMoi.met_check;
+						}
+
+						// totalpackage, totalpackagecheck, 
+						// totalydsorigin, totalydscheck
+						// totalmet_origin, totalmet_check
+						stockout_d[i].totalpackage = totalpackage;
+						stockout_d[i].totalpackagecheck = totalpackagecheck;
+						stockout_d[i].totalydsorigin = totalydsorigin;
+						stockout_d[i].totalydscheck = totalydscheck;
+						stockout_d[i].totalmet_origin = totalmet_origin;
+						stockout_d[i].totalmet_check = totalmet_check;
+					}
+				}
+
+				var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+				StockoutD_Store.removeAll();
+				StockoutD_Store.insert(0, stockout_d);
+				StockoutD_Store.commitChanges();
+
+				viewModel.set('stockout', stockout);
+				console.log(stockout);
+				form.close();
+			})
         }
     },
 
@@ -794,8 +864,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
     },
 	onDeleteStockoutD: function(grid, rowIndex){
 		var me = this;
-		var viewmodel = this.getViewModel();
-		var stockout = viewmodel.get('stockout');
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
         var data = grid.getStore().getAt(rowIndex);
 
 		if(stockout.status != null && stockout.status >= 1){
@@ -834,9 +904,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	},
 	deleteRow_Stockout_D: function(data){
 		var me = this;
-		var viewmodel = this.getViewModel();
-		var stockout = viewmodel.get('stockout');
-		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d');
 		var id = data.get('id');
 
 		for(var i = 0; i < stockout_d.length; i++) {
@@ -845,21 +915,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				break;
 			}
 		}
-		var stockout_dStore = viewmodel.getStore('StockoutD_Store');
+		var stockout_dStore = viewModel.getStore('StockoutD_Store');
 		if(stockout_dStore){
 			stockout_dStore.removeAll();
 			stockout_dStore.insert(0, stockout_d);
 			stockout_dStore.commitChanges();
 		}
-		viewmodel.set('stockout.stockout_d', stockout_d);
+		viewModel.set('stockout.stockout_d', stockout_d);
 		// console.log(stockout);
 	},
 	deleteRowDb_Stockout_D: function(data){
 		var me = this;
 		var m = this.getView();
-		var viewmodel = this.getViewModel();
-		var stockout = viewmodel.get('stockout');
-		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d');
 		var id = data.get('id');
 
 		m.setLoading(true);
@@ -878,13 +948,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 							break;
 						}
 					}
-					var stockout_dStore = viewmodel.getStore('StockoutD_Store');
+					var stockout_dStore = viewModel.getStore('StockoutD_Store');
 					if(stockout_dStore){
 						stockout_dStore.removeAll();
 						stockout_dStore.insert(0, stockout_d);
 						stockout_dStore.commitChanges();
 					}
-					viewmodel.set('stockout.stockout_d', stockout_d);
+					viewModel.set('stockout.stockout_d', stockout_d);
 					// console.log(stockout);
 				}else{
 					Ext.Msg.show({
@@ -914,8 +984,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	checkSkuInDList: function(selectedRecord){
 		var me = this;
 		var m = this.getView();
-		var viewmodel = this.getViewModel();
-		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var viewModel = this.getViewModel();
+		var stockout_d = viewModel.get('stockout.stockout_d');
 		if (null!=stockout_d){
 			var skuid_link = selectedRecord.get('id');
 			for(var i = 0; i < stockout_d.length; i++){
@@ -924,7 +994,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				}
 			}
 		} else {
-			viewmodel.set('stockout.stockout_d',[]);
+			viewModel.set('stockout.stockout_d',[]);
 		}
 		// console.log(stockout_d);
 		return false;
@@ -932,7 +1002,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	onBtnThemSP: function(){
 		var me = this;
 		var m = this.getView();
-		var viewmodel = this.getViewModel();
+		var viewModel = this.getViewModel();
 		var skucodeCbbox = m.down('#skucode');
 
 		if(skucodeCbbox){
@@ -962,9 +1032,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	addSkuToDList: function(data){
 		var me = this;
 		var m = this.getView();
-		var viewmodel = this.getViewModel();
-		var stockout = viewmodel.get('stockout');
-		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d');
 		var Stockout_M_Edit_D = m.down('#Stockout_M_Edit_D');
 		var store = Stockout_M_Edit_D.getStore();
 
