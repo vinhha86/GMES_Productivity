@@ -607,7 +607,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		// console.log(stockout);
         var data = grid.getStore().getAt(rowIndex);
         var stockoutdid_link = data.get('id');
-		
+
         // if(isNaN(invoicedid_link)){
         if(false){
             // not existed in db
@@ -636,14 +636,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                     padding: 5
                 },
                 items: [{
-                    xtype: 'Stockout_packinglist',
+                    xtype: 'Stockout_Pklist_Main',
 					viewModel: {
 						data: {
-							packinglist: {
-								stockoutdid_link: stockoutdid_link,
-								stockoutid_link: viewmodel.get('stockout.id'),
-								skuid_link: data.get('skuid_link')
-							},
+							skuid_link: data.get('skuid_link'),
 							stockout: stockout,
 							stockoutDRec: data
 						}

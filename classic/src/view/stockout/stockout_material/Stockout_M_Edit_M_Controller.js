@@ -82,6 +82,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         });
         form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL', function (select, pcontractid_link, productid_link) {
 
+            viewModel.set('stockout.pcontractid_link', pcontractid_link);
+            viewModel.set('stockout.productid_link', productid_link);
+
             for(var i=0; i<select.length; i++){
                 var isExist = m.checkSkuInDList(select[i]);
 				if(isExist){ // thông báo
