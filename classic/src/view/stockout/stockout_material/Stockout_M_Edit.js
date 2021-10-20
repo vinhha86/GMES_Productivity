@@ -49,6 +49,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
             {
                 flex:1
             },
+            {
+                margin: '0 5 5 0',
+                xtype:'button',
+                text:  "Danh sách cây vải xuất",
+                iconCls: 'x-fa fa-print',
+                itemId: 'btnPackinglistPrint',
+                // bind: {
+                //     hidden: '{isBtnConfirmHidden}'
+                // },
+                // hidden: true
+            },
             // {
             //     margin: '0 5 5 0',
             //     xtype:'button',
@@ -71,7 +82,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
                 iconCls: 'x-fa fa-floppy-o',
                 handler: 'onSave',
                 bind:{
-                    // disabled: '{isStart}'
+                    hidden: '{isBtnSaveHidden}'
                 }
             }
         ]

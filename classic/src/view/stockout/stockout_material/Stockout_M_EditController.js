@@ -49,6 +49,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		'#btnThemSP': {
 			click: 'onBtnThemSP'
 		},
+		'#btnPackinglistPrint': {
+			click: 'onBtnPackinglistPrint'
+		}
 	},
 	channel: { cmd: null, dta: null },
     renderCell: function(value, record) {
@@ -458,7 +461,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 						if(sku== null){
 							//THêm sku vào để lấy thông tin từ server
 							listcode.push(jsonObj[x].skucode);
-							//Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist và stockind
+							//Tạo Object để lưu thông tin stockoutd và gắn stockout_packinglist và stockoutd
 							var stockoutd = new Object({
 								stockoutpklist: [],
 								id: null,
@@ -486,11 +489,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 							stockoutd.stockoutpklist.push(epc_item);
 
-							//Cập nhật lại stockin trong viewModel
+							//Cập nhật lại stockout trong viewModel
 							stockout.stockoutd.push(stockoutd);
 							console.log(stockoutd);
 							viewModel.set('stockout', stockout);
-							//Thêm stockind vào grid
+							//Thêm stockoutd vào grid
 							store.insert(0, stockoutd);
 							store.commitChanges();
 						}
@@ -647,6 +650,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 }],
             });
             form.show();
+
+			form.down('#Stockout_Pklist_Main').getController().on('Thoat', function () {
+
+				form.close();
+			})
 
 			form.down('#Stockout_Pklist_Main').getController().on('ThemCayVai', function (listCayVaiThem, totalcay, totaldai) {
 
@@ -1086,7 +1094,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var stockin = viewModel.get('stockout');
+        var stockout = viewModel.get('stockout');
         var store = me.down('#Stockout_M_Edit_D').getStore();
         var stockoutD_data = context.record.data;
 
@@ -1126,7 +1134,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             stockoutD_data.totalydscheck = parseFloat(stockoutD_data.totalydscheck);
         }
 
-        if(stockin.unitid_link == 1){
+        if(stockout.unitid_link == 1){
             if(context.field == 'met' && (stockoutD_data.unitprice != null || stockoutD_data.unitprice != "")){
                 // console.log('yds');
                 stockoutD_data.yds = Ext.Number.roundToPrecision(stockoutD_data.met / 0.9144,2);
@@ -1140,7 +1148,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			if(context.field == 'totalmet_origin'){
 				stockoutD_data.totalydsorigin = Ext.Number.roundToPrecision(stockoutD_data.totalmet_origin / 0.9144,2);
 			}
-        }else if(stockin.unitid_link == 3){
+        }else if(stockout.unitid_link == 3){
             if(context.field == 'yds' && (stockoutD_data.unitprice != null || stockoutD_data.unitprice != "")){
                 // console.log('yds');
                 stockoutD_data.met = Ext.Number.roundToPrecision(stockoutD_data.yds * 0.9144,2);
@@ -1165,4 +1173,39 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             m.onBtnThemSP();
         }
     },
+	onBtnPackinglistPrint: function(){
+		var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+
+		var form = Ext.create('Ext.window.Window', {
+			height: '90%',
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách cây vải xuất',
+			closeAction: 'destroy',
+			width: 1200,
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockout_Pklist_Print_View',
+				viewModel: {
+					data: {
+						stockout: stockout,
+					}
+				}					
+			}],
+		});
+		form.show();
+
+		form.down('#Stockout_Pklist_Print_View').getController().on('Thoat', function () {
+			form.close();
+		})
+	}
 });

@@ -1,0 +1,100 @@
+Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stockout_Pklist_Print_View', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'Stockout_Pklist_Print_View',
+    itemId: 'Stockout_Pklist_Print_View',
+    reference: 'Stockout_Pklist_Print_View',
+    controller: 'Stockout_Pklist_Print_Controller',
+    viewModel:{
+        type:'Stockout_Pklist_Print_ViewModel'
+    },
+    viewConfig: {
+        stripeRows: false,
+        enableTextSelection: false,
+        columnLines: true,
+        rowLines: true,
+    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
+    // features: [
+    //     {
+    //         id: 'group',
+    //         ftype: 'groupingsummary',
+    //         groupHeaderTpl: '<b>Đơn vị: {name}</b>',
+    //         hideGroupedHeader: false,
+    //         enableGroupingMenu: false,
+    //     },
+    // ],
+    bind:{
+        store:'{PackingListStore}'
+    },
+    columns:[
+        { 
+            header: 'Mã NPL', 
+            dataIndex: 'skucode', 
+            flex: 1
+        },
+        { 
+            header: 'Têm NPL', 
+            dataIndex: 'skuname', 
+            flex: 1
+        },
+        { 
+            header: 'Khoang', 
+            dataIndex: 'spaceString', 
+            flex: 1
+        },
+        { 
+            header: 'Số Lot', 
+            dataIndex: 'lotnumber', 
+            flex: 1
+        },
+        { 
+            header: 'Số cây', 
+            dataIndex: 'packageid', 
+            flex: 1
+        },
+        { 
+            header: 'Trạng thái', 
+            dataIndex: 'warehousestatus',
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				var val = value == null ? 0 : value;
+                if(val == 0){
+                    val = 'Chưa tở';
+                }else{
+                    val = 'Đã tở';
+                }
+				metaData.tdAttr = 'data-qtip="' + val + '"';
+				return val;
+			},
+        },
+    ],
+    dockedItems:[{
+        layout:'hbox',
+        border: false,
+        dock:'bottom',
+        items:[
+            {
+                xtype:'button',
+                text: 'Thoát',
+                margin: 3,
+                itemId:'btnThoat',
+                iconCls: 'x-fa fa-window-close'
+            },
+            {
+                flex:1,
+                border: false
+            },
+            // {
+            //     xtype:'button',
+            //     text: 'In',
+            //     margin: 3,
+            //     itemId:'btnPrint',
+            //     iconCls: 'x-fa fa-print'
+            // },
+        ]
+    }]
+});
+

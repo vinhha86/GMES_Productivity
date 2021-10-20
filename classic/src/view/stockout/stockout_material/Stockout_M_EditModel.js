@@ -123,6 +123,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
                 return true;
             }
         },
+        isBtnSaveHidden: function (get) {
+            if(get('stockout.status') >=1){
+                return true;
+            }
+            return false;
+        },
 		isMetColumnHidden: function (get) {
             var unitid_link = get('stockout.unitid_link');
             if(unitid_link == null){
