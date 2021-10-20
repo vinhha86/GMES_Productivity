@@ -30,7 +30,6 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
     },
 
     doHighlight: function (value) {
-        console.log(value);
         var store = this.store;
         if (!value) {
             store.clearFilter();
@@ -40,8 +39,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterFieldPorder', {
         } else {
             var rec = null;
             store.each(function (task) {
-                if (task.get('productbuyercode') != null) {
-                    if (task.get('productbuyercode').toLowerCase().includes(value.toLowerCase())) {
+                if (task.get('mahang') != null) {
+                    if (task.get('mahang').toLowerCase().replace(" ", "").includes(value.toLowerCase())) {
                         task.set('Cls', task.get('cls') + ' match');
                         rec = task;
                     } else {
