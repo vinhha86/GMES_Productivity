@@ -168,10 +168,11 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         var totalcay = 0;
         var totaldai = 0;
         for(var i=0; i<items.length; i++){
-            var khoang = items[i];
+            var khoang = items[i]; console.log(khoang);
             var warehouseList = khoang.get('warehouseList');
             for(var j=0;j< warehouseList.length; j++){
                 if(warehouseList[j].isChecked){
+                    warehouseList[j].spaceString = khoang.get('spaceString');
                     totalcay++;
                     totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
                     listCayVaiThem.push(warehouseList[j]);

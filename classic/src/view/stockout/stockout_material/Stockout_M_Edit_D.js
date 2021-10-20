@@ -74,28 +74,44 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',
-			width: 100,
+			flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
 		},{
 			text: 'Tên NPL', 
 			dataIndex: 'skuname',
-			width: 100,
+			flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
 		},{
 			text: 'Mô tả', 
 			dataIndex: 'sku_product_desc',
-			flex: 1
+			flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
 		},{
 			text: 'Màu', 
 			dataIndex: 'sku_product_color',
-			width: 120,
+			width: 150,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
 		},{
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
 			width: 70,
 			renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-                // metaData.tdAttr = 'data-qtip="' + value + '"';
                 if(value == 'ALL'){
                     return '';
                 }else{
+					metaData.tdAttr = 'data-qtip="' + value + '"';
                     return value;
                 }
             },

@@ -677,6 +677,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 						for(var j=0;j< listCayVaiThem.length; j++){
 							var cayVaiThem = listCayVaiThem[j];
 							var cayVaiMoi = new Object();
+							cayVaiMoi.spaceString = cayVaiThem.spaceString;
 							cayVaiMoi.skuid_link = cayVaiThem.skuid_link;
 							cayVaiMoi.lotnumber = cayVaiThem.lotnumber;
 							cayVaiMoi.packageid = cayVaiThem.packageid;
