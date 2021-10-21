@@ -53,6 +53,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 
         viewModel.set('storeData',storeData);
         var PackingListStore = viewModel.getStore('PackingListStore');
+        PackingListStore.setGroupField('spaceString');
         PackingListStore.getSorters().add({
             property: 'skucode',
             direction: 'ASC'
@@ -179,6 +180,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             type: 'excel', // exporter alias
             title: 'Danh sách cây vải',
             showSummary: true,
+            includeGroups: true,
             fileName: 'PKList.xlsx'
         });
 	},
