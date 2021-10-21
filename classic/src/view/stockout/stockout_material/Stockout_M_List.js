@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockout_M_List',
     itemId: 'Stockout_M_List',
+    cls: 'Stockout_M_List',
     reference: 'Stockout_M_List',
     controller: 'Stockout_M_List_Controller',
     requires: [
@@ -52,6 +53,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             header: 'Số phiếu', dataIndex: 'stockoutcode', width: 120,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 var val = value == 'null' ? "" : value;
+                var status = record.get('status');
+                console.log(status);
+                if(status == 0){
+                    metaData.tdCls =  'rowWhite';
+                }
+                if(status == 1){
+                    metaData.tdCls =  'rowGreen';
+                }
                 metaData.tdAttr = 'data-qtip="' + val + '"';
                 return val;
             },
