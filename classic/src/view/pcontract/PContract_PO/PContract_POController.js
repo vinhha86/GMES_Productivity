@@ -822,6 +822,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POController', {
             });
     },
     onXoaPOLine: function (rec) {
+        console.log(rec);
         var viewmodel = this.getViewModel();
         Ext.Msg.confirm('Đơn hàng', 'Bạn có thực sự muốn xóa Line giao hàng? chọn YES để thực hiện',
             function (choice) {

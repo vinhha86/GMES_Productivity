@@ -78,8 +78,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var viewmodel = this.getViewModel();
         metaData.tdCls = 'po_linekh';
         var cls = viewmodel.get('clspoquantity');
-        if (!record.data.checkamount)
-            cls = '<div style="color:red; font-weight: bold; align: right">';
+        // if (!record.data.checkamount)
+        //     cls = '<div style="color:red; font-weight: bold; align: right">';
         return value == 0 ? "" : cls + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     onSPFilterKeyup: function () {
@@ -586,6 +586,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
     onMenu_PO_Parent: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
 
+        var viewmodel = this.getViewModel();
+        var type = viewmodel.get('PContract.contracttypeid_link');
+
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
@@ -653,13 +656,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             me.onUpload(record, rowIndex, "CM");
                         }
                     },
-                    bind: {
-                        hidden: '{PContract.contracttypeid_link == 1 ? false : true}'
-                    }
+                    hidden: type == 1 ? false : true
                 },
                 {
                     text: 'Upload File PO Line FOB(Excel)',
-                    itemId: 'btnUpload_PO',
+                    itemId: 'btnUpload_PO_FOB',
                     separator: true,
                     margin: '10 0 0',
                     iconCls: 'x-fa fas fa-upload brownIcon',
@@ -678,9 +679,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             me.onUpload(record, rowIndex, "FOB");
                         }
                     },
-                    bind: {
-                        hidden: '{PContract.contracttypeid_link == 2 ? false : true}'
-                    }
+                    hidden: type == 2 ? false : true
                 },
                 {
                     text: 'Xóa PO Line',
