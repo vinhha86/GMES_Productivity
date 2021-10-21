@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         '#btnThoat': {
             click: 'onThoat'
         },
+        '#btnDelete': {
+            click: 'onDelete'
+        },
         '#btnPrint': {
             click: 'onPrint'
         },
@@ -31,6 +34,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         var stockout = viewModel.get('stockout');
         var storeData = new Array();
 
+        if(stockout.stockout_d == null) stockout.stockout_d = new Array();
         var stockout_d = stockout.stockout_d;
         for(var i = 0; i<stockout_d.length; i++) {
             var stockout_packinglist = stockout_d[i].stockout_packinglist;
@@ -67,16 +71,99 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         });
         PackingListStore.insert(0,storeData);
     },
-    // onPrint: function(){
-    //     var m = this;
-    //     var me = this.getView();
-    //     var viewModel = this.getViewModel();
-    //     var stockout = viewModel.get('stockout');
+    onDelete:function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PackingListStore = viewModel.getStore('PackingListStore');
+        var select = me.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Phải chọn ít nhất một cây vải",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }else{
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn có chắc chắn xóa?",
+                buttons: Ext.MessageBox.YESNO,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        m.delete(select);
+                    }
+                }
+            });
+        }
+        // console.log(select);
+        // this.fireEvent("ThemNPL", select, pcontractid_link, productid_link);
+        // this.onThoat();
+    },
+    delete: function(select){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PackingListStore = viewModel.getStore('PackingListStore');
+        var stockout = viewModel.get('stockout');
 
-    //     console.log(stockout);
+        PackingListStore.remove(select);
+        
+        var stockout_d = stockout.stockout_d;
+        for(var i=0; i<stockout_d.length; i++){
+            var stockout_packinglist = stockout_d[i].stockout_packinglist;
+            for(var j=0; j<select.length; j++){
+                for(var k=0; k<stockout_packinglist.length; k++){
+                    if(stockout_packinglist[k].epc == select[j].get('epc')){
+                        // remove from stockout
+                        stockout_packinglist.splice(k, 1);
+                        k--;
+                    }
+                }
+            }
+        }
 
+        stockout = m.recalculate(stockout);
+        viewModel.set('stockout', stockout);
+        this.fireEvent('DeletePkl', stockout);
 
-    // },
+        // console.log(select);
+        // console.log(stockout);
+    },
+    recalculate: function(stockout){
+        var stockout_d = stockout.stockout_d;
+        for(var i=0; i<stockout_d.length; i++){
+            var totalpackage = 0;
+            var totalpackagecheck = 0;
+            var totalydsorigin = 0;
+            var totalydscheck = 0;
+            var totalmet_origin = 0;
+            var totalmet_check = 0;
+            var stockout_packinglist = stockout_d[i].stockout_packinglist;
+            for(var k=0; k<stockout_packinglist.length; k++){
+                totalpackage++;
+                totalpackagecheck++;
+                totalydsorigin+=stockout_packinglist[k].ydsorigin == null ? 0 : stockout_packinglist[k].ydsorigin;
+                totalydscheck+=stockout_packinglist[k].ydscheck == null ? 0 : stockout_packinglist[k].ydscheck;
+                totalmet_origin+=stockout_packinglist[k].met_origin == null ? 0 : stockout_packinglist[k].met_origin;
+                totalmet_check+=stockout_packinglist[k].met_check == null ? 0 : stockout_packinglist[k].met_check;
+            }
+            stockout_d[i].totalpackage = totalpackage;
+            stockout_d[i].totalpackagecheck = totalpackagecheck;
+            // stockout_d[i].totalydsorigin = totalydsorigin;
+            stockout_d[i].totalydscheck = totalydscheck;
+            // stockout_d[i].totalmet_origin = totalmet_origin;
+            stockout_d[i].totalmet_check = totalmet_check;
+        }
+        return stockout;
+    },
     onPrint: function (btn) {
         var m = this;
         var me = this.getView();

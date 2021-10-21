@@ -2,11 +2,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_Grant_SKU_Plan_Controller',
     init: function () {
-
     },
     control: {
         '#POrder_Grant_SKU_Plan_View': {
-            afterrender: 'onAfterrender'
+            afterrender: 'onAfterrender',
+            // itemclick: 'onItemclick',
+            pivotitemclick: 'onPivotitemclick'
         },
         '#btnThoat': {
             click: 'onThoat',
@@ -39,6 +40,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             me.setLoading(true);
             POrderGrant_SKU_PlanStore.loadStore_byPorderGrant(porder_grantid_link, startDate, endDate);
         }
+
+        // console.log(sourceView);
+        // console.log(eventRecord);
+        // console.log(porder_grantid_link);
+        // console.log(startDate);
+        // console.log(endDate);
     },
     onloadStore_byPorderGrant_Done: function () {
         this.getView().setLoading(false);
@@ -111,4 +118,36 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         }
         // context.record.commit();
     },
+
+    onItemclick: function( thisView, record, item, index, e, eOpts ){
+        console.log(record);
+        // console.log(item);
+        var viewmodel = this.getViewModel();
+        var POrderGrant_SKU_PlanStore = viewmodel.getStore('POrderGrant_SKU_PlanStore');
+        for (i=0;i<POrderGrant_SKU_PlanStore.data.items.length;i++){
+            var record = POrderGrant_SKU_PlanStore.data.items[i];
+            console.log(record);
+        }
+    },
+    onPivotitemclick: function(params, e, eOpts){
+        // console.log(params);
+        var name = params.leftItem.name;
+        var viewmodel = this.getViewModel();
+        var POrderGrant_SKU_PlanStore = viewmodel.getStore('POrderGrant_SKU_PlanStore');
+        var porder_grant_skuid_link = null;
+
+        for (i=0;i<POrderGrant_SKU_PlanStore.data.items.length;i++){
+            var record = POrderGrant_SKU_PlanStore.data.items[i];
+            if(record.get('skuCode_string') == name){
+                // console.log(record);
+                porder_grant_skuid_link = record.get('porder_grant_skuid_link');
+                break;
+            }
+        }
+
+        if(porder_grant_skuid_link != null){
+            // CODE HERE
+        }
+    }
+
 })

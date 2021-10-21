@@ -167,11 +167,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			bind: {
 				hidden: '{isMetColumnHidden}',
 			},
-			// editor:{
-			// 	xtype:'textfield',
-			// 	maskRe: /[0-9.]/,
-			// 	selectOnFocus: true
-			// },
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
 		},
         {
 			xtype: 'numbercolumn',

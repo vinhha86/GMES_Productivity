@@ -17,6 +17,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 exactMatch: true,
             });
         }
+
+		var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+        StockoutD_Store.getSorters().add({
+            property: 'skucode',
+            direction: 'ASC'
+        },{
+            property: 'skuname',
+            direction: 'ASC'
+        });
 	},
 	listen: {
         controller: {
@@ -605,6 +614,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	},
 	
 	onViewPackingList: function(grid, rowIndex, colIndex){
+		var m = this;
+		var me = this.getView();
         var viewModel = this.getViewModel();
         var stockout = viewModel.get('stockout');
 		// console.log(stockout);
@@ -666,67 +677,84 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				var stockout_d = stockout.stockout_d;
 				for(var i=0; i < stockout_d.length; i++){
 					if(stockout_d[i].skuid_link == data.get('skuid_link')){
-						var totalpackage = 0;
-						var totalpackagecheck = 0;
-						var totalydsorigin = 0;
-						var totalydscheck = 0;
-						var totalmet_origin = 0;
-						var totalmet_check = 0;
-
-						stockout_d[i].stockout_packinglist = [];
+						if(stockout_d[i].stockout_packinglist == null) stockout_d[i].stockout_packinglist = [];
+						var stockout_packinglist = stockout_d[i].stockout_packinglist;
 						for(var j=0;j< listCayVaiThem.length; j++){
-							var cayVaiThem = listCayVaiThem[j];
-							var cayVaiMoi = new Object();
-							cayVaiMoi.spaceString = cayVaiThem.spaceString;
-							cayVaiMoi.skuid_link = cayVaiThem.skuid_link;
-							cayVaiMoi.lotnumber = cayVaiThem.lotnumber;
-							cayVaiMoi.packageid = cayVaiThem.packageid;
-							cayVaiMoi.ydsorigin = cayVaiThem.yds;
-							cayVaiMoi.ydscheck = cayVaiThem.yds;
-							cayVaiMoi.widthorigin = cayVaiThem.width_met;
-							cayVaiMoi.widthcheck = cayVaiThem.width_met;
-							cayVaiMoi.grossweight = cayVaiThem.grossweight;
-							cayVaiMoi.netweight = cayVaiThem.netweight;
-							cayVaiMoi.epc = cayVaiThem.epc;
-							cayVaiMoi.status = 0;
-							cayVaiMoi.rssi = 1;
-							cayVaiMoi.met_origin = cayVaiThem.met;
-							cayVaiMoi.met_check = cayVaiThem.met;
-							cayVaiMoi.colorid_link = cayVaiThem.colorid_link;
-							cayVaiMoi.unitid_link = cayVaiThem.unitid_link;
-							cayVaiMoi.warehousestatus = cayVaiThem.status;
-							stockout_d[i].stockout_packinglist.push(cayVaiMoi);
-
-							totalpackage++;
-							totalpackagecheck++;
-							totalydsorigin+=cayVaiMoi.ydsorigin == null ? 0 : cayVaiMoi.ydsorigin;
-							totalydscheck+=cayVaiMoi.ydscheck == null ? 0 : cayVaiMoi.ydscheck;
-							totalmet_origin+=cayVaiMoi.met_origin == null ? 0 : cayVaiMoi.met_origin;
-							totalmet_check+=cayVaiMoi.met_check == null ? 0 : cayVaiMoi.met_check;
+							var isNotContain = true;
+							for(var k=0;k< stockout_packinglist.length; k++){
+								if(listCayVaiThem[j].epc == stockout_packinglist[k].epc){
+									isNotContain = false;
+									break;
+								}
+							}
+							if(isNotContain){
+								var cayVaiThem = listCayVaiThem[j];
+								var cayVaiMoi = new Object();
+								cayVaiMoi.spaceString = cayVaiThem.spaceString;
+								cayVaiMoi.skuid_link = cayVaiThem.skuid_link;
+								cayVaiMoi.lotnumber = cayVaiThem.lotnumber;
+								cayVaiMoi.packageid = cayVaiThem.packageid;
+								cayVaiMoi.ydsorigin = cayVaiThem.yds;
+								cayVaiMoi.ydscheck = cayVaiThem.yds;
+								cayVaiMoi.widthorigin = cayVaiThem.width_met;
+								cayVaiMoi.widthcheck = cayVaiThem.width_met;
+								cayVaiMoi.grossweight = cayVaiThem.grossweight;
+								cayVaiMoi.netweight = cayVaiThem.netweight;
+								cayVaiMoi.epc = cayVaiThem.epc;
+								cayVaiMoi.status = 0;
+								cayVaiMoi.rssi = 1;
+								cayVaiMoi.met_origin = cayVaiThem.met;
+								cayVaiMoi.met_check = cayVaiThem.met;
+								cayVaiMoi.colorid_link = cayVaiThem.colorid_link;
+								cayVaiMoi.unitid_link = cayVaiThem.unitid_link;
+								cayVaiMoi.warehousestatus = cayVaiThem.status;
+								stockout_d[i].stockout_packinglist.push(cayVaiMoi);
+							}
 						}
-
-						// totalpackage, totalpackagecheck, 
-						// totalydsorigin, totalydscheck
-						// totalmet_origin, totalmet_check
-						stockout_d[i].totalpackage = totalpackage;
-						stockout_d[i].totalpackagecheck = totalpackagecheck;
-						stockout_d[i].totalydsorigin = totalydsorigin;
-						stockout_d[i].totalydscheck = totalydscheck;
-						stockout_d[i].totalmet_origin = totalmet_origin;
-						stockout_d[i].totalmet_check = totalmet_check;
 					}
 				}
 
+				stockout = m.recalculate(stockout);
+				stockout_d = stockout.stockout_d;
+
+				
+				viewModel.set('stockout', stockout);
 				var StockoutD_Store = viewModel.getStore('StockoutD_Store');
 				StockoutD_Store.removeAll();
 				StockoutD_Store.insert(0, stockout_d);
 				StockoutD_Store.commitChanges();
 
-				viewModel.set('stockout', stockout);
-				console.log(stockout);
+				// console.log(stockout);
 				form.close();
 			})
         }
+    },
+	recalculate: function(stockout){
+        var stockout_d = stockout.stockout_d;
+        for(var i=0; i<stockout_d.length; i++){
+            var totalpackage = 0;
+            var totalpackagecheck = 0;
+            var totalydsorigin = 0;
+            var totalydscheck = 0;
+            var totalmet_origin = 0;
+            var totalmet_check = 0;
+            var stockout_packinglist = stockout_d[i].stockout_packinglist;
+            for(var k=0; k<stockout_packinglist.length; k++){
+                totalpackage++;
+                totalpackagecheck++;
+                totalydsorigin+=stockout_packinglist[k].ydsorigin == null ? 0 : stockout_packinglist[k].ydsorigin;
+                totalydscheck+=stockout_packinglist[k].ydscheck == null ? 0 : stockout_packinglist[k].ydscheck;
+                totalmet_origin+=stockout_packinglist[k].met_origin == null ? 0 : stockout_packinglist[k].met_origin;
+                totalmet_check+=stockout_packinglist[k].met_check == null ? 0 : stockout_packinglist[k].met_check;
+            }
+            stockout_d[i].totalpackage = totalpackage;
+            stockout_d[i].totalpackagecheck = totalpackagecheck;
+            stockout_d[i].totalydsorigin = totalydsorigin;
+            stockout_d[i].totalydscheck = totalydscheck;
+            stockout_d[i].totalmet_origin = totalmet_origin;
+            stockout_d[i].totalmet_check = totalmet_check;
+        }
+        return stockout;
     },
 
 	onConfirm: function(){
@@ -1207,6 +1235,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 		form.down('#Stockout_Pklist_Print_View').getController().on('Thoat', function () {
 			form.close();
+		})
+
+		form.down('#Stockout_Pklist_Print_View').getController().on('DeletePkl', function (stockoutObj) {
+			viewModel.set('stockout', stockoutObj);
+			var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+			StockoutD_Store.removeAll();
+			StockoutD_Store.insert(0, stockoutObj.stockout_d);
+			StockoutD_Store.commitChanges();
+			// form.close();
 		})
 	}
 });

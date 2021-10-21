@@ -24,10 +24,10 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         columnLines: true,
         rowLines: true,
     },
-    // selModel: {
-    //     selType: 'checkboxmodel',
-    //     mode: 'MULTI'
-    // },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     // features: [
     //     {
     //         id: 'group',
@@ -131,6 +131,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             {
                 flex:1,
                 border: false
+            },
+            {
+                xtype:'button',
+                text: 'Xóa',
+                margin: 3,
+                itemId:'btnDelete',
+                iconCls: 'x-fa fa-trash',
             },
             {
                 xtype:'button',
