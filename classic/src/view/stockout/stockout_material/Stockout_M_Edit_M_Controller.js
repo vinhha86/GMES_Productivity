@@ -12,7 +12,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         var listidtype = "3";
         var orgfromstore = viewModel.getStore('OrgFromStore');
         // orgfromstore.loadStore_allchildren_byorg(listidtype);
-        orgfromstore.loadStore(3, false);
+        // orgfromstore.loadStore(3, false);
+        orgfromstore.getOrgFromForStockoutMaterial();
         // var orgtostore = viewModel.getStore('OrgToStore');
         // orgtostore.loadStore_byRoot(listidtype);
 

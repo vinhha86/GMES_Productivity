@@ -111,7 +111,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             orgfromstore.loadStore_byRoot(listidtype);
         }
 
-        // set store org from
+        // set store org to
         if (id == 1) { // mua moi -> kho
             var OrgToStore = viewModel.getStore('OrgToStore');
             OrgToStore.LoadOrginReqByPContractAndProduct([3]);

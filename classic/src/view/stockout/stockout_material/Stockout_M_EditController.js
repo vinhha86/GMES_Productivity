@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var viewModel = this.getViewModel();
 		viewModel.set('stockout.vat_exchangerate', record.data.exrate);
 	 },
-	 onSelectGroupStockout: function(combo, record, eOpts){
+	onSelectGroupStockout: function(combo, record, eOpts){
 		var viewModel = this.getViewModel();
 		if (record.get('id') == 1) {
 			viewModel.set('isRFIDHidden', true);
@@ -155,7 +155,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 				if(response.data.stockouttypeid_link == 1) { // xuat den cat
 					var OrgToStore = viewModel.getStore('OrgToStore');
-					OrgToStore.loadStore(17, false);
+					// OrgToStore.loadStore(17, false);
+					OrgToStore.getOrgToForStockoutMaterial_Cut();
 				}
 				if(response.data.stockouttypeid_link == 2) { // xuat den dieu chuyen noi bo
 					var OrgToStore = viewModel.getStore('OrgToStore');
@@ -191,7 +192,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		// set store org from
         if(id == 1) { // xuat den cat
             var OrgToStore = viewModel.getStore('OrgToStore');
-            OrgToStore.loadStore(17, false);
+            // OrgToStore.loadStore(17, false);
+			OrgToStore.getOrgToForStockoutMaterial_Cut();
         }
 		if(id == 2) { // xuat den dieu chuyen noi bo
 			var OrgToStore = viewModel.getStore('OrgToStore');
