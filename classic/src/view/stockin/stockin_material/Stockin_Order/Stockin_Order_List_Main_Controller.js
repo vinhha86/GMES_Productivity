@@ -215,6 +215,48 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
             this.orgToFilter = null;
         }
     },
+    onProductStringFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('productStringFilterValue_order');
+        var store = viewModel.getStore('Stockin_Order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.productStringFilter = filters.add({
+                id: 'productStringFilter',
+                property: 'stockinProductString',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.productStringFilter) {
+            filters.remove(this.productStringFilter);
+            this.productStringFilter = null;
+        }
+    },
+    onReasonFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('reasonFilterValue_order');
+        var store = viewModel.getStore('Stockin_Order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.reasonFilter = filters.add({
+                id: 'reasonFilter',
+                property: 'reason',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.reasonFilter) {
+            filters.remove(this.reasonFilter);
+            this.reasonFilter = null;
+        }
+    },
     onUsercreateFilterKeyup: function(){
         var viewModel = this.getViewModel();
         var filterValue = viewModel.get('UsercreateFilterValue_order');

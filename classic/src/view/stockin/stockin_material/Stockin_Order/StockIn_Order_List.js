@@ -141,6 +141,54 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
             },
         },
         {
+            text: 'Mã SP', dataIndex: 'stockinProductString', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onProductStringFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{productStringFilterValue_order}',
+                },
+            },
+        },
+        {
+            text: 'Lý do nhập', dataIndex: 'reason', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onReasonFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{reasonFilterValue_order}',
+                },
+            },
+        },
+        {
             text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120,
             items: {
                 xtype: 'textfield',

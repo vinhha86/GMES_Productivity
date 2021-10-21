@@ -567,6 +567,49 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
             this.orgToFilter = null;
         }
     },
+    onProductStringFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('productStringFilterValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.productStringFilter = filters.add({
+                id: 'productStringFilter',
+                property: 'stockinProductString',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.productStringFilter) {
+            filters.remove(this.productStringFilter);
+            this.productStringFilter = null;
+        }
+    },
+    onReasonFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('reasonFilterValue');
+        var store = viewModel.getStore('StockinStore');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.reasonFilter = filters.add({
+                id: 'reasonFilter',
+                property: 'reason',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.reasonFilter) {
+            filters.remove(this.reasonFilter);
+            this.reasonFilter = null;
+        }
+    },
+
     onUsercreateFilterKeyup: function(){
         var viewModel = this.getViewModel();
         var filterValue = viewModel.get('UsercreateFilterValue');
