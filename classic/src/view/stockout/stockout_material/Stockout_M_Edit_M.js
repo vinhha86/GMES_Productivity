@@ -61,7 +61,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 {
                     xtype: 'textfield',
                     margin: '5 5 0 5',
-                    reference: 'stockout_shipperson',
+                    reference: 'stockout_usercreate_name',
                     flex: 1,
                     labelWidth: 85,
                     fieldLabel: 'Người lập:',
@@ -114,7 +114,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 {
                     xtype: 'textfield',
                     margin: '0 5 0 5',
-                    reference: 'stockout_shipperson',
+                    reference: 'stockout_userApprove_name',
                     flex: 1,
                     labelWidth: 85,
                     fieldLabel: 'Người duyệt:',

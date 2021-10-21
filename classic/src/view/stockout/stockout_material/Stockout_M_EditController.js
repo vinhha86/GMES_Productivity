@@ -58,6 +58,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		'#btnThemSP': {
 			click: 'onBtnThemSP'
 		},
+		'#btnTimNPL': {
+			click: 'onBtnTimNPL'
+		},
 		'#btnPackinglistPrint': {
 			click: 'onBtnPackinglistPrint'
 		}
@@ -1066,6 +1069,174 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			}
 		}
 	},
+	onBtnTimNPL: function(){
+		var me = this;
+		var m = this.getView();
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+
+		var productid_link = viewModel.get('stockout.productid_link');
+		if(productid_link == null || productid_link == ''){
+			Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn cần phải chọn sản phẩm",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+		}
+
+		var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách nguyên liệu',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_Pcontract_Main_View',
+                viewModel: {
+                    data: {
+                        productid_link: productid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+        form.down('#Stockout_Pcontract_View').getController().on('Thoat', function () {
+            form.close();
+        });
+        form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL', function (select, pcontractid_link, productid_link) {
+
+            viewModel.set('stockout.pcontractid_link', pcontractid_link);
+            viewModel.set('stockout.productid_link', productid_link);
+
+            for(var i=0; i<select.length; i++){
+                var isExist = me.checkSkuInDListFromStockout_Pcontract(select[i]);
+				if(isExist){ // thông báo
+					// Ext.Msg.show({
+                    //     title: 'Thông báo',
+                    //     msg: 'Đã có loại vải này trong danh sách',
+                    //     buttons: Ext.MessageBox.YES,
+                    //     buttonText: {
+                    //         yes: 'Đóng',
+                    //     }
+                    // });
+				}else{ // thêm
+					me.addSkuToDListFromStockout_Pcontract(select[i]);
+				}
+            }
+            me.getPcontractProductId(pcontractid_link, productid_link);
+            form.close();
+        });
+	},
+	getPcontractProductId: function(pcontractid_link, productid_link){
+        var m = this;
+        var me = this.getView();
+        var viewModel= this.getViewModel();
+
+        var params = new Object();
+        params.pcontractid_link = pcontractid_link ;
+        params.productid_link = productid_link ;
+        GSmartApp.Ajax.post('/api/v1/pcontractproduct/getby_pcontract_product',Ext.JSON.encode(params),
+		function(success,response,options ) {
+            var response = Ext.decode(response.responseText);
+            if(response.respcode == 200) {
+				// console.log(response);
+                var data = response.data;
+                // console.log(data);
+                if(data.length > 0){
+                    viewModel.set('stockout.pcontract_productid_link', data[0].id);
+                }
+            }
+		})
+    },
+	checkSkuInDListFromStockout_Pcontract: function(selectedRecord){
+        // console.log(selectedRecord);
+        // return;
+
+		var m = this;
+		var me = this.getView();
+		var viewmodel = this.getViewModel();
+		var stockout_d = viewmodel.get('stockout.stockout_d');
+		if (null!=stockout_d){
+			var skuid_link = parseInt(selectedRecord.get('materialid_link'));
+			for(var i = 0; i < stockout_d.length; i++){
+				if(stockout_d[i].skuid_link == skuid_link){
+					return true;
+				}
+			}
+		} else {
+			viewmodel.set('stockout.stockout_d',[]);
+		}
+		return false;
+	},
+	addSkuToDListFromStockout_Pcontract: function(selectedRecord){
+        // console.log(data); 
+        // return;
+
+		var m = this;
+		var me = this.getView();
+        var Stockout_M_Edit = Ext.getCmp("Stockout_M_Edit");
+		var viewmodel = this.getViewModel();
+		var stockout = viewmodel.get('stockout');
+		var stockout_d = viewmodel.get('stockout.stockout_d');
+		var Stockout_M_Edit_D = Stockout_M_Edit.down('#Stockout_M_Edit_D');
+		var store = Stockout_M_Edit_D.getStore();
+
+		var newObj = new Object();
+		newObj.color_name = selectedRecord.data.color_name;
+		newObj.colorid_link = parseInt(selectedRecord.data.colorid_link);
+		newObj.id = null;
+		newObj.p_skuid_link = parseInt(selectedRecord.data.materialid_link);
+		newObj.product_code = selectedRecord.data.materialCode;
+		newObj.size_name = selectedRecord.data.coKho;
+		// newObj.sizeid_link = selectedRecord.data.size_id;
+		newObj.sku_product_code = selectedRecord.data.materialCode;
+		newObj.sku_product_color = selectedRecord.data.color_name;
+		newObj.sku_product_desc = selectedRecord.data.description;
+		newObj.skucode = selectedRecord.data.materialCode;
+		newObj.skuid_link = parseInt(selectedRecord.data.materialid_link);
+		newObj.skuname = selectedRecord.data.materialName;
+		newObj.status = -1;
+		newObj.stockout_packinglist = [];
+		newObj.stockoutid_link = stockout.id;
+		newObj.unitid_link = stockout.unitid_link;
+		newObj.totaldif = 0;
+		newObj.totalerror = 0;
+		newObj.totalmet_check = 0;
+		newObj.totalmet_origin = 0;
+		newObj.totalmet_processed = 0;
+		newObj.totalmet_stockout = 0;
+		newObj.totalorder_design = 0;
+		newObj.totalorder_tech = 0;
+		newObj.totalpackage = 0;
+		newObj.totalpackage_req = 0;
+		newObj.totalpackagecheck = 0;
+		newObj.totalpackageprocessed = 0;
+		newObj.totalpackagestockout = 0;
+		newObj.totalydscheck = 0;
+		newObj.totalydsorigin = 0;
+		newObj.totalydsprocessed = 0;
+		newObj.totalydsstockout = 0;
+
+		stockout_d.push(newObj);
+		store.setData([]);
+		store.insert(0, stockout_d);
+		store.commitChanges();
+
+		// console.log(data);
+	},
+	
 	addSkuToDList: function(data){
 		var me = this;
 		var m = this.getView();

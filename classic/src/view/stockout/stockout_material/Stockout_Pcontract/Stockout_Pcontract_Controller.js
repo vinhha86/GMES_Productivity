@@ -48,6 +48,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
         var viewModel = this.getViewModel();
         var productid_link = viewModel.get('productid_link');
 
+        var PContractStore = viewModel.get('PContractStore');
+        PContractStore.getSorters().add({
+            property: 'contractcode',
+            direction: 'ASC'
+        },{
+            property: 'contractBuyerYear',
+            direction: 'ASC'
+        });
+
         var mainView = Ext.getCmp('Stockout_Pcontract_Main_View');
         if(mainView) mainView.setLoading(true);
 

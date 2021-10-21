@@ -53,6 +53,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         var productid_link = record.get('id');
         viewModel.set('stockout.productid_link', productid_link);
 
+        return;
+
         var form = Ext.create('Ext.window.Window', {
             height: '90%',
             width: '90%',
