@@ -47,8 +47,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         },
         '#btnChiTietCayVai': {
             click: 'onbtnChiTietCayVai'
-        }
-
+        },
+        // '#btnTestRedirect': {
+		// 	click: 'onBtnTestRedirect'
+		// }
     },
     onUrlBack: function (type) {
 
@@ -121,6 +123,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         }
     },
     onLoadData: function (id, type) {
+        // console.log('loaddata da vao');
         var m = this;
         var viewModel = this.getViewModel();
 
@@ -331,8 +334,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                             }
                         });
                         if (!viewModel.get('isAdd_Pcontract_Stockin')) {
-                            m.redirectTo("stockin_m_main/" + response.id + "/edit");
-                            m.getInfo(response.id);
+                            // m.redirectTo("stockin_m_main/" + response.id + "/edit");
+                            // m.getInfo(response.id);
+
+                            // m.redirectTo("stockin_m/" + response.id + "/edit");
+
+                            var str = Ext.getWin().dom.location.href;
+                            var hash = str.split('#')[1];
+                            if(hash == "stockin_m/" + response.id + "/edit"){
+                                m.getInfo(response.id);
+                            }else{
+                                m.redirectTo("stockin_m/" + response.id + "/edit");
+                            }
                         }
                         if (viewModel.get('isAdd_Pcontract_Stockin')) {
                             m.getInfo(response.id);
@@ -602,5 +615,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             m.getInfo(stockin.id);
             // getInfo
         });
-    }
+    },
+    // onBtnTestRedirect:function(){
+	// 	console.log('click redirect');
+	// 	var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var str = Ext.getWin().dom.location.href;
+    //     console.log(str);
+    //     console.log(str.split('#'));
+    //     var hash = str.split('#')[1];
+    //     if(hash == "stockin_m/" + '509' + "/edit"){
+    //         m.getInfo(509);
+    //         console.log('1');
+    //     }else{
+    //         m.redirectTo("stockin_m/" + '509' + "/edit");
+    //         console.log('2');
+    //     }
+	// }
 })

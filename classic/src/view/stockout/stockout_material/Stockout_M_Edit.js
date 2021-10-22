@@ -63,6 +63,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
             // {
             //     margin: '0 5 5 0',
             //     xtype:'button',
+            //     text:  "Test redirect",
+            //     iconCls: 'x-fa fa-print',
+            //     itemId: 'btnTestRedirect',
+            //     // bind: {
+            //     //     hidden: '{isBtnConfirmHidden}'
+            //     // },
+            //     // hidden: true
+            // },
+            // {
+            //     margin: '0 5 5 0',
+            //     xtype:'button',
             //     text:  'In phiếu',
             //     iconCls: 'x-fa fa-print',
             //     itemId: 'btnStockout_Print'

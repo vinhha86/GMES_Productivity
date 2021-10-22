@@ -66,7 +66,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		},
 		'#btnPackinglistPrint': {
 			click: 'onBtnPackinglistPrint'
-		}
+		},
+		// '#btnTestRedirect': {
+		// 	click: 'onBtnTestRedirect'
+		// }
 	},
 	channel: { cmd: null, dta: null },
     renderCell: function(value, record) {
@@ -378,10 +381,17 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 							buttonText: {
 								yes: 'Đóng',
 							}
-						});							
-						// console.log('redirect da vao ' + response.id);
-						m.redirectTo("stockout_m/" + response.id + "/edit");
-						m.getInfo(response.id);
+						});
+						// m.redirectTo("stockout_m/" + response.id + "/edit");
+						// m.getInfo(response.id);
+
+						var str = Ext.getWin().dom.location.href;
+						var hash = str.split('#')[1];
+						if(hash == "stockout_m/" + response.id + "/edit"){
+							m.getInfo(response.id);
+						}else{
+							m.redirectTo("stockout_m/" + response.id + "/edit");
+						}
 					}
 				} else {
 					var response = Ext.decode(response.responseText);
@@ -838,8 +848,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 						});		
 						Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
 						Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
-						this.redirectTo("stockout_m/" + response.id + "/edit");
-						m.getInfo(response.id);
+						// m.redirectTo("stockout_m/" + response.id + "/edit");
+						// m.getInfo(response.id);
+						var str = Ext.getWin().dom.location.href;
+						var hash = str.split('#')[1];
+						if(hash == "stockout_m/" + response.id + "/edit"){
+							m.getInfo(response.id);
+						}else{
+							m.redirectTo("stockout_m/" + response.id + "/edit");
+						}
 					}else{
 						Ext.MessageBox.show({
 							title: "Thông báo",
@@ -886,7 +903,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                     // iconCls: 'x-fa fas fa-edit brownIcon',
 					iconCls: 'x-fa fas fa-edit',
                     handler: function () {
-                        console.log(record);
+                        // console.log(record);
 						me.onViewPackingList(grid, rowIndex);
                     },
                 },
@@ -1424,5 +1441,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			StockoutD_Store.commitChanges();
 			// form.close();
 		})
-	}
+	},
+	// onBtnTestRedirect:function(){
+	// 	console.log('click redirect');
+	// 	var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+	// 	m.redirectTo("stockout_m/" + '210' + "/edit");
+	// }
 });

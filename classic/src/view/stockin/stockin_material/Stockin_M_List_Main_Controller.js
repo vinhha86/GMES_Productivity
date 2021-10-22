@@ -138,7 +138,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         if(null!=StockinD_Store) StockinD_Store.removeAll();
     },
     onThemMoi: function(){
-        this.redirectTo('stockin_m_main/create');
+        this.redirectTo('stockin_m/create');
     },
     onNhapMuaMoi: function(){
         var viewmodel = this.getViewModel();
@@ -190,7 +190,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                 });
             }
         } else {
-            this.redirectTo('stockin_m_main/1/create');
+            this.redirectTo('stockin_m/1/create');
         }        
     },
     onNhapMuaMoiPhuLieu: function(){
@@ -248,7 +248,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
         // }
     },
     onNhapDieuChuyen: function(){
-        this.redirectTo('stockin_m_main/2/create');
+        this.redirectTo('stockin_m/2/create');
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         var viewmodel = this.getViewModel();
@@ -312,7 +312,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                 });
             }
         } else {
-            this.redirectTo("stockin_m_main/" + id + "/edit");
+            this.redirectTo("stockin_m/" + id + "/edit");
         }
     },
     onEdit: function(grid, rowIndex){
@@ -378,7 +378,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                 });
             }
         } else {
-            this.redirectTo("stockin_m_main/" + id + "/edit");
+            this.redirectTo("stockin_m/" + id + "/edit");
         }
     },
     onDelete: function(grid, rowIndex){

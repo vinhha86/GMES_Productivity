@@ -83,6 +83,17 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 //     iconCls: 'x-fa fa-print',
                 //     itemId: 'btnChiTietCayVai'
                 // },
+                // {
+                //     margin: '0 5 5 0',
+                //     xtype:'button',
+                //     text:  "Test redirect",
+                //     iconCls: 'x-fa fa-print',
+                //     itemId: 'btnTestRedirect',
+                //     // bind: {
+                //     //     hidden: '{isBtnConfirmHidden}'
+                //     // },
+                //     // hidden: true
+                // },
                 {
                     margin: '0 5 5 0',
                     xtype: 'button',
