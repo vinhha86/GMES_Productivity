@@ -193,6 +193,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelWidth: 0,
             value: 'Chi tiết giá'
+        }, {
+            xtype: 'button',
+            width: 20,
+            itemId: 'btnDownloadTemp',
+            ui: 'header',
+            margin: '5 5 0 0',
+            tooltip: 'Tải file mẫu',
+            iconCls: 'x-fa fa-download'
+        }, {
+            xtype: 'button',
+            width: 20,
+            itemId: 'btnUploadTemp',
+            ui: 'header',
+            margin: '5 5 0 0',
+            tooltip: 'Upload file giá',
+            iconCls: 'x-fa fa-upload'
         },
             '->'
             ,
@@ -231,15 +247,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             listeners: {
                 focusleave: 'onExchangeRateChange'
             }
-        },
-        {
-            xtype: 'button',
-            width: 20,
-            itemId: 'btnDownloadTemp',
-            ui: 'header',
-            margin: '5 5 0 0',
-            tooltip: 'Tải file mẫu',
-            iconCls: 'x-fa fa-download'
         },
         {
             xtype: 'button',
