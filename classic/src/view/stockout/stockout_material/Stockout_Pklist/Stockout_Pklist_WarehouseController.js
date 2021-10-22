@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
     control: {
         '#Stockout_Pklist_Warehouse': {
             // afterrender: 'onAfterrender',
-            itemclick: 'onItemclick'
+            // itemclick: 'onItemclick'
         },
         '#btnThoat': {
             click: 'onThoat'
@@ -65,55 +65,59 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             }
 		})
     },
-    onItemclick: function(thisView, record, item, index, e, eOpts){
-        // console.log(record);
+    // onItemclick: function(thisView, record, item, index, e, eOpts){
+    //     // console.log(record);
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var pcontractid_link = record.get('id');
+    //     var productid_link = viewModel.get('productid_link');
+    //     viewModel.set('pcontractid_link', pcontractid_link);
+
+    //     var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+
+    //     var mainView = Ext.getCmp('Stockout_Pcontract_Main_View');
+    //     if(mainView) mainView.setLoading(true);
+
+    //     var params = new Object();
+    //     params.pcontractid_link = pcontractid_link ;
+    //     params.productid_link = productid_link ;
+    //     GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/getbom_by_product_multithread',Ext.JSON.encode(params),
+	// 	function(success,response,options ) {
+    //         if(mainView) mainView.setLoading(false);
+    //         var response = Ext.decode(response.responseText);
+    //         if(response.respcode == 200) {
+	// 			// console.log(response.data);
+    //             var dataMaterial = new Array();
+    //             for(var i = 0; i < response.data.length; i++){
+    //                 var product_type = response.data[i].product_type;
+    //                 if(product_type == '20'){
+    //                     var isNotContain = true;
+    //                     for(var j = 0; j < dataMaterial.length; j++){
+    //                         if(dataMaterial[j].materialid_link == response.data[i].materialid_link){
+    //                             isNotContain = false;
+    //                         }
+    //                     }
+    //                     if(isNotContain){
+    //                         dataMaterial.push(response.data[i]);
+    //                     }
+    //                 }
+    //             }
+    //             StockoutD_Store.removeAll();
+    //             StockoutD_Store.insert(0, dataMaterial);
+    //         }
+	// 	})
+    // },
+    onHeaderCheckChange: function(checkcolumn, checked, e, eOpts){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var pcontractid_link = record.get('id');
-        var productid_link = viewModel.get('productid_link');
-        viewModel.set('pcontractid_link', pcontractid_link);
-
-        var StockoutD_Store = viewModel.getStore('StockoutD_Store');
-
-        var mainView = Ext.getCmp('Stockout_Pcontract_Main_View');
-        if(mainView) mainView.setLoading(true);
-
-        var params = new Object();
-        params.pcontractid_link = pcontractid_link ;
-        params.productid_link = productid_link ;
-        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/getbom_by_product_multithread',Ext.JSON.encode(params),
-		function(success,response,options ) {
-            if(mainView) mainView.setLoading(false);
-            var response = Ext.decode(response.responseText);
-            if(response.respcode == 200) {
-				// console.log(response.data);
-                var dataMaterial = new Array();
-                for(var i = 0; i < response.data.length; i++){
-                    var product_type = response.data[i].product_type;
-                    if(product_type == '20'){
-                        var isNotContain = true;
-                        for(var j = 0; j < dataMaterial.length; j++){
-                            if(dataMaterial[j].materialid_link == response.data[i].materialid_link){
-                                isNotContain = false;
-                            }
-                        }
-                        if(isNotContain){
-                            dataMaterial.push(response.data[i]);
-                        }
-                    }
-                }
-                StockoutD_Store.removeAll();
-                StockoutD_Store.insert(0, dataMaterial);
-            }
-		})
+        m.recalculateTotal();
     },
     onCheckcolumnCheckChange: function(checkcolumn, rowIndex, checked, record, eOpts){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var StockStore = viewModel.getStore('StockStore');
-        var StockStoreData = StockStore.getData();
         m.recalculateTotal();
 
         // console.log(record);
@@ -126,28 +130,99 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 
         // }
     },
+    // recalculateTotal: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var StockStore = viewModel.getStore('StockStore');
+    //     var StockStoreData = StockStore.getData();
+    //     // console.log(StockStoreData);
+    //     var items = StockStoreData.items;
+    //     var totalcay = 0;
+    //     var totaldai = 0;
+    //     for(var i=0; i<items.length; i++){
+    //         var khoang = items[i];
+    //         var warehouseList = khoang.get('warehouseList');
+    //         for(var j=0;j< warehouseList.length; j++){
+    //             if(warehouseList[j].isChecked){
+    //                 totalcay++;
+    //                 totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
+    //             }
+    //         }
+    //     }
+
+    //     viewModel.set('totalcay', totalcay);
+    //     viewModel.set('totaldai', totaldai);
+    // },
     recalculateTotal: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var StockStore = viewModel.getStore('StockStore');
-        var StockStoreData = StockStore.getData();
-        // console.log(StockStoreData);
-        var items = StockStoreData.items;
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        WarehouseStore.commitChanges();
+        var WarehouseStoreData = WarehouseStore.getData();
+        var allRecords = (WarehouseStore.getData().getSource() || WarehouseStore.getData()).getRange();
+
+        // console.log(WarehouseStoreData);
+        // console.log(allRecords);
+        
+        // var items = WarehouseStoreData.items;
+        var items = allRecords;
         var totalcay = 0;
         var totaldai = 0;
+
+        // console.log(items);
         for(var i=0; i<items.length; i++){
-            var khoang = items[i];
-            var warehouseList = khoang.get('warehouseList');
-            for(var j=0;j< warehouseList.length; j++){
-                if(warehouseList[j].isChecked){
-                    totalcay++;
-                    totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
-                }
+            var cayVai = items[i];
+            if(cayVai.get('isChecked') == true){
+                totalcay++;
+                totaldai+= cayVai.get('met') == null ? 0 : cayVai.get('met');
             }
         }
 
         viewModel.set('totalcay', totalcay);
-        viewModel.set('totaldai', totaldai);
-    }
+        viewModel.set('totaldai', totaldai.toFixed(2));
+    },
+
+    onFilterValueKhoangKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldKhoang'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldKhoang = filters.add({
+                id: 'ValueFilterFieldKhoang',
+                property: 'spaceString',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldKhoang) {
+            filters.remove(this.ValueFilterFieldKhoang);
+            this.ValueFilterFieldKhoang = null;
+        }
+    },
+    onFilterValueLotKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldLot'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldLot = filters.add({
+                id: 'ValueFilterFieldLot',
+                property: 'lotnumber',
+                value: filterField.value,
+                // anyMatch: true,
+                exactMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldLot) {
+            filters.remove(this.ValueFilterFieldLot);
+            this.ValueFilterFieldLot = null;
+        }
+    },
 })

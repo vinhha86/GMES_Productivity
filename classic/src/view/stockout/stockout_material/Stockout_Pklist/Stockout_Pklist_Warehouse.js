@@ -33,24 +33,66 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         {
             xtype: 'checkcolumn',
             dataIndex: 'isChecked',
+            width: 50,
+            headerCheckbox: true,
+            sortable: false,
+            menuDisabled: true,
             // text: 'MyCheck',
             listeners: {
-                checkchange: 'onCheckcolumnCheckChange'
+                checkchange: 'onCheckcolumnCheckChange',
+                headercheckchange: 'onHeaderCheckChange'
             }
+        },
+        { 
+            header: 'Khoang', 
+            dataIndex: 'spaceString', 
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldKhoang',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueKhoangKeyup',
+					buffer: 500
+				}
+			}
         },
         { 
             header: 'Số Lot', 
             dataIndex: 'lotnumber', 
-            flex: 1
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldLot',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueLotKeyup',
+					buffer: 500
+				}
+			}
         },
         { 
             header: 'Số cây', 
             dataIndex: 'packageid', 
+            sortable: false,
+            menuDisabled: true,
             flex: 1
         },
         { 
             header: 'Khổ (cm)', 
             dataIndex: 'width_met', 
+            sortable: false,
+            menuDisabled: true,
             flex: 1,
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
                 var value = value == null ? 0 : Ext.util.Format.number(value, '0,000.00');
@@ -60,6 +102,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         { 
             header: 'Dài (m)', 
             dataIndex: 'met', 
+            sortable: false,
+            menuDisabled: true,
             flex: 1
         },
     ],

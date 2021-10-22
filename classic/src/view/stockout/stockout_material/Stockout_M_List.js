@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 var val = value == 'null' ? "" : value;
                 var status = record.get('status');
-                console.log(status);
+                // console.log(status);
                 if(status == 0){
                     metaData.tdCls =  'rowWhite';
                 }

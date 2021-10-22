@@ -17,12 +17,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             flex: 1,
             layout: 'border',
             items: [
-                {
-                    region: 'west',
-                    xtype: 'Stockout_Pklist_Stock',
-                    width: '30%',
-                    margin: 1
-                },
+                // {
+                //     region: 'west',
+                //     xtype: 'Stockout_Pklist_Stock',
+                //     width: '30%',
+                //     margin: 1
+                // },
                 {
                     region: 'center',
                     xtype: 'Stockout_Pklist_Warehouse',

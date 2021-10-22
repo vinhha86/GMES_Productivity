@@ -46,6 +46,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		'#loaitien':{
 			select: 'onSelectCurency'
 		},
+		'#btnLuu': {
+            click: 'onSave'
+        },
         '#btnConfirm':{
             click: 'onConfirm'
         },
@@ -130,6 +133,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         this.redirectTo("stockout_m");
     },
     onLoadData:function(id,type){
+		// console.log('loaddata da vao');
         this.getInfo(id);
 	},
 	getInfo: function(id){
@@ -375,7 +379,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 								yes: 'Đóng',
 							}
 						});							
-						this.redirectTo("stockout_m/" + response.id + "/edit");
+						// console.log('redirect da vao ' + response.id);
+						m.redirectTo("stockout_m/" + response.id + "/edit");
 						m.getInfo(response.id);
 					}
 				} else {
@@ -880,7 +885,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                     // iconCls: 'x-fa fas fa-edit brownIcon',
 					iconCls: 'x-fa fas fa-edit',
                     handler: function () {
-                        // console.log(record);
+                        console.log(record);
 						me.onViewPackingList(grid, rowIndex);
                     },
                 },

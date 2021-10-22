@@ -21,26 +21,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
     onThoat: function(){
         this.fireEvent('Thoat');
     },
-    // onSelect: function(){
-    //     var m = this;
-    //     var me = this.getView();
-    //     var viewModel = this.getViewModel();
-    //     // var ListEndBuyer = viewModel.getStore('ListEndBuyer');
-    //     var select = me.getSelectionModel().getSelection();
-    //     if (select.length == 0) {
-    //         Ext.Msg.show({
-    //             title: "Thông báo",
-    //             msg: "Phải chọn một đơn hàng",
-    //             buttons: Ext.MessageBox.YES,
-    //             buttonText: {
-    //                 yes: 'Đóng',
-    //             }
-    //         });
-    //         return;
-    //     }
-    //     this.fireEvent("ThemDonHang", select);
-    //     // this.onThoat();
-    // },
+
     onAfterrender: function(){
         var m = this;
         var me = this.getView();
@@ -71,14 +52,28 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 				// console.log(response);
                 var data = response.data;
                 var storeData = new Array();
-                storeData = m.setStoreData(data);
+                // storeData = m.setStoreData(data);
+                storeData = data;
 
                 viewModel.set('storeData', storeData);
 
-                var StockStore = viewModel.getStore('StockStore');
-                StockStore.insert(0, storeData);
-                StockStore.getSorters().add({
+                // var StockStore = viewModel.getStore('StockStore');
+                // StockStore.insert(0, storeData);
+                // StockStore.getSorters().add({
+                //     property: 'spaceString',
+                //     direction: 'ASC'
+                // });
+
+                 var WarehouseStore = viewModel.getStore('WarehouseStore');
+                 WarehouseStore.insert(0, storeData);
+                 WarehouseStore.getSorters().add({
                     property: 'spaceString',
+                    direction: 'ASC'
+                },{
+                    property: 'lotnumber',
+                    direction: 'ASC'
+                },{
+                    property: 'packageid',
                     direction: 'ASC'
                 });
                 
@@ -86,6 +81,52 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             }
 		})
     },
+    
+    // onAfterrender: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var skuid_link = viewModel.get('skuid_link');
+    //     var stockout = viewModel.get('stockout');
+    //     var stockoutDRec = viewModel.get('stockoutDRec');
+
+    //     var pcontractid_link = stockout.pcontractid_link;
+    //     var orgid_from_link = stockout.orgid_from_link;
+    //     if(orgid_from_link == null){
+    //         return;
+    //     }
+
+    //     var mainView = Ext.getCmp('Stockout_Pklist_Main');
+    //     if(mainView) mainView.setLoading(true);
+
+    //     var params = new Object();
+    //     params.stockid_link = orgid_from_link ;
+    //     params.skuid_link = skuid_link ;
+    //     params.pcontractid_link = pcontractid_link ;
+
+    //     GSmartApp.Ajax.postJitin('/api/v1/warehouse/getMaterialListBySku',Ext.JSON.encode(params),
+	// 	function(success,response,options ) {
+    //         if(mainView) mainView.setLoading(false);
+    //         var response = Ext.decode(response.responseText);
+    //         if(response.respcode == 200) {
+	// 			// console.log(response);
+    //             var data = response.data;
+    //             var storeData = new Array();
+    //             storeData = m.setStoreData(data);
+
+    //             viewModel.set('storeData', storeData);
+
+    //             var StockStore = viewModel.getStore('StockStore');
+    //             StockStore.insert(0, storeData);
+    //             StockStore.getSorters().add({
+    //                 property: 'spaceString',
+    //                 direction: 'ASC'
+    //             });
+                
+    //             // console.log(storeData);
+    //         }
+	// 	})
+    // },
     setStoreData: function(data){
         var spaceArr = new Array();
 
@@ -155,28 +196,56 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             }
 		})
     },
+    // onSelect: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var StockStore = viewModel.getStore('StockStore');
+    //     var StockStoreData = StockStore.getData();
+
+    //     var listCayVaiThem = new Array();
+
+    //     var items = StockStoreData.items;
+    //     var totalcay = 0;
+    //     var totaldai = 0;
+    //     for(var i=0; i<items.length; i++){
+    //         var khoang = items[i]; console.log(khoang);
+    //         var warehouseList = khoang.get('warehouseList');
+    //         for(var j=0;j< warehouseList.length; j++){
+    //             if(warehouseList[j].isChecked){
+    //                 warehouseList[j].spaceString = khoang.get('spaceString');
+    //                 totalcay++;
+    //                 totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
+    //                 listCayVaiThem.push(warehouseList[j]);
+    //             }
+    //         }
+    //     }
+
+    //     m.fireEvent('ThemCayVai', listCayVaiThem, totalcay, totaldai);
+    // },
     onSelect: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var StockStore = viewModel.getStore('StockStore');
-        var StockStoreData = StockStore.getData();
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        var WarehouseStoreData = WarehouseStore.getData();
+        var allRecords = (WarehouseStore.getData().getSource() || WarehouseStore.getData()).getRange();
 
         var listCayVaiThem = new Array();
 
-        var items = StockStoreData.items;
+        // var items = WarehouseStoreData.items;
+        var items = allRecords;
+
+        // console.log(items);
+
         var totalcay = 0;
         var totaldai = 0;
         for(var i=0; i<items.length; i++){
-            var khoang = items[i]; console.log(khoang);
-            var warehouseList = khoang.get('warehouseList');
-            for(var j=0;j< warehouseList.length; j++){
-                if(warehouseList[j].isChecked){
-                    warehouseList[j].spaceString = khoang.get('spaceString');
-                    totalcay++;
-                    totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
-                    listCayVaiThem.push(warehouseList[j]);
-                }
+            var cayVai = items[i].data;
+            if(cayVai.isChecked){
+                totalcay++;
+                totaldai+= cayVai.met == null ? 0 : cayVai.met;
+                listCayVaiThem.push(cayVai);
             }
         }
 
