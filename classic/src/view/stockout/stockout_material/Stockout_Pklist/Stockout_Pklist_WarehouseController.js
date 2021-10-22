@@ -215,14 +215,35 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                 id: 'ValueFilterFieldLot',
                 property: 'lotnumber',
                 value: filterField.value,
-                // anyMatch: true,
-                exactMatch: true,
+                anyMatch: true,
+                // exactMatch: true,
                 caseSensitive: false
             });
         }
         else if (this.ValueFilterFieldLot) {
             filters.remove(this.ValueFilterFieldLot);
             this.ValueFilterFieldLot = null;
+        }
+    },
+    onFilterValueMaSPKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaSP'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaSP = filters.add({
+                id: 'ValueFilterFieldMaSP',
+                property: 'stockinProductString',
+                value: filterField.value,
+                anyMatch: true,
+                // exactMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaSP) {
+            filters.remove(this.ValueFilterFieldMaSP);
+            this.ValueFilterFieldMaSP = null;
         }
     },
 })

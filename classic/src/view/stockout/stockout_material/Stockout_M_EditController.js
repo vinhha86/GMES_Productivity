@@ -718,6 +718,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 								cayVaiMoi.colorid_link = cayVaiThem.colorid_link;
 								cayVaiMoi.unitid_link = cayVaiThem.unitid_link;
 								cayVaiMoi.warehousestatus = cayVaiThem.status;
+								cayVaiMoi.stockinProductString = cayVaiThem.stockinProductString;
 								stockout_d[i].stockout_packinglist.push(cayVaiMoi);
 							}
 						}

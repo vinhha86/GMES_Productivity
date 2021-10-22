@@ -60,7 +60,11 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 					keyup: 'onFilterValueKhoangKeyup',
 					buffer: 500
 				}
-			}
+			},
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
         },
         { 
             header: 'Số Lot', 
@@ -79,7 +83,11 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 					keyup: 'onFilterValueLotKeyup',
 					buffer: 500
 				}
-			}
+			},
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
         },
         { 
             header: 'Số cây', 
@@ -105,6 +113,29 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             sortable: false,
             menuDisabled: true,
             flex: 1
+        },
+        { 
+            header: 'Mã SP', 
+            dataIndex: 'stockinProductString', 
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaSP',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaSPKeyup',
+					buffer: 500
+				}
+			},
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
         },
     ],
     // dockedItems:[{

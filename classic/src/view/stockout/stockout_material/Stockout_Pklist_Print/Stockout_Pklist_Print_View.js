@@ -100,6 +100,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 				return value;
 			},
         },
+        { 
+            header: 'Mã SP', 
+            dataIndex: 'stockinProductString', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+        },
         // { 
         //     header: 'Trạng thái', 
         //     dataIndex: 'warehousestatus',
