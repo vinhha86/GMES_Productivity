@@ -26,14 +26,14 @@ Ext.define('GSmartApp.view.DashBoardChart.PContractChart.PContractChartView', {
             grid: true,
             fields: ['soluong'],
             renderer: 'onAxisLabelRender',
-            title: 'Số lượng',
+            // title: 'Số lượng',
             minimum: 0
         }, {
             type: 'category',
             position: 'bottom',
             grid: true,
             fields: ['mahang'],
-            title: 'Mã hàng',
+            // title: 'Mã hàng',
             label: {
                 rotate: {
                     degrees: -45

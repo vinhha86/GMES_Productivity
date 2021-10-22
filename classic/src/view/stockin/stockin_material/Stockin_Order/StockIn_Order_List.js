@@ -18,12 +18,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         }
     ],
     columns: [
-        {text: 'Số phiếu', dataIndex: 'stockincode', width: 120,
+        {
+            text: 'Số phiếu', dataIndex: 'stockincode', width: 90,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'stockin_order_code_filter',
-                width: 115,
+                width: 85,
                 flex: 1,
                 margin: 2,
                 enableKeyEvents: true,
@@ -35,7 +41,13 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
             summaryType: 'count',
             summaryRenderer: 'renderSum'
         },
-        {text: 'Số Invoice', dataIndex: 'invoice_number', width: 120,
+        {
+            text: 'Số Invoice', dataIndex: 'invoice_number', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -51,14 +63,26 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
             },
         },
         {
-            text: GSmartApp.Locales.ngaynhap[GSmartApp.Locales.currentLocale],
+            text: 'Ngày nhập',
             xtype: 'datecolumn',
-            format: 'd/m/Y',
+            format: 'd/m/y',
             dataIndex: 'stockindate',
-            width: 90
+            width: 70,
+        },
+        {
+            text: 'Dự kiến về',
+            xtype: 'datecolumn',
+            format: 'd/m/y',
+            dataIndex: 'expected_date',
+            width: 70,
         },
         {
             text: 'Loại nhập kho', dataIndex: 'stockintype_name', width: 150,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'combobox',
                 width: '98%',
@@ -104,6 +128,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         },    
         {
             text: 'Nơi giao', dataIndex: 'orgfrom_name', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 // fieldStyle: "",
@@ -123,6 +152,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         },    
         {
             text: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 // fieldStyle: "",
@@ -190,6 +224,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         },
         {
             text: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             items: {
                 xtype: 'textfield',
                 // fieldStyle: "",
@@ -209,6 +248,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_order.Stockin_Order_
         },
         {
             text: 'Trạng thái', dataIndex: 'statusString', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
             // renderer: function(value, metaData, record){
             //     switch(value){
             //         case -1: return 'Chưa kiểm tra đủ';
