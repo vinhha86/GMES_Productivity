@@ -33,6 +33,23 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
     ],
     dockedItems: [
         {
+            dock: 'top',
+            layout: 'hbox',
+            border: false,
+            items: [
+                {
+                    margin: 3,
+                    xtype:'button',
+                    text:  'Thêm cây vải mất tem',
+                    iconCls: 'x-fa fa-plus',
+                    itemId: 'btnThemMatTem',
+                    bind: {
+                        hidden: '{isBtnSelectHidden}'
+                    }
+                },
+            ]
+        },
+        {
             dock: 'bottom',
             layout: 'hbox',
             border: false,
@@ -46,7 +63,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                 },
                 {
                     xtype:'button',
-                    text: 'Thêm Packinglist',
+                    text: 'Thêm cây vải',
                     margin: 3,
                     itemId:'btnSelect',
                     iconCls: 'x-fa fa-plus',

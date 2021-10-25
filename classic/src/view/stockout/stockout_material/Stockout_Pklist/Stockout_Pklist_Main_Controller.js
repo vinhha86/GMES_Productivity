@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         '#btnSelect': {
             click: 'onSelect'
         },
+        '#btnThemMatTem': {
+            click: 'onThemMatTem'
+        },
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -251,4 +254,77 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 
         m.fireEvent('ThemCayVai', listCayVaiThem, totalcay, totaldai);
     },
+    onThemMatTem: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var skuid_link = viewModel.get('skuid_link');
+        var stockout = viewModel.get('stockout');
+        var stockoutDRec = viewModel.get('stockoutDRec');
+
+        var stockoutid_link = stockout.id;
+        var stockoutdid_link = stockoutDRec.get('id');
+
+        if(stockoutid_link == 0 || stockoutid_link == null){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn cần phải lưu phiếu xuất kho',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        if(stockoutdid_link == 0 || stockoutdid_link == null || isNaN(stockoutdid_link)){
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn cần phải lưu phiếu xuất kho',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
+        var form = Ext.create('Ext.window.Window', {
+            // height: '90%',
+            // width: 1200,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Thêm cây vải mất tem',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_Pklist_Add_NoLabelPkl_View',
+                viewModel: {
+                    data: {
+                        skuid_link: skuid_link,
+                        stockout: stockout,
+                        stockoutDRec: stockoutDRec
+                    }
+                }					
+            }],
+        });
+        form.show();
+
+        form.down('#Stockout_Pklist_Add_NoLabelPkl_View').getController().on('Thoat', function () {
+            form.close();
+        })
+
+        form.down('#Stockout_Pklist_Add_NoLabelPkl_View').getController().on('themMatTem', function () {
+            m.fireEvent('themMatTem');
+            form.close();
+        })
+
+        // m.fireEvent('ThemCayVaiMatTem', cayVaiThem );
+    }
+
 })

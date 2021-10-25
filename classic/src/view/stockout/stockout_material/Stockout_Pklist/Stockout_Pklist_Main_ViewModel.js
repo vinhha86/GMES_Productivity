@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
     },
     formulas:{
         isBtnSelectHidden: function (get) {
-            if(get('stockout.status') >= 1){
+            if(get('stockout.status') >= 1){ // phiếu đã duyệt, ko cho thêm
                 return true;
             }
             return false;

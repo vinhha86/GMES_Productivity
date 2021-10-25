@@ -657,13 +657,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         }else{
             var form = Ext.create('Ext.window.Window', {
                 height: '90%',
+                width: 1200,
                 closable: true,
                 resizable: false,
                 modal: true,
                 border: false,
                 title: 'Chi tiết Packing List - SKU : ' + data.get('skucode'),
                 closeAction: 'destroy',
-                width: 1200,
                 bodyStyle: 'background-color: transparent',
                 layout: {
                     type: 'fit', // fit screen for window
@@ -749,6 +749,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				form.close();
 			})
         }
+
+		form.down('#Stockout_Pklist_Main').getController().on('themMatTem', function () {
+			m.getInfo(stockout.id);
+			// form.close();
+		})
     },
 	recalculate: function(stockout){
         var stockout_d = stockout.stockout_d;
