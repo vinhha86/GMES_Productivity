@@ -63,6 +63,36 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             },
         },
         {
+            text: 'Số lot',
+            dataIndex: 'lotnumber',
+            // flex: 1,
+            width: 150,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        {
+            text: 'Số cây',
+            dataIndex: 'packageid',
+            // flex: 1,
+            width: 75,
+            align: 'center',
+            renderer: function(value, meta, record){
+                if(value == null){
+                    return '';
+                }
+                // return value * 100;
+                meta.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        {
             text: 'Sản phẩm',
             dataIndex: 'stockinProductString',
             // flex: 1,
@@ -121,36 +151,6 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
                     return '';
                 }
                 return value * 100;
-            },
-        },
-        {
-            text: 'Số lot',
-            dataIndex: 'lotnumber',
-            // flex: 1,
-            width: 150,
-            align: 'center',
-            renderer: function(value, meta, record){
-                if(value == null){
-                    return '';
-                }
-                // return value * 100;
-                meta.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            },
-        },
-        {
-            text: 'Số cây',
-            dataIndex: 'packageid',
-            // flex: 1,
-            width: 75,
-            align: 'center',
-            renderer: function(value, meta, record){
-                if(value == null){
-                    return '';
-                }
-                // return value * 100;
-                meta.tdAttr = 'data-qtip="' + value + '"';
-                return value;
             },
         },
         {
