@@ -8,10 +8,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Main_Controller', {
     },
     control: {
     },
-    // renderSum: function(value, summaryData, dataIndex) {
-    //     if (null == value) value = 0;
-    //     return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
-    // },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
     // renderUnit: function(val, meta, record, rindex, cindex, store) {
     //     if (null != val){
     //         var viewModel = this.getViewModel();

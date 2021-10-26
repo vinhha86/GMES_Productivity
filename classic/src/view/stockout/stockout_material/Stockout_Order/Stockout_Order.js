@@ -14,6 +14,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
     bind: {
         store: '{Stockout_order_Store}'
     },
+    features: [
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        }
+    ],
     columnLines: true,
     viewConfig: {
         enableTextSelection: true,
@@ -62,6 +68,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
                     value: '{porder_product_buyercodeFilterValue}',
                 },
             },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
         },
         { 
             header: 'Lệnh SX', dataIndex: 'porder_code', flex: 1,

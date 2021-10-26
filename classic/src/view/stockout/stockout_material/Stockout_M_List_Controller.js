@@ -119,7 +119,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
     },
     renderSum: function (value, summaryData, dataIndex) {
         if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     onStockoutEdit: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);

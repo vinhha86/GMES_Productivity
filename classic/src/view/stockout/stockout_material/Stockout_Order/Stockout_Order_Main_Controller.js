@@ -38,6 +38,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
             select: 'onStockout_orderSelect'
         },
     },
+    renderSum: function (value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
     onStockout_orderSelect: function (e, selected, eOpts) {
         // console.log(selected);
         var viewmodel = this.getViewModel();

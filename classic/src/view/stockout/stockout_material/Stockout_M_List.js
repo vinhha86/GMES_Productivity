@@ -16,6 +16,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
     bind: {
         store: '{Stockout}'
     },
+    features: [
+        {
+            ftype: 'summary',
+            dock: 'bottom'
+        }
+    ],
     columnLines: true,
     viewConfig: {
         enableTextSelection: false,
@@ -77,6 +83,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                     buffer: 500
                 }
             },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
         },
         { 
             header: 'Số YCX', dataIndex: 'stockout_order_code', width: 120,
