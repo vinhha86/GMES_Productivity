@@ -5,8 +5,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         var viewmodel = this.getViewModel();
         var UnitStore = viewmodel.getStore('UnitStore');
         UnitStore.loadStore();
+        console.log(viewmodel.get('id'));
     },
     control: {
+        '#fileUploadPO': {
+            change: 'onSelect'
+        },
         '#btnThemMoiGia': {
             click: 'onThemMoiGia'
         },
@@ -19,11 +23,49 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         '#btnDownloadTemp': {
             click: 'onDownloadTemp'
         },
+        '#btnUploadTemp': {
+            click: 'onUpload'
+        },
         '#PContract_PO_Edit_Price': {
             // beforecelldblclick: 'onBeforePriceCellDblClick',
             celldblclick: 'onPriceCellDblClick',
             itemclick: 'onPriceDItemClick'
         }
+    },
+    onSelect: function (m, value) {
+        var grid = this.getView();
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractpriceid_link', viewmodel.get('po_price.id'));
+        data.append('currencyid_link', viewmodel.get('po.currencyid_link'));
+        var url = '/api/v1/upload_price_fob/upload_price';
+
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout(url, data, 2 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.MessageBox.show({
+                            title: "Có lỗi trong quá trình Upload",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                    me.fireEvent('Reload');
+                }
+            })
+    },
+    onUpload: function () {
+        var me = this.getView();
+        me.down('#fileUploadPO').fileInputEl.dom.click();
     },
     onDownloadTemp: function () {
         var me = this;

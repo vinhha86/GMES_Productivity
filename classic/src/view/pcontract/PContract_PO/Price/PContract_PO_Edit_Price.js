@@ -95,7 +95,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            if (value == 0) return "";
+            if (value == 0 || value == null) return "";
             metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.000') + '"';
             return Ext.util.Format.number(value, '0.000');
         }
@@ -111,9 +111,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
-            if (value == 0) return "";
-            metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.000') + '"';
-            return Ext.util.Format.number(value, '0.000')
+            if (value == 0 || value == null) return "";
+            return Ext.util.Format.number(value, '0.00') + " %"
         }
     }, {
         text: 'ĐVT',
@@ -201,6 +200,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
             margin: '5 5 0 0',
             tooltip: 'Tải file mẫu',
             iconCls: 'x-fa fa-download'
+        }, {
+            xtype: 'filefield',
+            buttonText: 'Tải báo giá',
+            buttonOnly: true,
+            hidden: true,
+            itemId: 'fileUploadPO',
+            width: 35,
+            height: 32,
+            margin: 3
         }, {
             xtype: 'button',
             width: 20,

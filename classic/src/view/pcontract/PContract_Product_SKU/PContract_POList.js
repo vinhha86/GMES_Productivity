@@ -309,7 +309,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             margin: 3,
             // text: 'Mẫu file PO',
             iconCls: 'x-fa fa-download',
-            itemId: 'btnUploadTemplate'
+            itemId: 'btnUploadTemplate',
+            bind: {
+                hidden: '{PContract.contracttypeid_link == 1? false : true}'
+            }
+        },
+        {
+            xtype: 'button',
+            tooltip: 'Tải file mẫu FOB (PO Line)',
+            margin: 3,
+            // text: 'Mẫu file PO',
+            iconCls: 'x-fa fa-download',
+            itemId: 'btnUploadTemplateFOB',
+            bind: {
+                hidden: '{PContract.contracttypeid_link == 2 ? false : true}'
+            }
         },
         {
             xtype: 'combo',

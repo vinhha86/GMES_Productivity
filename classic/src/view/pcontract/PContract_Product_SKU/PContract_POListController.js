@@ -18,6 +18,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         '#btnUploadTemplate': {
             click: 'onDownloadTemplate'
         },
+        '#btnUploadTemplateFOB': {
+            click: 'onDownloadTemplateFOB'
+        },
         '#cmbFilterMauSP': {
             select: 'onFilterMauSP'
         }
@@ -175,6 +178,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
             var widget = grid.getPlugin('rowwidget');
             widget.toggleRow(rowIndex, record);
         })
+    },
+    onDownloadTemplateFOB: function () {
+        var me = this;
+        var params = new Object();
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_po_fob', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_Upload_PO_Line_FOB.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
     },
     onDownloadTemplate: function () {
         var me = this;

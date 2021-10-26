@@ -21,6 +21,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
             click: 'onProductInfoCopy'
         }
     },
+    listen: {
+        controller: {
+            'PContract_PO_Edit_PriceController': {
+                'Reload': 'onReload'
+            }
+        }
+    },
     init: function () {
         var viewmodel = this.getViewModel();
         var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
@@ -63,6 +70,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var grid = this.getView();
         common.Check_Object_Permission();
         common.Check_Menu_Permission(grid);
+    },
+
+    onReload: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        me.getInfo(viewmodel.get('id'));
     },
     getInfo: function (id) {
         var m = this;

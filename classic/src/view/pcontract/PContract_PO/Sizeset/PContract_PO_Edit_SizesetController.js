@@ -1,17 +1,17 @@
 Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContract_PO_Edit_SizesetController',
-    control: {      
+    control: {
         '#btnSizesetSelect': {
             click: 'onSizesetSelect'
         },
         'PContract_PO_Edit_Sizeset': {
             select: 'onItemSelect'
         }
-    },    
-    onSizesetSelect: function(){
+    },
+    onSizesetSelect: function () {
         var viewmodel = this.getViewModel();
-        if (null != viewmodel.get('product_selected_typeid_link') && 5 != viewmodel.get('product_selected_typeid_link')){
+        if (null != viewmodel.get('product_selected_typeid_link') && 5 != viewmodel.get('product_selected_typeid_link')) {
             var form = Ext.create('Ext.window.Window', {
                 height: 400,
                 closable: true,
@@ -44,11 +44,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
             });
         }
     },
-    onXoa: function(grid, rowIndex, colIndex){
-        var me=this;
-        var objDel = grid.getStore().getAt (rowIndex);
+    onXoa: function (grid, rowIndex, colIndex) {
+        var me = this;
+        var objDel = grid.getStore().getAt(rowIndex);
         //Chi xoa cac Sizeset != ALL
-        if (objDel.data.sizesetid_link != 1){
+        if (objDel.data.sizesetid_link != 1) {
             Ext.Msg.show({
                 title: "Thông báo",
                 msg: 'bạn có chắc chắn muốn xóa dải cỡ?',
@@ -57,9 +57,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
                     yes: 'Có',
                     no: 'Không'
                 },
-                fn: function(btn){
-                    if(btn==='yes'){
-                        var colDel = grid.getStore().query('sizesetid_link',objDel.data.sizesetid_link);
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        var colDel = grid.getStore().query('sizesetid_link', objDel.data.sizesetid_link);
                         // console.log(colDel);
                         grid.getStore().remove(colDel.items);
 
@@ -74,39 +74,39 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
             });
         }
     },
-    recalculate_amount: function(){
+    recalculate_amount: function () {
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
 
         var length = priceStore.data.length;
         var amount_fix = 0; //Lay nhung dai co da fix
         var count = 0; //Dem de biet co bao nhieu dai co chua fix
-        for(var i=1; i< length; i++){
+        for (var i = 1; i < length; i++) {
             var record = priceStore.data.items[i];
-            if(record.get('is_fix')){
+            if (record.get('is_fix')) {
                 amount_fix += record.get('quantity');
             }
             else
-            count++;
+                count++;
         }
         var total_amount = priceStore.data.items[0].get('quantity');
-        if(count>0){
+        if (count > 0) {
             var amount = (total_amount - amount_fix) / count;
 
             priceStore.clearFilter();
             length = priceStore.data.length;
-            for(var i=1; i< length; i++){
+            for (var i = 1; i < length; i++) {
                 var record = priceStore.data.items[i];
-                if(record.get('sizesetid_link') != 1 && !record.get('is_fix')){
-                    record.set('quantity',amount);
+                if (record.get('sizesetid_link') != 1 && !record.get('is_fix')) {
+                    record.set('quantity', amount);
                 }
             };
 
         }
 
-        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+        priceStore.filter('productid_link', viewmodel.get('product_selected_id_link'));
     },
-    onItemSelect: function(m, rec){
+    onItemSelect: function (m, rec) {
         var viewModel = this.getViewModel();
         viewModel.set('po_price', rec.data);
 
@@ -115,32 +115,32 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
 
         // console.log(viewModel.getStore('PriceStore').data.length);
         // console.log(viewModel);
-        if(viewModel.get('product_selected_typeid_link') == 5){
+        if (viewModel.get('product_selected_typeid_link') == 5) {
             Ext.getCmp('PContract_PO_Edit_Price').setDisabled(true);
-        }else if(rec.data.sizesetname == 'ALL' && viewModel.getStore('PriceStore').data.length > 1){
+        } else if (rec.data.sizesetname == 'ALL' && viewModel.getStore('PriceStore').data.length > 1) {
             Ext.getCmp('PContract_PO_Edit_Price').setDisabled(true);
-        }else{
+        } else {
             Ext.getCmp('PContract_PO_Edit_Price').setDisabled(false);
         }
     },
-    onCheckSizeSet: function(col, rowIndex, checked, record, e, eOpts){
+    onCheckSizeSet: function (col, rowIndex, checked, record, e, eOpts) {
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
 
         priceStore.clearFilter();
         var length = priceStore.data.length;
-        for(var i=1; i< length; i++){
+        for (var i = 1; i < length; i++) {
             var rec = priceStore.data.items[i];
-            if(rec.data.sizesetid_link == record.data.sizesetid_link) 
-                rec.set('is_fix',checked);
+            if (rec.data.sizesetid_link == record.data.sizesetid_link)
+                rec.set('is_fix', checked);
         };
 
-        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+        priceStore.filter('productid_link', viewmodel.get('product_selected_id_link'));
     },
-    onSizesetItemEdit: function(editor, context){
+    onSizesetItemEdit: function (editor, context) {
         console.log(context);
         var viewmodel = this.getViewModel();
-        if(context.value == context.originalValue){
+        if (context.value == context.originalValue) {
             return;
         }
 
@@ -159,78 +159,78 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         var last_amount = 0;
 
         var last_rec = new Object(); // lay dong cuoi cung ko fix ma khong phai dong dang sua
-        for(var i=1; i< length; i++){
+        for (var i = 1; i < length; i++) {
             var record = priceStore.data.items[i];
-            if(record.get('is_fix')){
+            if (record.get('is_fix')) {
                 amount_fix += record.get('quantity');
             }
-            else{
+            else {
                 count++;
-                if(record.data.sizesetid_link != price_data.sizesetid_link){
+                if (record.data.sizesetid_link != price_data.sizesetid_link) {
                     last_rec = record;
                 }
             }
         }
         var total_amount = priceStore.data.items[0].get('quantity');
         var amount = context.value;
-        if(count>1){
-            amount = Math.ceil((total_amount - amount_fix - context.value) / (count-1));
-            last_amount = total_amount - amount_fix - context.value - (count-2)*amount;
+        if (count > 1) {
+            amount = Math.ceil((total_amount - amount_fix - context.value) / (count - 1));
+            last_amount = total_amount - amount_fix - context.value - (count - 2) * amount;
         };
 
-        if(amount <0 || last_amount < 0) {
+        if (amount < 0 || last_amount < 0) {
             context.record.set('quantity', context.originalValue);
             return;
         }
 
         priceStore.clearFilter();
         length = priceStore.data.length;
-        for(var i=1; i< length; i++){
+        for (var i = 1; i < length; i++) {
             var record = priceStore.data.items[i];
-            if(record.data.sizesetid_link == price_data.sizesetid_link) 
-                record.set('quantity',context.value);
+            if (record.data.sizesetid_link == price_data.sizesetid_link)
+                record.set('quantity', context.value);
             else {
-                if(record.get('sizesetid_link') != 1 && !record.get('is_fix')){
-                    if(last_rec != null){
-                        if(last_rec.get('sizesetid_link') == record.get('sizesetid_link')){
+                if (record.get('sizesetid_link') != 1 && !record.get('is_fix')) {
+                    if (last_rec != null) {
+                        if (last_rec.get('sizesetid_link') == record.get('sizesetid_link')) {
                             record.set('quantity', last_amount);
                         }
-                        else 
-                        record.set('quantity',amount);
+                        else
+                            record.set('quantity', amount);
                     }
                 }
             }
         };
 
-        priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
+        priceStore.filter('productid_link', viewmodel.get('product_selected_id_link'));
 
         //Tinh toan lai gia cua san pham
         this.calPrice_SizesetAll(viewmodel.get('product_selected_id_link'));
         //Tinh toan lai gia cua san pham bo
         this.calPrice_PairProduct();
     },
-    onSizesetBeforeEdit: function(editor, context, eOpts){
-        if (context.record.data.sizesetid_link ==1) context.cancel = true;
+    onSizesetBeforeEdit: function (editor, context, eOpts) {
+        if (context.record.data.sizesetid_link == 1) context.cancel = true;
     },
-    renderSum: function(value, summaryData, dataIndex){
+    renderSum: function (value, summaryData, dataIndex) {
         var viewmodel = this.getViewModel();
         var po_totalorder = viewmodel.get('po.po_quantity');
         if (null == po_totalorder) po_totalorder = 0;
         if (null == value) value = 0;
-        if (po_totalorder != value){
+        if (po_totalorder != value) {
             viewmodel.set('isSizeset_CheckOK', false);
-            return '<div style="font-weight: bold; color:red;">' + Ext.util.Format.number(value, '0,000') + '</div>';   
+            return '<div style="font-weight: bold; color:red;">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
         else {
             viewmodel.set('isSizeset_CheckOK', true);
-            return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+            return '<div style="font-weight: bold; color:black;">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
     },
     //Cong don cho sizeset ALL theo binh quan gia quyen
-    calPrice_SizesetAll: function(){
+    calPrice_SizesetAll: function () {
         var viewmodel = this.getViewModel();
         var productStore = viewmodel.getStore('ProductStore');
-        for(i=0; i<productStore.data.items.length;i++ ){
+        for (i = 0; i < productStore.data.items.length; i++) {
             var product = productStore.data.items[i].data;
             if (5 != product.product_selected_typeid_link)
                 Ext.getCmp('PContract_PO_Edit_Price').getController().calPrice_SizesetAll(product.id);
@@ -305,10 +305,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
 
         // priceStore.clearFilter();
         // priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
-       
+
         // }
     },
-    calPrice_PairProduct: function(){
+    calPrice_PairProduct: function () {
         Ext.getCmp('PContract_PO_Edit_Price').getController().calPrice_PairProduct();
         // var viewmodel = this.getViewModel();
         // if (viewmodel.get('isproductpair') == 1){
@@ -339,7 +339,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         //     var sum_price_sewingcost = priceStore.sum('price_sewingcost');
         //     var sum_totalprice = priceStore.sum('totalprice');
         //     var sum_salaryfund = priceStore.sum('salaryfund');       
-            
+
         //     priceStore.clearFilter();
         //     filters.add({
         //         // id: 'porderFilter',
@@ -370,9 +370,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         //     priceStore.clearFilter();
         //     priceStore.filter('productid_link',viewmodel.get('product_selected_id_link'));
         // }
-    },  
+    },
     renderValue: function (value, metaData, record, rowIndex) {
         if (null == value) value = 0;
-        return Ext.util.Format.number(value, '0,000');    
-    }  
+        return Ext.util.Format.number(value, '0,000');
+    }
 })
