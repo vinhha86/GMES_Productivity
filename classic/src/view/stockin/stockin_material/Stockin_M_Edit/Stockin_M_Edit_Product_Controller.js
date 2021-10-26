@@ -7,8 +7,45 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         },
 	},	
 	onBtnTimSP: function () {
+		var m = this;
 		var me = this.getView();
         var viewmodel = this.getViewModel();
+		var stockin = viewmodel.get('stockin');
+		var pcontractid_link = viewmodel.get('pcontractid_link');
+		var ProductCodeFilterValue = me.down('#productcode').getValue();
+		// console.log(pcontractid_link);
+		// console.log(ProductCodeFilterValue);
+		if(ProductCodeFilterValue != null){
+			ProductCodeFilterValue = ProductCodeFilterValue.trim();
+		}
+
+		if(pcontractid_link == null && stockin.pcontractid_link == null){
+			if(ProductCodeFilterValue == null){
+				Ext.Msg.show({
+					title: 'Thông báo',
+					msg: 'Mã sản phẩm không được bỏ trống',
+					buttons: Ext.Msg.YES,
+					// icon: Ext.Msg.QUESTION,
+					buttonText: {
+						yes: 'Thoát',
+					},
+				});
+				me.down('#productcode').focus();
+				return;
+			}else if(ProductCodeFilterValue.trim() == ''){
+				Ext.Msg.show({
+					title: 'Thông báo',
+					msg: 'Mã sản phẩm không được bỏ trống',
+					buttons: Ext.Msg.YES,
+					// icon: Ext.Msg.QUESTION,
+					buttonText: {
+						yes: 'Thoát',
+					},
+				});
+				me.down('#productcode').focus();
+				return;
+			}
+		}
 
 		var form = Ext.create('Ext.window.Window', {
 			closable: true,
@@ -27,14 +64,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 			items: [{
 				xtype: 'PContract_Product_Select',
 				viewModel: {
-					type: 'PContract_Product_Select_ViewModel',
+					// type: 'PContract_Product_Select_ViewModel',
 					data: {
-						pcontractid_link: viewmodel.get('pcontractid_link'),
+						stockin: stockin,
+						pcontractid_link: pcontractid_link,
+						ProductCodeFilterValue: ProductCodeFilterValue,
 					}
 				}
 			}]
 		});  
+		
 		form.show();
+
 		form.down('#PContract_Product_Select').getController().on('onSelect_Products', function (records) {
             console.log(records);
 			var stockin_product = viewmodel.get('stockin.stockin_product');
