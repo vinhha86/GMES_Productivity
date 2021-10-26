@@ -23,6 +23,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         '#btnPrint': {
             click: 'onPrint'
         },
+        '#btnSwitch': {
+            click: 'onSwitch'
+        },
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -46,6 +49,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
                     stockout_packinglist[j].warehousestatusString = 'Chưa tở';
                 }else{
                     stockout_packinglist[j].warehousestatusString = 'Đã tở';
+                }
+                if(stockout_packinglist[j].spaceString == null || stockout_packinglist[j].spaceString == ''){
+                    stockout_packinglist[j].spaceString = 'KXD';
                 }
                 storeData.push(stockout_packinglist[j]);
             }
@@ -71,6 +77,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             direction: 'ASC'
         });
         PackingListStore.insert(0,storeData);
+
+        // console.log(storeData);
     },
     onDelete:function(){
         var m = this;
@@ -193,4 +201,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 	onDocumentSave: function (view) {
 		view.unmask();
 	},
+
+    onSwitch: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PackingListStore = viewModel.getStore('PackingListStore');
+        if(PackingListStore.getGroupField() == 'skucode'){
+            PackingListStore.setGroupField('spaceString');
+            viewModel.set('btnSwitchText', 'Nhóm theo khoang');
+        }else{
+            PackingListStore.setGroupField('skucode');
+            viewModel.set('btnSwitchText', 'Nhóm theo mã vải');
+        }
+    },
 })

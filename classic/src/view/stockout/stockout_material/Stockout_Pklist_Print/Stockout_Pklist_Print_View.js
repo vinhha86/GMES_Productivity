@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         {
             id: 'group',
             ftype: 'groupingsummary',
-            groupHeaderTpl: '<b>Khoang: {name}</b>',
+            groupHeaderTpl: '<b>{name}</b>',
             hideGroupedHeader: false,
             enableGroupingMenu: false,
         },
@@ -59,15 +59,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 				return value;
 			},
         },
-        // { 
-        //     header: 'Khoang', 
-        //     dataIndex: 'spaceString', 
-        //     flex: 1,
-        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-		// 		metaData.tdAttr = 'data-qtip="' + value + '"';
-		// 		return value;
-		// 	},
-        // },
+        { 
+            header: 'Khoang', 
+            dataIndex: 'spaceString', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+        },
         { 
             header: 'Số Lot', 
             dataIndex: 'lotnumber', 
@@ -140,6 +140,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             {
                 flex:1,
                 border: false
+            },
+            {
+                xtype:'button',
+                // text: 'Xóa',
+                margin: 3,
+                itemId:'btnSwitch',
+                iconCls: 'x-fa fa-refresh',
+                bind: {
+                    text: '{btnSwitchText}'
+                }
             },
             {
                 xtype:'button',

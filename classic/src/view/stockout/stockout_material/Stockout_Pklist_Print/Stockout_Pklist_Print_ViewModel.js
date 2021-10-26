@@ -12,5 +12,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
     data: {
         stockout: null,
         storeData: null,
+        btnSwitchText: 'Nhóm theo khoang', // 'Nhóm theo mã vải'
     }
 })
