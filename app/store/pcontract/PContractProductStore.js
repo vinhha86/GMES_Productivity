@@ -131,6 +131,36 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 			}
 		});
 	},
+	loadStore_async: function (pcontractid_link, productid_link) {
+		var me = this;
+		productid_link = productid_link == null ? 0 : productid_link;
+		var params = new Object();
+		params.pcontractid_link = pcontractid_link;
+		params.productid_link = productid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontractproduct/getbypcontract',
+			paramsAsJson: true,
+			noCache: false,
+			timeout: 120000,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},
 	loadStore_ByProductList: function (pcontractid_link, ls_productid_link) {
 		var me = this;
 		var params = new Object();
@@ -165,6 +195,71 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 				if (!success) {
 					// this.fireEvent('logout');
 				}
+			}
+		});
+	},
+	loadStore_product: function (buyercode) {
+		var me = this;
+		var params = new Object();
+		params.buyercode = buyercode;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/product/getall_product_single',
+			paramsAsJson: true,
+			noCache: false,
+			timeout: 120000,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1, {
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
+				}
+			}
+		});
+	},
+	loadStore_product_async: function (buyercode) {
+		var me = this;
+		var params = new Object();
+		params.buyercode = buyercode;
+		params.is_pair = false;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/product/getall_product_single',
+			paramsAsJson: true,
+			noCache: false,
+			timeout: 120000,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
 			}
 		});
 	}

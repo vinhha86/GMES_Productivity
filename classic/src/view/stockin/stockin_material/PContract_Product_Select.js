@@ -3,7 +3,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.PContract_Product_Select', {
     xtype: 'PContract_Product_Select',
     id:'PContract_Product_Select',
     controller: 'PContract_Product_Select_Controller',
-    viewModel: 'PContract_Product_Select_ViewModel',
+    viewModel: {
+        type: 'PContract_Product_Select_ViewModel',
+    },
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -23,6 +25,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.PContract_Product_Select', {
             width: 45,
             textAlign: 'center',
             renderer: function(value, meta, record){
+                if(value == null) value = '';
                 return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
             },
             listeners:{
@@ -44,6 +47,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.PContract_Product_Select', {
                 listeners: {
                     keyup: 'onProductCodeFilterKeyup',
                     buffer: 500
+                },
+                bind: {
+                    value: '{ProductCodeFilterValue}'
                 }
             },
         },
