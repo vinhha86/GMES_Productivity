@@ -103,5 +103,35 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 		});
 		// this.load();
 		this.load();
+	},
+	loadBalancePOrderGrant: function (pordergrantid_link) {
+		var params = new Object();
+		params.pordergrantid_link = pordergrantid_link;
+		params.balance_limit = 1;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/balance/cal_balance_bypordergrant',
+			paramsAsJson: true,
+			extraParams: params,
+			timeout: 120000,
+			noCache: false,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		// this.load();
+		this.load();
 	}
 });

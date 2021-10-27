@@ -35,6 +35,13 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
                     text:  'Thoát',
                     iconCls: 'x-fa fa-window-close',
                     itemId: 'btnThoat'
+                },
+                {
+                    margin: 1,
+                    xtype:'button',
+                    text:  'Cân đối',
+                    iconCls: 'x-fa fa-refresh',
+                    itemId: 'btnCanDoi'
                 }
             ]
         }
