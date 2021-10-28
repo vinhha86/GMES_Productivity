@@ -140,15 +140,20 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         this.getInfo(id);
 	},
 	getInfo: function(id){
-        var me = this;
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var store = viewModel.getStore('StockoutD_Store');
         var listepc = viewModel.get('listepc');
 
         var params = new Object();
         params.id = id ;
+
+		me.setLoading(true);
+
         GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
+			me.setLoading(false);
             var response = Ext.decode(response.responseText);
             if(response.respcode == 200) {
 				var stockout = response.data;
@@ -773,11 +778,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 totalmet_origin+=stockout_packinglist[k].met_origin == null ? 0 : stockout_packinglist[k].met_origin;
                 totalmet_check+=stockout_packinglist[k].met_check == null ? 0 : stockout_packinglist[k].met_check;
             }
-            stockout_d[i].totalpackage = totalpackage;
+            // stockout_d[i].totalpackage = totalpackage;
             stockout_d[i].totalpackagecheck = totalpackagecheck;
-            stockout_d[i].totalydsorigin = totalydsorigin;
+            // stockout_d[i].totalydsorigin = totalydsorigin;
             stockout_d[i].totalydscheck = totalydscheck;
-            stockout_d[i].totalmet_origin = totalmet_origin;
+            // stockout_d[i].totalmet_origin = totalmet_origin;
             stockout_d[i].totalmet_check = totalmet_check;
         }
         return stockout;

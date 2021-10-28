@@ -49,9 +49,11 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
 			},
+            summaryType: 'count',
+			summaryRenderer: 'renderCount',
         },
         { 
-            header: 'Têm NPL', 
+            header: 'Tên NPL', 
             dataIndex: 'skuname', 
             flex: 1,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -84,6 +86,28 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
+			},
+        },
+        { 
+            header: 'Dài (m)', 
+            dataIndex: 'met_check', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(value == null) value = 0;
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+        },
+        { 
+            header: 'Khổ (cm)', 
+            dataIndex: 'widthcheck', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(value == null) value = 0;
+				metaData.tdAttr = 'data-qtip="' + value * 100 + '"';
+				return value * 100;
 			},
         },
         { 

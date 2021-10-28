@@ -215,4 +215,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             viewModel.set('btnSwitchText', 'Nhóm theo mã vải');
         }
     },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
+    },
+    renderCount: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    },
 })
