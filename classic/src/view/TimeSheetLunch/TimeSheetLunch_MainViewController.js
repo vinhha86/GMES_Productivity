@@ -15,6 +15,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
         // }
 
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+        TimeSheetLunchStore.removeAll();
         TimeSheetLunchStore.loadStore(orgid_link, newValue);
 
         var today = new Date();

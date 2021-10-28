@@ -33,9 +33,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
         controler.CreateColumns(record.get('id'));
         // load danh sách nhân viên và ca
-        var TimeSheetLunch_ListView = Ext.getCmp('TimeSheetLunch_ListView');
-        if(TimeSheetLunch_ListView) TimeSheetLunch_ListView.setLoading(true);
+        // var TimeSheetLunch_ListView = Ext.getCmp('TimeSheetLunch_ListView');
+        // if(TimeSheetLunch_ListView) TimeSheetLunch_ListView.setLoading(true);
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+        TimeSheetLunchStore.removeAll();
         TimeSheetLunchStore.loadStore(orgid_link, date);
 
         // check status xác nhận của ngày và của đơn vị
@@ -58,9 +59,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
                     if(isConfirm){
                         viewModel.set('isBtnConfirmHidden', true);
                         viewModel.set('isBtnUnconfirmHidden', false);
+                        viewModel.set('isConfirm', isConfirm);
                     }else{
                         viewModel.set('isBtnConfirmHidden', false);
                         viewModel.set('isBtnUnconfirmHidden', true);
+                        viewModel.set('isConfirm', isConfirm);
                     }
 
                     var isToday = viewModel.get('isToday');

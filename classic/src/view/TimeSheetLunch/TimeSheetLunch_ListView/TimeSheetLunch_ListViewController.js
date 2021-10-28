@@ -112,6 +112,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var isConfirm = viewModel.get('isConfirm');
         if(isConfirm){
             TimeSheetLunchStore.rejectChanges();
+            return;
         }
 
         var checked = column.allChecked;
@@ -264,8 +265,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // console.log(column);
         console.log(checked);
         var m = this;
-        var viewModel = this.getViewModel(); console.log(viewModel.get('isConfirm'));
+        var viewModel = this.getViewModel();
+        var isConfirm = viewModel.get('isConfirm');
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
+
+        if (isConfirm) {
+            TimeSheetLunchStore.rejectChanges();
+            return;
+        }
 
         var dataIndex = column.dataIndex;
 
