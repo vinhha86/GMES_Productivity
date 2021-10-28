@@ -2,6 +2,7 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
     extend: 'Ext.data.Store',
 	alias: 'store.TimesheetShiftTypeOrgStore',
 	storeId: 'TimesheetShiftTypeStore',
+    groupField: 'tenLoaiCa',
 	fields: [
         {name: 'id', type: 'int'},
         {name: 'name', type: 'string'},
@@ -97,7 +98,7 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
                 return setTime;
             }
         },
-
+        {name: 'tenLoaiCa', type: 'string'},
 	],
 	// loadStore:function(){
 	// 	var me=this;
@@ -133,10 +134,11 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
 	// 	});
 	// },
     
-    loadStorebyOrgid_link:function(orgid_link){
+    loadStorebyOrgid_link:function(orgid_link, is_ca_an){
 		var me=this;
         var params = new Object();
         params.orgid_link = orgid_link;
+        params.is_ca_an = is_ca_an;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

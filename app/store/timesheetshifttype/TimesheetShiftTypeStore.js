@@ -37,10 +37,11 @@ Ext.define('GSmartApp.store.timesheetshifttype.TimesheetShiftTypeStore', {
 		});
 	},
     //lấy danh sách ca làm việc không có trong đơn vị
-    loadStorebyOrgid_link:function(orgid_link){
+    loadStorebyOrgid_link:function(orgid_link, is_ca_an){
 		var me=this;
         var params = new Object();
         params.id = orgid_link;
+        params.is_ca_an = is_ca_an;
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {

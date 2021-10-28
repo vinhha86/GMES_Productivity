@@ -11,17 +11,11 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         },
     },
 
-    onloadAfter:function(){
+    onloadAfter:function(is_ca_an){
         var viewmodel = this.getViewModel();
         var orgid_link = viewmodel.get('selected_orgid');
         var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeOrgStore');
-        TimesheetShiftTypeStore.loadStorebyOrgid_link(orgid_link);
-    },
-  
-    onThemMoi:function(){
-        var viewmodel = this.getViewModel();
-        var orgid_link = viewmodel.get('selected_orgid');
-        this.Showinfo(null,orgid_link);
+        TimesheetShiftTypeStore.loadStorebyOrgid_link(orgid_link, is_ca_an);
     },
     onCapNhat:function(grid, rowIndex, colIndex){
         var viewmodel = this.getViewModel();
@@ -40,13 +34,22 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var checkboxfrom = data.checkboxfrom;
         var checkboxto = data.checkboxto;
         var timesheet_shift_type_id_link = data.timesheet_shift_type_id_link;
+        var is_ca_an = data.is_ca_an
+
+        var title = '';
+        if(is_ca_an){
+            title = 'Thông tin ca ăn';
+        }else{
+            title = 'Thông tin ca làm việc';
+        }
+
         var viewmodel = this.getViewModel();
         //var me = this.getView();
         var form = Ext.create('Ext.window.Window', {
             height: 230,
             width: 400,
             closable: true,
-            title: 'Thông tin ca làm việc',
+            title: title,
             resizable: false,
             modal: true,
             border: false,
@@ -72,7 +75,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                             checkboxfrom: checkboxfrom,
                             checkboxto: checkboxto,
                             orgid_link:orgid_link,
-                            
+                            is_ca_an: is_ca_an,
                     }
                 },
             }]
@@ -82,7 +85,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
             console.log('tat')
             form.close();
            //load lai
-           me.onloadAfter();
+           me.onloadAfter(is_ca_an);
         })
     },
     onXoa: function (grid, rowIndex, colIndex) {
@@ -136,6 +139,11 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
             })
     },
     
+    onThemMoi:function(){
+        var viewmodel = this.getViewModel();
+        var orgid_link = viewmodel.get('selected_orgid');
+        this.Showinfo(null,orgid_link);
+    },
     Showinfo:function(rec,orgid_link){
         var me =this;
       
@@ -166,7 +174,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                         timeto: null,
                         checkboxfrom: -1,
                         checkboxto: -1,
-                        orgid_link:orgid_link
+                        orgid_link:orgid_link,
+                        is_ca_an: false
                         } 
                 },
             }]
@@ -175,7 +184,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         form.down('#TimesheetShiftTypeAddView').on("thanhcong", function () {
             form.close();
             //load lai
-            me.onloadAfter();
+            me.onloadAfter(false);
         })
-    }
+    },
 })

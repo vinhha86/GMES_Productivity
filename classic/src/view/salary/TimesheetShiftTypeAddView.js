@@ -24,8 +24,17 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
                
             }
         },{
+            xtype: 'checkbox',
+            reference: 'checkboxcaan',
+            fieldLabel: 'Ca ăn',
             margin: 5,
-            width: 120
+            labelWidth: 70,
+            width: 120,
+            inputValue:1,
+            uncheckedValue:-1,
+            // bind: {
+            //     value: '{checkboxto}'
+            // }
         }]
     },{
         layout: 'hbox',

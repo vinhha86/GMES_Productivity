@@ -39,6 +39,14 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.load();
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				this.fireEvent('TimeSheetLunchStore_Done');
+				if(!success){
+					 // this.fireEvent('logout');
+				}
+			}
+		});
 	}
 });

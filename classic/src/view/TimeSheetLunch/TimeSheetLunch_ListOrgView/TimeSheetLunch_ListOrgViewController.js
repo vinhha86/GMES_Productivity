@@ -27,12 +27,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         //     TimeSheetLunchStore.removeAll();
         //     return;
         // }
-        console.log( record.get('id'));
+        // console.log( record.get('id'));
        
         //gọi function CreateColumns
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
         controler.CreateColumns(record.get('id'));
         // load danh sách nhân viên và ca
+        var TimeSheetLunch_ListView = Ext.getCmp('TimeSheetLunch_ListView');
+        if(TimeSheetLunch_ListView) TimeSheetLunch_ListView.setLoading(true);
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
         TimeSheetLunchStore.loadStore(orgid_link, date);
 

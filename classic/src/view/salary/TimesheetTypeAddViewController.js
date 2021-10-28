@@ -12,11 +12,13 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             var timeto = viewModel.get('timeto');
             var checkboxfrom = viewModel.get('checkboxfrom');
             var checkboxto = viewModel.get('checkboxto');
+            var is_ca_an = viewModel.get('is_ca_an');
 
             var timefromfield = this.lookup('timefrom');
             var timetofield = this.lookup('timeto');
             var checkboxfromfield = this.lookup('checkboxfrom');
             var checkboxtofield = this.lookup('checkboxto');
+            var checkboxcaanfield = this.lookup('checkboxcaan');
 
             console.log(timefrom);
             console.log(timeto);
@@ -25,6 +27,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             timetofield.setValue(timeto);
             checkboxfromfield.setValue(checkboxfrom);
             checkboxtofield.setValue(checkboxto);
+            checkboxcaanfield.setValue(is_ca_an);
         }
     },
     control: {
@@ -40,6 +43,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
     // },
     onload: function () {
         var viewmodel = this.getViewModel();
+        var is_ca_an = viewmodel.get('is_ca_an');
         var id = viewmodel.get('orgid_link')
         var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
         TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
@@ -68,6 +72,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         var timeto = this.lookup('timeto');
         var checkboxfrom = this.lookup('checkboxfrom');
         var checkboxto = this.lookup('checkboxto');
+        var checkboxcaanfield = this.lookup('checkboxcaan');
         
         var params = new Object();
         params.id = id;
@@ -76,6 +81,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         params.timeto = timeto.getValue();
         params.checkboxfrom = checkboxfrom.getValue();
         params.checkboxto = checkboxto.getValue();
+        params.is_ca_an = checkboxcaanfield.getValue();
         params.orgid_link = orgid == null ? orgid_link : orgid;
 
         console.log(params);

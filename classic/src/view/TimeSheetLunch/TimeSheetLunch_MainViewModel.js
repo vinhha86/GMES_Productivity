@@ -16,6 +16,7 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
     data: {
         orgtypeid_link : null,
         orgid_link: null,
+        isConfirm: null,
         isToday: true,
         isEditable: null,
 

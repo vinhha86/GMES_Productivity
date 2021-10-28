@@ -10,6 +10,12 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
     bind: {
         store: '{TimesheetShiftTypeOrgStore}'
     },
+    features: [{
+		ftype: 'grouping',
+		groupHeaderTpl: '{name}',
+		collapseTip: "",
+		expandTip: ""
+	}],
 
     columns: [{
         xtype: 'actioncolumn',
@@ -60,8 +66,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
             {
                 xtype: 'button',
                 margin: 5,
-                text: 'Thêm mới',
-                width: 110,
+                text: 'Thêm mới ca',
+                // width: 110,
                 iconCls: 'x-fa fa-plus',
                 itemId: 'btnThemMoi'
             },

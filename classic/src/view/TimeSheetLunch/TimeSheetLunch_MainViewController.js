@@ -43,6 +43,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
                     // set hidden and disabled btnConfirm...
                     // console.log(response);
                     var isConfirm = response.isConfirm;
+                    viewModel.set('isConfirm', isConfirm);
                     if(isConfirm){
                         viewModel.set('isBtnConfirmHidden', true);
                         viewModel.set('isBtnUnconfirmHidden', false);

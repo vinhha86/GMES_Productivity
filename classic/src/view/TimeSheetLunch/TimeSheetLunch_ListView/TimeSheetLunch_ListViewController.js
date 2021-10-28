@@ -10,10 +10,25 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         },
         '#btnUnconfirm': {
             click: 'onUnconfirm'
+        },
+        '#btnAutoGetInfo': {
+            click: 'onAutoGetInfo'
+        },
+        '#btnSave': {
+            click: 'onSave'
         }
     },
+    listen: {
+        store: {
+            'TimeSheetLunchStore': {
+                'TimeSheetLunchStore_Done': 'onTimeSheetLunchStore_Done'
+            }
+        }
+    },
+    onTimeSheetLunchStore_Done: function(){
+        this.getView().setLoading(false);
+    },
     CreateColumns: function (data) {
-
         var viewmodel = this.getViewModel();
         var grid = this.getView();
         var length = 4;
@@ -28,13 +43,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         //   var listid = [];
         var params = new Object();
         params.orgid_link = data;
-        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link', Ext.JSON.encode(params),
+        params.is_ca_an = true;
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-
                         for (var i = 0; i < response.data.length; i++) {
                             var data = response.data[i];
                             listtitle.push(data.name.trim());
@@ -43,35 +58,41 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         viewmodel.set('numberShift', response.data.length);
                         for (var i = 0; i < listtitle.length; i++) {
                             if ("" + listtitle[i] == "") continue;
-
+                            // console.log(listtitle[i]);
                             var column = Ext.create('Ext.grid.column.Column', {
                                 text: listtitle[i],
-                                columns: [{
-                                    xtype: 'checkcolumn',
-                                    text: 'Đi làm',
-                                    dataIndex: 'workingShift' + (i + 1),
-                                    headerCheckbox: true,
-                                    flex: 1,
-                                    // width: 75,
-                                    listeners: {
-                                        beforecheckchange: 'onBeforecheckchange',
-                                        checkchange: 'onCheckchange',
-                                        headerclick: 'onHeaderClick'
+                                sortable: false,
+                                menuDisabled: true,
+                                columns: [
+                                    // {
+                                    //     xtype: 'checkcolumn',
+                                    //     text: 'Đi làm',
+                                    //     dataIndex: 'workingShift' + (i + 1),
+                                    //     headerCheckbox: true,
+                                    //     flex: 1,
+                                    //     // width: 75,
+                                    //     listeners: {
+                                    //         beforecheckchange: 'onBeforecheckchange',
+                                    //         checkchange: 'onCheckchange',
+                                    //         headerclick: 'onHeaderClick'
+                                    //     }
+                                    // },
+                                    {
+                                        xtype: 'checkcolumn',
+                                        // text: 'Ăn',
+                                        dataIndex: 'lunchShift' + (i + 1),
+                                        headerCheckbox: true,
+                                        sortable: false,
+                                        menuDisabled: true,
+                                        // flex: 1,
+                                        width: 70,
+                                        listeners: {
+                                            beforecheckchange: 'onBeforecheckchange',
+                                            checkchange: 'onCheckchange',
+                                            headerclick: 'onHeaderClick'
+                                        }
                                     }
-                                },
-                                {
-                                    xtype: 'checkcolumn',
-                                    text: 'Ăn',
-                                    dataIndex: 'lunchShift' + (i + 1),
-                                    headerCheckbox: true,
-                                    flex: 1,
-                                    // width: 50,
-                                    listeners: {
-                                        beforecheckchange: 'onBeforecheckchange',
-                                        checkchange: 'onCheckchange',
-                                        headerclick: 'onHeaderClick'
-                                    }
-                                }]
+                                ]
                             })
                             grid.headerCt.insert(length, column);
                             length++;
@@ -87,28 +108,35 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     onHeaderClick: function (grid, column, e, t, eOpts) {
         var m = this;
         var viewModel = this.getViewModel();
+        var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
+        var isConfirm = viewModel.get('isConfirm');
+        if(isConfirm){
+            TimeSheetLunchStore.rejectChanges();
+        }
 
         var checked = column.allChecked;
         var dataIndex = column.dataIndex;
 
-        var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
-        TimeSheetLunchStore.rejectChanges();
+        // var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
+        // TimeSheetLunchStore.rejectChanges();
 
-        Ext.Msg.show({
-            title: 'Thông báo',
-            msg: 'Bạn có chắc chắn chọn tất cả nhân viên ?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            buttonText: {
-                yes: 'Có',
-                no: 'Không'
-            },
-            fn: function (btn) {
-                if (btn === 'yes') {
-                    m.onHeaderClickConfirm(column, checked, dataIndex);
-                }
-            }
-        });
+        // Ext.Msg.show({
+        //     title: 'Thông báo',
+        //     msg: 'Bạn có chắc chắn chọn tất cả nhân viên ?',
+        //     buttons: Ext.Msg.YESNO,
+        //     icon: Ext.Msg.QUESTION,
+        //     buttonText: {
+        //         yes: 'Có',
+        //         no: 'Không'
+        //     },
+        //     fn: function (btn) {
+        //         if (btn === 'yes') {
+        //             m.onHeaderClickConfirm(column, checked, dataIndex);
+        //         }
+        //     }
+        // });
+
+        m.onHeaderClickConfirm(column, checked, dataIndex);
     },
     onHeaderClickConfirm: function (column, checked, dataIndex) {
         var m = this;
@@ -216,7 +244,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             var recData = rec.data;
             var obj = new Object();
 
-
             for (var i = 1; i <= col; i++) {
                 var lunchShift = "lunchShift" + i;
                 var workingShift = "workingShift" + i;
@@ -230,23 +257,24 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             obj.dataIndex = col;
             data.push(obj);
         });
-        m.saveRecord(data);
+        // console.log(data);
+        // m.saveRecord(data);
     },
     onCheckchange: function (column, rowIndex, checked, record, e, eOpts) {
         // console.log(column);
         console.log(checked);
         var m = this;
-        var viewModel = this.getViewModel();
+        var viewModel = this.getViewModel(); console.log(viewModel.get('isConfirm'));
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
 
         var dataIndex = column.dataIndex;
 
-        // neu ngay la hom qua thi khong duoc edit
-        var isToday = viewModel.get('isToday');
-        if (!isToday) {
-            TimeSheetLunchStore.rejectChanges();
-            return;
-        }
+        // // neu ngay la hom qua thi khong duoc edit
+        // var isToday = viewModel.get('isToday');
+        // if (!isToday) {
+        //     TimeSheetLunchStore.rejectChanges();
+        //     return;
+        // }
 
         // neu da xac nhan thi khong duoc edit
         if (record.get('status') == 1) {
@@ -278,6 +306,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var data = new Array();
         var obj = new Object();
 
+        // console.log(dataIndex);
+        // console.log(col);
+
         for (var i = 1; i <= col; i++) {
             var lunchShift = "lunchShift" + i;
             var workingShift = "workingShift" + i;
@@ -290,10 +321,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         obj.workingdate = recData.workingdate;
         obj.dataIndex = col;
-        console.log(obj);
+        // console.log(obj);
         data.push(obj);
 
-        m.saveRecord(data);
+        // m.saveRecord(data);
 
 
         // neu check tu 2 ca tro len
@@ -441,9 +472,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         if (status == 1) {
                             viewModel.set('isBtnConfirmHidden', true);
                             viewModel.set('isBtnUnconfirmHidden', false);
+                            viewModel.set('isConfirm', true);
                         } else {
                             viewModel.set('isBtnConfirmHidden', false);
                             viewModel.set('isBtnUnconfirmHidden', true);
+                            viewModel.set('isConfirm', false);
                         }
                     }
                     me.setLoading(false);
@@ -516,5 +549,89 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             filters.remove(this.personnelFullnameFilter);
             this.personnelFullnameFilter = null;
         }
-    }
+    },
+    onSave: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var data = new Array();
+
+        var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+        var storeData = TimeSheetLunchStore.getData().items;
+        var modifiers = TimeSheetLunchStore.getModifiedRecords();
+
+        // console.log(storeData);
+        // console.log(modifiers); 
+
+        for(var i = 0; i < modifiers.length; i++){
+            var recData = modifiers[i].data;
+
+            // console.log(modifiers[i]);
+            var modified = modifiers[i].modified;
+            var arr = new Array();
+            if(modified.lunchShift1 != null){
+                var o = new Object();
+                o.dataIndex = 1;
+                o.lunchShift = modified.lunchShift1;
+                arr.push(o);
+            }
+            if(modified.lunchShift2 != null){
+                var o = new Object();
+                o.dataIndex = 2;
+                o.lunchShift = modified.lunchShift2;
+                arr.push(o);
+            }
+            if(modified.lunchShift3 != null){
+                var o = new Object();
+                o.dataIndex = 3;
+                o.lunchShift = modified.lunchShift3;
+                arr.push(o);
+            }
+            if(modified.lunchShift4 != null){
+                var o = new Object();
+                o.dataIndex = 4;
+                o.lunchShift = modified.lunchShift4;
+                arr.push(o);
+            }
+
+            for(var j = 0; j<arr.length; j++){
+                var obj = new Object();
+                var lunchShift = "lunchShift" + arr[j].dataIndex;
+                var workingShift = "workingShift" + arr[j].dataIndex;
+                obj.lunchShift = recData[lunchShift];
+                obj.workingShift = recData[workingShift];
+                obj.personnelCode = recData.personnelCode;
+                obj.personnelFullname = recData.personnelFullname;
+                obj.personnelid_link = recData.personnelid_link;
+                obj.workingdate = recData.workingdate;
+                obj.dataIndex = arr[j].dataIndex;
+                data.push(obj);
+            }
+
+            // for (var j = 1; j <= col; j++) {
+            //     var lunchShift = "lunchShift" + j;
+            //     var workingShift = "workingShift" + j;
+            //     obj.lunchShift = recData[lunchShift];
+            //     obj.workingShift = recData[workingShift];
+            // }
+            // obj.personnelCode = recData.personnelCode;
+            // obj.personnelFullname = recData.personnelFullname;
+            // obj.personnelid_link = recData.personnelid_link;
+            // obj.workingdate = recData.workingdate;
+            // obj.dataIndex = col;
+            // data.push(obj);
+        }
+
+        // dataIndex: "1"
+        // lunchShift: true
+        // personnelCode: "101010"
+        // personnelFullname: "Phạm Thị Quân"
+        // personnelid_link: 3584
+        // workingShift: false
+        // workingdate: "2021-10-28T17:00:00.000+0000"
+
+        m.saveRecord(data);
+    },
+    onAutoGetInfo: function(){},
 })

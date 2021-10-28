@@ -16,6 +16,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgView', {
         text:'Đơn vị',
         dataIndex:'name',
         xtype: 'treecolumn',
+        sortable: false,
+        menuDisabled: true,
         flex: 1,
         renderer: function (value, metaData, record, rowIndex) {
             // metaData.tdCls = 'process-editablecolumn';

@@ -30,6 +30,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         text: 'Mã NV',
         dataIndex: 'personnelCode',
         width: 100,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -50,6 +52,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         text: 'Mã đăng ký',
         dataIndex: 'register_code',
         width: 100,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -71,6 +75,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         dataIndex: 'personnelFullname',
         // flex: 1,
         width: 200,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -190,28 +196,46 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         dock: 'bottom',
         layout: 'hbox',
         border: false,
-        items: [{
-            xtype: 'button',
-            margin: 5,
-            text: 'Xác nhận',
-            width: 90,
-            itemId: 'btnConfirm',
-            bind: {
-                hidden: '{isBtnConfirmHidden}'
+        items: [
+            {
+                xtype: 'button',
+                margin: 5,
+                text: 'Xác nhận',
+                // width: 90,
+                itemId: 'btnConfirm',
+                bind: {
+                    hidden: '{isBtnConfirmHidden}'
+                }
+            }, 
+            {
+                xtype: 'button',
+                margin: 5,
+                text: 'Huỷ',
+                // width: 90,
+                itemId: 'btnUnconfirm',
+                bind: {
+                    hidden: '{isBtnUnconfirmHidden}',
+                    // disabled: '{isBtnUnconfirmHiddenDisabled}'
+                }
+            },
+            {
+                xtype: 'button',
+                margin: 5,
+                text: 'Tự động lấy dữ liệu',
+                // width: 90,
+                itemId: 'btnAutoGetInfo',
+            },
+            {
+                xtype: 'button',
+                margin: 5,
+                text: 'Lưu',
+                // width: 90,
+                itemId: 'btnSave',
+            },
+            {
+                flex: 1,
             }
-        }, {
-            xtype: 'button',
-            margin: 5,
-            text: 'Huỷ',
-            width: 90,
-            itemId: 'btnUnconfirm',
-            bind: {
-                hidden: '{isBtnUnconfirmHidden}',
-                // disabled: '{isBtnUnconfirmHiddenDisabled}'
-            }
-        }, {
-            flex: 1,
-        }]
+        ]
     }]
 });
 
