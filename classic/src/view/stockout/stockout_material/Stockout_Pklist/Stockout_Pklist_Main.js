@@ -72,6 +72,14 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                     }
                 },
                 {
+                    xtype:'button',
+                    text: 'Info',
+                    margin: 3,
+                    itemId:'btnInfo',
+                    iconCls: 'x-fa fa-plus',
+                    hidden: true
+                },
+                {
                     margin: 3,
                     flex: 1,
                 },

@@ -17,9 +17,24 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         '#btnSelect': {
             click: 'onSelect'
         },
+        '#btnInfo': {
+            click: 'onInfo'
+        },
         '#btnThemMatTem': {
             click: 'onThemMatTem'
         },
+    },
+    onInfo: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var skuid_link = viewModel.get('skuid_link');
+        var stockout = viewModel.get('stockout');
+        var stockoutDRec = viewModel.get('stockoutDRec');
+
+        console.log(stockout);
+        console.log(skuid_link);
+        console.log(stockoutDRec);
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -34,6 +49,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         var stockoutDRec = viewModel.get('stockoutDRec');
 
         var pcontractid_link = stockout.pcontractid_link;
+        var productid_link = stockout.productid_link;
         var orgid_from_link = stockout.orgid_from_link;
         if(orgid_from_link == null){
             return;
@@ -46,6 +62,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         params.stockid_link = orgid_from_link ;
         params.skuid_link = skuid_link ;
         params.pcontractid_link = pcontractid_link ;
+        params.productid_link = productid_link ;
 
         GSmartApp.Ajax.postJitin('/api/v1/warehouse/getMaterialListBySku',Ext.JSON.encode(params),
 		function(success,response,options ) {
@@ -69,6 +86,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 
                  var WarehouseStore = viewModel.getStore('WarehouseStore');
                  WarehouseStore.insert(0, storeData);
+                 WarehouseStore.setGroupField('nhomCayVai');
                  WarehouseStore.getSorters().add({
                     property: 'spaceString',
                     direction: 'ASC'

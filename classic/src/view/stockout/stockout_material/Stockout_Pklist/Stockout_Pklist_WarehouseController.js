@@ -62,6 +62,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                 var data = response.data;
                 var PContractStore = viewModel.getStore('PContractStore');
                 PContractStore.setData(data);
+                // console.log(data);
             }
 		})
     },
@@ -245,5 +246,13 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             filters.remove(this.ValueFilterFieldMaSP);
             this.ValueFilterFieldMaSP = null;
         }
+    },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
+    },
+    renderCount: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
 })

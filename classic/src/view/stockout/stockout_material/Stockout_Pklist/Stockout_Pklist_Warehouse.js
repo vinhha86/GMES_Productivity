@@ -17,15 +17,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
     //     selType: 'checkboxmodel',
     //     mode: 'MULTI'
     // },
-    // features: [
-    //     {
-    //         id: 'group',
-    //         ftype: 'groupingsummary',
-    //         groupHeaderTpl: '<b>Đơn vị: {name}</b>',
-    //         hideGroupedHeader: false,
-    //         enableGroupingMenu: false,
-    //     },
-    // ],
+    features: [
+        {
+            id: 'group',
+            ftype: 'groupingsummary',
+            groupHeaderTpl: '<b>{name}</b>',
+            hideGroupedHeader: false,
+            enableGroupingMenu: false,
+        },
+    ],
     bind:{
         store:'{WarehouseStore}'
     },
@@ -65,6 +65,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
 			},
+			summaryType: 'count',
+			summaryRenderer: 'renderCount',
         },
         { 
             header: 'Số Lot', 
@@ -112,7 +114,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             dataIndex: 'met', 
             sortable: false,
             menuDisabled: true,
-            flex: 1
+            flex: 1,
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
         },
         { 
             header: 'Mã SP', 
