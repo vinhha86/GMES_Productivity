@@ -223,4 +223,105 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
+
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PackingListStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'skucode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
+    onFilterValueTenNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PackingListStore');
+        var filterField = this.lookupReference('ValueFilterFieldTenNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldTenNPL = filters.add({
+                id: 'ValueFilterFieldTenNPL',
+                property: 'skuname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldTenNPL) {
+            filters.remove(this.ValueFilterFieldTenNPL);
+            this.ValueFilterFieldTenNPL = null;
+        }
+    },
+    onFilterValueSpaceKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PackingListStore');
+        var filterField = this.lookupReference('ValueFilterFieldSpace'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldSpace = filters.add({
+                id: 'ValueFilterFieldSpace',
+                property: 'spaceString',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldSpace) {
+            filters.remove(this.ValueFilterFieldSpace);
+            this.ValueFilterFieldSpace = null;
+        }
+    },
+    onFilterValueLotKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PackingListStore');
+        var filterField = this.lookupReference('ValueFilterFieldLot'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldLot = filters.add({
+                id: 'ValueFilterFieldLot',
+                property: 'lotnumber',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldLot) {
+            filters.remove(this.ValueFilterFieldLot);
+            this.ValueFilterFieldLot = null;
+        }
+    },
+    onFilterValueProductKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PackingListStore');
+        var filterField = this.lookupReference('ValueFilterFieldProduct'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldProduct = filters.add({
+                id: 'ValueFilterFieldProduct',
+                property: 'stockinProductString',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldProduct) {
+            filters.remove(this.ValueFilterFieldProduct);
+            this.ValueFilterFieldProduct = null;
+        }
+    },
 })

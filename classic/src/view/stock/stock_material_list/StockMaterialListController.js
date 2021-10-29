@@ -252,5 +252,85 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialListController
                     });
                 }
             })
-    }
+    },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'skuCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
+    onFilterValueColorKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldColor'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldColor = filters.add({
+                id: 'ValueFilterFieldColor',
+                property: 'colorname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldColor) {
+            filters.remove(this.ValueFilterFieldColor);
+            this.ValueFilterFieldColor = null;
+        }
+    },
+    onFilterValueLotKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldLot'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldLot = filters.add({
+                id: 'ValueFilterFieldLot',
+                property: 'lotnumber',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldLot) {
+            filters.remove(this.ValueFilterFieldLot);
+            this.ValueFilterFieldLot = null;
+        }
+    },
+    onFilterValueProductKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('WarehouseStore');
+        var filterField = this.lookupReference('ValueFilterFieldProduct'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldProduct = filters.add({
+                id: 'ValueFilterFieldProduct',
+                property: 'stockinProductString',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldProduct) {
+            filters.remove(this.ValueFilterFieldProduct);
+            this.ValueFilterFieldProduct = null;
+        }
+    },
 })

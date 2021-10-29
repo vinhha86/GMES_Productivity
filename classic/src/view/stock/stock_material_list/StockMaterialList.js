@@ -36,6 +36,18 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             // flex: 1,
             width: 180,
             align: 'center',
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaNPLKeyup',
+					buffer: 500
+				}
+			},
             renderer: function(value, meta, record){
                 if(value == null){
                     return '';
@@ -53,6 +65,18 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             // flex: 1,
             width: 150,
             align: 'center',
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldColor',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueColorKeyup',
+					buffer: 500
+				}
+			},
             renderer: function(value, meta, record){
                 if(value == null){
                     return '';
@@ -68,6 +92,18 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             // flex: 1,
             width: 150,
             align: 'center',
+            items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldLot',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueLotKeyup',
+					buffer: 500
+				}
+			},
             renderer: function(value, meta, record){
                 if(value == null){
                     return '';
@@ -98,6 +134,18 @@ Ext.define('GSmartApp.view.stock.stock_material_list.StockMaterialList', {
             // flex: 1,
             width: 150,
             align: 'center',
+            items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldProduct',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueProductKeyup',
+					buffer: 500
+				}
+			},
             renderer: function(value, meta, record){
                 if(value == null){
                     return '';

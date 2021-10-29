@@ -45,6 +45,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             header: 'Mã NPL', 
             dataIndex: 'skucode', 
             flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldMaNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueMaNPLKeyup',
+					buffer: 500
+				}
+			},
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -56,6 +68,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             header: 'Tên NPL', 
             dataIndex: 'skuname', 
             flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldTenNPL',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueTenNPLKeyup',
+					buffer: 500
+				}
+			},
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -65,6 +89,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             header: 'Khoang', 
             dataIndex: 'spaceString', 
             flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldSpace',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueSpaceKeyup',
+					buffer: 500
+				}
+			},
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -74,6 +110,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             header: 'Số Lot', 
             dataIndex: 'lotnumber', 
             flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldLot',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueLotKeyup',
+					buffer: 500
+				}
+			},
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -128,6 +176,18 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
             header: 'Mã SP', 
             dataIndex: 'stockinProductString', 
             flex: 1,
+			items: {
+				xtype: 'textfield',
+				fieldStyle: "",
+				margin: 1,
+				reference: 'ValueFilterFieldProduct',
+				width: '99%',
+				enableKeyEvents: true,
+				listeners: {
+					keyup: 'onFilterValueProductKeyup',
+					buffer: 500
+				}
+			},
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
