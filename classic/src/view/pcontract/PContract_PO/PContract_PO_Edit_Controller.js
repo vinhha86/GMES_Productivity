@@ -126,8 +126,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
                             me.down('#PContract_PO_Edit_Sizeset').getSelectionModel().select(0);
 
                             //Lay danh sach POrder_Req
-                            var porderReqStore = viewmodel.getStore('porderReqStore');
-                            porderReqStore.loadByPO(viewmodel.get('po.id'));
+                            // var porderReqStore = viewmodel.getStore('porderReqStore');
+                            // porderReqStore.loadByPO(viewmodel.get('po.id'));
 
                             // an nut paste thong tin vi la chao gia da toa
                             viewmodel.set('obj_paste_btn_hidden', true);
@@ -389,9 +389,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Controller', {
         var productStore = viewmodel.getStore('ProductStore');
 
         if (record.get('product_type') == 5) {
-            viewPrice.setDisabled(true);
-            viewmodel.set('isSewPriceReadonly', true);
-            viewmodel.set('isEditQuantity', true);
+            viewPrice.setDisabled(false);
+            viewmodel.set('isSewPriceReadonly', false);
+            viewmodel.set('isEditQuantity', false);
         }
         else {
             viewPrice.setDisabled(false);
