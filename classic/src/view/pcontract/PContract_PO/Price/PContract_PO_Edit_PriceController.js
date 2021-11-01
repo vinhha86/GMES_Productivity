@@ -38,7 +38,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
         var viewmodel = this.getViewModel();
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
-        data.append('pcontractpriceid_link', viewmodel.get('po_price.id'));
+        data.append('sizesetid_link', viewmodel.get('po_price.sizesetid_link'));
+        data.append('pcontractid_link', viewmodel.get('po_price.pcontractid_link'));
+        data.append('pcontract_poid_link', viewmodel.get('id'));
         data.append('currencyid_link', viewmodel.get('po.currencyid_link'));
         var url = '/api/v1/upload_price_fob/upload_price';
 
@@ -268,7 +270,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
                 // console.log(data.id);
                 // console.log(rec);
                 if (rec == null) {
-                    priceStore.clearFilter();
+                    // priceStore.clearFilter(); //thêm giá vào các sản phẩm khác 
                     for (var k = 0; k < priceStore.data.length; k++) {
                         var pdata = priceStore.data.items[k].data;
                         var newPriceD = new Object({
@@ -690,7 +692,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
     deletePrice_FOB_AllSizeset: function (me, fobpriceid_link) {
         var viewmodel = this.getViewModel();
         var priceStore = viewmodel.getStore('PriceStore');
-        priceStore.clearFilter();
+        priceStore.clearFilter();// bỏ lọc để xóa trong tất cả sản phẩm
         priceStore.each(function (rec_price) {
             var arrPrice = [];
             var arrPrice_d = rec_price.data.pcontract_price_d;

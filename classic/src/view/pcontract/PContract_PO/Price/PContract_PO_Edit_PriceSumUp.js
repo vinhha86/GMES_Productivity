@@ -10,23 +10,23 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             margin: 1,
             // flex:1,
             width: 92,
-            items:[
+            items: [
                 {
                     xtype: 'new_numberfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
-                    hideTrigger:true,
+                    hideTrigger: true,
                     readOnly: true,
                     fieldLabel: 'CMP:',
                     labelAlign: 'left',
                     labelWidth: 30,
-                    width:'100%',
+                    width: '100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.price_cmp}'
                     },
                     decimalPrecision: 3
-                }, 
+                },
                 // {
                 //     xtype: 'numberfield',
                 //     labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
@@ -49,24 +49,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: 92,
-            items:[
+            width: 95,
+            items: [
                 {
                     xtype: 'new_numberfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
-                    hideTrigger:true,
+                    hideTrigger: true,
                     readOnly: true,
                     fieldLabel: 'FOB:',
                     labelAlign: 'left',
                     labelWidth: 30,
-                    width:'100%',
+                    width: '100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.price_fob}'
                     },
-                    decimalPrecision: 3
-                }, 
+                    decimalPrecision: 4
+                },
                 // {
                 //     xtype: 'numberfield',
                 //     labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
@@ -93,25 +93,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             layout: 'vbox',
             margin: 1,
             // flex:1,
-            width: 112,
-            items:[
+            width: 125,
+            items: [
                 {
                     xtype: 'new_numberfield',
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:azure',
-                    hideTrigger:true,
+                    hideTrigger: true,
                     readOnly: true,
-                    fieldLabel: 'Giá chào:',
+                    fieldLabel: 'Thành tiền:',
                     labelAlign: 'left',
-                    labelWidth: 52,
-                    width:'100%',
+                    labelWidth: 60,
+                    width: '100%',
                     margin: 1,
                     bind: {
                         value: '{po_price.totalprice}'
                     },
-                    decimalPrecision: 3,
+                    decimalPrecision: 4,
                     allowOnlyWhitespace: false
-                }, 
+                },
                 // {
                 //     xtype: 'numberfield',
                 //     labelStyle: "font-size:11px;padding:10px 0px 0px 10px;",
@@ -133,9 +133,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
             xtype: 'container',
             layout: 'hbox',
             margin: 1,
-            flex:1,
+            flex: 1,
             // width: '35%',
-            items:[
+            items: [
                 {
                     xtype: 'textfield',
                     allowBlank: true,
@@ -158,7 +158,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                     allowBlank: true,
                     labelStyle: "font-size:11px;padding:5px 0px 0px 5px;",
                     fieldStyle: 'font-size:11px;text-align:right;background-color:white',
-                    hideTrigger:true,
+                    hideTrigger: true,
                     readOnly: false,
                     fieldLabel: 'Target&nbspBuyer:',
                     labelAlign: 'left',
@@ -169,8 +169,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceSumUp', {
                         value: '{po_price.price_vendortarget}'
                     },
                     decimalPrecision: 3
-                },         
+                },
             ]
-        },        
+        },
     ]
 })
