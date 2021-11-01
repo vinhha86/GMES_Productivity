@@ -81,54 +81,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_ConfirmController', {
         params.approver_userid_link = approver_userid_link;
 
         this.fireEvent('Confirmed', approver_userid_link);
-
-        // GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_approve_material', Ext.JSON.encode(params),
-        //     function (success, response, options) {
-        //         if (success) {
-        //             var response = Ext.decode(response.responseText);
-        //             // console.log(response);
-        //             if (response.respcode == 200) {
-        //                 Ext.Msg.show({
-        //                     title: 'Thông báo',
-        //                     msg: 'Xác thực thành công',
-        //                     buttons: Ext.MessageBox.YES,
-        //                     buttonText: {
-        //                         yes: 'Đóng',
-        //                     }
-        //                 });
-                        
-        //                 var stockout = Ext.getCmp('Stockout_M_Edit').getViewModel().get('stockout');
-        //                 stockout.approve_date = response.data.approve_date;
-        //                 stockout.approver_userid_link = response.data.approver_userid_link;
-        //                 stockout.status = 1;
-        //                 stockout.statusString = 'Đã duyệt';
-        //                 Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
-        //                 Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
-        //                 // console.log(stockout);
-        //                 m.onThoat();
-        //             }
-        //             else {
-        //                 Ext.Msg.show({
-        //                     title: 'Xác thực thất bại',
-        //                     msg: response.message,
-        //                     buttons: Ext.MessageBox.YES,
-        //                     buttonText: {
-        //                         yes: 'Đóng',
-        //                     }
-        //                 });
-        //             }
-
-        //         } else {
-        //             Ext.Msg.show({
-        //                 title: 'Xác thực thất bại',
-        //                 msg: null,
-        //                 buttons: Ext.MessageBox.YES,
-        //                 buttonText: {
-        //                     yes: 'Đóng',
-        //                 }
-        //             });
-        //         }
-        //     })
     },
     onEnterConfirm: function(textfield, e, eOpts){
         var m = this;

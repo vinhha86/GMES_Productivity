@@ -52,6 +52,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         '#btnConfirm':{
             click: 'onConfirm'
         },
+        '#btnUnConfirm':{
+            click: 'onUnConfirm'
+        },
 		'#cmbStockoutGroup': {
 			select: 'onSelectGroupStockout'
 		},
@@ -856,8 +859,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 								yes: 'Đóng',
 							}
 						});		
-						Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
-						Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+						// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+						// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+						
 						// m.redirectTo("stockout_m/" + response.id + "/edit");
 						// m.getInfo(response.id);
 						var str = Ext.getWin().dom.location.href;
@@ -894,7 +898,115 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 					});
 				}
 		})	
-    },	
+    },
+	onUnConfirm: function(){
+		var me = this;
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+        var stockoutId = stockout.id;
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Hủy duyệt',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_M_Edit_Confirm',
+                viewModel: {
+                    type: 'Stockout_M_Edit_ConfirmViewModel',
+                    data: {
+                        stockout: stockout,
+                        stockoutId: stockoutId
+                    }
+                }
+            }]
+        });
+        form.show();
+
+		form.down('#Stockout_M_Edit_Confirm').getController().on('Confirmed', function (unapprover_userid_link) {
+
+			viewModel.set('stockout.unapprover_userid_link', unapprover_userid_link);
+			// viewModel.set('stockout.approve_date', new Date());
+			// viewModel.set('stockout.status', 1);
+			// viewModel.set('stockout.statusString', 'Đã duyệt');
+
+			me.onUnApprove();
+			
+            form.close();
+        })
+    },
+	onUnApprove: function(){
+		var me = this.getView();
+        var m = this;
+        var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var params=new Object();
+		params.stockoutId = stockout.id;
+		params.unapprover_userid_link = stockout.unapprover_userid_link;
+
+		me.setLoading("Đang hủy duyệt phiếu");
+		GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_unapprove',Ext.JSON.encode(params),
+		function(success,response,options ) {
+			me.setLoading(false);
+				if (success) {
+					var response = Ext.decode(response.responseText);
+					if (response.respcode == 200) {
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Hủy duyệt phiếu thành công',
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});		
+						// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+						// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+						
+						// m.redirectTo("stockout_m/" + response.id + "/edit");
+						// m.getInfo(response.id);
+						var str = Ext.getWin().dom.location.href;
+						var hash = str.split('#')[1];
+						if(hash == "stockout_m/" + response.id + "/edit"){
+							m.getInfo(response.id);
+						}else{
+							m.redirectTo("stockout_m/" + response.id + "/edit");
+						}
+					}else{
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});		
+					}
+				} else {
+					var response = Ext.decode(response.responseText);
+					// if (null!=response.epc_err){
+					// 	response.epc_err.forEach(function(record, recordIdx){
+					// 		console.log(record.epc);
+					// 	}, this);
+					// }
+					Ext.MessageBox.show({
+						title: "Thông báo",
+						msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						}
+					});
+				}
+		})	
+    },
 
 	onMenu_Stockout_M_Edit_D_List: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
