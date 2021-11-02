@@ -206,6 +206,30 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 },
             },
         },
+        {
+            text: 'Mã SP', dataIndex: 'product_buyercode', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                // fieldStyle: "",
+                // reference: 'invoice_numberFilter',
+                width: '98%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onProductBuyerCodeFilterKeyup',
+                    buffer: 500
+                },
+                bind:{
+                    value: '{productBuyerCodeFilterValue}',
+                },
+            },
+        },
         { 
             header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120, 
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {

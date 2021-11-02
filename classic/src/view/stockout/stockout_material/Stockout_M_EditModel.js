@@ -100,6 +100,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		stockoutTypeComboValue: null,
 		orgFromFilterValue: null,
 		orgToFilterValue: null,
+        productBuyerCodeFilterValue: null,
 		UsercreateFilterValue: null,
 	},
 	formulas: {
