@@ -2,10 +2,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
     extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockout_M_EditController',
 	init: function(){
-		var devicestore = this.getViewModel().getStore('DeviceInvStore');
+		var viewModel = this.getViewModel();
+        common.Check_Object_Permission();
+
+		var devicestore = viewModel.getStore('DeviceInvStore');
 		devicestore.loadStore(3);
 
-		var viewModel = this.getViewModel();
 		var UnitStore = viewModel.getStore('UnitStore');
 		UnitStore.loadStore();
 		var UnitStoreFilters = UnitStore.getFilters();
@@ -1217,12 +1219,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		}
 	},
 	onBtnTimNPL: function(){
-		var me = this;
-		var m = this.getView();
+		var m = this;
+		var me = this.getView();
 		var viewModel = this.getViewModel();
 		var stockout = viewModel.get('stockout');
-
 		var productid_link = viewModel.get('stockout.productid_link');
+
 		if(productid_link == null || productid_link == ''){
 			Ext.Msg.show({
                 title: "Thông báo",
@@ -1253,6 +1255,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 xtype: 'Stockout_Pcontract_Main_View',
                 viewModel: {
                     data: {
+						stockout: stockout,
                         productid_link: productid_link
                     }
                 }
@@ -1268,21 +1271,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             viewModel.set('stockout.productid_link', productid_link);
 
             for(var i=0; i<select.length; i++){
-                var isExist = me.checkSkuInDListFromStockout_Pcontract(select[i]);
+                var isExist = m.checkSkuInDListFromStockout_Pcontract(select[i]);
 				if(isExist){ // thông báo
-					// Ext.Msg.show({
-                    //     title: 'Thông báo',
-                    //     msg: 'Đã có loại vải này trong danh sách',
-                    //     buttons: Ext.MessageBox.YES,
-                    //     buttonText: {
-                    //         yes: 'Đóng',
-                    //     }
-                    // });
+					// đã có loại vải này
 				}else{ // thêm
-					me.addSkuToDListFromStockout_Pcontract(select[i]);
+					m.addSkuToDListFromStockout_Pcontract(select[i]);
 				}
             }
-            me.getPcontractProductId(pcontractid_link, productid_link);
+            m.getPcontractProductId(pcontractid_link, productid_link);
             form.close();
         });
 	},
